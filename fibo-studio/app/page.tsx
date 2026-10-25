@@ -8,6 +8,7 @@ const ratios = [{ label: "Square", value: "1024x1024" }, { label: "Portrait", va
 
 export default function Home() {
   const [prompt, setPrompt] = useState("");
+  const [studioPassword, setStudioPassword] = useState("");
   const [style, setStyle] = useState("Dreamlike");
   const [size, setSize] = useState("1024x1024");
   const [busy, setBusy] = useState(false);
@@ -21,7 +22,7 @@ export default function Home() {
     if (!prompt.trim()) { setError("Describe what you want to create first."); return; }
     setBusy(true); setError("");
     try {
-      const response = await fetch("/api/generate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: prompt.trim(), style, size }) });
+      const response = await fetch("/api/generate", { method: "POST", headers: { "Content-Type": "application/json", "x-studio-password": studioPassword }, body: JSON.stringify({ prompt: prompt.trim(), style, size }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Image generation failed. Please try again.");
       const item = { url: data.image, prompt: prompt.trim(), createdAt: new Date().toLocaleString() };
@@ -35,6 +36,7 @@ export default function Home() {
     <section className="hero"><div className="eyebrow"><span>✳</span> AI IMAGE WORKSHOP</div><h1>Make room for<br /><em>the impossible.</em></h1><p className="intro">A thought, a feeling, a tiny spark. Give it words and turn it into something you can see.</p></section>
     <section className="workspace">
       <div className="panel controls"><div className="section-head"><span className="step">01</span><div><h2>Your idea</h2><p>Describe the world in your head.</p></div></div>
+        <label className="field-label" htmlFor="studio-password">PRIVATE STUDIO PASSWORD</label><input id="studio-password" type="password" autoComplete="off" value={studioPassword} onChange={(e) => setStudioPassword(e.target.value)} placeholder="Enter your private studio password" style={{width:"100%",padding:"14px",marginBottom:"18px",borderRadius:"10px",border:"1px solid #777",background:"transparent",color:"inherit"}} />
         <label className="field-label" htmlFor="prompt">IMAGE PROMPT</label><textarea id="prompt" value={prompt} onChange={(e) => setPrompt(e.target.value)} maxLength={1800} placeholder="A tiny glass greenhouse floating above a lavender ocean at dusk, soft glowing stars, intricate details..." />
         <div className="char-count">{prompt.length}/1800</div>
         <label className="field-label">ART DIRECTION</label><div className="style-grid">{styles.map((s) => <button type="button" key={s} className={style === s ? "style-chip selected" : "style-chip"} onClick={() => setStyle(s)}>{s}</button>)}</div>
