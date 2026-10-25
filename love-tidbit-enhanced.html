@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOVE TiDBiT — Immersive Studio v6.1 (Beat-Locked Warp Chamber)</title>
+  <!-- Butterchurn WebGL MilkDrop Engine & Presets -->
+  <script src="https://unpkg.com/butterchurn@2.6.7/lib/butterchurn.min.js"></script>
+  <script src="https://unpkg.com/butterchurn-presets@2.4.7/lib/butterchurnPresets.min.js"></script>
+  <style>
+    :root {
+      --bg: #07070c;
+      --panel: rgba(14, 15, 26, 0.86);
+      --border: rgba(255, 255, 255, 0.14);
+      --accent: #ff2a85;
+      --cyan: #00f0ff;
+      --gold: #ffcc00;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body, html {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    #studioCanvas {
+      position: fixed; inset: 0;
+      width: 100vw; height: 100vh;
+      display: block; z-index: 1;
+    }
+
+    /* Top Control Bar */
+    .top-bar {
+      position: fixed; top: 12px; left: 12px; right: 12px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 10px; padding: 10px 16px;
+      background: var(--panel); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 14px;
+      z-index: 20; transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    body.zen-mode .top-bar,
+    body.zen-mode .bottom-dock,
+    body.zen-mode .warp-drawer {
+      opacity: 0; pointer-events: none; transform: translateY(-10px);
+    }
+
+    .brand-cluster {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .brand-badge {
+      font-weight: 800; font-size: 0.95rem; letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #ff2a85, #00f0ff, #ffcc00);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* World Switcher Pills */
+    .world-tabs {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .btn, .world-btn {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text); border: 1px solid var(--border);
+      padding: 7px 12px; border-radius: 9px;
+      font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; transition: all 0.18s ease;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn:hover, .world-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--cyan);
+    }
+    .world-btn.active {
+      background: linear-gradient(135deg, rgba(255,42,133,0.38), rgba(0,240,255,0.28));
+      border-color: var(--cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+    }
+    .btn.toggle-on {
+      background: rgba(0, 240, 255, 0.22);
+      border-color: var(--cyan); color: #fff;
+    }
+    .btn.accent {
+      background: linear-gradient(135deg, #ff2a85, #9b2eff);
+      border-color: transparent; color: #fff;
+    }
+
+    /* Telemetry HUD */
+    .telemetry-cluster {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.74rem; font-family: monospace;
+    }
+    .bpm-pill {
+      padding: 5px 10px; border-radius: 8px;
+      background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border);
+      color: var(--cyan); font-weight: 700;
+    }
+    .band-meters {
+      display: flex; gap: 4px; align-items: flex-end; height: 22px;
+    }
+    .band-bar {
+      width: 6px; background: var(--cyan); border-radius: 2px;
+      height: 15%; transition: height 0.05s linear;
+    }
+
+    /* Warp Chamber Skin Browser Drawer */
+    .warp-drawer {
+      position: fixed; top: 80px; right: 12px; width: min(340px, calc(100vw - 24px));
+      max-height: calc(100vh - 180px); overflow-y: auto;
+      background: var(--panel); backdrop-filter: blur(18px);
+      border: 1px solid var(--border); border-radius: 14px;
+      padding: 14px; z-index: 20;
+      display: flex; flex-direction: column; gap: 10px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.65);
+      font-size: 0.78rem;
+    }
+    body.zen-mode .warp-drawer {
+      opacity: 0; pointer-events: none; transform: translateY(-10px);
+    }
+    .warp-drawer * {
+      white-space: normal !important;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+    .warp-drawer .preset-item, .warp-drawer .preset-item * {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    .slider-row {
+      display: flex; flex-direction: column; gap: 4px;
+      font-size: 0.74rem; color: var(--muted);
+      margin-top: 4px;
+    }
+    .slider-row input[type="range"] {
+      width: 100%; accent-color: var(--cyan);
+    }
+    @media (max-width: 768px) {
+      .top-bar { padding: 8px 10px; gap: 6px; }
+      .world-tabs { order: 3; width: 100%; justify-content: center; }
+      .bottom-dock { flex-direction: column; align-items: stretch; gap: 8px; padding: 10px; }
+      .audio-controls { justify-content: center; width: 100%; }
+      audio { width: 100% !important; }
+      .warp-drawer { top: auto; bottom: 80px; right: 12px; left: 12px; width: auto; max-height: 55vh; }
+    }
+    .warp-drawer.visible { display: flex; }
+    .drawer-title {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--cyan); text-transform: uppercase;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .search-input {
+      width: 100%; padding: 8px 10px; border-radius: 8px;
+      background: rgba(0,0,0,0.55); border: 1px solid var(--border);
+      color: #fff; font-size: 0.8rem; outline: none;
+    }
+    .search-input:focus { border-color: var(--cyan); }
+    .preset-list {
+      max-height: 210px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 4px;
+      padding-right: 4px;
+    }
+    .preset-item {
+      padding: 6px 9px; border-radius: 6px;
+      font-size: 0.74rem; color: var(--muted);
+      background: rgba(255,255,255,0.03); cursor: pointer;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .preset-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .preset-item.active {
+      background: rgba(255, 42, 133, 0.28);
+      border-left: 3px solid var(--accent); color: #fff; font-weight: 600;
+    }
+    .slider-row {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.74rem; color: var(--muted); gap: 8px;
+    }
+    .slider-row input[type="range"] { flex: 1; accent-color: var(--cyan); }
+
+    /* Bottom Audio & Casting Dock */
+    .bottom-dock {
+      position: fixed; bottom: 12px; left: 12px; right: 12px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 10px; padding: 10px 16px;
+      background: var(--panel); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 14px;
+      z-index: 20; transition: opacity 0.3s ease;
+    }
+    .audio-controls {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    }
+    audio {
+      height: 32px; width: 240px; border-radius: 8px;
+    }
+    input[type="file"] { display: none; }
+
+    #zenHint {
+      position: fixed; bottom: 75px; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,0.75); padding: 6px 14px; border-radius: 20px;
+      font-size: 0.75rem; color: var(--muted); pointer-events: none;
+      opacity: 0; transition: opacity 0.4s; z-index: 30;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="studioCanvas"></canvas>
+  <div id="zenHint">Zen Mode Active — Press [H] or Double-Click to restore controls</div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="brand-cluster">
+      <span class="brand-badge">LOVE TiDBiT STUDIO v6.1</span>
+      <button id="btnLogoToggle" class="btn toggle-on" title="Master LOVE TiDBiT Crest Toggle">
+        🐾 Crest: ON
+      </button>
+      <button id="btnTidbitToggle" class="btn toggle-on" title="Tidbit Tribute Hologram Toggle">
+        ✨ Tidbit: ON
+      </button>
+    </div>
+
+    <!-- 5 IMMERSIVE WORLDS -->
+    <div class="world-tabs">
+      <button id="btnToggleWarpMenu" class="btn toggle-on" style="display:none;" title="Toggle Warp Skin Drawer">🌀 Warp Menu</button>
+      <button class="world-btn" data-world="sanctuary">1. Sanctuary</button>
+      <button class="world-btn" data-world="skyline">2. Skyline Party</button>
+      <button class="world-btn active" data-world="warp">3. Warp Chamber</button>
+      <button class="world-btn" data-world="dimension">4. Dimension</button>
+      <button class="world-btn" data-world="oldschool">5. Old School</button>
+    </div>
+
+    <!-- REAL-TIME 4-BAND TELEMETRY & BPM -->
+    <div class="telemetry-cluster">
+      <div class="bpm-pill" id="bpmDisplay">BPM: --</div>
+      <div class="band-meters" title="4-Band Telemetry: SubBass | Kick | Snare | Hi-Hat">
+        <div class="band-bar" id="barSub" style="background:#ff2a85"></div>
+        <div class="band-bar" id="barKick" style="background:#ffcc00"></div>
+        <div class="band-bar" id="barSnare" style="background:#00f0ff"></div>
+        <div class="band-bar" id="barHat" style="background:#a855f7"></div>
+      </div>
+      <button id="btnZen" class="btn" title="Hide UI (Key: H)">👁️ Zen</button>
+    </div>
+  </div>
+
+  <!-- MODULAR WORLD SETTINGS & OVERLAYS DRAWER -->
+  <div class="warp-drawer visible" id="worldDrawer">
+    <div class="drawer-title">
+      <span id="drawerTitleText">⚙️ Studio Controls</span>
+      <span id="drawerSubBadge" style="font-size:0.7rem;color:var(--muted)">Active World</span>
+    </div>
+
+    <!-- 1. SANCTUARY CONTROLS -->
+    <div class="world-panel" id="panel-sanctuary" style="display:none; flex-direction:column; gap:8px;">
+      <div class="slider-row">
+        <span>Sanctuary Theme</span>
+        <select id="sanctuaryTheme" class="search-input">
+          <option value="neon" selected>Neon Purple &amp; Cyber Pink</option>
+          <option value="chalk">Sketchbook Lavender</option>
+          <option value="pastel">Starlight Gold &amp; Rose</option>
+        </select>
+      </div>
+      <div class="slider-row">
+        <span>Heart &amp; Paw Stream Intensity</span>
+        <input type="range" id="sanctuaryMix" min="0" max="1.5" step="0.05" value="0.9" />
+      </div>
+      <div class="slider-row">
+        <span>Tidbit Hologram Aura</span>
+        <select id="sanctuaryHolo" class="search-input">
+          <option value="glitch" selected>Glitch RGB Split</option>
+          <option value="neon">Neon Aura</option>
+          <option value="soft">Soft Angelic</option>
+          <option value="off">Off</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 2. SKYLINE PARTY CONTROLS -->
+    <div class="world-panel" id="panel-skyline" style="display:none; flex-direction:column; gap:8px;">
+      <div class="slider-row">
+        <span>Dance Crew Size</span>
+        <input type="range" id="skylineCrew" min="2" max="16" step="1" value="12" />
+      </div>
+      <div class="slider-row">
+        <span>Dance Hype &amp; Bounce</span>
+        <input type="range" id="skylineHype" min="0.3" max="2.0" step="0.05" value="1.05" />
+      </div>
+      <div class="slider-row">
+        <span>Time of Day</span>
+        <select id="skylineTime" class="search-input">
+          <option value="night" selected>Night (Cyber Festival)</option>
+          <option value="sunset">Sunset Glow</option>
+          <option value="sunrise">Sunrise Awakening</option>
+          <option value="day">Daylight</option>
+        </select>
+      </div>
+      <div class="slider-row">
+        <span>Building Bounce</span>
+        <input type="range" id="skylineBounce" min="0.2" max="2.0" step="0.05" value="0.85" />
+      </div>
+    </div>
+
+    <!-- 3. WARP CHAMBER CONTROLS -->
+    <div class="world-panel" id="panel-warp" style="display:flex; flex-direction:column; gap:8px;">
+      <input type="text" id="skinSearch" class="search-input" placeholder="Search MilkDrop / Butterchurn skins..." />
+
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button id="btnPrevSkin" class="btn" style="flex:1">◀ Prev</button>
+        <button id="btnRandomSkin" class="btn accent" style="flex:1">🎲 Random</button>
+        <button id="btnNextSkin" class="btn" style="flex:1">Next ▶</button>
+      </div>
+
+      <div class="preset-list" id="presetList"></div>
+
+      <div class="slider-row">
+        <span>Beat Punch Zoom</span>
+        <input type="range" id="punchSlider" min="0" max="2.5" step="0.05" value="1.25" />
+      </div>
+
+      <div class="slider-row">
+        <span>Audio Sensitivity</span>
+        <input type="range" id="sensSlider" min="0.5" max="3.0" step="0.05" value="1.45" />
+      </div>
+
+      <div class="slider-row">
+        <span>Brightness / Gamma</span>
+        <input type="range" id="brightSlider" min="0.2" max="1.5" step="0.05" value="1.0" />
+      </div>
+
+      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;">
+        <button id="btnRandomMode" class="btn toggle-on" style="flex:1" title="Master Randomizer Toggle">🎲 Random Mode: ON</button>
+      </div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;">
+        <button id="btnAutoCycle" class="btn toggle-on" style="flex:1">🔄 Auto-Cycle: ON</button>
+        <button id="btnBeatCut" class="btn toggle-on" style="flex:1">⚡ Drop-Cut: ON</button>
+      </div>
+
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button id="btnWarpWireframe" class="btn" style="flex:1">🕸️ 2D Mesh: OFF</button>
+        <button id="btnWarpCrest" class="btn" style="flex:1">🛡️ Center Crest: OFF</button>
+      </div>
+    </div>
+
+    <!-- 4. DIMENSION CONTROLS -->
+    <div class="world-panel" id="panel-dimension" style="display:none; flex-direction:column; gap:8px;">
+      <div class="slider-row">
+        <span>Hyper-Tunnel Density</span>
+        <input type="range" id="dimDensity" min="4" max="24" step="1" value="12" />
+      </div>
+      <div class="slider-row">
+        <span>Rotation Speed</span>
+        <input type="range" id="dimSpeed" min="0.2" max="3.0" step="0.05" value="1.0" />
+      </div>
+    </div>
+
+    <!-- 5. OLD SCHOOL CONTROLS -->
+    <div class="world-panel" id="panel-oldschool" style="display:none; flex-direction:column; gap:8px;">
+      <div class="slider-row">
+        <span>Equalizer Bar Count</span>
+        <input type="range" id="oldBars" min="16" max="96" step="4" value="48" />
+      </div>
+      <div class="slider-row">
+        <span>Phosphor Glow Intensity</span>
+        <input type="range" id="oldGlow" min="0.2" max="2.0" step="0.05" value="1.0" />
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM AUDIO, ASSET & TV CASTING DOCK -->
+  <div class="bottom-dock">
+    <div class="audio-controls">
+      <label class="btn accent" for="audioUpload">🎵 Load Track(s)</label>
+      <input type="file" id="audioUpload" accept="audio/*" multiple />
+
+      <button id="btnMicAudio" class="btn" title="Sync to Room Mic or System Loopback">🎙️ Mic / Room Sync</button>
+      <button id="btnTabAudio" class="btn" title="Capture System / Browser Tab Audio">💻 Capture Tab Audio</button>
+
+      <audio id="audioPlayer" controls crossorigin="anonymous"></audio>
+      <span id="trackTitle" style="font-size:0.76rem; color:var(--muted); max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+        Load a track or enable Mic/Tab Sync
+      </span>
+    </div>
+
+    <div class="audio-controls">
+      <label class="btn" for="logoUpload" title="Upload Custom Matted Logo PNG">🖼️ Logo PNG</label>
+      <input type="file" id="logoUpload" accept="image/*" />
+
+      <label class="btn" for="tidbitUpload" title="Upload Custom Tidbit Cutout PNG">🐶 Tidbit PNG</label>
+      <input type="file" id="tidbitUpload" accept="image/*" />
+
+      <button id="btnPopoutTV" class="btn" title="Open Receiver Window for Dual-Screen / HDMI TV">📺 TV Pop-Out</button>
+      <button id="btnPiP" class="btn" title="Floating Picture-in-Picture / AirPlay Stream">📡 PiP / Cast</button>
+      <button id="btnRecord" class="btn" title="Record Show to WebM Video">🔴 Rec</button>
+    </div>
+  </div>
+
+  <script>
+    /*************************************************************************
+     * 1. CORE STUDIO STATE & CANVAS SETUP
+     *************************************************************************/
+    const canvas = document.getElementById('studioCanvas');
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = window.innerWidth;
+    let H = canvas.height = window.innerHeight;
+
+    let currentWorld = 'warp';
+    let showMasterLogo = true;
+    let showTidbitHologram = true;
+
+    // Warp Chamber Zero-Overlay Defaults
+    let showWarpWireframe = false;
+    let showWarpCrest = false;
+    let randomMode = true;
+    let autoCycleSkins = true;
+    let beatCutSkins = true;
+    let warpPunchMultiplier = 1.25;
+    let audioSensitivity = 1.45;
+    let brightnessLevel = 1.0;
+
+    // Custom Uploaded or Procedural Tribute Assets
+    const customLogoImg = new Image();
+    let hasCustomLogo = false;
+    const customTidbitImg = new Image();
+    let hasCustomTidbit = false;
+
+    /*************************************************************************
+     * 2. HIGH-PRECISION 4096-FFT AUDIO ENGINE + DEDICATED BUTTERCHURN NODE
+     *************************************************************************/
+    let audioCtx = null;
+    let analyser = null;        
+    let butterAnalyser = null;  
+    let mediaElementSource = null;
+    let activeStreamSource = null;
+    let freqData = new Uint8Array(2048);
+    let timeData = new Uint8Array(2048);
+
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    const groove = {
+      subBass: 0,
+      kick: 0,
+      snare: 0,
+      hat: 0,
+      energy: 0,
+      kickTransient: 0,
+      snareTransient: 0,
+      prevBass: 0,
+      prevMid: 0,
+      bpm: 120,
+      lastKickTime: 0,
+      kickIntervals: [],
+      beatPhase: 0
+    };
+
+    function ensureAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      if (!analyser) {
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 4096;
+        analyser.smoothingTimeConstant = 0.72;
+        freqData = new Uint8Array(analyser.frequencyBinCount);
+        timeData = new Uint8Array(analyser.frequencyBinCount);
+      }
+      if (!butterAnalyser) {
+        butterAnalyser = audioCtx.createAnalyser();
+        butterAnalyser.fftSize = 1024;
+        butterAnalyser.smoothingTimeConstant = 0.55; // Snappier, 100% music-responsive reaction
+      }
+      bindButterchurnAudio();
+    }
+
+    function connectPlayerToGraph() {
+      ensureAudioContext();
+      if (!mediaElementSource) {
+        mediaElementSource = audioCtx.createMediaElementSource(audioPlayer);
+        mediaElementSource.connect(analyser);
+        mediaElementSource.connect(butterAnalyser);
+        analyser.connect(audioCtx.destination);
+      }
+      bindButterchurnAudio();
+    }
+
+    /*************************************************************************
+     * 3. BUTTERCHURN (WARP CHAMBER) ENGINE & LATE-BIND AUDIO FIX
+     *************************************************************************/
+    let butterVisualizer = null;
+    let butterCanvas = null;
+    let butterPresets = {};
+    let butterPresetKeys = [];
+    let filteredPresetKeys = [];
+    let currentButterIndex = 0;
+    let butterAudioBound = false;
+    let lastSkinSwitchTime = performance.now();
+
+    let butterLoaded = false;
+    function initButterchurn() {
+      if (butterVisualizer) return;
+      const bFactory = window.butterchurn?.default || window.butterchurn;
+      const presetsPkg = window.butterchurnPresets?.default || window.butterchurnPresets;
+      
+      if (!bFactory || !presetsPkg) {
+        // Retry shortly if CDN scripts are still downloading
+        setTimeout(initButterchurn, 500);
+        return;
+      }
+
+      ensureAudioContext();
+
+      try {
+        butterCanvas = document.createElement('canvas');
+        butterCanvas.width = W;
+        butterCanvas.height = H;
+
+        butterVisualizer = bFactory.createVisualizer(audioCtx, butterCanvas, {
+          width: W,
+          height: H,
+          pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+          textureRatio: 1
+        });
+
+        butterPresets = presetsPkg.getPresets();
+        butterPresetKeys = Object.keys(butterPresets).sort();
+        filteredPresetKeys = [...butterPresetKeys];
+        document.getElementById('skinCountBadge').textContent = `${butterPresetKeys.length} Skins`;
+        renderPresetList();
+        if (butterPresetKeys.length > 0) {
+          loadButterSkin(0, 0.0);
+        }
+        butterLoaded = true;
+        bindButterchurnAudio();
+      } catch (err) {
+        console.warn('Butterchurn WebGL init error:', err);
+      }
+    }
+
+    function bindButterchurnAudio() {
+      if (butterVisualizer && butterAnalyser) {
+        try {
+          butterVisualizer.connectAudio(butterAnalyser);
+          butterAudioBound = true;
+        } catch (err) {
+          console.warn('Butterchurn audio connection warning:', err);
+        }
+      }
+    }
+
+    function loadButterSkin(index, blendTime = 1.8) {
+      if (!butterVisualizer || filteredPresetKeys.length === 0) return;
+      currentButterIndex = (index + filteredPresetKeys.length) % filteredPresetKeys.length;
+      const key = filteredPresetKeys[currentButterIndex];
+      butterVisualizer.loadPreset(butterPresets[key], blendTime);
+      lastSkinSwitchTime = performance.now();
+      highlightActiveSkin(key);
+    }
+
+    function renderPresetList() {
+      const listEl = document.getElementById('presetList');
+      listEl.innerHTML = '';
+      filteredPresetKeys.forEach((key, idx) => {
+        const item = document.createElement('div');
+        item.className = 'preset-item' + (idx === currentButterIndex ? ' active' : '');
+        item.textContent = key;
+        item.onclick = () => loadButterSkin(idx, 1.2);
+        listEl.appendChild(item);
+      });
+    }
+
+    function highlightActiveSkin(activeKey) {
+      const items = document.querySelectorAll('.preset-item');
+      items.forEach(el => {
+        el.classList.toggle('active', el.textContent === activeKey);
+      });
+    }
+
+    /*************************************************************************
+     * 4. REAL-TIME 4-BAND SPECTRAL & TRANSIENT TELEMETRY ENGINE
+     *************************************************************************/
+    function updateTelemetry(now) {
+      if (!analyser) return;
+
+      analyser.getByteFrequencyData(freqData);
+      analyser.getByteTimeDomainData(timeData);
+
+      const avgRange = (start, end) => {
+        let sum = 0;
+        for (let i = start; i <= end; i++) sum += freqData[i] || 0;
+        return (sum / ((end - start + 1) * 255));
+      };
+
+      const rawSub = avgRange(2, 6);
+      const rawKick = avgRange(6, 14);
+      const rawSnare = avgRange(15, 100);
+      const rawHat = avgRange(340, 900);
+
+      groove.subBass = groove.subBass * 0.65 + rawSub * 0.35;
+      groove.kick = groove.kick * 0.55 + rawKick * 0.45;
+      groove.snare = groove.snare * 0.60 + rawSnare * 0.40;
+      groove.hat = groove.hat * 0.50 + rawHat * 0.50;
+      groove.energy = (groove.subBass * 0.35 + groove.kick * 0.35 + groove.snare * 0.2 + groove.hat * 0.1);
+
+      const bassFlux = Math.max(0, rawKick - groove.prevBass);
+      const snareFlux = Math.max(0, rawSnare - groove.prevMid);
+      groove.prevBass = rawKick * 0.8 + groove.prevBass * 0.2;
+      groove.prevMid = rawSnare * 0.8 + groove.prevMid * 0.2;
+
+      if (bassFlux > 0.11 && rawKick > 0.38) {
+        groove.kickTransient = 1.0;
+        const delta = now - groove.lastKickTime;
+        if (delta > 260 && delta < 1200) {
+          groove.kickIntervals.push(delta);
+          if (groove.kickIntervals.length > 10) groove.kickIntervals.shift();
+          const avgDelta = groove.kickIntervals.reduce((a, b) => a + b, 0) / groove.kickIntervals.length;
+          groove.bpm = Math.round(60000 / avgDelta);
+          document.getElementById('bpmDisplay').textContent = `BPM: ${groove.bpm}`;
+        }
+        groove.lastKickTime = now;
+
+        if (currentWorld === 'warp' && randomMode && beatCutSkins && bassFlux > 0.26 && (now - lastSkinSwitchTime > 6000)) {
+          loadButterSkin(Math.floor(Math.random() * filteredPresetKeys.length), 0.35);
+        }
+      } else {
+        groove.kickTransient *= 0.84;
+      }
+
+      if (snareFlux > 0.09 && rawSnare > 0.3) {
+        groove.snareTransient = 1.0;
+      } else {
+        groove.snareTransient *= 0.82;
+      }
+
+      document.getElementById('barSub').style.height = `${Math.max(12, groove.subBass * 100)}%`;
+      document.getElementById('barKick').style.height = `${Math.max(12, groove.kick * 100)}%`;
+      document.getElementById('barSnare').style.height = `${Math.max(12, groove.snare * 100)}%`;
+      document.getElementById('barHat').style.height = `${Math.max(12, groove.hat * 100)}%`;
+    }
+
+    /*************************************************************************
+     * 5. WORLD 3: WARP CHAMBER (drawWarpdrop) — FIXED & BEAT-LOCKED
+     *************************************************************************/
+    function drawWarpdrop(now) {
+      if (!butterVisualizer) {
+        initButterchurn();
+      }
+      if (butterVisualizer && butterAnalyser && !butterAudioBound) {
+        bindButterchurnAudio();
+      }
+
+      if (randomMode && autoCycleSkins && (now - lastSkinSwitchTime > 18000) && filteredPresetKeys.length > 1) {
+        loadButterSkin(currentButterIndex + 1, 2.2);
+      }
+
+      ctx.fillStyle = `rgba(7, 7, 12, ${0.3 - groove.energy * 0.15})`;
+      ctx.fillRect(0, 0, W, H);
+
+      if (butterLoaded && butterVisualizer && butterCanvas) {
+        try {
+          butterVisualizer.render();
+
+          const punch = warpPunchMultiplier;
+          const zoomScale = 1.0
+            + (groove.kickTransient * 0.095 * punch * audioSensitivity)
+            + (groove.subBass * 0.055 * punch * audioSensitivity);
+          const snareTilt = Math.sin(now * 0.004) * (groove.snareTransient * 0.028 * punch);
+
+          ctx.save();
+          ctx.translate(W / 2, H / 2);
+          ctx.scale(zoomScale, zoomScale);
+          ctx.rotate(snareTilt);
+
+          const bBoost = Math.round(100 + groove.kickTransient * 28);
+          const sBoost = Math.round(100 + groove.subBass * 45);
+          ctx.filter = `brightness(${bBoost * brightnessLevel}%) saturate(${sBoost}%)`;
+
+          ctx.drawImage(butterCanvas, -W / 2, -H / 2, W, H);
+          ctx.restore();
+        } catch (e) {
+          // Fallback tunnel rendering if WebGL context is lost
+          drawDimension(now);
+        }
+      } else {
+        // Fallback tunnel rendering while waiting for preset library download
+        drawDimension(now);
+      }
+
+      if (showWarpWireframe) {
+        ctx.save();
+        ctx.translate(W / 2, H / 2);
+        const rings = 10;
+        for (let i = 1; i <= rings; i++) {
+          const r = (i * 42) + (groove.subBass * 65) + ((now * 0.08) % 42);
+          ctx.strokeStyle = `hsla(${(now * 0.05 + i * 28) % 360}, 90%, 60%, ${0.35 + groove.kick * 0.4})`;
+          ctx.lineWidth = 1.5 + groove.kickTransient * 2.5;
+          ctx.beginPath();
+          for (let a = 0; a < 6; a++) {
+            const ang = (a * Math.PI / 3) + (now * 0.0006 * (i % 2 === 0 ? 1 : -1));
+            const px = Math.cos(ang) * r;
+            const py = Math.sin(ang) * r;
+            if (a === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.closePath();
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      if (showWarpCrest) {
+        drawCenterCrest(W / 2, H / 2, 75 + groove.kick * 35, now);
+      }
+    }
+
+    /*************************************************************************
+     * 6. OTHER 4 STUDIO WORLDS (SANCTUARY, SKYLINE, DIMENSION, OLD SCHOOL)
+     *************************************************************************/
+    function drawSanctuary(now) {
+      ctx.fillStyle = `rgba(7, 7, 14, ${0.22 - groove.subBass * 0.08})`;
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.save();
+      ctx.translate(W / 2, H / 2);
+      const petals = 12;
+      const baseR = Math.min(W, H) * 0.18 + groove.subBass * 90 + groove.kickTransient * 45;
+
+      for (let i = 0; i < petals; i++) {
+        ctx.save();
+        ctx.rotate((i * Math.PI * 2 / petals) + now * 0.0005);
+        ctx.strokeStyle = `hsla(${320 + i * 12 + groove.snare * 60}, 95%, 62%, 0.65)`;
+        ctx.lineWidth = 2 + groove.kick * 4;
+        ctx.beginPath();
+        ctx.ellipse(baseR * 0.6, 0, baseR * 0.55, baseR * 0.22, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+      ctx.restore();
+    }
+
+    function drawSkyline(now) {
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, '#090418');
+      grad.addColorStop(0.65, '#240b36');
+      grad.addColorStop(1, '#c31432');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      const sunR = Math.min(W, H) * 0.16 + groove.kick * 40;
+      const sunGrad = ctx.createLinearGradient(0, H * 0.25, 0, H * 0.6);
+      sunGrad.addColorStop(0, '#ffcc00');
+      sunGrad.addColorStop(1, '#ff2a85');
+      ctx.fillStyle = sunGrad;
+      ctx.beginPath();
+      ctx.arc(W / 2, H * 0.44, sunR, 0, Math.PI * 2);
+      ctx.fill();
+
+      const cols = 48;
+      const colW = W / cols;
+      for (let i = 0; i < cols; i++) {
+        const binVal = (freqData[i * 3] || 0) / 255;
+        const bH = Math.max(30, binVal * H * 0.48 + groove.kickTransient * 35);
+        ctx.fillStyle = '#07070c';
+        ctx.fillRect(i * colW, H - bH, colW - 2, bH);
+        ctx.fillStyle = `hsla(${185 + i * 3}, 100%, 60%, ${0.5 + binVal * 0.5})`;
+        ctx.fillRect(i * colW, H - bH, colW - 2, 4);
+      }
+    }
+
+    function drawDimension(now) {
+      ctx.fillStyle = 'rgba(5, 6, 12, 0.28)';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.save();
+      ctx.translate(W / 2, H / 2);
+      const layers = 16;
+      for (let i = 1; i <= layers; i++) {
+        const depth = ((i / layers) + (now * 0.0004 * (1 + groove.subBass))) % 1;
+        const size = depth * Math.max(W, H) * (1 + groove.kickTransient * 0.18);
+        ctx.strokeStyle = `hsla(${190 + depth * 150}, 100%, 60%, ${depth})`;
+        ctx.lineWidth = 1 + depth * 3;
+        ctx.strokeRect(-size / 2, -size / 2, size, size);
+      }
+      ctx.restore();
+    }
+
+    function drawOldSchool(now) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+      ctx.fillRect(0, 0, W, H);
+
+      const bars = 36;
+      const bw = (W * 0.8) / bars;
+      const startX = W * 0.1;
+
+      for (let i = 0; i < bars; i++) {
+        const val = (freqData[i * 4] || 0) / 255;
+        const segments = Math.floor(val * 22);
+        for (let s = 0; s < segments; s++) {
+          const sy = H * 0.82 - s * 16;
+          ctx.fillStyle = s > 16 ? '#ff2a85' : (s > 11 ? '#ffcc00' : '#00f0ff');
+          ctx.fillRect(startX + i * bw, sy, bw - 6, 11);
+        }
+      }
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for (let i = 0; i < 256; i++) {
+        const x = (i / 255) * W;
+        const v = (timeData[i] || 128) / 128.0;
+        const y = (v * H) / 2;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    /*************************************************************************
+     * 7. MASTER LOVE TiDBiT CREST & TIDBIT TRIBUTE HOLOGRAM OVERLAYS
+     *************************************************************************/
+    function drawCenterCrest(x, y, radius, now) {
+      ctx.save();
+      ctx.translate(x, y);
+      const pulseR = radius * (1 + groove.kickTransient * 0.14);
+
+      if (hasCustomLogo) {
+        ctx.drawImage(customLogoImg, -pulseR, -pulseR, pulseR * 2, pulseR * 2);
+      } else {
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 3;
+        ctx.shadowColor = '#ff2a85';
+        ctx.shadowBlur = 18 + groove.kick * 25;
+        ctx.beginPath();
+        ctx.arc(0, 0, pulseR, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = `800 ${Math.round(pulseR * 0.28)}px Inter, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('LOVE TiDBiT', 0, 0);
+      }
+      ctx.restore();
+    }
+
+    function drawGlobalOverlays(now) {
+      if (showMasterLogo) {
+        drawCenterCrest(W - 78, H - 125, 42, now);
+      }
+
+      if (showTidbitHologram) {
+        ctx.save();
+        const tx = 86;
+        const ty = H - 125 - (groove.kickTransient * 14);
+        ctx.translate(tx, ty);
+
+        ctx.strokeStyle = `hsla(${185 + groove.subBass * 90}, 100%, 65%, 0.75)`;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(0, 0, 44 + groove.subBass * 16, 0, Math.PI * 2);
+        ctx.stroke();
+
+        if (hasCustomTidbit) {
+          ctx.drawImage(customTidbitImg, -38, -38, 76, 76);
+        } else {
+          ctx.fillStyle = '#ffcc00';
+          ctx.font = '700 11px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('✨ TiDBiT ✨', 0, -4);
+          ctx.fillStyle = '#00f0ff';
+          ctx.font = '600 9px monospace';
+          ctx.fillText('LEGACY SYNC', 0, 10);
+        }
+        ctx.restore();
+      }
+    }
+
+    /*************************************************************************
+     * 8. MAIN ANIMATION LOOP & POP-OUT TV MIRRORING
+     *************************************************************************/
+    let tvWindow = null;
+
+    function animate(now) {
+      requestAnimationFrame(animate);
+      updateTelemetry(now);
+
+      switch (currentWorld) {
+        case 'sanctuary': drawSanctuary(now); break;
+        case 'skyline':   drawSkyline(now); break;
+        case 'warp':      drawWarpdrop(now); break;
+        case 'dimension': drawDimension(now); break;
+        case 'oldschool': drawOldSchool(now); break;
+      }
+
+      drawGlobalOverlays(now);
+
+      if (tvWindow && !tvWindow.closed) {
+        const tvCanvas = tvWindow.document.getElementById('tvMirror');
+        if (tvCanvas) {
+          const tvCtx = tvCanvas.getContext('2d');
+          tvCtx.drawImage(canvas, 0, 0, tvCanvas.width, tvCanvas.height);
+        }
+      }
+    }
+
+    /*************************************************************************
+     * 9. UI EVENT WIRING (AUDIO, WORLD SWITCHER, SKIN SEARCH, CASTING)
+     *************************************************************************/
+    window.addEventListener('resize', () => {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      if (butterCanvas && butterVisualizer) {
+        butterCanvas.width = W;
+        butterCanvas.height = H;
+        butterVisualizer.setRendererSize(W, H);
+      }
+    });
+
+    function switchWorld(worldKey) {
+      currentWorld = worldKey;
+      document.querySelectorAll('.world-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.world === worldKey);
+      });
+
+      // Show drawer and activate correct world panel
+      const drawer = document.getElementById('worldDrawer');
+      drawer.classList.add('visible');
+
+      document.querySelectorAll('.world-panel').forEach(p => {
+        p.style.display = 'none';
+      });
+      const activePanel = document.getElementById('panel-' + worldKey);
+      if (activePanel) activePanel.style.display = 'flex';
+
+      const titles = {
+        sanctuary: '🐾 Sanctuary Settings',
+        skyline: '🏙️ Skyline Party Settings',
+        warp: '🌀 Warp Chamber Skins',
+        dimension: '✨ Dimension Settings',
+        oldschool: '📟 Old School Settings'
+      };
+      document.getElementById('drawerTitleText').textContent = titles[worldKey] || '⚙️ Studio Controls';
+
+      const menuBtn = document.getElementById('btnToggleWarpMenu');
+      if (menuBtn) {
+        menuBtn.style.display = 'inline-flex';
+        menuBtn.textContent = '⚙️ ' + (worldKey.charAt(0).toUpperCase() + worldKey.slice(1)) + ' Menu';
+      }
+    }
+
+    document.querySelectorAll('.world-btn').forEach(btn => {
+      btn.addEventListener('click', () => switchWorld(btn.dataset.world));
+    });
+
+    document.getElementById('audioUpload').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      connectPlayerToGraph();
+      const url = URL.createObjectURL(file);
+      audioPlayer.src = url;
+      document.getElementById('trackTitle').textContent = file.name;
+      audioPlayer.play().then(() => {
+        audioCtx.resume();
+        bindButterchurnAudio();
+      });
+    });
+
+    audioPlayer.addEventListener('play', () => {
+      connectPlayerToGraph();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      bindButterchurnAudio();
+    });
+
+    document.getElementById('btnMicAudio').addEventListener('click', async () => {
+      try {
+        ensureAudioContext();
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        if (activeStreamSource) activeStreamSource.disconnect();
+        activeStreamSource = audioCtx.createMediaStreamSource(stream);
+        activeStreamSource.connect(analyser);
+        activeStreamSource.connect(butterAnalyser);
+        bindButterchurnAudio();
+        document.getElementById('trackTitle').textContent = '🎙️ Live Mic / Room Audio Locked';
+      } catch (err) {
+        alert('Microphone access denied or unavailable.');
+      }
+    });
+
+    document.getElementById('btnTabAudio').addEventListener('click', async () => {
+      try {
+        ensureAudioContext();
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+        if (activeStreamSource) activeStreamSource.disconnect();
+        activeStreamSource = audioCtx.createMediaStreamSource(stream);
+        activeStreamSource.connect(analyser);
+        activeStreamSource.connect(butterAnalyser);
+        bindButterchurnAudio();
+        document.getElementById('trackTitle').textContent = '💻 System Tab Audio Locked';
+      } catch (err) {
+        console.warn('Tab audio capture cancelled:', err);
+      }
+    });
+
+    document.getElementById('skinSearch').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      filteredPresetKeys = butterPresetKeys.filter(k => k.toLowerCase().includes(q));
+      currentButterIndex = 0;
+      renderPresetList();
+    });
+
+    document.getElementById('btnPrevSkin').onclick = () => loadButterSkin(currentButterIndex - 1, 1.0);
+    document.getElementById('btnNextSkin').onclick = () => loadButterSkin(currentButterIndex + 1, 1.0);
+    document.getElementById('btnRandomSkin').onclick = () => {
+      loadButterSkin(Math.floor(Math.random() * filteredPresetKeys.length), 1.0);
+    };
+
+    document.getElementById('punchSlider').addEventListener('input', (e) => {
+      warpPunchMultiplier = parseFloat(e.target.value);
+    });
+    
+    const warpMenuBtn = document.getElementById('btnToggleWarpMenu');
+    if (warpMenuBtn) {
+      warpMenuBtn.style.display = 'inline-flex';
+      warpMenuBtn.addEventListener('click', () => {
+        const drawer = document.getElementById('worldDrawer');
+        const visible = drawer.classList.toggle('visible');
+        warpMenuBtn.classList.toggle('toggle-on', visible);
+      });
+    }
+    document.getElementById('sensSlider').addEventListener('input', (e) => {
+      audioSensitivity = parseFloat(e.target.value);
+    });
+    document.getElementById('brightSlider').addEventListener('input', (e) => {
+      brightnessLevel = parseFloat(e.target.value);
+    });
+
+    const bindToggle = (id, getter, setter, labelOn, labelOff) => {
+      const el = document.getElementById(id);
+      el.addEventListener('click', () => {
+        const next = !getter();
+        setter(next);
+        el.classList.toggle('toggle-on', next);
+        el.textContent = next ? labelOn : labelOff;
+      });
+    };
+
+    bindToggle('btnLogoToggle', () => showMasterLogo, v => showMasterLogo = v, '🐾 Crest: ON', '🐾 Crest: OFF');
+    bindToggle('btnTidbitToggle', () => showTidbitHologram, v => showTidbitHologram = v, '✨ Tidbit: ON', '✨ Tidbit: OFF');
+    bindToggle('btnRandomMode', () => randomMode, v => randomMode = v, '🎲 Random Mode: ON', '🎲 Random Mode: OFF');
+    bindToggle('btnAutoCycle', () => autoCycleSkins, v => autoCycleSkins = v, '🔄 Auto-Cycle: ON', '🔄 Auto-Cycle: OFF');
+    bindToggle('btnBeatCut', () => beatCutSkins, v => beatCutSkins = v, '⚡ Drop-Cut: ON', '⚡ Drop-Cut: OFF');
+    bindToggle('btnWarpWireframe', () => showWarpWireframe, v => showWarpWireframe = v, '🕸️ 2D Mesh: ON', '🕸️ 2D Mesh: OFF');
+    bindToggle('btnWarpCrest', () => showWarpCrest, v => showWarpCrest = v, '🛡️ Center Crest: ON', '🛡️ Center Crest: OFF');
+
+    document.getElementById('logoUpload').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      customLogoImg.onload = () => { hasCustomLogo = true; };
+      customLogoImg.src = URL.createObjectURL(file);
+    });
+    document.getElementById('tidbitUpload').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      customTidbitImg.onload = () => { hasCustomTidbit = true; };
+      customTidbitImg.src = URL.createObjectURL(file);
+    });
+
+    document.getElementById('btnPopoutTV').addEventListener('click', () => {
+      tvWindow = window.open('', 'LoveTidbitTV', 'width=1280,height=720');
+      if (tvWindow) {
+        tvWindow.document.write(`
+          <!DOCTYPE html><html><head><title>LOVE TiDBiT — TV Receiver</title>
+          <style>body{margin:0;background:#000;overflow:hidden;}canvas{width:100vw;height:100vh;display:block;}</style>
+          </head><body><canvas id="tvMirror" width="${W}" height="${H}"></canvas></body></html>
+        `);
+      }
+    });
+
+    document.getElementById('btnPiP').addEventListener('click', async () => {
+      try {
+        const stream = canvas.captureStream(60);
+        const vid = document.createElement('video');
+        vid.muted = true;
+        vid.srcObject = stream;
+        await vid.play();
+        await vid.requestPictureInPicture();
+      } catch (e) {
+        alert('Picture-in-Picture requires Chrome/Edge/Safari.');
+      }
+    });
+
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    document.getElementById('btnRecord').addEventListener('click', (e) => {
+      const btn = e.currentTarget;
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        btn.textContent = '🔴 Rec';
+        btn.classList.remove('accent');
+        return;
+      }
+      recordedChunks = [];
+      const stream = canvas.captureStream(60);
+      mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+      mediaRecorder.ondataavailable = ev => { if (ev.data.size > 0) recordedChunks.push(ev.data); };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `love-tidbit-show-${Date.now()}.webm`;
+        a.click();
+      };
+      mediaRecorder.start();
+      btn.textContent = '⏹️ Stop Rec';
+      btn.classList.add('accent');
+    });
+
+    function toggleZen() {
+      document.body.classList.toggle('zen-mode');
+      const hint = document.getElementById('zenHint');
+      if (document.body.classList.contains('zen-mode')) {
+        hint.style.opacity = '1';
+        setTimeout(() => hint.style.opacity = '0', 2200);
+      }
+    }
+    document.getElementById('btnZen').onclick = toggleZen;
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.key.toLowerCase() === 'h') toggleZen();
+    });
+    canvas.addEventListener('dblclick', toggleZen);
+
+    window.addEventListener('load', () => {
+      initButterchurn();
+      switchWorld('warp');
+      requestAnimationFrame(animate);
+    });
+  </script>
+</body>
+</html>
