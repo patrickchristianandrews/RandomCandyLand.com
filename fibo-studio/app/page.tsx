@@ -1,9 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 type Artwork = { url: string; prompt: string; createdAt: string };
 const styles = ["Cinematic", "Dreamlike", "Watercolor", "Photorealistic", "Abstract", "Neon dream", "Pencil sketch", "Fantasy art"];
+const inspiration = [
+  "A glowing garden suspended above the clouds at twilight",
+  "An abstract portrait of hope emerging from a storm",
+  "A whimsical candy-colored city built inside a giant seashell",
+  "A futuristic botanical sanctuary filled with bioluminescent plants"
+];
+const creativeDetails = "Richly layered composition, intentional lighting, expressive color palette, intricate textures, and a strong visual focal point.";
 const ratios = [{ label: "Square", value: "1024x1024" }, { label: "Portrait", value: "1024x1536" }, { label: "Landscape", value: "1536x1024" }];
 
 export default function Home() {
@@ -15,8 +22,7 @@ export default function Home() {
   const [error, setError] = useState("");
   const [artwork, setArtwork] = useState<Artwork | null>(null);
   const [history, setHistory] = useState<Artwork[]>([]);
-  const [fileName, setFileName] = useState("");
-  const fileRef = useRef<HTMLInputElement>(null);
+
 
   async function generate() {
     if (!prompt.trim()) { setError("Describe what you want to create first."); return; }
@@ -39,12 +45,17 @@ export default function Home() {
         <label className="field-label" htmlFor="studio-password">PRIVATE STUDIO PASSWORD</label><input id="studio-password" type="password" autoComplete="off" value={studioPassword} onChange={(e) => setStudioPassword(e.target.value)} placeholder="Enter your private studio password" style={{width:"100%",padding:"14px",marginBottom:"18px",borderRadius:"10px",border:"1px solid #777",background:"transparent",color:"inherit"}} />
         <label className="field-label" htmlFor="prompt">IMAGE PROMPT</label><textarea id="prompt" value={prompt} onChange={(e) => setPrompt(e.target.value)} maxLength={1800} placeholder="A tiny glass greenhouse floating above a lavender ocean at dusk, soft glowing stars, intricate details..." />
         <div className="char-count">{prompt.length}/1800</div>
+        <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:18}}>
+          <button type="button" className="style-chip" onClick={() => setPrompt((p) => (p.trim() ? (p.trim().replace(/[. ]+$/, "") + ". " + creativeDetails).slice(0,1800) : creativeDetails))}>✦ Enhance my prompt</button>
+          <button type="button" className="style-chip" onClick={() => setPrompt(inspiration[Math.floor(Math.random()*inspiration.length)])}>✧ Surprise me</button>
+          <button type="button" className="style-chip" onClick={() => setPrompt("")}>Clear</button>
+        </div>
         <label className="field-label">ART DIRECTION</label><div className="style-grid">{styles.map((s) => <button type="button" key={s} className={style === s ? "style-chip selected" : "style-chip"} onClick={() => setStyle(s)}>{s}</button>)}</div>
         <label className="field-label">CANVAS SHAPE</label><div className="ratio-grid">{ratios.map((r) => <button type="button" key={r.value} onClick={() => setSize(r.value)} className={size === r.value ? "ratio selected" : "ratio"}><span className={"ratio-icon " + (r.value === "1024x1536" ? "portrait" : r.value === "1536x1024" ? "landscape" : "")} /><span>{r.label}</span></button>)}</div>
         <button className="generate" onClick={generate} disabled={busy}>{busy ? <><span className="spinner" /> Creating your image…</> : <>✦ &nbsp; Generate artwork <span>↗</span></>}</button>
         <p className="privacy-note">Your API key stays on the server. Generation may incur API charges.</p>
         {error && <div className="error" role="alert">{error}</div>}
-        <div className="upload-note"><button className="text-button" onClick={() => fileRef.current?.click()}>＋ Add a reference image</button><span>{fileName || "Visual reference upload UI (editing setup coming next)"}</span><input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => setFileName(e.target.files?.[0]?.name || "")} /></div>
+        <p className="privacy-note">Reference-image editing is planned but not available yet.</p>
       </div>
       <div className="panel preview-panel"><div className="preview-head"><div><span className="step">02</span><h2>Your canvas</h2></div><span className="live-label"><i /> LIVE PREVIEW</span></div>
         <div className={"canvas " + (artwork ? "has-art" : "")}>{busy ? <div className="loading-state"><div className="orb"><span>✳</span></div><h3>Mixing colors and possibilities</h3><p>This can take a little while.</p><div className="loading-line"><span /></div></div> : artwork ? <img src={artwork.url} alt={artwork.prompt} /> : <div className="empty-state"><div className="abstract-art"><span className="shape shape-one" /><span className="shape shape-two" /><span className="shape shape-three" /><span className="shape shape-four" /><span className="shape-center">✳</span></div><h3>Your next idea starts here.</h3><p>Your generated image will appear in this space.</p></div>}</div>
