@@ -7,6 +7,16 @@ const allowedSizes = new Set(["1024x1024", "1024x1536", "1536x1024"]);
 
 export async function POST(request: Request) {
   try {
+    // Fail closed until an owner password is configured. Never publish an unrestricted paid endpoint.
+    const accessPassword = process.env.STUDIO_ACCESS_PASSWORD;
+    if (!accessPassword) return NextResponse.json({ error: "Studio access is not configured. Set STUDIO_ACCESS_PASSWORD in Vercel." }, { status: 503 });
+    const suppliedPassword = request.headers.get("x-studio-password") || "";
+    const { timingSafeEqual } = await import("node:crypto");
+    const expected = Buffer.from(accessPassword);
+    const supplied = Buffer.from(suppliedPassword);
+    if (expected.length !== supplied.length || !timingSafeEqual(expected, supplied)) {
+      return NextResponse.json({ error: "Incorrect studio password." }, { status: 401 });
+    }
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) return NextResponse.json({ error: "Image generation is not configured yet. Add OPENAI_API_KEY to your Vercel environment variables." }, { status: 503 });
     const body = await request.json();
