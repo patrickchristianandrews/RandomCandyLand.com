@@ -1,0 +1,6 @@
+{
+  "name": "Random Candy Land - Trump Gotcha Virtual Digi-Pet",
+  "description": "Welcome to Random Candy Land (randomcandyland.com) – an eclectic place of confectionery wonder featuring the Trump Gotcha virtual digi-pet.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

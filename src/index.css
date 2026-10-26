@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-pixel {
+    font-family: 'VT323', monospace;
+  }
+  .font-serif-luxury {
+    font-family: 'Cinzel', serif;
+  }
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+  .gold-shimmer {
+    background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+  }
+  .gold-text-shimmer {
+    background: linear-gradient(135deg, #fce99f 0%, #ffffff 25%, #dfb447 50%, #fef3c7 75%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #07040a;
+  color: #f1f1f1;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
