@@ -48,7 +48,7 @@ ${jsContent}
 </html>
 `;
 
-// Save to dist/index.html, dist/standalone.html, dist/404.html, dist/trump/index.html
+// Save to dist/
 fs.writeFileSync(path.join(distDir, 'index.html'), standaloneHtml, 'utf-8');
 fs.writeFileSync(path.join(distDir, 'standalone.html'), standaloneHtml, 'utf-8');
 fs.writeFileSync(path.join(distDir, '404.html'), standaloneHtml, 'utf-8');
@@ -57,7 +57,15 @@ const trumpDir = path.join(distDir, 'trump');
 if (!fs.existsSync(trumpDir)) fs.mkdirSync(trumpDir, { recursive: true });
 fs.writeFileSync(path.join(trumpDir, 'index.html'), standaloneHtml, 'utf-8');
 
+// Copy to root index.html, 404.html, and trump/index.html so GitHub Pages serves the production bundle directly!
+fs.writeFileSync(path.resolve(process.cwd(), 'index.html'), standaloneHtml, 'utf-8');
+fs.writeFileSync(path.resolve(process.cwd(), '404.html'), standaloneHtml, 'utf-8');
+const rootTrumpDir = path.resolve(process.cwd(), 'trump');
+if (!fs.existsSync(rootTrumpDir)) fs.mkdirSync(rootTrumpDir, { recursive: true });
+fs.writeFileSync(path.join(rootTrumpDir, 'index.html'), standaloneHtml, 'utf-8');
+
 // Also save to public/
 fs.writeFileSync(path.resolve(process.cwd(), 'public/standalone.html'), standaloneHtml, 'utf-8');
+fs.writeFileSync(path.resolve(process.cwd(), 'public/index.html'), standaloneHtml, 'utf-8');
 
-console.log('Successfully built pristine standalone HTML bundle with 100% inlined CSS and JS!');
+console.log('Successfully built and deployed standalone bundle to root index.html, 404.html, and trump/index.html!');
