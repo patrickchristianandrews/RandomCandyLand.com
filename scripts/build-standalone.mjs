@@ -25,13 +25,25 @@ const standaloneHtml = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Random Candy Land - Trump Gotcha Virtual Digi-Pet</title>
     <meta name="description" content="Welcome to Random Candy Land (randomcandyland.com) – an eclectic place of confectionery wonder featuring the Trump Gotcha virtual digi-pet." />
     <meta property="og:title" content="Random Candy Land - Trump Gotcha Virtual Digi-Pet" />
     <meta property="og:description" content="Welcome to Random Candy Land (randomcandyland.com) – an eclectic place of confectionery wonder featuring the Trump Gotcha virtual digi-pet." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- PWA & Mobile Home Screen Links -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#d4af37" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="TrumpGotcha" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=VT323&display=swap" rel="stylesheet">

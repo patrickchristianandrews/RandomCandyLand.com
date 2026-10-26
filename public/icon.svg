@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- 24K Gold Shell Gradient -->
+    <radialGradient id="goldBack" cx="40%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fffbeb" />
+      <stop offset="35%" stop-color="#f59e0b" />
+      <stop offset="70%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#78350f" />
+    </radialGradient>
+
+    <!-- Hair Golden Gradient -->
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2a3" />
+      <stop offset="30%" stop-color="#ffd447" />
+      <stop offset="70%" stop-color="#e5a110" />
+      <stop offset="100%" stop-color="#aa6d06" />
+    </linearGradient>
+
+    <!-- Skin Tone Gradient -->
+    <radialGradient id="skinGrad" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fcd3a7" />
+      <stop offset="60%" stop-color="#f5aa67" />
+      <stop offset="100%" stop-color="#d97834" />
+    </radialGradient>
+
+    <!-- Suit Gradient -->
+    <linearGradient id="suitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Tie Gradient -->
+    <linearGradient id="tieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="50%" stop-color="#dc2626" />
+      <stop offset="100%" stop-color="#991b1b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background App Icon Base (Squircle) -->
+  <rect x="0" y="0" width="512" height="512" rx="115" fill="url(#goldBack)" />
+  <rect x="12" y="12" width="488" height="488" rx="103" fill="none" stroke="#fde68a" stroke-width="8" opacity="0.8" />
+
+  <!-- Inner Dark Blue Frame -->
+  <circle cx="256" cy="235" r="195" fill="#090514" stroke="#f59e0b" stroke-width="6" />
+
+  <!-- Trump Character Caricature Scaled to Center -->
+  <g transform="translate(56, 45) scale(2)">
+    <!-- Navy Suit -->
+    <path d="M 32 175 Q 60 148 100 152 Q 140 148 168 175 L 180 200 L 20 200 Z" fill="url(#suitGrad)" stroke="#0f172a" stroke-width="3" />
+    <!-- White Collar -->
+    <path d="M 80 148 L 100 162 L 76 182 L 72 158 Z" fill="#ffffff" />
+    <path d="M 120 148 L 100 162 L 124 182 L 128 158 Z" fill="#ffffff" />
+    <!-- Red Tie -->
+    <path d="M 92 160 L 108 160 L 105 174 L 95 174 Z" fill="url(#tieGrad)" />
+    <path d="M 94 173 L 106 173 L 112 200 L 88 200 Z" fill="url(#tieGrad)" />
+    <!-- Neck -->
+    <path d="M 86 130 L 114 130 L 118 152 L 82 152 Z" fill="url(#skinGrad)" />
+    <!-- Back Hair -->
+    <path d="M 50 115 C 38 85 45 45 78 35 C 100 28 140 32 156 55 C 168 75 166 110 152 125 Z" fill="url(#hairGrad)" stroke="#92400e" stroke-width="2.5" />
+    <!-- Ears -->
+    <ellipse cx="62" cy="104" rx="9" ry="12" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
+    <ellipse cx="138" cy="104" rx="9" ry="12" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
+    <!-- Face -->
+    <path d="M 66 85 C 64 118 70 144 100 144 C 130 144 136 118 134 85 C 132 65 68 65 66 85 Z" fill="url(#skinGrad)" stroke="#b45309" stroke-width="2" />
+    <!-- Cheeks & Eyebrows -->
+    <ellipse cx="78" cy="112" rx="10" ry="7" fill="#ea580c" opacity="0.3" />
+    <ellipse cx="122" cy="112" rx="10" ry="7" fill="#ea580c" opacity="0.3" />
+    <path d="M 72 82 Q 85 75 94 82" stroke="#fff2a3" stroke-width="4.5" fill="none" stroke-linecap="round" />
+    <path d="M 106 82 Q 115 75 128 82" stroke="#fff2a3" stroke-width="4.5" fill="none" stroke-linecap="round" />
+    <!-- Eyes -->
+    <ellipse cx="83" cy="94" rx="10" ry="5" fill="#fef08a" opacity="0.5" />
+    <ellipse cx="117" cy="94" rx="10" ry="5" fill="#fef08a" opacity="0.5" />
+    <ellipse cx="83" cy="92" rx="6" ry="3.5" fill="#ffffff" stroke="#78350f" stroke-width="1.2" />
+    <circle cx="84" cy="92" r="2.5" fill="#1e3a8a" />
+    <ellipse cx="117" cy="92" rx="6" ry="3.5" fill="#ffffff" stroke="#78350f" stroke-width="1.2" />
+    <circle cx="116" cy="92" r="2.5" fill="#1e3a8a" />
+    <!-- Nose & Mouth -->
+    <path d="M 98 86 L 97 106 Q 100 110 104 107" stroke="#92400e" stroke-width="2" fill="none" stroke-linecap="round" />
+    <path d="M 85 122 Q 100 131 115 122 Z" fill="#ffffff" stroke="#7f1d1d" stroke-width="1.8" />
+    <!-- Comb-Over Hair -->
+    <path d="M 46 82 C 36 60 48 30 78 20 C 105 10 148 14 172 32 C 186 42 188 64 176 78 C 168 88 152 92 142 86 C 152 74 154 58 142 46 C 126 34 94 30 72 44 C 56 54 50 68 56 82 Z" fill="url(#hairGrad)" stroke="#92400e" stroke-width="2" />
+    <path d="M 52 74 C 62 48 95 38 132 40 C 160 42 174 54 168 70 C 160 82 142 76 136 64 C 124 50 94 48 76 58 C 64 66 58 74 52 74 Z" fill="url(#hairGrad)" />
+    <!-- Thumbs up -->
+    <g transform="translate(30, 142)">
+      <path d="M 4 4 C 4 0 9 -4 13 -4 C 16 -4 18 -1 18 4 L 16 12 L 10 12 Z" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
+    </g>
+    <g transform="translate(150, 142)">
+      <path d="M 16 4 C 16 0 11 -4 7 -4 C 4 -4 2 -1 2 4 L 4 12 L 10 12 Z" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
+    </g>
+  </g>
+
+  <!-- Banner Plate: TRUMP GOTCHA -->
+  <g transform="translate(56, 420)">
+    <rect x="0" y="0" width="400" height="60" rx="16" fill="#0c0617" stroke="#fbbf24" stroke-width="4" />
+    <text x="200" y="40" font-family="sans-serif" font-weight="900" font-size="28" fill="#fbbf24" text-anchor="middle" letter-spacing="3">TRUMP GOTCHA</text>
+  </g>
+</svg>
