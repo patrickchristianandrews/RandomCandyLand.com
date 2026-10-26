@@ -1,100 +1,93 @@
-# Random Candy Land & Game Room Architecture
+# Implementation Plan: Crazy 3D Candy Land Remix (Multiplayer QR Sync)
 
-Transform the application into **Random Candy Land** (`randomcandyland.com`), an eclectic, vibrant portal of chaotic fun and playful curiosities featuring a **Game Room** where **Trumpagotchi** lives as a premier attraction on its own dedicated subpage (`/trump` or `/game-room/trump`), alongside other delightfully random candy-themed mini-experiences and full domain export utilities.
-
-## User Review & Critical Decisions
-
-> [!IMPORTANT]
-> The primary landing page will serve as the official hub for **randomcandyland.com**, welcoming visitors into a whimsical, colorful arcade of "everything random". The Trumpagotchi virtual pet is preserved in 100% of its original glory (authentic Donald voice lines, retro LCD shell, golf, rally, YMCA dance, TV rants, newspaper headlines, and ZIP download), placed into its own dedicated subpage accessible from the Game Room.
-
-- **Landing Page Identity**: "Random Candy Land" — a vibrant, neon-candy arcade portal featuring interactive random toys (Gumball Fortune Dispenser, Sugar Rush Slot Machine, Gobstopper Beat Synthesizer, and the Mystery Candy Vault).
-- **Subpage Navigation**: The Trumpagotchi Digipet will be routed to `/trump` (with seamless back-to-landing navigation and direct URL deep-linking support).
-- **Domain Deployment Support**: The downloadable ZIP bundle (`trumpagotchi-project.zip`) is maintained and updated with the multi-page structure, complete with a quick DNS/hosting guide for pointing `randomcandyland.com` to any host.
+Build a wild, hilarious, 3D interactive party game remix of Candy Land called **"Candy Land: Sugar Chaos 3D"** on `randomcandyland.com`, featuring live cross-device multiplayer via scannable QR codes, absurd characters, slapstick sabotage cards, gummy cannon traps, and constant laugh-out-loud moments.
 
 ---
 
-## 1. Overview & Core Concept
+## 1. High-Level Concept & Game Loop
 
-- **What It Does**: 
-  - **Random Candy Land Main Portal (`/`)**: A vibrant digital wonderland and game lounge with a top navigation bar, candy hero showcase, interactive "Game Room" arcade floor, and chaotic random toys.
-  - **Trumpagotchi Subpage (`/trump`)**: The complete 1997-style virtual pet simulation with authentic voice lines, 5 evolution stages, mini-games, and custom shells, featuring a persistent "Return to Candy Land" badge.
-  - **Domain & Export Hub**: Direct one-click download of the complete codebase ZIP ready for publishing to `randomcandyland.com`.
-- **Target Audience**: Fans of retro 90s digipets, playful novelty web toys, and absurd interactive internet experiences.
-- **Key Value**: Delivers the dual requirement of creating an engaging, polished brand presence for `randomcandyland.com` while maintaining Trumpagotchi as an easily accessible subpage.
+### A. The Vibe: "Mario Party meets Candy Land on 500g of Pure Sugar"
+- **3D Interactive Board (Three.js)**: A colorful, winding 3D rollercoaster rainbow track through Candy Land with animated landmark zones (The Candy Castle, Mount Sugar-Crush, Fudge Abyss, Peppermint Minefield, Donut Volcano).
+- **Multiplayer with QR Code Sync**:
+  - Host creates a room on computer or tablet &rarr; dynamic QR code is displayed on screen.
+  - Friends scan with their phones (iPhone or Android) to instantly join the room as their wireless gamepad/character controller.
+  - Real-time bidirectional WebSockets sync game state, card draws, dice rolls, and pawn animations across all screens simultaneously.
+  - Single-player / Pass-and-Play mode is also fully supported with hilarious AI bots.
 
----
+### B. Playable Absurd Characters
+1. **Presidential Trumpagotchi** &mdash; *"Billionaire Comb-Over Maestro with 300% Tariff on Foreign Licorice"*
+2. **Sir Reginald Fluffernutter III** &mdash; *"Sentient Marshmallow Attorney suing a waffle for emotional damages"*
+3. **Baron Von Toothdecay** &mdash; *"A Peppermint Knight who is deathly afraid of pediatric dentists"*
+4. **Sgt. Gummy Bear** &mdash; *"Dishonorably discharged from the Jello Armed Forces for eating the camouflage"*
+5. **Madame Glaze-a-Lot** &mdash; *"An aggressively confused TikTok donut influencer streaming from a microwave"*
+6. **Lil' Skittle-Brain** &mdash; *"Vibrating at 400 MPH from pure high-fructose corn syrup & existential dread"*
 
-## 2. User Experience & Visual Design
-
-### Visual Identity & Theme
-- **Aesthetic Direction**: Playful, retro-modern candy arcade with bold confectionery colors (strawberry pink, blueberry cyan, sour apple green, spun-sugar gold) contrasted against deep midnight violet and plum canvases (`#0d0714` to `#180b26`).
-- **Typography Pairing**:
-  - *Display / Titles*: `Plus Jakarta Sans` with heavy weights, paired with retro pixel accents (`Silkscreen` / `Press Start 2P`).
-  - *Body Prose*: Clean, highly legible sans-serif (`Plus Jakarta Sans`).
-  - *Data & Meters*: Monospace tabular numbers (`font-mono tabular-nums`).
-- **Color Budget (60-30-10)**:
-  - **60% Neutral Canvas**: Deep plum and dark violet dark-mode backdrop (`bg-neutral-950` with subtle candy grain gradient).
-  - **30% Structural Surfaces**: Glassmorphic frosted plum surfaces (`bg-purple-950/40 border border-pink-500/20`).
-  - **10% Accent Energy**: Hot neon magenta (`#ec4899`), candy cyan (`#06b6d4`), and lemon drizzle (`#facc15`).
-
-### Key User Flows
-1. **Landing at `randomcandyland.com`**:
-   - Clean 3-zone Top Bar: `Random Candy Land` wordmark, nav links (*Game Room*, *Randomizer*, *About*, *Download*), and a primary action button `Enter Game Room`.
-   - Hero Section: An animated candy vortex inviting visitors into "The Sweetest Corner of Pure Chaos".
-   - Game Room Showcase Grid:
-     - **Trumpagotchi (Featured Attraction)**: Highlighted retro arcade cabinet preview with instant launcher into `/trump`.
-     - **Gumball Fortune Oracle**: Click to drop a random gumball and receive an absurd satirical life prophecy.
-     - **Sugar Rush Slot Randomizer**: Spin 3 reels of chaotic candy combos for high-score streaks.
-     - **Gobstopper Sound Synth**: Interactive candy soundboard with wacky cartoon/retro sound bites.
-2. **Subpage Experience (`/trump` or Game Room selection)**:
-   - Switches smoothly to the full Trumpagotchi Digipet shell.
-   - Includes a floating top bar: `◀ Return to Random Candy Land` along with the live polling stat and ZIP download link.
-3. **Download & Domain Export**:
-   - Modal and top-bar button offering the latest project ZIP package with instructions on mapping DNS records for `randomcandyland.com`.
+### C. Wild Gameplay Mechanics & Constant Engagement
+- **The Crazy Card Deck**:
+  - Draw hilarious movement & sabotage cards: e.g., *"Double Cherry Rocket"*, *"Sugar Shock Swap"* (swap spaces with the leader), *"Tax Fraud Audit"* (steal 50 sugar gems), *"Nuclear Pop Rocks"* (blast everyone within 3 tiles back).
+- **The "WHAT?!" Absurd Event Generator**:
+  - Every tile triggers bizarre random announcements that make players stop, say *"Wait, WHAT?!"* and laugh out loud.
+  - Examples:
+    - *"ALERT: The Department of Agriculture has declared your socks illegal in 48 states. Skip 1 turn."*
+    - *"BZZZZT: You stepped on a heated gummy slug. Your dog now legally owns your car."*
+    - *"CONGRATULATIONS: You won a lawsuit against a cloud. Advance 3 spaces and insult a bagel."*
+- **Gummy Cannon & Trap System**:
+  - Active traps on the 3D board: spring-loaded jelly trampolines, molten fudge slides, rolling jawbreakers, and aimable gummy cannons that players can fire at rivals on their phones!
 
 ---
 
-## 3. Key Product Decisions & Trade-Offs
-
-- **Client-Side Routing with State & URL Hash/Path Support**:
-  - *Approach*: Use lightweight path/hash routing (`window.location.pathname` or view state with browser history sync) ensuring compatibility with Vite preview, production servers, and static hosting without server 404s.
-  - *Why*: Allows direct URL access to `/trump` or `#trump` while preventing broken links when deployed on static CDNs or subpaths.
-- **Preserving 100% of Existing Trumpagotchi Code**:
-  - *Approach*: Modularize the existing virtual pet game into a dedicated subpage view component (`src/pages/TrumpSubpage.tsx` or `src/components/TrumpagotchiView.tsx`), retaining all 38 authentic audio files, mini-games, and LCD animations intact.
-- **Lightweight Interactive Game Room Additions**:
-  - *Approach*: Build the candy mini-toys using clean React state and Web Audio synth sound effects so they feel snappy, fun, and immediately playable with zero heavy external assets.
+## 1.5. Trumpagotchi Emergency Phone Notifications System
+- **Real-Time Phone Lock Screen Alerts**:
+  - When installed to an Apple iPhone or Android home screen, Trumpagotchi requests notification permissions (`Notification.requestPermission()`).
+  - If Trump's vitals start going bad (Hunger drops below 25%, Health drops, Fake News polls sink below 30%, or messy classified papers pile up), the phone sends urgent executive alerts:
+    - *"🚨 EMERGENCY EXECUTIVE MEMO: Donald is STARVING! Bring prime steaks immediately!"*
+    - *"📺 RATINGS CRISIS: Fake news media is attacking! Tap to rally the base!"*
+    - *"👑 COMB-OVER DISASTER: 40mph wind hit Mar-a-Lago! Urgent hair grooming needed!"*
+    - *"💊 DR. JACKSON SUMMONS: Donald has low energy! Need emergency executive nap or vitamin pack!"*
+  - Tapping the notification takes the user straight into the pocket pet to nurse him back to 100%!
+  - Includes a dedicated **"🔔 Executive Phone Alerts"** toggle switch on the handheld shell and pause menu.
 
 ---
 
-## 4. Technical Architecture & Data Strategy
+## 2. Technical Architecture & Tech Stack
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 Random Candy Land Router                    │
-│                 (App.tsx / History Sync)                    │
-└──────────────┬──────────────────────────────┬───────────────┘
-               │                              │
-               ▼                              ▼
-┌──────────────────────────────┐ ┌────────────────────────────┐
-│      Main Landing Page       │ │    Trumpagotchi Subpage    │
-│  (src/pages/CandyLandHome)   │ │ (src/pages/Trumpagotchi)   │
-├──────────────────────────────┤ ├────────────────────────────┤
-│ • Top Bar (3-zone contract)  │ │ • Return to Candy Land Bar │
-│ • Hero Candy Portal          │ │ • 1997 Handheld Shell      │
-│ • Game Room Arcade Selector  │ │ • Authentic Voice Library  │
-│   ├─ Trumpagotchi Cabinet ───┼─┼─► Launch Pet Subpage       │
-│   ├─ Gumball Fortune Dispenser │ • Golf / Rally / Deal Games│
-│   ├─ Sugar Rush Slot Machine │ │ • Newspaper AI Headlines   │
-│   └─ Mystery Candy Vault     │ │ • Pause Dossier & Settings │
-│ • randomcandyland.com Info   │ └────────────────────────────┘
-│ • Project ZIP Downloader     │
-└──────────────────────────────┘
-```
+1. **3D Visual Engine (`threejs`, `@types/three`)**:
+   - Smooth 60fps WebGL rendering with playful lighting, soft shadows, particle trails, and interactive raycasting.
+   - Procedural 3D track generator with curved splines, animated character pawns, rolling jawbreakers, and confetti cannons.
+2. **Real-Time Multiplayer Server (`ws` WebSocket on `server.ts`)**:
+   - Lightweight, robust server-authoritative room state engine.
+   - Rooms indexed by short 4-letter codes (e.g., `YUMM`, `SUGR`, `CHOC`).
+   - Handles room creation, player joins, turn progression, dice rolls, sabotage cards, and game over victory fanfare.
+3. **QR Code Generator (`qrcode.react` / `qrcode`)**:
+   - Generates instant SVG/Canvas QR codes for easy camera scanning on iOS Camera & Android Google Lens.
+4. **Mobile Controller View**:
+   - When joining on a phone via QR code, the player gets a tactile controller UI: roll dice, tap card deck, fire gummy cannons, trigger funny soundboards, and buzz haptic feedback!
+5. **Audio Synthesizer & Voice Integration**:
+   - Uses our existing audio synthesizers and audio clips for slapstick sound effects, honks, cartoon boings, and victory fanfare.
 
-- **Routes**:
-  - `/` or `#/`: Random Candy Land main portal & arcade.
-  - `/trump` or `#/trump`: Trumpagotchi virtual pet subpage.
-  - `/trumpagotchi-project.zip`: Complete downloadable codebase bundle.
-- **Server Updates (`server.ts`)**:
-  - Express serves `index.html` for both `/` and `/trump` paths (SPA rewrite support).
-  - Dedicated `/trumpagotchi-project.zip` download endpoint.
+---
+
+## 3. Step-by-Step Implementation Plan
+
+### Step 1: Install Dependencies
+- Install `three`, `@types/three`, `ws`, `@types/ws`, and `qrcode.react`.
+
+### Step 2: Real-Time Server Engine (`server.ts` & `src/server/gameRooms.ts`)
+- Implement room management, message types (`JOIN_ROOM`, `ROLL_DICE`, `DRAW_CARD`, `FIRE_CANNON`, `TRIGGER_TRAP`), and broadcast sync.
+
+### Step 3: 3D Candy Land Canvas Component (`src/components/candyland3d/CandyLandCanvas.tsx`)
+- Build the 3D curved rollercoaster track, themed terrain zones, lighting, animated pawns, and camera panning on player moves.
+
+### Step 4: Absurd Cards & "What?!" Statement Engine (`src/utils/candyCards.ts`)
+- Write 50+ outrageously funny, unexpected card events, traps, and sound triggers.
+
+### Step 5: Mobile Gamepad & Host Controller (`src/pages/CandyLand3DPage.tsx`)
+- Dual-mode view:
+  - **Host / Big Screen Mode**: Full 3D board display with QR code in corner, animated pawns, leaderboard, and drama.
+  - **Mobile Player Gamepad Mode**: Large touch buttons, card draw animations, slingshot gummy cannon controls.
+
+### Step 6: Navigation & Homepage Integration
+- Add a flashy, colorful portal link on `RandomCandyLandHome.tsx` and top bar: **"🍭 Play Candy Land 3D Sugar Chaos (Multiplayer)"**.
+
+### Step 7: Build & Production Verification
+- Run `npm run build`, compile standalone and server assets, push to GitHub on `main`, and verify live endpoints.

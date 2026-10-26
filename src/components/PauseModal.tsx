@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PetStats, EvolutionStage } from '../types/game';
 import { sound } from '../utils/audio';
+import { notificationEngine } from '../utils/notifications';
 import { TrumpCaricature } from './TrumpCaricature';
 
 interface PauseModalProps {
@@ -172,6 +173,48 @@ export const PauseModal: React.FC<PauseModalProps> = ({
                 {speed}X {speed === 1 ? '(REALTIME)' : speed === 20 ? '(TURBO)' : ''}
               </button>
             ))}
+          </div>
+        </div>
+
+        {/* Presidential Emergency Phone Notifications */}
+        <div className="bg-neutral-950 border border-amber-500/40 rounded-xl p-3 mb-4 space-y-2 text-xs font-pixel">
+          <div className="flex items-center justify-between">
+            <span className="text-amber-400 font-bold flex items-center gap-1.5">
+              <span>🔔</span>
+              <span>PHONE EMERGENCY ALERTS:</span>
+            </span>
+            <span className="text-[10px] text-neutral-400">
+              {typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted'
+                ? '✓ ACTIVE'
+                : 'TAP TO ENABLE'}
+            </span>
+          </div>
+          <p className="text-[11px] text-neutral-400 leading-tight">
+            Donald will send lock-screen push alerts to your phone if he's starving, sick, or fake news crashes his ratings!
+          </p>
+          <div className="flex gap-2 pt-1">
+            <button
+              onClick={async () => {
+                const granted = await notificationEngine.requestPermission();
+                if (granted) {
+                  sound.playVictoryFanfare();
+                } else {
+                  sound.playCancel();
+                }
+              }}
+              className="flex-1 py-1.5 px-2 rounded bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/60 text-amber-300 font-bold cursor-pointer transition text-[11px] text-center"
+            >
+              ENABLE PHONE ALERTS
+            </button>
+            <button
+              onClick={() => {
+                notificationEngine.sendTestAlert();
+              }}
+              className="py-1.5 px-3 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 cursor-pointer transition text-[11px]"
+              title="Test push notification right now"
+            >
+              TEST NOTIF
+            </button>
           </div>
         </div>
 

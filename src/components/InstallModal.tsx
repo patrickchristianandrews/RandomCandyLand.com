@@ -40,7 +40,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ onClose, deferredPro
             📱
           </div>
           <h3 className="text-lg sm:text-xl font-serif-luxury font-black text-amber-300 tracking-wide">
-            Add Trump Gotcha to Home Screen
+            Add Trumpagotchi to Home Screen
           </h3>
           <p className="text-xs text-amber-100/70 font-sans">
             Play anytime in full screen with one tap — zero browser bars!
@@ -115,7 +115,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ onClose, deferredPro
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
                 </p>
                 <p className="text-neutral-400 text-[11px]">
-                  Tap <strong className="text-white">Add</strong>. Trump Gotcha will appear on your phone home screen with its custom gold icon!
+                  Tap <strong className="text-white">Add</strong>. Trumpagotchi will appear on your phone home screen with its custom gold icon!
                 </p>
               </div>
             </div>
@@ -170,7 +170,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ onClose, deferredPro
                   <div className="space-y-0.5">
                     <p className="font-bold text-white">Confirm "Install"</p>
                     <p className="text-neutral-400 text-[11px]">
-                      The gold Trump Gotcha icon will be added to your app drawer and home screen.
+                      The gold Trumpagotchi icon will be added to your app drawer and home screen.
                     </p>
                   </div>
                 </div>

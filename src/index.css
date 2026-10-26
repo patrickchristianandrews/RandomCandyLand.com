@@ -19,6 +19,23 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .font-bungee {
+    font-family: 'Bungee', cursive, sans-serif;
+  }
+  .font-fredoka {
+    font-family: 'Fredoka', cursive, sans-serif;
+  }
+  .font-marker {
+    font-family: 'Permanent Marker', cursive, sans-serif;
+  }
+  .cardboard-texture {
+    background-color: #faf6ea;
+    background-image: radial-gradient(#d8cca7 0.8px, transparent 0.8px);
+    background-size: 10px 10px;
+  }
+  .tabletop-wood {
+    background: radial-gradient(circle at 50% 25%, #5a2713 0%, #361507 55%, #190802 100%);
+  }
 }
 
 body {

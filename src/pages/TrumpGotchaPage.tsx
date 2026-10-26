@@ -239,7 +239,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
           <div className="flex items-center gap-1.5 text-amber-400 font-serif-luxury font-bold">
             <Crown className="w-4 h-4 text-amber-400" />
             <span className="text-white text-xs sm:text-sm font-black tracking-wider gold-text-shimmer">
-              TRUMP GOTCHA
+              TRUMPAGOTCHI
             </span>
             <span className="text-amber-400/50 hidden md:inline">&bull; 1997 DIGI-PET</span>
           </div>
@@ -428,7 +428,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
               </div>
               <div>
                 <h3 className="text-xl sm:text-2xl font-serif-luxury font-black text-amber-300">
-                  How Trump Gotcha Works
+                  How Trumpagotchi Works
                 </h3>
                 <p className="text-xs text-amber-100/70 font-sans">
                   The classic 1997 3-button handheld virtual pet experience.
@@ -547,7 +547,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
               </div>
               <div>
                 <h3 className="text-xl sm:text-2xl font-serif-luxury font-black text-amber-300">
-                  How to Win Trump Gotcha
+                  How to Win Trumpagotchi
                 </h3>
                 <p className="text-xs text-amber-100/70 font-sans">
                   The ultimate objective: Evolve Donald through all 5 life stages to Commander-in-Chief!
@@ -642,7 +642,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-serif-luxury font-black text-amber-300">
-                    Add Trump Gotcha to Your Phone Home Screen
+                    Add Trumpagotchi to Your Phone Home Screen
                   </h3>
                   <p className="text-xs text-amber-100/70 font-sans">
                     Launch your digipet in full screen with one tap — looks and plays like a native app!

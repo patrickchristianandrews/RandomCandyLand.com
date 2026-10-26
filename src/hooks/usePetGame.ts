@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { PetStats, FoodItem, EvolutionStage, TRUMP_QUOTES, TrumpQuote, FOOD_MENU } from '../types/game';
 import { sound } from '../utils/audio';
+import { notificationEngine } from '../utils/notifications';
 
 const STORAGE_KEY = 'trumpagotchi_save_v2';
 
@@ -223,11 +224,25 @@ export function usePetGame() {
           health * 0.1
         );
 
-        // Attention needed alert
+        // Attention needed alert & phone notifications
         const needsAttention = hunger < 30 || messCount >= 2 || isSick || hairStyle < 30;
         if (needsAttention && !prev.attentionNeeded) {
           sound.playAttentionAlert();
         }
+
+        // Trigger phone notifications if things start going bad for Donald
+        notificationEngine.checkAndNotifyVitals({
+          ...prev,
+          hunger,
+          happiness,
+          energy,
+          cleanliness,
+          hairStyle,
+          health,
+          isSick,
+          ratings,
+          messCount: messCount,
+        });
 
         return {
           ...prev,
