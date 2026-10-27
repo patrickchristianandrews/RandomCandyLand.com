@@ -43,7 +43,7 @@ try{
     const pending=new Map();
     client.addEventListener('message',event=>{
       const msg=JSON.parse(String(event.data));
-      if(msg.method==='Runtime.exceptionThrown')testErrors.push(msg.params?.exceptionDetails?.text||'Runtime exception');
+      if(msg.method==='Runtime.exceptionThrown')testErrors.push(msg.params?.exceptionDetails?.exception?.description || msg.params?.exceptionDetails?.text || 'Runtime exception');
       if(msg.method==='Log.entryAdded'&&msg.params?.entry?.level==='error')testErrors.push(msg.params.entry.text);
       if(msg.id&&pending.has(msg.id)){const [resolve,reject]=pending.get(msg.id);pending.delete(msg.id);if(msg.error)reject(new Error(msg.error.message));else resolve(msg.result);}
     });
