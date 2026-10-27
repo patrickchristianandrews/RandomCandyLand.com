@@ -59,8 +59,8 @@ footer{margin-top:70px;padding:25px 0;border-top:1px solid #523d5d;color:#bfaacb
 'use strict';
 const $ = id => document.getElementById(id);
 const safeSession = (key,val) => { try { if(val!==undefined) sessionStorage.setItem(key,val); return sessionStorage.getItem(key); } catch(e) { return null; } };
-$('enter').onclick = () => { safeSession('atlasAdult','yes'); $('gate').remove(); };
-if(safeSession('atlasAdult')==='yes') $('gate').remove();
+$('enter').onclick = () => { safeSession('atlasAdult','yes'); safeSession('ad_18','yes'); $('gate').remove(); };
+if(safeSession('atlasAdult')==='yes' || safeSession('ad_18')==='yes') $('gate').remove();
 const habits=[
 ['👍','Thumb-sucking or chewing','A repetitive oral or hand habit can offer soothing sensory feedback, especially with stress, boredom, fatigue or transitions.','It does not reveal an adult fetish, an attachment style, childhood trauma, or any wish to engage in a role-play scenario.','Comfort, repetitive rhythm, and sensory regulation'],
 ['🌀','Hair-twirling or fidgeting','Small repeated movements may help attention or regulation and may become automatic.','Fidgeting does not establish arousal or preference for any activity.','Texture, rhythm, and self-regulation'],
