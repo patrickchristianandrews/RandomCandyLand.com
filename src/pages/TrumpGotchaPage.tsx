@@ -390,6 +390,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 currentMenu={currentMenu}
                 theme={lcdTheme}
                 quoteText={currentQuote.text}
+                feelingText={currentQuote.feeling}
                 isSleeping={stats.isSleeping}
                 onTapDonald={tapDonald}
               />
