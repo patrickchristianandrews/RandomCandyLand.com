@@ -6,6 +6,25 @@
 .top a.labnav{display:inline-flex;align-items:center;text-decoration:none;border:1px solid #e4aee9;border-radius:99px;background:#684773;color:#ffeaf9;padding:9px 13px;font-size:12px;font-weight:900;white-space:nowrap}.top a.labnav:hover{background:#866096}
 </style></head><body>
 <div id="ageGate" class="gate"><div class="card"><div class="eyebrow">18+ educational space</div><h2>Welcome <span class="italic">After Dark.</span></h2><p>Learn about consensual adult interests, explore without judgment, and talk about curiosity at your own pace. You must be at least 18. No account is required.</p><p class="tiny">Your quiz responses and interest lists stay in your browser. This tool does not predict sexual preferences or replace therapy.</p><div class="row"><button class="btn" id="enter">I am 18 or older · Enter</button><a class="btn alt" href="/">Leave site</a></div></div></div>
+<script>
+/* Age entry is deliberately separate from the exploration library.
+   Even if a long-running feature fails, the visitor can still enter. */
+(function () {
+  var gate = document.getElementById('ageGate');
+  var enter = document.getElementById('enter');
+  function letVisitorIn() {
+    try { sessionStorage.setItem('ad_18','yes'); } catch (e) {}
+    if (gate) {
+      gate.classList.add('hidden');
+      gate.setAttribute('aria-hidden','true');
+      gate.style.display = 'none';
+    }
+    document.body.classList.add('ad-entered');
+  }
+  if (enter) enter.addEventListener('click', letVisitorIn);
+  try { if (sessionStorage.getItem('ad_18') === 'yes') letVisitorIn(); } catch (e) {}
+})();
+</script>
 <div class="wrap">
 <nav class="top" aria-label="After Dark sections"><span class="brand">✳ AFTER DARK <small>/ The Curiosity Atlas</small></span><a class="back" href="/">← RandomCandyLand</a><button data-tab="home" class="selected">Discover</button><button data-tab="atlas">Atlas</button><button data-tab="quiz">Quiz</button><button data-tab="psych">Psychology</button><a class="labnav" href="/after-dark/psychology-lab/">✧ Clue Compass</a><button data-tab="ideas">Idea Lab</button><button data-tab="chat">Ask Atlas</button><button data-tab="guide">Resources</button></nav>
 <section id="home" class="tab visible"><div class="hero"><span class="eyebrow">Unfiltered curiosity · thoughtfulness · consent</span><h1>Explore the <span class="italic">unexpected.</span></h1><p class="lead">An expansive guide to adult interests, the feelings and psychology that may accompany them, an in-depth discovery compass, and a private conversation space. No pressure. No judgment. No labels required.</p><div class="row"><button class="btn" data-goto="quiz">Take the curiosity compass →</button><button class="btn alt" data-goto="atlas">Explore every topic</button></div></div>
@@ -98,6 +117,6 @@ function addChat(text,user=false){const b=elText('div',text,'bubble'+(user?' use
 function ask(text){const query=text.trim();if(!query)return;addChat(query,true);addChat(respond(query));}
 $('askForm').onsubmit=e=>{e.preventDefault();const input=$('chatText');const text=input.value.slice(0,480);input.value='';ask(text)};
 document.querySelectorAll('[data-ask]').forEach(b=>b.onclick=()=>ask(b.dataset.ask));
-$('enter').onclick=()=>{try{sessionStorage.setItem('ad_18','yes')}catch{}$('ageGate').remove()};try{if(sessionStorage.getItem('ad_18')==='yes')$('ageGate').remove()}catch{}
+// 18+ entry is initialized independently before this large educational library.
 const hash=location.hash.slice(1);if(['home','atlas','quiz','psych','ideas','chat','guide'].includes(hash))renderTabs(hash);
 </script></body></html>
