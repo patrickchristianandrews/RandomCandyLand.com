@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kink Atlas — a field guide to desire</title>
+<meta name="description" content="Ninety-four fetishes and the psychology behind them, with a glossary, a personality quiz, a scenario generator and a starter guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="site">
+<div class="wrap">
+
+<h2 class="sr">Kink Atlas — an editorial guide to ninety-four fetishes and the psychology behind them, with a glossary, a personality quiz, a scenario generator and a starter guide.</h2>
+
+<div class="mast">
+  <span>A field guide to desire</span>
+  <span class="r"><span>№ 01 — MMXXVI</span><button id="themeBtn">dark</button></span>
+</div>
+
+<header class="hero">
+  <h1>kink<em>atlas</em></h1>
+  <p class="lede">Ninety-four entries on what turns people on and why, written for people who want the mechanism, not just the label. No entrance exam. Nothing here is prescriptive.</p>
+  <div class="stats"><span>94 entries</span><span>17 mechanisms</span><span>30 questions</span><span>3 decks</span></div>
+</header>
+
+<nav class="main">
+  <button data-v="atlas" class="on">Atlas</button>
+  <button data-v="mylist">My list</button>
+  <button data-v="psych">Psychology</button>
+  <button data-v="gloss">Glossary</button>
+  <button data-v="quiz">Quiz</button>
+  <button data-v="gen">Generator</button>
+  <button data-v="start">Start here</button>
+</nav>
+
+<section class="view on" id="v-atlas">
+  <div class="head">
+    <span class="kicker">§ 01 — The index</span>
+    <h2>Everything, <em>alphabetically by appetite.</em></h2>
+    <p class="sub">Open any entry for the mechanism underneath it and one thing to try this week. Mark entries as you go; the list is stored on your device.</p>
+  </div>
+  <div class="tools">
+    <input class="search" id="aSearch" placeholder="Search names, ideas, mechanics…">
+    <button class="btn ghost sm" id="aRandom">Random entry</button>
+  </div>
+  <div class="cats" id="aCats"></div>
+  <div class="list" id="aGrid"></div>
+  <p class="count" id="aCount"></p>
+</section>
+
+<section class="view" id="v-mylist">
+  <div class="head">
+    <span class="kicker">§ 02 — Your list</span>
+    <h2>Yes, maybe, <em>never.</em></h2>
+    <p class="sub">Three columns. Stored locally, never uploaded. Compare with someone else's and the interesting part is not the overlap — it is where the top of one list meets the bottom of the other.</p>
+  </div>
+  <div class="tools">
+    <button class="btn ghost sm" id="mlCopy">Copy as text</button>
+    <button class="btn ghost sm" id="mlClear">Clear all</button>
+  </div>
+  <div id="mlOut"></div>
+</section>
+
+<section class="view" id="v-psych">
+  <div class="head">
+    <span class="kicker">§ 03 — The machinery</span>
+    <h2>Why any of this <em>works.</em></h2>
+    <p class="sub">Fetishes look arbitrary from outside. From inside they are one of seventeen mechanisms wearing a costume. Open any of them.</p>
+  </div>
+  <div class="acc" id="mechOut"></div>
+  <div class="head"><span class="kicker">Ten corrections</span><h2>Things people <em>get wrong.</em></h2></div>
+  <div class="acc" id="mythOut"></div>
+  <div class="head"><span class="kicker">Context</span><h2>A very short <em>history.</em></h2>
+    <p class="sub">Kink is not a modern invention and not a subculture that appeared in 1950s San Francisco. The vocabulary is recent; the behaviour is not.</p>
+  </div>
+  <div class="tl" id="tlOut"></div>
+</section>
+
+<section class="view" id="v-gloss">
+  <div class="head">
+    <span class="kicker">§ 04 — Vocabulary</span>
+    <h2>The words, <em>translated.</em></h2>
+    <p class="sub">Nobody is born knowing this and everybody looks it up.</p>
+  </div>
+  <div class="tools"><input class="search" id="gSearch" placeholder="Search terms…"></div>
+  <div class="gloss" id="glossOut"></div>
+</section>
+
+<section class="view" id="v-quiz">
+  <div id="qIntro">
+    <div class="head">
+      <span class="kicker">§ 05 — The quiz</span>
+      <h2>Find your <em>shape.</em></h2>
+      <p class="sub">Thirty questions, none of them about sex. All of them about how you handle control, contrast, order, novelty, attention and belonging — the machinery underneath. Nothing here scores how kinky you are.</p>
+    </div>
+    <div class="tools">
+      <div class="segs" id="qMode">
+        <button data-m="quick" class="on">Quick — 12</button>
+        <button data-m="deep">Full — 30</button>
+      </div>
+      <button class="btn" id="qStart">Begin</button>
+    </div>
+  </div>
+  <div id="qRun" style="display:none">
+    <div class="qwrap">
+      <div class="qmeta" id="qMeta"></div>
+      <div class="prog"><span id="qBar"></span></div>
+      <div class="q" id="qText"></div>
+      <div class="opts" id="qOpts"></div>
+      <div style="padding-top:22px"><button class="btn ghost sm" id="qBack">Back</button></div>
+    </div>
+  </div>
+  <div id="qRes" style="display:none"></div>
+</section>
+
+<section class="view" id="v-gen">
+  <div class="head">
+    <span class="kicker">§ 06 — Decks</span>
+    <h2>Five ingredients, <em>shuffled.</em></h2>
+    <p class="sub">Nothing here needs gear you do not already own. Reroll any single line you dislike.</p>
+  </div>
+  <div class="tools">
+    <div class="segs" id="gMode">
+      <button data-m="scenario" class="on">Scenario</button>
+      <button data-m="instruction">Instruction</button>
+      <button data-m="question">Question</button>
+    </div>
+    <div class="segs" id="gLevel">
+      <button data-l="tender" class="on">Tender</button>
+      <button data-l="standard">Standard</button>
+      <button data-l="feral">Feral</button>
+    </div>
+    <button class="btn" id="gRoll">Roll</button>
+    <button class="btn ghost" id="gSave">Save</button>
+  </div>
+  <div class="panel" id="gOut" style="margin-top:22px"></div>
+  <div class="head" id="gSavedH" style="display:none;padding:34px 0 12px"><span class="kicker">Kept</span><h3>Saved</h3></div>
+  <div id="gSaved"></div>
+</section>
+
+<section class="view" id="v-start">
+  <div class="head">
+    <span class="kicker">§ 07 — Practicalities</span>
+    <h2>Start <em>here.</em></h2>
+    <p class="sub">The unglamorous part. If you read nothing else on this site, read this.</p>
+  </div>
+  <div class="blocks">
+    <div class="block">
+      <span class="no">01</span>
+      <h3>How to bring it up</h3>
+      <p>Do not open with a label. Open with a memory of a feeling.</p>
+      <p>Bad: <span class="mono">“I think I might be into D/s.”</span></p>
+      <p>Better: <span class="mono">“Remember when you held my wrist in the kitchen? I have been thinking about it for a week.”</span></p>
+      <p>Specific beats categorical. Nobody has to have an opinion about a category. Everybody has an opinion about a week ago.</p>
+    </div>
+    <div class="block">
+      <span class="no">02</span>
+      <h3>Safe words and signals</h3>
+      <p>A safe word is a word that means stop, agreed in advance. It is the thing that lets everything else be loose.</p>
+      <p>Traffic lights beat a single word, because most scenes are neither fine nor over: <span class="mono">green</span> keep going, <span class="mono">amber</span> ease off, <span class="mono">red</span> stop.</p>
+      <p>If speech is unavailable, agree a physical signal. Two taps. Or hold an object and drop it.</p>
+    </div>
+    <div class="block">
+      <span class="no">03</span>
+      <h3>Negotiating, quickly</h3>
+      <p>Three lists, five minutes, both directions: curious about, know you like, hard no. Then agree one thing to try and one to leave alone.</p>
+      <p>Write them down the first time. Memory is unreliable when you are excited.</p>
+    </div>
+    <div class="block">
+      <span class="no">04</span>
+      <h3>A first evening that works</h3>
+      <p>Ninety minutes. Ten talking, five setting up, an hour doing one simple thing, fifteen lying around afterwards doing nothing in particular.</p>
+      <p>Change exactly one variable. One successful evening is one variable.</p>
+    </div>
+    <div class="block">
+      <span class="no">05</span>
+      <h3>Aftercare, both ways</h3>
+      <p>Aftercare is not a reward for the person who received. Both people come down, often at different speeds, and whoever was in charge frequently crashes harder — they were holding the map, and that is work.</p>
+      <p>Blanket, water, food, quiet, no decisions for twenty minutes. Then talk about what actually happened, specifically.</p>
+    </div>
+    <div class="block">
+      <span class="no">06</span>
+      <h3>Drop, and what to expect</h3>
+      <p>A flat, weepy, vaguely hungover feeling arriving anywhere from two hours to two days later. Completely normal, mostly a neurotransmitter hangover.</p>
+      <p>Worse with hunger, exhaustion, no contact afterwards, and novelty. Plan around all four.</p>
+    </div>
+    <div class="block">
+      <span class="no">07</span>
+      <h3>Gear, in order of usefulness</h3>
+      <p>One: a scarf. Two: a blindfold that actually blocks light. Three: clothespins. Four: a timer. Five: a soft flogger — the last thing you need and the first thing people buy.</p>
+      <p>Geometry matters far more than equipment.</p>
+    </div>
+    <div class="block">
+      <span class="no">08</span>
+      <h3>Worth discarding</h3>
+      <p>That submission is passive. That topping means never being unsure. That a dynamic must be 24/7 or meaningless. That pain and pleasure are opposites. That you need experience before you are allowed to want anything.</p>
+      <p>Also: that it has to look like anyone else’s version of it.</p>
+    </div>
+  </div>
+</section>
+
+<div class="foot">
+  <span>Kink Atlas — 94 entries, 17 mechanisms, one quiz that never mentions sex</span>
+  <span>Everything is negotiable</span>
+</div>
+
+</div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
