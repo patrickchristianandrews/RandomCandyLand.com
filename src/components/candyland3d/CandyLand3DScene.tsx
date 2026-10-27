@@ -166,6 +166,32 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
 
     scene.add(tilesGroup);
 
+    // Candy forest: lightweight instanced sculpted lollipop towers, designed
+    // to create genuine depth without loading large 3D models on phones.
+    const candyStem = new THREE.CylinderGeometry(.17,.23,7,8);
+    const candyHead = new THREE.SphereGeometry(1.2,12,9);
+    const candyStripe = new THREE.TorusGeometry(.85,.13,5,16);
+    const stemMaterial = new THREE.MeshStandardMaterial({color:0xfff4dd,roughness:.5});
+    const candyColors = [0xff5f9d,0xffdc66,0x9c6afa,0x5ee5e3];
+    const candyMats = candyColors.map(color=>new THREE.MeshStandardMaterial({color,roughness:.24,metalness:.08}));
+    const forest = new THREE.Group();
+    const temp = new THREE.Object3D();
+    const count=28;
+    const stems = new THREE.InstancedMesh(candyStem,stemMaterial,count);
+    const heads = candyMats.map(mat=>new THREE.InstancedMesh(candyHead,mat,count/4));
+    const stripeMat = new THREE.MeshStandardMaterial({color:0xffffff,roughness:.3});
+    const stripes = new THREE.InstancedMesh(candyStripe,stripeMat,count);
+    for(let i=0;i<count;i++){
+      const angle=i*2.39996,radius=29+(i%5)*4;
+      const x=Math.cos(angle)*radius,z=Math.sin(angle)*radius;
+      const size=.7+(i%4)*.13;
+      temp.position.set(x,2.3,z);temp.rotation.set(0,angle,0);temp.scale.set(size,size,size);temp.updateMatrix();stems.setMatrixAt(i,temp.matrix);
+      temp.position.set(x,6.2*size,z);temp.scale.set(size,size,size);temp.updateMatrix();heads[i%4].setMatrixAt(Math.floor(i/4),temp.matrix);
+      temp.position.set(x,6.2*size,z+0.23);temp.rotation.set(.3,angle,0);temp.updateMatrix();stripes.setMatrixAt(i,temp.matrix);
+    }
+    forest.add(stems,...heads,stripes);
+    scene.add(forest);
+
     // 7. FLOATING SUGAR SPARKLES (Particles)
     const particleCount = 200;
     const particleGeo = new THREE.BufferGeometry();
