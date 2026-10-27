@@ -74,7 +74,7 @@ export function usePetGame() {
 
   // Persist state
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(stats)); } catch { /* Safari private storage */ }
   }, [stats]);
 
   // Set temporary animation that returns to idle/sleep
@@ -182,6 +182,8 @@ export function usePetGame() {
   // Main simulation tick
   useEffect(() => {
     const interval = window.setInterval(() => {
+      // Keep inactive iPhone tabs from draining battery and re-rendering the game.
+      if (document.visibilityState === 'hidden') return;
       setStats(prev => {
         const dt = (1 / 60) * speedMultiplier;
         const newAge = prev.ageMinutes + dt;
@@ -231,7 +233,8 @@ export function usePetGame() {
         }
 
         // Trigger phone notifications if things start going bad for Donald
-        notificationEngine.checkAndNotifyVitals({
+        // Skip repeated notification work when the game is paused or hidden.
+        if (document.visibilityState === 'visible') notificationEngine.checkAndNotifyVitals({
           ...prev,
           hunger,
           happiness,
