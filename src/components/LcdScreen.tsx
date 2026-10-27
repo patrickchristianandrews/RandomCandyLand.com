@@ -118,7 +118,8 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
 
   // Full-time 100% authentic retro LCD pixel matrix drawing loop
   useEffect(() => {
-    let animationFrameId: number;
+    let disposed = false;
+    let lastDrawAt = 0;
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -135,7 +136,13 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
 
     const themePalette = THEME_COLORS[theme];
 
-    const render = () => {
+    const render = (now: number) => {
+      if (disposed) return;
+      // Register the latest frame so unmount actually stops the drawing loop.
+      frameRef.current = requestAnimationFrame(render);
+      // Limit canvas redraws to 20 fps and stop rendering inactive Safari tabs.
+      if (document.visibilityState === 'hidden' || now - lastDrawAt < 50) return;
+      lastDrawAt = now;
       tickRef.current++;
       const t = tickRef.current;
 
@@ -193,6 +200,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
       let currentSprite: PixelGrid = SPRITE_TRUMP_IDLE_1;
       let xOffset = 16;
       let yOffset = 8;
+      let danceFlip = false;
 
       if (stats.evolutionStage === 'baby') {
         // Small toddler Donald!
@@ -204,18 +212,18 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
         currentSprite = SPRITE_TRUMP_SLEEP;
         yOffset = 10;
       } else if (animation === 'dance') {
-        // Trump Fist-Pump YMCA Dance!
-        const isPumpLeft = Math.floor(t / 10) % 2 === 0;
-        currentSprite = isPumpLeft ? SPRITE_TRUMP_DANCE_1 : SPRITE_TRUMP_DANCE_2;
-        xOffset = 16;
-        yOffset = isPumpLeft ? 7 : 8;
-
-        // Floating musical notes
-        if (t % 16 < 8) {
-          drawSprite(SPRITE_MUSIC_NOTE, 6, 8);
-        } else {
-          drawSprite(SPRITE_MUSIC_NOTE, 50, 6);
-        }
+        // Eight-beat pocket dance: alternating fists, side steps, bounce,
+        // mirrored moves, rising music notes and little heart bursts.
+        const beat = Math.floor(t / 3) % 8;
+        const stepsX = [0, -3, 2, 5, 2, -2, -4, 1];
+        const stepsY = [0, -2, 0, -3, 0, -2, 1, -3];
+        currentSprite = beat % 2 === 0 ? SPRITE_TRUMP_DANCE_1 : SPRITE_TRUMP_DANCE_2;
+        xOffset = 16 + stepsX[beat];
+        yOffset = 8 + stepsY[beat];
+        danceFlip = beat >= 4;
+        drawSprite(SPRITE_MUSIC_NOTE, 3 + (t % 10), 5 + (t % 6));
+        drawSprite(SPRITE_MUSIC_NOTE, 48 - (t % 8), 8 + (t % 4));
+        if (beat === 3 || beat === 7) drawSprite(SPRITE_HEART, 46, 3);
       } else if (animation === 'tv_fake_news') {
         // Donald yelling at CRT TV news!
         const isShakeFists = Math.floor(t / 8) % 2 === 0;
@@ -269,7 +277,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
       }
 
       // Draw Trump Character Sprite
-      drawSprite(currentSprite, xOffset, yOffset);
+      drawSprite(currentSprite, xOffset, yOffset, danceFlip);
 
       // 4. Draw Scattered Secret Documents if messy
       if (stats.messCount >= 1) drawSprite(SPRITE_PAPER_MESS, 4, 30);
@@ -288,13 +296,13 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
         ctx.fillRect(c * pixelSize, 40 * pixelSize, pixelSize - 1, 1);
       }
 
-      frameRef.current = requestAnimationFrame(render);
     };
 
-    animationFrameId = requestAnimationFrame(render);
+    frameRef.current = requestAnimationFrame(render);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      disposed = true;
+      cancelAnimationFrame(frameRef.current);
     };
   }, [theme, animation, isSleeping, stats.messCount, stats.attentionNeeded, stats.hunger, stats.evolutionStage]);
 
