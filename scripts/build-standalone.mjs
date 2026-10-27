@@ -69,6 +69,11 @@ const trumpDir = path.join(distDir, 'trump');
 if (!fs.existsSync(trumpDir)) fs.mkdirSync(trumpDir, { recursive: true });
 fs.writeFileSync(path.join(trumpDir, 'index.html'), standaloneHtml, 'utf-8');
 
+// Keep the classic candy arcade working at /arcade/ without changing the homepage.
+const arcadeDir = path.join(distDir, 'arcade');
+fs.mkdirSync(arcadeDir, { recursive: true });
+fs.writeFileSync(path.join(arcadeDir, 'index.html'), standaloneHtml, 'utf-8');
+
 // Copy to root index.html, 404.html, and trump/index.html so GitHub Pages serves the production bundle directly!
 fs.writeFileSync(path.resolve(process.cwd(), 'index.html'), standaloneHtml, 'utf-8');
 fs.writeFileSync(path.resolve(process.cwd(), '404.html'), standaloneHtml, 'utf-8');
