@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { ArrowRight, Crown, Dice5, Sparkles, Volume2, VolumeX, X, ZoomIn, ZoomOut, RotateCcw, Music2, Gamepad2, WandSparkles } from 'lucide-react';
+import { ArrowRight, Dice5, Volume2, VolumeX, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { CandyLand3DScene } from '../components/candyland3d/CandyLand3DScene';
 import { generate3DBoardTiles, ABSURD_CHAOS_CARDS } from '../utils/candyChaosEngine';
-import { CHAOS_CHARACTERS, ChaosCard, ChaosCharacter, ChaosCharacterId, ChaosPlayer } from '../types/candyChaos';
+import { CHAOS_CHARACTERS, ChaosCard, ChaosCharacterId, ChaosPlayer } from '../types/candyChaos';
 import { sound } from '../utils/audio';
 import { candyAudio } from '../utils/candyAudio';
 
@@ -174,7 +174,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </section>
       <section id="candy-board" className="sugar-section sugar-board-section">
         <div className="sugar-sectiontop"><div><span className="sugar-eyebrow">✦ THE MAIN EVENT</span><h2>Sugar Chaos <em>3D.</em></h2><p>Spin, zoom, collect candy gems and survive the most absurd deck on the internet.</p></div><button className="sugar-pill" onClick={()=>setShowGuide(v=>!v)} aria-expanded={showGuide}>❔ How to play</button></div>
-        {showGuide && <div className="sugar-guide"><strong>YOUR 30-SECOND GUIDE:</strong> Pick a character below, roll the dice, and watch your pawn cross the 3D candy world. A surprise card changes your gem total or moves you. Read the big pop-up, collect, then the next guest takes their turn. Drag the board to rotate, use + and − to zoom, and click the character list to switch your star. Reach the candy castle to score a victory! This is a playful local game; the other players are computer-controlled characters, not online strangers.</div>}
+        {showGuide && <div className="sugar-guide"><strong>YOUR 30-SECOND GUIDE:</strong> Pick a character below, roll the dice, and watch your pawn cross the 3D candy world. A surprise card changes your gem total or moves you. Read the big pop-up, collect, then the next guest takes their turn. Drag the board to rotate, use + and − to zoom, and click the character list to switch your star. Reach the candy castle to score a victory! This is a local pass-and-play adventure with fictional guest characters. Tap Roll to take each guest’s turn; it is not a live multiplayer room.</div>}
         <div className="sugar-game-shell">
           <div className="sugar-game-top"><div><span className="sugar-chip">LIVE CANDY REALM</span> <span className="sugar-chip">DECK: {CARD_COUNT} CARDS</span></div><div className="sugar-game-score">🎲 {turnPlayer?.name || 'Player'}'s turn · Round {turn}</div></div>
           <CandyLand3DScene tiles={tiles} players={players} activePlayerId={turnPlayer?.id||''} zoomLevel={zoom}/>
