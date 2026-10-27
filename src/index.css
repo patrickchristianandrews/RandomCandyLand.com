@@ -50,3 +50,18 @@ body {
 
 .sugar-universe{background:linear-gradient(155deg,#360c69,#571498 24%,#210c3b 75%);color:white;min-height:100vh;overflow:hidden;position:relative;font-family:'Fredoka',system-ui,sans-serif}
 .sugar-universe *{box-sizing:border-box}
+
+.sugar-sky{position:absolute;inset:0 0 auto;height:980px;pointer-events:none;background:radial-gradient(circle at 86% 19%,#ff77dc94,transparent 40%),radial-gradient(circle at 20% 32%,#a25bffbd,transparent 46%),linear-gradient(#282074,#52158e,#1c0b37);z-index:0}
+.sugar-sky:before{content:'';position:absolute;inset:0;background-image:radial-gradient(#fffcdf 2px,transparent 2px);background-size:89px 109px;mask-image:linear-gradient(black,transparent)}
+.sugar-cloud{position:absolute;width:300px;height:190px;border-radius:50%;filter:blur(55px);background:#ffc2ef;opacity:.4;animation:sugarFloat 10s ease-in-out infinite alternate}
+.sugar-cloud-a{top:150px;left:-70px}.sugar-cloud-b{top:300px;right:-110px;background:#97e3ff}.sugar-cloud-c{top:540px;left:45%;background:#bb9cff}
+.sugar-floater{position:absolute;font-size:clamp(40px,5vw,85px);filter:drop-shadow(0 8px 6px #24054a88);animation:sugarFloat 7s ease-in-out infinite}
+.sugar-floater.one{top:150px;left:3%}.sugar-floater.two{top:400px;left:11%;animation-delay:-2s}.sugar-floater.three{top:320px;right:4%;animation-delay:-4s}.sugar-floater.four{top:650px;right:8%;animation-delay:-3s}.sugar-floater.five{top:730px;left:6%;animation-delay:-5s}
+@keyframes sugarFloat{0%,100%{translate:0 0;rotate:-5deg}50%{translate:4px -16px;rotate:9deg}}
+.sugar-nav{position:relative;z-index:4;max-width:1320px;margin:auto;padding:19px 28px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.sugar-mark{display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:1000;font-size:21px}.sugar-mark span{color:#ffeb8d}.sugar-mark small{font-size:11px;color:#f4bde5}
+.sugar-navlinks{display:flex;gap:8px;align-items:center}.sugar-navlinks a,.sugar-navlinks button{border:1px solid #ffffff70;border-radius:13px;padding:9px 13px;background:#ffffff2f;color:white;text-decoration:none;display:inline-flex;align-items:center;min-height:41px;gap:6px;cursor:pointer}
+.sugar-hero{position:relative;z-index:1;max-width:1320px;margin:auto;min-height:700px;padding:clamp(70px,9vw,115px) clamp(20px,6vw,80px) 90px;display:flex;align-items:flex-start;flex-direction:column;justify-content:center}
+.sugar-kicker,.sugar-eyebrow{font-size:12px;font-weight:1000;letter-spacing:.17em;color:#fff6ae;text-transform:uppercase}
+.sugar-hero h1{font:1000 clamp(50px,8vw,111px)/.96 'Fredoka',system-ui,sans-serif;max-width:880px;text-transform:uppercase;letter-spacing:-.08em;margin:22px 0;text-shadow:0 6px #5b1666,0 11px 28px #1a062ea0;position:relative;z-index:2}
+.sugar-hero h1 span{color:#fff3a3}.sugar-hero h1 em{font-style:normal;color:#ff89da}.sugar-hero h1 b{color:#9df4ff}.sugar-hero>p{font-size:clamp(17px,2vw,21px);line-height:1.55;max-width:620px;color:#ffecfc;position:relative;z-index:2}
