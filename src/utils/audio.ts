@@ -8,7 +8,8 @@ class SoundEngine {
   private masterGain: GainNode | null = null;
 
   constructor() {
-    const savedMute = localStorage.getItem('trumpagotchi_muted');
+    let savedMute: string | null = null;
+    try { savedMute = localStorage.getItem('trumpagotchi_muted'); } catch {}
     if (savedMute !== null) {
       this.isMuted = savedMute === 'true';
     }
@@ -29,7 +30,7 @@ class SoundEngine {
 
   public toggleMute(): boolean {
     this.isMuted = !this.isMuted;
-    localStorage.setItem('trumpagotchi_muted', String(this.isMuted));
+    try { localStorage.setItem('trumpagotchi_muted', String(this.isMuted)); } catch {}
     if (this.masterGain) {
       this.masterGain.gain.value = this.isMuted ? 0 : 0.15;
     }
@@ -615,6 +616,5 @@ class SoundEngine {
 }
 
 export const sound = new SoundEngine();
-sound.preWarmVoices();
-sound.warmTopQuotes();
+// Voice clips are loaded on demand to reduce iOS memory pressure.
 
