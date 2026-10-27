@@ -357,6 +357,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 <li><strong>Clean up the papers. 🧹</strong> Select the 🧹 Clean icon with button A, then press B to remove all scattered classified documents and restore cleanliness. More mess means Donald needs attention.</li>
                 <li><strong>Keep his ratings up. ⭐</strong> Food, happiness, neat hair, cleanliness, and health all help his approval rating. Caring for him also helps him evolve.</li>
                 <li><strong>Try the mini-games and sounds.</strong> Use the handheld menu for golf, rally, and deals. Actions can play recorded voice clips when sound is on.</li>
+                <li><strong>More actual recordings:</strong> <a href="https://www.101soundboards.com/boards/10035-donald-trump-soundboard" target="_blank" rel="noopener noreferrer" className="text-amber-200 underline underline-offset-2 hover:text-white">Browse Donald Trump voice clips ↗</a> on the original soundboard. This opens a separate tab and won't interrupt your game.</li>
               </ol>
               <p className="mt-3 text-xs text-sky-200/80">Handheld buttons: A = move through icons · B = perform the selected action · C = pause/back. Tap Donald to hear a reaction.</p>
             </details>
