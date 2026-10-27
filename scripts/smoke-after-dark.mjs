@@ -1,0 +1,109 @@
+// Browser-level regression checks for After Dark, requiring no npm test packages.
+// Uses Chrome DevTools Protocol and the runner's installed Google Chrome.
+import fs from 'node:fs';
+import http from 'node:http';
+import os from 'node:os';
+import path from 'node:path';
+import { spawn, spawnSync } from 'node:child_process';
+import { setTimeout as delay } from 'node:timers/promises';
+
+const root=path.resolve('dist');
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml'};
+const server=http.createServer((req,res)=>{
+  const uri=decodeURIComponent((req.url||'/').split('?')[0]);
+  const filename=path.resolve(root,'.'+uri,(uri.endsWith('/')||!path.extname(uri))?'index.html':'');
+  if(!filename.startsWith(root+path.sep)){res.writeHead(403).end();return;}
+  fs.readFile(filename,(err,data)=>{if(err){res.writeHead(404).end('Not found '+uri);return;}
+    res.writeHead(200,{'Content-Type':types[path.extname(filename)]||'application/octet-stream','Cache-Control':'no-store'});
+    res.end(data);
+  });
+});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+const port=server.address().port;
+const chrome=['google-chrome','chromium','chromium-browser'].find(c=>spawnSync('which',[c]).status===0);
+if(!chrome)throw new Error('Browser smoke tests need Chrome or Chromium');
+const profile=fs.mkdtempSync(path.join(os.tmpdir(),'rcd-chrome-'));
+const proc=spawn(chrome,['--headless=new','--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--no-first-run','--remote-debugging-port=0','--user-data-dir='+profile,'--remote-allow-origins=*','about:blank'],{stdio:'ignore'});
+const testErrors=[];
+let browserPort=0;
+try{
+  for(let i=0;i<60;i++){
+    const f=path.join(profile,'DevToolsActivePort');
+    if(fs.existsSync(f)){browserPort=+fs.readFileSync(f,'utf8').split('\n')[0];break;}
+    await delay(150);
+  }
+  if(!browserPort)throw Error('Chrome did not open DevTools port');
+  let client;
+  async function navigate(url){
+    if(client)client.close();
+    const target=await (await fetch(`http://127.0.0.1:${browserPort}/json/new?${encodeURIComponent(url)}`,{method:'PUT'})).json();
+    client=new WebSocket(target.webSocketDebuggerUrl);
+    await new Promise((resolve,reject)=>{client.addEventListener('open',resolve,{once:true});client.addEventListener('error',reject,{once:true})});
+    let next=0;
+    const pending=new Map();
+    client.addEventListener('message',event=>{
+      const msg=JSON.parse(String(event.data));
+      if(msg.method==='Runtime.exceptionThrown')testErrors.push(msg.params?.exceptionDetails?.text||'Runtime exception');
+      if(msg.method==='Log.entryAdded'&&msg.params?.entry?.level==='error')testErrors.push(msg.params.entry.text);
+      if(msg.id&&pending.has(msg.id)){const [resolve,reject]=pending.get(msg.id);pending.delete(msg.id);if(msg.error)reject(new Error(msg.error.message));else resolve(msg.result);}
+    });
+    const command=(method,params={})=>new Promise((resolve,reject)=>{const id=++next;pending.set(id,[resolve,reject]);client.send(JSON.stringify({id,method,params}));});
+    await command('Runtime.enable');
+    await command('Page.enable');
+    // A newly created target may still be loading; polling guarantees init.
+    const evaluate=async js=>{
+      const r=await command('Runtime.evaluate',{expression:js,returnByValue:true,awaitPromise:true});
+      if(r.exceptionDetails)throw Error('Browser JavaScript error: '+(r.exceptionDetails.exception?.description||r.exceptionDetails.text));
+      return r.result?.value;
+    };
+    for(let i=0;i<90;i++){if(await evaluate('document.readyState==="complete"'))break;await delay(100);}
+    await delay(200);
+    return {evaluate,command};
+  }
+  const site=`http://127.0.0.1:${port}`;
+  const {evaluate}=await navigate(site+'/after-dark/');
+  const check=async(desc,js)=>{
+    const value=await evaluate(js);
+    if(!value)throw Error('After Dark regression: '+desc);
+    console.log('✓',desc);
+  };
+  await check('Adult entry is present', "!!document.querySelector('#enter')");
+  await evaluate("document.querySelector('#enter').click()");
+  await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
+  await evaluate("document.querySelector('[data-tab=atlas]').click()");
+  await check('Atlas has 100+ working interest cards',"document.querySelectorAll('#topicGrid .topic').length>=100");
+  await evaluate("let input=document.querySelector('#search');input.value='leather';input.dispatchEvent(new Event('input',{bubbles:true}))");
+  await check('Search filters visible interests',"document.querySelectorAll('#topicGrid .topic').length>=1&&document.querySelectorAll('#topicGrid .topic').length<40");
+  await evaluate("let input=document.querySelector('#search');input.value='';input.dispatchEvent(new Event('input',{bubbles:true}))");
+  await evaluate("document.querySelector('#topicGrid .topic button').click()");
+  await check('Marking a topic updates the controls',"document.querySelectorAll('#topicGrid .topic button.chosen').length>0");
+  await evaluate("document.querySelector('[data-tab=quiz]').click();document.querySelector('#startQuiz').click()");
+  await check('Quiz begins and displays choices',"document.querySelectorAll('#quizCard .quizOpts button').length===4");
+  for(let i=0;i<32;i++){await evaluate("document.querySelector('#quizCard .quizOpts button')?.click()");}
+  await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
+  await evaluate("document.querySelector('[data-tab=psych]').click()");
+  await check('Psychology section renders all lenses',"document.querySelectorAll('#lenses .card').length>=10");
+  await evaluate("document.querySelector('[data-tab=ideas]').click();document.querySelector('#drawIdea').click()");
+  await check('Idea Lab draws usable cards',"document.querySelector('#ideaResult h3')?.textContent!=='What could curiosity feel like?'");
+  await evaluate("document.querySelector('[data-tab=chat]').click();document.querySelector('[data-ask]').click()");
+  await check('Ask Atlas responds to suggestions',"document.querySelectorAll('#chatWindow .bubble').length>=3");
+  await evaluate("document.querySelector('[data-tab=guide]').click()");
+  await check('Resources FAQ is interactive',"document.querySelectorAll('#faq details').length>=25");
+  const lab=await navigate(site+'/after-dark/psychology-lab/');
+  await checkLab(lab.evaluate);
+  if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
+  console.log('✓ All After Dark browser interaction tests passed.');
+} finally{
+  proc.kill('SIGTERM');server.close();
+  fs.rmSync(profile,{recursive:true,force:true});
+}
+async function checkLab(evaluate){
+  const enter=await evaluate("!!document.querySelector('#enter')");
+  if(!enter)throw Error('Clue Compass adult entry missing');
+  await evaluate("document.querySelector('#enter').click()");
+  const gate=await evaluate("!document.querySelector('#gate')");
+  if(!gate)throw Error('Clue Compass entry did not work');
+  const q=await evaluate("document.querySelector('#startquiz')?.click();!!document.querySelector('#qbox')");
+  if(!q)throw Error('Clue Compass quiz failed to start');
+  console.log('✓ Clue Compass entry and quiz started.');
+}
