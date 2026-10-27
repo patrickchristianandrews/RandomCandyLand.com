@@ -98,7 +98,9 @@ try{
   console.log('✓ All After Dark browser interaction tests passed.');
 } finally{
   proc.kill('SIGTERM');server.close();
-  fs.rmSync(profile,{recursive:true,force:true});
+  // Chrome may still be flushing its profile; cleanup should never fail a passing site test.
+  try { fs.rmSync(profile,{recursive:true,force:true,maxRetries:12,retryDelay:150}); }
+  catch (error) { console.warn('Chrome test profile cleanup was skipped:',error.message); }
 }
 async function checkLab(evaluate){
   const enter=await evaluate("!!document.querySelector('#enter')");

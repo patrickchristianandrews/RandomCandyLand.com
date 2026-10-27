@@ -36,6 +36,20 @@ for (const [path, expected] of required) {
   }
   console.log('Checked:',path);
 }
+// Never re-publish the pop-star crown-battle experience the owner removed.
+const homeBundle = fs.readFileSync('dist/index.html','utf8');
+for (const forbidden of ['pop stars battle for the crown','face pop-culture guests','Taylor Swift','Sabrina Carpenter','Bad Bunny','Beyoncé','Lady Gaga','Billie Eilish','Bruno Mars','LeBron James','Character cameo']) {
+  if (homeBundle.includes(forbidden)) {
+    console.error('The published homepage still contains removed celebrity content:',forbidden);
+    failures++;
+  }
+}
+if (!homeBundle.includes('meet silly candy characters')) {
+  console.error('Expected cleaned-up candy character introduction is missing in the published bundle.');
+  failures++;
+}
+console.log('Checked: no celebrity crown-battle content in the production homepage.');
+
 if (fs.existsSync('dist/arcade/index.html')) {
   console.error('Unwanted slot arcade is still present in published files.');
   failures++;
