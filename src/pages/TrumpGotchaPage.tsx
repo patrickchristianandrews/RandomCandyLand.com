@@ -343,6 +343,53 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       {/* MAIN VIEWPORT: THE POCKET DIGI-PET CENTERPIECE */}
       <main className="flex-1 flex flex-col items-center justify-center p-2 sm:p-6 relative">
         
+        {/* iPhone-friendly one-tap care bar: never require cycling the tiny handheld menu */}
+        {screenMode === 'PLAYING' && (
+          <div className="relative z-20 w-full max-w-2xl rounded-2xl border border-amber-400/50 bg-[#170c27]/95 p-3 mb-4 shadow-xl">
+            <div className="flex justify-between items-center gap-2 mb-3">
+              <span className="text-amber-200 font-black text-sm">✨ Donald's Quick Care</span>
+              <span className="text-[11px] text-amber-100/70">Tap once to play · sound optional</span>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              {[
+                { icon: '🍔', name: 'Feed', action: () => feed(FOOD_MENU[0]) },
+                { icon: '🕺', name: 'Dance', action: () => dance() },
+                { icon: '📺', name: 'TV Rant', action: () => yellAtTv() },
+                { icon: '💇', name: 'Hair', action: () => groomHair() },
+                { icon: '🧹', name: 'Clean', action: () => cleanMess() },
+                { icon: '💤', name: stats.isSleeping ? 'Wake' : 'Nap', action: () => toggleSleep() },
+              ].map(item => (
+                <button key={item.name} type="button" onClick={item.action}
+                  className="min-h-16 rounded-xl border border-amber-400/40 bg-gradient-to-b from-[#543367] to-[#271737] text-white active:scale-95 hover:brightness-125 transition-transform flex flex-col justify-center items-center gap-1 touch-manipulation"
+                  aria-label={item.name}>
+                  <span className="text-2xl" aria-hidden="true">{item.icon}</span>
+                  <span className="text-[11px] font-bold">{item.name}</span>
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2 justify-center mt-3" aria-label="Recorded Trump voice soundboard">
+              {[
+                ['🏆 Winner!', 'better_than_ever_before.mp3'],
+                ['💰 Rich!', 'im_really_rich.mp3'],
+                ['❌ Wrong!', 'wrong.mp3'],
+                ['🎉 Bing Bong!', 'bingbong.mp3'],
+                ['⛳ Golf!', 'i_have_the_best_courses_in_the_world.mp3'],
+                ['👋 Bye!', 'bye.mp3'],
+              ].map(([name, clip]) => (
+                <button key={clip} type="button" disabled={isMuted}
+                  onClick={() => sound.speakTrump(name, false, clip)}
+                  className="rounded-full border border-fuchsia-300/30 px-3 py-2 text-[11px] bg-fuchsia-950/50 text-fuchsia-100 disabled:opacity-40 active:scale-95"
+                  title={isMuted ? 'Unmute audio to hear the recording' : 'Play a recorded Trump voice clip'}>
+                  {name}
+                </button>
+              ))}
+            </div>
+            <div aria-hidden="true" className="flex justify-center gap-6 mt-2 text-xl pointer-events-none">
+              <span className="animate-bounce">💛</span><span className="animate-pulse">⭐</span><span className="animate-bounce" style={{ animationDelay: '220ms' }}>🍬</span><span className="animate-pulse">✨</span>
+            </div>
+          </div>
+        )}
+
         {/* Subtle radial ambient background glow */}
         <div 
           className="absolute inset-0 opacity-15 pointer-events-none"
