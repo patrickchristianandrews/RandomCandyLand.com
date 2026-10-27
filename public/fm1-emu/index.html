@@ -1,5 +1,249 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111527"><meta name="description" content="Play a pocket FM synth emulator and discover community instruments and sounds. An FM1-emu companion portal at Random Candy Land."><title>FM-1 Synth Lab · Random Candy Land</title>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1025">
+<meta name="description" content="FM-1 Synth Lab: Play a smooth browser-native FM synthesizer with sounds, keys, MIDI and a sequencer, or launch the authentic FM-1 hardware emulator.">
+<title>FM-1 Synth Lab | Random Candy Land</title>
 <style>
-:root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#0b1020;color:#f7f7fb}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 15% 10%,#28355e 0,transparent 42%),radial-gradient(circle at 90% 0%,#302748 0,transparent 45%),#0b1020}a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid #f8cc6d;outline-offset:4px}.wrap{max-width:1240px;margin:auto;padding:clamp(14px,3vw,30px)}header{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;border-bottom:1px solid #ffffff27;padding-bottom:17px}.back{text-decoration:none;font-weight:800}.logo{letter-spacing:.12em;text-transform:uppercase;color:#f6cc7b;font-size:13px;font-weight:900}.hero{padding:25px 0 15px}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;color:#8cdbff}.hero h1{font-size:clamp(36px,7vw,65px);margin:8px 0 12px;line-height:1.07}.hero h1 em{font-style:normal;color:#8cdbff}.hero p{max-width:790px;color:#b9c7dc;line-height:1.6}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 17px;border-radius:12px;background:#7bd3ff;color:#031a27;font-weight:900;text-decoration:none;border:0;cursor:pointer}.btn.secondary{background:#202e49;color:white;border:1px solid #6c8aa5}.stage{background:#141b2d;border:1px solid #4b6687;border-radius:20px;overflow:hidden;box-shadow:0 18px 70px #0007}.stagehead{padding:13px 20px;background:#18243d;border-bottom:1px solid #384661;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.status{font-size:12px;color:#b5cfe5}.stage iframe{display:block;width:100%;height:min(830px,90vh);min-height:540px;border:0;background:#111827}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:14px;margin:20px 0}.card{border:1px solid #344761;border-radius:16px;background:#151d31;padding:16px}.card h2{font-size:17px;margin:0 0 7px}.card p{margin:0;color:#b9c7dc;font-size:14px;line-height:1.55}.source{font-size:12px;color:#b9c7dc;line-height:1.6;margin:20px 0 40px}.source a{color:#8cdbff}@media(max-width:700px){.stage iframe{height:75vh;min-height:430px}.wrap{padding:13px}.hero{padding-top:20px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
-</style></head><body><div class="wrap"><header><a class="back" href="/">🍬 Random Candy Land</a><span class="logo">♪ FM-1 Synth Lab</span></header><section class="hero"><div class="eyebrow">New offering · Interactive music playground</div><h1>A pocket synth. <em>Endless sounds.</em></h1><p>Explore a real FM-1 synthesizer emulator, choose a community firmware, and play notes or experiment with beats, ambient music, and sound design right in your browser. Built by Joakim Eriksson — featured here with credit.</p><div class="buttons"><a class="btn" href="https://joakimeriksson.github.io/fm1-emu/" target="_blank" rel="noopener noreferrer">Open full emulator ↗</a><a class="btn secondary" href="https://github.com/joakimeriksson/fm1-emu/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">View release v0.2.0 ↗</a></div></section><div class="stage"><div class="stagehead"><strong>🎹 Play the FM-1</strong><span class="status">Choose firmware → Start → Tap keys • Rotate phone for more space</span></div><iframe title="FM1 emulator by Joakim Eriksson" src="https://joakimeriksson.github.io/fm1-emu/?embed=1" allow="autoplay; midi" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div><div class="cards"><div class="card"><h2>1. Choose a firmware</h2><p>Select an instrument, sequencer, groovebox, or ambient generator in the full emulator. The embedded view may show only the instrument controls.</p></div><div class="card"><h2>2. Tap Start and play</h2><p>Audio usually starts after a tap. Try the on-screen keys, touch controls or MIDI keyboard. On phones, rotate to landscape for more room.</p></div><div class="card"><h2>3. If the embed is blank</h2><p>Tap “Open full emulator” above. Browser restrictions, audio permissions, and third-party storage can interfere with embedded playback.</p></div></div><footer class="source">Independent community project by <a href="https://github.com/joakimeriksson/fm1-emu" target="_blank" rel="noopener noreferrer">Joakim Eriksson and contributors</a>; emulator licensed MIT. FM-1 and firmware brands belong to their owners. The linked v0.2.0 release is an archived release; the live embedded browser app is maintained by its author and may be newer. Random Candy Land does not redistribute firmware files.</footer></div></body></html>
+:root{color-scheme:dark;--bg:#0b1025;--surface:#17203b;--edge:#415176;--ink:#eff7ff;--muted:#afc1db;--cyan:#8eeaff;--pink:#ffb0e2;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:radial-gradient(circle at 10% 3%,#42335e,transparent 40%),radial-gradient(circle at 90% 14%,#15465f,transparent 42%),var(--bg);min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f8de92;outline-offset:3px}a{color:#abebff}
+.wrap{max-width:1280px;margin:auto;padding:16px clamp(15px,3vw,31px) 50px}nav{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid #ffffff24;padding:12px 0 19px}
+.back{color:white;font-weight:900;text-decoration:none}.smallbrand{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:#ffe7ad;font-weight:900}
+.hero{padding:35px 0 23px}h1{font-size:clamp(38px,7vw,72px);letter-spacing:-.055em;line-height:1.03;margin:9px 0 13px}h1 em{color:var(--cyan);font-style:normal}.hero p{color:#cbddf3;max-width:780px;line-height:1.65;font-size:16px}.eyebrow{letter-spacing:.19em;text-transform:uppercase;font-weight:900;font-size:11px;color:#fbb9e2}
+.tabbar{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 23px}.tabbar button{background:#20304e;border:1px solid #6e839e;color:white;border-radius:13px;padding:13px 17px;font-weight:850;min-height:47px}.tabbar button.active{background:linear-gradient(120deg,#9beafe,#e6bbff);color:#12223d;border-color:transparent}
+.pane{display:none}.pane.active{display:block}
+.shell{border:2px solid #69809f;background:linear-gradient(145deg,#252d48,#131b35);box-shadow:0 20px 60px #0007;border-radius:26px;padding:clamp(15px,3vw,28px)}
+.paneltop{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.paneltop strong{font-size:18px}.meter{font-size:12px;border-radius:50px;border:1px solid #7892a8;background:#102437;color:#c5eaf6;padding:7px 13px}
+.visual{width:100%;height:clamp(90px,15vw,155px);display:block;border:1px solid #3b5579;background:linear-gradient(140deg,#080e1f,#102a36);border-radius:16px;margin:13px 0 18px}
+.controlgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.control{display:flex;flex-direction:column;gap:6px;background:#121c34;border:1px solid #3d5275;padding:13px;border-radius:14px}
+.control label{font-size:12px;color:#b9cce6;font-weight:800}.control output{font-size:12px;color:#95edfc}
+select,.control input[type=range]{width:100%}select{padding:10px;background:#1c3047;color:white;border:1px solid #627997;border-radius:10px;min-height:42px}input[type=range]{accent-color:#7bdefc;min-height:24px}
+.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:15px 0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid #7b99bd;background:#263a59;color:#fff;padding:10px 16px;min-height:45px;border-radius:12px;font-weight:850;text-decoration:none}
+.btn.primary{background:linear-gradient(120deg,#91eaff,#abd9ff);color:#14213c;border-color:#e1faff}.btn.pink{background:#5d315b;border-color:#a26fa4}.btn:hover{filter:brightness(1.13)}
+.keyboard-wrap{overflow-x:auto;padding:4px 0 14px;touch-action:pan-x}.keyboard{height:190px;display:flex;position:relative;min-width:600px;width:100%;border-radius:0 0 12px 12px;user-select:none;touch-action:manipulation}
+.key{position:relative;display:flex;align-items:end;justify-content:center;border:1px solid #5f6577;touch-action:none;cursor:pointer;padding:0 2px 12px;transition:background .08s;flex:1}
+.key.white{background:linear-gradient(#fff,#becfe2);color:#1a2438;height:186px;border-radius:0 0 9px 9px;z-index:1}
+.key.black{background:linear-gradient(#26364b,#070e1a);color:#d8f3ff;height:115px;z-index:2;border-radius:0 0 8px 8px;width:5%;flex:0 0 5%;margin-left:-2.5%;margin-right:-2.5%;box-shadow:0 5px 8px #0009}
+.key.active.white{background:#a8eaf9}.key.active.black{background:#9250be}.key span{font-size:10px;pointer-events:none;font-weight:850}
+.note{font-size:12px;color:#c3d3e7;line-height:1.55}.help{border-left:3px solid #f7d1a1;background:#24304a;padding:13px 17px;margin:17px 0;border-radius:8px;font-size:13px;line-height:1.6}
+.seq{background:#101a32;border:1px solid #3b4c6b;border-radius:15px;padding:16px;margin:20px 0}.seq h2{font-size:17px;margin:0 0 11px}.seqrow{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:5px;margin:12px 0 7px}.step{min-width:0;aspect-ratio:1/1;border-radius:7px;border:1px solid #71849e;background:#25304a;color:#c8e4f7;padding:0;font-size:11px}.step.on{background:#a8dfff;color:#192241;border-color:#f2f7ff}.step.current{box-shadow:0 0 0 3px #f4cd9c}.legend{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.legend label{font-size:12px;color:#c1d3eb}.legend input{background:#1b2b44;color:white;border:1px solid #577493;border-radius:9px;width:83px;padding:7px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:13px;margin:20px 0}.card{border:1px solid #445779;background:#16213a;border-radius:17px;padding:20px}.card h2{font-size:17px;margin:0 0 9px}.card p{font-size:14px;color:#b8cae0;line-height:1.65;margin:0}
+.official{max-width:960px;margin:auto}.official .shell{padding:24px}.official h2{font-size:clamp(27px,4vw,40px);margin:10px 0}.official p{color:#c3d3eb;line-height:1.65}.notice{background:#312838;border-left:4px solid #ffd394;border-radius:10px;padding:15px 17px;margin:18px 0;font-size:14px}.source{color:#a9bdd3;border-top:1px solid #52607c;padding-top:22px;font-size:12px;margin-top:35px;line-height:1.7}
+@media(max-width:800px){.controlgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.keyboard{min-width:660px}.hero{padding:25px 0 15px}}
+@media(max-width:450px){.wrap{padding:12px 11px 30px}.controlgrid{gap:8px}.control{padding:10px}.seqrow{gap:3px}.step{font-size:9px;border-radius:4px}.tabbar button{flex:1}.actions .btn{flex:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div class="wrap">
+<nav><a class="back" href="/">🍬 Random Candy Land</a><span class="smallbrand">🎹 FM-1 Synth Lab</span></nav>
+<section class="hero"><span class="eyebrow">A real music playground · No installation</span><h1>Find your <em>frequency.</em></h1><p>Play great-sounding FM synth notes and beats without making your phone emulate a 60 MHz processor. Or launch the original FM-1 hardware emulator separately for authentic firmware exploration.</p></section>
+<div class="tabbar" role="tablist" aria-label="Choose synthesizer mode"><button id="nativeTab" type="button" role="tab" aria-selected="true" aria-controls="nativePane" class="active">🎹 Play Smooth Synth</button><button id="officialTab" type="button" role="tab" aria-selected="false" aria-controls="officialPane">🔧 Original FM-1 Emulator</button></div>
+<main>
+<section id="nativePane" class="pane active" role="tabpanel" aria-label="Playable FM synthesizer">
+<div class="shell">
+<div class="paneltop"><strong>🎛️ CANDY FM · 3-operator synthesizer</strong><span id="audioStatus" class="meter" role="status">● Tap a key or Play Demo to start audio</span></div>
+<canvas class="visual" id="scope" role="img" aria-label="Live synth audio oscilloscope"></canvas>
+<div class="controlgrid">
+ <div class="control"><label for="preset">Sound preset</label><select id="preset"><option value="epiano">✨ Electric Piano</option><option value="bell">🔔 Glass Bell</option><option value="warm">🌅 Warm Pad</option><option value="bass">🎛️ FM Bass</option><option value="plucks">💫 Crystal Pluck</option><option value="organ">🎹 Drawbar Organ</option><option value="vibes">🌴 Vibraphone</option><option value="lead">🌈 Electric Lead</option></select></div>
+ <div class="control"><label for="octave">Keyboard octave</label><select id="octave"><option value="3">C3–B4</option><option value="4" selected>C4–B5</option><option value="5">C5–B6</option></select></div>
+ <div class="control"><label for="modulation">FM character <output id="modValue">1.3</output></label><input id="modulation" type="range" min="0" max="5" step=".1" value="1.3"></div>
+ <div class="control"><label for="cutoff">Tone / filter <output id="cutValue">4200 Hz</output></label><input id="cutoff" type="range" min="350" max="10000" step="50" value="4200"></div>
+ <div class="control"><label for="attack">Attack <output id="attackValue">0.02 s</output></label><input id="attack" type="range" min=".005" max="1.5" step=".005" value=".02"></div>
+ <div class="control"><label for="release">Release <output id="releaseValue">0.45 s</output></label><input id="release" type="range" min=".04" max="3" step=".01" value=".45"></div>
+ <div class="control"><label for="echo">Echo <output id="echoValue">13%</output></label><input id="echo" type="range" min="0" max="50" step="1" value="13"></div>
+ <div class="control"><label for="volume">Master volume <output id="volumeValue">55%</output></label><input id="volume" type="range" min="0" max="100" step="1" value="55"></div>
+</div>
+<div class="actions"><button id="demo" class="btn primary">▶ Play musical demo</button><button id="stop" class="btn">■ Stop all sound</button><button id="save" class="btn pink">♡ Save my sound</button><button id="reset" class="btn">↺ Reset sound</button></div>
+<div id="keyboardWrap" class="keyboard-wrap"><div id="keyboard" class="keyboard" aria-label="Two-octave piano keyboard"></div></div>
+<p class="note">Tap or hold the piano keys to hear actual FM synthesis. On a computer, use A S D F G H J K L ; for white keys. Drag the keyboard sideways on a phone to reach the higher notes. Headphones provide a fuller result.</p>
+<div class="seq">
+ <h2>🎼 16-step candy sequencer</h2><div class="legend"><button id="seqPlay" class="btn primary">▶ Start pattern</button><button id="seqClear" class="btn">Clear</button><label for="bpm">Tempo <input id="bpm" type="number" min="55" max="210" value="108"> BPM</label><label for="seqPitch">Pattern root <select id="seqPitch"><option value="48">C3</option><option value="50">D3</option><option value="53">F3</option><option value="55">G3</option><option value="60" selected>C4</option></select></label></div>
+ <div id="seqRow" class="seqrow" role="group" aria-label="Sixteen step sequencer"></div><p class="note">Light the steps to play. The pattern loops in time; you can play the keyboard along with it.</p>
+</div>
+</div>
+<div class="cards"><div class="card"><h2>🎧 Smooth output</h2><p>The browser's native audio engine produces notes directly instead of emulating a CPU. Soft limiting, controlled dynamics, and adjustable echo keep sounds cleaner at reasonable headphone volume.</p></div><div class="card"><h2>🎹 Play how you like</h2><p>Eight designed presets, touchscreen keys, physical keyboard and optional Web MIDI note input in supported browsers. Synth sound starts after you interact, as required by browsers.</p></div><div class="card"><h2>🛠️ Save your patches</h2><p>Use Save my sound to retain your current settings on this device. Reloading or pressing reset will not erase the saved sound unless you overwrite it.</p></div></div>
+</section>
+<section id="officialPane" class="pane official" role="tabpanel" aria-label="Original FM-1 hardware emulator"><div class="shell">
+<span class="eyebrow">Authentic third-party emulator</span><h2>The real FM-1 firmware, in your browser.</h2><p>Joakim Eriksson's FM-1 emulator simulates the pocket instrument's CPU, LCD, knobs and firmware. For best performance and sound, open it directly rather than inside an iframe competing with another website.</p>
+<div class="notice"><strong>Understanding the MHz warning:</strong> <em>MHz</em> is the simulated processor clock, not audio pitch (Hz). If the audio load exceeds 100% or the real-time speed drops below 1×, playback crackles because the emulation can't keep up. Use the emulator's suggested lower clock if available, close developer tools and other heavy apps, or try the developer's standalone desktop version. Some firmware stays too demanding on certain devices, even at a low clock.</div>
+<div class="actions"><a class="btn primary" href="https://joakimeriksson.github.io/fm1-emu/?fw=felucca&mhz=60" target="_blank" rel="noopener noreferrer">Launch authentic FM-1 · 60 MHz ↗</a><a class="btn" href="https://joakimeriksson.github.io/fm1-emu/" target="_blank" rel="noopener noreferrer">Open default settings ↗</a><a class="btn" href="https://github.com/joakimeriksson/fm1-emu/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">Download desktop release ↗</a></div>
+<p>The original emulator retains its own saved firmware and patches on the author's site. Opening it on its original domain also avoids third-party storage restrictions.</p><p><strong>Important:</strong> Candy FM is a fast, independent synthesizer inspired by FM synthesis, not a reproduction of the original device firmware. The authentic emulator remains maintained by its original developer.</p>
+</div></section>
+</main>
+<footer class="source">CANDY FM © Random Candy Land. Based on built-in Web Audio browser capabilities; no remote services or keys required. Original FM-1 emulation by <a href="https://github.com/joakimeriksson/fm1-emu" target="_blank" rel="noopener noreferrer">Joakim Eriksson and contributors</a>, independent and MIT-licensed. M-VAVE and FM-1 are their respective owners' marks.</footer>
+</div>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const DEFAULT={preset:'epiano',octave:'4',modulation:1.3,cutoff:4200,attack:.02,release:.45,echo:13,volume:55};
+const PATCHES={
+ epiano:{ratio:2.01,modulation:1.3,cutoff:4200,attack:.02,release:.45,decay:.38,sustain:.31,partial:.10},
+ bell:{ratio:3.51,modulation:2.35,cutoff:8000,attack:.007,release:1.7,decay:.78,sustain:.04,partial:.02},
+ warm:{ratio:1.01,modulation:.5,cutoff:3400,attack:.47,release:1.45,decay:.55,sustain:.68,partial:.22},
+ bass:{ratio:1,modulation:2.1,cutoff:1600,attack:.008,release:.23,decay:.18,sustain:.48,partial:.06},
+ plucks:{ratio:2.97,modulation:2.9,cutoff:6700,attack:.006,release:.44,decay:.18,sustain:.12,partial:.04},
+ organ:{ratio:2,modulation:.3,cutoff:6000,attack:.01,release:.20,decay:.15,sustain:.9,partial:.18},
+ vibes:{ratio:3.01,modulation:1.65,cutoff:5600,attack:.012,release:1.2,decay:.8,sustain:.18,partial:.04},
+ lead:{ratio:1.99,modulation:1.8,cutoff:4800,attack:.025,release:.34,decay:.14,sustain:.75,partial:.12}
+};
+let audioCtx=null,bus=null,master=null,analyser=null,echoNode=null,send=null,voices=new Map(),idCounter=0,scopeFrame=0;
+let held=new Map(),keysDown=new Set(),sequence=null,sequenceStep=0,pattern=[1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1];
+let midiAccess=null,knownMidi=new Set(),lastNote='',lastAudioError='';
+const midiToHz=m=>440*Math.pow(2,(m-69)/12);
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const p=()=>PATCHES[$('preset').value]||PATCHES.epiano;
+const setting=id=>Number($(id).value);
+function say(text){$('audioStatus').textContent=text;}
+function buildAudio(){
+ const AC=window.AudioContext||window.webkitAudioContext;
+ if(!AC)throw Error('Web Audio is not supported by this browser');
+ if(audioCtx)return;
+ audioCtx=new AC({latencyHint:'interactive'});
+ bus=audioCtx.createGain();bus.gain.value=.9;
+ const compressor=audioCtx.createDynamicsCompressor();compressor.threshold.value=-18;compressor.knee.value=24;compressor.ratio.value=2.8;compressor.attack.value=.004;compressor.release.value=.18;
+ master=audioCtx.createGain();master.gain.value=setting('volume')/100*.65;
+ analyser=audioCtx.createAnalyser();analyser.fftSize=1024;analyser.smoothingTimeConstant=.75;
+ bus.connect(compressor);compressor.connect(master);master.connect(analyser);analyser.connect(audioCtx.destination);
+ send=audioCtx.createGain();send.gain.value=setting('echo')/100*.38;
+ echoNode=audioCtx.createDelay(.7);echoNode.delayTime.value=.27;
+ const feedback=audioCtx.createGain();feedback.gain.value=.22;
+ bus.connect(send);send.connect(echoNode);echoNode.connect(feedback);feedback.connect(echoNode);echoNode.connect(compressor);
+}
+async function ready(){
+ try{buildAudio();if(audioCtx.state!=='running')await audioCtx.resume();if(audioCtx.state!=='running')throw Error('Audio is paused by this browser. Tap again to enable it.');say('● Audio on · '+audioCtx.sampleRate+' Hz output');return true;}
+ catch(e){lastAudioError=e.message||String(e);say('⚠ '+lastAudioError);return false;}
+}
+function releaseVoice(v,at){
+ if(!v||v.released)return;
+ v.released=true;
+ const t=at??audioCtx.currentTime;
+ const rel=Math.max(.04,setting('release'));
+ try{v.env.gain.cancelScheduledValues(t);v.env.gain.setTargetAtTime(.0001,t,rel/4.8);for(const o of v.oscs)o.stop(t+rel*1.3+.18);}catch(e){}
+ voices.delete(v.id);
+}
+function noteOff(note,at){
+ const voice=voices.get(note);if(voice)releaseVoice(voice,at);
+ for(const key of document.querySelectorAll('.key[data-midi="'+note+'"]'))key.classList.remove('active');
+}
+function noteOn(note,when,velocity=1){
+ if(!audioCtx||audioCtx.state!=='running')return;
+ note=+note;if(!Number.isInteger(note)||note<24||note>108)return;
+ const t=Math.max(audioCtx.currentTime,when??audioCtx.currentTime)+.006;
+ if(voices.has(note))noteOff(note,t);
+ if(voices.size>=12){const first=voices.values().next().value;releaseVoice(first,t);}
+ const patch=p(),f=midiToHz(note),idx=setting('modulation');
+ const carrier=audioCtx.createOscillator();carrier.type='sine';carrier.frequency.setValueAtTime(f,t);
+ const mod=audioCtx.createOscillator();mod.type='sine';mod.frequency.setValueAtTime(f*patch.ratio,t);
+ const index=audioCtx.createGain();index.gain.setValueAtTime(f*idx,t);
+ index.gain.exponentialRampToValueAtTime(Math.max(.001,f*idx*.12),t+Math.max(.06,patch.decay));
+ mod.connect(index);index.connect(carrier.frequency);
+ const partial=audioCtx.createOscillator();partial.type='triangle';partial.frequency.setValueAtTime(f,t);partial.detune.value=-4;
+ const partialGain=audioCtx.createGain();partialGain.gain.value=patch.partial;
+ const mix=audioCtx.createGain();carrier.connect(mix);partial.connect(partialGain);partialGain.connect(mix);
+ const filter=audioCtx.createBiquadFilter();filter.type='lowpass';filter.frequency.setValueAtTime(setting('cutoff'),t);filter.Q.value=.7;mix.connect(filter);
+ const env=audioCtx.createGain();filter.connect(env);env.connect(bus);
+ const peak=clamp(.21*velocity,.01,.25),atk=Math.max(.005,setting('attack')),sustain=clamp(patch.sustain,.03,1);
+ env.gain.setValueAtTime(.00001,t);env.gain.linearRampToValueAtTime(peak,t+atk);env.gain.setTargetAtTime(peak*sustain,t+atk,Math.max(.04,patch.decay)/2.8);
+ for(const o of [carrier,mod,partial])o.start(t);
+ const v={id:note,oscs:[carrier,mod,partial],env,released:false};voices.set(note,v);
+ for(const key of document.querySelectorAll('.key[data-midi="'+note+'"]'))key.classList.add('active');
+ lastNote=note;return v;
+}
+function stopAll(){
+ if(sequence){clearInterval(sequence);sequence=null;sequenceStep=0;$('seqPlay').textContent='▶ Start pattern';}
+ for(const v of [...voices.values()])releaseVoice(v);
+ voices.clear();held.clear();keysDown.clear();document.querySelectorAll('.key').forEach(x=>x.classList.remove('active'));
+ say(audioCtx&&audioCtx.state==='running'?'● Ready · sound stopped':'● Tap a key or Play Demo to start audio');
+}
+function pitchName(n){const names=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];return names[n%12]+(Math.floor(n/12)-1);}
+function makeKeyboard(){
+ const oct=setting('octave'),root=oct*12+12;
+ const keyboard=$('keyboard');keyboard.replaceChildren();
+ for(let n=root;n<root+24;n++){
+  const chrom=n%12;const black=[1,3,6,8,10].includes(chrom);
+  const b=document.createElement('button');b.type='button';b.className='key '+(black?'black':'white');b.dataset.midi=n;
+  const span=document.createElement('span');span.textContent=chrom===0?pitchName(n):'';b.append(span);
+  b.setAttribute('aria-label','Play '+pitchName(n));keyboard.append(b);
+  const play=async e=>{e.preventDefault();b.setPointerCapture?.(e.pointerId);held.set(e.pointerId,n);if(await ready())noteOn(n);};
+  b.addEventListener('pointerdown',play);b.addEventListener('pointerup',e=>{if(held.has(e.pointerId)){noteOff(held.get(e.pointerId));held.delete(e.pointerId);}});
+  b.addEventListener('pointercancel',e=>{if(held.has(e.pointerId)){noteOff(held.get(e.pointerId));held.delete(e.pointerId);}});
+  b.addEventListener('lostpointercapture',e=>{if(held.has(e.pointerId)){noteOff(held.get(e.pointerId));held.delete(e.pointerId);}});
+ }
+}
+function updateOut(){
+ $('modValue').textContent=setting('modulation').toFixed(1);
+ $('cutValue').textContent=setting('cutoff')+' Hz';
+ $('attackValue').textContent=setting('attack').toFixed(2)+' s';
+ $('releaseValue').textContent=setting('release').toFixed(2)+' s';
+ $('echoValue').textContent=setting('echo')+'%';
+ $('volumeValue').textContent=setting('volume')+'%';
+ if(master)master.gain.setTargetAtTime(setting('volume')/100*.65,audioCtx.currentTime,.015);
+ if(send)send.gain.setTargetAtTime(setting('echo')/100*.38,audioCtx.currentTime,.015);
+}
+function applyPreset(){
+ const patch=p();
+ for(const id of ['modulation','cutoff','attack','release'])$(id).value=patch[id];
+ updateOut();
+ say('✦ '+$('preset').selectedOptions[0].textContent+' loaded · Tap a key');
+}
+for(const id of ['modulation','cutoff','attack','release','echo','volume'])$(id).addEventListener('input',updateOut);
+$('preset').onchange=applyPreset;$('octave').onchange=makeKeyboard;
+function notesInScale(root){return [root,root+4,root+7,root+12,root+7,root+4,root+2,root+7,root+4,root+7,root+12,root+11,root+7,root+4,root+2,root+7];}
+function paintSteps(){const row=$('seqRow');row.replaceChildren();pattern.forEach((enabled,i)=>{const b=document.createElement('button');b.className='step'+(enabled?' on':'');b.dataset.step=i;b.type='button';b.textContent=(i+1);b.setAttribute('aria-label','Step '+(i+1)+(enabled?' on':' off'));b.setAttribute('aria-pressed',enabled?'true':'false');b.onclick=()=>{pattern[i]=pattern[i]?0:1;paintSteps();};row.append(b);});}
+function tick(){
+ if(!audioCtx||audioCtx.state!=='running')return;
+ const bpm=clamp(Number($('bpm').value)||108,55,210),period=60/bpm/4;
+ const now=audioCtx.currentTime;
+ const scale=notesInScale(setting('seqPitch'));
+ const i=sequenceStep%16;document.querySelectorAll('.step').forEach((e,k)=>e.classList.toggle('current',k===i));
+ if(pattern[i]){const note=scale[i];noteOn(note,now);setTimeout(()=>noteOff(note),Math.min(220,period*750));}
+ sequenceStep++;
+ if(sequence){clearInterval(sequence);sequence=setInterval(tick,period*1000);}
+}
+$('seqPlay').onclick=async()=>{if(sequence){clearInterval(sequence);sequence=null;$('seqPlay').textContent='▶ Start pattern';document.querySelectorAll('.step').forEach(e=>e.classList.remove('current'));return;}if(!await ready())return;sequenceStep=0;$('seqPlay').textContent='⏸ Stop pattern';tick();};
+$('seqClear').onclick=()=>{pattern=Array(16).fill(0);paintSteps();};
+$('stop').onclick=stopAll;
+$('demo').onclick=async()=>{
+ if(!await ready())return;
+ stopAll();say('♫ Playing a musical demo');
+ const now=audioCtx.currentTime+.04;
+ const chord=[[60,64,67],[62,65,69],[57,60,64],[55,59,62]];
+ chord.forEach((c,index)=>c.forEach((n,i)=>{const t=now+index*.73+i*.045;noteOn(n,t,.77);setTimeout(()=>noteOff(n),Math.max(0,(t-now+.55)*1000));}));
+};
+$('save').onclick=()=>{const values={};for(const id of Object.keys(DEFAULT))values[id]=$(id).value;try{localStorage.setItem('candyfm-patch',JSON.stringify(values));say('♡ Sound settings saved to this browser');}catch{say('⚠ This browser does not allow saving settings');}};
+$('reset').onclick=()=>{stopAll();$('preset').value='epiano';$('octave').value='4';$('echo').value=DEFAULT.echo;$('volume').value=DEFAULT.volume;applyPreset();makeKeyboard();};
+document.addEventListener('keydown',async e=>{
+ if(e.repeat||e.ctrlKey||e.altKey||e.metaKey||['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName)||!$('nativePane').classList.contains('active'))return;
+ const keys='asdfghjkl;';const index=keys.indexOf(e.key.toLowerCase());if(index<0)return;
+ e.preventDefault();const notes=[0,2,4,5,7,9,11,12,14,16],n=setting('octave')*12+12+notes[index];
+ if(keysDown.has(n))return;keysDown.add(n);if(await ready())noteOn(n);
+});
+document.addEventListener('keyup',e=>{const index='asdfghjkl;'.indexOf(e.key.toLowerCase());if(index<0)return;const n=setting('octave')*12+12+[0,2,4,5,7,9,11,12,14,16][index];keysDown.delete(n);noteOff(n);});
+window.addEventListener('blur',()=>{keysDown.forEach(n=>noteOff(n));keysDown.clear();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAll();});
+const scope=$('scope'),g=scope.getContext('2d');
+function draw(){
+ scopeFrame=requestAnimationFrame(draw);
+ if(document.hidden||!g)return;
+ const rect=scope.getBoundingClientRect(),scale=Math.min(window.devicePixelRatio||1,1.5);
+ const w=Math.round(rect.width*scale),h=Math.round(rect.height*scale);
+ if(scope.width!==w||scope.height!==h){scope.width=w;scope.height=h;}
+ g.fillStyle='#071323';g.fillRect(0,0,w,h);
+ g.strokeStyle='#234253';g.lineWidth=1;
+ for(let i=1;i<5;i++){g.beginPath();g.moveTo(0,h*i/5);g.lineTo(w,h*i/5);g.stroke();}
+ g.beginPath();g.lineWidth=Math.max(1.5,2*scale);g.strokeStyle='#94f4fb';g.shadowBlur=10*scale;g.shadowColor='#81cfff';
+ const wave=new Uint8Array(analyser?.fftSize||1024);if(analyser)analyser.getByteTimeDomainData(wave);else wave.fill(128);
+ for(let i=0;i<wave.length;i++){const x=i*w/(wave.length-1),y=h/2+((wave[i]-128)/128)*h*.42;if(i===0)g.moveTo(x,y);else g.lineTo(x,y);}g.stroke();g.shadowBlur=0;
+}
+function setTab(tab){
+ const native=tab==='native';
+ $('nativeTab').classList.toggle('active',native);$('officialTab').classList.toggle('active',!native);
+ $('nativeTab').setAttribute('aria-selected',native);$('officialTab').setAttribute('aria-selected',!native);
+ $('nativePane').classList.toggle('active',native);$('officialPane').classList.toggle('active',!native);
+ if(!native)stopAll();
+}
+$('nativeTab').onclick=()=>setTab('native');$('officialTab').onclick=()=>setTab('official');
+const saved=(()=>{try{return JSON.parse(localStorage.getItem('candyfm-patch')||'null')}catch{return null}})();
+if(saved&&typeof saved==='object'){for(const id of Object.keys(DEFAULT))if(saved[id]!==undefined&&$(id))$(id).value=saved[id];}
+makeKeyboard();paintSteps();updateOut();draw();
+</script>
+</body></html>
