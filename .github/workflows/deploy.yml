@@ -41,6 +41,9 @@ jobs:
       - name: Validate After Dark scripts and all published pages
         run: node scripts/check-public-pages.mjs
 
+      - name: Test After Dark in a real Chrome browser
+        run: node scripts/smoke-after-dark.mjs
+
       - name: Identify this exact release in the published files
         run: printf '%s\n' "$GITHUB_SHA" > dist/release-id.txt
 
