@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { RandomCandyLandHome } from './pages/RandomCandyLandHome';
-import { RandomCandyLand } from './pages/RandomCandyLand';
 import { TrumpGotchaPage } from './pages/TrumpGotchaPage';
 
-type AppRoute = 'home' | 'trump' | 'arcade';
+type AppRoute = 'home' | 'trump';
 
 function getInitialRoute(): AppRoute {
   if (typeof window === 'undefined') return 'home';
@@ -13,7 +12,6 @@ function getInitialRoute(): AppRoute {
   if (path.startsWith('/trump') || hash.includes('trump')) {
     return 'trump';
   }
-  if (path.startsWith('/arcade') || hash.includes('arcade')) return 'arcade';
   return 'home';
 }
 
@@ -42,8 +40,6 @@ export default function App() {
       const hash = window.location.hash.toLowerCase();
       if (path.startsWith('/trump') || hash.includes('trump')) {
         setCurrentRoute('trump');
-      } else if (path.startsWith('/arcade') || hash.includes('arcade')) {
-        setCurrentRoute('arcade');
       } else {
         setCurrentRoute('home');
       }
@@ -61,8 +57,6 @@ export default function App() {
   if (currentRoute === 'trump') {
     return <TrumpGotchaPage onReturnHome={navigateToHome} />;
   }
-
-  if (currentRoute === 'arcade') return <RandomCandyLand onNavigateToTrump={navigateToTrump} />;
 
   return <RandomCandyLandHome onNavigateToTrump={navigateToTrump} />;
 }
