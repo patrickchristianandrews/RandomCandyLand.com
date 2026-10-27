@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#180e26">
+<meta name="description" content="Clue Compass: a private adult reflection on sensory clues, self-soothing, attachment, desire and consensual curiosity.">
+<title>Clue Compass · The Psychology Lab | After Dark</title>
+<style>
+:root{color-scheme:dark;--ink:#fff2fb;--muted:#d2bed9;--line:#775078;--violet:#23132e;--pink:#ffafd8;--gold:#f5d7a0;--aqua:#a7f1eb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 2%,#593360,transparent 37%),radial-gradient(circle at 90% 23%,#1c4e57,transparent 38%),#100d1d;color:var(--ink);font:15px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}
+a{color:#b4eaf7}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #ffe7a6;outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:18px clamp(15px,3vw,29px) 90px}
+nav{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border-bottom:1px solid #ffffff30;padding-bottom:14px}nav a{font-weight:800;text-decoration:none}nav strong{margin-left:auto;letter-spacing:.16em;color:#ffd1ec;font-size:13px}
+.hero{padding:55px 0 24px}.eyebrow{font-size:11px;color:#ffbddd;letter-spacing:.22em;font-weight:900;text-transform:uppercase}.hero h1{font:900 clamp(40px,7vw,78px)/1.03 Georgia,serif;letter-spacing:-.04em;margin:14px 0 12px}.hero h1 em{font-weight:400;color:#ffb6d9}
+.lead{max-width:810px;font-size:18px;color:var(--muted)}.actions,.pills{display:flex;flex-wrap:wrap;gap:10px;margin:19px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;min-height:44px;border-radius:13px;padding:12px 17px;background:#ffb6d9;color:#2b112a;border:1px solid #ffd7eb;font-weight:850}.btn.secondary{background:#292035;color:#ffebf5;border-color:#775078}.btn.outline{background:transparent;color:#ffebf5;border-color:#775078}.btn:disabled{opacity:.45;cursor:not-allowed}
+.chip{display:inline-flex;align-items:center;padding:5px 10px;border:1px solid #6c5476;border-radius:999px;color:#ebd4f0;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}.card{background:linear-gradient(145deg,#2f203d,#1a182e);border:1px solid #624868;border-radius:21px;padding:22px;box-shadow:0 12px 32px #0002}.card h3{font-size:19px;margin:8px 0}.card p{color:var(--muted);margin:8px 0}.card small{color:#dab8de}
+section{scroll-margin-top:25px;margin-top:42px}.sectionhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.sectionhead h2{font:700 clamp(29px,4vw,44px)/1.1 Georgia,serif;margin:8px 0 12px}
+.note{border-left:4px solid var(--pink);background:#382640;border-radius:0 15px 15px 0;padding:15px 18px;margin:17px 0;color:#f4dbef}.note p{margin:5px 0}
+strong.accent{color:#ffbcd9}.kv{color:#d9eae9;font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase}.card details{margin-top:10px}.card summary{cursor:pointer;font-weight:800;color:#f2d4ad}.card details p{font-size:13px}
+.question{max-width:800px;margin:auto}.progress{height:9px;background:#3c2d42;border-radius:12px;overflow:hidden;margin:15px 0}.progress>div{height:100%;background:linear-gradient(90deg,#fd93c7,#b3ecf9);width:0;transition:width .2s}
+.answergrid{display:grid;gap:9px;margin:21px 0}.answergrid button{background:#342341;color:#f8e7fa;border:1px solid #6d517b;border-radius:14px;min-height:50px;text-align:left;padding:12px 16px}.answergrid button:hover{background:#604065}
+#qbox h3{font-size:24px;margin:13px 0}.meta{font-size:12px;color:#c9b0d5}.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.meter{height:7px;border-radius:10px;overflow:hidden;background:#543954}.meter>div{height:100%;background:linear-gradient(90deg,#88e4ee,#fa95ce)}
+.interests{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}.interest{background:#211a30;border:1px solid #584567;border-radius:16px;padding:15px}.interest p{font-size:13px;color:#cdbed5}.interest select{width:100%;border-radius:10px;padding:10px;background:#33243f;color:white;border:1px solid #795a83;min-height:44px}
+#report{display:none}.aside{font-size:13px;color:#c7bdce}.reportpart{margin:20px 0}.reportpart h3{margin:9px 0}.match{margin-bottom:10px}.match .header{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}.match small{color:#e9cceb}
+.chatbox{border:1px solid #6c5379;border-radius:18px;overflow:hidden;background:#171223;max-width:880px}.messages{height:360px;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:13px}.bubble{padding:12px 15px;max-width:90%;border-radius:14px;background:#302440;white-space:pre-wrap;line-height:1.6}.bubble.user{align-self:flex-end;background:#4a3251}.bubble.bot{align-self:flex-start;border:1px solid #504163}.send{border-top:1px solid #584268;display:flex;gap:9px;padding:13px}.send input{flex:1;min-width:80px;border-radius:11px;background:#31233f;color:white;border:1px solid #624d72;padding:12px}
+.source{padding:12px 0;border-bottom:1px solid #4b394e}.source:last-child{border:0}.source p{font-size:13px;color:var(--muted);margin:4px 0}
+#gate{position:fixed;inset:0;z-index:40;background:#11091b;display:grid;place-items:center;padding:20px}#gate .card{width:min(95vw,580px);border:2px solid #c479ad}
+footer{margin-top:70px;padding:25px 0;border-top:1px solid #523d5d;color:#bfaacb;font-size:12px}
+@media(max-width:700px){.hero{padding:29px 0 17px}.grid{grid-template-columns:1fr}.card{padding:16px}.sectionhead h2{font-size:29px}.messages{height:290px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.progress>div{transition:none}}
+</style></head><body>
+<div id="gate"><div class="card"><span class="eyebrow">Adults 18+ · Private self-reflection</span><h2>Welcome to the Clue Compass.</h2><p>This page discusses adult sexuality and personal habits without assumptions or shame. Nothing is sent to a server.</p><div class="actions"><button id="enter" class="btn">I am 18+ · Enter</button><a class="btn secondary" href="/">Leave</a></div></div></div>
+<div class="wrap"><nav><a href="/after-dark/">← After Dark Atlas</a><a href="/">🍬 Candy Land</a><strong>✳ CLUE COMPASS</strong></nav>
+<header class="hero"><span class="eyebrow">The psychology lab · Meaning without assumptions</span><h1>What makes you <em>you?</em></h1><p class="lead">Some clues are about comfort. Some are about curiosity. Some are about relationships. No single habit reveals a sexual preference. Explore the psychology, then choose a quick or in-depth questionnaire that keeps the difference between <em>everyday habits</em> and <em>sexual interest</em> clear.</p>
+<div class="actions"><a class="btn" href="#quiz">Start my clue compass ✳</a><a class="btn secondary" href="#habits">Explore comfort clues</a><a class="btn outline" href="#research">The research</a></div>
+<div class="pills"><span class="chip">✧ 12 core questions · 2–4 minutes</span><span class="chip">✧ 8 optional deeper questions</span><span class="chip">✧ No account or data upload</span><span class="chip">✧ Consent first</span></div></header>
+<div class="note"><strong>Important:</strong> This is an educational self-reflection tool, not a diagnosis or predictive clinical test. A high "relevance index" means only that your own answers overlap with a topic's themes, <strong>not</strong> a percentage chance you'll enjoy an activity. It cannot measure a genuine success rate without formal validation and outcomes research.</div>
+
+<section id="habits"><div class="sectionhead"><div><span class="eyebrow">Clue library · Everyday life and relationships</span><h2>Small habits. Different meanings.</h2></div><span class="chip">No automatic sexual interpretation</span></div><div id="habitcards" class="grid"></div></section>
+
+<section id="quiz"><div class="sectionhead"><div><span class="eyebrow">Personal reflection · No pressure</span><h2>The Clue Compass questionnaire</h2></div></div><p class="lead">A short first pass identifies <em>themes</em>; the optional follow-up adds depth. At the end, you can mark specific adult interests as curious, unsure or not for you. Those direct choices carry more weight than unrelated daily habits.</p>
+<div class="card question" id="qbox"><h3>What would you like to explore?</h3><p>Start with 12 everyday-life questions. You can skip anything. There are no trick answers.</p><button class="btn" id="startquiz">Start · 12 questions →</button></div>
+<div id="intereststage" style="display:none"><div class="note">Optional direct interests. This is where you can actually say what sounds appealing; a comforting habit does not count as sexual interest. Leave any item unselected or choose "Not for me".</div><h3>Which adult topics, if any, spark your curiosity?</h3><div class="interests" id="interestcards"></div><div class="actions"><button class="btn" id="showreport">Create my private reflection →</button></div></div>
+<div class="card" id="report"><span class="eyebrow">Your personal reflection · Not a diagnosis</span><h2>Clues & possibilities</h2><div id="reportbody"></div><div class="actions"><button class="btn secondary" id="redo">Start again</button><button class="btn outline" id="print">Print or save privately</button></div></div></section>
+
+<section id="psychology"><div class="sectionhead"><div><span class="eyebrow">Psychology, attachment & reward</span><h2>Where curiosity can come from.</h2></div></div><div id="psychcards" class="grid"></div></section>
+
+<section id="guide"><div class="sectionhead"><div><span class="eyebrow">Research-aware reference helper</span><h2>Ask the Atlas Guide.</h2></div></div><p>Ask questions about thumb-sucking, attachment, sensation, specific consensual interests, limits, or how to interpret the questionnaire. The on-device guide finds answers in a curated reference library; it is <strong>not</strong> a live generative chatbot and cannot evaluate personal psychological causes.</p><div class="chatbox"><div class="messages" id="messages" aria-live="polite"><div class="bubble bot">Welcome. A self-soothing habit does not tell us what someone is sexually interested in. What would you like to understand?</div></div><form class="send" id="ask"><input id="message" maxlength="420" autocomplete="off" aria-label="Question for Atlas Guide" placeholder="e.g., Can thumb-sucking tell me about a kink?"><button class="btn" type="submit">Ask →</button></form></div><div class="pills"><button class="btn outline" data-ask="Why might adults suck their thumbs?">Thumb-sucking</button><button class="btn outline" data-ask="How can I explore power dynamics safely?">Power & trust</button><button class="btn outline" data-ask="What does the relevance index mean?">My results</button><button class="btn outline" data-ask="Why are some fabrics comforting?">Sensory interests</button></div></section>
+
+<section id="research"><div class="sectionhead"><div><span class="eyebrow">Source notes · Theory is not proof</span><h2>What we know, and what we don't.</h2></div></div>
+<div class="card"><h3>Daniel Amen: <cite>The Brain in Love</cite> (2009)</h3><p>Publisher and table-of-contents material identify 12 lessons on attraction, attachment, brain chemistry, intimacy, and a chapter on fetishes (Chapter 7). We use these <strong>topics as discussion prompts</strong>, not as evidence that brain scans or childhood habits determine a particular kink. We did not reproduce the book or analyze its complete text. Claims about using SPECT brain images for routine psychiatric diagnosis have been criticized for inadequate validation.</p>
+<p class="aside">Related perspectives from peer-reviewed kink research, psychiatry, and pediatric/sensory-care sources are distinguished below.</p>
+<div class="source"><strong>Book and contents</strong><p><a href="https://www.penguinrandomhouse.com/books/196663/the-brain-in-love-by-daniel-g-amen-md/" target="_blank" rel="noopener noreferrer">Penguin Random House · The Brain in Love</a> · <a href="https://campusstore.miamioh.edu/brain-love-12-lessons-enhance-your-love/bk/9780307587893" target="_blank" rel="noopener noreferrer">Table of contents, Chapter 7</a></p></div>
+<div class="source"><strong>Contemporary biopsychosocial research</strong><p><a href="https://pubmed.ncbi.nlm.nih.gov/36274435/" target="_blank" rel="noopener noreferrer">Williams & Sprott, Current biopsychosocial science on understanding kink (2022)</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/32935177/" target="_blank" rel="noopener noreferrer">Sensation seeking and coping (2020)</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/11534994/" target="_blank" rel="noopener noreferrer">Learning and sexual behavior review (2001)</a>.</p></div>
+<div class="source"><strong>Self-soothing and sensory regulation</strong><p><a href="https://www.healthychildren.org/English/family-life/family-dynamics/communication-discipline/Pages/Common-Childhood-Habits.aspx" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics: Common Childhood Habits</a> · <a href="https://www.nottinghamshirehealthcare.nhs.uk/ness-stimming" target="_blank" rel="noopener noreferrer">NHS: Stimming</a>.</p></div>
+<div class="source"><strong>Clinical cautions</strong><p><a href="https://www.psychiatry.org/File%20Library/Psychiatrists/Practice/DSM/APA_DSM-5-Paraphilic-Disorders.pdf" target="_blank" rel="noopener noreferrer">American Psychiatric Association: consensual interests versus disorders</a> · <a href="https://journalofethics.ama-assn.org/article/diagnostic-brain-imaging-psychiatry-current-uses-and-future-prospects/2012-06" target="_blank" rel="noopener noreferrer">AMA: limits of psychiatric brain imaging</a>.</p></div>
+</div><p class="aside">This project is independent of the authors and publishers. Sources discuss general findings; they do not validate this particular questionnaire. If a specific external site was intended by the name “Dirty Kink,” its URL must be confirmed before attributing content to it.</p>
+</section><footer>✳ AFTER DARK · PRIVATE PSYCHOLOGY LAB · Educational self-reflection for consenting adults 18+ · No data collection or medical diagnosis · <a href="/after-dark/">Back to the Atlas</a></footer></div>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const safeSession = (key,val) => { try { if(val!==undefined) sessionStorage.setItem(key,val); return sessionStorage.getItem(key); } catch(e) { return null; } };
+$('enter').onclick = () => { safeSession('atlasAdult','yes'); $('gate').remove(); };
+if(safeSession('atlasAdult')==='yes') $('gate').remove();
+const habits=[
+['👍','Thumb-sucking or chewing','A repetitive oral or hand habit can offer soothing sensory feedback, especially with stress, boredom, fatigue or transitions.','It does not reveal an adult fetish, an attachment style, childhood trauma, or any wish to engage in a role-play scenario.','Comfort, repetitive rhythm, and sensory regulation'],
+['🌀','Hair-twirling or fidgeting','Small repeated movements may help attention or regulation and may become automatic.','Fidgeting does not establish arousal or preference for any activity.','Texture, rhythm, and self-regulation'],
+['🧸','Blankets, plush toys and familiar objects','A familiar item can create warmth, predictability or emotional security.','A comforting object is not automatically a fetish or an adult role-play preference.','Safety, touch, and emotional association'],
+['🎧','Music, voices and ASMR','Sound and repetition can influence mood, concentration and sensory enjoyment.','Enjoying deep voices or music does not predict a particular sexual interest.','Sound textures, immersion and anticipation'],
+['🕯️','Small rituals and preferred routines','Rituals can make a setting feel predictable and intentional.','Liking routines does not imply a desire to control a partner or surrender control.','Predictability, anticipation and choice'],
+['💗','Reassurance and affection','Warmth, praise and closeness can be emotionally meaningful, particularly during stress.','Wanting care is not evidence of dependency, regression, or a kink.','Affirmation, attachment and boundaries'],
+['🎭','Costumes, fantasy and fictional worlds','Stories allow creative exploration and temporary changes in perspective.','Liking fantasy fiction does not mean wanting to perform any fantasy in real life.','Role imagination, symbolism and novelty'],
+['👗','Textures, clothes, shoes and aesthetics','Visual and tactile qualities can be appealing in ordinary life and may, for some adults, also be part of attraction.','An object or clothing preference is not necessarily sexual. Ask about actual arousal rather than inferring it.','Sensory preference, learned associations and aesthetics'],
+['🧭','Taking charge or handing over plans','Agency and voluntary trust can both feel rewarding in everyday decisions.','Being a leader or follower at work does not determine erotic roles.','Negotiated choice, responsibility and trust'],
+['🌙','Nostalgia and familiar memories','Objects, scents and routines can be associated with warm autobiographical memories.','Early memory is not a reliable one-to-one explanation of present-day adult sexuality.','Memory, emotional significance and learning']
+];
+const psych=[
+['Connection is not causation','A soothing habit may share a broad sensory or comfort theme with an adult preference, but that overlap cannot establish why the preference exists. Thumb-sucking is a useful example of why automatic interpretations fail.','Research-aware caution'],
+['What Amen’s book contributes','The Brain in Love organizes themes of attraction, reward, intimacy, attachment, brain function and unusual sexual interests. Treat these as discussion categories, not an individual brain diagnosis or an endorsed fetish prediction method.','Book overview · publisher and contents'],
+['Reward and associative learning','Experiences and associations can shape preferences over time. Memories, circumstances and pleasure may play roles, but there is no universal childhood origin story that explains every adult interest.','Research · Pfaus et al.'],
+['Sensation seeking and coping','Kink research has investigated novelty, attention, altered focus and coping strategies. A theory useful for some people does not define all people with similar interests.','Research · Williams & Sprott'],
+['Attachment, affirmation and trust','Feeling accepted, noticed or safe can change how closeness is experienced. Preference for praise or chosen power exchange is not a clinical test of attachment history.','General relational framework'],
+['Fantasy, symbolism and identity','Adults sometimes find excitement in fictional roles, costumes, anticipation and symbolic objects. Imagining a scene is not a contract to enact it or a statement about real-world identity.','Interpretive framework'],
+['Self-soothing and sensory needs','Sucking a thumb, rocking, hair-twirling or seeking pressure may help regulate sensations or feelings. These habits are often nonsexual, and their existence does not imply a fetish.','AAP and NHS'],
+['Normality, consent and distress','An atypical interest is not automatically a mental disorder. Personal distress or harm and nonconsent require a different conversation. Consent must be specific, informed, ongoing and freely reversible.','American Psychiatric Association'],
+['Sensory differences','Sound, fabric, touch, smell, lighting, temperature and repetition differ in their comfort or intensity from person to person. The same stimulus may be soothing, neutral, or aversive.','Sensory framework'],
+['What cannot be inferred','A quiz cannot infer an individual fetish from a thumb-sucking habit, a diagnosis, an attachment pattern, or a brain scan. Only voluntary self-report can clarify what someone actually feels curious about.','Limits of inference'],
+['Sexual interests versus compulsivity','Whether a behavior is unusual is not the same question as whether it is unwanted, damaging, compulsive, or interfering with life. Avoid using moral judgments as clinical assessments.','Clinical framing'],
+['Practical exploration','Notice your response, distinguish comfort from erotic interest, name the feeling, check safety and limits, and revisit later. No score tells you what you must try or who you are.','Reflection guidance']
+];
+const tags=['sensory','comfort','affirmation','novelty','story','agency','trust','aesthetic','ritual'];
+const tagName={sensory:'Sensation & sound',comfort:'Comfort & nurturing',affirmation:'Praise & attention',novelty:'Novelty & exploration',story:'Fantasy & storytelling',agency:'Leadership & decisions',trust:'Trust & surrender',aesthetic:'Style & symbolism',ritual:'Ritual & anticipation'};
+const qCore=[
+['When I feel stressed, I notice certain textures, touches, or sounds help me settle.',['sensory','comfort']],
+['A new experience often sounds exciting to me, even if I only imagine it.',['novelty','story']],
+['Warm reassurance from a trusted person can change my whole mood.',['affirmation','comfort']],
+['I enjoy meaningful rituals, traditions, or recurring little routines.',['ritual','comfort']],
+['I can get absorbed in fictional scenarios, characters, or imagined settings.',['story','novelty']],
+['I enjoy choosing how an event or plan unfolds.',['agency','ritual']],
+['With someone I trust, it can feel good not to make every decision.',['trust','comfort']],
+['Certain music, voices, or soundscapes are unusually immersive to me.',['sensory','aesthetic']],
+['Being sincerely praised or appreciated matters a lot to me.',['affirmation','trust']],
+['Anticipation can feel nearly as interesting as an event itself.',['ritual','novelty']],
+['Clothing, visual details, or symbolic objects make an experience feel special.',['aesthetic','story']],
+['Clear limits and the option to change my mind help me relax.',['trust','agency']]
+];
+const qExtra=[
+['Some repetitive habits (such as thumb-sucking, hair-twirling or fidgeting) soothe me; they are not necessarily sexual.',['comfort','sensory']],
+['I strongly notice differences between soft, firm, warm, or textured sensations.',['sensory','aesthetic']],
+['I like moments that make me feel admired or seen by someone I trust.',['affirmation','trust']],
+['Taking responsibility and guiding a plan can be playful or rewarding.',['agency','ritual']],
+['Caregiving or being cared for has special emotional meaning to me.',['comfort','trust']],
+['A certain look, material or outfit can stand out to me aesthetically.',['aesthetic','sensory']],
+['Pretending to be a different adult character can be a fun way to explore a story.',['story','novelty']],
+['I enjoy surprises when the boundaries and expectations are clear.',['novelty','trust']]
+];
+const interests=[
+['Sensory fabrics','Texture & aesthetics',['sensory','aesthetic'],'Interest in fabrics, touch and material sensations.','Only contact that is welcomed, comfortable and reversible.'],
+['Leather aesthetics','Texture & aesthetics',['aesthetic','sensory'],'Visual or tactile appeal of leather styling.','Aesthetic preferences need not be erotic.'],
+['Latex aesthetics','Texture & aesthetics',['aesthetic','sensory'],'Interest in glossy, fitted or theatrical clothing.','Consider allergies and comfort; no pressure to wear anything.'],
+['Lingerie and costume','Texture & aesthetics',['aesthetic','story'],'Clothing as a visual, symbolic or role-play cue.','Adult-only, opt-in, and private.'],
+['Foot appreciation','Body & attraction',['sensory','aesthetic'],'Feet or footwear as an adult attraction focus.','Ask before touching; do not infer interest from ordinary fashion.'],
+['Hands and touch','Body & attraction',['sensory','affirmation'],'Hand aesthetics or consensual touching.','Touch requires welcome and permission.'],
+['Hair appreciation','Body & attraction',['aesthetic','sensory'],'Hair styling, visual attention or touch may be meaningful.','Avoid touching without consent.'],
+['Praise and admiration','Words & connection',['affirmation','trust'],'Positive attention, compliments and being seen.','Specific compliments, never pressure.'],
+['Playful dirty talk','Words & connection',['affirmation','story'],'Words and tone as part of consensual imagination.','Agree on language and off-limit words.'],
+['Pet names and titles','Words & connection',['affirmation','ritual'],'Affectionate or symbolic naming, when mutually welcome.','Neither person must accept a label.'],
+['Service and devotion','Power & trust',['trust','comfort'],'Caring acts or attentive service as meaningful adult dynamics.','Adult roles are chosen and reversible.'],
+['Guiding and leading','Power & trust',['agency','trust'],'Enjoying responsibility and mutually agreed leadership.','Power never substitutes for consent.'],
+['Following and surrender','Power & trust',['trust','comfort'],'Voluntarily delegating a limited choice to a trusted adult.','Keep the ability to stop and change course.'],
+['Switching roles','Power & trust',['agency','trust'],'Enjoying different leadership roles in different situations.','Discuss changes clearly.'],
+['Gentle protocols','Power & trust',['ritual','trust'],'Symbolic rules or ceremonies within explicit boundaries.','Rules are optional and can be withdrawn.'],
+['Adult character roleplay','Fantasy & story',['story','novelty'],'Exploring fictional adult identities and scenes.','Everyone must be an adult and consenting.'],
+['Masquerade and mystery','Fantasy & story',['story','aesthetic'],'Costumes, mystery, anticipation and imagination.','Fictional scenes stay within agreed limits.'],
+['Caregiver / care-receiver roles','Fantasy & story',['comfort','trust'],'An adult-only negotiated focus on nurturing and reassurance.','No minors, real or depicted, and no assumed link to childhood habits.'],
+['Romantic ritual','Connection & timing',['ritual','affirmation'],'Planned moments and intentional signals of care.','Participation should be voluntary.'],
+['Anticipation play','Connection & timing',['ritual','novelty'],'Enjoying suspense or deliberate waiting in mutually agreed ways.','Avoid surprising a partner with unwanted activities.'],
+['Surprise within boundaries','Connection & timing',['novelty','trust'],'Novelty with pre-approved choices and vetoes.','A surprise is never a waiver of consent.'],
+['Consensual private observation','Seeing & being seen',['aesthetic','affirmation'],'Being admired or watched in a private consenting adult context.','No public bystanders or nonconsensual recording.'],
+['Consensual performance','Seeing & being seen',['story','affirmation'],'An adult enjoying a chosen spotlight or dramatic performance.','Only private, consent-based settings.'],
+['Photo aesthetics','Seeing & being seen',['aesthetic','story'],'Interest in photography, styling or imagined scenes.','Explicit image consent, safe storage, deletion rights.'],
+['Sound and voice','Sensory interests',['sensory','affirmation'],'Voices, tone, whispering or music creating an atmosphere.','Check that sounds feel good to both people.'],
+['Blindfold fantasy','Sensory interests',['sensory','trust'],'Imagined or consensual limited visual information.','Actual sensory restriction carries risks; this is not an instruction guide.'],
+['Temperature contrasts','Sensory interests',['sensory','novelty'],'Curiosity about mild, comfortable temperature sensations.','Avoid extremes, burns and risk.'],
+['Dance and movement','Sensory interests',['sensory','story'],'Rhythm and shared movement as part of a romantic setting.','No performance expected.'],
+['Fantasy of being cherished','Comfort & closeness',['comfort','affirmation'],'Attention, affection and emotional safety as fantasy themes.','Nonsexual comfort is equally valid.'],
+['Consensual power stories','Fantasy & story',['story','agency'],'Fictional adult authority narratives, discussed without acting on them.','Fantasy is not an instruction or agreement.'],
+['Negotiated intimacy routines','Connection & timing',['ritual','trust'],'Repeating a mutually enjoyable routine or signal.','Routines can change whenever either person wishes.'],
+['Romantic mystery','Fantasy & story',['story','novelty'],'An imagined secret letter or adult fictional encounter.','Consent remains explicit despite the fiction.']
+];
+const makeHabit = h => {const article=document.createElement('article');article.className='card';const label=document.createElement('div');label.className='eyebrow';label.textContent=h[0]+' '+h[4];const title=document.createElement('h3');title.textContent=h[1];const desc=document.createElement('p');desc.textContent=h[2];const detail=document.createElement('details');const sum=document.createElement('summary');sum.textContent='What it does not tell you';const caution=document.createElement('p');caution.textContent=h[3];detail.append(sum,caution);article.append(label,title,desc,detail);return article;};
+$('habitcards').append(...habits.map(makeHabit));
+$('psychcards').append(...psych.map(h=>{const c=document.createElement('article');c.className='card';const tag=document.createElement('div');tag.className='eyebrow';tag.textContent=h[2];const title=document.createElement('h3');title.textContent=h[0];const p=document.createElement('p');p.textContent=h[1];c.append(tag,title,p);return c;}));
+let stage='intro',depth=false,qi=0,answers=[],selected={};
+const qbox=$('qbox');
+function showQuestion(){
+ const pool=qCore.concat(depth?qExtra:[]);const q=pool[qi];qbox.replaceChildren();const note=document.createElement('div');note.className='meta';note.textContent='Question '+(qi+1)+' of '+pool.length+(depth?' · extended':' · essentials');
+ const bar=document.createElement('div');bar.className='progress';const fill=document.createElement('div');fill.style.width=(qi/pool.length*100)+'%';bar.append(fill);
+ const heading=document.createElement('h3');heading.textContent=q[0];const controls=document.createElement('div');controls.className='answergrid';
+ [['Not me',0],['Sometimes',1],['Often',2],['Very much',3],['Prefer to skip',null]].forEach(pair=>{const b=document.createElement('button');b.textContent=pair[0];b.onclick=()=>{answers.push(pair[1]);qi++;if(qi>=pool.length){if(!depth){showDepthChoice();}else showInterests();}else showQuestion();};controls.append(b);});
+ qbox.append(note,bar,heading,controls);
+ if(qi>0){const back=document.createElement('button');back.className='btn outline';back.textContent='← Back';back.onclick=()=>{qi--;answers.pop();showQuestion();};qbox.append(back);}
+}
+function showDepthChoice(){stage='depthchoice';qbox.replaceChildren();const h=document.createElement('h3');h.textContent='You finished the essentials 🎉';const p=document.createElement('p');p.textContent='Go straight to a personal report, or add 8 more reflections for richer theme coverage. Neither route predicts a fetish.';const actions=document.createElement('div');actions.className='actions';const deep=document.createElement('button');deep.className='btn';deep.textContent='Add 8 deeper questions';deep.onclick=()=>{depth=true;showQuestion();};const skip=document.createElement('button');skip.className='btn secondary';skip.textContent='Continue with 12 answers';skip.onclick=()=>showInterests();actions.append(deep,skip);qbox.append(h,p,actions);}
+function showInterests(){stage='interests';qbox.style.display='none';$('intereststage').style.display='block';if(!$('interestcards').childElementCount){$('interestcards').append(...interests.map((it,i)=>{const card=document.createElement('article');card.className='interest';const h=document.createElement('h3');h.textContent=it[0];const p=document.createElement('p');p.textContent=it[3];const tag=document.createElement('div');tag.className='meta';tag.textContent=it[1];const select=document.createElement('select');select.setAttribute('aria-label','Your feeling about '+it[0]);[['','Not answered'],['yes','Interested'],['maybe','Maybe / explore'],['no','Not for me']].forEach(pair=>{const o=document.createElement('option');o.value=pair[0];o.textContent=pair[1];select.append(o);});select.value=selected[i]||'';select.onchange=()=>{selected[i]=select.value;};card.append(tag,h,p,select);return card;}));}}
+function calculate(){
+ const pool=qCore.concat(depth?qExtra:[]);const stats=Object.fromEntries(tags.map(tag=>[tag,{points:0,max:0,items:0}]));
+ pool.forEach((q,i)=>{if(answers[i]===null||answers[i]===undefined)return;q[1].forEach(tag=>{stats[tag].points+=answers[i];stats[tag].max+=3;stats[tag].items++;});});
+ return stats;
+}
+function elem(tag,content,cls){const e=document.createElement(tag);if(content!==undefined)e.textContent=content;if(cls)e.className=cls;return e;}
+function report(){
+ $('intereststage').style.display='none';$('report').style.display='block';stage='report';const body=$('reportbody');body.replaceChildren();
+ const answered=answers.filter(v=>v!==null&&v!==undefined).length;
+ const coverage=Math.round(answered/(qCore.length+(depth?qExtra.length:0))*100);
+ body.append(elem('p','Answer coverage: '+answered+' of '+answers.length+' ('+coverage+'%). This is completion, not accuracy.','aside'));
+ const stats=calculate(),high=tags.map(k=>({k,score:stats[k].max?Math.round(stats[k].points/stats[k].max*100):0,n:stats[k].items})).sort((a,b)=>b.score-a.score);
+ const h=elem('h3','Themes in your own answers');body.append(h);
+ const grid=elem('div',undefined,'results');
+ high.slice(0,5).forEach(x=>{const c=elem('article',undefined,'card');c.append(elem('strong',tagName[x.k]),elem('p',x.n+' relevant question'+(x.n===1?'':'s')+' answered · '+x.score+'/100 endorsement index','aside'));const meter=elem('div',undefined,'meter');const fill=elem('div');fill.style.width=x.score+'%';meter.append(fill);c.append(meter);grid.append(c);});body.append(grid);
+ body.append(elem('p','Indices describe how often you endorsed each broad theme in this questionnaire. They are not clinical confidence levels, population percentiles, or predictions.','aside'));
+ const direct=interests.map((it,i)=>({it,i,val:selected[i]||''})).filter(x=>x.val==='yes'||x.val==='maybe');
+ const rated=interests.map((it,i)=>{const relevant=it[2].map(k=>stats[k].max?stats[k].points/stats[k].max:0);const avg=relevant.reduce((a,b)=>a+b,0)/(relevant.length||1);return {it,i,val:selected[i]||'',relevance:Math.round(avg*100)};});
+ const explicit=rated.filter(x=>x.val==='yes').sort((a,b)=>b.relevance-a.relevance);
+ const maybe=rated.filter(x=>x.val==='maybe').sort((a,b)=>b.relevance-a.relevance);
+ const unknown=rated.filter(x=>!x.val&&x.relevance>=55).sort((a,b)=>b.relevance-a.relevance).slice(0,6);
+ const buildMatch=(x,prefix)=>{const el=elem('article',undefined,'card match');const row=elem('div',undefined,'header');row.append(elem('strong',x.it[0]),elem('small',prefix));el.append(row,elem('p',x.it[3]));const m=elem('div',undefined,'meter');const fill=elem('div');fill.style.width=x.relevance+'%';m.append(fill);el.append(elem('p','Theme overlap: '+x.relevance+'/100 — not a likelihood of enjoyment.','aside'),m,elem('p','Boundary: '+x.it[4],'aside'));return el;};
+ const section=elem('div',undefined,'reportpart');section.append(elem('h3','Your own stated curiosities'));
+ if(!direct.length){section.append(elem('p','You did not choose any direct sexual-interest topics. That is a meaningful answer; the questionnaire will not invent interests for you.','aside'));}
+ else {const m=elem('div',undefined,'results');explicit.forEach(x=>m.append(buildMatch(x,'You selected Interested')));maybe.forEach(x=>m.append(buildMatch(x,'You selected Maybe')));section.append(m);}
+ body.append(section);
+ const next=elem('div',undefined,'reportpart');next.append(elem('h3','Optional topics to read about'));
+ if(unknown.length){next.append(elem('p','These unselected topics share broad themes you endorsed, but their appearance does not mean you are attracted to them.','aside'));const mg=elem('div',undefined,'results');unknown.forEach(x=>mg.append(buildMatch(x,'For reading only')));next.append(mg);}else next.append(elem('p','Nothing else is being inferred from your answers.','aside'));
+ body.append(next);
+ const note=elem('div',undefined,'note');note.append(elem('strong','Why a score cannot be a success rate'),elem('p','We have no validated link between everyday clues, sexual interests, and outcomes. Numerical endorsement indices cannot provide probabilities. Actual interest must come from your own reflection, and real-world participation requires ongoing informed consent.'));body.append(note);
+ $('report').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('startquiz').onclick=()=>{stage='quiz';qi=0;depth=false;answers=[];selected={};$('interestcards').replaceChildren();$('report').style.display='none';$('intereststage').style.display='none';qbox.style.display='block';showQuestion();};
+$('showreport').onclick=report;
+$('redo').onclick=()=>{$('startquiz').click();$('quiz').scrollIntoView({behavior:'smooth'});};
+$('print').onclick=()=>window.print();
+const faq=[
+{keys:['thumb','suck','oral habit','finger','chew'],answer:'Thumb-sucking and similar repetitive oral habits can be ways of settling sensory or emotional tension. The American Academy of Pediatrics discusses self-soothing habits, and NHS stimming guidance includes thumb-sucking as a possible sensory behavior. An adult who does this is not thereby expressing a sexual interest. Ask what the habit feels like to the individual; avoid inferring childhood trauma or any kink. Sources: HealthyChildren.org; Nottinghamshire Healthcare NHS.'},
+{keys:['amen','book','brain in love','spect','scan'],answer:'Daniel Amen’s The Brain in Love (2009) discusses intimacy, attraction, brain chemistry and, in Chapter 7, fetishes. This guide uses its broad chapter themes as conversation prompts. The book does not validate our questionnaire, and routine SPECT-based psychiatric claims have been scientifically contested. Sources: Penguin Random House; table of contents; AMA Journal of Ethics.'},
+{keys:['bondage','restraint','blindfold','unsafe','choking','breath','danger'],answer:'An imagined theme can differ from its real-life implementation. Physical restraint, breath restriction and similar practices carry meaningful risks. This guide does not provide risky techniques. Start with clear boundaries, low-risk conversations and fictional scenarios; do not assume consent. Source: APA guidance on consensual interests and harm.'},
+{keys:['power','dominan','submis','control','role'],answer:'Interest in choosing, delegating, leading or following may reflect trust, fantasy or attention, but a person’s daily leadership style does not predict an erotic role. Some adults enjoy mutually agreed power symbolism. A negotiated role never cancels another adult’s ability to stop.'},
+{keys:['fetish','paraphilia','normal','disorder','shame'],answer:'An uncommon sexual interest is not automatically a mental disorder. The APA distinguishes atypical interests from conditions involving significant individual distress, harm or nonconsent. Respect privacy and consent; consider professional help if distress is substantial.'},
+{keys:['child','regress','caregiver','little','nurture'],answer:'Comfort, caregiving and nonsexual regression-like feelings are not the same as an adult erotic roleplay preference. Reassurance, affection and soothing habits have many possible meanings. Any adult roleplay discussion must involve consenting adults only; never involve minors.'},
+{keys:['quiz','relevance','percent','success','score','accurac','prediction'],answer:'The relevance index measures theme overlap within your self-reported questionnaire answers. It is NOT a 63% chance of enjoying an activity, an estimate of success, a diagnosis, or a validated psychological prediction. A true accuracy statistic would require prospective testing and independent validation. Directly saying Interested or Not for me carries more meaning than unrelated habits.'},
+{keys:['sensory','texture','fabric','latex','leather','clothes','foot','hair'],answer:'Texture, sound, materials and visual aesthetics can matter in daily comfort or adult attraction, and they are not always sexual. A sensation may be soothing, exciting, neutral or aversive. The only reliable way to know its meaning to someone is to ask respectfully and accept their answer.'},
+{keys:['attachment','trust','reassur','praise','affirm','love'],answer:'Closeness, care, reassurance and voluntary trust can be central to relationships. The psychology of attachment and affirmation offers general ways to reflect, but neither a childhood habit nor a single preference is evidence of a specific attachment style.'},
+{keys:['learn','conditioning','reward','dopamine','cause','develop'],answer:'Learning and reward associations are plausible contributors to some interests, alongside temperament, context and culture. No single account fully explains an individual fetish. Contemporary reviews emphasize varied biopsychosocial pathways rather than assuming pathology. Sources: Pfaus et al. (2001); Williams & Sprott (2022).'},
+{keys:['novel','curios','fantasy','story','imagination'],answer:'Novelty and imaginary scenes can be fun without becoming activities. Liking a fictional scenario does not mean wanting it in real life. You can explore meaning through storytelling and conversation without making commitments.'},
+{keys:['consent','boundary','yes','no','maybe','partner'],answer:'Consent is specific, informed, freely given, ongoing and reversible. A Maybe is an invitation to talk, never permission. Do not involve nonconsenting bystanders, record anyone without explicit permission, or pressure anyone to explain a No.'},
+{keys:['source','research','reference','evidence'],answer:'Research references are linked in the What We Know section below: Daniel Amen’s book and table of contents, Williams & Sprott on kink science, Pfaus et al. on conditioning, the American Academy of Pediatrics and NHS on comforting habits, and the APA on atypical interests versus disorders.'}
+];
+function reply(question){const s=question.toLowerCase();let best=null,n=0;faq.forEach(item=>{let score=0;item.keys.forEach(k=>{if(s.includes(k))score+=k.length>6?2:1;});if(score>n){n=score;best=item;}});return best?best.answer:'I do not have a verified reference for that exact question in this local guide. Try asking about thumb-sucking, sensory differences, attachment, reward learning, power, consent, research, or quiz scores. I cannot infer someone’s private desires from clues.';}
+function addMessage(text,by){const el=elem('div',text,'bubble '+by);$('messages').append(el);$('messages').scrollTop=$('messages').scrollHeight;}
+function ask(q){if(!q.trim())return;addMessage(q,'user');addMessage(reply(q),'bot');}
+$('ask').onsubmit=e=>{e.preventDefault();const q=$('message').value.trim();$('message').value='';ask(q);};
+document.querySelectorAll('[data-ask]').forEach(x=>x.onclick=()=>ask(x.dataset.ask));
+</script></body></html>
