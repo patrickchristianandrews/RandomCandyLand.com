@@ -8,7 +8,8 @@ class CandyAudioEngine {
   private masterGain: GainNode | null = null;
 
   constructor() {
-    const saved = localStorage.getItem('candyland_muted');
+    let saved = null;
+    try { saved = localStorage.getItem('candyland_muted'); } catch {}
     if (saved !== null) {
       this.isMuted = saved === 'true';
     }
@@ -29,7 +30,7 @@ class CandyAudioEngine {
 
   public toggleMute(): boolean {
     this.isMuted = !this.isMuted;
-    localStorage.setItem('candyland_muted', String(this.isMuted));
+    try { localStorage.setItem('candyland_muted', String(this.isMuted)); } catch {}
     if (this.masterGain) {
       this.masterGain.gain.value = this.isMuted ? 0 : 0.2;
     }
