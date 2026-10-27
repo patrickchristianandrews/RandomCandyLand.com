@@ -71,6 +71,8 @@ export function usePetGame() {
   const statsRef = useRef(stats);
   statsRef.current = stats;
   const recentQuotesRef = useRef<string[]>([]);
+  // Ambient reactions are infrequent and reset whenever a user triggers speech.
+  const nextAmbientQuoteRef = useRef(Date.now() + 50000);
 
   // Persist state
   useEffect(() => {
@@ -126,9 +128,45 @@ export function usePetGame() {
     }
 
     setCurrentQuote(chosen);
-    // Authentic Trump Voice Playback
-    sound.speakTrump(chosen.text, isBaby, chosen.audioClip);
+    nextAmbientQuoteRef.current = Date.now() + 45000 + Math.random() * 40000;
+    // Stream the exact recorded fragments instead of generating a fake full quote.
+    // On iPhone, subsequent audio clips may require a fresh user gesture.
+    if (chosen.audioClips?.length) {
+      sound.playRecordedSequence(chosen.audioClips);
+    } else if (chosen.audioClip) {
+      sound.playRecordedSequence([chosen.audioClip]);
+    }
   }, []);
+
+  // Donald spontaneously reveals his mood every 45–85 seconds of visible idle
+  // play. No background timer activity or looping audio when Safari is hidden.
+  useEffect(() => {
+    const ambient = window.setInterval(() => {
+      if (typeof document === 'undefined' || document.visibilityState !== 'visible') return;
+      if (Date.now() < nextAmbientQuoteRef.current) return;
+
+      const pet = statsRef.current;
+      nextAmbientQuoteRef.current = Date.now() + 45000 + Math.random() * 40000;
+      if (pet.isSleeping) return;
+
+      let mood: TrumpQuote['mood'] = 'happy';
+      if (pet.isSick || pet.health < 40) mood = 'sick';
+      else if (pet.hunger < 35) mood = 'hungry';
+      else if (pet.energy < 30) mood = 'sleepy';
+      else if (pet.messCount >= 3 || pet.cleanliness < 40) mood = 'feisty';
+      else if (pet.happiness < 35) mood = 'lonely';
+      else if (pet.happiness < 60) mood = 'bored';
+      else if (pet.ratings >= 90) mood = 'proud';
+      else {
+        const possibilities: TrumpQuote['mood'][] = ['happy', 'proud', 'rallied', 'bored', 'dance'];
+        mood = possibilities[Math.floor(Math.random() * possibilities.length)];
+      }
+      triggerAnim('talk', 2400);
+      triggerQuote(mood);
+    }, 8000);
+
+    return () => window.clearInterval(ambient);
+  }, [triggerAnim, triggerQuote]);
 
   // Evolution advancement helper
   const addGrowth = useCallback((growthDelta: number) => {
@@ -442,7 +480,7 @@ export function usePetGame() {
 
   const resetPet = useCallback(() => {
     sound.playCancel();
-    localStorage.removeItem(STORAGE_KEY);
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
     setStats({ 
       ...INITIAL_STATS, 
       lastFedTimestamp: Date.now(), 
