@@ -75,9 +75,9 @@ try{
   await evaluate("document.querySelector('[data-tab=atlas]').click()");
   console.log('Atlas diagnostics:',await evaluate("JSON.stringify({count:document.querySelectorAll('#topicGrid .topic').length,all:document.querySelector('#allCount')?.textContent,script:typeof window.renderAtlas,errors:window.onerror?.toString().slice(0,100)||'none'})"),JSON.stringify(testErrors));
   await check('Atlas has 100+ working interest cards',"document.querySelectorAll('#topicGrid .topic').length>=100");
-  await evaluate("let input=document.querySelector('#search');input.value='leather';input.dispatchEvent(new Event('input',{bubbles:true}))");
+  await evaluate("var input=document.querySelector('#search');input.value='leather';input.dispatchEvent(new Event('input',{bubbles:true}))");
   await check('Search filters visible interests',"document.querySelectorAll('#topicGrid .topic').length>=1&&document.querySelectorAll('#topicGrid .topic').length<40");
-  await evaluate("let input=document.querySelector('#search');input.value='';input.dispatchEvent(new Event('input',{bubbles:true}))");
+  await evaluate("var input=document.querySelector('#search');input.value='';input.dispatchEvent(new Event('input',{bubbles:true}))");
   await evaluate("document.querySelector('#topicGrid .topic button').click()");
   await check('Marking a topic updates the controls',"document.querySelectorAll('#topicGrid .topic button.chosen').length>0");
   await evaluate("document.querySelector('[data-tab=quiz]').click();document.querySelector('#startQuiz').click()");
