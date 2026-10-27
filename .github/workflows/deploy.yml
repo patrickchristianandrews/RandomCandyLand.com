@@ -39,6 +39,9 @@ jobs:
       - name: Build production bundle
         run: bun run build
 
+      - name: Stamp this exact release for live verification
+        run: printf '%s\n' "$GITHUB_SHA" > dist/release-id.txt
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -81,3 +84,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify production really serves the latest release
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo "Checking https://randomcandyland.com/release-id.txt"
+          for attempt in {1..18}; do
+            current=$(curl --fail --silent --show-error --location --max-time 15 \
+              -H "Cache-Control: no-cache" \
+              "https://randomcandyland.com/release-id.txt?attempt=${attempt}" || true)
+            if [[ "$current" == "$GITHUB_SHA" ]]; then
+              echo "::notice::Verified LIVE release $GITHUB_SHA at randomcandyland.com"
+              exit 0
+            fi
+            echo "Release not visible yet (attempt $attempt); retrying"
+            sleep 5
+          done
+          echo "::warning::GitHub Pages deployed, but the custom domain did not return this release"
+          exit 1
