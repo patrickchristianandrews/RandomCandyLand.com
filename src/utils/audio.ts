@@ -371,6 +371,58 @@ class SoundEngine {
 
   private voiceCache = new Map<string, string>();
   private currentVoiceAudio: HTMLAudioElement | null = null;
+  private voiceSequenceGeneration = 0;
+
+  /**
+   * Play a short sequence of existing authentic recordings at original speed.
+   * Uses one streamed HTMLAudioElement at a time rather than decoding MP3s into
+   * AudioBuffers, which is considerably kinder to iPhone Safari memory.
+   */
+  public playRecordedSequence(clips: string[]) {
+    if (this.isMuted || typeof window === 'undefined' || !clips?.length) return;
+
+    const generation = ++this.voiceSequenceGeneration;
+    if (this.currentVoiceAudio) {
+      this.currentVoiceAudio.pause();
+      this.currentVoiceAudio.onended = null;
+      this.currentVoiceAudio.onerror = null;
+      this.currentVoiceAudio = null;
+    }
+
+    const safeClips = clips.filter(clip => /^[a-z0-9_-]+\.mp3$/i.test(clip)).slice(0, 3);
+    const playNext = (index: number) => {
+      if (generation !== this.voiceSequenceGeneration || this.isMuted || index >= safeClips.length) return;
+      const player = new Audio('/audio/trump/' + safeClips[index]);
+      player.preload = 'none';
+      player.volume = 1;
+      let advanced = false;
+      const advance = () => {
+        if (advanced) return;
+        advanced = true;
+        player.onended = null;
+        player.onerror = null;
+        if (this.currentVoiceAudio === player) this.currentVoiceAudio = null;
+        playNext(index + 1);
+      };
+      player.onended = advance;
+      player.onerror = advance;
+      this.currentVoiceAudio = player;
+      try {
+        const playing = player.play();
+        if (playing && typeof playing.catch === 'function') {
+          playing.catch(() => {
+            // Safari can block sequential autoplay after the first recording;
+            // do not flood the console or create network/TTS fallbacks.
+            if (generation === this.voiceSequenceGeneration) advance();
+          });
+        }
+      } catch {
+        advance();
+      }
+    };
+    playNext(0);
+  }
+
   private voicesLoaded: boolean = false;
   private cachedVoices: SpeechSynthesisVoice[] = [];
 
@@ -458,6 +510,7 @@ class SoundEngine {
    */
   public async speakTrump(text: string, isBaby: boolean = false, audioClip?: string) {
     if (this.isMuted) return;
+    ++this.voiceSequenceGeneration;
     this.init();
 
     // Stop any currently playing audio element
