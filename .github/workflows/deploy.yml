@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy fresh RandomCandyLand to GitHub Pages
 
 on:
   push:
@@ -11,95 +11,97 @@ permissions:
   pages: write
   id-token: write
 
+# Latest website release wins. Do not let two custom builds deploy out of order.
 concurrency:
-  group: 'pages'
+  group: sugarverse-production
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout latest source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build the entire website
+        run: bun run build
+
+      - name: Identify this exact release in the published files
+        run: printf '%s\n' "$GITHUB_SHA" > dist/release-id.txt
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Save the new website for publishing
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      # A second, legacy GitHub Pages job is publishing the stale checked-in
+      # HTML from the main branch. Wait BEFORE acquiring the deployment
+      # environment so the legacy job cannot overwrite the new build afterward.
+      - name: Wait for older automatic Pages publishers
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Waiting for legacy branch-source Pages jobs to finish."
+          sleep 12
+          for attempt in {1..45}; do
+            payload=$(curl --fail --silent --show-error --retry 2 \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs?per_page=50") || {
+                echo "::warning::Could not read Pages queue; continuing."
+                break
+              }
+            count=$(printf '%s' "$payload" | jq '[.workflow_runs[] | select(.name == "pages build and deployment" and .status != "completed")] | length')
+            if [[ "$count" == "0" ]]; then
+              echo "The legacy Pages queue is clear; the new website can publish last."
+              break
+            fi
+            echo "${count} legacy Pages run(s) still queued or running; retry ${attempt}/45"
+            sleep 6
+          done
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
-
-      - name: Build production bundle
-        run: bun run build
-
-      - name: Stamp this exact release for live verification
-        run: printf '%s\n' "$GITHUB_SHA" > dist/release-id.txt
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
-
-      # GitHub Pages also has a branch-source publisher enabled. That publisher
-      # serves stale checked-in files and used to overwrite the actual build.
-      # Wait for it to finish, then deploy the newly built dist artifact last.
-      - name: Wait for automatic branch Pages publish
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          echo "Waiting for the duplicate branch Pages job before publishing the real build"
-          sleep 15
-          for attempt in {1..30}; do
-            response=$(curl --fail --silent --show-error --retry 2 \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs?head_sha=${GITHUB_SHA}&per_page=30") || {
-                echo "Cannot inspect parallel Pages job; continuing with the built site"
-                break
-              }
-            statuses=$(printf '%s' "$response" | jq -r '[.workflow_runs[] | select(.name == "pages build and deployment") | .status] | join(",")')
-            if [[ -z "$statuses" ]]; then
-              echo "No branch Pages job present; publishing the built site"
-              break
-            fi
-            if [[ "$statuses" != *"queued"* && "$statuses" != *"in_progress"* && "$statuses" != *"waiting"* && "$statuses" != *"requested"* && "$statuses" != *"pending"* ]]; then
-              echo "Branch Pages deployment is complete: $statuses"
-              break
-            fi
-            echo "Branch Pages is $statuses; waiting to avoid a stale publish"
-            sleep 5
-          done
-
-      - name: Deploy to GitHub Pages
+      - name: Publish newest site over the old version
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Verify production really serves the latest release
+      - name: Check live RandomCandyLand matches this commit
         continue-on-error: true
         shell: bash
         run: |
-          echo "Checking https://randomcandyland.com/release-id.txt"
-          for attempt in {1..18}; do
+          for attempt in {1..20}; do
             current=$(curl --fail --silent --show-error --location --max-time 15 \
               -H "Cache-Control: no-cache" \
-              "https://randomcandyland.com/release-id.txt?attempt=${attempt}" || true)
+              "https://randomcandyland.com/release-id.txt?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
             if [[ "$current" == "$GITHUB_SHA" ]]; then
-              echo "::notice::Verified LIVE release $GITHUB_SHA at randomcandyland.com"
+              echo "::notice::LIVE WEBSITE VERIFIED: ${GITHUB_SHA}"
               exit 0
             fi
-            echo "Release not visible yet (attempt $attempt); retrying"
-            sleep 5
+            echo "Waiting for the new release to appear at the domain."
+            sleep 6
           done
-          echo "::warning::GitHub Pages deployed, but the custom domain did not return this release"
+          echo "::warning::Pages accepted deployment, but the live domain could not yet be verified."
           exit 1
