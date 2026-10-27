@@ -67,7 +67,7 @@ jobs:
                 echo "::warning::Could not read Pages queue; continuing."
                 break
               }
-            count=$(printf '%s' "$payload" | jq '[.workflow_runs[] | select(.name == "pages build and deployment" and .status != "completed")] | length')
+            count=$(printf '%s' "$payload" | jq '[.workflow_runs[] | select((.name == "pages build and deployment" or .name == "Deploy to GitHub Pages") and .status != "completed")] | length')
             if [[ "$count" == "0" ]]; then
               echo "The legacy Pages queue is clear; the new website can publish last."
               break
