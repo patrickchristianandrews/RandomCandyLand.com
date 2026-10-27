@@ -1,45 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
-import { ArrowRight, Dice5, Volume2, VolumeX, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { ArrowRight, Dice5, Volume2, VolumeX, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { CandyLand3DScene } from '../components/candyland3d/CandyLand3DScene';
 import { generate3DBoardTiles, ABSURD_CHAOS_CARDS } from '../utils/candyChaosEngine';
-import { CHAOS_CHARACTERS, ChaosCard, ChaosPlayer } from '../types/candyChaos';
+import { CHAOS_CHARACTERS, ChaosCard, ChaosCharacterId, ChaosPlayer } from '../types/candyChaos';
 import { sound } from '../utils/audio';
 import { candyAudio } from '../utils/candyAudio';
 
 interface RandomCandyLandHomeProps { onNavigateToTrump: () => void; }
-const STAR_IDS: ChaosCharacterId[] = ['taylor','sabrina','bunny','beyonce','lebron','gaga','bruno','billie'];
-const CAST = CHAOS_CHARACTERS.filter(c => STAR_IDS.includes(c.id));
 const ALL_CAST = CHAOS_CHARACTERS;
 const byId = (id: ChaosCharacterId) => ALL_CAST.find(c => c.id === id) || ALL_CAST[0];
 const CARD_COUNT = ABSURD_CHAOS_CARDS.length;
-const ENCOUNTERS = [
-  ['Taylor Swift','Sabrina Carpenter','Taylor invents an entire candy kingdom era. Sabrina responds with a miniature espresso machine. The crowd demands a remix.'],
-  ['Beyoncé','Lady Gaga','Two spectacular entrances happen at exactly the same time. A gummy bear faints from the fabulousness.'],
-  ['Bad Bunny','Bruno Mars','A neon dance-off erupts. The jellybeans cannot decide who has the smoothest moves.'],
-  ['LeBron James','Bad Bunny','LeBron makes the winning gumdrop dunk while the whole candy stadium catches the rhythm.'],
-  ['Billie Eilish','Lady Gaga','Billie sets a moody midnight vibe. Gaga turns it into an extravagant costume reveal.'],
-  ['Taylor Swift','Beyoncé','The candy kingdom tries to award both stars the same glitter crown. They organize a grand finale instead.'],
-  ['Sabrina Carpenter','Billie Eilish','Sabrina offers espresso. Billie suggests a mysterious moonlit cafe. A nervous waffle works the register.'],
-  ['Bruno Mars','Beyoncé','A synchronized choreography battle starts, and the marshmallows insist on being backup dancers.'],
-  ['Bad Bunny','Taylor Swift','A melody turns into a wild genre-swap experiment. The bubblegum orchestra requests an encore.'],
-  ['Lady Gaga','LeBron James','Gaga designs a dazzling team uniform. LeBron scores before the outfit reveal is even finished.'],
-  ['Trumpagotchi','Taylor Swift','Donald demands the biggest stage. Taylor replies with a twelve-song candy musical. The stage grows twice its size.'],
-  ['Trumpagotchi','Beyoncé','Donald announces a candy-parade victory. Beyoncé takes charge of the choreography. All the jellybeans get in formation.'],
-  ['Trumpagotchi','LeBron James','Donald names the tallest gumdrop in the kingdom. LeBron dunks it. The scoreboard explodes in confetti.'],
-  ['Trumpagotchi','Bad Bunny','Donald starts a dance move. Bad Bunny drops the beat. A peppermint knight becomes a fan.'],
-  ['Sabrina Carpenter','Bruno Mars','Espresso meets golden funk. Even the frosting machine starts dancing.'],
-  ['Billie Eilish','Taylor Swift','Two totally different moods create a surprisingly magical duet beneath the cotton candy sky.'],
-  ['Lady Gaga','Sabrina Carpenter','A catwalk becomes a rollercoaster. Sabrina keeps her tiny coffee cup perfectly upright.'],
-  ['LeBron James','Beyoncé','A championship celebration transforms into a stadium-sized candy concert.'],
-];
-const uniqueRandom = (last: number, max: number) => {
-  if (max <= 1) return 0;
-  let i = Math.floor(Math.random() * max);
-  if (i === last) i = (i + 1) % max;
-  return i;
-};
 const bounceConfetti = (color: string) => {
   try {
     confetti({ particleCount: 75, spread: 92, origin: { x: 0.5, y: 0.64 }, colors: [color,'#fff68f','#ff77df','#75eaff'] });
@@ -61,24 +33,22 @@ function CandyLink({emoji,title,subtitle,href,shade,label}: {emoji:string,title:
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
   const tiles = useMemo(() => generate3DBoardTiles(), []);
   const [players, setPlayers] = useState<ChaosPlayer[]>(() => [
-    { id:'you',name:'You',characterId:'taylor',tileIndex:0,sugarGems:140,isHost:true,isAi:false,isConnected:true,score:0,shieldActive:false },
-    { id:'guest1',name:'Sabrina',characterId:'sabrina',tileIndex:2,sugarGems:80,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
-    { id:'guest2',name:'Bad Bunny',characterId:'bunny',tileIndex:4,sugarGems:90,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
-    { id:'guest3',name:'Donald',characterId:'trumpagotchi',tileIndex:1,sugarGems:105,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
+    { id:'you',name:'You',characterId:'gummy',tileIndex:0,sugarGems:140,isHost:true,isAi:false,isConnected:true,score:0,shieldActive:false },
+    { id:'guest1',name:'Marshmallow',characterId:'marshmallow',tileIndex:2,sugarGems:80,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
+    { id:'guest2',name:'Peppermint',characterId:'peppermint',tileIndex:4,sugarGems:90,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
+    { id:'guest3',name:'Donut',characterId:'donut',tileIndex:1,sugarGems:105,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
   ]);
   const [activePlayerIdx,setActivePlayerIdx] = useState(0);
   const [isRolling,setIsRolling] = useState(false);
   const [lastDice,setLastDice] = useState<number|null>(null);
   const [eventCard,setEventCard] = useState<ChaosCard|null>(null);
   const [lastCard,setLastCard] = useState<ChaosCard|null>(null);
-  const [encounter,setEncounter] = useState('');
   const [showGuide,setShowGuide] = useState(false);
   const [isMuted,setIsMuted] = useState(()=>sound.getIsMuted());
   const [activeCategory,setActiveCategory] = useState('all');
   const [turn,setTurn] = useState(1);
   const [zoom,setZoom] = useState(0);
   const deckRef = useRef<number[]>([]);
-  const lastEncounterRef = useRef(-1);
   const timerRef = useRef<ReturnType<typeof setTimeout>|null>(null);
   useEffect(()=>()=>{if(timerRef.current)clearTimeout(timerRef.current)},[]);
   const turnPlayer = players[activePlayerIdx];
@@ -88,12 +58,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       for(let i=deckRef.current.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deckRef.current[i],deckRef.current[j]]=[deckRef.current[j],deckRef.current[i]];}
     }
     return ABSURD_CHAOS_CARDS[deckRef.current.pop()||0];
-  };
-  const randomEncounter = () => {
-    const i = uniqueRandom(lastEncounterRef.current,ENCOUNTERS.length);
-    lastEncounterRef.current = i;
-    const [a,b,dialogue] = ENCOUNTERS[i];
-    return a+' × '+b+' — '+dialogue;
   };
   const roll = () => {
     if(isRolling || eventCard)return;
@@ -119,7 +83,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         return next;
       });
       setEventCard(card);
-      setEncounter(randomEncounter());
       setTurn(t=>t+1);
       setIsRolling(false);
       bounceConfetti(card.color);
@@ -148,8 +111,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       <section className="sugar-hero">
         <div className="sugar-kicker">✦ WELCOME TO THE WILDEST CORNER OF THE INTERNET ✦</div>
         <h1><span>WONDER.</span><br/><em>WEIRDNESS.</em><br/><b>PURE CANDY CHAOS!</b></h1>
-        <p>Welcome to a neon-soaked sugar universe where gummy bears have drama, pop stars battle for the crown, and every click opens a new surprise.</p>
-        <div className="sugar-herobuttons"><button onClick={onNavigateToTrump} className="sugar-mainbtn">🏆 PLAY TRUMPAGOTCHI <ArrowRight/></button><button onClick={goBoard} className="sugar-otherbtn">🎲 CandyLand board</button></div>
+        <p>Welcome to a colorful candy world packed with playful adventures, quirky surprises, and imagination around every corner.</p>
+        <div className="sugar-herobuttons"><button onClick={onNavigateToTrump} className="sugar-mainbtn">🐣 PLAY TRUMPAGOTCHI <ArrowRight/></button><button onClick={goBoard} className="sugar-otherbtn">🎲 CandyLand board</button></div>
         <div className="sugar-hero-stats"><span>🎮 Trumpagotchi pocket pet</span><span>🎴 CandyLand game</span><span>🌙 After Dark 18+</span></div>
         <div className="sugar-hero-planet" aria-hidden="true"><span className="planet-ring"/><span className="planet-eye eye-left"/><span className="planet-eye eye-right"/><span className="planet-smile"/><span className="planet-star">✦</span></div>
       </section>
@@ -161,7 +124,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         {showGroup('games') && <div className="sugar-group"><h3>🎮 Your games</h3><div className="sugar-offerings">
 
           <button className="sugar-offering sugar-offering--gold sugar-trump-feature" onClick={onNavigateToTrump}><div className="sugar-trump-portrait" aria-hidden="true"><TrumpCartoonLookalike size={112} animate={true}/></div><div className="sugar-offering-body"><span className="sugar-tag">THE ORIGINAL POCKET-PET GAME</span><h3>Trumpagotchi</h3><p>Take care of Donald in his classic handheld digi-pet game: feed him, keep him clean, watch him dance and help him evolve.</p><span className="sugar-linktext">Play Trumpagotchi <ArrowRight size={16}/></span></div></button>
-          <button className="sugar-offering sugar-offering--bubble" onClick={goBoard}><div className="sugar-offering-orb">🎲</div><div className="sugar-offering-body"><span className="sugar-tag">172+ SURPRISE CARDS</span><h3>Sugar Chaos 3D</h3><p>Explore a spectacular 3D candy board, face pop-culture guests and reveal bizarre cards.</p><span className="sugar-linktext">Play now <ArrowRight size={16}/></span></div></button>
+          <button className="sugar-offering sugar-offering--bubble" onClick={goBoard}><div className="sugar-offering-orb">🎲</div><div className="sugar-offering-body"><span className="sugar-tag">172+ SURPRISE CARDS</span><h3>Sugar Chaos 3D</h3><p>Explore a colorful 3D candy board, meet silly candy characters, and draw surprise cards.</p><span className="sugar-linktext">Play now <ArrowRight size={16}/></span></div></button>
 
         </div></div>}
         {showGroup('music') && <div className="sugar-group"><h3>🎵 Sound, color & imagination</h3><div className="sugar-offerings"><CandyLink emoji="🌈" title="Candy Pulse" subtitle="Turn your favorite music into hypnotic light waves, neon blooms and dancing frequencies." href="/music-visualizer/" shade="pink" label="MUSIC VISUALIZER"/><CandyLink emoji="🎹" title="FM-1 Synth Lab" subtitle="Make weird and wonderful sounds with a browser-based pocket synthesizer." href="/fm1-emu/" shade="blue" label="MUSIC MAKER"/></div></div>}
@@ -169,7 +132,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </section>
       <section id="candy-board" className="sugar-section sugar-board-section">
         <div className="sugar-sectiontop"><div><span className="sugar-eyebrow">✦ THE MAIN EVENT</span><h2>Sugar Chaos <em>3D.</em></h2><p>Spin, zoom, collect candy gems and survive the most absurd deck on the internet.</p></div><button className="sugar-pill" onClick={()=>setShowGuide(v=>!v)} aria-expanded={showGuide}>❔ How to play</button></div>
-        {showGuide && <div className="sugar-guide"><strong>YOUR 30-SECOND GUIDE:</strong> Pick a character below, roll the dice, and watch your pawn cross the 3D candy world. A surprise card changes your gem total or moves you. Read the big pop-up, collect, then the next guest takes their turn. Drag the board to rotate, use + and − to zoom, and click the character list to switch your star. Reach the candy castle to score a victory! This is a local pass-and-play adventure with fictional guest characters. Tap Roll to take each guest’s turn; it is not a live multiplayer room.</div>}
+        {showGuide && <div className="sugar-guide"><strong>YOUR 30-SECOND GUIDE:</strong> Roll the dice and watch your pawn cross the 3D candy world. A surprise card changes your gem total or moves you. Read the big pop-up, collect, then the next guest takes their turn. Drag the board to rotate, and use + and − to zoom. Reach the candy castle to score a victory! This is a local turn-taking board game with whimsical candy pawns, not a live multiplayer room.</div>}
         <div className="sugar-game-shell">
           <div className="sugar-game-top"><div><span className="sugar-chip">LIVE CANDY REALM</span> <span className="sugar-chip">DECK: {CARD_COUNT} CARDS</span></div><div className="sugar-game-score">🎲 {turnPlayer?.name || 'Player'}'s turn · Round {turn}</div></div>
           <CandyLand3DScene tiles={tiles} players={players} activePlayerId={turnPlayer?.id||''} zoomLevel={zoom}/>
@@ -183,7 +146,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </section>
       <section className="sugar-endcap"><span>🍭</span><div><h2>The internet should feel <em>this fun.</em></h2><p>Take a little detour into something delightfully ridiculous.</p></div><button className="sugar-mainbtn" onClick={goBoard}>One more roll <ArrowRight/></button></section>
       <footer className="sugar-footer"><span>✦ RANDOMCANDYLAND.COM ✦</span><span>Made with sugar, imagination, and a spectacular lack of seriousness.</span><a href="#attractions">Back to the candy portals ↑</a></footer>
-      {eventCard && <div className="sugar-modal-backdrop" role="presentation"><section className="sugar-reveal" role="dialog" aria-modal="true" aria-labelledby="reveal-heading" style={{'--reveal':eventCard.color} as React.CSSProperties}><div className="sugar-reveal-stamp">✦ THE UNIVERSE HAS SPOKEN ✦</div><div className="sugar-reveal-art">🍬✨🎲</div><span className="sugar-reveal-tag">CHAOS CARD #{eventCard.id.replace(/\D/g,'').slice(0,4)}</span><h2 id="reveal-heading">{eventCard.title}</h2><p>{eventCard.whatAnnouncement}</p><div className="sugar-reveal-awards"><span>{eventCard.moveDelta>=0?'+':''}{eventCard.moveDelta} bonus spaces</span><span>{eventCard.gemDelta>=0?'+':''}{eventCard.gemDelta} 💎</span></div><div className="sugar-reveal-encounter"><strong>✨ Character cameo</strong><p>{encounter}</p></div><button className="sugar-mainbtn" autoFocus onClick={advance}>Collect & continue <ArrowRight/></button></section></div>}
+      {eventCard && <div className="sugar-modal-backdrop" role="presentation"><section className="sugar-reveal" role="dialog" aria-modal="true" aria-labelledby="reveal-heading" style={{'--reveal':eventCard.color} as React.CSSProperties}><div className="sugar-reveal-stamp">✦ THE UNIVERSE HAS SPOKEN ✦</div><div className="sugar-reveal-art">🍬✨🎲</div><span className="sugar-reveal-tag">CHAOS CARD #{eventCard.id.replace(/\D/g,'').slice(0,4)}</span><h2 id="reveal-heading">{eventCard.title}</h2><p>{eventCard.whatAnnouncement}</p><div className="sugar-reveal-awards"><span>{eventCard.moveDelta>=0?'+':''}{eventCard.moveDelta} bonus spaces</span><span>{eventCard.gemDelta>=0?'+':''}{eventCard.gemDelta} 💎</span></div><button className="sugar-mainbtn" autoFocus onClick={advance}>Collect & continue <ArrowRight/></button></section></div>}
     </main>
   );
 }

@@ -384,25 +384,13 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
         }
 
 
-        // Colorful sculpted accessories: recognizable stage personas without
-        // heavy downloaded models or photographs.
+        // Small sculpted candy accessories, with no celebrity identities.
         const color = (hex: number) => new THREE.MeshStandardMaterial({color:hex,roughness:.3,metalness:.13});
         const add = (geometry: THREE.BufferGeometry, material: THREE.Material, x: number, y: number, z: number, rotZ=0) => {
           const part = new THREE.Mesh(geometry,material);
           part.position.set(x,y,z);part.rotation.z=rotZ;pawnGroup.add(part);return part;
         };
-        const star=player.characterId;
-        if(star==='taylor'||star==='sabrina'||star==='beyonce'||star==='gaga'||star==='billie'){
-          const hairHue=star==='billie'?0x222a24:star==='beyonce'?0x8e4d20:star==='gaga'?0xd9e9f2:0xe7bc66;
-          add(new THREE.SphereGeometry(.65,12,10),color(hairHue),0,2.4,-.23);
-          add(new THREE.BoxGeometry(.98,.11,.15),color(0xffffff),0,1.65,.55);
-          if(star==='gaga')add(new THREE.ConeGeometry(.36,.9,9),color(0xfac6ff),0,3.11,0);
-          if(star==='beyonce')add(new THREE.TorusGeometry(.45,.1,6,16),color(0xffd34a),0,3.16,0);
-          if(star==='taylor')add(new THREE.BoxGeometry(.13,.83,.12),color(0xefa3d1),-.52,1.3,.27,-.28);
-        }
-        if(star==='bunny'){add(new THREE.ConeGeometry(.17,.82,10),color(0xf8d5eb),-.27,3.07,0);add(new THREE.ConeGeometry(.17,.82,10),color(0xf8d5eb),.27,3.07,0);add(new THREE.TorusGeometry(.56,.12,6,16),color(0x55de9a),0,1.5,0);}
-        if(star==='lebron'){add(new THREE.SphereGeometry(.53,12,10),color(0x552a1e),0,2.48,-.14);add(new THREE.SphereGeometry(.28,12,10),color(0xe46d2a),.7,1.3,.4);}
-        if(star==='bruno'){add(new THREE.CylinderGeometry(.58,.6,.25,16),color(0xedd0aa),0,2.95,0);add(new THREE.CylinderGeometry(.4,.4,.48,16),color(0x382a2b),0,3.15,0);}
+        const star = player.characterId;
         if(star==='peppermint'){add(new THREE.ConeGeometry(.55,.72,10),color(0xffffff),0,2.95,0);}
         if(star==='donut'){add(new THREE.TorusGeometry(.56,.19,10,18),color(0xf57ec0),0,2.95,0);}
         if(star==='skittle'||star==='gummy'){add(new THREE.ConeGeometry(.47,.63,10),color(0xb6f25d),0,2.9,0);}

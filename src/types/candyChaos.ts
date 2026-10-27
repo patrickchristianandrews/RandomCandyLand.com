@@ -4,9 +4,7 @@ export type ChaosCharacterId =
   | 'peppermint'
   | 'gummy'
   | 'donut'
-  | 'skittle'
-  | 'taylor' | 'sabrina' | 'bunny' | 'beyonce'
-  | 'lebron' | 'gaga' | 'bruno' | 'billie';
+  | 'skittle';
 
 export interface ChaosCharacter {
   id: ChaosCharacterId;
@@ -79,55 +77,7 @@ export const CHAOS_CHARACTERS: ChaosCharacter[] = [
     emoji: '⚡',
     abilityName: 'Sugar Hyperdrive',
     abilityDesc: 'Rolls 2 dice instead of 1, but has a 20% chance to run backwards!'
-  },
-  {
-    id: 'taylor', name: 'Taylor Swift', title: 'The Glitter-Era Storyteller',
-    quote: 'This candy kingdom needs a bridge, a chorus, and exactly thirteen glitter stars.',
-    color: '#f9a8d4', emoji: '🎸',
-    abilityName: 'Glitter Era', abilityDesc: 'Turns a normal moment into a grand finale.'
-  },
-  {
-    id: 'sabrina', name: 'Sabrina Carpenter', title: 'The Espresso Mischief Maker',
-    quote: 'I ordered an espresso. Why is the espresso riding a roller coaster?',
-    color: '#f5d0a9', emoji: '☕',
-    abilityName: 'Espresso Boost', abilityDesc: 'Turns a snack break into an encore.'
-  },
-  {
-    id: 'bunny', name: 'Bad Bunny', title: 'The Neon Rhythm King',
-    quote: 'The beat hits so hard that the gumdrop mountains start dancing.',
-    color: '#8bf2cd', emoji: '🐰',
-    abilityName: 'Neon Beat', abilityDesc: 'A spontaneous dance party shakes the candy lane.'
-  },
-  {
-    id: 'beyonce', name: 'Beyoncé', title: 'The Crowned Stage Commander',
-    quote: 'Formation, everybody. Even the gummy bears have choreography.',
-    color: '#f5c451', emoji: '👑',
-    abilityName: 'Queen Energy', abilityDesc: 'Every entrance is an unforgettable finale.'
-  },
-  {
-    id: 'lebron', name: 'LeBron James', title: 'The Slam-Dunk Sugar Titan',
-    quote: 'That gumdrop is going straight through the hoop.',
-    color: '#a78bfa', emoji: '🏀',
-    abilityName: 'Full Court Candy', abilityDesc: 'Slam dunks a gumdrop into a sugar jackpot.'
-  },
-  {
-    id: 'gaga', name: 'Lady Gaga', title: 'The Chromatic Shape-Shifter',
-    quote: 'I need a bigger stage, more sparkle, and one extremely dramatic entrance.',
-    color: '#ef8fff', emoji: '✨',
-    abilityName: 'Costume Chaos', abilityDesc: 'Changes outfits in an explosion of spectacle.'
-  },
-  {
-    id: 'bruno', name: 'Bruno Mars', title: 'The Golden Groove Wizard',
-    quote: 'Bring the groove! These candy canes can definitely dance.',
-    color: '#fbbf24', emoji: '🪩',
-    abilityName: '24K Candy Funk', abilityDesc: 'Everyone catches the beat and bounces.'
-  },
-  {
-    id: 'billie', name: 'Billie Eilish', title: 'The Midnight Mood-Maker',
-    quote: 'I like it a little strange. This glowing donut is perfect.',
-    color: '#8dea92', emoji: '🌙',
-    abilityName: 'Midnight Dream', abilityDesc: 'A quiet wave of neon makes the board shimmer.'
-  },
+  }
 
 ];
 

@@ -117,10 +117,10 @@ export const ABSURD_CHAOS_CARDS: ChaosCard[] = [
 // Extra chaos deck: original whimsical events in two distinct editions.
 const EXTRA_SCENARIOS: { title: string; announcement: string }[] = `THE GREAT JELLYBEAN HEIST|A jellybean detective mistakes your pocket for a museum vault. You keep the evidence.
 DANCING DONUT EMERGENCY|A disco donut calls a dance-off in the middle of the sugar highway.
-THE POPCORN PARADE|A celebrity popcorn kernel bursts onto the red carpet and demands an encore.
+THE POPCORN PARADE|A mischievous popcorn kernel bursts through a rainbow parade and demands more sprinkles.
 GUMMY BEAR SPACE PROGRAM|A gummy astronaut launches an unlicensed rocket powered entirely by lemonade.
 THE SODA GEYSER|An underground soda fountain erupts and propels everyone into a fizzy cloud.
-CUPCAKE CROWN CORONATION|A royal cupcake names you temporary ruler of the sprinkles.
+CUPCAKE SPRINKLE CELEBRATION|A royal cupcake throws a huge sprinkle party and invites every candy in the kingdom.
 MARSHMALLOW MOONWALK|A floating marshmallow teaches you an extremely suspicious moonwalk.
 CHOCOLATE FOUNTAIN REVOLT|The chocolate fountain refuses to flow until it receives a standing ovation.
 THE LOLLIPOP LAWYER|An attorney made of candy argues that your dance moves are legally irresistible.
@@ -135,7 +135,7 @@ THE DANCING PICKLE|A famous pickle challenges you to a viral dance duel on a gum
 GOLDEN GUMBALL JACKPOT|A machine coughs up the rarest golden gumball in the kingdom.
 THE SINGING PRETZEL|A pretzel forms a boy band with three churros and nobody knows the lyrics.
 SKITTLE METEOR SHOWER|A meteor shower of tiny candies illuminates the neon marshmallow fields.
-THE MYSTERY MOUSTACHE|A mysterious glitter moustache becomes the hottest celebrity accessory.
+THE MYSTERY MOUSTACHE|A mysterious glitter moustache becomes the most ridiculous candy party accessory.
 THE BANANA PAPARAZZI|A banana carrying six cameras demands a group photo before anyone can move.
 LEMONADE ROCKET FUEL|Someone pours lemonade into the castle's rocket-powered ice cream truck.
 BUBBLEGUM GRAVITY|Gravity takes a coffee break and your entire team starts floating.
@@ -163,7 +163,7 @@ CANDY CANE CATAPULT|A candy cane catapult launches confetti across the royal gar
 THE JELLYFISH DJ|A jellyfish DJ drops the beat and the entire ocean starts dancing.
 STARLIGHT CEREAL CRISIS|Every cereal star in the bowl demands its own movie trailer.
 THE MARZIPAN MYSTERY|A detective made of marzipan investigates a missing birthday candle.
-THE DISCO PINEAPPLE|A pineapple with roller skates hosts a surprise disco in your honor.
+THE DISCO PINEAPPLE|A pineapple on roller skates hosts a surprise disco for all the candy creatures.
 THE WAFFLE ROCKET|A waffle-shaped spacecraft arrives from the breakfast galaxy.
 THE MAGICAL KAZOO|A kazoo solo somehow transforms the board into an amusement park.
 THE PICKLE POTION|A bubbling pickle potion makes everyone's voice sound like a cartoon chipmunk.
@@ -185,7 +185,7 @@ THE RAINBOW ELEVATOR|A vertical rainbow carries your entire party to a cloud pal
 THE PEPPERMINT PARADE|Peppermint soldiers march by wearing tiny disco helmets.
 THE SPARKLY SANDWICH|A sandwich made of stardust declares itself a fashion icon.
 THE CANDY COMET CRASH|A gumdrop-shaped comet lands with a soft and very theatrical boing.
-THE CRUNCHY CROWN|A cereal monarch awards you the prestigious Crunchy Crown.
+THE CRUNCHY MEDAL|A cereal champion awards you a shiny, edible medal.
 THE SASSY MACARON|A macaron gives a devastating fashion critique to the moon.
 THE CHEESECAKE HEIST|A masked cheesecake burglar runs off with a candy treasure map.
 GUMDROP GLITCH PARTY|The entire kingdom glitches into pixel art for one bizarre moment.
