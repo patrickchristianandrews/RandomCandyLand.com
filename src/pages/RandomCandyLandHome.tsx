@@ -149,6 +149,20 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
   return (
     <div className="min-h-screen w-full tabletop-wood text-neutral-100 font-sans select-none overflow-x-hidden relative flex flex-col justify-between p-2 sm:p-6">
       
+      {/* NEW: Standalone adults-only curiosity experience */}
+      <section aria-label="After Dark adult curiosity offering" className="rounded-2xl border-2 border-fuchsia-300/70 bg-gradient-to-r from-[#24102d] via-[#311a40] to-[#191024] p-4 sm:p-6 shadow-[0_12px_35px_rgba(30,0,35,0.5)] text-white">
+        <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
+          <div className="max-w-2xl">
+            <p className="text-xs tracking-[.2em] font-black uppercase text-fuchsia-200 mb-1">New offering · 18+ only</p>
+            <h2 className="text-2xl sm:text-3xl font-serif-luxury font-black text-white">✳ After Dark — The Curiosity Atlas</h2>
+            <p className="mt-2 text-sm text-fuchsia-100/90">Explore the psychology of adult interests, take an abstract curiosity quiz, and discover consent-first couples' ideas.</p>
+          </div>
+          <a href="/after-dark/" className="inline-flex shrink-0 justify-center items-center gap-2 rounded-xl border border-fuchsia-200 bg-fuchsia-200 px-5 py-3 font-black text-sm text-[#29142f] hover:bg-white transition-colors" aria-label="Open After Dark, adults only">
+            Enter After Dark <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+
       {/* RETRO CORNER TAPE & VINTAGE BOARD GAME TABLETOP DECOR */}
       <div className="max-w-6xl w-full mx-auto space-y-6">
         
