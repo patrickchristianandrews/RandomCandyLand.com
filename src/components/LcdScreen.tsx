@@ -35,6 +35,7 @@ interface LcdScreenProps {
   currentMenu: MenuCategory;
   theme: LcdColorTheme;
   quoteText: string;
+  feelingText?: string;
   isSleeping: boolean;
   onTapDonald?: () => void;
 }
@@ -107,6 +108,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
   currentMenu,
   theme,
   quoteText,
+  feelingText,
   isSleeping,
   onTapDonald,
 }) => {
@@ -452,8 +454,13 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
             color: THEME_COLORS[theme].pixelOn,
           }}
         >
-          <span className="truncate max-w-[195px] font-bold">
-            {isSleeping ? 'STATUS: WINNING IN SLEEP (Zzz)' : `"${quoteText}"`}
+          <span className="min-w-0 flex-1 pr-2 font-bold leading-snug">
+            {!isSleeping && feelingText && (
+              <span className="block text-[10px] opacity-75 mb-0.5" aria-label="Donald's current mood">FEELS: {feelingText.toUpperCase()}</span>
+            )}
+            <span className="block text-[11px] break-words whitespace-normal max-h-20 overflow-y-auto" aria-live="polite">
+              {isSleeping ? 'STATUS: WINNING IN SLEEP (Zzz)' : `"${quoteText}"`}
+            </span>
           </span>
           <span className="tabular-nums font-bold text-[11px] ml-1 shrink-0">
             {stats.ratings}% POLL
