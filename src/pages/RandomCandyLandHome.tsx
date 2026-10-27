@@ -177,6 +177,20 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
+      {/* Candy Pulse visualizer — a separate music offering, without changing existing attractions */}
+      <section aria-label="Candy Pulse music visualizer" className="rounded-2xl border-2 border-pink-300/70 bg-gradient-to-r from-[#341634] via-[#2c1b4c] to-[#0c2537] p-4 sm:p-6 shadow-[0_12px_35px_rgba(25,0,35,0.45)] text-white">
+        <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
+          <div className="max-w-2xl">
+            <p className="text-xs tracking-[.2em] font-black uppercase text-pink-200 mb-1">Music experience · Audio reactive</p>
+            <h2 className="text-2xl sm:text-3xl font-serif-luxury font-black text-white">🌈 Candy Pulse — Music Visualizer</h2>
+            <p className="mt-2 text-sm text-pink-100/90">Watch your music become neon bars, electric waves and glowing candy-colored orbits. Use a local music file, your microphone or the built-in demo.</p>
+          </div>
+          <a href="/music-visualizer/" className="inline-flex shrink-0 justify-center items-center gap-2 rounded-xl border border-pink-200 bg-pink-200 px-5 py-3 font-black text-sm text-[#32172e] hover:bg-white transition-colors" aria-label="Open Candy Pulse music visualizer">
+            Launch Visualizer <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+
       {/* RETRO CORNER TAPE & VINTAGE BOARD GAME TABLETOP DECOR */}
       <div className="max-w-6xl w-full mx-auto space-y-6">
         
