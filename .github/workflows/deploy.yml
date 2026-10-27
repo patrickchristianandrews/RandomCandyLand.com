@@ -38,6 +38,9 @@ jobs:
       - name: Build the entire website
         run: bun run build
 
+      - name: Validate After Dark scripts and all published pages
+        run: node scripts/check-public-pages.mjs
+
       - name: Identify this exact release in the published files
         run: printf '%s\n' "$GITHUB_SHA" > dist/release-id.txt
 
