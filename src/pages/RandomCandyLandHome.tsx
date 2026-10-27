@@ -4,7 +4,7 @@ import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
 import { ArrowRight, Dice5, Volume2, VolumeX, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { CandyLand3DScene } from '../components/candyland3d/CandyLand3DScene';
 import { generate3DBoardTiles, ABSURD_CHAOS_CARDS } from '../utils/candyChaosEngine';
-import { CHAOS_CHARACTERS, ChaosCard, ChaosCharacterId, ChaosPlayer } from '../types/candyChaos';
+import { CHAOS_CHARACTERS, ChaosCard, ChaosPlayer } from '../types/candyChaos';
 import { sound } from '../utils/audio';
 import { candyAudio } from '../utils/candyAudio';
 
@@ -81,7 +81,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
   const lastEncounterRef = useRef(-1);
   const timerRef = useRef<ReturnType<typeof setTimeout>|null>(null);
   useEffect(()=>()=>{if(timerRef.current)clearTimeout(timerRef.current)},[]);
-  const character = byId(players[0].characterId);
   const turnPlayer = players[activePlayerIdx];
   const drawCard = () => {
     if(!deckRef.current.length) {
@@ -128,12 +127,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
     },760);
   };
   const advance = () => {setEventCard(null);setActivePlayerIdx(i=>(i+1)%players.length);};
-  const chooseCharacter=(id: ChaosCharacterId)=>{
-    if(isRolling||eventCard)return;
-    const chosen=byId(id);
-    setPlayers(prev=>prev.map((p,i)=>i===0?{...p,characterId:id,name:chosen.name.split(' ')[0]}:p));
-    bounceConfetti(chosen.color);
-  };
   const reset = () => {
     if(timerRef.current)clearTimeout(timerRef.current);
     setIsRolling(false);setEventCard(null);setLastCard(null);setActivePlayerIdx(0);setLastDice(null);setTurn(1);deckRef.current=[];
@@ -187,11 +180,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           {lastCard && <p className="sugar-last-event">✨ Last surprise: <strong>{lastCard.title}</strong> · {lastDice!==null?'Rolled '+lastDice:''}</p>}
           <div className="sugar-scoreboard">{players.map((p,i)=><div className={'sugar-score '+(i===activePlayerIdx?'active':'')} key={p.id}><span className="sugar-scoreface">{byId(p.characterId).emoji}</span><div><strong>{p.name}</strong><small>Tile {p.tileIndex+1}/30 · {p.score} wins</small></div><span className="sugar-gems">💎{p.sugarGems}</span></div>)}</div>
         </div>
-      </section>
-      <section className="sugar-section sugar-cast-section"><span className="sugar-eyebrow">✦ PICK YOUR MAIN CHARACTER</span><h2>Meet the <em>chaos crew.</em></h2><p className="sugar-section-description">Playful, exaggerated fantasy versions of famous performers and larger-than-life characters. Dialogues are invented for this game, not real quotes or actual relationships.</p><div className="sugar-cast-grid">
-        {CAST.map(c=><button type="button" key={c.id} onClick={()=>chooseCharacter(c.id)} className={'sugar-cast-card '+(character.id===c.id?'chosen':'')} style={{'--candy-hue':c.color} as React.CSSProperties}><span className="sugar-cast-face">{c.emoji}</span><strong>{c.name}</strong><small>{c.title}</small><span className="sugar-cast-ability">{c.abilityName}</span></button>)}
-      </div><div className="sugar-cast-note"><span>👑 Your star: <strong>{character.name}</strong></span><span>✨ {character.abilityDesc}</span><button className="sugar-pill" onClick={()=>setEncounter(randomEncounter())}>Surprise character encounter ↗</button></div>
-      {encounter && !eventCard && <div className="sugar-encounter" role="status"><span className="sugar-eyebrow">SUGAR CELEBRITY ENCOUNTER</span><p>{encounter}</p><button onClick={()=>setEncounter('')} aria-label="Dismiss encounter"><X size={17}/></button></div>}
       </section>
       <section className="sugar-endcap"><span>🍭</span><div><h2>The internet should feel <em>this fun.</em></h2><p>Take a little detour into something delightfully ridiculous.</p></div><button className="sugar-mainbtn" onClick={goBoard}>One more roll <ArrowRight/></button></section>
       <footer className="sugar-footer"><span>✦ RANDOMCANDYLAND.COM ✦</span><span>Made with sugar, imagination, and a spectacular lack of seriousness.</span><a href="#attractions">Back to the candy portals ↑</a></footer>
