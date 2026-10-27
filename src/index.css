@@ -121,3 +121,11 @@ body {
 .sugar-reveal h2{font:1000 clamp(27px,4vw,46px)/1.08 'Fredoka',system-ui,sans-serif;margin:19px 0 14px;text-transform:uppercase}.sugar-reveal>p{font-size:17px;color:#fff5ff}
 .sugar-reveal-awards{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0}.sugar-reveal-awards span{background:#fff5a7;color:#4d1554;border-radius:12px;padding:10px 13px;font-weight:1000}
 .sugar-reveal-encounter{border-radius:17px;background:#261047a8;border:1px solid #ffffff75;padding:13px;margin:14px 0 22px}.sugar-reveal-encounter p{font-size:13px;margin:6px 0}
+
+@media(max-width:960px){.sugar-offerings{grid-template-columns:repeat(2,minmax(0,1fr))}.sugar-scoreboard{grid-template-columns:repeat(2,minmax(0,1fr))}.sugar-hero-planet{width:270px;height:270px;top:27%;right:-6%;opacity:.55}}
+@media(max-width:640px){
+.sugar-offerings{grid-template-columns:1fr}.sugar-cast-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sugar-nav{padding:15px}.sugar-navlinks{width:100%;justify-content:space-between}.sugar-navlinks a,.sugar-navlinks button{font-size:11px;padding:7px 9px}
+.sugar-mark{font-size:18px}.sugar-hero{padding:63px 21px 72px;min-height:625px}.sugar-hero h1{font-size:clamp(47px,12vw,78px)}.sugar-hero-planet{width:235px;height:235px;right:-26%;top:26%;opacity:.34}.sugar-floater.one,.sugar-floater.three{opacity:.4}.sugar-section{padding:42px 16px}
+.sugar-board-controls .sugar-mainbtn{width:100%;order:-1}.sugar-scoreboard{gap:7px}.sugar-score{padding:8px;gap:5px}.sugar-scoreface{font-size:21px}.sugar-gems{font-size:11px}.sugar-cast-card{min-height:195px}.sugar-endcap{margin:30px 13px;padding:21px}.sugar-reveal{padding:20px 16px}.sugar-reveal>p{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){.sugar-universe *, .sugar-universe *::before,.sugar-universe *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
