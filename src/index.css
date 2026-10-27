@@ -83,3 +83,22 @@ body {
 .sugar-filter{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}
 .sugar-filter button,.sugar-pill{border-radius:99px;border:1px solid #cf8bd9;color:#fff;background:#422462;padding:10px 16px;min-height:43px;font-weight:850;cursor:pointer}.sugar-filter button.on{background:#ffbae8;color:#43164b}
 .sugar-group{margin:24px 0 46px}.sugar-group>h3{font:900 24px 'Fredoka',system-ui,sans-serif;margin:0 0 18px;color:#fff3a4}
+
+.sugar-offerings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.sugar-offering{--a:#9043eb;--b:#ec60c7;display:flex;flex-direction:column;align-items:flex-start;text-align:left;position:relative;min-height:275px;width:100%;padding:18px 20px;border:2px solid #ffffff88;border-radius:28px;color:white;text-decoration:none;background:radial-gradient(circle at 90% 10%,#ffffff4b,transparent 40%),linear-gradient(135deg,var(--a),var(--b));box-shadow:0 20px 35px #1005248c;overflow:hidden;cursor:pointer;transition:transform .24s,box-shadow .24s}
+.sugar-offering:hover{transform:translateY(-9px) rotate(-1deg);box-shadow:0 30px 40px #100524bb}
+.sugar-offering:after{content:'';position:absolute;width:200px;height:200px;border:23px solid #ffffff2f;border-radius:50%;right:-75px;top:-80px}
+.sugar-offering--bubble{--a:#ab40e5;--b:#fd659f}.sugar-offering--gold{--a:#dd821f;--b:#ffad78}.sugar-offering--violet{--a:#5232a7;--b:#aa4ddc}.sugar-offering--pink{--a:#eb3898;--b:#7034cf}.sugar-offering--blue{--a:#1766ad;--b:#3bafe1}.sugar-offering--midnight{--a:#332154;--b:#a63c8d}
+.sugar-offering-orb{display:flex;align-items:center;justify-content:center;width:77px;height:77px;background:#ffffff43;border:2px solid #ffffff8f;border-radius:25px;font-size:46px;box-shadow:0 7px 0 #2b0c5261;animation:sugarFloat 5s ease-in-out infinite}
+.sugar-offering-body{position:relative;z-index:1;margin-top:14px}.sugar-tag{font-size:10px;font-weight:1000;letter-spacing:.11em;border:1px solid #ffffff9c;background:#ffffff38;border-radius:40px;padding:5px 9px}
+.sugar-offering h3{font:1000 clamp(23px,2.5vw,33px)/1.1 'Fredoka',system-ui,sans-serif;margin:15px 0 10px;text-shadow:0 3px #521352}
+.sugar-offering p{font-size:14px;line-height:1.5;color:#fff7ff;margin:0 0 17px}
+.sugar-linktext{display:inline-flex;align-items:center;gap:6px;border-bottom:2px solid white;padding-bottom:3px;font-weight:1000;font-size:14px}
+.sugar-game-shell{border:3px solid #ffa5e6;background:linear-gradient(145deg,#46197c,#28114c);padding:clamp(12px,2.4vw,26px);border-radius:30px;box-shadow:0 0 0 6px #9b43b142,0 24px 70px #0a031eaa}
+.sugar-game-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px;margin-bottom:15px}.sugar-game-top>div{display:flex;gap:8px;flex-wrap:wrap}.sugar-game-score{font-weight:1000;color:#fff1a2}
+.sugar-board-controls{display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap;margin:20px 0}
+.sugar-camera-buttons{display:flex;gap:6px}.sugar-camera-buttons button{display:flex;align-items:center;justify-content:center;min-height:52px;min-width:47px;border:1px solid #f2b6fd;border-radius:14px;background:#793e9c;color:#fff;cursor:pointer}
+.sugar-scoreboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:18px}
+.sugar-score{display:flex;align-items:center;gap:8px;min-width:0;padding:11px;border:1px solid #af75df;background:#281244;border-radius:16px}
+.sugar-score.active{border:2px solid #fff2a3;background:#703db0;box-shadow:0 0 18px #f47ab885}.sugar-scoreface{font-size:27px}.sugar-score>div{min-width:0;display:flex;flex-direction:column}.sugar-score strong{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sugar-score small{font-size:11px;color:#e5cbea}.sugar-gems{font-size:12px;font-weight:1000;margin-left:auto}.sugar-last-event{color:#e9d4f2;text-align:center;font-size:13px}
+.sugar-guide{margin:12px 0 22px;border:2px dashed #ffb7e6;background:#5a2686;padding:17px 20px;border-radius:18px;line-height:1.65}
