@@ -79,7 +79,7 @@ export const CHAOS_CHARACTERS: ChaosCharacter[] = [
     emoji: '⚡',
     abilityName: 'Sugar Hyperdrive',
     abilityDesc: 'Rolls 2 dice instead of 1, but has a 20% chance to run backwards!'
-  }
+  },
   {
     id: 'taylor', name: 'Taylor Swift', title: 'The Glitter-Era Storyteller',
     quote: 'This candy kingdom needs a bridge, a chorus, and exactly thirteen glitter stars.',
