@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -45,6 +46,37 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
+
+      # GitHub Pages also has a branch-source publisher enabled. That publisher
+      # serves stale checked-in files and used to overwrite the actual build.
+      # Wait for it to finish, then deploy the newly built dist artifact last.
+      - name: Wait for automatic branch Pages publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          echo "Waiting for the duplicate branch Pages job before publishing the real build"
+          sleep 15
+          for attempt in {1..30}; do
+            response=$(curl --fail --silent --show-error --retry 2 \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs?head_sha=${GITHUB_SHA}&per_page=30") || {
+                echo "Cannot inspect parallel Pages job; continuing with the built site"
+                break
+              }
+            statuses=$(printf '%s' "$response" | jq -r '[.workflow_runs[] | select(.name == "pages build and deployment") | .status] | join(",")')
+            if [[ -z "$statuses" ]]; then
+              echo "No branch Pages job present; publishing the built site"
+              break
+            fi
+            if [[ "$statuses" != *"queued"* && "$statuses" != *"in_progress"* && "$statuses" != *"waiting"* && "$statuses" != *"requested"* && "$statuses" != *"pending"* ]]; then
+              echo "Branch Pages deployment is complete: $statuses"
+              break
+            fi
+            echo "Branch Pages is $statuses; waiting to avoid a stale publish"
+            sleep 5
+          done
 
       - name: Deploy to GitHub Pages
         id: deployment
