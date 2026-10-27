@@ -50,6 +50,8 @@ try{
     const command=(method,params={})=>new Promise((resolve,reject)=>{const id=++next;pending.set(id,[resolve,reject]);client.send(JSON.stringify({id,method,params}));});
     await command('Runtime.enable');
     await command('Page.enable');
+    // Force navigation after Runtime.enable so initial script failures are visible.
+    await command('Page.navigate',{url});
     // A newly created target may still be loading; polling guarantees init.
     const evaluate=async js=>{
       const r=await command('Runtime.evaluate',{expression:js,returnByValue:true,awaitPromise:true});
@@ -71,6 +73,7 @@ try{
   await evaluate("document.querySelector('#enter').click()");
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
   await evaluate("document.querySelector('[data-tab=atlas]').click()");
+  console.log('Atlas diagnostics:',await evaluate("JSON.stringify({count:document.querySelectorAll('#topicGrid .topic').length,all:document.querySelector('#allCount')?.textContent,script:typeof window.renderAtlas,errors:window.onerror?.toString().slice(0,100)||'none'})"),JSON.stringify(testErrors));
   await check('Atlas has 100+ working interest cards',"document.querySelectorAll('#topicGrid .topic').length>=100");
   await evaluate("let input=document.querySelector('#search');input.value='leather';input.dispatchEvent(new Event('input',{bubbles:true}))");
   await check('Search filters visible interests',"document.querySelectorAll('#topicGrid .topic').length>=1&&document.querySelectorAll('#topicGrid .topic').length<40");
