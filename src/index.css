@@ -47,3 +47,6 @@ body {
   user-select: none;
   -webkit-user-select: none;
 }
+
+.sugar-universe{background:linear-gradient(155deg,#360c69,#571498 24%,#210c3b 75%);color:white;min-height:100vh;overflow:hidden;position:relative;font-family:'Fredoka',system-ui,sans-serif}
+.sugar-universe *{box-sizing:border-box}
