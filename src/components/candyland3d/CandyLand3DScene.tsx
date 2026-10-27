@@ -8,6 +8,7 @@ interface CandyLand3DSceneProps {
   activePlayerId: string;
   onTileClick?: (tileIndex: number) => void;
   cannonFiring?: { fromTile: number; toTile: number } | null;
+  zoomLevel?: number;
 }
 
 export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
@@ -16,6 +17,7 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
   activePlayerId,
   onTileClick,
   cannonFiring,
+  zoomLevel = 0,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -25,6 +27,8 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
   const tilesGroupRef = useRef<THREE.Group | null>(null);
   const particleSystemRef = useRef<THREE.Points | null>(null);
   const reqIdRef = useRef<number>(0);
+  const zoomRef = useRef(zoomLevel);
+  zoomRef.current = zoomLevel;
 
   // Mouse drag camera orbit state
   const isDraggingRef = useRef(false);
@@ -37,8 +41,8 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
 
     // 1. SCENE SETUP
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x7dd3fc); // Sky Blue
-    scene.fog = new THREE.FogExp2(0x7dd3fc, 0.012);
+    scene.background = new THREE.Color(0xf9b6e8); // Sky Blue
+    scene.fog = new THREE.FogExp2(0xf9b6e8, 0.009);
     sceneRef.current = scene;
 
     // 2. CAMERA
@@ -50,10 +54,10 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
     cameraRef.current = camera;
 
     // 3. RENDERER
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new THREE.WebGLRenderer({ antialias: window.innerWidth > 700, alpha: false, powerPreference:'low-power' });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 700 ? 1.2 : 1.5));
+    renderer.shadowMap.enabled = window.innerWidth > 700;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
@@ -183,9 +187,14 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
     particleSystemRef.current = particles;
 
     // 8. ANIMATION LOOP
-    let clock = new THREE.Clock();
-    const animate = () => {
+    const clock = new THREE.Clock();
+    let lastFrame = 0;
+    let destroyed = false;
+    const animate = (now: number) => {
+      if (destroyed) return;
       reqIdRef.current = requestAnimationFrame(animate);
+      if (document.visibilityState === 'hidden' || now - lastFrame < 32) return;
+      lastFrame = now;
       const elapsed = clock.getElapsedTime();
 
       // Gentle floating animation on particles
@@ -194,7 +203,8 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
       }
 
       // Update camera position based on orbit angles
-      const { theta, phi, radius } = cameraAngleRef.current;
+      const { theta, phi } = cameraAngleRef.current;
+      const radius = Math.max(18, Math.min(85, cameraAngleRef.current.radius + zoomRef.current * 4));
       camera.position.x = radius * Math.sin(phi) * Math.sin(theta);
       camera.position.y = Math.max(8, radius * Math.cos(phi));
       camera.position.z = radius * Math.sin(phi) * Math.cos(theta);
@@ -203,12 +213,15 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
       // Animate Player Pawns (idle bobbing)
       playerMeshesRef.current.forEach((mesh, id) => {
         const offset = id.charCodeAt(0) % 5;
-        mesh.position.y += Math.sin(elapsed * 4 + offset) * 0.006;
+        const target = mesh.userData.target as THREE.Vector3 | undefined;
+        if (target) mesh.position.lerp(target, 0.065);
+        mesh.rotation.y = Math.sin(elapsed*0.7+offset)*0.14;
+        if(mesh.children[0])mesh.children[0].rotation.z=Math.sin(elapsed*2.5+offset)*0.07;
       });
 
       renderer.render(scene, camera);
     };
-    animate();
+    reqIdRef.current = requestAnimationFrame(animate);
 
     // 9. RESIZE LISTENER
     const handleResize = () => {
@@ -242,21 +255,35 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
     };
 
     const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
       cameraAngleRef.current.radius = Math.max(20, Math.min(80, cameraAngleRef.current.radius + e.deltaY * 0.05));
     };
+    let lastTouchDistance=0;
+    const onTouchStart=(e:TouchEvent)=>{if(e.touches.length===2){lastTouchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);}else if(e.touches.length===1){isDraggingRef.current=true;prevMouseRef.current={x:e.touches[0].clientX,y:e.touches[0].clientY};}};
+    const onTouchMove=(e:TouchEvent)=>{if(e.touches.length===2){const distance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);cameraAngleRef.current.radius=Math.max(20,Math.min(80,cameraAngleRef.current.radius-(distance-lastTouchDistance)*0.11));lastTouchDistance=distance;e.preventDefault();}else if(e.touches.length===1&&isDraggingRef.current){const p=e.touches[0],diffX=p.clientX-prevMouseRef.current.x,diffY=p.clientY-prevMouseRef.current.y;cameraAngleRef.current.theta-=diffX*0.009;cameraAngleRef.current.phi=Math.max(.2,Math.min(Math.PI/2.2,cameraAngleRef.current.phi-diffY*.008));prevMouseRef.current={x:p.clientX,y:p.clientY};e.preventDefault();}};
+    const onTouchEnd=()=>{isDraggingRef.current=false;lastTouchDistance=0;};
 
     container.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
-    container.addEventListener('wheel', handleWheel, { passive: true });
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener('touchstart',onTouchStart,{passive:true});
+    container.addEventListener('touchmove',onTouchMove,{passive:false});
+    container.addEventListener('touchend',onTouchEnd);
 
     return () => {
+      destroyed = true;
       cancelAnimationFrame(reqIdRef.current);
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
       container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('touchstart',onTouchStart);
+      container.removeEventListener('touchmove',onTouchMove);
+      container.removeEventListener('touchend',onTouchEnd);
+      scene.traverse(object => {const mesh=object as THREE.Mesh;if(mesh.geometry)mesh.geometry.dispose();if(mesh.material){const materials=Array.isArray(mesh.material)?mesh.material:[mesh.material];materials.forEach(m=>m.dispose());}});
+      playerMeshesRef.current.clear();
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -330,25 +357,54 @@ export const CandyLand3DScene: React.FC<CandyLand3DSceneProps> = ({
           pawnGroup.add(hat);
         }
 
+
+        // Colorful sculpted accessories: recognizable stage personas without
+        // heavy downloaded models or photographs.
+        const color = (hex: number) => new THREE.MeshStandardMaterial({color:hex,roughness:.3,metalness:.13});
+        const add = (geometry: THREE.BufferGeometry, material: THREE.Material, x: number, y: number, z: number, rotZ=0) => {
+          const part = new THREE.Mesh(geometry,material);
+          part.position.set(x,y,z);part.rotation.z=rotZ;pawnGroup.add(part);return part;
+        };
+        const star=player.characterId;
+        if(star==='taylor'||star==='sabrina'||star==='beyonce'||star==='gaga'||star==='billie'){
+          const hairHue=star==='billie'?0x222a24:star==='beyonce'?0x8e4d20:star==='gaga'?0xd9e9f2:0xe7bc66;
+          add(new THREE.SphereGeometry(.65,12,10),color(hairHue),0,2.4,-.23);
+          add(new THREE.BoxGeometry(.98,.11,.15),color(0xffffff),0,1.65,.55);
+          if(star==='gaga')add(new THREE.ConeGeometry(.36,.9,9),color(0xfac6ff),0,3.11,0);
+          if(star==='beyonce')add(new THREE.TorusGeometry(.45,.1,6,16),color(0xffd34a),0,3.16,0);
+          if(star==='taylor')add(new THREE.BoxGeometry(.13,.83,.12),color(0xefa3d1),-.52,1.3,.27,-.28);
+        }
+        if(star==='bunny'){add(new THREE.ConeGeometry(.17,.82,10),color(0xf8d5eb),-.27,3.07,0);add(new THREE.ConeGeometry(.17,.82,10),color(0xf8d5eb),.27,3.07,0);add(new THREE.TorusGeometry(.56,.12,6,16),color(0x55de9a),0,1.5,0);}
+        if(star==='lebron'){add(new THREE.SphereGeometry(.53,12,10),color(0x552a1e),0,2.48,-.14);add(new THREE.SphereGeometry(.28,12,10),color(0xe46d2a),.7,1.3,.4);}
+        if(star==='bruno'){add(new THREE.CylinderGeometry(.58,.6,.25,16),color(0xedd0aa),0,2.95,0);add(new THREE.CylinderGeometry(.4,.4,.48,16),color(0x382a2b),0,3.15,0);}
+        if(star==='peppermint'){add(new THREE.ConeGeometry(.55,.72,10),color(0xffffff),0,2.95,0);}
+        if(star==='donut'){add(new THREE.TorusGeometry(.56,.19,10,18),color(0xf57ec0),0,2.95,0);}
+        if(star==='skittle'||star==='gummy'){add(new THREE.ConeGeometry(.47,.63,10),color(0xb6f25d),0,2.9,0);}
+        // Tiny eyes and cheeks give everybody visible character.
+        add(new THREE.SphereGeometry(.07,7,6),color(0x241224),-.21,2.21,.48);
+        add(new THREE.SphereGeometry(.07,7,6),color(0x241224),.21,2.21,.48);
+        add(new THREE.SphereGeometry(.09,7,6),color(0xf1a4ad),-.37,2.04,.45);
+        add(new THREE.SphereGeometry(.09,7,6),color(0xf1a4ad),.37,2.04,.45);
         scene.add(pawnGroup);
         playerMeshesRef.current.set(player.id, pawnGroup);
       }
 
       // Smoothly reposition pawn to target tile
       const targetPos = new THREE.Vector3(tile.x, tile.y + 0.4, tile.z);
-      pawnGroup.position.lerp(targetPos, 0.3);
+      pawnGroup.userData.target = targetPos;
+      if (pawnGroup.position.lengthSq() < 0.01) pawnGroup.position.copy(targetPos);
     });
   }, [players, tiles]);
 
   return (
-    <div className="relative w-full h-[400px] sm:h-[520px] rounded-3xl overflow-hidden shadow-2xl border-4 border-yellow-400 bg-sky-300">
-      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+    <div className="relative w-full h-[380px] sm:h-[560px] rounded-3xl overflow-hidden shadow-2xl border-4 border-pink-200 bg-pink-200">
+      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-none" />
       
       {/* 3D Camera Orbit Helper Hint */}
       <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20 text-white font-mono text-[10px] pointer-events-none flex items-center gap-1.5 shadow">
         <span>🖱️ Drag to rotate 3D board</span>
         <span>&bull;</span>
-        <span>Scroll to zoom</span>
+        <span>Pinch, scroll or use +/- to zoom</span>
       </div>
     </div>
   );
