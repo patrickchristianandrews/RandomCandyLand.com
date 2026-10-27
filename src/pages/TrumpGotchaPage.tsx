@@ -352,62 +352,15 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 <span className="rounded-lg bg-sky-500/20 border border-sky-300/30 px-2 py-1 text-[10px]">TAP TO OPEN ▾</span>
               </summary>
               <ol className="mt-3 grid gap-2 text-[12px] sm:text-sm leading-relaxed list-decimal pl-5 text-sky-50">
-                <li><strong>Care for Donald.</strong> Use the large buttons below to feed him 🍔, make him dance 🕺, groom his hair 💇, and help him rest 💤.</li>
+                <li><strong>Care for Donald.</strong> Use button A on the handheld to select a care icon, then button B to feed him 🍔, make him dance 🕺, groom his hair 💇, or help him rest 💤.</li>
                 <li><strong>Those little white squares are classified documents! 📄</strong> Donald scatters papers on the green screen as he makes a mess. They are intentional game objects, not mystery rewards.</li>
-                <li><strong>Clean up the papers. 🧹</strong> Tap <strong>Clean</strong> to remove all scattered classified documents and restore cleanliness. More mess means Donald needs attention.</li>
+                <li><strong>Clean up the papers. 🧹</strong> Select the 🧹 Clean icon with button A, then press B to remove all scattered classified documents and restore cleanliness. More mess means Donald needs attention.</li>
                 <li><strong>Keep his ratings up. ⭐</strong> Food, happiness, neat hair, cleanliness, and health all help his approval rating. Caring for him also helps him evolve.</li>
-                <li><strong>Try the mini-games and sounds.</strong> Use the handheld menu for golf, rally, and deals; tap the voice clips to hear recorded phrases. Unmute first.</li>
+                <li><strong>Try the mini-games and sounds.</strong> Use the handheld menu for golf, rally, and deals. Actions can play recorded voice clips when sound is on.</li>
               </ol>
-              <p className="mt-3 text-xs text-sky-200/80">Handheld buttons: A = move through icons · B = select the action · C = pause/back. On phones, the big Quick Care buttons are easier.</p>
+              <p className="mt-3 text-xs text-sky-200/80">Handheld buttons: A = move through icons · B = perform the selected action · C = pause/back. Tap Donald to hear a reaction.</p>
             </details>
           </section>
-        )}
-
-        {/* iPhone-friendly one-tap care bar: never require cycling the tiny handheld menu */}
-        {screenMode === 'PLAYING' && (
-          <div className="relative z-20 w-full max-w-2xl rounded-2xl border border-amber-400/50 bg-[#170c27]/95 p-3 mb-4 shadow-xl">
-            <div className="flex justify-between items-center gap-2 mb-3">
-              <span className="text-amber-200 font-black text-sm">✨ Donald's Quick Care</span>
-              <span className="text-[11px] text-amber-100/70">📄 Papers on screen? Tap Clean Papers</span>
-            </div>
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-              {[
-                { icon: '🍔', name: 'Feed', action: () => feed(FOOD_MENU[0]) },
-                { icon: '🕺', name: 'Dance', action: () => dance() },
-                { icon: '📺', name: 'TV Rant', action: () => yellAtTv() },
-                { icon: '💇', name: 'Hair', action: () => groomHair() },
-                { icon: '🧹', name: 'Clean Papers', action: () => cleanMess() },
-                { icon: '💤', name: stats.isSleeping ? 'Wake' : 'Nap', action: () => toggleSleep() },
-              ].map(item => (
-                <button key={item.name} type="button" onClick={item.action}
-                  className="min-h-16 rounded-xl border border-amber-400/40 bg-gradient-to-b from-[#543367] to-[#271737] text-white active:scale-95 hover:brightness-125 transition-transform flex flex-col justify-center items-center gap-1 touch-manipulation"
-                  aria-label={item.name}>
-                  <span className="text-2xl" aria-hidden="true">{item.icon}</span>
-                  <span className="text-[11px] font-bold">{item.name}</span>
-                </button>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-2 justify-center mt-3" aria-label="Recorded Trump voice soundboard">
-              {[
-                ['🏆 Winner!', 'better_than_ever_before.mp3'],
-                ['💰 Rich!', 'im_really_rich.mp3'],
-                ['❌ Wrong!', 'wrong.mp3'],
-                ['🎉 Bing Bong!', 'bingbong.mp3'],
-                ['⛳ Golf!', 'i_have_the_best_courses_in_the_world.mp3'],
-                ['👋 Bye!', 'bye.mp3'],
-              ].map(([name, clip]) => (
-                <button key={clip} type="button" disabled={isMuted}
-                  onClick={() => sound.speakTrump(name, false, clip)}
-                  className="rounded-full border border-fuchsia-300/30 px-3 py-2 text-[11px] bg-fuchsia-950/50 text-fuchsia-100 disabled:opacity-40 active:scale-95"
-                  title={isMuted ? 'Unmute audio to hear the recording' : 'Play a recorded Trump voice clip'}>
-                  {name}
-                </button>
-              ))}
-            </div>
-            <div aria-hidden="true" className="flex justify-center gap-6 mt-2 text-xl pointer-events-none">
-              <span className="animate-bounce">💛</span><span className="animate-pulse">⭐</span><span className="animate-bounce" style={{ animationDelay: '220ms' }}>🍬</span><span className="animate-pulse">✨</span>
-            </div>
-          </div>
         )}
 
         {/* Subtle radial ambient background glow */}
