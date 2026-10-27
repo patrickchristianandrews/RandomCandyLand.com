@@ -163,6 +163,20 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
+      {/* FM-1 Synth Lab — an independent music-playground subpage */}
+      <section aria-label="FM-1 Synth Lab" className="rounded-2xl border-2 border-cyan-300/70 bg-gradient-to-r from-[#102137] via-[#17294c] to-[#16152e] p-4 sm:p-6 shadow-[0_12px_35px_rgba(0,10,35,0.5)] text-white">
+        <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
+          <div className="max-w-2xl">
+            <p className="text-xs tracking-[.2em] font-black uppercase text-cyan-200 mb-1">New offering · Interactive music maker</p>
+            <h2 className="text-2xl sm:text-3xl font-serif-luxury font-black text-white">🎹 FM-1 Synth Lab</h2>
+            <p className="mt-2 text-sm text-cyan-100/90">Turn your browser into a pocket synthesizer. Explore playful beats, synth sounds, ambient music and an FM-1 emulator by Joakim Eriksson.</p>
+          </div>
+          <a href="/fm1-emu/" className="inline-flex shrink-0 justify-center items-center gap-2 rounded-xl border border-cyan-200 bg-cyan-200 px-5 py-3 font-black text-sm text-[#132539] hover:bg-white transition-colors" aria-label="Open the FM-1 Synth Lab">
+            Launch Synth Lab <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+
       {/* RETRO CORNER TAPE & VINTAGE BOARD GAME TABLETOP DECOR */}
       <div className="max-w-6xl w-full mx-auto space-y-6">
         
