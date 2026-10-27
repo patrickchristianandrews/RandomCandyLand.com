@@ -65,3 +65,21 @@ body {
 .sugar-kicker,.sugar-eyebrow{font-size:12px;font-weight:1000;letter-spacing:.17em;color:#fff6ae;text-transform:uppercase}
 .sugar-hero h1{font:1000 clamp(50px,8vw,111px)/.96 'Fredoka',system-ui,sans-serif;max-width:880px;text-transform:uppercase;letter-spacing:-.08em;margin:22px 0;text-shadow:0 6px #5b1666,0 11px 28px #1a062ea0;position:relative;z-index:2}
 .sugar-hero h1 span{color:#fff3a3}.sugar-hero h1 em{font-style:normal;color:#ff89da}.sugar-hero h1 b{color:#9df4ff}.sugar-hero>p{font-size:clamp(17px,2vw,21px);line-height:1.55;max-width:620px;color:#ffecfc;position:relative;z-index:2}
+
+.sugar-herobuttons{display:flex;gap:13px;flex-wrap:wrap;margin:25px 0;z-index:2;position:relative}
+.sugar-mainbtn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;border:2px solid #fff8c7;border-radius:16px;padding:13px 20px;background:linear-gradient(135deg,#fff49c,#ffb36b);color:#4d1952;font-weight:1000;box-shadow:0 7px #994a93,0 15px 24px #17033188;cursor:pointer;transition:transform .2s}
+.sugar-mainbtn:hover:not(:disabled){transform:translateY(-4px)}.sugar-mainbtn:disabled{opacity:.5;cursor:not-allowed}
+.sugar-otherbtn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #ffe6ff99;border-radius:16px;min-height:52px;padding:12px 20px;background:#ffffff28;color:white;text-decoration:none;font-weight:900;cursor:pointer}
+.sugar-hero-stats{display:flex;gap:9px;flex-wrap:wrap;position:relative;z-index:2}
+.sugar-hero-stats span,.sugar-chip{background:#351453aa;border:1px solid #ffcaef85;border-radius:99px;padding:8px 13px;font-size:12px;font-weight:850}
+.sugar-hero-planet{position:absolute;right:3%;top:19%;height:clamp(190px,31vw,420px);width:clamp(190px,31vw,420px);border-radius:50%;background:radial-gradient(circle at 30% 20%,#fff7c4,#ff9de4 30%,#f559ac 60%,#922ab0);box-shadow:inset -30px -25px 35px #68268a99,0 0 100px #fc92c6c2;transform:rotate(-12deg);animation:sugarFloat 8s ease-in-out infinite}
+.planet-ring{position:absolute;inset:40% -17%;border:clamp(12px,2.5vw,30px) solid #fff3b7;border-bottom-color:#afe8ff;border-top-color:#ffb67c;border-radius:50%;transform:rotate(-22deg)}
+.planet-eye{position:absolute;top:38%;width:8%;height:11%;border-radius:50%;background:#43124d}.eye-left{left:34%}.eye-right{right:34%}
+.planet-smile{position:absolute;top:51%;left:39%;width:23%;height:13%;border-bottom:7px solid #4a1a54;border-radius:0 0 100% 100%}.planet-star{position:absolute;top:13%;left:20%;color:#fff9a2;font-size:43px}
+.sugar-section{max-width:1320px;margin:0 auto;padding:64px clamp(16px,4vw,53px);position:relative;z-index:1;scroll-margin-top:30px}
+.sugar-sectiontop{display:flex;gap:19px;align-items:end;justify-content:space-between;flex-wrap:wrap;margin-bottom:24px}
+.sugar-sectiontop h2,.sugar-cast-section h2{font:1000 clamp(40px,5vw,70px)/1 'Fredoka',system-ui,sans-serif;text-transform:uppercase;letter-spacing:-.065em;margin:13px 0}
+.sugar-sectiontop h2 em,.sugar-cast-section h2 em{font-style:normal;color:#ff9de3}.sugar-sectiontop p,.sugar-section-description{max-width:700px;color:#e1ccec;font-size:17px}
+.sugar-filter{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}
+.sugar-filter button,.sugar-pill{border-radius:99px;border:1px solid #cf8bd9;color:#fff;background:#422462;padding:10px 16px;min-height:43px;font-weight:850;cursor:pointer}.sugar-filter button.on{background:#ffbae8;color:#43164b}
+.sugar-group{margin:24px 0 46px}.sugar-group>h3{font:900 24px 'Fredoka',system-ui,sans-serif;margin:0 0 18px;color:#fff3a4}
