@@ -343,12 +343,32 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       {/* MAIN VIEWPORT: THE POCKET DIGI-PET CENTERPIECE */}
       <main className="flex-1 flex flex-col items-center justify-center p-2 sm:p-6 relative">
         
+        {/* Quick-start instructions visible without scrolling down to the long manual */}
+        {screenMode === 'PLAYING' && (
+          <section aria-label="Quick guide to Trumpagotchi" className="relative z-20 w-full max-w-2xl mb-3 rounded-2xl border border-sky-400/40 bg-[#102039]/95 p-3 sm:p-4 text-white">
+            <details>
+              <summary className="cursor-pointer list-none flex items-center justify-between gap-2 text-sm font-black text-sky-100">
+                <span>❓ HOW TO PLAY · 30-second guide</span>
+                <span className="rounded-lg bg-sky-500/20 border border-sky-300/30 px-2 py-1 text-[10px]">TAP TO OPEN ▾</span>
+              </summary>
+              <ol className="mt-3 grid gap-2 text-[12px] sm:text-sm leading-relaxed list-decimal pl-5 text-sky-50">
+                <li><strong>Care for Donald.</strong> Use the large buttons below to feed him 🍔, make him dance 🕺, groom his hair 💇, and help him rest 💤.</li>
+                <li><strong>Those little white squares are classified documents! 📄</strong> Donald scatters papers on the green screen as he makes a mess. They are intentional game objects, not mystery rewards.</li>
+                <li><strong>Clean up the papers. 🧹</strong> Tap <strong>Clean</strong> to remove all scattered classified documents and restore cleanliness. More mess means Donald needs attention.</li>
+                <li><strong>Keep his ratings up. ⭐</strong> Food, happiness, neat hair, cleanliness, and health all help his approval rating. Caring for him also helps him evolve.</li>
+                <li><strong>Try the mini-games and sounds.</strong> Use the handheld menu for golf, rally, and deals; tap the voice clips to hear recorded phrases. Unmute first.</li>
+              </ol>
+              <p className="mt-3 text-xs text-sky-200/80">Handheld buttons: A = move through icons · B = select the action · C = pause/back. On phones, the big Quick Care buttons are easier.</p>
+            </details>
+          </section>
+        )}
+
         {/* iPhone-friendly one-tap care bar: never require cycling the tiny handheld menu */}
         {screenMode === 'PLAYING' && (
           <div className="relative z-20 w-full max-w-2xl rounded-2xl border border-amber-400/50 bg-[#170c27]/95 p-3 mb-4 shadow-xl">
             <div className="flex justify-between items-center gap-2 mb-3">
               <span className="text-amber-200 font-black text-sm">✨ Donald's Quick Care</span>
-              <span className="text-[11px] text-amber-100/70">Tap once to play · sound optional</span>
+              <span className="text-[11px] text-amber-100/70">📄 Papers on screen? Tap Clean Papers</span>
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {[
@@ -356,7 +376,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 { icon: '🕺', name: 'Dance', action: () => dance() },
                 { icon: '📺', name: 'TV Rant', action: () => yellAtTv() },
                 { icon: '💇', name: 'Hair', action: () => groomHair() },
-                { icon: '🧹', name: 'Clean', action: () => cleanMess() },
+                { icon: '🧹', name: 'Clean Papers', action: () => cleanMess() },
                 { icon: '💤', name: stats.isSleeping ? 'Wake' : 'Nap', action: () => toggleSleep() },
               ].map(item => (
                 <button key={item.name} type="button" onClick={item.action}
