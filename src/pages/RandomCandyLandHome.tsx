@@ -43,7 +43,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </div>
 
       <header className="sugar-nav">
-        <a href="/" className="sugar-mark">🍬 <strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
+        <a href="/" className="sugar-mark"><img src="/icon.svg" width={48} height={48} alt="" /><strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
         <div className="sugar-navlinks">
           <a href="#attractions">✨ Explore attractions</a>
           <a href="/music-visualizer/">🎵 Music & color</a>
@@ -52,9 +52,9 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </header>
 
       <section className="sugar-hero">
-        <span className="sugar-kicker">✦ AN UNEXPECTED LITTLE UNIVERSE ✦</span>
+        <span className="sugar-kicker">🍭 SWEET, SILLY & A LITTLE BIT WILD ✦</span>
         <h1><span>WONDER.</span><br /><em>WEIRDNESS.</em><br /><b>PURE CANDY CHAOS!</b></h1>
-        <p>Step into a vivid, offbeat playground of music, characters, color, and surprising discoveries. Pick a portal. See where it takes you.</p>
+        <p>Welcome to our rainbow-powered candy universe. Meet the cheerful candy crew, play unexpected games, make some noise, and get wonderfully weird.</p>
         <div className="sugar-herobuttons">
           <a href="#attractions" className="sugar-mainbtn">EXPLORE THE UNIVERSE <ArrowRight size={19} /></a>
           <a href="/music-visualizer/" className="sugar-otherbtn">🌈 Experience the music</a>
@@ -64,12 +64,9 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <span>🎵 CREATE & LISTEN</span>
           <span>🌙 DISCOVER</span>
         </div>
-        <div className="sugar-hero-planet" aria-hidden="true">
-          <span className="planet-ring" />
-          <span className="planet-eye eye-left" />
-          <span className="planet-eye eye-right" />
-          <span className="planet-smile" />
-          <span className="planet-star">✦</span>
+        <div className="sugar-hero-brand" aria-hidden="true">
+          <img src="/icon.svg" alt="" width={460} height={460} decoding="async" />
+          <span>🍬 WELCOME TO THE SWEET SIDE! 🍬</span>
         </div>
       </section>
 
@@ -78,7 +75,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <div>
             <span className="sugar-eyebrow">✦ CHOOSE YOUR NEXT ADVENTURE</span>
             <h2>Every corner is <em>something different.</em></h2>
-            <p>Three little worlds with their own personalities. Explore whichever sounds fun.</p>
+            <p>Games, live music visuals, a pocket synth, and curious little worlds. Pick your next adventure.</p>
           </div>
         </div>
         <div className="sugar-filter" role="group" aria-label="Filter attractions">
@@ -119,6 +116,16 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
               label="🎵 MUSIC · VISUALIZER"
             />
           )}
+          {showGroup('music') && (
+            <CandyLink
+              emoji="🎹"
+              title="FM-1 Synth Lab"
+              subtitle="Make strange, wonderful sounds in a playful pocket-sized synth experiment."
+              href="/fm1-emu/"
+              shade="blue"
+              label="🎵 MUSIC · SYNTH LAB"
+            />
+          )}
           {showGroup('discovery') && (
             <CandyLink
               emoji="✳️"
@@ -133,7 +140,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </section>
 
       <section className="sugar-endcap">
-        <span>🍭</span>
+        <img src="/icon.svg" alt="" width={78} height={78} loading="lazy" />
         <div>
           <h2>The internet should feel <em>this fun.</em></h2>
           <p>Something colorful, unusual, and completely unexpected is just a click away.</p>
