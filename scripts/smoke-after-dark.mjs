@@ -94,6 +94,21 @@ try{
   await check('Resources FAQ is interactive',"document.querySelectorAll('#faq details').length>=25");
   const lab=await navigate(site+'/after-dark/psychology-lab/');
   await checkLab(lab.evaluate);
+  // Regression: the actual POLL label in Trumpagotchi must be clickable,
+  // update the LCD, and invoke audio playback without cycling A/B.
+  const pet=await navigate(site+'/trump/');
+  for(let attempt=0;attempt<30;attempt++){
+    if(await pet.evaluate("!!document.querySelector('[aria-label=\"Hear Donald react to his current poll rating\"]')")) break;
+    await delay(100);
+  }
+  const petButton=await pet.evaluate("!!document.querySelector('[aria-label=\"Hear Donald react to his current poll rating\"]')");
+  if(!petButton)throw Error('Trumpagotchi poll button missing from LCD');
+  await pet.evaluate("window.__pollAudioAttempts=0; HTMLMediaElement.prototype.play=function(){window.__pollAudioAttempts++;return Promise.resolve()}");
+  await pet.evaluate("document.querySelector('[aria-label=\"Hear Donald react to his current poll rating\"]').click()");
+  await delay(130);
+  const pollSpoken=await pet.evaluate("window.__pollAudioAttempts>0 && document.body.textContent.includes('POLL CHECK:')");
+  if(!pollSpoken)throw Error('POLL did not trigger audio and update on-screen speech');
+  console.log('✓ Trumpagotchi poll taps trigger voice playback and LCD reaction.');
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
 } finally{

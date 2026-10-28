@@ -378,8 +378,12 @@ class SoundEngine {
    * Uses one streamed HTMLAudioElement at a time rather than decoding MP3s into
    * AudioBuffers, which is considerably kinder to iPhone Safari memory.
    */
-  public playRecordedSequence(clips: string[]) {
-    if (this.isMuted || typeof window === 'undefined' || !clips?.length) return;
+  public playRecordedSequence(clips: string[], onPlaybackError?: (message: string) => void) {
+    if (this.isMuted) {
+      onPlaybackError?.('Sound is muted. Tap the speaker icon, then tap Poll again.');
+      return;
+    }
+    if (typeof window === 'undefined' || !clips?.length) return;
 
     const generation = ++this.voiceSequenceGeneration;
     if (this.currentVoiceAudio) {
@@ -390,8 +394,13 @@ class SoundEngine {
     }
 
     const safeClips = clips.filter(clip => /^[a-z0-9_-]+\.mp3$/i.test(clip)).slice(0, 3);
+    let hasPlayed = false;
     const playNext = (index: number) => {
-      if (generation !== this.voiceSequenceGeneration || this.isMuted || index >= safeClips.length) return;
+      if (generation !== this.voiceSequenceGeneration || this.isMuted) return;
+      if (index >= safeClips.length) {
+        if (!hasPlayed) onPlaybackError?.('Audio could not start. Check phone volume and tap Poll again.');
+        return;
+      }
       const player = new Audio('/audio/trump/' + safeClips[index]);
       player.preload = 'none';
       player.volume = 1;
@@ -409,8 +418,8 @@ class SoundEngine {
       this.currentVoiceAudio = player;
       try {
         const playing = player.play();
-        if (playing && typeof playing.catch === 'function') {
-          playing.catch(() => {
+        if (playing && typeof playing.then === 'function') {
+          playing.then(() => { hasPlayed = true; }).catch(() => {
             // Safari can block sequential autoplay after the first recording;
             // do not flood the console or create network/TTS fallbacks.
             if (generation === this.voiceSequenceGeneration) advance();

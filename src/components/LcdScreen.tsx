@@ -38,6 +38,7 @@ interface LcdScreenProps {
   feelingText?: string;
   isSleeping: boolean;
   onTapDonald?: () => void;
+  onPollCheck?: () => void;
 }
 
 const THEME_COLORS: Record<LcdColorTheme, {
@@ -111,6 +112,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
   feelingText,
   isSleeping,
   onTapDonald,
+  onPollCheck,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameRef = useRef<number>(0);
@@ -340,6 +342,16 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
             return (
               <div 
                 key={item.id}
+                role={item.id === 'ratings' ? 'button' : undefined}
+                tabIndex={item.id === 'ratings' ? 0 : undefined}
+                aria-label={item.id === 'ratings' ? 'Hear Donald react to his current poll rating' : undefined}
+                onClick={item.id === 'ratings' ? onPollCheck : undefined}
+                onKeyDown={item.id === 'ratings' ? (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onPollCheck?.();
+                  }
+                } : undefined}
                 className={`flex flex-col items-center transition-transform ${
                   isSelected ? 'scale-125 font-bold animate-pulse' : 'opacity-40'
                 }`}
@@ -430,7 +442,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
               <div 
                 key={item.id}
                 className={`flex flex-col items-center transition-transform ${
-                  isSelected ? 'scale-125 font-bold animate-pulse' : 'opacity-40'
+                  isSelected ? 'scale-125 font-bold animate-pulse' : item.id === 'ratings' ? 'opacity-75 cursor-pointer hover:opacity-100' : 'opacity-40'
                 }`}
               >
                 {isSelected && (
@@ -470,9 +482,15 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
               {isSleeping ? 'STATUS: WINNING IN SLEEP (Zzz)' : `"${quoteText}"`}
             </span>
           </span>
-          <span className="tabular-nums font-bold text-[11px] ml-1 shrink-0">
-            {stats.ratings}% POLL
-          </span>
+          <button
+            type="button"
+            aria-label={'Hear Donald react to the ' + stats.ratings + ' percent poll rating'}
+            title="Tap to hear Donald react to the poll"
+            onClick={(e) => { e.stopPropagation(); onPollCheck?.(); }}
+            className="tabular-nums font-bold text-[11px] ml-1 shrink-0 underline underline-offset-2 cursor-pointer rounded p-1 hover:bg-black/20 focus-visible:outline focus-visible:outline-2"
+          >
+            🔊 {stats.ratings}% POLL
+          </button>
         </div>
       </div>
     </div>

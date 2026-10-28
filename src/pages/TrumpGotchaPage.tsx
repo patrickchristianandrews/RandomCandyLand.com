@@ -141,6 +141,19 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
     sound.playRecordedSequence([trouble.clip]);
   }, [trouble?.key, isMuted, screenMode]);
   const currentMenu = MENU_ORDER[menuIdx];
+  const [pollAudioNotice, setPollAudioNotice] = useState('');
+
+  const handlePollCheck = useCallback(() => {
+    setPollAudioNotice('');
+    if (stats.isSleeping) {
+      setPollAudioNotice('Donald is sleeping. Wake him using Lights to hear the poll.');
+      return;
+    }
+    if (sound.getIsMuted()) {
+      setPollAudioNotice('Sound is muted. Tap the speaker icon above, then tap Poll again.');
+    }
+    announcePoll((message) => setPollAudioNotice(message));
+  }, [announcePoll, stats.isSleeping]);
 
   // Button A: Cycle Menu to next item
   const handleButtonA = useCallback(() => {
@@ -192,7 +205,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
         break;
 
       case 'ratings':
-        announcePoll();
+        handlePollCheck();
         break;
 
       case 'pep':
@@ -206,7 +219,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       default:
         sound.playButtonBlip();
     }
-  }, [currentMenu, stats.isSleeping, feed, dance, yellAtTv, toggleSleep, giveMedicine, cleanMess, pepTalk, groomHair, gamesMenuOpen, tapDonald, triggerAnim, announcePoll]);
+  }, [currentMenu, stats.isSleeping, feed, dance, yellAtTv, toggleSleep, giveMedicine, cleanMess, pepTalk, groomHair, gamesMenuOpen, tapDonald, triggerAnim, handlePollCheck]);
 
   // Button C: Cancel / Pause / Back
   const handleButtonC = useCallback(() => {
@@ -530,8 +543,18 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 feelingText={currentQuote.feeling}
                 isSleeping={stats.isSleeping}
                 onTapDonald={tapDonald}
+                onPollCheck={handlePollCheck}
               />
             </HandheldShell>
+            <p className="mt-2 text-xs text-amber-200 text-center max-w-xs">
+              📊 Tap POLL on the screen to hear Donald react to his rating.
+            </p>
+            {pollAudioNotice && (
+              <div role="status" aria-live="polite"
+                className="mt-2 max-w-sm rounded-xl border border-amber-300/60 bg-[#392329] px-3 py-2 text-center text-xs font-semibold text-amber-100">
+                {pollAudioNotice}
+              </div>
+            )}
           </div>
         ) : screenMode === 'MINIGAME' ? (
           /* Active Mini-Game View */

@@ -157,7 +157,7 @@ export function usePetGame() {
   // match the displayed phrase; the numeric poll score is game commentary,
   // not something we pretend appears in Donald's recording.
   const pollReactionIndexRef = useRef(0);
-  const announcePoll = useCallback(() => {
+  const announcePoll = useCallback((onPlaybackError?: (message: string) => void) => {
     const percent = Math.max(0, Math.min(100, Math.round(statsRef.current.ratings)));
     const strong = percent >= 85;
     const weak = percent < 40;
@@ -197,7 +197,7 @@ export function usePetGame() {
     triggerAnim('talk', 3200);
     // A single real MP3 per tap works more reliably on iPhone than multiple
     // auto-chained recordings. Press POLL again for another reaction.
-    sound.playRecordedSequence([selected.clip]);
+    sound.playRecordedSequence([selected.clip], onPlaybackError);
   }, [triggerAnim]);
 
   // Donald spontaneously reveals his mood every 45–85 seconds of visible idle

@@ -66,8 +66,10 @@ if (!homeBundle.includes('Use your own voice recordings in the game')) {
   console.error('Trumpagotchi personal audio importer is missing from the production bundle.');
   failures++;
 }
-// POLL must make Donald speak; don't allow this button to regress to a chime.
-if (!homeBundle.includes('POLL CHECK: ')) {
+// POLL must make Donald speak and its onscreen meter must be directly tappable.
+if (!homeBundle.includes('POLL CHECK: ') ||
+    !homeBundle.includes('Hear Donald react to his current poll rating') ||
+    !homeBundle.includes('Tap POLL on the screen')) {
   console.error('Trumpagotchi is missing its spoken POLL reaction.');
   failures++;
 }
