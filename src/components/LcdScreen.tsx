@@ -342,16 +342,6 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
             return (
               <div 
                 key={item.id}
-                role={item.id === 'ratings' ? 'button' : undefined}
-                tabIndex={item.id === 'ratings' ? 0 : undefined}
-                aria-label={item.id === 'ratings' ? 'Hear Donald react to his current poll rating' : undefined}
-                onClick={item.id === 'ratings' ? onPollCheck : undefined}
-                onKeyDown={item.id === 'ratings' ? (e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onPollCheck?.();
-                  }
-                } : undefined}
                 className={`flex flex-col items-center transition-transform ${
                   isSelected ? 'scale-125 font-bold animate-pulse' : 'opacity-40'
                 }`}
@@ -441,6 +431,16 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
             return (
               <div 
                 key={item.id}
+                role={item.id === 'ratings' ? 'button' : undefined}
+                tabIndex={item.id === 'ratings' ? 0 : undefined}
+                aria-label={item.id === 'ratings' ? 'Hear Donald react to his current poll rating' : undefined}
+                onClick={item.id === 'ratings' ? onPollCheck : undefined}
+                onKeyDown={item.id === 'ratings' ? (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onPollCheck?.();
+                  }
+                } : undefined}
                 className={`flex flex-col items-center transition-transform ${
                   isSelected ? 'scale-125 font-bold animate-pulse' : item.id === 'ratings' ? 'opacity-75 cursor-pointer hover:opacity-100' : 'opacity-40'
                 }`}
