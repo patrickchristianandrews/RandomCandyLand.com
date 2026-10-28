@@ -5,6 +5,19 @@
 
 import { PetStats } from '../types/game';
 import { sound } from './audio';
+/** Actual recorded audio headlines, with separate fictional game instructions. */
+export interface TrumpTroubleAlert {key:string;title:string;detail:string;action:string;clip:string;icon:string;}
+export function getTrumpTroubleAlert(s:PetStats):TrumpTroubleAlert|null{
+ if(s.isSick || s.health < 40) return {key:"sick",title:"NOTHING BUT PROBLEMS!",detail:"Donald is unwell. His health needs attention.",action:"Select Medicine using A, then press B.",clip:"nothing_but_problem.mp3",icon:"💊"};
+ if(s.hunger < 35) return {key:"hungry",title:"LOTS OF PROBLEMS!",detail:"His hunger numbers are terrible. Donald needs a meal.",action:"Select Feed using A, then press B.",clip:"lots_of_problems.mp3",icon:"🍔"};
+ if(s.energy < 25 && !s.isSleeping) return {key:"tired",title:"WHAT'S GOING ON?",detail:"Donald's energy is extremely low.",action:"Select Lights using A, then press B to let him nap.",clip:"whats_going_on.mp3",icon:"💤"};
+ if(s.messCount >= 3 || s.cleanliness < 35) return {key:"mess",title:"CAN YOU BELIEVE THIS?",detail:"The Oval Office is a mess and papers are everywhere.",action:"Select Clean using A, then press B.",clip:"can_you_believe_this.mp3",icon:"🧹"};
+ if(s.happiness < 32) return {key:"sad",title:"NOTHING BUT PROBLEMS!",detail:"Donald isn't doing so good. His happiness is way down.",action:"Try Dance or Pep using buttons A and B.",clip:"nothing_but_problem.mp3",icon:"💔"};
+ if(s.hairStyle < 27) return {key:"hair",title:"CAN YOU BELIEVE THIS?",detail:"The famous hair has seen better days.",action:"Select Groom using A, then press B.",clip:"can_you_believe_this.mp3",icon:"💇"};
+ if(s.ratings < 30) return {key:"ratings",title:"WE HAVE LOSERS!",detail:"The polls are dropping. Donald needs your attention.",action:"Feed, groom, clean or try a rally to raise his ratings.",clip:"we_have_losers.mp3",icon:"📉"};
+ return null;
+}
+
 
 const LAST_NOTIF_KEY = 'trumpagotchi_last_notifs';
 const NOTIF_ENABLED_KEY = 'trumpagotchi_notifs_enabled';
@@ -21,7 +34,8 @@ class NotificationEngine {
   constructor() {
     if (typeof window !== 'undefined') {
       this.isSupported = 'Notification' in window;
-      const savedEnabled = localStorage.getItem(NOTIF_ENABLED_KEY);
+      let savedEnabled: string | null = null;
+      try { savedEnabled = localStorage.getItem(NOTIF_ENABLED_KEY); } catch {}
       this.isEnabled = savedEnabled !== null ? savedEnabled === 'true' : true;
 
       try {
@@ -48,7 +62,7 @@ class NotificationEngine {
 
   public setEnabled(enabled: boolean) {
     this.isEnabled = enabled;
-    localStorage.setItem(NOTIF_ENABLED_KEY, String(enabled));
+    try { localStorage.setItem(NOTIF_ENABLED_KEY, String(enabled)); } catch {}
   }
 
   public async requestPermission(): Promise<boolean> {
@@ -75,10 +89,11 @@ class NotificationEngine {
     if (!this.isSupported || !this.isEnabled) return false;
     if (Notification.permission !== 'granted') return false;
 
-    // Throttle notifications of the same tag to at most once every 90 seconds
+    // Prevent repeated emergency notifications from flooding the phone.
     const now = Date.now();
     const lastTime = this.lastNotifs[tag] || 0;
-    if (now - lastTime < 90 * 1000) {
+    const cooldown = tag.startsWith('test_alert_') ? 0 : tag === 'trump_welcome' ? 90000 : 15 * 60 * 1000;
+    if (now - lastTime < cooldown) {
       return false;
     }
 
@@ -124,67 +139,10 @@ class NotificationEngine {
    * Monitor Trump's vitals and trigger urgent phone notifications if stats collapse
    */
   public checkAndNotifyVitals(stats: PetStats) {
-    if (!this.isEnabled || Notification.permission !== 'granted') return;
-
-    // 1. STARVATION EMERGENCY: Hunger < 22%
-    if (stats.hunger < 22) {
-      this.sendNotification(
-        "🚨 EMERGENCY: DONALD IS STARVING!",
-        `Hunger is down to ${Math.round(stats.hunger)}%! Bring prime steaks with ketchup to the Oval Office immediately!`,
-        'starving'
-      );
-      return;
-    }
-
-    // 2. RATINGS COLLAPSE: Ratings < 25%
-    if (stats.ratings < 25) {
-      this.sendNotification(
-        "📺 FAKE NEWS CRISIS: RATINGS CRASHING!",
-        `Approval rating plummeted to ${stats.ratings}%! Turn on TV to expose the fake news and dance to rally the base!`,
-        'ratings'
-      );
-      return;
-    }
-
-    // 3. EXHAUSTION COLLAPSE: Energy < 18%
-    if (stats.energy < 18 && !stats.isSleeping) {
-      this.sendNotification(
-        "🛌 COLLAPSE WARNING: EXECUTIVE NAP NEEDED!",
-        `Donald's energy has fallen to ${Math.round(stats.energy)}%! Turn off the Oval Office lights for an executive power nap!`,
-        'exhausted'
-      );
-      return;
-    }
-
-    // 4. CLASSIFIED PAPERS OVERFLOW: Messes >= 3
-    if (stats.messCount >= 3) {
-      this.sendNotification(
-        "📁 CLASSIFIED DOCUMENT OVERFLOW!",
-        `There are ${stats.messCount} messy document piles all over the floor! Tap Button A to shred papers and clean up!`,
-        'messes'
-      );
-      return;
-    }
-
-    // 5. UNHAPPINESS CRISIS: Happiness < 20%
-    if (stats.happiness < 20) {
-      this.sendNotification(
-        "😢 MOOD EMERGENCY: DONALD IS MISERABLE!",
-        `Happiness dropped to ${Math.round(stats.happiness)}%! Cue the YMCA dance or give him a press conference rally!`,
-        'unhappy'
-      );
-      return;
-    }
-
-    // 6. HEALTH EMERGENCY: Sick
-    if (stats.isSick) {
-      this.sendNotification(
-        "💊 MEDICAL ALERT: DR. RONNIE JACKSON NEEDED!",
-        "Donald is under the weather! Call the White House physician for an immediate vitamin booster pack!",
-        'sick'
-      );
-      return;
-    }
+    if (!this.isSupported || !this.isEnabled || Notification.permission !== 'granted') return;
+    const trouble = getTrumpTroubleAlert(stats);
+    if (!trouble) return;
+    this.sendNotification(trouble.icon+' TRUMPAGOTCHI: '+trouble.title,trouble.detail+' '+trouble.action,'vital_'+trouble.key);
   }
 
   /** Send a fun test notification right to the phone */

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   ShellColor, 
   LcdColorTheme, 
@@ -10,6 +10,7 @@ import {
 } from '../types/game';
 import { usePetGame } from '../hooks/usePetGame';
 import { sound } from '../utils/audio';
+import { getTrumpTroubleAlert } from '../utils/notifications';
 import { HandheldShell } from '../components/HandheldShell';
 import { LcdScreen } from '../components/LcdScreen';
 import { GolfMiniGame } from '../components/GolfMiniGame';
@@ -92,6 +93,18 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
     triggerAnim,
   } = usePetGame();
 
+  const trouble = getTrumpTroubleAlert(stats);
+  const [dismissedTrouble, setDismissedTrouble] = useState<string|null>(null);
+  const lastTroubleSoundRef = useRef<string|null>(null);
+  const visibleTrouble = trouble && trouble.key !== dismissedTrouble ? trouble : null;
+
+  useEffect(() => {
+    if (!trouble) { lastTroubleSoundRef.current=null; setDismissedTrouble(null); return; }
+    if (screenMode !== 'PLAYING' || isMuted || document.visibilityState !== 'visible') return;
+    if (lastTroubleSoundRef.current === trouble.key) return;
+    lastTroubleSoundRef.current=trouble.key;
+    sound.playRecordedSequence([trouble.clip]);
+  }, [trouble?.key, isMuted, screenMode]);
   const currentMenu = MENU_ORDER[menuIdx];
 
   // Button A: Cycle Menu to next item
@@ -343,6 +356,21 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       {/* MAIN VIEWPORT: THE POCKET DIGI-PET CENTERPIECE */}
       <main className="flex-1 flex flex-col items-center justify-center p-2 sm:p-6 relative">
         
+        {screenMode === 'PLAYING' && visibleTrouble && (
+          <section aria-live="polite" aria-label="Donald needs care" className="relative z-30 w-full max-w-2xl mb-3 rounded-2xl border-2 border-orange-300 bg-[#3b1822]/95 px-4 py-3 text-white shadow-[0_0_26px_rgba(251,146,60,0.25)]">
+            <div className="flex items-start gap-3">
+              <span className="text-3xl" aria-hidden="true">{visibleTrouble.icon}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-black tracking-widest text-orange-200">🚨 DONALD IS NOT DOING SO GOOD</p>
+                <p className="font-black text-lg text-amber-200 leading-tight">“{visibleTrouble.title}”</p>
+                <p className="text-sm mt-1">{visibleTrouble.detail}</p>
+                <p className="text-xs text-orange-100 mt-1 font-semibold">{visibleTrouble.action}</p>
+                <button type="button" onClick={() => sound.playRecordedSequence([visibleTrouble.clip])} className="mt-2 rounded-lg bg-amber-300 px-3 py-2 text-xs font-black text-[#3b1822]">🔊 Hear Donald</button>
+              </div>
+              <button type="button" aria-label="Dismiss this warning" onClick={() => setDismissedTrouble(visibleTrouble.key)} className="shrink-0 p-2 rounded-lg border border-white/35 bg-white/10 text-lg">×</button>
+            </div>
+          </section>
+        )}
         {/* Quick-start instructions visible without scrolling down to the long manual */}
         {screenMode === 'PLAYING' && (
           <section aria-label="Quick guide to Trumpagotchi" className="relative z-20 w-full max-w-2xl mb-3 rounded-2xl border border-sky-400/40 bg-[#102039]/95 p-3 sm:p-4 text-white">
