@@ -32,10 +32,13 @@ const standaloneHtml = `<!doctype html>
     <meta property="og:description" content="Explore Random Candy Land: a colorful universe of playful experiences, music visualizations, creative surprises, and curiosity." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:site_name" content="Random Candy Land" />
+    <meta property="og:image" content="https://randomcandyland.com/icon-512.png" />
+    <meta name="twitter:image" content="https://randomcandyland.com/icon-512.png" />
 
     <!-- PWA & Mobile Home Screen Links -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#d4af37" />
+    <meta name="theme-color" content="#ff5fb8" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
