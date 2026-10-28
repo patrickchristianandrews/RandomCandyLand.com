@@ -1,99 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <defs>
-    <!-- 24K Gold Shell Gradient -->
-    <radialGradient id="goldBack" cx="40%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#fffbeb" />
-      <stop offset="35%" stop-color="#f59e0b" />
-      <stop offset="70%" stop-color="#b45309" />
-      <stop offset="100%" stop-color="#78350f" />
-    </radialGradient>
-
-    <!-- Hair Golden Gradient -->
-    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fff2a3" />
-      <stop offset="30%" stop-color="#ffd447" />
-      <stop offset="70%" stop-color="#e5a110" />
-      <stop offset="100%" stop-color="#aa6d06" />
-    </linearGradient>
-
-    <!-- Skin Tone Gradient -->
-    <radialGradient id="skinGrad" cx="45%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#fcd3a7" />
-      <stop offset="60%" stop-color="#f5aa67" />
-      <stop offset="100%" stop-color="#d97834" />
-    </radialGradient>
-
-    <!-- Suit Gradient -->
-    <linearGradient id="suitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1e293b" />
-      <stop offset="50%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#020617" />
-    </linearGradient>
-
-    <!-- Tie Gradient -->
-    <linearGradient id="tieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ef4444" />
-      <stop offset="50%" stop-color="#dc2626" />
-      <stop offset="100%" stop-color="#991b1b" />
-    </linearGradient>
-  </defs>
-
-  <!-- Background App Icon Base (Squircle) -->
-  <rect x="0" y="0" width="512" height="512" rx="115" fill="url(#goldBack)" />
-  <rect x="12" y="12" width="488" height="488" rx="103" fill="none" stroke="#fde68a" stroke-width="8" opacity="0.8" />
-
-  <!-- Inner Dark Blue Frame -->
-  <circle cx="256" cy="235" r="195" fill="#090514" stroke="#f59e0b" stroke-width="6" />
-
-  <!-- Trump Character Caricature Scaled to Center -->
-  <g transform="translate(56, 45) scale(2)">
-    <!-- Navy Suit -->
-    <path d="M 32 175 Q 60 148 100 152 Q 140 148 168 175 L 180 200 L 20 200 Z" fill="url(#suitGrad)" stroke="#0f172a" stroke-width="3" />
-    <!-- White Collar -->
-    <path d="M 80 148 L 100 162 L 76 182 L 72 158 Z" fill="#ffffff" />
-    <path d="M 120 148 L 100 162 L 124 182 L 128 158 Z" fill="#ffffff" />
-    <!-- Red Tie -->
-    <path d="M 92 160 L 108 160 L 105 174 L 95 174 Z" fill="url(#tieGrad)" />
-    <path d="M 94 173 L 106 173 L 112 200 L 88 200 Z" fill="url(#tieGrad)" />
-    <!-- Neck -->
-    <path d="M 86 130 L 114 130 L 118 152 L 82 152 Z" fill="url(#skinGrad)" />
-    <!-- Back Hair -->
-    <path d="M 50 115 C 38 85 45 45 78 35 C 100 28 140 32 156 55 C 168 75 166 110 152 125 Z" fill="url(#hairGrad)" stroke="#92400e" stroke-width="2.5" />
-    <!-- Ears -->
-    <ellipse cx="62" cy="104" rx="9" ry="12" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
-    <ellipse cx="138" cy="104" rx="9" ry="12" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
-    <!-- Face -->
-    <path d="M 66 85 C 64 118 70 144 100 144 C 130 144 136 118 134 85 C 132 65 68 65 66 85 Z" fill="url(#skinGrad)" stroke="#b45309" stroke-width="2" />
-    <!-- Cheeks & Eyebrows -->
-    <ellipse cx="78" cy="112" rx="10" ry="7" fill="#ea580c" opacity="0.3" />
-    <ellipse cx="122" cy="112" rx="10" ry="7" fill="#ea580c" opacity="0.3" />
-    <path d="M 72 82 Q 85 75 94 82" stroke="#fff2a3" stroke-width="4.5" fill="none" stroke-linecap="round" />
-    <path d="M 106 82 Q 115 75 128 82" stroke="#fff2a3" stroke-width="4.5" fill="none" stroke-linecap="round" />
-    <!-- Eyes -->
-    <ellipse cx="83" cy="94" rx="10" ry="5" fill="#fef08a" opacity="0.5" />
-    <ellipse cx="117" cy="94" rx="10" ry="5" fill="#fef08a" opacity="0.5" />
-    <ellipse cx="83" cy="92" rx="6" ry="3.5" fill="#ffffff" stroke="#78350f" stroke-width="1.2" />
-    <circle cx="84" cy="92" r="2.5" fill="#1e3a8a" />
-    <ellipse cx="117" cy="92" rx="6" ry="3.5" fill="#ffffff" stroke="#78350f" stroke-width="1.2" />
-    <circle cx="116" cy="92" r="2.5" fill="#1e3a8a" />
-    <!-- Nose & Mouth -->
-    <path d="M 98 86 L 97 106 Q 100 110 104 107" stroke="#92400e" stroke-width="2" fill="none" stroke-linecap="round" />
-    <path d="M 85 122 Q 100 131 115 122 Z" fill="#ffffff" stroke="#7f1d1d" stroke-width="1.8" />
-    <!-- Comb-Over Hair -->
-    <path d="M 46 82 C 36 60 48 30 78 20 C 105 10 148 14 172 32 C 186 42 188 64 176 78 C 168 88 152 92 142 86 C 152 74 154 58 142 46 C 126 34 94 30 72 44 C 56 54 50 68 56 82 Z" fill="url(#hairGrad)" stroke="#92400e" stroke-width="2" />
-    <path d="M 52 74 C 62 48 95 38 132 40 C 160 42 174 54 168 70 C 160 82 142 76 136 64 C 124 50 94 48 76 58 C 64 66 58 74 52 74 Z" fill="url(#hairGrad)" />
-    <!-- Thumbs up -->
-    <g transform="translate(30, 142)">
-      <path d="M 4 4 C 4 0 9 -4 13 -4 C 16 -4 18 -1 18 4 L 16 12 L 10 12 Z" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
-    </g>
-    <g transform="translate(150, 142)">
-      <path d="M 16 4 C 16 0 11 -4 7 -4 C 4 -4 2 -1 2 4 L 4 12 L 10 12 Z" fill="url(#skinGrad)" stroke="#b45309" stroke-width="1.5" />
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Random Candy Land, a smiling peppermint and a happy gummy bear beneath a candy rainbow">
+ <defs>
+  <linearGradient id="sky" x2="1" y2="1"><stop stop-color="#ab55ff"/><stop offset=".48" stop-color="#ff6cbd"/><stop offset="1" stop-color="#2ee1fd"/></linearGradient>
+  <linearGradient id="gum" x1=".1" y1="0" x2=".8" y2="1"><stop stop-color="#fff187"/><stop offset=".3" stop-color="#ffb50b"/><stop offset=".75" stop-color="#ff7c28"/><stop offset="1" stop-color="#df4b51"/></linearGradient>
+  <radialGradient id="mint" cx=".3" cy=".25" r=".9"><stop stop-color="#fff"/><stop offset=".72" stop-color="#fff9fb"/><stop offset="1" stop-color="#ffa9dc"/></radialGradient>
+  <filter id="shadow" x="-35%" y="-35%" width="170%" height="185%"><feDropShadow dx="0" dy="11" stdDeviation="10" flood-color="#4a137a" flood-opacity=".44"/></filter>
+ </defs>
+ <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+ <circle cx="252" cy="243" r="203" fill="#fffcfe" opacity=".14"/>
+ <path d="M46 248C77 90 191 49 278 68c85 18 154 85 174 190" fill="none" stroke="#fff" stroke-width="47" opacity=".65" stroke-linecap="round"/>
+ <path d="M46 248C77 90 191 49 278 68c85 18 154 85 174 190" fill="none" stroke="#ff3b97" stroke-width="36" stroke-linecap="round"/>
+ <path d="M46 248C77 90 191 49 278 68c85 18 154 85 174 190" fill="none" stroke="#ffdf5e" stroke-width="23" stroke-linecap="round"/>
+ <path d="M46 248C77 90 191 49 278 68c85 18 154 85 174 190" fill="none" stroke="#53e9c4" stroke-width="11" stroke-linecap="round"/>
+ <g fill="#fffde5"><path d="m84 69 7 20 20 7-20 7-7 20-7-20-20-7 20-7z"/><path d="m425 86 6 17 17 6-17 6-6 17-6-17-17-6 17-6z"/><path d="m395 198 4 12 12 4-12 4-4 12-4-12-12-4 12-4z"/></g>
+ <g opacity=".9"><path d="M222 216v-75h-23v-39l23-23 23 23v39h-11v75Z" fill="#fff4fd" stroke="#f748b9" stroke-width="7"/><path d="M263 201v-62h-19v-29l19-21 19 21v29h-8v62Z" fill="#ffe9b1" stroke="#ed43ac" stroke-width="6"/><path d="M187 212v-51h-15v-27l15-16 15 16v27h-7v51Z" fill="#e5fdff" stroke="#f748b9" stroke-width="6"/><path d="M173 194h111v42H173z" fill="#ffe3f7" stroke="#fa51b3" stroke-width="7"/><rect x="218" y="199" width="22" height="37" rx="10" fill="#a454e5"/></g>
+ <g filter="url(#shadow)">
+  <path d="M133 320c-35 7-46 39-37 48 13 13 33-6 53-23M294 324c32 14 42 36 31 45-11 10-28-10-49-20" fill="none" stroke="#ec449f" stroke-width="22" stroke-linecap="round"/>
+  <path d="M180 400 167 435M249 402l11 33" fill="none" stroke="#ec449f" stroke-width="21" stroke-linecap="round"/>
+  <circle cx="213" cy="305" r="114" fill="url(#mint)" stroke="#f95fad" stroke-width="12"/>
+  <g transform="translate(213 305)">
+   <path d="M0 0 0-110Q40-114 71-87L22-16z" fill="#ff69c5"/><path d="M0 0 78-75Q111-45 113-7L30 1z" fill="#fa4c9d"/><path d="M0 0 102 48Q82 97 42 106L15 22z" fill="#ff69c5"/><path d="M0 0 0 112Q-46 110-74 85L-21 16z" fill="#fa4c9d"/><path d="M0 0-92 65Q-116 29-108-9L-27-8z" fill="#ff69c5"/><path d="M0 0-86-69Q-49-113-9-112L-1-23z" fill="#fa4c9d"/>
   </g>
-
-  <!-- Banner Plate: TRUMP GOTCHA -->
-  <g transform="translate(56, 420)">
-    <rect x="0" y="0" width="400" height="60" rx="16" fill="#0c0617" stroke="#fbbf24" stroke-width="4" />
-    <text x="200" y="40" font-family="sans-serif" font-weight="900" font-size="28" fill="#fbbf24" text-anchor="middle" letter-spacing="3">TRUMP GOTCHA</text>
-  </g>
+  <ellipse cx="176" cy="306" rx="27" ry="34" fill="#fff"/><ellipse cx="250" cy="306" rx="27" ry="34" fill="#fff"/>
+  <ellipse cx="179" cy="312" rx="17" ry="24" fill="#312257"/><ellipse cx="247" cy="312" rx="17" ry="24" fill="#312257"/>
+  <circle cx="174" cy="303" r="7" fill="white"/><circle cx="242" cy="303" r="7" fill="white"/>
+  <ellipse cx="143" cy="350" rx="19" ry="10" fill="#ff97ba"/><ellipse cx="284" cy="350" rx="19" ry="10" fill="#ff97ba"/>
+  <path d="M182 353Q212 397 243 353Q218 360 182 353Z" fill="#85215e" stroke="#85215e" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M191 363Q212 377 231 363" fill="none" stroke="#ffb3ca" stroke-width="8" stroke-linecap="round"/>
+ </g>
+ <g filter="url(#shadow)">
+  <path d="M326 364Q305 348 302 375M412 364q28-21 32 8" fill="none" stroke="#fdbc24" stroke-width="18" stroke-linecap="round"/>
+  <path d="m349 416-6 26m57-25 9 26" stroke="#fdbc24" stroke-width="19" stroke-linecap="round"/>
+  <circle cx="337" cy="267" r="28" fill="url(#gum)" stroke="#ffde67" stroke-width="7"/><circle cx="415" cy="267" r="28" fill="url(#gum)" stroke="#ffde67" stroke-width="7"/>
+  <path d="M313 302c0-38 22-59 63-59 40 0 63 21 63 59v64c0 45-26 66-63 66s-63-21-63-66Z" fill="url(#gum)" stroke="#ffdf6e" stroke-width="8"/>
+  <ellipse cx="354" cy="323" rx="13" ry="19" fill="#5b244b"/><ellipse cx="398" cy="323" rx="13" ry="19" fill="#5b244b"/>
+  <circle cx="351" cy="316" r="5" fill="#fff"/><circle cx="395" cy="316" r="5" fill="#fff"/>
+  <ellipse cx="331" cy="355" rx="14" ry="8" fill="#ff7895" opacity=".86"/><ellipse cx="421" cy="355" rx="14" ry="8" fill="#ff7895" opacity=".86"/>
+  <path d="M348 365q28 35 56 0" fill="#9d3265" stroke="#9d3265" stroke-width="4" stroke-linejoin="round"/><path d="M355 369q21 13 41 0" fill="none" stroke="#ffc0d9" stroke-width="6" stroke-linecap="round"/>
+ </g>
+ <rect x="21" y="21" width="470" height="470" rx="96" fill="none" stroke="#fff7bd" stroke-width="9" opacity=".72"/>
 </svg>
