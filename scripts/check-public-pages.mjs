@@ -43,8 +43,8 @@ for (const forbidden of ['pop stars battle for the crown','face pop-culture gues
     failures++;
   }
 }
-if (!homeBundle.includes('meet silly candy characters')) {
-  console.error('Expected cleaned-up candy character introduction is missing in the published bundle.');
+if (!homeBundle.includes('Step into a vivid, offbeat playground')) {
+  console.error('Expected site-wide RandomCandyLand introduction is missing in the published bundle.');
   failures++;
 }
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
