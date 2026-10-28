@@ -146,7 +146,7 @@ export function usePetGame() {
     }
     setCurrentQuote(chosen);
     // Exactly one complete original recording per reaction; never concatenate clips.
-    if (chosen.audioClip) sound.playRecordedSequence([chosen.audioClip]);
+    if (chosen.audioClip) sound.playOriginalRecording(chosen.audioClip);
   }, []);
 
   // The POLL menu is a real spoken action. Its recorded words always
@@ -193,7 +193,7 @@ export function usePetGame() {
     triggerAnim('talk', 3200);
     // A single real MP3 per tap works more reliably on iPhone than multiple
     // auto-chained recordings. Press POLL again for another reaction.
-    sound.playRecordedSequence([selected.clip], onPlaybackError);
+    sound.playOriginalRecording(selected.clip, onPlaybackError);
   }, [triggerAnim]);
 
   // Donald spontaneously reveals his mood every 45–85 seconds of visible idle
