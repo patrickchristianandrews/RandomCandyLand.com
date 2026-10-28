@@ -26,10 +26,10 @@ const standaloneHtml = `<!doctype html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>Random Candy Land - Trump Gotcha Virtual Digi-Pet</title>
-    <meta name="description" content="Welcome to Random Candy Land (randomcandyland.com) – an eclectic place of confectionery wonder featuring the Trump Gotcha virtual digi-pet." />
-    <meta property="og:title" content="Random Candy Land - Trump Gotcha Virtual Digi-Pet" />
-    <meta property="og:description" content="Welcome to Random Candy Land (randomcandyland.com) – an eclectic place of confectionery wonder featuring the Trump Gotcha virtual digi-pet." />
+    <title>Random Candy Land | A World of Play, Music & Discovery</title>
+    <meta name="description" content="Explore Random Candy Land: a colorful universe of playful experiences, music visualizations, creative surprises, and curiosity." />
+    <meta property="og:title" content="Random Candy Land | A World of Play, Music & Discovery" />
+    <meta property="og:description" content="Explore Random Candy Land: a colorful universe of playful experiences, music visualizations, creative surprises, and curiosity." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
@@ -39,7 +39,7 @@ const standaloneHtml = `<!doctype html>
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="TrumpGotcha" />
+    <meta name="apple-mobile-web-app-title" content="Random Candy Land" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="icon" type="image/png" href="/favicon.png" />

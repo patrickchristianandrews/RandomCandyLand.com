@@ -1,152 +1,150 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import confetti from 'canvas-confetti';
+import React, { useState } from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
-import { ArrowRight, Dice5, Volume2, VolumeX, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
-import { CandyLand3DScene } from '../components/candyland3d/CandyLand3DScene';
-import { generate3DBoardTiles, ABSURD_CHAOS_CARDS } from '../utils/candyChaosEngine';
-import { CHAOS_CHARACTERS, ChaosCard, ChaosCharacterId, ChaosPlayer } from '../types/candyChaos';
-import { sound } from '../utils/audio';
-import { candyAudio } from '../utils/candyAudio';
 
-interface RandomCandyLandHomeProps { onNavigateToTrump: () => void; }
-const ALL_CAST = CHAOS_CHARACTERS;
-const byId = (id: ChaosCharacterId) => ALL_CAST.find(c => c.id === id) || ALL_CAST[0];
-const CARD_COUNT = ABSURD_CHAOS_CARDS.length;
-const bounceConfetti = (color: string) => {
-  try {
-    confetti({ particleCount: 75, spread: 92, origin: { x: 0.5, y: 0.64 }, colors: [color,'#fff68f','#ff77df','#75eaff'] });
-  } catch {}
-};
+interface RandomCandyLandHomeProps {
+  onNavigateToTrump: () => void;
+}
 
-function CandyLink({emoji,title,subtitle,href,shade,label}: {emoji:string,title:string,subtitle:string,href:string,shade:string,label?:string}) {
+function CandyLink({
+  emoji, title, subtitle, href, shade, label,
+}: {
+  emoji: string; title: string; subtitle: string;
+  href: string; shade: string; label: string;
+}) {
   return (
-    <a className={'sugar-offering sugar-offering--'+shade} href={href} aria-label={'Open '+title}>
+    <a className={'sugar-offering sugar-offering--' + shade} href={href} aria-label={'Open ' + title}>
       <div className="sugar-offering-orb" aria-hidden="true">{emoji}</div>
       <div className="sugar-offering-body">
-        {label && <span className="sugar-tag">{label}</span>}
-        <h3>{title}</h3><p>{subtitle}</p>
-        <span className="sugar-linktext">Step inside <ArrowRight size={16}/></span>
+        <span className="sugar-tag">{label}</span>
+        <h3>{title}</h3>
+        <p>{subtitle}</p>
+        <span className="sugar-linktext">Explore <ArrowRight size={16} /></span>
       </div>
     </a>
   );
 }
+
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
-  const tiles = useMemo(() => generate3DBoardTiles(), []);
-  const [players, setPlayers] = useState<ChaosPlayer[]>(() => [
-    { id:'you',name:'You',characterId:'gummy',tileIndex:0,sugarGems:140,isHost:true,isAi:false,isConnected:true,score:0,shieldActive:false },
-    { id:'guest1',name:'Marshmallow',characterId:'marshmallow',tileIndex:2,sugarGems:80,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
-    { id:'guest2',name:'Peppermint',characterId:'peppermint',tileIndex:4,sugarGems:90,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
-    { id:'guest3',name:'Donut',characterId:'donut',tileIndex:1,sugarGems:105,isHost:false,isAi:true,isConnected:true,score:0,shieldActive:false },
-  ]);
-  const [activePlayerIdx,setActivePlayerIdx] = useState(0);
-  const [isRolling,setIsRolling] = useState(false);
-  const [lastDice,setLastDice] = useState<number|null>(null);
-  const [eventCard,setEventCard] = useState<ChaosCard|null>(null);
-  const [lastCard,setLastCard] = useState<ChaosCard|null>(null);
-  const [showGuide,setShowGuide] = useState(false);
-  const [isMuted,setIsMuted] = useState(()=>sound.getIsMuted());
-  const [activeCategory,setActiveCategory] = useState('all');
-  const [turn,setTurn] = useState(1);
-  const [zoom,setZoom] = useState(0);
-  const deckRef = useRef<number[]>([]);
-  const timerRef = useRef<ReturnType<typeof setTimeout>|null>(null);
-  useEffect(()=>()=>{if(timerRef.current)clearTimeout(timerRef.current)},[]);
-  const turnPlayer = players[activePlayerIdx];
-  const drawCard = () => {
-    if(!deckRef.current.length) {
-      deckRef.current = Array.from({length:CARD_COUNT},(_,i)=>i);
-      for(let i=deckRef.current.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deckRef.current[i],deckRef.current[j]]=[deckRef.current[j],deckRef.current[i]];}
-    }
-    return ABSURD_CHAOS_CARDS[deckRef.current.pop()||0];
-  };
-  const roll = () => {
-    if(isRolling || eventCard)return;
-    setIsRolling(true);
-    try{candyAudio.playReelTick()}catch{}
-    const rollValue=1+Math.floor(Math.random()*6),card=drawCard(),acting=activePlayerIdx;
-    timerRef.current=setTimeout(()=>{
-      setLastDice(rollValue);
-      setLastCard(card);
-      setPlayers(prev=>{
-        const next=prev.map(x=>({...x}));
-        const me=next[acting];
-        let destination=Math.max(0,Math.min(tiles.length-1,me.tileIndex+rollValue+card.moveDelta));
-        if(card.specialAction==='SWAP_LEADER'){
-          const leader=next.reduce((best,p,i)=>p.tileIndex>next[best].tileIndex?i:best,0);
-          if(leader!==acting){const swap=next[leader].tileIndex;next[leader].tileIndex=me.tileIndex;destination=swap;}
-        }
-        if(card.specialAction==='FIRE_CANNON'){
-          const other=(acting+1)%next.length;
-          next[other].tileIndex=Math.max(0,next[other].tileIndex-3);
-        }
-        me.tileIndex=destination;me.sugarGems=Math.max(0,me.sugarGems+card.gemDelta);if(destination>=tiles.length-1){me.score+=1;me.tileIndex=0;}
-        return next;
-      });
-      setEventCard(card);
-      setTurn(t=>t+1);
-      setIsRolling(false);
-      bounceConfetti(card.color);
-      try{candyAudio.playJackpot()}catch{}
-    },760);
-  };
-  const advance = () => {setEventCard(null);setActivePlayerIdx(i=>(i+1)%players.length);};
-  const reset = () => {
-    if(timerRef.current)clearTimeout(timerRef.current);
-    setIsRolling(false);setEventCard(null);setLastCard(null);setActivePlayerIdx(0);setLastDice(null);setTurn(1);deckRef.current=[];
-    setPlayers(prev=>prev.map((p,i)=>({...p,tileIndex:i,sugarGems:i===0?140:80,score:0})));
-  };
-  const mute = ()=>setIsMuted(sound.toggleMute());
-  const goBoard=()=>document.getElementById('candy-board')?.scrollIntoView({behavior:'smooth'});
-  const showGroup=(id:string)=>activeCategory==='all'||activeCategory===id;
+  const [activeCategory, setActiveCategory] = useState('all');
+  const showGroup = (id: string) => activeCategory === 'all' || activeCategory === id;
+
   return (
     <main className="sugar-universe">
       <div className="sugar-sky" aria-hidden="true">
-        <i className="sugar-cloud sugar-cloud-a"/><i className="sugar-cloud sugar-cloud-b"/><i className="sugar-cloud sugar-cloud-c"/>
-        <span className="sugar-floater one">🍭</span><span className="sugar-floater two">🍬</span><span className="sugar-floater three">🍩</span><span className="sugar-floater four">🌈</span><span className="sugar-floater five">⭐</span>
+        <i className="sugar-cloud sugar-cloud-a" />
+        <i className="sugar-cloud sugar-cloud-b" />
+        <i className="sugar-cloud sugar-cloud-c" />
+        <span className="sugar-floater one">🍭</span>
+        <span className="sugar-floater two">🍬</span>
+        <span className="sugar-floater three">🍩</span>
+        <span className="sugar-floater four">🌈</span>
+        <span className="sugar-floater five">⭐</span>
       </div>
+
       <header className="sugar-nav">
         <a href="/" className="sugar-mark">🍬 <strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
-        <div className="sugar-navlinks"><button onClick={goBoard}>🎲 Board game</button><a href="#attractions">✨ Attractions</a><button onClick={mute} aria-label={isMuted?'Unmute game':'Mute game'}>{isMuted?<VolumeX size={18}/>:<Volume2 size={18}/>}</button></div>
+        <div className="sugar-navlinks">
+          <a href="#attractions">✨ Explore attractions</a>
+          <a href="/music-visualizer/">🎵 Music & color</a>
+          <a href="/after-dark/">🌙 After Dark</a>
+        </div>
       </header>
+
       <section className="sugar-hero">
-        <div className="sugar-kicker">✦ WELCOME TO THE WILDEST CORNER OF THE INTERNET ✦</div>
-        <h1><span>WONDER.</span><br/><em>WEIRDNESS.</em><br/><b>PURE CANDY CHAOS!</b></h1>
-        <p>Welcome to a colorful candy world packed with playful adventures, quirky surprises, and imagination around every corner.</p>
-        <div className="sugar-herobuttons"><button onClick={onNavigateToTrump} className="sugar-mainbtn">🐣 PLAY TRUMPAGOTCHI <ArrowRight/></button><button onClick={goBoard} className="sugar-otherbtn">🎲 CandyLand board</button></div>
-        <div className="sugar-hero-stats"><span>🎮 Trumpagotchi pocket pet</span><span>🎴 CandyLand game</span><span>🌙 After Dark 18+</span></div>
-        <div className="sugar-hero-planet" aria-hidden="true"><span className="planet-ring"/><span className="planet-eye eye-left"/><span className="planet-eye eye-right"/><span className="planet-smile"/><span className="planet-star">✦</span></div>
+        <span className="sugar-kicker">✦ AN UNEXPECTED LITTLE UNIVERSE ✦</span>
+        <h1><span>WONDER.</span><br /><em>WEIRDNESS.</em><br /><b>PURE CANDY CHAOS!</b></h1>
+        <p>Step into a vivid, offbeat playground of music, characters, color, and surprising discoveries. Pick a portal. See where it takes you.</p>
+        <div className="sugar-herobuttons">
+          <a href="#attractions" className="sugar-mainbtn">EXPLORE THE UNIVERSE <ArrowRight size={19} /></a>
+          <a href="/music-visualizer/" className="sugar-otherbtn">🌈 Experience the music</a>
+        </div>
+        <div className="sugar-hero-stats">
+          <span>🎮 PLAY</span>
+          <span>🎵 CREATE & LISTEN</span>
+          <span>🌙 DISCOVER</span>
+        </div>
+        <div className="sugar-hero-planet" aria-hidden="true">
+          <span className="planet-ring" />
+          <span className="planet-eye eye-left" />
+          <span className="planet-eye eye-right" />
+          <span className="planet-smile" />
+          <span className="planet-star">✦</span>
+        </div>
       </section>
+
       <section id="attractions" className="sugar-section sugar-attractions">
-        <div className="sugar-sectiontop"><div><span className="sugar-eyebrow">✦ PICK YOUR PORTAL</span><h2>The candy <em>multiverse.</em></h2><p>Little worlds. Big personalities. Zero boring corners.</p></div></div>
-        <div className="sugar-filter" role="group" aria-label="Filter attractions">
-          {[['all','All attractions'],['games','🎮 Games'],['music','🎵 Music'],['discovery','🌙 Explore']].map(([id,label])=><button key={id} className={activeCategory===id?'on':''} onClick={()=>setActiveCategory(id)}>{label}</button>)}
-        </div>
-        {showGroup('games') && <div className="sugar-group"><h3>🎮 Your games</h3><div className="sugar-offerings">
-
-          <button className="sugar-offering sugar-offering--gold sugar-trump-feature" onClick={onNavigateToTrump}><div className="sugar-trump-portrait" aria-hidden="true"><TrumpCartoonLookalike size={112} animate={true}/></div><div className="sugar-offering-body"><span className="sugar-tag">THE ORIGINAL POCKET-PET GAME</span><h3>Trumpagotchi</h3><p>Take care of Donald in his classic handheld digi-pet game: feed him, keep him clean, watch him dance and help him evolve.</p><span className="sugar-linktext">Play Trumpagotchi <ArrowRight size={16}/></span></div></button>
-          <button className="sugar-offering sugar-offering--bubble" onClick={goBoard}><div className="sugar-offering-orb">🎲</div><div className="sugar-offering-body"><span className="sugar-tag">172+ SURPRISE CARDS</span><h3>Sugar Chaos 3D</h3><p>Explore a colorful 3D candy board, meet silly candy characters, and draw surprise cards.</p><span className="sugar-linktext">Play now <ArrowRight size={16}/></span></div></button>
-
-        </div></div>}
-        {showGroup('music') && <div className="sugar-group"><h3>🎵 Sound, color & imagination</h3><div className="sugar-offerings"><CandyLink emoji="🌈" title="Candy Pulse" subtitle="Turn your favorite music into hypnotic light waves, neon blooms and dancing frequencies." href="/music-visualizer/" shade="pink" label="MUSIC VISUALIZER"/><CandyLink emoji="🎹" title="FM-1 Synth Lab" subtitle="Make weird and wonderful sounds with a browser-based pocket synthesizer." href="/fm1-emu/" shade="blue" label="MUSIC MAKER"/></div></div>}
-        {showGroup('discovery') && <div className="sugar-group"><h3>🌙 Discover something unexpected</h3><div className="sugar-offerings"><CandyLink emoji="✳️" title="After Dark" subtitle="An adults-only, judgment-free atlas of curiosity, psychology and playful self-discovery." href="/after-dark/index.html" shade="midnight" label="18+ ONLY"/></div></div>}
-      </section>
-      <section id="candy-board" className="sugar-section sugar-board-section">
-        <div className="sugar-sectiontop"><div><span className="sugar-eyebrow">✦ THE MAIN EVENT</span><h2>Sugar Chaos <em>3D.</em></h2><p>Spin, zoom, collect candy gems and survive the most absurd deck on the internet.</p></div><button className="sugar-pill" onClick={()=>setShowGuide(v=>!v)} aria-expanded={showGuide}>❔ How to play</button></div>
-        {showGuide && <div className="sugar-guide"><strong>YOUR 30-SECOND GUIDE:</strong> Roll the dice and watch your pawn cross the 3D candy world. A surprise card changes your gem total or moves you. Read the big pop-up, collect, then the next guest takes their turn. Drag the board to rotate, and use + and − to zoom. Reach the candy castle to score a victory! This is a local turn-taking board game with whimsical candy pawns, not a live multiplayer room.</div>}
-        <div className="sugar-game-shell">
-          <div className="sugar-game-top"><div><span className="sugar-chip">LIVE CANDY REALM</span> <span className="sugar-chip">DECK: {CARD_COUNT} CARDS</span></div><div className="sugar-game-score">🎲 {turnPlayer?.name || 'Player'}'s turn · Round {turn}</div></div>
-          <CandyLand3DScene tiles={tiles} players={players} activePlayerId={turnPlayer?.id||''} zoomLevel={zoom}/>
-          <div className="sugar-board-controls"><div className="sugar-camera-buttons"><button onClick={()=>setZoom(n=>Math.max(-6,n-1))} aria-label="Zoom in"><ZoomIn/></button><button onClick={()=>setZoom(n=>Math.min(6,n+1))} aria-label="Zoom out"><ZoomOut/></button><button onClick={()=>setZoom(0)} aria-label="Reset camera zoom"><RotateCcw/></button></div>
-            <button className="sugar-mainbtn" onClick={roll} disabled={isRolling||!!eventCard}><Dice5/> {isRolling?'ROLLING…':'ROLL THE MAGIC DICE!'}</button>
-            <button className="sugar-otherbtn" onClick={reset}>↻ Reset game</button>
+        <div className="sugar-sectiontop">
+          <div>
+            <span className="sugar-eyebrow">✦ CHOOSE YOUR NEXT ADVENTURE</span>
+            <h2>Every corner is <em>something different.</em></h2>
+            <p>Three little worlds with their own personalities. Explore whichever sounds fun.</p>
           </div>
-          {lastCard && <p className="sugar-last-event">✨ Last surprise: <strong>{lastCard.title}</strong> · {lastDice!==null?'Rolled '+lastDice:''}</p>}
-          <div className="sugar-scoreboard">{players.map((p,i)=><div className={'sugar-score '+(i===activePlayerIdx?'active':'')} key={p.id}><span className="sugar-scoreface">{byId(p.characterId).emoji}</span><div><strong>{p.name}</strong><small>Tile {p.tileIndex+1}/30 · {p.score} wins</small></div><span className="sugar-gems">💎{p.sugarGems}</span></div>)}</div>
+        </div>
+        <div className="sugar-filter" role="group" aria-label="Filter attractions">
+          {[
+            ['all', '✨ Everything'],
+            ['games', '🎮 Games'],
+            ['music', '🎵 Music'],
+            ['discovery', '🌙 Discovery'],
+          ].map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              className={activeCategory === id ? 'on' : ''}
+              aria-pressed={activeCategory === id}
+              onClick={() => setActiveCategory(id)}
+            >{label}</button>
+          ))}
+        </div>
+        <div className="sugar-offerings">
+          {showGroup('games') && (
+            <button className="sugar-offering sugar-offering--gold sugar-trump-feature" type="button" onClick={onNavigateToTrump}>
+              <div className="sugar-trump-portrait" aria-hidden="true"><TrumpCartoonLookalike size={112} animate /></div>
+              <div className="sugar-offering-body">
+                <span className="sugar-tag">🎮 GAMES · RETRO PET</span>
+                <h3>Donald's Pocket Pet</h3>
+                <p>Keep an outrageous little presidential digi-pet happy, fed, groomed, and entertained.</p>
+                <span className="sugar-linktext">Play the pet game <ArrowRight size={16} /></span>
+              </div>
+            </button>
+          )}
+          {showGroup('music') && (
+            <CandyLink
+              emoji="🌈"
+              title="Candy Pulse"
+              subtitle="Turn music into hypnotic neon waves, dancing light, and mesmerizing color."
+              href="/music-visualizer/"
+              shade="pink"
+              label="🎵 MUSIC · VISUALIZER"
+            />
+          )}
+          {showGroup('discovery') && (
+            <CandyLink
+              emoji="✳️"
+              title="After Dark"
+              subtitle="An adults-only, judgment-free atlas of curiosity, reflection, and psychology."
+              href="/after-dark/"
+              shade="midnight"
+              label="🌙 DISCOVERY · 18+"
+            />
+          )}
         </div>
       </section>
-      <section className="sugar-endcap"><span>🍭</span><div><h2>The internet should feel <em>this fun.</em></h2><p>Take a little detour into something delightfully ridiculous.</p></div><button className="sugar-mainbtn" onClick={goBoard}>One more roll <ArrowRight/></button></section>
-      <footer className="sugar-footer"><span>✦ RANDOMCANDYLAND.COM ✦</span><span>Made with sugar, imagination, and a spectacular lack of seriousness.</span><a href="#attractions">Back to the candy portals ↑</a></footer>
-      {eventCard && <div className="sugar-modal-backdrop" role="presentation"><section className="sugar-reveal" role="dialog" aria-modal="true" aria-labelledby="reveal-heading" style={{'--reveal':eventCard.color} as React.CSSProperties}><div className="sugar-reveal-stamp">✦ THE UNIVERSE HAS SPOKEN ✦</div><div className="sugar-reveal-art">🍬✨🎲</div><span className="sugar-reveal-tag">CHAOS CARD #{eventCard.id.replace(/\D/g,'').slice(0,4)}</span><h2 id="reveal-heading">{eventCard.title}</h2><p>{eventCard.whatAnnouncement}</p><div className="sugar-reveal-awards"><span>{eventCard.moveDelta>=0?'+':''}{eventCard.moveDelta} bonus spaces</span><span>{eventCard.gemDelta>=0?'+':''}{eventCard.gemDelta} 💎</span></div><button className="sugar-mainbtn" autoFocus onClick={advance}>Collect & continue <ArrowRight/></button></section></div>}
+
+      <section className="sugar-endcap">
+        <span>🍭</span>
+        <div>
+          <h2>The internet should feel <em>this fun.</em></h2>
+          <p>Something colorful, unusual, and completely unexpected is just a click away.</p>
+        </div>
+        <a href="#attractions" className="sugar-mainbtn"><Sparkles size={18} /> Discover more <ArrowRight size={18} /></a>
+      </section>
+      <footer className="sugar-footer">
+        <span>✦ RANDOMCANDYLAND.COM ✦</span>
+        <span>Made with sugar, imagination, and a spectacular lack of seriousness.</span>
+        <a href="#attractions">Back to the portals ↑</a>
+      </footer>
     </main>
   );
 }

@@ -2,11 +2,10 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const required = [
-  ['dist/index.html', ['id="root"', 'Trumpagotchi']],
+  ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/music-visualizer/index.html', ['id="canvas"']],
-  ['dist/fm1-emu/index.html', ['fm1-emu']],
 ];
 
 let failures = 0;
@@ -49,6 +48,15 @@ if (!homeBundle.includes('meet silly candy characters')) {
   failures++;
 }
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
+
+if (fs.existsSync('dist/fm1-emu/index.html')) {
+  console.error('Removed FM-1 Synth Lab is still being published.');
+  failures++;
+}
+if (/FM-1 Synth Lab|Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(fs.readFileSync('dist/index.html', 'utf8'))) {
+  console.error('An unwanted or outdated homepage attraction was restored.');
+  failures++;
+}
 
 if (fs.existsSync('dist/arcade/index.html')) {
   console.error('Unwanted slot arcade is still present in published files.');

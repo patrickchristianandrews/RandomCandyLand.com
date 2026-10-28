@@ -1,8 +1,8 @@
 {
-  "name": "Trumpagotchi - 24K Presidential Digi-Pet",
-  "short_name": "Trumpagotchi",
-  "description": "Authentic retro pocket virtual pet with real Donald Trump voice clips, evolution stages, and mini-games.",
-  "start_url": "/trump",
+  "name": "Random Candy Land — Play, Music & Discovery",
+  "short_name": "RandomCandyLand",
+  "description": "Explore Random Candy Land: a colorful universe of playful experiences, music visualizations, creative surprises, and curiosity.",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
