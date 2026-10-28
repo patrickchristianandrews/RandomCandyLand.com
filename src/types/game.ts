@@ -73,156 +73,60 @@ export type TrumpMood =
   | 'baby' | 'dance' | 'fake_news' | 'lonely' | 'bored' | 'sick' | 'proud';
 
 export interface TrumpQuote {
-  /** Words from the recording(s), not a fabricated full spoken sentence. */
+  /** Caption for the single original recording, never stitched or invented dialogue. */
   text: string;
   mood: TrumpMood;
   audioClip?: string;
-  /** In-order original MP3 recordings, combined for longer actual voice reactions. */
-  audioClips?: string[];
-  /** In-game emotion label, not represented as an actual spoken quote. */
+  /** Optional game-status text, not claimed to be part of the recording. */
   feeling?: string;
 }
 
-/** Existing Trump recordings. No voice cloning or artificial speech is used here.
- * Multi-clip reactions play these originals sequentially at normal speed/pitch. */
+/** The complete built-in library: one unmodified recording per reaction.
+ * No spliced phrases, synthetic narration, or reassembled quotes.
+ * Additional authorized recordings can be imported in the personal voice library. */
 const RECORDED_VOICE = {
-  wrong: { file: 'wrong.mp3', words: 'WRONG!' },
-  believe: { file: 'can_you_believe_this.mp3', words: 'CAN YOU BELIEVE THIS?' },
-  losers: { file: 'we_have_losers.mp3', words: 'WE HAVE LOSERS!' },
-  happening: { file: 'whats_going_on.mp3', words: "WHAT'S GOING ON?" },
-  politicians: { file: 'incompetent_politicians.mp3', words: 'INCOMPETENT POLITICIANS!' },
-  suing: { file: 'you_know_were_going_to_be_suing_them_anyway.mp3', words: "YOU KNOW WE'RE GOING TO BE SUING THEM ANYWAY!" },
-  stupid: { file: 'united_states_is_run_by_stupid_people.mp3', words: 'THE UNITED STATES IS RUN BY STUPID PEOPLE!' },
-  problems: { file: 'nothing_but_problem.mp3', words: 'NOTHING BUT PROBLEMS!' },
-  lots: { file: 'lots_of_problems.mp3', words: 'LOTS OF PROBLEMS!' },
-  bing: { file: 'bingbong.mp3', words: 'BING BING BING BONG!' },
-  better: { file: 'better_than_ever_before.mp3', words: 'BETTER THAN EVER BEFORE!' },
-  amazing: { file: 'so_amazing.mp3', words: 'SO AMAZING!' },
-  phenomenal: { file: 'phenomenal.mp3', words: 'PHENOMENAL!' },
-  enjoy: { file: 'i_actually_enjoy_that.mp3', words: 'I ACTUALLY ENJOY THAT!' },
-  enjoying: { file: 'im_enjoying_it.mp3', words: "I'M ENJOYING IT!" },
-  keep: { file: 'we_have_to_keep_going.mp3', words: 'WE HAVE TO KEEP GOING!' },
-  maybe: { file: 'maybe_winning.mp3', words: 'MAYBE WINNING!' },
-  meat: { file: 'i_think_ive_been_showing_a_lot_of_meat.mp3', words: "I THINK I'VE BEEN SHOWING A LOT OF MEAT!" },
-  rich: { file: 'im_really_rich.mp3', words: "I'M REALLY RICH!" },
-  fine: { file: 'thats_fine.mp3', words: "THAT'S FINE!" },
-  richShort: { file: 'rich.mp3', words: 'RICH!' },
-  golf: { file: 'golf.mp3', words: 'GOLF!' },
-  courses: { file: 'i_have_the_best_courses_in_the_world.mp3', words: 'I HAVE THE BEST COURSES IN THE WORLD!' },
-  fantastic: { file: 'were_going_to_do_a_fantastic_job.mp3', words: "WE'RE GOING TO DO A FANTASTIC JOB!" },
-  dollars: { file: 'well_over_ten_billion_dollars.mp3', words: 'WELL OVER TEN BILLION DOLLARS!' },
-  tremendous: { file: 'tremendous_amounts_of_dollars.mp3', words: 'TREMENDOUS AMOUNTS OF DOLLARS!' },
-  deal: { file: 'its_a_five_year_deal.mp3', words: "IT'S A FIVE-YEAR DEAL!" },
-  country: { file: 'i_want_to_make_our_country_great_again.mp3', words: 'I WANT TO MAKE OUR COUNTRY GREAT AGAIN!' },
-  china: { file: 'china.mp3', words: 'CHINA!' },
-  beatChina: { file: 'beatchina.mp3', words: 'BEAT CHINA!' },
-  big: { file: 'bigleague.mp3', words: 'BIG LEAGUE!' },
-  believeIt: { file: 'believe_it_or_not.mp3', words: 'BELIEVE IT OR NOT!' },
-  potential: { file: 'this_country_has_so_much_potential.mp3', words: 'THIS COUNTRY HAS SO MUCH POTENTIAL!' },
-  without: { file: 'without_question.mp3', words: 'WITHOUT QUESTION!' },
-  whiteHouse: { file: 'the_white_house.mp3', words: 'THE WHITE HOUSE!' },
-  liability: { file: 'hes_got_tremendous_liability.mp3', words: "HE'S GOT TREMENDOUS LIABILITY!" },
-  corporate: { file: 'corportate_inversion_is_a_huge_problem.mp3', words: 'CORPORATE INVERSION IS A HUGE PROBLEM!' },
-  bye: { file: 'bye.mp3', words: 'BYE!' },
+  wrong: { file: 'wrong.mp3', words: 'WRONG!', mood: 'feisty' },
+  believe: { file: 'can_you_believe_this.mp3', words: 'CAN YOU BELIEVE THIS?', mood: 'lonely' },
+  losers: { file: 'we_have_losers.mp3', words: 'WE HAVE LOSERS!', mood: 'fake_news' },
+  happening: { file: 'whats_going_on.mp3', words: "WHAT'S GOING ON?", mood: 'bored' },
+  politicians: { file: 'incompetent_politicians.mp3', words: 'INCOMPETENT POLITICIANS!', mood: 'fake_news' },
+  suing: { file: 'you_know_were_going_to_be_suing_them_anyway.mp3', words: "YOU KNOW WE'RE GOING TO BE SUING THEM ANYWAY!", mood: 'feisty' },
+  stupid: { file: 'united_states_is_run_by_stupid_people.mp3', words: 'THE UNITED STATES IS RUN BY STUPID PEOPLE!', mood: 'fake_news' },
+  problems: { file: 'nothing_but_problem.mp3', words: 'NOTHING BUT PROBLEMS!', mood: 'sick' },
+  lots: { file: 'lots_of_problems.mp3', words: 'LOTS OF PROBLEMS!', mood: 'sick' },
+  bing: { file: 'bingbong.mp3', words: 'BING BING BING BONG!', mood: 'baby' },
+  better: { file: 'better_than_ever_before.mp3', words: 'BETTER THAN EVER BEFORE!', mood: 'proud' },
+  amazing: { file: 'so_amazing.mp3', words: 'SO AMAZING!', mood: 'happy' },
+  phenomenal: { file: 'phenomenal.mp3', words: 'PHENOMENAL!', mood: 'dance' },
+  enjoy: { file: 'i_actually_enjoy_that.mp3', words: 'I ACTUALLY ENJOY THAT!', mood: 'dance' },
+  enjoying: { file: 'im_enjoying_it.mp3', words: "I'M ENJOYING IT!", mood: 'dance' },
+  keep: { file: 'we_have_to_keep_going.mp3', words: 'WE HAVE TO KEEP GOING!', mood: 'rallied' },
+  maybe: { file: 'maybe_winning.mp3', words: 'MAYBE WINNING!', mood: 'rallied' },
+  meat: { file: 'i_think_ive_been_showing_a_lot_of_meat.mp3', words: "I THINK I'VE BEEN SHOWING A LOT OF MEAT!", mood: 'hungry' },
+  rich: { file: 'im_really_rich.mp3', words: "I'M REALLY RICH!", mood: 'proud' },
+  fine: { file: 'thats_fine.mp3', words: "THAT'S FINE!", mood: 'sleepy' },
+  richShort: { file: 'rich.mp3', words: 'RICH!', mood: 'proud' },
+  golf: { file: 'golf.mp3', words: 'GOLF!', mood: 'golf' },
+  courses: { file: 'i_have_the_best_courses_in_the_world.mp3', words: 'I HAVE THE BEST COURSES IN THE WORLD!', mood: 'golf' },
+  fantastic: { file: 'were_going_to_do_a_fantastic_job.mp3', words: "WE'RE GOING TO DO A FANTASTIC JOB!", mood: 'happy' },
+  dollars: { file: 'well_over_ten_billion_dollars.mp3', words: 'WELL OVER TEN BILLION DOLLARS!', mood: 'proud' },
+  tremendous: { file: 'tremendous_amounts_of_dollars.mp3', words: 'TREMENDOUS AMOUNTS OF DOLLARS!', mood: 'proud' },
+  deal: { file: 'its_a_five_year_deal.mp3', words: "IT'S A FIVE-YEAR DEAL!", mood: 'proud' },
+  country: { file: 'i_want_to_make_our_country_great_again.mp3', words: 'I WANT TO MAKE OUR COUNTRY GREAT AGAIN!', mood: 'rallied' },
+  china: { file: 'china.mp3', words: 'CHINA!', mood: 'fake_news' },
+  beatChina: { file: 'beatchina.mp3', words: 'BEAT CHINA!', mood: 'rallied' },
+  big: { file: 'bigleague.mp3', words: 'BIG LEAGUE!', mood: 'rallied' },
+  believeIt: { file: 'believe_it_or_not.mp3', words: 'BELIEVE IT OR NOT!', mood: 'happy' },
+  potential: { file: 'this_country_has_so_much_potential.mp3', words: 'THIS COUNTRY HAS SO MUCH POTENTIAL!', mood: 'rallied' },
+  without: { file: 'without_question.mp3', words: 'WITHOUT QUESTION!', mood: 'proud' },
+  whiteHouse: { file: 'the_white_house.mp3', words: 'THE WHITE HOUSE!', mood: 'proud' },
+  liability: { file: 'hes_got_tremendous_liability.mp3', words: "HE'S GOT TREMENDOUS LIABILITY!", mood: 'fake_news' },
+  corporate: { file: 'corportate_inversion_is_a_huge_problem.mp3', words: 'CORPORATE INVERSION IS A HUGE PROBLEM!', mood: 'fake_news' },
+  bye: { file: 'bye.mp3', words: 'BYE!', mood: 'sleepy' },
 } as const;
 
-type RecordedKey = keyof typeof RECORDED_VOICE;
-type MoodMix = { mood: TrumpMood; feeling: string; combinations: RecordedKey[][] };
-
-/** Different action / feeling pools keep the speech context appropriate.
- * Every spoken word shown is based on the corresponding recorded phrase;
- * emotions are separate game narration. */
-const MOOD_MIXES: MoodMix[] = [
-  { mood: 'happy', feeling: 'delighted with himself', combinations: [
-    ['enjoying', 'amazing'], ['better', 'phenomenal'], ['enjoy', 'fantastic'],
-    ['believeIt', 'amazing'], ['better', 'enjoy'], ['phenomenal', 'better'],
-    ['whiteHouse', 'enjoying'], ['potential', 'fantastic'], ['rich', 'amazing'],
-    ['fine', 'enjoying'], ['without', 'phenomenal'], ['big', 'better'],
-    ['enjoy', 'amazing', 'phenomenal'], ['believeIt', 'better', 'enjoying'],
-  ] },
-  { mood: 'proud', feeling: 'extremely proud', combinations: [
-    ['big', 'fantastic'], ['dollars', 'tremendous'], ['rich', 'dollars'],
-    ['deal', 'phenomenal'], ['without', 'fantastic'], ['whiteHouse', 'big'],
-    ['potential', 'amazing'], ['better', 'big'], ['richShort', 'rich'],
-    ['believeIt', 'tremendous'], ['deal', 'rich', 'phenomenal'],
-  ] },
-  { mood: 'rallied', feeling: 'fired up and ready for a rally', combinations: [
-    ['country', 'fantastic'], ['keep', 'big'], ['potential', 'better'],
-    ['fantastic', 'phenomenal'], ['big', 'country'], ['china', 'beatChina'],
-    ['keep', 'country'], ['believeIt', 'fantastic'], ['big', 'amazing'],
-    ['better', 'keep'], ['potential', 'keep'], ['beatChina', 'big'],
-    ['fantastic', 'big', 'keep'], ['country', 'potential', 'fantastic'],
-  ] },
-  { mood: 'dance', feeling: 'in full dance mode', combinations: [
-    ['bing', 'enjoying'], ['bing', 'phenomenal'], ['enjoy', 'bing'],
-    ['better', 'bing'], ['enjoying', 'better'], ['amazing', 'bing'],
-    ['keep', 'enjoying'], ['phenomenal', 'enjoy'], ['bing', 'keep'],
-    ['enjoying', 'fantastic'], ['amazing', 'phenomenal'], ['maybe', 'bing'],
-    ['bing', 'enjoy', 'phenomenal'], ['enjoying', 'bing', 'better'],
-    ['keep', 'bing', 'amazing'], ['better', 'enjoying', 'phenomenal'],
-  ] },
-  { mood: 'hungry', feeling: 'hungry and demanding a snack', combinations: [
-    ['meat', 'amazing'], ['meat', 'enjoy'], ['rich', 'meat'],
-    ['fine', 'meat'], ['meat', 'phenomenal'], ['richShort', 'meat'],
-    ['meat', 'better'], ['enjoying', 'meat'], ['believeIt', 'meat'],
-    ['meat', 'fine'], ['rich', 'meat', 'enjoying'], ['meat', 'amazing', 'phenomenal'],
-  ] },
-  { mood: 'golf', feeling: 'obsessed with golf', combinations: [
-    ['golf', 'courses'], ['courses', 'phenomenal'], ['golf', 'fantastic'],
-    ['courses', 'better'], ['golf', 'amazing'], ['courses', 'enjoy'],
-    ['big', 'golf'], ['golf', 'enjoying'], ['golf', 'without'],
-    ['courses', 'big'], ['golf', 'courses', 'phenomenal'],
-  ] },
-  { mood: 'fake_news', feeling: 'arguing with the television', combinations: [
-    ['wrong', 'believe'], ['losers', 'wrong'], ['happening', 'lots'],
-    ['politicians', 'wrong'], ['stupid', 'problems'], ['believe', 'losers'],
-    ['wrong', 'suing'], ['happening', 'politicians'], ['lots', 'wrong'],
-    ['problems', 'stupid'], ['suing', 'wrong'], ['corporate', 'problems'],
-    ['believe', 'politicians', 'wrong'], ['happening', 'lots', 'losers'],
-    ['wrong', 'believe', 'suing'],
-  ] },
-  { mood: 'feisty', feeling: 'grumbling about the mess', combinations: [
-    ['wrong', 'lots'], ['happening', 'wrong'], ['problems', 'politicians'],
-    ['believe', 'wrong'], ['lots', 'suing'], ['losers', 'problems'],
-    ['politicians', 'happening'], ['wrong', 'stupid'], ['lots', 'happening'],
-    ['problems', 'wrong', 'lots'], ['happening', 'believe', 'wrong'],
-  ] },
-  { mood: 'sleepy', feeling: 'ready for a nap', combinations: [
-    ['bye'], ['fine', 'bye'], ['enjoying', 'bye'],
-    ['bye', 'fine'], ['better', 'bye'],
-  ] },
-  { mood: 'baby', feeling: 'an excited tiny mogul', combinations: [
-    ['bing', 'amazing'], ['better', 'bing'], ['fine', 'bing'],
-    ['bing', 'richShort'], ['bye'], ['rich', 'bing'],
-    ['amazing', 'fine'], ['bing', 'phenomenal'], ['wrong', 'bing'],
-  ] },
-  { mood: 'lonely', feeling: 'lonely and looking for attention', combinations: [
-    ['happening', 'believe'], ['fine', 'bye'], ['lots', 'happening'],
-    ['believe', 'enjoy'], ['happening', 'fine'],
-  ] },
-  { mood: 'bored', feeling: 'bored and wants to play', combinations: [
-    ['happening', 'keep'], ['believe', 'happening'], ['maybe', 'keep'],
-    ['fine', 'amazing'], ['keep', 'phenomenal'],
-  ] },
-  { mood: 'sick', feeling: 'feeling under the weather', combinations: [
-    ['lots', 'problems'], ['happening', 'fine'], ['wrong', 'lots'],
-    ['fine', 'bye'], ['problems', 'fine'],
-  ] },
-];
-
-export const TRUMP_QUOTES: TrumpQuote[] = MOOD_MIXES.flatMap(({ mood, feeling, combinations }) => {
-  // One-clip reactions create rhythm and variety amid fuller multi-clip ones.
-  const soloKeys = Array.from(new Set(combinations.flat())).slice(0, 8);
-  const versions: RecordedKey[][] = [
-    ...soloKeys.map(key => [key] as RecordedKey[]),
-    ...combinations,
-  ];
-  return versions.map(keys => ({
-    mood,
-    feeling,
-    text: keys.map(key => RECORDED_VOICE[key].words).join(' '),
-    audioClip: RECORDED_VOICE[keys[0]].file,
-    audioClips: keys.map(key => RECORDED_VOICE[key].file),
-  }));
-});
-
+export const TRUMP_QUOTES: TrumpQuote[] = Object.values(RECORDED_VOICE).map(({ file, words, mood }) => ({
+  text: words,
+  mood,
+  audioClip: file,
+}));
