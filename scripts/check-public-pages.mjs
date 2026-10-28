@@ -62,5 +62,9 @@ if (fs.existsSync('dist/arcade/index.html')) {
   console.error('Unwanted slot arcade is still present in published files.');
   failures++;
 }
+if (!homeBundle.includes('Use your own voice recordings in the game')) {
+  console.error('Trumpagotchi personal audio importer is missing from the production bundle.');
+  failures++;
+}
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');

@@ -11,6 +11,12 @@ import {
 import { usePetGame } from '../hooks/usePetGame';
 import { sound } from '../utils/audio';
 import { getTrumpTroubleAlert } from '../utils/notifications';
+import {
+  loadPersonalVoicePack, importPersonalVoiceFiles, listPersonalClips,
+  getPersonalClip, deletePersonalClip, setPersonalClipCategory,
+  personalVoicesEnabled, setPersonalVoicesEnabled, PERSONAL_CLIP_CATEGORIES,
+  type PersonalClipCategory, type PersonalClipMeta,
+} from '../utils/personalVoicePack';
 import { HandheldShell } from '../components/HandheldShell';
 import { LcdScreen } from '../components/LcdScreen';
 import { GolfMiniGame } from '../components/GolfMiniGame';
@@ -69,6 +75,34 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
   const [installModalOpen, setInstallModalOpen] = useState<boolean>(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [personalClips, setPersonalClips] = useState<PersonalClipMeta[]>([]);
+  const [personalEnabled, setPersonalEnabled] = useState<boolean>(() => personalVoicesEnabled());
+  const [personalCategory, setPersonalCategory] = useState<PersonalClipCategory | 'auto'>('auto');
+  const [personalStatus, setPersonalStatus] = useState('No files are uploaded to this website. Your personal recordings stay on this device.');
+  const [personalBusy, setPersonalBusy] = useState(false);
+
+  useEffect(() => {
+    void loadPersonalVoicePack().then(setPersonalClips)
+      .catch(() => setPersonalStatus('Local audio storage is unavailable. Try installing the site or using a regular browser tab.'));
+  }, []);
+
+  const onPersonalFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.currentTarget.files || []);
+    e.currentTarget.value = '';
+    if (!files.length) return;
+    setPersonalBusy(true);
+    setPersonalStatus('Saving selected recordings privately on this device...');
+    try {
+      const outcome = await importPersonalVoiceFiles(files, personalCategory);
+      setPersonalClips(listPersonalClips());
+      setPersonalStatus(outcome.imported + ' recording(s) imported. ' +
+        (outcome.skipped ? outcome.skipped + ' skipped. ' : '') +
+        (outcome.errors.slice(0, 2).join(' ') || 'These now play as reactions during gameplay.'));
+    } catch (error) {
+      setPersonalStatus('Import failed: ' + (error instanceof Error ? error.message : 'Device storage unavailable.'));
+    } finally { setPersonalBusy(false); }
+  };
+
 
   const {
     stats,
@@ -387,6 +421,80 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 <li><strong>Try the mini-games and sounds.</strong> Use the handheld menu for golf, rally, and deals. Actions can play recorded voice clips when sound is on.</li>
                 <li><strong>More actual recordings:</strong> <a href="https://www.101soundboards.com/boards/10035-donald-trump-soundboard" target="_blank" rel="noopener noreferrer" className="text-amber-200 underline underline-offset-2 hover:text-white">Browse Donald Trump voice clips ↗</a> on the original soundboard. This opens a separate tab and won't interrupt your game.</li>
               </ol>
+              <details className="mt-4 rounded-xl border border-sky-300/40 bg-slate-900/80 p-3">
+                <summary className="cursor-pointer text-sm font-black text-sky-100">
+                  🎙️ Use your own voice recordings in the game ({personalClips.length} saved)
+                </summary>
+                <p className="mt-2 text-xs leading-relaxed text-sky-100">
+                  Select MP3, M4A, WAV, AAC or OGG audio files on your phone to play
+                  during Donald's reactions. Files are saved privately in this browser
+                  — not uploaded or shared with other players. Only import audio you
+                  are permitted to use. You can find personal-use clips on the linked
+                  soundboard, but their copyright stays with the owners.
+                </p>
+                <label className="mt-3 flex items-center gap-2 text-xs text-white">
+                  <input type="checkbox" checked={personalEnabled} onChange={e => {
+                    setPersonalEnabled(e.target.checked);
+                    setPersonalVoicesEnabled(e.target.checked);
+                    setPersonalStatus(e.target.checked ? 'Personal voice clips enabled.' : 'Personal voice clips disabled; original recordings will play.');
+                  }} />
+                  Use my imported clips as in-game reactions
+                </label>
+                <div className="mt-3 flex flex-wrap items-end gap-2">
+                  <label className="flex flex-col gap-1 text-xs text-sky-100">
+                    Import as
+                    <select aria-label="Category for imported voice clips" value={personalCategory}
+                      onChange={e => setPersonalCategory(e.target.value as PersonalClipCategory | 'auto')}
+                      className="rounded-lg bg-slate-800 border border-sky-300/40 p-2 text-white">
+                      <option value="auto">Automatically match filename to reactions</option>
+                      {PERSONAL_CLIP_CATEGORIES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                    </select>
+                  </label>
+                  <label className="cursor-pointer rounded-lg bg-sky-300 px-3 py-2 font-black text-slate-900 text-xs">
+                    {personalBusy ? 'Importing...' : '📁 Select audio files'}
+                    <input type="file" multiple accept=".mp3,.m4a,.wav,.aac,.ogg,audio/mpeg,audio/mp4,audio/wav,audio/ogg"
+                      disabled={personalBusy} className="sr-only" onChange={onPersonalFiles} />
+                  </label>
+                </div>
+                <p role="status" className="mt-2 text-xs text-sky-200">{personalStatus}</p>
+                {!!personalClips.length && <div className="mt-2 space-y-2 max-h-72 overflow-auto">
+                  {personalClips.slice(0, 25).map(clip => (
+                    <div key={clip.id} className="flex flex-wrap gap-2 items-center rounded-lg border border-white/15 p-2">
+                      <span className="text-xs flex-1 min-w-[110px] break-words">{clip.title}</span>
+                      <select aria-label={'Reaction category for ' + clip.title} value={clip.category}
+                        className="bg-slate-800 text-white border border-sky-300/30 rounded p-1 text-xs"
+                        onChange={async e => {
+                          try {
+                            await setPersonalClipCategory(clip.id, e.target.value as PersonalClipCategory);
+                            setPersonalClips(listPersonalClips());
+                          } catch { setPersonalStatus('Could not update reaction category.'); }
+                        }}>
+                        {PERSONAL_CLIP_CATEGORIES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                      </select>
+                      <button type="button" className="rounded bg-white/15 px-2 py-1 text-xs"
+                        onClick={() => { const item = getPersonalClip(clip.id); if (item) sound.playPersonalClip(item.url); }}>
+                        ▶ Hear
+                      </button>
+                      <button type="button" className="rounded bg-red-800/50 px-2 py-1 text-xs"
+                        onClick={async () => {
+                          if (!window.confirm('Remove this recording from this device?')) return;
+                          try {
+                            await deletePersonalClip(clip.id);
+                            setPersonalClips(listPersonalClips());
+                            setPersonalStatus('Recording removed from this device.');
+                          } catch { setPersonalStatus('Could not remove this recording.'); }
+                        }}>Remove</button>
+                    </div>
+                  ))}
+                  {personalClips.length > 25 && <p className="text-xs text-sky-200">
+                    Showing 25 of {personalClips.length} clips. All imported clips remain available during gameplay.
+                  </p>}
+                </div>}
+                <p className="mt-2 text-[11px] text-sky-300">
+                  Personal clips can be removed with their Remove button. Browser data clearing
+                  may erase them; they are not synced between devices. Original game audio is unchanged.
+                </p>
+              </details>
               <p className="mt-3 text-xs text-sky-200/80">Handheld buttons: A = move through icons · B = perform the selected action · C = pause/back. Tap Donald to hear a reaction.</p>
             </details>
           </section>

@@ -423,6 +423,38 @@ class SoundEngine {
     playNext(0);
   }
 
+  /** Play a user-selected recording from the current device.
+   * Object URLs reference IndexedDB files in this browser, not uploaded content. */
+  public playPersonalClip(url: string): boolean {
+    if (this.isMuted || typeof window === 'undefined' || !url.startsWith('blob:')) return false;
+    const generation = ++this.voiceSequenceGeneration;
+    if (this.currentVoiceAudio) {
+      this.currentVoiceAudio.pause();
+      this.currentVoiceAudio.onended = null;
+      this.currentVoiceAudio.onerror = null;
+    }
+    const player = new Audio(url);
+    player.preload = 'none';
+    player.volume = 1;
+    this.currentVoiceAudio = player;
+    const finish = () => {
+      if (this.voiceSequenceGeneration !== generation) return;
+      if (this.currentVoiceAudio === player) this.currentVoiceAudio = null;
+      player.onended = null;
+      player.onerror = null;
+    };
+    player.onended = finish;
+    player.onerror = finish;
+    try {
+      const playing = player.play();
+      if (playing && typeof playing.catch === 'function') playing.catch(finish);
+      return true;
+    } catch {
+      finish();
+      return false;
+    }
+  }
+
   private voicesLoaded: boolean = false;
   private cachedVoices: SpeechSynthesisVoice[] = [];
 

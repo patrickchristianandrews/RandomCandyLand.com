@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { PetStats, FoodItem, EvolutionStage, TRUMP_QUOTES, TrumpQuote, FOOD_MENU } from '../types/game';
 import { sound } from '../utils/audio';
+import { loadPersonalVoicePack, pickPersonalVoiceClip } from '../utils/personalVoicePack';
 import { notificationEngine } from '../utils/notifications';
 
 const STORAGE_KEY = 'trumpagotchi_save_v2';
@@ -74,6 +75,10 @@ export function usePetGame() {
   // Ambient reactions are infrequent and reset whenever a user triggers speech.
   const nextAmbientQuoteRef = useRef(Date.now() + 50000);
 
+  // Personal-use recordings, if any, load from this device only.
+  // Once loaded, choosing a voice clip is synchronous (important for iOS audio gestures).
+  useEffect(() => { void loadPersonalVoicePack().catch(() => { /* Game works with built-in clips */ }); }, []);
+
   // Persist state
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(stats)); } catch { /* Safari private storage */ }
@@ -127,10 +132,20 @@ export function usePetGame() {
       recentQuotesRef.current.shift();
     }
 
-    setCurrentQuote(chosen);
     nextAmbientQuoteRef.current = Date.now() + 45000 + Math.random() * 40000;
-    // Stream the exact recorded fragments instead of generating a fake full quote.
-    // On iPhone, subsequent audio clips may require a fresh user gesture.
+    const personal = pickPersonalVoiceClip(preferredMood || chosen.mood);
+    if (personal) {
+      // The LCD displays the imported filename, not invented words said by Trump.
+      setCurrentQuote({
+        text: personal.title,
+        feeling: 'PERSONAL VOICE CLIP · ' + personal.category.replace('_', ' '),
+        mood: chosen.mood,
+      });
+      sound.playPersonalClip(personal.url);
+      return;
+    }
+    setCurrentQuote(chosen);
+    // Original 38 recordings stay intact for regular reactions and as a fallback.
     if (chosen.audioClips?.length) {
       sound.playRecordedSequence(chosen.audioClips);
     } else if (chosen.audioClip) {
