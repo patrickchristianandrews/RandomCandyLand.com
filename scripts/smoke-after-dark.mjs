@@ -102,7 +102,11 @@ try{
     await delay(100);
   }
   const petButton=await pet.evaluate("!!document.querySelector('[aria-label=\"Hear Donald react to his current poll rating\"]')");
-  if(!petButton)throw Error('Trumpagotchi poll button missing from LCD');
+  if(!petButton){
+    console.log('Trumpagotchi route diagnosis:', await pet.evaluate("JSON.stringify({href:location.href,rootText:document.querySelector('#root')?.textContent?.slice(0,450),html:document.querySelector('#root')?.innerHTML.slice(0,550),buttons:[...document.querySelectorAll('button')].slice(0,12).map(b=>b.getAttribute('aria-label')||b.textContent),pageReady:document.readyState})"));
+    console.log('Javascript exceptions:',JSON.stringify(testErrors.slice(-6)));
+    throw Error('Trumpagotchi poll button missing from LCD');
+  }
   await pet.evaluate("window.__pollAudioAttempts=0; HTMLMediaElement.prototype.play=function(){window.__pollAudioAttempts++;return Promise.resolve()}");
   await pet.evaluate("document.querySelector('[aria-label=\"Hear Donald react to his current poll rating\"]').click()");
   await delay(130);
