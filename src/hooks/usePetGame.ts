@@ -153,6 +153,53 @@ export function usePetGame() {
     }
   }, []);
 
+  // The POLL menu is a real spoken action. Its recorded words always
+  // match the displayed phrase; the numeric poll score is game commentary,
+  // not something we pretend appears in Donald's recording.
+  const pollReactionIndexRef = useRef(0);
+  const announcePoll = useCallback(() => {
+    const percent = Math.max(0, Math.min(100, Math.round(statsRef.current.ratings)));
+    const strong = percent >= 85;
+    const weak = percent < 40;
+    const middling = percent >= 60 && percent < 85;
+    const mood: TrumpQuote['mood'] = strong ? 'proud' : weak ? 'feisty' : middling ? 'rallied' : 'bored';
+    const choices: { text: string; clip: string }[] = strong
+      ? [
+          { text: 'BETTER THAN EVER BEFORE!', clip: 'better_than_ever_before.mp3' },
+          { text: 'PHENOMENAL!', clip: 'phenomenal.mp3' },
+          { text: 'SO AMAZING!', clip: 'so_amazing.mp3' },
+        ]
+      : weak
+      ? [
+          { text: 'LOTS OF PROBLEMS!', clip: 'lots_of_problems.mp3' },
+          { text: 'NOTHING BUT PROBLEMS!', clip: 'nothing_but_problem.mp3' },
+          { text: "WHAT'S GOING ON?", clip: 'whats_going_on.mp3' },
+        ]
+      : middling
+      ? [
+          { text: 'MAYBE WINNING!', clip: 'maybe_winning.mp3' },
+          { text: 'WE HAVE TO KEEP GOING!', clip: 'we_have_to_keep_going.mp3' },
+          { text: 'BIG LEAGUE!', clip: 'bigleague.mp3' },
+        ]
+      : [
+          { text: 'WE HAVE TO KEEP GOING!', clip: 'we_have_to_keep_going.mp3' },
+          { text: 'MAYBE WINNING!', clip: 'maybe_winning.mp3' },
+          { text: "WHAT'S GOING ON?", clip: 'whats_going_on.mp3' },
+        ];
+    const selected = choices[pollReactionIndexRef.current++ % choices.length];
+    setCurrentQuote({
+      text: selected.text,
+      feeling: 'POLL CHECK: ' + percent + '% approval',
+      mood,
+      audioClip: selected.clip,
+    });
+    nextAmbientQuoteRef.current = Date.now() + 50000;
+    triggerAnim('talk', 3200);
+    // A single real MP3 per tap works more reliably on iPhone than multiple
+    // auto-chained recordings. Press POLL again for another reaction.
+    sound.playRecordedSequence([selected.clip]);
+  }, [triggerAnim]);
+
   // Donald spontaneously reveals his mood every 45–85 seconds of visible idle
   // play. No background timer activity or looping audio when Safari is hidden.
   useEffect(() => {
@@ -528,5 +575,6 @@ export function usePetGame() {
     resetPet,
     triggerAnim,
     triggerQuote,
+    announcePoll,
   };
 }

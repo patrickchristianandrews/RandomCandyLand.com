@@ -66,5 +66,10 @@ if (!homeBundle.includes('Use your own voice recordings in the game')) {
   console.error('Trumpagotchi personal audio importer is missing from the production bundle.');
   failures++;
 }
+// POLL must make Donald speak; don't allow this button to regress to a chime.
+if (!homeBundle.includes('POLL CHECK: ')) {
+  console.error('Trumpagotchi is missing its spoken POLL reaction.');
+  failures++;
+}
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');

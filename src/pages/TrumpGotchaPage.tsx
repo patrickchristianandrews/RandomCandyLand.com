@@ -125,6 +125,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
     recordMiniGameWin,
     resetPet,
     triggerAnim,
+    announcePoll,
   } = usePetGame();
 
   const trouble = getTrumpTroubleAlert(stats);
@@ -191,8 +192,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
         break;
 
       case 'ratings':
-        sound.playRatingsChime();
-        triggerAnim('victory');
+        announcePoll();
         break;
 
       case 'pep':
@@ -206,7 +206,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       default:
         sound.playButtonBlip();
     }
-  }, [currentMenu, stats.isSleeping, feed, dance, yellAtTv, toggleSleep, giveMedicine, cleanMess, pepTalk, groomHair, gamesMenuOpen, tapDonald, triggerAnim]);
+  }, [currentMenu, stats.isSleeping, feed, dance, yellAtTv, toggleSleep, giveMedicine, cleanMess, pepTalk, groomHair, gamesMenuOpen, tapDonald, triggerAnim, announcePoll]);
 
   // Button C: Cancel / Pause / Back
   const handleButtonC = useCallback(() => {
@@ -679,7 +679,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 <div className="bg-black/40 border border-neutral-800 rounded-xl p-2.5 space-y-1">
                   <span className="text-lg">📊</span>
                   <div className="font-bold text-white">8. CHECK POLLS</div>
-                  <p className="text-[11px] text-neutral-400">Review approval ratings &amp; trigger victory chimes.</p>
+                  <p className="text-[11px] text-neutral-400">Press B to hear Donald react to his current approval rating using actual recordings. Press again for a different phrase.</p>
                 </div>
 
                 <div className="bg-black/40 border border-neutral-800 rounded-xl p-2.5 space-y-1">
