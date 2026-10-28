@@ -145,12 +145,8 @@ export function usePetGame() {
       return;
     }
     setCurrentQuote(chosen);
-    // Original 38 recordings stay intact for regular reactions and as a fallback.
-    if (chosen.audioClips?.length) {
-      sound.playRecordedSequence(chosen.audioClips);
-    } else if (chosen.audioClip) {
-      sound.playRecordedSequence([chosen.audioClip]);
-    }
+    // Exactly one complete original recording per reaction; never concatenate clips.
+    if (chosen.audioClip) sound.playRecordedSequence([chosen.audioClip]);
   }, []);
 
   // The POLL menu is a real spoken action. Its recorded words always
