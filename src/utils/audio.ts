@@ -379,7 +379,7 @@ class SoundEngine {
       onPlaybackError?.('Sound is muted. Tap the speaker icon, then tap Poll again.');
       return;
     }
-    if (typeof window === 'undefined' || !/^[a-z0-9_-]+\\.mp3$/i.test(clip)) return;
+    if (typeof window === 'undefined' || !/^[a-z0-9_-]+\.mp3$/i.test(clip)) return;
     const generation = ++this.voiceSequenceGeneration;
     if (this.currentVoiceAudio) {
       this.currentVoiceAudio.pause();
