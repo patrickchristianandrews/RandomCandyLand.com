@@ -73,5 +73,16 @@ if (!homeBundle.includes('POLL CHECK: ') ||
   console.error('Trumpagotchi is missing its spoken POLL reaction.');
   failures++;
 }
+const pollRecordings = [
+  'better_than_ever_before.mp3', 'phenomenal.mp3', 'so_amazing.mp3',
+  'lots_of_problems.mp3', 'nothing_but_problem.mp3', 'whats_going_on.mp3',
+  'maybe_winning.mp3', 'we_have_to_keep_going.mp3', 'bigleague.mp3',
+];
+for (const clip of pollRecordings) {
+  if (!fs.existsSync('dist/audio/trump/' + clip)) {
+    console.error('POLL recording is missing from the published files:', clip);
+    failures++;
+  }
+}
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');
