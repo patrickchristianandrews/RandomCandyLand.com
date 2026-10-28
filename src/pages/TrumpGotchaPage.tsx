@@ -138,7 +138,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
     if (screenMode !== 'PLAYING' || isMuted || document.visibilityState !== 'visible') return;
     if (lastTroubleSoundRef.current === trouble.key) return;
     lastTroubleSoundRef.current=trouble.key;
-    sound.playRecordedSequence([trouble.clip]);
+    sound.playOriginalRecording(trouble.clip);
   }, [trouble?.key, isMuted, screenMode]);
   const currentMenu = MENU_ORDER[menuIdx];
   const [pollAudioNotice, setPollAudioNotice] = useState('');
@@ -412,7 +412,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 <p className="font-black text-lg text-amber-200 leading-tight">“{visibleTrouble.title}”</p>
                 <p className="text-sm mt-1">{visibleTrouble.detail}</p>
                 <p className="text-xs text-orange-100 mt-1 font-semibold">{visibleTrouble.action}</p>
-                <button type="button" onClick={() => sound.playRecordedSequence([visibleTrouble.clip])} className="mt-2 rounded-lg bg-amber-300 px-3 py-2 text-xs font-black text-[#3b1822]">🔊 Hear Donald</button>
+                <button type="button" onClick={() => sound.playOriginalRecording(visibleTrouble.clip)} className="mt-2 rounded-lg bg-amber-300 px-3 py-2 text-xs font-black text-[#3b1822]">🔊 Hear Donald</button>
               </div>
               <button type="button" aria-label="Dismiss this warning" onClick={() => setDismissedTrouble(visibleTrouble.key)} className="shrink-0 p-2 rounded-lg border border-white/35 bg-white/10 text-lg">×</button>
             </div>
