@@ -373,18 +373,13 @@ class SoundEngine {
   private currentVoiceAudio: HTMLAudioElement | null = null;
   private voiceSequenceGeneration = 0;
 
-  /**
-   * Play a short sequence of existing authentic recordings at original speed.
-   * Uses one streamed HTMLAudioElement at a time rather than decoding MP3s into
-   * AudioBuffers, which is considerably kinder to iPhone Safari memory.
-   */
-  public playRecordedSequence(clips: string[], onPlaybackError?: (message: string) => void) {
+  /** Play one complete, unaltered original recording. Never stitch multiple clips. */
+  public playOriginalRecording(clip: string, onPlaybackError?: (message: string) => void) {
     if (this.isMuted) {
       onPlaybackError?.('Sound is muted. Tap the speaker icon, then tap Poll again.');
       return;
     }
-    if (typeof window === 'undefined' || !clips?.length) return;
-
+    if (typeof window === 'undefined' || !/^[a-z0-9_-]+\\.mp3$/i.test(clip)) return;
     const generation = ++this.voiceSequenceGeneration;
     if (this.currentVoiceAudio) {
       this.currentVoiceAudio.pause();
@@ -392,44 +387,31 @@ class SoundEngine {
       this.currentVoiceAudio.onerror = null;
       this.currentVoiceAudio = null;
     }
-
-    const safeClips = clips.filter(clip => /^[a-z0-9_-]+\.mp3$/i.test(clip)).slice(0, 3);
-    let hasPlayed = false;
-    const playNext = (index: number) => {
-      if (generation !== this.voiceSequenceGeneration || this.isMuted) return;
-      if (index >= safeClips.length) {
-        if (!hasPlayed) onPlaybackError?.('Audio could not start. Check phone volume and tap Poll again.');
-        return;
-      }
-      const player = new Audio('/audio/trump/' + safeClips[index]);
-      player.preload = 'none';
-      player.volume = 1;
-      let advanced = false;
-      const advance = () => {
-        if (advanced) return;
-        advanced = true;
-        player.onended = null;
-        player.onerror = null;
-        if (this.currentVoiceAudio === player) this.currentVoiceAudio = null;
-        playNext(index + 1);
-      };
-      player.onended = advance;
-      player.onerror = advance;
-      this.currentVoiceAudio = player;
-      try {
-        const playing = player.play();
-        if (playing && typeof playing.then === 'function') {
-          playing.then(() => { hasPlayed = true; }).catch(() => {
-            // Safari can block sequential autoplay after the first recording;
-            // do not flood the console or create network/TTS fallbacks.
-            if (generation === this.voiceSequenceGeneration) advance();
-          });
-        }
-      } catch {
-        advance();
-      }
+    const player = new Audio('/audio/trump/' + clip);
+    player.preload = 'none';
+    player.volume = 1;
+    this.currentVoiceAudio = player;
+    const finish = () => {
+      if (generation !== this.voiceSequenceGeneration) return;
+      player.onended = null;
+      player.onerror = null;
+      if (this.currentVoiceAudio === player) this.currentVoiceAudio = null;
     };
-    playNext(0);
+    player.onended = finish;
+    player.onerror = () => {
+      finish();
+      onPlaybackError?.('This recording could not play. Check your connection and try again.');
+    };
+    try {
+      const playing = player.play();
+      if (playing && typeof playing.catch === 'function') playing.catch(() => {
+        finish();
+        if (generation === this.voiceSequenceGeneration) onPlaybackError?.('Audio was blocked. Tap again to play the recording.');
+      });
+    } catch {
+      finish();
+      if (generation === this.voiceSequenceGeneration) onPlaybackError?.('Audio could not start. Tap again.');
+    }
   }
 
   /** Play a user-selected recording from the current device.
