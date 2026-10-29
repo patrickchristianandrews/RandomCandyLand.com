@@ -69,14 +69,22 @@ if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
   console.error('An unwanted outdated homepage attraction was restored.');
   failures++;
 }
-// Only the discontinued prototype pet and hardware synth are retired.
-// The requested FM-1 Trumpagotchi pet-care game is now directly playable in browsers.
-for (const oldRoute of ['trumpagotchi-pet','fm1-emu']) {
-  const pathname='dist/'+oldRoute+'/index.html';
-  if (!fs.existsSync(pathname) || !fs.readFileSync(pathname,'utf8').includes('url=/trump/')) {
-    console.error('Retired route must redirect to original Trumpagotchi:',pathname);
+// The discontinued prototype is retired, but the previous FM-1 address
+// must open the standalone tiny pet instead of the unrelated large game.
+const expectedLegacyRoutes = [
+  ['trumpagotchi-pet', '/trump/'],
+  ['fm1-emu', '/trumpagotchi-fm1/'],
+];
+for (const [route, destination] of expectedLegacyRoutes) {
+  const pathname='dist/'+route+'/index.html';
+  if (!fs.existsSync(pathname) || !fs.readFileSync(pathname,'utf8').includes('url='+destination)) {
+    console.error('Legacy link should reach the right game:',pathname,destination);
     failures++;
   }
+}
+if (!homeBundle.includes('PLAY THE FM-1-STYLE TINY PET')) {
+  console.error('Tiny FM-1 style pet homepage button is missing.');
+  failures++;
 }
 if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpagotchi-pet/')) {
   console.error('Unwanted second pet is still linked from the homepage.');
