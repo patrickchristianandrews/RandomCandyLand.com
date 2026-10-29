@@ -287,6 +287,16 @@ try{
   await casino.evaluate("document.querySelector('#poker-own-cards .poker-card').click();document.querySelector('#poker-draw').click()");
   const showdown=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelectorAll('#poker-opponent-cards .poker-card:not(.back)').length===5 && Number(document.querySelector('#self-score').textContent)+Number(document.querySelector('#other-score').textContent)<=1");
   if(!showdown)throw Error('Poker draw/showdown did not resolve against computer');
+
+  const overlay=await casino.evaluate("(()=>{const el=document.querySelector('#poker-showdown'),why=document.querySelector('#poker-why'),table=document.querySelector('#poker-table'),score=document.querySelector('.poker-score-strip');return !!el&&!el.hidden&&!!why&&/wins because|Both players have|round is a tie|exactly equal/i.test(why.textContent) && score?.contains(document.querySelector('#poker-self-score'))&&table?.contains(el)&&getComputedStyle(el).position==='absolute'&&Number(document.querySelector('#poker-self-score').textContent)===Number(document.querySelector('#self-score').textContent)&&Number(document.querySelector('#poker-other-score').textContent)===Number(document.querySelector('#other-score').textContent)})()");
+  if(!overlay)throw Error('Poker winner and explanation must overlay the cards, with an adjacent live scoreboard');
+  await casino.evaluate("document.querySelector('#poker-reveal').click()");
+  const revealed=await casino.evaluate("document.querySelector('#poker-showdown').hidden && document.querySelectorAll('#poker-own-cards .poker-card:not(.back)').length===5");
+  if(!revealed)throw Error('View both hands must dismiss the poker result overlay');
+  await casino.evaluate("document.querySelector('#duel-ready').click()");
+  const nextPoker=await casino.evaluate("window.CandyCasinoDebug.state().phase==='draw' && document.querySelector('#poker-round-label').textContent.includes('2 OF 5') && document.querySelector('#poker-showdown').hidden");
+  if(!nextPoker)throw Error('Poker scoreboard did not advance to round two');
+
   await casino.evaluate("document.querySelector('[data-duel=card]').click();document.querySelector('#duel-ready').click()");
   const high=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelector('#duel-display').textContent.includes('drew')");
   if(!high)throw Error('High Card did not play versus computer');
