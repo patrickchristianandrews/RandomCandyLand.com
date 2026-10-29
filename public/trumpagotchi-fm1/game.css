@@ -178,3 +178,22 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
   .fm1-tiny-mode .care-buttons>.care-bonus b{font-size:11px}
   .fm1-tiny-mode .care-buttons>.care-bonus small{font-size:8px}
 }
+
+/* The third bonus action occupies the full width below Watch News / Cheer. */
+.fm1-tiny-mode .care-buttons>.care-melody{
+  grid-column:1/-1;
+  min-height:67px;
+  flex-direction:row;
+  flex-wrap:wrap;
+  gap:8px 13px;
+  border-color:#e5d19a;
+  background:linear-gradient(145deg,#403c65,#272643)!important;
+}
+.fm1-tiny-mode .care-buttons>.care-melody span{font-size:27px}
+.fm1-tiny-mode .care-buttons>.care-melody b{font-size:13px}
+.fm1-tiny-mode .care-buttons>.care-melody small{width:100%;text-align:center;letter-spacing:.02em}
+@media(max-width:530px){
+  .fm1-tiny-mode .care-buttons>.care-melody{min-height:68px;gap:4px 9px;padding:8px}
+  .fm1-tiny-mode .care-buttons>.care-melody span{font-size:23px}
+  .fm1-tiny-mode .care-buttons>.care-melody b{font-size:12px}
+}
