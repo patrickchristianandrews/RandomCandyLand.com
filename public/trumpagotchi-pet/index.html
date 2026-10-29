@@ -208,10 +208,10 @@ const tick=()=>{
   p.energy=clamp(p.energy-4/5);
   if(night())p.energy=Math.min(p.energy,20);
   if(p.dayMinute>=1080&&p.dayMinute<1260)p.energy=Math.min(p.energy,100-(p.dayMinute-1080)*80/180);
-  if(p.seconds-p.lastPoo>=90&&p.poo<3){p.poo++;p.clean=clamp(p.clean-12);p.lastPoo=p.seconds;say('A LITTLE ACCIDENT');}
+  if(p.seconds-p.lastPoo>=90&&p.poo<3){p.poo++;p.clean=clamp(p.clean-12);p.lastPoo=p.seconds;p.lastAnim=7;p.lastAnimAt=performance.now();say('A LITTLE ACCIDENT');}
  }
  if(p.seconds%60===0){p.food=clamp(p.food-(p.sleeping?1:14));p.clean=clamp(p.clean-1);if(!p.sleeping)p.mood=clamp(p.mood-5);if(p.food<=20||p.clean<=20||(!p.sleeping&&p.energy<=20)){p.neglect=Math.min(60,p.neglect+1);p.mood=clamp(p.mood-1);}else if(p.neglect)p.neglect--;}
- if(!p.sleeping&&!night()&&p.stock>0&&p.food<75&&p.seconds-p.lastSnack>=45){p.stock--;p.food=clamp(p.food+8);p.energy=clamp(p.energy+3);p.clean=clamp(p.clean-8);p.lastSnack=p.seconds;say('A LITTLE SIDE SNACK');}
+ if(!p.sleeping&&!night()&&p.stock>0&&p.food<75&&p.seconds-p.lastSnack>=45){p.stock--;p.food=clamp(p.food+8);p.energy=clamp(p.energy+3);p.clean=clamp(p.clean-8);p.lastSnack=p.seconds;p.lastAnim=6;p.lastAnimAt=performance.now();say('A LITTLE SIDE SNACK');}
  if(p.seconds-lastSave>=20){save();lastSave=p.seconds;}
  render();
 };
