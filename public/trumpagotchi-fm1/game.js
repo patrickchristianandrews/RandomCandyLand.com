@@ -400,7 +400,8 @@
     state.lastNews = state.activeMs;
     state.mood = clamp(state.mood - 8);
     say('NEWS IS UNFAIR', 'news');
-    animate('praise');
+    // Travel to the chair, sit down and watch the tiny TV like the FM-1 pet.
+    animate('news');
     save(false);
   }
   function cheer() {
