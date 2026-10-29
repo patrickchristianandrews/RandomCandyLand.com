@@ -6,7 +6,7 @@ const required = [
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/music-visualizer/index.html', ['id="canvas"']],
-  ['dist/trumpagotchi-pet/index.html', ['data-action="feed"', 'data-action="praise"', 'data-action="clean"', 'data-action="rest"', 'setInterval(tick,1000)']],
+  ['dist/trumpagotchi-pet/index.html', ['data-action="feed"', 'data-action="praise"', 'data-action="clean"', 'data-action="rest"', 'id="originalCanvas"', '/trumpagotchi-pet/original-art.js', 'setInterval(tick,1000)']],
 ];
 
 let failures = 0;
@@ -133,5 +133,27 @@ if (!homeBundle.includes('CHOOSE A MINI-GAME') ||
   failures++;
 }
 
+// Confirm the *original* FM-1 artist's character and room logic is shipped, not a substitute emoji.
+const originalArt = 'dist/trumpagotchi-pet/original-art.js';
+if (!fs.existsSync(originalArt)) {
+  console.error('Real FM-1 Trumpagotchi pixel drawing code is absent.');
+  failures++;
+} else {
+  const art = fs.readFileSync(originalArt, 'utf8');
+  if (!art.includes('function pet_character') || !art.includes('function pet_room') ||
+      !art.includes('window.drawOriginalTrumpagotchi')) {
+    console.error('The original source-drawn character and room were not included.');
+    failures++;
+  }
+}
+// The nonsense generator has a full-cycle, non-repeating shuffle and actual goo SVG.
+for (const token of ['nonsense-lab', 'GIVE ME MORE NONSENSE',
+  'random-candy-land-nonsense-complete-cycle-v1', 'candyland-header-goo',
+  'goo-fill-']) {
+  if (!homeBundle.includes(token)) {
+    console.error('Candy Land nonsense/goo experience is missing from the homepage:', token);
+    failures++;
+  }
+}
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');
