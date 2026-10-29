@@ -72,7 +72,6 @@ if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
 // The discontinued prototype is retired, but the previous FM-1 address
 // must open the standalone tiny pet instead of the unrelated large game.
 const expectedLegacyRoutes = [
-  ['trumpagotchi-pet', '/trump/'],
   ['fm1-emu', '/trumpagotchi-fm1/'],
 ];
 for (const [route, destination] of expectedLegacyRoutes) {
@@ -90,7 +89,12 @@ if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpag
   console.error('Unwanted second pet is still linked from the homepage.');
   failures++;
 }
-for (const obsolete of ['dist/trumpagotchi-pet/original-art.js','dist/trumpagotchi-pet/remix.js']) {
+for (const obsolete of [
+  'dist/trumpagotchi-pet/index.html',
+  'dist/trumpagotchi-pet/original-art.js',
+  'dist/trumpagotchi-pet/remix.js',
+  'dist/standalone.html',
+]) {
   if (fs.existsSync(obsolete)) {
     console.error('Retired second pet assets must not be published:',obsolete);
     failures++;
@@ -192,7 +196,7 @@ if (fs.existsSync('dist/standalone-index.html')) {
   console.error('The retired standalone-index.html page was republished.');
   failures++;
 }
-for (const path of ['dist/index.html','dist/standalone.html','dist/trump/index.html']) {
+for (const path of ['dist/index.html','dist/404.html','dist/trump/index.html']) {
   if (!fs.existsSync(path)) continue;
   const content=fs.readFileSync(path,'utf8');
   if (!content.includes('candyland-next') || !content.includes('Stay sweet.')) {
