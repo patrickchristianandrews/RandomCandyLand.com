@@ -232,6 +232,33 @@ if (fs.existsSync('dist/trumpagotchi-fm1/game.js')) {
     if (!code.includes(symbol)) {console.error('FM-1 Trumpagotchi game feature missing:',symbol);failures++;}
   }
 }
+// The tiny pet must have its actual playable C-D-E-G-A keyboard AND
+// the touch-driven audio engine, not just a decorative melody button.
+for (const note of ['0','1','2','3','4']) {
+  if (!tinyPetHtml.includes('data-note="' + note + '"')) {
+    console.error('Trumpagotchi playable piano key missing:', note);
+    failures++;
+  }
+}
+if (!tinyPetHtml.includes('id="melodyStatus"')) {
+  console.error('Trumpagotchi melody feedback area missing.');
+  failures++;
+}
+const melodySourcePath='dist/trumpagotchi-fm1/melody.js';
+if (!fs.existsSync(melodySourcePath)) {
+  console.error('Trumpagotchi audio engine missing.');
+  failures++;
+} else {
+  const melodySource=fs.readFileSync(melodySourcePath,'utf8');
+  try {new vm.Script(melodySource,{filename:'Trumpagotchi melody audio'});}
+  catch(err) {console.error('Broken Trumpagotchi melody JavaScript:',err.message);failures++;}
+  for (const marker of ['async function note(index)','async function play(withBongos','audioContext.resume()']) {
+    if (!melodySource.includes(marker)) {
+      console.error('Trumpagotchi playable melody feature missing:',marker);
+      failures++;
+    }
+  }
+}
 if (!homeBundle.includes('/trumpagotchi-fm1/')) {
   console.error('Playable Trumpagotchi is missing from Candy Land homepage.');
   failures++;
