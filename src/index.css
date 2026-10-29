@@ -155,3 +155,26 @@ body {
   .sugar-hero-brand img{animation-duration:7s}
   .sugar-endcap>img{width:62px;height:62px}
 }
+
+/* Restored original candy planet — behind, not instead of, the new castle art. */
+.sugar-hero-planet.sugar-planet-behind{
+  z-index:0;
+  top:8%;
+  right:clamp(95px,14vw,260px);
+  width:clamp(235px,31vw,430px);
+  height:clamp(235px,31vw,430px);
+  opacity:.63;
+  pointer-events:none;
+  box-shadow:inset -30px -25px 35px #68268a88,0 0 110px #fc92c6c2;
+}
+.sugar-hero-brand{z-index:1}
+@media(max-width:800px){
+  .sugar-hero-planet.sugar-planet-behind{
+    top:27%;right:-85px;width:min(70vw,310px);height:min(70vw,310px);opacity:.35;
+  }
+}
+@media(max-width:640px){
+  .sugar-hero-planet.sugar-planet-behind{
+    top:31%;right:-85px;width:240px;height:240px;opacity:.28;
+  }
+}
