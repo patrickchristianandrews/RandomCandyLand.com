@@ -109,9 +109,15 @@ if (!homeBundle.includes('/random-candy-land-art.webp')) {
   console.error('Original candy-castle artwork missing from the homepage.');
   failures++;
 }
-if (!homeBundle.includes('Start Bedminster Golf mini-game in one tap') ||
-    !homeBundle.includes('Open Bedminster Golf in one tap')) {
-  console.error('One-tap golf controls are missing from Trumpagotchi.');
+if (homeBundle.includes('Start Bedminster Golf mini-game in one tap') ||
+    homeBundle.includes('Open Bedminster Golf in one tap')) {
+  console.error('Removed one-tap golf controls are still included in Trumpagotchi.');
+  failures++;
+}
+if (!homeBundle.includes('CHOOSE A MINI-GAME') ||
+    !homeBundle.includes('Play Mega Rally') ||
+    !homeBundle.includes('Play Art of the Deal')) {
+  console.error('Trumpagotchi mini-game chooser is missing from the published bundle.');
   failures++;
 }
 
