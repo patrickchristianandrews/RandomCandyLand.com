@@ -81,7 +81,7 @@ body {
  clip-path:polygon(0 0,100% 0,100% 66%,98% 66%,98% 100%,95% 100%,95% 69%,84% 69%,84% 86%,80% 86%,80% 69%,69% 69%,69% 96%,65% 96%,65% 69%,50% 69%,50% 91%,45% 91%,45% 69%,31% 69%,31% 100%,27% 100%,27% 69%,16% 69%,16% 90%,11% 90%,11% 69%,0 69%)}
 .candyland-identity{display:flex;align-items:center;gap:9px;font-weight:1000;font-size:clamp(15px,2vw,23px);letter-spacing:-.04em;text-shadow:0 3px #471052}
 .candyland-identity strong{color:#ffeb7e}
-.candyland-identity img{border-radius:50%;height:55px;width:55px;object-fit:cover;filter:drop-shadow(0 5px 8px #310441)}
+.candyland-identity img{display:block;border:0;padding:0;background:linear-gradient(145deg,#65219d,#bd3fc8);border-radius:50%;height:55px;width:55px;object-fit:cover;filter:drop-shadow(0 5px 8px #310441)}
 .candyland-navbar nav{display:flex;gap:7px;flex-wrap:wrap}
 .candyland-navbar nav a{display:inline-flex;align-items:center;gap:7px;padding:10px 12px;min-height:44px;border-radius:14px;background:#fff6fd20;border:1px solid #ffceefa8;font-size:13px;font-weight:900;transition:background .2s,transform .2s}
 .candyland-navbar nav a:hover{background:#fff4b344;transform:translateY(-2px)}

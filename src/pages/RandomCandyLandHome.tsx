@@ -94,7 +94,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </div>
       <header className="candyland-navbar">
         <a className="candyland-identity" href="#top" aria-label="Random Candy Land — current homepage, back to top">
-          <span className="candyland-brand-icon" aria-hidden="true"><img src="/random-candy-land-art.webp" alt="" width={55} height={55} /></span>
+          <span className="candyland-brand-icon" aria-hidden="true"><img src="/icon.svg?v=candy-logo-no-white-3" alt="" width={55} height={55} /></span>
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
         
@@ -193,7 +193,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </section>
 
       <section className="candyland-finale">
-        <img src="/random-candy-land-art.webp" width={160} height={160} alt="" loading="lazy" />
+        <img src="/icon.svg?v=candy-logo-no-white-3" width={160} height={160} alt="" loading="lazy" />
         <div>
           <span><WandSparkles size={16}/> STILL CURIOUS?</span>
           <h2>Follow the rainbow.</h2>
