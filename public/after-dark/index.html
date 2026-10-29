@@ -135,6 +135,55 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .quiz-align-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:4px 13px}
 .quiz-align-list p{margin:4px 0;background:#452453;border-radius:9px;padding:8px 10px}
 #psychQuizCard{margin-top:16px}#psychQuizCard>textarea{display:block;width:100%;background:#24152e;border:1px solid #b58ac5;color:white;border-radius:12px;padding:12px}
+</style><style>
+/* After Dark's home entrance: a landing experience rather than an inner-page header. */
+#home{padding-top:16px}
+.afterdark-home-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(235px,.75fr);align-items:center;gap:22px;isolation:isolate;min-height:445px;overflow:hidden;margin:10px 0 24px;padding:clamp(27px,4.6vw,60px) clamp(20px,4.5vw,58px) 55px;border:2px solid #eaa6cb9c;border-radius:34px;background:radial-gradient(circle at 83% 18%,#a13c8e80,transparent 37%),radial-gradient(circle at 7% 10%,#82428542,transparent 39%),linear-gradient(135deg,#261132,#170a29 75%);box-shadow:0 23px 65px #0a031bb0,0 7px 0 #52245b}
+.afterdark-home-hero:after{content:none}
+.ad-home-hero-copy{position:relative;z-index:2;max-width:700px}
+.ad-home-eyebrow{display:inline-flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;border:1px solid #eeafcf99;border-radius:99px;background:#3f214b;color:#ffe7af;font-size:10px;font-weight:950;letter-spacing:.15em}
+.ad-home-sparkle{font-size:15px;color:#ffadda}
+.afterdark-home-hero h1{font-family:Georgia,serif;font-size:clamp(40px,5.1vw,75px);line-height:1.02;letter-spacing:-.055em;color:#fff2ed;margin:23px 0 17px;text-shadow:0 4px 18px #0f092a80}
+.ad-home-heading-accent{color:#ffafd8;font-style:italic;display:block}
+.ad-home-heading-second{display:block;font:700 clamp(20px,2.65vw,32px)/1.24 Georgia,serif;letter-spacing:-.022em;margin-top:20px;color:#ffe7c4}
+.ad-home-heading-second em{color:#ffa9de}
+.afterdark-home-hero .lead{color:#f0d9e7;max-width:590px;font-size:clamp(14px,1.55vw,17px);line-height:1.67}
+.ad-home-hero-buttons{margin:24px 0;gap:11px}
+.ad-home-hero-buttons .btn{font-size:13px;min-height:52px;padding:13px 17px;text-align:center;box-shadow:0 5px 0 #100a21}
+.ad-home-hero-buttons .btn.alt{border-color:#e7b2dc;background:#321d46;color:#fff4ec}
+.ad-home-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.ad-home-facts span{font-size:11px;color:#ead4e6;border:1px solid #e1a3d449;border-radius:12px;background:#1c112bc2;padding:9px 12px}
+.ad-home-facts strong{color:#ffe5a5;font-weight:900}
+.ad-home-illustration{position:relative;display:grid;place-items:center;width:100%;min-height:310px;aspect-ratio:1;filter:drop-shadow(0 18px 18px #0b031c80)}
+.ad-home-planet{position:relative;z-index:2;width:70%;aspect-ratio:1;border-radius:50%;border:3px solid #ffe9b57d;background:radial-gradient(circle at 27% 22%,#fff4c9 0,#ffc0d1 15%,#f47ebc 36%,#af50b5 67%,#4b2a87 100%);box-shadow:inset -26px -25px 36px #2c115f91,inset 10px 10px 26px #fff6df88,0 0 45px #ffa2d0a3;overflow:hidden;display:grid;place-items:center}
+.ad-home-planet:before,.ad-home-planet:after{content:"";position:absolute;width:135%;height:22%;border:12px solid #f8bbdb73;border-radius:50%;transform:rotate(-25deg);pointer-events:none}
+.ad-home-planet:before{top:28%;left:-24%}.ad-home-planet:after{top:57%;left:-9%;border-color:#f7de9b63}
+.ad-home-planet span{font-size:clamp(63px,9vw,130px);color:#fff5ba;text-shadow:0 0 25px #ff7bd3;transform:rotate(-20deg)}
+.ad-home-planet i{position:absolute;bottom:-15px;left:33%;width:29px;height:75px;border-radius:0 0 30px 30px;background:linear-gradient(#ed8abc,#9c3aad)}
+.ad-home-orbit{position:absolute;left:1%;top:19%;width:99%;height:61%;border:12px solid #ffe1ae;border-left-color:#ffb2cb;border-right-color:#ef83c8;border-radius:50%;transform:rotate(-30deg);box-shadow:0 0 25px #ff92ce70}
+.ad-home-orbit-two{width:79%;height:77%;left:10%;top:11%;border:2px dashed #fbd9f184;transform:rotate(28deg)}
+.ad-home-orb{position:absolute;z-index:4;font-size:55px;color:#fbe5ad;text-shadow:0 0 14px #ffd2f1}
+.ad-home-orb-top{top:9%;right:8%}.ad-home-orb-bottom{bottom:12%;left:0;color:#ff9fc9}
+.ad-home-illustration-caption{position:absolute;bottom:1%;font-size:10px;color:#ffe9bd;letter-spacing:.22em;font-weight:900;text-align:center}
+.ad-home-goo{position:absolute;z-index:3;bottom:-7px;left:5%;right:6%;display:flex;justify-content:space-around;pointer-events:none;transform:translateY(9px)}
+.ad-home-goo i{width:clamp(12px,2.5vw,30px);height:clamp(20px,4vw,48px);background:linear-gradient(90deg,#ffc2dc,#f48acb,#af45a5);border-radius:0 0 40px 40px}
+.ad-home-goo i:nth-child(2n){height:25px}.ad-home-goo i:nth-child(3n){height:62px}
+.ad-home-express-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0 31px}
+.ad-home-express-nav button{min-width:0;display:flex;gap:10px;align-items:center;text-align:left;border:1px solid #cf99c8;border-radius:17px;padding:14px;background:linear-gradient(130deg,#3f2449,#241830);color:#fff;font:inherit;box-shadow:0 8px 17px #0c061c55;transition:transform .2s}
+.ad-home-express-nav button:hover{transform:translateY(-3px);border-color:#ffe6b1}
+.ad-home-express-nav button>span:first-child{font-size:25px}
+.ad-home-express-nav button>span:nth-child(2){flex:1;min-width:0}
+.ad-home-express-nav strong,.ad-home-express-nav small{display:block}.ad-home-express-nav strong{font-size:12px}.ad-home-express-nav small{font-size:11px;color:#dfc3dc;line-height:1.3}.ad-home-express-nav button>span:last-child{font-size:25px;color:#ffe8a8}
+.psych-specific-bridge{border:1px solid #d7a4df;background:linear-gradient(130deg,#322044,#1f182e);border-radius:20px;padding:20px;margin:24px 0}
+.psych-specific-bridge h3{margin:9px 0;font-size:clamp(21px,2.8vw,30px)}
+.psych-specific-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:12px;margin-top:18px}
+.psych-specific-card{background:#251833;border:1px solid #9f72b2;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:8px}
+.psych-specific-card h4{font:800 18px system-ui;margin:0}.psych-specific-card p{font-size:13px;line-height:1.6;margin:0;color:#e9cee6}
+.psych-specific-why{font-size:12px;margin-top:auto;color:#f5dcef}.psych-specific-why summary{cursor:pointer;color:#ffe0a5;font-weight:800}.psych-specific-why p{padding:7px 0}
+.psych-specific-card .btn{font-size:11px;padding:9px 10px;min-height:39px}
+@media(max-width:950px){.afterdark-home-hero{grid-template-columns:1.3fr .7fr}.ad-home-illustration{min-height:240px}.ad-home-express-nav{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.afterdark-home-hero{grid-template-columns:1fr;gap:2px;padding:25px 17px 40px;border-radius:24px;min-height:0}.afterdark-home-hero h1{font-size:clamp(38px,9vw,56px)}.ad-home-heading-second{font-size:23px}.ad-home-hero-buttons .btn{width:100%}.ad-home-illustration{min-height:185px;aspect-ratio:2.1;max-height:235px;overflow:hidden}.ad-home-planet{height:88%;width:auto}.ad-home-orbit{width:72%;height:65%;left:14%;top:14%}.ad-home-orbit-two{width:56%;left:21%;height:80%;top:7%}.ad-home-orb{font-size:32px}.ad-home-illustration-caption{bottom:2%}.ad-home-express-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.ad-home-express-nav button{padding:11px 9px;gap:5px;min-height:76px}.ad-home-express-nav button>span:first-child{font-size:19px}.ad-home-express-nav button>span:last-child{font-size:18px}.ad-home-express-nav strong{font-size:11px}.ad-home-express-nav small{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.ad-home-express-nav button{transition:none}}
 </style></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -167,14 +216,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <a class="back" href="/">← Random Candy Land</a>
 </header>
 <section id="home" class="tab visible" aria-label="Explore After Dark">
- <div class="afterdark-landing-hero">
-  <span class="eyebrow">AFTER DARK · A SPACE FOR ADULT CURIOSITY</span>
-  <h1>Follow your <span class="italic">curiosity.</span></h1>
-  <p class="lead">Explore relationships, emotions, boundaries, adult interests and the psychology behind them. Pick what speaks to you; there is no right way to begin.</p>
-  <p class="afterdark-landing-intro">Read, ask questions or reflect privately, at your own pace. These tools are educational rather than diagnostic, and everything is optional.</p>
-  <div class="row"><button class="btn enter-after-dark" type="button" data-goto="quiz">🧭 Start the Curiosity Quiz</button>
-   <button class="btn alt" type="button" data-goto="chat">💬 Ask Atlas a question</button></div>
+ <div class="afterdark-landing-hero afterdark-home-hero">
+  <div class="ad-home-hero-copy">
+   <div class="ad-home-eyebrow"><span class="ad-home-sparkle" aria-hidden="true">✦</span> RANDOM CANDY LAND PRESENTS <span aria-hidden="true">·</span> AFTER DARK</div>
+   <h1>Meet your <span class="ad-home-heading-accent">curiosity.</span><span class="ad-home-heading-second">Explore what makes you <em>you.</em></span></h1>
+   <p class="lead">A private world of adult interests, psychology, fantasy and meaningful conversations. Discover the specific things that catch your attention—and the feelings behind them.</p>
+   <div class="row ad-home-hero-buttons">
+    <button class="btn enter-after-dark" type="button" data-goto="quiz">🔥 Explore sexual preferences</button>
+    <button class="btn alt" type="button" data-goto="psych-quiz">🧠 Explore your psychology</button>
+   </div>
+   <div class="ad-home-facts" aria-label="After Dark features">
+    <span><strong>190+</strong> interests to discover</span>
+    <span><strong>2</strong> connected quizzes</span>
+    <span><strong>Private</strong> saved reflections</span>
+   </div>
+  </div>
+  <div class="ad-home-illustration" aria-hidden="true">
+   <div class="ad-home-orbit ad-home-orbit-one"></div>
+   <div class="ad-home-orbit ad-home-orbit-two"></div>
+   <div class="ad-home-planet"><span>✦</span><i></i></div>
+   <div class="ad-home-orb ad-home-orb-top">✧</div>
+   <div class="ad-home-orb ad-home-orb-bottom">✺</div>
+   <div class="ad-home-illustration-caption">A UNIVERSE OF DISCOVERY</div>
+  </div>
+  <div class="ad-home-goo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
  </div>
+ <nav class="ad-home-express-nav" aria-label="Quick After Dark destinations">
+  <button type="button" data-tab="chat"><span aria-hidden="true">💬</span><span><strong>Ask Atlas</strong><small>Find answers</small></span><span aria-hidden="true">›</span></button>
+  <button type="button" data-tab="ideas"><span aria-hidden="true">✨</span><span><strong>Idea Lab</strong><small>Find inspiration</small></span><span aria-hidden="true">›</span></button>
+  <button type="button" data-tab="atlas"><span aria-hidden="true">📚</span><span><strong>Interest Atlas</strong><small>Explore 190+ topics</small></span><span aria-hidden="true">›</span></button>
+  <button type="button" data-tab="notebook"><span aria-hidden="true">💌</span><span><strong>My Notebook</strong><small>Save & share privately</small></span><span aria-hidden="true">›</span></button>
+ </nav>
  <div class="afterdark-section-intro"><span class="eyebrow">START HERE · FEATURED EXPERIENCES</span><h2>Featured <span class="italic">experiences.</span></h2><p>Choose the quiz or Ask Atlas.</p></div>
  <div class="afterdark-featured-grid" aria-label="Featured Quiz and Ask Atlas"><article class="card afterdark-feature-card">
  <span class="eyebrow">FEATURED · SELF-DISCOVERY</span><div class="afterdark-card-icon" aria-hidden="true">🧭</div>
@@ -229,12 +301,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="partner-view" class="tab" aria-label="Private invitation to listen"><span class="eyebrow">AN INVITATION · NOT A REQUEST FOR AGREEMENT</span><h2>Something I'd like <span class="italic">you to understand.</span></h2><div id="partner-invitation" class="card"><p>Opening the selected invitation…</p></div></section>
 <section id="atlas" class="tab"><span id="allCount" hidden></span><div class="controls"><input class="field" id="search" placeholder="Search themes, objects, experiences…" aria-label="Search topics"><select class="field" id="cat"><option value="all">Every category</option></select><select class="field" id="order"><option value="alphabetic">Alphabetical</option><option value="for-me">Your selections first</option></select></div><div class="tiny" id="topicCount"></div><div class="topics" id="topicGrid"></div></section>
-<section id="quiz" class="tab"><span class="eyebrow">32 direct adult curiosity prompts</span><h2>Your interests, <span class="italic">in your own words.</span></h2><p class="lead">Explore specific adult preferences, communication, power, sensations, boundaries and consensual fantasy. <strong>Select more than one response</strong> when it fits, skip anything, or add private reflections. Your answers create the same ranked interests, checklists, psychological reports and printable PDF results.</p><div class="card" id="quizCard"><div class="pill">32 questions · multiple selections · private autosave</div><h3>Explore what actually interests you.</h3><p>Fantasies can stay fantasies. Every real-life activity requires separate consent.</p><button class="btn" id="startQuiz">Begin →</button></div><div id="quizBelow"></div><div class="note">The original sexual-preferences questions are unchanged. You can also take the <button type="button" class="btn alt" data-tab="psych-quiz">🧠 Non-explicit Psychology Quiz →</button> or <a href="/after-dark/psychology-lab/">visit Clue Compass →</a>.</div></section>
+<section id="quiz" class="tab"><span class="eyebrow">32 direct adult curiosity prompts</span><h2>Your interests, <span class="italic">in your own words.</span></h2><p class="lead">Explore specific adult preferences, communication, power, sensations, boundaries and consensual fantasy. <strong>Select more than one response</strong> when it fits, skip anything, or add private reflections. Your answers create the same ranked interests, checklists, psychological reports and printable PDF results.</p><div class="card" id="quizCard"><div class="pill">32 questions · multiple selections · private autosave</div><h3>Explore what actually interests you.</h3><p>Fantasies can stay fantasies. Every real-life activity requires separate consent.</p><button class="btn" id="startQuiz">Begin →</button></div><div id="quizBelow"></div><div class="note">You can also take the <button type="button" class="btn alt" data-tab="psych-quiz">🧠 Non-explicit Psychology Quiz →</button> or <a href="/after-dark/psychology-lab/">visit Clue Compass →</a>.</div></section>
 <section id="psych-quiz" class="tab" aria-label="Non-explicit psychology quiz">
 <span class="eyebrow">COMPANION SELF-DISCOVERY · 32 NON-EXPLICIT QUESTIONS</span>
 <h2>The psychology <span class="italic">behind curiosity.</span></h2>
 <p class="lead">Explore trust, attention, anticipation, confidence, sensory comfort and imagination without explicit sexual wording. These 32 questions use the same underlying interest mapping as the original sexual-preferences quiz. Both feed <strong>one shared results shelf</strong> rather than separate contradictory reports. You can select multiple answers.</p>
-<div class="row"><button class="btn alt" data-tab="quiz" type="button">← Sexual Preferences Quiz (unchanged)</button><button class="btn alt" data-tab="notebook" type="button">💌 My Saved Interests</button></div>
+<div class="row"><button class="btn alt" data-tab="quiz" type="button">← Sexual Preferences Quiz</button><button class="btn alt" data-tab="notebook" type="button">💌 My Saved Interests</button></div>
 <div class="card" id="psychQuizCard"><h3>32 non-explicit questions</h3><p>Start when you're ready. Your progress stays in this browser.</p></div>
 <p class="note">Everyday psychological preferences cannot predict sexual interests. The shared results are suggestions for reflection, not claims about hidden desires.</p>
 </section>
@@ -289,6 +361,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <footer class="footer">✳ After Dark · For adults 18+ · Read, reflect and decide for yourself. The site uses on-device storage for quiz selections. No registration is required. <a href="/">Return to RandomCandyLand</a></footer>
 </div>
 <script src="/after-dark/adult-quiz.js?v=2"></script><script src="/after-dark/psychology-quiz.js?v=1"></script>
+<script src="/after-dark/psychology-interest-bridge.js?v=1"></script>
 <script src="/after-dark/atlas-extra.js?v=1"></script>
 <script src="/after-dark/atlas-language.js?v=1"></script>
 <script>
@@ -659,7 +732,7 @@ function showResults(targetId='quizCard'){
   const overview=document.createElement('details');overview.className='psych-overview';overview.open=true;
   overview.append(elText('summary','🧠 Your psychological reflection report'));
   overview.append(elText('p','Patterns reflected by your choices: '+(themes.join(', ')||'not enough responses to interpret')+'. These dimensions are clues to discuss, not a diagnosis, fixed personality type, or proof of a specific preference.'));
-  overview.append(elText('p',hasBoth?'Both sets of answers contribute equally to this one interest shelf. Agreement reinforces themes; differences prompt questions rather than inventing a second result.':answered?'Your explicit preferences currently drive the shelf. Take the companion quiz for a theme comparison.':companionAnswered?'These are broad themes only. The psychological quiz cannot establish sexual preferences; the original quiz asks about those directly.':'Browse the Atlas and mark what genuinely interests you.'));
+  overview.append(elText('p',hasBoth?'Both sets of answers contribute equally to this one interest shelf. Agreement reinforces themes; differences prompt questions rather than inventing a second result.':answered?'Your explicit preferences currently drive the shelf. Take the companion quiz for a theme comparison.':companionAnswered?'These are broad themes only. The psychological quiz cannot establish sexual preferences; the Sexual Preferences Quiz asks about those directly.':'Browse the Atlas and mark what genuinely interests you.'));
   overview.append(elText('p','Possible alternative explanations: A preference for trust may describe everyday relationships, not a power-based interest; liking a costume or story may reflect art and imagination rather than anything intimate. Personal history, context, boundaries and change over time also matter.'));
   overview.append(elText('p','A practical next step is to explore unfamiliar themes privately, check what resonates, and mark specific interests in the Atlas. Avoid treating the match scores as predictions.'));
   box.append(overview);
@@ -684,7 +757,7 @@ function showResults(targetId='quizCard'){
     alignment.append(patterns);
     alignment.append(elText('p','If answers differ, the site keeps ONE shared interest ranking rather than assigning conflicting profiles. Reflect on which wording better describes what you truly want.','quiz-help'));
   }else{
-    alignment.append(elText('p','Take the other quiz to compare answers. Both quizzes use the same question-by-question theme mapping and one results system.'));
+    alignment.append(elText('p','Take the other quiz to compare answers. Both quizzes feed the same interest library and results system.'));
   }
   const nextQuiz=elText('div','','result-actions');
   const adult=elText('button','Review sexual-preferences quiz →','btn alt');
@@ -714,6 +787,39 @@ function showResults(targetId='quizCard'){
   const revise=elText('button','Review my answers →','btn alt');
   revise.onclick=()=>{if(targetId==='psychQuizCard')window.AfterDarkPsychQuizBridge?.revise();else{qIndex=0;persistQuiz();renderQuiz()}};actions.append(revise);
   box.append(actions);
+  if(companionAnswered){
+    const recs=(window.AfterDarkPsychBridge?.recommend(companion,topics)||[])
+      .filter(r=>choices[r.x.id]!=='no').slice(0,12);
+    const bridge=elText('section','','psych-specific-bridge');
+    bridge.append(elText('span','FROM PSYCHOLOGICAL THEMES TO PARTICULAR INTERESTS','eyebrow'),
+      elText('h3','Specific adult interests your reflections may connect with'));
+    bridge.append(elText('p','You can take the non-explicit quiz by itself and discover particular Atlas topics. Each suggestion below names an interest from the adult library and shows the exact non-explicit answer that led here. These are editorial theme connections, not measured attraction probabilities or evidence that you want a specific activity.','quiz-help'));
+    const cards=elText('div','','psych-specific-cards');
+    recs.forEach(({x,links,reasons})=>{
+      const card=elText('article','','psych-specific-card');
+      card.append(elText('small',x.cat,'eyebrow'),elText('h4',x.name),elText('p',x.description));
+      const why=elText('details','','psych-specific-why');
+      why.append(elText('summary','Why this might connect to your answers'));
+      reasons.forEach(({question,answer})=>{
+        const note=elText('p',answer);
+        note.prepend(elText('strong','You chose: '));
+        why.append(note);
+      });
+      const lenses=x.tags.map(k=>DB.lenses[k]?.[0]).filter(Boolean).slice(0,3);
+      why.append(elText('p','Shared themes: '+lenses.join(', ')+'. You might recognize the emotional theme without enjoying the intimate interest itself.'));
+      card.append(why);
+      const actions=elText('div','','result-actions');
+      const open=elText('button','Read about this interest','btn alt');
+      open.onclick=()=>{$('search').value=x.name;renderAtlas();renderTabs('atlas')};
+      const saveInterest=elText('button','💾 Save to notebook','btn alt');
+      saveInterest.onclick=()=>window.InterestNotebook?.saveTopic(x);
+      actions.append(open,saveInterest);card.append(actions);
+      cards.append(card);
+    });
+    if(!recs.length)cards.append(elText('p','Choose some responses in the non-explicit quiz to see specific interests connected to those answers.'));
+    bridge.append(cards);
+    box.append(bridge);
+  }
   const ranked=interestMatches();
   const section=elText('section','','compare');section.append(elText('h3','Ranked interest matches'));
   section.append(elText('p','Each interest includes suggested activities, a personal checklist, and a psychological reflection. Suggested activities are optional and do not imply you should try everything.'));
