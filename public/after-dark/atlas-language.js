@@ -107,7 +107,7 @@ function answer(question,context){
  if(!first||first.score<2.8||(!first.major&&first.score<5)){
   const proposals=relevant.filter(x=>x.major&&x.score>=2.2).slice(0,3).map(x=>x.t.name);
   if(proposals.length)return 'I am not completely sure which topic you mean. Did you mean '+proposals.join(', ')+ '? You can use a shorter phrase or a keyword, and I will explain the closest match rather than guessing.';
-  return 'I could not identify a relevant Atlas topic from that phrasing. Try one or two keywords, or name the experience—for example “pegging,” “praise kink,” “why do I like restraint,” “aftercare,” or “talk to my partner about a fantasy.”';
+  return 'I could not match an Atlas topic confidently from that phrasing. Try one or two keywords, or name the experience—for example “pegging,” “praise kink,” “why do I like restraint,” “aftercare,” or “talk to my partner about a fantasy.”';
  }
  const t=first.t;
  const why=(t.tags||[]).slice(0,4).map(k=>usefulTags[k]).filter(Boolean);
