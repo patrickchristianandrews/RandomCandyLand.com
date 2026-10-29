@@ -660,9 +660,52 @@ function showResults(targetId='quizCard'){
   overview.append(elText('p','Possible alternative explanations: A preference for trust may describe everyday relationships, not a power-based interest; liking a costume or story may reflect art and imagination rather than anything intimate. Personal history, context, boundaries and change over time also matter.'));
   overview.append(elText('p','A practical next step is to explore unfamiliar themes privately, check what resonates, and mark specific interests in the Atlas. Avoid treating the match scores as predictions.'));
   box.append(overview);
+  const alignment=elText('section','','quiz-alignment');
+  alignment.append(elText('h3','🔗 How both quizzes agree and differ'));
+  if(hasBoth){
+    let compared=0,shared=0;
+    qdata.forEach((q,i)=>{
+      const direct=new Set(multiAnswers[i]||[]),reflection=new Set(companion.answers[i]||[]);
+      if(!direct.size||!reflection.size)return;
+      compared++;
+      if([...direct].some(n=>reflection.has(n)))shared++;
+    });
+    alignment.append(elText('p',shared+' of '+compared+' comparable questions contain a corresponding answer in both quizzes. This is response overlap, NOT a scientific prediction of sexual preferences.'));
+    const themes=Object.entries(combinedAxes()).sort((a,b)=>b[1]-a[1]).slice(0,6);
+    const patterns=elText('div','','quiz-align-list');
+    themes.forEach(([tag])=>{
+      if(!DB.lenses[tag])return;
+      const both=(axes[tag]||0)>0&&(companion.axes[tag]||0)>0;
+      patterns.append(elText('p',(both?'✓ Both support: ':'◇ Explore: ')+DB.lenses[tag][0]));
+    });
+    alignment.append(patterns);
+    alignment.append(elText('p','If answers differ, the site keeps ONE shared interest ranking rather than assigning conflicting profiles. Reflect on which wording better describes what you truly want.','quiz-help'));
+  }else{
+    alignment.append(elText('p','Take the other quiz to compare answers. Both quizzes use the same question-by-question theme mapping and one results system.'));
+  }
+  const nextQuiz=elText('div','','result-actions');
+  const adult=elText('button','Review sexual-preferences quiz →','btn alt');
+  adult.onclick=()=>{renderTabs('quiz');qIndex=0;persistQuiz();renderQuiz()};nextQuiz.append(adult);
+  const psych=elText('button','Review non-explicit psychology quiz →','btn alt');
+  psych.onclick=()=>{renderTabs('psych-quiz');window.AfterDarkPsychQuizBridge?.revise()};nextQuiz.append(psych);
+  alignment.append(nextQuiz);box.append(alignment);
   const summary=elText('details','','direct-answer-summary');summary.append(elText('summary','📝 Review your actual answers ('+answered+' questions)'));
   qdata.forEach((q,i)=>{const selected=(multiAnswers[i]||[]).map(n=>q.options[n]?.text).filter(Boolean);const note=(freeResponses[i]||'').trim();if(!selected.length&&!note)return;
     const row=elText('div','','direct-answer-row');row.append(elText('strong',(i+1)+'. '+q.q));if(selected.length)row.append(elText('p',selected.join(' · ')));if(note)row.append(elText('p','Your private note: '+note));summary.append(row);});box.append(summary);
+  if(companionAnswered){
+    const psychSummary=elText('details','','direct-answer-summary');
+    psychSummary.append(elText('summary','🧠 Review non-explicit psychology answers ('+companionAnswered+' questions)'));
+    (window.AfterDarkPsychologyQuiz||[]).forEach((q,i)=>{
+      const picked=(companion.answers[i]||[]).map(n=>q.options[n]?.text).filter(Boolean);
+      const note=String(companion.notes[i]||'').trim();
+      if(!picked.length&&!note)return;
+      const row=elText('div','','direct-answer-row');row.append(elText('strong',(i+1)+'. '+q.q));
+      if(picked.length)row.append(elText('p',picked.join(' · ')));
+      if(note)row.append(elText('p','Private note: '+note));
+      psychSummary.append(row);
+    });
+    box.append(psychSummary);
+  }
   const actions=elText('div','','result-actions');
   const atlas=elText('button','Browse & mark Atlas interests →','btn');atlas.onclick=()=>renderTabs('atlas');actions.append(atlas);
   const revise=elText('button','Review my answers →','btn alt');
@@ -869,7 +912,7 @@ window.AfterDarkNotebookBridge={
   getTopics:()=>topics,
   getChoices:()=>({...choices}),
   mark:(id,value)=>{if(!topics.some(x=>x.id===id)||!['yes','maybe','no'].includes(value))return;choices[id]=value;save();renderAtlas();},
-  getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.().complete),
+  getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.()?.complete),
   quizText:()=>document.getElementById('quizCard')?.innerText||''
 };
 </script><script src="/after-dark/interest-notebook.js?v=1"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script></body></html>
