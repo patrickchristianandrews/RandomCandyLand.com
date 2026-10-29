@@ -100,7 +100,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           {shown.map(portal => {
             const inner = <>
               <div className="candyland-portal-icon">
-                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : <span>{portal.emoji}</span>}
+                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : portal.href === '/trumpagotchi-fm1/' ? <img src="/tiny-pet-trump-cartoon.webp" width={96} height={96} alt="Cartoon Donald Trump with a crown and candy planet" loading="lazy" /> : <span>{portal.emoji}</span>}
               </div>
               <span className="candyland-portal-tag">{portal.label}</span>
               <h3>{portal.title}</h3>
