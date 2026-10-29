@@ -156,7 +156,9 @@ if (!littlePetPage.includes('id="how-to-play"') ||
   failures++;
 }
 for(const marker of ['id="remix-studio"', 'id="remix-file"', 'id="remix-pads"',
-  'id="remix-generate"', 'id="remix-export"', '/trumpagotchi-pet/remix.js']) {
+  'id="remix-generate"', 'id="remix-export"', '/trumpagotchi-pet/remix.js',
+  'id="cartoon-randomize"', 'id="cartoon-style"', 'id="cartoon-step-grid"',
+  'id="cartoon-beat-volume"', 'NO SONG UPLOAD REQUIRED']) {
   if(!littlePetPage.includes(marker)){console.error('Trumpagotchi 2 remix control missing:',marker);failures++;}
 }
 const remixJs='dist/trumpagotchi-pet/remix.js';
@@ -165,7 +167,8 @@ else {
   const engine=fs.readFileSync(remixJs,'utf8');
   try{new vm.Script(engine,{filename:remixJs});}
   catch(e){console.error('Trumpagotchi 2 remix engine has broken JavaScript:',e.message);failures++;}
-  for(const feature of ['decodeAudioData','OfflineAudioContext','encodeWav','autoRemix','remix-pad']) {
+  for(const feature of ['decodeAudioData','OfflineAudioContext','encodeWav','autoRemix','remix-pad',
+    'generatePattern','scheduleStep','synth','drawPattern','cartoon-step','cartoon-beat']) {
     if(!engine.includes(feature)){console.error('Remix engine missing feature:',feature);failures++;}
   }
 }
