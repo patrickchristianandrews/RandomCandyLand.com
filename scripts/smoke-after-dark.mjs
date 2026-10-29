@@ -113,6 +113,14 @@ try{
   const pollSpoken=await pet.evaluate("window.__pollAudioAttempts>0 && document.body.textContent.includes('POLL CHECK:')");
   if(!pollSpoken)throw Error('POLL did not trigger audio and update on-screen speech');
   console.log('✓ Trumpagotchi poll taps trigger voice playback and LCD reaction.');
+  // A single touch of the LCD's GOLF icon must go straight to the mini-game.
+  const golfIcon=await pet.evaluate("!!document.querySelector('[aria-label=\"Open Bedminster Golf in one tap\"]')");
+  if(!golfIcon)throw Error('Trumpagotchi one-tap golf icon is missing');
+  await pet.evaluate("document.querySelector('[aria-label=\"Open Bedminster Golf in one tap\"]').click()");
+  await delay(180);
+  const golfOpened=await pet.evaluate("document.body.textContent.includes('BEDMINSTER GOLDEN GOLF')");
+  if(!golfOpened)throw Error('Trumpagotchi golf did not open after one click');
+  console.log('✓ One click on GOLF launches the Bedminster golf mini-game.');
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
 } finally{
