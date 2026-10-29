@@ -1,91 +1,112 @@
 /* SPDX-License-Identifier: GPL-3.0-only
- * A small original pentatonic melody for the browser adaptation of the
- * Trumpagotchi v1.0.0 FM-1 pet. No sequencer, external audio assets,
- * autoplay, or pre-existing copyrighted tune.
+ * Original pentatonic music for the Trumpagotchi browser pet.
+ * Runs entirely in the browser; no audio downloads or autoplay.
  */
 (() => {
   'use strict';
+
   const AudioContextType = window.AudioContext || window.webkitAudioContext;
-  const notes = [261.63, 329.63, 392, 440, 392, 329.63, 293.66, 261.63, 392, 523.25];
+  const keys = Object.freeze([261.63, 293.66, 329.63, 392, 440]); // C4 D4 E4 G4 A4
+  const tune = [0, 2, 3, 4, 3, 2, 1, 0, 3, 0];
   const beat = 0.24;
   let audioContext = null;
   let playing = false;
-  let activeNodes = [];
   let finishTimer = null;
+  let generation = 0;
+  const active = new Set();
 
-  function stop() {
-    if (finishTimer !== null) {
-      clearTimeout(finishTimer);
-      finishTimer = null;
+  async function ready() {
+    if (!AudioContextType) return null;
+    try {
+      // Construct/resume inside the user-initiated click. This is essential on
+      // Android Chrome, mobile Safari and installed home-screen web apps.
+      if (!audioContext || audioContext.state === 'closed') {
+        audioContext = new AudioContextType();
+      }
+      if (audioContext.state !== 'running') await audioContext.resume();
+      return audioContext.state === 'running' ? audioContext : null;
+    } catch (_) {
+      return null;
     }
-    for (const oscillator of activeNodes) {
-      try { oscillator.stop(); } catch (_) {}
-      try { oscillator.disconnect(); } catch (_) {}
-    }
-    activeNodes = [];
-    playing = false;
   }
-  function tone(ctx, frequency, start, duration) {
+
+  function voice(ctx, frequency, start, duration, volume = 0.14, drum = false) {
     const osc = ctx.createOscillator();
-    const env = ctx.createGain();
-    // Dry, soft electronic key sound, shaped to avoid clicks and sharp peaks.
-    osc.type = 'triangle';
+    const gain = ctx.createGain();
+    osc.type = drum ? 'sine' : 'triangle';
     osc.frequency.setValueAtTime(frequency, start);
-    env.gain.setValueAtTime(0.0001, start);
-    env.gain.exponentialRampToValueAtTime(0.072, start + 0.018);
-    env.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-    osc.connect(env);
-    env.connect(ctx.destination);
+    if (drum) osc.frequency.exponentialRampToValueAtTime(frequency * 0.62, start + 0.14);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(volume, start + 0.014);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    const entry = {osc, gain};
+    active.add(entry);
+    osc.onended = () => {
+      active.delete(entry);
+      try { osc.disconnect(); gain.disconnect(); } catch (_) {}
+    };
     osc.start(start);
     osc.stop(start + duration + 0.025);
-    activeNodes.push(osc);
   }
-  function bongo(ctx, start, high) {
-    const osc = ctx.createOscillator();
-    const env = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(high ? 185 : 124, start);
-    osc.frequency.exponentialRampToValueAtTime(high ? 118 : 72, start + 0.14);
-    env.gain.setValueAtTime(0.0001, start);
-    env.gain.exponentialRampToValueAtTime(0.055, start + 0.008);
-    env.gain.exponentialRampToValueAtTime(0.0001, start + 0.17);
-    osc.connect(env);
-    env.connect(ctx.destination);
-    osc.start(start);
-    osc.stop(start + 0.2);
-    activeNodes.push(osc);
+
+  function stop() {
+    generation++;
+    if (finishTimer !== null) clearTimeout(finishTimer);
+    finishTimer = null;
+    for (const {osc, gain} of active) {
+      try { osc.stop(); } catch (_) {}
+      try { osc.disconnect(); gain.disconnect(); } catch (_) {}
+    }
+    active.clear();
+    playing = false;
   }
-  function play(withBongos) {
-    stop();
-    if (!AudioContextType) return false;
+
+  // The five visible piano keys play immediately on touch or click.
+  async function note(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= keys.length) return false;
+    if (playing) stop(); // A tapped key takes precedence over the demo tune.
+    const run = generation;
+    const ctx = await ready();
+    if (!ctx || run !== generation) return false;
     try {
-      audioContext ||= new AudioContextType();
-      if (audioContext.state === 'suspended') {
-        // Invoked directly from the button's click handler, allowing mobile
-        // browsers to unlock audio with the user's interaction.
-        const resume = audioContext.resume();
-        if (resume?.catch) resume.catch(() => {});
-      }
-      const start = audioContext.currentTime + 0.045;
-      notes.forEach((frequency, i) => {
-        tone(audioContext, frequency, start + i * beat, i === notes.length - 1 ? 0.36 : 0.2);
-        if (withBongos && i % 2 === 0) bongo(audioContext, start + i * beat, i % 4 === 0);
+      voice(ctx, keys[index], ctx.currentTime + 0.012, 0.32, 0.17);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  // Autoplay is never used: the full melody is only started by a real click.
+  async function play(withBongos = false) {
+    stop();
+    const run = generation;
+    const ctx = await ready();
+    if (!ctx || run !== generation) return false;
+    try {
+      const start = ctx.currentTime + 0.045;
+      tune.forEach((key, i) => {
+        const t = start + i * beat;
+        voice(ctx, keys[key], t, i === tune.length - 1 ? 0.37 : 0.21, 0.14);
+        if (withBongos && i % 2 === 0) {
+          voice(ctx, i % 4 === 0 ? 185 : 124, t, 0.17, 0.075, true);
+        }
       });
       playing = true;
       finishTimer = setTimeout(() => {
+        if (run !== generation) return;
         finishTimer = null;
         playing = false;
-        activeNodes = [];
-      }, Math.round((notes.length - 1) * beat * 1000 + 410));
+      }, Math.ceil((tune.length - 1) * beat * 1000 + 440));
       return true;
     } catch (_) {
       stop();
       return false;
     }
   }
+
   window.TrumpagotchiMelody = Object.freeze({
-    play,
-    stop,
-    isPlaying: () => playing
+    play, note, stop, isPlaying: () => playing
   });
 })();
