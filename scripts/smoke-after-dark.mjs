@@ -102,9 +102,17 @@ try{
   await check('Private invitation contains only selected notes', "document.querySelector('#notebook-output input')?.value.includes('#partner-view?data=') && document.querySelector('#notebook-status').textContent.includes('Unselected interests')");
   const invitedUrl=await evaluate("document.querySelector('#notebook-output input')?.value");
   if(typeof invitedUrl!=='string'||!invitedUrl.includes('#partner-view?data='))throw Error('After Dark selected invitation link missing');
-  const invited=await navigate(invitedUrl);
-  const inviteReady=await invited.evaluate("document.querySelector('#partner-view')?.classList.contains('visible') && document.querySelector('#partner-invitation')?.textContent.includes('I would like you to understand') && [...document.querySelectorAll('#partner-invitation button')].some(b=>b.textContent.includes('listening'))");
+  // Test the shared link in a same-origin iframe so the primary CDP
+  // connection remains intact for subsequent After Dark regression checks.
+  await evaluate("(()=>{const frame=document.createElement('iframe');frame.id='private-invite-test';frame.src="+JSON.stringify(invitedUrl)+";frame.hidden=true;document.body.append(frame)})()");
+  let inviteReady=false;
+  for(let attempt=0;attempt<45;attempt++){
+    inviteReady=await evaluate("(()=>{const doc=document.getElementById('private-invite-test')?.contentDocument;return !!doc?.querySelector('#partner-view')?.classList.contains('visible') && !!doc?.querySelector('#partner-invitation')?.textContent.includes('I would like you to understand') && [...doc.querySelectorAll('#partner-invitation button')].some(b=>b.textContent.includes('listening'))})()");
+    if(inviteReady)break;
+    await delay(100);
+  }
   if(!inviteReady)throw Error('Private partner invitation did not open with consent-based responses');
+  await evaluate("document.querySelector('#private-invite-test')?.remove()");
   console.log('✓ After Dark notebook saves, creates selective share links, supports private PDF printing and opens a partner invitation.');
 
   await evaluate("document.querySelector('[data-tab=psych]').click()");
