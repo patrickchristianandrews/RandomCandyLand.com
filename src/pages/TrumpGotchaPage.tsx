@@ -68,7 +68,6 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
   const [menuIdx, setMenuIdx] = useState<number>(0);
   const [activeMiniGame, setActiveMiniGame] = useState<ActiveMiniGame>('none');
   const [foodMenuOpen, setFoodMenuOpen] = useState<boolean>(false);
-  const [gamesMenuOpen, setGamesMenuOpen] = useState<boolean>(false);
   const [headlineOpen, setHeadlineOpen] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(() => sound.getIsMuted());
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
@@ -188,12 +187,8 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
         break;
 
       case 'games':
-        if (gamesMenuOpen) {
-          handleLaunchMiniGame('golf');
-        } else {
-          setGamesMenuOpen(true);
-          sound.playSelectChime();
-        }
+        // No intermediate menu: pressing B on the golf icon starts the course immediately.
+        handleLaunchMiniGame('golf');
         break;
 
       case 'medicine':
@@ -219,7 +214,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       default:
         sound.playButtonBlip();
     }
-  }, [currentMenu, stats.isSleeping, feed, dance, yellAtTv, toggleSleep, giveMedicine, cleanMess, pepTalk, groomHair, gamesMenuOpen, tapDonald, triggerAnim, handlePollCheck]);
+  }, [currentMenu, stats.isSleeping, feed, dance, yellAtTv, toggleSleep, giveMedicine, cleanMess, pepTalk, groomHair, tapDonald, triggerAnim, handlePollCheck]);
 
   // Button C: Cancel / Pause / Back
   const handleButtonC = useCallback(() => {
@@ -228,16 +223,12 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       setFoodMenuOpen(false);
       return;
     }
-    if (gamesMenuOpen) {
-      setGamesMenuOpen(false);
-      return;
-    }
     if (screenMode === 'PLAYING') {
       setScreenMode('PAUSED');
     } else if (screenMode === 'PAUSED') {
       setScreenMode('PLAYING');
     }
-  }, [foodMenuOpen, gamesMenuOpen, screenMode]);
+  }, [foodMenuOpen, screenMode]);
 
   const toggleMute = () => {
     const muted = sound.toggleMute();
@@ -246,7 +237,6 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
 
   const handleLaunchMiniGame = (game: ActiveMiniGame) => {
     sound.playSelectChime();
-    setGamesMenuOpen(false);
     setActiveMiniGame(game);
     setScreenMode('MINIGAME');
   };
@@ -431,7 +421,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 <li><strong>Those little white squares are classified documents! 📄</strong> Donald scatters papers on the green screen as he makes a mess. They are intentional game objects, not mystery rewards.</li>
                 <li><strong>Clean up the papers. 🧹</strong> Select the 🧹 Clean icon with button A, then press B to remove all scattered classified documents and restore cleanliness. More mess means Donald needs attention.</li>
                 <li><strong>Keep his ratings up. ⭐</strong> Food, happiness, neat hair, cleanliness, and health all help his approval rating. Caring for him also helps him evolve.</li>
-                <li><strong>Try the mini-games and sounds.</strong> Use the handheld menu for golf, rally, and deals. Actions can play recorded voice clips when sound is on.</li>
+                <li><strong>Try golf and sounds.</strong> Tap ⛳ GOLF on the LCD or the PLAY GOLF button for an instant one-tap launch. Actions can play recorded voice clips when sound is on.</li>
                 <li><strong>More actual recordings:</strong> <a href="https://www.101soundboards.com/boards/10035-donald-trump-soundboard" target="_blank" rel="noopener noreferrer" className="text-amber-200 underline underline-offset-2 hover:text-white">Browse Donald Trump voice clips ↗</a> on the original soundboard. This opens a separate tab and won't interrupt your game.</li>
               </ol>
               <details className="mt-4 rounded-xl border border-sky-300/40 bg-slate-900/80 p-3">
@@ -544,11 +534,22 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 isSleeping={stats.isSleeping}
                 onTapDonald={tapDonald}
                 onPollCheck={handlePollCheck}
+                onLaunchGolf={() => handleLaunchMiniGame('golf')}
               />
             </HandheldShell>
-            <p className="mt-2 text-xs text-amber-200 text-center max-w-xs">
-              📊 Tap POLL on the screen to hear Donald react to his rating.
-            </p>
+            <div className="mt-3 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handleLaunchMiniGame('golf')}
+                className="min-h-11 rounded-xl border-2 border-amber-300 bg-amber-400 px-5 py-2 font-serif-luxury text-sm font-black text-neutral-950 shadow-lg transition active:scale-95 hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white touch-manipulation"
+                aria-label="Start Bedminster Golf mini-game in one tap"
+              >
+                ⛳ PLAY GOLF — 1 TAP
+              </button>
+              <p className="text-xs text-amber-200 text-center max-w-xs">
+                Tap ⛳ GOLF on the LCD or this button to play immediately. 📊 Tap POLL to hear Donald react to his rating.
+              </p>
+            </div>
             {pollAudioNotice && (
               <div role="status" aria-live="polite"
                 className="mt-2 max-w-sm rounded-xl border border-amber-300/60 bg-[#392329] px-3 py-2 text-center text-xs font-semibold text-amber-100">
