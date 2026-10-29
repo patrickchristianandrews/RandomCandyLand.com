@@ -133,15 +133,17 @@ if (!homeBundle.includes('CHOOSE A MINI-GAME') ||
   failures++;
 }
 
-// The new pet game must lead with piano keys directly below the screen, use the
-// higher-resolution renderer, and not show obsolete hardware instructions.
+// The pet's care controls sit directly beneath the screen, followed by the
+// playable piano keys. Keep the high-resolution renderer and hardware-free UI.
 const newPetHtml = fs.readFileSync('dist/trumpagotchi-pet/index.html','utf8');
 if (!newPetHtml.includes('<h1>Trumpagotchi <span>2</span></h1>') ||
     !newPetHtml.includes('width="720" height="468"') ||
     !newPetHtml.includes('class="pocket-piano"') ||
-    newPetHtml.indexOf('class="pocket-piano"') < newPetHtml.indexOf('id="originalCanvas"') ||
-    newPetHtml.indexOf('class="pocket-piano"') > newPetHtml.indexOf('class="controls"')) {
-  console.error('Trumpagotchi 2 game/piano order or smooth rendering was not published.');
+    newPetHtml.indexOf('class="controls"') < newPetHtml.indexOf('id="originalCanvas"') ||
+    newPetHtml.indexOf('class="controls"') > newPetHtml.indexOf('class="pocket-piano"') ||
+    newPetHtml.indexOf('class="pocket-piano"') > newPetHtml.indexOf('class="summary"') ||
+    newPetHtml.indexOf('data-note="0"') > newPetHtml.indexOf('class="summary"')) {
+  console.error('Trumpagotchi 2 controls must be above piano keys, beneath the game screen.');
   failures++;
 }
 if (/FM-1|synthesizer|sequencer|MIDI/.test(newPetHtml)) {
