@@ -118,11 +118,14 @@ try{
   if(oldGolf)throw Error('Removed one-tap golf shortcut is still visible');
   console.log('✓ Removed one-tap Golf shortcut remains absent.');
 
-  // Trumpagotchi 2 is retired: previous route now returns to the original game.
-  const retired=await navigate(site+'/trumpagotchi-pet/');
-  const retiredDestination=await retired.evaluate("location.pathname");
-  if(retiredDestination!=='/trump/')throw Error('Retired Trumpagotchi 2 does not redirect to the original game');
-  console.log('✓ Retired Trumpagotchi 2 routes to the original game.');
+  // The second pocket pet remains playable, but its large top title is gone.
+  const secondPet=await navigate(site+'/trumpagotchi-pet/');
+  const secondReady=await secondPet.evaluate("!!document.querySelector('#originalCanvas') && !!document.querySelector('[data-action=feed]') && !!document.querySelector('#remix-studio') && !document.querySelector('.head h1')");
+  if(!secondReady)throw Error('Restored pocket pet is missing gameplay or the unwanted title remains');
+  await secondPet.evaluate("document.querySelector('[data-action=feed]').click()");
+  const fed=await secondPet.evaluate("document.querySelector('#caption')?.textContent?.includes('A VERY FINE SNACK')");
+  if(!fed)throw Error('Restored pocket pet feeding action did not work');
+  console.log('✓ Second pet gameplay works and its oversized title is removed.');
 
   // The new arcade must be fully interactive, not just a styled landing page.
   const arcade=await navigate(site+'/goo-rush/');
