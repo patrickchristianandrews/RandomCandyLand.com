@@ -152,3 +152,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
 .fm1-tiny-mode .how-to-play-top .instruction-steps p{margin:2px 0;padding:9px 12px;border-radius:10px;background:#ffffff13}
 .fm1-tiny-mode .how-to-play-top a{color:#ffe3ab;text-underline-offset:3px}
 @media(max-width:650px){.fm1-tiny-mode .how-to-play-top{margin:5px 0 13px}.fm1-tiny-mode .how-to-play-top summary{font-size:14px;padding:13px 14px}.fm1-tiny-mode .how-to-play-top .instruction-steps{grid-template-columns:1fr}.fm1-tiny-mode .how-to-play-top .instructions-content{padding:1px 14px 14px}}
+
+/* Original FM-1 pixel canvas: 240 × 240 screen, with 24px header,
+   26px meters, 156px character/room and 34px captions.
+   Existing game-state DOM stays available but is visually replaced by LCD pixels. */
+.fm1-pixel-ready .fm1-tiny-mode .lcd,
+.fm1-pixel-ready .lcd{position:relative;padding:0!important;background:#f6ebd1!important;overflow:hidden;border:9px solid #27374a!important;border-radius:15px!important;box-shadow:inset 0 0 0 2px #f6ebd1,0 10px 0 #273045,0 19px 31px #0b102b8c!important}
+.fm1-pixel-ready #fm1-pixel-screen{display:block;position:relative;width:100%;max-width:100%;height:auto;aspect-ratio:1;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:manipulation}
+.fm1-pixel-ready .lcd .lcd-top,.fm1-pixel-ready .lcd .lcd-footer{display:none!important}
+.fm1-pixel-ready .lcd .scene{position:absolute;inset:0;width:100%;height:100%;z-index:3;margin:0;border:0;border-radius:0;background:transparent;overflow:visible;pointer-events:none}
+.fm1-pixel-ready .lcd .scene>:not(#gameover){display:none!important}
+.fm1-pixel-ready .lcd .scene #gameover{pointer-events:auto;border-radius:0;inset:0}
+.fm1-pixel-ready .fm1-indicators{margin-top:7px}
+@media(max-width:530px){.fm1-pixel-ready .lcd{border-width:7px!important;border-radius:11px!important}}
