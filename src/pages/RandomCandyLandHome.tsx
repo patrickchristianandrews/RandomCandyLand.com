@@ -47,6 +47,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </a>
         <nav aria-label="Main website navigation">
           <a href="#adventures"><Gamepad2 size={17}/> Play</a>
+          <a href="/trumpagotchi-fm1/" aria-label="Play the FM-1 style tiny Trumpagotchi pet">🐣 Tiny Pet</a>
           <a href="#nonsense">🎲 Nonsense</a>
           <a href="/music-visualizer/"><Music2 size={17}/> Music</a>
           <a href="/after-dark/"><MoonStar size={17}/> After Dark</a>
@@ -76,7 +77,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <div className="candyland-eyebrow">WELCOME TO YOUR CANDY-COATED UNIVERSE</div>
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
           <p>One colorful, wildly imaginative place to play, make things glow, generate ridiculous nonsense, and stumble into something wonderful.</p>
-          <a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a>
+          <div className="candyland-opening-actions"><a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a><a className="candyland-tiny-link" href="/trumpagotchi-fm1/">🐣 PLAY THE FM-1-STYLE TINY PET</a></div>
         </div>
         <CandyGoo className="candyland-drips" color="bubblegum" />
       </section>
