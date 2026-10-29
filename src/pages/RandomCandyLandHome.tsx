@@ -128,7 +128,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <div className="candyland-eyebrow">WELCOME TO YOUR CANDY-COATED UNIVERSE</div>
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
           <p>One colorful, wildly imaginative place to play, make things glow, generate ridiculous nonsense, and stumble into something wonderful.</p>
-          <div className="candyland-opening-actions"><a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a><a className="candyland-tiny-link" href="/trumpagotchi-fm1/">🐣 PLAY THE TINY PET</a></div>
+          <div className="candyland-opening-actions"><a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a></div>
         </div>
         <CandyGoo className="candyland-drips" color="bubblegum" />
       </section>

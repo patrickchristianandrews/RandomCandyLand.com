@@ -95,8 +95,12 @@ for (const [route, destination] of expectedLegacyRoutes) {
     failures++;
   }
 }
-if (!homeBundle.includes('PLAY THE TINY PET')) {
-  console.error('Tiny Pet homepage button is missing.');
+if (homeBundle.includes('PLAY THE TINY PET') || homeBundle.includes('candyland-tiny-link')) {
+  console.error('The retired Tiny Pet shortcut beside ENTER CANDY LAND returned.');
+  failures++;
+}
+if (!homeBundle.includes('ENTER CANDY LAND') || !homeBundle.includes('/trumpagotchi-fm1/')) {
+  console.error('Homepage entrance or Tiny Pet game link is missing.');
   failures++;
 }
 if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpagotchi-pet/')) {
@@ -228,6 +232,17 @@ for (const path of ['dist/index.html','dist/404.html','dist/trump/index.html']) 
 // The user requested an independently playable browser adaptation of the FM-1
 // Trumpagotchi pet, not another redirect or hardware/firmware information page.
 const tinyPetHtml=fs.readFileSync('dist/trumpagotchi-fm1/index.html','utf8');
+if (!(tinyPetHtml.indexOf('id="how-to-play"') < tinyPetHtml.indexOf('class="pocket-page-banner"') &&
+      tinyPetHtml.indexOf('class="pocket-page-banner"') < tinyPetHtml.indexOf('class="game-layout"'))) {
+  console.error('Tiny Pet How To Play must be above the banner and game.');
+  failures++;
+}
+const originalGuideSource=fs.readFileSync('src/pages/TrumpGotchaPage.tsx','utf8');
+if (!(originalGuideSource.indexOf('id="how-to-play"') < originalGuideSource.indexOf('candyland-game-tagline') &&
+      originalGuideSource.indexOf('id="how-to-play"') > originalGuideSource.indexOf('candyland-game-navbar'))) {
+  console.error('Original Trumpagotchi How To Play must be above its game.');
+  failures++;
+}
 if (tinyPetHtml.includes('url=/trump/') || tinyPetHtml.includes('http-equiv="refresh"')) {
   console.error('FM-1 Trumpagotchi is still a redirect instead of a playable pet.');
   failures++;

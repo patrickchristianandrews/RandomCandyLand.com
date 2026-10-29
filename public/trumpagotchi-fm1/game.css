@@ -299,24 +299,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
   clip-path:polygon(0 0,100% 0,100% 18%,97% 18%,97% 64%,92% 79%,88% 61%,88% 0,78% 0,78% 66%,74% 83%,69% 66%,69% 0,58% 0,58% 89%,54% 100%,50% 81%,50% 0,39% 0,39% 59%,35% 82%,30% 61%,30% 0,18% 0,18% 61%,14% 82%,10% 61%,10% 0);
   filter:drop-shadow(0 4px 2px #3e0f4b);
 }
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top{margin-bottom:25px}
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top summary{
+.fm1-tiny-mode main > .how-to-play-top{margin-bottom:25px}
+.fm1-tiny-mode main > .how-to-play-top summary{
   display:flex;align-items:center;justify-content:space-between;gap:8px;
   min-height:57px;padding:15px 16px;
   font-weight:900;color:#eaf6ff
 }
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top{
+.fm1-tiny-mode main > .how-to-play-top{
   background:linear-gradient(125deg,#153954,#241b48 75%)!important;
   border:2px solid #81c1dc!important;border-radius:23px;
 }
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top summary small{font-size:.8em;font-weight:650}
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top summary::after{display:none}
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top .instructions-hint{
+.fm1-tiny-mode main > .how-to-play-top summary small{font-size:.8em;font-weight:650}
+.fm1-tiny-mode main > .how-to-play-top summary::after{display:none}
+.fm1-tiny-mode main > .how-to-play-top .instructions-hint{
   flex-shrink:0;padding:7px 10px;background:#ffffff20;
   border:1px solid #91c8e1a6;border-radius:12px;font-size:11px;color:#edfaff
 }
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top .instructions-hint:after{content:" ▾"}
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top[open] .instructions-hint:after{content:" ▴"}
+.fm1-tiny-mode main > .how-to-play-top .instructions-hint:after{content:" ▾"}
+.fm1-tiny-mode main > .how-to-play-top[open] .instructions-hint:after{content:" ▴"}
 @media(max-width:530px){
   .fm1-tiny-mode .pocket-topbar{padding:8px 2px 34px;gap:14px 10px;margin-bottom:37px}
   .fm1-tiny-mode .pocket-topbar .brand{font-size:15px}
@@ -324,9 +324,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
   .fm1-tiny-mode .pocket-site-nav{gap:7px}
   .fm1-tiny-mode .pocket-page-banner{padding:15px 10px;min-height:65px;margin-bottom:65px}
   .fm1-tiny-mode .pocket-page-banner h1{letter-spacing:.04em;font-size:clamp(13px,3.8vw,18px)}
-  .fm1-tiny-mode .pocket-page-banner + .how-to-play-top summary{padding:12px 11px;font-size:12px}
-  .fm1-tiny-mode .pocket-page-banner + .how-to-play-top summary small{font-size:11px}
-  .fm1-tiny-mode .pocket-page-banner + .how-to-play-top .instructions-hint{font-size:10px;padding:7px 6px}
+  .fm1-tiny-mode main > .how-to-play-top summary{padding:12px 11px;font-size:12px}
+  .fm1-tiny-mode main > .how-to-play-top summary small{font-size:11px}
+  .fm1-tiny-mode main > .how-to-play-top .instructions-hint{font-size:10px;padding:7px 6px}
 }
 @media(prefers-reduced-motion:reduce){
   .fm1-tiny-mode .pocket-topbar *,.fm1-tiny-mode .pocket-page-banner *{animation:none!important}
@@ -348,5 +348,8 @@ body.fm1-tiny-mode.candyland-game-page{color:#fff7ff;background:radial-gradient(
 .fm1-tiny-mode .candyland-game-site-footer nav{display:flex;flex-wrap:wrap;gap:15px}
 .fm1-tiny-mode .candyland-game-site-footer a{color:#ffef8f;text-decoration:none}
 .fm1-tiny-mode .pocket-page-banner{max-width:880px;margin-left:auto;margin-right:auto}
-.fm1-tiny-mode .pocket-page-banner + .how-to-play-top{max-width:920px;margin-left:auto;margin-right:auto}
+.fm1-tiny-mode main > .how-to-play-top{max-width:920px;margin-left:auto;margin-right:auto}
 @media(max-width:630px){.fm1-tiny-mode .candyland-game-site-header{justify-content:center;margin-bottom:62px;padding:15px 12px 24px}.fm1-tiny-mode .candyland-game-site-brand{width:100%;justify-content:center}.fm1-tiny-mode .candyland-game-site-brand img{width:48px;height:48px}.fm1-tiny-mode .candyland-game-site-nav{justify-content:center}.fm1-tiny-mode .candyland-game-site-nav a{padding:8px 10px;font-size:12px}.fm1-tiny-mode .candyland-game-site-goo{height:54px}.fm1-tiny-mode .candyland-game-site-footer{justify-content:center;text-align:center}.fm1-tiny-mode .candyland-game-site-footer nav{justify-content:center}}
+
+/* Top-first guide above the decorative banner and game: no hunting below the pet. */
+.fm1-tiny-mode main > .how-to-play-top{position:relative;z-index:4;max-width:920px;width:100%;margin:7px auto 22px}
