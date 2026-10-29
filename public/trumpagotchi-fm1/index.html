@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ee6aa6">
+  <meta name="description" content="Trumpagotchi FM-1 edition: a musical virtual pet with bongos, feeding and 12 voice reactions. Play the browser preview if available or download the original M-VAVE FM-1 firmware.">
+  <meta property="og:title" content="Trumpagotchi · FM-1 Music Pet | Random Candy Land">
+  <meta property="og:description" content="A tiny musical virtual pet lives inside the FM-1 synth. Explore the browser preview and original open-source release.">
+  <meta property="og:image" content="https://randomcandyland.com/icon-512.png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <title>Trumpagotchi FM-1 Edition | Random Candy Land</title>
+  <style>
+  :root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,sans-serif;--bg:#110724;--ink:#fff7fb;--muted:#e6d7f6;--pink:#ff89c8;--gold:#fff4b3}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 5%,#b6419e66,transparent 40%),radial-gradient(circle at 0 50%,#6434bc66,transparent 52%),var(--bg);color:var(--ink);min-height:100vh}
+  a{color:#ffe4a0}a:focus-visible,button:focus-visible{outline:3px solid #fff19c;outline-offset:4px}main{max-width:1120px;margin:auto;padding:22px 19px 70px}
+  header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:32px}header .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:white;font-weight:900;letter-spacing:.03em;font-size:16px}header img{width:48px;height:48px;border-radius:15px}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{display:inline-flex;align-items:center;padding:10px 13px;background:#ffffff1a;border:1px solid #ffffff4b;text-decoration:none;color:white;border-radius:13px;font-weight:700;font-size:13px}
+  .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);align-items:center;gap:30px;border:2px solid #ffffff48;border-radius:32px;padding:clamp(25px,5vw,54px);background:linear-gradient(130deg,#8e36d650,#c6299355,#1d5ca156);box-shadow:0 30px 65px #07001280;overflow:hidden}
+  .eyebrow{font-size:12px;color:#fff4ab;font-weight:900;letter-spacing:.15em;text-transform:uppercase}h1{font-size:clamp(43px,6.8vw,84px);line-height:.99;letter-spacing:-.07em;margin:15px 0 16px}h1 span{color:var(--pink)}.sub{font-size:clamp(16px,1.8vw,19px);line-height:1.6;color:#f6e6ff;max-width:610px}.tags{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0 23px}.tags span{font-size:12px;padding:7px 10px;border-radius:99px;color:#fff5ca;background:#410e6a9c;border:1px solid #f4e1ff55;font-weight:800}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.action{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 19px;border-radius:16px;background:#ffcf55;color:#48174d;text-decoration:none;font-weight:900;border:2px solid #fff6b8;box-shadow:0 7px 0 #6b2d57}.action.secondary{color:white;border-color:#ffaee4;background:#77309b}.action[hidden]{display:none}
+  .art{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.art .panel{position:relative;width:100%;max-width:390px;padding:14px 14px 23px;background:linear-gradient(155deg,#ffdb70,#ff76a4);border:7px solid #ffdccc;border-radius:40px;box-shadow:0 15px 0 #51245a,0 29px 36px #210b40b9;transform:rotate(3deg)}.art .screen{background:#150e2d;min-height:200px;padding:20px 9px;border:10px solid #ffa4da;border-radius:18px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}.art .face{font-size:92px;filter:drop-shadow(0 6px 7px #0006);line-height:1.12}.art .screen strong{color:#ffe89c;letter-spacing:.07em}.art .keys{margin-top:14px;display:grid;grid-template-columns:repeat(8,1fr);gap:5px}.art .keys b{height:62px;background:#fff6fd;border-radius:0 0 7px 7px;border-bottom:8px solid #c19cb1;box-shadow:inset 0 0 0 2px #cf7eb2}.art .keys b:nth-child(2n){background:#25203b;border-bottom-color:#120f24;height:44px}
+  .note{border-left:5px solid #ffd261;background:#50316499;padding:16px 18px;margin:25px 0;border-radius:0 15px 15px 0;font-size:14px;line-height:1.6}.note strong{color:#ffec93}
+  h2{font-size:clamp(27px,3vw,38px);letter-spacing:-.04em;margin:0 0 11px}.section{margin-top:39px}.section>p{color:var(--muted);line-height:1.55}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:17px}.tile{padding:21px;border:1px solid #ffbbe267;background:#301750c2;border-radius:22px;min-height:168px}.tile .emoji{font-size:34px}.tile h3{margin:11px 0 8px;font-size:17px}.tile p{margin:0;color:#f1dff8;font-size:14px;line-height:1.55}
+  .play-panel{margin-top:20px;padding:25px;border-radius:24px;border:2px solid #80e2fa87;background:linear-gradient(130deg,#203b67b9,#4b1c71a8)}.play-panel p{max-width:760px;line-height:1.6;color:#e7f5ff}.play-row{display:flex;gap:11px;align-items:center;flex-wrap:wrap}.status{margin-top:13px;min-height:21px;font-size:13px;color:#c9eeff}
+  .files{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0}.file{display:block;background:#41235a;padding:19px;border:1px solid #ffffff7a;border-radius:20px;color:#fff;text-decoration:none}.file strong{display:block;font-size:17px;margin-bottom:7px;color:#ffe8a4}.file span{font-size:13px;color:#e4d4f1;line-height:1.4}
+  .steps{line-height:1.7;color:#eee3fb;padding-left:25px}.steps li{padding:4px 0}.steps code{background:#211238;padding:3px 6px;border-radius:6px;color:#fff0ae;overflow-wrap:anywhere}.small{font-size:13px;line-height:1.6;color:#d9c7e7}.footer{border-top:1px solid #ffffff51;padding-top:24px;margin-top:35px;font-size:13px;line-height:1.7;color:#dfcae9}
+  @media(max-width:760px){.hero{grid-template-columns:1fr;padding:24px}.art{margin:17px auto 0;width:min(100%,350px)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.files{grid-template-columns:1fr}}@media(max-width:510px){.grid{grid-template-columns:1fr}.art .panel{max-width:280px}.art .face{font-size:67px}.art .screen{min-height:142px}.art .keys b{height:45px}.art .keys b:nth-child(2n){height:32px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+<main>
+<header>
+  <a class="brand" href="/"><img src="/icon.svg" alt=""> RANDOM CANDY LAND</a>
+  <nav><a href="/">🍭 Home</a><a href="/trump">🎮 Original Pocket Pet</a><a href="/fm1-emu/">🎹 FM-1 Synth Lab</a></nav>
+</header>
+<section class="hero">
+  <div>
+    <div class="eyebrow">🎹 Special Guest Game · FM-1 Edition</div>
+    <h1>Trump<span>agotchi</span><br>on the FM-1!</h1>
+    <p class="sub">A tiny, demanding virtual pet lives in a synthesizer. Feed him burgers, clean up his mess, praise him, and play a pentatonic tune while he bangs the bongos.</p>
+    <div class="tags"><span>🐾 Virtual pet</span><span>🎶 Synth + bongos</span><span>🔊 12 recorded reactions</span><span>🎛️ FM-1 firmware</span></div>
+    <div class="actions"><a class="action" href="#browser-play">▶ Browser preview</a><a class="action secondary" href="#downloads">⬇ Firmware &amp; downloads</a></div>
+  </div>
+  <div class="art" aria-hidden="true">
+    <div class="panel">
+      <div class="screen"><div class="face">👶🏻</div><strong>FEED · PRAISE · CLEAN · REST</strong><span>♫ YOU PLAY · HE BONGOS ♫</span></div>
+      <div class="keys"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
+    </div>
+  </div>
+</section>
+<div class="note"><strong>Two different games:</strong> This is the independent <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">Trumpagotchi FM-1 v1.0.0 release by adamcharleswilsonmusic-code</a>. It is separate from <a href="/trump">Random Candy Land's original web-based Trumpagotchi</a>. Both stay available. This release features edited fictional dialogue and is an unofficial parody.</div>
+<section class="section">
+<h2>Care for a very high-maintenance pet.</h2>
+<div class="grid">
+ <div class="tile"><div class="emoji">🍔</div><h3>Feed</h3><p>Top up the burger stack and keep his food meter from crashing.</p></div>
+ <div class="tile"><div class="emoji">👏</div><h3>Praise</h3><p>Raise his mood and see how much encouragement his ego demands.</p></div>
+ <div class="tile"><div class="emoji">🧹</div><h3>Clean</h3><p>Clear wrappers and cartoon mess to restore his surroundings.</p></div>
+ <div class="tile"><div class="emoji">🛌</div><h3>Rest</h3><p>Send him for a nap. A five-minute day makes bedtime come quickly.</p></div>
+ <div class="tile"><div class="emoji">🎹</div><h3>Play music</h3><p>The white keys are a pentatonic instrument. Happy pets join in on bongos.</p></div>
+ <div class="tile"><div class="emoji">💾</div><h3>Save progress</h3><p>Pause, save, and try to keep Food, Mood and Energy above zero.</p></div>
+</div>
+</section>
+<section id="browser-play" class="section">
+<h2>Play the FM-1 browser preview.</h2>
+<div class="play-panel">
+ <p>The original project includes an emulator you can play with a mouse, touch controls, or keyboard. We are packaging its browser version separately from the firmware installer. This preview does not write firmware to a device.</p>
+ <div class="play-row"><a href="/trumpagotchi-fm1/play/" id="play" class="action" hidden>🎮 Launch FM-1 Trumpagotchi</a><a href="/trump" class="action secondary">Play our original web game</a></div>
+ <p id="preview-status" class="status" role="status">Checking whether the FM-1 browser preview is available…</p>
+ <p class="small">The FM-1 emulator uses WebAssembly and real-time browser audio; some phones may struggle with it. For best results, try a desktop browser. The original author also notes the preview does not simulate installing firmware or establish hardware timing.</p>
+</div>
+</section>
+<section id="downloads" class="section">
+<h2>Official v1.0.0 release downloads</h2>
+<p>Files are downloaded from the original developer's GitHub release, with credit and source intact.</p>
+<div class="files">
+<a class="file" href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/download/v1.0.0/trumpagotchi.fwsc" target="_blank" rel="noopener noreferrer"><strong>🎛️ FM-1 firmware · .fwsc</strong><span>Ready-to-install firmware for the M-VAVE FM-1 (about 610 KB). Installs onto physical hardware, not your phone.</span></a>
+<a class="file" href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/download/v1.0.0/trumpagotchi-source.zip" target="_blank" rel="noopener noreferrer"><strong>📦 Source &amp; installer · ZIP</strong><span>Source code and Python installer (about 2.9 MB). Download alongside the firmware to install it.</span></a>
+<a class="file" href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/download/v1.0.0/trumpagotchi-quick-start.pdf" target="_blank" rel="noopener noreferrer"><strong>📘 Illustrated quick-start · PDF</strong><span>One-page guide to the four care keys, music keyboard and FM-1 controls.</span></a>
+<a class="file" href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer"><strong>🔗 Original release &amp; credits</strong><span>Release notes, checksums, original source, contributor notices and installation information.</span></a>
+</div>
+<div class="note"><strong>Important before installing:</strong> Firmware installation <strong>replaces the current firmware</strong> on a physical FM-1. You need an FM-1, a USB data cable and a computer with Python 3. Only the author's device/restart were verified for this exact release; do not force an update on unsupported hardware. You cannot flash the firmware from this web page.</div>
+<details>
+ <summary style="cursor:pointer;font-weight:900;font-size:18px;color:#ffe89f">Installation outline for hardware owners</summary>
+ <ol class="steps">
+ <li>Download the official <code>trumpagotchi.fwsc</code> file and the matching <code>trumpagotchi-source.zip</code>.</li>
+ <li>Extract the source archive and place the firmware file alongside its README and <code>tools/</code> folder.</li>
+ <li>Follow the source archive's <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/blob/v1.0.0/INSTALL.md" target="_blank" rel="noopener noreferrer">installation guide</a> to create a Python environment and install dependencies.</li>
+ <li>Connect the FM-1 using a USB data cable; close other programs using the FM-1 MIDI port.</li>
+ <li>Verify the device using <code>python tools/fm1_install.py --info</code>, then confirm the target before running <code>python tools/fm1_install.py trumpagotchi.fwsc</code>.</li>
+ <li>Leave the cable connected until the update and restart finish; the expected device firmware identity is <strong>FM-1_710</strong>.</li>
+ </ol>
+</details>
+</section>
+<footer class="footer">Created by <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi" target="_blank" rel="noopener noreferrer">adamcharleswilsonmusic-code</a>, featured independently on Random Candy Land. Unofficial political parody; no affiliation or endorsement. The original source and artwork are licensed <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/blob/v1.0.0/LICENSING.md" target="_blank" rel="noopener noreferrer">GPL-3.0-only</a>; voice-recording rights are separate. Browser preview builds use the author's v1.0.0 source. <a href="/">Return to Candy Land</a>.</footer>
+</main>
+<script>
+(async () => {
+  const play = document.querySelector('#play');
+  const status = document.querySelector('#preview-status');
+  try {
+    const r = await fetch('/trumpagotchi-fm1/play/omni.wasm', {method:'HEAD', cache:'no-store'});
+    const type = (r.headers.get('content-type') || '').toLowerCase();
+    if (r.ok && !type.includes('text/html') && (type.includes('wasm') || type.includes('octet-stream'))) {
+      play.hidden = false;
+      status.textContent = 'Browser preview available! Tap Launch FM-1 Trumpagotchi. Sound starts when you switch it on.';
+    } else {
+      status.textContent = 'The browser build is not yet published. The original release downloads and our web game are available below.';
+    }
+  } catch {
+    status.textContent = 'The browser preview could not be checked. The official release downloads are still available below.';
+  }
+})();
+</script>
+</body>
+</html>
