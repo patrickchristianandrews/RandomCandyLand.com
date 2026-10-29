@@ -23,7 +23,7 @@ type Portal = {
 
 const PORTALS: Portal[] = [
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
-  {emoji:'🐣',title:'Trumpagotchi 2',blurb:"A new pocket-pet adventure: feed him, praise him, clean up, take naps, and play a tune together.",kind:'games',label:'THE LITTLE PET · PLAY NOW',palette:'pink',href:'/trumpagotchi-pet/'},
+  {emoji:'🍬',title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
   {emoji:'🌈',title:'Candy Pulse',blurb:"Turn your own music into mesmerizing colorful waves, bouncing lights, and reactive shapes.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {emoji:'🌙',title:'After Dark',blurb:"A grown-up curiosity atlas for discovering and understanding more about yourself.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
 ];
