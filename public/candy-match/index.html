@@ -57,12 +57,11 @@ footer{text-align:center;margin-top:38px;font-size:13px;color:#e9c7f0}
 @media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{order:-1}.sidebar ol{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;list-style:disc}.sidebar ol li{font-size:12px}.board{max-width:570px}}
 @media(max-width:500px){.wrap{padding-left:10px;padding-right:10px}.panel{padding:13px 10px 20px}.board{gap:7px}.card-face{border-width:2px}.card-back strong{font-size:clamp(32px,10vw,52px)}.card-front .emoji{font-size:clamp(25px,9vw,44px)}.card-front .name{font-size:9px}.sidebar ol{display:block}.stats{gap:5px}}
 @media(prefers-reduced-motion:reduce){.card-inner{transition:none}.card.matched{animation:none}.progress>span{transition:none}}
-</style>
+.compact-game-title{font-size:clamp(18px,3vw,25px);margin:0 0 13px;letter-spacing:-.03em}.game-help summary{cursor:pointer;font-weight:850;padding:8px 0}header{margin-bottom:10px!important}</style>
 </head><body><div class="wrap">
 <header><a href="/" class="brand"><img src="/random-candy-land-art.webp" alt=""> RANDOM <b>CANDY LAND</b></a><nav><a href="/">🍭 Home</a><a href="/candy-simon/">🎵 Simon Says</a><a href="/goo-rush/">🍬 Goo Rush</a></nav></header>
-<section class="hero"><div class="eyebrow">🃏 THE SWEETEST LITTLE MEMORY GAME</div><h1>🍬 CANDY <span>MATCH!</span></h1><p>Flip two mystery candy cards. Find the same sweet treat hiding underneath, build combos, and collect every matching pair!</p></section>
 <div class="layout">
-<main class="panel" aria-label="Candy Match memory game">
+<main class="panel" aria-label="Candy Match memory game"><h1 class="compact-game-title">🍬 CANDY MATCH!</h1>
 <div class="stats"><div class="stat"><small>Pairs</small><b id="pairs">0/6</b></div><div class="stat"><small>Moves</small><b id="moves">0</b></div><div class="stat"><small>Time</small><b id="time">0:00</b></div><div class="stat"><small>Stars</small><b id="stars">0</b></div></div>
 <div class="progress" aria-label="Matching progress"><span id="progress"></span></div>
 <div class="board" id="board" aria-label="Hidden matching candy cards"></div>
@@ -70,7 +69,7 @@ footer{text-align:center;margin-top:38px;font-size:13px;color:#e9c7f0}
 <div class="celebration" id="celebration" aria-hidden="true">✨ 🍓 ✨</div>
 <div class="controls"><button class="action" id="newgame" type="button">🎮 NEW GAME</button><button class="action secondary" type="button" id="hint" disabled>💡 Sweet Hint (2)</button></div>
 </main>
-<aside class="panel sidebar"><h2>🧁 How to play</h2><ol><li>Tap one card to see what's underneath.</li><li>Tap another. If both candies match, they stay uncovered!</li><li>Match every pair to win. Fewer moves earn more stars!</li></ol>
+<aside class="panel sidebar"><details class="game-help"><summary>❔ How to play</summary><ol><li>Tap one card to see what's underneath.</li><li>Tap another. If both candies match, they stay uncovered!</li><li>Match every pair to win. Fewer moves earn more stars!</li></ol></details>
 <label for="difficulty">How sweet is your challenge?
 <select id="difficulty"><option value="easy">🧸 Easy · 6 pairs</option><option value="medium">🍬 Classic · 8 pairs</option><option value="hard">⚡ Expert · 12 pairs</option></select></label>
 <label class="check"><input id="audio" type="checkbox" checked> 🎶 Cute musical sounds</label>
