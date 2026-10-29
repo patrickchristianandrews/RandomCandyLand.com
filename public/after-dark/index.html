@@ -115,7 +115,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .afterdark-fast-card h3{font-size:24px;margin:6px 0}.afterdark-fast-card p{flex:1;font-size:14px;line-height:1.65;margin:2px 0 12px}
 .afterdark-fast-card .btn{margin-top:auto;min-height:44px;text-decoration:none}
 @media(max-width:660px){.afterdark-fast-grid{grid-template-columns:1fr}}
-</style></head><body>
+</style><link rel="stylesheet" href="/after-dark/interest-notebook.css?v=1"></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -171,6 +171,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <article class="card afterdark-fast-card"><div class="afterdark-card-icon" aria-hidden="true">📋</div><span class="eyebrow">GO STRAIGHT TO TOPICS</span><h3>Instant Interest Checklist</h3><p>Skip the personality quiz. Mark individual interests as Interested, Maybe, or Not for me, at your own pace, with no pressure or labels.</p><a class="btn alt" href="/after-dark/psychology-lab/?mode=checklist#quiz">Open Instant Checklist →</a></article>
   <article class="card afterdark-fast-card"><div class="afterdark-card-icon" aria-hidden="true">🧠</div><span class="eyebrow">PRIVATE PERSONAL REFLECTION</span><h3>Psychological Report</h3><p>Explore your own selections, potential psychological themes, comfort factors, and boundaries in an on-device report. Begin with a checklist or take the longer quiz for context. Not a diagnosis.</p><a class="btn alt" href="/after-dark/psychology-lab/?mode=report#quiz">Create Psychological Report →</a></article>
  </div>
+ <div class="afterdark-section-intro"><span class="eyebrow">SAVE & SHARE PRIVATELY</span><h2>Your interest <span class="italic">notebook.</span></h2><p>Keep discoveries, explain what draws you to them, and invite someone to listen without feeling pressured to agree.</p></div>
+ <div class="afterdark-notebook-teaser card"><div><h3>💌 My Saved Interests & Partner Conversation</h3><p>Write down the desire or feeling behind an interest, your boundaries and what kind of response you hope for. Choose only what to share, then create a private invitation or printable PDF.</p></div><button type="button" class="btn" data-tab="notebook">Open my notebook →</button></div>
  <div class="afterdark-section-intro"><span class="eyebrow">MORE TO DISCOVER</span><h2>Explore every <span class="italic">section.</span></h2><p>Each section has its own focus. Choose the experience that fits what you want to know or try.</p></div>
  <div class="afterdark-landing-grid" aria-label="Explore all After Dark sections"><article class="card afterdark-section-card">
  <span class="eyebrow">BROWSE & DISCOVER</span><div class="afterdark-card-icon" aria-hidden="true">📚</div>
@@ -199,6 +201,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  </article></div>
  <div class="afterdark-landing-safety"><strong>Respect, choice and privacy.</strong> For adults 18+. Your quiz selections and Ask Atlas questions stay on your device rather than being uploaded to a server. You may skip, change your mind or simply read.</div>
 </section>
+<section id="notebook" class="tab" aria-label="Saved Interests Notebook and Partner Invitation">
+ <span class="eyebrow">PRIVATE · ON THIS DEVICE</span><h2>Your interest <span class="italic">notebook.</span></h2>
+ <p class="lead">Save what you are curious about as you browse, explain what it means to you, and create an invitation that helps another adult listen without obligation. Only the items you explicitly select will be shared.</p>
+ <div class="card" id="notebook-card"><div id="notebook-content"><p>Loading your locally saved interests…</p></div></div>
+</section>
+<section id="partner-view" class="tab" aria-label="Private invitation to listen"><span class="eyebrow">AN INVITATION · NOT A REQUEST FOR AGREEMENT</span><h2>Something I'd like <span class="italic">you to understand.</span></h2><div id="partner-invitation" class="card"><p>Opening the selected invitation…</p></div></section>
 <section id="atlas" class="tab"><span id="allCount" hidden></span><div class="controls"><input class="field" id="search" placeholder="Search themes, objects, experiences…" aria-label="Search topics"><select class="field" id="cat"><option value="all">Every category</option></select><select class="field" id="order"><option value="alphabetic">Alphabetical</option><option value="for-me">Your selections first</option></select></div><div class="tiny" id="topicCount"></div><div class="topics" id="topicGrid"></div></section>
 <section id="quiz" class="tab"><span class="eyebrow">A deeper, two-part exploration</span><h2>Your curiosity <span class="italic">compass.</span></h2><p class="lead">Part one explores 32 broad reflections, followed by 12 optional, more personal questions about imagination, trust, sensory experiences, roles and emotional context. Your responses suggest topics to read; <strong>only your own direct interests</strong> can tell you what truly appeals.</p><div class="card" id="quizCard"><div class="pill">32 broad questions · 12 deeper optional reflections</div><h3>There is no right answer.</h3><p>Respond to what you genuinely enjoy rather than what sounds adventurous. You can skip questions and change your mind.</p><button class="btn" id="startQuiz">Begin →</button></div><div id="quizBelow"></div><div class="note">Want a shorter assessment with an optional deep-dive into self-soothing clues? <a href="/after-dark/psychology-lab/">Try the 12+8 question Clue Compass, interest checklist and psychology report →</a></div></section>
 <section id="psych" class="tab"><span class="eyebrow">Interpretation without reductionism</span><h2>The psychology of <span class="italic">curiosity.</span></h2><p class="lead">Attraction can reflect multiple overlapping influences. We explain plausible processes and limits of evidence, rather than presenting speculative origins as settled facts.</p><div id="lenses" class="grid"></div><div id="categoriesPsych" class="guide"></div><div class="note"><strong>New psychology lab:</strong> Read about everyday comfort habits—including thumb-sucking—alongside contemporary kink research and the topics in Daniel Amen’s <cite>The Brain in Love</cite>. <a href="/after-dark/psychology-lab/">Open the Clue Compass →</a></div></section>
@@ -294,7 +302,7 @@ let choices={},qIndex=-1,axes={},lastAsk='',lastHits=[],lastIdea=-1;
 function getChoices(){try{return JSON.parse(localStorage.getItem('afterdark_choices')||'{}')}catch{return {}}}
 choices=getChoices();
 function save(){try{localStorage.setItem('afterdark_choices',JSON.stringify(choices))}catch{}}
-function renderTabs(tab){document.querySelectorAll('.tab').forEach(el=>el.classList.toggle('visible',el.id===tab));document.querySelectorAll('[data-tab]').forEach(el=>el.classList.toggle('selected',el.dataset.tab===tab));const labels={home:'Explore After Dark',atlas:'Curiosity Atlas',quiz:'Curiosity Quiz',psych:'Psychology & Feelings',ideas:'Idea Lab',chat:'Ask Atlas',guide:'Resources & Guidance'};const section=document.getElementById('afterdark-current');if(section)section.textContent=labels[tab]||'After Dark';if(location.hash.slice(1)!==tab)history.replaceState(null,'','#'+tab);window.scrollTo({top:0,behavior:'smooth'});}
+function renderTabs(tab){document.querySelectorAll('.tab').forEach(el=>el.classList.toggle('visible',el.id===tab));document.querySelectorAll('[data-tab]').forEach(el=>el.classList.toggle('selected',el.dataset.tab===tab));const labels={home:'Explore After Dark',atlas:'Curiosity Atlas',quiz:'Curiosity Quiz',psych:'Psychology & Feelings',ideas:'Idea Lab',chat:'Ask Atlas',guide:'Resources & Guidance',notebook:'My Saved Interests', 'partner-view':'Shared Invitation'};const section=document.getElementById('afterdark-current');if(section)section.textContent=labels[tab]||'After Dark';if(location.hash.slice(1)!==tab)history.replaceState(null,'','#'+tab);window.scrollTo({top:0,behavior:'smooth'});}
 document.querySelectorAll('[data-tab]').forEach(el=>el.onclick=()=>renderTabs(el.dataset.tab));
 document.querySelectorAll('[data-goto]').forEach(el=>el.onclick=()=>renderTabs(el.dataset.goto));
 function choiceButtons(obj){return ['Interested','Curious','Not for me'].map((text,i)=>{const b=document.createElement('button');b.textContent=text;const key=['yes','maybe','no'][i];if(choices[obj.id]===key)b.className=i===2?'avoid':'chosen';b.onclick=()=>{choices[obj.id]=key;save();renderAtlas();if(qIndex===qdata.length)showResults()};return b;});}
@@ -619,6 +627,9 @@ function showResults(){
     const ul=document.createElement('ul');explorationActs(x).forEach(a=>{ul.append(elText('li',a))});acts.append(ul);r.append(acts);
     r.append(checklistFor(x),reportFor(x,direct,signals));
     if(x.warning)r.append(elText('small','Higher-risk category: educational discussion only; avoid experimenting without specialist safety guidance.','interest-warning'));
+    const saveButton=elText('button','💾 Save & explain this interest','btn alt');
+    saveButton.addEventListener('click',()=>window.InterestNotebook?.saveTopic(x));
+    r.append(saveButton);
     list.append(r);
   });
   if(!ranked.length)list.append(elText('p','Answer at least eight questions or mark topics in the Atlas to get personalized suggestions.'));
@@ -640,6 +651,9 @@ function showResults(){
     }));
   };
   beyond.append(b,extra);box.append(beyond);
+  const pdf=elText('button','📄 Save quiz results as PDF','btn');
+  pdf.addEventListener('click',()=>window.InterestNotebook?.printQuiz());
+  box.append(pdf);
   const redo=elText('button','Retake all reflection questions','btn alt');
   redo.onclick=()=>{qIndex=0;axes={};answered=0;deeperAxes={};deeperAnswered=0;deepIndex=-1;personalReasons=[];renderQuiz();};box.append(redo);
 }
@@ -787,5 +801,12 @@ function ask(text){const query=text.trim();if(!query)return;addChat(query,true);
 $('askForm').onsubmit=e=>{e.preventDefault();const input=$('chatText');const text=input.value.slice(0,480);input.value='';ask(text)};
 document.querySelectorAll('[data-ask]').forEach(b=>b.onclick=()=>ask(b.dataset.ask));
 // 18+ entry is initialized independently before this large educational library.
-const hash=location.hash.slice(1);if(['home','atlas','quiz','psych','ideas','chat','guide'].includes(hash))renderTabs(hash);else renderTabs('home');
-</script></body></html>
+const hash=location.hash.slice(1);if(['home','atlas','quiz','psych','ideas','chat','guide','notebook'].includes(hash))renderTabs(hash);else renderTabs('home');
+window.AfterDarkNotebookBridge={
+  getTopics:()=>topics,
+  getChoices:()=>({...choices}),
+  mark:(id,value)=>{if(!topics.some(x=>x.id===id)||!['yes','maybe','no'].includes(value))return;choices[id]=value;save();renderAtlas();},
+  getQuizReady:()=>qIndex>=qdata.length,
+  quizText:()=>document.getElementById('quizCard')?.innerText||''
+};
+</script><script src="/after-dark/interest-notebook.js?v=1"></script></body></html>
