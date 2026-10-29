@@ -63,6 +63,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .afterdark-section-card{min-height:255px}
 .afterdark-section-card .eyebrow,.afterdark-feature-card .eyebrow{font-size:10px}
 @media(max-width:680px){.afterdark-featured-grid{grid-template-columns:1fr}.afterdark-feature-card,.afterdark-section-card{min-height:0}.top .top-current{display:none}.top .brand{width:100%}.afterdark-landing-hero .row .btn{width:100%}}
+</style>
+<style>
+/* Quiz interest matches: percentage-based relative topic-fit, never diagnostic. */
+.interest-disclaimer{border:1px solid #c4a3c7;border-left:4px solid #ffe0aa;background:#342443;border-radius:12px;color:#ffe9f6;font-size:13px;padding:13px 15px;line-height:1.65}
+.interest-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:13px;margin-top:12px}
+#quizCard{max-width:1000px}
+.interest-result{margin:0;padding:17px;display:flex;flex-direction:column}
+.interest-result h3{font-family:Georgia,serif;font-size:19px;margin:10px 0 5px}
+.interest-result p{font-size:13px;line-height:1.58}
+.interest-result-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.interest-source{font-size:11px;color:#f5c9fb;font-weight:800}
+.interest-percentage{display:inline-flex;align-items:center;justify-content:center;min-width:65px;border:1px solid #e6b5e8;border-radius:13px;padding:5px 9px;background:#593969;font-size:23px;color:#ffe6a6;font-variant-numeric:tabular-nums}
+.interest-fit-track{height:9px;overflow:hidden;border-radius:99px;background:#6b5776;border:1px solid #ffffff3a;margin:4px 0 6px}
+.interest-fit-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#d397fb,#ffe6a6)}
+.interest-result .interest-reason{color:#ecd0ed;font-size:12px;margin-top:auto}
+.interest-warning{color:#ffe2a6;font-size:11px}
+@media(max-width:650px){.interest-results{grid-template-columns:1fr}}
 </style></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -247,15 +264,83 @@ $('search').addEventListener('input',renderAtlas);$('cat').addEventListener('cha
 function elText(tag,text,cls){const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;return el;}
 function renderPsych(){const root=$('lenses');root.replaceChildren(...Object.entries(DB.lenses).map(([k,v])=>{const card=document.createElement('div');card.className='card';card.append(elText('span','POSSIBLE INFLUENCE · '+k.toUpperCase(),'eyebrow'),elText('h3',v[0]),elText('p',v[1]));return card}));const area=$('categoriesPsych');DB.categories.forEach(c=>{const d=document.createElement('details');const sum=elText('summary',c[1]+' '+c[0]);d.append(sum,elText('p',c[3]),elText('p','Explore this theme: '+c[2]));area.append(d)})}renderPsych();
 let answered=0;
-function renderQuiz(){const box=$('quizCard');box.replaceChildren();if(qIndex<0){box.append(elText('span','PART 1 / REFLECTION','eyebrow'),elText('h3','Start when you feel ready'),elText('p','32 prompts about ordinary preferences, then optional explicit interests. Results are exploratory, not predictive.'));const b=elText('button','Begin the compass →','btn');b.onclick=()=>{qIndex=0;axes={};answered=0;renderQuiz()};box.append(b);return;}
+function renderQuiz(){const box=$('quizCard');box.replaceChildren();if(qIndex<0){box.append(elText('span','PART 1 / REFLECTION','eyebrow'),elText('h3','Start when you feel ready'),elText('p','32 prompts about ordinary preferences, then optional explicit interests. Results include exploratory topic-match percentages, not predictive probabilities.'));const b=elText('button','Begin the compass →','btn');b.onclick=()=>{qIndex=0;axes={};answered=0;renderQuiz()};box.append(b);return;}
 if(qIndex>=qdata.length){showResults();return;}
 const q=qdata[qIndex];box.append(elText('span','QUESTION '+(qIndex+1)+' OF '+qdata.length+' · '+answered+' answered','eyebrow'));const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('div');fill.style.width=100*qIndex/qdata.length+'%';bar.append(fill);box.append(bar,elText('h3',q.q));const options=document.createElement('div');options.className='quizOpts';q.options.forEach((op,i)=>{const b=elText('button',op);b.onclick=()=>{axes[q.axes[i]]=(axes[q.axes[i]]||0)+1;answered++;qIndex++;renderQuiz()};options.append(b)});box.append(options);const skip=elText('button','Skip this question','btn alt');skip.style.marginTop='13px';skip.onclick=()=>{qIndex++;renderQuiz()};box.append(skip);}
-function showResults(){const box=$('quizCard');box.replaceChildren();box.append(elText('span','PART 2 / DIRECT CURIOSITY','eyebrow'),elText('h3','Your personal discovery shelf'),elText('p','Ordinary questions only suggest reflection themes. For specific interests, the strongest clue is what you yourself choose as “Interested” or “Curious” in the Atlas. Mark any topics that genuinely catch your attention, then return to see an updated list.'));
-const axesOrdered=Object.entries(axes).sort((a,b)=>b[1]-a[1]);const topAxes=axesOrdered.slice(0,4).map(x=>x[0]);const titles=topAxes.map(a=>DB.lenses[a]?.[0]).filter(Boolean);box.append(elText('p','Reflection themes: '+(titles.join(' · ')||'Open exploration')+'. These are not sexual preference predictions.','stat'));
-const open=elText('button','Browse and select specific interests →','btn');open.onclick=()=>renderTabs('atlas');box.append(open);
-const section=elText('div','','compare');const selfMarked=topics.filter(x=>choices[x.id]==='yes'||choices[x.id]==='maybe');const ranked=topics.filter(x=>choices[x.id]!=='no').map(x=>({x,score:(choices[x.id]==='yes'?20:choices[x.id]==='maybe'?12:0)+x.tags.reduce((v,a)=>v+(axes[a]||0),0)})).sort((a,b)=>b.score-a.score);section.append(elText('h3','Specific topics to explore'));
-section.append(elText('p',selfMarked.length?'Your direct selections come first; remaining results are only loosely connected reading suggestions.':'You have not marked any interests yet. These are broad reading ideas based on nonsexual themes, not guesses about your fetishes. Mark your own choices in the Atlas for better results.'));
-const resultList=elText('div');ranked.slice(0,24).forEach(({x,score})=>{const r=document.createElement('div');r.className='result';const certainty=choices[x.id]==='yes'?'You marked Interested':choices[x.id]==='maybe'?'You marked Curious':'Suggested reading — not inferred attraction';r.append(elText('small',certainty),elText('h3',x.name),elText('p',x.description));const whys=x.tags.slice(0,2).map(k=>DB.lenses[k]?.[0]).filter(Boolean).join(' and ');r.append(elText('p','Possible appeal: '+whys+'. '+x.psych));resultList.append(r)});section.append(resultList);box.append(section);const redo=elText('button','Retake reflection questions','btn alt');redo.onclick=()=>{qIndex=0;axes={};answered=0;renderQuiz()};box.append(redo);}
+// Transparent, rule-based matching of the quiz's broad themes to the Atlas.
+ // Percentages indicate *relative exploration fit*, not calibrated probabilities
+ // of an individual being interested in an activity.
+function interestMatches() {
+  const biggestAxis = Math.max(1,...Object.values(axes));
+  const questionCoverage = Math.min(1,answered/16);
+  return topics.filter(x=>choices[x.id]!=='no' && (!x.warning || choices[x.id]==='yes'||choices[x.id]==='maybe')).map(x=>{
+    const similarity = x.tags.length
+      ? x.tags.reduce((total,tag)=>total+Math.min(1,(axes[tag]||0)/biggestAxis),0)/x.tags.length : 0;
+    const chosen = choices[x.id];
+    // Directly selected interests outweigh indirect answers about everyday life.
+    const percentage = chosen==='yes' ? 90+Math.round(9*similarity) :
+      chosen==='maybe' ? 67+Math.round(18*similarity) :
+      Math.round((23+42*similarity)*questionCoverage);
+    const source = chosen==='yes'?'Selected: Interested':
+      chosen==='maybe'?'Selected: Curious':'Quiz theme match only';
+    return {x,percentage,source,direct:chosen==='yes'?2:chosen==='maybe'?1:0};
+  }).filter(item=>item.direct || answered>=8)
+    .sort((a,b)=>b.direct-a.direct || b.percentage-a.percentage || a.x.name.localeCompare(b.x.name));
+}
+function showResults(){
+  const box=$('quizCard');
+  box.replaceChildren();
+  box.append(elText('span','YOUR RESULTS · PERSONAL DISCOVERY SHELF','eyebrow'));
+  box.append(elText('h3','Specific interests worth exploring'));
+  box.append(elText('p','See which specific Atlas topics match your quiz themes and any interests you selected directly. Your strongest results appear first; you are always free to disagree with the suggestions.'));
+  const disclosure=elText('p','These percentages are illustrative exploration-match scores, NOT scientifically validated probabilities of attraction, enjoyment, or identity. Everyday preferences alone cannot reliably predict intimate interests. Directly marking Interested or Curious gives a stronger signal than indirect quiz answers.','interest-disclaimer');
+  box.append(disclosure);
+  const axesOrdered=Object.entries(axes).sort((a,b)=>b[1]-a[1]);
+  const titles=axesOrdered.slice(0,4).map(([axis])=>DB.lenses[axis]?.[0]).filter(Boolean);
+  box.append(elText('p',answered+' of '+qdata.length+' quiz questions answered · Reflection themes: '+(titles.join(' · ')||'Open exploration'),'stat'));
+  const open=elText('button','Choose or update specific interests in the Atlas →','btn');
+  open.onclick=()=>renderTabs('atlas');
+  box.append(open);
+  const section=elText('div','','compare');
+  section.append(elText('h3','Ranked interest matches'));
+  const marked=topics.filter(x=>choices[x.id]==='yes'||choices[x.id]==='maybe').length;
+  section.append(elText('p',marked
+    ? 'Your self-reported interests lead the list. Unselected topics are lower-confidence suggestions based only on broad themes.'
+    : 'These are topic suggestions based on the themes of your answers, not claims about your preferences. Select Interested or Curious in the Atlas for more relevant results.'));
+  const ranked=interestMatches();
+  if(!ranked.length){
+    section.append(elText('p','No estimated matches yet. Answer at least eight quiz questions or mark specific topics in the Atlas to see the list.'));
+  }
+  const resultList=elText('div','','interest-results');
+  ranked.slice(0,24).forEach(({x,percentage,source,direct})=>{
+    const r=elText('article','','result interest-result');
+    const topline=elText('div','','interest-result-top');
+    topline.append(elText('small',source,'interest-source'));
+    const score=elText('strong',percentage+'%','interest-percentage');
+    score.setAttribute('aria-label','Exploration match score: '+percentage+' percent');
+    topline.append(score);
+    r.append(topline,elText('h3',x.name),elText('p',x.description));
+    const meter=elText('div','','interest-fit-track');
+    meter.setAttribute('role','meter');
+    meter.setAttribute('aria-label','Exploration match score for '+x.name);
+    meter.setAttribute('aria-valuemin','0');
+    meter.setAttribute('aria-valuemax','100');
+    meter.setAttribute('aria-valuenow',String(percentage));
+    const fill=elText('div','','interest-fit-fill');
+    fill.style.width=percentage+'%';
+    meter.append(fill);
+    r.append(meter);
+    const why=x.tags.map(k=>DB.lenses[k]?.[0]).filter(Boolean).slice(0,3).join(' + ');
+    r.append(elText('p',(direct?'Your own selection is the main signal. ':'General quiz theme overlap only. ')+(why?'Related themes: '+why+'. ':'')+'The score is not an observed probability.','interest-reason'));
+    if(x.warning)r.append(elText('small','Higher-risk topic · Educational information only','interest-warning'));
+    resultList.append(r);
+  });
+  section.append(resultList);
+  box.append(section);
+  const redo=elText('button','Retake reflection questions','btn alt');
+  redo.onclick=()=>{qIndex=0;axes={};answered=0;renderQuiz();};
+  box.append(redo);
+}
 $('startQuiz').onclick=()=>{qIndex=0;renderQuiz()};
 // Candid but non-graphic adult prompts: named activities, specific conversation questions,
 // and explicit consent / practical limits. Each card is a discussion starter, not a how-to.

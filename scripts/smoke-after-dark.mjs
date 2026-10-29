@@ -92,6 +92,7 @@ try{
   await check('Quiz begins and displays choices',"document.querySelectorAll('#quizCard .quizOpts button').length===4");
   for(let i=0;i<32;i++){await evaluate("document.querySelector('#quizCard .quizOpts button')?.click()");}
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
+  await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
   await evaluate("document.querySelector('[data-tab=psych]').click()");
   await check('Psychology section renders all lenses',"document.querySelectorAll('#lenses .card').length>=10");
   await evaluate("document.querySelector('[data-tab=ideas]').click();document.querySelector('#drawIdea').click()");
