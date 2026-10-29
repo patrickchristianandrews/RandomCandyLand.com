@@ -60,7 +60,7 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 <div class="head">
 <div class="kicker">🐣 STANDALONE WEB GAME · NOT A SYNTHESIZER</div>
 <h1>Trumpagotchi: <span>Little Pet</span></h1>
-<p>Feed the tiny president burgers, praise him, clean up his mess, and put him to bed. Watch his needs change through a five-minute day. This is a touch-friendly browser adaptation of Adam Charles Wilson's FM-1 Trumpagotchi pet mechanics—<strong>no FM-1, MIDI device, or sequencer needed.</strong></p>
+<p>Feed the tiny president burgers, praise him, clean up his mess, and put him to bed. Watch his needs change through a five-minute day. The <strong>actual original FM-1 game's pixel-art character and room</strong> are here, with pet care and animated actions adapted for your phone. <strong>No FM-1, MIDI device, or sequencer needed.</strong></p>
 </div>
 <div class="drops" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <main class="layout">
@@ -121,7 +121,7 @@ const KEY='random-candy-land-pet-web-v1',VERSION=1;
 const $=id=>document.getElementById(id), clamp=n=>Math.max(0,Math.min(100,Math.round(n)));
 const create=()=>({version:VERSION,food:75,mood:70,energy:75,clean:80,neglect:0,poo:0,stock:3,plump:0,dayMinute:540,days:1,seconds:0,sleeping:false,paused:false,lastAction:{},lastSnack:0,lastPoo:0,lastNote:0,lastAnim:0,lastAnimAt:0,lastNoteAt:0,muted:false,caption:'A TREMENDOUS DAY',captionUntil:0});
 let p=create(),audioCtx=null,voice=null,lastSave=0,hasPlayed=false;
-try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved && saved.version===VERSION){p={...create(),...saved,paused:false};p.lastAction=saved.lastAction||{};}}catch{}
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved && saved.version===VERSION){p={...create(),...saved,paused:false};p.lastAction=saved.lastAction||{};p.lastAnim=0;p.lastAnimAt=0;p.lastNoteAt=0;}}catch{}
 const say=(msg,seconds=4)=>{p.caption=msg;p.captionUntil=Date.now()+seconds*1000;$('caption').textContent=msg};
 const night=()=>p.dayMinute>=1260||p.dayMinute<360;
 const phase=()=>night()?'NIGHT':p.dayMinute<720?'MORNING':p.dayMinute<1080?'DAY':'EVENING';
