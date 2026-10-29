@@ -7,7 +7,8 @@ const required = [
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/music-visualizer/index.html', ['id="canvas"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
-  ['dist/trumpagotchi-pet/index.html', ['data-action="feed"', 'data-action="praise"', 'data-action="clean"', 'data-action="rest"', 'id="originalCanvas"', '/trumpagotchi-pet/original-art.js', '/trumpagotchi-pet/remix.js']],
+  ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
+  ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
 ];
 
 let failures = 0;
@@ -59,7 +60,7 @@ if (homeBundle.includes('PURE CANDY CHAOS!') || homeBundle.includes('sugar-unive
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
 // Keep the requested music tools and standalone games available on the homepage.
-if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Pocket Pet Adventure')) {
+if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Candy Simon Says!') || !homeBundle.includes('Candy Match!')) {
   console.error('A current attraction is missing from the published homepage.');
   failures++;
 }
@@ -67,15 +68,23 @@ if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
   console.error('An unwanted outdated homepage attraction was restored.');
   failures++;
 }
-const retiredFm1 = 'dist/trumpagotchi-fm1/index.html';
-if (!fs.existsSync(retiredFm1) || !fs.readFileSync(retiredFm1, 'utf8').includes('url=/trumpagotchi-pet/')) {
-  console.error('The old FM-1 release page must link to the playable pet port.');
+// The owner retired the whole second pet site. Old URLs must redirect to the original game.
+for (const oldRoute of ['trumpagotchi-pet','trumpagotchi-fm1','fm1-emu']) {
+  const pathname='dist/'+oldRoute+'/index.html';
+  if (!fs.existsSync(pathname) || !fs.readFileSync(pathname,'utf8').includes('url=/trump/')) {
+    console.error('Retired route must redirect to original Trumpagotchi:',pathname);
+    failures++;
+  }
+}
+if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpagotchi-pet/')) {
+  console.error('Unwanted second pet is still linked from the homepage.');
   failures++;
 }
-const retiredSequencer = 'dist/fm1-emu/index.html';
-if (!fs.existsSync(retiredSequencer) || !fs.readFileSync(retiredSequencer, 'utf8').includes('url=/trumpagotchi-pet/')) {
-  console.error('The old synth path must no longer serve a broken sequencer.');
-  failures++;
+for (const obsolete of ['dist/trumpagotchi-pet/original-art.js','dist/trumpagotchi-pet/remix.js']) {
+  if (fs.existsSync(obsolete)) {
+    console.error('Retired second pet assets must not be published:',obsolete);
+    failures++;
+  }
 }
 
 if (fs.existsSync('dist/arcade/index.html')) {
@@ -134,26 +143,23 @@ if (!homeBundle.includes('CHOOSE A MINI-GAME') ||
   failures++;
 }
 
-// Restore the second pet in full. Only its huge top-of-page title was removed.
-const littlePetPage=fs.readFileSync('dist/trumpagotchi-pet/index.html','utf8');
-if(littlePetPage.includes('<h1>Trumpagotchi <span>2</span></h1>')){
-  console.error('Owner-requested removal of the large Trumpagotchi 2 title did not stick.');
-  failures++;
-}
-if(!littlePetPage.includes('id="remix-studio"') || !littlePetPage.includes('class="pocket-piano"')){
-  console.error('The restored pet game is missing its music or remix features.');
-  failures++;
-}
-for(const asset of ['dist/trumpagotchi-pet/original-art.js','dist/trumpagotchi-pet/remix.js']){
-  if(!fs.existsSync(asset) || fs.statSync(asset).size<15000){
-    console.error('The second pet game must retain its art/remix asset:',asset);
-    failures++;
+// Both new candy memory games must contain real working interactions.
+for (const game of [
+  {path:'dist/candy-simon/index.html',required:['function showPattern','function nextLevel','function answer','data-pad="3"','candy-simon-best-']},
+  {path:'dist/candy-match/index.html',required:['function flip','function start','function useHint','card-inner','candy-match-best-']}
+]) {
+  const source=fs.readFileSync(game.path,'utf8');
+  for (const token of game.required) {
+    if (!source.includes(token)) {
+      console.error('Candy memory game missing required feature:',game.path,token);
+      failures++;
+    }
   }
+  const inline=[...source.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(x=>x[1]).join('\\n');
+  try { new vm.Script(inline,{filename:game.path}); }
+  catch (err) { console.error('Candy game has broken JavaScript:',game.path,err.message);failures++; }
 }
-if(!homeBundle.includes('/trumpagotchi-pet/')){
-  console.error('The restored second pet game is missing from the homepage.');
-  failures++;
-}
+
 // Goo Rush is a complete, independently playable browser game.
 const gooPage=fs.readFileSync('dist/goo-rush/index.html','utf8');
 const gooScript=[...gooPage.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(x=>x[1]).join('\n');
