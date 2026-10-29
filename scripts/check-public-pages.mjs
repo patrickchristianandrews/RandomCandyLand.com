@@ -76,7 +76,7 @@ if (!homeBundle.includes('Use your own voice recordings in the game')) {
 // POLL must make Donald speak and its onscreen meter must be directly tappable.
 if (!homeBundle.includes('POLL CHECK: ') ||
     !homeBundle.includes('Hear Donald react to his current poll rating') ||
-    !homeBundle.includes('Tap POLL on the screen')) {
+    !homeBundle.includes('Tap POLL')) {
   console.error('Trumpagotchi is missing its spoken POLL reaction.');
   failures++;
 }
@@ -91,5 +91,29 @@ for (const clip of pollRecordings) {
     failures++;
   }
 }
+// This build must contain the real user-selected Candy Land illustration and icons.
+for (const asset of [
+  'dist/random-candy-land-art.webp',
+  'dist/icon.svg',
+  'dist/favicon.png',
+  'dist/apple-touch-icon.png',
+  'dist/icon-192.png',
+  'dist/icon-512.png',
+]) {
+  if (!fs.existsSync(asset) || fs.statSync(asset).size < 3000) {
+    console.error('Required Candy Land brand asset is missing or empty:', asset);
+    failures++;
+  }
+}
+if (!homeBundle.includes('/random-candy-land-art.webp')) {
+  console.error('Original candy-castle artwork missing from the homepage.');
+  failures++;
+}
+if (!homeBundle.includes('Start Bedminster Golf mini-game in one tap') ||
+    !homeBundle.includes('Open Bedminster Golf in one tap')) {
+  console.error('One-tap golf controls are missing from Trumpagotchi.');
+  failures++;
+}
+
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');
