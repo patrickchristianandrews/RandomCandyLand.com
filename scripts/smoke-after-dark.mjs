@@ -124,6 +124,26 @@ try{
     throw Error('Retired pocket pet did not redirect to original Trumpagotchi');
   console.log('✓ Removed Little Pocket Pet page redirects to the original game.');
 
+  // The actual FM-1-derived tiny pet must be playable; it may not redirect.
+  const tiny=await navigate(site+'/trumpagotchi-fm1/');
+  const tinyReady=await tiny.evaluate("document.body.dataset.trumpagotchiReady==='true' && !!document.querySelector('#feed') && !!document.querySelector('#praise') && !!document.querySelector('#clean') && !!document.querySelector('#rest') && document.querySelector('#gameover').hidden");
+  if(!tinyReady)throw Error('FM-1 Trumpagotchi browser pet did not initialize');
+  const foodBefore=await tiny.evaluate("Number(document.querySelector('#foodMeter').value)");
+  await tiny.evaluate("document.querySelector('#feed').click()");
+  const foodAfter=await tiny.evaluate("Number(document.querySelector('#foodMeter').value)");
+  if(foodAfter<=foodBefore)throw Error('FM-1 pet FEED button failed to replenish Food');
+  const moodBefore=await tiny.evaluate("Number(document.querySelector('#moodMeter').value)");
+  await tiny.evaluate("document.querySelector('#praise').click()");
+  const moodAfter=await tiny.evaluate("Number(document.querySelector('#moodMeter').value)");
+  if(moodAfter<=moodBefore)throw Error('FM-1 pet PRAISE button failed to raise Mood');
+  await tiny.evaluate("document.querySelector('#playpause').click()");
+  const paused=await tiny.evaluate("document.querySelector('#playpause').getAttribute('aria-pressed')==='true'");
+  if(!paused)throw Error('FM-1 pet pause control failed');
+  await tiny.evaluate("document.querySelector('#save').click()");
+  const saved=await tiny.evaluate("!!localStorage.getItem('random-candy-land-trumpagotchi-original-fm1-adaptation-v1')");
+  if(!saved)throw Error('FM-1 pet Save failed to persist progress');
+  console.log('✓ FM-1 Trumpagotchi web pet plays, feeds, praises, pauses and saves.');
+
   const simon=await navigate(site+'/candy-simon/');
   const simonReady=await simon.evaluate("document.querySelectorAll('.pad[data-pad]').length===4 && !!document.querySelector('#start')");
   if(!simonReady)throw Error('Candy Simon Says is missing its interactive gummy pads');
