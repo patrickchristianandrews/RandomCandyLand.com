@@ -177,5 +177,24 @@ for (const token of ['nonsense-lab', 'GIVE ME MORE NONSENSE',
     failures++;
   }
 }
+// Never ship the obsolete pre-redesign entrypoint or HTML shell again.
+if (fs.existsSync('dist/standalone-index.html')) {
+  console.error('The retired standalone-index.html page was republished.');
+  failures++;
+}
+for (const path of ['dist/index.html','dist/standalone.html','dist/trump/index.html']) {
+  if (!fs.existsSync(path)) continue;
+  const content=fs.readFileSync(path,'utf8');
+  if (!content.includes('candyland-next') || !content.includes('Stay sweet.')) {
+    console.error('A published entrypoint no longer includes the current Candy Land homepage:',path);
+    failures++;
+  }
+  if (content.includes('Random Candy Land - Trump Gotcha Virtual Digi-Pet') ||
+      content.includes('An Eclectic Place of Everything Random')) {
+    console.error('Outdated homepage branding is present in:',path);
+    failures++;
+  }
+}
+
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');
