@@ -1,0 +1,67 @@
+name: Build Trumpagotchi Pixel Watch APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wear-os/trumpagotchi/**'
+      - '.github/workflows/build-trumpagotchi-watch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  watch-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: wear-os/trumpagotchi
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android platform 35
+        run: sdkmanager --install 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Install Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build standalone Wear OS APK
+        run: gradle --no-daemon --stacktrace :app:assembleDebug
+      - name: Validate the APK
+        run: |
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          sha256sum app/build/outputs/apk/debug/app-debug.apk
+      - name: Publish downloadable workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Trumpagotchi-PixelWatch-APK
+          path: wear-os/trumpagotchi/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+      - name: Publish direct-download APK in repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # GitHub REST content endpoint: use a JSON file, not a giant CLI arg.
+          # Publishing outside the watched source path avoids a second APK build.
+          path='watch-apks/Trumpagotchi-PixelWatch-debug.apk'
+          sha="$(gh api "repos/${GITHUB_REPOSITORY}/contents/${path}" -q '.sha' 2>/dev/null || true)"
+          payload="$RUNNER_TEMP/watch-apk-upload.json"
+          {
+            printf '{"message":"Publish Pixel Watch Trumpagotchi APK [skip ci]","branch":"main","content":"'
+            base64 -w 0 app/build/outputs/apk/debug/app-debug.apk
+            if [ -n "$sha" ]; then
+              printf '","sha":"%s"}' "$sha"
+            else
+              printf '"}'
+            fi
+          } > "$payload"
+          gh api -X PUT "repos/${GITHUB_REPOSITORY}/contents/${path}" --input "$payload" >/dev/null
+          echo "APK: https://github.com/${GITHUB_REPOSITORY}/raw/refs/heads/main/${path}"
