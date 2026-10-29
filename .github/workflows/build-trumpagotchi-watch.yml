@@ -27,9 +27,13 @@ jobs:
           java-version: '17'
       - name: Use runner Android SDK and install platform 35
         run: |
-          echo "ANDROID_HOME=${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}" >> "$GITHUB_ENV"
-          sdkmanager --version
-          sdkmanager --install 'platforms;android-35' 'build-tools;35.0.0'
+          sdk="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$sdk" >> "$GITHUB_ENV"
+          manager="$(find "$sdk/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          test -n "$manager" || { echo "Android sdkmanager was not installed on this runner"; exit 1; }
+          "$manager" --version
+          yes | "$manager" --licenses >/dev/null || true
+          "$manager" --install 'platforms;android-35' 'build-tools;35.0.0'
       - name: Install Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
