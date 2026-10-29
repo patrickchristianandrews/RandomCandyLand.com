@@ -18,6 +18,7 @@ import {
   type PersonalClipCategory, type PersonalClipMeta,
 } from '../utils/personalVoicePack';
 import { HandheldShell } from '../components/HandheldShell';
+import { PresidentialStatusPanel } from '../components/PresidentialStatusPanel';
 import { LcdScreen } from '../components/LcdScreen';
 import { GolfMiniGame } from '../components/GolfMiniGame';
 import { RallyMiniGame } from '../components/RallyMiniGame';
@@ -403,6 +404,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
 
         {/* Handheld Digi-Pet Shell */}
         {screenMode === 'PLAYING' || screenMode === 'PAUSED' ? (
+          <div className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(300px,360px)] gap-4 items-start">
           <div className="w-full flex flex-col items-center justify-center py-4 transform scale-[0.95] sm:scale-100 transition-transform">
             <HandheldShell
               shellColor={shellColor}
@@ -445,6 +447,8 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 {pollAudioNotice}
               </div>
             )}
+          </div>
+          <PresidentialStatusPanel stats={stats} />
           </div>
         ) : screenMode === 'MINIGAME' ? (
           /* Active Mini-Game View */
