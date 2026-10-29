@@ -154,10 +154,10 @@
     if(!rows.length){setStatus('Save at least one interest before printing your notebook.');return;}
     putPrint('My Private Interest Notebook','Personal reflection · Not a diagnosis · Choose “Save as PDF” in your print dialog.',rows);
   }
-  function printQuiz(){
-    if(!api.getQuizReady()){goNotebook();setStatus('Finish the Curiosity Quiz first, then use Save Quiz Results as PDF on its results screen.');return;}
-    // Clone exactly the visible result text, never send it to a server.
-    const root=$('quizCard');let doc=$('print-document');
+  function printQuiz(resultCardId='quizCard'){
+    if(!api.getQuizReady()){goNotebook();setStatus('Finish either quiz first, then use Save Quiz Results as PDF.');return;}
+    // Both companion quizzes use one shared result renderer. Print the result that is currently visible.
+    const root=$(resultCardId)||$('quizCard');let doc=$('print-document');
     if(!doc){doc=item('div');doc.id='print-document';document.body.append(doc);}
     doc.replaceChildren(item('h1','My After Dark Quiz Results'),item('p','Reflection, exploration-fit estimates and self-reported interests · Not a diagnosis or scientifically calibrated probability.'));
     const copy=root.cloneNode(true);copy.querySelectorAll('button,textarea,input,select').forEach(el=>el.remove());
