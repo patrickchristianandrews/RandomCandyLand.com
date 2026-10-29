@@ -137,3 +137,18 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
 .fm1-tiny-mode .displayhead span:nth-of-type(1){flex:1}
 .fm1-tiny-mode .quick-hint{margin:10px 0 7px}
 @media(max-width:530px){.fm1-tiny-mode .displayhead .tiny-icon{width:37px;height:37px}.fm1-tiny-mode .topbar{margin-bottom:4px}}
+
+/* Place the collapsible instructions before the pet screen, visible immediately on mobile. */
+.fm1-tiny-mode .how-to-play-top{margin:5px 0 17px;padding:0;border:2px solid #d3b6fa;background:linear-gradient(130deg,#302045,#302953 58%,#47315f);border-radius:18px;color:#fff;box-shadow:0 11px 27px #09041e70;overflow:hidden}
+.fm1-tiny-mode .how-to-play-top summary{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:15px 18px;min-height:52px;font-size:15px;letter-spacing:.025em;list-style:none;cursor:pointer;user-select:none}
+.fm1-tiny-mode .how-to-play-top summary::-webkit-details-marker{display:none}
+.fm1-tiny-mode .how-to-play-top summary::after{content:"▾";font-size:20px;margin-left:auto;color:#ffe3ab;transition:transform .2s}
+.fm1-tiny-mode .how-to-play-top[open] summary::after{transform:rotate(180deg)}
+.fm1-tiny-mode .how-to-play-top summary:focus-visible{outline:3px solid #ffdc87;outline-offset:-5px}
+.fm1-tiny-mode .how-to-play-top .instructions-hint{font-size:11px;font-weight:600;letter-spacing:0;color:#d9c9eb}
+.fm1-tiny-mode .how-to-play-top .instructions-content{padding:1px 19px 17px;border-top:1px solid #ffffff38}
+.fm1-tiny-mode .how-to-play-top p{color:#f7efff;font-size:13px;line-height:1.62;margin:12px 0}
+.fm1-tiny-mode .how-to-play-top .instruction-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 16px}
+.fm1-tiny-mode .how-to-play-top .instruction-steps p{margin:2px 0;padding:9px 12px;border-radius:10px;background:#ffffff13}
+.fm1-tiny-mode .how-to-play-top a{color:#ffe3ab;text-underline-offset:3px}
+@media(max-width:650px){.fm1-tiny-mode .how-to-play-top{margin:5px 0 13px}.fm1-tiny-mode .how-to-play-top summary{font-size:14px;padding:13px 14px}.fm1-tiny-mode .how-to-play-top .instruction-steps{grid-template-columns:1fr}.fm1-tiny-mode .how-to-play-top .instructions-content{padding:1px 14px 14px}}
