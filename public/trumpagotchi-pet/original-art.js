@@ -408,9 +408,10 @@ window.drawOriginalTrumpagotchi=function(canvas,model) {
  pet={day_minute:model.dayMinute,snack_stock:Math.max(0,Math.min(3,model.stock||0)),poo_count:Math.max(0,Math.min(3,model.poo||0)),cleanliness:model.clean||0,plumpness:Math.max(0,Math.min(3,model.plump||0))};
  const state=model.sleeping?PET_TIRED:model.food<=25?PET_HUNGRY:model.energy<=20||pet_is_night()?PET_TIRED:model.mood<=10?PET_SULKING:model.mood<=40||model.clean<=25?PET_BORED:PET_HAPPY;
  const age=now-(model.lastAnimAt||0),action=age<3100?(model.lastAnim||0):0,playing=now-(model.lastNoteAt||0)<800;
- const walking=!model.sleeping&&!model.paused&&!action&&((now/1000)%11<7);
+ const watching=!model.sleeping&&!model.paused&&!action&&!playing&&((now/1000)%45>=18)&&((now/1000)%45<28);
+ const walking=!model.sleeping&&!model.paused&&!watching&&!action&&((now/1000)%11<7);
  const dx=walking?Math.trunc(Math.sin(now/1200)*10):0,blink=now%4300<150,hand=Math.trunc(now/260)%2;
  pet_room(model.sleeping?1:0,model.dayMinute,now);
- pet_character(state,model.sleeping?1:0,blink?1:0,playing?1:0,hand,dx,walking?1:0,0,action,Math.max(0,age));
+ pet_character(state,model.sleeping?1:0,blink?1:0,playing?1:0,hand,dx,walking?1:0,watching?1:0,action,Math.max(0,age));
 };
 })();
