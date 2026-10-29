@@ -128,3 +128,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
   .fm1-tiny-mode .care small{font-size:8px}
   .fm1-care-key-label{font-size:8px;letter-spacing:.035em}
 }
+
+/* Compact game-first layout: no splash banner before the play screen. */
+.fm1-tiny-mode .shell{padding-top:8px}
+.fm1-tiny-mode .topbar{margin-bottom:8px}
+.fm1-tiny-mode .displayhead{display:flex;justify-content:flex-start;align-items:center;gap:9px;min-height:46px}
+.fm1-tiny-mode .displayhead .tiny-icon{display:block;width:43px;height:43px;border-radius:50%;flex-shrink:0;object-fit:cover;border:2px solid #fff0ab;box-shadow:0 2px 7px #090817aa}
+.fm1-tiny-mode .displayhead span:nth-of-type(1){flex:1}
+.fm1-tiny-mode .quick-hint{margin:10px 0 7px}
+@media(max-width:530px){.fm1-tiny-mode .displayhead .tiny-icon{width:37px;height:37px}.fm1-tiny-mode .topbar{margin-bottom:4px}}
