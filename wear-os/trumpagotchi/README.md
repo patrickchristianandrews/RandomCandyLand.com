@@ -2,7 +2,7 @@
 
 A standalone, offline native Wear OS version of the FM-1-inspired Trumpagotchi pet from Random Candy Land.
 
-- Includes Feed, Praise, Clean, Rest, Watch News, Cheer Him On, and Play Him a Melody.
+- Includes Feed, Praise, Clean, Rest, Watch News, Cheer Him On, and a five-key playable pentatonic mini keyboard (C, D, E, G, A) with a full-tune button.
 - Animated 240×240-style pixel-art LCD, four live needs, day/night, bedtime, cartoon messes, and mood-dependent behavior.
 - Original pentatonic melody with bongo accompaniment when happy. Audio runs without network access.
 - Autosaves locally and does **not** decay while the app is closed.
