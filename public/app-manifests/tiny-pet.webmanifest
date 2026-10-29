@@ -1,0 +1,25 @@
+{
+  "id": "/trumpagotchi-fm1/",
+  "name": "Trumpagotchi Tiny Pet | Random Candy Land",
+  "short_name": "Tiny Pet",
+  "description": "Trumpagotchi Tiny Pet — an independently installable Random Candy Land web app.",
+  "start_url": "/trumpagotchi-fm1/",
+  "scope": "/trumpagotchi-fm1/",
+  "display": "standalone",
+  "background_color": "#201331",
+  "theme_color": "#c83c9a",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -21,5 +21,48 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "id": "/",
+  "shortcuts": [
+    {
+      "name": "Tiny Pet",
+      "url": "/trumpagotchi-fm1/",
+      "description": "Trumpagotchi Tiny Pet"
+    },
+    {
+      "name": "Pocket Pet",
+      "url": "/trump/",
+      "description": "Donald’s Pocket Pet"
+    },
+    {
+      "name": "Goo Rush",
+      "url": "/goo-rush/",
+      "description": "Goo Rush Candy Arcade"
+    },
+    {
+      "name": "Candy Simon",
+      "url": "/candy-simon/",
+      "description": "Candy Simon Says"
+    },
+    {
+      "name": "Candy Match",
+      "url": "/candy-match/",
+      "description": "Candy Match"
+    },
+    {
+      "name": "Candy Pulse",
+      "url": "/music-visualizer/",
+      "description": "Candy Pulse Music Visualizer"
+    },
+    {
+      "name": "After Dark",
+      "url": "/after-dark/",
+      "description": "After Dark Curiosity Atlas"
+    },
+    {
+      "name": "Clue Compass",
+      "url": "/after-dark/psychology-lab/",
+      "description": "Clue Compass Psychology Lab"
+    }
   ]
 }

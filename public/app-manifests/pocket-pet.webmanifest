@@ -1,0 +1,25 @@
+{
+  "id": "/trump/",
+  "name": "Donald’s Pocket Pet | Random Candy Land",
+  "short_name": "Pocket Pet",
+  "description": "Donald’s Pocket Pet — an independently installable Random Candy Land web app.",
+  "start_url": "/trump/",
+  "scope": "/trump/",
+  "display": "standalone",
+  "background_color": "#201331",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

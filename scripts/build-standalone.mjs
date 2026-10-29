@@ -53,7 +53,8 @@ const standaloneHtml = `<!doctype html>
     <style>
 ${cssContent}
     </style>
-  </head>
+  <script src="/install-app.js" defer></script>
+</head>
   <body>
     <div id="root"></div>
     <script type="module">

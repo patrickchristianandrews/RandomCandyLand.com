@@ -1,0 +1,25 @@
+{
+  "id": "/goo-rush/",
+  "name": "Goo Rush Candy Arcade | Random Candy Land",
+  "short_name": "Goo Rush",
+  "description": "Goo Rush Candy Arcade — an independently installable Random Candy Land web app.",
+  "start_url": "/goo-rush/",
+  "scope": "/goo-rush/",
+  "display": "standalone",
+  "background_color": "#201331",
+  "theme_color": "#f363bd",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

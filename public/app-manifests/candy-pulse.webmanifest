@@ -1,0 +1,25 @@
+{
+  "id": "/music-visualizer/",
+  "name": "Candy Pulse Music Visualizer | Random Candy Land",
+  "short_name": "Candy Pulse",
+  "description": "Candy Pulse Music Visualizer — an independently installable Random Candy Land web app.",
+  "start_url": "/music-visualizer/",
+  "scope": "/music-visualizer/",
+  "display": "standalone",
+  "background_color": "#201331",
+  "theme_color": "#0b0818",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
