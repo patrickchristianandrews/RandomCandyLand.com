@@ -133,6 +133,13 @@ try{
   const remixInitial=await little.evaluate("document.querySelector('#remix-play').disabled && document.querySelector('#remix-export').disabled");
   if(!remixInitial)throw Error('Trumpagotchi 2 remix controls should require an uploaded song');
   console.log('✓ Trumpagotchi 2 how-to guide and twelve remix pads are interactive.');
+  // The cartoon beat factory must work without uploading a music file.
+  const cartoonBefore=await little.evaluate("document.querySelector('#remix-play').disabled && document.querySelectorAll('#cartoon-step-grid .cartoon-step').length===64");
+  if(!cartoonBefore)throw Error('Cartoon beat factory grid is missing or playback enables before a pattern exists');
+  await little.evaluate("document.querySelector('#cartoon-randomize').click()");
+  const cartoonReady=await little.evaluate("!document.querySelector('#remix-play').disabled && !document.querySelector('#remix-export').disabled && document.querySelectorAll('#cartoon-step-grid .cartoon-step.is-on').length>=4 && document.querySelector('#cartoon-pattern-label').textContent.includes('BPM')");
+  if(!cartoonReady)throw Error('Generate Cartoon Beat did not create a playable, exportable pattern without an upload');
+  console.log('✓ Cartoon beat generator makes a 16-step pattern playable and exportable without a song upload.');
 
   // The homepage nonsense button must generate a genuinely different result.
   const home=await navigate(site+'/');
