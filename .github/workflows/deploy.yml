@@ -35,6 +35,11 @@ jobs:
       - name: Install locked dependencies
         run: bun install --frozen-lockfile
 
+      - name: Set up isolated Python for reliable icon rendering
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Rebuild full-bleed candy artwork for phone and circular app icons
         run: |
           python -m pip install --quiet "Pillow>=10,<13"
