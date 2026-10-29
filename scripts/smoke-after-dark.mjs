@@ -128,6 +128,11 @@ try{
   await little.evaluate("document.querySelector('[data-action=feed]').click()");
   if(!await little.evaluate("document.querySelector('#caption').textContent.includes('A VERY FINE SNACK')"))throw Error('Standalone pet Feed did not work');
   console.log('✓ Original FM-1 character/room rendered on browser canvas; pet-care button works.');
+  const remixReady=await little.evaluate("document.querySelectorAll('#remix-pads .remix-pad').length===12 && !!document.querySelector('#remix-file') && !!document.querySelector('#remix-export') && document.querySelector('#how-to-play').compareDocumentPosition(document.querySelector('.device'))===4");
+  if(!remixReady)throw Error('Trumpagotchi 2 remix sound pads or top how-to guide did not load');
+  const remixInitial=await little.evaluate("document.querySelector('#remix-play').disabled && document.querySelector('#remix-export').disabled");
+  if(!remixInitial)throw Error('Trumpagotchi 2 remix controls should require an uploaded song');
+  console.log('✓ Trumpagotchi 2 how-to guide and twelve remix pads are interactive.');
 
   // The homepage nonsense button must generate a genuinely different result.
   const home=await navigate(site+'/');
