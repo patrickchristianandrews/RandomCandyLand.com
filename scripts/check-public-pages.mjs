@@ -58,7 +58,7 @@ if (homeBundle.includes('PURE CANDY CHAOS!') || homeBundle.includes('sugar-unive
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
 // Keep the requested music tools and standalone games available on the homepage.
-if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('Trumpagotchi: Little Pet')) {
+if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('Trumpagotchi 2')) {
   console.error('A current attraction is missing from the published homepage.');
   failures++;
 }
@@ -133,6 +133,21 @@ if (!homeBundle.includes('CHOOSE A MINI-GAME') ||
   failures++;
 }
 
+// The new pet game must lead with piano keys directly below the screen, use the
+// higher-resolution renderer, and not show obsolete hardware instructions.
+const newPetHtml = fs.readFileSync('dist/trumpagotchi-pet/index.html','utf8');
+if (!newPetHtml.includes('<h1>Trumpagotchi <span>2</span></h1>') ||
+    !newPetHtml.includes('width="720" height="468"') ||
+    !newPetHtml.includes('class="pocket-piano"') ||
+    newPetHtml.indexOf('class="pocket-piano"') < newPetHtml.indexOf('id="originalCanvas"') ||
+    newPetHtml.indexOf('class="pocket-piano"') > newPetHtml.indexOf('class="controls"')) {
+  console.error('Trumpagotchi 2 game/piano order or smooth rendering was not published.');
+  failures++;
+}
+if (/FM-1|synthesizer|sequencer|MIDI/.test(newPetHtml)) {
+  console.error('Retired hardware wording remains on the Trumpagotchi 2 page.');
+  failures++;
+}
 // Confirm the *original* FM-1 artist's character and room logic is shipped, not a substitute emoji.
 const originalArt = 'dist/trumpagotchi-pet/original-art.js';
 if (!fs.existsSync(originalArt)) {
