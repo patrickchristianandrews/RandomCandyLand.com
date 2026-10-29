@@ -801,7 +801,8 @@ function ask(text){const query=text.trim();if(!query)return;addChat(query,true);
 $('askForm').onsubmit=e=>{e.preventDefault();const input=$('chatText');const text=input.value.slice(0,480);input.value='';ask(text)};
 document.querySelectorAll('[data-ask]').forEach(b=>b.onclick=()=>ask(b.dataset.ask));
 // 18+ entry is initialized independently before this large educational library.
-const hash=location.hash.slice(1);if(['home','atlas','quiz','psych','ideas','chat','guide','notebook'].includes(hash))renderTabs(hash);else renderTabs('home');
+const hash=location.hash.slice(1);if(hash.startsWith('partner-view?data=')){ /* Preserve the selected invitation fragment for interest-notebook.js. */ }
+else if(['home','atlas','quiz','psych','ideas','chat','guide','notebook'].includes(hash))renderTabs(hash);else renderTabs('home');
 window.AfterDarkNotebookBridge={
   getTopics:()=>topics,
   getChoices:()=>({...choices}),
