@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Candy Match! | Random Candy Land</title>
+<meta name="theme-color" content="#f65ec0"><meta name="description" content="Play Candy Match, a cute memory game! Flip cards to find matching candy pairs, collect stars, build combos and earn high scores.">
+<meta property="og:title" content="Candy Match! | Random Candy Land"><meta property="og:image" content="https://randomcandyland.com/icon-512.png">
+<link rel="icon" href="/favicon.png"><link rel="manifest" href="/manifest.json">
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#fff9ff;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 76% 6%,#f66cc77d,transparent 40%),radial-gradient(circle at 0 55%,#6135c788,transparent 52%),linear-gradient(160deg,#46177e,#22083b);overflow-x:hidden}
+a{color:#ffe5ad}button,select{font:inherit;touch-action:manipulation}button{cursor:pointer}button:disabled{cursor:default}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:4px solid #fff49c;outline-offset:4px}
+.wrap{max-width:1160px;margin:auto;padding:18px clamp(12px,2.8vw,30px) 64px}
+header{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.brand{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;font-weight:1000}.brand img{width:48px;height:48px;border-radius:50%}.brand b{color:#fff1a4}
+nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:white;text-decoration:none;min-height:42px;padding:10px 13px;background:#ffffff25;border:1px solid #ffe9ab88;border-radius:14px;font-size:13px;font-weight:850}
+.hero{text-align:center;position:relative;overflow:hidden;padding:27px 18px 64px;margin-bottom:50px;background:linear-gradient(115deg,#ec63a9,#a541c9,#613cb8);border-radius:37px;border:3px solid #fff0a5;box-shadow:0 21px 49px #1603269c}
+.hero:before{content:"";position:absolute;inset:0 0 auto;height:15px;background:linear-gradient(90deg,#ffb5e2,#ffe386,#74f8ef,#e69dff)}
+.hero:after{content:"";position:absolute;bottom:-1px;left:8%;right:8%;height:38px;background:linear-gradient(90deg,#ff76cb,#ffabd8,#ff64b5);clip-path:polygon(0 0,100% 0,100% 18%,94% 18%,94% 94%,89% 94%,89% 18%,75% 18%,75% 60%,69% 60%,69% 18%,55% 18%,55% 99%,50% 99%,50% 18%,33% 18%,33% 74%,28% 74%,28% 18%,15% 18%,15% 86%,10% 86%,10% 18%,0 18%)}
+.eyebrow{color:#fff2aa;font-weight:950;letter-spacing:.15em;font-size:12px}
+h1{font-size:clamp(45px,8vw,86px);margin:10px 0;line-height:1;letter-spacing:-.065em;text-shadow:0 6px #64227f}h1 span{color:#fff2a6}
+.hero p{max-width:670px;margin:10px auto;line-height:1.6;font-size:clamp(16px,2vw,20px)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:21px;align-items:start}
+.panel{padding:clamp(14px,3vw,27px);background:linear-gradient(150deg,#6637af,#351466);border:2px solid #ffdeff;border-radius:29px;box-shadow:0 22px 42px #14032985}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}.stat{text-align:center;border-radius:15px;padding:9px 2px;background:#ffffff1c;border:1px solid #ffe4fd81}.stat small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#f3e3ff;font-weight:800}.stat b{font-weight:1000;font-size:clamp(18px,3vw,27px);color:#ffe6a0;display:block}
+.progress{height:12px;margin:0 0 17px;background:#220a46;border:1px solid #ffec9b99;border-radius:20px;overflow:hidden}.progress>span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#ff91c9,#ffe379,#77f6f4);border-radius:20px;transition:width .25s}
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(7px,1.5vw,13px);max-width:650px;margin:auto;perspective:1000px}
+.card{background:none;border:0;padding:0;aspect-ratio:.79;position:relative;min-width:0;min-height:0;outline-offset:4px;transform-style:preserve-3d;-webkit-tap-highlight-color:transparent}
+.card-inner{display:block;width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .37s cubic-bezier(.2,.7,.1,1)}
+.card.flipped .card-inner,.card.matched .card-inner{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:3px solid #fff3ca;border-radius:clamp(12px,2vw,22px);box-shadow:0 7px #3d155a,0 13px 18px #17053468}
+.card-back{background:linear-gradient(145deg,#f67aca,#d046b6,#8339b9);overflow:hidden}
+.card-back:before{content:"";position:absolute;inset:6px;border:2px dashed #ffe8b9b8;border-radius:clamp(8px,1.5vw,16px)}
+.card-back strong{position:relative;font-size:clamp(36px,6vw,70px);color:#fff4aa;filter:drop-shadow(0 4px #a43291)}
+.card-front{transform:rotateY(180deg);background:linear-gradient(150deg,#fff9db,#ffdcf7);color:#56216c}
+.card-front .emoji{font-size:clamp(27px,5.7vw,60px);filter:drop-shadow(0 3px 4px #4c1e5433);line-height:1.1}
+.card-front .name{font-size:clamp(9px,1.5vw,12px);font-weight:1000;text-transform:uppercase;letter-spacing:.03em;margin-top:5px}
+.card.matched .card-face{border-color:#83f7dc;box-shadow:0 0 0 3px #7cfdde88,0 8px #2a956e,0 14px 20px #0003}
+.card.matched{animation:winPop .35s ease-out}
+@keyframes winPop{50%{transform:scale(1.065)}}
+.status{min-height:56px;text-align:center;margin:19px 0 12px}
+.status strong{display:block;font-size:clamp(18px,2.6vw,24px);color:#ffeda6}
+.status span{font-size:13px;color:#f3e2fd}
+.controls{display:flex;justify-content:center;flex-wrap:wrap;gap:9px}
+.action{min-height:47px;padding:10px 16px;border-radius:15px;border:2px solid #fff7b7;background:linear-gradient(135deg,#ffe88e,#ffafbc);color:#41114e;font-weight:950;box-shadow:0 5px #9d3b87}
+.action.secondary{background:#4e2487;color:white;box-shadow:none;border-color:#ebb7f3}
+.action:disabled{opacity:.42}
+.sidebar h2{color:#ffedac;margin:0 0 14px;font-size:24px}
+.sidebar p,.sidebar li{font-size:14px;line-height:1.65;color:#f4e7ff}.sidebar ol{padding-left:22px}
+.sidebar label{display:block;font-weight:850;margin:17px 0 9px;font-size:13px}
+.sidebar select{display:block;width:100%;margin-top:8px;min-height:44px;padding:9px;border:2px solid #e9b1fb;border-radius:13px;background:#35155b;color:white}
+.check{display:flex!important;align-items:center;gap:9px}.check input{width:19px;height:19px;accent-color:#ffce87}
+.best{border:1px solid #ffe1a7;background:#ffecae22;border-radius:15px;padding:12px;text-align:center;color:#fff3ba;font-weight:850;font-size:14px}
+.celebration{min-height:30px;text-align:center;font-size:23px}
+footer{text-align:center;margin-top:38px;font-size:13px;color:#e9c7f0}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{order:-1}.sidebar ol{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;list-style:disc}.sidebar ol li{font-size:12px}.board{max-width:570px}}
+@media(max-width:500px){.wrap{padding-left:10px;padding-right:10px}.panel{padding:13px 10px 20px}.board{gap:7px}.card-face{border-width:2px}.card-back strong{font-size:clamp(32px,10vw,52px)}.card-front .emoji{font-size:clamp(25px,9vw,44px)}.card-front .name{font-size:9px}.sidebar ol{display:block}.stats{gap:5px}}
+@media(prefers-reduced-motion:reduce){.card-inner{transition:none}.card.matched{animation:none}.progress>span{transition:none}}
+</style>
+</head><body><div class="wrap">
+<header><a href="/" class="brand"><img src="/random-candy-land-art.webp" alt=""> RANDOM <b>CANDY LAND</b></a><nav><a href="/">🍭 Home</a><a href="/candy-simon/">🎵 Simon Says</a><a href="/goo-rush/">🍬 Goo Rush</a></nav></header>
+<section class="hero"><div class="eyebrow">🃏 THE SWEETEST LITTLE MEMORY GAME</div><h1>🍬 CANDY <span>MATCH!</span></h1><p>Flip two mystery candy cards. Find the same sweet treat hiding underneath, build combos, and collect every matching pair!</p></section>
+<div class="layout">
+<main class="panel" aria-label="Candy Match memory game">
+<div class="stats"><div class="stat"><small>Pairs</small><b id="pairs">0/6</b></div><div class="stat"><small>Moves</small><b id="moves">0</b></div><div class="stat"><small>Time</small><b id="time">0:00</b></div><div class="stat"><small>Stars</small><b id="stars">0</b></div></div>
+<div class="progress" aria-label="Matching progress"><span id="progress"></span></div>
+<div class="board" id="board" aria-label="Hidden matching candy cards"></div>
+<div class="status" aria-live="polite" aria-atomic="true"><strong id="message">Choose a difficulty and start the candy hunt! 🍭</strong><span id="detail">Flip any two cards to look for a matching pair.</span></div>
+<div class="celebration" id="celebration" aria-hidden="true">✨ 🍓 ✨</div>
+<div class="controls"><button class="action" id="newgame" type="button">🎮 NEW GAME</button><button class="action secondary" type="button" id="hint" disabled>💡 Sweet Hint (2)</button></div>
+</main>
+<aside class="panel sidebar"><h2>🧁 How to play</h2><ol><li>Tap one card to see what's underneath.</li><li>Tap another. If both candies match, they stay uncovered!</li><li>Match every pair to win. Fewer moves earn more stars!</li></ol>
+<label for="difficulty">How sweet is your challenge?
+<select id="difficulty"><option value="easy">🧸 Easy · 6 pairs</option><option value="medium">🍬 Classic · 8 pairs</option><option value="hard">⚡ Expert · 12 pairs</option></select></label>
+<label class="check"><input id="audio" type="checkbox" checked> 🎶 Cute musical sounds</label>
+<div class="best" id="best">🏆 Best: —</div>
+<p>Hints give you a peek at a pair. Matching pairs will always be identical, and the pictures get shuffled every game.</p>
+</aside></div>
+<footer>Made for <a href="/">Random Candy Land</a> · An original candy-themed matching game 💗</footer>
+</div>
+<script>
+(function(){
+'use strict';
+const treats=[['🍓','Strawberry'],['🍉','Melon'],['🧁','Cupcake'],['🍩','Donut'],['🍒','Cherries'],['🍋','Lemon'],['🍭','Lollipop'],['🍪','Cookie'],['🍦','Ice Cream'],['🍬','Sweet'],['🍇','Grapes'],['🫐','Berries'],['🍌','Banana'],['🍍','Pineapple'],['🥨','Pretzel'],['🍑','Peach']];
+const board=document.querySelector('#board'),difficulty=document.querySelector('#difficulty'),newBtn=document.querySelector('#newgame'),hintBtn=document.querySelector('#hint');
+const msg=document.querySelector('#message'),detail=document.querySelector('#detail'),pairsEl=document.querySelector('#pairs'),movesEl=document.querySelector('#moves'),timeEl=document.querySelector('#time'),starsEl=document.querySelector('#stars'),bar=document.querySelector('#progress'),bestEl=document.querySelector('#best'),celebrate=document.querySelector('#celebration');
+let deck=[],open=[],lock=false,matched=0,moves=0,stars=0,hints=2,startedAt=0,elapsed=0,clock=null,round=0,finished=false,audio=null;
+function count(){return {easy:6,medium:8,hard:12}[difficulty.value]||6}
+function getBest(){try{return JSON.parse(localStorage.getItem('candy-match-best-'+difficulty.value+'-v1')||'null')}catch{return null}}
+function saveBest(){const old=getBest(),time=Math.round(elapsed/1000);if(!old||moves<old.moves||(moves===old.moves&&time<old.time)){try{localStorage.setItem('candy-match-best-'+difficulty.value+'-v1',JSON.stringify({moves,time}))}catch{}}}
+function showBest(){const b=getBest();bestEl.textContent=b?'🏆 Best: '+b.moves+' moves · '+b.time+'s':'🏆 Best: no completed games yet'}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function say(a,b){msg.textContent=a;detail.textContent=b||''}
+function sound(freq=500,len=.11){
+ if(!document.querySelector('#audio').checked)return;
+ try{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;audio=audio||new Audio();if(audio.state==='suspended')audio.resume().catch(()=>{});const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.setValueAtTime(freq,audio.currentTime);g.gain.setValueAtTime(.0001,audio.currentTime);g.gain.exponentialRampToValueAtTime(.11,audio.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+len);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+len+.02)}catch{}
+}
+function format(ms){const s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function display(){pairsEl.textContent=matched+'/'+count();movesEl.textContent=moves;starsEl.textContent=stars;timeEl.textContent=format(elapsed);bar.style.width=(100*matched/count())+'%';hintBtn.textContent='💡 Sweet Hint ('+hints+')';hintBtn.disabled=finished||lock||hints<1||open.length>0}
+function startTimer(){if(startedAt)return;startedAt=Date.now();clock=setInterval(()=>{if(finished)return;elapsed=Date.now()-startedAt;timeEl.textContent=format(elapsed)},250)}
+function render(){
+ board.textContent='';
+ deck.forEach((c,i)=>{
+  const btn=document.createElement('button');btn.type='button';btn.className='card';btn.dataset.index=i;btn.setAttribute('aria-label','Hidden candy card '+(i+1));
+  btn.innerHTML='<span class="card-inner"><span class="card-face card-back"><strong>?</strong></span><span class="card-face card-front"><span class="emoji">'+c.emoji+'</span><span class="name">'+c.label+'</span></span></span>';
+  btn.addEventListener('click',()=>flip(i));board.append(btn);
+ });
+}
+function start(){
+ round++;clearInterval(clock);clock=null;startedAt=0;elapsed=0;matched=0;moves=0;stars=0;hints=2;open=[];lock=false;finished=false;
+ const selection=shuffle(treats.slice()).slice(0,count());deck=shuffle(selection.flatMap((x,id)=>[{pair:id,emoji:x[0],label:x[1],matched:false},{pair:id,emoji:x[0],label:x[1],matched:false}]));
+ render();newBtn.textContent='↻ SHUFFLE AGAIN';say('🍭 Find the matching candies!','Tap any two cards to uncover them.');celebrate.textContent='✨ 🍬 ✨';showBest();display();
+}
+function flip(i){
+ if(finished||lock||open.includes(i)||deck[i].matched)return;
+ startTimer();const btn=board.children[i];btn.classList.add('flipped');btn.setAttribute('aria-label',deck[i].label+' candy revealed');open.push(i);sound(520+open.length*90);
+ if(open.length!==2){display();return}
+ moves++;display();const [a,b]=open;
+ if(deck[a].pair===deck[b].pair){
+  lock=true;const token=round;sound(830,.15);
+  setTimeout(()=>{if(token!==round)return;
+   deck[a].matched=deck[b].matched=true;board.children[a].classList.add('matched');board.children[b].classList.add('matched');
+   board.children[a].disabled=true;board.children[b].disabled=true;
+   matched++;stars+=Math.max(5,16-Math.max(0,moves-matched));open=[];lock=false;
+   if(matched===count()){
+    finished=true;clearInterval(clock);elapsed=Date.now()-startedAt;saveBest();showBest();
+    say('🏆 YOU MATCHED THEM ALL!','Amazing! '+moves+' moves · '+format(elapsed)+' · '+stars+' stars. Play again for a new shuffle!');
+    celebrate.textContent='🎉 🌟 🍭 🌟 🎉';sound(1040,.24);
+   }else{say(['🌟 SUPER SWEET!','🍓 PERFECT PAIR!','🧁 CANDY GENIUS!'][matched%3],'That pair is yours! '+(count()-matched)+' more to find.');}
+   display();
+  },260);
+ }else{
+  lock=true;const token=round;say('💗 Not quite a match!','Remember what you saw. These candies are hiding again.');
+  setTimeout(()=>{if(token!==round)return;board.children[a].classList.remove('flipped');board.children[b].classList.remove('flipped');board.children[a].setAttribute('aria-label','Hidden candy card '+(a+1));board.children[b].setAttribute('aria-label','Hidden candy card '+(b+1));open=[];lock=false;display()},870);
+ }
+}
+function useHint(){
+ if(lock||finished||hints<=0||open.length)return;
+ const candidates=deck.map((c,i)=>({c,i})).filter(x=>!x.c.matched);
+ const a=candidates[0];if(!a)return;const b=candidates.find(x=>x.i!==a.i&&x.c.pair===a.c.pair);if(!b)return;
+ hints--;lock=true;const token=round;
+ for(const x of [a,b])board.children[x.i].classList.add('flipped');
+ sound(910,.19);say('💡 PEEK-A-BOO!','Take a good look at these two matching candies!');
+ display();setTimeout(()=>{if(round!==token)return;for(const x of [a,b])board.children[x.i].classList.remove('flipped');lock=false;display()},1100);
+}
+newBtn.addEventListener('click',start);hintBtn.addEventListener('click',useHint);difficulty.addEventListener('change',start);
+start();
+})();
+</script></body></html>
