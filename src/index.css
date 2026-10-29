@@ -178,3 +178,144 @@ body {
     top:31%;right:-85px;width:240px;height:240px;opacity:.28;
   }
 }
+
+/* Candy Land 2.0: the previous sugar-universe homepage is no longer rendered.
+   Everything here belongs to the replacement candy-castle landing. */
+.candyland-next{
+  --goo-pink:#ff59b5;--goo-yellow:#ffe770;--goo-blue:#59f7fd;
+  --goo-chocolate:#572049;
+  min-height:100vh;position:relative;isolation:isolate;overflow-x:clip;
+  color:#fff7ff;
+  font-family:'Fredoka',system-ui,sans-serif;
+  background:radial-gradient(circle at 58% 8%,#b444ca,transparent 35%),
+   radial-gradient(circle at 4% 52%,#6a38c9 3%,transparent 42%),
+   radial-gradient(circle at 94% 76%,#c72e97 5%,transparent 33%),
+   linear-gradient(155deg,#28075a,#401279 36%,#1b0639 83%);
+}
+.candyland-next *{box-sizing:border-box}
+.candyland-next button,.candyland-next a{touch-action:manipulation}
+.candyland-next :is(a,button):focus-visible{outline:3px solid #ffed79;outline-offset:4px}
+.candyland-next a{text-decoration:none;color:inherit}
+.candyland-starfield{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;
+ background-image:radial-gradient(#fffcdf 1.8px,transparent 2px);background-size:87px 103px;opacity:.35}
+.candyland-starfield span{position:absolute;color:#ffec8d;font-size:clamp(26px,5vw,59px);text-shadow:0 0 24px #fff57d}
+.candyland-starfield span:nth-child(1){top:5%;left:8%}
+.candyland-starfield span:nth-child(2){top:18%;right:7%}
+.candyland-starfield span:nth-child(3){top:43%;left:4%}
+.candyland-starfield span:nth-child(4){top:67%;right:7%}
+.candyland-starfield span:nth-child(5){top:87%;left:15%}
+.candyland-navbar{max-width:1400px;margin:auto;position:relative;z-index:10;padding:18px clamp(15px,3vw,38px) 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px}
+.candyland-navbar:after{content:"";position:absolute;z-index:-1;inset:0 0 10px;border-radius:0 0 32px 32px;
+ background:linear-gradient(135deg,#e9319dbd,#6b1bc0b3 67%,#3e49ae88);box-shadow:0 13px 38px #2c065d77;
+ clip-path:polygon(0 0,100% 0,100% 66%,98% 66%,98% 100%,95% 100%,95% 69%,84% 69%,84% 86%,80% 86%,80% 69%,69% 69%,69% 96%,65% 96%,65% 69%,50% 69%,50% 91%,45% 91%,45% 69%,31% 69%,31% 100%,27% 100%,27% 69%,16% 69%,16% 90%,11% 90%,11% 69%,0 69%)}
+.candyland-identity{display:flex;align-items:center;gap:9px;font-weight:1000;font-size:clamp(15px,2vw,23px);letter-spacing:-.04em;text-shadow:0 3px #471052}
+.candyland-identity strong{color:#ffeb7e}
+.candyland-identity img{border-radius:50%;height:55px;width:55px;object-fit:cover;filter:drop-shadow(0 5px 8px #310441)}
+.candyland-navbar nav{display:flex;gap:7px;flex-wrap:wrap}
+.candyland-navbar nav a{display:inline-flex;align-items:center;gap:7px;padding:10px 12px;min-height:44px;border-radius:14px;background:#fff6fd20;border:1px solid #ffceefa8;font-size:13px;font-weight:900;transition:background .2s,transform .2s}
+.candyland-navbar nav a:hover{background:#fff4b344;transform:translateY(-2px)}
+.candyland-opening{max-width:1380px;position:relative;margin:20px auto 0;min-height:625px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.75fr);align-items:center;gap:0;padding:clamp(19px,4vw,52px) clamp(20px,4vw,55px) 115px;background:
+ radial-gradient(circle at 33% 23%,#ff89ef61,transparent 44%),
+ radial-gradient(circle at 89% 56%,#35d9fc42,transparent 41%),
+ linear-gradient(130deg,#7131c9bd,#a52cb9b5 53%,#5731b0bb);
+ border:3px solid #ffe896;border-radius:60px;box-shadow:0 0 0 11px #fb87ce29,0 37px 90px #100329a8;
+}
+.candyland-opening:before{content:"";position:absolute;pointer-events:none;inset:-7px -6px auto;height:34px;border-radius:55px 55px 14px 14px;z-index:4;
+ background:linear-gradient(90deg,#ff6ac8,#fcacff 33%,#fff19a 62%,#69fbfb);box-shadow:0 7px 13px #430d6690}
+.candyland-opening-art{position:relative;z-index:2;align-self:center;justify-self:center;width:min(100%,650px);filter:drop-shadow(0 23px 36px #1a055dbb);animation:candylandFloat 8s ease-in-out infinite alternate}
+.candyland-opening-art img{width:100%;height:auto;display:block}
+.candyland-opening-copy{position:relative;z-index:4;text-align:left;padding:25px 0 10px}
+.candyland-eyebrow{display:inline-block;padding:9px 15px;border-radius:99px;background:#4f1167bb;border:1px solid #ffe8bd;font-size:11px;letter-spacing:.09em;font-weight:1000;color:#ffe99c}
+.candyland-opening-copy h1{font-size:clamp(46px,6.4vw,102px);font-weight:1000;line-height:.95;letter-spacing:-.065em;margin:20px 0;text-shadow:0 5px #5e1873,0 10px 23px #26003f70}
+.candyland-opening-copy h1 span{background:linear-gradient(100deg,#fff29d,#ff7bd3,#8dffff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.candyland-opening-copy p{max-width:570px;font-size:clamp(17px,1.8vw,22px);line-height:1.5;text-shadow:0 2px 5px #3d176b8a}
+.candyland-primary{display:inline-flex;gap:8px;align-items:center;justify-content:center;min-height:54px;padding:12px 20px;font-size:14px;font-weight:1000;letter-spacing:.05em;border-radius:17px;border:2px solid #fffad0!important;background:linear-gradient(130deg,#ffe990,#ff9ac8);color:#4a1252!important;box-shadow:0 7px #a43a90,0 16px 24px #27045385;transition:transform .2s}
+.candyland-primary:hover{transform:translateY(-3px)}
+.candyland-orbit{position:absolute;z-index:1;width:clamp(200px,31vw,395px);aspect-ratio:1;top:5%;left:37%;border-radius:50%;opacity:.66;pointer-events:none;
+ background:radial-gradient(circle at 32% 19%,#fff7c8,#ff9de4 30%,#f559ac 62%,#8421b3);
+ box-shadow:inset -30px -27px 35px #68268a7b,0 0 85px #fc92c69a;transform:rotate(-12deg);animation:candylandFloat 9s ease-in-out infinite alternate}
+.candyland-orbit .planet-ring{position:absolute;inset:40% -15%;border:clamp(12px,2.5vw,26px) solid #fff3b7;border-bottom-color:#afe8ff;border-top-color:#ffb67c;border-radius:50%;transform:rotate(-22deg)}
+.candyland-orbit .planet-eye{position:absolute;top:38%;width:8%;height:11%;border-radius:50%;background:#43124d}
+.candyland-orbit .eye-left{left:34%}.candyland-orbit .eye-right{right:34%}
+.candyland-orbit .planet-smile{position:absolute;top:51%;left:39%;width:23%;height:13%;border-bottom:7px solid #4a1a54;border-radius:0 0 100% 100%}
+.candyland-orbit .planet-star{position:absolute;top:13%;left:20%;color:#fff9a2;font-size:43px}
+.candyland-confetti{position:absolute;pointer-events:none;z-index:3;font-size:clamp(45px,6vw,78px);filter:drop-shadow(0 6px 12px #440e6888);animation:candylandFloat 5s ease-in-out infinite alternate}
+.confetti-one{top:14%;left:4%}.confetti-two{bottom:23%;left:43%;animation-delay:-3s}.confetti-three{right:3%;top:11%;animation-delay:-2s}
+/* Real irregular goo drips across the whole hero's lower edge. */
+.candyland-drips{position:absolute;display:flex;justify-content:space-around;align-items:flex-start;inset:auto 6px -51px 6px;height:100px;pointer-events:none;z-index:5;overflow:visible}
+.candyland-drips i{display:block;width:clamp(15px,3vw,38px);background:linear-gradient(100deg,#ff8be5,#f950b2 55%,#a725a4);border-radius:0 0 100% 100%;box-shadow:inset 5px 0 #ffd6ef65,0 9px 16px #4a0f8780}
+.candyland-drips i:nth-child(1){height:53px}.candyland-drips i:nth-child(2){height:92px;width:25px}
+.candyland-drips i:nth-child(3){height:34px}.candyland-drips i:nth-child(4){height:76px;width:18px}
+.candyland-drips i:nth-child(5){height:49px;width:40px}.candyland-drips i:nth-child(6){height:98px;width:20px}
+.candyland-drips i:nth-child(7){height:38px}.candyland-drips i:nth-child(8){height:79px;width:34px}.candyland-drips i:nth-child(9){height:49px}
+.candyland-adventures{position:relative;max-width:1320px;margin:110px auto 55px;padding:30px clamp(18px,4vw,48px);z-index:2}
+.candyland-section-heading{text-align:center;max-width:870px;margin:0 auto 25px}
+.candyland-section-heading>span,.candyland-finale span{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.13em;font-weight:1000;color:#ffed9c}
+.candyland-section-heading h2{font-size:clamp(37px,5.5vw,70px);letter-spacing:-.06em;line-height:1.05;margin:13px 0}
+.candyland-section-heading h2 em{color:#ff9bea;font-style:normal}
+.candyland-section-heading p{font-size:17px;line-height:1.6;color:#f4dffb}
+.candyland-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.candyland-filters button{min-height:44px;padding:9px 17px;background:#4c277db3;color:white;border:1px solid #ffc7ed9c;border-radius:99px;font:900 13px 'Fredoka',system-ui;cursor:pointer}
+.candyland-filters button.is-selected{color:#421750;background:#ffdf9c;border-color:#fff6bd}
+.candyland-portals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px}
+.candyland-portal{display:flex;flex-direction:column;align-items:flex-start;position:relative;isolation:isolate;min-height:310px;padding:27px 31px 54px;border:3px solid #ffe5ff!important;border-radius:40px 40px 27px 27px;
+ text-align:left;color:#fff!important;background:linear-gradient(140deg,#e755b9,#7c38b9);box-shadow:0 15px #43107bb5,0 32px 55px #10032595;
+ font:inherit;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.candyland-portal:hover{transform:translateY(-7px);box-shadow:0 18px #43107bb5,0 38px 60px #100325a8}
+.candyland-portal--peach{background:radial-gradient(circle at 95% 0,#ffec9eb2,transparent 43%),linear-gradient(140deg,#ff8b9b,#e16c4b 50%,#8b2e83)}
+.candyland-portal--pink{background:radial-gradient(circle at 100% 0,#fff3b1a6,transparent 43%),linear-gradient(130deg,#ee4cbc,#963acc)}
+.candyland-portal--blue{background:radial-gradient(circle at 100% 0,#9afafbb7,transparent 42%),linear-gradient(130deg,#2968db,#6b24b4)}
+.candyland-portal--purple{background:radial-gradient(circle at 90% 0,#ffbaff77,transparent 44%),linear-gradient(130deg,#7138cb,#3c216d)}
+.candyland-portal-icon{width:95px;height:95px;display:flex;align-items:center;justify-content:center;border:2px solid #ffebfb;border-radius:29px;background:#ffffff4a;box-shadow:0 8px #6f267366;overflow:hidden}
+.candyland-portal-icon span{font-size:58px}
+.candyland-portal-tag{font-size:12px;font-weight:1000;letter-spacing:.1em;margin-top:20px;color:#ffefad}
+.candyland-portal h3{font-size:clamp(27px,3.3vw,43px);letter-spacing:-.04em;line-height:1.1;margin:9px 0}
+.candyland-portal p{font-size:16px;line-height:1.52;margin:0 0 20px;color:#fff7ff}
+.candyland-portal-go{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-weight:1000;color:#ffe897}
+.candyland-portal-drips{pointer-events:none;position:absolute;z-index:3;bottom:-36px;left:12px;right:12px;display:flex;justify-content:space-around;height:43px}
+.candyland-portal-drips i{width:24px;height:35px;border-radius:0 0 100% 100%;background:linear-gradient(100deg,#ffabd9,#fc53b1,#a92aa1);box-shadow:0 5px 12px #29065166}
+.candyland-portal-drips i:nth-child(2){height:23px;width:15px}
+.candyland-portal-drips i:nth-child(3){height:43px;width:28px}
+.candyland-portal-drips i:nth-child(4){height:17px;width:21px}
+.candyland-portal-drips i:nth-child(5){height:31px;width:25px}
+.candyland-finale{position:relative;max-width:1270px;margin:85px auto 50px;display:flex;align-items:center;gap:25px;flex-wrap:wrap;padding:27px 35px 43px;border:3px solid #ffeaad;border-radius:35px;background:linear-gradient(130deg,#aa38bc,#f04f9f 55%,#b849cb);box-shadow:0 18px 55px #1b0539a0}
+.candyland-finale:after{content:"";position:absolute;bottom:-36px;left:8%;right:8%;height:38px;pointer-events:none;background:linear-gradient(90deg,#ff80c6,#ff4caa,#ce47cf);clip-path:polygon(0 0,100% 0,100% 20%,95% 20%,95% 100%,91% 100%,91% 20%,80% 20%,80% 69%,74% 69%,74% 20%,59% 20%,59% 91%,54% 91%,54% 20%,35% 20%,35% 76%,30% 76%,30% 20%,17% 20%,17% 98%,13% 98%,13% 20%,0 20%)}
+.candyland-finale img{width:160px;height:160px;object-fit:contain;filter:drop-shadow(0 10px 12px #51105a);flex:none}
+.candyland-finale>div{flex:1;min-width:200px}
+.candyland-finale h2{font-size:clamp(31px,4vw,53px);margin:7px 0;line-height:1.04}
+.candyland-finale p{margin:6px 0;font-size:16px}
+.candyland-footer{display:flex;justify-content:space-between;gap:17px;flex-wrap:wrap;max-width:1320px;margin:50px auto 0;padding:31px 24px;color:#edc8fa;font-size:12px;font-weight:800}
+.candyland-footer a{color:#ffef8f}
+@keyframes candylandFloat{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-18px) rotate(3deg)}}
+@media(max-width:900px){
+ .candyland-opening{min-height:auto;grid-template-columns:1fr;padding:40px clamp(17px,4vw,34px) 75px;gap:6px}
+ .candyland-opening-art{width:min(100%,520px)}
+ .candyland-opening-copy{text-align:center}
+ .candyland-opening-copy p{margin-left:auto;margin-right:auto}
+ .candyland-orbit{left:auto;right:3%;top:11%;opacity:.35}
+ .candyland-confetti{font-size:43px}
+ .candyland-drips{bottom:-56px}
+}
+@media(max-width:630px){
+ .candyland-navbar{padding:15px 16px 38px;justify-content:center}
+ .candyland-identity{width:100%;justify-content:center}
+ .candyland-identity img{width:48px;height:48px}
+ .candyland-navbar nav{justify-content:center}
+ .candyland-navbar nav a{padding:8px 10px;font-size:12px}
+ .candyland-opening{margin:8px 12px 0;border-radius:39px;padding:28px 15px 70px}
+ .candyland-opening-art{width:100%}
+ .candyland-opening-copy h1{font-size:clamp(47px,11vw,74px)}
+ .candyland-eyebrow{font-size:9px}
+ .candyland-orbit{width:210px;top:7%;right:-18px;opacity:.27}
+ .candyland-confetti{display:none}
+ .candyland-adventures{margin-top:75px;padding:30px 15px}
+ .candyland-portals{grid-template-columns:1fr;gap:39px}
+ .candyland-portal{min-height:285px;padding:24px 23px 42px;border-radius:31px}
+ .candyland-finale{margin:75px 14px 45px;padding:24px;justify-content:center;text-align:center}
+ .candyland-finale>div{min-width:100%}
+ .candyland-finale .candyland-primary{margin:auto}
+ .candyland-footer{justify-content:center;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+ .candyland-next *, .candyland-next *:before, .candyland-next *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
