@@ -24,6 +24,12 @@ const jsContent = fs.readFileSync(path.join(assetsDir, jsFile), 'utf-8');
 const standaloneHtml = `<!doctype html>
 <html lang="en">
   <head>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TQRDB5KL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Random Candy Land | A World of Play, Music & Discovery</title>
