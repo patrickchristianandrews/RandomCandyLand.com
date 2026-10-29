@@ -95,6 +95,18 @@ try{
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('See results now'))?.click()");
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
+  await check('Quiz offers private PDF and saves interests', "typeof window.InterestNotebook?.printQuiz==='function' && !![...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save quiz results as PDF')) && !!document.querySelector('#quizCard .interest-result button')");
+  await evaluate("[...document.querySelectorAll('#quizCard .interest-result button')].find(b=>b.textContent.includes('Save & explain'))?.click()");
+  await check('Saved interests notebook opens and persists', "document.querySelector('#notebook')?.classList.contains('visible') && document.querySelectorAll('#notebook-content textarea').length>=5 && localStorage.getItem('afterdark_interest_notebook_v1')");
+  await evaluate("(()=>{const entry=document.querySelector('.notebook-interest');const text=entry?.querySelector('textarea');if(text){text.value='I would like you to understand what this means to me';text.dispatchEvent(new Event('input',{bubbles:true}));}const cb=entry?.querySelector('.notebook-share-label input');cb?.click();document.querySelector('#notebook-content .notebook-actions button')?.click();})()");
+  await check('Private invitation contains only selected notes', "document.querySelector('#notebook-output input')?.value.includes('#partner-view?data=') && document.querySelector('#notebook-status').textContent.includes('Unselected interests')");
+  const invitedUrl=await evaluate("document.querySelector('#notebook-output input')?.value");
+  if(typeof invitedUrl!=='string'||!invitedUrl.includes('#partner-view?data='))throw Error('After Dark selected invitation link missing');
+  const invited=await navigate(invitedUrl);
+  const inviteReady=await invited.evaluate("document.querySelector('#partner-view')?.classList.contains('visible') && document.querySelector('#partner-invitation')?.textContent.includes('I would like you to understand') && [...document.querySelectorAll('#partner-invitation button')].some(b=>b.textContent.includes('listening'))");
+  if(!inviteReady)throw Error('Private partner invitation did not open with consent-based responses');
+  console.log('✓ After Dark notebook saves, creates selective share links, supports private PDF printing and opens a partner invitation.');
+
   await evaluate("document.querySelector('[data-tab=psych]').click()");
   await check('Psychology section renders all lenses',"document.querySelectorAll('#lenses .card').length>=10");
   await evaluate("document.querySelector('[data-tab=ideas]').click();document.querySelector('#drawIdea').click()");
