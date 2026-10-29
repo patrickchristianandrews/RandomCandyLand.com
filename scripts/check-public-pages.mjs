@@ -148,6 +148,27 @@ if (/FM-1|synthesizer|sequencer|MIDI/.test(newPetHtml)) {
   console.error('Retired hardware wording remains on the Trumpagotchi 2 page.');
   failures++;
 }
+// Trumpagotchi 2 includes a playable, client-side voice remix studio.
+const littlePetPage=fs.readFileSync('dist/trumpagotchi-pet/index.html','utf8');
+if (!littlePetPage.includes('id="how-to-play"') ||
+    littlePetPage.indexOf('id="how-to-play"') > littlePetPage.indexOf('class="device"')) {
+  console.error('Trumpagotchi 2 How To Play guide is not at the top.');
+  failures++;
+}
+for(const marker of ['id="remix-studio"', 'id="remix-file"', 'id="remix-pads"',
+  'id="remix-generate"', 'id="remix-export"', '/trumpagotchi-pet/remix.js']) {
+  if(!littlePetPage.includes(marker)){console.error('Trumpagotchi 2 remix control missing:',marker);failures++;}
+}
+const remixJs='dist/trumpagotchi-pet/remix.js';
+if(!fs.existsSync(remixJs)){console.error('Trumpagotchi 2 remix engine is missing.');failures++;}
+else {
+  const engine=fs.readFileSync(remixJs,'utf8');
+  try{new vm.Script(engine,{filename:remixJs});}
+  catch(e){console.error('Trumpagotchi 2 remix engine has broken JavaScript:',e.message);failures++;}
+  for(const feature of ['decodeAudioData','OfflineAudioContext','encodeWav','autoRemix','remix-pad']) {
+    if(!engine.includes(feature)){console.error('Remix engine missing feature:',feature);failures++;}
+  }
+}
 // Confirm the *original* FM-1 artist's character and room logic is shipped, not a substitute emoji.
 const originalArt = 'dist/trumpagotchi-pet/original-art.js';
 if (!fs.existsSync(originalArt)) {
