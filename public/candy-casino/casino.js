@@ -9,7 +9,8 @@ const pick=(n)=>{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0
 const symbols=['🍒','🍭','🍬','🍇','🍋','🍉','🍩'];
 const keys={chips:'candyland-casino-chips-v1',best:'candyland-casino-best-v1'};
 const min=10,max=250;
-let balance=Number(localStorage.getItem(keys.chips)),best=Number(localStorage.getItem(keys.best));
+const storedChips=localStorage.getItem(keys.chips),storedBest=localStorage.getItem(keys.best);
+let balance=storedChips===null?1000:Number(storedChips),best=storedBest===null?1000:Number(storedBest);
 if(!Number.isFinite(balance)||balance<0)balance=1000;
 if(!Number.isFinite(best)||best<1000)best=1000;
 let game='slots', wheelPick='pink', dicePick='high', cardPick='higher', hand=null;
