@@ -25,6 +25,7 @@ import { DealMiniGame } from '../components/DealMiniGame';
 import { PauseModal } from '../components/PauseModal';
 import { HeadlineModal } from '../components/HeadlineModal';
 import { InstallModal } from '../components/InstallModal';
+import { CandyGoo } from '../components/CandyGoo';
 import { 
   ArrowLeft, 
   Volume2, 
@@ -282,73 +283,42 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#050209] text-white flex flex-col justify-between font-sans select-none overflow-x-hidden touch-manipulation">
+    <div className="candyland-next candyland-game-page min-h-screen w-full text-white flex flex-col justify-between select-none touch-manipulation">
       
-      {/* Sleek Top Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-[#0e071c]/95 backdrop-blur-md border-b border-amber-500/30 px-3 sm:px-6 py-2.5 flex items-center justify-between text-xs shrink-0 shadow-lg">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            onClick={onReturnHome}
-            className="px-3 py-1.5 rounded-xl bg-black/60 hover:bg-white/10 text-amber-300 hover:text-white border border-amber-500/40 text-xs font-serif-luxury font-bold transition flex items-center gap-1.5 cursor-pointer active:scale-95"
-            title="Return to Random Candy Land"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Random Candy Land</span>
-            <span className="sm:hidden">Home</span>
-          </button>
-
-          <div className="flex items-center gap-1.5 text-amber-400 font-serif-luxury font-bold">
-            <Crown className="w-4 h-4 text-amber-400" />
-            <span className="text-white text-xs sm:text-sm font-black tracking-wider gold-text-shimmer">
-              TRUMPAGOTCHI
-            </span>
-            <span className="text-amber-400/50 hidden md:inline">&bull; 1997 DIGI-PET</span>
-          </div>
-        </div>
-
-        {/* Controls: Add to Home Screen, Shell Color, Sound, Fullscreen */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          
-          {/* Add to Home Screen Button */}
-          <button
-            onClick={() => setInstallModalOpen(true)}
-            className="px-2.5 py-1.5 rounded-xl gold-shimmer text-black font-serif-luxury font-black text-xs uppercase tracking-wider transition flex items-center gap-1 cursor-pointer active:scale-95 shadow-sm"
-            title="Add to Apple iPhone or Android Home Screen"
-          >
-            <Smartphone className="w-3.5 h-3.5 text-black" />
-            <span className="hidden sm:inline">Add to Home Screen</span>
-            <span className="sm:hidden">+ App</span>
-          </button>
-
-          {/* Shell customizer toggle */}
-          <button
-            onClick={() => setShowColorPicker(prev => !prev)}
-            className="px-2.5 py-1.5 rounded-xl bg-black/60 hover:bg-white/10 text-amber-300 border border-amber-500/40 text-xs font-serif-luxury font-bold transition flex items-center gap-1 cursor-pointer"
-            title="Customize Shell Color & LCD Theme"
-          >
-            <Palette className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden sm:inline">Shell</span>
-          </button>
-
-          {/* Audio toggle */}
-          <button
-            onClick={toggleMute}
-            className="p-1.5 rounded-xl bg-black/60 hover:bg-white/10 text-amber-300 border border-amber-500/40 transition cursor-pointer"
-            title={isMuted ? 'Unmute Audio' : 'Mute Audio'}
-          >
-            {isMuted ? <VolumeX className="w-4 h-4 text-red-400" /> : <Volume2 className="w-4 h-4 text-amber-400" />}
-          </button>
-
-          {/* Fullscreen Mobile Button */}
-          <button
-            onClick={toggleFullscreen}
-            className="p-1.5 rounded-xl bg-black/60 hover:bg-white/10 text-amber-300 border border-amber-500/40 transition cursor-pointer"
-            title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-          >
-            {isFullscreen ? <Minimize2 className="w-4 h-4 text-amber-300" /> : <Maximize2 className="w-4 h-4 text-amber-300" />}
-          </button>
-        </div>
+      {/* Match the site framing; the original handheld game stays unchanged. */}
+      <div className="candyland-starfield" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span></div>
+      <header className="candyland-navbar candyland-game-navbar">
+        <a className="candyland-identity" href="/" onClick={e=>{e.preventDefault();onReturnHome();}} aria-label="Random Candy Land home">
+          <img src="/random-candy-land-art.webp" alt="" width={55} height={55} />
+          <span>RANDOM <strong>CANDY LAND</strong></span>
+        </a>
+        <nav aria-label="Random Candy Land navigation">
+          <a href="/" onClick={e=>{e.preventDefault();onReturnHome();}}>🍭 Home</a>
+          <a href="/trumpagotchi-fm1/">🐣 Tiny Pet</a>
+          <a href="/music-visualizer/">🌈 Candy Pulse</a>
+          <a href="/after-dark/">🌙 After Dark</a>
+          <a href="/#install-apps">📲 Install Apps</a>
+        </nav>
+        <CandyGoo className="candyland-header-goo" color="bubblegum" />
       </header>
+      <div className="candyland-game-toolbar" aria-label="Original Trumpagotchi game controls">
+        <strong>🎮 ORIGINAL TRUMPAGOTCHI</strong>
+        <div className="candyland-game-tools">
+          <button type="button" data-pocket-install onClick={() => setInstallModalOpen(true)} title="Install on Android or iPhone">
+            <Smartphone className="w-4 h-4" /> <span>Install App</span>
+          </button>
+          <button type="button" onClick={() => setShowColorPicker(prev => !prev)} title="Customize handheld shell and LCD">
+            <Palette className="w-4 h-4" /> <span>Shell</span>
+          </button>
+          <button type="button" onClick={toggleMute} title={isMuted ? 'Unmute Audio' : 'Mute Audio'}>
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />} <span>Sound</span>
+          </button>
+          <button type="button" onClick={toggleFullscreen} title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}>
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />} <span>Full Screen</span>
+          </button>
+        </div>
+      </div>
+      <div className="candyland-game-tagline">🐣 YOUR CUTE LITTLE POCKET PET GAME</div>
 
       {/* Optional Shell & LCD Theme Drawer */}
       {showColorPicker && (
@@ -402,7 +372,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       )}
 
       {/* MAIN VIEWPORT: THE POCKET DIGI-PET CENTERPIECE */}
-      <main className="flex-1 flex flex-col items-center justify-center p-2 sm:p-6 relative">
+      <main className="candyland-game-main flex-1 flex flex-col items-center justify-center p-2 sm:p-6 relative">
         
         {/* Subtle radial ambient background glow */}
         <div 
@@ -902,7 +872,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       </main>
 
       {/* Minimal Mobile Footer Ticker */}
-      <footer className="w-full bg-[#0a0414] border-t border-amber-500/20 px-3 py-2 flex items-center justify-between text-[11px] font-mono text-amber-300/70 shrink-0">
+      <footer className="candyland-game-status w-full border-t border-amber-500/20 px-3 py-2 flex items-center justify-between text-[11px] font-mono text-amber-300/70 shrink-0">
         <div className="flex items-center gap-2">
           <span>NET WORTH: <strong className="text-emerald-400">${stats.netWorthBillion.toFixed(1)}B</strong></span>
           <span>&bull;</span>
@@ -924,6 +894,15 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
             DOSSIER
           </button>
         </div>
+      </footer>
+
+      <footer className="candyland-footer candyland-game-footer">
+        <span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span>
+        <nav aria-label="Game footer links">
+          <a href="/" onClick={e=>{e.preventDefault();onReturnHome();}}>🍭 Candy Land Home</a>
+          <a href="/trumpagotchi-fm1/">🐣 Tiny Pet</a>
+          <a href="/#install-apps">📲 Install Apps</a>
+        </nav>
       </footer>
 
       {/* Add to Home Screen Modal */}
