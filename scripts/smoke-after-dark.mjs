@@ -98,6 +98,26 @@ try{
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
   await check('Quiz offers private PDF and saves interests', "typeof window.InterestNotebook?.printQuiz==='function' && !![...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save quiz results as PDF')) && !!document.querySelector('#quizCard .interest-result button')");
+
+  await check('Both 32-question versions map their options to identical themes',"window.AfterDarkAdultQuiz.length===32 && window.AfterDarkPsychologyQuiz.length===32 && window.AfterDarkAdultQuiz.every((q,i)=>q.options.length===window.AfterDarkPsychologyQuiz[i].options.length && q.options.every((o,j)=>o.axes===window.AfterDarkPsychologyQuiz[i].options[j].axes))");
+  const beforePair=await evaluate("JSON.stringify([...document.querySelectorAll('#quizCard .interest-result')].map(el=>el.querySelector('h3')?.textContent+'|'+el.querySelector('.interest-percentage')?.textContent))");
+  await evaluate("document.querySelector('[data-tab=psych-quiz]').click()");
+  await check('Psychological quiz has a separate non-explicit view',"document.querySelector('#psych-quiz').classList.contains('visible') && !!window.AfterDarkPsychQuizBridge && document.querySelector('#psychQuizCard button')?.textContent.includes('Start the psychology')");
+  await evaluate("document.querySelector('#psychQuizCard button').click()");
+  await check('Psychological quiz also supports selecting more than one answer',"document.querySelectorAll('#psychQuizCard input[type=checkbox]').length>=3");
+  await evaluate("document.querySelectorAll('#psychQuizCard input[type=checkbox]')[0].click();document.querySelectorAll('#psychQuizCard input[type=checkbox]')[1].click()");
+  for(let i=0;i<32;i++){
+    await evaluate("(()=>{const btn=[...document.querySelectorAll('#psychQuizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('View shared interest shelf'));btn?.click();})()");
+    if(i<31)await evaluate("document.querySelectorAll('#psychQuizCard input[type=checkbox]')[0]?.click()");
+  }
+  await check('Psychology quiz shows unified shelf and comparison',"document.querySelector('#psychQuizCard .quiz-alignment')?.textContent.includes('32 of 32 comparable questions') && document.querySelectorAll('#psychQuizCard .interest-result').length>=12");
+  const psychPair=await evaluate("JSON.stringify([...document.querySelectorAll('#psychQuizCard .interest-result')].map(el=>el.querySelector('h3')?.textContent+'|'+el.querySelector('.interest-percentage')?.textContent))");
+  if(beforePair!==psychPair)throw Error('Paired quiz answers must produce identical ranked interest names and scores');
+  await evaluate("window.AfterDarkSharedQuizResults('quizCard')");
+  const syncedPair=await evaluate("JSON.stringify([...document.querySelectorAll('#quizCard .interest-result')].map(el=>el.querySelector('h3')?.textContent+'|'+el.querySelector('.interest-percentage')?.textContent))");
+  if(syncedPair!==psychPair)throw Error('Sexual and psychological result screens must display the same unified ranking');
+  console.log('✓ Paired 32-question quizzes agree on identical selections and share the same PDF-ready interest report.');
+
   await evaluate("[...document.querySelectorAll('#quizCard .interest-result button')].find(b=>b.textContent.includes('Save & explain'))?.click()");
   await check('Saved interests notebook opens and persists', "document.querySelector('#notebook')?.classList.contains('visible') && document.querySelectorAll('#notebook-content textarea').length>=5 && localStorage.getItem('afterdark_interest_notebook_v1')");
   await evaluate("(()=>{const entry=document.querySelector('.notebook-interest');const text=entry?.querySelector('textarea');if(text){text.value='I would like you to understand what this means to me';text.dispatchEvent(new Event('input',{bubbles:true}));}const cb=entry?.querySelector('.notebook-share-label input');cb?.click();document.querySelector('#notebook-content .notebook-actions button')?.click();})()");
