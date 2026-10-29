@@ -16,10 +16,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="manifest" href="/app-manifests/candy-casino.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Candy Casino">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/candy-casino/casino.css?v=1">
+<link rel="stylesheet" href="/candy-casino/casino.css?v=showdown-20261029">
 <script src="/install-app.js" defer></script>
 <script src="/candy-casino/poker-engine.js?v=2" defer></script>
-<script src="/candy-casino/casino.js?v=2" defer></script>
+<script src="/candy-casino/casino.js?v=showdown-20261029" defer></script>
 </head>
 <body class="candy-casino">
 <!-- Google Tag Manager (noscript) -->
@@ -67,9 +67,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="scoreboards"><div><span>🍭 YOU</span><strong id="self-name">Candy Captain</strong><b id="self-score">0</b></div><span class="versus">VS</span><div><span>🍬 OPPONENT</span><strong id="opponent-name">Candybot</strong><b id="other-score">0</b></div></div>
 <div class="duel-display" id="duel-display" role="status">🃏 Ready for a friendly five-card draw?</div>
 <div class="poker-table" id="poker-table" aria-label="Five card draw poker table" hidden>
+<div class="poker-score-strip" role="group" aria-label="Live poker match scoreboard">
+  <div class="poker-score-side"><span>🍭 YOUR ROUNDS</span><strong id="poker-self-score" aria-live="polite">0</strong></div>
+  <div class="poker-score-middle"><span id="poker-round-label">ROUND 1 OF 5</span><small id="poker-ties">0 ties</small></div>
+  <div class="poker-score-side"><span>🍬 OPPONENT ROUNDS</span><strong id="poker-other-score" aria-live="polite">0</strong></div>
+</div>
 <div class="cards-group"><span class="cards-label">🍬 OPPONENT'S HAND</span><div class="cards-row" id="poker-opponent-cards"></div><small id="poker-opponent-tip">Cards are hidden until the showdown.</small></div>
 <div class="poker-community"><span>🍭 SUGAR RUSH POKER</span><span id="poker-stage-label">Five cards. One draw. Best hand wins.</span></div>
-<div class="cards-group"><span class="cards-label">🍭 YOUR HAND</span><div class="cards-row" id="poker-own-cards"></div><small id="poker-hand-tip">Tap up to three cards to exchange.</small></div></div>
+<div class="cards-group"><span class="cards-label">🍭 YOUR HAND</span><div class="cards-row" id="poker-own-cards"></div><small id="poker-hand-tip">Tap up to three cards to exchange.</small></div>
+<div class="poker-showdown" id="poker-showdown" hidden>
+ <div class="poker-showdown-panel" role="status" aria-live="polite" aria-atomic="true">
+  <span class="poker-showdown-eyebrow">🍬 SUGAR RUSH SHOWDOWN 🍬</span>
+  <h3 id="poker-winner">Round winner</h3>
+  <p class="poker-showdown-hands" id="poker-hands-explainer"></p>
+  <p class="poker-showdown-why" id="poker-why"></p>
+  <div class="poker-showdown-score" id="poker-showdown-score">Match score: 0 – 0</div>
+  <div class="poker-showdown-actions">
+   <button type="button" class="secondary" id="poker-reveal">👀 SEE BOTH HANDS</button>
+   <button type="button" class="primary" id="poker-continue">🍭 NEXT ROUND</button>
+  </div>
+ </div>
+</div>
+</div>
 <div class="ready-flags"><span id="my-ready">🍭 You: ready to play</span><span id="their-ready">🍬 Candybot: ready</span></div>
 <div class="game-buttons" id="game-buttons"><button type="button" class="primary duel-go" id="duel-ready">🃏 DEAL POKER CARDS</button>
 <button type="button" class="secondary" id="poker-draw" hidden>♻️ DRAW SELECTED CARDS (0/3)</button>
