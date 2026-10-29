@@ -72,6 +72,12 @@ function init(){
  categories.forEach(name=>{const opt=make('option',name);opt.value=name;filter.append(opt)});
  filter.value=category;filter.addEventListener('change',()=>{category=filter.value;paint()});
  query.addEventListener('input',()=>{search=query.value;paint()});
+ document.querySelectorAll('[data-guide-open]').forEach(button=>{
+  button.addEventListener('click',()=>{
+   document.querySelector('[data-tab=howto]')?.click();
+   open(button.dataset.guideOpen);
+  });
+ });
  const hash=window.location.hash;
  if(hash.startsWith('#howto:')){
   const id=hash.slice('#howto:'.length);
