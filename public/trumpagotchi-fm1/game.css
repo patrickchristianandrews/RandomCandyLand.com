@@ -165,3 +165,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
 .fm1-pixel-ready .lcd .scene #gameover{pointer-events:auto;border-radius:0;inset:0}
 .fm1-pixel-ready .fm1-indicators{margin-top:7px}
 @media(max-width:530px){.fm1-pixel-ready .lcd{border-width:7px!important;border-radius:11px!important}}
+
+/* Keep the two bonus actions in the same control bank as the four care keys. */
+.fm1-tiny-mode .care-buttons>.fm1-care-key-label{grid-column:1/-1;margin:8px 0 0}
+.fm1-tiny-mode .care-buttons>.care-bonus{grid-column:span 2;min-height:72px;gap:3px;padding:9px 8px;border-color:#c1d6e9;background:linear-gradient(145deg,#293c53,#172438)!important}
+.fm1-tiny-mode .care-buttons>.care-bonus b{font-size:12px}
+.fm1-tiny-mode .care-buttons>.care-bonus small{font-size:9px}
+.fm1-tiny-mode .care-buttons>.care-bonus span{font-size:24px}
+.fm1-tiny-mode .care-buttons>.care-bonus:hover{border-color:#ffe4ae}
+@media(max-width:530px){
+  .fm1-tiny-mode .care-buttons>.care-bonus{min-height:69px;padding:8px 5px}
+  .fm1-tiny-mode .care-buttons>.care-bonus b{font-size:11px}
+  .fm1-tiny-mode .care-buttons>.care-bonus small{font-size:8px}
+}
