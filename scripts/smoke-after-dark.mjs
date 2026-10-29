@@ -118,11 +118,11 @@ try{
   if(oldGolf)throw Error('Removed one-tap golf shortcut is still visible');
   console.log('✓ Removed one-tap Golf shortcut remains absent.');
 
-  // The deleted pet page must no longer be usable or linked.
-  const retired=await (await fetch(site+'/trumpagotchi-pet/')).text();
-  if(!retired.includes('url=/trump/') || retired.includes('id="originalCanvas"'))
-    throw Error('Retired pocket pet did not redirect to original Trumpagotchi');
-  console.log('✓ Removed Little Pocket Pet page redirects to the original game.');
+  // Old prototype page must be fully deleted, not kept as a stale redirect.
+  const retired=await fetch(site+'/trumpagotchi-pet/');
+  if(retired.status!==404)
+    throw Error('Deleted prototype pet page is still published');
+  console.log('✓ Old prototype pet page is no longer published.');
   const oldFm1=await (await fetch(site+'/fm1-emu/')).text();
   if(!oldFm1.includes('url=/trumpagotchi-fm1/')) {
     throw Error('Old FM-1 link did not route to the playable tiny Trumpagotchi');
