@@ -4,8 +4,8 @@
  */
 (() => {
   'use strict';
-  const apps = [{"id":"tiny-pet","path":"/trumpagotchi-fm1/","title":"Trumpagotchi Tiny Pet","short":"Tiny Pet"},{"id":"pocket-pet","path":"/trump/","title":"Donald’s Pocket Pet","short":"Pocket Pet"},{"id":"goo-rush","path":"/goo-rush/","title":"Goo Rush Candy Arcade","short":"Goo Rush"},{"id":"candy-simon","path":"/candy-simon/","title":"Candy Simon Says","short":"Candy Simon"},{"id":"candy-match","path":"/candy-match/","title":"Candy Match","short":"Candy Match"},{"id":"candy-pulse","path":"/music-visualizer/","title":"Candy Pulse Music Visualizer","short":"Candy Pulse"},{"id":"after-dark","path":"/after-dark/","title":"After Dark Curiosity Atlas","short":"After Dark"},{"id":"clue-compass","path":"/after-dark/psychology-lab/","title":"Clue Compass Psychology Lab","short":"Clue Compass"}];
-  // Longest scope first: Clue Compass must not inherit the After Dark manifest.
+  const apps = [{"id":"tiny-pet","path":"/trumpagotchi-fm1/","title":"Trumpagotchi Tiny Pet","short":"Tiny Pet"},{"id":"pocket-pet","path":"/trump/","title":"Donald’s Pocket Pet","short":"Pocket Pet"},{"id":"goo-rush","path":"/goo-rush/","title":"Goo Rush Candy Arcade","short":"Goo Rush"},{"id":"candy-simon","path":"/candy-simon/","title":"Candy Simon Says","short":"Candy Simon"},{"id":"candy-match","path":"/candy-match/","title":"Candy Match","short":"Candy Match"},{"id":"candy-pulse","path":"/music-visualizer/","title":"Candy Pulse Music Visualizer","short":"Candy Pulse"},{"id":"after-dark","path":"/after-dark/","title":"After Dark Curiosity Atlas","short":"After Dark"}];
+  // Clue Compass is a feature under After Dark; use After Dark's web-app manifest.
   const current = () => apps.slice().sort((a,b)=>b.path.length-a.path.length).find(app =>
     location.pathname === app.path.slice(0,-1) || location.pathname.startsWith(app.path)
   ) || {id:'site',path:'/',title:'Random Candy Land',short:'Candy Land'};
@@ -72,6 +72,8 @@
   }
   function mount(){
     if(document.getElementById('rcl-install-app'))return;
+    // Original Trumpagotchi has its own working install control inside React.
+    if(app.id==='pocket-pet' && document.querySelector('[data-pocket-install]'))return;
     const button=document.createElement('button');
     button.id='rcl-install-app';button.type='button';
     button.textContent='📲 Install '+app.short;

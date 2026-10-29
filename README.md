@@ -14,7 +14,7 @@ This is the **current source repository**, not a bundle of historic deployments.
 | Current styling, dripping goo and animated planet | `src/index.css`, `src/components/CandyGoo.tsx` |
 | React app routing | `src/App.tsx` |
 | Original larger talking Pocket Pet | `src/pages/TrumpGotchaPage.tsx` and related `src/components`, `src/hooks`, `src/utils`, `src/types` |
-| Small FM-1-style Trumpagotchi | `public/trumpagotchi-fm1/index.html`, `game.js`, `fm1-pixel-screen.js`, `melody.js`, `game.css` |
+| Pixel-art Trumpagotchi Tiny Pet | `public/trumpagotchi-fm1/index.html`, `game.js`, `fm1-pixel-screen.js`, `melody.js`, `game.css` |
 | Standalone attractions | `public/goo-rush/`, `public/candy-simon/`, `public/candy-match/`, `public/music-visualizer/` |
 | Curiosity Atlas and psychology lab | `public/after-dark/` including `psychology-lab/` |
 | Shared public sound files | `public/audio/trump/` — do not recreate root `audio/` |
@@ -30,7 +30,7 @@ This is the **current source repository**, not a bundle of historic deployments.
 
 - `/` — current Random Candy Land homepage; includes the Nonsense Generator and attraction catalog.
 - `/trump/` — original larger talking Pocket Pet with extra mini-games, accessed from the homepage.
-- `/trumpagotchi-fm1/` — standalone tiny FM-1-inspired pet; Feed, Praise, Clean, Rest, Watch News (walk to chair and watch TV), Cheer, Play Him a Melody.
+- `/trumpagotchi-fm1/` — standalone pixel-art Tiny Pet; Feed, Praise, Clean, Rest, Watch News (walk to chair and watch TV), Cheer, Play Him a Melody.
 - `/goo-rush/`, `/candy-simon/`, `/candy-match/`, `/music-visualizer/` — separate games/tools.
 - `/after-dark/`, `/after-dark/psychology-lab/` — education and private self-reflection tools.
 - `/fm1-emu/` — **intentional backwards-compatible redirect** to the tiny pet. Leave it in place unless redirect tests and external links are migrated.
@@ -76,6 +76,6 @@ To download a prebuilt, test-signed APK without a computer, open **GitHub Action
 - **Preserve all active pages and assets**. Do not reintroduce the old luxury-resort homepage or retired pop-culture crown-battle/second pet prototypes.
 - **One canonical source**: root `index.html`, `src/` for React, `public/` for static sites/assets, `wear-os/` for watch app; GitHub Actions publishes generated `dist/`.
 - **No duplicate exports**: removed stale root `assets/`, root `audio/`, compiled HTML snapshots, `.aistudio` scratch artifacts, and three large published ZIP archives.
-- The watch app is a **GPL-3.0-only licensed** adaptation of https://github.com/adamcharleswilsonmusic-code/Trumpagotchi v1.0.0. Keep the license and source attribution in `public/trumpagotchi-fm1/`.
+- Keep the original GPL-3.0-only attribution and source notices for the adapted Tiny Pet and watch game. Original project: https://github.com/adamcharleswilsonmusic-code/Trumpagotchi v1.0.0. The source and license remain available in `public/trumpagotchi-fm1/`.
 - Do not expose secrets, publish unrestricted paid model endpoints, or commit personal keys. `.env.example` provides a template.
 - Verify GitHub Actions after edits and check actual live behavior; do not interpret a successful commit as a successful deployment.

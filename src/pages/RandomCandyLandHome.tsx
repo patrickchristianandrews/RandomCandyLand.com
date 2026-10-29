@@ -30,18 +30,17 @@ const INSTALL_CHOICES = [
   {emoji:'🍭',name:'Candy Simon Says',url:'/candy-simon/'},
   {emoji:'🃏',name:'Candy Match',url:'/candy-match/'},
   {emoji:'🌈',name:'Candy Pulse',url:'/music-visualizer/'},
-  {emoji:'🌙',name:'After Dark',url:'/after-dark/'},
-  {emoji:'🧭',name:'Clue Compass',url:'/after-dark/psychology-lab/'},
+  {emoji:'🌙',name:'After Dark (includes Clue Compass)',url:'/after-dark/'},
 ] as const;
 
 const PORTALS: Portal[] = [
-  {emoji:'🐣',title:'Trumpagotchi: The Tiny Pet',blurb:"The pixel-art pet game adapted from the original FM-1 Trumpagotchi release. Feed, praise, clean and rest your demanding little pet—play right here, no synth needed.",kind:'games',label:'NOW PLAYABLE · FROM THE FM-1 GAME',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {emoji:'🐣',title:'Trumpagotchi: The Tiny Pet',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
   {emoji:'🍬',title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
   {emoji:'🍭',title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
   {emoji:'🃏',title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'games',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
   {emoji:'🌈',title:'Candy Pulse',blurb:"Turn your own music into mesmerizing colorful waves, bouncing lights, and reactive shapes.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
-  {emoji:'🌙',title:'After Dark',blurb:"A grown-up curiosity atlas for discovering and understanding more about yourself.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
+  {emoji:'🌙',title:'After Dark',blurb:"A grown-up curiosity atlas for understanding yourself, including the Clue Compass psychology lab.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
 ];
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
@@ -71,7 +70,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <nav aria-label="Main website navigation">
           <a href="#adventures"><Gamepad2 size={17}/> Play</a>
           <a href="#install-apps">📲 Install Apps</a>
-          <a href="/trumpagotchi-fm1/" aria-label="Play the FM-1 pixel-art Trumpagotchi pet">🐣 Tiny Pet</a>
+          <a href="/trumpagotchi-fm1/" aria-label="Play the pixel-art Trumpagotchi Tiny Pet">🐣 Tiny Pet</a>
           <a href="#nonsense">🎲 Nonsense</a>
           <a href="/music-visualizer/"><Music2 size={17}/> Music</a>
           <a href="/after-dark/"><MoonStar size={17}/> After Dark</a>
@@ -101,7 +100,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <div className="candyland-eyebrow">WELCOME TO YOUR CANDY-COATED UNIVERSE</div>
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
           <p>One colorful, wildly imaginative place to play, make things glow, generate ridiculous nonsense, and stumble into something wonderful.</p>
-          <div className="candyland-opening-actions"><a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a><a className="candyland-tiny-link" href="/trumpagotchi-fm1/">🐣 PLAY THE FM-1-STYLE TINY PET</a></div>
+          <div className="candyland-opening-actions"><a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a><a className="candyland-tiny-link" href="/trumpagotchi-fm1/">🐣 PLAY THE TINY PET</a></div>
         </div>
         <CandyGoo className="candyland-drips" color="bubblegum" />
       </section>
@@ -124,7 +123,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           {shown.map(portal => {
             const inner = <>
               <div className="candyland-portal-icon">
-                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : portal.href === '/trumpagotchi-fm1/' ? <img src="/trumpagotchi-fm1/pixel-icon.svg" width={96} height={96} alt="Original FM-1 style pixel-art Trumpagotchi pet" loading="lazy" /> : <span>{portal.emoji}</span>}
+                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : portal.href === '/trumpagotchi-fm1/' ? <img src="/trumpagotchi-fm1/pixel-icon.svg" width={96} height={96} alt="Pixel-art Trumpagotchi Tiny Pet" loading="lazy" /> : <span>{portal.emoji}</span>}
               </div>
               <span className="candyland-portal-tag">{portal.label}</span>
               <h3>{portal.title}</h3>

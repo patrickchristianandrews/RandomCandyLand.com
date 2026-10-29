@@ -9,7 +9,7 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
-  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'YOUR CUTE LITTLE POCKET PET GAME', 'pocket-site-nav', 'HOW TO PLAY', 'id="remix-studio"']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'YOUR CUTE LITTLE POCKET PET GAME', 'candyland-game-site-nav', 'HOW TO PLAY', 'id="remix-studio"']],
 ];
 
 let failures = 0;
@@ -81,8 +81,8 @@ for (const [route, destination] of expectedLegacyRoutes) {
     failures++;
   }
 }
-if (!homeBundle.includes('PLAY THE FM-1-STYLE TINY PET')) {
-  console.error('Tiny FM-1 style pet homepage button is missing.');
+if (!homeBundle.includes('PLAY THE TINY PET')) {
+  console.error('Tiny Pet homepage button is missing.');
   failures++;
 }
 if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpagotchi-pet/')) {
