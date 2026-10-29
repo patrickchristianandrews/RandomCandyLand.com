@@ -147,13 +147,12 @@ function answer(index){
   const token=++runToken;setTimeout(()=>{if(runToken===token&&phase==='win')nextLevel()},990);
  }else say('💖 NICE! KEEP GOING!','Candy '+position+' of '+sequence.length+' matched.');
 }
-start.addEventListener('click',newGame);
+start.addEventListener('click',()=>{if(phase==='paused'){start.textContent='↻ START OVER';showPattern();}else{newGame();}});
 replay.addEventListener('click',()=>{if(phase!=='answer'||usedReplay)return;usedReplay=true;showPattern()});
 pads.forEach((p,i)=>p.addEventListener('click',()=>answer(i)));
 document.addEventListener('keydown',e=>{if(e.target.closest('input,select'))return;const k=Number(e.key);if(k>=1&&k<=4){e.preventDefault();answer(k-1)}});
 mode.addEventListener('change',update);
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&phase!=='idle'&&phase!=='over'){runToken++;phase='paused';enablePads(false);replay.disabled=true;say('🍭 Little candy break!','Tap Continue to watch the pattern again.');start.textContent='▶ CONTINUE';}});
-start.addEventListener('click',()=>{if(phase==='paused'){return}}, {capture:false});
 update();
 })();
 </script></body></html>
