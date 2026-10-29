@@ -69,6 +69,7 @@ try{
     if(!value)throw Error('After Dark regression: '+desc);
     console.log('✓',desc);
   };
+  await check('Google Tag Manager initializes on After Dark', "window.dataLayer?.some(x=>x?.event==='gtm.js' && Number.isFinite(x['gtm.start'])) && [...document.scripts].some(s=>s.src.includes('googletagmanager.com/gtm.js?id=GTM-TQRDB5KL'))");
   await check('Adult entry is present', "!!document.querySelector('#enter')");
   await evaluate("document.querySelector('#enter').click()");
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
@@ -214,6 +215,9 @@ try{
 
   // The homepage nonsense button must generate a genuinely different result.
   const home=await navigate(site+'/');
+  const trackingReady=await home.evaluate("window.dataLayer?.some(x=>x?.event==='gtm.js') && [...document.scripts].some(s=>s.src.includes('googletagmanager.com/gtm.js?id=GTM-TQRDB5KL'))");
+  if(!trackingReady)throw Error('Homepage Google Tag Manager failed to initialize');
+  console.log('✓ GTM initializes on both the homepage and After Dark.');
   const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-display p')");
   if(!nonsenseReady)throw Error('Homepage nonsense generator did not mount');
   const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-display p').textContent");
