@@ -52,7 +52,7 @@ The build writes `dist/` from **root `index.html`** and the entire `public/` tre
 
 The canonical deployer is `.github/workflows/deploy.yml`. It rebuilds, validates, performs Chrome smoke tests and publishes `dist/` to GitHub Pages. The repository currently also triggers a legacy GitHub-provided **"pages build and deployment"** job due to branch-source Pages settings. The custom workflow waits for the legacy job so the latest built site publishes last; avoid enabling another competing deployer. To simplify later, configure **Settings → Pages → Build and deployment → GitHub Actions** and confirm the existing custom workflow deploys successfully, then remove the legacy wait from `deploy.yml`.
 
-The `public/CNAME` file is the domain source. Ignore generated root `CNAME` or root assets; they have been removed.
+Both root `CNAME` (required by the legacy branch-source GitHub Pages publisher) and `public/CNAME` (copied into Vite's dist for the canonical GitHub Actions publisher) intentionally contain `randomcandyland.com`. Keep them identical until Pages Settings are switched completely to GitHub Actions.
 
 ### Android / iPhone installs
 
