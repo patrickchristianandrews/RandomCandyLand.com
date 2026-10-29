@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar, WandSparkles } from 'lucide-react';
 import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
+import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
 
 interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
@@ -42,6 +43,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </a>
         <nav aria-label="Main website navigation">
           <a href="#adventures"><Gamepad2 size={17}/> Play</a>
+          <a href="#nonsense">🎲 Nonsense</a>
           <a href="/music-visualizer/"><Music2 size={17}/> Music</a>
           <a href="/after-dark/"><MoonStar size={17}/> After Dark</a>
         </nav>
@@ -68,7 +70,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <div className="candyland-opening-copy">
           <div className="candyland-eyebrow">WELCOME TO YOUR CANDY-COATED UNIVERSE</div>
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
-          <p>One colorful, wildly imaginative place to play, make things glow, and stumble into something wonderful.</p>
+          <p>One colorful, wildly imaginative place to play, make things glow, generate ridiculous nonsense, and stumble into something wonderful.</p>
           <a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a>
         </div>
         <div className="candyland-drips" aria-hidden="true"><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
@@ -105,6 +107,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           })}
         </div>
       </section>
+
+      <RandomNonsenseGenerator />
 
       <section className="candyland-finale">
         <img src="/random-candy-land-art.webp" width={160} height={160} alt="" loading="lazy" />
