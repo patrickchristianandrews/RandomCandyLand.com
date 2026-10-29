@@ -378,6 +378,7 @@
     // including while sleeping, paused or muted.
     animate('bongo', 820);
     say('BONGO BEAT: ' + noteNames[index], undefined, 1000);
+    melodyMessage('🥁 Donald is banging the bongos to ' + noteNames[index] + '!');
     button.classList.add('is-playing');
     window.setTimeout(() => button.classList.remove('is-playing'), 180);
     if (state.muted) {
@@ -398,6 +399,7 @@
     // Use real time so it works with a sleeping or paused pet as well.
     animate('bongo', 2900);
     say('DONALD IS PLAYING THE BONGOS', undefined, 2950);
+    melodyMessage('🥁 Donald is playing the bongos to your melody!');
     if (state.muted) {
       melodyMessage('🥁 Donald is playing the bongos! Turn SOUND ON to hear the melody.');
       return;
