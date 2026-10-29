@@ -80,6 +80,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .interest-result .interest-reason{color:#ecd0ed;font-size:12px;margin-top:auto}
 .interest-warning{color:#ffe2a6;font-size:11px}
 @media(max-width:650px){.interest-results{grid-template-columns:1fr}}
+</style><style>
+.interest-disclaimer{padding:12px 15px;border:1px solid #e7c0e9;border-left:4px solid #ffe4a1;background:#392846;border-radius:13px;line-height:1.6;font-size:13px}
+.interest-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,365px),1fr));gap:15px;margin:17px 0 28px}
+.interest-result{padding:18px;display:flex;flex-direction:column;gap:8px}
+.interest-result-top{display:flex;justify-content:space-between;gap:9px;align-items:center}
+.interest-source{font-size:11px;color:#f0cde6}
+.interest-percentage{font-size:25px;font-weight:950;color:#ffe5a4;background:#512b61;border:1px solid #e4b3ec;padding:5px 11px;border-radius:13px;font-variant-numeric:tabular-nums}
+.interest-fit-track{height:10px;background:#654877;border-radius:40px;overflow:hidden}
+.interest-fit-fill{height:100%;background:linear-gradient(90deg,#d887df,#ffe49e);border-radius:40px}
+.interest-acts{background:#ffffff0c;border:1px solid #ffffff21;padding:12px;border-radius:12px}
+.interest-acts strong,.instant-checklist>strong{font-size:13px;color:#ffe2a0}
+.interest-acts ul,.beyond-grid ul{padding-left:21px;font-size:13px;line-height:1.65}
+.instant-checklist{display:flex;flex-direction:column;gap:8px;background:#180e2c80;border:1px solid #d8a9e345;border-radius:12px;padding:12px}
+.checklist-line{display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.5;cursor:pointer}
+.checklist-line input{width:17px;height:17px;flex-shrink:0;accent-color:#edb3f5}
+.interest-psych-report{border-top:1px solid #ffffff3b;padding-top:9px;line-height:1.6}
+.interest-psych-report summary,.psych-overview summary{cursor:pointer;font-weight:850;color:#ffe6ac;font-size:13px}
+.interest-psych-report p{font-size:12px}
+.psych-overview{background:#2c193b;padding:18px;border:1px solid #dcace6;border-radius:15px;margin:16px 0}
+.psych-overview p{font-size:13px;line-height:1.68}
+.explore-beyond{margin-top:24px;border-top:2px solid #dc9fd34d;padding-top:20px}
+.explore-beyond>p{font-size:13px;line-height:1.55}
+.beyond-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:12px;margin-top:14px}
+.beyond-grid .card{padding:16px}
+.beyond-grid h4{margin:8px 0}
+.beyond-grid p,.beyond-grid li{font-size:13px}
+.beyond-grid button{margin-top:7px}
+.result-actions{display:flex;flex-wrap:wrap;gap:10px}
+@media(max-width:680px){.interest-results,.beyond-grid{grid-template-columns:1fr}}
 </style></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -160,7 +189,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <div class="afterdark-landing-safety"><strong>Respect, choice and privacy.</strong> For adults 18+. Your quiz selections and Ask Atlas questions stay on your device rather than being uploaded to a server. You may skip, change your mind or simply read.</div>
 </section>
 <section id="atlas" class="tab"><span id="allCount" hidden></span><div class="controls"><input class="field" id="search" placeholder="Search themes, objects, experiences…" aria-label="Search topics"><select class="field" id="cat"><option value="all">Every category</option></select><select class="field" id="order"><option value="alphabetic">Alphabetical</option><option value="for-me">Your selections first</option></select></div><div class="tiny" id="topicCount"></div><div class="topics" id="topicGrid"></div></section>
-<section id="quiz" class="tab"><span class="eyebrow">A deeper, two-part exploration</span><h2>Your curiosity <span class="italic">compass.</span></h2><p class="lead">Part one maps ordinary feelings about story, trust, attention and sensations. Part two lets you indicate actual curiosity about specific interests. <strong>Only your direct selections</strong> offer meaningful clues about which specific topics you may want to read.</p><div class="card" id="quizCard"><div class="pill">32 thoughtful questions · optional interest check</div><h3>There is no right answer.</h3><p>Respond to what you genuinely enjoy rather than what sounds adventurous. You can skip questions and change your mind.</p><button class="btn" id="startQuiz">Begin →</button></div><div id="quizBelow"></div><div class="note">Want a shorter assessment with an optional deep-dive into self-soothing clues? <a href="/after-dark/psychology-lab/">Try the 12+8 question Clue Compass, interest checklist and psychology report →</a></div></section>
+<section id="quiz" class="tab"><span class="eyebrow">A deeper, two-part exploration</span><h2>Your curiosity <span class="italic">compass.</span></h2><p class="lead">Part one explores 32 broad reflections, followed by 12 optional, more personal questions about imagination, trust, sensory experiences, roles and emotional context. Your responses suggest topics to read; <strong>only your own direct interests</strong> can tell you what truly appeals.</p><div class="card" id="quizCard"><div class="pill">32 broad questions · 12 deeper optional reflections</div><h3>There is no right answer.</h3><p>Respond to what you genuinely enjoy rather than what sounds adventurous. You can skip questions and change your mind.</p><button class="btn" id="startQuiz">Begin →</button></div><div id="quizBelow"></div><div class="note">Want a shorter assessment with an optional deep-dive into self-soothing clues? <a href="/after-dark/psychology-lab/">Try the 12+8 question Clue Compass, interest checklist and psychology report →</a></div></section>
 <section id="psych" class="tab"><span class="eyebrow">Interpretation without reductionism</span><h2>The psychology of <span class="italic">curiosity.</span></h2><p class="lead">Attraction can reflect multiple overlapping influences. We explain plausible processes and limits of evidence, rather than presenting speculative origins as settled facts.</p><div id="lenses" class="grid"></div><div id="categoriesPsych" class="guide"></div><div class="note"><strong>New psychology lab:</strong> Read about everyday comfort habits—including thumb-sucking—alongside contemporary kink research and the topics in Daniel Amen’s <cite>The Brain in Love</cite>. <a href="/after-dark/psychology-lab/">Open the Clue Compass →</a></div></section>
 <section id="ideas" class="tab" aria-label="Idea Lab for consenting adults">
   <span class="eyebrow">SPECIFIC, CONSENT-FIRST IDEAS FOR ADULTS</span>
@@ -263,83 +292,345 @@ DB.categories.forEach(c=>{const o=document.createElement('option');o.value=c[0];
 $('search').addEventListener('input',renderAtlas);$('cat').addEventListener('change',renderAtlas);$('order').addEventListener('change',renderAtlas);$('allCount').textContent=topics.length+' topics';renderAtlas();
 function elText(tag,text,cls){const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;return el;}
 function renderPsych(){const root=$('lenses');root.replaceChildren(...Object.entries(DB.lenses).map(([k,v])=>{const card=document.createElement('div');card.className='card';card.append(elText('span','POSSIBLE INFLUENCE · '+k.toUpperCase(),'eyebrow'),elText('h3',v[0]),elText('p',v[1]));return card}));const area=$('categoriesPsych');DB.categories.forEach(c=>{const d=document.createElement('details');const sum=elText('summary',c[1]+' '+c[0]);d.append(sum,elText('p',c[3]),elText('p','Explore this theme: '+c[2]));area.append(d)})}renderPsych();
-let answered=0;
-function renderQuiz(){const box=$('quizCard');box.replaceChildren();if(qIndex<0){box.append(elText('span','PART 1 / REFLECTION','eyebrow'),elText('h3','Start when you feel ready'),elText('p','32 prompts about ordinary preferences, then optional explicit interests. Results include exploratory topic-match percentages, not predictive probabilities.'));const b=elText('button','Begin the compass →','btn');b.onclick=()=>{qIndex=0;axes={};answered=0;renderQuiz()};box.append(b);return;}
-if(qIndex>=qdata.length){showResults();return;}
-const q=qdata[qIndex];box.append(elText('span','QUESTION '+(qIndex+1)+' OF '+qdata.length+' · '+answered+' answered','eyebrow'));const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('div');fill.style.width=100*qIndex/qdata.length+'%';bar.append(fill);box.append(bar,elText('h3',q.q));const options=document.createElement('div');options.className='quizOpts';q.options.forEach((op,i)=>{const b=elText('button',op);b.onclick=()=>{axes[q.axes[i]]=(axes[q.axes[i]]||0)+1;answered++;qIndex++;renderQuiz()};options.append(b)});box.append(options);const skip=elText('button','Skip this question','btn alt');skip.style.marginTop='13px';skip.onclick=()=>{qIndex++;renderQuiz()};box.append(skip);}
-// Transparent, rule-based matching of the quiz's broad themes to the Atlas.
- // Percentages indicate *relative exploration fit*, not calibrated probabilities
- // of an individual being interested in an activity.
-function interestMatches() {
-  const biggestAxis = Math.max(1,...Object.values(axes));
-  const questionCoverage = Math.min(1,answered/16);
-  return topics.filter(x=>choices[x.id]!=='no' && (!x.warning || choices[x.id]==='yes'||choices[x.id]==='maybe')).map(x=>{
-    const similarity = x.tags.length
-      ? x.tags.reduce((total,tag)=>total+Math.min(1,(axes[tag]||0)/biggestAxis),0)/x.tags.length : 0;
-    const chosen = choices[x.id];
-    // Directly selected interests outweigh indirect answers about everyday life.
-    const percentage = chosen==='yes' ? 90+Math.round(9*similarity) :
-      chosen==='maybe' ? 67+Math.round(18*similarity) :
-      Math.round((23+42*similarity)*questionCoverage);
-    const source = chosen==='yes'?'Selected: Interested':
-      chosen==='maybe'?'Selected: Curious':'Quiz theme match only';
-    return {x,percentage,source,direct:chosen==='yes'?2:chosen==='maybe'?1:0};
-  }).filter(item=>item.direct || answered>=8)
-    .sort((a,b)=>b.direct-a.direct || b.percentage-a.percentage || a.x.name.localeCompare(b.x.name));
+let answered=0, deeperAnswered=0, deepIndex=-1, deeperAxes={}, personalReasons=[];
+const deepQs=[
+['What most often makes a new interest worth exploring?',[
+ ['Its physical sensations and subtle details','sensation aesthetics'],
+ ['The imaginary scene or person I can become','narrative novelty'],
+ ['The trust I share with someone','trust attachment'],
+ ['The feeling of having choices and influence','control affirmation']
+]],
+['When curiosity feels personal, which matters most?',[
+ ['A mutually agreed power dynamic','control trust'],
+ ['An atmosphere built around clothing, color or texture','aesthetics sensation'],
+ ['A detailed story with named characters','narrative associations'],
+ ['Anticipating a special moment','anticipation ritual']
+]],
+['What part of a close, safe experience draws you in?',[
+ ['Feeling admired and noticed','affirmation aesthetics'],
+ ['Offering care and reassurance','attachment trust'],
+ ['Clear roles and negotiated boundaries','control ritual'],
+ ['Exploring a fresh, playful possibility','novelty narrative']
+]],
+['How do you feel about leading and following?',[
+ ['I enjoy freely choosing to lead','control affirmation'],
+ ['I enjoy freely choosing to follow a trusted person','control trust'],
+ ['Trading roles interests me','novelty control'],
+ ['I prefer decisions without assigned roles','attachment trust']
+]],
+['Which imagined setting gets your attention?',[
+ ['A private fashion or costume scene','aesthetics narrative'],
+ ['A sensory-focused relaxation space','sensation attachment'],
+ ['A ritual or formal invitation','ritual anticipation'],
+ ['An unpredictable fictional adventure','novelty narrative']
+]],
+['Which emotional quality feels most central?',[
+ ['Trust and the right to stop','trust attachment'],
+ ['Excitement and uncertainty within limits','novelty anticipation'],
+ ['Admiration and positive attention','affirmation aesthetics'],
+ ['A meaningful pattern we repeat','ritual attachment']
+]],
+['Which style of communication would you rather explore?',[
+ ['Explicitly negotiating roles and choices','control trust'],
+ ['Exchanging comforting or affirming messages','affirmation attachment'],
+ ['Inventing stories and characters together','narrative novelty'],
+ ['Describing sensory preferences precisely','sensation aesthetics']
+]],
+['If something seems intriguing but unfamiliar, why?',[
+ ['I wonder what emotions might come up','attachment associations'],
+ ['I want to learn about the imagery and symbols','aesthetics associations'],
+ ['I like understanding the rules and boundaries','control trust'],
+ ['I am drawn to the suspense of the unknown','novelty anticipation']
+]],
+['Which playful idea would you most likely discuss?',[
+ ['Alternating who plans a date','control novelty'],
+ ['Trying themed outfits or accessories','aesthetics narrative'],
+ ['Sharing a meaningful private ritual','ritual attachment'],
+ ['Trying a blind-choice mystery gift game','anticipation sensation']
+]],
+['What would make a first exploration feel safe?',[
+ ['A clear and reversible agreement','trust control'],
+ ['An unhurried chance to talk afterward','attachment trust'],
+ ['Starting with a fictional story instead of acting','narrative anticipation'],
+ ['Seeing several options with the freedom to skip','novelty trust']
+]],
+['Which detail of a memorable experience stays with you?',[
+ ['The words that made me feel seen','affirmation attachment'],
+ ['The textures, sounds and lighting','sensation aesthetics'],
+ ['The roles each person chose','control narrative'],
+ ['The slow build-up before the reveal','anticipation ritual']
+]],
+['Which personal curiosity do you want to understand further?',[
+ ['Power, vulnerability and mutual trust','control trust'],
+ ['Bodies, clothing and sensory fascinations','sensation aesthetics'],
+ ['Fantasy identities and imaginative narratives','narrative novelty'],
+ ['Emotional bonds, attention and reassurance','attachment affirmation']
+]]
+];
+function addAxes(target,words,weight){for(const word of words.split(' '))target[word]=(target[word]||0)+weight;}
+function renderDeepQuiz(){
+  const box=$('quizCard');box.replaceChildren();
+  if(deepIndex>=deepQs.length){showResults();return;}
+  const q=deepQs[deepIndex];
+  box.append(elText('span','PART 2 / OPTIONAL DEEPER REFLECTION · '+(deepIndex+1)+' OF '+deepQs.length,'eyebrow'));
+  box.append(elText('h3',q[0]));
+  box.append(elText('p','These are closer to your actual curiosities, but they still cannot establish what you will enjoy. You can skip or finish at any time.'));
+  const options=elText('div','','quizOpts');
+  q[1].forEach((option,i)=>{
+    const b=elText('button',option[0]);
+    b.onclick=()=>{addAxes(deeperAxes,option[1],1.5);personalReasons.push(option[0]);deeperAnswered++;deepIndex++;renderDeepQuiz();};
+    options.append(b);
+  });
+  box.append(options);
+  const skip=elText('button','Skip this question','btn alt');
+  skip.onclick=()=>{deepIndex++;renderDeepQuiz();};
+  const done=elText('button','See results now →','btn alt');
+  done.onclick=()=>showResults();
+  box.append(skip,done);
+}
+function renderQuiz(){
+  const box=$('quizCard');box.replaceChildren();
+  if(qIndex<0){
+    box.append(elText('span','TWO-PART SELF-REFLECTION','eyebrow'),elText('h3','Start when you feel ready'),
+      elText('p','Part 1 has 32 broad questions. Part 2 adds 12 optional, more personal reflection questions, including roles, sensory interests, imagination, trust and emotional needs. Both contribute to your ranked interest matches.'));
+    const b=elText('button','Begin the compass →','btn');
+    b.onclick=()=>{qIndex=0;axes={};answered=0;deeperAnswered=0;deepIndex=-1;deeperAxes={};personalReasons=[];renderQuiz();};
+    box.append(b);return;
+  }
+  if(qIndex>=qdata.length){
+    if(deepIndex===-1)deepIndex=0;
+    renderDeepQuiz();return;
+  }
+  const q=qdata[qIndex];
+  box.append(elText('span','PART 1 / QUESTION '+(qIndex+1)+' OF '+qdata.length+' · '+answered+' ANSWERED','eyebrow'));
+  const bar=elText('div','','bar');const fill=document.createElement('div');fill.style.width=100*qIndex/qdata.length+'%';bar.append(fill);
+  box.append(bar,elText('h3',q.q));
+  const options=elText('div','','quizOpts');
+  q.options.forEach((op,i)=>{const b=elText('button',op);b.onclick=()=>{addAxes(axes,q.axes[i],1);answered++;qIndex++;renderQuiz();};options.append(b)});
+  box.append(options);
+  const skip=elText('button','Skip this question','btn alt');skip.style.marginTop='13px';skip.onclick=()=>{qIndex++;renderQuiz()};box.append(skip);
+}
+function combinedAxes(){
+  const combined={...axes};
+  for(const [key,count] of Object.entries(deeperAxes))combined[key]=(combined[key]||0)+count;
+  return combined;
+}
+function interestMatches(){
+  const signals=combinedAxes();
+  const highest=Math.max(1,...Object.values(signals));
+  const coverage=Math.min(1,(answered+deeperAnswered*1.5)/16);
+  return topics.filter(x=>choices[x.id]!=='no'&&(!x.warning||choices[x.id]==='yes'||choices[x.id]==='maybe')).map(x=>{
+    const similarity=x.tags.length
+      ? x.tags.reduce((total,tag)=>total+Math.min(1,(signals[tag]||0)/highest),0)/x.tags.length:0;
+    const deeper=x.tags.length
+      ? x.tags.reduce((total,tag)=>total+(deeperAxes[tag]||0),0)/x.tags.length:0;
+    const chosen=choices[x.id],direct=chosen==='yes'?2:chosen==='maybe'?1:0;
+    // A direct Interested/Curious selection takes precedence over all theme matching.
+    const percentage=chosen==='yes'?Math.min(99,90+Math.round(similarity*9)):
+      chosen==='maybe'?Math.min(89,67+Math.round(similarity*18)):
+      Math.round(Math.min(67,(18+34*similarity+Math.min(12,deeper*3))*coverage));
+    const source=chosen==='yes'?'You marked: Interested':
+      chosen==='maybe'?'You marked: Curious':
+      deeper>0?'Deep + broad reflection match':'Broad theme overlap only';
+    return {x,percentage,source,direct,deeper,similarity};
+  }).filter(r=>r.direct||answered+deeperAnswered>=8)
+    .sort((a,b)=>b.direct-a.direct||b.percentage-a.percentage||a.x.name.localeCompare(b.x.name));
+}
+// Two concrete, consent-based paths per interest. Risk-bearing categories
+// intentionally suggest discussion/learning, not dangerous physical techniques.
+const actByName={
+ 'Leadership exchange':['Take turns leading a date-night plan','Agree on an optional host-and-guest roleplay'],
+ 'Submission':['Discuss what freely choosing to follow means','Try a reversible, fictional “guest follows host” scene'],
+ 'Switching':['Swap who chooses the plan halfway through an evening','Try two different character roles in improv'],
+ 'Service-oriented dynamics':['Prepare a favorite drink as an act of care','Design an optional kindness-exchange ritual'],
+ 'Praise-focused dynamics':['Exchange three specific compliments','Write a short appreciation note to read aloud'],
+ 'Protocol and etiquette':['Invent a theatrical greeting ritual','Try a formal dinner with optional agreed roles'],
+ 'Foot interest':['Offer or request a gentle foot massage','Choose a foot-care or pedicure evening'],
+ 'Footwear interest':['Create a themed shoe mood board','Try a private outfit styling session with shoes'],
+ 'Stockings and hosiery':['Compare interesting patterns and materials','Style outfits with different hosiery'],
+ 'Leather aesthetics':['Build a leather-fashion mood board','Plan a themed outfit reveal'],
+ 'Latex aesthetics':['Explore latex-inspired costume images','Discuss glossy fashion aesthetics and comfort'],
+ 'Satin and silk':['Try a satin or silk fabric sampler','Style a silk scarf for a date'],
+ 'Gloves':['Try different formal glove styles','Build a costume featuring favorite gloves'],
+ 'Hair interest':['Offer a gentle hair-brushing session','Compare hairstyles and styling inspiration'],
+ 'High heels':['Style a private high-heel outfit reveal','Create a favorite-shoes lookbook'],
+ 'Massage focus':['Trade gentle hand massages','Set up a relaxing shoulder-massage evening'],
+ 'ASMR and soft sound':['Create a soothing soft-sound playlist','Share gentle whispered or spoken-word audio'],
+ 'Scent associations':['Compare fragrance samples','Pick a signature scent for an occasion'],
+ 'Hands and touch focus':['Offer a gentle hand massage','Talk about comfortable everyday touch'],
+ 'Costume roleplay':['Choose two fictional characters and dress as them','Write a brief invented-character dialogue'],
+ 'Masquerade fantasy':['Make or decorate two party masks','Plan a masked dinner with invented personas'],
+ 'Uniform aesthetics':['Create a fictional uniform lookbook','Style an imaginative costume based on a role'],
+ 'Fantasy character roleplay':['Invent two character biographies','Improvise a short non-graphic scene'],
+ 'Celebrity fantasy':['Stage a fictional red-carpet entrance','Dress for an imaginary premiere'],
+ 'Secret admirer narratives':['Exchange mystery compliment notes','Write a fictional admirer letter'],
+ 'Superhero and villain roles':['Design an imaginary superhero outfit','Play a short hero-versus-villain story'],
+ 'Transformation fantasies':['Sketch character “before and after” designs','Explore costume transformations'],
+ 'Gender expression exploration':['Try a private clothing/makeup mood board','Experiment with an outfit that feels expressive'],
+ 'Private performance':['Perform a short private dance if invited','Design a mini talent-show evening'],
+ 'Compliment spotlight':['Take turns giving a five-minute appreciation speech','Ask what type of admiration feels good'],
+ 'Being adored':['Trade affirming letters','Make a thoughtful recognition ritual'],
+ 'Slow build-up':['Plan a small gift reveal with clues','Exchange hints throughout a date'],
+ 'Planned surprise':['Choose a surprise from an agreed menu','Hide a date idea inside a mystery envelope'],
+ 'Secret letters':['Exchange sealed notes','Write imaginary postcards from another world'],
+ 'Daily rituals':['Plan an evening check-in','Create an optional morning greeting'],
+ 'Affection check-ins':['Ask three connection questions','Trade one sentence of appreciation'],
+ 'Playful teasing':['Agree on harmless teasing and what is off-limits','Try a lighthearted banter card game'],
+ 'Flirtation games':['Exchange compliment or question cards','Invent a playful first-date scenario'],
+ 'Dare cards':['Write no-pressure dares like singing or dancing','Include a no-penalty skip card'],
+ 'Partner quizzes':['Compare your answers to shared preference questions','Use the results as conversation prompts'],
+ 'Playful competition':['Try a friendly board-game duel','Compete in a made-up storytelling contest'],
+ 'Shared secret codes':['Invent a private compliment code','Create an invitation only you two understand'],
+ 'Consensual nonmonogamy curiosity':['Read varying relationship agreements together','Discuss emotional and sexual boundaries without commitments'],
+ 'Compersion':['Discuss moments of celebrating each other','List ways you like giving encouragement'],
+ 'Jealousy fantasy':['Explore the story in fiction only','Discuss reassurance and real-life boundaries'],
+ 'Reassurance focus':['Exchange specific comforting statements','Discuss what helps you feel secure'],
+ 'Distance and longing':['Plan a virtual date night','Send a timed personal voice message'],
+ 'Bondage fantasy':['Explore the theme through fiction or art','Read safety resources before considering any physical activity'],
+ 'Restraint symbolism':['Design ribbon symbolism without restriction','Discuss what voluntary limits mean in fiction'],
+ 'Impact-play curiosity':['Learn about medical risks and consent','Discuss boundaries without attempting unfamiliar techniques'],
+ 'Pain fantasy':['Reflect on the appeal through fiction','Learn about bodily risk without attempting painful acts'],
+ 'Blindfold fantasy':['Discuss fictional sensory-focus scenes','Try a harmless mystery guessing game without restricting sight'],
+ 'Breath-control fantasy':['Explore suspense through fiction without breath restriction','Read about why breath restriction is dangerous'],
+ 'Needle-play curiosity':['Read medical and infection risks','Explore a fictional story rather than attempting procedures'],
+ 'Wax-play fantasy':['Make candle-themed art without skin contact','Read burn safety and first-aid guidance'],
+ 'Financial domination fantasy':['Write a fictional wealth-and-power scene without real payments','Discuss financial boundaries and exploitation risks'],
+ 'Fictional trophies or awards':['Invent a playful awards ceremony','Design personalized trophies'],
+ 'Virtual-world roleplay':['Create avatars and a shared imaginary location','Act out a short fictional adventure online'],
+ 'Written fantasy':['Write a short fictional scene','Trade story prompts'],
+ 'Audio-story fantasy':['Listen to a fictional audio story','Record an original character monologue'],
+ 'Voice-message intimacy':['Exchange a consensual affectionate voice note','Read a short original story to each other'],
+ 'Long-distance anticipation':['Schedule a timed message reveal','Plan a countdown to an online date'],
+ 'Private fantasy journals':['Write down a recurring fictional theme','Review which feelings are welcome or unwelcome']
+};
+function explorationActs(x){
+  if(actByName[x.name])return actByName[x.name];
+  if(x.warning)return ['Explore '+x.name.toLowerCase()+' through fiction or educational resources','Discuss practical safety risks, limits and consent; avoid untrained physical enactment'];
+  const base=[
+    ['Choose a consensual, optional scene involving '+x.name.toLowerCase(),'Write a fictional conversation about the roles and boundaries'],
+    ['Create an outfit or lookbook featuring '+x.name.toLowerCase(),'Compare sensory or visual details in a private mood board'],
+    ['Invent a two-person story about '+x.name.toLowerCase(),'Dress up or improvise a harmless character scene'],
+    ['Plan a private, mutually agreed presentation of '+x.name.toLowerCase(),'Talk about what attention feels reassuring versus uncomfortable'],
+    ['Build a small countdown or ritual around '+x.name.toLowerCase(),'Exchange a written invitation or surprise clue'],
+    ['Try a lighthearted conversation game involving '+x.name.toLowerCase(),'Design an opt-in creative prompt with a skip option'],
+    ['Discuss what '+x.name.toLowerCase()+' means in your relationship','Try a trust-and-boundaries question exchange'],
+    ['Read about the risks and context of '+x.name.toLowerCase(),'Discuss limits and explore fiction rather than unsafe enactment'],
+    ['Create a themed collection or mood board for '+x.name.toLowerCase(),'Choose a small symbolic object or accessory to discuss'],
+    ['Make a fictional or digital scene about '+x.name.toLowerCase(),'Exchange an audio or written creative prompt']
+  ];
+  return base[x.categoryIndex]||base[0];
+}
+function checklistFor(x){
+  const savedKey='afterdark_checklist_'+x.id;
+  let state={};
+  try{state=JSON.parse(localStorage.getItem(savedKey)||'{}')}catch{}
+  const checks=['I am genuinely curious about this interest','I identified what appeals (and what does not)','I considered limits, comfort and consent','I chose a safe, optional next exploration'];
+  const root=elText('div','','instant-checklist');
+  root.append(elText('strong','☑ INSTANT CHECKLIST'));
+  checks.forEach((label,i)=>{
+    const row=document.createElement('label');row.className='checklist-line';
+    const ck=document.createElement('input');ck.type='checkbox';ck.checked=Boolean(state[i]);
+    ck.onchange=()=>{state[i]=ck.checked;try{localStorage.setItem(savedKey,JSON.stringify(state))}catch{}};
+    row.append(ck,document.createTextNode(label));root.append(row);
+  });
+  return root;
+}
+function reportFor(x,direct,signals){
+  const tags=x.tags.map(k=>DB.lenses[k]?.[0]).filter(Boolean);
+  const details=document.createElement('details');details.className='interest-psych-report';
+  details.append(elText('summary','🧠 Psychological report for this match'));
+  const statement=direct===2?'You directly marked this as interesting. That is the clearest signal available.':
+    direct===1?'You directly marked this as curious, which may reflect interest or simple willingness to learn.':
+    'This recommendation comes only from theme similarities across questionnaire answers, not directly expressed interest.';
+  details.append(elText('p',statement));
+  details.append(elText('p','Possible psychological threads: '+(tags.join(', ')||'personal associations')+'. '+x.psych));
+  details.append(elText('p','Why it appeared: '+(x.tags.filter(k=>signals[k]>0).map(k=>DB.lenses[k]?.[0]).filter(Boolean).join(' + ')||'the open exploration library')+'. It could also reflect an aesthetic or story preference rather than an intimate preference.'));
+  details.append(elText('p','Reflection questions: What detail appeals to you? Would the idea still matter without an audience or partner? Which limits, contexts or emotions change your answer?'));
+  details.append(elText('p','Interpretation limits: No diagnosis, clinical assessment, observed likelihood or causal explanation can be drawn from this quiz.'));
+  return details;
+}
+function surpriseInterests(ranked){
+  const already=new Set(ranked.slice(0,24).map(i=>i.x.id));
+  const signals=combinedAxes();
+  const candidates=topics.filter(x=>!already.has(x.id)&&choices[x.id]!=='no'&&!x.warning);
+  // Include categories *outside* the strongest matches for broader discovery.
+  const seen=new Set();const picked=[];
+  for(const x of candidates.sort((a,b)=>{
+    const sa=a.tags.reduce((n,t)=>n+(signals[t]||0),0);
+    const sb=b.tags.reduce((n,t)=>n+(signals[t]||0),0);
+    return sa-sb||a.name.localeCompare(b.name);
+  })){
+    if(seen.has(x.cat))continue;
+    seen.add(x.cat);picked.push(x);
+    if(picked.length===7)break;
+  }
+  return picked;
 }
 function showResults(){
-  const box=$('quizCard');
-  box.replaceChildren();
-  box.append(elText('span','YOUR RESULTS · PERSONAL DISCOVERY SHELF','eyebrow'));
-  box.append(elText('h3','Specific interests worth exploring'));
-  box.append(elText('p','See which specific Atlas topics match your quiz themes and any interests you selected directly. Your strongest results appear first; you are always free to disagree with the suggestions.'));
-  const disclosure=elText('p','These percentages are illustrative exploration-match scores, NOT scientifically validated probabilities of attraction, enjoyment, or identity. Everyday preferences alone cannot reliably predict intimate interests. Directly marking Interested or Curious gives a stronger signal than indirect quiz answers.','interest-disclaimer');
-  box.append(disclosure);
-  const axesOrdered=Object.entries(axes).sort((a,b)=>b[1]-a[1]);
-  const titles=axesOrdered.slice(0,4).map(([axis])=>DB.lenses[axis]?.[0]).filter(Boolean);
-  box.append(elText('p',answered+' of '+qdata.length+' quiz questions answered · Reflection themes: '+(titles.join(' · ')||'Open exploration'),'stat'));
-  const open=elText('button','Choose or update specific interests in the Atlas →','btn');
-  open.onclick=()=>renderTabs('atlas');
-  box.append(open);
-  const section=elText('div','','compare');
-  section.append(elText('h3','Ranked interest matches'));
-  const marked=topics.filter(x=>choices[x.id]==='yes'||choices[x.id]==='maybe').length;
-  section.append(elText('p',marked
-    ? 'Your self-reported interests lead the list. Unselected topics are lower-confidence suggestions based only on broad themes.'
-    : 'These are topic suggestions based on the themes of your answers, not claims about your preferences. Select Interested or Curious in the Atlas for more relevant results.'));
+  const box=$('quizCard');box.replaceChildren();
+  box.append(elText('span','PERSONAL EXPLORATION · QUIZ RESULTS','eyebrow'),
+    elText('h3','Your ranked interests & deeper reflection'));
+  box.append(elText('p','The quiz links broad patterns and optional deeper answers to specific Atlas topics. It uses a transparent rule-based theme match—not reverse-psychology mind reading or a clinical test.'));
+  box.append(elText('p','Percentage scores are relative exploration-fit indicators, NOT scientifically validated probabilities of attraction or enjoyment. Ordinary preferences can have many explanations; direct selections always take priority.','interest-disclaimer'));
+  const signals=combinedAxes();
+  const axesOrdered=Object.entries(signals).sort((a,b)=>b[1]-a[1]);
+  const themes=axesOrdered.slice(0,5).map(([k])=>DB.lenses[k]?.[0]).filter(Boolean);
+  box.append(elText('p',answered+' of 32 broad prompts · '+deeperAnswered+' of '+deepQs.length+' deeper prompts · Leading reflection themes: '+(themes.join(' · ')||'Open exploration'),'stat'));
+  const overview=document.createElement('details');overview.className='psych-overview';overview.open=true;
+  overview.append(elText('summary','🧠 Your psychological reflection report'));
+  overview.append(elText('p','Patterns reflected by your choices: '+(themes.join(', ')||'not enough responses to interpret')+'. These dimensions are clues to discuss, not a diagnosis, fixed personality type, or proof of a specific preference.'));
+  overview.append(elText('p',deeperAnswered?'Your deeper answers highlighted: '+personalReasons.slice(-4).join('; ')+'.':'You skipped the optional deeper questions. Try them for more direct context.'));
+  overview.append(elText('p','Possible alternative explanations: A preference for trust may describe everyday relationships, not a power-based interest; liking a costume or story may reflect art and imagination rather than anything intimate. Personal history, context, boundaries and change over time also matter.'));
+  overview.append(elText('p','A practical next step is to explore unfamiliar themes privately, check what resonates, and mark specific interests in the Atlas. Avoid treating the match scores as predictions.'));
+  box.append(overview);
+  const actions=elText('div','','result-actions');
+  const atlas=elText('button','Browse & mark Atlas interests →','btn');atlas.onclick=()=>renderTabs('atlas');actions.append(atlas);
+  const deep=elText('button','Retake deeper reflection →','btn alt');
+  deep.onclick=()=>{if(qIndex<qdata.length)qIndex=qdata.length;deepIndex=0;deeperAxes={};deeperAnswered=0;personalReasons=[];renderDeepQuiz();};actions.append(deep);
+  box.append(actions);
   const ranked=interestMatches();
-  if(!ranked.length){
-    section.append(elText('p','No estimated matches yet. Answer at least eight quiz questions or mark specific topics in the Atlas to see the list.'));
-  }
-  const resultList=elText('div','','interest-results');
+  const section=elText('section','','compare');section.append(elText('h3','Ranked interest matches'));
+  section.append(elText('p','Each interest includes suggested activities, a personal checklist, and a psychological reflection. Suggested activities are optional and do not imply you should try everything.'));
+  const list=elText('div','','interest-results');
   ranked.slice(0,24).forEach(({x,percentage,source,direct})=>{
     const r=elText('article','','result interest-result');
-    const topline=elText('div','','interest-result-top');
-    topline.append(elText('small',source,'interest-source'));
+    const top=elText('div','','interest-result-top');
+    top.append(elText('small',source,'interest-source'));
     const score=elText('strong',percentage+'%','interest-percentage');
-    score.setAttribute('aria-label','Exploration match score: '+percentage+' percent');
-    topline.append(score);
-    r.append(topline,elText('h3',x.name),elText('p',x.description));
-    const meter=elText('div','','interest-fit-track');
-    meter.setAttribute('role','meter');
+    score.setAttribute('aria-label','Illustrative exploration match score: '+percentage+' percent');
+    top.append(score);r.append(top,elText('h3',x.name),elText('p',x.description));
+    const meter=elText('div','','interest-fit-track');meter.setAttribute('role','meter');
     meter.setAttribute('aria-label','Exploration match score for '+x.name);
-    meter.setAttribute('aria-valuemin','0');
-    meter.setAttribute('aria-valuemax','100');
+    meter.setAttribute('aria-valuemin','0');meter.setAttribute('aria-valuemax','100');
     meter.setAttribute('aria-valuenow',String(percentage));
-    const fill=elText('div','','interest-fit-fill');
-    fill.style.width=percentage+'%';
-    meter.append(fill);
-    r.append(meter);
-    const why=x.tags.map(k=>DB.lenses[k]?.[0]).filter(Boolean).slice(0,3).join(' + ');
-    r.append(elText('p',(direct?'Your own selection is the main signal. ':'General quiz theme overlap only. ')+(why?'Related themes: '+why+'. ':'')+'The score is not an observed probability.','interest-reason'));
-    if(x.warning)r.append(elText('small','Higher-risk topic · Educational information only','interest-warning'));
-    resultList.append(r);
+    const fill=elText('div','','interest-fit-fill');fill.style.width=percentage+'%';meter.append(fill);r.append(meter);
+    const acts=elText('div','','interest-acts');acts.append(elText('strong','✨ Specific ways to explore'));
+    const ul=document.createElement('ul');explorationActs(x).forEach(a=>{ul.append(elText('li',a))});acts.append(ul);r.append(acts);
+    r.append(checklistFor(x),reportFor(x,direct,signals));
+    if(x.warning)r.append(elText('small','Higher-risk category: educational discussion only; avoid experimenting without specialist safety guidance.','interest-warning'));
+    list.append(r);
   });
-  section.append(resultList);
-  box.append(section);
-  const redo=elText('button','Retake reflection questions','btn alt');
-  redo.onclick=()=>{qIndex=0;axes={};answered=0;renderQuiz();};
-  box.append(redo);
+  if(!ranked.length)list.append(elText('p','Answer at least eight questions or mark topics in the Atlas to get personalized suggestions.'));
+  section.append(list);box.append(section);
+  const beyond=elText('section','','explore-beyond');
+  beyond.append(elText('h3','🔭 Beyond your quiz: discover other interests'));
+  beyond.append(elText('p','Your answers cannot capture everything you might like. These deliberately different possibilities come from categories outside your strongest matches—not hidden traits we claim to have detected.'));
+  const b=elText('button','Surprise me with 7 new directions →','btn alt');
+  const extra=elText('div','','beyond-grid');extra.setAttribute('aria-live','polite');
+  b.onclick=()=>{
+    const fresh=surpriseInterests(ranked);
+    extra.replaceChildren(...fresh.map(x=>{
+      const card=elText('article','','card');card.append(elText('span',x.cat,'eyebrow'),elText('h4',x.name),elText('p',x.description));
+      const ul=document.createElement('ul');explorationActs(x).forEach(act=>ul.append(elText('li',act)));
+      card.append(ul);
+      const link=elText('button','Explore this topic in the Atlas →','btn alt');
+      link.onclick=()=>{$('search').value=x.name;renderAtlas();renderTabs('atlas')};card.append(link);
+      return card;
+    }));
+  };
+  beyond.append(b,extra);box.append(beyond);
+  const redo=elText('button','Retake all reflection questions','btn alt');
+  redo.onclick=()=>{qIndex=0;axes={};answered=0;deeperAxes={};deeperAnswered=0;deepIndex=-1;personalReasons=[];renderQuiz();};box.append(redo);
 }
 $('startQuiz').onclick=()=>{qIndex=0;renderQuiz()};
 // Candid but non-graphic adult prompts: named activities, specific conversation questions,
