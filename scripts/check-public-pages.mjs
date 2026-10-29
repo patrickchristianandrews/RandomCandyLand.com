@@ -145,7 +145,7 @@ if(homeBundle.includes('Trumpagotchi 2') || homeBundle.includes('/trumpagotchi-p
 }
 // Goo Rush is a complete, independently playable browser game.
 const gooPage=fs.readFileSync('dist/goo-rush/index.html','utf8');
-const gooScript=[...gooPage.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(x=>x[1]).join('\n');
+const gooScript=[...gooPage.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(x=>x[1]).join('\n');
 try{new vm.Script(gooScript,{filename:'goo-rush inline script'});}
 catch(err){console.error('Goo Rush has broken JavaScript:',err.message);failures++;}
 for(const token of ['makeBoard','startRound','endRound','shareChallenge','data-mode="duel"','data-mode="challenge"','navigator.clipboard','state.players.push(freshPlayer(1))']){
