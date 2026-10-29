@@ -30,7 +30,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
   const showGroup = (id: string) => activeCategory === 'all' || activeCategory === id;
 
   return (
-    <main className="sugar-universe">
+    <main id="top" className="sugar-universe">
       <div className="sugar-sky" aria-hidden="true">
         <i className="sugar-cloud sugar-cloud-a" />
         <i className="sugar-cloud sugar-cloud-b" />
@@ -43,7 +43,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </div>
 
       <header className="sugar-nav">
-        <a href="/" className="sugar-mark"><img src="/random-candy-land-art.webp" width={48} height={48} alt="" /><strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
+        <a href="#top" className="sugar-mark" aria-label="Go to the top of the current Candy Land homepage"><img src="/random-candy-land-art.webp" width={48} height={48} alt="" /><strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
         <div className="sugar-navlinks">
           <a href="#attractions">✨ Explore attractions</a>
           <a href="/music-visualizer/">🎵 Music & color</a>
@@ -63,6 +63,14 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <span>🎮 PLAY</span>
           <span>🎵 CREATE & LISTEN</span>
           <span>🌙 DISCOVER</span>
+        </div>
+        {/* Restore the original smiling candy planet as a background element. */}
+        <div className="sugar-hero-planet sugar-planet-behind" aria-hidden="true">
+          <span className="planet-ring" />
+          <span className="planet-eye eye-left" />
+          <span className="planet-eye eye-right" />
+          <span className="planet-smile" />
+          <span className="planet-star">✦</span>
         </div>
         <div className="sugar-hero-brand" aria-hidden="true">
           <img src="/random-candy-land-art.webp" alt="" width={460} height={460} decoding="async" fetchPriority="high" />
