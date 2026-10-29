@@ -173,12 +173,23 @@
     area.append(item('h3',(pack.name||'Someone')+' would like to share something with you.'));
     area.append(item('p',pack.intro||'I would appreciate you hearing the meaning behind these interests. There is no obligation to agree or participate.'));
     area.append(item('p','💛 You can listen without agreeing, ask questions, take more time, or respectfully decline. This is not consent to any activity.','notebook-help'));
+    area.append(item('h3','📖 Want to understand before you reply?'));
+    area.append(item('p','Ask Atlas about why someone might find an interest meaningful, what a word means, or how to talk about it respectfully. The guide uses an on-device topic library and never sends a question to the person who invited you.'));
+    const openAsk=(question)=>{
+      document.querySelector('[data-tab=chat]')?.click();
+      const input=$('chatText');if(!input)return;
+      input.value=question;input.dispatchEvent(new Event('input',{bubbles:true}));
+      $('askForm')?.requestSubmit();
+      input.focus();
+    };
+    area.append(button('💬 Ask Atlas how to listen and respond',()=>openAsk('How do I talk respectfully to my partner about an interest they shared?'),'btn alt'));
     for(const x of pack.items){
       const block=item('article','','partner-interest');
       block.append(item('h3',x.title),item('p',x.description));
       if(x.meaning)block.append(item('p','💗 Why it matters: '+x.meaning));
       if(x.boundary)block.append(item('p','🛑 Boundaries: '+x.boundary));
       if(x.request)block.append(item('p','💬 How to respond: '+x.request));
+      block.append(button('❓ Ask Atlas why this might appeal to someone',()=>openAsk('Why might someone enjoy '+x.title+' and how do I discuss it with my partner?'),'btn alt'));
       area.append(block);
     }
     const panel=item('div','','partner-accept');panel.append(item('h3','How do you feel about talking?'),item('p','Choose a response that respects both people. No response is sent automatically.'));
