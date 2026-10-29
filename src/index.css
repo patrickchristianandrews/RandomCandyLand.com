@@ -190,3 +190,76 @@ body {
 @media(prefers-reduced-motion:reduce){
  .candyland-next *, .candyland-next *:before, .candyland-next *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+
+/* Liquid candy: these are continuous organic SVG membranes with rounded drops,
+   not a row of rectangular columns. Deep glaze + translucency creates a wet sheen. */
+.candy-goo{display:block;position:absolute;pointer-events:none;overflow:visible;filter:drop-shadow(0 11px 12px #43085e82);will-change:transform}
+.candyland-navbar:after,.candyland-finale:after{display:none}
+.candyland-navbar{background:linear-gradient(135deg,#c733aaed,#7923c9d1 68%,#423bb1c9);border-radius:0 0 27px 27px;padding-bottom:24px;margin-bottom:65px;box-shadow:0 12px 30px #22023f73}
+.candyland-navbar>*:not(.candy-goo){position:relative;z-index:2}
+.candyland-header-goo{top:calc(100% - 3px);left:0;width:100%;height:62px;z-index:1}
+.candyland-drips{display:block;inset:auto 0 -66px 0;width:100%;height:97px;z-index:5}
+.candyland-portal-drips{display:block;left:0;right:0;bottom:-54px;width:100%;height:71px;z-index:3}
+.candyland-finale-goo{left:0;right:0;bottom:-61px;width:100%;height:78px;z-index:3}
+.candyland-opening:before{height:18px;background:linear-gradient(90deg,#ffc8f5,#ff79c1 48%,#fff198 74%,#69fbfb);border-radius:55px 55px 38px 38px}
+.candyland-portal{margin-bottom:16px}
+.candyland-next .candyland-drips{animation:candyGooWobble 7s ease-in-out infinite alternate;transform-origin:50% 0}
+.candyland-next .candyland-header-goo{animation:candyGooWobble 9s ease-in-out infinite alternate}
+.candyland-next .candyland-finale-goo{animation:candyGooWobble 8s ease-in-out infinite alternate}
+@keyframes candyGooWobble{from{transform:scaleY(.98) skewX(-.22deg)}to{transform:scaleY(1.04) skewX(.22deg)}}
+
+/* Nonsense laboratory — a featured live game in the new homepage. */
+.nonsense-lab{position:relative;isolation:isolate;max-width:1260px;margin:45px auto 110px;
+ padding:36px clamp(19px,4vw,47px) 48px;
+ border-radius:39px;border:3px solid #dcfaff;
+ background:radial-gradient(circle at 92% 5%,#8ff5ff7a,transparent 40%),
+  radial-gradient(circle at 10% 80%,#ff68d77d,transparent 43%),
+  linear-gradient(125deg,#862eca,#415fc1 65%,#b637ba);
+ box-shadow:0 26px 65px #1404339c,0 0 0 8px #d9a9f31c;
+ color:#fff9fe}
+.nonsense-lab-drips{display:block;position:absolute;bottom:-73px;left:0;right:0;width:100%;height:91px;z-index:3}
+.nonsense-lab-head{position:relative;display:flex;gap:15px;justify-content:space-between;align-items:center;z-index:1}
+.nonsense-lab-intro{flex:1}
+.nonsense-eyebrow{display:inline-flex;align-items:center;gap:9px;color:#fff5ad;font-size:11px;font-weight:1000;letter-spacing:.14em}
+.nonsense-lab h2{font-size:clamp(37px,5vw,70px);font-weight:1000;line-height:1.04;margin:11px 0 12px;letter-spacing:-.06em;text-shadow:0 5px #3809798c}
+.nonsense-lab h2 em{font-style:normal;color:#aefbff}
+.nonsense-lab-head p{font-size:17px;line-height:1.55;max-width:760px;color:#f5e3fb}
+.nonsense-mascot{position:relative;flex:none;font-size:clamp(65px,10vw,125px);filter:drop-shadow(0 10px 8px #38045b84);animation:candylandFloat 7s ease-in-out infinite alternate}
+.nonsense-mascot span{position:absolute;right:-10px;top:0;font-size:32px;transform:rotate(20deg);color:#ffeab2;text-shadow:0 3px 9px #3b0a63}
+.nonsense-display{position:relative;z-index:1;padding:clamp(20px,3vw,36px);margin:22px 0 20px;
+ min-height:230px;border-radius:26px;border:3px solid #fff0b3;
+ background:radial-gradient(circle at 90% 0%,#fa6ccf44,transparent 60%),linear-gradient(145deg,#310d61e8,#3c135bdc);
+ box-shadow:inset 0 0 0 3px #ffffff16,0 13px 27px #2603577f;
+ animation:nonsensePop .25s ease-out}
+.nonsense-stamp{display:inline-block;font-size:11px;font-weight:950;letter-spacing:.07em;color:#ffedab}
+.nonsense-display h3{font-size:clamp(23px,3.2vw,38px);line-height:1.15;letter-spacing:-.025em;margin:17px 0 13px;color:#aefbff}
+.nonsense-display p{font-size:clamp(18px,2.35vw,25px);line-height:1.56;font-weight:700;max-width:960px;margin:0 0 20px}
+.nonsense-fineprint{font-size:11px;letter-spacing:.09em;font-weight:900;color:#ffcfed}
+.nonsense-actions{display:flex;flex-wrap:wrap;align-items:center;gap:13px;position:relative;z-index:1}
+.nonsense-actions button{min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 19px;border-radius:18px;font:1000 14px 'Fredoka',system-ui;cursor:pointer;transition:transform .2s,filter .2s}
+.nonsense-actions button:hover{transform:translateY(-3px);filter:brightness(1.1)}
+.nonsense-generate{color:#431654;background:linear-gradient(125deg,#fff6ba,#ffabdc);border:3px solid #fffce8;box-shadow:0 6px 0 #712f8c,0 11px 19px #23074783}
+.nonsense-copy{color:#fff;background:#3a1376;border:2px solid #bff9ff;box-shadow:0 5px 0 #27105b}
+.nonsense-facts{display:flex;gap:11px;flex-wrap:wrap;position:relative;z-index:1;margin-top:23px}
+.nonsense-facts span{padding:8px 12px;border-radius:99px;background:#391a7bb8;border:1px solid #f7e7ff85;font-size:12px;color:#fff7ff}
+@keyframes nonsensePop{from{opacity:.6;transform:scale(.985) translateY(5px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@media(max-width:900px){.nonsense-lab{margin:48px 14px 115px}.candyland-navbar{margin-bottom:67px}}
+@media(max-width:630px){
+ .candyland-header-goo{height:54px}
+ .candyland-navbar{margin-bottom:62px}
+ .candyland-drips{bottom:-46px;height:68px}
+ .candyland-portal-drips{bottom:-37px;height:53px}
+ .candyland-finale-goo{bottom:-43px;height:60px}
+ .nonsense-lab{padding:27px 15px 35px;margin:45px 12px 104px;border-radius:29px}
+ .nonsense-lab h2{font-size:clamp(35px,8.8vw,54px)}
+ .nonsense-mascot{font-size:64px}
+ .nonsense-mascot span{font-size:20px}
+ .nonsense-display{padding:20px 15px;min-height:270px}
+ .nonsense-display p{font-size:18px}
+ .nonsense-actions button{width:100%;font-size:13px}
+ .nonsense-lab-drips{height:67px;bottom:-52px}
+}
+@media(prefers-reduced-motion:reduce){
+ .candyland-next .candy-goo,.nonsense-mascot,.nonsense-display{animation:none!important}
+}
