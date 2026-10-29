@@ -6,7 +6,8 @@ const required = [
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/music-visualizer/index.html', ['id="canvas"']],
-  ['dist/trumpagotchi-pet/index.html', ['data-action="feed"', 'data-action="praise"', 'data-action="clean"', 'data-action="rest"', 'id="originalCanvas"', '/trumpagotchi-pet/original-art.js', 'setInterval(tick,1000)']],
+  ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
+  ['dist/trumpagotchi-pet/index.html', ['url=/trump/']],
 ];
 
 let failures = 0;
@@ -58,7 +59,7 @@ if (homeBundle.includes('PURE CANDY CHAOS!') || homeBundle.includes('sugar-unive
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
 // Keep the requested music tools and standalone games available on the homepage.
-if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('Trumpagotchi 2')) {
+if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade')) {
   console.error('A current attraction is missing from the published homepage.');
   failures++;
 }
@@ -67,12 +68,12 @@ if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
   failures++;
 }
 const retiredFm1 = 'dist/trumpagotchi-fm1/index.html';
-if (!fs.existsSync(retiredFm1) || !fs.readFileSync(retiredFm1, 'utf8').includes('url=/trumpagotchi-pet/')) {
-  console.error('The retired FM-1 release page must redirect to the playable browser pet.');
+if (!fs.existsSync(retiredFm1) || !fs.readFileSync(retiredFm1, 'utf8').includes('url=/trump/')) {
+  console.error('The retired FM-1 release page must redirect to the original pocket pet.');
   failures++;
 }
 const retiredSequencer = 'dist/fm1-emu/index.html';
-if (!fs.existsSync(retiredSequencer) || !fs.readFileSync(retiredSequencer, 'utf8').includes('url=/trumpagotchi-pet/')) {
+if (!fs.existsSync(retiredSequencer) || !fs.readFileSync(retiredSequencer, 'utf8').includes('url=/trump/')) {
   console.error('The old synth path must no longer serve a broken sequencer.');
   failures++;
 }
@@ -133,59 +134,22 @@ if (!homeBundle.includes('CHOOSE A MINI-GAME') ||
   failures++;
 }
 
-// The pet's care controls sit directly beneath the screen, followed by the
-// playable piano keys. Keep the high-resolution renderer and hardware-free UI.
-const newPetHtml = fs.readFileSync('dist/trumpagotchi-pet/index.html','utf8');
-if (!newPetHtml.includes('<h1>Trumpagotchi <span>2</span></h1>') ||
-    !newPetHtml.includes('width="720" height="468"') ||
-    !newPetHtml.includes('class="pocket-piano"') ||
-    newPetHtml.indexOf('class="controls"') < newPetHtml.indexOf('id="originalCanvas"') ||
-    newPetHtml.indexOf('class="controls"') > newPetHtml.indexOf('class="pocket-piano"') ||
-    newPetHtml.indexOf('class="pocket-piano"') > newPetHtml.indexOf('class="summary"') ||
-    newPetHtml.indexOf('data-note="0"') > newPetHtml.indexOf('class="summary"')) {
-  console.error('Trumpagotchi 2 controls must be above piano keys, beneath the game screen.');
+// Trumpagotchi 2 was intentionally retired. Its old links redirect, and its unused
+// audio/remix/art modules must not reappear in the published site.
+for(const oldFile of ['dist/trumpagotchi-pet/original-art.js','dist/trumpagotchi-pet/remix.js']){
+  if(fs.existsSync(oldFile)){console.error('Retired Trumpagotchi 2 asset remains:',oldFile);failures++;}
+}
+if(homeBundle.includes('Trumpagotchi 2') || homeBundle.includes('/trumpagotchi-pet/')){
+  console.error('Retired Trumpagotchi 2 card was restored on the homepage.');
   failures++;
 }
-if (/FM-1|synthesizer|sequencer|MIDI/.test(newPetHtml)) {
-  console.error('Retired hardware wording remains on the Trumpagotchi 2 page.');
-  failures++;
-}
-// Trumpagotchi 2 includes a playable, client-side voice remix studio.
-const littlePetPage=fs.readFileSync('dist/trumpagotchi-pet/index.html','utf8');
-if (!littlePetPage.includes('id="how-to-play"') ||
-    littlePetPage.indexOf('id="how-to-play"') > littlePetPage.indexOf('class="device"')) {
-  console.error('Trumpagotchi 2 How To Play guide is not at the top.');
-  failures++;
-}
-for(const marker of ['id="remix-studio"', 'id="remix-file"', 'id="remix-pads"',
-  'id="remix-generate"', 'id="remix-export"', '/trumpagotchi-pet/remix.js',
-  'id="cartoon-randomize"', 'id="cartoon-style"', 'id="cartoon-step-grid"',
-  'id="cartoon-beat-volume"', 'NO SONG UPLOAD REQUIRED']) {
-  if(!littlePetPage.includes(marker)){console.error('Trumpagotchi 2 remix control missing:',marker);failures++;}
-}
-const remixJs='dist/trumpagotchi-pet/remix.js';
-if(!fs.existsSync(remixJs)){console.error('Trumpagotchi 2 remix engine is missing.');failures++;}
-else {
-  const engine=fs.readFileSync(remixJs,'utf8');
-  try{new vm.Script(engine,{filename:remixJs});}
-  catch(e){console.error('Trumpagotchi 2 remix engine has broken JavaScript:',e.message);failures++;}
-  for(const feature of ['decodeAudioData','OfflineAudioContext','encodeWav','autoRemix','remix-pad',
-    'generatePattern','scheduleStep','synth','drawPattern','cartoon-step','cartoon-beat']) {
-    if(!engine.includes(feature)){console.error('Remix engine missing feature:',feature);failures++;}
-  }
-}
-// Confirm the *original* FM-1 artist's character and room logic is shipped, not a substitute emoji.
-const originalArt = 'dist/trumpagotchi-pet/original-art.js';
-if (!fs.existsSync(originalArt)) {
-  console.error('Real FM-1 Trumpagotchi pixel drawing code is absent.');
-  failures++;
-} else {
-  const art = fs.readFileSync(originalArt, 'utf8');
-  if (!art.includes('function pet_character') || !art.includes('function pet_room') ||
-      !art.includes('window.drawOriginalTrumpagotchi')) {
-    console.error('The original source-drawn character and room were not included.');
-    failures++;
-  }
+// Goo Rush is a complete, independently playable browser game.
+const gooPage=fs.readFileSync('dist/goo-rush/index.html','utf8');
+const gooScript=[...gooPage.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(x=>x[1]).join('\n');
+try{new vm.Script(gooScript,{filename:'goo-rush inline script'});}
+catch(err){console.error('Goo Rush has broken JavaScript:',err.message);failures++;}
+for(const token of ['makeBoard','startRound','endRound','shareChallenge','data-mode="duel"','data-mode="challenge"','navigator.clipboard','state.players.push(freshPlayer(1))']){
+  if(!gooPage.includes(token)){console.error('Goo Rush missing gameplay:',token);failures++;}
 }
 // The nonsense generator has a full-cycle, non-repeating shuffle and actual goo SVG.
 for (const token of ['nonsense-lab', 'GIVE ME MORE NONSENSE',
