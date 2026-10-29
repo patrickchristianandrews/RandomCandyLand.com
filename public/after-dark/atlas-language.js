@@ -104,9 +104,9 @@ function answer(question,context){
   'A useful three-part conversation:\n1. What it means to me: describe the feeling or story, not just the activity.\n2. What I am and am not asking: explain whether this is fantasy-only, a question, or something you might discuss trying.\n3. What you think: invite curiosity, questions, time, or an unqualified no.\n\n'+
   'The listener can say: “Thank you for trusting me. I can listen and ask questions, but I am not agreeing to participate.” Neither person should push the other toward a yes. You can revisit later only if both want to.';
  }
- if(!first||first.score<2.8||(!first.major&&first.score<5)){
+ if(!first||first.score<2.8||(!first.major&&first.score<5)||(tokens.length>=3&&first.matched<Math.ceil(tokens.length/2)&&first.score<11)){
   const proposals=relevant.filter(x=>x.major&&x.score>=2.2).slice(0,3).map(x=>x.t.name);
-  if(proposals.length)return 'I am not completely sure which topic you mean. Did you mean '+proposals.join(', ')+ '? You can use a shorter phrase or a keyword, and I will explain the closest match rather than guessing.';
+  if(proposals.length)return 'I could not match this question confidently. Did you mean '+proposals.join(', ')+ '? You can use a shorter phrase or a keyword, and I will explain the closest match rather than guessing.';
   return 'I could not match an Atlas topic confidently from that phrasing. Try one or two keywords, or name the experience—for example “pegging,” “praise kink,” “why do I like restraint,” “aftercare,” or “talk to my partner about a fantasy.”';
  }
  const t=first.t;
