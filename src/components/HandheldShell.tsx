@@ -103,15 +103,21 @@ export const HandheldShell: React.FC<HandheldShellProps> = ({
           border: `3px solid ${currentShell.borderColor}`,
         }}
       >
-        {/* Brand Lockup Header on Shell */}
-        <div className="w-full flex items-center justify-between px-2 mb-3">
-          <div className="flex items-center gap-1.5">
-            <span className="text-amber-300 text-sm">★</span>
-            <span className="font-pixel text-base font-bold tracking-widest text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-              TRUMPAGOTCHI
+        {/* Match the Tiny Pet's pictured icon-and-label heading above its LCD. */}
+        <div className="mb-3 flex w-full items-center justify-between gap-2 px-1" aria-label="Trumpagotchi Tiny Pet game heading">
+          <div className="flex min-w-0 flex-col items-start gap-1">
+            <img
+              src="/trumpagotchi-fm1/pixel-icon.svg"
+              width={43}
+              height={43}
+              alt="Pixel-art Trumpagotchi"
+              className="h-[37px] w-[37px] shrink-0 rounded-full border-2 border-[#fff0ab] object-cover shadow-[0_2px_7px_#090817aa] sm:h-[43px] sm:w-[43px]"
+            />
+            <span className="whitespace-nowrap rounded-xl border border-[#b4c9d7] bg-[#101c29] px-2 py-1 font-mono text-[10px] font-black tracking-wide text-[#b6fae9] shadow-[0_1px_2px_#040611]">
+              TRUMPAGOTCHI · TINY PET
             </span>
           </div>
-          <span className="font-pixel text-[11px] tracking-wider text-amber-200/90 uppercase font-semibold drop-shadow">
+          <span className="shrink-0 self-center rounded-xl border border-[#b4c9d7] bg-[#101c29] px-2 py-1 font-pixel text-[10px] font-bold tracking-wide text-[#b6fae9]">
             POCKET POTUS
           </span>
         </div>

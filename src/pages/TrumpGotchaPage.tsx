@@ -296,18 +296,12 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
             <span className="sm:hidden">Home</span>
           </button>
 
-          {/* Match the FM-1 Tiny Pet page's icon and heading exactly. */}
-          <div className="flex items-center gap-2 text-white font-sans font-black tracking-wider" aria-label="Trumpagotchi Tiny Pet">
-            <img
-              src="/trumpagotchi-fm1/pixel-icon.svg"
-              width={43}
-              height={43}
-              alt=""
-              className="h-[37px] w-[37px] sm:h-[43px] sm:w-[43px] shrink-0 rounded-full border-2 border-[#fff0ab] object-cover shadow-md"
-            />
-            <span className="text-[10px] sm:text-[13px] leading-tight">
-              TRUMPAGOTCHI · TINY PET
+          <div className="flex items-center gap-1.5 text-amber-400 font-serif-luxury font-bold">
+            <Crown className="w-4 h-4 text-amber-400" />
+            <span className="text-white text-xs sm:text-sm font-black tracking-wider gold-text-shimmer">
+              TRUMPAGOTCHI
             </span>
+            <span className="text-amber-400/50 hidden md:inline">&bull; 1997 DIGI-PET</span>
           </div>
         </div>
 
