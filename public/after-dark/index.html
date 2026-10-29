@@ -1077,7 +1077,7 @@ function respond(question){
    return 'Having a consensual interest does not, on its own, make someone ill or defective. Distress, impairment, or harm/nonconsent are different concerns. You can reflect on your values and boundaries without judging yourself. If an interest causes ongoing distress, a qualified nonjudgmental clinician may help.';
  if(/\b(who are you|diagnos|predict my|tell me my fetish)\b/i.test(lower))
    return 'I am an on-device, rule-based educational guide—not a generative AI or a clinician. I cannot diagnose you, predict your orientation, or infer your private preferences. I can explain named subjects and offer questions for reflection.';
- if(/\b(talk|tell|discuss|bring up|ask my partner|communicat|disclose)\b/i.test(lower)&&/\b(partner|boyfriend|girlfriend|wife|husband|relationship|someone|interest|want)\b/i.test(lower)){
+ if(/\b(talk|tell|discuss|bring up|ask my partner|communicat|disclose|explain)\b/i.test(lower)&&/\b(partner|boyfriend|girlfriend|wife|husband|relationship|someone|interest|want)\b/i.test(lower)){
    const contextual=window.AtlasFlexibleSearch?.answer(str,{topics,faqs:DB.faqs});
    if(contextual)return contextual;
    return 'Try this in a neutral moment: “There is an interest I would like to discuss, but I do not expect you to agree. Would you be comfortable hearing about it?”\n\nName the exact interest, explain what it means to you, and ask what your partner thinks. Compare yes / maybe / no boundaries. A maybe is an invitation to talk, not to act. Respect no without bargaining, and keep their answer private.';
