@@ -147,6 +147,18 @@ try{
   await tiny.evaluate("document.querySelector('#save').click()");
   const saved=await tiny.evaluate("!!localStorage.getItem('random-candy-land-trumpagotchi-original-fm1-adaptation-v1')");
   if(!saved)throw Error('FM-1 pet Save failed to persist progress');
+  // Regression: the melody control must offer five working note buttons.
+  const pianoReady=await tiny.evaluate("document.querySelectorAll('.melody-key[data-note]').length===5 && typeof window.TrumpagotchiMelody?.note==='function' && typeof window.TrumpagotchiMelody?.play==='function'");
+  if(!pianoReady)throw Error('FM-1 Trumpagotchi five-key melody piano missing');
+  await tiny.evaluate("document.querySelector('#sound').click()");
+  await tiny.evaluate("document.querySelector('.melody-key[data-note=\"0\"]').click()");
+  const mutedPiano=await tiny.evaluate("document.querySelector('#melodyStatus').textContent.includes('SOUND ON')");
+  if(!mutedPiano)throw Error('Trumpagotchi piano button did not respond to a click');
+  await tiny.evaluate("document.querySelector('#melody').click()");
+  const mutedTune=await tiny.evaluate("document.querySelector('#melodyStatus').textContent.includes('SOUND ON')");
+  if(!mutedTune)throw Error('Trumpagotchi full melody button did not respond to a click');
+  await tiny.evaluate("document.querySelector('#sound').click()");
+  console.log('✓ FM-1 Trumpagotchi piano has five wired keys and a responsive tune button.');
   console.log('✓ FM-1 Trumpagotchi web pet plays, feeds, praises, pauses and saves.');
 
   const simon=await navigate(site+'/candy-simon/');
