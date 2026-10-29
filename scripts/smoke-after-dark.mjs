@@ -180,7 +180,13 @@ try{
   const mutedTune=await tiny.evaluate("document.querySelector('#melodyStatus').textContent.includes('SOUND ON')");
   if(!mutedTune)throw Error('Trumpagotchi full melody button did not respond to a click');
   await tiny.evaluate("document.querySelector('#sound').click()");
-  console.log('✓ FM-1 Trumpagotchi piano has five wired keys and a responsive tune button.');
+  await tiny.evaluate("document.querySelector('.melody-key[data-note=\"0\"]').click()");
+  const bongoOnKey=await tiny.evaluate("window.FM1PixelScreen?.isBongoPlaying() && document.querySelector('#scene').dataset.animation==='bongo' && document.querySelector('#melodyStatus').textContent.includes('bongos')");
+  if(!bongoOnKey)throw Error('FM-1 piano key did not make Donald bang the bongos');
+  await tiny.evaluate("document.querySelector('#melody').click()");
+  const bongoFullTune=await tiny.evaluate("window.FM1PixelScreen?.isBongoPlaying() && document.querySelector('#melodyStatus').textContent.includes('bongos')");
+  if(!bongoFullTune)throw Error('FM-1 full melody did not trigger Donald playing bongos');
+  console.log('✓ Every piano key and full melody trigger live pixel bongo animation.');
   console.log('✓ FM-1 Trumpagotchi web pet plays, feeds, praises, pauses and saves.');
 
   const simon=await navigate(site+'/candy-simon/');

@@ -85,14 +85,14 @@
     const m = total % 60;
     return String(hour).padStart(2,'0') + ':' + String(m).padStart(2,'0') + (h < 12 ? ' AM' : ' PM');
   }
-  function animate(action) {
+  function animate(action, duration = 1200) {
     const node = get('scene');
     node.dataset.animation = action;
-    window.FM1PixelScreen?.animate(action);
+    window.FM1PixelScreen?.animate(action, duration);
     if (animationTimer) clearTimeout(animationTimer);
     animationTimer = window.setTimeout(() => {
       node.dataset.animation = '';
-    }, 1200);
+    }, duration);
   }
   function updateClock(ms) {
     // A 5-minute awake day; sleeping through night speeds to dawn at 16×.
@@ -371,54 +371,52 @@
   }
   async function playKey(event) {
     if (state.gameOver) return;
-    if (state.muted) {
-      melodyMessage('🔇 Turn SOUND ON below to hear the piano keys.');
-      return;
-    }
     const button = event.currentTarget;
     const index = Number(button.dataset.note);
     if (!Number.isInteger(index) || index < 0 || index >= noteNames.length) return;
+    // Every key is an action: the tiny Trumpagotchi responds immediately,
+    // including while sleeping, paused or muted.
+    animate('bongo', 820);
+    say('BONGO BEAT: ' + noteNames[index], undefined, 1000);
+    button.classList.add('is-playing');
+    window.setTimeout(() => button.classList.remove('is-playing'), 180);
+    if (state.muted) {
+      melodyMessage('🥁 Donald is banging the bongos! Turn SOUND ON to hear the notes.');
+      return;
+    }
     audio.pause();
     const played = await window.TrumpagotchiMelody?.note(index);
     if (!played || state.muted || state.gameOver) {
-      melodyMessage('Piano audio is unavailable. Check your browser and device volume.');
+      melodyMessage('🥁 Donald is playing the bongos, but audio is unavailable. Check the device volume.');
       return;
     }
-    melodyMessage('🎵 ' + noteNames[index] + ' — nice! Tap more keys to make your own tune.');
-    button.classList.add('is-playing');
-    window.setTimeout(() => button.classList.remove('is-playing'), 160);
+    melodyMessage('🥁 ' + noteNames[index] + ' — Donald is banging the bongos! Play more notes.');
   }
   async function playMelody() {
     if (state.gameOver) return;
+    // The bongo performance is not conditional on mood, hunger or time.
+    // Use real time so it works with a sleeping or paused pet as well.
+    animate('bongo', 2900);
+    say('DONALD IS PLAYING THE BONGOS', undefined, 2950);
     if (state.muted) {
-      melodyMessage('🔇 Turn SOUND ON below to hear the melody.');
-      say('TURN SOUND ON TO PLAY A MELODY');
+      melodyMessage('🥁 Donald is playing the bongos! Turn SOUND ON to hear the melody.');
       return;
     }
-    // Pausing the pet or napping doesn't prevent someone from playing piano.
     const healthy = !state.paused && !state.sleeping && !isNight()
       && state.food > 25 && state.energy > 20 && state.cleanliness > 25
       && state.neglect < 12 && state.mood > 10;
-    const dance = healthy && mood() === 'happy';
     audio.pause();
-    const played = await window.TrumpagotchiMelody?.play(dance);
+    const played = await window.TrumpagotchiMelody?.play(true);
     if (!played || state.muted || state.gameOver) {
-      melodyMessage('Melody audio is unavailable. Check your browser and device volume.');
-      say('MUSIC IS NOT AVAILABLE IN THIS BROWSER');
+      melodyMessage('🥁 Donald is drumming, but melody audio is unavailable. Check your browser volume.');
       return;
     }
-    melodyMessage(dance
-      ? '🎶 Full tune playing! Trump is accompanying you on bongos.'
-      : '🎶 Full tune playing! Tap a piano key to play your own notes.');
+    melodyMessage('🎶 Full tune and bongos playing! Tap the piano keys to perform with Donald.');
     if (healthy && state.activeMs - state.lastMelody >= 60000) {
       state.lastMelody = state.activeMs;
       state.mood = clamp(state.mood + 2);
       state.energy = clamp(state.energy - 1);
-      say('THE CROWD LOVES IT', undefined, 2700);
-    } else {
-      say('ENCORE! A TREMENDOUS MELODY', undefined, 2700);
     }
-    if (dance) animate('bongo');
     save(false);
     render();
   }

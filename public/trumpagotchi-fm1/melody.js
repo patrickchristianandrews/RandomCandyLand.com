@@ -71,7 +71,9 @@
     const ctx = await ready();
     if (!ctx || run !== generation) return false;
     try {
-      voice(ctx, keys[index], ctx.currentTime + 0.012, 0.32, 0.17);
+      const start = ctx.currentTime + 0.012;
+      voice(ctx, keys[index], start, 0.32, 0.17);
+      voice(ctx, index % 2 === 0 ? 165 : 118, start, 0.16, 0.085, true);
       return true;
     } catch (_) {
       return false;

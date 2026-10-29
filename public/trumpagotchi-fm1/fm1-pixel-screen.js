@@ -18,7 +18,7 @@
     shirt:'#f7edd1', floor:'#caae8b', wood:'#69463a'
   };
   const cap = n => Math.max(0,Math.min(100,Number(n)||0));
-  let latest = null, action = '', actionStart = 0, frameCounter = 0;
+  let latest = null, action = '', actionStart = 0, frameCounter = 0, bongoUntil = 0;
   function rect(x,y,w,h,c) {
     ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.max(1,Math.round(w)),Math.max(1,Math.round(h)));
   }
@@ -178,13 +178,14 @@
     }
   }
   function pet(s,t) {
-    if(s.sleeping){sleepPose(s,t);return;}
+    const bongoNow = !s.gameOver && performance.now() < bongoUntil;
+    if(s.sleeping && !bongoNow){sleepPose(s,t);return;}
     const mode=petState(s);
     const age=Math.max(0,t-actionStart);
-    const doing=action && age < (action==='news'?8500:2400);
-    const act=doing?action:'';
+    const doing=action && action!=='bongo' && age < (action==='news'?8500:2400);
+    const act=bongoNow?'bongo':doing?action:'';
     const walking=!act && (t%10000<5300);
-    const hand=Math.floor(t/235)%2;
+    const hand=Math.floor((bongoNow?performance.now():t)/(bongoNow?140:235))%2;
     const goingToTV=act==='news' && age<1050;
     const dx=goingToTV?Math.round(25*age/1050):walking?Math.round(Math.sin(t/1500)*22):0;
     const bongo=act==='bongo' || (act==='cheer' && age>1200);
@@ -297,7 +298,13 @@
   }
   window.FM1PixelScreen={
     render,
-    animate(kind){action=kind;actionStart=latest?.activeMs||0;if(latest)render(latest);}
+    animate(kind,duration=2400){
+      action=kind;
+      actionStart=latest?.activeMs||0;
+      bongoUntil=kind==='bongo'?performance.now()+duration:0;
+      if(latest)render(latest);
+    },
+    isBongoPlaying:()=>performance.now()<bongoUntil
   };
   document.body.classList.add('fm1-pixel-ready');
 })();
