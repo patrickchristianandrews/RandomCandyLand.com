@@ -216,6 +216,34 @@ try{
   console.log('✓ Candy Match creates, flips and reveals matching-card game pieces.');
 
   // The new arcade must be fully interactive, not just a styled landing page.
+  // Candy Casino must offer 5 functioning solo games even without online signaling.
+  const casino=await navigate(site+'/candy-casino/');
+  const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-game]').length===5 && !!document.querySelector('#make-room') && !!document.querySelector('#join-room')");
+  if(!casinoReady)throw Error('Candy Casino did not initialize its games and multiplayer controls');
+  const chipsBefore=await casino.evaluate("Number(document.querySelector('#balance').textContent.replace(/,/g,''))");
+  await casino.evaluate("document.querySelector('#game-buttons button').click()");
+  const slotOutcome=await casino.evaluate("document.querySelector('#game-message').textContent.includes('match') || document.querySelector('#game-message').textContent.includes('CHIPS') || document.querySelector('#game-message').textContent.includes('SWEET')");
+  if(!slotOutcome)throw Error('Gummy Slots did not play a round');
+  await casino.evaluate("document.querySelector('[data-game=roulette]').click()");
+  await casino.evaluate("document.querySelector('#game-buttons button').click()");
+  const roulettePlayed=await casino.evaluate("document.querySelector('#game-message').textContent.includes('sprinkle')");
+  if(!roulettePlayed)throw Error('Candy Casino roulette did not spin');
+  await casino.evaluate("document.querySelector('[data-game=dice]').click()");
+  await casino.evaluate("document.querySelector('#game-buttons button').click()");
+  const dicePlayed=await casino.evaluate("document.querySelector('#game-message').textContent.includes('Rolled')");
+  if(!dicePlayed)throw Error('Candy Casino dice did not roll');
+  await casino.evaluate("document.querySelector('[data-game=highcard]').click()");
+  await casino.evaluate("document.querySelector('#game-buttons button').click()");
+  const cardPlayed=await casino.evaluate("document.querySelector('#game-message').textContent.includes('🂡')");
+  if(!cardPlayed)throw Error('Candy Casino high card did not draw');
+  await casino.evaluate("document.querySelector('[data-game=blackjack]').click()");
+  await casino.evaluate("document.querySelector('#game-buttons button').click()");
+  const blackjackPlayed=await casino.evaluate("document.querySelector('.cards-group')!==null");
+  if(!blackjackPlayed)throw Error('Candy Casino blackjack failed to deal cards');
+  const chipsAfter=await casino.evaluate("Number(document.querySelector('#balance').textContent.replace(/,/g,''))");
+  if(!Number.isFinite(chipsAfter)||chipsAfter===chipsBefore)throw Error('Candy Casino games did not update virtual chips');
+  console.log('✓ Candy Casino plays slots, roulette, dice, high card and blackjack; multiplayer room controls exist.');
+
   const arcade=await navigate(site+'/goo-rush/');
   const arcadeReady=await arcade.evaluate("!!document.querySelector('[data-mode=duel]') && !!document.querySelector('#start')");
   if(!arcadeReady)throw Error('Goo Rush mode selector or Start button is missing');
