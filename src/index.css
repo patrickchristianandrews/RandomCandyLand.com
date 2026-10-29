@@ -48,9 +48,9 @@ body {
   -webkit-user-select: none;
 }
 
-/* Retired original sugar-universe homepage CSS intentionally removed; the current design starts below. */
+/* Retired homepage styling removed; the candy-castle design starts below. */
 
-/* Candy Land 2.0: the previous sugar-universe homepage is no longer rendered.
+/* Candy Land 2.0: the previous landing page is no longer rendered.
    Everything here belongs to the replacement candy-castle landing. */
 .candyland-next{
   --goo-pink:#ff59b5;--goo-yellow:#ffe770;--goo-blue:#59f7fd;
