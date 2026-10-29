@@ -9,7 +9,7 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
-  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-nav', 'HOW TO PLAY', 'id="remix-studio"']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-nav', 'tiny-goo-fill', 'candyland-game-site-goo', 'HOW TO PLAY', 'id="remix-studio"']],
 ];
 
 let failures = 0;
@@ -232,6 +232,15 @@ for (const path of ['dist/index.html','dist/404.html','dist/trump/index.html']) 
 // The user requested an independently playable browser adaptation of the FM-1
 // Trumpagotchi pet, not another redirect or hardware/firmware information page.
 const tinyPetHtml=fs.readFileSync('dist/trumpagotchi-fm1/index.html','utf8');
+const tinyGooCss=fs.readFileSync('dist/trumpagotchi-fm1/game.css','utf8');
+if (!tinyPetHtml.includes('viewBox="0 0 1200 182"') ||
+    !tinyPetHtml.includes('url(#tiny-goo-fill)') ||
+    !tinyGooCss.includes('tinyCandyGooWobble') ||
+    tinyGooCss.includes('.candyland-game-site-goo{position:absolute;pointer-events:none;left:0;top:calc(100% - 3px);width:100%;height:62px;background:linear-gradient')) {
+  console.error('Tiny Pet must render the curved candy goo SVG, not a jagged CSS polygon.');
+  failures++;
+}
+
 if (!(tinyPetHtml.indexOf('id="how-to-play"') >= 0 &&
       tinyPetHtml.indexOf('id="how-to-play"') < tinyPetHtml.indexOf('class="game-layout"'))) {
   console.error('Tiny Pet How To Play must be above the game.');

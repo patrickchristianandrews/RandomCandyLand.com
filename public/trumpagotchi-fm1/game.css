@@ -316,20 +316,32 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
 /* Shared Candy Land frame for the Tiny Pet; pixel screen and care controls unchanged. */
 body.fm1-tiny-mode.candyland-game-page{color:#fff7ff;background:radial-gradient(circle at 58% 8%,#b444ca,transparent 35%),radial-gradient(circle at 4% 52%,#6a38c9 3%,transparent 42%),radial-gradient(circle at 94% 76%,#c72e97 5%,transparent 33%),linear-gradient(155deg,#28075a,#401279 36%,#1b0639 83%)}
 .fm1-tiny-mode .shell{max-width:1400px;padding:0 clamp(11px,2vw,26px) 18px}
-.fm1-tiny-mode .candyland-game-site-header{position:relative;z-index:5;max-width:1400px;margin:0 auto 68px;padding:18px clamp(13px,3vw,34px) 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;background:linear-gradient(135deg,#c733aaed,#7923c9d1 68%,#423bb1c9);border-radius:0 0 27px 27px;box-shadow:0 12px 30px #22023f73}
+.fm1-tiny-mode .candyland-game-site-header{position:relative;z-index:5;max-width:1400px;margin:0 auto 91px;padding:18px clamp(13px,3vw,34px) 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;background:linear-gradient(135deg,#c733aaed,#7923c9d1 68%,#423bb1c9);border-radius:0 0 27px 27px;box-shadow:0 12px 30px #22023f73}
 .fm1-tiny-mode .candyland-game-site-brand{position:relative;z-index:2;display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;font:1000 clamp(15px,2vw,23px)/1.15 'Fredoka',system-ui,sans-serif;text-shadow:0 3px #471052;letter-spacing:-.04em}
 .fm1-tiny-mode .candyland-game-site-brand strong{color:#ffeb7e}
 .fm1-tiny-mode .candyland-game-site-brand img{width:55px;height:55px;object-fit:cover;border-radius:50%;filter:drop-shadow(0 5px 8px #310441)}
 .fm1-tiny-mode .candyland-game-site-nav{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
 .fm1-tiny-mode .candyland-game-site-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 12px;border-radius:14px;border:1px solid #ffceefa8;background:#fff6fd20;color:#fff;text-decoration:none;font:900 13px/1.2 system-ui,sans-serif}
 .fm1-tiny-mode .candyland-game-site-nav a:hover{background:#fff4b344}
-.fm1-tiny-mode .candyland-game-site-goo{position:absolute;pointer-events:none;left:0;top:calc(100% - 3px);width:100%;height:62px;background:linear-gradient(105deg,#ffcaed,#ff68c5 48%,#b91d99);clip-path:polygon(0 0,100% 0,100% 33%,95% 32%,95% 67%,91% 79%,87% 63%,87% 32%,75% 37%,75% 79%,70% 95%,66% 76%,66% 36%,53% 38%,53% 63%,48% 82%,44% 65%,44% 35%,32% 34%,32% 78%,27% 100%,23% 76%,23% 36%,11% 31%,11% 61%,7% 75%,3% 59%,0 38%)}
+/* Exact curved candy-icing geometry and highlights from the main Candy Land header. */
+.fm1-tiny-mode .candyland-game-site-goo{
+  display:block;position:absolute;z-index:1;pointer-events:none;overflow:visible;
+  left:0;top:calc(100% - 3px);width:100%;height:86px;
+  background:none;clip-path:none;filter:drop-shadow(0 11px 12px #43085e82);
+  transform-origin:50% 0;animation:tinyCandyGooWobble 9s ease-in-out infinite alternate;
+}
+@keyframes tinyCandyGooWobble{
+  from{transform:scaleY(.98) skewX(-.22deg)}
+  to{transform:scaleY(1.04) skewX(.22deg)}
+}
 .fm1-tiny-mode .candyland-game-site-header #rcl-install-app{position:relative;z-index:2;min-height:44px!important;margin:0!important;font-weight:800}
 .fm1-tiny-mode .candyland-game-site-footer{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center;margin:46px auto 0;padding:28px 20px;border-top:1px solid #f5a4d15e;color:#edc8fa;font:800 12px/1.5 system-ui,sans-serif}
 .fm1-tiny-mode .candyland-game-site-footer nav{display:flex;flex-wrap:wrap;gap:15px}
 .fm1-tiny-mode .candyland-game-site-footer a{color:#ffef8f;text-decoration:none}
 .fm1-tiny-mode main > .how-to-play-top{max-width:920px;margin-left:auto;margin-right:auto}
-@media(max-width:630px){.fm1-tiny-mode .candyland-game-site-header{justify-content:center;margin-bottom:62px;padding:15px 12px 24px}.fm1-tiny-mode .candyland-game-site-brand{width:100%;justify-content:center}.fm1-tiny-mode .candyland-game-site-brand img{width:48px;height:48px}.fm1-tiny-mode .candyland-game-site-nav{justify-content:center}.fm1-tiny-mode .candyland-game-site-nav a{padding:8px 10px;font-size:12px}.fm1-tiny-mode .candyland-game-site-goo{height:54px}.fm1-tiny-mode .candyland-game-site-footer{justify-content:center;text-align:center}.fm1-tiny-mode .candyland-game-site-footer nav{justify-content:center}}
+@media(max-width:630px){.fm1-tiny-mode .candyland-game-site-header{justify-content:center;margin-bottom:81px;padding:15px 12px 24px}.fm1-tiny-mode .candyland-game-site-brand{width:100%;justify-content:center}.fm1-tiny-mode .candyland-game-site-brand img{width:48px;height:48px}.fm1-tiny-mode .candyland-game-site-nav{justify-content:center}.fm1-tiny-mode .candyland-game-site-nav a{padding:8px 10px;font-size:12px}.fm1-tiny-mode .candyland-game-site-goo{height:74px}.fm1-tiny-mode .candyland-game-site-footer{justify-content:center;text-align:center}.fm1-tiny-mode .candyland-game-site-footer nav{justify-content:center}}
 
 /* Top-first guide above the game, immediately after site navigation. */
 .fm1-tiny-mode main > .how-to-play-top{position:relative;z-index:4;max-width:920px;width:100%;margin:7px auto 22px}
+
+@media(prefers-reduced-motion:reduce){.fm1-tiny-mode .candyland-game-site-goo{animation:none!important}}
