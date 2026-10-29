@@ -72,6 +72,9 @@
   }
   function mount(){
     if(document.getElementById('rcl-install-app'))return;
+    // Do not ask users to reinstall Candy Land from the installed Candy Land app.
+    // Keep the homepage's Install Apps hub so other attractions remain installable.
+    if(app.id==='site' && isInstalled())return;
     // Original Trumpagotchi has its own working install control inside React.
     if(app.id==='pocket-pet' && document.querySelector('[data-pocket-install]'))return;
     const button=document.createElement('button');
@@ -80,6 +83,11 @@
     button.setAttribute('aria-label','Install '+app.title+' on Android or iPhone');
     button.style.cssText='cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:7px 12px;margin:4px;border:1px solid #ffe3aa;border-radius:20px;background:#3d215c;color:#fff6d0;font:800 12px system-ui,sans-serif;white-space:nowrap;position:relative;z-index:10;box-shadow:0 2px 8px #0004';
     button.addEventListener('click',install);
+    if(app.id==='site'){
+      window.addEventListener('appinstalled',()=>{
+        button.remove();
+      },{once:true});
+    }
     // Top-of-page, accessible button avoids a fixed overlay over the game.
     const target=document.querySelector('.candyland-navbar nav,header.topbar,header.top nav,header nav,nav.top,header,body');
     target.append(button);

@@ -47,6 +47,19 @@ for (const forbidden of ['pop stars battle for the crown','face pop-culture gues
     failures++;
   }
 }
+// The full Candy Land install option must disappear inside the installed app,
+// while individual attraction install options remain available.
+for (const token of ['isRunningInstalledCandyLand', 'installChoices', "INSTALL_CHOICES.filter(item => item.url !== '/')"]) {
+  if (!homeBundle.includes(token)) {
+    console.error('Missing conditional installed-app install menu:', token);
+    failures++;
+  }
+}
+const installSource = fs.readFileSync('dist/install-app.js','utf8');
+if (!installSource.includes("app.id==='site' && isInstalled()")) {
+  console.error('Installed Candy Land still displays its own install button.');
+  failures++;
+}
 if (!homeBundle.includes('candyland-next') ||
     !homeBundle.includes('Stay sweet.') ||
     !homeBundle.includes('Get weird.') ||

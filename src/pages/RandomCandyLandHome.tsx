@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar, WandSparkles } from 'lucide-react';
 import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
@@ -20,6 +20,15 @@ type Portal = {
   palette: string;
   oldPet?: boolean;
 };
+
+// The current app can detect when it is launched from its installed home-screen
+// icon (Android/desktop display-mode and iOS Safari navigator.standalone).
+// A regular browser tab cannot reliably inspect all OS-installed apps.
+function isRunningInstalledCandyLand(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(display-mode: standalone)').matches ||
+    (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
+}
 
 // These routes each have a separate web-app manifest and start URL.
 const INSTALL_CHOICES = [
@@ -46,6 +55,25 @@ const PORTALS: Portal[] = [
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
   const [category, setCategory] = useState<Category>('all');
   const [copiedUrl,setCopiedUrl] = useState('');
+  const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
+  // Hide the full-site install CTA when the current PWA is installed, and
+  // immediately after an Android/desktop install completes in this tab.
+  useEffect(() => {
+    const media = window.matchMedia('(display-mode: standalone)');
+    const syncInstalled = () => {
+      if (isRunningInstalledCandyLand()) setCandyLandInstalled(true);
+    };
+    const installed = () => setCandyLandInstalled(true);
+    media.addEventListener?.('change', syncInstalled);
+    window.addEventListener('pageshow', syncInstalled);
+    window.addEventListener('appinstalled', installed);
+    return () => {
+      media.removeEventListener?.('change', syncInstalled);
+      window.removeEventListener('pageshow', syncInstalled);
+      window.removeEventListener('appinstalled', installed);
+    };
+  }, []);
+  const installChoices = candyLandInstalled ? INSTALL_CHOICES.filter(item => item.url !== '/') : INSTALL_CHOICES;
   const shown = PORTALS.filter(portal => category === 'all' || portal.kind === category);
   const copyAppLink = async (path:string) => {
     const url = new URL(path, window.location.origin).href;
@@ -152,7 +180,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           If a link opens inside your installed Candy Land app, tap <strong>Copy link</strong> and paste it into Chrome or Safari.
         </p>
         <div className="candyland-install-grid">
-          {INSTALL_CHOICES.map(item => (
+          {installChoices.map(item => (
             <article className="candyland-install-card" key={item.url}>
               <div className="candyland-install-card-name"><span aria-hidden="true">{item.emoji}</span><strong>{item.name}</strong></div>
               <div className="candyland-install-card-actions">
