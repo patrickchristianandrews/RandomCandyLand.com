@@ -95,9 +95,22 @@ try{
   await evaluate("document.querySelector('[data-tab=psych]').click()");
   await check('Psychology section renders all lenses',"document.querySelectorAll('#lenses .card').length>=10");
   await evaluate("document.querySelector('[data-tab=ideas]').click();document.querySelector('#drawIdea').click()");
-  await check('Idea Lab draws usable cards',"document.querySelector('#ideaResult h3')?.textContent!=='What could curiosity feel like?'");
+  await check('Idea Lab draws usable cards',"document.querySelector('#ideaResult h3')?.textContent!=='Choose a theme, then draw a card.'");
+  await check('Idea Lab now gives specific discussion and boundaries',"document.querySelector('#ideaResult').textContent.includes('What to talk about') && document.querySelector('#ideaResult').textContent.includes('Agree on boundaries first')");
+  await evaluate("document.querySelector('#mood').value='toys';document.querySelector('#ideaLevel').value='bold';document.querySelector('#drawIdea').click()");
+  await check('Bold toy prompts name specific interests',"(/strap-on|penetration|oral sex|pegging|toys/i).test(document.querySelector('#ideaResult').textContent)");
+
   await evaluate("document.querySelector('[data-tab=chat]').click();document.querySelector('[data-ask]').click()");
   await check('Ask Atlas responds to suggestions',"document.querySelectorAll('#chatWindow .bubble').length>=3");
+  const focusedAnswer=await evaluate("respond('I like being fucked by a strapon as a male. Why?')");
+  if(!/strap-on penetration|prostate-area stimulation/i.test(focusedAnswer)||/exhibition|voyeurism/i.test(focusedAnswer))throw Error('Ask Atlas returned irrelevant topic for the strap-on question');
+  console.log('✓ Ask Atlas explains strap-on preference without false exhibitionism matches.');
+  const unmatched=await evaluate("respond('Why am I interested in velociraptor-shaped pottery?')");
+  if(!/could not match|not match|confidently/i.test(unmatched)||/exhibition/i.test(unmatched))throw Error('Ask Atlas guessed an irrelevant answer rather than asking for detail');
+  console.log('✓ Ask Atlas declines irrelevant lexical matches.');
+  await evaluate("document.querySelector('#chatText').value='Why do I like receiving strap-on penetration?';document.querySelector('#askForm button').click()");
+  await check('Ask Atlas shows a relevant on-device answer',"document.querySelector('#chatWindow .bubble:last-child').textContent.includes('strap-on')");
+
   await evaluate("document.querySelector('[data-tab=guide]').click()");
   await check('Resources FAQ is interactive',"document.querySelectorAll('#faq details').length>=25");
   const lab=await navigate(site+'/after-dark/psychology-lab/');
