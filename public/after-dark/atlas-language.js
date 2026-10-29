@@ -38,7 +38,7 @@ const aliases={
  'atlee':'atlas','ask atlee':'ask atlas'
 };
 const replacements=Object.entries(aliases).sort((a,b)=>b[0].length-a[0].length);
-const stop=new Set('i me my myself am is are was were be being been we our us you your he she him her they them it its a an the do does did what why who how where when which can could should would might will for from this that those these like liking loved love enjoy enjoyed interest interested into in on to of with and or but so because about at as by someone something person people adult adults sex sexual kink fetish thing stuff things really very more certain specific kind types type some any also other just tell explain mean meaning please'.split(' '));
+const stop=new Set('i me my myself am is are was were be being been we our us you your he she him her they them it its a an the do does did what why who how where when which can could should would might will for from this that those these like liking loved love enjoy enjoyed interest interested into in on to of with and or but so because about at as by someone something person people partner partners boyfriend girlfriend wife husband spouse relationship adult adults sex sexual kink fetish thing stuff things really very more certain specific kind types type some any also other just tell explain mean meaning please'.split(' '));
 const stem=w=>w.endsWith('ies')&&w.length>5?w.slice(0,-3)+'y':w.endsWith('ing')&&w.length>6?w.slice(0,-3):w.endsWith('ed')&&w.length>6?w.slice(0,-2):w.endsWith('s')&&w.length>5&&!w.endsWith('ss')?w.slice(0,-1):w;
 const words=s=>[...new Set(norm(s).split(' ').filter(x=>x.length>=3&&!stop.has(x)).map(stem))];
 function levenshtein(a,b){
