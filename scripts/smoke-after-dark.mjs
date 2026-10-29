@@ -74,6 +74,9 @@ try{
   await evaluate("document.querySelector('#enter').click()");
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
   await check('After Dark opens on the introduction rather than the atlas',"document.querySelector('#home').classList.contains('visible') && !document.querySelector('#atlas').classList.contains('visible')");
+  await check('After Dark has a full homepage hero and fast access to four experiences',"!!document.querySelector('#home .afterdark-home-hero .ad-home-planet') && document.querySelectorAll('#home .ad-home-express-nav button').length===4 && !!document.querySelector('#home [data-goto=psych-quiz]') && !!document.querySelector('#home [data-goto=quiz]')");
+  await check('No internal analytics or unchanged status copy is visible',"!/site analytics are enabled|quiz \(unchanged\)|are unchanged/i.test(document.body.innerText)");
+  await check('Non-explicit quiz maps answers to specific Atlas interests independently',"window.AfterDarkPsychBridge?.recommend({answered:1,answers:{0:[0]}},topics)?.some(r=>r.x.name==='Slow build-up')");
   await check('After Dark features Quiz and Ask Atlas first',"document.querySelectorAll('.afterdark-featured-grid .card').length===2 && document.querySelector('.afterdark-featured-grid .card:first-child h3')?.textContent==='Curiosity Quiz' && document.querySelector('.afterdark-featured-grid .card:nth-child(2) h3')?.textContent==='Ask Atlas'");
   await check('After Dark describes all remaining sections in page body',"document.querySelectorAll('.afterdark-landing-grid .card').length===5 && document.querySelectorAll('.top [data-tab]').length===1");
   await evaluate("document.querySelector('.enter-after-dark').click()");
@@ -110,6 +113,7 @@ try{
     await evaluate("(()=>{const btn=[...document.querySelectorAll('#psychQuizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('View shared interest shelf'));btn?.click();})()");
     if(i<31)await evaluate("document.querySelectorAll('#psychQuizCard input[type=checkbox]')[0]?.click()");
   }
+  await check('Independent psychology responses identify specific adult interests and why',"document.querySelector('#psychQuizCard .psych-specific-bridge')!==null && document.querySelectorAll('#psychQuizCard .psych-specific-card').length>=8 && document.querySelector('#psychQuizCard .psych-specific-why')?.textContent.includes('You chose:')");
   await check('Psychology quiz shows unified shelf and comparison',"document.querySelector('#psychQuizCard .quiz-alignment')?.textContent.includes('32 of 32 comparable questions') && document.querySelectorAll('#psychQuizCard .interest-result').length>=12");
   const psychPair=await evaluate("JSON.stringify([...document.querySelectorAll('#psychQuizCard .interest-result')].map(el=>el.querySelector('h3')?.textContent+'|'+el.querySelector('.interest-percentage')?.textContent))");
   if(beforePair!==psychPair)throw Error('Paired quiz answers must produce identical ranked interest names and scores');
