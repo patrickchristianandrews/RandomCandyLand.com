@@ -7,6 +7,7 @@ const required = [
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/music-visualizer/index.html', ['id="canvas"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
+  ['dist/candy-casino/index.html', ['CANDY LAND','CASINO!','data-game="slots"','data-game="blackjack"','data-game="roulette"','data-game="dice"','data-game="highcard"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
   ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-header', 'tiny-goo-fill', 'candyland-game-site-goo', 'HOW TO PLAY', 'id="remix-studio"']],
@@ -358,6 +359,16 @@ if (!fs.existsSync(melodySourcePath)) {
       failures++;
     }
   }
+}
+if (!homeBundle.includes('/candy-casino/')) {
+  console.error('Candy Land Casino is missing from the homepage.'); failures++;
+}
+for(const asset of ['dist/candy-casino/casino.js','dist/candy-casino/casino.css','dist/app-manifests/candy-casino.webmanifest']){
+  if(!fs.existsSync(asset)){console.error('Casino asset missing:',asset);failures++;}
+}
+if(fs.existsSync('dist/candy-casino/casino.js')){
+  const js=fs.readFileSync('dist/candy-casino/casino.js','utf8');
+  try{new vm.Script(js,{filename:'Candy Land Casino'});}catch(e){console.error('Broken casino script:',e.message);failures++;}
 }
 if (!homeBundle.includes('/trumpagotchi-fm1/')) {
   console.error('Playable Trumpagotchi is missing from Candy Land homepage.');
