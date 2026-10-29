@@ -345,3 +345,9 @@ body.fm1-tiny-mode.candyland-game-page{color:#fff7ff;background:radial-gradient(
 .fm1-tiny-mode main > .how-to-play-top{position:relative;z-index:4;max-width:920px;width:100%;margin:7px auto 22px}
 
 @media(prefers-reduced-motion:reduce){.fm1-tiny-mode .candyland-game-site-goo{animation:none!important}}
+
+/* Liquid drip header: curve stays visible after the site-navigation row is removed. */
+.fm1-tiny-mode .candyland-game-site-header{justify-content:center;min-height:95px;margin-bottom:101px;padding-top:17px;padding-bottom:22px}
+.fm1-tiny-mode .candyland-game-site-goo{height:108px;filter:drop-shadow(0 13px 12px #39065d82);isolation:isolate}
+.fm1-tiny-mode .candyland-game-site-brand{justify-content:center}
+@media(max-width:630px){.fm1-tiny-mode .candyland-game-site-header{margin-bottom:90px;min-height:85px;padding:15px 12px 20px}.fm1-tiny-mode .candyland-game-site-goo{height:93px}}

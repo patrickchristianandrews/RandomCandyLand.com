@@ -72,6 +72,10 @@ try{
   await check('Adult entry is present', "!!document.querySelector('#enter')");
   await evaluate("document.querySelector('#enter').click()");
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
+  await check('After Dark opens on the introduction rather than the atlas',"document.querySelector('#home').classList.contains('visible') && !document.querySelector('#atlas').classList.contains('visible')");
+  await check('After Dark introduces all experiences',"!!document.querySelector('.enter-after-dark') && document.querySelectorAll('.afterdark-landing-grid .card').length>=5");
+  await evaluate("document.querySelector('.enter-after-dark').click()");
+  await check('Enter After Dark opens the atlas',"document.querySelector('#atlas').classList.contains('visible')");
   await evaluate("document.querySelector('[data-tab=atlas]').click()");
   console.log('Atlas diagnostics:',await evaluate("JSON.stringify({count:document.querySelectorAll('#topicGrid .topic').length,all:document.querySelector('#allCount')?.textContent,script:typeof window.renderAtlas,errors:window.onerror?.toString().slice(0,100)||'none'})"),JSON.stringify(testErrors));
   await check('Atlas has 100+ working interest cards',"document.querySelectorAll('#topicGrid .topic').length>=100");

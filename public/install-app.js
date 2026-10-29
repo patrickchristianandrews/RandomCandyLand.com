@@ -18,7 +18,7 @@
   if(!apple){apple=document.createElement('meta');apple.name='apple-mobile-web-app-title';document.head.append(apple);}
   apple.content=app.short;
   if(navigator.serviceWorker && location.protocol==='https:') {
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}),{once:true});
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{}),{once:true});
   }
   let pending=null;
   window.addEventListener('beforeinstallprompt',event=>{
@@ -89,7 +89,9 @@
       },{once:true});
     }
     // Top-of-page, accessible button avoids a fixed overlay over the game.
-    const target=document.querySelector('.candyland-navbar nav,header.topbar,header.top nav,header nav,nav.top,header,body');
+    // The main navigation row was removed. Install actions belong in the install
+    // hub or below the attraction, not in the site-wide header.
+    const target=document.querySelector('.candyland-install-apps, .candyland-game-site-footer, footer, .footer, body');
     target.append(button);
     const params=new URLSearchParams(location.search);
     if(params.get('install')==='1'){

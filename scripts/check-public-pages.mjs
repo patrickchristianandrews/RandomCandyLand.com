@@ -9,10 +9,29 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
-  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-nav', 'tiny-goo-fill', 'candyland-game-site-goo', 'HOW TO PLAY', 'id="remix-studio"']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-header', 'tiny-goo-fill', 'candyland-game-site-goo', 'HOW TO PLAY', 'id="remix-studio"']],
 ];
 
 let failures = 0;
+for(const path of ['src/pages/RandomCandyLandHome.tsx','src/pages/TrumpGotchaPage.tsx']){
+  const html=fs.readFileSync(path,'utf8');
+  if(html.includes('<nav aria-label="Main website navigation">') ||
+     html.includes('<nav aria-label="Random Candy Land navigation">')){
+    console.error('Redundant site-wide navigation buttons returned:',path);failures++;
+  }
+}
+for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.html','dist/candy-simon/index.html','dist/goo-rush/index.html']){
+  const html=fs.readFileSync(path,'utf8');
+  if(/<nav class="candyland-game-site-nav"|<nav class="topnav"|<nav><a href="\/">🍭 Home<\/a>/.test(html)){
+    console.error('Duplicate navigation-button row returned:',path);failures++;
+  }
+}
+const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
+if(!afterDarkLanding.includes('ENTER AFTER DARK') || !afterDarkLanding.includes('<section id="home" class="tab visible"') ||
+   !afterDarkLanding.includes("else renderTabs('home');")){
+  console.error('After Dark is not opening at the explanatory welcome page.');failures++;
+}
+
 for (const [path, expected] of required) {
   if (!fs.existsSync(path)) {
     console.error('Missing published page:', path);

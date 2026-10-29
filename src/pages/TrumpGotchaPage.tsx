@@ -292,13 +292,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
           <img src="/random-candy-land-art.webp" alt="" width={55} height={55} />
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
-        <nav aria-label="Random Candy Land navigation">
-          <a href="/" onClick={e=>{e.preventDefault();onReturnHome();}}>🍭 Home</a>
-          <a href="/trumpagotchi-fm1/">🐣 Tiny Pet</a>
-          <a href="/music-visualizer/">🌈 Candy Pulse</a>
-          <a href="/after-dark/">🌙 After Dark</a>
-          <a href="/#install-apps">📲 Install Apps</a>
-        </nav>
+        
         <CandyGoo className="candyland-header-goo" color="bubblegum" />
       </header>
       {/* How To Play always stays above the handheld, before the page banner. */}

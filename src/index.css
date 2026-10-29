@@ -320,3 +320,9 @@ body {
 /* Game toolbar and shell selector appear after the handheld and its A/B/C controls. */
 .candyland-game-page .candyland-game-main .candyland-game-toolbar{max-width:760px;margin:14px auto 12px}
 .candyland-game-page .candyland-game-main .candyland-game-color-drawer{margin:4px auto 16px}
+
+/* Brand-only headers: remove the duplicate cross-page button bars, keep the logo as Home. */
+.candyland-next .candyland-navbar{justify-content:center;min-height:102px;gap:0}
+.candyland-next .candyland-navbar .candyland-identity{width:auto;justify-content:center}
+.candyland-game-page .candyland-game-navbar{min-height:102px}
+@media(max-width:630px){.candyland-next .candyland-navbar{min-height:96px}.candyland-next .candyland-navbar .candyland-identity{width:auto}}

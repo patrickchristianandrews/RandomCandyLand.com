@@ -1,7 +1,7 @@
 /* A single network-first offline shell for the site's separately installed PWAs.
  * Do not cache API responses, media, uploads, or cross-origin resources.
  */
-const CACHE='random-candy-land-public-v1';
+const CACHE='random-candy-land-public-v4';
 const SHELL=['/','/index.html','/manifest.json','/icon-192.png','/icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
@@ -17,7 +17,10 @@ self.addEventListener('fetch',event=>{
   const allowed=req.mode==='navigate'||['script','style','image','font','manifest'].includes(req.destination)
     || url.pathname.endsWith('.webmanifest');
   if(!allowed)return;
-  event.respondWith(fetch(req).then(resp=>{
+  // Bypass HTTP caches for HTML/CSS/JS so installed PWAs don't keep old goo and navigation.
+  const fresh=(req.mode==='navigate'||['script','style'].includes(req.destination))
+    ?new Request(req,{cache:'no-store'}):req;
+  event.respondWith(fetch(fresh).then(resp=>{
     if(resp.ok&&resp.type==='basic') {
       const response=resp.clone();
       event.waitUntil(caches.open(CACHE).then(c=>c.put(req,response)).catch(()=>{}));
