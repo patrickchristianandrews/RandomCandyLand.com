@@ -89,10 +89,12 @@ try{
   await evaluate("document.querySelector('#topicGrid .topic button').click()");
   await check('Marking a topic updates the controls',"document.querySelectorAll('#topicGrid .topic button.chosen').length>0");
   await evaluate("document.querySelector('[data-tab=quiz]').click();document.querySelector('#startQuiz').click()");
-  await check('Quiz begins and displays choices',"document.querySelectorAll('#quizCard .quizOpts button').length===4");
-  for(let i=0;i<32;i++){await evaluate("document.querySelector('#quizCard .quizOpts button')?.click()");}
-  await check('Deeper quiz prompts are offered after 32 questions',"document.querySelector('#quizCard .eyebrow')?.textContent.includes('DEEPER REFLECTION')");
-  await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('See results now'))?.click()");
+  await check('New direct quiz begins with multi-select checkboxes',"document.querySelectorAll('#quizCard .quiz-multi-option input[type=checkbox]').length>=3");
+  await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
+  await check('Multiple quiz choices can be checked',"document.querySelectorAll('#quizCard .quiz-multi-option input:checked').length===2");
+  await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
+  for(let i=1;i<32;i++){await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0]?.click();[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('Show my results'))?.click()");}
+  await check('All 32 direct questions show ranked results',"document.querySelector('.direct-answer-summary')!==null && document.querySelector('#quizCard .compare')!==null");
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
   await check('Quiz offers private PDF and saves interests', "typeof window.InterestNotebook?.printQuiz==='function' && !![...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save quiz results as PDF')) && !!document.querySelector('#quizCard .interest-result button')");
@@ -240,31 +242,26 @@ try{
   // The new arcade must be fully interactive, not just a styled landing page.
   // Candy Casino must offer 5 functioning solo games even without online signaling.
   const casino=await navigate(site+'/candy-casino/');
-  const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-game]').length===5 && !!document.querySelector('#make-room') && !!document.querySelector('#join-room')");
-  if(!casinoReady)throw Error('Candy Casino did not initialize its games and multiplayer controls');
-  const chipsBefore=await casino.evaluate("Number(document.querySelector('#balance').textContent.replace(/,/g,''))");
-  await casino.evaluate("document.querySelector('#game-buttons button').click()");
-  const slotOutcome=await casino.evaluate("document.querySelector('#game-message').textContent.includes('match') || document.querySelector('#game-message').textContent.includes('CHIPS') || document.querySelector('#game-message').textContent.includes('SWEET')");
-  if(!slotOutcome)throw Error('Gummy Slots did not play a round');
-  await casino.evaluate("document.querySelector('[data-game=roulette]').click()");
-  await casino.evaluate("document.querySelector('#game-buttons button').click()");
-  const roulettePlayed=await casino.evaluate("document.querySelector('#game-message').textContent.includes('sprinkle')");
-  if(!roulettePlayed)throw Error('Candy Casino roulette did not spin');
-  await casino.evaluate("document.querySelector('[data-game=dice]').click()");
-  await casino.evaluate("document.querySelector('#game-buttons button').click()");
-  const dicePlayed=await casino.evaluate("document.querySelector('#game-message').textContent.includes('Rolled')");
-  if(!dicePlayed)throw Error('Candy Casino dice did not roll');
-  await casino.evaluate("document.querySelector('[data-game=highcard]').click()");
-  await casino.evaluate("document.querySelector('#game-buttons button').click()");
-  const cardPlayed=await casino.evaluate("document.querySelector('#game-message').textContent.includes('🂡')");
-  if(!cardPlayed)throw Error('Candy Casino high card did not draw');
-  await casino.evaluate("document.querySelector('[data-game=blackjack]').click()");
-  await casino.evaluate("document.querySelector('#game-buttons button').click()");
-  const blackjackPlayed=await casino.evaluate("document.querySelector('.cards-group')!==null");
-  if(!blackjackPlayed)throw Error('Candy Casino blackjack failed to deal cards');
-  const chipsAfter=await casino.evaluate("Number(document.querySelector('#balance').textContent.replace(/,/g,''))");
-  if(!Number.isFinite(chipsAfter)||chipsAfter===chipsBefore)throw Error('Candy Casino games did not update virtual chips');
-  console.log('✓ Candy Casino plays slots, roulette, dice, high card and blackjack; multiplayer room controls exist.');
+  const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-duel]').length===3 && document.querySelectorAll('[data-game]').length===0 && !!document.querySelector('[data-opponent=computer]') && !!document.querySelector('[data-opponent=friend]')");
+  if(!casinoReady)throw Error('Candy Casino must show ONLY three competitive games with computer and friend choices');
+  const cpu=await casino.evaluate("document.querySelector('#opponent-name').textContent.includes('Candybot') && !document.querySelector('#duel-ready').disabled");
+  if(!cpu)throw Error('Candybot should be the default, fully playable opponent');
+  await casino.evaluate("document.querySelector('#duel-ready').click()");
+  const dealt=await casino.evaluate("window.CandyCasinoDebug.state().phase==='draw' && document.querySelectorAll('#poker-own-cards .poker-card').length===5 && document.querySelectorAll('#poker-opponent-cards .poker-card.back').length===5");
+  if(!dealt)throw Error('Sugar Rush Poker failed to deal private player and hidden opponent hands');
+  await casino.evaluate("document.querySelector('#poker-own-cards .poker-card').click();document.querySelector('#poker-draw').click()");
+  const showdown=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelectorAll('#poker-opponent-cards .poker-card:not(.back)').length===5 && Number(document.querySelector('#self-score').textContent)+Number(document.querySelector('#other-score').textContent)<=1");
+  if(!showdown)throw Error('Poker draw/showdown did not resolve against computer');
+  await casino.evaluate("document.querySelector('[data-duel=card]').click();document.querySelector('#duel-ready').click()");
+  const high=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelector('#duel-display').textContent.includes('drew')");
+  if(!high)throw Error('High Card did not play versus computer');
+  await casino.evaluate("document.querySelector('[data-duel=dice]').click();document.querySelector('#duel-ready').click()");
+  const dice=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelector('#duel-display').textContent.includes('rolled')");
+  if(!dice)throw Error('Dice Duel did not play versus computer');
+  await casino.evaluate("document.querySelector('[data-opponent=friend]').click()");
+  const remote=await casino.evaluate("!document.querySelector('#remote-controls').hidden && document.querySelector('#duel-ready').disabled && !!document.querySelector('#make-room') && !!document.querySelector('#join-room')");
+  if(!remote)throw Error('Remote friend mode did not expose invite controls or require a connection');
+  console.log('✓ Candy Casino has poker, high card and dice, computer wins/showdowns, hidden online cards and real friend invitation controls.');
 
   const arcade=await navigate(site+'/goo-rush/');
   const arcadeReady=await arcade.evaluate("!!document.querySelector('[data-mode=duel]') && !!document.querySelector('#start')");
