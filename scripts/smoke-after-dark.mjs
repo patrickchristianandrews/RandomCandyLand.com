@@ -117,6 +117,28 @@ try{
   const oldGolf=await pet.evaluate("!!document.querySelector('[aria-label=\"Open Bedminster Golf in one tap\"]')");
   if(oldGolf)throw Error('Removed one-tap golf shortcut is still visible');
   console.log('✓ Removed one-tap Golf shortcut remains absent.');
+
+  // Check the *actual* GPL FM-1 Trumpagotchi pixel art is painted, not emoji.
+  const little=await navigate(site+'/trumpagotchi-pet/');
+  const artReady=await little.evaluate("typeof window.drawOriginalTrumpagotchi==='function' && !!document.querySelector('#originalCanvas')");
+  if(!artReady)throw Error('The original FM-1 Trumpagotchi character/room port did not load');
+  await delay(400);
+  const realPixels=await little.evaluate("(()=>{const c=document.querySelector('#originalCanvas');const d=c.getContext('2d').getImageData(0,0,240,156).data;const colors=new Set();for(let p=0;p<d.length;p+=256)colors.add([d[p],d[p+1],d[p+2]].join('-'));return colors.size})()");
+  if(realPixels<8)throw Error('Original FM-1 Trumpagotchi pixels did not render: '+realPixels+' sampled colors');
+  await little.evaluate("document.querySelector('[data-action=feed]').click()");
+  if(!await little.evaluate("document.querySelector('#caption').textContent.includes('A VERY FINE SNACK')"))throw Error('Standalone pet Feed did not work');
+  console.log('✓ Original FM-1 character/room rendered on browser canvas; pet-care button works.');
+
+  // The homepage nonsense button must generate a genuinely different result.
+  const home=await navigate(site+'/');
+  const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-display p')");
+  if(!nonsenseReady)throw Error('Homepage nonsense generator did not mount');
+  const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-display p').textContent");
+  await home.evaluate("document.querySelector('.nonsense-generate').click()");
+  const afterNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-display p').textContent");
+  if(beforeNonsense===afterNonsense)throw Error('Nonsense generator repeated its previous story');
+  console.log('✓ Candy Land nonsense generator creates a new non-repeating story.');
+
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
 } finally{
