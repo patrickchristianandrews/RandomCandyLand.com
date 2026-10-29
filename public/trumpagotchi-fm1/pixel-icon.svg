@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="title">
+<title>Pixel-art Trumpagotchi in the original FM-1 style</title>
+<rect width="100" height="100" rx="9" fill="#202b3d"/>
+<rect x="4" y="4" width="92" height="92" fill="#f6ebd1"/>
+<rect x="7" y="72" width="86" height="21" fill="#caae8b"/>
+<rect x="10" y="12" width="24" height="27" fill="#202b3d"/>
+<rect x="12" y="14" width="20" height="23" fill="#99c9d9"/>
+<rect x="13" y="25" width="18" height="2" fill="#202b3d"/>
+<rect x="21" y="14" width="2" height="24" fill="#202b3d"/>
+<rect x="25" y="17" width="4" height="4" fill="#ffdc76"/>
+<rect x="81" y="18" width="12" height="12" fill="#202b3d"/>
+<rect x="83" y="20" width="8" height="8" fill="#649eb1"/>
+<rect x="85" y="23" width="4" height="5" fill="#e9975a"/>
+<rect x="36" y="64" width="33" height="23" fill="#202b3d"/>
+<rect x="31" y="69" width="43" height="22" fill="#202b3d"/>
+<rect x="34" y="68" width="37" height="20" fill="#2a3f5e"/>
+<rect x="47" y="68" width="11" height="16" fill="#f7edd1"/>
+<rect x="51" y="69" width="3" height="18" fill="#be3b31"/>
+<rect x="39" y="85" width="10" height="7" fill="#2a3f5e"/>
+<rect x="59" y="85" width="10" height="7" fill="#2a3f5e"/>
+<rect x="36" y="91" width="14" height="3" fill="#202b3d"/>
+<rect x="58" y="91" width="14" height="3" fill="#202b3d"/>
+<rect x="38" y="32" width="28" height="33" fill="#202b3d"/>
+<rect x="40" y="33" width="24" height="31" fill="#e9975a"/>
+<rect x="36" y="45" width="6" height="11" fill="#c67148"/>
+<rect x="64" y="45" width="6" height="11" fill="#c67148"/>
+<rect x="44" y="54" width="18" height="8" fill="#c67148"/>
+<rect x="42" y="53" width="20" height="9" fill="#e9975a"/>
+<rect x="39" y="28" width="27" height="10" fill="#a67c27"/>
+<rect x="43" y="24" width="18" height="8" fill="#a67c27"/>
+<rect x="40" y="27" width="26" height="8" fill="#eabb3e"/>
+<rect x="43" y="23" width="17" height="8" fill="#eabb3e"/>
+<rect x="35" y="35" width="14" height="6" fill="#eabb3e"/>
+<rect x="37" y="34" width="10" height="3" fill="#ffdc75"/>
+<rect x="47" y="24" width="13" height="2" fill="#ffdc75"/>
+<rect x="43" y="45" width="7" height="2" fill="#c67148"/>
+<rect x="56" y="45" width="7" height="2" fill="#c67148"/>
+<rect x="46" y="48" width="3" height="3" fill="#202b3d"/>
+<rect x="57" y="48" width="3" height="3" fill="#202b3d"/>
+<rect x="50" y="49" width="6" height="7" fill="#c67148"/>
+<rect x="52" y="50" width="4" height="4" fill="#f8b273"/>
+<rect x="47" y="59" width="13" height="2" fill="#202b3d"/>
+<rect x="49" y="61" width="9" height="2" fill="#202b3d"/>
+<rect x="50" y="59" width="8" height="1" fill="#fff7dd"/>
+<rect x="29" y="76" width="7" height="7" fill="#e9975a"/>
+<rect x="70" y="76" width="7" height="7" fill="#e9975a"/>
+</svg>
