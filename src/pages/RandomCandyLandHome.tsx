@@ -1,164 +1,123 @@
 import React, { useState } from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar, WandSparkles } from 'lucide-react';
 import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
 
 interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-function CandyLink({
-  emoji, title, subtitle, href, shade, label,
-}: {
-  emoji: string; title: string; subtitle: string;
-  href: string; shade: string; label: string;
-}) {
-  return (
-    <a className={'sugar-offering sugar-offering--' + shade} href={href} aria-label={'Open ' + title}>
-      <div className="sugar-offering-orb" aria-hidden="true">{emoji}</div>
-      <div className="sugar-offering-body">
-        <span className="sugar-tag">{label}</span>
-        <h3>{title}</h3>
-        <p>{subtitle}</p>
-        <span className="sugar-linktext">Explore <ArrowRight size={16} /></span>
-      </div>
-    </a>
-  );
-}
+type Category = 'all' | 'games' | 'music' | 'discovery';
+
+type Portal = {
+  emoji: string;
+  title: string;
+  blurb: string;
+  kind: Exclude<Category, 'all'>;
+  label: string;
+  href?: string;
+  palette: string;
+  oldPet?: boolean;
+};
+
+const PORTALS: Portal[] = [
+  {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
+  {emoji:'🐣',title:'Trumpagotchi: Little Pet',blurb:"Care for a very demanding little pet with food, praise, cleaning, naps, music, and a changing mood.",kind:'games',label:'NEW MINI PET',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {emoji:'🌈',title:'Candy Pulse',blurb:"Turn your own music into mesmerizing colorful waves, bouncing lights, and reactive shapes.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
+  {emoji:'🌙',title:'After Dark',blurb:"A grown-up curiosity atlas for discovering and understanding more about yourself.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
+];
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const showGroup = (id: string) => activeCategory === 'all' || activeCategory === id;
+  const [category, setCategory] = useState<Category>('all');
+  const shown = PORTALS.filter(portal => category === 'all' || portal.kind === category);
 
   return (
-    <main id="top" className="sugar-universe">
-      <div className="sugar-sky" aria-hidden="true">
-        <i className="sugar-cloud sugar-cloud-a" />
-        <i className="sugar-cloud sugar-cloud-b" />
-        <i className="sugar-cloud sugar-cloud-c" />
-        <span className="sugar-floater one">🍭</span>
-        <span className="sugar-floater two">🍬</span>
-        <span className="sugar-floater three">🍩</span>
-        <span className="sugar-floater four">🌈</span>
-        <span className="sugar-floater five">⭐</span>
+    <main id="top" className="candyland-next">
+      <div className="candyland-starfield" aria-hidden="true">
+        <span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span>
       </div>
-
-      <header className="sugar-nav">
-        <a href="#top" className="sugar-mark" aria-label="Go to the top of the current Candy Land homepage"><img src="/random-candy-land-art.webp" width={48} height={48} alt="" /><strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
-        <div className="sugar-navlinks">
-          <a href="#attractions">✨ Explore attractions</a>
-          <a href="/music-visualizer/">🎵 Music & color</a>
-          <a href="/after-dark/">🌙 After Dark</a>
-        </div>
+      <header className="candyland-navbar">
+        <a className="candyland-identity" href="#top" aria-label="Random Candy Land — current homepage, back to top">
+          <img src="/random-candy-land-art.webp" alt="" width={55} height={55} />
+          <span>RANDOM <strong>CANDY LAND</strong></span>
+        </a>
+        <nav aria-label="Main website navigation">
+          <a href="#adventures"><Gamepad2 size={17}/> Play</a>
+          <a href="/music-visualizer/"><Music2 size={17}/> Music</a>
+          <a href="/after-dark/"><MoonStar size={17}/> After Dark</a>
+        </nav>
       </header>
 
-      <section className="sugar-hero">
-        <span className="sugar-kicker">🍭 SWEET, SILLY & A LITTLE BIT WILD ✦</span>
-        <h1><span>WONDER.</span><br /><em>WEIRDNESS.</em><br /><b>PURE CANDY CHAOS!</b></h1>
-        <p>Welcome to our rainbow-powered candy universe. Meet the cheerful candy crew, play unexpected games, make some noise, and get wonderfully weird.</p>
-        <div className="sugar-herobuttons">
-          <a href="#attractions" className="sugar-mainbtn">EXPLORE THE UNIVERSE <ArrowRight size={19} /></a>
-          <a href="/music-visualizer/" className="sugar-otherbtn">🌈 Experience the music</a>
+      <section className="candyland-opening" aria-label="Welcome to Random Candy Land">
+        <div className="candyland-orbit candyland-orbit-one" aria-hidden="true">
+          <span className="planet-ring" /><span className="planet-eye eye-left" />
+          <span className="planet-eye eye-right" /><span className="planet-smile" /><span className="planet-star">✦</span>
         </div>
-        <div className="sugar-hero-stats">
-          <span>🎮 PLAY</span>
-          <span>🎵 CREATE & LISTEN</span>
-          <span>🌙 DISCOVER</span>
+        <span className="candyland-confetti confetti-one" aria-hidden="true">🍬</span>
+        <span className="candyland-confetti confetti-two" aria-hidden="true">🍭</span>
+        <span className="candyland-confetti confetti-three" aria-hidden="true">✨</span>
+        <div className="candyland-opening-art">
+          <img
+            src="/random-candy-land-art.webp"
+            alt="A rainbow candy castle, a smiling peppermint and a gummy bear, surrounded by colorful dripping candy letters spelling Random Candy Land"
+            width={768}
+            height={768}
+            decoding="async"
+            fetchPriority="high"
+          />
         </div>
-        {/* Restore the original smiling candy planet as a background element. */}
-        <div className="sugar-hero-planet sugar-planet-behind" aria-hidden="true">
-          <span className="planet-ring" />
-          <span className="planet-eye eye-left" />
-          <span className="planet-eye eye-right" />
-          <span className="planet-smile" />
-          <span className="planet-star">✦</span>
+        <div className="candyland-opening-copy">
+          <div className="candyland-eyebrow">WELCOME TO YOUR CANDY-COATED UNIVERSE</div>
+          <h1>Stay sweet.<br/><span>Get weird.</span></h1>
+          <p>One colorful, wildly imaginative place to play, make things glow, and stumble into something wonderful.</p>
+          <a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a>
         </div>
-        <div className="sugar-hero-brand" aria-hidden="true">
-          <img src="/random-candy-land-art.webp" alt="" width={460} height={460} decoding="async" fetchPriority="high" />
-          <span>🍬 WELCOME TO THE SWEET SIDE! 🍬</span>
-        </div>
+        <div className="candyland-drips" aria-hidden="true"><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
       </section>
 
-      <section id="attractions" className="sugar-section sugar-attractions">
-        <div className="sugar-sectiontop">
-          <div>
-            <span className="sugar-eyebrow">✦ CHOOSE YOUR NEXT ADVENTURE</span>
-            <h2>Every corner is <em>something different.</em></h2>
-            <p>Games, live music visuals, a pocket synth, and curious little worlds. Pick your next adventure.</p>
-          </div>
+      <section id="adventures" className="candyland-adventures">
+        <div className="candyland-section-heading">
+          <span><Sparkles size={19}/> PICK YOUR PORTAL</span>
+          <h2>A world made of <em>what if?</em></h2>
+          <p>Every doorway leads somewhere different. No old homepage, no dead-end attraction—just the things you can actually explore.</p>
         </div>
-        <div className="sugar-filter" role="group" aria-label="Filter attractions">
-          {[
-            ['all', '✨ Everything'],
-            ['games', '🎮 Games'],
-            ['music', '🎵 Music'],
-            ['discovery', '🌙 Discovery'],
-          ].map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              className={activeCategory === id ? 'on' : ''}
-              aria-pressed={activeCategory === id}
-              onClick={() => setActiveCategory(id)}
-            >{label}</button>
+        <div className="candyland-filters" role="group" aria-label="Filter attractions">
+          {([['all','✨ Everything'],['games','🎮 Games'],['music','🌈 Music'],['discovery','🌙 Explore']] as const).map(([key,label]) => (
+            <button key={key} type="button" className={category === key ? 'is-selected' : ''} aria-pressed={category === key} onClick={() => setCategory(key)}>{label}</button>
           ))}
         </div>
-        <div className="sugar-offerings">
-          {showGroup('games') && (
-            <button className="sugar-offering sugar-offering--gold sugar-trump-feature" type="button" onClick={onNavigateToTrump}>
-              <div className="sugar-trump-portrait" aria-hidden="true"><TrumpCartoonLookalike size={112} animate /></div>
-              <div className="sugar-offering-body">
-                <span className="sugar-tag">🎮 GAMES · RETRO PET</span>
-                <h3>Donald's Pocket Pet</h3>
-                <p>Keep an outrageous little presidential digi-pet happy, fed, groomed, and entertained.</p>
-                <span className="sugar-linktext">Play the pet game <ArrowRight size={16} /></span>
+        <div className="candyland-portals">
+          {shown.map(portal => {
+            const inner = <>
+              <div className="candyland-portal-icon">
+                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : <span>{portal.emoji}</span>}
               </div>
-            </button>
-          )}
-          {showGroup('music') && (
-            <CandyLink
-              emoji="🌈"
-              title="Candy Pulse"
-              subtitle="Turn music into hypnotic neon waves, dancing light, and mesmerizing color."
-              href="/music-visualizer/"
-              shade="pink"
-              label="🎵 MUSIC · VISUALIZER"
-            />
-          )}
-          {showGroup('music') && (
-            <CandyLink
-              emoji="🎹"
-              title="FM-1 Synth Lab"
-              subtitle="Make strange, wonderful sounds in a playful pocket-sized synth experiment."
-              href="/fm1-emu/"
-              shade="blue"
-              label="🎵 MUSIC · SYNTH LAB"
-            />
-          )}
-          {showGroup('discovery') && (
-            <CandyLink
-              emoji="✳️"
-              title="After Dark"
-              subtitle="An adults-only, judgment-free atlas of curiosity, reflection, and psychology."
-              href="/after-dark/"
-              shade="midnight"
-              label="🌙 DISCOVERY · 18+"
-            />
-          )}
+              <span className="candyland-portal-tag">{portal.label}</span>
+              <h3>{portal.title}</h3>
+              <p>{portal.blurb}</p>
+              <span className="candyland-portal-go">Let's go <ArrowRight size={19}/></span>
+              <span className="candyland-portal-drips" aria-hidden="true"><i/><i/><i/><i/><i/></span>
+            </>;
+            return portal.oldPet ? (
+              <button key={portal.title} type="button" onClick={onNavigateToTrump} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</button>
+            ) : (
+              <a key={portal.title} href={portal.href} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</a>
+            );
+          })}
         </div>
       </section>
 
-      <section className="sugar-endcap">
-        <img src="/random-candy-land-art.webp" alt="" width={78} height={78} loading="lazy" />
+      <section className="candyland-finale">
+        <img src="/random-candy-land-art.webp" width={160} height={160} alt="" loading="lazy" />
         <div>
-          <h2>The internet should feel <em>this fun.</em></h2>
-          <p>Something colorful, unusual, and completely unexpected is just a click away.</p>
+          <span><WandSparkles size={16}/> STILL CURIOUS?</span>
+          <h2>Follow the rainbow.</h2>
+          <p>The candy door is always open.</p>
         </div>
-        <a href="#attractions" className="sugar-mainbtn"><Sparkles size={18} /> Discover more <ArrowRight size={18} /></a>
+        <a href="#adventures" className="candyland-primary">EXPLORE MORE <ArrowRight size={20}/></a>
       </section>
-      <footer className="sugar-footer">
-        <span>✦ RANDOMCANDYLAND.COM ✦</span>
-        <span>Made with sugar, imagination, and a spectacular lack of seriousness.</span>
-        <a href="#attractions">Back to the portals ↑</a>
+      <footer className="candyland-footer">
+        <span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span>
+        <a href="#top">Back to the candy castle ↑</a>
       </footer>
     </main>
   );
