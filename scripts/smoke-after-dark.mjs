@@ -150,6 +150,17 @@ try{
   const focusedAnswer=await evaluate("respond('I like being fucked by a strapon as a male. Why?')");
   if(!/strap-on penetration|prostate-area stimulation/i.test(focusedAnswer)||/exhibition|voyeurism/i.test(focusedAnswer))throw Error('Ask Atlas returned irrelevant topic for the strap-on question');
   console.log('✓ Ask Atlas explains strap-on preference without false exhibitionism matches.');
+
+  await check('Expanded Atlas includes 190+ interests',"topics.length>=185 && !!topics.find(t=>t.name==='Aftercare planning') && !!topics.find(t=>t.name==='Edging and delayed gratification')");
+  const fuzzyAnswers=await evaluate("JSON.stringify({typo:respond('why do I like peggin'),slang:respond('why am I into good girl'),context:respond('how to explain praise to my partner'),short:respond('stockings'),broad:respond('why does someone like receiving praise')})");
+  const fuzzy=JSON.parse(fuzzyAnswers);
+  if(!/strap-on|pegging/i.test(fuzzy.typo)||/could not match/i.test(fuzzy.typo))throw Error('Ask Atlas failed typo-tolerant peggin search');
+  if(!/praise/i.test(fuzzy.slang)||/could not match/i.test(fuzzy.slang))throw Error('Ask Atlas failed everyday wording for praise');
+  if(!/partner|listen|permission|participat/i.test(fuzzy.context)||!/praise/i.test(fuzzy.context))throw Error('Ask Atlas failed context-aware partner guidance');
+  if(!/stockings|hosiery/i.test(fuzzy.short))throw Error('Ask Atlas failed keyword-only interest lookup');
+  if(!/praise/i.test(fuzzy.broad))throw Error('Ask Atlas failed psychology-focused why question');
+  console.log('✓ Ask Atlas tolerates typos, everyday phrases, short keywords, partner questions and expands its topic library.');
+
   const unmatched=await evaluate("respond('Why am I interested in velociraptor-shaped pottery?')");
   if(!/could not match|not match|confidently/i.test(unmatched)||/exhibition/i.test(unmatched))throw Error('Ask Atlas guessed an irrelevant answer rather than asking for detail');
   console.log('✓ Ask Atlas declines irrelevant lexical matches.');
