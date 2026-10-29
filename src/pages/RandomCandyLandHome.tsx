@@ -21,7 +21,7 @@ type Portal = {
 
 const PORTALS: Portal[] = [
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
-  {emoji:'🐣',title:'Trumpagotchi: Little Pet',blurb:"Care for a very demanding little pet with food, praise, cleaning, naps, music, and a changing mood.",kind:'games',label:'NEW MINI PET',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {emoji:'🐣',title:'Trumpagotchi: Little Pet',blurb:"Care for a very demanding little pet with food, praise, cleaning, naps, music, and a changing mood.",kind:'games',label:'NEW MINI PET',palette:'pink',href:'/trumpagotchi-pet/'},
   {emoji:'🌈',title:'Candy Pulse',blurb:"Turn your own music into mesmerizing colorful waves, bouncing lights, and reactive shapes.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {emoji:'🌙',title:'After Dark',blurb:"A grown-up curiosity atlas for discovering and understanding more about yourself.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
 ];
@@ -78,7 +78,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <div className="candyland-section-heading">
           <span><Sparkles size={19}/> PICK YOUR PORTAL</span>
           <h2>A world made of <em>what if?</em></h2>
-          <p>Every doorway leads somewhere different. No old homepage, no dead-end attraction—just the things you can actually explore.</p>
+          <p>Every doorway leads somewhere different. Every door opens a fresh adventure. Pick what sounds fun and jump in.</p>
         </div>
         <div className="candyland-filters" role="group" aria-label="Filter attractions">
           {([['all','✨ Everything'],['games','🎮 Games'],['music','🌈 Music'],['discovery','🌙 Explore']] as const).map(([key,label]) => (
