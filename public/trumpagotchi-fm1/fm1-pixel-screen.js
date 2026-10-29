@@ -256,7 +256,7 @@
     rect(0,0,240,240,C.paper);
     rect(0,0,240,24,C.ink);
     label('TRUMPAGOTCHI',8,6,12,C.gold);
-    label(s.gameOver?'GAME OVER':s.sleeping?'SLEEP':petState(s),233,8,8,C.paper,true);
+    label(s.gameOver?'GAME OVER':s.sleeping?'SLEEP':petState(s),203,8,8,C.paper,true);
     const values=[cap(s.food),cap(s.mood),cap(s.energy)];
     ['FOOD','MOOD','ENERGY'].forEach((name,i)=>{
       const x=8+i*78;
