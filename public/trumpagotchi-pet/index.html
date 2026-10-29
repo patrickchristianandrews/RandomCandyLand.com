@@ -62,20 +62,77 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 .pocket-piano .key:active{transform:translateY(5px);box-shadow:0 2px #a87999}
 .pocket-piano .key:focus-visible{outline:3px solid #5b1ab6;outline-offset:2px}
 @media(max-width:450px){.pocket-piano{padding:10px 9px 17px}.pocket-piano .key{height:75px}.pocket-piano-top strong{font-size:12px}.pocket-piano-top span{font-size:10px}}
+
+/* Version-1-style quick guide sits before the game, with one-tap disclosure. */
+.quick-guide{border:2px solid #97dfffad;border-radius:19px;background:linear-gradient(135deg,#133351,#28154d);box-shadow:0 10px 28px #0501228c;padding:14px 19px;margin:12px 0 22px;color:#ecfaff}
+.quick-guide summary{cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:center;font-weight:950;font-size:14px;list-style:none}
+.quick-guide summary::-webkit-details-marker{display:none}
+.quick-guide .guide-tap{flex:none;padding:7px 9px;background:#6bc8ee24;border:1px solid #a5e9ff66;border-radius:9px;font-size:11px}
+.quick-guide ol{padding-left:22px;margin:15px 0 0;display:grid;gap:9px;font-size:13px;line-height:1.55}
+.quick-guide li::marker{color:#ffe78c;font-weight:900}
+.quick-guide a{color:#ffefa5}
+.remix-studio{position:relative;isolation:isolate;border:3px solid #ffe5a7;border-radius:30px;background:radial-gradient(circle at 91% 0,#fd79d56b,transparent 38%),linear-gradient(130deg,#452376,#22134f 68%,#642a87);box-shadow:0 22px 60px #09001baa;margin:34px 0 40px;padding:clamp(17px,4vw,35px);color:#fff7ff;scroll-margin-top:24px}
+.remix-studio:after{content:"";position:absolute;pointer-events:none;inset:auto 8% -19px;height:20px;background:linear-gradient(90deg,#ff96d8,#ff50b1,#7ceeff);border-radius:0 0 40% 40%;z-index:-1}
+.remix-hero{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.remix-hero>div{max-width:760px}.remix-hero h2{font-size:clamp(30px,5vw,54px);line-height:1.07;letter-spacing:-.05em;margin:9px 0 12px}
+.remix-hero h2 span{color:#ffe89c}.remix-hero p,.remix-hint{color:#f1dbfd;line-height:1.55;font-size:15px}
+.remix-eyebrow{color:#9ff7ff;font-size:11px;font-weight:1000;letter-spacing:.12em}
+.remix-mascot{font-size:63px;filter:drop-shadow(0 10px 11px #05012688)}
+.remix-upload,.remix-player{border:1px solid #ffcaeb7a;background:#100a33a1;border-radius:20px;padding:17px;margin-top:19px}
+.remix-upload label{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-weight:950}
+.remix-upload label strong{color:#ffd998;font-size:11px}
+#remix-file{width:100%;min-height:49px;padding:11px 5px 3px;color:#fff;font:inherit;font-size:13px}
+#remix-file::file-selector-button{border:2px solid #fff5c9;background:linear-gradient(130deg,#ffd1fc,#ffe69e);color:#442357;font-weight:900;border-radius:11px;padding:9px 13px;margin-right:10px;cursor:pointer}
+.remix-filename{margin-top:7px;font-size:12px;color:#bdd9fe;overflow-wrap:anywhere}
+.remix-actions{display:flex;flex-wrap:wrap;gap:9px}
+.remix-actions button,.remix-footer-controls button{min-height:46px;border:1px solid #e5b9ff;border-radius:13px;background:#6733a1;color:#fff;font-weight:900;padding:10px 15px;font-size:13px}
+.remix-actions button:first-child{background:#e355a6;border-color:#fff0cb}
+.remix-actions #remix-generate{background:#2875b7;border-color:#8cedf9}
+.remix-timeline{margin:16px 0;display:flex;align-items:center;gap:13px}
+#remix-progress{height:13px;flex:1;min-width:0;accent-color:#ffca6a}
+#remix-clock{font:800 12px monospace;white-space:nowrap}
+.remix-sliders{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.remix-sliders label{font-size:13px;font-weight:900}
+.remix-sliders output{color:#ffe59c}
+.remix-sliders input{display:block;accent-color:#ff92ce;width:100%;margin:11px 0 2px;min-height:19px}
+.remix-studio h3{font-size:22px;margin:26px 0 8px}
+.remix-hint{margin:0 0 19px}
+.remix-pads{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.remix-pad{min-height:70px;background:linear-gradient(145deg,#cf409e,#562997);border:2px solid #ffc5e6;color:#fff;border-radius:17px;font-weight:900;font-size:13px;padding:12px 8px;box-shadow:0 5px #230b56;transition:transform .1s}
+.remix-pad:active{transform:translateY(4px);box-shadow:0 1px #230b56}
+.remix-footer-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin:23px 0}
+.remix-count{margin-right:auto;padding:8px 12px;border-radius:40px;border:1px solid #a8f4f7;color:#bdf7ff;font-weight:900;font-size:13px}
+.remix-footer-controls .remix-export{background:#ffe5a0;color:#411956;border-color:#fff9cd}
+.remix-status{min-height:32px;margin:10px 0;border-left:4px solid #9bf3fb;padding:9px 13px;background:#17123cbb;font-size:14px;color:#d7fafa;font-weight:800}
+.remix-status[data-error="true"]{border-left-color:#ff9999;color:#ffd5d5}
+.remix-legal{color:#d6bce9;line-height:1.6;font-size:12px;margin:13px 0 0}
+@media(max-width:720px){.remix-sliders{grid-template-columns:1fr}.remix-pads{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:440px){.remix-studio{border-radius:22px}.remix-mascot{display:none}.remix-pads{grid-template-columns:repeat(2,minmax(0,1fr))}.remix-actions button{flex:1}.remix-footer-controls button{flex:1}.remix-count{width:100%;text-align:center}.quick-guide{padding:12px}.quick-guide summary{font-size:12px}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="top">
 <a class="brand" href="/"><img src="/random-candy-land-art.webp" alt=""> RANDOM CANDY LAND</a>
-<nav><a href="/">🍭 Home</a><a href="/trump/">🎮 Original Trumpagotchi</a><a href="/music-visualizer/">🌈 Candy Pulse</a></nav>
+<nav><a href="/">🍭 Home</a><a href="/trump/">🎮 Original Trumpagotchi</a><a href="#remix-studio">🎛️ Remix Studio</a><a href="/music-visualizer/">🌈 Candy Pulse</a></nav>
 </header>
 <div class="head">
 <div class="kicker">🐣 YOUR CUTE LITTLE POCKET PET GAME</div>
 <h1>Trumpagotchi <span>2</span></h1>
 <p>Meet your silly little virtual president! Feed him, make him happy, tidy his room, and help him sleep. Watch his expressions and adventures change through a fast-moving day. <strong>Just tap and play—right on your phone.</strong></p>
 </div>
-<div class="drops" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="drops" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<details class="quick-guide" id="how-to-play">
+  <summary><span>❓ HOW TO PLAY · 30-second guide</span><span class="guide-tap">TAP TO OPEN ▾</span></summary>
+  <ol>
+    <li><strong>Look after your pet.</strong> Press 🍔 FEED, 👏 PRAISE, 🧹 CLEAN or 🛏️ REST to change his mood and watch the animations.</li>
+    <li><strong>Check his needs.</strong> Keep Food, Mood, Energy and Cleanliness from running out. Watch the little status panel beside him.</li>
+    <li><strong>Play the piano.</strong> Tap the five keys directly below Trumpagotchi 2 to play a tune. He dances when he's feeling good.</li>
+    <li><strong>Try the Remix Studio.</strong> <a href="#remix-studio">Load a song</a>, press Play, and tap the Trump phrase pads to drop original recordings into your music. Or tap Auto Remix.</li>
+    <li><strong>Save it.</strong> Your pet progress saves to this browser. In the Remix Studio, select Export WAV to download your completed song remix.</li>
+  </ol>
+</details>
 <main class="layout">
 <section>
 <div class="device">
@@ -122,6 +179,44 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
   <p class="notice" id="notice" role="status">Ready to play.</p>
 </section>
 </main>
+<section id="remix-studio" class="remix-studio" aria-labelledby="remix-heading">
+  <div class="remix-hero">
+    <div><span class="remix-eyebrow">🎛️ ORIGINAL VOICE CLIPS · YOUR SONG · YOUR MIX</span>
+      <h2 id="remix-heading">Trumpagotchi 2 <span>Remix Studio</span></h2>
+      <p>Load a song from your phone or computer, tap Trump phrases into the beat, or generate a surprise remix automatically. Listen, adjust the levels, and download your finished WAV.</p>
+    </div>
+    <span class="remix-mascot" aria-hidden="true">🎤🎵</span>
+  </div>
+  <div class="remix-upload">
+    <label for="remix-file">🎧 1. Choose your song <strong>MP3 · WAV · M4A · up to 3 minutes / 30 MB</strong></label>
+    <input type="file" id="remix-file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg">
+    <div id="remix-filename" class="remix-filename">No song chosen yet · Everything stays on your device</div>
+  </div>
+  <div class="remix-player" aria-label="Remix music playback controls">
+    <div class="remix-actions">
+      <button id="remix-play" type="button" disabled>▶ Play song</button>
+      <button id="remix-rewind" type="button">⏮ Restart</button>
+      <button id="remix-generate" type="button" disabled>🎲 Auto Remix</button>
+    </div>
+    <div class="remix-timeline"><progress id="remix-progress" max="100" value="0" aria-label="Song progress"></progress>
+      <span id="remix-clock">0:00 / 0:00</span></div>
+    <div class="remix-sliders">
+      <label>🎵 Song volume <output id="remix-music-value">70%</output><input id="remix-music-volume" type="range" min="0" max="100" value="70"></label>
+      <label>🎙️ Trump volume <output id="remix-voice-value">95%</output><input id="remix-voice-volume" type="range" min="0" max="100" value="95"></label>
+      <label>🥁 Auto Remix tempo <output id="remix-bpm-value">110</output> BPM<input id="remix-bpm" type="range" min="60" max="180" step="5" value="110"></label>
+    </div>
+  </div>
+  <h3>🎙️ 2. Drop Trump phrases into your song</h3>
+  <p class="remix-hint">Tap a pad to hear an unmodified recording. While your song is playing, each tap adds that phrase to your remix. Auto Remix places random phrases on the beat for you.</p>
+  <div id="remix-pads" class="remix-pads" role="group" aria-label="Original Trump voice phrase soundboard"></div>
+  <div class="remix-footer-controls">
+    <span id="remix-count" class="remix-count">0 voice drops</span>
+    <button type="button" id="remix-clear" disabled>🧹 Clear drops</button>
+    <button type="button" id="remix-export" class="remix-export" disabled>⬇️ 3. Export remix WAV</button>
+  </div>
+  <p id="remix-status" class="remix-status" role="status" aria-live="polite">Choose a song above to begin. Phrase pads can also be previewed without a song.</p>
+  <p class="remix-legal">For personal creative use. Only load music you own or have permission to remix. Songs are never uploaded. The Trump voice pads use existing standalone recordings—not synthetic speech or invented quotes. Check music and recording rights before sharing a remix.</p>
+</section>
 <details class="instructions">
 <summary>🎮 How this version works · game rules &amp; credits</summary>
 <p>Trumpagotchi 2 is an independent, phone-friendly adaptation of the open-source virtual pet mechanics and artwork from <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0">Adam Charles Wilson's Trumpagotchi v1.0.0</a>. Care for him with FEED, PRAISE, CLEAN, and REST. The game includes a fast day/night cycle, snacks, messes, facial expressions, short cooldowns, music, pause, and local saving. The browser version features smoother, higher-resolution character rendering and redesigned touch controls. Voice reactions use complete recordings already available on Random Candy Land, not newly invented quotations.</p>
@@ -262,5 +357,6 @@ requestAnimationFrame(paint);
 setInterval(tick,1000);
 })();
 </script>
+<script defer src="/trumpagotchi-pet/remix.js"></script>
 </body>
 </html>
