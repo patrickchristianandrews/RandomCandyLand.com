@@ -43,17 +43,22 @@ for (const forbidden of ['pop stars battle for the crown','face pop-culture gues
     failures++;
   }
 }
-if (!homeBundle.includes('Welcome to our rainbow-powered candy universe.') ||
-    !homeBundle.includes('PURE CANDY CHAOS!') ||
-    !homeBundle.includes('sugar-hero-brand')) {
-  console.error('The latest candy-mascot homepage is missing from the published bundle.');
+if (!homeBundle.includes('candyland-next') ||
+    !homeBundle.includes('Stay sweet.') ||
+    !homeBundle.includes('Get weird.') ||
+    !homeBundle.includes('candyland-portals')) {
+  console.error('The replacement Candy Land homepage is missing from the published bundle.');
+  failures++;
+}
+if (homeBundle.includes('PURE CANDY CHAOS!') || homeBundle.includes('sugar-universe')) {
+  console.error('The retired Candy Land homepage is still included in the production bundle.');
   failures++;
 }
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
 // Keep the requested music tools and standalone games available on the homepage.
-if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('FM-1 Synth Lab')) {
-  console.error('A current music attraction is missing from the published homepage.');
+if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('Trumpagotchi: Little Pet')) {
+  console.error('A current attraction is missing from the published homepage.');
   failures++;
 }
 if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
