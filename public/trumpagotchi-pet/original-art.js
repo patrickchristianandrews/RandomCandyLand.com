@@ -9,7 +9,8 @@ let ctx;
 const RGB=(r,g,b)=>"rgb("+r+","+g+","+b+")";
 function cv_rect(x,y,w,h,color) {
   ctx.fillStyle=color;
-  ctx.fillRect(Math.trunc(x),Math.trunc(y),Math.max(1,Math.trunc(w)),Math.max(1,Math.trunc(h)));
+  // Keep the original artwork coordinates, but retain subpixel detail at 3x resolution.
+  ctx.fillRect(x,y,Math.max(1,w),Math.max(1,h));
 }
 function cv_begin(width,height,color) {
   ctx.fillStyle=color;ctx.fillRect(0,0,width,height);
@@ -57,13 +58,15 @@ function pet_rect(x,y,w,h,c) {
     cv_rect(x0+pet_dx,y0+pet_bob,x1>x0?x1-x0:1,y1>y0?y1-y0:1,c);
 }
 function pet_oval(x,y,w,h,c) {
-    let yy,xx,rx=w/2,ry=h/2;
-    for(yy=-ry;yy<ry;yy+=2){
-        xx=rx;
-        while(xx>0 && xx*xx*ry*ry+yy*yy*rx*rx>rx*rx*ry*ry)xx--;
-        xx=(xx/2)*2;
-        if(xx)pet_rect(x+rx-xx,y+ry+yy,xx*2,2,c);
-    }
+    // Rounded antialiased silhouettes replace the old two-pixel horizontal strips.
+    // Transform matches the original pet_rect positioning and animations.
+    const px=v=>120+(v-120)*5/6;
+    const py=v=>{const q=128+(v-128)*5/6;return q+(128-q)*pet_crouch/100};
+    const left=px(x),right=px(x+w),top=py(y),bottom=py(y+h);
+    ctx.beginPath();
+    ctx.ellipse((left+right)/2+pet_dx,(top+bottom)/2+pet_bob,
+      Math.max(.5,(right-left)/2),Math.max(.5,(bottom-top)/2),0,0,Math.PI*2);
+    ctx.fillStyle=c;ctx.fill();
 }
 
 function pet_chair_back() {
@@ -79,12 +82,9 @@ function pet_chair_back() {
     cv_rect(129,114,23,4,RGB(105,70,58));
 }
 function pet_room_oval(x,y,w,h,c) {
-    let yy,xx,rx=w/2,ry=h/2;
-    for(yy=-ry;yy<ry;yy+=2){
-        xx=rx;
-        while(xx>0 && xx*xx*ry*ry+yy*yy*rx*rx>rx*rx*ry*ry)xx--;
-        if(xx)cv_rect(x+rx-xx,y+ry+yy,xx*2,2,c);
-    }
+    ctx.beginPath();
+    ctx.ellipse(x+w/2,y+h/2,Math.max(1,w/2),Math.max(1,h/2),0,0,Math.PI*2);
+    ctx.fillStyle=c;ctx.fill();
 }
 function pet_room(asleep,minute,now) {
     let i,night=minute<360||minute>=1260,evening=minute>=1080&&minute<1260;
@@ -403,7 +403,9 @@ function pet_character(state,asleep,blink,playing,hand,dx,walking,watching,actio
 window.drawOriginalTrumpagotchi=function(canvas,model) {
  if(!canvas||!canvas.getContext)return;
  ctx=canvas.getContext('2d',{alpha:false});if(!ctx)return;
- ctx.imageSmoothingEnabled=false;
+ // Full-resolution 3x backing canvas: preserve art, remove enlarged blocky pixels.
+ ctx.setTransform(canvas.width/240,0,0,canvas.height/156,0,0);
+ ctx.imageSmoothingEnabled=true;
  const now=performance.now();
  pet={day_minute:model.dayMinute,snack_stock:Math.max(0,Math.min(3,model.stock||0)),poo_count:Math.max(0,Math.min(3,model.poo||0)),cleanliness:model.clean||0,plumpness:Math.max(0,Math.min(3,model.plump||0))};
  const state=model.sleeping?PET_TIRED:model.food<=25?PET_HUNGRY:model.energy<=20||pet_is_night()?PET_TIRED:model.mood<=10?PET_SULKING:model.mood<=40||model.clean<=25?PET_BORED:PET_HAPPY;
