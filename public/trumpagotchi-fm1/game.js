@@ -88,6 +88,7 @@
   function animate(action) {
     const node = get('scene');
     node.dataset.animation = action;
+    window.FM1PixelScreen?.animate(action);
     if (animationTimer) clearTimeout(animationTimer);
     animationTimer = window.setTimeout(() => {
       node.dataset.animation = '';
@@ -337,7 +338,7 @@
     get('feedback').textContent = state.activeMs < state.messageUntil ? state.message : feedback();
     for (const id of ['feed','praise','clean','rest','news','cheer']) get(id).disabled = state.gameOver;
   }
-  function render() {refreshData()}
+  function render() {refreshData(); window.FM1PixelScreen?.render(state);}
 
   function reset() {
     if (!window.confirm('Start a brand-new pet? Your current progress will be replaced.')) return;
