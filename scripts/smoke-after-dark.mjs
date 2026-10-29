@@ -123,7 +123,7 @@ try{
   const artReady=await little.evaluate("typeof window.drawOriginalTrumpagotchi==='function' && !!document.querySelector('#originalCanvas')");
   if(!artReady)throw Error('The original FM-1 Trumpagotchi character/room port did not load');
   await delay(400);
-  const realPixels=await little.evaluate("(()=>{const c=document.querySelector('#originalCanvas');const d=c.getContext('2d').getImageData(0,0,240,156).data;const colors=new Set();for(let p=0;p<d.length;p+=256)colors.add([d[p],d[p+1],d[p+2]].join('-'));return colors.size})()");
+  const realPixels=await little.evaluate("(()=>{const c=document.querySelector('#originalCanvas');const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;const colors=new Set();const stride=Math.max(4,Math.floor(d.length/4096/4)*4);for(let p=0;p<d.length;p+=stride)colors.add([d[p],d[p+1],d[p+2]].join('-'));return colors.size})()");
   if(realPixels<8)throw Error('Original FM-1 Trumpagotchi pixels did not render: '+realPixels+' sampled colors');
   await little.evaluate("document.querySelector('[data-action=feed]').click()");
   if(!await little.evaluate("document.querySelector('#caption').textContent.includes('A VERY FINE SNACK')"))throw Error('Standalone pet Feed did not work');
