@@ -43,18 +43,25 @@ for (const forbidden of ['pop stars battle for the crown','face pop-culture gues
     failures++;
   }
 }
-if (!homeBundle.includes('Step into a vivid, offbeat playground')) {
-  console.error('Expected site-wide RandomCandyLand introduction is missing in the published bundle.');
+if (!homeBundle.includes('Welcome to our rainbow-powered candy universe.') ||
+    !homeBundle.includes('PURE CANDY CHAOS!') ||
+    !homeBundle.includes('sugar-hero-brand')) {
+  console.error('The latest candy-mascot homepage is missing from the published bundle.');
   failures++;
 }
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
-if (fs.existsSync('dist/fm1-emu/index.html')) {
-  console.error('Removed FM-1 Synth Lab is still being published.');
+// Keep the requested music tools and standalone games available on the homepage.
+if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('FM-1 Synth Lab')) {
+  console.error('A current music attraction is missing from the published homepage.');
   failures++;
 }
-if (/FM-1 Synth Lab|Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(fs.readFileSync('dist/index.html', 'utf8'))) {
-  console.error('An unwanted or outdated homepage attraction was restored.');
+if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
+  console.error('An unwanted outdated homepage attraction was restored.');
+  failures++;
+}
+if (!fs.existsSync('dist/trumpagotchi-fm1/index.html')) {
+  console.error('The new independent FM-1 Trumpagotchi page is missing from the release.');
   failures++;
 }
 
