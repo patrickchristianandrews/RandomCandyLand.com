@@ -248,7 +248,7 @@ export function RandomNonsenseGenerator() {
         <div className="nonsense-stamp">✨ OFFICIAL CERTIFICATE OF ABSOLUTE NONSENSE</div>
         <h3>{nonsense.headline}</h3>
         <p>{nonsense.story}</p>
-        <span className="nonsense-fineprint">Certified 100% silly · Not an actual news report</span>
+        <span className="nonsense-fineprint">Certified 100% silly</span>
       </div>
       <div className="nonsense-actions">
         <button className="nonsense-generate" type="button" onClick={generate}>
