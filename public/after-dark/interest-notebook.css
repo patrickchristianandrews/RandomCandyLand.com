@@ -43,3 +43,29 @@
  body.print-notebook #print-document article{border:1px solid #999;margin:11px 0;padding:12px;break-inside:avoid}
  @page{margin:14mm;size:auto}
 }
+
+/* Native browser printing opens Save as PDF on supported browsers.
+   The printable content lives directly under body, separately from the app. */
+@media print {
+ body.print-notebook > * {display:none!important}
+ body.print-notebook > #print-document {
+   display:block!important;
+   visibility:visible!important;
+   position:static!important;
+   width:100%!important;max-width:100%!important;
+   margin:0!important;padding:0!important;
+   background:white!important;color:#111!important;
+   font:12pt/1.5 Georgia,serif!important;
+ }
+ body.print-notebook #print-document * {
+   color:#111!important;background:transparent!important;
+   box-shadow:none!important;filter:none!important;
+   text-shadow:none!important;break-inside:avoid;
+ }
+ body.print-notebook #print-document h1 {font:700 22pt Georgia,serif;margin-bottom:15px}
+ body.print-notebook #print-document h2 {font:700 15pt Georgia,serif;margin:15px 0 7px}
+ body.print-notebook #print-document p {margin:7px 0}
+ body.print-notebook #print-document .result,
+ body.print-notebook #print-document article {border:1px solid #bbb!important;padding:11px;margin:12px 0}
+ body.print-notebook #print-document .interest-percentage {font-weight:700!important}
+}
