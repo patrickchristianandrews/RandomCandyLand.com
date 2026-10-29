@@ -197,3 +197,62 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
   .fm1-tiny-mode .care-buttons>.care-melody span{font-size:23px}
   .fm1-tiny-mode .care-buttons>.care-melody b{font-size:12px}
 }
+
+/* Touch-friendly FM-1 five-note piano (C D E G A) for the tiny pet. */
+.fm1-tiny-mode .care-buttons>.melody-keyboard{
+  grid-column:1/-1;
+  min-width:0;
+  margin-top:1px;
+  padding:12px;
+  border:2px solid #d7c5ee;
+  border-radius:16px;
+  background:linear-gradient(140deg,#1f2a46,#3b2856);
+  color:#fff;
+}
+.fm1-tiny-mode .melody-keyboard-header{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  gap:4px 10px;
+  margin-bottom:9px;
+  font-size:12px;
+}
+.fm1-tiny-mode .melody-keyboard-header span{font-size:11px;color:#e4d5f4}
+.fm1-tiny-mode .melody-keys{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:6px;
+  width:100%;
+}
+.fm1-tiny-mode .melody-key{
+  min-width:0;
+  min-height:66px;
+  padding:7px 0;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  cursor:pointer;
+  border:2px solid #c5b8ad;
+  border-bottom:6px solid #a3a4a9;
+  border-radius:5px 5px 11px 11px;
+  background:linear-gradient(180deg,#fffef4,#efecdf);
+  color:#292b38;
+  box-shadow:0 5px 0 #12192b;
+  font:700 17px/1 system-ui,sans-serif;
+}
+.fm1-tiny-mode .melody-key:active,
+.fm1-tiny-mode .melody-key.is-playing{
+  transform:translateY(4px);
+  border-bottom-width:2px;
+  background:#ffe29f;
+  box-shadow:0 1px 0 #12192b;
+}
+.fm1-tiny-mode .melody-key:focus-visible{outline:3px solid #ffd56e;outline-offset:3px}
+.fm1-tiny-mode .melody-key:disabled{opacity:.5;cursor:not-allowed}
+.fm1-tiny-mode .melody-status{margin:9px 0 0;color:#f4e7ff;font-size:11px;line-height:1.45;text-align:center}
+@media(max-width:530px){
+  .fm1-tiny-mode .care-buttons>.melody-keyboard{padding:9px 8px 10px}
+  .fm1-tiny-mode .melody-key{min-height:56px;font-size:16px}
+  .fm1-tiny-mode .melody-keys{gap:5px}
+}
