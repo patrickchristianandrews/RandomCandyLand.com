@@ -51,7 +51,7 @@ footer{margin-top:70px;padding:25px 0;border-top:1px solid #523d5d;color:#bfaacb
 <section id="quiz"><div class="sectionhead"><div><span class="eyebrow">Personal reflection · No pressure</span><h1 class="quiz-compact-title">The Clue Compass questionnaire</h1></div></div><p class="lead">A short first pass identifies <em>themes</em>; the optional follow-up adds depth. At the end, you can mark specific adult interests as curious, unsure or not for you. Those direct choices carry more weight than unrelated daily habits.</p>
 <div class="card question" id="qbox"><h3>What would you like to explore?</h3><p>Start with 12 everyday-life questions. You can skip anything. There are no trick answers.</p><button class="btn" id="startquiz">Start · 12 questions →</button></div>
 <div id="intereststage" style="display:none"><div class="note">Optional direct interests. This is where you can actually say what sounds appealing; a comforting habit does not count as sexual interest. Leave any item unselected or choose "Not for me".</div><h3>Which adult topics, if any, spark your curiosity?</h3><div class="interests" id="interestcards"></div><div class="actions"><button class="btn" id="showreport">Create my private reflection →</button></div></div>
-<div class="card" id="report"><span class="eyebrow">Your personal reflection · Not a diagnosis</span><h2>Clues & possibilities</h2><div id="reportbody"></div><div class="actions"><button class="btn secondary" id="redo">Start again</button><button class="btn outline" id="print">Print or save privately</button></div></div></section>
+<div class="card" id="report"><span class="eyebrow">Your personal reflection · Not a diagnosis</span><h2>Clues & possibilities</h2><div id="reportbody"></div><div class="actions"><button class="btn secondary" id="redo">Start again</button><button class="btn outline" id="print">📄 Save Report as PDF / Print</button></div></div></section>
 <section id="habits"><div class="sectionhead"><div><span class="eyebrow">Clue library · Everyday life and relationships</span><h2>Small habits. Different meanings.</h2></div><span class="chip">No automatic sexual interpretation</span></div><div id="habitcards" class="grid"></div></section>
 
 
@@ -222,6 +222,19 @@ $('startquiz').onclick=()=>{stage='quiz';qi=0;depth=false;answers=[];selected={}
 $('showreport').onclick=report;
 $('redo').onclick=()=>{$('startquiz').click();$('quiz').scrollIntoView({behavior:'smooth'});};
 $('print').onclick=()=>window.print();
+const initialMode=new URLSearchParams(location.search).get('mode');
+// After Dark landing links skip the longer questionnaire by explicitly
+// requesting the direct private interests checklist. A report can be created
+// from direct interest choices alone, with no inferred psychological claims.
+if(initialMode==='checklist'||initialMode==='report'){
+ stage='interests';showInterests();
+ const note=document.createElement('p');note.className='note';
+ note.textContent=initialMode==='report'
+  ? 'Report path: select your own interests below, then choose Create my private reflection. You can save the report as PDF.'
+  : 'Instant Checklist: select what genuinely interests you below, or leave anything unanswered. Your choices remain on this device.';
+ $('intereststage').prepend(note);
+}
+
 const faq=[
 {keys:['thumb','suck','oral habit','finger','chew'],answer:'Thumb-sucking and similar repetitive oral habits can be ways of settling sensory or emotional tension. The American Academy of Pediatrics discusses self-soothing habits, and NHS stimming guidance includes thumb-sucking as a possible sensory behavior. An adult who does this is not thereby expressing a sexual interest. Ask what the habit feels like to the individual; avoid inferring childhood trauma or any kink. Sources: HealthyChildren.org; Nottinghamshire Healthcare NHS.'},
 {keys:['amen','book','brain in love','spect','scan'],answer:'Daniel Amen’s The Brain in Love (2009) discusses intimacy, attraction, brain chemistry and, in Chapter 7, fetishes. This guide uses its broad chapter themes as conversation prompts. The book does not validate our questionnaire, and routine SPECT-based psychiatric claims have been scientifically contested. Sources: Penguin Random House; table of contents; AMA Journal of Ethics.'},
