@@ -21,6 +21,19 @@ type Portal = {
   oldPet?: boolean;
 };
 
+// These routes each have a separate web-app manifest and start URL.
+const INSTALL_CHOICES = [
+  {emoji:'🏰',name:'Full Candy Land',url:'/'},
+  {emoji:'🐣',name:'Trumpagotchi Tiny Pet',url:'/trumpagotchi-fm1/'},
+  {emoji:'🎮',name:'Original Trumpagotchi',url:'/trump/'},
+  {emoji:'🍬',name:'Goo Rush',url:'/goo-rush/'},
+  {emoji:'🍭',name:'Candy Simon Says',url:'/candy-simon/'},
+  {emoji:'🃏',name:'Candy Match',url:'/candy-match/'},
+  {emoji:'🌈',name:'Candy Pulse',url:'/music-visualizer/'},
+  {emoji:'🌙',name:'After Dark',url:'/after-dark/'},
+  {emoji:'🧭',name:'Clue Compass',url:'/after-dark/psychology-lab/'},
+] as const;
+
 const PORTALS: Portal[] = [
   {emoji:'🐣',title:'Trumpagotchi: The Tiny Pet',blurb:"The pixel-art pet game adapted from the original FM-1 Trumpagotchi release. Feed, praise, clean and rest your demanding little pet—play right here, no synth needed.",kind:'games',label:'NOW PLAYABLE · FROM THE FM-1 GAME',palette:'pink',href:'/trumpagotchi-fm1/'},
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
@@ -33,7 +46,17 @@ const PORTALS: Portal[] = [
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
   const [category, setCategory] = useState<Category>('all');
+  const [copiedUrl,setCopiedUrl] = useState('');
   const shown = PORTALS.filter(portal => category === 'all' || portal.kind === category);
+  const copyAppLink = async (path:string) => {
+    const url = new URL(path, window.location.origin).href;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedUrl(path);
+    } catch {
+      window.prompt('Copy this address and open it in Safari or Chrome:', url);
+    }
+  };
 
   return (
     <main id="top" className="candyland-next">
@@ -47,6 +70,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </a>
         <nav aria-label="Main website navigation">
           <a href="#adventures"><Gamepad2 size={17}/> Play</a>
+          <a href="#install-apps">📲 Install Apps</a>
           <a href="/trumpagotchi-fm1/" aria-label="Play the FM-1 pixel-art Trumpagotchi pet">🐣 Tiny Pet</a>
           <a href="#nonsense">🎲 Nonsense</a>
           <a href="/music-visualizer/"><Music2 size={17}/> Music</a>
@@ -115,6 +139,35 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             );
           })}
         </div>
+      </section>
+
+      <section className="candyland-install-apps" id="install-apps" aria-label="Install individual Candy Land apps on Android or iPhone">
+        <div className="candyland-section-heading">
+          <span>📲 MAKE IT YOUR OWN</span>
+          <h2>Install your <em>favorites.</em></h2>
+          <p>Already have Candy Land on your home screen? You can still add each game or tool separately.</p>
+        </div>
+        <p className="candyland-install-help">
+          <strong>Android:</strong> Open the selected game in Chrome and choose ⋮ → Install app or Add to Home screen.
+          <strong> iPhone:</strong> Open it in Safari and choose Share → Add to Home Screen.
+          If a link opens inside your installed Candy Land app, tap <strong>Copy link</strong> and paste it into Chrome or Safari.
+        </p>
+        <div className="candyland-install-grid">
+          {INSTALL_CHOICES.map(item => (
+            <article className="candyland-install-card" key={item.url}>
+              <div className="candyland-install-card-name"><span aria-hidden="true">{item.emoji}</span><strong>{item.name}</strong></div>
+              <div className="candyland-install-card-actions">
+                <a href={item.url + (item.url.includes('?') ? '&' : '?') + 'install=1'} target="_blank" rel="noopener noreferrer" aria-label={'Open '+item.name+' installation page'}>
+                  📲 Install to Home Screen
+                </a>
+                <button type="button" onClick={() => copyAppLink(item.url)} aria-label={'Copy '+item.name+' link'}>
+                  {copiedUrl===item.url?'✓ Copied':'📋 Copy link'}
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="candyland-install-footnote">These are individually installable web apps, not Apple App Store or Google Play downloads. Installation options vary by browser and device.</p>
       </section>
 
       <section className="candyland-finale">

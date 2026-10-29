@@ -9,7 +9,7 @@
 <meta property="og:image" content="https://randomcandyland.com/icon-512.png">
 <title>Trumpagotchi · The Tiny Pet | Random Candy Land</title>
 <link rel="icon" type="image/webp" href="/trumpagotchi-fm1/pixel-icon.svg">
-<link rel="stylesheet" href="/trumpagotchi-fm1/game.css?v=piano-20261029">
+<link rel="stylesheet" href="/trumpagotchi-fm1/game.css?v=topbar-20261029">
 <script src="/trumpagotchi-fm1/fm1-pixel-screen.js" defer></script>
 <script src="/trumpagotchi-fm1/melody.js?v=piano-20261029" defer></script>
 <script src="/trumpagotchi-fm1/game.js?v=piano-20261029" defer></script>
@@ -23,13 +23,23 @@
 <body class="fm1-tiny-mode">
 <div class="ambience" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="shell">
-<header class="topbar">
-  <a class="brand" href="/" aria-label="Back to Random Candy Land"><img src="/icon-192.png" alt="" width="46" height="46"><span>RANDOM<br><strong>CANDY LAND</strong></span></a>
-  <a class="backlink" href="/">🍬 BACK TO CANDY LAND</a>
+<header class="topbar pocket-topbar">
+  <a class="brand" href="/" aria-label="Random Candy Land home"><img src="/random-candy-land-art.webp" alt="" width="48" height="48"><span>RANDOM CANDY LAND</span></a>
+  <nav class="pocket-site-nav" aria-label="Random Candy Land attractions">
+    <a href="/">🍭 Home</a>
+    <a href="/trump/">🎮 Original Trumpagotchi</a>
+    <a href="#remix-studio">🎛️ Remix Studio</a>
+    <a href="/music-visualizer/">🌈 Candy Pulse</a>
+  </nav>
+  <div class="pocket-top-goo" aria-hidden="true"></div>
 </header>
 <main>
+<section class="pocket-page-banner" aria-label="Pocket pet introduction">
+  <h1>🐣 YOUR CUTE LITTLE POCKET PET GAME</h1>
+  <div class="pocket-banner-goo" aria-hidden="true"></div>
+</section>
 <details class="instructions how-to-play-top" id="how-to-play">
-  <summary>❔ HOW TO PLAY <span class="instructions-hint">Tap to open the game instructions</span></summary>
+  <summary><span>❓ HOW TO PLAY · <small>30-second guide</small></span><span class="instructions-hint">TAP TO OPEN</span></summary>
   <div class="instructions-content">
     <p><strong>Keep Trumpagotchi alive.</strong> Watch Food, Mood, Energy and Cleanliness. The four large buttons are the FM-1's pet-care controls:</p>
     <div class="instruction-steps">
@@ -96,7 +106,7 @@
  <button type="button" id="news" class="care care-bonus"><span>📺</span><b>WATCH NEWS</b><small>ANNOY YOUR PET</small></button>
  <button type="button" id="cheer" class="care care-bonus"><span>🎉</span><b>CHEER HIM ON</b><small>BOOST HIS MOOD</small></button>
  <button type="button" id="melody" class="care care-bonus care-melody"><span>🎶</span><b>PLAY HIM A MELODY</b><small>PLAY THE FULL TUNE · HAPPY-PET BONGOS</small></button>
- <div class="melody-keyboard" role="group" aria-label="Five-key playable piano for Trumpagotchi">
+ <div class="melody-keyboard" id="remix-studio" role="group" aria-label="Five-key playable piano for Trumpagotchi">
    <div class="melody-keyboard-header"><strong>🎹 PLAY HIM YOUR OWN MELODY</strong><span>Tap the piano keys below</span></div>
    <div class="melody-keys">
      <button type="button" class="melody-key" data-note="0" aria-label="Play note C"><b>C</b></button>
@@ -133,10 +143,7 @@
 
 </aside>
 </div>
-<section class="credits"><h2>From an actual little pet to a playable web game</h2>
-<p>This is a browser adaptation of the <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0" rel="noopener noreferrer" target="_blank">Trumpagotchi v1.0.0 pet-care game by adamcharleswilsonmusic-code</a>. The original release runs as M-VAVE FM-1 firmware; this independently adapted HTML/JavaScript version reproduces its central pet-care mechanics for phones and browsers. It is <strong>not</strong> a compiled run of the original firmware, and does not include the FM-1 sequencer. No hardware required.</p>
-<p>Game adaptation and corresponding source: <a href="/trumpagotchi-fm1/game.js">game JavaScript</a>, <a href="/trumpagotchi-fm1/fm1-pixel-screen.js">FM-1 pixel-art display JavaScript</a>, <a href="/trumpagotchi-fm1/game.css">CSS</a>, <a href="/trumpagotchi-fm1/LICENSE">GPL-3.0 license</a>. Original project and artwork © their respective authors under GPL-3.0-only. Sound effects are separately sourced from Random Candy Land's existing single-recording library, not copied from the FM-1 release. This is unofficial parody; no affiliation or endorsement.</p>
-</section>
+
 </main>
 <footer class="foot"><span>🍭 RANDOM CANDY LAND</span><a href="/trump/">Play the original Candy Land Trumpagotchi</a><a href="/">Back to Candy Land</a></footer>
 </div>

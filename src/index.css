@@ -267,3 +267,37 @@ body {
 /* Tiny Pet uses its own round illustrated Trump badge, distinct from the original game. */
 .candyland-portal-icon:has(img[src="/tiny-pet-trump-cartoon.webp"]){padding:0;overflow:visible;border-radius:50%;background:transparent;border-color:#fff4af;box-shadow:0 0 0 5px #ff79dc80,0 9px 22px #2d044d80}
 .candyland-portal-icon img[src="/tiny-pet-trump-cartoon.webp"]{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+/* Install hub stays visible in the standalone home-screen app, too. */
+.candyland-install-apps{
+ position:relative;z-index:3;max-width:1250px;margin:52px auto 75px;
+ padding:clamp(22px,3.5vw,47px);border:2px solid #ffdba7;
+ border-radius:35px;background:linear-gradient(140deg,#461269ef,#1c2058f2 68%,#552174ef);
+ box-shadow:0 20px 53px #180622b2;
+}
+.candyland-install-apps .candyland-section-heading{margin-bottom:20px}
+.candyland-install-help{
+ max-width:880px;margin:0 auto 22px;text-align:center;color:#f7eafb;
+ font-size:14px;line-height:1.65;
+}
+.candyland-install-help strong{color:#fff0a1}
+.candyland-install-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:13px}
+.candyland-install-card{
+ display:flex;flex-direction:column;justify-content:space-between;gap:12px;padding:17px;
+ background:#ffffff14;border:1px solid #eed0ff6e;border-radius:19px;
+}
+.candyland-install-card-name{display:flex;align-items:center;gap:10px;font-size:15px;line-height:1.3}
+.candyland-install-card-name span{font-size:27px}
+.candyland-install-card-actions{display:flex;flex-wrap:wrap;gap:9px}
+.candyland-install-card-actions :is(a,button){
+ flex:1 1 auto;display:inline-flex;justify-content:center;align-items:center;min-height:44px;
+ padding:9px 11px;border:1px solid #ffe8b6;border-radius:12px;
+ font:850 12px/1.4 system-ui,sans-serif;text-align:center;cursor:pointer;
+}
+.candyland-install-card-actions a{color:#351a4f;background:#ffe5b3}
+.candyland-install-card-actions button{color:#fff;background:#6b2e87}
+.candyland-install-footnote{
+ color:#e6d7f7;text-align:center;line-height:1.5;font-size:12px;margin:19px 0 0
+}
+@media(max-width:650px){.candyland-install-apps{margin:24px 12px 55px;padding:23px 15px;border-radius:25px}}

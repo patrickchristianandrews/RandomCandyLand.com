@@ -9,7 +9,7 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
-  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'YOUR CUTE LITTLE POCKET PET GAME', 'pocket-site-nav', 'HOW TO PLAY', 'id="remix-studio"']],
 ];
 
 let failures = 0;
