@@ -50,6 +50,7 @@ public final class MainActivity extends Activity {
     private PixelLCD lcd;
     private TextView hint;
     private Button pauseButton, soundButton, melodyButton;
+    private Button[] pianoKeys;
     private Button[] actionButtons;
     private long frameAt;
     private boolean running;
@@ -140,11 +141,47 @@ public final class MainActivity extends Activity {
         Button rest=button("🛌 REST",0xFF41506C);
         Button news=button("📺 NEWS",0xFF3C315D);
         Button cheer=button("🎉 CHEER",0xFF3C315D);
-        melodyButton=button("🎹 PLAY MELODY",0xFF4D405A);
-        actionButtons=new Button[]{feed,praise,clean,rest,news,cheer,melodyButton};
+        // The five oversized pentatonic keys fit a round Pixel Watch screen.
+        TextView keyboardTitle=new TextView(this);
+        keyboardTitle.setText("🎹 PLAY HIM A MELODY");
+        keyboardTitle.setTextSize(12);
+        keyboardTitle.setTextColor(GOLD);
+        keyboardTitle.setGravity(Gravity.CENTER);
+        keyboardTitle.setTypeface(Typeface.DEFAULT,Typeface.BOLD);
+        keyboardTitle.setPadding(0,dp(7),0,dp(5));
+        pianoKeys=new Button[5];
+        String[] noteNames={"C","D","E","G","A"};
+        final float[] keyNotes={261.63f,293.66f,329.63f,392f,440f};
+        LinearLayout keyboard=new LinearLayout(this);
+        keyboard.setOrientation(LinearLayout.HORIZONTAL);
+        keyboard.setGravity(Gravity.CENTER);
+        for(int n=0;n<pianoKeys.length;n++){
+            Button key=button(noteNames[n],0xFFF6EBD1);
+            key.setTextColor(INK);
+            key.setTextSize(14);
+            key.setContentDescription("Play "+noteNames[n]+" note");
+            GradientDrawable keysBg=new GradientDrawable();
+            keysBg.setColor(0xFFF6EBD1);
+            keysBg.setCornerRadii(new float[]{dp(4),dp(4),dp(4),dp(4),dp(10),dp(10),dp(10),dp(10)});
+            keysBg.setStroke(dp(2),0xFF53617C);
+            key.setBackground(keysBg);
+            LinearLayout.LayoutParams keyParams=new LinearLayout.LayoutParams(0,dp(58),1);
+            keyParams.setMargins(dp(1),0,dp(1),0);
+            keyboard.addView(key,keyParams);
+            final int idx=n;
+            key.setOnClickListener(v->{playKey(keyNotes[idx],noteNames[idx]);haptic(v);});
+            pianoKeys[n]=key;
+        }
+        melodyButton=button("▶ PLAY FULL TUNE",0xFF4D405A);
+        actionButtons=new Button[]{feed,praise,clean,rest,news,cheer,melodyButton,
+            pianoKeys[0],pianoKeys[1],pianoKeys[2],pianoKeys[3],pianoKeys[4]};
         row(column,feed,praise);
         row(column,clean,rest);
         row(column,news,cheer);
+        column.addView(keyboardTitle,new LinearLayout.LayoutParams(-1,dp(29)));
+        LinearLayout.LayoutParams pianoParams=new LinearLayout.LayoutParams(-1,dp(60));
+        pianoParams.setMargins(dp(4),0,dp(4),dp(5));
+        column.addView(keyboard,pianoParams);
         column.addView(melodyButton,fullWidth());
         feed.setOnClickListener(v->{care("feed");haptic(v);});
         praise.setOnClickListener(v->{care("praise");haptic(v);});
@@ -312,6 +349,49 @@ public final class MainActivity extends Activity {
         if(pet.food<=25||pet.energy<=20||isNight(pet)){say("SNACKS AND SLEEP FIRST");return;}
         pet.lastCheer=pet.activeMs;pet.mood=clamp(pet.mood+3);
         pet.energy=clamp(pet.energy-1);say("THE CROWD LOVES IT");pose("cheer");save();
+    }
+    private void playKey(float frequency,String name){
+        if(pet.paused||pet.asleep||pet.gameOver){say("KEYBOARD WHEN AWAKE");return;}
+        if(!pet.sound){say("TURN SOUND ON TO PLAY");return;}
+        stopMelody();
+        final int generation=melodySequence;
+        new Thread(()->playSingleNote(generation,frequency),"Trumpagotchi-key").start();
+        boolean happy=pet.food>25&&pet.energy>20&&pet.clean>25&&!isNight(pet)&&pet.mood>40;
+        say(name+" NOTE!");
+        pose(happy?"bongo":"melody");
+    }
+    private void playSingleNote(int generation,float frequency){
+        AudioTrack track=null;
+        try{
+            final int sampleRate=22050;
+            final int count=(int)(sampleRate*0.40);
+            byte[] samples=new byte[count*2];
+            for(int i=0;i<count;i++){
+                double seconds=i/(double)sampleRate;
+                double envelope=Math.min(1,seconds/0.018)*Math.exp(-seconds*8.0);
+                double triangle=2.0/Math.PI*Math.asin(Math.sin(2*Math.PI*frequency*seconds));
+                short pcm=(short)(0.36*envelope*triangle*32767);
+                samples[i*2]=(byte)(pcm&0xff);
+                samples[i*2+1]=(byte)((pcm>>8)&0xff);
+            }
+            if(generation!=melodySequence)return;
+            AudioAttributes attrs=new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build();
+            AudioFormat format=new AudioFormat.Builder()
+                .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                .setSampleRate(sampleRate).setChannelMask(AudioFormat.CHANNEL_OUT_MONO).build();
+            track=new AudioTrack.Builder().setAudioAttributes(attrs).setAudioFormat(format)
+                .setBufferSizeInBytes(samples.length).setTransferMode(AudioTrack.MODE_STATIC).build();
+            if(generation!=melodySequence){track.release();return;}
+            audioTrack=track;
+            track.write(samples,0,samples.length);
+            track.play();
+            Thread.sleep(470);
+        }catch(Exception ignored){}finally{
+            if(track!=null){try{track.stop();track.release();}catch(Exception ignored){}}
+            if(audioTrack==track)audioTrack=null;
+        }
     }
     private void melody(){
         if(pet.paused||pet.asleep||pet.gameOver){say("MUSIC WHEN AWAKE");return;}
