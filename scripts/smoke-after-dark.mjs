@@ -127,10 +127,18 @@ try{
   const simon=await navigate(site+'/candy-simon/');
   const simonReady=await simon.evaluate("document.querySelectorAll('.pad[data-pad]').length===4 && !!document.querySelector('#start')");
   if(!simonReady)throw Error('Candy Simon Says is missing its interactive gummy pads');
+  await simon.command('Page.bringToFront');
   await simon.evaluate("document.querySelector('#start').click()");
-  await delay(1750);
-  const simonPlays=await simon.evaluate("document.querySelector('#level').textContent==='1' && document.querySelectorAll('.pad:not(:disabled)').length===4");
-  if(!simonPlays)throw Error('Candy Simon Says did not play the first pattern and accept input');
+  let simonPlays=false;
+  for(let attempt=0;attempt<75;attempt++){
+    simonPlays=await simon.evaluate("document.querySelector('#level').textContent==='1' && document.querySelectorAll('.pad:not(:disabled)').length===4");
+    if(simonPlays)break;
+    await delay(100);
+  }
+  if(!simonPlays){
+    console.log('Simon state:',await simon.evaluate("JSON.stringify({level:document.querySelector('#level')?.textContent,message:document.querySelector('#message')?.textContent,detail:document.querySelector('#detail')?.textContent,start:document.querySelector('#start')?.textContent,enabled:document.querySelectorAll('.pad:not(:disabled)').length,hidden:document.hidden,errors:window.onerror?.toString()})"));
+    throw Error('Candy Simon Says did not play the first pattern and accept input');
+  }
   console.log('✓ Candy Simon Says starts a pattern and enables all four pads.');
 
   const match=await navigate(site+'/candy-match/');
