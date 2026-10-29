@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f363bd">
+<meta name="description" content="Goo Rush: a fast, colorful candy-hunting arcade challenge. Race the clock, stack combos, duel a friend on one screen, or send a challenge link!">
+<link rel="icon" href="/favicon.png" type="image/png">
+<title>GOO RUSH! 🍬 Candy Land Arcade</title>
+<style>
+:root{font-family:'Trebuchet MS',system-ui,sans-serif;color:#fffafc;--ink:#351047;--pink:#ff61bf;--yellow:#ffe879;--aqua:#69f2ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 82% 13%,#ac39c880,transparent 35%),radial-gradient(circle at 9% 67%,#473cc9aa,transparent 48%),linear-gradient(145deg,#27075d,#430f7d 55%,#210842);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;opacity:.22;pointer-events:none;background:radial-gradient(#fff6b8 2px,transparent 3px);background-size:83px 94px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible,a:focus-visible{outline:3px solid #fff29a;outline-offset:3px}a{color:#ffeb8e}
+.wrap{max-width:1180px;margin:0 auto;padding:13px 15px 75px;position:relative;z-index:1}
+.top{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:7px 0 18px}
+.brand{display:flex;gap:10px;align-items:center;color:white;text-decoration:none;font-weight:1000;letter-spacing:.03em}.brand img{height:47px;width:47px;border-radius:50%}
+.topnav{display:flex;gap:9px}.topnav a{display:inline-flex;align-items:center;min-height:42px;padding:9px 12px;text-decoration:none;background:#ffffff21;border:1px solid #ffffff74;color:white;border-radius:13px;font-weight:800;font-size:13px}
+.titlebox{position:relative;isolation:isolate;overflow:visible;margin:10px 0 41px;padding:24px clamp(18px,4vw,50px) 48px;text-align:center;border:3px solid #fff3b0;border-radius:34px;background:radial-gradient(circle at 50% -10%,#ffb1e1a1,transparent 57%),linear-gradient(115deg,#f7459f,#b131c7 56%,#4e45b8);box-shadow:0 20px 0 #430f6a,0 35px 60px #13012eaa}
+.eyebrow{font-size:12px;letter-spacing:.14em;font-weight:1000;color:#ffefb7}
+h1{font-size:clamp(56px,10vw,118px);letter-spacing:-.08em;line-height:.93;margin:11px 0;text-shadow:0 7px #621b81,0 12px 17px #29054e88;color:#ffe97c}
+h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-height:1.5;margin:11px auto}
+.goo{position:absolute;inset:auto 10px -39px;height:42px;pointer-events:none;display:flex;justify-content:space-around;align-items:flex-start}.goo i{background:linear-gradient(90deg,#ff8ae5,#ff5dbc 55%,#cf2aa3);width:clamp(12px,2.4vw,31px);height:36px;border-radius:0 0 90% 90%;box-shadow:0 7px 12px #1a035264}.goo i:nth-child(2){height:52px}.goo i:nth-child(3){height:22px}.goo i:nth-child(4){height:62px}.goo i:nth-child(5){height:36px}.goo i:nth-child(6){height:49px}.goo i:nth-child(7){height:19px}
+.modes{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0 19px}
+.mode{min-height:49px;padding:10px 16px;border-radius:16px;border:2px solid #ffaee1;background:#4a176d;color:white;font-size:14px;font-weight:900;box-shadow:0 5px #230837}.mode[aria-pressed=true]{color:#401047;border-color:#fff3bc;background:linear-gradient(115deg,#fff6a7,#ffbddd)}
+.info{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin:0 0 17px}
+.info span{display:inline-flex;align-items:center;gap:6px;background:#2d0c59b8;border:1px solid #ffa8db80;border-radius:50px;padding:8px 13px;font-size:12px;font-weight:800}
+.controls{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;margin:14px 0}
+.action{min-height:48px;border:2px solid #fff6aa;border-radius:15px;background:linear-gradient(120deg,#ffe77d,#ffb5c9);color:#3d1453;font-weight:1000;letter-spacing:.02em;padding:10px 18px;box-shadow:0 5px #a44893}
+.action:active{transform:translateY(3px);box-shadow:0 2px #a44893}.action.secondary{color:#fff;background:#692b96;border-color:#ffb9ee;box-shadow:0 5px #3b0c65}
+.action:disabled{opacity:.45;cursor:not-allowed}
+.clock{display:flex;justify-content:center;align-items:center;gap:11px;margin:20px auto;max-width:730px}
+.clock strong{font-weight:1000;font-size:24px;min-width:67px;text-align:right;color:#ffe97d}
+.track{height:20px;flex:1;border:2px solid #fbcfff;border-radius:99px;background:#260d4f;overflow:hidden;box-shadow:inset 0 4px #11072a}
+.track div{height:100%;width:100%;background:linear-gradient(90deg,#55f5fc,#ffdd69,#ff73c9);transition:width .12s linear}
+.stage{display:grid;grid-template-columns:1fr;gap:22px;margin:10px 0}
+.stage.duel{grid-template-columns:repeat(2,minmax(0,1fr))}
+.player{position:relative;min-width:0;padding:17px 16px 24px;border:3px solid #fff1c4;border-radius:27px;background:linear-gradient(155deg,#722ab8dd,#27154d);box-shadow:0 12px 0 #35106f,0 24px 34px #140429a6}
+.player:nth-child(2){border-color:#95fbff;background:linear-gradient(155deg,#316bb7dd,#28164e)}
+.player-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px;padding-bottom:10px}
+.player-top strong{font-size:clamp(15px,2vw,22px)}.score{font-variant-numeric:tabular-nums;color:#ffea8b;font-weight:1000;font-size:clamp(22px,3vw,36px)}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.pills span{padding:6px 9px;background:#ffffff18;border:1px solid #fbd1ff58;border-radius:99px;font-size:12px;font-weight:900}
+.target{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:86px;padding:11px 18px;border:2px solid #fff6bf;border-radius:23px;background:linear-gradient(120deg,#f99dcd,#f8d26b);color:#47144a;box-shadow:0 8px #9c4f88}
+.target small{font-weight:1000;letter-spacing:.09em;font-size:13px}.target b{font-size:clamp(48px,6vw,73px);line-height:1}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px auto 0}
+.duel .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tile{position:relative;display:grid;place-items:center;aspect-ratio:1;min-width:0;padding:4px 0;border:2px solid #fff0e6;border-radius:20px;font-size:clamp(29px,5vw,51px);background:radial-gradient(circle at 30% 10%,#ffffffab,#ffffff10 55%),linear-gradient(150deg,#ffbce6,#ed7cbf);box-shadow:0 6px 0 #a8478b;user-select:none;transform:translateY(0);transition:transform .09s,filter .12s}
+.duel .tile{font-size:clamp(31px,4vw,51px)}
+.tile:hover{filter:brightness(1.11)}.tile:active{transform:translateY(5px);box-shadow:0 1px #a8478b}
+.tile:disabled{cursor:default;opacity:.73}
+.tile:nth-child(3n+2){background:radial-gradient(circle at 30% 10%,#ffffffaa,#ffffff1e 55%),linear-gradient(140deg,#9defff,#5abfe8);box-shadow:0 6px #297ca4}
+.tile:nth-child(4n+3){background:radial-gradient(circle at 30% 10%,#ffffffaa,#ffffff12 55%),linear-gradient(140deg,#fff5b3,#ffc97c);box-shadow:0 6px #bf8645}
+.tile.wrong{animation:shake .19s linear 1;background:linear-gradient(145deg,#fc6170,#af1a6b)}
+.tile.good{animation:pop .22s ease-out 1}
+.feedback{height:31px;margin:13px 0 0;text-align:center;font-size:15px;font-weight:1000;color:#ffea7d}
+.fever{filter:drop-shadow(0 0 13px #ffe36b);color:#fff99e}
+.ready{display:grid;place-items:center;min-height:360px;text-align:center;border:2px dashed #f7a1ec8a;background:#310e6485;border-radius:26px;padding:24px;line-height:1.6}
+.ready-icon{font-size:64px;animation:bob 2s ease-in-out infinite alternate}
+.result{margin:20px auto;max-width:670px;padding:26px;border:3px solid #fff5b4;border-radius:26px;background:linear-gradient(130deg,#f764bd,#723fc9);text-align:center;box-shadow:0 14px #390f70}
+.result h2{font-size:clamp(30px,5vw,57px);margin:6px 0 9px;letter-spacing:-.05em}
+.result p{font-size:16px;line-height:1.55}
+.result .big{font-size:clamp(37px,7vw,75px);font-weight:1000;color:#ffef90}
+.result .action{margin:5px}
+.guide{margin:44px 0 0;padding:23px;border:1px solid #ffa6e998;background:#2b124eaa;border-radius:25px}
+.guide h2{font-size:24px;margin:0 0 9px;color:#ffec95}.guide p{line-height:1.65;margin:8px 0;color:#f0dffd}.guide details{margin-top:9px}.guide summary{cursor:pointer;font-weight:900}
+.footer{border-top:1px solid #ffffff52;padding:25px 7px;margin-top:30px;display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;font-size:13px;color:#f4d6ff}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:20;background:#ffe98f;color:#40134b;padding:12px 20px;border:2px solid white;border-radius:15px;font-size:14px;font-weight:900;box-shadow:0 7px 20px #180235aa;max-width:90vw;text-align:center}
+.toast[hidden]{display:none}
+@keyframes bob{to{transform:translateY(-9px) rotate(5deg)}}
+@keyframes shake{0%{transform:translateX(-5px)}50%{transform:translateX(5px)}100%{transform:translateX(0)}}
+@keyframes pop{50%{transform:scale(1.09)}}
+@media(max-width:700px){
+ .wrap{padding:10px 12px 55px}.top{justify-content:center}
+ .titlebox{padding:26px 17px 41px;border-radius:28px}
+ .stage.duel{grid-template-columns:1fr}
+ .tiles{gap:7px}.tile{border-radius:16px;font-size:clamp(27px,9vw,48px)}
+ .duel .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.duel .tile{font-size:clamp(31px,12vw,53px)}
+ .player{padding:13px 12px 20px}.player-top{gap:5px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style></head>
+<body>
+<div class="wrap">
+<header class="top">
+ <a class="brand" href="/"><img src="/random-candy-land-art.webp" width="47" height="47" alt=""><span>🍭 RANDOM CANDY LAND</span></a>
+ <nav class="topnav"><a href="/">🏰 Home</a><a href="/trump/">🎮 Pocket Pet</a><a href="/music-visualizer/">🌈 Candy Pulse</a></nav>
+</header>
+<section class="titlebox">
+ <div class="eyebrow">THE CANDY CASTLE ARCADE · FREE TO PLAY</div>
+ <h1>GOO <span>RUSH!</span></h1>
+ <p class="sub">Find the right candy before time melts away. Build ridiculous combos, chase your high score, and challenge somebody to beat you.</p>
+ <div class="goo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</section>
+<div class="modes" role="group" aria-label="Choose a game mode">
+ <button class="mode" data-mode="solo" aria-pressed="true">🍬 Solo Rush</button>
+ <button class="mode" data-mode="duel" aria-pressed="false">⚔️ 2-Player Duel</button>
+ <button class="mode" data-mode="daily" aria-pressed="false">🏆 Daily Dash</button>
+ <button class="mode" data-mode="challenge" aria-pressed="false">🔗 Friend Challenge</button>
+</div>
+<div class="info" aria-live="polite">
+ <span id="modeInfo">40-second rush · Beat your best!</span>
+ <span id="bestInfo">🏅 Personal best: 0</span>
+ <span id="soundStatus">🔊 Sounds on</span>
+</div>
+<div class="controls">
+ <button class="action" id="start">▶ START ROUND</button>
+ <button class="action secondary" id="share">🔗 Challenge a friend</button>
+ <button class="action secondary" id="sound" aria-label="Toggle sound">🔊 Sound on</button>
+</div>
+<div class="clock"><span>⏱️</span><div class="track" role="progressbar" aria-label="Time remaining" aria-valuemin="0" aria-valuemax="40" aria-valuenow="40" id="timeTrack"><div id="timeFill"></div></div><strong id="seconds">40.0</strong></div>
+<div class="stage" id="stage" aria-live="off">
+ <div class="ready"><div><div class="ready-icon">🍬</div><h2>READY TO GET STICKY?</h2><p>Tap START ROUND and find the candy shown above the grid.<br>Faster picks mean bigger combos!</p></div></div>
+</div>
+<div id="result" hidden></div>
+<section class="guide">
+ <h2>🍭 HOW TO PLAY</h2>
+ <p><strong>1.</strong> Look at the giant candy at the top of your board. <strong>2.</strong> Tap that exact candy in the grid. <strong>3.</strong> Repeat as fast as you can to build combo multipliers. Wrong taps cost points and break your combo!</p>
+ <p><strong>2-Player Duel:</strong> Compete simultaneously on the same screen. Each player gets an equally generated set of puzzles, and the highest score when time runs out wins.</p>
+ <p><strong>Friend Challenge:</strong> Send your link to a friend. Both of you play the exact same seeded set of puzzles on your own devices, then compare scores. This is an asynchronous challenge, not a live internet match.</p>
+ <details><summary>🎯 Scoring tricks</summary><p>Every correct pick increases your streak; every three hits increases the multiplier up to x6. At seven consecutive hits, you enter <strong>SUGAR FEVER</strong> for double points! Every fifth consecutive hit adds a second to the clock (up to 50 seconds). Misses cost 25 points.</p></details>
+</section>
+<footer class="footer"><span>Made for Random Candy Land · A silly, competitive candy frenzy.</span><a href="/">← Back to the Candy Castle</a></footer>
+</div><div class="toast" id="toast" role="status" hidden></div>
+<script>
+'use strict';
+(function(){
+ const CANDY=['🍬','🍭','🍩','🧁','🍪','🍦','🍫','🍡','🍓','🍋','🍉','🍒','🍰','🫐','🥨','🍯','🥝','🥥'];
+ const params=new URLSearchParams(location.search);
+ const challengeNumber=Number(params.get('seed'));
+ const invited=params.get('mode')==='challenge' && Number.isSafeInteger(challengeNumber) && challengeNumber>0 && challengeNumber<=4294967295;
+ const dayNumber=Math.floor(Date.now()/86400000);
+ function mix(n){n=Math.imul(n^(n>>>16),0x7feb352d);n=Math.imul(n^(n>>>15),0x846ca68b);return (n^(n>>>16))>>>0}
+ function random(seed){let state=seed>>>0;return function(){state=(state+0x6d2b79f5)>>>0;let t=state;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296}}
+ function makeBoard(seed,hitCount,count){
+  const rand=random(mix(seed ^ Math.imul(hitCount+1,0x9e3779b1)));const target=CANDY[Math.floor(rand()*CANDY.length)],answer=Math.floor(rand()*count);
+  const tiles=[];for(let i=0;i<count;i++){if(i===answer){tiles.push(target)}else{let other=target;while(other===target){other=CANDY[Math.floor(rand()*CANDY.length)]}tiles.push(other)}}
+  return {target:target,answer:answer,tiles:tiles};
+ }
+ const $=id=>document.getElementById(id);
+ const modes=Array.from(document.querySelectorAll('[data-mode]'));
+ const state={mode:invited?'challenge':'solo',phase:'ready',seed:invited?challengeNumber>>>0:0,players:[],endsAt:0,tick:null,sound:true,timeLimit:40000};
+ let audio=null;
+ try{state.sound=localStorage.getItem('goo-rush-muted')!=='true'}catch(_){}
+ function storageKey(){return 'goo-rush-best-v1-'+state.mode}
+ function best(){try{return Number(localStorage.getItem(storageKey()))||0}catch(_){return 0}}
+ function saveBest(s){try{if(s>best())localStorage.setItem(storageKey(),String(s))}catch(_){}}
+ function notify(message){const node=$('toast');node.textContent=message;node.hidden=false;clearTimeout(notify.timer);notify.timer=setTimeout(()=>node.hidden=true,2200)}
+ function tone(frequency,duration,type,volume){if(!state.sound)return;try{
+   const Context=window.AudioContext||window.webkitAudioContext;
+   if(!Context)return;if(!audio)audio=new Context();if(audio.state==='suspended')audio.resume().catch(()=>{});
+   const oscillator=audio.createOscillator(),gain=audio.createGain(),when=audio.currentTime;
+   oscillator.type=type||'sine';oscillator.frequency.setValueAtTime(frequency,when);oscillator.frequency.exponentialRampToValueAtTime(Math.max(110,frequency*1.38),when+duration);
+   gain.gain.setValueAtTime(volume||.045,when);gain.gain.exponentialRampToValueAtTime(.0001,when+duration);
+   oscillator.connect(gain);gain.connect(audio.destination);oscillator.start(when);oscillator.stop(when+duration);
+ }catch(_){}}
+ function vibrate(ms){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(_){}}
+ function modeName(){return state.mode==='duel'?'2-Player Duel':state.mode==='daily'?'Daily Dash':state.mode==='challenge'?'Friend Challenge':'Solo Rush'}
+ function setMode(mode){if(state.phase==='live')endRound(true);
+   state.mode=mode;state.phase='ready';state.players=[];
+   $('result').hidden=true;$('result').innerHTML='';
+   modes.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
+   $('modeInfo').textContent=mode==='duel'?'2 players · 40 seconds · Same screen':mode==='daily'?'Same daily puzzle · One new challenge each UTC day':mode==='challenge'?'Share this puzzle seed and compare scores':'40-second rush · Beat your best!';
+   $('bestInfo').textContent='🏅 Personal best: '+best().toLocaleString();
+   $('start').textContent='▶ START '+(mode==='duel'?'DUEL':'ROUND');
+   $('stage').className='stage';$('stage').innerHTML='<div class="ready"><div><div class="ready-icon">🍭</div><h2>'+modeName().toUpperCase()+'</h2><p>Tap START ROUND to begin. Go fast, but tap the right candy!</p></div></div>';
+   updateClock(40000);
+ }
+ function updateClock(ms){const seconds=Math.max(0,ms)/1000;$('seconds').textContent=seconds.toFixed(1);
+   $('timeFill').style.width=Math.min(100,Math.max(0,ms/state.timeLimit)*100)+'%';
+   $('timeTrack').setAttribute('aria-valuenow',String(Math.ceil(seconds)));
+ }
+ function freshPlayer(i){return {id:i,score:0,combo:0,hits:0,misses:0,board:null,feedback:'FIND THE CANDY!',feedbackTimer:0}}
+ function newPuzzle(player){player.board=makeBoard(state.seed,player.hits,state.mode==='duel'?9:16)}
+ function escapeText(str){return str.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+ function panel(player){
+ const name=state.mode==='duel'?(player.id===0?'PLAYER 1':'PLAYER 2'):modeName();
+ const b=player.board;const tiles=b.tiles.map((icon,index)=>'<button class="tile" type="button" data-player="'+player.id+'" data-index="'+index+'" aria-label="Candy '+escapeText(icon)+'" '+(state.phase!=='live'?'disabled':'')+'>'+icon+'</button>').join('');
+ const fever=player.combo>=7;
+ return '<div class="player" data-panel="'+player.id+'"><div class="player-top"><strong>🍭 '+name+'</strong><span class="score" id="score'+player.id+'">'+player.score.toLocaleString()+'</span></div>'
+ +'<div class="pills"><span id="combo'+player.id+'" class="'+(fever?'fever':'')+'">⚡ COMBO '+player.combo+'</span><span id="hits'+player.id+'">🎯 '+player.hits+' hits</span><span id="multiply'+player.id+'">x'+(1+Math.min(5,Math.floor(player.combo/3)))+'</span></div>'
+ +'<div class="target"><div><small>FIND THIS CANDY!</small><div>QUICK! QUICK!</div></div><b id="target'+player.id+'">'+b.target+'</b></div>'
+ +'<div class="tiles" id="tiles'+player.id+'">'+tiles+'</div><p class="feedback" id="feedback'+player.id+'">'+player.feedback+'</p></div>';
+ }
+ function draw(){const stage=$('stage');stage.className='stage'+(state.mode==='duel'?' duel':'');stage.innerHTML=state.players.map(panel).join('')}
+ function updatePlayer(p){$('score'+p.id).textContent=p.score.toLocaleString();
+   $('combo'+p.id).textContent=(p.combo>=7?'🔥 SUGAR FEVER ': '⚡ COMBO ')+p.combo;
+   $('combo'+p.id).className=p.combo>=7?'fever':'';
+   $('hits'+p.id).textContent='🎯 '+p.hits+' hits';
+   $('multiply'+p.id).textContent='x'+(1+Math.min(5,Math.floor(p.combo/3)))+' combo';
+   $('target'+p.id).textContent=p.board.target;
+   $('feedback'+p.id).textContent=p.feedback;
+   $('tiles'+p.id).innerHTML=p.board.tiles.map((icon,index)=>'<button class="tile" type="button" data-player="'+p.id+'" data-index="'+index+'" aria-label="Candy '+escapeText(icon)+'">'+icon+'</button>').join('');
+ }
+ function startRound(){
+  if(state.tick)clearInterval(state.tick);
+  state.phase='live';state.timeLimit=40000;
+  state.seed=state.mode==='daily'?mix(dayNumber*0x5bd1e995):state.mode==='challenge'&&invited?challengeNumber>>>0:mix((Date.now()^Math.floor(Math.random()*4294967295))>>>0);
+  state.players=[freshPlayer(0)];if(state.mode==='duel')state.players.push(freshPlayer(1));
+  state.players.forEach(newPuzzle);
+  state.endsAt=performance.now()+state.timeLimit;$('result').hidden=true;$('result').innerHTML='';
+  $('start').textContent='↻ RESTART ROUND';draw();updateClock(40000);
+  tone(570,.13,'triangle',.07);setTimeout(()=>tone(850,.12,'triangle',.065),115);
+  state.tick=setInterval(()=>{const remain=Math.max(0,state.endsAt-performance.now());updateClock(remain);if(remain<=0)endRound(false)},75);
+ }
+ function endRound(abandoned){
+  if(state.phase!=='live')return;state.phase='ended';
+  if(state.tick){clearInterval(state.tick);state.tick=null}updateClock(0);
+  document.querySelectorAll('.tile').forEach(b=>b.disabled=true);
+  if(abandoned)return;
+  let caption='',score=state.players[0].score;
+  if(state.mode==='duel'){const a=state.players[0].score,b=state.players[1].score;
+    caption=a===b?"IT'S A SWEET TIE!":(a>b?'PLAYER 1 WINS!':'PLAYER 2 WINS!');
+    score=Math.max(a,b);
+  }else caption='SWEET RUN!';
+  const oldBest=best();saveBest(score);
+  $('bestInfo').textContent='🏅 Personal best: '+best().toLocaleString();
+  const details=state.mode==='duel'?'P1: '+state.players[0].score.toLocaleString()+' · P2: '+state.players[1].score.toLocaleString():'Correct: '+state.players[0].hits+' · Misses: '+state.players[0].misses;
+  $('result').hidden=false;
+  $('result').innerHTML='<div class="result"><span class="eyebrow">ROUND COMPLETE</span><h2>🍬 '+caption+'</h2><div class="big">'+score.toLocaleString()+' POINTS</div><p>'+details+'</p><p>'+(score>oldBest?'🏆 NEW PERSONAL BEST!':'Try again and beat '+best().toLocaleString()+'!')+'</p><button id="again" class="action">↻ PLAY AGAIN</button> <button id="resultShare" class="action secondary">🔗 CHALLENGE A FRIEND</button></div>';
+  $('again').addEventListener('click',()=>{startRound();window.scrollTo({top:250,behavior:'smooth'})});
+  $('resultShare').addEventListener('click',shareChallenge);
+  tone(650,.18,'triangle',.06);setTimeout(()=>tone(890,.17,'triangle',.06),145);
+ }
+ function pick(id,index){
+  if(state.phase!=='live')return;
+  const p=state.players[id];if(!p)return;
+  const node=document.querySelector('.tile[data-player="'+id+'"][data-index="'+index+'"]');
+  if(index===p.board.answer){
+    p.hits++;p.combo++;
+    const multiplier=1+Math.min(5,Math.floor(p.combo/3));
+    const fever=p.combo>=7;
+    const points=10*multiplier*(fever?2:1);
+    p.score+=points;
+    if(p.combo%5===0){state.endsAt+=1000;state.timeLimit=Math.min(50000,state.timeLimit+1000);p.feedback='⏱️ +1 SECOND! +'+points;}
+    else p.feedback=fever?'🔥 SUGAR FEVER! +'+points:'✨ SWEET! +'+points;
+    tone(Math.min(1300,410+(p.combo%15)*48),.08,'sine',.048);
+    if(p.combo%5===0)vibrate(20);else vibrate(8);
+    newPuzzle(p);updatePlayer(p);
+  }else{
+    p.combo=0;p.misses++;p.score=Math.max(0,p.score-25);p.feedback='💥 GOO SPLAT! -25';
+    if(node){node.classList.remove('wrong');void node.offsetWidth;node.classList.add('wrong')}
+    tone(190,.13,'sawtooth',.037);vibrate(18);
+    $('score'+p.id).textContent=p.score.toLocaleString();$('combo'+p.id).textContent='⚡ COMBO 0';
+    $('combo'+p.id).className='';$('multiply'+p.id).textContent='x1 combo';$('feedback'+p.id).textContent=p.feedback;
+  }
+ }
+ async function shareChallenge(){
+  const seed=(state.mode==='challenge'&&invited?challengeNumber:state.seed)||mix(Date.now()>>>0);
+  const link=location.origin+'/goo-rush/?mode=challenge&seed='+seed;
+  const score=state.players.length?state.players[0].score:0;
+  const text='🍬 Play GOO RUSH! on Random Candy Land. '+(score>0?'Beat my '+score+' points! ':'')+'Same candy puzzles, 40 seconds. '+link;
+  try{
+   if(navigator.share){await navigator.share({title:'GOO RUSH! Candy Challenge',text:text,url:link});notify('Challenge ready to share!');return}
+   if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(text);notify('Challenge link copied!');return}
+  }catch(e){if(e&&e.name==='AbortError')return}
+  prompt('Copy your candy challenge link:',link);
+ }
+ function soundButton(){$('sound').textContent=state.sound?'🔊 Sound on':'🔇 Sound off';$('soundStatus').textContent=state.sound?'🔊 Sounds on':'🔇 Sounds off'}
+ modes.forEach(button=>button.addEventListener('click',()=>{setMode(button.dataset.mode);tone(450,.07,'triangle',.035)}));
+ $('start').addEventListener('click',()=>startRound());
+ $('sound').addEventListener('click',()=>{state.sound=!state.sound;try{localStorage.setItem('goo-rush-muted',String(!state.sound))}catch(_){}soundButton();if(state.sound)tone(690,.12,'sine',.06)});
+ $('share').addEventListener('click',shareChallenge);
+ $('stage').addEventListener('click',event=>{const button=event.target.closest('button[data-player][data-index]');if(!button||button.disabled)return;pick(Number(button.dataset.player),Number(button.dataset.index))});
+ window.addEventListener('pagehide',()=>{if(state.tick)clearInterval(state.tick)});
+ soundButton();setMode(invited?'challenge':'solo');
+ if(invited)notify('Friend challenge loaded — same puzzles, same clock!');
+})();
+</script>
+</body></html>
