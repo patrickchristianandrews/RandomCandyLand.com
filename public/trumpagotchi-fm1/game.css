@@ -258,7 +258,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
 }
 
 
-/* Pocket Pet original-style top section; the FM-1 game screen below is unchanged. */
+/* Pocket Pet styling for the top section and the FM-1 screen below. */
 .fm1-tiny-mode .pocket-topbar{
   position:relative;z-index:5;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;
   gap:16px 22px;margin:0 0 38px;padding:15px 8px 35px;border-bottom:0;
@@ -313,7 +313,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ff
   .fm1-tiny-mode .pocket-topbar *{animation:none!important}
 }
 
-/* Shared Candy Land frame for the Tiny Pet; pixel screen and care controls unchanged. */
+/* Shared Candy Land frame for the Tiny Pet, pixel screen and care controls. */
 body.fm1-tiny-mode.candyland-game-page{color:#fff7ff;background:radial-gradient(circle at 58% 8%,#b444ca,transparent 35%),radial-gradient(circle at 4% 52%,#6a38c9 3%,transparent 42%),radial-gradient(circle at 94% 76%,#c72e97 5%,transparent 33%),linear-gradient(155deg,#28075a,#401279 36%,#1b0639 83%)}
 .fm1-tiny-mode .shell{max-width:1400px;padding:0 clamp(11px,2vw,26px) 18px}
 .fm1-tiny-mode .candyland-game-site-header{position:relative;z-index:5;max-width:1400px;margin:0 auto 91px;padding:18px clamp(13px,3vw,34px) 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;background:linear-gradient(135deg,#c733aaed,#7923c9d1 68%,#423bb1c9);border-radius:0 0 27px 27px;box-shadow:0 12px 30px #22023f73}
