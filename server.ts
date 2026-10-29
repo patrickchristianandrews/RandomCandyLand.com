@@ -305,16 +305,10 @@ app.get('/randomcandyland-complete.zip', (_req, res) => {
   return res.status(404).send('ZIP file not found');
 });
 
-app.get('/standalone.html', (_req, res) => {
-  const filePath = path.resolve(process.cwd(), 'dist/standalone.html');
-  if (fs.existsSync(filePath)) {
-    return res.sendFile(filePath);
-  }
-  return res.status(404).send('Standalone file not found');
-});
+app.get('/standalone.html', (_req, res) => res.redirect(301, '/'));
 
 app.get('/download-index-html', (_req, res) => {
-  const filePath = path.resolve(process.cwd(), 'dist/standalone.html');
+  const filePath = path.resolve(process.cwd(), 'dist/index.html');
   if (fs.existsSync(filePath)) {
     res.setHeader('Content-Disposition', 'attachment; filename="index.html"');
     res.setHeader('Content-Type', 'text/html');
