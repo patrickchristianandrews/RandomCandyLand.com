@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/trumpagotchi-fm1/game.css">
 <script src="/trumpagotchi-fm1/game.js" defer></script>
 </head>
-<body>
+<body class="fm1-tiny-mode">
 <div class="ambience" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="shell">
 <header class="topbar">
@@ -27,7 +27,8 @@
 </section>
 <div class="game-layout">
 <section class="gamebody" aria-label="Trumpagotchi pet game">
-<div class="displayhead"><span>★ POCKET POTUS ★</span><span id="dayBadge">DAY 1</span></div>
+<div class="displayhead"><span>★ TINY PET / SYNTH-STYLE EDITION ★</span><span id="dayBadge">DAY 1</span></div>
+<div class="fm1-indicators" aria-label="Virtual pet status lights"><span class="fm1-indicator"><i></i> POWER</span><span class="fm1-indicator"><i></i> CARE</span><span class="fm1-indicator"><i></i> PET MODE</span></div>
 <div id="lcd" class="lcd" data-mood="happy">
  <div class="lcd-top"><span id="clock">09:00 AM</span><span id="phase">MORNING</span><span id="mood">HAPPY</span></div>
  <div class="scene" id="scene">
@@ -67,12 +68,13 @@
  <div class="lcd-footer"><span id="feedback" aria-live="polite">A TREMENDOUS DAY</span><span id="saveFlash">●</span></div>
 </div>
 <div class="quick-hint" id="hint">Keep all three needs above zero. Pet progress saves automatically on this device.</div>
-<div class="care-buttons" aria-label="Care for your pet">
+<div class="care-buttons" aria-label="Four FM-1-style care keys for your tiny pet">
  <button type="button" id="feed" class="care feed"><span>🍔</span><b>FEED</b><small>+25 FOOD</small></button>
  <button type="button" id="praise" class="care praise"><span>👏</span><b>PRAISE</b><small>+15 MOOD</small></button>
  <button type="button" id="clean" class="care clean"><span>🧹</span><b>CLEAN</b><small>CLEAR MESS</small></button>
  <button type="button" id="rest" class="care rest"><span>🛌</span><b>REST</b><small>NAP / WAKE</small></button>
 </div>
+<div class="fm1-care-key-label" aria-hidden="true">▰ ▰ ▰ ▰ &nbsp; FOUR-KEY CARE CONTROLLER &nbsp; ▰ ▰ ▰ ▰</div>
 <div class="game-controls">
  <button type="button" id="playpause" aria-pressed="false">⏸️ PAUSE</button>
  <button type="button" id="save">💾 SAVE</button>
