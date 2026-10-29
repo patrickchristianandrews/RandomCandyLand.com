@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f565b2">
+<meta name="description" content="Play the tiny, demanding Trumpagotchi virtual pet online. Feed, praise, clean, rest, watch mood change, and save progress. Inspired by the original GPL Trumpagotchi pet engine, no FM-1 synthesizer required.">
+<meta property="og:title" content="Trumpagotchi Little Pet — Play Online">
+<meta property="og:image" content="https://randomcandyland.com/icon-512.png">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="manifest" href="/manifest.json">
+<title>Trumpagotchi: Little Pet | Random Candy Land</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;--pink:#ff71c6;--yellow:#ffe8a0;--ink:#fff7ff;--blue:#72dcff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 75% 3%,#e863cf5d,transparent 35%),radial-gradient(circle at 0 70%,#6c33cc78,transparent 50%),#170729}
+button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opacity:.44;cursor:default}a{color:#ffe99e}a:focus-visible,button:focus-visible{outline:3px solid #ffe77e;outline-offset:3px}
+.wrap{max-width:1140px;margin:auto;padding:18px clamp(12px,3vw,35px) 60px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-bottom:22px}
+.brand{color:#fff;text-decoration:none;font-weight:950;display:flex;align-items:center;gap:10px}.brand img{width:47px;height:47px;border-radius:50%}
+.top nav{display:flex;flex-wrap:wrap;gap:8px}.top nav a{text-decoration:none;color:white;border:1px solid #fff8b688;background:#ffffff16;padding:10px 12px;border-radius:14px;font-size:13px;font-weight:800}
+.head{position:relative;isolation:isolate;overflow:hidden;padding:clamp(20px,4vw,38px);border:3px solid #fff0be;border-radius:34px 34px 22px 22px;background:linear-gradient(135deg,#9d3ac4c4,#cf45aec4,#5c27a7ba);box-shadow:0 13px 38px #08001f66}
+.head:after{content:"";position:absolute;z-index:-1;inset:0 0 auto;height:22px;background:linear-gradient(90deg,#ff6ab6,#ffb0eb,#ffe99c)}
+.kicker{font-size:12px;font-weight:950;letter-spacing:.13em;color:#ffeda9}h1{font-size:clamp(36px,6vw,68px);line-height:1;letter-spacing:-.06em;margin:16px 0 11px}h1 span{color:#ffe6a6}.head p{font-size:16px;line-height:1.6;max-width:780px;color:#fff0fc}
+.drops{position:relative;display:flex;justify-content:space-around;max-width:90%;margin:-1px auto 10px;height:37px;pointer-events:none}.drops i{height:30px;width:25px;border-radius:0 0 99px 99px;background:linear-gradient(90deg,#ffabd8,#e749af,#9738ae)}.drops i:nth-child(even){height:17px}.drops i:nth-child(3){height:37px}.drops i:nth-child(5){height:23px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:21px;align-items:start;margin-top:27px}
+.device{border:5px solid #ffe49f;border-radius:43px;padding:17px;background:linear-gradient(135deg,#ffaf65,#fd63ac 42%,#9e54d6);box-shadow:0 20px 45px #1101228c}
+.device-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:950;color:#4b185b;margin:0 3px 11px}.badge{background:#fff7df;padding:4px 8px;border-radius:11px}
+.screen{position:relative;min-height:310px;border:11px solid #75226a;border-radius:23px;padding:18px;background:linear-gradient(180deg,#a2d7b4,#ccebaa);color:#264532;box-shadow:inset 0 5px 20px #1a58376a;overflow:hidden}
+.screen:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;background:repeating-linear-gradient(transparent 0 3px,#101 4px 5px)}
+.scene{position:relative;min-height:203px;display:flex;align-items:end;justify-content:center;gap:9px;border-bottom:3px solid #497956}
+.tv{position:absolute;left:8px;top:33px;font-size:41px;filter:grayscale(.3)}.clock{position:absolute;top:5px;right:5px;background:#447054;color:#efffbb;padding:5px 8px;border-radius:6px;font-size:11px;font-weight:950}
+.thing{font-size:clamp(85px,11vw,135px);line-height:1;position:relative;z-index:1;filter:drop-shadow(0 7px 0 #71916c)}.thing.walk{animation:waddle 2s ease-in-out infinite alternate}.thing.sleeping{animation:none;transform:rotate(10deg);filter:grayscale(.5)}.mess{position:absolute;bottom:8px;left:20px;font-size:23px}.snacks{position:absolute;bottom:8px;right:15px;font-size:27px}.note{position:absolute;top:22%;left:50%;font-size:27px;animation:floatNote 1s ease-in-out infinite alternate}
+.caption{padding:12px 5px 2px;min-height:53px;text-align:center;font:900 16px/1.3 monospace;letter-spacing:.02em}
+.controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:14px}
+.action{min-height:77px;border:2px solid #fff1b7;border-radius:17px;background:#4c1a85;color:#fff;box-shadow:0 5px #35105f;font-weight:900;font-size:13px}.action span{display:block;font-size:28px;margin-bottom:3px}.action:active{transform:translateY(3px);box-shadow:0 2px #35105f}
+.meters{display:grid;gap:11px}.meter{padding:13px 15px;background:#ffffff11;border:1px solid #ffc3e77d;border-radius:15px}.meter .info{display:flex;justify-content:space-between;font-size:14px;font-weight:900;margin-bottom:7px}
+.track{height:11px;background:#140824;border-radius:99px;overflow:hidden;border:1px solid #fbd5e276}.track div{height:100%;background:linear-gradient(90deg,#4cf4cd,#ffe98a,#f6b06d);border-radius:99px;transition:width .5s}
+.summary{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}.chip{padding:7px 10px;border-radius:99px;background:#53227a;border:1px solid #f4b1ee9f;font-size:12px;font-weight:900}
+.side{border:2px solid #ffa9e2ad;background:linear-gradient(135deg,#3a195fc4,#31154bbf);border-radius:27px;padding:23px}
+.side h2{font-size:24px;margin:4px 0 9px}.side p{color:#f3ddf7;font-size:14px;line-height:1.6}
+.secondary{display:flex;flex-wrap:wrap;gap:8px}.secondary button{min-height:44px;padding:10px 12px;color:#fff;border:1px solid #ffe0a4;border-radius:12px;background:#69368b;font-weight:900;font-size:13px}
+.keys{display:flex;justify-content:center;gap:7px;margin-top:13px}.key{height:58px;flex:1;max-width:68px;border:2px solid #9e87a3;border-radius:0 0 9px 9px;background:linear-gradient(#fff,#f8e7ee);box-shadow:0 5px #b58baf;color:#502969;font-weight:900}
+.key:active{transform:translateY(3px)}.fine{font-size:12px;line-height:1.7;color:#eacbee}
+.instructions{border:1px solid #edb4db88;border-radius:20px;padding:16px 20px;margin-top:23px;background:#291343b9}.instructions summary{cursor:pointer;font-weight:900}.instructions p{line-height:1.7;color:#eacbee;font-size:14px}
+.notice{font-weight:800;font-size:14px;color:#ffe8a3;min-height:24px;margin:13px 0 0}
+.footer{margin-top:30px;padding-top:19px;border-top:1px solid #f7cde083;color:#debfec;line-height:1.6;font-size:12px}
+@keyframes waddle{to{transform:rotate(4deg) translateX(12px)}}@keyframes floatNote{to{transform:translate(12px,-28px)}}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.thing{font-size:100px}.screen{min-height:275px}.scene{min-height:165px}}
+@media(max-width:450px){.action{font-size:12px;min-height:72px}.action span{font-size:23px}.device{padding:11px;border-radius:30px}.screen{padding:10px;border-width:8px}.side{padding:17px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<a class="brand" href="/"><img src="/random-candy-land-art.webp" alt=""> RANDOM CANDY LAND</a>
+<nav><a href="/">🍭 Home</a><a href="/trump/">🎮 Original Trumpagotchi</a><a href="/music-visualizer/">🌈 Candy Pulse</a></nav>
+</header>
+<div class="head">
+<div class="kicker">🐣 STANDALONE WEB GAME · NOT A SYNTHESIZER</div>
+<h1>Trumpagotchi: <span>Little Pet</span></h1>
+<p>Feed the tiny president burgers, praise him, clean up his mess, and put him to bed. Watch his needs change through a five-minute day. This is a touch-friendly browser adaptation of Adam Charles Wilson's FM-1 Trumpagotchi pet mechanics—<strong>no FM-1, MIDI device, or sequencer needed.</strong></p>
+</div>
+<div class="drops" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<main class="layout">
+<section>
+<div class="device">
+  <div class="device-top"><span>TRUMPAGOTCHI · POCKET EDITION</span><span id="status" class="badge">HAPPY</span></div>
+  <div class="screen" aria-label="Virtual pet screen">
+    <div class="scene"><span class="clock" id="clock">09:00 · MORNING</span><span class="tv">📺</span><span id="pet" class="thing walk" role="img" aria-label="A small animated virtual pet">👶🏻</span><span class="mess" id="mess"></span><span class="snacks" id="snacks">🍔🍔🍔</span><span id="musicNote" class="note" hidden>♫</span></div>
+    <div id="caption" class="caption" role="status" aria-live="polite">A TREMENDOUS DAY</div>
+  </div>
+  <div class="controls">
+    <button type="button" class="action" data-action="feed"><span>🍔</span>FEED</button>
+    <button type="button" class="action" data-action="praise"><span>👏</span>PRAISE</button>
+    <button type="button" class="action" data-action="clean"><span>🧹</span>CLEAN</button>
+    <button type="button" class="action" data-action="rest"><span>🛏️</span>REST</button>
+  </div>
+  <div class="summary">
+    <span class="chip" id="day">☀️ DAYTIME</span><span class="chip" id="poo">🧹 0 MESSES</span><span class="chip" id="burgers">🍔 3 BURGERS</span><span class="chip" id="age">📅 DAY 1</span>
+  </div>
+</div>
+<p class="fine">Tap a care button once to perform that action. The game saves automatically to this browser; clearing website data also removes its save.</p>
+</section>
+<section class="side">
+  <h2>📊 Keep the pet happy</h2>
+  <p>The game tracks the original four main needs. Hunger grows, energy drops, the room gets messy, and a little attention goes a long way.</p>
+  <div class="meters">
+    <div class="meter"><div class="info"><span>🍔 Food</span><span id="foodValue">75%</span></div><div class="track"><div id="foodBar" style="width:75%"></div></div></div>
+    <div class="meter"><div class="info"><span>💗 Mood</span><span id="moodValue">70%</span></div><div class="track"><div id="moodBar" style="width:70%"></div></div></div>
+    <div class="meter"><div class="info"><span>⚡ Energy</span><span id="energyValue">75%</span></div><div class="track"><div id="energyBar" style="width:75%"></div></div></div>
+    <div class="meter"><div class="info"><span>✨ Cleanliness</span><span id="cleanValue">80%</span></div><div class="track"><div id="cleanBar" style="width:80%"></div></div></div>
+  </div>
+  <h2>🎹 Make a little music</h2>
+  <p>Tap the piano keys to cheer him up. If he is happy and awake, he'll dance along. Music notes are an original browser addition; they don't require synthesizer hardware.</p>
+  <div class="keys" role="group" aria-label="Five musical keyboard keys">
+    <button type="button" class="key" data-note="0" aria-label="Play note C">C</button><button type="button" class="key" data-note="1" aria-label="Play note D">D</button><button type="button" class="key" data-note="2" aria-label="Play note E">E</button><button type="button" class="key" data-note="3" aria-label="Play note G">G</button><button type="button" class="key" data-note="4" aria-label="Play note A">A</button>
+  </div>
+  <div class="secondary" style="margin-top:19px"><button type="button" id="pause">⏸ Pause</button><button type="button" id="save">💾 Save</button><button type="button" id="sound">🔊 Voice On</button><button type="button" id="reset">♻️ Start Over</button></div>
+  <p class="notice" id="notice" role="status">Ready to play.</p>
+</section>
+</main>
+<details class="instructions">
+<summary>🎮 How this version works · game rules &amp; credits</summary>
+<p>This is a standalone browser adaptation of the pet mechanics in <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0">Adam Charles Wilson's Trumpagotchi v1.0.0</a>. Care actions are FEED, PRAISE, CLEAN, and REST; there is a five-minute day/night cycle, hunger and energy decay, automatic side snacks, occasional messes, moods, short care cooldowns, an optional musical interaction, pause and browser-local save. The browser scene and controls are custom adaptations rather than a hardware-accurate emulator. Recorded voice playback, when enabled, uses whole pre-existing clips from Random Candy Land's own game, never stitched-together fake quotations.</p>
+<p>The original game's code and original artwork are <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/blob/v1.0.0/LICENSING.md">GPL-3.0-only</a>. This HTML/JavaScript port is also offered under GPL-3.0-only, with its complete corresponding source available as <a href="https://github.com/patrickchristianandrews/RandomCandyLand.com/blob/main/public/trumpagotchi-pet/index.html">the source of this page</a>. Voice-recording rights are separate. The game is unofficial political parody; it is not affiliated with or endorsed by Donald Trump, the FM-1 manufacturer, or the source author.</p>
+</details>
+<footer class="footer">Random Candy Land · Independent Trumpagotchi pet-game adaptation · <a href="/">New Candy Land homepage</a> · <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi">Original developer and GPL source</a>.</footer>
+</div>
+<script>
+"use strict";
+/* GPL-3.0-only · Browser adaptation of Adam Charles Wilson's GPL Trumpagotchi pet mechanics.
+   One unmodified, already-available voice recording per reaction. No hardware/emulator. */
+(() => {
+const KEY='random-candy-land-pet-web-v1',VERSION=1;
+const $=id=>document.getElementById(id), clamp=n=>Math.max(0,Math.min(100,Math.round(n)));
+const create=()=>({version:VERSION,food:75,mood:70,energy:75,clean:80,neglect:0,poo:0,stock:3,plump:0,dayMinute:540,days:1,seconds:0,sleeping:false,paused:false,lastAction:{},lastSnack:0,lastPoo:0,lastNote:0,muted:false,caption:'A TREMENDOUS DAY',captionUntil:0});
+let p=create(),audioCtx=null,voice=null,lastSave=0,hasPlayed=false;
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved && saved.version===VERSION){p={...create(),...saved,paused:false};p.lastAction=saved.lastAction||{};}}catch{}
+const say=(msg,seconds=4)=>{p.caption=msg;p.captionUntil=Date.now()+seconds*1000;$('caption').textContent=msg};
+const night=()=>p.dayMinute>=1260||p.dayMinute<360;
+const phase=()=>night()?'NIGHT':p.dayMinute<720?'MORNING':p.dayMinute<1080?'DAY':'EVENING';
+const state=()=>p.sleeping?'SLEEPING':p.food<=25?'HUNGRY':p.energy<=20||night()?'TIRED':p.neglect>=12||p.mood<=10?'SULKING':p.mood<=40||p.clean<=25?'BORED':'HAPPY';
+const voices={
+  feed:['i_actually_enjoy_that.mp3','so_amazing.mp3'],
+  praise:['im_really_rich.mp3','phenomenal.mp3'],
+  clean:['thats_fine.mp3','better_than_ever_before.mp3'],
+  rest:['bye.mp3','thats_fine.mp3'],
+  wake:['we_have_to_keep_going.mp3'],
+  fail:['wrong.mp3','can_you_believe_this.mp3'],
+  music:['i_actually_enjoy_that.mp3']
+};
+const playVoice=(kind)=>{
+ if(p.muted)return;
+ const options=voices[kind]||voices.fail;
+ const file=options[Math.floor(Math.random()*options.length)];
+ try{if(voice){voice.pause();voice=null;}voice=new Audio('/audio/trump/'+file);voice.volume=.7;voice.play().catch(()=>{});}catch{}
+};
+const inform=(msg)=>{$('notice').textContent=msg;};
+const save=(notify=false)=>{
+ try{localStorage.setItem(KEY,JSON.stringify({...p,paused:false}));if(notify)inform('💾 Saved on this device.');}catch{if(notify)inform('Storage unavailable. Your session will continue while this tab stays open.');}
+};
+const idleFeedback=()=>p.food<=25?'I WANT FOOD':night()||p.energy<=20?'I WANT SLEEP':p.clean<=25?'CLEAN THIS PLACE':p.mood<=25?'I EXPECT BETTER SERVICE':'A TREMENDOUS DAY';
+const render=()=>{
+ for(const [k,bar,val] of [['food','foodBar','foodValue'],['mood','moodBar','moodValue'],['energy','energyBar','energyValue'],['clean','cleanBar','cleanValue']]){$(bar).style.width=clamp(p[k])+'%';$(val).textContent=clamp(p[k])+'%';}
+ $('status').textContent=state();
+ const time=Math.floor(p.dayMinute/60).toString().padStart(2,'0')+':'+Math.floor(p.dayMinute%60).toString().padStart(2,'0');
+ $('clock').textContent=time+' · '+phase();
+ $('pet').textContent=p.sleeping?'😴':p.food<=20?'😫':p.mood<=20?'😡':p.energy<=20?'🥱':p.mood>=80?'😎':'👶🏻';
+ $('pet').className='thing'+(p.sleeping?' sleeping':p.paused?'':' walk');
+ $('pet').setAttribute('aria-label',p.sleeping?'Trumpagotchi sleeping':'Trumpagotchi feeling '+state().toLowerCase());
+ $('mess').textContent='💩'.repeat(Math.min(3,p.poo));
+ $('snacks').textContent='🍔'.repeat(p.stock);
+ $('day').textContent=(night()?'🌙':'☀️')+' '+phase();
+ $('poo').textContent='🧹 '+p.poo+' MESSES';
+ $('burgers').textContent='🍔 '+p.stock+' BURGERS';
+ $('age').textContent='📅 DAY '+p.days;
+ $('pause').textContent=p.paused?'▶ Resume':'⏸ Pause';
+ $('sound').textContent=p.muted?'🔇 Voice Off':'🔊 Voice On';
+ $('caption').textContent=Date.now()<p.captionUntil?p.caption:idleFeedback();
+ const over=p.food===0&&p.energy===0&&p.mood===0;
+ document.querySelectorAll('[data-action]').forEach(b=>b.disabled=p.paused||over);
+ if(over)inform('💔 GAME OVER! Press Start Over to adopt a new pet.');
+};
+const action=kind=>{
+ if(p.paused)return;
+ if(p.food===0&&p.energy===0&&p.mood===0)return;
+ const n=p.seconds;
+ if(kind==='rest'){
+  if(p.sleeping){p.sleeping=false;say('BACK TO BUSINESS');playVoice('wake');}
+  else if(p.energy>=85&&!night()){say('TOO MUCH ENERGY TO NAP');playVoice('fail');}
+  else{p.sleeping=true;say(night()?'PRESIDENTIAL BEDTIME':'EXECUTIVE NAP');playVoice('rest');}
+  render();save();return;
+ }
+ if(p.sleeping){say('LET ME FINISH MY NAP');playVoice('fail');render();return;}
+ const cd=kind==='praise'?15:kind==='feed'?30:120;
+ if(kind!=='clean'||p.poo===0){if((p.lastAction[kind]??-9999)+cd>n){say('GIVE ME A MINUTE');playVoice('fail');render();return;}}
+ if(kind==='feed'){
+  if(p.food>=95)p.plump=Math.min(3,p.plump+1);
+  p.food=clamp(p.food+25);p.energy=clamp(p.energy+10);p.mood=clamp(p.mood+2);
+  p.clean=clamp(p.clean-3);p.stock=3;say('A VERY FINE SNACK');
+ }else if(kind==='praise'){
+  if(p.food<=25||p.energy<=20||night()||p.clean<=25){say('SNACKS AND A NAP FIRST');playVoice('fail');render();return;}
+  p.mood=clamp(p.mood+15);p.neglect=Math.max(0,p.neglect-1);say('FINALLY, SOME RESPECT');
+ }else if(kind==='clean'){
+  if(p.clean>80&&!p.poo){say('ALREADY LOOKING SHARP');playVoice('fail');render();return;}
+  p.clean=clamp(p.clean+30);p.poo=0;p.mood=clamp(p.mood+2);say('SPOTLESS. AS EXPECTED.');
+ }
+ p.lastAction[kind]=n;playVoice(kind);render();save();
+};
+const tick=()=>{
+ if(p.paused||document.visibilityState==='hidden')return;
+ p.seconds++;
+ const speed=p.sleeping&&night()?16:1;
+ const prevDay=p.dayMinute;
+ p.dayMinute=(p.dayMinute+speed*1440/300)%1440;
+ if(p.dayMinute<prevDay)p.days++;
+ if(p.sleeping){
+  p.energy=clamp(p.energy+(night()?2.5:2));
+  p.mood=clamp(p.mood+.35);
+  if((prevDay>=1260||prevDay<360)&&p.dayMinute>=360&&p.dayMinute<1200){p.sleeping=false;p.energy=100;say('A TREMENDOUS MORNING');}
+  else if(!night()&&p.energy>=90){p.sleeping=false;say('READY FOR MY CLOSE-UP');}
+ }else{
+  p.energy=clamp(p.energy-4/5);
+  if(night())p.energy=Math.min(p.energy,20);
+  if(p.dayMinute>=1080&&p.dayMinute<1260)p.energy=Math.min(p.energy,100-(p.dayMinute-1080)*80/180);
+  if(p.seconds-p.lastPoo>=90&&p.poo<3){p.poo++;p.clean=clamp(p.clean-12);p.lastPoo=p.seconds;say('A LITTLE ACCIDENT');}
+ }
+ if(p.seconds%60===0){p.food=clamp(p.food-(p.sleeping?1:14));p.clean=clamp(p.clean-1);if(!p.sleeping)p.mood=clamp(p.mood-5);if(p.food<=20||p.clean<=20||(!p.sleeping&&p.energy<=20)){p.neglect=Math.min(60,p.neglect+1);p.mood=clamp(p.mood-1);}else if(p.neglect)p.neglect--;}
+ if(!p.sleeping&&!night()&&p.stock>0&&p.food<75&&p.seconds-p.lastSnack>=45){p.stock--;p.food=clamp(p.food+8);p.energy=clamp(p.energy+3);p.clean=clamp(p.clean-8);p.lastSnack=p.seconds;say('A LITTLE SIDE SNACK');}
+ if(p.seconds-lastSave>=20){save();lastSave=p.seconds;}
+ render();
+};
+const notes=[261.63,293.66,329.63,392,440];
+const note=i=>{
+ if(p.paused)return;
+ try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();audioCtx.resume();const now=audioCtx.currentTime;const osc=audioCtx.createOscillator();const gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=notes[i];gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.17,now+.02);gain.gain.exponentialRampToValueAtTime(.0001,now+.4);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now);osc.stop(now+.42);}catch{}
+ $('musicNote').hidden=false;setTimeout(()=>{$('musicNote').hidden=true;},650);
+ if(!p.sleeping&&!night()&&p.food>25&&p.energy>20&&p.clean>25){p.mood=clamp(p.mood+1);if(state()==='HAPPY'){say('THE CROWD LOVES IT');if(!hasPlayed){playVoice('music');hasPlayed=true;}}}
+ render();
+};
+document.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
+document.querySelectorAll('[data-note]').forEach(b=>b.addEventListener('click',()=>note(Number(b.dataset.note))));
+$('pause').addEventListener('click',()=>{p.paused=!p.paused;inform(p.paused?'Paused. Your pet will not lose needs while paused.':'The pet is awake again.');render();});
+$('save').addEventListener('click',()=>save(true));
+$('sound').addEventListener('click',()=>{p.muted=!p.muted;if(p.muted&&voice)voice.pause();render();save();});
+$('reset').addEventListener('click',()=>{if(!confirm('Start over with a new pet? This will replace this page’s saved progress.'))return;p=create();hasPlayed=false;save();say('A FRESH START');inform('A fresh pet is ready.');render();});
+window.addEventListener('pagehide',()=>save());
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')save();});
+render();setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
