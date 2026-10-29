@@ -31,12 +31,11 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 .hint{margin-top:13px;color:var(--soft);font-size:13px}.privacy{font-size:12px;color:#ae9fbd;margin-top:18px}.status{color:#b5f2db}.chip{font-size:11px;color:#e5b6e8;border:1px solid #544267;border-radius:99px;padding:5px 10px}
 @media(max-width:800px){.panel{grid-template-columns:1fr}.stage-ui{bottom:10px;left:10px;right:10px}.wrap{padding:13px 12px 35px}.controls{padding:15px}.head{padding-top:16px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
-</style>
+/* Show the real visualizer first, not an introductory panel. */.stage{margin-top:8px}.top{padding-bottom:8px!important}.wrap{padding-top:8px!important}</style>
 </head>
 <body>
 <div class="wrap">
 <header class="top"><a class="back" href="/">🍬 Random Candy Land</a><div class="logo">✦ Candy Pulse · Visualizer</div></header>
-<div class="head"><div><div class="eyebrow">Your music, your universe</div><h1>Feel the <span>frequency.</span></h1><p class="sub">Turn sound into glowing waves, candy-colored bars and a hypnotic circular spectrum. Upload a song, use your microphone or try the built-in demo.</p></div><div class="pill">🎧 Headphones recommended</div></div>
 <section class="stage" id="stage" aria-label="Audio-reactive visualizer">
 <canvas id="canvas" role="img" aria-label="Animated audio spectrum responding to your sound"></canvas>
 <div class="stage-ui"><span class="pill" id="status" aria-live="polite">✦ Waiting for sound</span><button class="btn" id="fullscreen" type="button">⛶ Full screen</button></div>
