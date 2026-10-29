@@ -123,6 +123,11 @@ try{
   if(!retired.includes('url=/trump/') || retired.includes('id="originalCanvas"'))
     throw Error('Retired pocket pet did not redirect to original Trumpagotchi');
   console.log('✓ Removed Little Pocket Pet page redirects to the original game.');
+  const oldFm1=await (await fetch(site+'/fm1-emu/')).text();
+  if(!oldFm1.includes('url=/trumpagotchi-fm1/')) {
+    throw Error('Old FM-1 link did not route to the playable tiny Trumpagotchi');
+  }
+  console.log('✓ Old FM-1 address now points to the standalone tiny pet game.');
 
   // The actual FM-1-derived tiny pet must be playable; it may not redirect.
   const tiny=await navigate(site+'/trumpagotchi-fm1/');
