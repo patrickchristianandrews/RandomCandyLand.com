@@ -174,6 +174,21 @@ try{
 
   await evaluate("document.querySelector('[data-tab=guide]').click()");
   await check('Resources FAQ is interactive',"document.querySelectorAll('#faq details').length>=25");
+
+  await evaluate("document.querySelector('[data-tab=howto]').click()");
+  await check('Practical guides open as their own After Dark section',"document.querySelector('#howto')?.classList.contains('visible') && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length===16 && document.querySelector('#howto-category option')?.textContent==='All guides'");
+  await evaluate("document.querySelector('#howto [data-guide-open=squirting]').click()");
+  await check('Squirting guide includes realistic expectations, structured steps, safety, sources and partner advice',"document.querySelector('#howto-guide-detail').hidden===false && document.querySelector('#howto-guide-detail h2')?.textContent.includes('Squirting') && document.querySelectorAll('#howto-guide-detail ol li').length>=4 && document.querySelectorAll('#howto-guide-detail .howto-guide-sources a[href^=https]').length>=2 && document.querySelector('#howto-guide-detail').textContent.includes('There is no pressure')");
+  await evaluate("document.querySelector('#howto [data-guide-open=nipple-pleasure]').click()");
+  await check('Nipple-related orgasms guide can be opened without changing the quiz',"document.querySelector('#howto-guide-detail h2')?.textContent.includes('Nipple') && document.querySelector('#howto-guide-detail').textContent.includes('no scientifically established')");
+  await evaluate("document.querySelector('#howto-search').value='pelvic';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
+  await check('Guides keyword search filters cards',"document.querySelectorAll('#howto-guide-grid .howto-guide-card').length>=1 && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length<16");
+  await evaluate("document.querySelector('#howto-search').value='';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
+  await check('Ask Atlas recognizes how-to questions about fluid release and nipple sensitivity',"respond('how to squirt').includes('Squirting') && respond('how do nipple orgasms work').includes('Nipple') && respond('how to squirt').includes('Practical Guides')");
+  await evaluate("document.querySelector('[data-tab=home]').click();document.querySelector('#home [data-guide-open=squirting]').click()");
+  await check('Homepage guide button opens the selected guide',"document.querySelector('#howto').classList.contains('visible') && !document.querySelector('#howto-guide-detail').hidden && document.querySelector('#howto-guide-detail h2')?.textContent.includes('Squirting')");
+  console.log('✓ Practical Guides offers 16 searchable wellness articles, sourced advice, featured links and Ask Atlas answers.');
+
   const lab=await navigate(site+'/after-dark/psychology-lab/');
   await checkLab(lab.evaluate);
   // Regression: the actual POLL label in Trumpagotchi must be clickable,
