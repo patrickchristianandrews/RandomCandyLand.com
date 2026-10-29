@@ -79,19 +79,14 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
  .player{padding:13px 12px 20px}.player-top{gap:5px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-</style></head>
+.compact-game-title{font-size:clamp(20px,3.5vw,30px);margin:3px 0 13px;font-weight:1000;letter-spacing:-.035em}.guide summary{cursor:pointer;font-weight:1000;padding:8px 0}.top{padding-bottom:7px!important}</style></head>
 <body>
 <div class="wrap">
 <header class="top">
  <a class="brand" href="/"><img src="/random-candy-land-art.webp" width="47" height="47" alt=""><span>🍭 RANDOM CANDY LAND</span></a>
  <nav class="topnav"><a href="/">🏰 Home</a><a href="/trump/">🎮 Pocket Pet</a><a href="/music-visualizer/">🌈 Candy Pulse</a></nav>
 </header>
-<section class="titlebox">
- <div class="eyebrow">THE CANDY CASTLE ARCADE · FREE TO PLAY</div>
- <h1>GOO <span>RUSH!</span></h1>
- <p class="sub">Find the right candy before time melts away. Build ridiculous combos, chase your high score, and challenge somebody to beat you.</p>
- <div class="goo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-</section>
+<h1 class="compact-game-title">🍬 GOO RUSH!</h1>
 <div class="modes" role="group" aria-label="Choose a game mode">
  <button class="mode" data-mode="solo" aria-pressed="true">🍬 Solo Rush</button>
  <button class="mode" data-mode="duel" aria-pressed="false">⚔️ 2-Player Duel</button>
@@ -113,13 +108,13 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
  <div class="ready"><div><div class="ready-icon">🍬</div><h2>READY TO GET STICKY?</h2><p>Tap START ROUND and find the candy shown above the grid.<br>Faster picks mean bigger combos!</p></div></div>
 </div>
 <div id="result" hidden></div>
-<section class="guide">
- <h2>🍭 HOW TO PLAY</h2>
+<details class="guide"><summary>🍭 HOW TO PLAY</summary>
+ 
  <p><strong>1.</strong> Look at the giant candy at the top of your board. <strong>2.</strong> Tap that exact candy in the grid. <strong>3.</strong> Repeat as fast as you can to build combo multipliers. Wrong taps cost points and break your combo!</p>
  <p><strong>2-Player Duel:</strong> Compete simultaneously on the same screen. Each player gets an equally generated set of puzzles, and the highest score when time runs out wins.</p>
  <p><strong>Friend Challenge:</strong> Send your link to a friend. Both of you play the exact same seeded set of puzzles on your own devices, then compare scores. This is an asynchronous challenge, not a live internet match.</p>
  <details><summary>🎯 Scoring tricks</summary><p>Every correct pick increases your streak; every three hits increases the multiplier up to x6. At seven consecutive hits, you enter <strong>SUGAR FEVER</strong> for double points! Every fifth consecutive hit adds a second to the clock (up to 50 seconds). Misses cost 25 points.</p></details>
-</section>
+</details>
 <footer class="footer"><span>Made for Random Candy Land · A silly, competitive candy frenzy.</span><a href="/">← Back to the Candy Castle</a></footer>
 </div><div class="toast" id="toast" role="status" hidden></div>
 <script>
