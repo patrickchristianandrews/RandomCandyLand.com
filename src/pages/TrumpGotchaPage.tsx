@@ -395,76 +395,6 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
           </section>
       
 
-      <div className="candyland-game-toolbar" aria-label="Original Trumpagotchi game controls">
-        <strong>🎮 ORIGINAL TRUMPAGOTCHI</strong>
-        <div className="candyland-game-tools">
-          <button type="button" data-pocket-install onClick={() => setInstallModalOpen(true)} title="Install on Android or iPhone">
-            <Smartphone className="w-4 h-4" /> <span>Install App</span>
-          </button>
-          <button type="button" onClick={() => setShowColorPicker(prev => !prev)} title="Customize handheld shell and LCD">
-            <Palette className="w-4 h-4" /> <span>Shell</span>
-          </button>
-          <button type="button" onClick={toggleMute} title={isMuted ? 'Unmute Audio' : 'Mute Audio'}>
-            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />} <span>Sound</span>
-          </button>
-          <button type="button" onClick={toggleFullscreen} title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}>
-            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />} <span>Full Screen</span>
-          </button>
-        </div>
-      </div>
-      <div className="candyland-game-tagline">🐣 YOUR CUTE LITTLE POCKET PET GAME</div>
-
-      {/* Optional Shell & LCD Theme Drawer */}
-      {showColorPicker && (
-        <div className="bg-[#120822] border-b border-amber-500/40 p-3 z-30 shrink-0 text-xs font-serif-luxury space-y-2 animate-in slide-in-from-top-2">
-          <div className="max-w-md mx-auto flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <span className="text-amber-300 font-bold">SHELL COLOR:</span>
-              <div className="flex gap-1.5">
-                {(['gold', 'red', 'navy', 'black', 'palm'] as ShellColor[]).map(color => (
-                  <button
-                    key={color}
-                    onClick={() => {
-                      setShellColor(color);
-                      sound.playButtonBlip();
-                    }}
-                    className={`px-2.5 py-1 rounded-lg capitalize border text-[11px] font-bold cursor-pointer ${
-                      shellColor === color
-                        ? 'gold-shimmer text-black border-amber-300 font-black'
-                        : 'bg-black/60 text-amber-200 border-amber-500/30'
-                    }`}
-                  >
-                    {color}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span className="text-amber-300 font-bold">LCD SCREEN:</span>
-              <div className="flex gap-1.5">
-                {(['classic-green', 'amber-glow', 'ice-blue', 'matrix-green'] as LcdColorTheme[]).map(theme => (
-                  <button
-                    key={theme}
-                    onClick={() => {
-                      setLcdTheme(theme);
-                      sound.playButtonBlip();
-                    }}
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold border cursor-pointer ${
-                      lcdTheme === theme
-                        ? 'bg-amber-400 text-black border-white'
-                        : 'bg-black/50 text-neutral-300 border-neutral-700'
-                    }`}
-                  >
-                    {theme.replace('-', ' ')}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* MAIN VIEWPORT: THE POCKET DIGI-PET CENTERPIECE */}
       <main className="candyland-game-main flex-1 flex flex-col items-center justify-center p-2 sm:p-6 relative">
         
@@ -554,6 +484,76 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
             )}
           </div>
         ) : null}
+
+        {/* Options are below the handheld's care and game controls. */}
+        <div className="candyland-game-toolbar" aria-label="Trumpagotchi game options">
+          <strong>⚙️ GAME OPTIONS</strong>
+          <div className="candyland-game-tools">
+            <button type="button" data-pocket-install onClick={() => setInstallModalOpen(true)} title="Install on Android or iPhone">
+              <Smartphone className="w-4 h-4" /> <span>Install App</span>
+            </button>
+            <button type="button" onClick={() => setShowColorPicker(prev => !prev)} title="Customize handheld shell and LCD">
+              <Palette className="w-4 h-4" /> <span>Shell</span>
+            </button>
+            <button type="button" onClick={toggleMute} title={isMuted ? 'Unmute Audio' : 'Mute Audio'}>
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />} <span>Sound</span>
+            </button>
+            <button type="button" onClick={toggleFullscreen} title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}>
+              {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />} <span>Full Screen</span>
+            </button>
+          </div>
+        </div>
+  
+        {/* Optional Shell & LCD Theme Drawer */}
+        {showColorPicker && (
+          <div className="candyland-game-color-drawer w-full max-w-2xl rounded-xl bg-[#120822] border border-amber-500/40 p-3 z-30 text-xs font-serif-luxury space-y-2 animate-in slide-in-from-top-2">
+            <div className="max-w-md mx-auto flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-amber-300 font-bold">SHELL COLOR:</span>
+                <div className="flex gap-1.5">
+                  {(['gold', 'red', 'navy', 'black', 'palm'] as ShellColor[]).map(color => (
+                    <button
+                      key={color}
+                      onClick={() => {
+                        setShellColor(color);
+                        sound.playButtonBlip();
+                      }}
+                      className={`px-2.5 py-1 rounded-lg capitalize border text-[11px] font-bold cursor-pointer ${
+                        shellColor === color
+                          ? 'gold-shimmer text-black border-amber-300 font-black'
+                          : 'bg-black/60 text-amber-200 border-amber-500/30'
+                      }`}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
+              </div>
+  
+              <div className="flex items-center justify-between">
+                <span className="text-amber-300 font-bold">LCD SCREEN:</span>
+                <div className="flex gap-1.5">
+                  {(['classic-green', 'amber-glow', 'ice-blue', 'matrix-green'] as LcdColorTheme[]).map(theme => (
+                    <button
+                      key={theme}
+                      onClick={() => {
+                        setLcdTheme(theme);
+                        sound.playButtonBlip();
+                      }}
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold border cursor-pointer ${
+                        lcdTheme === theme
+                          ? 'bg-amber-400 text-black border-white'
+                          : 'bg-black/50 text-neutral-300 border-neutral-700'
+                      }`}
+                    >
+                      {theme.replace('-', ' ')}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Optional alerts and voice-pack instructions appear AFTER the playable handheld. */}
         {screenMode === 'PLAYING' && visibleTrouble && (

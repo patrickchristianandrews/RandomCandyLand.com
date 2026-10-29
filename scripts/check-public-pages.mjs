@@ -9,7 +9,7 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
-  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'YOUR CUTE LITTLE POCKET PET GAME', 'candyland-game-site-nav', 'HOW TO PLAY', 'id="remix-studio"']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-nav', 'HOW TO PLAY', 'id="remix-studio"']],
 ];
 
 let failures = 0;
@@ -232,15 +232,25 @@ for (const path of ['dist/index.html','dist/404.html','dist/trump/index.html']) 
 // The user requested an independently playable browser adaptation of the FM-1
 // Trumpagotchi pet, not another redirect or hardware/firmware information page.
 const tinyPetHtml=fs.readFileSync('dist/trumpagotchi-fm1/index.html','utf8');
-if (!(tinyPetHtml.indexOf('id="how-to-play"') < tinyPetHtml.indexOf('class="pocket-page-banner"') &&
-      tinyPetHtml.indexOf('class="pocket-page-banner"') < tinyPetHtml.indexOf('class="game-layout"'))) {
-  console.error('Tiny Pet How To Play must be above the banner and game.');
+if (!(tinyPetHtml.indexOf('id="how-to-play"') >= 0 &&
+      tinyPetHtml.indexOf('id="how-to-play"') < tinyPetHtml.indexOf('class="game-layout"'))) {
+  console.error('Tiny Pet How To Play must be above the game.');
+  failures++;
+}
+if (tinyPetHtml.includes('YOUR CUTE LITTLE POCKET PET GAME') || tinyPetHtml.includes('Original Trumpagotchi')) {
+  console.error('A retired banner or game label remains visible.');
   failures++;
 }
 const originalGuideSource=fs.readFileSync('src/pages/TrumpGotchaPage.tsx','utf8');
-if (!(originalGuideSource.indexOf('id="how-to-play"') < originalGuideSource.indexOf('candyland-game-tagline') &&
+if (!(originalGuideSource.indexOf('id="how-to-play"') < originalGuideSource.indexOf('candyland-game-main') &&
       originalGuideSource.indexOf('id="how-to-play"') > originalGuideSource.indexOf('candyland-game-navbar'))) {
-  console.error('Original Trumpagotchi How To Play must be above its game.');
+  console.error('Trumpagotchi How To Play must be above its game.');
+  failures++;
+}
+if (!(originalGuideSource.indexOf('candyland-game-toolbar') > originalGuideSource.indexOf(') : null}')) ||
+    !originalGuideSource.includes('⚙️ GAME OPTIONS') ||
+    originalGuideSource.includes('YOUR CUTE LITTLE POCKET PET GAME')) {
+  console.error('Game options must be below handheld controls; no retired banner.');
   failures++;
 }
 if (tinyPetHtml.includes('url=/trump/') || tinyPetHtml.includes('http-equiv="refresh"')) {

@@ -34,7 +34,7 @@ function isRunningInstalledCandyLand(): boolean {
 const INSTALL_CHOICES = [
   {emoji:'🏰',name:'Full Candy Land',url:'/'},
   {emoji:'🐣',name:'Trumpagotchi Tiny Pet',url:'/trumpagotchi-fm1/'},
-  {emoji:'🎮',name:'Original Trumpagotchi',url:'/trump/'},
+  {emoji:'🎮',name:'Trumpagotchi',url:'/trump/'},
   {emoji:'🍬',name:'Goo Rush',url:'/goo-rush/'},
   {emoji:'🍭',name:'Candy Simon Says',url:'/candy-simon/'},
   {emoji:'🃏',name:'Candy Match',url:'/candy-match/'},
