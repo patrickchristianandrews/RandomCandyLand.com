@@ -404,6 +404,94 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
       {/* MAIN VIEWPORT: THE POCKET DIGI-PET CENTERPIECE */}
       <main className="flex-1 flex flex-col items-center justify-center p-2 sm:p-6 relative">
         
+        {/* Subtle radial ambient background glow */}
+        <div 
+          className="absolute inset-0 opacity-15 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(#ffd700 1.5px, transparent 1.5px)',
+            backgroundSize: '24px 24px',
+          }}
+        />
+
+        {/* Handheld Digi-Pet Shell */}
+        {screenMode === 'PLAYING' || screenMode === 'PAUSED' ? (
+          <div className="w-full flex flex-col items-center justify-center py-4 transform scale-[0.95] sm:scale-100 transition-transform">
+            <HandheldShell
+              shellColor={shellColor}
+              lcdTheme={lcdTheme}
+              onButtonA={handleButtonA}
+              onButtonB={handleButtonB}
+              onButtonC={handleButtonC}
+              isSleeping={stats.isSleeping}
+              selectedMenu={currentMenu}
+            >
+              <LcdScreen
+                stats={stats}
+                animation={activeAnimation}
+                currentMenu={currentMenu}
+                theme={lcdTheme}
+                quoteText={currentQuote.text}
+                feelingText={currentQuote.feeling}
+                isSleeping={stats.isSleeping}
+                onTapDonald={tapDonald}
+                onPollCheck={handlePollCheck}
+              />
+            </HandheldShell>
+            {gamesMenuOpen && (
+              <section aria-label="Choose a mini-game" className="mt-3 w-full max-w-sm rounded-xl border-2 border-amber-400 bg-[#21132d] p-3 text-center shadow-xl">
+                <h3 className="mb-2 font-pixel text-sm font-bold text-amber-200">CHOOSE A MINI-GAME</h3>
+                <div className="grid grid-cols-3 gap-2">
+                  <button type="button" onClick={() => handleLaunchMiniGame('golf')} aria-label="Play Bedminster Golf" className="min-h-14 rounded-lg border border-amber-400 bg-amber-500/20 px-2 py-2 text-xs font-bold text-white">⛳ GOLF</button>
+                  <button type="button" onClick={() => handleLaunchMiniGame('rally')} aria-label="Play Mega Rally" className="min-h-14 rounded-lg border border-rose-400 bg-rose-500/20 px-2 py-2 text-xs font-bold text-white">🎤 RALLY</button>
+                  <button type="button" onClick={() => handleLaunchMiniGame('deal')} aria-label="Play Art of the Deal" className="min-h-14 rounded-lg border border-sky-400 bg-sky-500/20 px-2 py-2 text-xs font-bold text-white">💼 DEALS</button>
+                </div>
+                <p className="mt-2 text-[11px] text-amber-100/80">Select a game above, or press B again for Golf. C closes this menu.</p>
+              </section>
+            )}
+            <p className="mt-2 text-xs text-amber-200 text-center max-w-xs">
+              Use A to select the ⛳ PLAY menu, then B to choose a mini-game. 📊 Tap POLL to hear Donald react to his rating.
+            </p>
+            {pollAudioNotice && (
+              <div role="status" aria-live="polite"
+                className="mt-2 max-w-sm rounded-xl border border-amber-300/60 bg-[#392329] px-3 py-2 text-center text-xs font-semibold text-amber-100">
+                {pollAudioNotice}
+              </div>
+            )}
+          </div>
+        ) : screenMode === 'MINIGAME' ? (
+          /* Active Mini-Game View */
+          <div className="w-full flex flex-col items-center justify-center py-4">
+            {activeMiniGame === 'golf' && (
+              <GolfMiniGame
+                onComplete={(trophyEarned, score) => {
+                  recordMiniGameWin('golf', score);
+                  setTimeout(() => setScreenMode('PLAYING'), 1400);
+                }}
+                onExit={() => setScreenMode('PLAYING')}
+              />
+            )}
+            {activeMiniGame === 'rally' && (
+              <RallyMiniGame
+                onComplete={(success, ratingsBoost) => {
+                  recordMiniGameWin('rally', ratingsBoost);
+                  setTimeout(() => setScreenMode('PLAYING'), 1400);
+                }}
+                onExit={() => setScreenMode('PLAYING')}
+              />
+            )}
+            {activeMiniGame === 'deal' && (
+              <DealMiniGame
+                onComplete={(netWorthBoost) => {
+                  recordMiniGameWin('deal', netWorthBoost);
+                  setTimeout(() => setScreenMode('PLAYING'), 1400);
+                }}
+                onExit={() => setScreenMode('PLAYING')}
+              />
+            )}
+          </div>
+        ) : null}
+
+        {/* Optional alerts and voice-pack instructions appear AFTER the playable handheld. */}
         {screenMode === 'PLAYING' && visibleTrouble && (
           <section aria-live="polite" aria-label="Donald needs care" className="relative z-30 w-full max-w-2xl mb-3 rounded-2xl border-2 border-orange-300 bg-[#3b1822]/95 px-4 py-3 text-white shadow-[0_0_26px_rgba(251,146,60,0.25)]">
             <div className="flex items-start gap-3">
@@ -419,7 +507,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
             </div>
           </section>
         )}
-        {/* Quick-start instructions visible without scrolling down to the long manual */}
+        {/* Optional detailed instructions live below the game */}
         {screenMode === 'PLAYING' && (
           <section aria-label="Quick guide to Trumpagotchi" className="relative z-20 w-full max-w-2xl mb-3 rounded-2xl border border-sky-400/40 bg-[#102039]/95 p-3 sm:p-4 text-white">
             <details>
@@ -514,92 +602,6 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
           </section>
         )}
 
-        {/* Subtle radial ambient background glow */}
-        <div 
-          className="absolute inset-0 opacity-15 pointer-events-none"
-          style={{
-            backgroundImage: 'radial-gradient(#ffd700 1.5px, transparent 1.5px)',
-            backgroundSize: '24px 24px',
-          }}
-        />
-
-        {/* Handheld Digi-Pet Shell */}
-        {screenMode === 'PLAYING' || screenMode === 'PAUSED' ? (
-          <div className="w-full flex flex-col items-center justify-center py-4 transform scale-[0.95] sm:scale-100 transition-transform">
-            <HandheldShell
-              shellColor={shellColor}
-              lcdTheme={lcdTheme}
-              onButtonA={handleButtonA}
-              onButtonB={handleButtonB}
-              onButtonC={handleButtonC}
-              isSleeping={stats.isSleeping}
-              selectedMenu={currentMenu}
-            >
-              <LcdScreen
-                stats={stats}
-                animation={activeAnimation}
-                currentMenu={currentMenu}
-                theme={lcdTheme}
-                quoteText={currentQuote.text}
-                feelingText={currentQuote.feeling}
-                isSleeping={stats.isSleeping}
-                onTapDonald={tapDonald}
-                onPollCheck={handlePollCheck}
-              />
-            </HandheldShell>
-            {gamesMenuOpen && (
-              <section aria-label="Choose a mini-game" className="mt-3 w-full max-w-sm rounded-xl border-2 border-amber-400 bg-[#21132d] p-3 text-center shadow-xl">
-                <h3 className="mb-2 font-pixel text-sm font-bold text-amber-200">CHOOSE A MINI-GAME</h3>
-                <div className="grid grid-cols-3 gap-2">
-                  <button type="button" onClick={() => handleLaunchMiniGame('golf')} aria-label="Play Bedminster Golf" className="min-h-14 rounded-lg border border-amber-400 bg-amber-500/20 px-2 py-2 text-xs font-bold text-white">⛳ GOLF</button>
-                  <button type="button" onClick={() => handleLaunchMiniGame('rally')} aria-label="Play Mega Rally" className="min-h-14 rounded-lg border border-rose-400 bg-rose-500/20 px-2 py-2 text-xs font-bold text-white">🎤 RALLY</button>
-                  <button type="button" onClick={() => handleLaunchMiniGame('deal')} aria-label="Play Art of the Deal" className="min-h-14 rounded-lg border border-sky-400 bg-sky-500/20 px-2 py-2 text-xs font-bold text-white">💼 DEALS</button>
-                </div>
-                <p className="mt-2 text-[11px] text-amber-100/80">Select a game above, or press B again for Golf. C closes this menu.</p>
-              </section>
-            )}
-            <p className="mt-2 text-xs text-amber-200 text-center max-w-xs">
-              Use A to select the ⛳ PLAY menu, then B to choose a mini-game. 📊 Tap POLL to hear Donald react to his rating.
-            </p>
-            {pollAudioNotice && (
-              <div role="status" aria-live="polite"
-                className="mt-2 max-w-sm rounded-xl border border-amber-300/60 bg-[#392329] px-3 py-2 text-center text-xs font-semibold text-amber-100">
-                {pollAudioNotice}
-              </div>
-            )}
-          </div>
-        ) : screenMode === 'MINIGAME' ? (
-          /* Active Mini-Game View */
-          <div className="w-full flex flex-col items-center justify-center py-4">
-            {activeMiniGame === 'golf' && (
-              <GolfMiniGame
-                onComplete={(trophyEarned, score) => {
-                  recordMiniGameWin('golf', score);
-                  setTimeout(() => setScreenMode('PLAYING'), 1400);
-                }}
-                onExit={() => setScreenMode('PLAYING')}
-              />
-            )}
-            {activeMiniGame === 'rally' && (
-              <RallyMiniGame
-                onComplete={(success, ratingsBoost) => {
-                  recordMiniGameWin('rally', ratingsBoost);
-                  setTimeout(() => setScreenMode('PLAYING'), 1400);
-                }}
-                onExit={() => setScreenMode('PLAYING')}
-              />
-            )}
-            {activeMiniGame === 'deal' && (
-              <DealMiniGame
-                onComplete={(netWorthBoost) => {
-                  recordMiniGameWin('deal', netWorthBoost);
-                  setTimeout(() => setScreenMode('PLAYING'), 1400);
-                }}
-                onExit={() => setScreenMode('PLAYING')}
-              />
-            )}
-          </div>
-        ) : null}
 
         {/* ============================================================== */}
         {/* SECTION UNDERNEATH THE GAME: HOW IT WORKS, HOW TO WIN, PWA     */}
