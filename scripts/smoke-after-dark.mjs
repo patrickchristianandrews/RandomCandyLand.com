@@ -118,14 +118,28 @@ try{
   if(oldGolf)throw Error('Removed one-tap golf shortcut is still visible');
   console.log('✓ Removed one-tap Golf shortcut remains absent.');
 
-  // The second pocket pet remains playable, but its large top title is gone.
-  const secondPet=await navigate(site+'/trumpagotchi-pet/');
-  const secondReady=await secondPet.evaluate("!!document.querySelector('#originalCanvas') && !!document.querySelector('[data-action=feed]') && !!document.querySelector('#remix-studio') && !document.querySelector('.head h1')");
-  if(!secondReady)throw Error('Restored pocket pet is missing gameplay or the unwanted title remains');
-  await secondPet.evaluate("document.querySelector('[data-action=feed]').click()");
-  const fed=await secondPet.evaluate("document.querySelector('#caption')?.textContent?.includes('A VERY FINE SNACK')");
-  if(!fed)throw Error('Restored pocket pet feeding action did not work');
-  console.log('✓ Second pet gameplay works and its oversized title is removed.');
+  // The deleted pet page must no longer be usable or linked.
+  const retired=await (await fetch(site+'/trumpagotchi-pet/')).text();
+  if(!retired.includes('url=/trump/') || retired.includes('id="originalCanvas"'))
+    throw Error('Retired pocket pet did not redirect to original Trumpagotchi');
+  console.log('✓ Removed Little Pocket Pet page redirects to the original game.');
+
+  const simon=await navigate(site+'/candy-simon/');
+  const simonReady=await simon.evaluate("document.querySelectorAll('.pad[data-pad]').length===4 && !!document.querySelector('#start')");
+  if(!simonReady)throw Error('Candy Simon Says is missing its interactive gummy pads');
+  await simon.evaluate("document.querySelector('#start').click()");
+  await delay(1750);
+  const simonPlays=await simon.evaluate("document.querySelector('#level').textContent==='1' && document.querySelectorAll('.pad:not(:disabled)').length===4");
+  if(!simonPlays)throw Error('Candy Simon Says did not play the first pattern and accept input');
+  console.log('✓ Candy Simon Says starts a pattern and enables all four pads.');
+
+  const match=await navigate(site+'/candy-match/');
+  const matchReady=await match.evaluate("document.querySelectorAll('#board .card').length===12 && !document.querySelector('#hint').disabled");
+  if(!matchReady)throw Error('Candy Match did not deal twelve playable cards');
+  await match.evaluate("document.querySelector('#board .card').click()");
+  const flipped=await match.evaluate("document.querySelectorAll('#board .card.flipped').length===1");
+  if(!flipped)throw Error('Candy Match card did not flip when tapped');
+  console.log('✓ Candy Match creates, flips and reveals matching-card game pieces.');
 
   // The new arcade must be fully interactive, not just a styled landing page.
   const arcade=await navigate(site+'/goo-rush/');
