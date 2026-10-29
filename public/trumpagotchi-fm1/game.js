@@ -105,7 +105,6 @@
           ? 1440 - state.dayMinute + 360 : 360 - state.dayMinute;
         part = Math.min(remaining, leftToDawn / (0.0048 * speed));
       }
-      const old = state.dayMinute;
       state.dayMinute += part * 0.0048 * speed;
       if (state.dayMinute >= 1440) {
         const full = Math.floor(state.dayMinute / 1440);
@@ -115,7 +114,7 @@
       if (fastNight) {
         state.energy = clamp(state.energy + part / 1000 * 5);
         state.mood = clamp(state.mood + part / 1000 * 2);
-        if (old < 360 ? state.dayMinute >= 359.999 : state.dayMinute < 360) {
+        if (Math.abs(state.dayMinute - 360) <= 0.001) {
           state.dayMinute = 360;
           state.energy = 100;
           state.mood = clamp(state.mood + 25);
