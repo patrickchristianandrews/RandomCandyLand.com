@@ -17,10 +17,10 @@ function save(){try{localStorage.setItem(saveKey,String(chips));localStorage.set
 save();
 let mode='computer',duel='poker',host=true,online=false,peer=null,connection=null,loading=null,roomId='';
 let players=[sanitize($('friend-name').value),'Candybot'],round=0,scores=[0,0],readies=[false,false],stage='ready',result='',winner=-1,match=crypto.randomUUID(),awarded='';
-let hands=[null,null],shoe=[],draws=[null,null],selected=new Set();
+let hands=[null,null],shoe=[],draws=[null,null],selected=new Set(),dismissedOutcome='';
 const status=s=>$('duel-status').textContent=s,onlineStatus=s=>$('connection-status').textContent=s;
 const send=msg=>{if(connection?.open)try{connection.send(msg)}catch{}};
-function reset(){round=0;scores=[0,0];readies=[false,false];stage='ready';result='';winner=-1;match=crypto.randomUUID();hands=[null,null];shoe=[];draws=[null,null];selected.clear();}
+function reset(){round=0;scores=[0,0];readies=[false,false];stage='ready';result='';winner=-1;match=crypto.randomUUID();hands=[null,null];shoe=[];draws=[null,null];selected.clear();dismissedOutcome='';}
 function transmit(){
  if(!host||!connection?.open)return;
  const state={type:'state',duel,players,match,round,scores,readies,stage,result,winner};
@@ -51,12 +51,55 @@ function cards(container,hand,conceal){
   container.append(button);
  }
 }
+const pokerRank=n=>({14:'Ace',13:'King',12:'Queen',11:'Jack'}[n]||String(n));
+const pokerRankPlural=n=>({14:'Aces',13:'Kings',12:'Queens',11:'Jacks'}[n]||String(n)+'s');
+function pokerWhy(){
+  if(!hands.every(P.valid))return 'Both players reveal their hands when the draw finishes.';
+  const myScore=P.score(hands[0]),theirScore=P.score(hands[1]);
+  if(winner<0)return 'Both hands are exactly equal under standard five-card poker ranking, including every kicker. The round is a tie.';
+  const won=P.score(hands[winner]),lost=P.score(hands[1-winner]);
+  const winningName=players[winner],losingName=players[1-winner];
+  const category=P.title(hands[winner]),otherCategory=P.title(hands[1-winner]);
+  if(won[0]!==lost[0])return winningName+' wins because '+category.toLowerCase()+' beats '+otherCategory.toLowerCase()+'.';
+  const different=won.findIndex((n,i)=>n!==lost[i]);
+  if(different<0)return 'Both hands have equal poker rank and kickers.';
+  const cat=won[0],w=won[different],l=lost[different];
+  const plural=[1,2,3,6,7].includes(cat)&&different===1 ||
+       cat===2&&different===2 || cat===6&&different===2;
+  let dimension='higher card';
+  if(cat===1)dimension=different===1?'higher pair':'higher kicker';
+  if(cat===2)dimension=['','higher pair','second pair','higher kicker'][different]||'higher kicker';
+  if(cat===3)dimension=different===1?'higher three of a kind':'higher kicker';
+  if(cat===4||cat===8)dimension='higher straight';
+  if(cat===5)dimension='higher flush card';
+  if(cat===6)dimension=different===1?'higher three of a kind':'higher pair';
+  if(cat===7)dimension=different===1?'higher four of a kind':'higher kicker';
+  if(cat===0)dimension=different===1?'high card':'higher kicker';
+  const humanValue=v=>plural?pokerRankPlural(v):pokerRank(v);
+  return 'Both players have '+category.toLowerCase()+', but '+winningName+' wins on the '+dimension+': '+humanValue(w)+' beats '+humanValue(l)+'.';
+}
+function renderPokerOutcome(){
+  const safe=hands.every(P.valid),show=duel==='poker'&&stage==='result'&&safe&&dismissedOutcome!==match+':'+round;
+  const display=$('poker-showdown');
+  display.hidden=!show;
+  if(!show)return;
+  $('poker-winner').textContent=winner<0?'🍬 THE ROUND IS A TIE!':winner===me()?'🏆 YOU WIN THIS ROUND!':'🍭 '+players[winner].toUpperCase()+' WINS!';
+  $('poker-hands-explainer').textContent=players[0]+': '+P.title(hands[0])+'  ·  '+players[1]+': '+P.title(hands[1]);
+  $('poker-why').textContent=pokerWhy();
+  $('poker-showdown-score').textContent='🍭 You '+scores[me()]+' – '+scores[them()]+' '+players[them()]+' 🍬 · '+Math.max(0,round-scores[0]-scores[1])+' tied';
+  $('poker-continue').textContent=round>=5?'🏆 PLAY A NEW MATCH':readies[me()]?'⏳ WAITING FOR OPPONENT':'🍭 NEXT ROUND';
+  $('poker-continue').disabled=round<5&&readies[me()];
+}
 function render(){
  for(const b of document.querySelectorAll('[data-duel]')){let on=b.dataset.duel===duel;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));}
  for(const b of document.querySelectorAll('[data-opponent]')){let on=b.dataset.opponent===mode;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));}
  const [k,title,description]=labels[duel];$('game-kicker').textContent=k;$('game-title').textContent=title;$('duel-description').textContent=description;
  $('self-name').textContent=players[me()];$('opponent-name').textContent=players[them()];
  $('self-score').textContent=scores[me()];$('other-score').textContent=scores[them()];
+ $('poker-self-score').textContent=scores[me()];
+ $('poker-other-score').textContent=scores[them()];
+ $('poker-round-label').textContent='ROUND '+Math.min(stage==='result'?round:round+1,5)+' OF 5';
+ $('poker-ties').textContent=Math.max(0,round-scores[0]-scores[1])+' tied · '+round+' played';
  const drawing=stage==='draw',final=stage==='result'&&round>=5;
  $('poker-table').hidden=duel!=='poker'||!['draw','result'].includes(stage);
  if(!$('poker-table').hidden){
@@ -75,6 +118,7 @@ function render(){
  $('poker-draw').disabled=!playing()||draws[me()]!==null;
  $('poker-draw').textContent=draws[me()]===null?'♻️ DRAW SELECTED CARDS ('+selected.size+'/3)':'⏳ WAITING FOR OPPONENT';
  $('duel-reset').disabled=mode==='friend'&&!online;
+ renderPokerOutcome();
  status(!playing()?'Create or join a room, or play Candybot.':final?'🏆 Five-round match complete. '+(scores[me()]===scores[them()]?'A tie!':scores[me()]>scores[them()]?'You won!':'Your rival won!'):
  drawing?(draws[me()]!==null?'Waiting for your rival to draw.':'Select up to three cards and tap Draw.'):
  'Round '+Math.min(round+1,5)+' of 5 · '+(readies[me()]?'Waiting for your rival.':'Tap Ready to play.'));
@@ -229,6 +273,12 @@ document.querySelectorAll('[data-opponent]').forEach(b=>b.onclick=()=>setMode(b.
 $('play-computer').onclick=()=>{setMode('computer');location.hash='games';};
 $('show-online').onclick=()=>{setMode('friend');location.hash='friends';};
 $('duel-ready').onclick=ready;$('poker-draw').onclick=draw;$('duel-reset').onclick=newMatch;
+$('poker-reveal').onclick=()=>{dismissedOutcome=match+':'+round;render();};
+$('poker-continue').onclick=()=>{
+ dismissedOutcome=match+':'+round;
+ if(round>=5)newMatch();else ready();
+ render();
+};
 $('make-room').onclick=createRoom;$('join-room').onclick=joinRoom;
 $('leave-room').onclick=()=>setMode('computer');
 $('copy-invite').onclick=async()=>{try{await navigator.clipboard.writeText($('invite-link').value);$('copy-invite').textContent='✓ LINK COPIED';}catch{$('invite-link').focus();$('invite-link').select();$('copy-invite').textContent='SELECTED — COPY LINK';}};
