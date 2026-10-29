@@ -155,7 +155,7 @@ for (const game of [
       failures++;
     }
   }
-  const inline=[...source.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(x=>x[1]).join('\\n');
+  const inline=source.split('<script>')[1]?.split('</script>')[0] || '';
   try { new vm.Script(inline,{filename:game.path}); }
   catch (err) { console.error('Candy game has broken JavaScript:',game.path,err.message);failures++; }
 }
