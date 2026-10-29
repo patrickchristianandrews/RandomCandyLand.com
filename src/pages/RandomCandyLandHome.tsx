@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar, WandSparkles } from 'lucide-react';
 import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
+import { CandyGoo } from '../components/CandyGoo';
 
 interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
@@ -47,6 +48,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <a href="/music-visualizer/"><Music2 size={17}/> Music</a>
           <a href="/after-dark/"><MoonStar size={17}/> After Dark</a>
         </nav>
+        <CandyGoo className="candyland-header-goo" color="bubblegum" />
       </header>
 
       <section className="candyland-opening" aria-label="Welcome to Random Candy Land">
@@ -73,7 +75,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <p>One colorful, wildly imaginative place to play, make things glow, generate ridiculous nonsense, and stumble into something wonderful.</p>
           <a className="candyland-primary" href="#adventures">ENTER CANDY LAND <ArrowRight size={21}/></a>
         </div>
-        <div className="candyland-drips" aria-hidden="true"><i/><i/><i/><i/><i/><i/><i/><i/><i/></div>
+        <CandyGoo className="candyland-drips" color="bubblegum" />
       </section>
 
       <section id="adventures" className="candyland-adventures">
@@ -97,7 +99,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
               <h3>{portal.title}</h3>
               <p>{portal.blurb}</p>
               <span className="candyland-portal-go">Let's go <ArrowRight size={19}/></span>
-              <span className="candyland-portal-drips" aria-hidden="true"><i/><i/><i/><i/><i/></span>
+              <CandyGoo className="candyland-portal-drips" color={portal.palette === 'peach' ? 'peach' : portal.palette === 'blue' ? 'blueberry' : portal.palette === 'purple' ? 'grape' : 'bubblegum'} />
             </>;
             return portal.oldPet ? (
               <button key={portal.title} type="button" onClick={onNavigateToTrump} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</button>
@@ -118,6 +120,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <p>The candy door is always open.</p>
         </div>
         <a href="#adventures" className="candyland-primary">EXPLORE MORE <ArrowRight size={20}/></a>
+        <CandyGoo className="candyland-finale-goo" color="lemon" />
       </section>
       <footer className="candyland-footer">
         <span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span>
