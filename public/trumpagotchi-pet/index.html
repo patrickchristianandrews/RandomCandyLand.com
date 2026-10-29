@@ -109,6 +109,30 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 @media(max-width:720px){.remix-sliders{grid-template-columns:1fr}.remix-pads{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:440px){.remix-studio{border-radius:22px}.remix-mascot{display:none}.remix-pads{grid-template-columns:repeat(2,minmax(0,1fr))}.remix-actions button{flex:1}.remix-footer-controls button{flex:1}.remix-count{width:100%;text-align:center}.quick-guide{padding:12px}.quick-guide summary{font-size:12px}}
 
+
+/* Original cartoon sound generator: responsive, tap-to-edit 16-step sequencer. */
+.cartoon-lab{margin:23px 0 14px;padding:20px;border-radius:23px;border:2px solid #a5f0ff;background:radial-gradient(circle at 90% 4%,#f5ed9140,transparent 38%),linear-gradient(145deg,#5a2db5,#2b2683 70%,#7d24a5)}
+.cartoon-lab-title{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.cartoon-lab-title h3{margin:0;font-size:clamp(23px,3vw,33px)!important;color:#fff3b1}
+.cartoon-lab-title>span{font-size:10px;letter-spacing:.09em;font-weight:950;color:#321446;background:#c6fff1;border-radius:50px;padding:7px 10px}
+.cartoon-lab>p{font-size:14px;line-height:1.55;color:#ebdafa;margin:12px 0 17px}
+.cartoon-options{display:flex;align-items:end;gap:10px;flex-wrap:wrap}
+.cartoon-options label{flex:1;min-width:135px;font-size:12px;font-weight:950;color:#f7ddff}
+.cartoon-options select{display:block;width:100%;margin-top:6px;background:#2b1652;color:white;border:1px solid #bfebff;border-radius:12px;padding:12px 10px;min-height:46px;font:inherit}
+#cartoon-randomize{min-height:49px;padding:11px 17px;border-radius:14px;border:2px solid #fff2ae;background:linear-gradient(130deg,#ffde70,#ff8cce);color:#461346;font:950 13px system-ui;box-shadow:0 5px #782b91}
+#cartoon-randomize:active{transform:translateY(3px)}
+.cartoon-step-head{display:flex;gap:6px;flex-wrap:wrap;justify-content:space-between;margin:21px 0 8px;font-size:11px;color:#ffecaf}
+.cartoon-step-head span{color:#c1fffd}
+.cartoon-step-grid{display:grid;gap:8px;max-width:100%;overflow-x:auto;scrollbar-color:#faaddf #3a2058;padding-bottom:9px}
+.cartoon-step-row{display:grid;grid-template-columns:75px repeat(16,minmax(27px,1fr));gap:4px;align-items:center;min-width:565px}
+.cartoon-track-name{color:white;font-size:12px;font-weight:900}
+.cartoon-step{min-height:37px;padding:0;border:1px solid #bcb1eb;background:#3c2c84;border-radius:8px;box-shadow:inset 0 -3px #140e51;cursor:pointer}
+.cartoon-step.is-on{background:linear-gradient(#a7ffff,#f6d35f);border:2px solid #fffad2;box-shadow:0 0 8px #8fefff}
+.cartoon-step.is-current{outline:3px solid #fff;outline-offset:0;transform:scale(1.04)}
+.cartoon-step:nth-child(4n+2){border-left-width:2px;border-left-color:#ffbcf7}
+.cartoon-legend{font-size:11px;color:#e6d7fc;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.cartoon-legend span{color:#b5fff7}
+@media(max-width:500px){.cartoon-lab{padding:14px}.cartoon-options label{min-width:112px}#cartoon-randomize{width:100%}.cartoon-step-head{font-size:10px}}
 </style>
 </head>
 <body>
@@ -129,8 +153,8 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
     <li><strong>Look after your pet.</strong> Press 🍔 FEED, 👏 PRAISE, 🧹 CLEAN or 🛏️ REST to change his mood and watch the animations.</li>
     <li><strong>Check his needs.</strong> Keep Food, Mood, Energy and Cleanliness from running out. Watch the little status panel beside him.</li>
     <li><strong>Play the piano.</strong> Tap the five keys directly below Trumpagotchi 2 to play a tune. He dances when he's feeling good.</li>
-    <li><strong>Try the Remix Studio.</strong> <a href="#remix-studio">Load a song</a>, press Play, and tap the Trump phrase pads to drop original recordings into your music. Or tap Auto Remix.</li>
-    <li><strong>Save it.</strong> Your pet progress saves to this browser. In the Remix Studio, select Export WAV to download your completed song remix.</li>
+    <li><strong>Generate random cartoon beats.</strong> In the <a href="#remix-studio">Remix Studio</a>, tap Generate Cartoon Beat for a wacky 16-step rhythm. Tap the squares to customize it, press Play, then drop the original voice clips on top—or choose Surprise Trump Drops.</li>
+    <li><strong>Save it.</strong> Your pet progress saves to this browser. The Remix Studio exports your generated cartoon beat and Trump phrases as a WAV file. Adding a song is optional.</li>
   </ol>
 </details>
 <main class="layout">
@@ -181,40 +205,57 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 </main>
 <section id="remix-studio" class="remix-studio" aria-labelledby="remix-heading">
   <div class="remix-hero">
-    <div><span class="remix-eyebrow">🎛️ ORIGINAL VOICE CLIPS · YOUR SONG · YOUR MIX</span>
+    <div><span class="remix-eyebrow">🎪 RANDOM CARTOON BEATS · ORIGINAL VOICE CLIPS · YOUR MIX</span>
       <h2 id="remix-heading">Trumpagotchi 2 <span>Remix Studio</span></h2>
-      <p>Load a song from your phone or computer, tap Trump phrases into the beat, or generate a surprise remix automatically. Listen, adjust the levels, and download your finished WAV.</p>
+      <p>Generate your own silly cartoon beat pattern from scratch—boings, bubble pops, honks and drums! Then drop original Trump phrases into your beat, or add your own song underneath. Remix and export it.</p>
     </div>
     <span class="remix-mascot" aria-hidden="true">🎤🎵</span>
   </div>
+  <div class="cartoon-lab" aria-labelledby="cartoon-beat-heading">
+    <div class="cartoon-lab-title"><h3 id="cartoon-beat-heading">🎪 1. Cartoon Beat Factory</h3><span>NO SONG UPLOAD REQUIRED</span></div>
+    <p>Make a fresh 16-step cartoon drum pattern in one tap. Choose a goofy style or let the beat factory surprise you. Tap any square to remix the pattern yourself.</p>
+    <div class="cartoon-options">
+      <label>Cartoon style
+        <select id="cartoon-style"><option value="random">🎲 Surprise me!</option><option value="bouncy">🍭 Bouncy Candy</option><option value="chase">🏃 Silly Chase</option><option value="space">🛸 Space Goo</option><option value="chaos">🤪 Cartoon Chaos</option></select>
+      </label>
+      <label>Pattern length
+        <select id="cartoon-bars"><option value="4">4 bars · short</option><option value="8" selected>8 bars · standard</option><option value="16">16 bars · extended</option></select>
+      </label>
+      <button id="cartoon-randomize" type="button">🎲 GENERATE CARTOON BEAT</button>
+    </div>
+    <div class="cartoon-step-head"><strong>YOUR 16-STEP PATTERN</strong><span id="cartoon-pattern-label">Press Generate to begin</span></div>
+    <div id="cartoon-step-grid" class="cartoon-step-grid" role="group" aria-label="Four instruments and 16 editable beat steps"></div>
+    <div class="cartoon-legend">🥁 Kick · 🫧 Bubble pop · 🌀 Boing · 📯 Cartoon honk <span>Each bright square plays a sound.</span></div>
+  </div>
   <div class="remix-upload">
-    <label for="remix-file">🎧 1. Choose your song <strong>MP3 · WAV · M4A · up to 3 minutes / 30 MB</strong></label>
+    <label for="remix-file">🎧 Optional: add your own song underneath <strong>MP3 · WAV · M4A · up to 3 minutes / 30 MB</strong></label>
     <input type="file" id="remix-file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg">
-    <div id="remix-filename" class="remix-filename">No song chosen yet · Everything stays on your device</div>
+    <div id="remix-filename" class="remix-filename">Optional: you can make, play and export a complete cartoon remix without uploading anything.</div>
   </div>
   <div class="remix-player" aria-label="Remix music playback controls">
     <div class="remix-actions">
-      <button id="remix-play" type="button" disabled>▶ Play song</button>
+      <button id="remix-play" type="button" disabled>▶ Play remix</button>
       <button id="remix-rewind" type="button">⏮ Restart</button>
-      <button id="remix-generate" type="button" disabled>🎲 Auto Remix</button>
+      <button id="remix-generate" type="button" disabled>🎤 Surprise Trump Drops</button>
     </div>
     <div class="remix-timeline"><progress id="remix-progress" max="100" value="0" aria-label="Song progress"></progress>
       <span id="remix-clock">0:00 / 0:00</span></div>
     <div class="remix-sliders">
       <label>🎵 Song volume <output id="remix-music-value">70%</output><input id="remix-music-volume" type="range" min="0" max="100" value="70"></label>
       <label>🎙️ Trump volume <output id="remix-voice-value">95%</output><input id="remix-voice-volume" type="range" min="0" max="100" value="95"></label>
-      <label>🥁 Auto Remix tempo <output id="remix-bpm-value">110</output> BPM<input id="remix-bpm" type="range" min="60" max="180" step="5" value="110"></label>
+      <label>🥁 Cartoon beat volume <output id="cartoon-beat-value">65%</output><input id="cartoon-beat-volume" type="range" min="0" max="100" value="65"></label>
+      <label>⏱️ Pattern tempo <output id="remix-bpm-value">110</output> BPM<input id="remix-bpm" type="range" min="60" max="180" step="5" value="110"></label>
     </div>
   </div>
-  <h3>🎙️ 2. Drop Trump phrases into your song</h3>
-  <p class="remix-hint">Tap a pad to hear an unmodified recording. While your song is playing, each tap adds that phrase to your remix. Auto Remix places random phrases on the beat for you.</p>
+  <h3>🎙️ 2. Add original Trump phrases</h3>
+  <p class="remix-hint">Press Play Remix, then tap any phrase to place it on your cartoon beat. Tap Surprise Trump Drops to arrange the original recordings automatically along the rhythm. Nothing is AI-voiced or stitched into fake sentences.</p>
   <div id="remix-pads" class="remix-pads" role="group" aria-label="Original Trump voice phrase soundboard"></div>
   <div class="remix-footer-controls">
     <span id="remix-count" class="remix-count">0 voice drops</span>
     <button type="button" id="remix-clear" disabled>🧹 Clear drops</button>
     <button type="button" id="remix-export" class="remix-export" disabled>⬇️ 3. Export remix WAV</button>
   </div>
-  <p id="remix-status" class="remix-status" role="status" aria-live="polite">Choose a song above to begin. Phrase pads can also be previewed without a song.</p>
+  <p id="remix-status" class="remix-status" role="status" aria-live="polite">Tap Generate Cartoon Beat to create your own sound pattern. No song upload needed!</p>
   <p class="remix-legal">For personal creative use. Only load music you own or have permission to remix. Songs are never uploaded. The Trump voice pads use existing standalone recordings—not synthetic speech or invented quotes. Check music and recording rights before sharing a remix.</p>
 </section>
 <details class="instructions">
