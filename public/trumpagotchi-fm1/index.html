@@ -10,6 +10,7 @@
 <title>Trumpagotchi · The Tiny Pet | Random Candy Land</title>
 <link rel="icon" type="image/webp" href="/tiny-pet-trump-cartoon.webp">
 <link rel="stylesheet" href="/trumpagotchi-fm1/game.css">
+<script src="/trumpagotchi-fm1/fm1-pixel-screen.js" defer></script>
 <script src="/trumpagotchi-fm1/game.js" defer></script>
 </head>
 <body class="fm1-tiny-mode">
@@ -40,6 +41,7 @@
 <div class="displayhead"><span><img src="/tiny-pet-trump-cartoon.webp" width="43" height="43" alt="Cartoon Donald Trump" class="tiny-icon"> <span>TRUMPAGOTCHI · TINY PET</span></span><span id="dayBadge">DAY 1</span></div>
 <div class="fm1-indicators" aria-label="Virtual pet status lights"><span class="fm1-indicator"><i></i> POWER</span><span class="fm1-indicator"><i></i> CARE</span><span class="fm1-indicator"><i></i> PET MODE</span></div>
 <div id="lcd" class="lcd" data-mood="happy">
+ <canvas id="fm1-pixel-screen" width="240" height="240" role="img" aria-label="FM-1 Trumpagotchi pixel-art game screen showing an animated pet, its room, three need meters and care captions"></canvas>
  <div class="lcd-top"><span id="clock">09:00 AM</span><span id="phase">MORNING</span><span id="mood">HAPPY</span></div>
  <div class="scene" id="scene">
    <div class="window"><span id="sun">☀</span><span class="window-bars"></span></div>
@@ -116,7 +118,7 @@
 </div>
 <section class="credits"><h2>From an actual little pet to a playable web game</h2>
 <p>This is a browser adaptation of the <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0" rel="noopener noreferrer" target="_blank">Trumpagotchi v1.0.0 pet-care game by adamcharleswilsonmusic-code</a>. The original release runs as M-VAVE FM-1 firmware; this independently adapted HTML/JavaScript version reproduces its central pet-care mechanics for phones and browsers. It is <strong>not</strong> a compiled run of the original firmware, and does not include the FM-1 sequencer. No hardware required.</p>
-<p>Game adaptation and corresponding source: <a href="/trumpagotchi-fm1/game.js">JavaScript</a>, <a href="/trumpagotchi-fm1/game.css">CSS</a>, <a href="/trumpagotchi-fm1/LICENSE">GPL-3.0 license</a>. Original project and artwork © their respective authors under GPL-3.0-only. Sound effects are separately sourced from Random Candy Land's existing single-recording library, not copied from the FM-1 release. This is unofficial parody; no affiliation or endorsement.</p>
+<p>Game adaptation and corresponding source: <a href="/trumpagotchi-fm1/game.js">game JavaScript</a>, <a href="/trumpagotchi-fm1/fm1-pixel-screen.js">FM-1 pixel-art display JavaScript</a>, <a href="/trumpagotchi-fm1/game.css">CSS</a>, <a href="/trumpagotchi-fm1/LICENSE">GPL-3.0 license</a>. Original project and artwork © their respective authors under GPL-3.0-only. Sound effects are separately sourced from Random Candy Land's existing single-recording library, not copied from the FM-1 release. This is unofficial parody; no affiliation or endorsement.</p>
 </section>
 </main>
 <footer class="foot"><span>🍭 RANDOM CANDY LAND</span><a href="/trump/">Play the original Candy Land Trumpagotchi</a><a href="/">Back to Candy Land</a></footer>
