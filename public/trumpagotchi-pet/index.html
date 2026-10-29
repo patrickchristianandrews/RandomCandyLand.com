@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f565b2">
-<meta name="description" content="Play the tiny, demanding Trumpagotchi virtual pet online. Feed, praise, clean, rest, watch mood change, and save progress. Inspired by the original GPL Trumpagotchi pet engine, no FM-1 synthesizer required.">
-<meta property="og:title" content="Trumpagotchi Little Pet — Play Online">
+<meta name="description" content="Play Trumpagotchi 2, a cute interactive pocket pet. Feed, praise, clean, rest, play a tune, and watch his expressions change. Saves progress right in your browser.">
+<meta property="og:title" content="Trumpagotchi 2 — Play Online">
 <meta property="og:image" content="https://randomcandyland.com/icon-512.png">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="manifest" href="/manifest.json">
-<title>Trumpagotchi: Little Pet | Random Candy Land</title>
+<title>Trumpagotchi 2 | Random Candy Land</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;--pink:#ff71c6;--yellow:#ffe8a0;--ink:#fff7ff;--blue:#72dcff}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 75% 3%,#e863cf5d,transparent 35%),radial-gradient(circle at 0 70%,#6c33cc78,transparent 50%),#170729}
@@ -28,7 +28,7 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 .screen{position:relative;min-height:310px;border:11px solid #75226a;border-radius:23px;padding:18px;background:linear-gradient(180deg,#a2d7b4,#ccebaa);color:#264532;box-shadow:inset 0 5px 20px #1a58376a;overflow:hidden}
 .screen:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;background:repeating-linear-gradient(transparent 0 3px,#101 4px 5px)}
 .scene{position:relative;display:block;aspect-ratio:240/156;border:3px solid #497956;border-radius:7px;overflow:hidden;background:#f6ebd1}
-#originalCanvas{display:block;width:100%;height:100%;object-fit:fill;image-rendering:pixelated;image-rendering:crisp-edges}
+#originalCanvas{display:block;width:100%;height:100%;object-fit:fill;image-rendering:auto}
 .tv{position:absolute;left:8px;top:33px;font-size:41px;filter:grayscale(.3)}.clock{position:absolute;top:5px;right:5px;background:#447054;color:#efffbb;padding:5px 8px;border-radius:6px;font-size:11px;font-weight:950}
 .thing{font-size:clamp(85px,11vw,135px);line-height:1;position:relative;z-index:1;filter:drop-shadow(0 7px 0 #71916c)}.thing.walk{animation:waddle 2s ease-in-out infinite alternate}.thing.sleeping{animation:none;transform:rotate(10deg);filter:grayscale(.5)}.mess{position:absolute;bottom:8px;left:20px;font-size:23px}.snacks{position:absolute;bottom:8px;right:15px;font-size:27px}.note{position:absolute;top:22%;left:50%;font-size:27px;animation:floatNote 1s ease-in-out infinite alternate}
 .caption{padding:12px 5px 2px;min-height:53px;text-align:center;font:900 16px/1.3 monospace;letter-spacing:.02em}
@@ -49,6 +49,19 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 @media(max-width:820px){.layout{grid-template-columns:1fr}.thing{font-size:100px}.screen{min-height:275px}.scene{min-height:165px}}
 @media(max-width:450px){.action{font-size:12px;min-height:72px}.action span{font-size:23px}.device{padding:11px;border-radius:30px}.screen{padding:10px;border-width:8px}.side{padding:17px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Smoother pet art and piano keys immediately under the game screen. */
+.scene{width:100%;box-shadow:inset 0 0 14px #39523c6e,0 6px 16px #4e226e33}
+#originalCanvas{image-rendering:auto;transform:translateZ(0);backface-visibility:hidden}
+.pocket-piano{margin-top:15px;padding:13px 14px 19px;border:2px solid #ffeab1;border-radius:18px;background:linear-gradient(140deg,#fff3d7,#ffa8ca);color:#4f1d59;box-shadow:0 8px 19px #60246d66}
+.pocket-piano-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;line-height:1.4}
+.pocket-piano-top strong{font-size:13px;letter-spacing:.02em}
+.pocket-piano-top span{font-size:11px;font-weight:800}
+.pocket-piano .keys{display:flex;gap:5px;margin-top:11px;justify-content:stretch}
+.pocket-piano .key{height:92px;max-width:none;min-width:0;flex:1;border:2px solid #977c9a;border-radius:7px 7px 13px 13px;background:linear-gradient(180deg,#fff 10%,#fffaf3 75%,#ead9e3);box-shadow:0 7px #a87999,0 10px 10px #5e1d6770;font-size:18px;font-weight:1000;color:#6c2b69}
+.pocket-piano .key:active{transform:translateY(5px);box-shadow:0 2px #a87999}
+.pocket-piano .key:focus-visible{outline:3px solid #5b1ab6;outline-offset:2px}
+@media(max-width:450px){.pocket-piano{padding:10px 9px 17px}.pocket-piano .key{height:75px}.pocket-piano-top strong{font-size:12px}.pocket-piano-top span{font-size:10px}}
 </style>
 </head>
 <body>
@@ -58,21 +71,31 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 <nav><a href="/">🍭 Home</a><a href="/trump/">🎮 Original Trumpagotchi</a><a href="/music-visualizer/">🌈 Candy Pulse</a></nav>
 </header>
 <div class="head">
-<div class="kicker">🐣 STANDALONE WEB GAME · NOT A SYNTHESIZER</div>
-<h1>Trumpagotchi: <span>Little Pet</span></h1>
-<p>Feed the tiny president burgers, praise him, clean up his mess, and put him to bed. Watch his needs change through a five-minute day. The <strong>actual original FM-1 game's pixel-art character and room</strong> are here, with pet care and animated actions adapted for your phone. <strong>No FM-1, MIDI device, or sequencer needed.</strong></p>
+<div class="kicker">🐣 YOUR CUTE LITTLE POCKET PET GAME</div>
+<h1>Trumpagotchi <span>2</span></h1>
+<p>Meet your silly little virtual president! Feed him, make him happy, tidy his room, and help him sleep. Watch his expressions and adventures change through a fast-moving day. <strong>Just tap and play—right on your phone.</strong></p>
 </div>
 <div class="drops" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <main class="layout">
 <section>
 <div class="device">
-  <div class="device-top"><span>TRUMPAGOTCHI · POCKET EDITION</span><span id="status" class="badge">HAPPY</span></div>
+  <div class="device-top"><span>TRUMPAGOTCHI 2 · POCKET PET</span><span id="status" class="badge">HAPPY</span></div>
   <div class="screen" aria-label="Virtual pet screen">
     <div class="scene">
-      <canvas id="originalCanvas" width="240" height="156" role="img" aria-label="Authentic FM-1 Trumpagotchi pixel-art room and animated character"></canvas>
+      <canvas id="originalCanvas" width="720" height="468" role="img" aria-label="Animated Trumpagotchi 2 character and room"></canvas>
       <span class="clock" id="clock">09:00 · MORNING</span>
     </div>
     <div id="caption" class="caption" role="status" aria-live="polite">A TREMENDOUS DAY</div>
+  </div>
+  <div class="pocket-piano">
+    <div class="pocket-piano-top"><strong>🎹 MAKE MUSIC WITH TRUMPAGOTCHI 2</strong><span>Tap a key to play · he dances when happy!</span></div>
+    <div class="keys" role="group" aria-label="Five playful piano keys">
+      <button type="button" class="key" data-note="0" aria-label="Play note C">C</button>
+      <button type="button" class="key" data-note="1" aria-label="Play note D">D</button>
+      <button type="button" class="key" data-note="2" aria-label="Play note E">E</button>
+      <button type="button" class="key" data-note="3" aria-label="Play note G">G</button>
+      <button type="button" class="key" data-note="4" aria-label="Play note A">A</button>
+    </div>
   </div>
   <div class="controls">
     <button type="button" class="action" data-action="feed"><span>🍔</span>FEED</button>
@@ -87,18 +110,13 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 <p class="fine">Tap a care button once to perform that action. The game saves automatically to this browser; clearing website data also removes its save.</p>
 </section>
 <section class="side">
-  <h2>📊 Keep the pet happy</h2>
-  <p>The game tracks the original four main needs. Hunger grows, energy drops, the room gets messy, and a little attention goes a long way.</p>
+  <h2>💗 Keep him happy</h2>
+  <p>Your pet has four needs. Food runs low, energy drops, and his room gets messy. Your care changes his expressions, mood, and how much he wants to play.</p>
   <div class="meters">
     <div class="meter"><div class="info"><span>🍔 Food</span><span id="foodValue">75%</span></div><div class="track"><div id="foodBar" style="width:75%"></div></div></div>
     <div class="meter"><div class="info"><span>💗 Mood</span><span id="moodValue">70%</span></div><div class="track"><div id="moodBar" style="width:70%"></div></div></div>
     <div class="meter"><div class="info"><span>⚡ Energy</span><span id="energyValue">75%</span></div><div class="track"><div id="energyBar" style="width:75%"></div></div></div>
     <div class="meter"><div class="info"><span>✨ Cleanliness</span><span id="cleanValue">80%</span></div><div class="track"><div id="cleanBar" style="width:80%"></div></div></div>
-  </div>
-  <h2>🎹 Make a little music</h2>
-  <p>Tap the piano keys to cheer him up. If he is happy and awake, he'll dance along. Music notes are an original browser addition; they don't require synthesizer hardware.</p>
-  <div class="keys" role="group" aria-label="Five musical keyboard keys">
-    <button type="button" class="key" data-note="0" aria-label="Play note C">C</button><button type="button" class="key" data-note="1" aria-label="Play note D">D</button><button type="button" class="key" data-note="2" aria-label="Play note E">E</button><button type="button" class="key" data-note="3" aria-label="Play note G">G</button><button type="button" class="key" data-note="4" aria-label="Play note A">A</button>
   </div>
   <div class="secondary" style="margin-top:19px"><button type="button" id="pause">⏸ Pause</button><button type="button" id="save">💾 Save</button><button type="button" id="sound">🔊 Voice On</button><button type="button" id="reset">♻️ Start Over</button></div>
   <p class="notice" id="notice" role="status">Ready to play.</p>
@@ -106,10 +124,10 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 </main>
 <details class="instructions">
 <summary>🎮 How this version works · game rules &amp; credits</summary>
-<p>This game renders the actual original pixel-art room, Trumpagotchi character, facial expressions, sleep poses, and moving animations ported directly from the GPL firmware's <code>firmware/src/app/pet_art.h</code>, alongside a standalone browser adaptation of the pet mechanics in <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0">Adam Charles Wilson's Trumpagotchi v1.0.0</a>. Care actions are FEED, PRAISE, CLEAN, and REST; there is a five-minute day/night cycle, hunger and energy decay, automatic side snacks, occasional messes, moods, short care cooldowns, an optional musical interaction, pause and browser-local save. The original character and room use the original source drawing instructions, but the interface and care timers are browser adaptations, not a hardware-accurate emulator. Recorded voice playback, when enabled, uses whole pre-existing clips from Random Candy Land's own game, never stitched-together fake quotations.</p>
-<p>The original game's code and original artwork are <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/blob/v1.0.0/LICENSING.md">GPL-3.0-only</a>. This HTML/JavaScript port is also offered under GPL-3.0-only, including <a href="/trumpagotchi-pet/original-art.js">the full browser port of the original drawing code</a>, with the rest of its complete corresponding source available as <a href="https://github.com/patrickchristianandrews/RandomCandyLand.com/blob/main/public/trumpagotchi-pet/index.html">the source of this page</a>. Voice-recording rights are separate. The game is unofficial political parody; it is not affiliated with or endorsed by Donald Trump, the FM-1 manufacturer, or the source author.</p>
+<p>Trumpagotchi 2 is an independent, phone-friendly adaptation of the open-source virtual pet mechanics and artwork from <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0">Adam Charles Wilson's Trumpagotchi v1.0.0</a>. Care for him with FEED, PRAISE, CLEAN, and REST. The game includes a fast day/night cycle, snacks, messes, facial expressions, short cooldowns, music, pause, and local saving. The browser version features smoother, higher-resolution character rendering and redesigned touch controls. Voice reactions use complete recordings already available on Random Candy Land, not newly invented quotations.</p>
+<p>The original game's code and original artwork are <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/blob/v1.0.0/LICENSING.md">GPL-3.0-only</a>. This HTML/JavaScript port is also offered under GPL-3.0-only, including <a href="/trumpagotchi-pet/original-art.js">the full browser port of the original drawing code</a>, with the rest of its complete corresponding source available as <a href="https://github.com/patrickchristianandrews/RandomCandyLand.com/blob/main/public/trumpagotchi-pet/index.html">the source of this page</a>. Voice-recording rights are separate. The game is unofficial political parody; it is not affiliated with or endorsed by Donald Trump, the original creator, or any manufacturer.</p>
 </details>
-<footer class="footer">Random Candy Land · Independent Trumpagotchi pet-game adaptation · <a href="/">New Candy Land homepage</a> · <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi">Original developer and GPL source</a>.</footer>
+<footer class="footer">Random Candy Land · Trumpagotchi 2 · Independent web pet-game adaptation · <a href="/">New Candy Land homepage</a> · <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi">Original developer and GPL source</a>.</footer>
 </div>
 <script src="/trumpagotchi-pet/original-art.js"></script>
 <script>
@@ -151,7 +169,7 @@ const render=()=>{
  $('status').textContent=state();
  const time=Math.floor(p.dayMinute/60).toString().padStart(2,'0')+':'+Math.floor(p.dayMinute%60).toString().padStart(2,'0');
  $('clock').textContent=time+' · '+phase();
- $('originalCanvas').setAttribute('aria-label','Original FM-1 Trumpagotchi in pixel-art room: '+state().toLowerCase()+', '+phase().toLowerCase());
+ $('originalCanvas').setAttribute('aria-label','Trumpagotchi 2 in his animated room: '+state().toLowerCase()+', '+phase().toLowerCase());
  $('day').textContent=(night()?'🌙':'☀️')+' '+phase();
  $('poo').textContent='🧹 '+p.poo+' MESSES';
  $('burgers').textContent='🍔 '+p.stock+' BURGERS';
