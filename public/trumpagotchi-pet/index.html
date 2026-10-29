@@ -27,7 +27,8 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 .device-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:950;color:#4b185b;margin:0 3px 11px}.badge{background:#fff7df;padding:4px 8px;border-radius:11px}
 .screen{position:relative;min-height:310px;border:11px solid #75226a;border-radius:23px;padding:18px;background:linear-gradient(180deg,#a2d7b4,#ccebaa);color:#264532;box-shadow:inset 0 5px 20px #1a58376a;overflow:hidden}
 .screen:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;background:repeating-linear-gradient(transparent 0 3px,#101 4px 5px)}
-.scene{position:relative;min-height:203px;display:flex;align-items:end;justify-content:center;gap:9px;border-bottom:3px solid #497956}
+.scene{position:relative;display:block;aspect-ratio:240/156;border:3px solid #497956;border-radius:7px;overflow:hidden;background:#f6ebd1}
+#originalCanvas{display:block;width:100%;height:100%;object-fit:fill;image-rendering:pixelated;image-rendering:crisp-edges}
 .tv{position:absolute;left:8px;top:33px;font-size:41px;filter:grayscale(.3)}.clock{position:absolute;top:5px;right:5px;background:#447054;color:#efffbb;padding:5px 8px;border-radius:6px;font-size:11px;font-weight:950}
 .thing{font-size:clamp(85px,11vw,135px);line-height:1;position:relative;z-index:1;filter:drop-shadow(0 7px 0 #71916c)}.thing.walk{animation:waddle 2s ease-in-out infinite alternate}.thing.sleeping{animation:none;transform:rotate(10deg);filter:grayscale(.5)}.mess{position:absolute;bottom:8px;left:20px;font-size:23px}.snacks{position:absolute;bottom:8px;right:15px;font-size:27px}.note{position:absolute;top:22%;left:50%;font-size:27px;animation:floatNote 1s ease-in-out infinite alternate}
 .caption{padding:12px 5px 2px;min-height:53px;text-align:center;font:900 16px/1.3 monospace;letter-spacing:.02em}
@@ -67,7 +68,10 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 <div class="device">
   <div class="device-top"><span>TRUMPAGOTCHI · POCKET EDITION</span><span id="status" class="badge">HAPPY</span></div>
   <div class="screen" aria-label="Virtual pet screen">
-    <div class="scene"><span class="clock" id="clock">09:00 · MORNING</span><span class="tv">📺</span><span id="pet" class="thing walk" role="img" aria-label="A small animated virtual pet">👶🏻</span><span class="mess" id="mess"></span><span class="snacks" id="snacks">🍔🍔🍔</span><span id="musicNote" class="note" hidden>♫</span></div>
+    <div class="scene">
+      <canvas id="originalCanvas" width="240" height="156" role="img" aria-label="Authentic FM-1 Trumpagotchi pixel-art room and animated character"></canvas>
+      <span class="clock" id="clock">09:00 · MORNING</span>
+    </div>
     <div id="caption" class="caption" role="status" aria-live="polite">A TREMENDOUS DAY</div>
   </div>
   <div class="controls">
@@ -102,11 +106,12 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 </main>
 <details class="instructions">
 <summary>🎮 How this version works · game rules &amp; credits</summary>
-<p>This is a standalone browser adaptation of the pet mechanics in <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0">Adam Charles Wilson's Trumpagotchi v1.0.0</a>. Care actions are FEED, PRAISE, CLEAN, and REST; there is a five-minute day/night cycle, hunger and energy decay, automatic side snacks, occasional messes, moods, short care cooldowns, an optional musical interaction, pause and browser-local save. The browser scene and controls are custom adaptations rather than a hardware-accurate emulator. Recorded voice playback, when enabled, uses whole pre-existing clips from Random Candy Land's own game, never stitched-together fake quotations.</p>
-<p>The original game's code and original artwork are <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/blob/v1.0.0/LICENSING.md">GPL-3.0-only</a>. This HTML/JavaScript port is also offered under GPL-3.0-only, with its complete corresponding source available as <a href="https://github.com/patrickchristianandrews/RandomCandyLand.com/blob/main/public/trumpagotchi-pet/index.html">the source of this page</a>. Voice-recording rights are separate. The game is unofficial political parody; it is not affiliated with or endorsed by Donald Trump, the FM-1 manufacturer, or the source author.</p>
+<p>This game renders the actual original pixel-art room, Trumpagotchi character, facial expressions, sleep poses, and moving animations ported directly from the GPL firmware's <code>firmware/src/app/pet_art.h</code>, alongside a standalone browser adaptation of the pet mechanics in <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0">Adam Charles Wilson's Trumpagotchi v1.0.0</a>. Care actions are FEED, PRAISE, CLEAN, and REST; there is a five-minute day/night cycle, hunger and energy decay, automatic side snacks, occasional messes, moods, short care cooldowns, an optional musical interaction, pause and browser-local save. The original character and room use the original source drawing instructions, but the interface and care timers are browser adaptations, not a hardware-accurate emulator. Recorded voice playback, when enabled, uses whole pre-existing clips from Random Candy Land's own game, never stitched-together fake quotations.</p>
+<p>The original game's code and original artwork are <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/blob/v1.0.0/LICENSING.md">GPL-3.0-only</a>. This HTML/JavaScript port is also offered under GPL-3.0-only, including <a href="/trumpagotchi-pet/original-art.js">the full browser port of the original drawing code</a>, with the rest of its complete corresponding source available as <a href="https://github.com/patrickchristianandrews/RandomCandyLand.com/blob/main/public/trumpagotchi-pet/index.html">the source of this page</a>. Voice-recording rights are separate. The game is unofficial political parody; it is not affiliated with or endorsed by Donald Trump, the FM-1 manufacturer, or the source author.</p>
 </details>
 <footer class="footer">Random Candy Land · Independent Trumpagotchi pet-game adaptation · <a href="/">New Candy Land homepage</a> · <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi">Original developer and GPL source</a>.</footer>
 </div>
+<script src="/trumpagotchi-pet/original-art.js"></script>
 <script>
 "use strict";
 /* GPL-3.0-only · Browser adaptation of Adam Charles Wilson's GPL Trumpagotchi pet mechanics.
@@ -114,7 +119,7 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 (() => {
 const KEY='random-candy-land-pet-web-v1',VERSION=1;
 const $=id=>document.getElementById(id), clamp=n=>Math.max(0,Math.min(100,Math.round(n)));
-const create=()=>({version:VERSION,food:75,mood:70,energy:75,clean:80,neglect:0,poo:0,stock:3,plump:0,dayMinute:540,days:1,seconds:0,sleeping:false,paused:false,lastAction:{},lastSnack:0,lastPoo:0,lastNote:0,muted:false,caption:'A TREMENDOUS DAY',captionUntil:0});
+const create=()=>({version:VERSION,food:75,mood:70,energy:75,clean:80,neglect:0,poo:0,stock:3,plump:0,dayMinute:540,days:1,seconds:0,sleeping:false,paused:false,lastAction:{},lastSnack:0,lastPoo:0,lastNote:0,lastAnim:0,lastAnimAt:0,lastNoteAt:0,muted:false,caption:'A TREMENDOUS DAY',captionUntil:0});
 let p=create(),audioCtx=null,voice=null,lastSave=0,hasPlayed=false;
 try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved && saved.version===VERSION){p={...create(),...saved,paused:false};p.lastAction=saved.lastAction||{};}}catch{}
 const say=(msg,seconds=4)=>{p.caption=msg;p.captionUntil=Date.now()+seconds*1000;$('caption').textContent=msg};
@@ -146,11 +151,7 @@ const render=()=>{
  $('status').textContent=state();
  const time=Math.floor(p.dayMinute/60).toString().padStart(2,'0')+':'+Math.floor(p.dayMinute%60).toString().padStart(2,'0');
  $('clock').textContent=time+' · '+phase();
- $('pet').textContent=p.sleeping?'😴':p.food<=20?'😫':p.mood<=20?'😡':p.energy<=20?'🥱':p.mood>=80?'😎':'👶🏻';
- $('pet').className='thing'+(p.sleeping?' sleeping':p.paused?'':' walk');
- $('pet').setAttribute('aria-label',p.sleeping?'Trumpagotchi sleeping':'Trumpagotchi feeling '+state().toLowerCase());
- $('mess').textContent='💩'.repeat(Math.min(3,p.poo));
- $('snacks').textContent='🍔'.repeat(p.stock);
+ $('originalCanvas').setAttribute('aria-label','Original FM-1 Trumpagotchi in pixel-art room: '+state().toLowerCase()+', '+phase().toLowerCase());
  $('day').textContent=(night()?'🌙':'☀️')+' '+phase();
  $('poo').textContent='🧹 '+p.poo+' MESSES';
  $('burgers').textContent='🍔 '+p.stock+' BURGERS';
@@ -169,7 +170,7 @@ const action=kind=>{
  if(kind==='rest'){
   if(p.sleeping){p.sleeping=false;say('BACK TO BUSINESS');playVoice('wake');}
   else if(p.energy>=85&&!night()){say('TOO MUCH ENERGY TO NAP');playVoice('fail');}
-  else{p.sleeping=true;say(night()?'PRESIDENTIAL BEDTIME':'EXECUTIVE NAP');playVoice('rest');}
+  else{p.sleeping=true;p.lastAnim=4;p.lastAnimAt=performance.now();say(night()?'PRESIDENTIAL BEDTIME':'EXECUTIVE NAP');playVoice('rest');}
   render();save();return;
  }
  if(p.sleeping){say('LET ME FINISH MY NAP');playVoice('fail');render();return;}
@@ -186,7 +187,10 @@ const action=kind=>{
   if(p.clean>80&&!p.poo){say('ALREADY LOOKING SHARP');playVoice('fail');render();return;}
   p.clean=clamp(p.clean+30);p.poo=0;p.mood=clamp(p.mood+2);say('SPOTLESS. AS EXPECTED.');
  }
- p.lastAction[kind]=n;playVoice(kind);render();save();
+ p.lastAction[kind]=n;
+ p.lastAnim=kind==='feed'?1:kind==='praise'?2:0;
+ p.lastAnimAt=performance.now();
+ playVoice(kind);render();save();
 };
 const tick=()=>{
  if(p.paused||document.visibilityState==='hidden')return;
@@ -215,7 +219,7 @@ const notes=[261.63,293.66,329.63,392,440];
 const note=i=>{
  if(p.paused)return;
  try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();audioCtx.resume();const now=audioCtx.currentTime;const osc=audioCtx.createOscillator();const gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=notes[i];gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.17,now+.02);gain.gain.exponentialRampToValueAtTime(.0001,now+.4);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now);osc.stop(now+.42);}catch{}
- $('musicNote').hidden=false;setTimeout(()=>{$('musicNote').hidden=true;},650);
+ p.lastNoteAt=performance.now();
  if(!p.sleeping&&!night()&&p.food>25&&p.energy>20&&p.clean>25){p.mood=clamp(p.mood+1);if(state()==='HAPPY'){say('THE CROWD LOVES IT');if(!hasPlayed){playVoice('music');hasPlayed=true;}}}
  render();
 };
@@ -227,7 +231,17 @@ $('sound').addEventListener('click',()=>{p.muted=!p.muted;if(p.muted&&voice)voic
 $('reset').addEventListener('click',()=>{if(!confirm('Start over with a new pet? This will replace this page’s saved progress.'))return;p=create();hasPlayed=false;save();say('A FRESH START');inform('A fresh pet is ready.');render();});
 window.addEventListener('pagehide',()=>save());
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')save();});
-render();setInterval(tick,1000);
+render();
+let lastPaint=0;
+function paint(now){
+ if(now-lastPaint>=83){
+   if(window.drawOriginalTrumpagotchi)window.drawOriginalTrumpagotchi($('originalCanvas'),p);
+   lastPaint=now;
+ }
+ requestAnimationFrame(paint);
+}
+requestAnimationFrame(paint);
+setInterval(tick,1000);
 })();
 </script>
 </body>
