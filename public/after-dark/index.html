@@ -239,6 +239,79 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 @media(max-width:800px){.howto-highlight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ad-practical-guides-teaser{grid-template-columns:minmax(120px,32%) 1fr}.ad-practical-guides-teaser>img{height:180px}}
 @media(max-width:600px){.ad-practical-guides-teaser{grid-template-columns:1fr;padding:14px;gap:11px}.ad-practical-guides-teaser>img{height:145px}.ad-practical-guides-copy .row .btn{width:100%}.howto-filter-row{grid-template-columns:1fr}.howto-guide-grid{grid-template-columns:1fr}.howto-guide-detail{padding:15px}.howto-guide-steps{padding:13px}.howto-highlight{padding:11px;min-height:125px}.howto-highlight strong{font-size:12px}.howto-highlight small{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.howto-guide-card{transition:none}}
+</style>
+<style>
+/* After Dark candy icing — same single-piece glossy droplet silhouette as Candy Land.
+   Drips hang BELOW panels, so they never cover forms, controls, captions or illustrations. */
+.ad-goo-coated{position:relative}
+.ad-liquid-goo{
+ display:block;position:absolute;pointer-events:none;user-select:none;overflow:visible;
+ height:70px;width:100%;left:0;top:calc(100% - 6px);
+ filter:drop-shadow(0 10px 9px #3107479e);
+ transform-origin:50% 0;
+}
+.top.ad-goo-header{position:relative;z-index:6;margin-bottom:78px;border-bottom-color:#eb8bc9}
+.ad-goo-header>.ad-liquid-goo{top:calc(100% - 3px);left:0;width:100%;height:91px;z-index:1}
+.ad-goo-header>:not(.ad-liquid-goo){position:relative;z-index:2}
+.afterdark-home-hero.ad-goo-hero{
+ overflow:visible;position:relative;margin-bottom:100px;isolation:isolate;
+ border-bottom-color:#f8b9de
+}
+.ad-goo-hero>.ad-liquid-goo{top:calc(100% - 10px);height:102px;left:0;width:100%;z-index:3}
+.ad-goo-teaser{overflow:visible;margin-bottom:82px!important;border-bottom:2px solid #ffd3b5}
+.ad-goo-teaser>.ad-liquid-goo{top:calc(100% - 6px);height:72px;z-index:2}
+.ad-goo-tile{position:relative;overflow:visible!important;border-bottom-color:#eab3d9}
+.ad-goo-tile>.ad-liquid-goo{top:calc(100% - 5px);height:59px;z-index:2}
+.afterdark-featured-grid,.afterdark-fast-grid,.afterdark-landing-grid{row-gap:78px}
+.afterdark-featured-grid,.afterdark-fast-grid,.afterdark-landing-grid{margin-bottom:75px}
+.ad-goo-banner.ad-section-art-banner{
+ overflow:visible;position:relative;margin-bottom:86px;
+ border-bottom:2px solid #dba5e7
+}
+.ad-goo-banner>.ad-liquid-goo{top:calc(100% - 8px);height:82px;z-index:2}
+.ad-goo-highlight{position:relative;overflow:visible;border-bottom:2px solid #e8b5dd}
+.ad-goo-highlight>.ad-liquid-goo{top:calc(100% - 4px);height:56px;z-index:1}
+.howto-highlight-grid{row-gap:65px;margin-bottom:78px}
+.ad-goo-guidecard{position:relative;overflow:visible;border-bottom:2px solid #ebb1e5}
+.ad-goo-guidecard>.ad-liquid-goo{top:calc(100% - 5px);height:54px;z-index:1}
+.howto-guide-grid{row-gap:69px;margin-bottom:81px}
+.footer.ad-goo-footer{
+ position:relative;min-height:118px;padding-top:107px;
+ margin-top:78px;border-top-color:#ffcae7
+}
+.ad-goo-footer>.ad-liquid-goo{top:1px;height:78px;z-index:1}
+.gate .card.ad-goo-gate{position:relative;margin-bottom:73px;border-bottom:2px solid #ffbee6}
+.ad-goo-gate>.ad-liquid-goo{top:calc(100% - 5px);height:76px}
+.ad-goo-header>.ad-liquid-goo,.ad-goo-hero>.ad-liquid-goo,
+.ad-goo-banner>.ad-liquid-goo,.ad-goo-footer>.ad-liquid-goo{
+ animation:ad-liquid-breathe 8s ease-in-out infinite alternate
+}
+.ad-goo-hero>.ad-liquid-goo{animation-duration:10s}
+.ad-goo-banner>.ad-liquid-goo{animation-duration:11s}
+@keyframes ad-liquid-breathe{
+ from{transform:scaleY(.985) skewX(-.16deg)}
+ to{transform:scaleY(1.035) skewX(.16deg)}
+}
+@media(max-width:700px){
+ .top.ad-goo-header{margin-bottom:63px}
+ .ad-goo-header>.ad-liquid-goo{height:72px}
+ .afterdark-home-hero.ad-goo-hero{margin-bottom:76px}
+ .ad-goo-hero>.ad-liquid-goo{height:81px}
+ .ad-goo-teaser{margin-bottom:69px!important}
+ .ad-goo-teaser>.ad-liquid-goo{height:63px}
+ .ad-goo-tile>.ad-liquid-goo{height:50px}
+ .afterdark-featured-grid,.afterdark-fast-grid,.afterdark-landing-grid{row-gap:67px;margin-bottom:65px}
+ .ad-goo-banner.ad-section-art-banner{margin-bottom:68px}
+ .ad-goo-banner>.ad-liquid-goo{height:64px}
+ .ad-goo-highlight>.ad-liquid-goo,.ad-goo-guidecard>.ad-liquid-goo{height:47px}
+ .howto-highlight-grid{row-gap:53px;margin-bottom:67px}
+ .howto-guide-grid{row-gap:55px;margin-bottom:65px}
+ .footer.ad-goo-footer{padding-top:92px}
+ .ad-goo-footer>.ad-liquid-goo{height:65px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ad-liquid-goo{animation:none!important;transform:none!important}
+}
 </style></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -290,7 +363,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    <img class="ad-discovery-image" src="/after-dark/visuals/discovery-emblem.svg" width="640" height="640" alt="" fetchpriority="high" decoding="async">
    <span class="ad-discovery-glint ad-discovery-glint-one" aria-hidden="true">✧</span><span class="ad-discovery-glint ad-discovery-glint-two" aria-hidden="true">✦</span>
   </div>
-  <div class="ad-home-goo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <!-- Original curved Candy Land liquid-icing ribbon is mounted here by candy-goo.js. -->
  </div>
  <nav class="ad-home-express-nav" aria-label="Quick After Dark destinations">
   <button type="button" data-tab="chat"><span aria-hidden="true">💬</span><span><strong>Ask Atlas</strong><small>Find answers</small></span><span aria-hidden="true">›</span></button>
@@ -1122,4 +1195,4 @@ window.AfterDarkNotebookBridge={
   getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.()?.complete),
   quizText:()=>document.getElementById('quizCard')?.innerText||''
 };
-</script><script src="/after-dark/interest-notebook.js?v=1"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=1"></script></body></html>
+</script><script src="/after-dark/interest-notebook.js?v=1"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=1"></script><script src="/after-dark/candy-goo.js?v=1"></script></body></html>
