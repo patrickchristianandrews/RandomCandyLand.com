@@ -39,7 +39,7 @@
       <p><strong>🛌 REST</strong> — Start a nap or wake him. At night, sleeping speeds the clock toward dawn and restores his energy.</p>
     </div>
     <p><strong>Time:</strong> A game day lasts roughly five real minutes while awake. Food, Mood and Energy slowly drain. If <em>all three</em> reach zero, the game ends.</p>
-    <p><strong>Other buttons:</strong> Pause stops the clock; Save stores your pet on this device. Sound toggles recorded reactions. Watch News annoys him; Cheer gives a small mood boost when he feels well. <strong>Play Him a Melody</strong> plays an original pentatonic tune with synth keys; when he is happy, Trump joins on bongos. The music can be replayed, but the small mood reward is limited to once a minute. Turn Sound On to hear it. Start Over resets the pet.</p>
+    <p><strong>Other buttons:</strong> Pause stops the clock; Save stores your pet on this device. Sound toggles recorded reactions. Watch News annoys him; Cheer gives a small mood boost when he feels well. <strong>Play Him a Melody</strong> plays the full original pentatonic tune. You can also tap the five-key piano (C, D, E, G, A) to play individual notes yourself. When he's happy, Trump joins the full tune on bongos. The music can be replayed, but the small mood reward is limited to once a minute. Turn Sound On to hear it. Start Over resets the pet.</p>
     <p><strong>Progress:</strong> The game automatically saves in this browser and does not drain your pet's needs while the page is closed. This is a browser adaptation of the <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">FM-1 Trumpagotchi pet game</a>, not the synth firmware.</p>
   </div>
 </details>
@@ -95,7 +95,18 @@
  <div class="fm1-care-key-label" aria-hidden="true">▰ ▰ ▰ ▰ &nbsp; FOUR-KEY CARE CONTROLLER &nbsp; ▰ ▰ ▰ ▰</div>
  <button type="button" id="news" class="care care-bonus"><span>📺</span><b>WATCH NEWS</b><small>ANNOY YOUR PET</small></button>
  <button type="button" id="cheer" class="care care-bonus"><span>🎉</span><b>CHEER HIM ON</b><small>BOOST HIS MOOD</small></button>
- <button type="button" id="melody" class="care care-bonus care-melody"><span>🎹</span><b>PLAY HIM A MELODY</b><small>ORIGINAL PENTATONIC TUNE · HAPPY-PET BONGOS</small></button>
+ <button type="button" id="melody" class="care care-bonus care-melody"><span>🎶</span><b>PLAY HIM A MELODY</b><small>PLAY THE FULL TUNE · HAPPY-PET BONGOS</small></button>
+ <div class="melody-keyboard" role="group" aria-label="Five-key playable piano for Trumpagotchi">
+   <div class="melody-keyboard-header"><strong>🎹 PLAY HIM YOUR OWN MELODY</strong><span>Tap the piano keys below</span></div>
+   <div class="melody-keys">
+     <button type="button" class="melody-key" data-note="0" aria-label="Play note C"><b>C</b></button>
+     <button type="button" class="melody-key" data-note="1" aria-label="Play note D"><b>D</b></button>
+     <button type="button" class="melody-key" data-note="2" aria-label="Play note E"><b>E</b></button>
+     <button type="button" class="melody-key" data-note="3" aria-label="Play note G"><b>G</b></button>
+     <button type="button" class="melody-key" data-note="4" aria-label="Play note A"><b>A</b></button>
+   </div>
+   <p id="melodyStatus" class="melody-status" role="status" aria-live="polite">Tap a key for a note, or PLAY HIM A MELODY for the full tune. Turn Sound On.</p>
+ </div>
 </div>
 <div class="game-controls">
  <button type="button" id="playpause" aria-pressed="false">⏸️ PAUSE</button>
