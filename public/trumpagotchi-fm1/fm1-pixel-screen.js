@@ -75,7 +75,18 @@
     rect(37,97,34,13,C.mint);rect(39,97,3,13,'#b6cfb1');rect(10,113,63,4,'#9e6f50');
     portrait();
     rect(192,64,39,31,C.ink);rect(195,67,33,23,s.sleeping?'#283546':'#649eb1');
-    if(!s.sleeping) {
+    const watching=action==='news' && t>=actionStart+1050 && t<actionStart+8500;
+    if(watching){
+      // Animated ticker and changing broadcast while the pet sits facing the TV.
+      rect(196,68,31,20,'#415e83');
+      rect(196,83,31,6,C.red);
+      label('NEWS',200,83,5,C.paper);
+      const blink=Math.floor(t/600)%3;
+      rect(201+blink*5,70,9,10,C.skin);
+      rect(202+blink*5,68,10,3,C.gold);
+      rect(204+blink*5,73,2,2,C.ink);
+      rect(196,88,31,2,C.paper);
+    } else if(!s.sleeping) {
       rect(204,71,10,8,C.skin);rect(201,79,16,7,C.suit);rect(196,86,31,3,C.red);
       for(let i=0;i<4;i++)rect(197+((i*8+Math.floor(t/500)%8)%29),87,3,1,C.paper);
       rect(219,70,6,2,C.paper);rect(219,75,6,2,C.paper);
@@ -147,7 +158,10 @@
     pr(x+8,y+6,2,15,C.gold);pr(x+18,y+6,2,15,C.gold);
     pr(x-2,y,30,7,C.ink);pr(x,y+1,26,4,'#f9d894');
   }
-  function seatedPose(s) {
+  function seatedPose(s,t) {
+    // Face the television from the armchair, with small head / hand movement.
+    const headNod=Math.floor(t/580)%2;
+    const chairX=0;
     oval(117-s.plumpness,83,42+s.plumpness*2,32,C.ink);
     oval(119-s.plumpness,85,39+s.plumpness*2,28,C.suit);
     rect(142,94,15,15,C.suit);rect(151,104,10,7,C.suit);
@@ -157,20 +171,26 @@
     rect(115,57,30,9,C.gold);rect(121,50,24,8,C.gold);
     rect(121,52,23,3,'#ffdc75');rect(118,60,23,3,'#f7cd58');
     rect(152,115,14,7,C.ink);
+    rect(142,71+headNod,3,2,C.ink);
+    if(Math.floor(t/1300)%2===0){
+      rect(152,94,10,8,C.suit);
+      rect(160,87,5,12,C.skin);
+    }
   }
   function pet(s,t) {
     if(s.sleeping){sleepPose(s,t);return;}
     const mode=petState(s);
     const age=Math.max(0,t-actionStart);
-    const doing=action && age < 2400;
+    const doing=action && age < (action==='news'?8500:2400);
     const act=doing?action:'';
     const walking=!act && (t%10000<5300);
     const hand=Math.floor(t/235)%2;
-    const dx=walking?Math.round(Math.sin(t/1500)*22):0;
+    const goingToTV=act==='news' && age<1050;
+    const dx=goingToTV?Math.round(25*age/1050):walking?Math.round(Math.sin(t/1500)*22):0;
     const bongo=act==='bongo' || (act==='cheer' && age>1200);
     const cheer=act==='cheer'||act==='praise';
-    if(act==='news'){seatedPose(s);return;}
-    DX=dx;BOB=14+(cheer?(hand?-3:0):walking?(hand?1:-1):bongo&&hand?-1:0);
+    if(act==='news' && !goingToTV){seatedPose(s,t);return;}
+    DX=dx;BOB=14+(cheer?(hand?-3:0):walking||goingToTV?(hand?1:-1):bongo&&hand?-1:0);
     oval(91+dx-s.plumpness*2,140,60+s.plumpness*4,5,'#977e67');
     pr(94,110,16,15,C.suit);pr(130,110,16,15,C.suit);
     pr(88-(walking&&hand?3:0),123,24,5,C.ink);pr(130+(walking&&!hand?3:0),123,24,5,C.ink);
