@@ -118,28 +118,29 @@ try{
   if(oldGolf)throw Error('Removed one-tap golf shortcut is still visible');
   console.log('✓ Removed one-tap Golf shortcut remains absent.');
 
-  // Check the *actual* GPL FM-1 Trumpagotchi pixel art is painted, not emoji.
-  const little=await navigate(site+'/trumpagotchi-pet/');
-  const artReady=await little.evaluate("typeof window.drawOriginalTrumpagotchi==='function' && !!document.querySelector('#originalCanvas')");
-  if(!artReady)throw Error('The original FM-1 Trumpagotchi character/room port did not load');
-  await delay(400);
-  const realPixels=await little.evaluate("(()=>{const c=document.querySelector('#originalCanvas');const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;const colors=new Set();const stride=Math.max(4,Math.floor(d.length/4096/4)*4);for(let p=0;p<d.length;p+=stride)colors.add([d[p],d[p+1],d[p+2]].join('-'));return colors.size})()");
-  if(realPixels<8)throw Error('Original FM-1 Trumpagotchi pixels did not render: '+realPixels+' sampled colors');
-  await little.evaluate("document.querySelector('[data-action=feed]').click()");
-  if(!await little.evaluate("document.querySelector('#caption').textContent.includes('A VERY FINE SNACK')"))throw Error('Standalone pet Feed did not work');
-  console.log('✓ Original FM-1 character/room rendered on browser canvas; pet-care button works.');
-  const remixReady=await little.evaluate("document.querySelectorAll('#remix-pads .remix-pad').length===12 && !!document.querySelector('#remix-file') && !!document.querySelector('#remix-export') && document.querySelector('#how-to-play').compareDocumentPosition(document.querySelector('.device'))===4");
-  if(!remixReady)throw Error('Trumpagotchi 2 remix sound pads or top how-to guide did not load');
-  const remixInitial=await little.evaluate("document.querySelector('#remix-play').disabled && document.querySelector('#remix-export').disabled");
-  if(!remixInitial)throw Error('Trumpagotchi 2 remix controls should require an uploaded song');
-  console.log('✓ Trumpagotchi 2 how-to guide and twelve remix pads are interactive.');
-  // The cartoon beat factory must work without uploading a music file.
-  const cartoonBefore=await little.evaluate("document.querySelector('#remix-play').disabled && document.querySelectorAll('#cartoon-step-grid .cartoon-step').length===64");
-  if(!cartoonBefore)throw Error('Cartoon beat factory grid is missing or playback enables before a pattern exists');
-  await little.evaluate("document.querySelector('#cartoon-randomize').click()");
-  const cartoonReady=await little.evaluate("!document.querySelector('#remix-play').disabled && !document.querySelector('#remix-export').disabled && document.querySelectorAll('#cartoon-step-grid .cartoon-step.is-on').length>=4 && document.querySelector('#cartoon-pattern-label').textContent.includes('BPM')");
-  if(!cartoonReady)throw Error('Generate Cartoon Beat did not create a playable, exportable pattern without an upload');
-  console.log('✓ Cartoon beat generator makes a 16-step pattern playable and exportable without a song upload.');
+  // Trumpagotchi 2 is retired: previous route now returns to the original game.
+  const retired=await navigate(site+'/trumpagotchi-pet/');
+  const retiredDestination=await retired.evaluate("location.pathname");
+  if(retiredDestination!=='/trump/')throw Error('Retired Trumpagotchi 2 does not redirect to the original game');
+  console.log('✓ Retired Trumpagotchi 2 routes to the original game.');
+
+  // The new arcade must be fully interactive, not just a styled landing page.
+  const arcade=await navigate(site+'/goo-rush/');
+  const arcadeReady=await arcade.evaluate("!!document.querySelector('[data-mode=duel]') && !!document.querySelector('#start')");
+  if(!arcadeReady)throw Error('Goo Rush mode selector or Start button is missing');
+  await arcade.evaluate("document.querySelector('#start').click()");
+  const soloReady=await arcade.evaluate("document.querySelectorAll('.tile[data-player=\\\"0\\\"]').length===16 && !!document.querySelector('#target0')");
+  if(!soloReady)throw Error('Goo Rush solo game did not create sixteen interactive candies');
+  await arcade.evaluate("(()=>{const wanted=document.querySelector('#target0').textContent;const correct=[...document.querySelectorAll('.tile[data-player=\\\"0\\\"]')].find(b=>b.textContent===wanted);correct.click()})()");
+  const soloScore=await arcade.evaluate("Number(document.querySelector('#score0').textContent.replace(/,/g,''))");
+  if(soloScore<=0)throw Error('Goo Rush correct candy did not award points');
+  await arcade.evaluate("document.querySelector('[data-mode=duel]').click();document.querySelector('#start').click()");
+  const duelReady=await arcade.evaluate("document.querySelectorAll('.player').length===2 && document.querySelectorAll('.tile[data-player=\\\"1\\\"]').length===9");
+  if(!duelReady)throw Error('Goo Rush local multiplayer did not create two independent boards');
+  await arcade.evaluate("(()=>{const wanted=document.querySelector('#target1').textContent;const correct=[...document.querySelectorAll('.tile[data-player=\\\"1\\\"]')].find(b=>b.textContent===wanted);correct.click()})()");
+  const rivalScore=await arcade.evaluate("Number(document.querySelector('#score1').textContent.replace(/,/g,''))");
+  if(rivalScore<=0)throw Error('Goo Rush player 2 score did not update');
+  console.log('✓ Goo Rush solo and 2-player candy gameplay work in Chrome.');
 
   // The homepage nonsense button must generate a genuinely different result.
   const home=await navigate(site+'/');
