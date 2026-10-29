@@ -73,9 +73,12 @@ try{
   await evaluate("document.querySelector('#enter').click()");
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
   await check('After Dark opens on the introduction rather than the atlas',"document.querySelector('#home').classList.contains('visible') && !document.querySelector('#atlas').classList.contains('visible')");
-  await check('After Dark introduces all experiences',"!!document.querySelector('.enter-after-dark') && document.querySelectorAll('.afterdark-landing-grid .card').length>=5");
+  await check('After Dark features Quiz and Ask Atlas first',"document.querySelectorAll('.afterdark-featured-grid .card').length===2 && document.querySelector('.afterdark-featured-grid .card:first-child h3')?.textContent==='Curiosity Quiz' && document.querySelector('.afterdark-featured-grid .card:nth-child(2) h3')?.textContent==='Ask Atlas'");
+  await check('After Dark describes all remaining sections in page body',"document.querySelectorAll('.afterdark-landing-grid .card').length===5 && document.querySelectorAll('.top [data-tab]').length===1");
   await evaluate("document.querySelector('.enter-after-dark').click()");
-  await check('Enter After Dark opens the atlas',"document.querySelector('#atlas').classList.contains('visible')");
+  await check('Featured Quiz call to action opens the Quiz',"document.querySelector('#quiz').classList.contains('visible')");
+  await evaluate("document.querySelector('#home button[data-tab=chat]').click()");
+  await check('Featured Ask Atlas opens chat',"document.querySelector('#chat').classList.contains('visible')");
   await evaluate("document.querySelector('[data-tab=atlas]').click()");
   console.log('Atlas diagnostics:',await evaluate("JSON.stringify({count:document.querySelectorAll('#topicGrid .topic').length,all:document.querySelector('#allCount')?.textContent,script:typeof window.renderAtlas,errors:window.onerror?.toString().slice(0,100)||'none'})"),JSON.stringify(testErrors));
   await check('Atlas has 100+ working interest cards',"document.querySelectorAll('#topicGrid .topic').length>=100");
@@ -116,6 +119,7 @@ try{
   await delay(130);
   const pollSpoken=await pet.evaluate("window.__pollAudioAttempts>0 && document.body.textContent.includes('POLL CHECK:')");
   if(!pollSpoken)throw Error('POLL did not trigger audio and update on-screen speech');
+  await checkPetPresidentialStatus(pet.evaluate);
   console.log('✓ Trumpagotchi poll taps trigger voice playback and LCD reaction.');
   // The user removed the one-tap Golf shortcut; the chooser must offer all three games.
   const oldGolf=await pet.evaluate("!!document.querySelector('[aria-label=\"Open Bedminster Golf in one tap\"]')");
@@ -235,4 +239,12 @@ async function checkLab(evaluate){
   const q=await evaluate("document.querySelector('#startquiz')?.click();!!document.querySelector('#qbox')");
   if(!q)throw Error('Clue Compass quiz failed to start');
   console.log('✓ Clue Compass entry and quiz started.');
+}
+
+async function checkPetPresidentialStatus(evaluate) {
+  const hasStatus=await evaluate("!!document.querySelector('[aria-label=\"Presidential Status and what Donald needs\"]') && !!document.querySelector('[aria-label=\"What Donald needs\"]') && !!document.querySelector('progress[aria-label=\"FOOD\"]')");
+  if (!hasStatus) throw Error('Classic Trumpagotchi Presidential Status or care needs missing');
+  const isLive=await evaluate("Number(document.querySelector('progress[aria-label=\"FOOD\"]')?.value)>=0 && document.querySelector('[aria-label=\"What Donald needs\"]')?.textContent.includes('Updates automatically')");
+  if (!isLive) throw Error('Classic Trumpagotchi Presidential Status does not show live values');
+  console.log('✓ Classic Trumpagotchi displays live Presidential Status and care needs.');
 }
