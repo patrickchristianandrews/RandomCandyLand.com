@@ -43,7 +43,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </div>
 
       <header className="sugar-nav">
-        <a href="/" className="sugar-mark"><img src="/icon.svg" width={48} height={48} alt="" /><strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
+        <a href="/" className="sugar-mark"><img src="/random-candy-land-art.webp" width={48} height={48} alt="" /><strong>RANDOM<span>CANDYLAND</span></strong><small>.com</small></a>
         <div className="sugar-navlinks">
           <a href="#attractions">✨ Explore attractions</a>
           <a href="/music-visualizer/">🎵 Music & color</a>
@@ -65,7 +65,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <span>🌙 DISCOVER</span>
         </div>
         <div className="sugar-hero-brand" aria-hidden="true">
-          <img src="/icon.svg" alt="" width={460} height={460} decoding="async" />
+          <img src="/random-candy-land-art.webp" alt="" width={460} height={460} decoding="async" fetchPriority="high" />
           <span>🍬 WELCOME TO THE SWEET SIDE! 🍬</span>
         </div>
       </section>
@@ -140,7 +140,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </section>
 
       <section className="sugar-endcap">
-        <img src="/icon.svg" alt="" width={78} height={78} loading="lazy" />
+        <img src="/random-candy-land-art.webp" alt="" width={78} height={78} loading="lazy" />
         <div>
           <h2>The internet should feel <em>this fun.</em></h2>
           <p>Something colorful, unusual, and completely unexpected is just a click away.</p>
