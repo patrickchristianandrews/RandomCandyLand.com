@@ -6,3 +6,10 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Retired generated site snapshots: never commit stale duplicate pages again.
+/public/index.html
+/public/standalone.html
+/public/404.html
+/public/trumpagotchi-pet/
+/src/pages/TrumpagotchiSubpage.tsx
