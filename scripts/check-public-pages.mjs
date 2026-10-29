@@ -9,6 +9,7 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css']],
 ];
 
 let failures = 0;
@@ -60,7 +61,7 @@ if (homeBundle.includes('PURE CANDY CHAOS!') || homeBundle.includes('sugar-unive
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
 // Keep the requested music tools and standalone games available on the homepage.
-if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Candy Simon Says!') || !homeBundle.includes('Candy Match!')) {
+if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Candy Simon Says!') || !homeBundle.includes('Candy Match!') || !homeBundle.includes('Trumpagotchi: The Tiny Pet')) {
   console.error('A current attraction is missing from the published homepage.');
   failures++;
 }
@@ -68,8 +69,9 @@ if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
   console.error('An unwanted outdated homepage attraction was restored.');
   failures++;
 }
-// The owner retired the whole second pet site. Old URLs must redirect to the original game.
-for (const oldRoute of ['trumpagotchi-pet','trumpagotchi-fm1','fm1-emu']) {
+// Only the discontinued prototype pet and hardware synth are retired.
+// The requested FM-1 Trumpagotchi pet-care game is now directly playable in browsers.
+for (const oldRoute of ['trumpagotchi-pet','fm1-emu']) {
   const pathname='dist/'+oldRoute+'/index.html';
   if (!fs.existsSync(pathname) || !fs.readFileSync(pathname,'utf8').includes('url=/trump/')) {
     console.error('Retired route must redirect to original Trumpagotchi:',pathname);
@@ -194,6 +196,33 @@ for (const path of ['dist/index.html','dist/standalone.html','dist/trump/index.h
     console.error('Outdated homepage branding is present in:',path);
     failures++;
   }
+}
+
+
+// The user requested an independently playable browser adaptation of the FM-1
+// Trumpagotchi pet, not another redirect or hardware/firmware information page.
+const tinyPetHtml=fs.readFileSync('dist/trumpagotchi-fm1/index.html','utf8');
+if (tinyPetHtml.includes('url=/trump/') || tinyPetHtml.includes('http-equiv="refresh"')) {
+  console.error('FM-1 Trumpagotchi is still a redirect instead of a playable pet.');
+  failures++;
+}
+for (const asset of ['dist/trumpagotchi-fm1/game.js','dist/trumpagotchi-fm1/game.css','dist/trumpagotchi-fm1/LICENSE']) {
+  if (!fs.existsSync(asset) || fs.statSync(asset).size < 1000) {
+    console.error('Standalone pet asset or corresponding GPL source missing:',asset);
+    failures++;
+  }
+}
+if (fs.existsSync('dist/trumpagotchi-fm1/game.js')) {
+  const code=fs.readFileSync('dist/trumpagotchi-fm1/game.js','utf8');
+  try {new vm.Script(code,{filename:'FM-1 Trumpagotchi standalone web game'});}
+  catch(err){console.error('FM-1 Trumpagotchi game has broken JavaScript:',err.message);failures++;}
+  for (const symbol of ['function care(which)','function tick(ms)','function updateClock(ms)','function save(manual)','localStorage.setItem','revive']) {
+    if (!code.includes(symbol)) {console.error('FM-1 Trumpagotchi game feature missing:',symbol);failures++;}
+  }
+}
+if (!homeBundle.includes('/trumpagotchi-fm1/')) {
+  console.error('Playable Trumpagotchi is missing from Candy Land homepage.');
+  failures++;
 }
 
 if (failures) process.exit(1);
