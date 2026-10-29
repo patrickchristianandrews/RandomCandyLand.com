@@ -6,6 +6,7 @@ const required = [
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/music-visualizer/index.html', ['id="canvas"']],
+  ['dist/trumpagotchi-pet/index.html', ['data-action="feed"', 'data-action="praise"', 'data-action="clean"', 'data-action="rest"', 'setInterval(tick,1000)']],
 ];
 
 let failures = 0;
@@ -65,8 +66,14 @@ if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
   console.error('An unwanted outdated homepage attraction was restored.');
   failures++;
 }
-if (!fs.existsSync('dist/trumpagotchi-fm1/index.html')) {
-  console.error('The new independent FM-1 Trumpagotchi page is missing from the release.');
+const retiredFm1 = 'dist/trumpagotchi-fm1/index.html';
+if (!fs.existsSync(retiredFm1) || !fs.readFileSync(retiredFm1, 'utf8').includes('url=/trumpagotchi-pet/')) {
+  console.error('The retired FM-1 release page must redirect to the playable browser pet.');
+  failures++;
+}
+const retiredSequencer = 'dist/fm1-emu/index.html';
+if (!fs.existsSync(retiredSequencer) || !fs.readFileSync(retiredSequencer, 'utf8').includes('url=/trumpagotchi-pet/')) {
+  console.error('The old synth path must no longer serve a broken sequencer.');
   failures++;
 }
 
