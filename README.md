@@ -1,41 +1,81 @@
-# Random Candy Land & Trumpagotchi Virtual Pet
+# Random Candy Land — Source of Truth
 
-### ⚜️ 5-Star Confectionery Resort & Casino &bull; randomcandyland.com
+Production website: https://randomcandyland.com  
+Repository: https://github.com/patrickchristianandrews/RandomCandyLand.com
 
-This package contains **100% of the files** for **randomcandyland.com** and the **Trumpagotchi Virtual Pet** subpage.
+This is the **current source repository**, not a bundle of historic deployments. Edit source files and let CI build the production site. Do not restore retired homepage snapshots, old ZIP exports, or duplicate compiled assets.
 
----
+## Start here
 
-## 📁 What's Included in This Package:
+| Need | Canonical file or folder |
+|---|---|
+| Vite/React homepage HTML entry | `index.html` — **one** source HTML entry, not a generated compiled page |
+| Current colorful homepage + attraction cards | `src/pages/RandomCandyLandHome.tsx` |
+| Current styling, dripping goo and animated planet | `src/index.css`, `src/components/CandyGoo.tsx` |
+| React app routing | `src/App.tsx` |
+| Original larger talking Pocket Pet | `src/pages/TrumpGotchaPage.tsx` and related `src/components`, `src/hooks`, `src/utils`, `src/types` |
+| Small FM-1-style Trumpagotchi | `public/trumpagotchi-fm1/index.html`, `game.js`, `fm1-pixel-screen.js`, `melody.js`, `game.css` |
+| Standalone attractions | `public/goo-rush/`, `public/candy-simon/`, `public/candy-match/`, `public/music-visualizer/` |
+| Curiosity Atlas and psychology lab | `public/after-dark/` including `psychology-lab/` |
+| Shared public sound files | `public/audio/trump/` — do not recreate root `audio/` |
+| Site image, logos, icon master files | `public/random-candy-land-art.webp`, `public/icon*`, `public/apple-touch-icon.png` |
+| Mobile install script, service worker and manifests | `public/install-app.js`, `public/sw.js`, `public/manifest.json`, `public/app-manifests/` |
+| Standalone **native Pixel Watch** Android project | `wear-os/trumpagotchi/` |
+| Optional Node server/API | `server.ts`, `src/server/` |
+| Build / production validation | `scripts/build-standalone.mjs`, `scripts/check-public-pages.mjs`, `scripts/smoke-after-dark.mjs` |
+| Static site deployment | `.github/workflows/deploy.yml` |
+| Wear OS APK build | `.github/workflows/build-trumpagotchi-watch.yml` |
 
-1. **`index.html`**: The Five-Star Random Candy Land Landing Page & High-Roller Game Room.
-2. **`trump/index.html`**: The Trumpagotchi Virtual Pet Subpage (`/trump`).
-3. **`404.html`**: SPA fallback ensuring `/trump` works on direct browser refresh.
-4. **`CNAME`**: Pre-configured with `randomcandyland.com` for instant custom domain binding.
-5. **`assets/`**: High-performance compiled CSS (Tailwind + Cinzel luxury fonts) and JavaScript.
-6. **`audio/trump/`**: All 38 authentic Donald Trump voice master recordings (`wrong.mp3`, `bingbong.mp3`, `tremendous_amounts_of_dollars.mp3`, `im_really_rich.mp3`, etc.).
-7. **`src/`**: Complete TypeScript & React source code for all components, mini-games, and sound synthesis engines.
-8. **`.github/workflows/deploy.yml`**: Automated GitHub Pages CI/CD workflow.
-9. **`server.ts`**: Full-stack Node/Express server with SPA routing.
+## Active site routes
 
----
+- `/` — current Random Candy Land homepage; includes the Nonsense Generator and attraction catalog.
+- `/trump/` — original larger talking Pocket Pet with extra mini-games, accessed from the homepage.
+- `/trumpagotchi-fm1/` — standalone tiny FM-1-inspired pet; Feed, Praise, Clean, Rest, Watch News (walk to chair and watch TV), Cheer, Play Him a Melody.
+- `/goo-rush/`, `/candy-simon/`, `/candy-match/`, `/music-visualizer/` — separate games/tools.
+- `/after-dark/`, `/after-dark/psychology-lab/` — education and private self-reflection tools.
+- `/fm1-emu/` — **intentional backwards-compatible redirect** to the tiny pet. Leave it in place unless redirect tests and external links are migrated.
 
-## 🚀 How to Deploy:
+## Development and deployment
 
-### Option A: Upload to GitHub (github.com)
-1. Go to your repository: `https://github.com/patrickchristianandrews/RandomCandyLand.com/upload/main`
-2. Unzip this package and drag all files (`index.html`, `404.html`, `CNAME`, `trump/`, `assets/`, `audio/`) into the GitHub upload box.
-3. Click **Commit changes**.
-4. GitHub Pages will immediately publish the 5-Star site to **`https://randomcandyland.com`**!
+Requires Node.js 22+, Bun (for the CI's locked dependencies), and Python + Pillow for icon rendering during deployment.
 
-### Option B: Deploy to Vercel, Netlify, or Cloudflare Pages
-1. Drag and drop the unzipped folder into [Vercel](https://vercel.com) or [Netlify](https://netlify.com).
-2. Connect your custom domain **`randomcandyland.com`**.
-
-### Option C: Run Locally / Node Server
 ```bash
-npm install
-npm run dev
-# or in production:
-npm start
+bun install --frozen-lockfile
+bun run lint
+bun run build
+node scripts/check-public-pages.mjs
 ```
+
+The build writes `dist/` from **root `index.html`** and the entire `public/` tree. It then inlines the React assets into the produced homepage, `dist/trump/index.html`, and `dist/404.html`. Do **not** commit these built files or a second root HTML snapshot. The development server uses `server.ts` and Vite middleware. `vercel.json` is retained as an alternative deployment configuration.
+
+### Live production
+
+The canonical deployer is `.github/workflows/deploy.yml`. It rebuilds, validates, performs Chrome smoke tests and publishes `dist/` to GitHub Pages. The repository currently also triggers a legacy GitHub-provided **"pages build and deployment"** job due to branch-source Pages settings. The custom workflow waits for the legacy job so the latest built site publishes last; avoid enabling another competing deployer. To simplify later, configure **Settings → Pages → Build and deployment → GitHub Actions** and confirm the existing custom workflow deploys successfully, then remove the legacy wait from `deploy.yml`.
+
+The `public/CNAME` file is the domain source. Ignore generated root `CNAME` or root assets; they have been removed.
+
+### Android / iPhone installs
+
+The site and each standalone attraction offer their own **Add to Home Screen** web app install via `public/install-app.js` and scoped web manifests under `public/app-manifests/`. Install by visiting the intended attraction and tapping **Install**; on Android Chrome can show the native install prompt, while on iPhone Safari offers **Share → Add to Home Screen**. These are **PWAs, not signed iOS IPA files or store-distributed Android APKs**. The service worker provides network-first caching with limited offline fallback, not guaranteed offline availability for every feature. User records and personal voice packs are stored locally by their respective app code.
+
+### Pixel Watch
+
+`wear-os/trumpagotchi/` is a completely separate offline **native Wear OS** project. It has the cartoon pixel screen and a five-key pentatonic piano (C D E G A), with a full tune button. Changes to the phone website do not automatically update the watch app; keep both explicitly in sync if desired.
+
+To build locally, use JDK 17, Gradle 8.9 and Android SDK 35:
+
+```bash
+cd wear-os/trumpagotchi
+gradle :app:assembleDebug
+```
+
+To download a prebuilt, test-signed APK without a computer, open **GitHub Actions → Build Trumpagotchi Pixel Watch APK → latest successful run → Artifacts → Trumpagotchi-PixelWatch-APK**. The artifact ZIP contains `app-debug.apk`. Sideload it using Wear Installer 2 or Android Debug Bridge over Wi-Fi. GitHub Actions artifacts are time-limited; **no permanent binary is committed to the source repository**.
+
+## Guardrails for another developer or model
+
+- **Preserve all active pages and assets**. Do not reintroduce the old luxury-resort homepage or retired pop-culture crown-battle/second pet prototypes.
+- **One canonical source**: root `index.html`, `src/` for React, `public/` for static sites/assets, `wear-os/` for watch app; GitHub Actions publishes generated `dist/`.
+- **No duplicate exports**: removed stale root `assets/`, root `audio/`, compiled HTML snapshots, `.aistudio` scratch artifacts, and three large published ZIP archives.
+- The watch app is a **GPL-3.0-only licensed** adaptation of https://github.com/adamcharleswilsonmusic-code/Trumpagotchi v1.0.0. Keep the license and source attribution in `public/trumpagotchi-fm1/`.
+- Do not expose secrets, publish unrestricted paid model endpoints, or commit personal keys. `.env.example` provides a template.
+- Verify GitHub Actions after edits and check actual live behavior; do not interpret a successful commit as a successful deployment.

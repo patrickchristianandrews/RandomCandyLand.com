@@ -66,7 +66,7 @@ ${jsContent}
 
 // Publish one current homepage plus the two route fallbacks needed by GitHub Pages.
 // Do NOT recreate historic /standalone.html or copies inside public/ and the repo root.
-// The Vite input remains index.template.html (copied to root by the package build command).
+// The single Vite input is root index.html; generated dist files are not committed.
 fs.writeFileSync(path.join(distDir, 'index.html'), standaloneHtml, 'utf-8');
 fs.writeFileSync(path.join(distDir, '404.html'), standaloneHtml, 'utf-8');
 

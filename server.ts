@@ -274,37 +274,6 @@ app.post('/api/trump/voice', async (req, res) => {
   return res.status(500).json({ error: 'No audio available' });
 });
 
-// Dedicated Project ZIP Download endpoint
-app.get('/trumpagotchi-project.zip', (_req, res) => {
-  const zipPath = path.resolve(process.cwd(), 'public/trumpagotchi-project.zip');
-  if (fs.existsSync(zipPath)) {
-    res.setHeader('Content-Disposition', 'attachment; filename="trumpagotchi-project.zip"');
-    res.setHeader('Content-Type', 'application/zip');
-    return res.sendFile(zipPath);
-  }
-  return res.status(404).send('ZIP file not found');
-});
-
-app.get('/github-pages-ready.zip', (_req, res) => {
-  const zipPath = path.resolve(process.cwd(), 'public/github-pages-ready.zip');
-  if (fs.existsSync(zipPath)) {
-    res.setHeader('Content-Disposition', 'attachment; filename="github-pages-ready.zip"');
-    res.setHeader('Content-Type', 'application/zip');
-    return res.sendFile(zipPath);
-  }
-  return res.status(404).send('ZIP file not found');
-});
-
-app.get('/randomcandyland-complete.zip', (_req, res) => {
-  const zipPath = path.resolve(process.cwd(), 'public/randomcandyland-complete.zip');
-  if (fs.existsSync(zipPath)) {
-    res.setHeader('Content-Disposition', 'attachment; filename="randomcandyland-complete.zip"');
-    res.setHeader('Content-Type', 'application/zip');
-    return res.sendFile(zipPath);
-  }
-  return res.status(404).send('ZIP file not found');
-});
-
 app.get('/standalone.html', (_req, res) => res.redirect(301, '/'));
 
 app.get('/download-index-html', (_req, res) => {
@@ -317,9 +286,6 @@ app.get('/download-index-html', (_req, res) => {
   return res.status(404).send('File not found');
 });
 
-app.get('/api/download-zip', (_req, res) => {
-  res.redirect('/randomcandyland-complete.zip');
-});
 async function startServer() {
   if (process.env.NODE_ENV !== 'production') {
     const { createServer } = await import('vite');

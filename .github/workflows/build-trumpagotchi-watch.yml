@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   watch-apk:
@@ -50,23 +50,3 @@ jobs:
           name: Trumpagotchi-PixelWatch-APK
           path: wear-os/trumpagotchi/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-      - name: Publish direct-download APK in repository
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # GitHub REST content endpoint: use a JSON file, not a giant CLI arg.
-          # Publishing outside the watched source path avoids a second APK build.
-          path='watch-apks/Trumpagotchi-PixelWatch-debug.apk'
-          sha="$(gh api "repos/${GITHUB_REPOSITORY}/contents/${path}" -q '.sha' 2>/dev/null || true)"
-          payload="$RUNNER_TEMP/watch-apk-upload.json"
-          {
-            printf '{"message":"Publish Pixel Watch Trumpagotchi APK [skip ci]","branch":"main","content":"'
-            base64 -w 0 app/build/outputs/apk/debug/app-debug.apk
-            if [ -n "$sha" ]; then
-              printf '","sha":"%s"}' "$sha"
-            else
-              printf '"}'
-            fi
-          } > "$payload"
-          gh api -X PUT "repos/${GITHUB_REPOSITORY}/contents/${path}" --input "$payload" >/dev/null
-          echo "APK: https://github.com/${GITHUB_REPOSITORY}/raw/refs/heads/main/${path}"

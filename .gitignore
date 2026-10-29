@@ -13,3 +13,21 @@ coverage/
 /public/404.html
 /public/trumpagotchi-pet/
 /src/pages/TrumpagotchiSubpage.tsx
+
+# Generated or retired root-level copies: public/ is the canonical static asset root.
+/404.html
+/assets/
+/audio/
+/trump/
+/favicon.png
+/apple-touch-icon.png
+/icon-192.png
+/icon-512.png
+/icon.svg
+/manifest.json
+/CNAME
+/.nojekyll
+/.aistudio/
+/metadata.json
+/index.template.html
+/public/*.zip
