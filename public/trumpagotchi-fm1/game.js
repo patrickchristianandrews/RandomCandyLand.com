@@ -25,7 +25,7 @@
     neglect:0,snackStock:3,plumpness:0,pooCount:0,careCount:0,
     clockRemainder:0,foodMs:0,pooMs:0,autoSnackMs:0,saveMs:0,
     lastCare:{feed:-30000,praise:-15000,clean:-120000},
-    lastNews:-18000,lastCheer:-15000,activeMs:0,
+    lastNews:-18000,lastCheer:-15000,lastMelody:-60000,activeMs:0,
     message:'A TREMENDOUS DAY',messageUntil:0
   });
   const allowedKeys = Object.keys(create());
@@ -190,6 +190,7 @@
     }
     // Original firmware's game over happens when all three needs have failed.
     if (state.food <= 0 && state.mood <= 0 && state.energy <= 0) {
+      window.TrumpagotchiMelody?.stop();
       state.gameOver = true;
       state.sleeping = false;
       state.message = 'GAME OVER';
@@ -328,6 +329,9 @@
     get('playpause').setAttribute('aria-pressed',String(state.paused));
     get('sound').textContent = state.muted ? '🔇 SOUND OFF' : '🔊 SOUND ON';
     get('sound').setAttribute('aria-pressed',String(!state.muted));
+    const playingMelody = !!window.TrumpagotchiMelody?.isPlaying();
+    get('melody').querySelector('b').textContent = playingMelody ? '🎵 PLAYING MELODY' : 'PLAY HIM A MELODY';
+    get('melody').setAttribute('aria-busy', String(playingMelody));
     get('hint').textContent = state.gameOver
       ? 'Your pet needs a fresh start. Tap START A NEW PET.'
       : state.paused
@@ -336,12 +340,13 @@
       ? 'Sleeping restores energy. At night he speeds through to dawn.'
       : 'Keep Food, Mood and Energy up. Progress saves automatically in this browser.';
     get('feedback').textContent = state.activeMs < state.messageUntil ? state.message : feedback();
-    for (const id of ['feed','praise','clean','rest','news','cheer']) get(id).disabled = state.gameOver;
+    for (const id of ['feed','praise','clean','rest','news','cheer','melody']) get(id).disabled = state.gameOver;
   }
   function render() {refreshData(); window.FM1PixelScreen?.render(state);}
 
   function reset() {
     if (!window.confirm('Start a brand-new pet? Your current progress will be replaced.')) return;
+    window.TrumpagotchiMelody?.stop();
     audio.pause();
     state = create();
     save(false);
@@ -349,11 +354,45 @@
     animate('cheer');
   }
   function startNew() {
+    window.TrumpagotchiMelody?.stop();
     audio.pause();
     state = create();
     save(false);
     say('A FRESH START — NEW PET');
     animate('cheer');
+  }
+
+  // The FM-1's lower white keys played a pentatonic instrument. In the browser,
+  // one tap plays an original short phrase; happy pets accompany it on bongos.
+  function playMelody() {
+    if (state.gameOver) return;
+    if (state.paused) { say('PRESS PLAY TO MAKE MUSIC'); return; }
+    if (state.sleeping) { say('LET ME FINISH MY NAP', 'refuse'); return; }
+    if (state.muted) { say('TURN SOUND ON TO PLAY A MELODY'); return; }
+    const healthy = !isNight() && state.food > 25 && state.energy > 20
+      && state.cleanliness > 25 && state.neglect < 12 && state.mood > 10;
+    const dance = healthy && mood() === 'happy';
+    audio.pause();
+    if (!window.TrumpagotchiMelody?.play(dance)) {
+      say('MUSIC IS NOT AVAILABLE IN THIS BROWSER');
+      return;
+    }
+    if (healthy && state.activeMs - state.lastMelody >= 60000) {
+      state.lastMelody = state.activeMs;
+      state.mood = clamp(state.mood + 2);
+      state.energy = clamp(state.energy - 1);
+      say('THE CROWD LOVES IT', undefined, 2700);
+    } else if (!healthy) {
+      say(state.food <= 25 ? 'SNACKS BEFORE MUSIC' :
+        state.energy <= 20 || isNight() ? 'MUSIC AFTER MY NAP' :
+        state.cleanliness <= 25 ? 'A LITTLE CLEANUP FIRST' :
+        'NOT IN THE MOOD FOR BONGOS', undefined, 2700);
+    } else {
+      say('ENCORE! A TREMENDOUS MELODY', undefined, 2700);
+    }
+    if (dance) animate('bongo');
+    save(false);
+    render();
   }
   function headlines() {
     if (state.paused || state.sleeping || state.gameOver) return;
@@ -381,18 +420,20 @@
   }
   get('news').addEventListener('click', headlines);
   get('cheer').addEventListener('click', cheer);
+  get('melody').addEventListener('click', playMelody);
   get('save').addEventListener('click', () => save(true));
   get('restart').addEventListener('click', reset);
   get('revive').addEventListener('click', startNew);
   get('sound').addEventListener('click', () => {
     state.muted = !state.muted;
-    if (state.muted) audio.pause();
+    if (state.muted) { audio.pause(); window.TrumpagotchiMelody?.stop(); }
     save(false);
     render();
   });
   get('playpause').addEventListener('click', () => {
     if (state.gameOver) return;
     state.paused = !state.paused;
+    if (state.paused) window.TrumpagotchiMelody?.stop();
     lastFrame = performance.now();
     say(state.paused ? 'PET PAUSED' : 'BACK TO BUSINESS');
     save(false);
@@ -400,9 +441,9 @@
   document.addEventListener('visibilitychange', () => {
     // No offline/background decay, just as with the actual firmware when powered off.
     lastFrame = performance.now();
-    if (document.hidden) {save(false);audio.pause()}
+    if (document.hidden) {save(false);audio.pause();window.TrumpagotchiMelody?.stop()}
   });
-  window.addEventListener('pagehide', () => save(false));
+  window.addEventListener('pagehide', () => {window.TrumpagotchiMelody?.stop();save(false)});
   load();
   render();
   document.body.dataset.trumpagotchiReady = 'true';
