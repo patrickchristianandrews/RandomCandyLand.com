@@ -23,7 +23,7 @@ type Portal = {
 
 const PORTALS: Portal[] = [
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
-  {emoji:'🐣',title:'Trumpagotchi: Little Pet',blurb:"Care for a very demanding little pet with food, praise, cleaning, naps, music, and a changing mood.",kind:'games',label:'NEW MINI PET',palette:'pink',href:'/trumpagotchi-pet/'},
+  {emoji:'🐣',title:'Trumpagotchi 2',blurb:"A new pocket-pet adventure: feed him, praise him, clean up, take naps, and play a tune together.",kind:'games',label:'THE LITTLE PET · PLAY NOW',palette:'pink',href:'/trumpagotchi-pet/'},
   {emoji:'🌈',title:'Candy Pulse',blurb:"Turn your own music into mesmerizing colorful waves, bouncing lights, and reactive shapes.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {emoji:'🌙',title:'After Dark',blurb:"A grown-up curiosity atlas for discovering and understanding more about yourself.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
 ];
@@ -78,6 +78,9 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <CandyGoo className="candyland-drips" color="bubblegum" />
       </section>
 
+      {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
+      <RandomNonsenseGenerator />
+
       <section id="adventures" className="candyland-adventures">
         <div className="candyland-section-heading">
           <span><Sparkles size={19}/> PICK YOUR PORTAL</span>
@@ -109,8 +112,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           })}
         </div>
       </section>
-
-      <RandomNonsenseGenerator />
 
       <section className="candyland-finale">
         <img src="/random-candy-land-art.webp" width={160} height={160} alt="" loading="lazy" />
