@@ -341,6 +341,7 @@
       : 'Keep Food, Mood and Energy up. Progress saves automatically in this browser.';
     get('feedback').textContent = state.activeMs < state.messageUntil ? state.message : feedback();
     for (const id of ['feed','praise','clean','rest','news','cheer','melody']) get(id).disabled = state.gameOver;
+    for (const key of document.querySelectorAll('.melody-key[data-note]')) key.disabled = state.gameOver;
   }
   function render() {refreshData(); window.FM1PixelScreen?.render(state);}
 
@@ -362,31 +363,58 @@
     animate('cheer');
   }
 
-  // The FM-1's lower white keys played a pentatonic instrument. In the browser,
-  // one tap plays an original short phrase; happy pets accompany it on bongos.
-  function playMelody() {
+  // The five-key piano and complete tune are both playable with touch or mouse.
+  // Music is independent of the pet's clock; only the mood reward is gated.
+  const noteNames = ['C', 'D', 'E', 'G', 'A'];
+  function melodyMessage(message) {
+    get('melodyStatus').textContent = message;
+  }
+  async function playKey(event) {
     if (state.gameOver) return;
-    if (state.paused) { say('PRESS PLAY TO MAKE MUSIC'); return; }
-    if (state.sleeping) { say('LET ME FINISH MY NAP', 'refuse'); return; }
-    if (state.muted) { say('TURN SOUND ON TO PLAY A MELODY'); return; }
-    const healthy = !isNight() && state.food > 25 && state.energy > 20
-      && state.cleanliness > 25 && state.neglect < 12 && state.mood > 10;
+    if (state.muted) {
+      melodyMessage('🔇 Turn SOUND ON below to hear the piano keys.');
+      return;
+    }
+    const button = event.currentTarget;
+    const index = Number(button.dataset.note);
+    if (!Number.isInteger(index) || index < 0 || index >= noteNames.length) return;
+    audio.pause();
+    const played = await window.TrumpagotchiMelody?.note(index);
+    if (!played || state.muted || state.gameOver) {
+      melodyMessage('Piano audio is unavailable. Check your browser and device volume.');
+      return;
+    }
+    melodyMessage('🎵 ' + noteNames[index] + ' — nice! Tap more keys to make your own tune.');
+    button.classList.add('is-playing');
+    window.setTimeout(() => button.classList.remove('is-playing'), 160);
+  }
+  async function playMelody() {
+    if (state.gameOver) return;
+    if (state.muted) {
+      melodyMessage('🔇 Turn SOUND ON below to hear the melody.');
+      say('TURN SOUND ON TO PLAY A MELODY');
+      return;
+    }
+    // Pausing the pet or napping doesn't prevent someone from playing piano.
+    const healthy = !state.paused && !state.sleeping && !isNight()
+      && state.food > 25 && state.energy > 20 && state.cleanliness > 25
+      && state.neglect < 12 && state.mood > 10;
     const dance = healthy && mood() === 'happy';
     audio.pause();
-    if (!window.TrumpagotchiMelody?.play(dance)) {
+    const played = await window.TrumpagotchiMelody?.play(dance);
+    if (!played || state.muted || state.gameOver) {
+      melodyMessage('Melody audio is unavailable. Check your browser and device volume.');
       say('MUSIC IS NOT AVAILABLE IN THIS BROWSER');
       return;
     }
+    melodyMessage(dance
+      ? '🎶 Full tune playing! Trump is accompanying you on bongos.'
+      : '🎶 Full tune playing! Tap a piano key to play your own notes.');
     if (healthy && state.activeMs - state.lastMelody >= 60000) {
       state.lastMelody = state.activeMs;
       state.mood = clamp(state.mood + 2);
       state.energy = clamp(state.energy - 1);
       say('THE CROWD LOVES IT', undefined, 2700);
-    } else if (!healthy) {
-      say(state.food <= 25 ? 'SNACKS BEFORE MUSIC' :
-        state.energy <= 20 || isNight() ? 'MUSIC AFTER MY NAP' :
-        state.cleanliness <= 25 ? 'A LITTLE CLEANUP FIRST' :
-        'NOT IN THE MOOD FOR BONGOS', undefined, 2700);
     } else {
       say('ENCORE! A TREMENDOUS MELODY', undefined, 2700);
     }
@@ -422,12 +450,21 @@
   get('news').addEventListener('click', headlines);
   get('cheer').addEventListener('click', cheer);
   get('melody').addEventListener('click', playMelody);
+  for (const key of document.querySelectorAll('.melody-key[data-note]')) {
+    key.addEventListener('click', playKey);
+  }
   get('save').addEventListener('click', () => save(true));
   get('restart').addEventListener('click', reset);
   get('revive').addEventListener('click', startNew);
   get('sound').addEventListener('click', () => {
     state.muted = !state.muted;
-    if (state.muted) { audio.pause(); window.TrumpagotchiMelody?.stop(); }
+    if (state.muted) {
+      audio.pause();
+      window.TrumpagotchiMelody?.stop();
+      melodyMessage('🔇 Sound is off. Tap SOUND ON to play the keyboard.');
+    } else {
+      melodyMessage('🎹 Sound is on. Tap C, D, E, G or A — or play the full tune.');
+    }
     save(false);
     render();
   });
