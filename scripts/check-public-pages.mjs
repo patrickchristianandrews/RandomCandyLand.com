@@ -49,8 +49,9 @@ for (const forbidden of ['pop stars battle for the crown','face pop-culture gues
 }
 // The full Candy Land install option must disappear inside the installed app,
 // while individual attraction install options remain available.
+const homeInstallSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 for (const token of ['isRunningInstalledCandyLand', 'installChoices', "INSTALL_CHOICES.filter(item => item.url !== '/')"]) {
-  if (!homeBundle.includes(token)) {
+  if (!homeInstallSource.includes(token)) {
     console.error('Missing conditional installed-app install menu:', token);
     failures++;
   }
