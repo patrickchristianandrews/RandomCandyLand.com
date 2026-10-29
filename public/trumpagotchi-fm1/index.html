@@ -2,13 +2,116 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<meta http-equiv="refresh" content="0; url=/trump/">
-<link rel="canonical" href="https://randomcandyland.com/trump/">
-<title>Original Trumpagotchi | Random Candy Land</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c83c9a">
+<meta name="description" content="Play Trumpagotchi: a standalone browser adaptation of the 2026 FM-1 virtual pet game. Feed, praise, clean, rest, and keep your little pet alive.">
+<meta property="og:title" content="Trumpagotchi · The Tiny Pet | Random Candy Land">
+<meta property="og:image" content="https://randomcandyland.com/icon-512.png">
+<title>Trumpagotchi · The Tiny Pet | Random Candy Land</title>
+<link rel="icon" type="image/png" href="/icon-192.png">
+<link rel="stylesheet" href="/trumpagotchi-fm1/game.css">
+<script src="/trumpagotchi-fm1/game.js" defer></script>
 </head>
-<body style="margin:0;background:#210b39;color:white;font:18px system-ui;display:grid;place-items:center;min-height:100vh;text-align:center;padding:20px">
-<p>The separate pocket-pet page has been retired. <a style="color:#ffdf75" href="/trump/">Open the original Trumpagotchi game</a>.</p>
-<script>window.location.replace('/trump/')</script>
-</body></html>
+<body>
+<div class="ambience" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="shell">
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Back to Random Candy Land"><img src="/icon-192.png" alt="" width="46" height="46"><span>RANDOM<br><strong>CANDY LAND</strong></span></a>
+  <a class="backlink" href="/">🍬 BACK TO CANDY LAND</a>
+</header>
+<main>
+<section class="intro">
+<div class="label">🐣 THE LITTLE PET · PLAY RIGHT HERE</div>
+<h1>TRUMP<span>AGOTCHI</span></h1>
+<p>The tiny pet with <em>very big needs.</em> Feed him, praise him, tidy his mess, and tell him to get some sleep. Based on the pet-care game from the original FM-1 Trumpagotchi release—without any synthesizer, installer, or extra hardware.</p>
+</section>
+<div class="game-layout">
+<section class="gamebody" aria-label="Trumpagotchi pet game">
+<div class="displayhead"><span>★ POCKET POTUS ★</span><span id="dayBadge">DAY 1</span></div>
+<div id="lcd" class="lcd" data-mood="happy">
+ <div class="lcd-top"><span id="clock">09:00 AM</span><span id="phase">MORNING</span><span id="mood">HAPPY</span></div>
+ <div class="scene" id="scene">
+   <div class="window"><span id="sun">☀</span><span class="window-bars"></span></div>
+   <div class="picture">★ BEST EVER ★</div>
+   <div class="floor"></div>
+   <div class="table"><span id="burgers">🍔🍔🍔</span></div>
+   <div class="armchair">🛋️</div>
+   <div id="pet" class="pet" aria-label="Cartoon Trumpagotchi pet" role="img">
+     <svg viewBox="0 0 210 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <ellipse cx="105" cy="241" rx="80" ry="13" fill="#303c38" opacity=".25"/>
+       <path d="M49 173 Q20 194 26 232 H183 Q185 191 156 172 L125 161 87 161Z" fill="#263c86" stroke="#12204a" stroke-width="5"/>
+       <path d="M87 162 L105 211 125 162" fill="#fbfbfc"/><path d="M105 197 L94 231 105 246 116 231Z" fill="#ec304b"/>
+       <path d="M51 181 Q25 173 21 202 M160 181 Q186 171 190 202" stroke="#f5b378" stroke-width="16" stroke-linecap="round"/>
+       <ellipse cx="104" cy="109" rx="67" ry="76" fill="#f5b578" stroke="#b96a3f" stroke-width="5"/>
+       <ellipse cx="38" cy="117" rx="13" ry="24" fill="#f0ad70" stroke="#b96a3f" stroke-width="4"/>
+       <ellipse cx="170" cy="117" rx="13" ry="24" fill="#f0ad70" stroke="#b96a3f" stroke-width="4"/>
+       <path d="M41 73 C31 44 69 21 92 29 C101 6 147 16 165 46 C138 35 119 40 106 49 C85 40 70 58 41 73Z" fill="#ffd05c" stroke="#bd7a25" stroke-width="5"/>
+       <path d="M44 69 Q83 35 161 50 Q138 71 100 60 Q63 79 44 69" fill="#ffeb87"/>
+       <path d="M65 107 Q80 102 91 108 M119 108 Q131 102 144 107" stroke="#593c35" stroke-width="4" stroke-linecap="round"/>
+       <ellipse cx="81" cy="112" rx="5" ry="6" fill="#302a31"/><ellipse cx="130" cy="112" rx="5" ry="6" fill="#302a31"/>
+       <path d="M102 112 L94 147 Q105 157 119 146" fill="#ef986a" stroke="#c67953" stroke-width="3"/>
+       <path class="pet-mouth" d="M79 166 Q105 176 133 164" fill="none" stroke="#a34e49" stroke-width="5" stroke-linecap="round"/>
+       <ellipse cx="66" cy="150" rx="16" ry="8" fill="#ed8c75" opacity=".65"/>
+       <ellipse cx="144" cy="150" rx="16" ry="8" fill="#ed8c75" opacity=".65"/>
+     </svg>
+     <span class="pet-emote" id="emote">❤️</span>
+   </div>
+   <div class="sleep-label" id="sleepLabel" hidden>💤 EXECUTIVE NAP</div>
+   <div id="mess" class="mess" aria-label="No mess"> </div>
+   <div id="gameover" class="gameover" hidden>
+     <b>GAME OVER</b>
+     <p>Food, mood and energy hit zero. A fresh start is one tap away.</p>
+     <button type="button" id="revive">🐣 START A NEW PET</button>
+   </div>
+ </div>
+ <div class="lcd-footer"><span id="feedback" aria-live="polite">A TREMENDOUS DAY</span><span id="saveFlash">●</span></div>
+</div>
+<div class="quick-hint" id="hint">Keep all three needs above zero. Pet progress saves automatically on this device.</div>
+<div class="care-buttons" aria-label="Care for your pet">
+ <button type="button" id="feed" class="care feed"><span>🍔</span><b>FEED</b><small>+25 FOOD</small></button>
+ <button type="button" id="praise" class="care praise"><span>👏</span><b>PRAISE</b><small>+15 MOOD</small></button>
+ <button type="button" id="clean" class="care clean"><span>🧹</span><b>CLEAN</b><small>CLEAR MESS</small></button>
+ <button type="button" id="rest" class="care rest"><span>🛌</span><b>REST</b><small>NAP / WAKE</small></button>
+</div>
+<div class="game-controls">
+ <button type="button" id="playpause" aria-pressed="false">⏸️ PAUSE</button>
+ <button type="button" id="save">💾 SAVE</button>
+ <button type="button" id="sound" aria-pressed="true">🔊 SOUND ON</button>
+ <button type="button" id="restart">↻ START OVER</button>
+</div>
+</section>
+<aside class="dashboard">
+ <div class="sidebar-head"><span>📊</span><div><h2>PRESIDENTIAL STATUS</h2><p>Keep the little guy happy.</p></div></div>
+ <div class="meterlist">
+  <div class="meter"><div><label for="foodMeter">🍔 FOOD</label><strong id="foodValue">75%</strong></div><progress id="foodMeter" max="100" value="75"></progress></div>
+  <div class="meter"><div><label for="moodMeter">💛 MOOD</label><strong id="moodValue">70%</strong></div><progress id="moodMeter" max="100" value="70"></progress></div>
+  <div class="meter"><div><label for="energyMeter">⚡ ENERGY</label><strong id="energyValue">75%</strong></div><progress id="energyMeter" max="100" value="75"></progress></div>
+  <div class="meter"><div><label for="cleanlinessMeter">✨ CLEANLINESS</label><strong id="cleanlinessValue">80%</strong></div><progress id="cleanlinessMeter" max="100" value="80"></progress></div>
+ </div>
+ <div class="facts">
+  <div><span>🍔 BURGERS LEFT</span><b id="snackCount">3</b></div>
+  <div><span>🧻 MESSES</span><b id="messCount">0</b></div>
+  <div><span>☀️ GAME DAY</span><b id="dayCount">1</b></div>
+  <div><span>🎯 CARE ACTIONS</span><b id="careCount">0</b></div>
+ </div>
+ <div class="little-events">
+   <h3>🎁 SOMETHING EXTRA</h3>
+   <p>Tap his little TV to annoy him with the news, or cheer for him to give a small mood boost. Neither is an FM-1 sequencer.</p>
+   <div class="extra-buttons"><button type="button" id="news">📺 WATCH NEWS</button><button type="button" id="cheer">🎉 CHEER HIM ON</button></div>
+ </div>
+ <details class="instructions">
+  <summary>❔ HOW TO PLAY</summary>
+  <p>This adaptation follows the <strong>Feed · Praise · Clean · Rest</strong> care system from the FM-1 release. A day runs in about five minutes. Give him food, tidy cartoon messes, and use Rest when he gets tired. Sleeping at night fast-forwards to morning. Once Food, Mood and Energy all reach zero, the game ends.</p>
+  <p>Feed restocks burgers. Praise works best after his basic needs are met. Cleaning picks up wrappers and his little accidents. Use Pause or Save when you need to stop. Progress stays in this browser; there is no account or download.</p>
+ </details>
+</aside>
+</div>
+<section class="credits"><h2>From an actual little pet to a playable web game</h2>
+<p>This is a browser adaptation of the <a href="https://github.com/adamcharleswilsonmusic-code/Trumpagotchi/releases/tag/v1.0.0" rel="noopener noreferrer" target="_blank">Trumpagotchi v1.0.0 pet-care game by adamcharleswilsonmusic-code</a>. The original release runs as M-VAVE FM-1 firmware; this independently adapted HTML/JavaScript version reproduces its central pet-care mechanics for phones and browsers. It is <strong>not</strong> a compiled run of the original firmware, and does not include the FM-1 sequencer. No hardware required.</p>
+<p>Game adaptation and corresponding source: <a href="/trumpagotchi-fm1/game.js">JavaScript</a>, <a href="/trumpagotchi-fm1/game.css">CSS</a>, <a href="/trumpagotchi-fm1/LICENSE">GPL-3.0 license</a>. Original project and artwork © their respective authors under GPL-3.0-only. Sound effects are separately sourced from Random Candy Land's existing single-recording library, not copied from the FM-1 release. This is unofficial parody; no affiliation or endorsement.</p>
+</section>
+</main>
+<footer class="foot"><span>🍭 RANDOM CANDY LAND</span><a href="/trump/">Play the original Candy Land Trumpagotchi</a><a href="/">Back to Candy Land</a></footer>
+</div>
+</body>
+</html>
