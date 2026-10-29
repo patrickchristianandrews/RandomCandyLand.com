@@ -145,8 +145,22 @@ function renderDuel(){
 }
 function newMatch(){round=0;scores=[0,0];readies=[false,false];duelResult='';renderDuel();broadcast();}
 function connectFailure(err){onlineStatus('⚠️ Connection unavailable: '+(err?.type==='unavailable-id'?'That room code is already taken. Please create a new one.':'Check your internet connection and try again.'));try{peer?.destroy();}catch{}peer=null;conn=null;$('leave-room').hidden=true;}
-function createRoom(){
- if(typeof window.Peer!=='function'){onlineStatus('⚠️ Online play is unavailable: the connection library did not load. You can still play solo, or disable blockers and try again.');return;}
+let peerLibraryLoading=null;
+function loadPeerLibrary(){
+ if(typeof window.Peer==='function')return Promise.resolve();
+ if(peerLibraryLoading)return peerLibraryLoading;
+ peerLibraryLoading=new Promise((resolve,reject)=>{
+  const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js';
+  s.async=true;s.crossOrigin='anonymous';
+  s.onload=()=>typeof window.Peer==='function'?resolve():reject(new Error('PeerJS did not initialize'));
+  s.onerror=()=>reject(new Error('PeerJS download failed'));
+  document.head.append(s);
+ }).catch(e=>{peerLibraryLoading=null;throw e});
+ return peerLibraryLoading;
+}
+async function createRoom(){
+ onlineStatus('🟡 Preparing your private candy room...');
+ try{await loadPeerLibrary();}catch{onlineStatus('⚠️ Online rooms could not load. Solo games still work. Check your connection or disable content blockers, then try again.');return;}
  closeRoom('Starting a new room...');
  isHost=true;roomId='rcl-casino-'+crypto.randomUUID().replace(/-/g,'').slice(0,20);players[0]=cleanName($('friend-name').value);
  try{
@@ -164,10 +178,11 @@ function createRoom(){
   peer.on('disconnected',()=>{if(!online)onlineStatus('⚠️ Matchmaking disconnected. The existing room may need to be recreated.');});
  }catch(e){connectFailure(e);}
 }
-function joinRoom(){
+async function joinRoom(){
  const id=roomCode($('room-input').value);
  if(!id.startsWith('rcl-casino-')||id.length<17){onlineStatus('⚠️ Paste a valid Candy Land Casino room link or code.');return;}
- if(typeof window.Peer!=='function'){onlineStatus('⚠️ Online play is unavailable: the connection library did not load. Solo games still work.');return;}
+ onlineStatus('🟡 Connecting to the shared candy room...');
+ try{await loadPeerLibrary();}catch{onlineStatus('⚠️ Online rooms could not load. Solo games still work. Check your network or content blockers.');return;}
  closeRoom('Joining your friend...');
  isHost=false;roomId=id;pendingJoin=id;players[1]=cleanName($('friend-name').value);
  try{
