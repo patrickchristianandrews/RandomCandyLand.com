@@ -63,24 +63,20 @@ ${jsContent}
 </html>
 `;
 
-// Save to dist/
+// Publish one current homepage plus the two route fallbacks needed by GitHub Pages.
+// Do NOT recreate historic /standalone.html or copies inside public/ and the repo root.
+// The Vite input remains index.template.html (copied to root by the package build command).
 fs.writeFileSync(path.join(distDir, 'index.html'), standaloneHtml, 'utf-8');
-fs.writeFileSync(path.join(distDir, 'standalone.html'), standaloneHtml, 'utf-8');
 fs.writeFileSync(path.join(distDir, '404.html'), standaloneHtml, 'utf-8');
 
 const trumpDir = path.join(distDir, 'trump');
-if (!fs.existsSync(trumpDir)) fs.mkdirSync(trumpDir, { recursive: true });
+fs.mkdirSync(trumpDir, { recursive: true });
 fs.writeFileSync(path.join(trumpDir, 'index.html'), standaloneHtml, 'utf-8');
 
-// Copy to root index.html, 404.html, and trump/index.html so GitHub Pages serves the production bundle directly!
-fs.writeFileSync(path.resolve(process.cwd(), 'index.html'), standaloneHtml, 'utf-8');
-fs.writeFileSync(path.resolve(process.cwd(), '404.html'), standaloneHtml, 'utf-8');
-const rootTrumpDir = path.resolve(process.cwd(), 'trump');
-if (!fs.existsSync(rootTrumpDir)) fs.mkdirSync(rootTrumpDir, { recursive: true });
-fs.writeFileSync(path.join(rootTrumpDir, 'index.html'), standaloneHtml, 'utf-8');
-
-// Also save to public/
-fs.writeFileSync(path.resolve(process.cwd(), 'public/standalone.html'), standaloneHtml, 'utf-8');
-fs.writeFileSync(path.resolve(process.cwd(), 'public/index.html'), standaloneHtml, 'utf-8');
-
-console.log('Successfully built and deployed standalone bundle to root index.html, 404.html, and trump/index.html!');
+// Fail early if an old checked-in static page somehow survived asset copy.
+// Only the current generated pages should be deployed.
+for (const stale of ['standalone.html']) {
+  const oldPath = path.join(distDir, stale);
+  if (fs.existsSync(oldPath)) fs.rmSync(oldPath);
+}
+console.log('Built current Candy Land homepage and valid /trump/ + 404 fallbacks (no stale source copies).');
