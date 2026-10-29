@@ -91,6 +91,8 @@ try{
   await evaluate("document.querySelector('[data-tab=quiz]').click();document.querySelector('#startQuiz').click()");
   await check('Quiz begins and displays choices',"document.querySelectorAll('#quizCard .quizOpts button').length===4");
   for(let i=0;i<32;i++){await evaluate("document.querySelector('#quizCard .quizOpts button')?.click()");}
+  await check('Deeper quiz prompts are offered after 32 questions',"document.querySelector('#quizCard .eyebrow')?.textContent.includes('DEEPER REFLECTION')");
+  await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('See results now'))?.click()");
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
   await evaluate("document.querySelector('[data-tab=psych]').click()");
