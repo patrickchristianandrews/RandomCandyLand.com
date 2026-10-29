@@ -39,7 +39,7 @@ const INSTALL_CHOICES = [
   {emoji:'🍭',name:'Candy Simon Says',url:'/candy-simon/'},
   {emoji:'🃏',name:'Candy Match',url:'/candy-match/'},
   {emoji:'🌈',name:'Candy Pulse',url:'/music-visualizer/'},
-  {emoji:'🌙',name:'After Dark (includes Clue Compass)',url:'/after-dark/'},
+  {emoji:'🌙',name:'After Dark',url:'/after-dark/'},
 ] as const;
 
 const PORTALS: Portal[] = [
