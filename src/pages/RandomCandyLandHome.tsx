@@ -94,7 +94,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </div>
       <header className="candyland-navbar">
         <a className="candyland-identity" href="#top" aria-label="Random Candy Land — current homepage, back to top">
-          <img src="/random-candy-land-art.webp" alt="" width={55} height={55} />
+          <span className="candyland-brand-icon" aria-hidden="true"><img src="/random-candy-land-art.webp" alt="" width={55} height={55} /></span>
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
         
