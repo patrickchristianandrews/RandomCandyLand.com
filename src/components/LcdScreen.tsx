@@ -39,6 +39,7 @@ interface LcdScreenProps {
   isSleeping: boolean;
   onTapDonald?: () => void;
   onPollCheck?: () => void;
+  onLaunchGolf?: () => void;
 }
 
 const THEME_COLORS: Record<LcdColorTheme, {
@@ -113,6 +114,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
   isSleeping,
   onTapDonald,
   onPollCheck,
+  onLaunchGolf,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameRef = useRef<number>(0);
@@ -314,7 +316,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
     { id: 'dance', label: 'DANCE', icon: '🕺' },
     { id: 'tv', label: 'TV NEWS', icon: '📺' },
     { id: 'lights', label: 'LIGHT', icon: isSleeping ? '🌙' : '💡' },
-    { id: 'games', label: 'PLAY', icon: '⛳' },
+    { id: 'games', label: 'GOLF', icon: '⛳' },
   ];
 
   const BOTTOM_ICONS: { id: MenuCategory; label: string; icon: string }[] = [
@@ -342,8 +344,8 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
             return (
               <div 
                 key={item.id}
-                className={`flex flex-col items-center transition-transform ${
-                  isSelected ? 'scale-125 font-bold animate-pulse' : 'opacity-40'
+                className={`relative flex flex-col items-center transition-transform ${
+                  isSelected ? 'scale-125 font-bold animate-pulse' : item.id === 'games' ? 'opacity-100' : 'opacity-40'
                 }`}
               >
                 <span className="text-base leading-none">{item.icon}</span>
@@ -357,6 +359,15 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
                   <div 
                     className="w-2.5 h-0.5 mt-0.5" 
                     style={{ backgroundColor: THEME_COLORS[theme].pixelOn }}
+                  />
+                )}
+                {item.id === 'games' && (
+                  <button
+                    type="button"
+                    onClick={onLaunchGolf}
+                    aria-label="Open Bedminster Golf in one tap"
+                    title="Tap once to play golf"
+                    className="absolute -inset-1 z-10 cursor-pointer rounded-md touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-900"
                   />
                 )}
               </div>
