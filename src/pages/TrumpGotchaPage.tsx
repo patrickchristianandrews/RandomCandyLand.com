@@ -286,7 +286,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
   return (
     <div className="candyland-next candyland-game-page min-h-screen w-full text-white flex flex-col justify-between select-none touch-manipulation">
       
-      {/* Match the site framing; the original handheld game stays unchanged. */}
+      {/* Match the shared site framing while retaining the handheld game's layout. */}
       <div className="candyland-starfield" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span></div>
       <header className="candyland-navbar candyland-game-navbar">
         <a className="candyland-identity" href="/" onClick={e=>{e.preventDefault();onReturnHome();}} aria-label="Random Candy Land home">
@@ -382,7 +382,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 </div>}
                 <p className="mt-2 text-[11px] text-sky-300">
                   Personal clips can be removed with their Remove button. Browser data clearing
-                  may erase them; they are not synced between devices. Original game audio is unchanged.
+                  may erase them; they are not synced between devices. Game audio uses your current sound settings.
                 </p>
               </details>
               <p className="mt-3 text-xs text-sky-200/80">Handheld buttons: A = move through icons · B = perform the selected action · C = pause/back. Tap Donald to hear a reaction.</p>
