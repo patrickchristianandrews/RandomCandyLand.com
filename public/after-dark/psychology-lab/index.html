@@ -40,7 +40,16 @@ footer{margin-top:70px;padding:25px 0;border-top:1px solid #523d5d;color:#bfaacb
 <meta name="apple-mobile-web-app-title" content="Clue Compass">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script src="/install-app.js" defer></script>
-</head><body>
+<style>
+#lab-print{display:none}
+@media print{
+ body.print-lab>*{display:none!important}
+ body.print-lab>#lab-print{display:block!important;padding:0!important;margin:0!important;width:100%!important;position:static!important;background:white!important;color:#111!important;font:12pt/1.5 Georgia,serif!important}
+ body.print-lab>#lab-print *{color:#111!important;background:transparent!important;box-shadow:none!important;break-inside:avoid}
+ body.print-lab>#lab-print .card{border:1px solid #aaa!important;padding:10px!important;margin:12px 0!important}
+ @page{size:auto;margin:14mm}
+}
+</style></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -221,7 +230,17 @@ function report(){
 $('startquiz').onclick=()=>{stage='quiz';qi=0;depth=false;answers=[];selected={};$('interestcards').replaceChildren();$('report').style.display='none';$('intereststage').style.display='none';qbox.style.display='block';showQuestion();};
 $('showreport').onclick=report;
 $('redo').onclick=()=>{$('startquiz').click();$('quiz').scrollIntoView({behavior:'smooth'});};
-$('print').onclick=()=>window.print();
+$('print').onclick=()=>{
+  let documentToPrint=document.getElementById('lab-print');
+  if(!documentToPrint){documentToPrint=document.createElement('section');documentToPrint.id='lab-print';document.body.append(documentToPrint);}
+  documentToPrint.replaceChildren();
+  const title=document.createElement('h1');title.textContent='My Private Clue Compass Reflection';
+  const note=document.createElement('p');note.textContent='A personal, self-reported reflection · Not a diagnosis or validated attraction prediction.';
+  documentToPrint.append(title,note,$('reportbody').cloneNode(true));
+  document.body.classList.add('print-lab');
+  requestAnimationFrame(()=>window.print());
+};
+window.addEventListener('afterprint',()=>{document.body.classList.remove('print-lab');document.getElementById('lab-print')?.remove();});
 const initialMode=new URLSearchParams(location.search).get('mode');
 // After Dark landing links skip the longer questionnaire by explicitly
 // requesting the direct private interests checklist. A report can be created
