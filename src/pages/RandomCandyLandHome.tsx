@@ -22,6 +22,7 @@ type Portal = {
 };
 
 const PORTALS: Portal[] = [
+  {emoji:'🐣',title:'Trumpagotchi: The Tiny Pet',blurb:"The standalone game adapted from the FM-1 Trumpagotchi release. Feed, praise, clean and rest your demanding little pet—play right here, no synth needed.",kind:'games',label:'NOW PLAYABLE · FROM THE FM-1 GAME',palette:'pink',href:'/trumpagotchi-fm1/'},
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
   {emoji:'🍬',title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
   {emoji:'🍭',title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
