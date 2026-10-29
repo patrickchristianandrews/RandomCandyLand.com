@@ -1,5 +1,5 @@
 /* Companion self-reflection quiz for After Dark.
-   The 32 non-explicit questions share option-by-option themes with the unchanged
+   The 32 non-explicit questions share option-by-option themes with the companion
    32-question sexual-preferences quiz. Answers stay on this device.
    Both result pages call ONE shared ranking function; no contradictory reports. */
 (() => {
@@ -43,7 +43,7 @@
   if(position<0){
    box.append(el('span','NON-EXPLICIT · 32 QUESTIONS','eyebrow'),
     el('h3','Discover the themes behind your preferences'),
-    el('p','This companion asks about everyday choices, attention, imagination, anticipation and trust. It does not ask about sexual acts, and cannot predict them. Your answers combine with the original quiz in one ranked interest shelf.'));
+    el('p','This companion asks about everyday choices, attention, imagination, anticipation and trust. It does not ask about sexual acts, and cannot predict them. Your answers combine with the Sexual Preferences Quiz in one ranked interest shelf.'));
    const start=el('button','Start the psychology quiz →','btn');
    start.onclick=()=>{position=0;save();render()};box.append(start);return;
   }
