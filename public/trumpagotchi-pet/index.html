@@ -50,7 +50,7 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
 @media(max-width:450px){.action{font-size:12px;min-height:72px}.action span{font-size:23px}.device{padding:11px;border-radius:30px}.screen{padding:10px;border-width:8px}.side{padding:17px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 
-/* Smoother pet art and piano keys immediately under the game screen. */
+/* Smoother pet art and piano keys immediately beneath Feed, Praise, Clean, and Rest. */
 .scene{width:100%;box-shadow:inset 0 0 14px #39523c6e,0 6px 16px #4e226e33}
 #originalCanvas{image-rendering:auto;transform:translateZ(0);backface-visibility:hidden}
 .pocket-piano{margin-top:15px;padding:13px 14px 19px;border:2px solid #ffeab1;border-radius:18px;background:linear-gradient(140deg,#fff3d7,#ffa8ca);color:#4f1d59;box-shadow:0 8px 19px #60246d66}
@@ -152,7 +152,7 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
   <ol>
     <li><strong>Look after your pet.</strong> Press 🍔 FEED, 👏 PRAISE, 🧹 CLEAN or 🛏️ REST to change his mood and watch the animations.</li>
     <li><strong>Check his needs.</strong> Keep Food, Mood, Energy and Cleanliness from running out. Watch the little status panel beside him.</li>
-    <li><strong>Play the piano.</strong> Tap the five keys directly below Trumpagotchi 2 to play a tune. He dances when he's feeling good.</li>
+    <li><strong>Play the piano.</strong> Tap the five piano keys directly beneath the Feed, Praise, Clean and Rest buttons to play a tune. He dances when he's feeling good.</li>
     <li><strong>Generate random cartoon beats.</strong> In the <a href="#remix-studio">Remix Studio</a>, tap Generate Cartoon Beat for a wacky 16-step rhythm. Tap the squares to customize it, press Play, then drop the original voice clips on top—or choose Surprise Trump Drops.</li>
     <li><strong>Save it.</strong> Your pet progress saves to this browser. The Remix Studio exports your generated cartoon beat and Trump phrases as a WAV file. Adding a song is optional.</li>
   </ol>
@@ -168,6 +168,12 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
     </div>
     <div id="caption" class="caption" role="status" aria-live="polite">A TREMENDOUS DAY</div>
   </div>
+  <div class="controls">
+    <button type="button" class="action" data-action="feed"><span>🍔</span>FEED</button>
+    <button type="button" class="action" data-action="praise"><span>👏</span>PRAISE</button>
+    <button type="button" class="action" data-action="clean"><span>🧹</span>CLEAN</button>
+    <button type="button" class="action" data-action="rest"><span>🛏️</span>REST</button>
+  </div>
   <div class="pocket-piano">
     <div class="pocket-piano-top"><strong>🎹 MAKE MUSIC WITH TRUMPAGOTCHI 2</strong><span>Tap a key to play · he dances when happy!</span></div>
     <div class="keys" role="group" aria-label="Five playful piano keys">
@@ -177,12 +183,6 @@ button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opa
       <button type="button" class="key" data-note="3" aria-label="Play note G">G</button>
       <button type="button" class="key" data-note="4" aria-label="Play note A">A</button>
     </div>
-  </div>
-  <div class="controls">
-    <button type="button" class="action" data-action="feed"><span>🍔</span>FEED</button>
-    <button type="button" class="action" data-action="praise"><span>👏</span>PRAISE</button>
-    <button type="button" class="action" data-action="clean"><span>🧹</span>CLEAN</button>
-    <button type="button" class="action" data-action="rest"><span>🛏️</span>REST</button>
   </div>
   <div class="summary">
     <span class="chip" id="day">☀️ DAYTIME</span><span class="chip" id="poo">🧹 0 MESSES</span><span class="chip" id="burgers">🍔 3 BURGERS</span><span class="chip" id="age">📅 DAY 1</span>
