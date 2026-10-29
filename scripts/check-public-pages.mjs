@@ -50,9 +50,13 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
   }
 }
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
-if(!afterDarkLanding.includes('ENTER AFTER DARK') || !afterDarkLanding.includes('<section id="home" class="tab visible"') ||
-   !afterDarkLanding.includes("else renderTabs('home');")){
-  console.error('After Dark is not opening at the explanatory welcome page.');failures++;
+if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
+   !afterDarkLanding.includes('<div class="afterdark-featured-grid"') ||
+   !afterDarkLanding.includes('Curiosity Quiz') ||
+   !afterDarkLanding.includes('Ask Atlas') ||
+   !afterDarkLanding.includes("else renderTabs('home');") ||
+   afterDarkLanding.includes('<nav class="top" aria-label="After Dark sections">')){
+  console.error('After Dark homepage must lead with Quiz and Ask Atlas cards, without a top tab menu.');failures++;
 }
 
 for (const [path, expected] of required) {
