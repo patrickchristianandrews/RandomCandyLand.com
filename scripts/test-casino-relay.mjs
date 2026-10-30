@@ -32,6 +32,7 @@ class WebSocketMock{
  send(text){
   if(this.readyState!==1)throw Error('Socket closed');
   const obj=JSON.parse(text),room=sockets.get(this.room)||{};
+  if(WebSocketMock.blockHeartbeats&&obj.t==='data'&&['heartbeat','heartbeat-ack'].includes(obj.d?.type))return;
   if(obj.t==='data')room[this.role==='host'?'guest':'host']?.deliver({t:'data',d:obj.d});
   if(obj.t==='drop-guest')room.guest?.close(1000,'Host dropped guest');
  }
@@ -77,20 +78,29 @@ const disabled=createPeerScope('');assert.equal(disabled.enabled,false,'Empty co
 // Exercise the unchanged casino game controller through this relay adapter.
 const casinoSource=readFileSync('public/candy-casino/casino.js','utf8');
 function casinoBrowser(name){
+ let fakeNow=Date.now(),nextTimer=0;
+ const timers=new Map(),listeners=new Map();
+ const DateMock=class extends Date{static now(){return fakeNow}};
+ const setTimer=(fn,delay=0)=>{const id=++nextTimer;timers.set(id,{fn,due:fakeNow+Number(delay)});return id};
+ const advance=ms=>{
+  fakeNow+=ms;
+  for(const [id,timer] of [...timers])if(timer.due<=fakeNow){timers.delete(id);timer.fn()}
+ };
  const nodes={};
  const get=id=>nodes[id]??={value:id==='friend-name'?name:'',textContent:'',hidden:false,disabled:false,dataset:{},
   classList:{toggle(){}},setAttribute(){},replaceChildren(){},append(){},addEventListener(){},focus(){},select(){},after(){}};
- const document={getElementById:get,querySelectorAll(){return []},addEventListener(){},
+ const document={getElementById:get,querySelectorAll(){return []},addEventListener(event,fn){listeners.set(event,fn)}, 
   createElement(){return get('generated-element')},body:{dataset:{}},head:{append(){}},hidden:false};
  const location={href:'https://randomcandyland.com/candy-casino/',hash:''};
  const history={replaceState(_a,_b,url){location.href=String(url)}};
  const window={CandyCasinoRelayURL:'https://candy-casino-relay.example.workers.dev',
   CandyPoker:{random:()=>1,valid:()=>false},addEventListener(){}};
- const ctx={window,document,location,history,URL,WebSocket:WebSocketMock,queueMicrotask,
+ const ctx={window,document,location,history,URL,Date:DateMock,WebSocket:WebSocketMock,queueMicrotask,
   crypto:{randomUUID:()=>cryptoRandomUUID()},localStorage:{getItem(){return null},setItem(){}},
-  setTimeout:()=>1,clearTimeout:()=>{},navigator:{userAgent:'test browser'},console};
+  setTimeout:setTimer,clearTimeout:id=>timers.delete(id),navigator:{userAgent:'test browser'},console};
  runInNewContext(code,ctx);runInNewContext(casinoSource,ctx);
- return {get,window,location,status:()=>get('connection-status').textContent,
+ return {get,window,location,status:()=>get('connection-status').textContent,advance,
+  setHidden:hidden=>{document.hidden=hidden;listeners.get('visibilitychange')?.()},
   diagnostics:()=>window.CandyCasinoDebug.connectionDetails()};
 }
 const {randomUUID:cryptoRandomUUID}=await import('node:crypto');
@@ -112,6 +122,20 @@ assert.match(guestGame.diagnostics(),/Confirmed app handshake: true/);
 assert.equal(hostGame.get('opponent-name').textContent,'Candy');
 assert.equal(guestGame.get('opponent-name').textContent,'Ginger');
 console.log('✓ Complete Casino host/guest UI connects and exchanges player names through the relay');
+// Heartbeats can be delayed on mobile; a late response must clear the warning.
+WebSocketMock.blockHeartbeats=true;
+hostGame.advance(32000);
+assert.match(hostGame.status(),/Waiting for your friend to respond/);
+WebSocketMock.blockHeartbeats=false;
+hostGame.advance(7500);await flush();
+assert.match(hostGame.status(),/Both players connected and responding/, 'A heartbeat response clears the unstable warning');
+// A backgrounded mobile browser can suspend JavaScript timers for minutes.
+hostGame.setHidden(true);
+hostGame.advance(120000);await flush();
+assert.match(hostGame.diagnostics(),/Online: true/, 'Suspending a tab must not close a healthy Cloudflare socket');
+hostGame.setHidden(false);await flush();
+assert.match(hostGame.status(),/Both players connected and responding/, 'Returning to a tab probes and recovers the room');
+console.log('✓ Idle warning recovers on heartbeat and mobile background pause preserves the room');
 hostGame.get('leave-room').onclick();guestGame.get('leave-room').onclick();await flush();
 
 console.log('✓ Relay adapter opens two sockets, forwards state, retains host, rejoins, and reports missing rooms');
