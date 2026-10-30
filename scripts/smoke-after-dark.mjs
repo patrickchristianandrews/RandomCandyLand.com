@@ -101,6 +101,21 @@ try{
   await check('New direct quiz begins with multi-select checkboxes',"document.querySelectorAll('#quizCard .quiz-multi-option input[type=checkbox]').length>=3");
   await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
   await check('Multiple quiz choices can be checked',"document.querySelectorAll('#quizCard .quiz-multi-option input:checked').length===2");
+  await check('Direct quiz controls have clear Resume Save and Reset actions, with transfers collapsed',
+    "(()=>{const p=document.querySelector('[data-quiz-tools=direct]');return !!p&&p.querySelector('.ad-primary-actions')?.textContent.includes('Reset quiz')&&p.querySelector('.ad-transfer-details')&&!p.querySelector('.ad-transfer-details').open&&document.querySelector('#quiz').classList.contains('visible')&&getComputedStyle(document.querySelector('#afterdark-resume-strip')).display==='none'})()");
+  await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Save & leave'))).click()");
+  await check('Save and leave retains both direct selections', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v2')).multiAnswers[0].length===2");
+  await evaluate("document.querySelector('#afterdark-resume-place').click()");
+  await check('Homepage resume restores saved direct question and answers', "document.querySelector('#quiz').classList.contains('visible')&&window.AfterDarkDirectQuizBridge.getProgress().position===0&&document.querySelectorAll('#quizCard input:checked').length===2");
+  await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
+  await evaluate("document.querySelector('#quizCard .quiz-question-more summary').click();document.querySelector('#quizCard .quiz-question-more button').click()");
+  await check('Viewing preliminary direct results preserves question 2 as resume position', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&!window.AfterDarkDirectQuizBridge.getProgress().complete&&document.querySelector('#quizCard .quiz-preview-return button')?.textContent.includes('question 2')");
+  await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Resume'))).click()");
+  await check('Resume reopens question 2 after viewing direct results', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&document.querySelector('#quizCard .quiz-multi-option')!==null&&!document.querySelector('#quizCard .quiz-preview-return')");
+  await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Reset quiz'))).click()");
+  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.keys(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v2')).multiAnswers).length===0");
+  await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
+
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
   for(let i=1;i<32;i++){await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0]?.click();[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('Show my results'))?.click()");}
   await check('All 32 direct questions show ranked results',"document.querySelector('.direct-answer-summary')!==null && document.querySelector('#quizCard .compare')!==null");
@@ -114,6 +129,17 @@ try{
   await check('Psychological quiz has a separate non-explicit view',"document.querySelector('#psych-quiz').classList.contains('visible') && !!window.AfterDarkPsychQuizBridge && document.querySelector('#psychQuizCard button')?.textContent.includes('Start the psychology')");
   await evaluate("document.querySelector('#psychQuizCard button').click()");
   await check('Psychological quiz also supports selecting more than one answer',"document.querySelectorAll('#psychQuizCard input[type=checkbox]').length>=3");
+  await evaluate("document.querySelectorAll('#psychQuizCard input[type=checkbox]')[0].click();document.querySelectorAll('#psychQuizCard input[type=checkbox]')[1].click()");
+  await evaluate("([...document.querySelectorAll('[data-quiz-tools=psych] .ad-primary-actions button')].find(b=>b.textContent.includes('Save & leave'))).click()");
+  await check('Psychology save and leave preserves chosen responses', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_psychology_quiz_v1')).answers[0].length===2");
+  await evaluate("document.querySelector('#afterdark-resume-place').click()");
+  await check('Psychology resume restores saved question and both selections', "document.querySelector('#psych-quiz').classList.contains('visible')&&window.AfterDarkPsychQuizBridge.getProgress().position===0&&document.querySelectorAll('#psychQuizCard input:checked').length===2");
+  await evaluate("document.querySelector('#psychQuizCard .quiz-question-more summary').click();document.querySelector('#psychQuizCard .quiz-question-more button').click()");
+  await check('Psychology results preview does not mark quiz complete', "window.AfterDarkPsychQuizBridge.getProgress().position===0&&!window.AfterDarkPsychQuizBridge.getProgress().complete&&document.querySelector('#psychQuizCard .quiz-preview-return')!==null");
+  await evaluate("([...document.querySelectorAll('[data-quiz-tools=psych] .ad-primary-actions button')].find(b=>b.textContent.includes('Resume'))).click()");
+  await check('Psychology resume leaves preview and returns to saved selections', "window.AfterDarkPsychQuizBridge.getProgress().position===0&&document.querySelectorAll('#psychQuizCard input:checked').length===2");
+  await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=psych] .ad-primary-actions button')].find(b=>b.textContent.includes('Reset quiz'))).click()");
+  await check('Psychology reset clears only psychology answers, leaving direct quiz results intact', "window.AfterDarkPsychQuizBridge.getProgress().position===0&&window.AfterDarkPsychQuizBridge.getProgress().answered===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===32");
   await evaluate("document.querySelectorAll('#psychQuizCard input[type=checkbox]')[0].click();document.querySelectorAll('#psychQuizCard input[type=checkbox]')[1].click()");
   for(let i=0;i<32;i++){
     await evaluate("(()=>{const btn=[...document.querySelectorAll('#psychQuizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('View shared interest shelf'));btn?.click();})()");
