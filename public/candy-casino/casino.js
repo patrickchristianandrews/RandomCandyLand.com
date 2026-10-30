@@ -185,6 +185,7 @@ let roomEpoch=0,joinAttempts=0,joinRetryTimer=0,joinWatchdog=0,hostWatchdog=0,ro
 const clearJoinTimers=()=>{clearTimeout(joinRetryTimer);clearTimeout(joinWatchdog);clearTimeout(hostWatchdog);joinRetryTimer=joinWatchdog=hostWatchdog=0;};
 const activePeer=(p,epoch)=>peer===p&&roomEpoch===epoch&&mode==='friend';
 const networkVersion='room-connection-20261030-v3';
+const peerOptions={debug:1,config:{iceServers:[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302','stun:stun.cloudflare.com:3478']}]}};
 const connectionDetails=()=>{
  const pc=connection?.peerConnection;
  const details=[
@@ -201,7 +202,7 @@ const connectionDetails=()=>{
   'Browser: '+navigator.userAgent,
   'Time: '+new Date().toISOString()
  ];
- return details.join('\\n');
+ return details.join('\n');
 };
 const friendlyError=error=>{
  const type=String(error?.type||'');
@@ -335,7 +336,7 @@ async function createRoom(){
  if(roomEpoch!==epoch)return;
  roomId='rcl-casino-'+crypto.randomUUID().replace(/-/g,'').slice(0,20);
  let p;
- try{p=peer=new window.Peer(roomId,{debug:0});}
+ try{p=peer=new window.Peer(roomId,peerOptions);}
  catch(error){onlineStatus('⚠️ '+friendlyError(error));return;}
  hostWatchdog=setTimeout(()=>{if(activePeer(p,epoch)&&!p.open)onlineStatus('⚠️ Room service did not respond. Tap CREATE ROOM to try again.');},12000);
  p.on('open',id=>{
@@ -383,7 +384,7 @@ async function joinRoom(){
  try{await loadPeer();}catch{if(roomEpoch===epoch)onlineStatus('⚠️ Could not load the room service. Check your internet and tap JOIN ROOM again.');return;}
  if(roomEpoch!==epoch)return;
  let p;
- try{p=peer=new window.Peer(undefined,{debug:0});}
+ try{p=peer=new window.Peer(undefined,peerOptions);}
  catch(error){onlineStatus('⚠️ '+friendlyError(error));return;}
  hostWatchdog=setTimeout(()=>{if(activePeer(p,epoch)&&!p.open)onlineStatus('⚠️ Room service is not responding. Tap JOIN ROOM to try again.');},12000);
  p.on('open',()=>{
