@@ -139,6 +139,10 @@ function validatePayload(value){
   const index=type==='direct'?raw.qIndex:raw.position;
   const answerSet=type==='direct'?raw.multiAnswers:raw.answers;
   const noteSet=type==='direct'?raw.freeResponses:raw.notes;
+  if(type==='direct'&&raw.questionVersion!==2)throw Error('This export uses an older question set. To protect your original answers, it cannot be applied to the revised 32 questions. Keep the original file as a separate record.');
+  if(type==='direct'&&((raw.customThings!==undefined&&(typeof raw.customThings!=='string'||raw.customThings.length>1200))||
+      (raw.customIntent!==undefined&&!['unsure','receive','give','together','watch','fantasy'].includes(raw.customIntent))))
+    throw Error('Invalid custom interest or intended role in saved quiz.');
   if(!Number.isInteger(index)||index< -1||index>32||
     !answerSet||typeof answerSet!=='object'||Array.isArray(answerSet)||
     !noteSet||typeof noteSet!=='object'||Array.isArray(noteSet))throw Error('Invalid saved quiz position or answers');
