@@ -66,7 +66,7 @@ function render(ctx){
   card.dataset.questionId=String(q.id);
   // Open the first unanswered item only; the rest stay quiet, but accessible.
   const firstPending=group.indexes.find(i=>!answeredQ(i));
-  card.open=index===(firstPending===undefined?group.indexes[0]:firstPending);
+  card.open=index===current;
   card.addEventListener('click',event=>{
    if(event.target.closest('summary')===card.querySelector(':scope > summary'))ctx.onActiveQuestion?.(index);
   });
