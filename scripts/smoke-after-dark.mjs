@@ -98,53 +98,56 @@ try{
   await evaluate("document.querySelector('#topicGrid .topic button').click()");
   await check('Marking a topic updates the controls',"document.querySelectorAll('#topicGrid .topic button.chosen').length>0");
   await evaluate("document.querySelector('[data-tab=quiz]').click();document.querySelector('#startQuiz').click()");
-  await check('New direct quiz begins with multi-select checkboxes',"document.querySelectorAll('#quizCard .quiz-multi-option input[type=checkbox]').length>=3");
-  await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
-  await check('Multiple quiz choices can be checked',"document.querySelectorAll('#quizCard .quiz-multi-option input:checked').length===2");
-  await check('Checkbox selection preserves current question DOM and makes only the selected cards active',
-    "(()=>{const choices=document.querySelectorAll('#quizCard .quiz-multi-option');return choices.length>=2 && choices[0].classList.contains('selected') && choices[1].classList.contains('selected') && document.querySelector('#quizCard .quiz-nav-actions')!==null})()");
-  await check('Direct quiz focuses on one question and keeps advanced controls in one closed menu',
-    "(()=>{const tools=document.querySelector('#quiz .ad-focus-tools');const p=document.querySelector('#quiz #quizCard');return !!tools && !!p && !!p.querySelector('.quiz-multi') && tools.querySelector('.ad-focus-menu')?.open===false && !document.querySelector('body').classList.contains('print-notebook') && !document.querySelector('#quiz .quiz-page-heading img')})()");
-
-  await check('Direct quiz controls have clear Resume Save and Reset actions, with transfers collapsed',
-    "(()=>{const p=document.querySelector('[data-quiz-tools=direct]');return !!p&&p.querySelector('.ad-focus-actions')?.textContent.includes('Save & exit')&&p.querySelector('.ad-focus-menu')&&!p.querySelector('.ad-focus-menu').open&&p.querySelector('.ad-focus-menu-inner')?.textContent.includes('Reset this quiz')&&document.querySelector('#quiz').classList.contains('visible')&&getComputedStyle(document.querySelector('#afterdark-resume-strip')).display==='none'})()");
+  await check('Sexual preferences use 14 themed sections and keep 62 separate questions',
+    "(()=>{const p=window.AfterDarkGroupedQuizUI.prepare(window.AfterDarkAdultQuiz);return p.length===14&&p.flatMap(x=>x.indexes).length===62&&document.querySelector('#quizCard .quiz-group-heading')!==null&&document.querySelectorAll('#quizCard .quiz-group-question').length>=2})()");
+  await evaluate("document.querySelectorAll('#quizCard .quiz-group-question[open] .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-group-question[open] .quiz-multi-option input')[1].click()");
+  await check('Two distinct options save inside one specific question',
+    "(()=>{const p=window.AfterDarkDirectQuizBridge.exportState();return p.multiAnswers[0].length===2&&p.qIndex===0&&document.querySelectorAll('#quizCard .quiz-group-question[open] .quiz-multi-option.selected').length===2})()");
+  await check('Sexual preferences keep advanced tools behind a single closed menu',
+    "(()=>{const x=document.querySelector('#quiz .ad-focus-tools');return !!x&&!x.querySelector('.ad-focus-menu').open&&x.querySelector('.ad-focus-actions')?.textContent.includes('Save & exit')})()");
   await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Save & exit'))).click()");
-  await check('Save and leave retains both direct selections', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v5')).multiAnswers[0].length===2");
+  await check('Save and leave preserves independent selections',
+    "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v5')).multiAnswers[0].length===2");
   await evaluate("document.querySelector('#afterdark-resume-place').click()");
-  await check('Homepage resume restores saved direct question and answers', "document.querySelector('#quiz').classList.contains('visible')&&window.AfterDarkDirectQuizBridge.getProgress().position===0&&document.querySelectorAll('#quizCard input:checked').length===2");
-  await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
-  await evaluate("document.querySelector('#quizCard .quiz-question-more summary').click();document.querySelector('#quizCard .quiz-question-more button').click()");
-  await check('Viewing preliminary direct results preserves question 2 as resume position', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&!window.AfterDarkDirectQuizBridge.getProgress().complete&&document.querySelector('#quizCard .quiz-preview-return button')?.textContent.includes('question 2')");
+  await check('Resume reopens the same section with both selected answers',
+    "document.querySelector('#quiz').classList.contains('visible')&&window.AfterDarkDirectQuizBridge.getProgress().position===0&&document.querySelectorAll('#quizCard .quiz-group-question[open] input:checked').length===2");
+  await evaluate("document.querySelectorAll('#quizCard .quiz-group-question')[1].querySelector(':scope > summary').click()");
+  await check('Opening second question in a section saves the precise resume position',
+    "window.AfterDarkDirectQuizBridge.getProgress().position===1&&document.querySelector('#quizCard [data-question-index=\"1\"]').open");
+  await evaluate("document.querySelector('#quizCard .quiz-group-footer .quiz-question-more summary').click();document.querySelector('#quizCard .quiz-group-footer .quiz-secondary-link').click()");
+  await check('Previewing results never marks grouped quiz complete',
+    "window.AfterDarkDirectQuizBridge.getProgress().position===1&&!window.AfterDarkDirectQuizBridge.getProgress().complete&&!!document.querySelector('#quizCard .quiz-preview-return')");
   await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-focus-menu-inner>button')].find(b=>b.textContent.includes('Resume saved'))).click()");
-  await check('Resume reopens question 2 after viewing direct results', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&document.querySelector('#quizCard .quiz-multi-option')!==null&&!document.querySelector('#quizCard .quiz-preview-return')");
+  await check('Resume reopens exact question after preview',
+    "window.AfterDarkDirectQuizBridge.getProgress().position===1&&!!document.querySelector('#quizCard [data-question-index=\"1\"][open]')&&!document.querySelector('#quizCard .quiz-preview-return')");
   await evaluate("(()=>{const t=document.querySelector('#customInterestText');t.value='A quiet ASMR whispering experience';t.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#customInterestIntent').value='receive';document.querySelector('#customInterestIntent').dispatchEvent(new Event('change',{bubbles:true}))})()");
-  await check('Personal ideas autosave locally with stated intent',
+  await check('Personal ideas autosave with intended role',
     "(()=>{const v=window.AfterDarkDirectQuizBridge.exportState();return v.questionVersion===4&&v.customThings.includes('ASMR whispering')&&v.customIntent==='receive'})()");
   await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=direct] .ad-focus-menu-inner>button')].find(b=>b.textContent.includes('Reset this quiz'))).click()");
-  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.values(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v5')).multiAnswers).every(a=>Array.isArray(a)&&a.length===0)");
-  await check('Reset clears only matching direct quiz and custom interests', "window.AfterDarkDirectQuizBridge.exportState().customThings===''&&window.AfterDarkDirectQuizBridge.exportState().customIntent==='unsure'");
-  await evaluate("(()=>{const t=document.querySelector('#customInterestText');t.value='I want to try a private whispering experience\\nI would like to talk about strap-on play';t.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#customInterestIntent').value='together';document.querySelector('#customInterestIntent').dispatchEvent(new Event('change',{bubbles:true}))})()");
-  await check('User can enter several unlisted ideas without adding quiz questions',
-    "(()=>{const x=window.AfterDarkCanonicalReport.buildData();return x.direct.personalIdeas.length===2&&x.direct.personalIdeas.every(i=>i.intent==='together')&&window.AfterDarkAdultQuiz.length===62})()");
-  await evaluate("(()=>{const original=window.AfterDarkDirectQuizBridge.exportState();original.qIndex=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown);window.AfterDarkDirectQuizBridge.importState(original)})()");
-  await check('Porn genre question lives within the same 62-question quiz with searchable multi-select dropdown',
-    "window.AfterDarkAdultQuiz.length===62&&window.AfterDarkAdultQuiz.filter(q=>q.dropdown).length===1&&document.querySelector('#quizCard .quiz-media-dropdown')!==null&&document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option').length>=55");
-  await evaluate("(()=>{document.querySelector('#quizCard .quiz-media-dropdown summary').click();const search=document.querySelector('#quizCard .quiz-media-search');search.value='group';search.dispatchEvent(new Event('input',{bubbles:true}))})()");
-  await check('Porn category dropdown searches across diverse grouped adult interests',
+  await check('Reset clears the whole direct quiz but leaves the other quiz untouched',
+    "(()=>{const d=window.AfterDarkDirectQuizBridge.exportState();return d.qIndex===0&&d.customThings===''&&d.customIntent==='unsure'&&Object.values(d.multiAnswers).every(a=>Array.isArray(a)&&!a.length)})()");
+  await evaluate("(()=>{const t=document.querySelector('#customInterestText');t.value='I want to try a private whispering experience\nI would like to talk about strap-on play';t.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#customInterestIntent').value='together';document.querySelector('#customInterestIntent').dispatchEvent(new Event('change',{bubbles:true}))})()");
+  await check('Unlisted user interests stay separate from suggested results',
+    "(()=>{const x=window.AfterDarkCanonicalReport.buildData();return x.direct.personalIdeas.length===2&&x.direct.personalIdeas.every(i=>i.intent==='together')})()");
+  await evaluate("(()=>{const state=window.AfterDarkDirectQuizBridge.exportState();state.qIndex=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown);window.AfterDarkDirectQuizBridge.importState(state)})()");
+  await check('Diverse adult-media dropdown is inside a normal grouped question',
+    "window.AfterDarkAdultQuiz.length===62&&window.AfterDarkAdultQuiz.filter(q=>q.dropdown).length===1&&!!document.querySelector('#quizCard .quiz-group-question[open] .quiz-media-dropdown')&&document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option').length>=55");
+  await evaluate("(()=>{document.querySelector('#quizCard .quiz-media-dropdown summary').click();const t=document.querySelector('#quizCard .quiz-media-search');t.value='group';t.dispatchEvent(new Event('input',{bubbles:true}))})()");
+  await check('Porn category dropdown filters multiple options',
     "document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option:not([hidden])').length>=2&&document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option[hidden]').length>20");
-  await evaluate("(()=>{const t=document.querySelector('#quizCard .quiz-media-search');t.value='';t.dispatchEvent(new Event('input',{bubbles:true}));const labels=[...document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option')];labels.find(x=>x.textContent.includes('Consensual threesomes')).querySelector('input').click();labels.find(x=>x.textContent.includes('group sex / orgy scenes')).querySelector('input').click();document.querySelector('#quizCard .quiz-question-intent input[value=fantasy]').click()})()");
-  await check('Multiple adult-media categories and fantasy-only choice save without implying a real-life preference',
-    "(()=>{const x=window.AfterDarkDirectQuizBridge.exportState(),i=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown),r=window.AfterDarkCanonicalReport.buildData();return x.multiAnswers[i].length===2&&x.questionIntents[i]==='fantasy'&&r.direct.questions[i].intentLabel.includes('Fantasy only')&&r.direct.specificSelections.filter(x=>x.context==='Adult media watched / imagined').length===2})()");
-  await evaluate("(()=>{const v=window.AfterDarkDirectQuizBridge.exportState();v.qIndex=0;window.AfterDarkDirectQuizBridge.importState(v)})()");
-  await check('Every direct question offers optional fantasy-only or exploring intent',
-    "document.querySelectorAll('#quizCard .quiz-question-intent input[type=radio]').length===3");
-  await evaluate("document.querySelector('#quizCard .quiz-question-intent input[value=explore]').click()");
-  await check('Explicit exploring intent persists independently of fantasy-only media intent',
-    "(()=>{const e=window.AfterDarkDirectQuizBridge.exportState(),i=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown);return e.questionIntents[0]==='explore'&&e.questionIntents[i]==='fantasy'})()");
-  await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
-
-  await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
-  for(let i=1;i<62;i++){await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0]?.click();[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('Show my results'))?.click()");}
+  await evaluate("(()=>{const t=document.querySelector('#quizCard .quiz-media-search');t.value='';t.dispatchEvent(new Event('input',{bubbles:true}));const labels=[...document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option')];labels.find(x=>x.textContent.includes('Consensual threesomes')).querySelector('input').click();labels.find(x=>x.textContent.includes('group sex / orgy scenes')).querySelector('input').click();document.querySelector('#quizCard .quiz-group-question[open] .quiz-question-intent input[value=fantasy]').click()})()");
+  await check('Adult-media categories save as fantasy without implying participation',
+    "(()=>{const x=window.AfterDarkDirectQuizBridge.exportState(),i=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown);return x.multiAnswers[i].length===2&&x.questionIntents[i]==='fantasy'})()");
+  await evaluate("(()=>{const state=window.AfterDarkDirectQuizBridge.exportState();state.qIndex=window.AfterDarkAdultQuiz.findIndex(q=>q.id===60);window.AfterDarkDirectQuizBridge.importState(state)})()");
+  await check('Partner swapping belongs to Watching and group experiences and offers three independent gender choices',
+    "(()=>{const d=document.querySelector('#quizCard');const q=d.querySelector('.quiz-group-question[open]');const n=[...q.querySelectorAll('.quiz-multi-option')].map(x=>x.textContent);return d.querySelector('.quiz-group-heading h2')?.textContent==='Watching & group experiences'&&q.dataset.questionId==='60'&&n.some(x=>x.includes('same gender'))&&n.some(x=>x.includes('different gender'))&&n.some(x=>x.includes('either or multiple genders'))})()");
+  await evaluate("(()=>{const rows=[...document.querySelectorAll('#quizCard .quiz-group-question[open] .quiz-multi-option')];['same gender','different gender','either or multiple genders'].forEach(x=>rows.find(y=>y.textContent.includes(x)).querySelector('input').click());document.querySelector('#quizCard .quiz-group-question[open] .quiz-question-intent input[value=explore]').click()})()");
+  await check('Partner gender preferences save individually without overwriting fantasy/exploration intent',
+    "(()=>{const i=window.AfterDarkAdultQuiz.findIndex(q=>q.id===60),d=window.AfterDarkDirectQuizBridge.exportState();return d.multiAnswers[i].length===3&&d.questionIntents[i]==='explore'})()");
+  await evaluate("(()=>{const state=window.AfterDarkDirectQuizBridge.exportState();state.qIndex=0;state.questionIntents[0]='explore';window.AfterDarkDirectQuizBridge.importState(state)})()");
+  await check('Fantasy-versus-exploration selection is available separately in every question',
+    "document.querySelectorAll('#quizCard .quiz-group-question .quiz-question-intent').length===4&&window.AfterDarkDirectQuizBridge.exportState().questionIntents[0]==='explore'");
+  await evaluate("(()=>{const s=window.AfterDarkDirectQuizBridge.exportState();window.AfterDarkAdultQuiz.forEach((q,i)=>{if(!s.multiAnswers[i]?.length)s.multiAnswers[i]=[0]});s.qIndex=window.AfterDarkAdultQuiz.length;window.AfterDarkDirectQuizBridge.importState(s)})()");
   await check('All 62 direct questions show ranked results',"document.querySelector('.direct-answer-summary')!==null && document.querySelector('#quizCard .compare')!==null");
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
