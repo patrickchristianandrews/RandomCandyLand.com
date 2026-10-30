@@ -66,7 +66,7 @@ function browser(name,href='https://example.test/candy-casino/'){
 const room='rcl-casino-abcdef0123456789abcd';
 {
  const a=browser('Alice');a.get('room-input').value=room;await a.get('join-room').onclick();await flush();
- assert.match(a.status(),/reopened the SAME room/);
+ assert.match(a.status(),/PeerJS room reclaimed/);
  assert.match(a.diagnostics(),/Role: Host/);
  const b=browser('Bob');b.get('room-input').value=room;await b.get('join-room').onclick();await flush();
  assert.match(a.status(),/Both players connected and responding/);
