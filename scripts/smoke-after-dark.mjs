@@ -181,18 +181,21 @@ try{
   await check('Resources FAQ is interactive',"document.querySelectorAll('#faq details').length>=25");
 
   await evaluate("document.querySelector('[data-tab=howto]').click()");
-  await check('Practical guides open as their own After Dark section',"document.querySelector('#howto')?.classList.contains('visible') && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length===16 && document.querySelector('#howto-category option')?.textContent==='All guides'");
-  await evaluate("document.querySelector('#howto [data-guide-open=squirting]').click()");
-  await check('Squirting guide includes realistic expectations, structured steps, safety, sources and partner advice',"document.querySelector('#howto-guide-detail').hidden===false && document.querySelector('#howto-guide-detail h2')?.textContent.includes('Squirting') && document.querySelectorAll('#howto-guide-detail ol li').length>=4 && document.querySelectorAll('#howto-guide-detail .howto-guide-sources a[href^=https]').length>=2 && document.querySelector('#howto-guide-detail').textContent.includes('There is no pressure')");
+  await check('Orgasm-only library opens with 18 guides',"document.querySelector('#howto')?.classList.contains('visible') && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length===18 && document.querySelector('#howto-category option')?.textContent==='All guides'");
+  await check('All guides are specifically about orgasm',"window.AfterDarkIntimacyGuides.guides.length===18 && window.AfterDarkIntimacyGuides.guides.every(g=>/orgasm/i.test(g.title+' '+g.subtitle+' '+g.facts)) && !window.AfterDarkIntimacyGuides.guides.some(g=>['squirting','communication','toys','sexual-health'].includes(g.id))");
+  await evaluate("document.querySelector('#howto [data-guide-open=vaginal-orgasm]').click()");
+  await check('Internal vaginal orgasm guide includes practical steps, nuance, sources and safety',"document.querySelector('#howto-guide-detail').hidden===false && document.querySelector('#howto-guide-detail h2')?.textContent.includes('vaginal') && document.querySelectorAll('#howto-guide-detail ol li').length>=4 && document.querySelectorAll('#howto-guide-detail .howto-guide-sources a[href^=https]').length>=2 && document.querySelector('#howto-guide-detail').textContent.includes('clitoral')");
   await evaluate("document.querySelector('#howto [data-guide-open=nipple-pleasure]').click()");
-  await check('Nipple-related orgasms guide can be opened without changing the quiz',"document.querySelector('#howto-guide-detail h2')?.textContent.includes('Nipple') && document.querySelector('#howto-guide-detail').textContent.includes('no scientifically established')");
+  await check('Nipple orgasm guide remains available',"document.querySelector('#howto-guide-detail h2')?.textContent.includes('Nipple') && document.querySelector('#howto-guide-detail').textContent.includes('scientifically established')");
+  await evaluate("document.querySelector('#howto [data-guide-open=testicular-orgasm]').click()");
+  await check('Testicular orgasm guide describes scrotal sensitivity and safe limits',"document.querySelector('#howto-guide-detail h2')?.textContent.includes('testicular') && document.querySelector('#howto-guide-detail').textContent.includes('testicles')");
   await evaluate("document.querySelector('#howto-search').value='pelvic';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
-  await check('Guides keyword search filters cards',"document.querySelectorAll('#howto-guide-grid .howto-guide-card').length>=1 && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length<16");
+  await check('Orgasm guide search filters correctly',"document.querySelectorAll('#howto-guide-grid .howto-guide-card').length>=1 && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length<18");
   await evaluate("document.querySelector('#howto-search').value='';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
-  await check('Ask Atlas recognizes how-to questions about fluid release and nipple sensitivity',"respond('how to squirt').includes('Squirting') && respond('how do nipple orgasms work').includes('Nipple') && respond('how to squirt').includes('Practical Guides')");
-  await evaluate("document.querySelector('[data-tab=home]').click();document.querySelector('#home [data-guide-open=squirting]').click()");
-  await check('Homepage guide button opens the selected guide',"document.querySelector('#howto').classList.contains('visible') && !document.querySelector('#howto-guide-detail').hidden && document.querySelector('#howto-guide-detail h2')?.textContent.includes('Squirting')");
-  console.log('✓ Practical Guides offers 16 searchable wellness articles, sourced advice, featured links and Ask Atlas answers.');
+  await check('Ask Atlas answers orgasm questions with new guides',"respond('how do nipple orgasms work').includes('Nipple') && respond('how can vaginal orgasm work').includes('vaginal') && respond('how does testicular orgasm work').includes('testicular')");
+  await evaluate("document.querySelector('[data-tab=home]').click();document.querySelector('#home [data-guide-open=vaginal-orgasm]').click()");
+  await check('Homepage orgasm button opens internal vaginal guide',"document.querySelector('#howto').classList.contains('visible') && !document.querySelector('#howto-guide-detail').hidden && document.querySelector('#howto-guide-detail h2')?.textContent.includes('vaginal')");
+  console.log('✓ After Dark offers 18 orgasm-specific articles, practical steps, anatomy, sources and Ask Atlas answers.');
 
   const lab=await navigate(site+'/after-dark/psychology-lab/');
   await checkLab(lab.evaluate);
