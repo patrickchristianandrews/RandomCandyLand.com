@@ -181,12 +181,12 @@ function chooseGame(next){
 
 /* Room lifecycle: an invitation stays usable while the host is connected.
  * A failed first join is retried, and stale asynchronous events are ignored. */
-let roomEpoch=0,joinAttempts=0,joinRetryTimer=0,joinWatchdog=0,hostWatchdog=0,roomFull=false;
+let roomEpoch=0,joinAttempts=0,joinRetryTimer=0,joinWatchdog=0,hostWatchdog=0,roomFull=false,roomClaimCount=0;
 let hostOffersReceived=0,lastPeerEvent='No events yet',lastIceState='not available';
 const markPeerEvent=s=>lastPeerEvent=String(s).slice(0,160);
 const clearJoinTimers=()=>{clearTimeout(joinRetryTimer);clearTimeout(joinWatchdog);clearTimeout(hostWatchdog);joinRetryTimer=joinWatchdog=hostWatchdog=0;};
 const activePeer=(p,epoch)=>peer===p&&roomEpoch===epoch&&mode==='friend';
-const networkVersion='room-connection-20261030-v4';
+const networkVersion='room-connection-20261030-v5';
 // Preserve the library's built-in STUN and TURN relay settings.
 const peerOptions={debug:1};
 const connectionDetails=()=>{
@@ -198,7 +198,8 @@ const connectionDetails=()=>{
   'Room: '+(roomId||'none'),
   'Peer registered: '+(!!peer?.open),
   'Local peer ID: '+(peer?.id||'none'),
-  'Host offers received: '+hostOffersReceived,
+  'Host offers received: '+(host?hostOffersReceived:'N/A (guest)'),
+  'Room recovery attempts: '+roomClaimCount,
   'Last peer event: '+lastPeerEvent,
   'Page visible: '+(!document.hidden),
   'Peer disconnected: '+(!!peer?.disconnected),
@@ -231,6 +232,7 @@ function leave(text='Online room closed.'){
  onlineStatus('🔌 '+text);
 }
 function setMode(next){
+ roomClaimCount=0;
  leave(next==='computer'?'Candybot is your opponent.':'Choose Create Room or Join Room.');
  mode=next==='friend'?'friend':'computer';host=true;
  players=[sanitize($('friend-name').value),mode==='computer'?'Candybot':'Waiting...'];
@@ -350,34 +352,36 @@ function roomCode(raw){
  try{s=new URL(s,location.href).searchParams.get('room')||s;}catch{}
  return s.replace(/[^a-zA-Z0-9-]/g,'').slice(0,100);
 }
-async function createRoom(){
- setMode('friend');
- const epoch=roomEpoch;
- onlineStatus('🟡 Opening a private room...');
- try{await loadPeer();}catch{if(roomEpoch===epoch)onlineStatus('⚠️ Could not load the room service. Check your internet and try again.');return;}
- if(roomEpoch!==epoch)return;
- roomId='rcl-casino-'+crypto.randomUUID().replace(/-/g,'').slice(0,20);
+function registerHostRoom(epoch,reclaimed=false){
+ if(roomEpoch!==epoch||mode!=='friend'||!roomId)return;
+ host=true;
+ players=[sanitize($('friend-name').value),'Waiting...'];
  let p;
  try{p=peer=new window.Peer(roomId,peerOptions);}
- catch(error){onlineStatus('⚠️ '+friendlyError(error));return;}
- hostWatchdog=setTimeout(()=>{if(activePeer(p,epoch)&&!p.open)onlineStatus('⚠️ Room service did not respond. Tap CREATE ROOM to try again.');},12000);
+ catch(error){onlineStatus('⚠️ Could not register this room: '+friendlyError(error));return;}
+ markPeerEvent(reclaimed?'Reopening missing host room':'Registering new host room');
+ hostWatchdog=setTimeout(()=>{
+  if(activePeer(p,epoch)&&!p.open)onlineStatus('⚠️ Room registration has not completed. Keep this page open and try again.');
+ },12000);
  p.on('open',id=>{
   if(!activePeer(p,epoch))return;
   clearTimeout(hostWatchdog);hostWatchdog=0;
-  roomId=id;markPeerEvent('Host room registered');const url=new URL(location.href);url.searchParams.set('room',id);
+  roomId=id;markPeerEvent('Room host registered');
+  const url=new URL(location.href);url.searchParams.set('room',id);
   $('invite-link').value=url.href;$('room-input').value=id;
   $('invite-panel').hidden=false;$('leave-room').hidden=false;
-  onlineStatus('🟢 Room is OPEN and ready! Share the link. Waiting for your friend to join.');
+  onlineStatus(reclaimed
+   ?'🟢 Original host was unavailable. This device reopened the SAME room! Keep this page open. Ask the other player to open the invite link.'
+   :'🟢 Room is OPEN and ready! Share the link. Keep this screen open while your friend joins.');
   render();
  });
  p.on('connection',c=>{
   if(!activePeer(p,epoch)){try{c.close()}catch{}return;}
-  hostOffersReceived++;markPeerEvent('Host received incoming offer #'+hostOffersReceived);
+  hostOffersReceived++;markPeerEvent('Host received offer #'+hostOffersReceived);
   if(connection?.open){
    c.on('open',()=>{try{c.send({type:'full'});c.close()}catch{}});
    return;
   }
-  // A stalled offer should not block the guest's next retry.
   clearTimeout(hostWatchdog);hostWatchdog=0;
   if(connection){const stale=connection;connection=null;try{stale.close()}catch{}}
   connect(c);
@@ -393,19 +397,60 @@ async function createRoom(){
  p.on('disconnected',()=>{
   if(!activePeer(p,epoch))return;
   markPeerEvent('Host signaling disconnected');
-  onlineStatus('🟠 Room service interrupted. Reconnecting...');
+  onlineStatus('🟠 Host signaling interrupted. Keep this tab visible while reconnecting...');
   try{if(!p.destroyed)p.reconnect()}catch{}
  });
  p.on('error',error=>{
   if(!activePeer(p,epoch))return;
-  markPeerEvent('Host error: '+(error?.type||error?.message||'unknown'));
-  onlineStatus('⚠️ Host connection: '+friendlyError(error)+(p.open?' Room remains open.':' Create a fresh room.'));
+  const type=error?.type||'unknown';
+  markPeerEvent('Host error: '+type);
+  if(type==='unavailable-id'&&reclaimed){
+   // Two browsers may race to recover an abandoned room. The loser becomes the guest.
+   clearJoinTimers();
+   const code=roomId;
+   peer=null;try{p.destroy()}catch{}
+   host=false;
+   $('room-input').value=code;
+   onlineStatus('🟡 Another player reopened the room first. Joining them instead...');
+   setTimeout(()=>{if(roomEpoch===epoch&&mode==='friend')joinRoom(true);},450);
+   return;
+  }
+  onlineStatus('⚠️ Host connection: '+friendlyError(error)+(p.open?' Room may still be open.':' Create a fresh room.'));
  });
 }
-async function joinRoom(){
+function claimMissingRoom(p,epoch){
+ if(!activePeer(p,epoch)||host||online||roomFull)return;
+ if(roomClaimCount>=2){
+  clearJoinTimers();
+  onlineStatus('⚠️ No stable host could be found for this room. Create a new room on one device, then open its invite on the other. Keep the host browser visible.');
+  return;
+ }
+ roomClaimCount++;
+ clearJoinTimers();
+ const old=connection;connection=null;try{old?.close()}catch{}
+ peer=null;try{p.destroy()}catch{}
+ host=true;online=false;
+ onlineStatus('🟡 The original host is offline. Reopening this SAME room on your device...');
+ registerHostRoom(epoch,true);
+}
+async function createRoom(){
+ setMode('friend');
+ const epoch=roomEpoch;
+ onlineStatus('🟡 Opening a private room...');
+ try{await loadPeer()}catch{
+  if(roomEpoch===epoch)onlineStatus('⚠️ Could not load the room service. Check your internet and try again.');
+  return;
+ }
+ if(roomEpoch!==epoch)return;
+ roomId='rcl-casino-'+crypto.randomUUID().replace(/-/g,'').slice(0,20);
+ registerHostRoom(epoch,false);
+}
+async function joinRoom(preserveClaimCount=false){
+ const claims=roomClaimCount;
  const id=roomCode($('room-input').value);
  if(!/^rcl-casino-[a-f0-9]{20}$/i.test(id)){onlineStatus('⚠️ Paste a valid Candy Land Casino invitation link or room code.');return;}
  setMode('friend');
+ if(preserveClaimCount)roomClaimCount=claims;
  $('room-input').value=id;mode='friend';host=false;
  players=['Waiting...',sanitize($('friend-name').value)];roomId=id;
  const url=new URL(location.href);url.searchParams.set('room',id);history.replaceState(null,'',url);
@@ -424,16 +469,33 @@ async function joinRoom(){
  p.on('error',error=>{
   if(!activePeer(p,epoch))return;
   markPeerEvent('Guest peer error: '+(error?.type||error?.message||'unknown'));
-  if(error?.type==='peer-unavailable'){scheduleJoin(p,epoch,'Host not registered.');return;}
+  if(error?.type==='peer-unavailable'){
+   claimMissingRoom(p,epoch);
+   return;
+  }
   onlineStatus('⚠️ Guest connection: '+friendlyError(error)+' Use COPY CONNECTION DETAILS to report the error.');
  });
  p.on('disconnected',()=>{
   if(!activePeer(p,epoch))return;
+  markPeerEvent('Guest signaling disconnected');
   onlineStatus('🟠 Room service interrupted. Reconnecting...');
   try{if(!p.destroyed)p.reconnect()}catch{}
  });
  render();
 }
+// Browsers can suspend sockets when backgrounded. Reconnect the host when visible again.
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden||mode!=='friend'||!host||!peer||online)return;
+ if(peer.disconnected&&!peer.destroyed){
+  onlineStatus('🟠 Reconnecting host after returning to the casino...');
+  try{peer.reconnect()}catch{}
+ }
+});
+window.addEventListener('online',()=>{
+ if(mode==='friend'&&host&&peer?.disconnected&&!peer?.destroyed){
+  try{peer.reconnect()}catch{}
+ }
+});
 document.querySelectorAll('[data-duel]').forEach(b=>b.onclick=()=>chooseGame(b.dataset.duel));
 document.querySelectorAll('[data-opponent]').forEach(b=>b.onclick=()=>setMode(b.dataset.opponent));
 $('play-computer').onclick=()=>{setMode('computer');location.hash='games';};
