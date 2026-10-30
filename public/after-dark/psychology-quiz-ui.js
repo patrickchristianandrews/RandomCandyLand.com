@@ -6,7 +6,7 @@
  'use strict';
  const questions=window.AfterDarkPsychologyQuiz||[],key='afterdark_psychology_quiz_v1';
  const $=id=>document.getElementById(id);
- let position=-1,answers={},notes={};
+ let position=-1,answers={},notes={},preview=false;
  const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
  function load(){
   try{
@@ -18,7 +18,7 @@
    }
   }catch{}
  }
- function save(){try{localStorage.setItem(key,JSON.stringify({answers,notes,position}));}catch{}}
+ function save(){try{localStorage.setItem(key,JSON.stringify({answers,notes,position}));}catch{}window.AfterDarkProgressTransfer?.refresh?.()}
  function state(){
   const axes={};let answered=0;
   for(let i=0;i<questions.length;i++){
@@ -29,15 +29,22 @@
      axes[tag]=(axes[tag]||0)+1/Math.sqrt(choices.length);
    }
   }
-  return {answered,complete:position>=questions.length,axes,answers,notes,
+  return {position,answered,complete:position>=questions.length,axes,answers,notes,
    questions:questions.length,selectedOptions:Object.values(answers).reduce((sum,arr)=>sum+(Array.isArray(arr)?arr.length:0),0)};
  }
  function render(){
   const box=$('psychQuizCard');if(!box)return;
   box.replaceChildren();
   if(questions.length!==32){box.append(el('p','The reflective questions could not load. Refresh this page.'));return;}
-  if(position===32){
+  if(position===32||preview){
    if(window.AfterDarkSharedQuizResults)window.AfterDarkSharedQuizResults('psychQuizCard');
+   if(preview&&position<questions.length){
+    const controls=el('div',undefined,'quiz-preview-return');
+    const back=el('button','← Continue at question '+(position+1),'btn');
+    back.onclick=()=>{preview=false;render()};
+    controls.append(back,el('span','Preview only · answers remain saved','quiz-preview-note'));
+    box.prepend(controls);
+   }
    return;
   }
   if(position<0){
@@ -50,7 +57,7 @@
   const q=questions[position],selected=new Set(Array.isArray(answers[position])?answers[position]:[]);
   box.append(el('span','REFLECTIVE QUESTION '+(position+1)+' OF 32 · '+state().answered+' ANSWERED','eyebrow'));
   const bar=el('div',undefined,'bar'),fill=el('div',undefined,'quiz-progress-fill');fill.style.width=(position/32*100)+'%';bar.append(fill);
-  box.append(bar,el('h3',q.q),el('p','Select all that apply. You can revise any answer and your progress saves privately.','quiz-help'));
+  box.append(bar,el('h3',q.q),el('p','Select any that fit. Your choice saves automatically.','quiz-help'));
   const options=el('div',undefined,'quizOpts quiz-multi');
   q.options.forEach((choice,i)=>{
    const label=el('label',undefined,'quiz-multi-option'+(selected.has(i)?' selected':'')),input=el('input');
@@ -82,13 +89,15 @@
   const next=el('button',position===31?'View shared interest shelf →':'Save & next →','btn');
   next.onclick=()=>{position++;save();render()};
   nav.append(back,skip,next);box.append(nav);
-  const early=el('button','View shared results with my answers so far','quiz-secondary-link');
-  early.onclick=()=>{position=32;save();render()};
-  box.append(early);
+  const more=el('details',undefined,'quiz-question-more');
+  more.append(el('summary','See report with answers so far'));
+  const early=el('button','Preview my current report','quiz-secondary-link');
+  early.onclick=()=>{preview=true;render()};
+  more.append(early);box.append(more);
  }
  function open(){document.querySelector('[data-tab="psych-quiz"]')?.click();render()}
- function restart(){position=0;answers={};notes={};save();render()}
- function revise(){position=0;save();render()}
+ function restart(){position=0;preview=false;answers={};notes={};save();render()}
+ function revise(){position=0;preview=false;save();render()}
  load();
  window.AfterDarkPsychQuizBridge=Object.freeze({
   getProgress:state,render,open,revise,restart,
@@ -109,9 +118,10 @@
      remarks[i]=note;
     }
    }
-   position=value.position;answers=picked;notes=remarks;save();render();return true;
+   position=value.position;preview=false;answers=picked;notes=remarks;save();render();return true;
   },
-  resume:()=>{if(position<0){position=0;save()}open()}
+  preview:()=>{preview=true;open()},
+  resume:()=>{if(position<0){position=0;save()}preview=false;open()}
 });
  document.querySelectorAll('[data-tab="psych-quiz"],[data-goto="psych-quiz"]').forEach(b=>b.addEventListener('click',render));
  if(location.hash==='#psych-quiz')render();
