@@ -60,6 +60,8 @@ function savePlace(showNotice=false){
 function setStatus(message){
  const node=$('afterdark-save-status');
  if(node)node.textContent=message;
+ const feedback=$('quiz-save-feedback');
+ if(feedback)feedback.textContent=message;
 }
 function friendlyTab(tab){
  return {'quiz':'Sexual Preferences Quiz','psych-quiz':'Psychology Quiz','howto':'Orgasm Guides','atlas':'Curiosity Atlas','psych':'Psychology Library','ideas':'Idea Lab','chat':'Ask Atlas','guide':'Resources','notebook':'My Notebook'}[tab]||'your reading';
@@ -250,6 +252,37 @@ function refreshPanels(){
  }
  refreshReading();
 }
+function refineDirectQuizPanel(){
+ const card=document.querySelector('[data-quiz-tools="direct"]');
+ if(!card||card.classList.contains('ad-focus-tools'))return;
+ const headline=card.querySelector('.ad-progress-indicator');
+ const toolbar=card.querySelector('.ad-primary-actions');
+ const extra=card.querySelector('.ad-transfer-details');
+ if(!headline||!toolbar||!extra)return;
+ const save=[...toolbar.querySelectorAll('button')].find(b=>b.textContent.includes('Save & leave'));
+ const resume=[...toolbar.querySelectorAll('button')].find(b=>b.textContent.includes('Resume'));
+ const reset=[...toolbar.querySelectorAll('button')].find(b=>b.textContent.includes('Reset quiz'));
+ if(!save||!resume||!reset)return;
+ const shell=el('div',undefined,'ad-focus-toolbar');
+ const progress=el('div',undefined,'ad-focus-progress');
+ progress.append(el('span','● AUTO-SAVED LOCALLY','ad-focus-saved'),headline);
+ const actions=el('div',undefined,'ad-primary-actions ad-focus-actions');
+ save.textContent='Save & exit';
+ save.classList.add('ad-focus-exit');
+ actions.append(save);
+ const dropdown=el('details',undefined,'ad-focus-menu');
+ dropdown.append(el('summary','⋯ Options'));
+ const options=el('div',undefined,'ad-focus-menu-inner');
+ resume.textContent='↪ Resume saved question';
+ reset.textContent='↻ Reset this quiz';
+ options.append(resume,reset,extra);
+ dropdown.append(options);
+ actions.append(dropdown);shell.append(progress,actions);
+ const statusText=el('p','','ad-focus-feedback');statusText.id='quiz-save-feedback';
+ statusText.setAttribute('role','status');
+ card.replaceChildren(shell,statusText);
+ card.classList.add('ad-focus-tools');
+}
 function buildReadingBar(){
  const head=document.querySelector('.top');
  if(!head)return;
@@ -295,7 +328,7 @@ function style(){
  document.head.append(sheet);
 }
 function styleQuizCleanup(){ const sheet=document.createElement("style");sheet.textContent="\n.quiz-page-heading{max-width:835px;margin:5px auto 10px;padding:7px 3px 11px;border-bottom:1px solid #674a78}\n.quiz-page-heading h2{font:700 clamp(26px,4vw,37px)/1.18 Georgia,serif;margin:6px 0 6px}\n.quiz-page-heading p{margin:0;color:#e0cede;font-size:13px;line-height:1.5}\n.quiz-switch-row{max-width:835px;display:flex;justify-content:flex-end;gap:8px;margin:9px auto}\n.quiz-switch-row .btn{font-size:12px;padding:8px 11px}\n.quiz-footnote{max-width:835px;margin:12px auto;color:#cbb6d2;font-size:12px}\n.afterdark-quiz-mode .top{margin-bottom:8px!important;padding-bottom:11px!important}\n.afterdark-quiz-mode .top>.ad-liquid-goo{display:none!important}\n.afterdark-quiz-mode .ad-resume-strip{display:none!important}\n.ad-resume-strip{padding:7px 10px!important;margin:6px 0!important;gap:8px!important;border-radius:10px!important}\n.ad-resume-strip .ad-resume-title{font-size:11px!important}\n.ad-resume-strip .btn{min-height:32px!important;padding:6px 10px!important}\n.ad-resume-status:empty{display:none!important}\n.ad-progress-panel{padding:11px 14px!important;max-width:835px!important;margin:8px auto 13px!important;border-radius:12px!important;border-color:#60436f!important;box-shadow:none!important;background:#291c39!important}\n.ad-progress-heading{margin-bottom:6px;gap:8px}\n.ad-progress-heading strong{font-size:12px!important}\n.ad-progress-indicator{font-size:11px!important;color:#d6bbde!important}\n.ad-primary-actions{gap:7px!important;margin:6px 0!important}\n.ad-primary-actions .btn{min-height:36px!important;font-size:11px!important;padding:7px 12px!important}\n.ad-reset-quiz{margin-left:auto;background:#2e1c34!important;border-color:#986d91!important;color:#f0d7e4!important}\n.ad-transfer-details{margin:5px 0 0!important;padding-top:7px!important;border-top:1px solid #61466e!important}\n.ad-transfer-details summary{font-weight:650!important;font-size:11px!important;color:#dfc7e5!important}\n#quizCard,#psychQuizCard{max-width:835px;margin:0 auto;padding:clamp(14px,3vw,24px)}\n#quizCard .quiz-multi,#psychQuizCard .quiz-multi{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}\n#quizCard .quiz-multi-option,#psychQuizCard .quiz-multi-option{margin:0!important;min-height:49px;padding:11px 13px!important;border-radius:11px!important}\n#quizCard .quiz-help,#psychQuizCard .quiz-help{font-size:12px;color:#dac9e0;margin:6px 0 10px}\n#quizCard .quiz-nav-actions,#psychQuizCard .quiz-nav-actions{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0 8px}\n#quizCard .quiz-nav-actions button,#psychQuizCard .quiz-nav-actions button{min-height:40px;padding:8px 12px}\n.quiz-question-more{margin:10px 0 0;border-top:1px solid #664c72;padding-top:9px}\n.quiz-question-more summary{cursor:pointer;color:#dcc0e2;font-size:12px}\n.quiz-question-more button{margin-top:9px}\n.quiz-preview-return{display:flex;align-items:center;flex-wrap:wrap;gap:11px;padding:11px;border:1px solid #9a72a9;border-radius:12px;background:#392448;margin:0 0 15px}\n.quiz-preview-note{font-size:12px;color:#e6cfe8}\n@media(max-width:600px){\n.quiz-page-heading h2{font-size:27px}\n.ad-progress-panel{padding:10px!important}\n.ad-primary-actions{display:flex!important;flex-wrap:wrap!important}\n.ad-primary-actions .btn{flex:1 1 95px!important;padding:8px 7px!important}\n.ad-reset-quiz{margin-left:0}\n.quiz-switch-row{justify-content:flex-start}\n#quizCard,#psychQuizCard{padding:13px 11px}\n}\n";document.head.append(sheet);}
-style();styleQuizCleanup();buildReadingBar();makeTransferPanel('direct');makeTransferPanel('psych');listenForReading();refreshPanels();
+style();styleQuizCleanup();buildReadingBar();makeTransferPanel('direct');makeTransferPanel('psych');refineDirectQuizPanel();listenForReading();refreshPanels();
 document.body.classList.toggle('afterdark-quiz-mode',currentTab()==='quiz'||currentTab()==='psych-quiz');
 if(currentTab()==='quiz'&&started('direct'))DIRECT()?.resume?.();
 if(currentTab()==='psych-quiz'&&started('psych'))PSYCH()?.render?.();
