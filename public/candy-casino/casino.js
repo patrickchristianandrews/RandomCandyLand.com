@@ -368,6 +368,7 @@ function registerHostRoom(epoch,reclaimed=false){
   clearTimeout(hostWatchdog);hostWatchdog=0;
   roomId=id;markPeerEvent('Room host registered');
   const url=new URL(location.href);url.searchParams.set('room',id);
+  history.replaceState(null,'',url);
   $('invite-link').value=url.href;$('room-input').value=id;
   $('invite-panel').hidden=false;$('leave-room').hidden=false;
   onlineStatus(reclaimed
@@ -404,7 +405,7 @@ function registerHostRoom(epoch,reclaimed=false){
   if(!activePeer(p,epoch))return;
   const type=error?.type||'unknown';
   markPeerEvent('Host error: '+type);
-  if(type==='unavailable-id'&&reclaimed){
+  if(type==='unavailable-id'){
    // Two browsers may race to recover an abandoned room. The loser becomes the guest.
    clearJoinTimers();
    const code=roomId;
@@ -507,7 +508,7 @@ $('poker-continue').onclick=()=>{
  if(round>=5)newMatch();else ready();
  render();
 };
-$('make-room').onclick=createRoom;$('join-room').onclick=joinRoom;
+$('make-room').onclick=createRoom;$('join-room').onclick=()=>joinRoom();
 $('leave-room').onclick=()=>setMode('computer');
 $('copy-diagnostics').onclick=async()=>{
  const report=connectionDetails();
