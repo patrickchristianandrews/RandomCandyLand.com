@@ -531,18 +531,25 @@ let category='All guides',search='',selectedId='';
 function find(q){
  const query=normalize(q);
  if(!query)return null;
- const words=query.split(' ').filter(x=>x.length>=3);
- let ranked=guides.map(g=>{
-  let score=0;const title=normalize(g.title),keywords=normalize(g.keywords),summary=normalize(g.subtitle+' '+g.facts);
-  if(query.includes(g.id.replaceAll('-',' ')))score+=9;
-  for(const word of words){
-   if(title.split(' ').some(t=>t===word))score+=4;
-   else if(keywords.split(' ').some(t=>t===word))score+=3;
-   else if(summary.includes(word))score+=0.3;
+ const common=new Set(['how','why','what','where','when','can','could','does','do','is','are','to','a','an','the','my','your','you','for','in','and','or','of','with','have','get','help','learn','me','about','work','works','guide','steps','tips','type','types','orgasm','orgasms','orgasmic']);
+ const root=w=>w.length>3&&w.endsWith('s')&&!w.endsWith('ss')?w.slice(0,-1):w;
+ const tokens=s=>normalize(s).replace(/-/g,' ').split(' ').filter(Boolean).map(root);
+ const words=[...new Set(tokens(query).filter(x=>x.length>=3&&!common.has(x)))];
+ if(!words.length)return guides.find(g=>g.id==='orgasm-difficulty')||null;
+ const ranked=guides.map(g=>{
+  const title=new Set(tokens(g.title)),keyword=new Set(tokens(g.keywords)),id=new Set(tokens(g.id));
+  const description=normalize(g.subtitle+' '+g.facts);
+  let score=0,exactCount=0;
+  for(const w of words){
+   if(id.has(w)){score+=12;exactCount++;}
+   else if(title.has(w)){score+=9;exactCount++;}
+   else if(keyword.has(w)){score+=6;exactCount++;}
+   else if(description.includes(w)){score+=0.5;}
   }
-  return {g,score};
- }).sort((a,b)=>b.score-a.score);
- return ranked[0].score>=3?ranked[0].g:null;
+  if(query.includes(g.id.replaceAll('-',' ')))score+=8;
+  return {g,score,exactCount};
+ }).sort((a,b)=>b.score-a.score||b.exactCount-a.exactCount);
+ return ranked[0].score>=5&&ranked[0].exactCount>0?ranked[0].g:null;
 }
 function paint(){
  const grid=$('howto-guide-grid'),count=$('howto-guide-count');
@@ -606,7 +613,7 @@ function init(){
 }
 function answer(question){
  const q=normalize(question);
- if(!/\b(how|guide|tips|steps|technique|learn|teach|what causes|is it normal|explain|help)\b/.test(q))return null;
+ if(!/\b(how|why|what|can|could|does|do|is|are|guide|tips|steps|technique|learn|teach|explain|help)\b/.test(q))return null;
  const g=find(question);if(!g)return null;
  return g.title+'\n\n'+g.facts+'\n\n'+g.steps.slice(0,3).map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\n'+g.myth+'\n\nOpen After Dark → Orgasm Guides to read the complete steps, anatomical context, safety notes and sources.';
 }
