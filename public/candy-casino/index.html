@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="/candy-casino/poker-engine.js?v=2" defer></script>
 <script src="/candy-casino/relay-config.js?v=1" defer></script>
 <script src="/candy-casino/relay-peer.js?v=20261030-v1" defer></script>
-<script src="/candy-casino/casino.js?v=room-connection-20261030-v7-stability" defer></script>
+<script src="/candy-casino/casino.js?v=room-connection-20261030-v8-invite-clarity" defer></script>
 </head>
 <body class="candy-casino">
 <!-- Google Tag Manager (noscript) -->
@@ -70,11 +70,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <button type="button" id="copy-invite">📋 Copy invite link</button>
    </div>
    <div id="connection-status" class="connection-status" role="status" aria-live="polite">🔌 Not connected. Create a room or join one.</div>
+   <small id="casino-transport-note" class="network-version" aria-live="polite">Connection method: direct PeerJS — Cloudflare game relay not connected</small>
    <div class="friend-bottom"><button type="button" id="leave-room" class="text-button" hidden>✖ Leave room</button></div>
    <details class="connection-troubleshoot">
     <summary>Connection help &amp; diagnostics</summary>
     <div class="connection-help">Keep both tabs visible when connecting. Until the Cloudflare relay is activated, online play uses PeerJS/WebRTC, which some networks block. If joining fails, copy the diagnostic details on both devices.</div>
-    <span id="casino-network-version" class="network-version" aria-label="Multiplayer connection version">Multiplayer v7 · relay setup pending</span>
+    <span id="casino-network-version" class="network-version" aria-label="Multiplayer connection version">Multiplayer v8 · relay setup pending</span>
     <button type="button" class="text-button" id="copy-diagnostics">📋 Copy connection details</button>
    </details>
   </div>
