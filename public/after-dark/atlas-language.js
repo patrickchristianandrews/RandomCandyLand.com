@@ -35,6 +35,14 @@ const aliases={
  'orgasms':'orgasm','grinding':'sensation','touches':'touch','massage':'massage',
  'why am i into':'why like','why do i like':'why like',
  'what turns me on':'why like','why is it hot':'why like',
+ 'cum':'semen','cum swapping':'consensual semen sharing','cum swap':'consensual semen sharing',
+ 'cum eating':'semen ingestion','swallowing cum':'semen ingestion','semen exchange':'consensual semen sharing',
+ 'cum play':'semen contact','watersports':'urine play','water sports':'urine play','pee':'urine','peeing':'urination',
+ 'piss':'urine','pissing':'urination','urolagnia':'urine play',
+ 'fart':'flatulence','farts':'flatulence','farting':'flatulence','eproctophilia':'flatulence',
+ 'spit play':'saliva spitting','spitting':'saliva spitting','sweat fetish':'sweat body scent',
+ 'body odor':'body scent','bo fetish':'body scent','adult nursing':'adult nursing',
+ 'lactation fetish':'adult lactation','breast milk':'lactation',
  'atlee':'atlas','ask atlee':'ask atlas'
 };
 const replacements=Object.entries(aliases).sort((a,b)=>b[0].length-a[0].length);
