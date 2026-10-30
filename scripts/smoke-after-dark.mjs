@@ -63,6 +63,29 @@ try{
     return {evaluate,command};
   }
   const site=`http://127.0.0.1:${port}`;
+  // Actually load and animate Candy Pulse in headless Chrome. Static syntax checks
+  // previously missed a missing reset() that crashed every render frame.
+  const pulse=await navigate(site+'/music-visualizer/');
+  const pulseReady=await pulse.evaluate("Boolean(window.CandyPulseGeometry?.render)&&typeof window.CandyPulseGeometry.reset==='function'&&window.CandyPulseDebug?.geometryReady&&window.CandyPulseDebug.frameCount>=1");
+  if(!pulseReady)throw Error('Pulse regression: geometry engine did not initialize');
+  await delay(500);
+  const visualReady=await pulse.evaluate("(()=>{const c=document.querySelector('#canvas');return window.CandyPulseDebug.frameCount>=5&&c.width>100&&c.height>100&&!!c.getContext('2d').getImageData(Math.floor(c.width/2),Math.floor(c.height/2),1,1).data[3]})()");
+  if(!visualReady)throw Error('Pulse regression: animated canvas did not render visible frames');
+  await pulse.evaluate("document.querySelector('#mode').value='vortex';document.querySelector('#mode').dispatchEvent(new Event('change'));document.querySelector('#surprise').click();document.querySelector('#reset-look').click();document.querySelector('#cast-toggle').click()");
+  const controlsReady=await pulse.evaluate("(()=>{const x=window.CandyPulseDebug;return x.geometryReady&&x.mode==='auto'&&!document.querySelector('#cast-tools').hidden&&document.querySelector('#tv-start')&&document.querySelector('#cast-toggle').getAttribute('aria-expanded')==='true'})()");
+  if(!controlsReady)throw Error('Pulse regression: geometry controls or TV casting panel malfunction');
+  await pulse.evaluate("document.querySelector('#demo').click()");
+  await delay(500);
+  const demoReady=await pulse.evaluate("window.CandyPulseDebug.source==='demo'&&document.querySelector('#status').textContent.includes('Demo beat looping')");
+  if(!demoReady)throw Error('Pulse regression: demo beat does not start');
+  await pulse.evaluate("document.querySelector('#stop').click()");
+  const stopped=await pulse.evaluate("window.CandyPulseDebug.source==='none'");
+  if(!stopped)throw Error('Pulse regression: Stop did not turn off audio source');
+  console.log('✓ Candy Pulse renders, cycles geometry modes, opens Cast/TV controls and plays/stops demo audio in Chrome.');
+  const tv=await navigate(site+'/music-visualizer/tv.html');
+  if(!await tv.evaluate("!!document.querySelector('#join')&&!!document.querySelector('#code')&&typeof window.RTCPeerConnection==='function'"))
+    throw Error('Pulse regression: TV WebRTC receiver page is not available');
+  console.log('✓ Candy Pulse standalone TV receiver loads in Chrome.');
   const {evaluate}=await navigate(site+'/after-dark/');
   const check=async(desc,js)=>{
     const value=await evaluate(js);
