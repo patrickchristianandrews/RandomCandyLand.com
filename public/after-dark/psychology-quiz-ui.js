@@ -90,7 +90,29 @@
  function restart(){position=0;answers={};notes={};save();render()}
  function revise(){position=0;save();render()}
  load();
- window.AfterDarkPsychQuizBridge=Object.freeze({getProgress:state,render,open,revise,restart});
+ window.AfterDarkPsychQuizBridge=Object.freeze({
+  getProgress:state,render,open,revise,restart,
+  exportState:()=>({position,answers:{...answers},notes:{...notes}}),
+  importState:value=>{
+   if(!value||typeof value!=='object'||Array.isArray(value))return false;
+   if(!Number.isInteger(value.position)||value.position<-1||value.position>32)return false;
+   const picked={},remarks={};
+   for(let i=0;i<questions.length;i++){
+    const entries=value.answers?.[i];
+    if(entries!==undefined){
+     if(!Array.isArray(entries)||entries.length>questions[i].options.length||!entries.every(n=>Number.isInteger(n)&&n>=0&&n<questions[i].options.length))return false;
+     picked[i]=[...new Set(entries)];
+    }
+    const note=value.notes?.[i];
+    if(note!==undefined){
+     if(typeof note!=='string'||note.length>600)return false;
+     remarks[i]=note;
+    }
+   }
+   position=value.position;answers=picked;notes=remarks;save();render();return true;
+  },
+  resume:()=>{if(position<0){position=0;save()}open()}
+});
  document.querySelectorAll('[data-tab="psych-quiz"],[data-goto="psych-quiz"]').forEach(b=>b.addEventListener('click',render));
  if(location.hash==='#psych-quiz')render();
 })();
