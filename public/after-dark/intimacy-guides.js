@@ -2,7 +2,526 @@
    Content is for adults; outcomes are not guaranteed; no data is transmitted. */
 (()=>{
 'use strict';
-const DATA={"guides":[{"id":"squirting","icon":"💧","category":"Pleasure & anatomy","title":"Squirting: understand fluid release","subtitle":"What it is, what varies, and how to explore without pressure","keywords":"squirt squirting gush female ejaculation ejaculate gushing fluid skene bladder pee urethra","facts":"Squirting refers to a release of fluid through the urethra during sexual activity. Research suggests much of the fluid usually comes from the bladder; smaller amounts of secretions from paraurethral (Skene’s) glands may be present. Female ejaculation is sometimes described separately. Squirting does not always happen with orgasm, and many people never experience it.","steps":["Start with a pressure-free conversation: ask whether the person is interested in exploring the experience at all. Being curious is not a commitment to produce fluid.","Learn the difference between the urethral opening, vaginal opening, clitoris and the surrounding tissues. Understanding anatomy makes it easier to talk about what feels comfortable.","Choose a relaxed, private setting and make cleanup easy if fluid release is a concern. Someone may prefer to empty their bladder beforehand for comfort.","Focus on mutually enjoyable sensation, comfort and feedback instead of trying to force a particular result. Sensitivity and responses vary widely.","Do not strain, bear down forcefully, ignore pain, or treat fluid release as proof that someone enjoyed the encounter."],"myth":"Squirting is not a required part of orgasm and cannot be guaranteed by a technique. Its occurrence, volume and relationship to orgasm vary.","safety":"Seek medical advice if fluid release is accompanied by pain, burning, blood, unusual odor or unwanted leakage outside sexual activity.","partner":"Would you like to understand what squirting is, or is it something you actually want to explore? There is no pressure to make it happen.","sources":["issmSquirting","issmEjaculation","vulva"]},{"id":"nipple-pleasure","icon":"🌸","category":"Pleasure & anatomy","title":"Nipple pleasure and nipple-associated orgasms","subtitle":"Sensitivity, comfort, and what research actually supports","keywords":"nipple orgasm nipples breast breast orgasm areola chest sensitive","facts":"Nipples and breasts can be pleasurable or sensitive for many people. Brain-imaging studies suggest nipple sensation may engage regions also involved in genital sensation, but the strength and meaning of the response vary. Nipple-associated orgasm is possible for some people, not a predictable outcome.","steps":["Ask whether nipple or breast attention is appealing; some people dislike it or find it too sensitive.","Begin only with comfortable, gentle attention and let the person describe whether the sensation is pleasant, neutral or unpleasant.","Use ongoing feedback to adapt or stop; sensitivity can change with hormones, menstrual cycles, medications, pregnancy and other factors.","Give the experience time without demanding an orgasm. Comfort, anticipation and feeling emotionally safe may matter more than intensity.","Stop if there is soreness, skin irritation, unwanted sensitivity or any pain."],"myth":"There is no scientifically established, universally effective nipple-orgasm technique. Not experiencing one says nothing about someone’s sexual health.","safety":"Persistent nipple pain, a new lump, unusual discharge (especially bloody or spontaneous), or changes in breast skin merit evaluation by a healthcare professional.","partner":"Do you enjoy attention around your chest, or would you rather leave that area alone? You can change your mind at any time.","sources":["nippleBrain","issmNonGenital","nippleSurvey"]},{"id":"clitoral-pleasure","icon":"✨","category":"Pleasure & anatomy","title":"Clitoral pleasure and orgasm","subtitle":"A practical anatomy-first guide without performance pressure","keywords":"clit clitoral clitoris orgasm female orgasm external pleasure anatomy vulva","facts":"The clitoris has external and internal structures and is an important source of sexual sensation. Preferences for indirect versus direct touch, pace and intensity vary, and penetration alone is not necessary for everyone to experience pleasure.","steps":["Use accurate anatomy terms and allow the person to identify what feels comfortable.","Prioritize relaxation, mutual consent and a setting where there is no need to hurry.","Some people prefer gentle or indirect sensation rather than concentrated contact with a highly sensitive area; ask rather than assume.","Pay attention to friction, dryness and tenderness. An appropriate lubricant may improve comfort when friction is an issue.","Let the person guide any changes, and regard enjoyment—not the occurrence of orgasm—as the outcome."],"myth":"There is no single standard time, position or response. Bodies differ and preferences can change from one day to the next.","safety":"If pain or burning persists, stop the activity and consult a qualified healthcare professional.","partner":"What kind of attention feels pleasant to you, and are there things you would prefer we avoid?","sources":["vulva","acogSexual"]},{"id":"front-wall","icon":"🧭","category":"Pleasure & anatomy","title":"The G-spot, anterior vaginal wall and myths","subtitle":"Understanding the anatomy without hunting for a magic button","keywords":"g spot g-spot gspot front vaginal wall anterior wall internal clitoris urethral sponge","facts":"The term “G-spot” generally refers to a region of the anterior vaginal wall associated with structures including the urethral sponge and clitoral network. Researchers do not agree on a single separately defined anatomical spot present in everyone.","steps":["Begin with a clear discussion of whether internal exploration is wanted at all.","Use anatomy diagrams to understand where the vaginal wall, urethra, clitoris and surrounding tissues are located.","Choose comfort and communication over locating a supposedly universal spot.","Recognize that pressure may be pleasurable, neutral, uncomfortable or bladder-like depending on the person.","Do not continue if there is pain, pressure that feels unwelcome or a feeling of needing to prove a result."],"myth":"Feeling nothing in a particular area does not mean someone is doing it wrong or is unable to have an orgasm.","safety":"Persistent pelvic pain, urinary symptoms or bleeding warrant medical evaluation.","partner":"Would you prefer to keep things external, discuss internal exploration, or avoid that entirely?","sources":["vulva","acogSexual"]},{"id":"multiple-orgasms","icon":"🌈","category":"Pleasure & anatomy","title":"Multiple orgasms and recovery time","subtitle":"Understanding variability, sensitivity and pacing","keywords":"multiple orgasms consecutive orgasm back to back repeat climax refractory recovery","facts":"Some people experience more than one orgasm during an encounter; others need recovery time, experience increased sensitivity, or do not want further stimulation. These are all normal variations.","steps":["Ask whether continuing after an intense experience would be welcome or whether a pause feels better.","Recognize signs of heightened sensitivity, fatigue or a desire for rest.","Keep checking in rather than assuming that a previous pleasurable response means more is wanted.","Make space for recovery, water, affectionate conversation or stopping altogether.","Do not treat the number or length of orgasms as a measure of success."],"myth":"Multiple orgasms are not a universal ability, a goal everyone shares or evidence that one person is more sexually satisfied than another.","safety":"Stop for pain, dizziness, distress or uncomfortable sensitivity.","partner":"After a pleasurable moment, would you prefer a pause, closeness, or to stop for the day?","sources":["acogSexual","issmNonGenital"]},{"id":"orgasm-difficulty","icon":"💜","category":"Pleasure & anatomy","title":"When orgasm is difficult or elusive","subtitle":"Common influences and what may help without blame","keywords":"cant orgasm cannot climax anorgasmia difficulty finishing never orgasm delayed orgasm","facts":"Orgasm may be affected by stress, fatigue, medications, relationship concerns, pain, hormonal changes, sexual knowledge and individual differences. Some people rarely or never have orgasms but still experience pleasure.","steps":["First ask whether the situation causes distress, rather than assuming an orgasm must happen.","Consider factors such as stress, sleep, pain, changes in medication and feeling watched or rushed.","Reduce performance pressure and allow honest communication about what is comfortable or enjoyable.","If dryness or friction interferes, explore compatible lubrication and nonpainful activities.","If the issue is new, persistent or distressing, discuss it with a healthcare professional who is comfortable with sexual health."],"myth":"Difficulty reaching orgasm does not prove a lack of attraction or relationship compatibility.","safety":"Do not discontinue medications without talking to a prescriber; seek care for persistent pain or concerning changes.","partner":"Would it feel better if we stopped making orgasm a goal and focused on what you actually enjoy?","sources":["acogSexual","acogPain"]},{"id":"non-genital","icon":"🌙","category":"Pleasure & anatomy","title":"Pleasure that does not depend on genital contact","subtitle":"Body awareness, imagination, and non-genital sensations","keywords":"mind orgasm nipple orgasm no touching without touching non genital mental orgasm fantasy","facts":"Some people report strong arousal or orgasm related to imagination, dreams or non-genital sensation. Research is limited and individual experience differs.","steps":["Notice which non-genital sensations are comforting, emotionally meaningful or distracting.","Explore relaxation, breathing and attention without expecting a specific physical outcome.","Respect individual sensory preferences; not all zones are pleasurable for everyone.","Communicate clearly about whether a sensation is welcome or overwhelming."],"myth":"An unusual or less common experience should not be treated as a universal ability or a sign of psychological traits.","safety":"If persistent, unwanted genital sensations are causing distress, consider medical assessment.","partner":"Are there sensory or emotional experiences you find especially meaningful, even without sexual contact?","sources":["issmNonGenital","nippleBrain"]},{"id":"prostate-anatomy","icon":"🧬","category":"Pleasure & anatomy","title":"Prostate awareness and personal comfort","subtitle":"Anatomy, consent and realistic expectations","keywords":"prostate prostate orgasm male g spot anal prostate pleasure","facts":"The prostate is a gland below the bladder, surrounding part of the urethra. Some people associate pelvic or prostate-area sensation with pleasure, but experiences vary and neither interest nor sensation establishes sexual orientation.","steps":["Learn the difference between pelvic-floor muscles, the rectum, prostate and urinary tract from medically accurate sources.","Discuss interests and boundaries openly before considering any body-focused activity.","Treat discomfort as a reason to stop, not a signal to push harder.","Use appropriate health and hygiene information and seek qualified guidance for symptoms.","Do not infer someone’s identity from the kind of sensation they enjoy or dislike."],"myth":"There is no standard prostate-orgasm response that everyone can or should achieve.","safety":"Pain, bleeding, fever, urinary symptoms or an existing prostate condition call for medical advice; avoid unsafe objects or force.","partner":"Would you like to learn the anatomy, or is there a particular sensation or role you want to talk about?","sources":["prostate"]},{"id":"pelvic-floor","icon":"🫧","category":"Comfort & health","title":"Pelvic floor comfort and relaxation","subtitle":"Why relaxing can matter as much as strengthening","keywords":"pelvic floor kegels pelvic muscle relaxation tension pain spasms","facts":"Pelvic-floor muscles contribute to bladder, bowel and sexual function. Some people have weakness; others have excessive tension. Kegel exercises are not the right solution for every condition.","steps":["Notice whether you habitually tense your abdomen, jaw or pelvic region when stressed.","Choose comfortable breathing and body relaxation instead of straining to achieve a sensation.","Do not repeatedly bear down or force muscle contractions during discomfort.","If you have persistent pain, painful penetration or urinary symptoms, ask about evaluation by a pelvic-floor specialist."],"myth":"More muscle tightening is not always better. A tense pelvic floor may need relaxation or individualized treatment.","safety":"Persistent pain, urinary difficulty or pelvic pressure deserves clinical evaluation.","partner":"Do you feel physically relaxed and comfortable, or would a break and a calmer setting help?","sources":["pelvic","acogPain"]},{"id":"lubrication","icon":"💧","category":"Comfort & health","title":"Arousal, lubrication and comfort","subtitle":"Understand what moisture does and does not mean","keywords":"dryness lubrication lubricant vaginal wet aroused wetness friction moisturizers","facts":"Lubrication and sexual interest do not always occur together. Dryness can be influenced by stress, medications, hormonal changes and other factors; lubrication is not consent.","steps":["Ask whether dryness or friction is making the experience uncomfortable.","Consider an appropriate lubricant, checking compatibility with condoms and any intimate products.","Allow time and do not treat physical wetness as a substitute for verbal agreement.","Stop if there is burning, irritation or pain.","For recurring dryness or discomfort, seek guidance from a healthcare professional."],"myth":"Being lubricated does not prove desire or consent, and being dry does not prove a lack of interest.","safety":"Avoid oil-based products with latex condoms; check product instructions for compatibility.","partner":"Does this feel comfortable, or would a different pace, lubricant or pause help?","sources":["acogSexual","acogPain"]},{"id":"communication","icon":"💬","category":"Partner conversations","title":"Talk about an intimate curiosity","subtitle":"A direct, pressure-free conversation anyone can use","keywords":"talk partner how to ask sex communicate ask interest fantasy bring up kink safe","facts":"A specific interest can have several meanings: physical sensation, attention, imagination, trust, novelty or a relationship dynamic. Talking does not create an obligation to act.","steps":["Choose a calm, private moment outside an activity.","Ask permission to raise a sensitive subject, and make it clear a no is welcome.","Describe the particular feeling or idea that draws your curiosity and say whether it is fantasy-only or a real-life question.","Invite the other person’s questions and their own preferences without trying to persuade them.","Agree on any boundaries and respect the choice not to discuss it further."],"myth":"Sharing a fantasy does not mean a partner must fulfill it—or that the speaker wants it in real life.","safety":"Coercion, guilt and repeated pressure undermine meaningful consent.","partner":"There is something I’m curious about, but I don’t expect you to agree. Would you be comfortable hearing about it?","sources":["acogSexual"]},{"id":"sensory-feedback","icon":"🎛️","category":"Partner conversations","title":"Give and receive helpful feedback","subtitle":"Simple check-ins that make comfort and boundaries clearer","keywords":"how to give feedback guide partner pace pressure touch stop safe word communicate consent","facts":"People differ in how they experience pressure, touch, temperature, sound and attention. Guessing from body language alone is not reliable.","steps":["Agree on simple words such as yes, no, slower, lighter, pause and stop.","Ask specific, neutral questions about comfort rather than assuming that silence means approval.","Make changes only with feedback and leave room for someone to reverse an earlier yes.","Discuss what was good, what to avoid and what to change afterward without blame."],"myth":"A strong physical response or a lack of protest is not a substitute for consent.","safety":"Stop promptly if someone feels pain, uncertainty or distress.","partner":"Would you prefer more, less, something different, or to stop? All answers are okay.","sources":["acogSexual"]},{"id":"aftercare","icon":"🤍","category":"Partner conversations","title":"Aftercare and checking in","subtitle":"Support after an intense or vulnerable experience","keywords":"after care aftercare check in comfort cuddle post orgasm emotional","facts":"Different people want different kinds of emotional or physical support after an intense experience: conversation, quiet, water, reassurance or private space.","steps":["Ask what would help before beginning a challenging conversation or intimate activity.","Offer a choice between closeness, conversation and quiet personal space.","Acknowledge that feelings can change afterward without assuming something went wrong.","If both want, check in again later about what felt good, uncomfortable or unexpected."],"myth":"Aftercare is not a fixed script; some people need space rather than touch.","safety":"Seek help for persistent distress, injury or a medical concern.","partner":"What would help you feel most comfortable afterward—talking, closeness, or some quiet time?","sources":["acogSexual"]},{"id":"toys","icon":"🧼","category":"Comfort & health","title":"Personal toys: materials, cleaning and comfort","subtitle":"Basic safety checks before using an intimate product","keywords":"sex toys vibrator silicone cleaning hygiene toy safe materials body safe","facts":"Quality, materials, intended use, cleaning requirements and compatibility vary between intimate products. Follow manufacturer guidance and avoid damaged devices.","steps":["Read the product’s intended-use, materials and cleaning instructions before use.","Inspect for cracks, rough edges, loose components or other damage.","Wash hands and clean accessories as directed, especially when changing users.","Use compatible lubrication when appropriate and avoid improvised items not designed for intimate use.","Stop if an accessory causes pain, numbness or irritation."],"myth":"A product sold as a toy is not automatically appropriate for every body or every use.","safety":"Use only body-safe products and follow applicable safer-sex guidance for sharing.","partner":"What accessories, if any, are you comfortable discussing? It’s fine to say none.","sources":["acogSexual"]},{"id":"pain","icon":"🩺","category":"Comfort & health","title":"Pain, discomfort and when to get help","subtitle":"Know when to stop and what symptoms matter","keywords":"painful sex burning discomfort bleeding numbness irritation sore medical gynecologist","facts":"Sexual pain is common, but persistent pain should not be normalized or endured. Causes can include friction, inflammation, pelvic-floor tension, hormonal changes and other medical issues.","steps":["Stop or change the activity when something hurts. Pain is information, not a challenge to overcome.","Ask where and when the discomfort began, without guessing a diagnosis.","Consider reducing friction, avoiding the painful activity and allowing time for recovery.","Seek clinical care for repeated pain, bleeding, urinary symptoms, unusual discharge or significant changes."],"myth":"Pushing through pain is not necessary to make an experience pleasurable.","safety":"Heavy bleeding, severe sudden pain or other acute symptoms may require urgent medical assessment.","partner":"Something hurts. Can we stop and figure out what would be comfortable instead?","sources":["acogPain","acogSexual"]},{"id":"sexual-health","icon":"🛡️","category":"Comfort & health","title":"Safer-sex conversations and STI prevention","subtitle":"Communication and prevention basics for consenting adults","keywords":"safe sex condoms sti std oral sex barrier testing prevention communication","facts":"STI exposure varies by activity and personal context. Barriers, vaccination, screening and honest discussions can reduce risk. Not all infections cause symptoms.","steps":["Talk about testing, barriers and other health concerns before an activity begins.","Discuss the kind of contact being considered rather than using vague assumptions.","Use protective products according to instructions and check lubricant compatibility.","Consider routine screening or medical advice based on individual circumstances.","Recognize that agreeing to one activity does not mean agreeing to another."],"myth":"The absence of symptoms is not proof someone has no STI.","safety":"Medical questions about exposure, symptoms or testing are best handled with a qualified clinician.","partner":"Could we discuss the protection, testing and boundaries that would help both of us feel comfortable?","sources":["cdcSTI","acogSexual"]}],"sources":{"issmSquirting":{"label":"ISSM · Understanding Squirting","url":"https://www.issm.info/sexual-health-headlines/understanding-squirting-young-womens-experiences-and-insights"},"issmEjaculation":{"label":"ISSM · Female ejaculation","url":"https://www.issm.info/sexual-health-qa/do-women-ejaculate"},"vulva":{"label":"Cleveland Clinic · Vulva anatomy","url":"https://my.clevelandclinic.org/health/body/vulva"},"nippleBrain":{"label":"PubMed · Nipple and genital sensory mapping","url":"https://pubmed.ncbi.nlm.nih.gov/21797981/"},"nippleSurvey":{"label":"PubMed · Breast sensitivity survey","url":"https://pubmed.ncbi.nlm.nih.gov/16681470/"},"issmNonGenital":{"label":"ISSM · Orgasm without direct genital contact","url":"https://www.issm.info/sexual-health-qa/can-women-reach-orgasm-without-direct-sexual-stimulation/"},"acogSexual":{"label":"ACOG · Your sexual health","url":"https://www.acog.org/womens-health/faqs/your-sexual-health"},"acogPain":{"label":"ACOG · When sex is painful","url":"https://www.acog.org/womens-health/faqs/when-sex-is-painful"},"cdcSTI":{"label":"CDC · STI prevention and testing","url":"https://www.cdc.gov/sti/prevention/"},"prostate":{"label":"Cleveland Clinic · Prostate anatomy","url":"https://my.clevelandclinic.org/health/body/23965-prostate"},"pelvic":{"label":"Cleveland Clinic · Hypertonic pelvic floor","url":"https://my.clevelandclinic.org/health/diseases/22870-hypertonic-pelvic-floor"}}};
+const DATA={
+  "guides": [
+    {
+      "id": "nipple-pleasure",
+      "icon": "🌸",
+      "category": "Breast & nipple",
+      "title": "Nipple-associated orgasm",
+      "subtitle": "How nipple sensation may contribute to orgasm",
+      "keywords": "nipple orgasm nipples breasts areola chest breast orgasm",
+      "facts": "Some people experience orgasm with nipple or breast stimulation alone or as part of wider arousal. Nipple sensory signals can activate areas of the brain involved in genital sensation, but the experience is uncommon and highly variable.",
+      "steps": [
+        "Ask if breast or nipple attention is welcome and what kind of sensation feels good; some people find it unpleasant.",
+        "Start with mild, indirect contact around the chest or areola and allow sensitivity to guide whether to continue.",
+        "If wanted, change only one factor at a time—location, pressure or rhythm—and check which feels better.",
+        "Continue only with pleasurable, tolerable sensation; a predictable and comfortable pace may help maintain arousal.",
+        "If nipples become tender, irritated or overly sensitive, reduce contact or stop rather than increasing intensity."
+      ],
+      "myth": "No scientifically established technique guarantees a nipple orgasm, and nipple sensitivity varies with hormonal changes and individual anatomy.",
+      "safety": "Never use pain as a test of progress. Seek clinical advice for persistent nipple pain, unexplained discharge, a lump or new skin changes.",
+      "partner": "Are your nipples an area you enjoy exploring, and would you prefer lighter or no attention there?",
+      "sources": [
+        "nippleBrain",
+        "plannedOrgasm",
+        "orgasm"
+      ]
+    },
+    {
+      "id": "clitoral-pleasure",
+      "icon": "✨",
+      "category": "External vulva",
+      "title": "External clitoral orgasm",
+      "subtitle": "Understanding the external clitoris and its internal network",
+      "keywords": "clit clitoral orgasm clitoris hood outer vagina external orgasm vulva",
+      "facts": "The clitoris includes the visible glans and extensive structures inside the pelvis. Many people with vulvas orgasm through direct or indirect clitoral stimulation; penetration is not required.",
+      "steps": [
+        "Identify the external clitoral hood and surrounding tissue using accurate anatomy; the visible glans can be extremely sensitive.",
+        "Ask whether indirect contact through surrounding tissue feels more comfortable than direct contact.",
+        "Experiment gently with preferred location, rhythm and pressure, changing one variable at a time rather than guessing.",
+        "Use compatible lubrication if friction causes discomfort; avoid continuing with dry, irritating contact.",
+        "Once a comfortable pattern is identified, check before changing it, and pause if sensitivity increases sharply."
+      ],
+      "myth": "Orgasm from penetration alone is not necessary or inherently superior. A clitoral orgasm is not a lesser kind of orgasm.",
+      "safety": "Only explore with ongoing consent. Avoid pain, excess friction or pressure; stop for discomfort, numbness or bleeding, and seek care for persistent symptoms.",
+      "partner": "Would you rather guide me toward what works for you, including when to keep a comfortable rhythm?",
+      "sources": [
+        "mayoVaginal",
+        "vulva",
+        "acogSexual"
+      ]
+    },
+    {
+      "id": "outer-vulva",
+      "icon": "🌷",
+      "category": "External vulva",
+      "title": "Vulvar and labial orgasm-related sensation",
+      "subtitle": "The labia, vestibule and tissue surrounding the clitoris",
+      "keywords": "outer vagina outside vagina vulva labia lips labial orgasm external vaginal",
+      "facts": "The external genital area is called the vulva, not the vagina. Sensation from the labia, vestibule and nearby clitoral structures may contribute to an orgasm, often alongside clitoral involvement. A distinct labial-only orgasm is not established as a universal medical category.",
+      "steps": [
+        "Locate the outer labia, inner labia and clitoral hood on an accurate anatomical diagram.",
+        "Ask which regions feel pleasant and which are too sensitive; outer contact does not need to involve penetration.",
+        "If wanted, explore light, broad contact around the vulva before concentrating on a smaller region.",
+        "Use compatible lubrication or adjust pressure if friction, pulling or tenderness appears.",
+        "Follow feedback rather than assuming that one area or pattern works for every person."
+      ],
+      "myth": "There is no standard, universally identifiable 'outer vaginal orgasm' separate from the clitoral and other vulvar sensory pathways.",
+      "safety": "Stop for irritation or burning; new or persistent vulvar pain should be evaluated medically.",
+      "partner": "Do you prefer external vulvar sensation, clitoral sensation, a combination, or neither?",
+      "sources": [
+        "vulva",
+        "mayoVaginal",
+        "orgasm"
+      ]
+    },
+    {
+      "id": "vaginal-orgasm",
+      "icon": "🪷",
+      "category": "Internal vagina",
+      "title": "Internal vaginal orgasm",
+      "subtitle": "Vaginal sensation, comfort and the clitoral network",
+      "keywords": "inside vagina inner vaginal orgasm penetration vaginal walls internal",
+      "facts": "Some people experience orgasm from internal vaginal sensation. The vagina interacts with the clitoral network, pelvic floor and broader nervous system; many people need or prefer external clitoral stimulation as well.",
+      "steps": [
+        "Ask whether internal vaginal contact is desired; external stimulation alone may be preferable.",
+        "Allow adequate arousal and use appropriate lubrication when helpful for comfortable contact.",
+        "Let the person indicate whether gentle internal sensation feels pleasant, neutral or uncomfortable; preferences vary by location and depth.",
+        "If orgasm is the goal, check whether adding external clitoral sensation makes the experience more satisfying rather than relying on penetration alone.",
+        "Avoid uncomfortable depth, pressure or friction; adjustment or stopping is always an appropriate choice."
+      ],
+      "myth": "Vaginal penetration does not guarantee orgasm, and the absence of a penetration-only orgasm is normal.",
+      "safety": "Pain, bleeding or unusual pelvic pressure are reasons to stop. Persistent symptoms deserve medical evaluation.",
+      "partner": "Would you like internal contact, external clitoral contact, both, or neither?",
+      "sources": [
+        "mayoVaginal",
+        "researchVaginal",
+        "acogSexual"
+      ]
+    },
+    {
+      "id": "front-wall",
+      "icon": "🧭",
+      "category": "Internal vagina",
+      "title": "Anterior vaginal-wall / G-spot-associated orgasm",
+      "subtitle": "What researchers mean by the 'G-spot' region",
+      "keywords": "g spot gspot g-spot front vaginal wall urethral sponge internal clitoris orgasm",
+      "facts": "Some people report orgasm associated with sensation at the anterior (front) vaginal wall. The 'G-spot' is not an agreed-upon discrete organ or guaranteed button; nearby clitoral, urethral and vaginal tissues work together.",
+      "steps": [
+        "Understand the position of the anterior vaginal wall from a reliable anatomy reference before exploring.",
+        "Check whether internal exploration is actually wanted; this experience is not required for an orgasm.",
+        "Use comfort and feedback to identify whether contact in different vaginal regions feels pleasant, neutral or bladder-like.",
+        "If the sensation is enjoyable, discuss whether combining it with external clitoral input is preferable.",
+        "Stop if pressure feels urinary, painful or distressing, and do not repeatedly hunt for a specific 'spot'."
+      ],
+      "myth": "No single G-spot location or universal stimulation method has been established, and a person can have a fulfilling orgasm without finding one.",
+      "safety": "Do not force pressure or ignore urinary symptoms, pain or bleeding.",
+      "partner": "Would you like to explore internal sensations generally, without expecting a particular spot to work?",
+      "sources": [
+        "researchVaginal",
+        "mayoVaginal",
+        "vulva"
+      ]
+    },
+    {
+      "id": "deep-pelvic",
+      "icon": "🌺",
+      "category": "Internal vagina",
+      "title": "Deep vaginal or cervical-associated orgasm",
+      "subtitle": "Reported deep-pelvic sensations and anatomical limits",
+      "keywords": "cervical orgasm cervix deep vagina fornix deep pelvic a spot orgasm",
+      "facts": "Some people describe deep-pelvic or cervical-associated orgasms, but these labels describe subjective experiences rather than proven, separate orgasm mechanisms. The cervix can be sensitive or painful, and deep contact is not desirable for everyone.",
+      "steps": [
+        "Discuss whether deeper pelvic sensations are welcome; many people prefer to avoid them.",
+        "Prioritize comfort and arousal before considering any internal contact.",
+        "Let the person set the boundaries around depth and pressure, including avoiding contact with the cervix altogether.",
+        "If a sensation feels pleasant, maintain comfort rather than trying to force an intense or deeper response.",
+        "If there is sharp pain, spotting, cramping or unwanted pressure, stop and change course."
+      ],
+      "myth": "Cervical orgasm is not an established universal ability, and forceful cervical contact is not a route to orgasm.",
+      "safety": "Do not deliberately strike or force pressure against the cervix. Seek medical care for recurring deep pain or bleeding.",
+      "partner": "Is deeper internal sensation comfortable for you, or would you rather avoid that area?",
+      "sources": [
+        "researchVaginal",
+        "acogPain",
+        "orgasm"
+      ]
+    },
+    {
+      "id": "anal-orgasm",
+      "icon": "🫧",
+      "category": "Anal & prostate",
+      "title": "Anal-associated orgasm",
+      "subtitle": "Anal sensory nerves and why penetration is optional",
+      "keywords": "anal orgasm anus perianal rectal pleasure rim butt orgasm",
+      "facts": "Some people report orgasms associated with stimulation of the anus or nearby pelvic nerves. Anal pleasure can be external and does not require penetration; responses vary widely across individuals.",
+      "steps": [
+        "Ask explicitly whether anal contact is wanted and whether it should stay external.",
+        "Begin with the person's comfort and response to gentle sensation around the anal area rather than assuming penetration.",
+        "If internal anal contact is mutually chosen, use ample appropriate lubrication and products specifically designed for anal use, with a flared base.",
+        "Check regularly for tension, discomfort or a wish to pause; never numb the area or push through pain.",
+        "Remember that an orgasm may involve broader pelvic stimulation rather than a uniquely 'anal' reflex."
+      ],
+      "myth": "Anal penetration is not necessary for an anal-associated orgasm, and it is not enjoyable or wanted by everyone.",
+      "safety": "Anal tissue can tear. Use barriers as appropriate, avoid sharp or improvised items, and seek care for bleeding or persistent pain.",
+      "partner": "Would any anal-area sensation be welcome, and if so would you prefer to keep it external?",
+      "sources": [
+        "orgasm",
+        "plannedOrgasm",
+        "cdcAnal"
+      ]
+    },
+    {
+      "id": "prostate-anatomy",
+      "icon": "🧬",
+      "category": "Anal & prostate",
+      "title": "Prostate-associated orgasm",
+      "subtitle": "Internal prostate sensation and external perineal awareness",
+      "keywords": "prostate orgasm male g spot perineum pelvic gland prostate stimulation",
+      "facts": "The prostate sits beneath the bladder in people who have one. Some report orgasm associated with prostate-area sensation. It can overlap with pelvic-floor and penile responses and is not something everyone can or wants to experience.",
+      "steps": [
+        "Start by reviewing prostate, rectal and perineal anatomy and discussing boundaries.",
+        "External perineal sensation may be an alternative for someone who does not want internal anal contact.",
+        "If internal contact is chosen, emphasize safe, hygienic practices, sufficient lubricant and appropriate products rather than force or depth.",
+        "Keep communication open about comfortable pressure, relaxation and whether to continue.",
+        "Stop if an area is painful or there are urinary symptoms; orgasm is not a measure of prostate health."
+      ],
+      "myth": "A prostate orgasm is not guaranteed, and enjoying or disliking this sensation does not establish anyone's sexual orientation.",
+      "safety": "Avoid internal exploration when there is pain, bleeding or an active condition without medical guidance; use only rectal-safe items with a flared base.",
+      "partner": "Would you be interested in learning the anatomy or discussing external versus internal comfort?",
+      "sources": [
+        "prostate",
+        "uwOrgasm",
+        "orgasm"
+      ]
+    },
+    {
+      "id": "testicular-orgasm",
+      "icon": "🍑",
+      "category": "Penis & testes",
+      "title": "Scrotal and testicular-associated orgasm",
+      "subtitle": "Understanding scrotal sensitivity without harmful pressure",
+      "keywords": "testicle orgasm testicular orgasm balls scrotum scrotal pleasure testes",
+      "facts": "The scrotum and surrounding genital skin are sensitive erogenous zones and can contribute to orgasm. A separate testicle-only orgasm is not a clearly established physiological category; testicular tissue itself is vulnerable to injury.",
+      "steps": [
+        "Distinguish sensitive scrotal skin from the testicles inside; never assume pressure on the testicles feels good.",
+        "Ask whether gentle external contact to the scrotum or surrounding skin is welcome.",
+        "If the person enjoys the sensation, let them guide the location, lightness and duration.",
+        "A comfortable experience may complement other genital stimulation; do not treat it as a stand-alone test of orgasm ability.",
+        "Stop immediately if there is any ache, pulling discomfort, nausea or sharp pain."
+      ],
+      "myth": "No reliable technique has been shown to produce a distinct testicular-only orgasm. Squeezing or striking the testicles is unsafe.",
+      "safety": "Sudden severe testicular pain, swelling or persistent pain warrants prompt medical assessment.",
+      "partner": "Does gentle contact with the scrotal skin feel good, or is that area too sensitive?",
+      "sources": [
+        "plannedOrgasm",
+        "orgasm",
+        "sexualResponse"
+      ]
+    },
+    {
+      "id": "penile-orgasm",
+      "icon": "🍭",
+      "category": "Penis & testes",
+      "title": "Penile orgasm",
+      "subtitle": "Glans, shaft, comfort and consistency",
+      "keywords": "penis orgasm penile glans shaft climax friction erection",
+      "facts": "Penile sensory signals commonly contribute to orgasm, with sensations from the glans, shaft and pelvic nervous system. Orgasm and ejaculation often coincide but are not identical.",
+      "steps": [
+        "Ask whether the person prefers contact around the glans, along the shaft, or more general genital sensation.",
+        "Begin with comfortable contact and adapt pressure and pace based on direct feedback.",
+        "Reduce friction with compatible lubrication if dryness or tenderness is an issue.",
+        "When something feels reliably pleasant, check before changing it abruptly.",
+        "If sensitivity becomes uncomfortable during or after climax, pause instead of pushing for another orgasm."
+      ],
+      "myth": "There is no universally correct speed, pressure or duration. Orgasm does not require a particular erection pattern or ejaculation volume.",
+      "safety": "Do not use constriction or excessive pressure; pain, numbness or a persistent change in function deserves medical evaluation.",
+      "partner": "Which kinds of sensation are comfortable for you, and when would you rather pause?",
+      "sources": [
+        "orgasm",
+        "plannedOrgasm",
+        "sexualResponse"
+      ]
+    },
+    {
+      "id": "blended-orgasm",
+      "icon": "💫",
+      "category": "Combined & repeated",
+      "title": "Blended or combined orgasm",
+      "subtitle": "When several sensory pathways contribute at once",
+      "keywords": "blended orgasm combined simultaneous nipple clit vagina anal pelvic",
+      "facts": "Some people experience a blended orgasm when different pleasurable sensory inputs are present together. It is a descriptive label, not a standardized separate organ or guaranteed more intense climax.",
+      "steps": [
+        "First identify one or two kinds of contact the person already finds pleasurable.",
+        "Ask whether combining sensations sounds appealing rather than assuming more is better.",
+        "Introduce only one additional comfortable sensation at a time to avoid distraction or overload.",
+        "Check whether simultaneous input helps, feels neutral or becomes overwhelming, then adjust accordingly.",
+        "Allow the person to stop, narrow the focus or return to their preferred single source of sensation."
+      ],
+      "myth": "Combining more body areas does not necessarily increase pleasure or guarantee orgasm.",
+      "safety": "Avoid overstimulation and ensure every form of contact is independently consented to.",
+      "partner": "Would you enjoy combining two familiar sensations, or keeping attention on one at a time?",
+      "sources": [
+        "researchVaginal",
+        "orgasm",
+        "uwOrgasm"
+      ]
+    },
+    {
+      "id": "multiple-orgasms",
+      "icon": "🌈",
+      "category": "Combined & repeated",
+      "title": "Multiple orgasms",
+      "subtitle": "Successive orgasms, recovery time and heightened sensitivity",
+      "keywords": "multiple orgasm repeated orgasms consecutive climax refractory period",
+      "facts": "Some people experience successive orgasms while others need substantial recovery time. Sensitivity after orgasm can increase sharply, and refractory periods vary across individuals.",
+      "steps": [
+        "Ask whether continued stimulation after an orgasm is actually welcome.",
+        "Notice whether sensitivity has increased and offer a break, gentler contact or no contact.",
+        "If the person wants to continue, let them guide the kind and amount of sensation rather than assuming the earlier pattern still works.",
+        "Avoid competing to increase a number or prolong an experience; staying comfortable matters more.",
+        "Respect that a full stop may be preferable even when another orgasm is physically possible."
+      ],
+      "myth": "The ability to have multiple orgasms is not a measure of skill, health or relationship satisfaction.",
+      "safety": "Stop for discomfort, dizziness, irritation or pain, and take recovery time as needed.",
+      "partner": "After an orgasm, would you prefer a pause, a different sensation, or to be completely done?",
+      "sources": [
+        "orgasm",
+        "sexualResponse",
+        "acogSexual"
+      ]
+    },
+    {
+      "id": "dry-orgasm",
+      "icon": "💠",
+      "category": "Combined & repeated",
+      "title": "Orgasm without ejaculation (dry orgasm)",
+      "subtitle": "Why climax and semen release are separate",
+      "keywords": "dry orgasm orgasm without ejaculation no sperm no semen retrograde ejaculation",
+      "facts": "An orgasm can occur without ejaculation. Some people experience little or no semen release after repeated orgasms, certain medicines or procedures, or other medical causes; the sensation may still be genuine.",
+      "steps": [
+        "Know that orgasm and ejaculation are overlapping but different events.",
+        "Do not use the presence or volume of semen to judge the intensity or authenticity of a climax.",
+        "When discussing orgasm with a partner, ask about the subjective experience rather than visual signs.",
+        "If the change is recent, consider medication or medical history and whether fertility concerns exist.",
+        "Avoid techniques intended to force the body not to ejaculate; discuss unusual changes with a clinician."
+      ],
+      "myth": "Dry orgasm is not proof of failure or a universally trainable 'advanced' orgasm technique.",
+      "safety": "New unexplained dry orgasms, pain or fertility concerns merit medical advice.",
+      "partner": "Would you rather describe what orgasm feels like than judge it by whether ejaculation happens?",
+      "sources": [
+        "dryOrgasm",
+        "orgasm",
+        "plannedOrgasm"
+      ]
+    },
+    {
+      "id": "non-genital",
+      "icon": "🧠",
+      "category": "Without direct genital touch",
+      "title": "Mental or non-genital orgasm",
+      "subtitle": "Orgasms reported with imagery and non-genital sensation",
+      "keywords": "mind orgasm thought orgasm imagination fantasy hands free non genital neck ears",
+      "facts": "A minority of people report orgasm from mental imagery, fantasy or non-genital sensory inputs without direct genital touch. Research is limited and there is no reliable universal method.",
+      "steps": [
+        "Choose a comfortable, private environment without a goal of proving that a mental-only orgasm is possible.",
+        "Some people find focused breathing, imagination or attention to non-genital sensations relevant to arousal.",
+        "Allow the person to select thoughts or sensory experiences they personally enjoy; no one needs to describe them to another person.",
+        "Notice what increases comfort or distracts from it and adjust accordingly.",
+        "If an orgasm does not happen, treat the experience as ordinary individual variation rather than failure."
+      ],
+      "myth": "Claims of guaranteed hands-free orgasms or special mental abilities are not scientifically established.",
+      "safety": "Stop if sensations are unwanted or distressing; seek medical input for persistent unwanted arousal.",
+      "partner": "Do you prefer imaginative, sensory or more body-focused experiences, if any?",
+      "sources": [
+        "issmNonGenital",
+        "plannedOrgasm",
+        "orgasm"
+      ]
+    },
+    {
+      "id": "coregasm",
+      "icon": "🏃",
+      "category": "Without direct genital touch",
+      "title": "Exercise-induced orgasm (coregasm)",
+      "subtitle": "What research says about orgasm during exercise",
+      "keywords": "coregasm exercise orgasm core abdominals climbing yoga gym swimming workout",
+      "facts": "Some people report orgasms during physical exertion such as core exercise, climbing or yoga, without intentional genital touch. Studies document the experience but have not established a universally reproducible method.",
+      "steps": [
+        "Recognize that an exercise-related orgasm is an involuntary experience for many people who report it.",
+        "If it occurs, note what movements and physical sensations were present, without pushing beyond safe exercise limits.",
+        "Prioritize good technique, breathing and appropriate training intensity over attempting to force the response.",
+        "You can stop, switch exercises or adjust the environment if the experience feels distracting or unwelcome.",
+        "Avoid assuming everyone can trigger one through a particular abdominal workout."
+      ],
+      "myth": "No evidence shows that doing more repetitions or pushing harder guarantees a coregasm.",
+      "safety": "Do not risk muscle strain, falls, faintness or pelvic pain in an attempt to reproduce the sensation.",
+      "partner": "Have you ever noticed unexpected sexual sensations during exercise, and would you rather discuss or ignore them?",
+      "sources": [
+        "coreResearch",
+        "orgasm"
+      ]
+    },
+    {
+      "id": "sleep-orgasm",
+      "icon": "🌙",
+      "category": "Without direct genital touch",
+      "title": "Sleep or dream orgasm",
+      "subtitle": "Nocturnal orgasms without deliberate stimulation",
+      "keywords": "sleep orgasm dream orgasm nocturnal orgasm wet dream sleep climax",
+      "facts": "Orgasms may occur during sleep, sometimes with erotic dreams and sometimes without remembered dream content. They can happen across different anatomies and do not require conscious intention.",
+      "steps": [
+        "Recognize that this experience may occur spontaneously rather than through a controlled method.",
+        "Avoid interpreting it as proof of relationship dissatisfaction or a hidden intention.",
+        "If interested in patterns, privately note sleep quality, dreams and whether the experience is welcome.",
+        "Good sleep habits may support overall well-being, but no specific sleep routine guarantees a nocturnal orgasm.",
+        "If an episode is painful, repeatedly disrupts sleep or causes distress, seek individualized medical advice."
+      ],
+      "myth": "Dream orgasms cannot be reliably scheduled or induced, and they do not imply a specific fantasy or identity.",
+      "safety": "Persistent unwanted arousal, pain or sleep disturbances should be discussed with a healthcare professional.",
+      "partner": "Do you want to talk about sleep orgasms, or would you prefer to treat them as a private, spontaneous experience?",
+      "sources": [
+        "sleepOrgasm",
+        "sexualResponse",
+        "coreResearch"
+      ]
+    },
+    {
+      "id": "whole-body",
+      "icon": "🪄",
+      "category": "Combined & repeated",
+      "title": "Whole-body or extended orgasm experience",
+      "subtitle": "A subjective description rather than a separate organ",
+      "keywords": "full body orgasm whole body orgasm prolonged orgasm waves of orgasm extended",
+      "facts": "Some people describe orgasms as spreading through the body or occurring in waves. These are subjective experiences within the sexual-response spectrum, not evidence of a separate anatomical orgasm category.",
+      "steps": [
+        "Ask what the individual means by 'whole-body' sensations rather than adopting a fixed definition.",
+        "Explore whether comfort, breathing, relaxed muscles or familiar pleasurable input contribute to the person's experience.",
+        "Pay attention to unwanted tension, dizziness or sensory overload and reduce intensity if necessary.",
+        "Recognize that experiences may vary from one encounter to another, even for the same person.",
+        "Keep expectations flexible; a localized orgasm is no less valid than a widely felt one."
+      ],
+      "myth": "Descriptions such as 'full-body orgasm' do not establish a medically distinct organ-based mechanism.",
+      "safety": "Pain, loss of consciousness, pronounced dizziness or other unusual symptoms are not a normal goal; stop and seek help if concerning.",
+      "partner": "What does a satisfying orgasm feel like to you, without needing it to match anyone else's description?",
+      "sources": [
+        "orgasm",
+        "sexualResponse"
+      ]
+    },
+    {
+      "id": "orgasm-difficulty",
+      "icon": "💜",
+      "category": "Orgasm support",
+      "title": "Facilitating orgasm when it feels difficult",
+      "subtitle": "Evidence-based troubleshooting without performance pressure",
+      "keywords": "anorgasmia delayed orgasm trouble having orgasm cannot climax cant orgasm help orgasm difficulties",
+      "facts": "Orgasm difficulty can be influenced by stress, pain, medications, fatigue, relationship context, hormonal changes or individual sensory needs. Often the useful starting point is learning what is consistently pleasurable, not intensifying everything.",
+      "steps": [
+        "First ask whether the lack of orgasm is personally distressing or merely different from expectations.",
+        "Consider timing, privacy, stress, sleep, medications, pain and whether the person feels pressured or observed.",
+        "Find out whether orgasm happens more readily alone, with specific types of contact, or with different conditions; that information can guide communication.",
+        "Explore preferred kinds of sensation, sufficient time and lubrication where needed, making one change at a time.",
+        "If a change in orgasm ability persists or causes distress, consult a sexual-health clinician or qualified therapist."
+      ],
+      "myth": "An orgasm is not proof of love or skill, and not having one does not automatically mean a medical disorder.",
+      "safety": "Do not stop prescribed medication without professional advice. New pain, bleeding or numbness deserve evaluation.",
+      "partner": "Is orgasm something you want help with, and if so what conditions have felt most comfortable to you?",
+      "sources": [
+        "acogSexual",
+        "mayoVaginal",
+        "plannedOrgasm"
+      ]
+    }
+  ],
+  "sources": {
+    "issmSquirting": {
+      "label": "ISSM · Understanding Squirting",
+      "url": "https://www.issm.info/sexual-health-headlines/understanding-squirting-young-womens-experiences-and-insights"
+    },
+    "issmEjaculation": {
+      "label": "ISSM · Female ejaculation",
+      "url": "https://www.issm.info/sexual-health-qa/do-women-ejaculate"
+    },
+    "vulva": {
+      "label": "Cleveland Clinic · Vulva anatomy",
+      "url": "https://my.clevelandclinic.org/health/body/vulva"
+    },
+    "nippleBrain": {
+      "label": "PubMed · Nipple and genital sensory mapping",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21797981/"
+    },
+    "nippleSurvey": {
+      "label": "PubMed · Breast sensitivity survey",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16681470/"
+    },
+    "issmNonGenital": {
+      "label": "ISSM · Orgasm without direct genital contact",
+      "url": "https://www.issm.info/sexual-health-qa/can-women-reach-orgasm-without-direct-sexual-stimulation/"
+    },
+    "acogSexual": {
+      "label": "ACOG · Your sexual health",
+      "url": "https://www.acog.org/womens-health/faqs/your-sexual-health"
+    },
+    "acogPain": {
+      "label": "ACOG · When sex is painful",
+      "url": "https://www.acog.org/womens-health/faqs/when-sex-is-painful"
+    },
+    "cdcSTI": {
+      "label": "CDC · STI prevention and testing",
+      "url": "https://www.cdc.gov/sti/prevention/"
+    },
+    "prostate": {
+      "label": "Cleveland Clinic · Prostate anatomy",
+      "url": "https://my.clevelandclinic.org/health/body/23965-prostate"
+    },
+    "pelvic": {
+      "label": "Cleveland Clinic · Hypertonic pelvic floor",
+      "url": "https://my.clevelandclinic.org/health/diseases/22870-hypertonic-pelvic-floor"
+    },
+    "orgasm": {
+      "label": "Cleveland Clinic · Orgasm and erogenous zones",
+      "url": "https://my.clevelandclinic.org/health/body/22969-orgasm"
+    },
+    "plannedOrgasm": {
+      "label": "Planned Parenthood · Orgasms",
+      "url": "https://www.plannedparenthood.org/learn/sex-pleasure-and-sexual-dysfunction/sex-and-pleasure/orgasms"
+    },
+    "mayoVaginal": {
+      "label": "Mayo Clinic · Vaginal and clitoral orgasm",
+      "url": "https://www.mayoclinic.org/diseases-conditions/female-sexual-dysfunction/expert-answers/female-orgasm/faq-20058215"
+    },
+    "sexualResponse": {
+      "label": "Cleveland Clinic · Sexual response cycle",
+      "url": "https://my.clevelandclinic.org/health/articles/9119-sexual-response-cycle"
+    },
+    "researchVaginal": {
+      "label": "PubMed · Clitoral and vaginal orgasm research",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27791968/"
+    },
+    "uwOrgasm": {
+      "label": "UW Medicine · Orgasm and the nervous system",
+      "url": "https://rightasrain.uwmedicine.org/life/sex/your-body-during-orgasm"
+    },
+    "coreResearch": {
+      "label": "PubMed · Exercise-induced orgasm survey",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34427847/"
+    },
+    "sleepOrgasm": {
+      "label": "Planned Parenthood · Orgasm variations",
+      "url": "https://www.plannedparenthood.org/learn/sex-pleasure-and-sexual-dysfunction/sex-and-pleasure/orgasms"
+    },
+    "dryOrgasm": {
+      "label": "Mayo Clinic · Dry orgasm",
+      "url": "https://www.mayoclinic.org/symptoms/dry-orgasm/basics/causes/sym-20050906"
+    },
+    "cdcAnal": {
+      "label": "CDC · Lubrication and STI prevention",
+      "url": "https://www.cdc.gov/std/treatment-guidelines/clinical-primary.htm"
+    }
+  }
+};
 const guides=DATA.guides, sources=DATA.sources;
 const $=id=>document.getElementById(id);
 const make=(tag,text,className)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n};
@@ -41,7 +560,7 @@ function paint(){
   btn.type='button';btn.onclick=()=>open(g.id);
   card.append(btn);grid.append(card);
  }
- if(!match.length)grid.append(make('p','No guides match those keywords. Try a shorter phrase such as “nipple”, “squirt”, “orgasm”, “comfort” or “partner”.','howto-empty'));
+ if(!match.length)grid.append(make('p','No orgasm guides match those keywords. Try “nipple”, “clitoral”, “vaginal”, “anal”, “testicular” or “multiple”.','howto-empty'));
 }
 function open(id){
  const g=guides.find(g=>g.id===id);if(!g)return;
@@ -51,12 +570,12 @@ function open(id){
  out.append(make('span',g.category,'eyebrow'),make('h2',g.icon+' '+g.title),make('p',g.subtitle,'howto-guide-lead'));
  const box=make('div',undefined,'howto-guide-insight');box.append(make('h3','Understand the experience'),make('p',g.facts));out.append(box);
  const steps=make('section',undefined,'howto-guide-steps');
- steps.append(make('h3','A comfortable way to approach it'));
+ steps.append(make('h3','How to explore this orgasm experience'));
  const ol=make('ol');g.steps.forEach(s=>ol.append(make('li',s)));steps.append(ol);out.append(steps);
  const myth=make('div',undefined,'howto-guide-callout');myth.append(make('h3','What not to assume'),make('p',g.myth));out.append(myth);
  const care=make('div',undefined,'howto-guide-callout howto-guide-care');care.append(make('h3','Comfort & safety'),make('p',g.safety));out.append(care);
  const partner=make('div',undefined,'howto-guide-partner');partner.append(make('h3','Try saying this to a partner'),make('p','“'+g.partner+'”'));out.append(partner);
- const refs=make('div',undefined,'howto-guide-sources');refs.append(make('h3','Read more from established health sources'));
+ const refs=make('div',undefined,'howto-guide-sources');refs.append(make('h3','Sexual-health sources & further reading'));
  for(const key of g.sources){const s=sources[key];if(!s)continue;const a=make('a',s.label+' ↗');a.href=s.url;a.rel='noopener noreferrer';a.target='_blank';refs.append(a)}out.append(refs);
  const actions=make('div',undefined,'result-actions');
  const back=make('button','← All guides','btn alt');back.onclick=()=>{selectedId='';out.hidden=true;document.getElementById('howto-filters')?.scrollIntoView({behavior:'smooth',block:'start'})};
@@ -89,7 +608,7 @@ function answer(question){
  const q=normalize(question);
  if(!/\b(how|guide|tips|steps|technique|learn|teach|what causes|is it normal|explain|help)\b/.test(q))return null;
  const g=find(question);if(!g)return null;
- return g.title+'\n\n'+g.facts+'\n\n'+g.steps.slice(0,3).map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\n'+g.myth+'\n\nOpen After Dark → Practical Guides to read the full guide, safety notes, sources and partner conversation suggestions.';
+ return g.title+'\n\n'+g.facts+'\n\n'+g.steps.slice(0,3).map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\n'+g.myth+'\n\nOpen After Dark → Orgasm Guides to read the complete steps, anatomical context, safety notes and sources.';
 }
 window.AfterDarkIntimacyGuides=Object.freeze({guides,open,find,answer});
 init();
