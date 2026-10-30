@@ -73,5 +73,44 @@ absent.on('open',()=>absent.connect(room));
 await flush();assert.ok(errors.includes('peer-unavailable'),'Missing host must be reported');
 absent.destroy();
 const disabled=createPeerScope('');assert.equal(disabled.enabled,false,'Empty configuration cannot activate a false relay');
+
+// Exercise the unchanged casino game controller through this relay adapter.
+const casinoSource=readFileSync('public/candy-casino/casino.js','utf8');
+function casinoBrowser(name){
+ const nodes={};
+ const get=id=>nodes[id]??={value:id==='friend-name'?name:'',textContent:'',hidden:false,disabled:false,dataset:{},
+  classList:{toggle(){}},setAttribute(){},replaceChildren(){},append(){},addEventListener(){},focus(){},select(){},after(){}};
+ const document={getElementById:get,querySelectorAll(){return []},addEventListener(){},
+  createElement(){return get('generated-element')},body:{dataset:{}},head:{append(){}},hidden:false};
+ const location={href:'https://randomcandyland.com/candy-casino/',hash:''};
+ const history={replaceState(_a,_b,url){location.href=String(url)}};
+ const window={CandyCasinoRelayURL:'https://candy-casino-relay.example.workers.dev',
+  CandyPoker:{random:()=>1,valid:()=>false},addEventListener(){}};
+ const ctx={window,document,location,history,URL,WebSocket:WebSocketMock,queueMicrotask,
+  crypto:{randomUUID:()=>cryptoRandomUUID()},localStorage:{getItem(){return null},setItem(){}},
+  setTimeout:()=>1,clearTimeout:()=>{},navigator:{userAgent:'test browser'},console};
+ runInNewContext(code,ctx);runInNewContext(casinoSource,ctx);
+ return {get,window,location,status:()=>get('connection-status').textContent,
+  diagnostics:()=>window.CandyCasinoDebug.connectionDetails()};
+}
+const {randomUUID:cryptoRandomUUID}=await import('node:crypto');
+const hostGame=casinoBrowser('Ginger');
+hostGame.get('show-online').onclick();
+await hostGame.get('make-room').onclick();await flush();
+const activeRoom=hostGame.get('room-input').value;
+assert.match(activeRoom,/^rcl-casino-[a-f0-9]{20}$/);
+const guestGame=casinoBrowser('Candy');
+guestGame.get('show-online').onclick();
+guestGame.get('room-input').value=activeRoom;
+await guestGame.get('join-room').onclick();await flush();
+assert.match(hostGame.status(),/Connected to your friend/);
+assert.match(guestGame.status(),/Connected to the host/);
+assert.match(hostGame.diagnostics(),/Transport: Cloudflare WebSocket room relay/);
+assert.match(hostGame.diagnostics(),/Online: true/);
+assert.equal(hostGame.get('opponent-name').textContent,'Candy');
+assert.equal(guestGame.get('opponent-name').textContent,'Ginger');
+console.log('✓ Complete Casino host/guest UI connects and exchanges player names through the relay');
+hostGame.get('leave-room').onclick();guestGame.get('leave-room').onclick();await flush();
+
 console.log('✓ Relay adapter opens two sockets, forwards state, retains host, rejoins, and reports missing rooms');
 console.log('✓ Relay configuration requires a real HTTPS endpoint; this is not a live-server test');
