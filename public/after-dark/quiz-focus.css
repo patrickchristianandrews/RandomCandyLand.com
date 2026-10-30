@@ -359,3 +359,38 @@ body.afterdark-quiz-mode:has(#quiz.visible) #quiz{
 @media(prefers-reduced-motion:reduce){
  #quiz #quizCard .quiz-multi-option{transition:none!important}
 }
+
+/* Optional, intentionally quiet custom-interest field. */
+#quiz .custom-interest-editor{
+ max-width:790px;margin:14px auto 3px;padding:0;
+ border:1px solid #6c4e74;border-radius:13px;background:#261a31;
+}
+#quiz .custom-interest-editor>summary{
+ cursor:pointer;padding:14px 16px;color:#f1d7ef;font-weight:700;
+ font-size:13px;line-height:1.4;list-style:revert;
+}
+#quiz .custom-interest-editor[open]>summary{border-bottom:1px solid #674c73}
+#quiz .custom-interest-body{padding:14px 15px 16px;display:grid;gap:10px}
+#quiz .custom-interest-body label{color:#f1daeb;font-size:12px;font-weight:700}
+#quiz .custom-interest-body textarea,#quiz .custom-interest-body select{
+ width:100%;max-width:100%;padding:11px 12px;background:#1d1528;
+ color:#fff1f7;border:1px solid #84628f;border-radius:10px;
+ font-size:13px;line-height:1.5;box-sizing:border-box
+}
+#quiz .custom-interest-body textarea{resize:vertical;min-height:105px}
+#quiz .custom-interest-body select{min-height:42px}
+#quiz .custom-interest-body :is(textarea,select):focus-visible{
+ outline:2px solid #f6ccdb;outline-offset:2px
+}
+#quiz .custom-interest-note{color:#ceb9d0;font-size:11px;line-height:1.5;margin:0}
+#quiz .custom-interest-results{
+ border:1px solid #9b76a9;border-radius:12px;
+ background:#382741;padding:14px 16px;margin:14px 0
+}
+#quiz .custom-interest-results h3{font-size:18px;margin:4px 0 8px}
+#quiz .custom-interest-results li{font-size:13px;line-height:1.5;margin:7px 0}
+#quiz .custom-interest-results button{font-size:12px;padding:8px 12px}
+@media(max-width:600px){
+ #quiz .custom-interest-editor>summary{padding:13px 14px}
+ #quiz .custom-interest-body{padding:11px 13px}
+}
