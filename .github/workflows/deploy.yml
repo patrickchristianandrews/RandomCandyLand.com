@@ -63,6 +63,9 @@ jobs:
       - name: Test casino room creation, missing-host recovery and concurrent joiners
         run: node scripts/test-casino-network.mjs
 
+      - name: Test Cloudflare WebSocket room relay protocol
+        run: node scripts/test-casino-relay.mjs
+
       - name: Test After Dark and Trumpagotchi in a real Chrome browser
         shell: bash
         run: |
