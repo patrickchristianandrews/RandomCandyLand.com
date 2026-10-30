@@ -694,7 +694,14 @@ function renderQuiz(){
    const negative=text=>/\b(none|neither|nothing|don't want|not interested|no preferred|no waiting)\b/i.test(text);
    if(input.checked){if(negative(option.text))selected.clear();else for(const n of [...selected])if(negative(q.options[n].text))selected.delete(n);selected.add(i);}
    else selected.delete(i);
-   multiAnswers[qIndex]=[...selected];rebuildQuizSignals();persistQuiz();renderQuiz();
+   multiAnswers[qIndex]=[...selected];rebuildQuizSignals();persistQuiz();
+   // Keep the current question and keyboard focus in place as options change.
+   options.querySelectorAll('.quiz-multi-option').forEach((row,n)=>{
+    const active=selected.has(n);
+    row.classList.toggle('selected',active);
+    row.querySelector('input').checked=active;
+   });
+   window.AfterDarkProgressTransfer?.refresh?.();
   };
   label.append(input,document.createTextNode(option.text));options.append(label);
  });
