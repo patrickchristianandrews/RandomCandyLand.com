@@ -16,12 +16,12 @@ class WebSocketMock{
    this.readyState=WebSocketMock.OPEN;this.onopen?.();
    const existing=sockets.get(room)||{};
    if(this.role==='host'){
-    if(existing.host?.readyState===1){this.deliver({t:'host-taken'});this.close(1008,'Taken')}
+    if(existing.host?.readyState===1){this.deliver({t:'host-taken'});this.close(4409,'Taken')}
     else{existing.host=this;sockets.set(room,existing);this.deliver({t:'host-ready'})}
    }else if(!existing.host||existing.host.readyState!==1){
-    this.deliver({t:'missing'});this.close(1008,'Missing');
+    this.deliver({t:'missing'});this.close(4404,'Missing');
    }else if(existing.guest?.readyState===1){
-    this.deliver({t:'full'});this.close(1008,'Full');
+    this.deliver({t:'full'});this.close(4410,'Full');
    }else{
     existing.guest=this;sockets.set(room,existing);
     existing.host.deliver({t:'peer-ready'});this.deliver({t:'peer-ready'});
