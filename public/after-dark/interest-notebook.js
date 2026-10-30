@@ -155,15 +155,22 @@
     putPrint('My Private Interest Notebook','Personal reflection · Not a diagnosis · Choose “Save as PDF” in your print dialog.',rows);
   }
   function printQuiz(resultCardId='quizCard'){
-    if(!api.getQuizReady()){goNotebook();setStatus('Finish either quiz first, then use Save Quiz Results as PDF.');return;}
-    // Both companion quizzes use one shared result renderer. Print the result that is currently visible.
-    const root=$(resultCardId)||$('quizCard');let doc=$('print-document');
+    const data=window.AfterDarkCanonicalReport?.buildData?.();
+    if(!data?.direct?.answered&&!data?.psych?.answered){
+      setStatus('Answer at least one question before creating a PDF report.');return;
+    }
+    let report;
+    try{report=window.AfterDarkDetailedReport?.build?.();}
+    catch(error){console.error('Could not create detailed quiz report',error);}
+    if(!report){
+      setStatus('Detailed report could not be prepared. Reload After Dark and try again.');return;
+    }
+    let doc=$('print-document');
     if(!doc){doc=item('div');doc.id='print-document';document.body.append(doc);}
-    doc.replaceChildren(item('h1','My After Dark Quiz Results'),item('p','Reflection, exploration-fit estimates and self-reported interests · Not a diagnosis or scientifically calibrated probability.'));
-    const copy=root.cloneNode(true);copy.querySelectorAll('button,textarea,input,select').forEach(el=>el.remove());
-    copy.removeAttribute('id');doc.append(copy);
-    document.body.classList.add('print-notebook');
-    requestAnimationFrame(()=>window.print());
+    doc.replaceChildren(report);
+    document.body.classList.add('print-notebook','print-detailed-report');
+    const trigger=()=>window.print();
+    requestAnimationFrame(trigger);
   }
   function showInvitation(pack,preview=false){
     const area=$('partner-invitation');if(!area)return;
@@ -210,7 +217,7 @@
   if(invitation)showInvitation(invitation);
   else if(encoded){document.querySelectorAll('.tab').forEach(el=>el.classList.toggle('visible',el.id==='partner-view'));$('partner-invitation')?.replaceChildren(item('p','This invitation could not be opened. Ask the sender for a fresh link.'));}
   for(const b of document.querySelectorAll('[data-tab=notebook]'))b.addEventListener('click',renderNotebook);
-  window.addEventListener('afterprint',()=>{document.body.classList.remove('print-notebook');$('print-document')?.remove();});
+  window.addEventListener('afterprint',()=>{document.body.classList.remove('print-notebook','print-detailed-report');$('print-document')?.remove();});
   const shortcut=button('💌 My Saved Interests',goNotebook,'notebook-fab');shortcut.setAttribute('aria-label','Open my private saved interests notebook');document.body.append(shortcut);
   window.InterestNotebook={saveTopic,goNotebook,renderNotebook,printQuiz,printNotebook,showInvitation};
   if(location.hash==='#notebook')renderNotebook();
