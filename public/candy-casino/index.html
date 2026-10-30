@@ -17,6 +17,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Candy Casino">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/candy-casino/casino.css?v=showdown-20261029">
+<link rel="stylesheet" href="/candy-casino/casino-clean.css?v=20261030-v1">
 <script src="/install-app.js" defer></script>
 <script src="/candy-casino/poker-engine.js?v=2" defer></script>
 <script src="/candy-casino/relay-config.js?v=1" defer></script>
@@ -35,36 +36,67 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <svg class="site-goo" viewBox="0 0 1000 125" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="pink-goo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff4b7"/><stop offset=".22" stop-color="#ff9ada"/><stop offset="1" stop-color="#c92eac"/></linearGradient></defs><path d="M0 0H1000V28Q980 17 964 31Q953 39 961 77Q969 113 949 118Q923 124 930 82Q936 37 910 30Q886 23 873 35Q858 51 864 72Q870 91 853 96Q830 101 834 71Q839 29 810 28Q784 27 771 37Q756 50 760 91Q765 117 741 115Q721 114 731 82Q740 42 714 33Q690 25 671 34Q652 42 656 64Q663 99 641 100Q618 100 621 71Q626 29 605 28Q574 20 564 41Q557 61 562 108Q563 123 545 119Q525 116 530 91Q537 33 510 30Q489 28 481 47Q475 65 480 76Q484 96 464 97Q445 98 451 72Q460 33 434 30Q408 27 402 48Q398 61 406 105Q410 123 392 122Q372 120 378 95Q388 44 361 33Q340 22 322 32Q300 43 305 78Q310 100 292 99Q275 99 280 72Q291 31 267 29Q238 20 225 40Q213 57 219 93Q222 116 202 114Q181 112 191 84Q201 40 176 32Q156 25 136 34Q117 43 121 63Q126 96 108 99Q90 103 95 80Q101 39 78 32Q56 26 43 37Q29 50 33 83Q35 105 17 104Q0 100 0 85Z" fill="url(#pink-goo)"/></svg>
 </header>
 <main>
-<details class="howto"><summary>❓ HOW TO PLAY <span>Tap to open ▾</span></summary>
-<div class="howto-content"><p><strong>Every game has two competitors.</strong> Play against the computer instantly or invite a real person from anywhere. Choose five-card draw poker, High Card Clash or Gummy Dice Duel; win candy crowns and free, fictional chips. No purchases, deposits, real money, or prizes.</p>
-<p><strong>Poker:</strong> both players receive five private cards, then independently choose up to three to replace. After both draw, the best standard five-card poker hand wins. Ties are possible. Face-down opponent cards remain hidden until the showdown. Each match is five rounds.</p>
-<p><strong>Online:</strong> select Play a Friend, create a room and send the link, or open a friend's link and join. Both devices must stay online. Connections use the PeerJS public signaling service and WebRTC; network restrictions may interfere. You can switch back to Computer Opponent anytime.</p></div></details>
-<section class="hero">
-<div class="hero-sprinkles" aria-hidden="true">✦ 🍬 ✳ 🍭 ✧ 🍫 ✦</div>
-<div class="hero-art" aria-hidden="true"><div class="planet-ring"><div class="planet">🃏</div></div><span class="sweet-orbit candy-one">🍒</span><span class="sweet-orbit candy-two">🎲</span><span class="sweet-orbit candy-three">⭐</span></div>
-<div class="hero-text"><span class="eyebrow">CANDY-COATED COMPETITION · REAL OPPONENTS OR SWEET-TOOTHED BOTS</span>
-<h1>CANDY LAND <span>CASINO!</span></h1>
-<p>Pull up a chair for Sugar Rush Poker, High Card Clash or Gummy Dice. Challenge the Candybot immediately or play someone far away with a private invite link!</p>
-<div class="hero-actions"><a class="primary" href="#games">🤖 PLAY THE COMPUTER</a><a class="secondary" href="#friends">🌍 CHALLENGE A FRIEND</a></div>
-<span class="zero-cash">🍭 HEAD-TO-HEAD ONLY · VIRTUAL CANDY CHIPS · NO REAL MONEY</span></div>
-<div class="drip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<details class="howto" id="casino-howto">
+ <summary><span>❔ How to play</span><span class="howto-summary-tip">Rules &amp; help <span aria-hidden="true">⌄</span></span></summary>
+ <div class="howto-content">
+  <p><strong>Choose a game:</strong> Poker, High Card or Dice. Play five rounds against Candybot, or connect to one friend. All chips are virtual; no money or prizes.</p>
+  <p><strong>Poker:</strong> get five cards, select up to three to exchange, then compare hands. The strongest standard poker hand wins. Your friend's cards remain hidden until the showdown.</p>
+  <p><strong>Playing online:</strong> select Play a Friend, create a room, and share the link. If you receive a link, open it to join. Keep both browsers open. An optional Cloudflare relay is not active until configured; some networks may block the fallback connection.</p>
+ </div>
+</details>
+<section class="hero" aria-labelledby="casino-title">
+ <div class="hero-text">
+  <span class="eyebrow">A LITTLE LUCK. A LOT OF CANDY.</span>
+  <h1 id="casino-title">CANDY LAND <span>CASINO</span></h1>
+  <p>Pick a game. Challenge Candybot or bring a friend.</p>
+  <div class="hero-actions">
+   <a class="primary" href="#games">🍭 Start playing</a>
+   <button class="secondary" type="button" id="hero-play-friend">🌍 Play a friend</button>
+  </div>
+ </div>
+ <div class="hero-art" aria-hidden="true"><div class="planet-ring"><div class="planet">🃏</div></div><span class="sweet-orbit candy-one">🍒</span><span class="sweet-orbit candy-two">🎲</span></div>
+ <div class="drip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 </section>
-<div class="scorebar" aria-label="Candy casino wins">
-<div><span>🍬 YOUR CANDY STASH</span><strong id="balance" aria-live="polite">1,000</strong><small>free virtual chips</small></div>
-<div><span>🏆 ROUNDS WON ON THIS DEVICE</span><strong id="best">0</strong><small>just-for-fun wins</small></div>
-<div><span>💜 ALL GAMES</span><strong>2</strong><small>players, including computer rivals</small></div>
+<div class="scorebar" aria-label="Your casino progress">
+ <div><span>🍬 CANDY CHIPS</span><strong id="balance" aria-live="polite">1,000</strong></div>
+ <div><span>🏆 WINS</span><strong id="best">0</strong></div>
 </div>
-<section class="games-section" id="games"><div class="section-heading"><span class="eyebrow">CHOOSE YOUR CANDY COMPETITION</span><h2>Never play <em>alone.</em></h2><p>Three head-to-head games, each with an always-available computer opponent or a remote human rival.</p></div>
+<section class="games-section" id="games"><div class="section-heading"><h2>Choose your game</h2><p>Three games. One sweet showdown.</p></div>
 <div class="game-pickers" role="group" aria-label="Multiplayer casino games">
-<button type="button" class="game-pick selected" data-duel="poker" aria-pressed="true"><span>🃏</span><b>Sugar Rush Poker</b><small>5-card draw</small></button>
-<button type="button" class="game-pick" data-duel="card" aria-pressed="false"><span>👑</span><b>High Card Clash</b><small>Beat their card</small></button>
-<button type="button" class="game-pick" data-duel="dice" aria-pressed="false"><span>🎲</span><b>Gummy Dice Duel</b><small>Roll for the crown</small></button>
+<button type="button" class="game-pick selected" data-duel="poker" aria-pressed="true"><span aria-hidden="true">🃏</span><b>Poker</b></button>
+<button type="button" class="game-pick" data-duel="card" aria-pressed="false"><span aria-hidden="true">👑</span><b>High Card</b></button>
+<button type="button" class="game-pick" data-duel="dice" aria-pressed="false"><span aria-hidden="true">🎲</span><b>Dice</b></button>
 </div>
+<section id="friends" class="friends-section" aria-label="Play with a friend" hidden>
+ <div class="friends-connect panel">
+  <div class="friends-title">
+   <h2>🌍 Play with a friend</h2>
+   <p>Create a room and share the link—or join a friend's room.</p>
+  </div>
+  <div class="friend-entry"><label for="friend-name">Your name</label><input id="friend-name" type="text" maxlength="22" placeholder="Candy Captain" autocomplete="nickname" value="Candy Captain"></div>
+  <div id="remote-controls" hidden>
+   <div class="friend-actions"><button type="button" class="primary" id="make-room">✨ Create room</button><button type="button" class="secondary" id="join-room">Join room</button></div>
+   <div class="friend-entry"><label for="room-input">Room code or invite link</label><input id="room-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Paste a room link or code"></div>
+   <div class="invite" id="invite-panel" hidden>
+    <label for="invite-link">Share this invite</label><input id="invite-link" type="text" readonly>
+    <button type="button" id="copy-invite">📋 Copy invite link</button>
+   </div>
+   <div id="connection-status" class="connection-status" role="status" aria-live="polite">🔌 Not connected. Create a room or join one.</div>
+   <div class="friend-bottom"><button type="button" id="leave-room" class="text-button" hidden>✖ Leave room</button></div>
+   <details class="connection-troubleshoot">
+    <summary>Connection help &amp; diagnostics</summary>
+    <div class="connection-help">Keep both tabs visible when connecting. Until the Cloudflare relay is activated, online play uses PeerJS/WebRTC, which some networks block. If joining fails, copy the diagnostic details on both devices.</div>
+    <span id="casino-network-version" class="network-version" aria-label="Multiplayer connection version">Multiplayer v6 · relay setup pending</span>
+    <button type="button" class="text-button" id="copy-diagnostics">📋 Copy connection details</button>
+   </details>
+  </div>
+ </div>
+</section>
 <div class="play-table" id="casino-arena">
-<div class="play-table-head"><div><span class="eyebrow" id="game-kicker">WELCOME TO THE POKER PALACE</span><h3 id="game-title">🃏 Sugar Rush Poker</h3><p id="duel-description">Five-card draw poker. Choose up to three cards to swap before the showdown.</p></div>
+<div class="play-table-head"><div><span class="eyebrow" id="game-kicker">WELCOME TO THE POKER PALACE</span><h3 id="game-title">🃏 Sugar Rush Poker</h3><p id="duel-description">Draw five cards and swap up to three.</p></div>
 <div class="opponent-choice" role="group" aria-label="Choose your opponent">
-<button type="button" class="opponent-pick selected" data-opponent="computer" aria-pressed="true">🤖 COMPUTER</button>
-<button type="button" class="opponent-pick" data-opponent="friend" aria-pressed="false">🌍 REAL PERSON ONLINE</button>
+<button type="button" class="opponent-pick selected" data-opponent="computer" aria-pressed="true">🤖 Candybot</button>
+<button type="button" class="opponent-pick" data-opponent="friend" aria-pressed="false">🌍 Play a friend</button>
 </div></div>
 <div class="scoreboards"><div><span>🍭 YOU</span><strong id="self-name">Candy Captain</strong><b id="self-score">0</b></div><span class="versus">VS</span><div><span>🍬 OPPONENT</span><strong id="opponent-name">Candybot</strong><b id="other-score">0</b></div></div>
 <div class="duel-display" id="duel-display" role="status">🃏 Ready for a friendly five-card draw?</div>
@@ -75,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="poker-score-side"><span>🍬 OPPONENT ROUNDS</span><strong id="poker-other-score" aria-live="polite">0</strong></div>
 </div>
 <div class="cards-group"><span class="cards-label">🍬 OPPONENT'S HAND</span><div class="cards-row" id="poker-opponent-cards"></div><small id="poker-opponent-tip">Cards are hidden until the showdown.</small></div>
-<div class="poker-community"><span>🍭 SUGAR RUSH POKER</span><span id="poker-stage-label">Five cards. One draw. Best hand wins.</span></div>
+<div class="poker-community"><span id="poker-stage-label">Five cards. One draw. Best hand wins.</span></div>
 <div class="cards-group"><span class="cards-label">🍭 YOUR HAND</span><div class="cards-row" id="poker-own-cards"></div><small id="poker-hand-tip">Tap up to three cards to exchange.</small></div>
 <div class="poker-showdown" id="poker-showdown" hidden>
  <div class="poker-showdown-panel" role="status" aria-live="polite" aria-atomic="true">
@@ -95,34 +127,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="game-buttons" id="game-buttons"><button type="button" class="primary duel-go" id="duel-ready">🃏 DEAL POKER CARDS</button>
 <button type="button" class="secondary" id="poker-draw" hidden>♻️ DRAW SELECTED CARDS (0/3)</button>
 <button type="button" class="text-button" id="duel-reset">↻ NEW 5-ROUND MATCH</button></div>
-<div class="duel-status" id="duel-status" role="status">Computer opponent is ready. Choose a game and play!</div>
-<p class="game-note">🎈 Five rounds per match · Free virtual chips are earned, never spent · No real money or prizes.</p>
+<div class="duel-status" id="duel-status" role="status">Choose a game and play!</div>
 </div></section>
-<section id="friends" class="friends-section">
-<div class="friends-title"><span class="eyebrow">PLAY A HUMAN ANYWHERE</span><h2>A sweet showdown <em>across the miles.</em></h2><p>Play instantly with Candybot, or switch to Real Person Online to create a private two-person room. No account required.</p></div>
-<div class="friends-layout">
-<div class="friends-connect panel">
-<div class="step">01 / PICK YOUR OPPONENT</div><h3>🤖 Candybot or a remote friend?</h3>
-<div class="friend-entry"><label for="friend-name">YOUR PLAYER NAME</label><input id="friend-name" type="text" maxlength="22" placeholder="Candy Captain" autocomplete="nickname" value="Candy Captain"></div>
-<div class="friend-actions"><button type="button" class="primary" id="play-computer">🤖 PLAY THE COMPUTER</button><button type="button" class="secondary" id="show-online">🌍 PLAY A FRIEND</button></div>
-<div id="remote-controls" hidden>
-<div class="friend-actions"><button type="button" class="primary" id="make-room">✨ CREATE ROOM</button><button type="button" class="secondary" id="join-room">🚀 JOIN ROOM</button></div>
-<div class="friend-entry"><label for="room-input">ROOM CODE OR INVITE LINK</label><input id="room-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Paste your friend's room link"></div>
-<div class="invite" id="invite-panel" hidden><label for="invite-link">YOUR PRIVATE INVITE LINK</label><input id="invite-link" type="text" readonly><button type="button" id="copy-invite">📋 COPY INVITE LINK</button><small>Send the link to your friend. Either device can reopen the room if the original host disconnects. Keep the casino on screen when playing; mobile browsers may suspend a room in the background.</small></div>
-<div id="connection-status" class="connection-status" role="status" aria-live="polite">🔌 Not connected. Create a private room or paste an invitation.</div>
-<div class="friend-actions"><button type="button" class="secondary" id="copy-diagnostics">📋 COPY CONNECTION DETAILS</button></div><small>If a room is not found, the first available player can reopen it automatically. If it still fails, copy connection details from both devices.</small>
-<small id="casino-network-version" aria-label="Multiplayer connection version">Multiplayer v6 · relay setup pending</small>
-<div class="connection-help">A dedicated Cloudflare WebSocket relay will let both phones play without needing a peer-to-peer connection once the relay is activated. Until activation, the site uses the older PeerJS connection method. For now, keep the host casino open while joining. The host runs casual rounds, not a cheat-proof tournament.</div>
-<button type="button" id="leave-room" class="text-button" hidden>✖ Leave online room</button>
-</div>
-</div>
-<div class="friend-arena panel">
-<div class="step">02 / FACE OFF</div><h3>🏆 THE CANDY CLASH RULES</h3>
-<div class="duel-mode"><div class="arena-description">🃏 <b>Poker</b> — make the strongest five-card hand after replacing up to three cards.</div><div class="arena-description">👑 <b>High Card</b> — both draw a card; highest wins.</div><div class="arena-description">🎲 <b>Gummy Dice</b> — both roll two dice; highest total wins.</div></div>
-<p class="arena-description">The computer automatically draws and competes against you. For online games, both people choose when they're ready. In poker, each person's hand stays private until both have chosen their draw.</p>
-<a class="secondary" href="#games">🍭 GO TO THE GAME TABLE</a>
-</div></div></section>
-<section class="fine-print"><span>🍭</span><div><strong>NO REAL MONEY. NO PRIZES. REAL COMPETITION.</strong><p>Play against a bot or one human. Wins earn free, fictional chips only. Online play uses the configured room relay when available or PeerJS/WebRTC as fallback. Not intended for high-stakes play.</p></div></section>
+
+<p class="fine-print">🍬 Free virtual chips only · No deposits, prizes or real-money gambling.</p>
 </main>
 <footer><span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span><a href="/">🍬 Back to Candy Land</a></footer>
 </div>
