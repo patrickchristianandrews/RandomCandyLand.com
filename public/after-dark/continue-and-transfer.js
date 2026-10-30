@@ -140,21 +140,29 @@ function validatePayload(value){
   const index=type==='direct'?raw.qIndex:raw.position;
   const answerSet=type==='direct'?raw.multiAnswers:raw.answers;
   const noteSet=type==='direct'?raw.freeResponses:raw.notes;
-  if(type==='direct'&&![2,3].includes(raw.questionVersion))throw Error('This export belongs to an incompatible question version. Original answers will not be remapped silently.');
+  if(type==='direct'&&![2,3,4].includes(raw.questionVersion))throw Error('This export belongs to an incompatible question version. Original answers will not be remapped silently.');
   if(type==='direct'&&((raw.customThings!==undefined&&(typeof raw.customThings!=='string'||raw.customThings.length>1200))||
       (raw.customIntent!==undefined&&!['unsure','receive','give','together','watch','fantasy'].includes(raw.customIntent))))
     throw Error('Invalid custom interest or intended role in saved quiz.');
-  const questionCount=type==='direct'?(raw.questionVersion===2?32:56):32;
+  const questionCount=type==='direct'?(raw.questionVersion===2?32:raw.questionVersion===3?56:62):32;
+  if(type==='direct'&&raw.questionIntents!==undefined){
+   const marks=raw.questionIntents;
+   if(!marks||typeof marks!=='object'||Array.isArray(marks)||
+    Object.keys(marks).some(k=>!/^\d+$/.test(k)||Number(k)>=questionCount||
+     !['fantasy','explore','unsure'].includes(marks[k])))
+    throw Error('Invalid fantasy-only or exploration choices in the saved file.');
+  }
   if(!Number.isInteger(index)||index< -1||index>questionCount||
     !answerSet||typeof answerSet!=='object'||Array.isArray(answerSet)||
     !noteSet||typeof noteSet!=='object'||Array.isArray(noteSet))throw Error('Invalid saved quiz position or answers');
   const questions=type==='direct'?window.AfterDarkAdultQuiz:window.AfterDarkPsychologyQuiz;
-  if(!Array.isArray(questions)||(type==='direct'&&questions.length!==56)||(type==='psych'&&questions.length!==32))throw Error('Quiz questions are unavailable');
+  if(!Array.isArray(questions)||(type==='direct'&&questions.length!==62)||(type==='psych'&&questions.length!==32))throw Error('Quiz questions are unavailable');
   if(Object.keys(answerSet).length>questionCount||Object.keys(noteSet).length>questionCount)throw Error('Too many quiz entries');
   const validKeys=obj=>Object.keys(obj).every(k=>/^(0|[1-9][0-9]*)$/.test(k)&&Number(k)<questionCount);
   if(!validKeys(answerSet)||!validKeys(noteSet))throw Error('Unexpected question in saved file');
   for(let i=0;i<questionCount;i++){
-   const question=type==='direct'&&raw.questionVersion===2?questions.find(q=>q.id===i+1):questions[i];
+   const question=type==='direct'&&raw.questionVersion===2?questions.find(q=>q.id===i+1):
+    type==='direct'&&raw.questionVersion===3?questions.filter(q=>q.id<=56)[i]:questions[i];
    if(!question)throw Error('Cannot find question '+(i+1));
    if(Object.hasOwn(answerSet,i)){
     const entries=answerSet[i];
