@@ -182,10 +182,13 @@ function chooseGame(next){
 /* Room lifecycle: an invitation stays usable while the host is connected.
  * A failed first join is retried, and stale asynchronous events are ignored. */
 let roomEpoch=0,joinAttempts=0,joinRetryTimer=0,joinWatchdog=0,hostWatchdog=0,roomFull=false;
+let hostOffersReceived=0,lastPeerEvent='No events yet',lastIceState='not available';
+const markPeerEvent=s=>lastPeerEvent=String(s).slice(0,160);
 const clearJoinTimers=()=>{clearTimeout(joinRetryTimer);clearTimeout(joinWatchdog);clearTimeout(hostWatchdog);joinRetryTimer=joinWatchdog=hostWatchdog=0;};
 const activePeer=(p,epoch)=>peer===p&&roomEpoch===epoch&&mode==='friend';
-const networkVersion='room-connection-20261030-v3';
-const peerOptions={debug:1,config:{iceServers:[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302','stun:stun.cloudflare.com:3478']}]}};
+const networkVersion='room-connection-20261030-v4';
+// Preserve the library's built-in STUN and TURN relay settings.
+const peerOptions={debug:1};
 const connectionDetails=()=>{
  const pc=connection?.peerConnection;
  const details=[
@@ -194,9 +197,15 @@ const connectionDetails=()=>{
   'Role: '+(mode==='computer'?'Computer':host?'Host':'Guest'),
   'Room: '+(roomId||'none'),
   'Peer registered: '+(!!peer?.open),
+  'Local peer ID: '+(peer?.id||'none'),
+  'Host offers received: '+hostOffersReceived,
+  'Last peer event: '+lastPeerEvent,
+  'Page visible: '+(!document.hidden),
   'Peer disconnected: '+(!!peer?.disconnected),
   'Data channel: '+(connection?.open?'open':connection?'connecting':'none'),
-  'ICE: '+(pc?.iceConnectionState||'not available'),
+  'ICE: '+(pc?.iceConnectionState||lastIceState),
+  'ICE gathering: '+(pc?.iceGatheringState||'not available'),
+  'Remote description: '+(pc?.remoteDescription?.type||'none'),
   'Signaling: '+(pc?.signalingState||'not available'),
   'Online: '+online,
   'Browser: '+navigator.userAgent,
@@ -214,7 +223,7 @@ const friendlyError=error=>{
  return 'Connection failed'+(type?' ('+type+')':'')+'. Try again or switch networks.';
 };
 function leave(text='Online room closed.'){
- roomEpoch++;clearJoinTimers();roomFull=false;joinAttempts=0;
+ roomEpoch++;clearJoinTimers();roomFull=false;joinAttempts=0;hostOffersReceived=0;lastPeerEvent='Room closed';lastIceState='not available';
  const old=connection;connection=null;const p=peer;peer=null;
  try{old?.close()}catch{}try{p?.destroy()}catch{}
  online=false;roomId='';$('invite-panel').hidden=true;$('leave-room').hidden=true;
@@ -231,7 +240,10 @@ function setMode(next){
 function scheduleJoin(p,epoch,reason){
  if(!activePeer(p,epoch)||host||online||roomFull||joinRetryTimer)return;
  clearTimeout(joinWatchdog);joinWatchdog=0;
- if(joinAttempts>=8){onlineStatus('⚠️ Could not join after eight attempts. Confirm the host sees ROOM OPEN and keeps the host tab visible. Try another Wi-Fi or mobile data network. Use COPY CONNECTION DETAILS if this continues.');return;}
+ if(joinAttempts>=8){
+  onlineStatus('⚠️ Could not finish the multiplayer handshake. Copy CONNECTION DETAILS from both the HOST and GUEST to pinpoint where it stopped.');
+  return;
+ }
  const pause=Math.min(1500*joinAttempts,6000);
  onlineStatus('🟠 '+reason+' Trying again ('+(joinAttempts+1)+'/8)...');
  joinRetryTimer=setTimeout(()=>{joinRetryTimer=0;tryJoin(p,epoch);},pause);
@@ -240,6 +252,7 @@ function tryJoin(p,epoch){
  if(!activePeer(p,epoch)||host||online||roomFull||!p.open)return;
  clearTimeout(joinRetryTimer);clearTimeout(joinWatchdog);joinRetryTimer=joinWatchdog=0;
  const prior=connection;connection=null;try{prior?.close()}catch{}
+ markPeerEvent('Guest beginning attempt '+(joinAttempts+1));
  joinAttempts++;
  onlineStatus('🟡 Connecting to host · attempt '+joinAttempts+' of 8...');
  let c;
@@ -248,17 +261,25 @@ function tryJoin(p,epoch){
  connect(c);
  joinWatchdog=setTimeout(()=>{
   if(activePeer(p,epoch)&&connection===c&&!online){
-   try{c.close()}catch{}
    const ice=c.peerConnection?.iceConnectionState||'unknown';
+   markPeerEvent('Guest timed out, signaling='+(c.peerConnection?.signalingState||'unknown')+', ICE='+ice);
+   try{c.close()}catch{}
    scheduleJoin(p,epoch,ice==='failed'?'Direct network connection was blocked (ICE failed).':'Host did not answer or the direct connection timed out.');
   }
  },16000);
 }
 function connect(c){
  connection=c;
+ markPeerEvent((host?'Host received connection from ':'Guest connecting to ')+(c.peer||'remote'));
+ const pc=c.peerConnection;
+ if(pc){
+  lastIceState=pc.iceConnectionState||'not available';
+  pc.addEventListener?.('iceconnectionstatechange',()=>{if(connection===c){lastIceState=pc.iceConnectionState;markPeerEvent('ICE changed to '+lastIceState);}});
+  pc.addEventListener?.('signalingstatechange',()=>{if(connection===c)markPeerEvent('Signaling changed to '+pc.signalingState);});
+ }
  c.on('open',()=>{
   if(connection!==c)return;
-  online=true;clearTimeout(joinWatchdog);clearTimeout(joinRetryTimer);
+  online=true;markPeerEvent('Data connection open');clearTimeout(joinWatchdog);clearTimeout(joinRetryTimer);clearTimeout(hostWatchdog);
   joinWatchdog=joinRetryTimer=0;joinAttempts=0;
   $('leave-room').hidden=false;
   if(host){players[0]=sanitize($('friend-name').value);send({type:'hello',name:players[0]});transmit();}
@@ -292,13 +313,14 @@ function connect(c){
  });
  c.on('close',()=>{
   if(connection!==c)return;
-  online=false;connection=null;render();
+  markPeerEvent('Data channel closed');online=false;connection=null;render();
   if(host){onlineStatus('🟡 Friend disconnected. Your room is still open for a new guest.');}
   else if(!roomFull&&peer){scheduleJoin(peer,roomEpoch,'The host connection dropped.');}
   else if(!roomFull){onlineStatus('⚠️ Disconnected. Tap JOIN ROOM to reconnect.');}
  });
  c.on('error',error=>{
   if(connection!==c)return;
+  markPeerEvent('Data error: '+(error?.type||error?.message||'unknown'));
   onlineStatus('⚠️ '+friendlyError(error));
   if(!host&&peer)scheduleJoin(peer,roomEpoch,'Could not establish the connection.');
  });
@@ -342,7 +364,7 @@ async function createRoom(){
  p.on('open',id=>{
   if(!activePeer(p,epoch))return;
   clearTimeout(hostWatchdog);hostWatchdog=0;
-  roomId=id;const url=new URL(location.href);url.searchParams.set('room',id);
+  roomId=id;markPeerEvent('Host room registered');const url=new URL(location.href);url.searchParams.set('room',id);
   $('invite-link').value=url.href;$('room-input').value=id;
   $('invite-panel').hidden=false;$('leave-room').hidden=false;
   onlineStatus('🟢 Room is OPEN and ready! Share the link. Waiting for your friend to join.');
@@ -350,26 +372,34 @@ async function createRoom(){
  });
  p.on('connection',c=>{
   if(!activePeer(p,epoch)){try{c.close()}catch{}return;}
-  if(connection&&!connection.closed){
+  hostOffersReceived++;markPeerEvent('Host received incoming offer #'+hostOffersReceived);
+  if(connection?.open){
    c.on('open',()=>{try{c.send({type:'full'});c.close()}catch{}});
    return;
   }
+  // A stalled offer should not block the guest's next retry.
+  clearTimeout(hostWatchdog);hostWatchdog=0;
+  if(connection){const stale=connection;connection=null;try{stale.close()}catch{}}
   connect(c);
+  onlineStatus('🟡 Incoming guest found. Completing connection...');
   hostWatchdog=setTimeout(()=>{
    if(activePeer(p,epoch)&&connection===c&&!c.open){
-    connection=null;try{c.close()}catch{}
-    onlineStatus('🟡 Waiting for a friend to connect...');
+    connection=null;markPeerEvent('Host offer #'+hostOffersReceived+' timed out');
+    try{c.close()}catch{}
+    onlineStatus('🟡 Room is still open. Waiting for your friend...');
    }
-  },12000);
+  },20000);
  });
  p.on('disconnected',()=>{
   if(!activePeer(p,epoch))return;
+  markPeerEvent('Host signaling disconnected');
   onlineStatus('🟠 Room service interrupted. Reconnecting...');
   try{if(!p.destroyed)p.reconnect()}catch{}
  });
  p.on('error',error=>{
   if(!activePeer(p,epoch))return;
-  onlineStatus('⚠️ Host registration: '+friendlyError(error)+' The room is not open. Tap CREATE ROOM to try again.');
+  markPeerEvent('Host error: '+(error?.type||error?.message||'unknown'));
+  onlineStatus('⚠️ Host connection: '+friendlyError(error)+(p.open?' Room remains open.':' Create a fresh room.'));
  });
 }
 async function joinRoom(){
@@ -389,11 +419,12 @@ async function joinRoom(){
  hostWatchdog=setTimeout(()=>{if(activePeer(p,epoch)&&!p.open)onlineStatus('⚠️ Room service is not responding. Tap JOIN ROOM to try again.');},12000);
  p.on('open',()=>{
   if(!activePeer(p,epoch))return;
-  clearTimeout(hostWatchdog);hostWatchdog=0;tryJoin(p,epoch);
+  markPeerEvent('Guest registered');clearTimeout(hostWatchdog);hostWatchdog=0;tryJoin(p,epoch);
  });
  p.on('error',error=>{
   if(!activePeer(p,epoch))return;
-  if(error?.type==='peer-unavailable'){scheduleJoin(p,epoch,'Host has not connected yet.');return;}
+  markPeerEvent('Guest peer error: '+(error?.type||error?.message||'unknown'));
+  if(error?.type==='peer-unavailable'){scheduleJoin(p,epoch,'Host not registered.');return;}
   onlineStatus('⚠️ Guest connection: '+friendlyError(error)+' Use COPY CONNECTION DETAILS to report the error.');
  });
  p.on('disconnected',()=>{
