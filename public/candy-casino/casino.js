@@ -522,7 +522,6 @@ document.querySelectorAll('[data-opponent]').forEach(b=>b.onclick=()=>{
  setMode(b.dataset.opponent);
  if(mode==='friend')showFriendSetup();
 });
-$('hero-play-friend').onclick=()=>{if(mode!=='friend')setMode('friend');showFriendSetup();};
 // Backwards-compatible hooks for older embedded launchers.
 const playComputerButton=$('play-computer');
 if(playComputerButton)playComputerButton.onclick=()=>{setMode('computer');location.hash='games';};
