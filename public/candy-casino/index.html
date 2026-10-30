@@ -19,7 +19,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="/candy-casino/casino.css?v=showdown-20261029">
 <script src="/install-app.js" defer></script>
 <script src="/candy-casino/poker-engine.js?v=2" defer></script>
-<script src="/candy-casino/casino.js?v=room-connection-20261030-v5" defer></script>
+<script src="/candy-casino/relay-config.js?v=1" defer></script>
+<script src="/candy-casino/relay-peer.js?v=20261030-v1" defer></script>
+<script src="/candy-casino/casino.js?v=room-connection-20261030-v6-relay-ready" defer></script>
 </head>
 <body class="candy-casino">
 <!-- Google Tag Manager (noscript) -->
@@ -109,8 +111,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="invite" id="invite-panel" hidden><label for="invite-link">YOUR PRIVATE INVITE LINK</label><input id="invite-link" type="text" readonly><button type="button" id="copy-invite">📋 COPY INVITE LINK</button><small>Send the link to your friend. Either device can reopen the room if the original host disconnects. Keep the casino on screen when playing; mobile browsers may suspend a room in the background.</small></div>
 <div id="connection-status" class="connection-status" role="status" aria-live="polite">🔌 Not connected. Create a private room or paste an invitation.</div>
 <div class="friend-actions"><button type="button" class="secondary" id="copy-diagnostics">📋 COPY CONNECTION DETAILS</button></div><small>If a room is not found, the first available player can reopen it automatically. If it still fails, copy connection details from both devices.</small>
-<small id="casino-network-version" aria-label="Multiplayer connection version">Multiplayer connection: v5</small>
-<div class="connection-help">Room recovery: if the invited host is offline, this browser can reopen that exact room code as the host. The other player should open the same invite afterward. Both devices must keep the casino visible while joining and playing. Some networks may still block WebRTC even with a TURN relay. The host manages casual game rounds.</div>
+<small id="casino-network-version" aria-label="Multiplayer connection version">Multiplayer v6 · relay setup pending</small>
+<div class="connection-help">A dedicated Cloudflare WebSocket relay will let both phones play without needing a peer-to-peer connection once the relay is activated. Until activation, the site uses the older PeerJS connection method. For now, keep the host casino open while joining. The host runs casual rounds, not a cheat-proof tournament.</div>
 <button type="button" id="leave-room" class="text-button" hidden>✖ Leave online room</button>
 </div>
 </div>
@@ -120,7 +122,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p class="arena-description">The computer automatically draws and competes against you. For online games, both people choose when they're ready. In poker, each person's hand stays private until both have chosen their draw.</p>
 <a class="secondary" href="#games">🍭 GO TO THE GAME TABLE</a>
 </div></div></section>
-<section class="fine-print"><span>🍭</span><div><strong>NO REAL MONEY. NO PRIZES. REAL COMPETITION.</strong><p>Play against a bot or one human. Wins earn free, fictional chips only. Internet play is peer-to-peer, dependent on external signaling and connectivity, and not designed for high-stakes play.</p></div></section>
+<section class="fine-print"><span>🍭</span><div><strong>NO REAL MONEY. NO PRIZES. REAL COMPETITION.</strong><p>Play against a bot or one human. Wins earn free, fictional chips only. Online play uses the configured room relay when available or PeerJS/WebRTC as fallback. Not intended for high-stakes play.</p></div></section>
 </main>
 <footer><span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span><a href="/">🍬 Back to Candy Land</a></footer>
 </div>
