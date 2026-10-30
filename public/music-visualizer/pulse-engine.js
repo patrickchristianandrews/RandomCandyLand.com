@@ -140,5 +140,10 @@ function render(g,o){
  vignette.addColorStop(0,'#02020c00');vignette.addColorStop(1,'#02020caa');
  g.fillStyle=vignette;g.fillRect(0,0,w,h);
 }
+function reset(){
+ state.bass=0;state.mid=0;state.high=0;state.pulse=0;
+ state.beatAt=0;state.baseline=.12;state.particles.length=0;
+ state.frame=0;state.lastSize='';state.lastMode='';state.turn=0;
+}
 window.CandyPulseGeometry=Object.freeze({render,reset});
 })();
