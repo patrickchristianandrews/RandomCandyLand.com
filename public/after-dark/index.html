@@ -438,14 +438,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <section id="partner-view" class="tab" aria-label="Private invitation to listen"><span class="eyebrow">AN INVITATION · NOT A REQUEST FOR AGREEMENT</span><h2>Something I'd like <span class="italic">you to understand.</span></h2><div id="partner-invitation" class="card"><p>Opening the selected invitation…</p></div></section>
 <section id="atlas" class="tab"><div class="ad-section-art-banner"><div class="ad-section-copy"><span class="eyebrow">EXPLORE · DISCOVER · UNDERSTAND</span><h2>The Curiosity <span class="italic">Atlas.</span></h2><p class="lead">Find specific interests, explore their meanings and reflect on what appeals to you.</p></div><img src="/after-dark/visuals/atlas.svg" width="600" height="400" alt="" loading="lazy"></div><span id="allCount" hidden></span><div class="controls"><input class="field" id="search" placeholder="Search themes, objects, experiences…" aria-label="Search topics"><select class="field" id="cat"><option value="all">Every category</option></select><select class="field" id="order"><option value="alphabetic">Alphabetical</option><option value="for-me">Your selections first</option></select></div><div class="tiny" id="topicCount"></div><div class="topics" id="topicGrid"></div></section>
-<section id="quiz" class="tab"><div class="ad-section-art-banner"><div class="ad-section-copy"><span class="eyebrow">32 direct adult curiosity prompts</span><h2>Your interests, <span class="italic">in your own words.</span></h2><p class="lead">Explore specific adult preferences, communication, power, sensations, boundaries and consensual fantasy. <strong>Select more than one response</strong> when it fits, skip anything, or add private reflections. Your answers create the same ranked interests, checklists, psychological reports and printable PDF results.</p></div><img src="/after-dark/visuals/quiz.svg" width="600" height="400" alt="" loading="lazy" decoding="async"></div><div class="card" id="quizCard"><div class="pill">32 questions · multiple selections · private autosave</div><h3>Explore what actually interests you.</h3><p>Fantasies can stay fantasies. Every real-life activity requires separate consent.</p><button class="btn" id="startQuiz">Begin →</button></div><div id="quizBelow"></div><div class="note">You can also take the <button type="button" class="btn alt" data-tab="psych-quiz">🧠 Non-explicit Psychology Quiz →</button> or <a href="/after-dark/psychology-lab/">visit Clue Compass →</a>.</div></section>
-<section id="psych-quiz" class="tab" aria-label="Non-explicit psychology quiz"><div class="ad-section-art-banner"><div class="ad-section-copy">
-<span class="eyebrow">COMPANION SELF-DISCOVERY · 32 NON-EXPLICIT QUESTIONS</span>
-<h2>The psychology <span class="italic">behind curiosity.</span></h2>
-<p class="lead">Explore trust, attention, anticipation, confidence, sensory comfort and imagination without explicit sexual wording. These 32 questions use the same underlying interest mapping as the Sexual Preferences Quiz. Both feed <strong>one shared results shelf</strong> rather than separate contradictory reports. You can select multiple answers.</p></div><img src="/after-dark/visuals/psych.svg" width="600" height="400" alt="" loading="lazy" decoding="async"></div>
-<div class="row"><button class="btn alt" data-tab="quiz" type="button">← Sexual Preferences Quiz</button><button class="btn alt" data-tab="notebook" type="button">💌 My Saved Interests</button></div>
+<section id="quiz" class="tab"><header class="quiz-page-heading"><span class="eyebrow">32 QUESTIONS · PRIVATE AUTOSAVE</span><h2>Sexual Preferences Quiz</h2><p>Choose what fits, skip anything, and return whenever you like. Both quizzes contribute to one combined report.</p></header><div class="card" id="quizCard"><div class="pill">32 questions · multiple selections · private autosave</div><h3>Explore what actually interests you.</h3><p>Fantasies can stay fantasies. Every real-life activity requires separate consent.</p><button class="btn" id="startQuiz">Begin →</button></div><div id="quizBelow"></div><div class="quiz-switch-row"><button type="button" class="btn alt" data-tab="psych-quiz">Go to Psychology Quiz →</button></div></section>
+<section id="psych-quiz" class="tab" aria-label="Non-explicit psychology quiz"><header class="quiz-page-heading"><span class="eyebrow">32 QUESTIONS · PRIVATE AUTOSAVE</span><h2>Psychology Quiz</h2><p>Explore everyday trust, attention, comfort and imagination. Your responses connect to the same interest report.</p></header>
+<div class="quiz-switch-row"><button class="btn alt" data-tab="quiz" type="button">← Sexual Preferences Quiz</button></div>
 <div class="card" id="psychQuizCard"><h3>32 non-explicit questions</h3><p>Start when you're ready. Your progress stays in this browser.</p></div>
-<p class="note">Everyday psychological preferences cannot predict sexual interests. The shared results are suggestions for reflection, not claims about hidden desires.</p>
+<p class="quiz-footnote">Everyday psychology responses suggest themes—not hidden sexual desires.</p>
 </section>
 <section id="psych" class="tab"><div class="ad-section-art-banner"><div class="ad-section-copy"><span class="eyebrow">Interpretation without reductionism</span><h2>The psychology of <span class="italic">curiosity.</span></h2><p class="lead">Attraction can reflect multiple overlapping influences. We explain plausible processes and limits of evidence, rather than presenting speculative origins as settled facts.</p></div><img src="/after-dark/visuals/psych.svg" width="600" height="400" alt="" loading="lazy" decoding="async"></div><div id="lenses" class="grid"></div><div id="categoriesPsych" class="guide"></div><div class="note"><strong>New psychology lab:</strong> Read about everyday comfort habits—including thumb-sucking—alongside contemporary kink research and the topics in Daniel Amen’s <cite>The Brain in Love</cite>. <a href="/after-dark/psychology-lab/">Open the Clue Compass →</a></div></section>
 <section id="ideas" class="tab" aria-label="Idea Lab for consenting adults"><div class="ad-section-art-banner"><div class="ad-section-copy">
@@ -647,7 +644,7 @@ function renderDeepQuiz(){
 }
 // All questionnaire progress is private to the local browser and is never transmitted.
 const quizSaveKey='afterdark_direct_quiz_v2';
-let multiAnswers={},freeResponses={};
+let multiAnswers={},freeResponses={},directPreview=false;
 function rebuildQuizSignals(){
  axes={};answered=0;
  for(let i=0;i<qdata.length;i++){
@@ -672,12 +669,13 @@ function restoreQuiz(){
  rebuildQuizSignals();
 }
 function resetDirectQuiz(){
- qIndex=0;multiAnswers={};freeResponses={};deeperAxes={};deeperAnswered=0;personalReasons=[];
+ qIndex=0;directPreview=false;multiAnswers={};freeResponses={};deeperAxes={};deeperAnswered=0;personalReasons=[];
  rebuildQuizSignals();persistQuiz();renderQuiz();
 }
 function renderQuiz(){
  const box=$('quizCard');box.replaceChildren();
  if(qdata.length!==32){box.append(elText('p','Quiz questions could not load. Please refresh the page.'));return;}
+ if(directPreview){showResults();return;}
  if(qIndex<0){box.append(elText('span','PRIVATE ADULT CURIOSITY','eyebrow'),
   elText('h3','32 direct questions. Pick what fits.'),
   elText('p','Choose multiple answers when applicable. Skip, go back, write optional private notes, and save progress on this device. A fantasy does not mean consent to act it out.'));
@@ -686,7 +684,7 @@ function renderQuiz(){
  const q=qdata[qIndex],selected=new Set(multiAnswers[qIndex]||[]);
  box.append(elText('span','QUESTION '+(qIndex+1)+' OF 32 · '+answered+' ANSWERED','eyebrow'));
  const bar=elText('div','','bar'),fill=elText('div','','quiz-progress-fill');fill.style.width=(qIndex/32*100)+'%';bar.append(fill);
- box.append(bar,elText('h3',q.q),elText('p','Select as many answers as apply. Choose “none” or “neither” alone.','quiz-help'));
+ box.append(bar,elText('h3',q.q),elText('p','Select any that fit. Your choice saves automatically.','quiz-help'));
  const options=elText('div','','quizOpts quiz-multi');
  q.options.forEach((option,i)=>{
   const label=document.createElement('label');label.className='quiz-multi-option'+(selected.has(i)?' selected':'');
@@ -712,8 +710,10 @@ function renderQuiz(){
  const skip=elText('button','Skip','btn alt');skip.onclick=()=>{multiAnswers[qIndex]=[];delete freeResponses[qIndex];qIndex++;rebuildQuizSignals();persistQuiz();renderQuiz();};
  const next=elText('button',qIndex===31?'Show my results →':'Save & next →','btn');next.onclick=()=>{qIndex++;rebuildQuizSignals();persistQuiz();renderQuiz();};
  nav.append(prev,skip,next);box.append(nav);
- const early=elText('button','Show results with my answers so far','quiz-secondary-link');
- early.onclick=()=>{qIndex=32;rebuildQuizSignals();persistQuiz();showResults();};box.append(early);
+ const more=elText('details','','quiz-question-more');
+ const summary=elText('summary','See report with answers so far');more.append(summary);
+ const early=elText('button','Preview my current report','quiz-secondary-link');
+ early.onclick=()=>{directPreview=true;rebuildQuizSignals();showResults();};more.append(early);box.append(more);
 }
 restoreQuiz();
 function combinedAxes(){
@@ -885,6 +885,13 @@ function surpriseInterests(ranked){
 }
 function showResults(targetId='quizCard'){
   const box=$(targetId);box.replaceChildren();
+  if(targetId==='quizCard'&&directPreview&&qIndex<qdata.length){
+    const returnRow=elText('div','','quiz-preview-return');
+    const returnButton=elText('button','← Continue at question '+(Math.max(0,qIndex)+1),'btn');
+    returnButton.onclick=()=>{directPreview=false;renderTabs('quiz');renderQuiz()};
+    returnRow.append(returnButton,elText('span','Preview only · answers remain saved','quiz-preview-note'));
+    box.append(returnRow);
+  }
   const companion=window.AfterDarkPsychQuizBridge?.getProgress?.();
   const companionAnswered=companion?.answered||0,hasBoth=answered>0&&companionAnswered>0;
   box.append(elText('span','PERSONAL EXPLORATION · QUIZ RESULTS','eyebrow'),
@@ -1033,8 +1040,9 @@ function showResults(targetId='quizCard'){
   const pdf=elText('button','📄 Save quiz results as PDF','btn');
   pdf.addEventListener('click',()=>window.InterestNotebook?.printQuiz(targetId));
   box.append(pdf);
-  const redo=elText('button','Clear saved answers and start again','btn alt');
-  redo.onclick=()=>{if(targetId==='psychQuizCard')window.AfterDarkPsychQuizBridge?.restart();else resetDirectQuiz();};box.append(redo);
+  const returnToQuiz=elText('button','← Review quiz answers','btn alt');
+  returnToQuiz.onclick=()=>{if(targetId==='psychQuizCard')window.AfterDarkPsychQuizBridge?.revise();else{directPreview=false;qIndex=0;persistQuiz();renderQuiz()}};
+  box.append(returnToQuiz);
 }
 $('startQuiz').onclick=()=>{if(qIndex<0){qIndex=0;persistQuiz()}renderQuiz()};
 // Candid but non-graphic adult prompts: named activities, specific conversation questions,
@@ -1210,10 +1218,12 @@ window.AfterDarkDirectQuizBridge=Object.freeze({
      }
    }
    if(!Number.isInteger(value.qIndex)||value.qIndex<-1||value.qIndex>32)return false;
-   qIndex=value.qIndex;multiAnswers=options;freeResponses=notes;
+   qIndex=value.qIndex;directPreview=false;multiAnswers=options;freeResponses=notes;
    rebuildQuizSignals();persistQuiz();renderQuiz();return true;
  },
- resume:()=>{if(qIndex<0){qIndex=0;persistQuiz()}renderTabs('quiz');renderQuiz()}
+ reset:resetDirectQuiz,
+ preview:()=>{directPreview=true;renderTabs('quiz');renderQuiz()},
+ resume:()=>{if(qIndex<0){qIndex=0;persistQuiz()}directPreview=false;renderTabs('quiz');renderQuiz()}
 });
 window.AfterDarkCanonicalReport=Object.freeze({
  buildData:()=>{
@@ -1256,4 +1266,4 @@ window.AfterDarkNotebookBridge={
   getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.()?.complete),
   quizText:()=>document.getElementById('quizCard')?.innerText||''
 };
-</script><script src="/after-dark/quiz-report.js?v=20261030-v3"></script><script src="/after-dark/interest-notebook.js?v=report-20261030-v2"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/candy-goo.js?v=1"></script><script src="/after-dark/continue-and-transfer.js?v=20261030-v1" defer></script></body></html>
+</script><script src="/after-dark/quiz-report.js?v=20261030-v3"></script><script src="/after-dark/interest-notebook.js?v=report-20261030-v2"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/candy-goo.js?v=1"></script><script src="/after-dark/continue-and-transfer.js?v=20261030-v3-clean-resume" defer></script></body></html>
