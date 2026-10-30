@@ -219,6 +219,7 @@
   for(const b of document.querySelectorAll('[data-tab=notebook]'))b.addEventListener('click',renderNotebook);
   window.addEventListener('afterprint',()=>{document.body.classList.remove('print-notebook','print-detailed-report');$('print-document')?.remove();});
   const shortcut=button('💌 My Saved Interests',goNotebook,'notebook-fab');shortcut.setAttribute('aria-label','Open my private saved interests notebook');document.body.append(shortcut);
-  window.InterestNotebook={saveTopic,goNotebook,renderNotebook,printQuiz,printNotebook,showInvitation};
+  window.InterestNotebook={saveTopic,goNotebook,renderNotebook,printQuiz,printNotebook,showInvitation,
+    getPersonalNote:id=>topics().some(t=>t.id===id)?{...(notes[id]||{})}:{}};
   if(location.hash==='#notebook')renderNotebook();
 })();
