@@ -55,6 +55,17 @@
   opts('Unsure or prefer not to answer','',[],'none')
  ]}
  ];
+ // Viewing adult media is a separate preference. It is never scored as wanting the real-world activity.
+ const media=base.find(q=>q.id===62);
+ if(media?.dropdown){
+  for(const label of [
+   'Semen-related adult media',
+   'Consensual urine-themed adult media',
+   'Flatulence-related adult media',
+   'Natural body-scent or sweat themes',
+   'Adult lactation-themed adult media'
+  ])media.options.push({text:label,axes:'',role:'watch',mediaGroup:'Bodily themes (adult-only)',mediaOnly:true});
+ }
  window.AfterDarkAdultQuiz=base.concat(questions);
 })();
 window.AfterDarkBodyInterestCategories=[[
