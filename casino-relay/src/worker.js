@@ -46,16 +46,16 @@ export class CandyCasinoRoom extends DurableObject {
   server.serializeAttachment({role});
   if(role==='host'){
    if(this.live('host',server)){
-    send(server,{t:'host-taken'});server.close(1008,'Host already active');
+    send(server,{t:'host-taken'});server.close(4409,'Host already active');
    }else{
     send(server,{t:'host-ready'});
    }
   }else{
    const host=this.live('host',server);
    if(!host){
-    send(server,{t:'missing'});server.close(1008,'No active host');
+    send(server,{t:'missing'});server.close(4404,'No active host');
    }else if(this.live('guest',server)){
-    send(server,{t:'full'});server.close(1008,'Room full');
+    send(server,{t:'full'});server.close(4410,'Room full');
    }else{
     send(host,{t:'peer-ready'});
     send(server,{t:'peer-ready'});
