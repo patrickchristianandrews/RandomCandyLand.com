@@ -186,7 +186,10 @@ let hostOffersReceived=0,lastPeerEvent='No events yet',lastIceState='not availab
 const markPeerEvent=s=>lastPeerEvent=String(s).slice(0,160);
 const clearJoinTimers=()=>{clearTimeout(joinRetryTimer);clearTimeout(joinWatchdog);clearTimeout(hostWatchdog);joinRetryTimer=joinWatchdog=hostWatchdog=0;};
 const activePeer=(p,epoch)=>peer===p&&roomEpoch===epoch&&mode==='friend';
-const networkVersion='room-connection-20261030-v5';
+const networkVersion='room-connection-20261030-v6-relay-ready';
+const relayEnabled=!!window.CandyCasinoRelay?.enabled;
+const transportName=relayEnabled?'Cloudflare WebSocket room relay':'PeerJS/WebRTC fallback (relay not activated)';
+const makePeer=id=>relayEnabled?new window.CandyCasinoRelay.Peer(id):new window.Peer(id,peerOptions);
 // Preserve the library's built-in STUN and TURN relay settings.
 const peerOptions={debug:1};
 const connectionDetails=()=>{
@@ -194,6 +197,8 @@ const connectionDetails=()=>{
  const details=[
   'Candy Land Casino multiplayer '+networkVersion,
   'Status: '+lastConnectionDetail,
+  'Transport: '+transportName,
+  'Relay endpoint: '+(relayEnabled?window.CandyCasinoRelay.endpoint:'not configured'),
   'Role: '+(mode==='computer'?'Computer':host?'Host':'Guest'),
   'Room: '+(roomId||'none'),
   'Peer registered: '+(!!peer?.open),
@@ -216,7 +221,8 @@ const connectionDetails=()=>{
 };
 const friendlyError=error=>{
  const type=String(error?.type||'');
- if(type==='peer-unavailable')return 'Host not found yet. Retrying the invitation...';
+ if(type==='peer-unavailable')return 'Host is not registered. Reopening the room...';
+ if(type==='room-full')return 'This room already has two players. Ask for a new room.';
  if(type==='unavailable-id')return 'This room code is already taken. Create a fresh room.';
  if(type==='network'||type==='socket-error'||type==='socket-closed'||type==='server-error')return 'Room service interrupted. Check your internet connection.';
  if(type==='browser-incompatible')return 'This browser cannot create a direct connection. Try Chrome or Safari.';
@@ -328,6 +334,7 @@ function connect(c){
  });
 }
 function loadPeer(){
+ if(relayEnabled)return Promise.resolve();
  if(typeof window.Peer==='function')return Promise.resolve();
  if(loading)return loading;
  const sources=['https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js','https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js'];
@@ -357,7 +364,7 @@ function registerHostRoom(epoch,reclaimed=false){
  host=true;
  players=[sanitize($('friend-name').value),'Waiting...'];
  let p;
- try{p=peer=new window.Peer(roomId,peerOptions);}
+ try{p=peer=makePeer(roomId);}
  catch(error){onlineStatus('⚠️ Could not register this room: '+friendlyError(error));return;}
  markPeerEvent(reclaimed?'Reopening missing host room':'Registering new host room');
  hostWatchdog=setTimeout(()=>{
@@ -460,7 +467,7 @@ async function joinRoom(preserveClaimCount=false){
  try{await loadPeer();}catch{if(roomEpoch===epoch)onlineStatus('⚠️ Could not load the room service. Check your internet and tap JOIN ROOM again.');return;}
  if(roomEpoch!==epoch)return;
  let p;
- try{p=peer=new window.Peer(undefined,peerOptions);}
+ try{p=peer=makePeer(undefined);}
  catch(error){onlineStatus('⚠️ '+friendlyError(error));return;}
  hostWatchdog=setTimeout(()=>{if(activePeer(p,epoch)&&!p.open)onlineStatus('⚠️ Room service is not responding. Tap JOIN ROOM to try again.');},12000);
  p.on('open',()=>{
@@ -472,6 +479,11 @@ async function joinRoom(preserveClaimCount=false){
   markPeerEvent('Guest peer error: '+(error?.type||error?.message||'unknown'));
   if(error?.type==='peer-unavailable'){
    claimMissingRoom(p,epoch);
+   return;
+  }
+  if(error?.type==='room-full'){
+   roomFull=true;clearJoinTimers();
+   onlineStatus('⚠️ This room already has two players. Ask the host for a new room.');
    return;
   }
   onlineStatus('⚠️ Guest connection: '+friendlyError(error)+' Use COPY CONNECTION DETAILS to report the error.');
@@ -526,6 +538,9 @@ $('copy-invite').onclick=async()=>{try{await navigator.clipboard.writeText($('in
 $('friend-name').addEventListener('change',()=>{players[me()]=sanitize($('friend-name').value);if(online)send({type:'hello',name:players[me()]});render();transmit();});
 const incoming=new URL(location.href).searchParams.get('room');
 if(incoming){mode='friend';players=['Waiting...',sanitize($('friend-name').value)];host=false;$('remote-controls').hidden=false;$('room-input').value=roomCode(incoming);onlineStatus('🍬 Invitation detected! Connecting to the host...');setTimeout(()=>{if(mode==='friend'&&!peer)joinRoom();},50);}
+if($('casino-network-version'))$('casino-network-version').textContent=relayEnabled
+ ?'Multiplayer v6 · dedicated Cloudflare relay ACTIVE'
+ :'Multiplayer v6 · relay awaiting Cloudflare activation; PeerJS fallback still in use';
 render();
 window.CandyCasinoDebug=Object.freeze({state:()=>({mode,duel,round,phase:stage,scores,online,hand:hands[me()]}),connectionDetails,version:networkVersion,rules:P});
 document.body.dataset.candyCasinoReady='true';
