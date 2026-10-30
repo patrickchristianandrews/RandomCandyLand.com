@@ -1036,7 +1036,7 @@ function showResults(targetId='quizCard'){
   const redo=elText('button','Clear saved answers and start again','btn alt');
   redo.onclick=()=>{if(targetId==='psychQuizCard')window.AfterDarkPsychQuizBridge?.restart();else resetDirectQuiz();};box.append(redo);
 }
-$('startQuiz').onclick=()=>{qIndex=0;renderQuiz()};
+$('startQuiz').onclick=()=>{if(qIndex<0){qIndex=0;persistQuiz()}renderQuiz()};
 // Candid but non-graphic adult prompts: named activities, specific conversation questions,
 // and explicit consent / practical limits. Each card is a discussion starter, not a how-to.
 const ideas=[
@@ -1190,6 +1190,31 @@ document.querySelectorAll('[data-ask]').forEach(b=>b.onclick=()=>ask(b.dataset.a
 const hash=location.hash.slice(1);if(hash.startsWith('partner-view?data=')){ /* Preserve the selected invitation fragment for interest-notebook.js. */ }
 else if(['home','atlas','quiz','psych-quiz','psych','ideas','chat','howto','guide','notebook'].includes(hash))renderTabs(hash);else renderTabs('home');
 window.AfterDarkSharedQuizResults=(targetId='quizCard')=>showResults(targetId);
+window.AfterDarkDirectQuizBridge=Object.freeze({
+ getProgress:()=>({position:qIndex,answered,complete:qIndex===qdata.length,questions:qdata.length,
+   answers:multiAnswers,notes:freeResponses}),
+ exportState:()=>({qIndex,multiAnswers:{...multiAnswers},freeResponses:{...freeResponses}}),
+ importState:value=>{
+   if(!value||typeof value!=='object'||Array.isArray(value))return false;
+   const options={},notes={};
+   for(let i=0;i<qdata.length;i++){
+     const selected=value.multiAnswers?.[i];
+     if(selected!==undefined){
+       if(!Array.isArray(selected)||selected.length>qdata[i].options.length||!selected.every(n=>Number.isInteger(n)&&n>=0&&n<qdata[i].options.length))return false;
+       options[i]=[...new Set(selected)];
+     }
+     const text=value.freeResponses?.[i];
+     if(text!==undefined){
+       if(typeof text!=='string'||text.length>600)return false;
+       notes[i]=text;
+     }
+   }
+   if(!Number.isInteger(value.qIndex)||value.qIndex<-1||value.qIndex>32)return false;
+   qIndex=value.qIndex;multiAnswers=options;freeResponses=notes;
+   rebuildQuizSignals();persistQuiz();renderQuiz();return true;
+ },
+ resume:()=>{if(qIndex<0){qIndex=0;persistQuiz()}renderTabs('quiz');renderQuiz()}
+});
 window.AfterDarkNotebookBridge={
   getTopics:()=>topics,
   getChoices:()=>({...choices}),
@@ -1197,4 +1222,4 @@ window.AfterDarkNotebookBridge={
   getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.()?.complete),
   quizText:()=>document.getElementById('quizCard')?.innerText||''
 };
-</script><script src="/after-dark/interest-notebook.js?v=1"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/candy-goo.js?v=1"></script></body></html>
+</script><script src="/after-dark/interest-notebook.js?v=1"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/candy-goo.js?v=1"></script><script src="/after-dark/continue-and-transfer.js?v=20261030-v1" defer></script></body></html>
