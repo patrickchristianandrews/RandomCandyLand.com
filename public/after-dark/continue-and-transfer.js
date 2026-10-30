@@ -347,7 +347,7 @@ function styleQuizCleanup(){ const sheet=document.createElement("style");sheet.t
 style();styleQuizCleanup();buildReadingBar();makeTransferPanel('direct');makeTransferPanel('psych');refineDirectQuizPanel();listenForReading();refreshPanels();
 const quizFocusSheet=document.createElement('link');
 quizFocusSheet.rel='stylesheet';
-quizFocusSheet.href='/after-dark/quiz-focus.css?v=20261030-v1';
+quizFocusSheet.href='/after-dark/quiz-focus.css?v=integrated62-v2';
 document.head.append(quizFocusSheet);
 document.body.classList.toggle('afterdark-quiz-mode',currentTab()==='quiz'||currentTab()==='psych-quiz');
 if(currentTab()==='quiz'&&started('direct'))DIRECT()?.resume?.();
