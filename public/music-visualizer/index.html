@@ -43,6 +43,17 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 @media(max-width:800px){.panel{grid-template-columns:1fr}.stage-ui{bottom:10px;left:10px;right:10px}.wrap{padding:13px 12px 35px}.controls{padding:15px}.head{padding-top:16px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 .pulse-actions{margin-top:16px}.pulse-actions .btn{font-size:12px}.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px}.sliders label{display:flex;align-items:center;justify-content:space-between;gap:10px}.sliders input{width:45%;min-width:68px}.stage{isolation:isolate}.stage canvas{height:clamp(350px,63vh,820px)}@media(max-width:550px){.sliders{grid-template-columns:1fr}.stage canvas{height:min(72vh,700px)}}
+.cast-tools{margin-top:16px;padding:18px;border:1px solid #bb83db;border-radius:19px;background:linear-gradient(135deg,#271738,#121326);box-shadow:0 12px 38px #0005}
+.cast-tools h2{margin:0 0 8px;font-size:18px}.cast-tools p{color:#e9dcef;font-size:14px;line-height:1.6}
+.cast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:12px}
+.cast-grid article{padding:15px;border:1px solid #795b95;border-radius:15px;background:#140f24aa}.cast-grid h3{margin:0 0 8px;font-size:15px}
+.cast-steps{padding-left:20px;margin:9px 0 12px;color:#eee1f6;font-size:14px}.cast-steps li{margin:6px 0}
+#tv-room{margin-top:12px;padding:12px;border:1px solid #9980c4;border-radius:12px;background:#08081b}
+#tv-room[hidden],.cast-tools[hidden],#tv-start[hidden],#tv-stop[hidden]{display:none!important}
+#tv-code{font:bold 21px ui-monospace,monospace;word-break:break-all;color:#fff0a8;letter-spacing:.06em}
+#tv-link{display:block;width:100%;min-width:0;max-width:100%;padding:9px;border-radius:10px;background:#0b0920;border:1px solid #8270a9;color:#e3d7f8;margin:10px 0}
+#tv-status{color:#bbf3ff;min-height:32px;font-size:13px}
+@media(max-width:700px){.cast-grid{grid-template-columns:1fr}.stage-ui{align-items:flex-end;flex-wrap:wrap}.stage-ui .pill{flex:1}}
 /* Show the real visualizer first, not an introductory panel. */.stage{margin-top:8px}.top{padding-bottom:8px!important}.wrap{padding-top:8px!important}</style>
 <link rel="manifest" href="/app-manifests/candy-pulse.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -59,7 +70,33 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 <header class="top"><a class="back" href="/">🍬 Random Candy Land</a><div class="logo">✦ Candy Pulse · Visualizer</div></header>
 <section class="stage" id="stage" aria-label="Hypnotic audio-reactive geometric visualizer">
 <canvas id="canvas" role="img" aria-label="Hypnotic moving geometric artwork driven by the music spectrum"></canvas>
-<div class="stage-ui"><span class="pill" id="status" aria-live="polite">✦ Waiting for sound</span><button class="btn" id="fullscreen" type="button">⛶ Full screen</button></div>
+<div class="stage-ui"><span class="pill" id="status" aria-live="polite">✦ Loading geometry…</span><button class="btn" id="cast-toggle" type="button" aria-expanded="false" aria-controls="cast-tools">📺 Cast / TV</button><button class="btn" id="fullscreen" type="button">⛶ Full screen</button></div>
+</section>
+<section class="cast-tools" id="cast-tools" hidden aria-label="Cast Pulse to your TV">
+<h2>📺 Put Candy Pulse on your TV</h2>
+<p>Choose your method. <strong>Android screen casting mirrors the whole moving visualizer and its sound to Chromecast or Google TV.</strong> A separate TV-browser link is also available for televisions with WebRTC browsers.</p>
+<div class="cast-grid">
+<article><h3>Google TV / Chromecast · Android</h3>
+<ol class="cast-steps">
+<li>Connect your phone and TV to the same Wi-Fi.</li>
+<li>Open the <strong>Google Home</strong> app and select the television or Chromecast device.</li>
+<li>Tap <strong>Cast my screen → Cast screen</strong> (labels may vary).</li>
+<li>Return to Pulse, tap <strong>Full screen</strong>, and play music or the demo.</li>
+</ol>
+<p>The regular Google Cast media button cannot directly send an animated web canvas; Android screen mirroring is the supported solution for Chromecast without a custom registered receiver.</p>
+</article>
+<article><h3>Direct live link · Smart-TV browser</h3>
+<p>Stream live geometry and audio directly from Pulse to a TV browser that supports WebRTC. Start your music first, create a TV room, and open its link in the television's browser.</p>
+<div class="row"><button class="btn primary" id="tv-start" type="button">📡 Create TV room</button><button class="btn" id="tv-stop" type="button" hidden>■ Stop TV stream</button></div>
+<div id="tv-room" hidden><p>TV pairing code: <strong id="tv-code"></strong></p>
+<label for="tv-link">Open this link in the TV browser</label>
+<input readonly id="tv-link" aria-label="Link to open on television"/>
+<div class="row"><button class="btn" id="tv-copy" type="button">Copy TV link</button><button class="btn" id="tv-share" type="button">Share link</button></div>
+</div><p id="tv-status" role="status">Start a TV room to pair your television.</p>
+<p>TV browsers must support WebRTC. Basic Chromecast devices cannot open this page; use screen mirroring instead. Audio and video stream peer-to-peer when connected.</p>
+</article>
+</div>
+<p>On a laptop, Chrome's <strong>Cast</strong> menu can also cast this tab. On Apple TV, use supported device screen-mirroring options.</p>
 </section>
 <div class="panel">
 <section class="controls" aria-label="Music source controls"><h2>🎵 Choose your sound</h2>
@@ -83,19 +120,19 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 </section></div>
 <footer class="privacy">Candy Pulse is a browser-local music visualizer. Audio from uploaded files and the microphone is processed on your device and is not uploaded. © Random Candy Land.</footer>
 </div>
-<script src="/music-visualizer/pulse-engine.js?v=hypno-20261030-v1"></script>
+<script src="/music-visualizer/pulse-engine.js?v=pulse-fixed-20261030-v2"></script>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
 const canvas=$('canvas'),g=canvas.getContext('2d',{alpha:false}),audio=$('player'),mode=$('mode'),palette=$('palette');
-let ctx=null,analyser=null,mediaSrc=null,micStream=null,micSrc=null,demoSources=[],fileURL=null,sourceType='none';
+let ctx=null,analyser=null,mediaSrc=null,micStream=null,micSrc=null,demoSources=[],demoLoopTimer=0,fileURL=null,sourceType='none';
 let data=new Uint8Array(512),wave=new Uint8Array(512),raf=0,lastFrame=0,t=0,visible=true;
 let w=0,h=0,dpr=1;
 const colors={candy:['#ff86bb','#ffdd82','#97ddff','#ca92ff'],gold:['#ffe799','#ffa43b','#ff7096','#fff9d8'],ocean:['#6de4ff','#4e94ff','#4af9c9','#dafcff'],prism:['#ff3f73','#fff55f','#65f2ad','#7ca9ff','#d67bff']};
 function setStatus(text){$('status').textContent=text;}
 function resize(){const r=canvas.getBoundingClientRect();w=Math.max(1,r.width);h=Math.max(1,r.height);dpr=Math.min(window.devicePixelRatio||1,1.5);const nw=Math.round(w*dpr),nh=Math.round(h*dpr);if(canvas.width!==nw||canvas.height!==nh){canvas.width=nw;canvas.height=nh;}g.setTransform(dpr,0,0,dpr,0,0);}
 function ensureAudio(){if(ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Audio processing is not supported by this browser.');ctx=new AC();analyser=ctx.createAnalyser();analyser.fftSize=1024;analyser.smoothingTimeConstant=.78;data=new Uint8Array(analyser.frequencyBinCount);wave=new Uint8Array(analyser.fftSize);}
-function stopDemo(){demoSources.forEach(s=>{try{s.stop()}catch(e){}});demoSources=[];}
+function stopDemo(){if(demoLoopTimer){clearTimeout(demoLoopTimer);demoLoopTimer=0;}demoSources.forEach(s=>{try{s.stop()}catch(e){}});demoSources=[];}
 function stopMic(){if(micSrc){try{micSrc.disconnect()}catch(e){};micSrc=null;}if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;}}
 function disconnectMedia(){if(mediaSrc){try{mediaSrc.disconnect()}catch(e){}}}
 function stopAll(keepFile=true){stopDemo();stopMic();audio.pause();disconnectMedia();sourceType='none';$('mic').textContent='🎙️ Use microphone';$('demo').textContent='✨ Play demo beat';$('play').textContent='▶ Play';if(!keepFile){if(fileURL)URL.revokeObjectURL(fileURL);fileURL=null;audio.removeAttribute('src');audio.load();$('play').disabled=true;}setStatus('✦ Visuals ready');}
@@ -105,19 +142,44 @@ $('play').onclick=async()=>{if(!audio.src)return;try{connectFile();await ctx.res
 audio.onplay=()=>{$('play').textContent='⏸ Pause'};audio.onpause=()=>{$('play').textContent='▶ Play'};
 $('stop').onclick=()=>stopAll();
 $('mic').onclick=async()=>{if(sourceType==='mic'){stopAll();return;}stopAll();try{if(!navigator.mediaDevices?.getUserMedia)throw Error('Mic access unavailable');ensureAudio();await ctx.resume();const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});micStream=stream;micSrc=ctx.createMediaStreamSource(stream);micSrc.connect(analyser);sourceType='mic';$('mic').textContent='🎙️ Stop microphone';setStatus('🎙️ Listening to nearby sound');}catch(e){stopMic();setStatus('Microphone permission unavailable');}};
-function demoBeat(){ensureAudio();stopAll();ctx.resume();sourceType='demo';$('demo').textContent='✨ Restart demo beat';const tones=[110,164.8,196,261.6,220,329.6,246.9,146.8];const now=ctx.currentTime+.03;for(let i=0;i<24;i++){const start=now+i*.27,osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=i%3===0?'sawtooth':'sine';osc.frequency.setValueAtTime(tones[i%tones.length],start);gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(i%4===0?.16:.075,start+.012);gain.gain.exponentialRampToValueAtTime(.0001,start+.21);osc.connect(gain);gain.connect(analyser);gain.connect(ctx.destination);osc.start(start);osc.stop(start+.25);demoSources.push(osc);}setStatus('✨ Demo beat playing');} 
+function demoBeat(){
+ ensureAudio();stopAll();ctx.resume();sourceType='demo';
+ $('demo').textContent='✨ Restart demo beat';
+ const tones=[110,164.8,196,261.6,220,329.6,246.9,146.8];
+ function scheduleNotes(){
+  if(sourceType!=='demo')return;
+  const now=ctx.currentTime+.08;
+  demoSources=demoSources.filter(osc=>{try{return osc.context.state==='running'&&osc.stopTime>now-.2}catch{return false}});
+  for(let i=0;i<24;i++){
+   const start=now+i*.27,osc=ctx.createOscillator(),gain=ctx.createGain();
+   osc.type=i%3===0?'sawtooth':'sine';osc.frequency.setValueAtTime(tones[i%tones.length],start);
+   gain.gain.setValueAtTime(.0001,start);
+   gain.gain.exponentialRampToValueAtTime(i%4===0?.16:.075,start+.012);
+   gain.gain.exponentialRampToValueAtTime(.0001,start+.21);
+   osc.connect(gain);gain.connect(analyser);gain.connect(ctx.destination);
+   osc.start(start);osc.stop(start+.25);osc.stopTime=start+.25;
+   demoSources.push(osc);
+  }
+  demoLoopTimer=setTimeout(scheduleNotes,24*.27*1000);
+ }
+ scheduleNotes();
+ setStatus('✨ Demo beat looping · geometry responding');
+}
 $('demo').onclick=()=>{try{demoBeat()}catch(e){setStatus('Audio unavailable on this browser')}};
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('stage').requestFullscreen)await $('stage').requestFullscreen();else setStatus('Fullscreen not supported in this browser');resize();}catch(e){setStatus('Fullscreen not available here')}};
 let ros;if('ResizeObserver' in window){ros=new ResizeObserver(resize);ros.observe(canvas)}else window.addEventListener('resize',resize);
 document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible){lastFrame=0;}});
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+$('cast-toggle').onclick=()=>{const panel=$('cast-tools');panel.hidden=!panel.hidden;$('cast-toggle').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden)panel.scrollIntoView({behavior:'smooth',block:'start'});};
+window.CandyPulseAudio={ensureAudio:()=>{ensureAudio();return ctx},get analyser(){return analyser},get source(){return sourceType}};
+let pulseFrames=0;
 const settings={sensitivity:'1.35',glow:'17',symmetry:'10',density:'7',trails:'.79',speed:'.85'};
 let calmMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches||false;
 function draw(now){
  raf=requestAnimationFrame(draw);
  if(!visible||now-lastFrame<30)return;
  const delta=lastFrame?Math.min(.065,(now-lastFrame)/1000):.032;
- lastFrame=now;resize();t+=delta;
+ lastFrame=now;resize();t+=delta;pulseFrames++;
  const cols=colors[palette.value]||colors.candy;
  if(analyser&&sourceType!=='none'){analyser.getByteFrequencyData(data);analyser.getByteTimeDomainData(wave);}
  else{data.fill(0);wave.fill(128);}
@@ -146,7 +208,9 @@ $('reset-look').onclick=()=>{
 };
 $('motion').onclick=()=>{calmMotion=!calmMotion;$('motion').textContent=calmMotion?'✦ Enable full motion':'☾ Calm motion';};
 mode.addEventListener('change',()=>window.CandyPulseGeometry.reset());
+window.CandyPulseDebug=Object.freeze({get frameCount(){return pulseFrames},get source(){return sourceType},get mode(){return mode.value},get geometryReady(){return typeof window.CandyPulseGeometry?.reset==='function'}});
 resize();raf=requestAnimationFrame(draw);
 window.addEventListener('pagehide',()=>{cancelAnimationFrame(raf);stopAll(false);if(ros)ros.disconnect();if(ctx)ctx.close()},{once:true});
 </script>
+<script src="/music-visualizer/pulse-cast.js?v=pulse-tv-20261030-v1"></script>
 </body></html>
