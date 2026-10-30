@@ -729,25 +729,94 @@ function renderQuiz(){
  const bar=elText('div','','bar'),fill=elText('div','','quiz-progress-fill');fill.style.width=(qIndex/qdata.length*100)+'%';bar.append(fill);
  box.append(bar,elText('h3',q.q),elText('p','Select any that fit. Your choice saves automatically.','quiz-help'));
  const options=elText('div','','quizOpts quiz-multi');
- q.options.forEach((option,i)=>{
-  const label=document.createElement('label');label.className='quiz-multi-option'+(selected.has(i)?' selected':'');
-  const input=document.createElement('input');input.type='checkbox';input.checked=selected.has(i);input.setAttribute('aria-label',option.text);
-  input.onchange=()=>{
-   const negative=text=>/\b(none|neither|nothing|don't want|not interested|no preferred|no waiting)\b/i.test(text);
-   if(input.checked){if(negative(option.text))selected.clear();else for(const n of [...selected])if(negative(q.options[n].text))selected.delete(n);selected.add(i);}
-   else selected.delete(i);
-   multiAnswers[qIndex]=[...selected];rebuildQuizSignals();persistQuiz();
-   // Keep the current question and keyboard focus in place as options change.
-   options.querySelectorAll('.quiz-multi-option').forEach((row,n)=>{
-    const active=selected.has(n);
-    row.classList.toggle('selected',active);
-    row.querySelector('input').checked=active;
-   });
-   window.AfterDarkProgressTransfer?.refresh?.();
-  };
-  label.append(input,document.createTextNode(option.text));options.append(label);
- });
- box.append(options);
+ const optNegative=option=>q.dropdown?
+   option.mediaGroup==='Preferences & boundaries':
+   /\b(none|neither|nothing|don't want|not interested|no preferred|no waiting|not sure)\b/i.test(option.text);
+ let mediaSummary=null;
+ const selectOption=(i,input)=>{
+  const option=q.options[i];
+  if(input.checked){
+   if(optNegative(option))selected.clear();
+   else for(const n of [...selected])if(optNegative(q.options[n]))selected.delete(n);
+   selected.add(i);
+  }else selected.delete(i);
+  multiAnswers[qIndex]=[...selected];rebuildQuizSignals();persistQuiz();
+  options.querySelectorAll('.quiz-multi-option').forEach((row,n)=>{
+   const actual=Number(row.dataset.choiceIndex);
+   const active=selected.has(actual);
+   row.classList.toggle('selected',active);
+   row.querySelector('input').checked=active;
+  });
+  if(mediaSummary)mediaSummary.textContent=selected.size?
+    selected.size+' adult-media '+(selected.size===1?'category':'categories')+' selected · Tap to change':
+    'Select genres or scenarios · Choose multiple';
+  window.AfterDarkProgressTransfer?.refresh?.();
+ };
+ const makeOption=(option,i)=>{
+  const label=document.createElement('label');
+  label.className='quiz-multi-option'+(selected.has(i)?' selected':'');
+  label.dataset.choiceIndex=String(i);
+  const input=document.createElement('input');
+  input.type='checkbox';input.checked=selected.has(i);
+  input.setAttribute('aria-label',option.text);
+  input.onchange=()=>selectOption(i,input);
+  label.append(input,document.createTextNode(option.text));
+  return label;
+ };
+ if(q.dropdown){
+  const dropdown=elText('details','','quiz-media-dropdown');
+  mediaSummary=elText('summary',selected.size?
+   selected.size+' adult-media categories selected · Tap to change':
+   'Select genres or scenarios · Choose multiple');
+  dropdown.append(mediaSummary);
+  const content=elText('div','','quiz-media-content');
+  content.append(elText('p','Adults only. Check all genres you enjoy watching or imagining. These choices do not mean you want to perform anything in real life.','quiz-help'));
+  const search=document.createElement('input');search.type='search';search.className='quiz-media-search';
+  search.placeholder='Search genres (e.g. group, ASMR, strap-on, BDSM)…';
+  search.setAttribute('aria-label','Search adult pornography interests');content.append(search);
+  const groups=new Map();
+  q.options.forEach((option,i)=>{
+   const group=option.mediaGroup||'Other';
+   if(!groups.has(group)){
+    const section=elText('fieldset','','quiz-media-group');
+    section.append(elText('legend',group));groups.set(group,section);
+   }
+   groups.get(group).append(makeOption(option,i));
+  });
+  groups.forEach(section=>{options.append(section)});
+  search.addEventListener('input',()=>{
+   const term=search.value.trim().toLowerCase();
+   for(const section of groups.values()){
+    let visible=0;
+    for(const row of section.querySelectorAll('.quiz-multi-option')){
+     const show=row.textContent.toLowerCase().includes(term);
+     row.hidden=!show;if(show)visible++;
+    }
+    section.hidden=visible===0;
+   }
+  });
+  content.append(options);dropdown.append(content);box.append(dropdown);
+ }else{
+  q.options.forEach((option,i)=>options.append(makeOption(option,i)));
+  box.append(options);
+ }
+ const intentGroup=document.createElement('fieldset');
+ intentGroup.className='quiz-question-intent';
+ intentGroup.append(elText('legend',q.dropdown?
+   'Is this media interest fantasy-only, or something you want to discuss exploring? (optional)':
+   'How do you feel about the interests selected above? (optional)'));
+ const intentChoices=elText('div','','quiz-question-intent-choices');
+ for(const [value,labelText] of Object.entries(intentLabels)){
+  const label=document.createElement('label');
+  const input=document.createElement('input');
+  input.type='radio';input.name='quiz-intent-'+q.id;input.value=value;
+  input.checked=questionIntents[qIndex]===value;
+  input.onchange=()=>{if(input.checked){questionIntents[qIndex]=value;persistQuiz();}};
+  label.append(input,document.createTextNode(labelText));intentChoices.append(label);
+ }
+ intentGroup.append(intentChoices);
+ if(q.dropdown)intentGroup.append(elText('p','Exploring a discussion or genre is not a commitment to enact what appears in adult media.','quiz-help'));
+ box.append(intentGroup);
  if(q.freeText){
   const ta=document.createElement('textarea');ta.rows=3;ta.maxLength=600;ta.value=freeResponses[qIndex]||'';
   ta.placeholder='Optional: describe your preferences or boundaries in your own words. Saved only in this browser.';
