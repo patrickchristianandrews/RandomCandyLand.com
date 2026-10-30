@@ -98,7 +98,7 @@ const room='rcl-casino-abcdef0123456789abcd';
  a.get('room-input').value=id;b.get('room-input').value=id;
  await Promise.all([a.get('join-room').onclick(),b.get('join-room').onclick()]);
  await flush();await advance(500);
- assert.ok(a.status().includes('Connected')&&b.status().includes('Connected'),
+ assert.ok(/connected and responding/i.test(a.status())&&/connected and responding/i.test(b.status()),
    'Concurrent guests must settle into one host and one guest: '+a.status()+' / '+b.status());
  assert.notEqual(/Role: Host/.test(a.diagnostics()),/Role: Host/.test(b.diagnostics()));
  console.log('✓ Simultaneous attempts to recover a missing room settle without duplicate hosts');
