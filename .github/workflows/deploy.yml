@@ -66,6 +66,10 @@ jobs:
       - name: Test Cloudflare WebSocket room relay protocol
         run: node scripts/test-casino-relay.mjs
 
+      - name: Probe live Cloudflare multiplayer room (verification, not required for fallback site)
+        continue-on-error: true
+        run: node scripts/check-casino-relay-live.mjs
+
       - name: Test After Dark and Trumpagotchi in a real Chrome browser
         shell: bash
         run: |
