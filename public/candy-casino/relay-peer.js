@@ -19,11 +19,19 @@ class Events{
 class RelayConnection extends Events{
  constructor(peer,role,room,socket=null){
   super();this.owner=peer;this.role=role;this.peer=room;this.socket=socket;
-  this.open=false;this.closed=false;this.peerConnection=null;
+  this.open=false;this.closed=false;this.peerConnection=null;this.pending=[];
  }
  attach(socket){this.socket=socket}
- ready(){if(this.closed||this.open)return;this.open=true;this.emit('open')}
- data(msg){if(!this.closed&&this.open)this.emit('data',msg)}
+ ready(){
+  if(this.closed||this.open)return;
+  this.open=true;this.emit('open');
+  for(const message of this.pending.splice(0))this.emit('data',message);
+ }
+ data(msg){
+  if(this.closed)return;
+  if(this.open)this.emit('data',msg);
+  else if(this.pending.length<16)this.pending.push(msg);
+ }
  close(notify=true){
   if(this.closed)return;
   this.closed=true;this.open=false;
