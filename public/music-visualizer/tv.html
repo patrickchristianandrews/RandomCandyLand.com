@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head>
+<!-- GA4: sanitized page visits; never include quiz answers or private invitation URLs. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script>
+<script src="/analytics.js?v=ga4-20261030-v1"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080612">
+<title>Candy Pulse · TV Stream</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}
+html,body{width:100%;height:100%;background:#060612;color:#fff;margin:0;font:16px/1.5 system-ui,-apple-system,sans-serif}
+#video{width:100%;height:100%;object-fit:contain;background:black;display:none}
+#overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:30px;text-align:center;background:radial-gradient(ellipse at center,#2d164f,#080615 67%)}
+h1{font-size:clamp(30px,5vw,66px);margin:0;color:#ffc3f7}
+p{max-width:670px;margin:0;color:#d6cce6}input{padding:14px 16px;min-width:min(80vw,380px);font-size:26px;letter-spacing:.12em;text-align:center;border:1px solid #ac76e8;border-radius:13px;background:#211737;color:white;text-transform:uppercase}
+button{padding:13px 22px;border:0;border-radius:15px;background:linear-gradient(110deg,#ffb5dc,#a8d8ff);color:#24112f;font-size:17px;font-weight:bold;cursor:pointer;min-height:52px}
+#status{font-size:15px;color:#bceeff;max-width:680px}
+#replay{position:absolute;bottom:18px;right:18px;z-index:2;display:none;background:#1c1425c9;color:white;border:1px solid #bb9ad4;font-size:13px}
+</style>
+</head><body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<video id="video" autoplay playsinline></video>
+<div id="overlay">
+ <h1>✺ Candy Pulse · TV</h1>
+ <p>Open Candy Pulse on your phone, select <b>Cast / TV</b>, then <b>Create TV room</b>. Enter the code from your phone here to watch and hear the live visualizer.</p>
+ <input id="code" autocomplete="off" spellcheck="false" inputmode="text" maxlength="20" placeholder="20-character code" aria-label="TV pairing code"/>
+ <button id="join" type="button">Connect to Pulse</button>
+ <p id="status" role="status">Both devices need internet access. For best results use the same Wi-Fi network.</p>
+ <p style="font-size:13px">Requires a TV browser with WebRTC support. Basic Chromecasts cannot open arbitrary websites: use Android’s Google Home → Cast my screen instead.</p>
+</div>
+<button type="button" id="replay">🔊 Enable TV audio / reconnect</button>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const endpoint='wss://candy-casino-relay.patrick-christian-andrews.workers.dev';
+let socket=null,pc=null,iceQueue=[];
+const status=text=>{$('status').textContent=text};
+const send=(kind,payload)=>{if(socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify({t:'data',d:{type:'draw',kind,...payload}}))};
+function stopPeer(){if(pc){try{pc.close()}catch{}pc=null}iceQueue=[]}
+async function connect(){
+ const token=$('code').value.trim().toLowerCase();
+ if(!/^[a-f0-9]{20}$/.test(token)){status('Enter the exact 20-character room code shown on your phone.');return}
+ if(!window.RTCPeerConnection){status('This TV browser does not support WebRTC. Cast your Android screen using Google Home instead.');return}
+ stopPeer();if(socket)try{socket.close()}catch{}
+ socket=new WebSocket(endpoint+'/room/rcl-casino-'+token+'?role=guest');
+ status('Connecting to the phone’s live TV room…');
+ socket.onmessage=async event=>{
+  let msg;try{msg=JSON.parse(event.data)}catch{return}
+  if(msg.t==='missing'){status('Room not found. Start a TV room on your phone and retry.');return}
+  if(msg.t==='full'){status('This TV room already has a viewer.');return}
+  if(msg.t==='peer-left'){stopPeer();status('Phone disconnected. Reconnect when the phone is ready.');$('overlay').style.display='flex';return}
+  if(msg.t==='peer-ready'){status('Connected to the phone. Setting up encrypted video and audio…');return}
+  if(msg.t!=='data'||msg.d?.type!=='draw')return;
+  try{
+   if(msg.d.kind==='offer'){
+    stopPeer();
+    pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+    pc.onicecandidate=e=>{if(e.candidate)send('ice',{candidate:e.candidate.toJSON()})};
+    pc.ontrack=e=>{
+     $('video').srcObject=e.streams[0];
+     $('video').style.display='block';
+     $('overlay').style.display='none';$('replay').style.display='block';
+     $('video').muted=false;
+     $('video').play().catch(()=>{$('replay').textContent='🔊 Tap to enable TV audio';$('replay').style.display='block'});
+    };
+    pc.onconnectionstatechange=()=>{
+     if(pc?.connectionState==='failed'){status('Video connection failed. Try again on the same Wi-Fi or use Android screen mirroring.');$('overlay').style.display='flex'}
+    };
+    await pc.setRemoteDescription({type:'offer',sdp:msg.d.sdp});
+    const answer=await pc.createAnswer();await pc.setLocalDescription(answer);
+    send('answer',{sdp:pc.localDescription.sdp});
+    for(const candidate of iceQueue)await pc.addIceCandidate(candidate);
+    iceQueue=[];
+   }else if(msg.d.kind==='ice'&&msg.d.candidate){
+    if(pc?.remoteDescription)await pc.addIceCandidate(msg.d.candidate);else iceQueue.push(msg.d.candidate);
+   }
+  }catch(e){status('TV setup error: '+(e?.message||String(e)));$('overlay').style.display='flex'}
+ };
+ socket.onerror=()=>status('Cannot reach the Cloudflare TV relay. Check network connectivity.');
+ socket.onclose=()=>{status('TV pairing connection closed. Open a fresh room on your phone to retry.');$('overlay').style.display='flex'};
+}
+$('join').onclick=connect;
+$('code').addEventListener('keydown',event=>{if(event.key==='Enter')connect()});
+$('replay').onclick=async()=>{try{$('video').muted=false;await $('video').play();$('replay').textContent='✓ Sound enabled'}catch{$('replay').textContent='Tap here again to enable sound'}};
+const hash=location.hash.slice(1);if(/^[a-f0-9]{20}$/i.test(hash)){$('code').value=hash;$('join').focus();}
+</script></body></html>
