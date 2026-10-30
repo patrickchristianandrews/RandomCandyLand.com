@@ -208,7 +208,7 @@ function build(){
  add(cover,'p','A specific, joined interpretation of your Sexual Preferences Quiz and Non-explicit Psychology Quiz — with the named interests, actual selected responses, psychological connections, and respectful discussion ideas.','report-lead');
  add(cover,'p','Prepared '+new Date(data.created).toLocaleDateString()+' · Private / for personal reflection','report-muted');
  const coverStats=el('div',undefined,'report-cover-stats');
- for(const [value,label] of [[data.direct.answered+'/32','Direct answers'],[data.psych.answered+'/32','Psychology answers'],[data.interests.length,'Named interest profiles']]){
+ for(const [value,label] of [[data.direct.answered+'/'+data.direct.questions.length,'Direct answers'],[data.psych.answered+'/32','Psychology answers'],[data.interests.length,'Named interest profiles']]){
   const box=el('div',undefined,'report-cover-stat');
   add(box,'strong',value);
   add(box,'span',label);
@@ -222,7 +222,7 @@ function build(){
  doc.append(cover);
  const overview=section(doc,'01 · Your results at a glance');
  const enough=data.direct.answered>0&&data.psych.answered>0;
- add(overview,'p','Sexual-preferences questions answered: '+data.direct.answered+'/32'+(data.direct.complete?' (quiz finished)':' (still in progress)')+'.');
+ add(overview,'p','Sexual-preferences questions answered: '+data.direct.answered+'/'+data.direct.questions.length+(data.direct.complete?' (quiz finished)':' (still in progress)')+'.');
  add(overview,'p','Non-explicit psychology questions answered: '+data.psych.answered+'/32'+(data.psych.complete?' (quiz finished)':' (still in progress)')+'.');
  add(overview,'p',enough?
   'Both sets of responses contribute to ONE shared interest ranking. Similar themes across the two quizzes strengthen a descriptive connection; any difference is a conversation or reflection question—not a contradictory diagnosis.':
@@ -259,12 +259,12 @@ function build(){
  const map=section(doc,'03 · How the two quizzes fit together');
  add(map,'p','For every topic, the direct and psychology questionnaires use matching underlying theme categories. Your explicit Interested / Curious / Not for me selections are respected. The non-explicit quiz suggests emotional or sensory connections but never overwrites what you say you do or do not want.');
  let comparable=0,overlap=0;
- data.direct.questions.forEach((a,i)=>{
-  const b=data.psych.questions[i];
-  if(!a.selected.length||!b?.selected.length)return;
+ for(let i=0;i<data.psych.questions.length;i++){
+  const a=data.direct.questions.find(q=>q.coreId===i+1),b=data.psych.questions[i];
+  if(!a?.selected.length||!b?.selected.length)continue;
   comparable++;
   if(a.selected.some(x=>b.selected.some(y=>x.axes.some(tag=>y.axes.includes(tag)))))overlap++;
- });
+ }
  add(map,'p',comparable?
   overlap+' of '+comparable+' corresponding answered question pairs share at least one psychological theme. This is overlap in the quizzes’ theme coding, NOT a measure of psychological consistency or sexual compatibility.':
   'There are not yet corresponding answer pairs to compare. You can still read the available topic evidence below.');
