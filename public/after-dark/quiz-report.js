@@ -46,7 +46,7 @@ const evidenceFor=(questions,tags,limit=4)=>{
   if(!relevant.length)return;
   matches.push({
    question:q.question,number:q.number,
-   answers:relevant.map(o=>o.text),
+   answers:relevant.map(o=>o.text),intentLabel:q.intentLabel||'',
    note:q.note||'',
    axes:[...new Set(relevant.flatMap(o=>o.axes.filter(tag=>tags.includes(tag))))]});
  });
@@ -63,6 +63,7 @@ function evidenceList(root,items,label){
   const li=el('li');
   add(li,'strong','Q'+e.number+': '+e.question);
   add(li,'p','Your selection: '+e.answers.join(' / '));
+  if(e.intentLabel&&e.intentLabel!=='Not specified')add(li,'p','Your stated intention: '+e.intentLabel,'report-note');
   if(e.note)add(li,'p','Your private reflection: '+e.note,'report-note');
   ol.append(li);
  }
@@ -193,6 +194,7 @@ function appendix(root,title,part){
   const block=el('div',undefined,'report-answer');
   add(block,'strong',q.number+'. '+q.question);
   if(q.selected.length)add(block,'p',q.selected.map(o=>o.text).join(' · '));
+  if(q.intentLabel&&q.intentLabel!=='Not specified')add(block,'p','Your stated intention: '+q.intentLabel,'report-note');
   if(q.note)add(block,'p','Private note: '+q.note,'report-note');
   area.append(block);
  }
@@ -240,6 +242,15 @@ function build(){
    own.append(block);
   }
   add(own,'p','Some interests have physical or emotional risks. Discuss informed consent, personal comfort, sexual health and any relevant safety concerns independently; this quiz does not provide personalized medical or psychological advice.','report-boundaries');
+ }
+ const adultMedia=(data.direct.specificSelections||[]).filter(x=>x.context==='Adult media watched / imagined');
+ if(adultMedia.length){
+  const media=section(doc,'Selected adult-media interests · Viewing is not participation',
+   'These categories describe the kinds of consensual adult content you selected. They are not evidence of wanting to act out the scene, of identity, or of psychological origins.');
+  const picks=el('ul',undefined,'report-idea-list');
+  adultMedia.forEach(x=>add(picks,'li',x.text+(x.intentLabel!=='Not specified'?' — '+x.intentLabel:'')));
+  media.append(picks);
+  add(media,'p','Media interests are deliberately excluded from the direct physical-interest scoring. A fantasy or viewing preference can remain entirely private and fictional.','report-muted');
  }
  const themes=section(doc,'02 · Your psychological themes and how they connect','The strongest theme signals reflect your selections. They describe possible emotional qualities, not hidden causes.');
  const sorted=Object.entries(data.axes.combined).filter(([key,value])=>value>0&&data.lenses[key]).sort((a,b)=>b[1]-a[1]).slice(0,8);
