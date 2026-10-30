@@ -42,6 +42,46 @@ function verifyAnalytics(dir) {
 }
 verifyAnalytics('dist');
 
+// Verify direct GA4 measurement is on every shipped HTML entry, including
+// generated homepage, 404 fallback and /trump/ pages.
+const ga4id='G-66LXYNEMLJ';
+const ga4loader='https://www.googletagmanager.com/gtag/js?id='+ga4id;
+const ga4asset='/analytics.js?v=ga4-20261030-v1';
+function verifyGA4(dir) {
+  if (!fs.existsSync(dir)) return;
+  for(const entry of fs.readdirSync(dir,{withFileTypes:true})) {
+    const full=dir+'/'+entry.name;
+    if(entry.isDirectory()){verifyGA4(full);continue;}
+    if(!entry.isFile()||!entry.name.endsWith('.html'))continue;
+    const html=fs.readFileSync(full,'utf8');
+    if(html.split(ga4loader).length!==2||
+       html.split(ga4asset).length!==2||
+       html.indexOf(ga4loader)>html.toLowerCase().indexOf('</head>')||
+       html.indexOf(ga4asset)>html.toLowerCase().indexOf('</head>')) {
+      console.error('Missing or duplicate GA4 measurement on published page:',full);
+      failures++;
+    }
+  }
+}
+verifyGA4('dist');
+const gaFile='dist/analytics.js';
+if(!fs.existsSync(gaFile)){
+  console.error('The privacy-safe shared GA4 tag was not published:',gaFile);
+  failures++;
+}else{
+  const code=fs.readFileSync(gaFile,'utf8');
+  try { new vm.Script(code,{filename:gaFile}); }
+  catch(err){ console.error('Broken GA4 bootstrap:',err.message);failures++; }
+  for(const requirement of [ga4id,'send_page_view: false',
+      'location.origin + location.pathname',"'page_view'",
+      'page_location: cleanUrl','allow_ad_personalization_signals: false']){
+    if(!code.includes(requirement)){
+      console.error('GA4 is missing required configuration:',requirement);failures++;
+    }
+  }
+}
+
+
 
 for(const path of ['src/pages/RandomCandyLandHome.tsx','src/pages/TrumpGotchaPage.tsx']){
   const html=fs.readFileSync(path,'utf8');
