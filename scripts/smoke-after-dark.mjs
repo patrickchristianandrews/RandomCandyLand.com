@@ -113,7 +113,7 @@ try{
   await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Resume'))).click()");
   await check('Resume reopens question 2 after viewing direct results', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&document.querySelector('#quizCard .quiz-multi-option')!==null&&!document.querySelector('#quizCard .quiz-preview-return')");
   await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Reset quiz'))).click()");
-  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.keys(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v2')).multiAnswers).length===0");
+  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.values(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v2')).multiAnswers).every(a=>Array.isArray(a)&&a.length===0)");
   await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
 
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
