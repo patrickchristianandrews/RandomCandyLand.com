@@ -192,7 +192,7 @@ const ageSeconds=when=>when?Math.max(0,Math.round((Date.now()-when)/1000)):'none
 const markPeerEvent=s=>lastPeerEvent=String(s).slice(0,160);
 const clearJoinTimers=()=>{clearTimeout(joinRetryTimer);clearTimeout(joinWatchdog);clearTimeout(hostWatchdog);joinRetryTimer=joinWatchdog=hostWatchdog=0;};
 const activePeer=(p,epoch)=>peer===p&&roomEpoch===epoch&&mode==='friend';
-const networkVersion='room-connection-20261030-v7-stability';
+const networkVersion='room-connection-20261030-v8-invite-clarity';
 const relayEnabled=!!window.CandyCasinoRelay?.enabled;
 const transportName=relayEnabled?'Cloudflare WebSocket room relay':'PeerJS/WebRTC fallback (relay not activated)';
 const makePeer=id=>relayEnabled?new window.CandyCasinoRelay.Peer(id):new window.Peer(id,peerOptions);
@@ -433,11 +433,17 @@ function registerHostRoom(epoch,reclaimed=false){
   roomId=id;markPeerEvent('Room host registered');
   const url=new URL(location.href);url.searchParams.set('room',id);
   history.replaceState(null,'',url);
-  $('invite-link').value=url.href;$('room-input').value=id;
+  // Always send friends to the actual Candy Land website, never to an
+  // unrelated workers.dev app which may serve a copy of the casino page.
+  const invite=new URL('https://randomcandyland.com/candy-casino/');
+  invite.searchParams.set('room',id);
+  $('invite-link').value=invite.href;$('room-input').value=id;
   $('invite-panel').hidden=false;$('leave-room').hidden=false;
-  onlineStatus(reclaimed
-   ?'🟢 Original host was unavailable. This device reopened the SAME room! Keep this page open. Ask the other player to open the invite link.'
-   :'🟢 Room is OPEN and ready! Share the link. Keep this screen open while your friend joins.');
+  onlineStatus(relayEnabled
+   ?'🟢 Cloudflare room registered. Share the invite and keep this tab open; both players will be confirmed after exchanging game messages.'
+   :reclaimed
+    ?'🟡 PeerJS room reclaimed, but a direct connection is NOT yet established. Ask the other player to open the invite. Cloudflare room relay is not active.'
+    :'🟡 PeerJS room registered; NO player is connected yet. Share the invite. Cloudflare room relay is not active.');
   render();
  });
  p.on('connection',c=>{
@@ -620,8 +626,11 @@ $('friend-name').addEventListener('change',()=>{players[me()]=sanitize($('friend
 const incoming=new URL(location.href).searchParams.get('room');
 if(incoming){mode='friend';players=['Waiting...',sanitize($('friend-name').value)];host=false;$('remote-controls').hidden=false;$('friends').hidden=false;$('room-input').value=roomCode(incoming);onlineStatus('🍬 Invitation detected! Connecting to the host...');setTimeout(()=>{if(mode==='friend'&&!peer)joinRoom();},50);}
 if($('casino-network-version'))$('casino-network-version').textContent=relayEnabled
- ?'Multiplayer v7 · dedicated Cloudflare relay ACTIVE'
- :'Multiplayer v7 · PeerJS direct connection (relay NOT ACTIVE; may disconnect)';
+ ?'Multiplayer v8 · dedicated Cloudflare relay ACTIVE'
+ :'Multiplayer v8 · PeerJS direct connection (relay NOT ACTIVE; may disconnect)';
+if($('casino-transport-note'))$('casino-transport-note').textContent=relayEnabled
+ ?'Connection method: Cloudflare game relay'
+ :'Connection method: direct PeerJS — Cloudflare game relay not connected';
 render();
 window.CandyCasinoDebug=Object.freeze({state:()=>({mode,duel,round,phase:stage,scores,online,hand:hands[me()]}),connectionDetails,version:networkVersion,rules:P});
 document.body.dataset.candyCasinoReady='true';
