@@ -594,3 +594,14 @@ body.afterdark-quiz-mode:has(#quiz.visible) #quiz{
  #quiz .quiz-group-footer .quiz-nav-actions button:last-child{grid-column:1/-1}
 }
 @media(prefers-reduced-motion:reduce){#quiz .quiz-group-meter-fill{transition:none}}
+
+/* Compact section picker; avoids scrolling through every category to jump ahead. */
+#quiz .quiz-group-jump-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0 10px}
+#quiz .quiz-group-jump-label{font-size:11px;color:#dfcadf;font-weight:700}
+#quiz .quiz-group-jump{
+  flex:1 1 200px;max-width:380px;min-width:170px;min-height:38px;
+  border:1px solid #9471a0;background:#291b35;color:#f6e6f3;
+  border-radius:9px;padding:7px 10px;font:650 12px system-ui,sans-serif;
+}
+#quiz .quiz-group-jump:focus-visible{outline:2px solid #fadab8;outline-offset:2px}
+@media(max-width:480px){#quiz .quiz-group-jump{width:100%;max-width:none}}
