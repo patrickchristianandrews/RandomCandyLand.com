@@ -198,6 +198,18 @@ function build(){
  add(cover,'h1','My Interests & Psychology Report');
  add(cover,'p','A specific, joined interpretation of your Sexual Preferences Quiz and Non-explicit Psychology Quiz — with the named interests, actual selected responses, psychological connections, and respectful discussion ideas.','report-lead');
  add(cover,'p','Prepared '+new Date(data.created).toLocaleDateString()+' · Private / for personal reflection','report-muted');
+ const coverStats=el('div',undefined,'report-cover-stats');
+ for(const [value,label] of [[data.direct.answered+'/32','Direct answers'],[data.psych.answered+'/32','Psychology answers'],[data.interests.length,'Named interest profiles']]){
+  const box=el('div',undefined,'report-cover-stat');
+  add(box,'strong',value);
+  add(box,'span',label);
+  coverStats.append(box);
+ }
+ cover.append(coverStats);
+ const roadmap=el('div',undefined,'report-roadmap');
+ add(roadmap,'strong','INSIDE YOUR REPORT');
+ add(roadmap,'p','Your answers at a glance · Psychological themes · How both quizzes connect · Interest-by-interest profiles · Things you might consider or like · Conversation guides · Original selections');
+ cover.append(roadmap);
  doc.append(cover);
  const overview=section(doc,'01 · Your results at a glance');
  const enough=data.direct.answered>0&&data.psych.answered>0;
