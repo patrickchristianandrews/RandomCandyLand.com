@@ -60,6 +60,9 @@ jobs:
       - name: Validate After Dark scripts and all published pages
         run: node scripts/check-public-pages.mjs
 
+      - name: Test casino room creation, missing-host recovery and concurrent joiners
+        run: node scripts/test-casino-network.mjs
+
       - name: Test After Dark and Trumpagotchi in a real Chrome browser
         shell: bash
         run: |
