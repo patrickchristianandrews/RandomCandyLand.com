@@ -1215,6 +1215,40 @@ window.AfterDarkDirectQuizBridge=Object.freeze({
  },
  resume:()=>{if(qIndex<0){qIndex=0;persistQuiz()}renderTabs('quiz');renderQuiz()}
 });
+window.AfterDarkCanonicalReport=Object.freeze({
+ buildData:()=>{
+  const companion=window.AfterDarkPsychQuizBridge?.getProgress?.();
+  const psychQuestions=window.AfterDarkPsychologyQuiz||[];
+  const signals=combinedAxes();
+  const recs=(companion?.answered&&window.AfterDarkPsychBridge?.recommend?.(companion,topics)||[])
+   .filter(r=>choices[r.x.id]!=='no').slice(0,16)
+   .map(r=>({id:r.x.id,name:r.x.name,category:r.x.cat,
+    description:r.x.description,themes:r.x.tags,
+    reasons:(r.reasons||[]).slice(0,4).map(t=>({question:t.question,answer:t.answer}))}));
+  const summarize=(questions,answers,notes)=>
+   questions.map((q,i)=>({number:i+1,question:q.q,selected:(answers?.[i]||[])
+    .filter(n=>Number.isInteger(n)&&n>=0&&n<q.options.length)
+    .map(n=>({text:q.options[n].text,axes:q.options[n].axes.split(' ')})),
+    note:String(notes?.[i]||'').slice(0,600)}));
+  return {
+   created:new Date().toISOString(),totalQuestions:64,
+   direct:{answered,complete:qIndex===qdata.length,
+    questions:summarize(qdata,multiAnswers,freeResponses)},
+   psych:{answered:companion?.answered||0,complete:Boolean(companion?.complete),
+    questions:summarize(psychQuestions,companion?.answers,companion?.notes)},
+   axes:{combined:{...signals},direct:{...axes},psych:{...(companion?.axes||{})}},
+   lenses:Object.fromEntries(Object.entries(DB.lenses).map(([k,v])=>[k,{label:v[0],detail:v[1]}])),
+   selections:{...choices},psychSuggestions:recs,
+   interests:interestMatches().slice(0,24).map(r=>({
+    id:r.x.id,name:r.x.name,category:r.x.cat,description:r.x.description,
+    psychology:r.x.psych||'',themeTags:[...r.x.tags],warn:Boolean(r.x.warning),
+    confidenceType:r.direct===2?'Marked Interested':r.direct===1?'Marked Curious':'Suggested from theme matching',
+    directSelection:r.direct,illustrativeFit:r.percentage,source:r.source,
+    similarity:r.similarity,activities:explorationActs(r.x).slice(0,2)
+   }))
+  };
+ }
+});
 window.AfterDarkNotebookBridge={
   getTopics:()=>topics,
   getChoices:()=>({...choices}),
@@ -1222,4 +1256,4 @@ window.AfterDarkNotebookBridge={
   getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.()?.complete),
   quizText:()=>document.getElementById('quizCard')?.innerText||''
 };
-</script><script src="/after-dark/interest-notebook.js?v=1"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/candy-goo.js?v=1"></script><script src="/after-dark/continue-and-transfer.js?v=20261030-v1" defer></script></body></html>
+</script><script src="/after-dark/quiz-report.js?v=20261030-v1"></script><script src="/after-dark/interest-notebook.js?v=report-20261030-v2"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/candy-goo.js?v=1"></script><script src="/after-dark/continue-and-transfer.js?v=20261030-v1" defer></script></body></html>
