@@ -24,7 +24,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="/candy-casino/casino-clean.css?v=20261030-v1">
 <script src="/install-app.js" defer></script>
 <script src="/candy-casino/poker-engine.js?v=2" defer></script>
-<script src="/candy-casino/relay-config.js?v=1" defer></script>
+<script src="/candy-casino/relay-config.js?v=cloudflare-live-20261030" defer></script>
 <script src="/candy-casino/relay-peer.js?v=20261030-v1" defer></script>
 <script src="/candy-casino/casino.js?v=room-connection-20261030-v8-invite-clarity" defer></script>
 </head>
@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <div class="howto-content">
   <p><strong>Choose a game:</strong> Poker, High Card or Dice. Play five rounds against Candybot, or connect to one friend. All chips are virtual; no money or prizes.</p>
   <p><strong>Poker:</strong> get five cards, select up to three to exchange, then compare hands. The strongest standard poker hand wins. Your friend's cards remain hidden until the showdown.</p>
-  <p><strong>Playing online:</strong> select Play a Friend, create a room, and share the link. If you receive a link, open it to join. Keep both browsers open. An optional Cloudflare relay is not active until configured; some networks may block the fallback connection.</p>
+  <p><strong>Playing online:</strong> select Play a Friend, create a room, and share the link. If you receive a link, open it to join. Keep both browsers open. Cloudflare connects the two browsers through a dedicated game relay, so no direct phone-to-phone connection is required.</p>
  </div>
 </details>
 
@@ -74,12 +74,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <button type="button" id="copy-invite">📋 Copy invite link</button>
    </div>
    <div id="connection-status" class="connection-status" role="status" aria-live="polite">🔌 Not connected. Create a room or join one.</div>
-   <small id="casino-transport-note" class="network-version" aria-live="polite">Connection method: direct PeerJS — Cloudflare game relay not connected</small>
+   <small id="casino-transport-note" class="network-version" aria-live="polite">Connection method: connecting to Cloudflare game relay…</small>
    <div class="friend-bottom"><button type="button" id="leave-room" class="text-button" hidden>✖ Leave room</button></div>
    <details class="connection-troubleshoot">
     <summary>Connection help &amp; diagnostics</summary>
-    <div class="connection-help">Keep both tabs visible when connecting. Until the Cloudflare relay is activated, online play uses PeerJS/WebRTC, which some networks block. If joining fails, copy the diagnostic details on both devices.</div>
-    <span id="casino-network-version" class="network-version" aria-label="Multiplayer connection version">Multiplayer v8 · relay setup pending</span>
+    <div class="connection-help">Keep both tabs visible when connecting. Online play uses the Cloudflare game relay. If joining fails, copy the diagnostic details on both devices.</div>
+    <span id="casino-network-version" class="network-version" aria-label="Multiplayer connection version">Multiplayer v8 · connecting to game relay…</span>
     <button type="button" class="text-button" id="copy-diagnostics">📋 Copy connection details</button>
    </details>
   </div>
