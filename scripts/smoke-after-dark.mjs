@@ -109,7 +109,7 @@ try{
   await check('Direct quiz controls have clear Resume Save and Reset actions, with transfers collapsed',
     "(()=>{const p=document.querySelector('[data-quiz-tools=direct]');return !!p&&p.querySelector('.ad-focus-actions')?.textContent.includes('Save & exit')&&p.querySelector('.ad-focus-menu')&&!p.querySelector('.ad-focus-menu').open&&p.querySelector('.ad-focus-menu-inner')?.textContent.includes('Reset this quiz')&&document.querySelector('#quiz').classList.contains('visible')&&getComputedStyle(document.querySelector('#afterdark-resume-strip')).display==='none'})()");
   await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Save & exit'))).click()");
-  await check('Save and leave retains both direct selections', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v3')).multiAnswers[0].length===2");
+  await check('Save and leave retains both direct selections', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v4')).multiAnswers[0].length===2");
   await evaluate("document.querySelector('#afterdark-resume-place').click()");
   await check('Homepage resume restores saved direct question and answers', "document.querySelector('#quiz').classList.contains('visible')&&window.AfterDarkDirectQuizBridge.getProgress().position===0&&document.querySelectorAll('#quizCard input:checked').length===2");
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
@@ -121,15 +121,15 @@ try{
   await check('Personal ideas autosave locally with stated intent',
     "(()=>{const v=window.AfterDarkDirectQuizBridge.exportState();return v.questionVersion===2&&v.customThings.includes('ASMR whispering')&&v.customIntent==='receive'})()");
   await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=direct] .ad-focus-menu-inner>button')].find(b=>b.textContent.includes('Reset this quiz'))).click()");
-  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.values(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v3')).multiAnswers).every(a=>Array.isArray(a)&&a.length===0)");
+  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.values(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v4')).multiAnswers).every(a=>Array.isArray(a)&&a.length===0)");
   await check('Reset clears only matching direct quiz and custom interests', "window.AfterDarkDirectQuizBridge.exportState().customThings===''&&window.AfterDarkDirectQuizBridge.exportState().customIntent==='unsure'");
   await evaluate("(()=>{const t=document.querySelector('#customInterestText');t.value='I want to try a private whispering experience\\nI would like to talk about strap-on play';t.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#customInterestIntent').value='together';document.querySelector('#customInterestIntent').dispatchEvent(new Event('change',{bubbles:true}))})()");
   await check('User can enter several unlisted ideas without adding quiz questions',
-    "(()=>{const x=window.AfterDarkCanonicalReport.buildData();return x.direct.personalIdeas.length===2&&x.direct.personalIdeas.every(i=>i.intent==='together')&&window.AfterDarkAdultQuiz.length===32})()");
+    "(()=>{const x=window.AfterDarkCanonicalReport.buildData();return x.direct.personalIdeas.length===2&&x.direct.personalIdeas.every(i=>i.intent==='together')&&window.AfterDarkAdultQuiz.length===56})()");
   await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
 
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
-  for(let i=1;i<32;i++){await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0]?.click();[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('Show my results'))?.click()");}
+  for(let i=1;i<56;i++){await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0]?.click();[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('Show my results'))?.click()");}
   await check('All 32 direct questions show ranked results',"document.querySelector('.direct-answer-summary')!==null && document.querySelector('#quizCard .compare')!==null");
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
@@ -140,7 +140,7 @@ try{
     "(()=>{const d=window.AfterDarkCanonicalReport.buildData();return d.direct.specificSelections.length>=32&&d.direct.specificSelections.some(x=>x.text)&&d.interests.some(x=>x.specificSelected>0)})()");
 
 
-  await check('Both 32-question versions map their options to identical themes',"window.AfterDarkAdultQuiz.length===32 && window.AfterDarkPsychologyQuiz.length===32 && window.AfterDarkAdultQuiz.every((q,i)=>q.options.length===window.AfterDarkPsychologyQuiz[i].options.length && q.options.every((o,j)=>o.axes===window.AfterDarkPsychologyQuiz[i].options[j].axes))");
+  await check('Both 32-question versions map their options to identical themes',"window.AfterDarkAdultQuiz.length===56 && window.AfterDarkPsychologyQuiz.length===32 && window.AfterDarkAdultQuiz.filter(q=>q.id<=32).every(q=>q.options.length===window.AfterDarkPsychologyQuiz[q.id-1].options.length && q.options.every((o,j)=>o.axes===window.AfterDarkPsychologyQuiz[q.id-1].options[j].axes))");
   const beforePair=await evaluate("JSON.stringify([...document.querySelectorAll('#quizCard .interest-result')].map(el=>el.querySelector('h3')?.textContent+'|'+el.querySelector('.interest-percentage')?.textContent))");
   await evaluate("document.querySelector('[data-tab=psych-quiz]').click()");
   await check('Psychological quiz has a separate non-explicit view',"document.querySelector('#psych-quiz').classList.contains('visible') && !!window.AfterDarkPsychQuizBridge && document.querySelector('#psychQuizCard button')?.textContent.includes('Start the psychology')");
