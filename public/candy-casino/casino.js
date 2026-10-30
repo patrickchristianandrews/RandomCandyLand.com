@@ -120,6 +120,8 @@ function render(){
  $('poker-draw').disabled=!playing()||draws[me()]!==null;
  $('poker-draw').textContent=draws[me()]===null?'♻️ DRAW SELECTED CARDS ('+selected.size+'/3)':'⏳ WAITING FOR OPPONENT';
  $('duel-reset').disabled=mode==='friend'&&!online;
+ $('casino-arena').classList.toggle('is-poker-active',duel==='poker'&&!$('poker-table').hidden);
+ $('casino-arena').classList.toggle('is-online',mode==='friend');
  renderPokerOutcome();
  status(!playing()?'Create or join a room, or play Candybot.':final?'🏆 Five-round match complete. '+(scores[me()]===scores[them()]?'A tie!':scores[me()]>scores[them()]?'You won!':'Your rival won!'):
  drawing?(draws[me()]!==null?'Waiting for your rival to draw.':'Select up to three cards and tap Draw.'):
@@ -243,6 +245,7 @@ function setMode(next){
  mode=next==='friend'?'friend':'computer';host=true;
  players=[sanitize($('friend-name').value),mode==='computer'?'Candybot':'Waiting...'];
  $('remote-controls').hidden=mode!=='friend';
+ $('friends').hidden=mode!=='friend';
  reset();render();
 }
 function scheduleJoin(p,epoch,reason){
@@ -510,9 +513,21 @@ window.addEventListener('online',()=>{
  }
 });
 document.querySelectorAll('[data-duel]').forEach(b=>b.onclick=()=>chooseGame(b.dataset.duel));
-document.querySelectorAll('[data-opponent]').forEach(b=>b.onclick=()=>setMode(b.dataset.opponent));
-$('play-computer').onclick=()=>{setMode('computer');location.hash='games';};
-$('show-online').onclick=()=>{setMode('friend');location.hash='friends';};
+const showFriendSetup=()=>{
+ $('friends').hidden=false;
+ if(typeof $('friends').scrollIntoView==='function')$('friends').scrollIntoView({behavior:'smooth',block:'start'});
+};
+document.querySelectorAll('[data-opponent]').forEach(b=>b.onclick=()=>{
+ if(mode===b.dataset.opponent)return;
+ setMode(b.dataset.opponent);
+ if(mode==='friend')showFriendSetup();
+});
+$('hero-play-friend').onclick=()=>{if(mode!=='friend')setMode('friend');showFriendSetup();};
+// Backwards-compatible hooks for older embedded launchers.
+const playComputerButton=$('play-computer');
+if(playComputerButton)playComputerButton.onclick=()=>{setMode('computer');location.hash='games';};
+const playFriendButton=$('show-online');
+if(playFriendButton)playFriendButton.onclick=()=>{setMode('friend');location.hash='friends';};
 $('duel-ready').onclick=ready;$('poker-draw').onclick=draw;$('duel-reset').onclick=newMatch;
 $('poker-reveal').onclick=()=>{dismissedOutcome=match+':'+round;render();};
 $('poker-continue').onclick=()=>{
@@ -537,7 +552,7 @@ $('copy-diagnostics').onclick=async()=>{
 $('copy-invite').onclick=async()=>{try{await navigator.clipboard.writeText($('invite-link').value);$('copy-invite').textContent='✓ LINK COPIED';}catch{$('invite-link').focus();$('invite-link').select();$('copy-invite').textContent='SELECTED — COPY LINK';}};
 $('friend-name').addEventListener('change',()=>{players[me()]=sanitize($('friend-name').value);if(online)send({type:'hello',name:players[me()]});render();transmit();});
 const incoming=new URL(location.href).searchParams.get('room');
-if(incoming){mode='friend';players=['Waiting...',sanitize($('friend-name').value)];host=false;$('remote-controls').hidden=false;$('room-input').value=roomCode(incoming);onlineStatus('🍬 Invitation detected! Connecting to the host...');setTimeout(()=>{if(mode==='friend'&&!peer)joinRoom();},50);}
+if(incoming){mode='friend';players=['Waiting...',sanitize($('friend-name').value)];host=false;$('remote-controls').hidden=false;$('friends').hidden=false;$('room-input').value=roomCode(incoming);onlineStatus('🍬 Invitation detected! Connecting to the host...');setTimeout(()=>{if(mode==='friend'&&!peer)joinRoom();},50);}
 if($('casino-network-version'))$('casino-network-version').textContent=relayEnabled
  ?'Multiplayer v6 · dedicated Cloudflare relay ACTIVE'
  :'Multiplayer v6 · relay awaiting Cloudflare activation; PeerJS fallback still in use';
