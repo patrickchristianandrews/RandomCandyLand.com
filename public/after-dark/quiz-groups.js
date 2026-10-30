@@ -35,6 +35,14 @@ function render(ctx){
  const heading=el('header',undefined,'quiz-group-heading');
  heading.append(el('span','SECTION '+(groupIndex+1)+' OF '+groups.length+' · '+ctx.answered+' OF '+questions.length+' ANSWERED','eyebrow'));
  heading.append(el('h2',group.title),el('p','Each question keeps its own answers and fantasy/exploration choice. Expand only the ones you want to answer. Your progress saves automatically.'));
+ const jumpRow=el('div',undefined,'quiz-group-jump-row');
+ jumpRow.append(el('label','Jump to a topic','quiz-group-jump-label'));
+ const jump=el('select',undefined,'quiz-group-jump');
+ jump.setAttribute('aria-label','Jump directly to a themed quiz section');
+ for(const item of groups){const option=el('option',(item.order+1)+'. '+item.title);option.value=String(item.order);jump.append(option);}
+ jump.value=String(groupIndex);
+ jump.onchange=()=>onPosition(groups[Number(jump.value)].indexes[0]);
+ jumpRow.append(jump);heading.append(jumpRow);
  const meter=el('div',undefined,'quiz-group-meter');
  meter.setAttribute('role','progressbar');meter.setAttribute('aria-valuemin','0');meter.setAttribute('aria-valuemax',String(questions.length));
  meter.setAttribute('aria-valuenow',String(ctx.answered));meter.setAttribute('aria-label','Questions answered');
@@ -67,6 +75,9 @@ function render(ctx){
   // Open the first unanswered item only; the rest stay quiet, but accessible.
   const firstPending=group.indexes.find(i=>!answeredQ(i));
   card.open=index===current;
+  card.addEventListener('toggle',()=>{
+   if(card.open)for(const other of deck.querySelectorAll('.quiz-group-question'))if(other!==card)other.open=false;
+  });
   card.addEventListener('click',event=>{
    if(event.target.closest('summary')===card.querySelector(':scope > summary'))ctx.onActiveQuestion?.(index);
   });
