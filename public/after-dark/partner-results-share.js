@@ -25,8 +25,7 @@ function shareData(){
  return d&&Array.isArray(d.interests)&&Array.isArray(d.direct?.questions)&&Array.isArray(d.psych?.questions)?d:null;
 }
 function notesFor(id){
- const saved=window.InterestNotebook?.getPersonalNotes?.()||{};
- const n=saved[id];
+ const n=window.InterestNotebook?.getPersonalNote?.(id);
  return n&&typeof n==='object'?n:{};
 }
 function interestEntry(x,settings){
