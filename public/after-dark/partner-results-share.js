@@ -14,7 +14,7 @@ const check=(text,active,handler)=>{const label=el('label',undefined,'ps-check')
 const status=text=>{const n=$('partner-share-status');if(n)n.textContent=text};
 const pure=s=>String(s||'').trim();
 const limit=(s,n)=>pure(s).slice(0,n);
-const friendlySource=x=>x.directSelection===2?'You marked Interested':x.directSelection===1?'You marked Curious':'Suggested by quiz themes (not a declared preference)';
+const friendlySource=x=>x.directSelection===2?'You marked Interested':x.directSelection===1?'You marked Curious':x.specificSelected?'Named in your selected sexual-quiz answers':'Suggested by quiz themes (not a declared preference)';
 const questionTitle=(q,k)=> (k==='direct'?'Sexual preferences · ':'Psychology · ')+'Q'+q.number+': '+q.question;
 const safeQuestion=q=>({question:limit(q.question,240),number:q.number,selection:q.selected.map(a=>limit(a.text,160)).slice(0,9)});
 const validText=(s,n=600)=>typeof s==='string'&&s.length<=n;
