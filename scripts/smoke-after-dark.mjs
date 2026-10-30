@@ -128,6 +128,14 @@ try{
   if(syncedPair!==psychPair)throw Error('Sexual and psychological result screens must display the same unified ranking');
   console.log('✓ Paired 32-question quizzes agree on identical selections and share the same PDF-ready interest report.');
 
+  await check('Detailed PDF uses the same canonical answers and named interests in both quizzes',
+    "(()=>{const d=window.AfterDarkCanonicalReport?.buildData?.(),r=window.AfterDarkDetailedReport?.build?.();return !!d && d.direct.answered===32 && d.psych.answered===32 && d.interests.length>=12 && r?.querySelectorAll('.report-interest').length===d.interests.length && !!r.querySelector('.report-cover-stats') && r.querySelector('.report-cover')?.textContent.includes('My Interests & Psychology Report')})()");
+  await check('Interest PDF pairs individual psychology, answer evidence, suggested activities and discussion prompts',
+    "(()=>{const r=window.AfterDarkDetailedReport?.build?.();const p=r?.querySelector('.report-interest');return !!p && !!p.querySelector('.report-lenses') && p.textContent.includes('Sexual-preferences quiz') && p.textContent.includes('Non-explicit psychology quiz') && p.textContent.includes('Things you might consider or like') && p.textContent.includes('Discussing this specific interest with a partner') && p.querySelectorAll('.report-idea-list li').length>=3 && p.querySelectorAll('.report-evidence li').length>=1 && !!r.querySelector('.report-related')})()");
+  await check('PDF includes all original answers, psychology suggestions, boundaries and readable print styling',
+    "(()=>{const r=window.AfterDarkDetailedReport?.build?.(),css=[...document.styleSheets].some(s=>{try{return [...s.cssRules].some(x=>x.cssText.includes('print-detailed-report'))}catch{return false}});return !!r && r.textContent.includes('Appendix A') && r.textContent.includes('Appendix B') && r.textContent.includes('Specific interests') && r.textContent.includes('convers') && r.querySelectorAll('.report-answer').length>=64 && r.querySelectorAll('.report-step').length===6 && css})()");
+
+
   await evaluate("[...document.querySelectorAll('#quizCard .interest-result button')].find(b=>b.textContent.includes('Save & explain'))?.click()");
   await check('Saved interests notebook opens and persists', "document.querySelector('#notebook')?.classList.contains('visible') && document.querySelectorAll('#notebook-content textarea').length>=5 && localStorage.getItem('afterdark_interest_notebook_v1')");
   await evaluate("(()=>{const entry=document.querySelector('.notebook-interest');const text=entry?.querySelector('textarea');if(text){text.value='I would like you to understand what this means to me';text.dispatchEvent(new Event('input',{bubbles:true}));}const cb=entry?.querySelector('.notebook-share-label input');cb?.click();document.querySelector('#notebook-content .notebook-actions button')?.click();})()");
