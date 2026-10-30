@@ -50,7 +50,7 @@ const PORTALS: Portal[] = [
   {emoji:'🎰',title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'games',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
   {emoji:'🍭',title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
   {emoji:'🃏',title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'games',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
-  {emoji:'🌈',title:'Candy Pulse',blurb:"Turn your own music into mesmerizing colorful waves, bouncing lights, and reactive shapes.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
+  {emoji:'🌈',title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {emoji:'🌙',title:'After Dark',blurb:"A grown-up curiosity atlas for understanding yourself, including the Clue Compass psychology lab.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
 ];
 
