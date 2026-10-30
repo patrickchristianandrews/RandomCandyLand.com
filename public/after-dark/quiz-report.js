@@ -219,6 +219,19 @@ function build(){
   'Both sets of responses contribute to ONE shared interest ranking. Similar themes across the two quizzes strengthen a descriptive connection; any difference is a conversation or reflection question—not a contradictory diagnosis.':
   'This report contains only the quiz responses completed so far. Finish or import the other quiz to add its evidence. A psychology-only response cannot establish a specific sexual preference.','report-emphasis');
  add(overview,'p','How to read the percentages: figures are illustrative scores based on this website’s theme mapping, not probabilities of attraction, measures of sexual desire, diagnostic scores, or a validated psychological assessment.');
+ if(data.direct.personalIdeas?.length){
+  const own=section(doc,'Your own ideas · Things you want to try or discuss',
+   'These items are your words, not inferred desires. They have not been scored, diagnosed, or matched to psychological causes.');
+  for(const entry of data.direct.personalIdeas){
+   const block=el('article',undefined,'report-personal-idea');
+   add(block,'h3',entry.text);
+   add(block,'p','Your stated intention: '+entry.intentLabel,'report-muted');
+   add(block,'p','Reflect: Is the appeal a sensation, a feeling, a role, an image, or something you are simply curious to understand? Would you prefer to give, receive, watch, discuss, or leave it as fantasy?');
+   add(block,'p','Conversation starter: “This is an idea I wrote in my own words. Could we talk about what interests me about it and hear your thoughts, without assuming either of us wants to act on it?”','report-script');
+   own.append(block);
+  }
+  add(own,'p','Some interests have physical or emotional risks. Discuss informed consent, personal comfort, sexual health and any relevant safety concerns independently; this quiz does not provide personalized medical or psychological advice.','report-boundaries');
+ }
  const themes=section(doc,'02 · Your psychological themes and how they connect','The strongest theme signals reflect your selections. They describe possible emotional qualities, not hidden causes.');
  const sorted=Object.entries(data.axes.combined).filter(([key,value])=>value>0&&data.lenses[key]).sort((a,b)=>b[1]-a[1]).slice(0,8);
  if(!sorted.length)add(themes,'p','More responses are needed before meaningful themes can be summarized.');
