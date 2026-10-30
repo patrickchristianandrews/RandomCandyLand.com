@@ -1,7 +1,7 @@
 /* A single network-first offline shell for the site's separately installed PWAs.
  * Do not cache API responses, media, uploads, or cross-origin resources.
  */
-const CACHE='random-candy-land-public-v5';
+const CACHE='random-candy-land-public-v6';
 const SHELL=['/','/index.html','/manifest.json','/icon-192.png','/icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
