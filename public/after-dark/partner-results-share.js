@@ -88,7 +88,7 @@ function decode(raw){
     (!x.suggestions||(Array.isArray(x.suggestions)&&x.suggestions.length<=3&&x.suggestions.every(t=>validText(t,180))))&&
     (!x.personalNotes||(typeof x.personalNotes==='object'&&['meaning','boundary','request'].every(k=>!Object.hasOwn(x.personalNotes,k)||validText(x.personalNotes[k],450))))))return null;
   if(!pack.themes.every(x=>validText(x.label,90)&&validText(x.description,250)))return null;
-  if(!pack.answers.every(x=>validText(x.quiz,60)&&validText(x.question,240)&&Number.isInteger(x.number)&&x.number>=1&&x.number<=32&&
+  if(!pack.answers.every(x=>validText(x.quiz,60)&&validText(x.question,240)&&Number.isInteger(x.number)&&x.number>=1&&x.number<=(x.quiz==='Sexual Preferences Quiz'?56:32)&&
     Array.isArray(x.selection)&&x.selection.length<=9&&x.selection.every(t=>validText(t,160))))return null;
   if(pack.customIdeas&&!pack.customIdeas.every(x=>x&&validText(x.text,180)&&validText(x.intentLabel,60)))return null;
   return pack;
