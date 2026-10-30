@@ -657,7 +657,7 @@ function upgradeDirectV2(value){
   if(value.freeResponses?.[i]!==undefined)notes[index]=value.freeResponses[i];
  }
  const previous=Number(value.qIndex);
- const position=previous===32?qdata.length:
+ const position=previous===32?qdata.findIndex(q=>q.id>32):
   Number.isInteger(previous)&&previous>=0&&previous<32?coreIndex(previous+1):-1;
  return{questionVersion:3,qIndex:position,multiAnswers:answers,freeResponses:notes,
   customThings:value.customThings||'',customIntent:value.customIntent||'unsure'};
@@ -1280,10 +1280,12 @@ window.AfterDarkDirectQuizBridge=Object.freeze({
  importState:value=>{
    if(!value||typeof value!=='object'||Array.isArray(value))return false;
    const options={},notes={};
-   for(let i=0;i<qdata.length;i++){
+   for(let i=0;i<(value.questionVersion===2?32:qdata.length);i++){
+     const q=value.questionVersion===2?qdata[coreIndex(i+1)]:qdata[i];
+     if(!q)return false;
      const selected=value.multiAnswers?.[i];
      if(selected!==undefined){
-       if(!Array.isArray(selected)||selected.length>qdata[i].options.length||!selected.every(n=>Number.isInteger(n)&&n>=0&&n<qdata[i].options.length))return false;
+       if(!Array.isArray(selected)||selected.length>q.options.length||!selected.every(n=>Number.isInteger(n)&&n>=0&&n<q.options.length))return false;
        options[i]=[...new Set(selected)];
      }
      const text=value.freeResponses?.[i];
