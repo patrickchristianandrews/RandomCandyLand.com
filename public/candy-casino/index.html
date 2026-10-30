@@ -19,7 +19,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="/candy-casino/casino.css?v=showdown-20261029">
 <script src="/install-app.js" defer></script>
 <script src="/candy-casino/poker-engine.js?v=2" defer></script>
-<script src="/candy-casino/casino.js?v=showdown-20261029" defer></script>
+<script src="/candy-casino/casino.js?v=room-connection-20261030-v3" defer></script>
 </head>
 <body class="candy-casino">
 <!-- Google Tag Manager (noscript) -->
@@ -106,9 +106,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div id="remote-controls" hidden>
 <div class="friend-actions"><button type="button" class="primary" id="make-room">✨ CREATE ROOM</button><button type="button" class="secondary" id="join-room">🚀 JOIN ROOM</button></div>
 <div class="friend-entry"><label for="room-input">ROOM CODE OR INVITE LINK</label><input id="room-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Paste your friend's room link"></div>
-<div class="invite" id="invite-panel" hidden><label for="invite-link">YOUR PRIVATE INVITE LINK</label><input id="invite-link" type="text" readonly><button type="button" id="copy-invite">📋 COPY INVITE LINK</button><small>Send directly to your friend. Both browser tabs must remain open.</small></div>
+<div class="invite" id="invite-panel" hidden><label for="invite-link">YOUR PRIVATE INVITE LINK</label><input id="invite-link" type="text" readonly><button type="button" id="copy-invite">📋 COPY INVITE LINK</button><small>Send directly to your friend. Keep the HOST casino tab in the foreground until your friend joins. They should open the invite on their own device/browser.</small></div>
 <div id="connection-status" class="connection-status" role="status" aria-live="polite">🔌 Not connected. Create a private room or paste an invitation.</div>
-<div class="connection-help">PeerJS Cloud helps two browsers connect over WebRTC. Some firewalls and VPNs may block connections; network availability isn't guaranteed. The host manages casual game rounds, not a cheat-proof tournament.</div>
+<div class="friend-actions"><button type="button" class="secondary" id="copy-diagnostics">📋 COPY CONNECTION DETAILS</button></div>
+<small id="casino-network-version" aria-label="Multiplayer connection version">Multiplayer connection: v3</small>
+<div class="connection-help">Online rooms use a direct WebRTC connection. Mobile networks, VPNs and some Wi-Fi systems may block it. If it cannot connect, try mobile data or a different Wi-Fi network, and ensure the host still has the room open. The host manages casual game rounds, not a cheat-proof tournament.</div>
 <button type="button" id="leave-room" class="text-button" hidden>✖ Leave online room</button>
 </div>
 </div>
