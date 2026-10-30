@@ -69,7 +69,7 @@ export class CandyCasinoRoom extends DurableObject {
   const role=ws.deserializeAttachment()?.role;
   if(msg?.t==='data'&&msg.d&&typeof msg.d==='object'&&!Array.isArray(msg.d)){
    if(role==='guest'&&msg.d.type==='state')return;
-   if(!['hello','ready','draw','reset','state'].includes(msg.d.type))return;
+   if(!['hello','ready','draw','reset','state','heartbeat','heartbeat-ack'].includes(msg.d.type))return;
    send(this.live(role==='host'?'guest':'host',ws),{t:'data',d:msg.d});
   }else if(msg?.t==='drop-guest'&&role==='host'){
    const guest=this.live('guest',ws);
