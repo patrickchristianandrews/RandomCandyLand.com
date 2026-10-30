@@ -307,11 +307,21 @@ try{
   const casino=await navigate(site+'/candy-casino/');
   const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-duel]').length===3 && document.querySelectorAll('[data-game]').length===0 && !!document.querySelector('[data-opponent=computer]') && !!document.querySelector('[data-opponent=friend]')");
   if(!casinoReady)throw Error('Candy Casino must show ONLY three competitive games with computer and friend choices');
+  const compactCasino=await casino.evaluate("(()=>{const friends=document.querySelector('#friends'),howto=document.querySelector('#casino-howto'),hero=document.querySelector('.hero');return document.querySelectorAll('.scorebar>div').length===2 && howto?.compareDocumentPosition(hero)===Node.DOCUMENT_POSITION_FOLLOWING && friends?.hidden && getComputedStyle(friends).display==='none' && getComputedStyle(hero).height!=='auto' && document.querySelectorAll('.game-pickers .game-pick').length===3 && !!document.querySelector('#hero-play-friend') && !!document.querySelector('.connection-troubleshoot') && !document.querySelector('.friend-arena')})()");
+  if(!compactCasino)throw Error('Casino cleanup must show one compact game-first layout with friend setup hidden until requested');
+  await casino.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  const narrowCasino=await casino.evaluate("document.documentElement.scrollWidth<=innerWidth+3 && document.querySelector('.game-pickers').getBoundingClientRect().width<=innerWidth && getComputedStyle(document.querySelector('.game-pickers')).gridTemplateColumns.split(' ').length===3");
+  if(!narrowCasino)throw Error('Casino mobile layout must fit a 390px viewport with all three game buttons visible');
+  await casino.command('Emulation.clearDeviceMetricsOverride');
+
   const cpu=await casino.evaluate("document.querySelector('#opponent-name').textContent.includes('Candybot') && !document.querySelector('#duel-ready').disabled");
   if(!cpu)throw Error('Candybot should be the default, fully playable opponent');
   await casino.evaluate("document.querySelector('#duel-ready').click()");
   const dealt=await casino.evaluate("window.CandyCasinoDebug.state().phase==='draw' && document.querySelectorAll('#poker-own-cards .poker-card').length===5 && document.querySelectorAll('#poker-opponent-cards .poker-card.back').length===5");
   if(!dealt)throw Error('Sugar Rush Poker failed to deal private player and hidden opponent hands');
+  const unclutteredPoker=await casino.evaluate("document.querySelector('#casino-arena').classList.contains('is-poker-active') && getComputedStyle(document.querySelector('.scoreboards')).display==='none' && getComputedStyle(document.querySelector('#duel-display')).display==='none' && getComputedStyle(document.querySelector('.poker-score-strip')).display==='grid'");
+  if(!unclutteredPoker)throw Error('Poker should show only its in-table scoreboard once cards are dealt');
+
   await casino.evaluate("document.querySelector('#poker-own-cards .poker-card').click();document.querySelector('#poker-draw').click()");
   const showdown=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelectorAll('#poker-opponent-cards .poker-card:not(.back)').length===5 && Number(document.querySelector('#self-score').textContent)+Number(document.querySelector('#other-score').textContent)<=1");
   if(!showdown)throw Error('Poker draw/showdown did not resolve against computer');
@@ -334,6 +344,9 @@ try{
   await casino.evaluate("document.querySelector('[data-opponent=friend]').click()");
   const remote=await casino.evaluate("!document.querySelector('#remote-controls').hidden && document.querySelector('#duel-ready').disabled && !!document.querySelector('#make-room') && !!document.querySelector('#join-room')");
   if(!remote)throw Error('Remote friend mode did not expose invite controls or require a connection');
+  const singleFriendPanel=await casino.evaluate("(()=>{const f=document.querySelector('#friends'),d=f?.querySelector('.connection-troubleshoot');return !!f&&!f.hidden&&getComputedStyle(f).display!=='none'&&f.compareDocumentPosition(document.querySelector('#casino-arena'))===Node.DOCUMENT_POSITION_FOLLOWING&&d&&!d.open&&document.querySelectorAll('#make-room').length===1&&document.querySelectorAll('#join-room').length===1})()");
+  if(!singleFriendPanel)throw Error('Friend setup must be a single compact panel above the game with optional help collapsed');
+
   console.log('✓ Candy Casino has poker, high card and dice, computer wins/showdowns, hidden online cards and real friend invitation controls.');
 
   const arcade=await navigate(site+'/goo-rush/');
