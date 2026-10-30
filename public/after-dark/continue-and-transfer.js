@@ -72,13 +72,18 @@ function goTo(tab){
  else if(typeof window.renderTabs==='function')window.renderTabs(tab);
 }
 function resumePlace(){
- if(!bookmarks.last||!bookmarks.sections[bookmarks.last]){setStatus('No reading bookmark yet. Open a guide or quiz, then save your place.');return;}
- const place=bookmarks.sections[bookmarks.last];
+ const existing=bookmarks.last&&bookmarks.sections[bookmarks.last]?bookmarks.sections[bookmarks.last]:null;
+ const direct=Number(DIRECT()?.getProgress?.()?.position??-1);
+ const psych=Number(PSYCH()?.getProgress?.()?.position??-1);
+ const place=existing||(direct>=0&&direct<32?{tab:'quiz',offset:0}:psych>=0&&psych<32?{tab:'psych-quiz',offset:0}:null);
+ if(!place){setStatus('No saved place yet. Open a guide or start a quiz first.');return;}
  restoring=true;
  goTo(place.tab);
  if(place.tab==='howto'&&place.guide)window.AfterDarkIntimacyGuides?.open?.(place.guide);
  setTimeout(()=>{
-  window.scrollTo({top:place.offset,behavior:'instant'});
+  if(place.tab==='quiz'||place.tab==='psych-quiz'){
+   $(place.tab==='quiz'?'quizCard':'psychQuizCard')?.scrollIntoView?.({block:'start',behavior:'instant'});
+  }else window.scrollTo({top:place.offset,behavior:'instant'});
   restoring=false;
   setStatus('✓ Returned to '+friendlyTab(place.tab)+'. Your progress is saved locally.');
  },180);
@@ -86,8 +91,11 @@ function resumePlace(){
 function refreshReading(){
  const target=$('afterdark-resume-place'),last=bookmarks.last;
  if(!target)return;
- target.disabled=!last;
- target.textContent=last?'↪ Continue '+friendlyTab(last):'↪ Continue later';
+ const direct=Number(DIRECT()?.getProgress?.()?.position??-1);
+ const psych=Number(PSYCH()?.getProgress?.()?.position??-1);
+ const actual=last||(direct>=0&&direct<32?'quiz':psych>=0&&psych<32?'psych-quiz':null);
+ target.disabled=!actual;
+ target.textContent=actual?'↪ Continue '+friendlyTab(actual):'↪ Continue later';
 }
 function formatProgress(kind){
  const p=kind==='direct'?DIRECT()?.getProgress?.():PSYCH()?.getProgress?.();
@@ -183,39 +191,54 @@ function showCombined(){
  if(typeof window.scrollTo==='function')window.scrollTo({top:0,behavior:'smooth'});
 }
 let panels=[];
+function resetQuiz(kind){
+ const label=kind==='direct'?'Sexual Preferences Quiz':'Psychology Quiz';
+ const bridge=kind==='direct'?DIRECT():PSYCH();
+ if(!bridge){setStatus('Quiz is unavailable.');return;}
+ if(!window.confirm('Reset the '+label+'? This will permanently delete answers and notes for this quiz on this device. Your other quiz and saved reading will be kept. Download a backup first if needed.'))return;
+ if(kind==='direct')bridge.reset?.();
+ else bridge.restart?.();
+ refreshPanels();
+ if(currentTab()!==(kind==='direct'?'quiz':'psych-quiz'))goTo(kind==='direct'?'quiz':'psych-quiz');
+ setStatus('✓ '+label+' reset. Your other quiz is unchanged.');
+}
 function makeTransferPanel(kind){
  const card=el('section',undefined,'ad-progress-panel');
- card.setAttribute('aria-label','Save, resume and transfer quiz answers');
+ card.setAttribute('aria-label','Saved quiz progress and options');
+ card.dataset.quizTools=kind;
  const header=el('div',undefined,'ad-progress-heading');
- header.append(el('strong','💾 Save & resume this quiz'));
+ header.append(el('strong','Your quiz progress'));
  const indicator=el('span',formatProgress(kind),'ad-progress-indicator');
- indicator.dataset.quizProgress=kind;header.append(indicator);
- card.append(header);
- card.append(el('p','Answers autosave on this device. Download a private file to continue on another device or import one quiz into the other for a shared report.','ad-progress-note'));
- const buttons=el('div',undefined,'ad-progress-actions');
- buttons.append(btn('↪ Resume quiz',()=>{(kind==='direct'?DIRECT():PSYCH())?.resume?.();setStatus('✓ Resumed your saved question.');},'btn'));
- buttons.append(btn('💾 Save & leave',()=>{
-   const target=kind==='direct'?DIRECT():PSYCH();
-   if(!target){setStatus('Quiz is unavailable.');return}
-   if(!started(kind))target.resume?.();
-   savePlace(true);goTo('home');setStatus('✓ Quiz saved. Use Continue to pick up at this question.');
+ indicator.dataset.quizProgress=kind;header.append(indicator);card.append(header);
+ const toolbar=el('div',undefined,'ad-progress-actions ad-primary-actions');
+ toolbar.append(btn('↪ Resume',()=>{
+  (kind==='direct'?DIRECT():PSYCH())?.resume?.();
+  setStatus('✓ Returned to your saved question.');
+ },'btn'));
+ toolbar.append(btn('💾 Save & leave',()=>{
+  const bridge=kind==='direct'?DIRECT():PSYCH();
+  if(!bridge){setStatus('Quiz is unavailable.');return}
+  if(!started(kind))bridge.resume?.();
+  savePlace();
+  goTo('home');refreshPanels();
+  setStatus('✓ Saved. Reopen the quiz and choose Resume.');
  },'btn alt'));
- buttons.append(btn('⬇ Download this quiz',()=>download(kind),'btn alt'));
- card.append(buttons);
+ toolbar.append(btn('↻ Reset quiz',()=>resetQuiz(kind),'btn alt ad-reset-quiz'));
+ card.append(toolbar);
  const details=el('details',undefined,'ad-transfer-details');
- details.append(el('summary','📂 Import a quiz or combine both reports'));
+ details.append(el('summary','More options: import, download & combined report'));
  const inner=el('div',undefined,'ad-transfer-inner');
- inner.append(el('p','To combine answers from different devices: download the completed quiz on one device, then import that JSON file here. The other quiz stays intact. No file is uploaded to a server.','ad-progress-note'));
+ inner.append(el('p','Answers save automatically on this device. Download a private file to continue on another device or import an earlier quiz.','ad-progress-note'));
  const actions=el('div',undefined,'ad-progress-actions');
- const chooser=el('label','📁 Import quiz file','btn alt ad-upload-label');
+ const chooser=el('label','📁 Import saved quiz','btn alt ad-upload-label');
  const fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='.json,application/json';fileInput.setAttribute('aria-label','Choose saved After Dark quiz JSON file');
  fileInput.addEventListener('change',async()=>{const file=fileInput.files?.[0];await importFile(file);fileInput.value='';});
- chooser.append(fileInput);
- actions.append(chooser);
+ chooser.append(fileInput);actions.append(chooser);
+ actions.append(btn('⬇ Download this quiz',()=>download(kind),'btn alt'));
  actions.append(btn('⬇ Download both quizzes',()=>download('both'),'btn alt'));
  actions.append(btn('📊 View combined report',showCombined,'btn'));
  inner.append(actions);
- inner.append(el('p','Private: exports may include intimate answers and notes. JSON files are not encrypted. Only import your own trusted files. Importing replaces the corresponding saved quiz after confirmation.','ad-transfer-privacy'));
+ inner.append(el('p','Downloaded JSON files contain private answers and notes and are not encrypted. Importing replaces matching quiz answers only after confirmation.','ad-transfer-privacy'));
  details.append(inner);card.append(details);
  const target=$(kind==='direct'?'quizCard':'psychQuizCard');
  target?.parentNode?.insertBefore(card,target);
@@ -225,17 +248,18 @@ function refreshPanels(){
  for(const node of document.querySelectorAll('[data-quiz-progress]')){
   node.textContent=formatProgress(node.dataset.quizProgress);
  }
+ refreshReading();
 }
 function buildReadingBar(){
  const head=document.querySelector('.top');
  if(!head)return;
  const bar=el('div',undefined,'ad-resume-strip');
  bar.id='afterdark-resume-strip';
- bar.append(el('span','📖 Save your place and pick up later','ad-resume-title'));
- bar.append(btn('💾 Save my place',()=>savePlace(true),'btn alt'));
+ bar.append(el('span','📖 Pick up where you left off','ad-resume-title'));
  const resume=btn('↪ Continue later',resumePlace,'btn');
  resume.id='afterdark-resume-place';bar.append(resume);
- const status=el('span','Quizzes autosave privately in this browser.','ad-resume-status');status.id='afterdark-save-status';
+ bar.append(btn('💾 Save reading place',()=>savePlace(true),'btn alt'));
+ const status=el('span','','ad-resume-status');status.id='afterdark-save-status';
  status.setAttribute('role','status');bar.append(status);
  head.after(bar);
  refreshReading();
@@ -248,6 +272,7 @@ function listenForReading(){
   setTimeout(()=>{
    const now=currentTab();
    if(now!==last){last=now;refreshPanels()}
+   document.body.classList.toggle('afterdark-quiz-mode',now==='quiz'||now==='psych-quiz');
   },50);
  },true);
  window.addEventListener('scroll',()=>{
@@ -270,6 +295,7 @@ function style(){
  document.head.append(sheet);
 }
 style();buildReadingBar();makeTransferPanel('direct');makeTransferPanel('psych');listenForReading();refreshPanels();
+document.body.classList.toggle('afterdark-quiz-mode',currentTab()==='quiz'||currentTab()==='psych-quiz');
 if(currentTab()==='quiz'&&started('direct'))DIRECT()?.resume?.();
 if(currentTab()==='psych-quiz'&&started('psych'))PSYCH()?.render?.();
 window.AfterDarkProgressTransfer=Object.freeze({
