@@ -966,6 +966,7 @@ const actByName={
  'Private fantasy journals':['Write down a recurring fictional theme','Review which feelings are welcome or unwelcome']
 };
 function explorationActs(x){
+  if(x.cat==='Body Fluids & Bodily Sensations')return ['Read reputable sexual-health information and decide whether this is fantasy, curiosity, or a boundary','Discuss the exact meaning, privacy, mutual consent and any infection or hygiene risks without pressure to participate'];
   if(actByName[x.name])return actByName[x.name];
   if(x.warning)return ['Explore '+x.name.toLowerCase()+' through fiction or educational resources','Discuss practical safety risks, limits and consent; avoid untrained physical enactment'];
   const base=[
