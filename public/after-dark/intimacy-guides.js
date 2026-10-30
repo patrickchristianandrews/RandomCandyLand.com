@@ -613,6 +613,8 @@ function init(){
 }
 function answer(question){
  const q=normalize(question);
+ // These guides answer orgasm questions only. Do not hijack unrelated Atlas interests.
+ if(!/\b(orgasm[a-z]*|climax|coregasm)\b/.test(q))return null;
  if(!/\b(how|why|what|can|could|does|do|is|are|guide|tips|steps|technique|learn|teach|explain|help)\b/.test(q))return null;
  const g=find(question);if(!g)return null;
  return g.title+'\n\n'+g.facts+'\n\n'+g.steps.slice(0,3).map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\n'+g.myth+'\n\nOpen After Dark → Orgasm Guides to read the complete steps, anatomical context, safety notes and sources.';
