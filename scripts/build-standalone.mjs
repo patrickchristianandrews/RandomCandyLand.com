@@ -24,6 +24,9 @@ const jsContent = fs.readFileSync(path.join(assetsDir, jsFile), 'utf-8');
 const standaloneHtml = `<!doctype html>
 <html lang="en">
   <head>
+<!-- Google Analytics 4 · visits only, no private quiz or invitation URL details -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script>
+<script src="/analytics.js?v=ga4-20261030-v1"></script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
