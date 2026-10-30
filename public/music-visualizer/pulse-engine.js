@@ -22,16 +22,17 @@ const petals=(g,r,n,rotation,energy,colors,density)=>{
 };
 function render(g,o){
  const {w,h,time,data,cols,active=false,sensitivity=1.3,glow=15,mode='hypno',symmetry=8,density=6,trails=.65,speed=1,reduced=false}=o;
- const st=state,metric=w+'x'+h;if(metric!==st.lastSize||mode!==st.lastMode){st.lastSize=metric;st.lastMode=mode;g.fillStyle='#050515';g.fillRect(0,0,w,h);st.particles=[];}
+ const st=state,metric=w+'x'+h;if(metric!==st.lastSize){st.lastSize=metric;g.fillStyle='#050515';g.fillRect(0,0,w,h);st.particles=[];}
+ if(mode!==st.lastMode){st.lastMode=mode;st.particles=[];}
  st.frame++;
  const idle=active?1:.23,k=.15;
  st.bass+=(clamp(band(data,.001,.075)*sensitivity,0,1.5)*idle-st.bass)*k;
  st.mid+=(clamp(band(data,.075,.38)*sensitivity,0,1.5)*idle-st.mid)*k;
  st.high+=(clamp(band(data,.38,.85)*sensitivity,0,1.5)*idle-st.high)*k;
  const energy=st.bass*.5+st.mid*.33+st.high*.17;
- const rising=st.bass>st.baseline*.19+0.16&&st.bass>0.22;
+ const rising=st.bass>st.baseline*1.27+.075&&st.bass>.17;
  if(rising&&time-st.beatAt>.22&&active){st.beatAt=time;st.pulse=1;}
- st.baseline=st.baseline*.97+(st.bass*255)*.03;
+ st.baseline=st.baseline*.97+st.bass*.03;
  st.pulse*=.93;
  const motion=(reduced?.15:1)*speed,twist=time*motion;
  const f=clamp(1-trails,0.08,.95);
@@ -41,7 +42,7 @@ function render(g,o){
  const background=g.createRadialGradient(cx,cy,5,cx,cy,Math.max(w,h)*.7);
  background.addColorStop(0,cols[0]+'14');background.addColorStop(.55,cols[2]+'08');background.addColorStop(1,'#05051508');
  g.fillStyle=background;g.fillRect(0,0,w,h);
- g.save();g.translate(cx,cy);g.lineJoin='round';g.lineCap='round';g.shadowBlur=clamp(glow,0,30);g.shadowColor=cols[0];
+ g.save();g.translate(cx,cy);g.lineJoin='round';g.lineCap='round';g.shadowBlur=clamp(glow*(w<520?.58:1),0,30);g.shadowColor=cols[0];
  const n=clamp(Math.round(symmetry),4,16),D=clamp(Math.round(density),2,10);
  const isClassic=['orbit','bars','wave','bloom'].includes(mode);
  if(mode==='bars'||mode==='wave'){
