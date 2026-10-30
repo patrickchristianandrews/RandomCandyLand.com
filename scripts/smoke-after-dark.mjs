@@ -154,6 +154,37 @@ try{
   if(syncedPair!==psychPair)throw Error('Sexual and psychological result screens must display the same unified ranking');
   console.log('✓ Paired 32-question quizzes agree on identical selections and share the same PDF-ready interest report.');
 
+  await check('Partner result sharing is available without exposing answers by default',
+    "typeof window.AfterDarkPartnerShare?.open==='function' && document.querySelector('#share-results')!==null && document.querySelector('#partner-invitation')!==null");
+  await evaluate("window.AfterDarkPartnerShare.open()");
+  await check('Partner sharing starts with nothing selected',
+    "document.querySelector('#share-results').classList.contains('visible') && !!window.AfterDarkPartnerShare.buildPack().error && document.querySelectorAll('#share-results .ps-options-grid .ps-check input:checked').length===0");
+  await evaluate("document.querySelector('.ps-options-grid .ps-check input').click()");
+  await check('Selected interest does not automatically expose psychology, private notes, scores or answers',
+    "(()=>{const p=window.AfterDarkPartnerShare.buildPack().pack;return p?.interests.length===1&&p.themes.length===0&&p.answers.length===0&&!p.interests[0].personalNotes&&!p.interests[0].score&&!p.interests[0].psychology&&!p.interests[0].suggestions})()");
+  await evaluate("document.querySelector('.ps-select-card .ps-detail-settings summary').click();[...document.querySelectorAll('.ps-select-card .ps-detail-choice input')].find(x=>x.parentNode.textContent.includes('Psychology explanation')).click()");
+  await check('Opting into interest psychology adds only that selected explanation',
+    "(()=>{const p=window.AfterDarkPartnerShare.buildPack().pack;return p.interests.length===1&&!!p.interests[0].psychology&&p.answers.length===0&&p.themes.length===0})()");
+  await evaluate("document.querySelectorAll('#share-results .ps-section')[1].open=true;document.querySelectorAll('#share-results .ps-section')[1].querySelector('.ps-check input')?.click()");
+  await evaluate("document.querySelectorAll('#share-results .ps-section')[2].open=true;document.querySelectorAll('#share-results .ps-section')[2].querySelector('.ps-check input')?.click()");
+  await check('Only explicitly chosen psychology themes and answer excerpts enter partner payload',
+    "(()=>{const p=window.AfterDarkPartnerShare.buildPack().pack;return p.interests.length===1&&p.themes.length===1&&p.answers.length===1&&!('note' in p.answers[0])&&p.answers[0].selection.length>0})()");
+  await evaluate("[...document.querySelectorAll('#share-results .ps-actions button')].find(x=>x.textContent.includes('Create selected-results link')).click()");
+  await check('A shareable partner link contains only an encoded custom selection, not full quiz state',
+    "(()=>{const link=document.querySelector('#partner-share-link input')?.value;if(!link||!link.includes('#partner-results?data='))return false;const payload=window.AfterDarkPartnerShare.decode(link.split('data=')[1]);return payload?.interests.length===1&&payload.themes.length===1&&payload.answers.length===1&&!JSON.stringify(payload).includes('multiAnswers')&&!JSON.stringify(payload).includes('freeResponses')})()");
+  await evaluate("(()=>{const frame=document.createElement('iframe');frame.id='selected-results-preview-test';frame.src=document.querySelector('#partner-share-link input').value;frame.hidden=true;document.body.append(frame)})()");
+  let selectiveReady=false;
+  for(let attempt=0;attempt<45;attempt++){
+    selectiveReady=await evaluate("(()=>{const doc=document.getElementById('selected-results-preview-test')?.contentDocument;return !!doc?.querySelector('#partner-view.visible .ps-reader-heading')&&doc.querySelectorAll('.ps-reader-section').length===3&&doc.querySelectorAll('.ps-reader-section:first-of-type .ps-preview-card').length===1&&doc.querySelectorAll('.ps-reader-section .ps-preview-card').length===3})()");
+    if(selectiveReady)break;
+    await delay(100);
+  }
+  if(!selectiveReady)throw Error('Selective partner link did not render the exact chosen subset on a fresh page');
+  await evaluate("document.querySelector('#selected-results-preview-test')?.remove();document.querySelector('[data-tab=quiz]').click()");
+  console.log('✓ Partner sharing previews and opens only explicitly selected interests, psychological themes and individual answers.');
+
+
+
   await check('Detailed PDF uses the same canonical answers and named interests in both quizzes',
     "(()=>{const d=window.AfterDarkCanonicalReport?.buildData?.(),r=window.AfterDarkDetailedReport?.build?.();return !!d && d.direct.answered===32 && d.psych.answered===32 && d.interests.length>=12 && r?.querySelectorAll('.report-interest').length===d.interests.length && !!r.querySelector('.report-cover-stats') && r.querySelector('.report-cover')?.textContent.includes('My Interests & Psychology Report')})()");
   await check('Interest PDF pairs individual psychology, answer evidence, suggested activities and discussion prompts',
