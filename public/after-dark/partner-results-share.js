@@ -7,7 +7,7 @@
 const $=id=>document.getElementById(id);
 const canonical=()=>window.AfterDarkCanonicalReport?.buildData?.();
 const fmt='afterdark-partner-results-v1';
-const opt={interests:new Map(),themes:new Set(),answers:new Set(),name:'',intro:''};
+const opt={interests:new Map(),themes:new Set(),answers:new Set(),custom:new Set(),name:'',intro:''};
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(cls)n.className=cls;return n};
 const button=(text,handler,cls='btn alt')=>{const b=el('button',text,cls);b.type='button';b.onclick=handler;return b};
 const check=(text,active,handler)=>{const label=el('label',undefined,'ps-check'),input=el('input');input.type='checkbox';input.checked=Boolean(active);input.onchange=()=>handler(input.checked);label.append(input,document.createTextNode(text));return label};
@@ -53,9 +53,13 @@ function buildPack(){
   if(!opt.answers.has(part+':'+q.number)||!q.selected.length)continue;
   answers.push({...safeQuestion(q),quiz:part==='direct'?'Sexual Preferences Quiz':'Psychology Quiz'});
  }
- if(interests.length>6||themes.length>6||answers.length>5)return{error:'Choose at most 6 interests, 6 themes and 5 answer excerpts.'};
- if(!interests.length&&!themes.length&&!answers.length)return{error:'Select at least one interest, psychology theme, or answer before sharing.'};
- const pack={format:fmt,version:1,from:limit(opt.name,55),intro:limit(opt.intro,350),interests,themes,answers};
+ const customIdeas=(d.direct.personalIdeas||[]).filter(x=>opt.custom.has(JSON.stringify([x.text,x.intent])))
+  .slice(0,4).map(x=>({text:limit(x.text,180),intentLabel:limit(x.intentLabel,60)}));
+ if(interests.length>6||themes.length>6||answers.length>5||customIdeas.length>4)
+  return{error:'Choose at most 6 interests, 6 themes, 5 answers and 4 personal ideas.'};
+ if(!interests.length&&!themes.length&&!answers.length&&!customIdeas.length)
+  return{error:'Select at least one interest, psychology theme, answer or personal idea before sharing.'};
+ const pack={format:fmt,version:1,from:limit(opt.name,55),intro:limit(opt.intro,350),interests,themes,answers,customIdeas};
  const bytes=new TextEncoder().encode(JSON.stringify(pack)).length;
  if(bytes>SHARE_MAX_BYTES)return{error:'This selection is too long for a reliable phone link. Remove some items or notes (currently '+bytes+' bytes).'};
  return{pack};
@@ -74,7 +78,8 @@ function decode(raw){
   if(!pack||pack.format!==fmt||pack.version!==1||!validText(pack.from,55)||!validText(pack.intro,350)||
    !Array.isArray(pack.interests)||pack.interests.length>6||
    !Array.isArray(pack.themes)||pack.themes.length>6||
-   !Array.isArray(pack.answers)||pack.answers.length>5)return null;
+   !Array.isArray(pack.answers)||pack.answers.length>5||
+   (pack.customIdeas!==undefined&&(!Array.isArray(pack.customIdeas)||pack.customIdeas.length>4)))return null;
   const keys=['title','category','status','description','score','psychology','themes','suggestions','discussion','personalNotes'];
   if(!pack.interests.every(x=>x&&typeof x==='object'&&keys.every(k=>!Object.hasOwn(x,k)||['score','themes','suggestions','personalNotes'].includes(k)||validText(x[k],600))&&
     validText(x.title,100)&&validText(x.description,210)&&validText(x.category,80)&&validText(x.status,85)&&
@@ -85,6 +90,7 @@ function decode(raw){
   if(!pack.themes.every(x=>validText(x.label,90)&&validText(x.description,250)))return null;
   if(!pack.answers.every(x=>validText(x.quiz,60)&&validText(x.question,240)&&Number.isInteger(x.number)&&x.number>=1&&x.number<=32&&
     Array.isArray(x.selection)&&x.selection.length<=9&&x.selection.every(t=>validText(t,160))))return null;
+  if(pack.customIdeas&&!pack.customIdeas.every(x=>x&&validText(x.text,180)&&validText(x.intentLabel,60)))return null;
   return pack;
  }catch{return null}
 }
@@ -117,6 +123,14 @@ function showReadable(pack,root){
     for(const [key,title] of Object.entries(labels))if(x.personalNotes[key])card.append(el('h5',title),el('p',x.personalNotes[key],'ps-personal'));
    }
    section.append(card);
+  }
+  root.append(section);
+ }
+ if(pack.customIdeas?.length){
+  const section=el('section',undefined,'ps-reader-section');section.append(el('h3','Personal ideas they specifically chose to show you'));
+  for(const x of pack.customIdeas){
+   const card=el('article',undefined,'ps-preview-card');
+   card.append(el('h4',x.text),el('p','Their stated intention: '+x.intentLabel,'ps-personal'));section.append(card);
   }
   root.append(section);
  }
@@ -213,6 +227,18 @@ function addAnswers(root,d){
   }
  }
 }
+function addCustomIdeas(root,d){
+ const ideas=d.direct.personalIdeas||[];
+ if(!ideas.length){root.append(el('p','There are no personal ideas saved yet. Add one in the Sexual Preferences Quiz.'));return}
+ root.append(el('p','Nothing is shared by default. Select only the ideas you want your partner to read, up to four per link.','ps-muted'));
+ for(const entry of ideas){
+  const key=JSON.stringify([entry.text,entry.intent]);
+  root.append(check(entry.text+' · '+entry.intentLabel,opt.custom.has(key),selected=>{
+   if(selected&&opt.custom.size>=4){status('Choose up to four custom ideas for each link.');render();return}
+   selected?opt.custom.add(key):opt.custom.delete(key);
+  }));
+ }
+}
 function render(){
  const d=shareData(),root=$('partner-share-editor');if(!root)return;
  root.replaceChildren();lastPack=null;
@@ -238,6 +264,8 @@ function render(){
  const answers=el('details',undefined,'ps-section');
  answers.append(el('summary','3 · Optional individual quiz answers'));
  const answersBody=el('div',undefined,'ps-section-body');addAnswers(answersBody,d);answers.append(answersBody);root.append(answers);
+ const own=el('details',undefined,'ps-section');own.append(el('summary','4 · Optional personal ideas you wrote yourself'));
+ const ownBody=el('div',undefined,'ps-section-body');addCustomIdeas(ownBody,d);own.append(ownBody);root.append(own);
  const actions=el('div',undefined,'ps-actions');
  actions.append(button('👁 Preview exactly what they will see',()=>{
   const built=buildPack();if(built.error){status(built.error);return}lastPack=built.pack;renderViewer(built.pack,true);
@@ -245,7 +273,7 @@ function render(){
  actions.append(button('🔗 Create selected-results link',makeLink,'btn alt'));
  actions.append(button('📋 Copy just this shared text',copySelected,'btn alt'));
  actions.append(button('Clear all selections',()=>{
-  opt.interests.clear();opt.themes.clear();opt.answers.clear();opt.intro='';opt.name='';render();status('Nothing selected for sharing.');
+  opt.interests.clear();opt.themes.clear();opt.answers.clear();opt.custom.clear();opt.intro='';opt.name='';render();status('Nothing selected for sharing.');
  },'btn alt'));
  root.append(actions);
  const output=el('div',undefined,'ps-link-output');output.id='partner-share-link';output.hidden=true;root.append(output);
