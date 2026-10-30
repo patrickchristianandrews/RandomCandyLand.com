@@ -16,7 +16,8 @@ const pure=s=>String(s||'').trim();
 const limit=(s,n)=>pure(s).slice(0,n);
 const friendlySource=x=>x.directSelection===2?'You marked Interested':x.directSelection===1?'You marked Curious':x.specificSelected?'Named in your selected sexual-quiz answers':'Suggested by quiz themes (not a declared preference)';
 const questionTitle=(q,k)=> (k==='direct'?'Sexual preferences · ':'Psychology · ')+'Q'+q.number+': '+q.question;
-const safeQuestion=q=>({question:limit(q.question,240),number:q.number,selection:q.selected.map(a=>limit(a.text,160)).slice(0,9)});
+const safeQuestion=q=>({question:limit(q.question,240),number:q.number,selection:q.selected.map(a=>limit(a.text,160)).slice(0,65),
+ intentLabel:q.intentLabel&&q.intentLabel!=='Not specified'?limit(q.intentLabel,80):''});
 const validText=(s,n=600)=>typeof s==='string'&&s.length<=n;
 const SHARE_MAX_BYTES=6800;
 let lastPack=null;
@@ -88,8 +89,9 @@ function decode(raw){
     (!x.suggestions||(Array.isArray(x.suggestions)&&x.suggestions.length<=3&&x.suggestions.every(t=>validText(t,180))))&&
     (!x.personalNotes||(typeof x.personalNotes==='object'&&['meaning','boundary','request'].every(k=>!Object.hasOwn(x.personalNotes,k)||validText(x.personalNotes[k],450))))))return null;
   if(!pack.themes.every(x=>validText(x.label,90)&&validText(x.description,250)))return null;
-  if(!pack.answers.every(x=>validText(x.quiz,60)&&validText(x.question,240)&&Number.isInteger(x.number)&&x.number>=1&&x.number<=(x.quiz==='Sexual Preferences Quiz'?56:32)&&
-    Array.isArray(x.selection)&&x.selection.length<=9&&x.selection.every(t=>validText(t,160))))return null;
+  if(!pack.answers.every(x=>validText(x.quiz,60)&&validText(x.question,240)&&Number.isInteger(x.number)&&x.number>=1&&x.number<=(x.quiz==='Sexual Preferences Quiz'?62:32)&&
+    Array.isArray(x.selection)&&x.selection.length<=65&&x.selection.every(t=>validText(t,160))&&
+    (!Object.hasOwn(x,'intentLabel')||validText(x.intentLabel,80))))return null;
   if(pack.customIdeas&&!pack.customIdeas.every(x=>x&&validText(x.text,180)&&validText(x.intentLabel,60)))return null;
   return pack;
  }catch{return null}
@@ -146,6 +148,7 @@ function showReadable(pack,root){
   for(const q of pack.answers){
    const c=el('article',undefined,'ps-preview-card');
    c.append(el('h4',q.quiz+' · Q'+q.number),el('p',q.question),el('p','Their selected answer'+(q.selection.length>1?'s':'')+': '+q.selection.join(' · '),'ps-personal'));
+   if(q.intentLabel)c.append(el('p','How they describe their interest: '+q.intentLabel,'ps-muted'));
    section.append(c);
   }
   root.append(section);
