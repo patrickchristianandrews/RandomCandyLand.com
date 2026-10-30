@@ -73,6 +73,8 @@ function interestReason(item,data,fromPsych){
   return 'You explicitly marked this interest as Interested. That self-report outweighs any inferred themes. Psychology answers can help you reflect on its meaning; they do not prove why it appeals to you.';
  if(item.directSelection===1)
   return 'You explicitly marked this interest as Curious, which could mean wanting to learn rather than wanting to experience it. Related answers below may suggest questions to explore, but curiosity is not consent or commitment.';
+ if(item.specificSelected)
+  return 'This interest was specifically named in an answer you selected in the Sexual Preferences Quiz. That is stronger evidence of curiosity about the particular topic than broad psychological matching, but the choice still does not tell us whether you want to act on it.';
  if(fromPsych)
   return 'This interest was suggested from the same psychological themes behind your answers. It was not directly chosen as a desired sexual experience. The non-explicit quiz cannot establish that you want this interest.';
  return 'This interest appears through the shared theme-matching system, not an explicit statement that you want it. Treat it as an idea to evaluate, not an inferred personal fact.';
@@ -174,6 +176,13 @@ function renderInterest(parent,item,index,data){
  list(article,guide.prompts);
  add(article,'p',guide.limit,'report-boundaries');
  add(article,'p','Partner responses are independent. A conversation, an expression of curiosity, or a “maybe” never constitutes permission for an activity.','report-muted');
+ add(article,'h4','6. What may influence this interest, and what a quiz cannot know');
+ add(article,'p','Some possibilities include sensation, attention, trust, novelty, identity, learned associations, imagination or personal meaning. Your selected answers help identify themes to reflect on. There is no reliable way for this quiz to identify a single root cause, childhood event, trauma history or diagnosis.');
+ add(article,'h4','7. Healthy exploration and signs to reconsider');
+ add(article,'p','An interest can be part of healthy adult sexuality when people freely consent, boundaries are respected, safety is considered and it does not cause significant distress or interfere with life. Choosing fantasy only is equally valid.');
+ add(article,'p',item.warn?
+  'This interest may carry additional physical or emotional risk. Do not assume consent or improvise potentially dangerous techniques; seek appropriate qualified safety information before even considering a real-world activity.':
+  'Reconsider or seek professional support if it involves pressure, non-consent, physical harm, escalating unwanted risk, or persistent distress or impairment. Having an unusual consensual interest by itself is not a disorder.','report-boundaries');
  parent.append(article);
 }
 function appendix(root,title,part){
@@ -259,6 +268,27 @@ function build(){
  add(map,'p',comparable?
   overlap+' of '+comparable+' corresponding answered question pairs share at least one psychological theme. This is overlap in the quizzes’ theme coding, NOT a measure of psychological consistency or sexual compatibility.':
   'There are not yet corresponding answer pairs to compare. You can still read the available topic evidence below.');
+ const selected=data.direct.specificSelections||[];
+ if(selected.length){
+  const relationships=section(doc,'Your selected activities and how they intersect with everyday psychology',
+    'These are the actual options you selected, rather than interests inferred from broad themes. Matching an emotional theme does not prove the cause of a desire.');
+  const supporting=selected.filter(x=>x.axes.some(tag=>(data.axes.psych[tag]||0)>0));
+  add(relationships,'p',supporting.length+' of '+selected.length+' selected activities share at least one coded theme with the Psychology Quiz'+
+   (data.psych.answered?' (the other selections have no matching theme yet).':' (finish the second quiz to make this comparison).'),'report-emphasis');
+  const limited=selected.slice(0,20);
+  for(const a of limited){
+   const common=a.axes.filter(tag=>(data.axes.psych[tag]||0)>0&&data.lenses[tag]);
+   const box=el('article',undefined,'report-answer');
+   add(box,'strong','Q'+a.questionNumber+' · '+a.text);
+   add(box,'p','Themes: '+a.axes.map(tag=>data.lenses[tag]?.label||tag).join(', ')+'. '+(
+      common.length?'Both quizzes show '+common.map(tag=>data.lenses[tag]?.label||tag).join(', ')+'.':
+      'This selection currently stands on its own; a related everyday-psychology theme has not been confirmed.'
+   ));
+   if(a.role!=='unspecified')add(box,'p','Perspective: '+a.role,'report-muted');
+   relationships.append(box);
+  }
+  if(selected.length>limited.length)add(relationships,'p','The remaining '+(selected.length-limited.length)+' selections are preserved in Appendix A.','report-muted');
+ }
  const named=data.interests;
  const interests=section(doc,'04 · Specific interests with the psychology behind each','Each profile below ties an identified interest to the actual quiz selections that match its themes, explains competing interpretations, and offers specific communication prompts. These are possibilities, not diagnoses.');
  if(!named.length)add(interests,'p','At least eight answered questions or direct Atlas selections are needed for named suggestions. You can save this partial report now and update it later.');
