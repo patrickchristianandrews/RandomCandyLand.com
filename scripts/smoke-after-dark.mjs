@@ -101,18 +101,23 @@ try{
   await check('New direct quiz begins with multi-select checkboxes',"document.querySelectorAll('#quizCard .quiz-multi-option input[type=checkbox]').length>=3");
   await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
   await check('Multiple quiz choices can be checked',"document.querySelectorAll('#quizCard .quiz-multi-option input:checked').length===2");
+  await check('Checkbox selection preserves current question DOM and makes only the selected cards active',
+    "(()=>{const choices=document.querySelectorAll('#quizCard .quiz-multi-option');return choices.length>=2 && choices[0].classList.contains('selected') && choices[1].classList.contains('selected') && document.querySelector('#quizCard .quiz-nav-actions')!==null})()");
+  await check('Direct quiz focuses on one question and keeps advanced controls in one closed menu',
+    "(()=>{const tools=document.querySelector('#quiz .ad-focus-tools');const p=document.querySelector('#quiz #quizCard');return !!tools && !!p && !!p.querySelector('.quiz-multi') && tools.querySelector('.ad-focus-menu')?.open===false && !document.querySelector('body').classList.contains('print-notebook') && !document.querySelector('#quiz .quiz-page-heading img')})()");
+
   await check('Direct quiz controls have clear Resume Save and Reset actions, with transfers collapsed',
-    "(()=>{const p=document.querySelector('[data-quiz-tools=direct]');return !!p&&p.querySelector('.ad-primary-actions')?.textContent.includes('Reset quiz')&&p.querySelector('.ad-transfer-details')&&!p.querySelector('.ad-transfer-details').open&&document.querySelector('#quiz').classList.contains('visible')&&getComputedStyle(document.querySelector('#afterdark-resume-strip')).display==='none'})()");
-  await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Save & leave'))).click()");
+    "(()=>{const p=document.querySelector('[data-quiz-tools=direct]');return !!p&&p.querySelector('.ad-focus-actions')?.textContent.includes('Save & exit')&&p.querySelector('.ad-focus-menu')&&!p.querySelector('.ad-focus-menu').open&&p.querySelector('.ad-focus-menu-inner')?.textContent.includes('Reset this quiz')&&document.querySelector('#quiz').classList.contains('visible')&&getComputedStyle(document.querySelector('#afterdark-resume-strip')).display==='none'})()");
+  await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Save & exit'))).click()");
   await check('Save and leave retains both direct selections', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v2')).multiAnswers[0].length===2");
   await evaluate("document.querySelector('#afterdark-resume-place').click()");
   await check('Homepage resume restores saved direct question and answers', "document.querySelector('#quiz').classList.contains('visible')&&window.AfterDarkDirectQuizBridge.getProgress().position===0&&document.querySelectorAll('#quizCard input:checked').length===2");
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
   await evaluate("document.querySelector('#quizCard .quiz-question-more summary').click();document.querySelector('#quizCard .quiz-question-more button').click()");
   await check('Viewing preliminary direct results preserves question 2 as resume position', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&!window.AfterDarkDirectQuizBridge.getProgress().complete&&document.querySelector('#quizCard .quiz-preview-return button')?.textContent.includes('question 2')");
-  await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Resume'))).click()");
+  await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-focus-menu-inner>button')].find(b=>b.textContent.includes('Resume saved'))).click()");
   await check('Resume reopens question 2 after viewing direct results', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&document.querySelector('#quizCard .quiz-multi-option')!==null&&!document.querySelector('#quizCard .quiz-preview-return')");
-  await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Reset quiz'))).click()");
+  await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=direct] .ad-focus-menu-inner>button')].find(b=>b.textContent.includes('Reset this quiz'))).click()");
   await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.values(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v2')).multiAnswers).every(a=>Array.isArray(a)&&a.length===0)");
   await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
 
