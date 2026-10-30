@@ -69,8 +69,8 @@ const room='rcl-casino-abcdef0123456789abcd';
  assert.match(a.status(),/reopened the SAME room/);
  assert.match(a.diagnostics(),/Role: Host/);
  const b=browser('Bob');b.get('room-input').value=room;await b.get('join-room').onclick();await flush();
- assert.match(a.status(),/Connected to your friend/);
- assert.match(b.status(),/Connected to the host/);
+ assert.match(a.status(),/Both players connected and responding/);
+ assert.match(b.status(),/Both players connected and responding/);
  assert.match(b.diagnostics(),/Host offers received: N\/A \(guest\)/);
  console.log('✓ Abandoned invite automatically elects a host; second player joins');
 }
@@ -80,8 +80,16 @@ const room='rcl-casino-abcdef0123456789abcd';
  assert.match(id,/^rcl-casino-[a-f0-9]{20}$/);
  assert.ok(a.location.href.includes('room='+id));
  const b=browser('Diana');b.get('room-input').value=id;await b.get('join-room').onclick();await flush();
- assert.match(a.status(),/Connected to your friend/);
- assert.match(b.status(),/Connected to the host/);
+ assert.match(a.status(),/Both players connected and responding/);
+ assert.match(b.status(),/Both players connected and responding/);
+ assert.match(a.diagnostics(),/Confirmed app handshake: true/);
+ assert.match(b.diagnostics(),/Confirmed app handshake: true/);
+ // A signaling hiccup must not tear down the established game data channel.
+ const hostPeer=peers.get(id);
+ hostPeer.disconnected=true;hostPeer.emit('disconnected');await flush();
+ assert.match(a.diagnostics(),/Online: true/);
+ assert.match(a.diagnostics(),/Role: Host/);
+ console.log('✓ Established room survives a signaling disconnect without changing roles');
  console.log('✓ Standard room creation and joining work with a persistent invitation URL');
 }
 {
