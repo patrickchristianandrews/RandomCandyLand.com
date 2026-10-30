@@ -1043,6 +1043,18 @@ function showResults(targetId='quizCard'){
   overview.append(elText('p','Possible alternative explanations: A preference for trust may describe everyday relationships, not a power-based interest; liking a costume or story may reflect art and imagination rather than anything intimate. Personal history, context, boundaries and change over time also matter.'));
   overview.append(elText('p','A practical next step is to explore unfamiliar themes privately, check what resonates, and mark specific interests in the Atlas. Avoid treating the match scores as predictions.'));
   box.append(overview);
+  const mediaQ=qdata.findIndex(q=>q.dropdown),mediaChoices=(multiAnswers[mediaQ]||[]);
+  if(mediaQ>=0&&mediaChoices.length){
+   const panel=elText('details','','quiz-media-result');
+   panel.append(elText('summary','Your adult-media interests · '+mediaChoices.length+' selected (not real-life intentions)'));
+   const list=document.createElement('ul');
+   for(const n of mediaChoices){
+    const option=qdata[mediaQ].options[n];if(option)list.append(elText('li',option.text));
+   }
+   panel.append(list);
+   panel.append(elText('p','Media categories reflect what you might watch or imagine. They do not establish that you want to participate in any of those scenarios.','quiz-help'));
+   box.append(panel);
+  }
   if(customEntries().length){
    const own=elText('section','','custom-interest-results');
    own.append(elText('h3','Your own ideas to try or discuss'),
@@ -1356,29 +1368,37 @@ window.AfterDarkSharedQuizResults=(targetId='quizCard')=>showResults(targetId);
 window.AfterDarkDirectQuizBridge=Object.freeze({
  getProgress:()=>({position:qIndex,answered,complete:qIndex===qdata.length,questions:qdata.length,
    answers:multiAnswers,notes:freeResponses}),
- exportState:()=>({questionVersion:directQuestionVersion,qIndex,multiAnswers:{...multiAnswers},freeResponses:{...freeResponses},customThings,customIntent}),
+ exportState:()=>({questionVersion:directQuestionVersion,qIndex,multiAnswers:{...multiAnswers},
+   freeResponses:{...freeResponses},questionIntents:{...questionIntents},customThings,customIntent}),
  importState:value=>{
    if(!value||typeof value!=='object'||Array.isArray(value))return false;
-   const options={},notes={};
-   for(let i=0;i<(value.questionVersion===2?32:qdata.length);i++){
-     const q=value.questionVersion===2?qdata[coreIndex(i+1)]:qdata[i];
-     if(!q)return false;
-     const selected=value.multiAnswers?.[i];
-     if(selected!==undefined){
-       if(!Array.isArray(selected)||selected.length>q.options.length||!selected.every(n=>Number.isInteger(n)&&n>=0&&n<q.options.length))return false;
-       options[i]=[...new Set(selected)];
-     }
-     const text=value.freeResponses?.[i];
-     if(text!==undefined){
-       if(typeof text!=='string'||text.length>600)return false;
-       notes[i]=text;
-     }
-   }
-   if(![2,directQuestionVersion].includes(value.questionVersion)||!Number.isInteger(value.qIndex)||value.qIndex<-1||value.qIndex>(value.questionVersion===2?32:qdata.length)||
+   const length={2:32,3:56,4:qdata.length}[value.questionVersion];
+   if(!length||!Number.isInteger(value.qIndex)||value.qIndex<-1||value.qIndex>length||
       (value.customThings!==undefined&&(typeof value.customThings!=='string'||value.customThings.length>1200))||
       (value.customIntent!==undefined&&!customIntents[value.customIntent]))return false;
-   const upgraded=upgradeDirectV2({...value,multiAnswers:options,freeResponses:notes});
+   const oldIds=value.questionVersion===2?Array.from({length:32},(_,i)=>i+1):
+    value.questionVersion===3?qdata.filter(q=>q.id<=56).map(q=>q.id):qdata.map(q=>q.id);
+   const options={},notes={};
+   for(let i=0;i<length;i++){
+     const q=qdata[coreIndex(oldIds[i])];if(!q)return false;
+     const selected=value.multiAnswers?.[i];
+     if(selected!==undefined){
+       if(!Array.isArray(selected)||selected.length>q.options.length||
+         !selected.every(n=>Number.isInteger(n)&&n>=0&&n<q.options.length))return false;
+       options[i]=[...new Set(selected)];
+     }
+     const note=value.freeResponses?.[i];
+     if(note!==undefined){
+       if(typeof note!=='string'||note.length>600)return false;
+       notes[i]=note;
+     }
+   }
+   const marks=value.questionIntents||{};
+   if(typeof marks!=='object'||Array.isArray(marks)||
+    Object.keys(marks).some(k=>!/^\d+$/.test(k)||Number(k)>=length||!intentLabels[marks[k]]))return false;
+   const upgraded=upgradeDirectSaved({...value,multiAnswers:options,freeResponses:notes});
    qIndex=upgraded.qIndex;directPreview=false;multiAnswers=upgraded.multiAnswers;freeResponses=upgraded.freeResponses;
+   questionIntents=upgraded.questionIntents||{};
    customThings=upgraded.customThings||'';customIntent=upgraded.customIntent||'unsure';
    updateCustomEditor();rebuildQuizSignals();persistQuiz();renderQuiz();return true;
  },
