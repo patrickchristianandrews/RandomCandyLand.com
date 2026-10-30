@@ -109,7 +109,7 @@ try{
   await check('Direct quiz controls have clear Resume Save and Reset actions, with transfers collapsed',
     "(()=>{const p=document.querySelector('[data-quiz-tools=direct]');return !!p&&p.querySelector('.ad-focus-actions')?.textContent.includes('Save & exit')&&p.querySelector('.ad-focus-menu')&&!p.querySelector('.ad-focus-menu').open&&p.querySelector('.ad-focus-menu-inner')?.textContent.includes('Reset this quiz')&&document.querySelector('#quiz').classList.contains('visible')&&getComputedStyle(document.querySelector('#afterdark-resume-strip')).display==='none'})()");
   await evaluate("([...document.querySelectorAll('[data-quiz-tools=direct] .ad-primary-actions button')].find(b=>b.textContent.includes('Save & exit'))).click()");
-  await check('Save and leave retains both direct selections', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v4')).multiAnswers[0].length===2");
+  await check('Save and leave retains both direct selections', "document.querySelector('#home').classList.contains('visible')&&JSON.parse(localStorage.getItem('afterdark_direct_quiz_v5')).multiAnswers[0].length===2");
   await evaluate("document.querySelector('#afterdark-resume-place').click()");
   await check('Homepage resume restores saved direct question and answers', "document.querySelector('#quiz').classList.contains('visible')&&window.AfterDarkDirectQuizBridge.getProgress().position===0&&document.querySelectorAll('#quizCard input:checked').length===2");
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
@@ -119,18 +119,33 @@ try{
   await check('Resume reopens question 2 after viewing direct results', "window.AfterDarkDirectQuizBridge.getProgress().position===1&&document.querySelector('#quizCard .quiz-multi-option')!==null&&!document.querySelector('#quizCard .quiz-preview-return')");
   await evaluate("(()=>{const t=document.querySelector('#customInterestText');t.value='A quiet ASMR whispering experience';t.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#customInterestIntent').value='receive';document.querySelector('#customInterestIntent').dispatchEvent(new Event('change',{bubbles:true}))})()");
   await check('Personal ideas autosave locally with stated intent',
-    "(()=>{const v=window.AfterDarkDirectQuizBridge.exportState();return v.questionVersion===2&&v.customThings.includes('ASMR whispering')&&v.customIntent==='receive'})()");
+    "(()=>{const v=window.AfterDarkDirectQuizBridge.exportState();return v.questionVersion===4&&v.customThings.includes('ASMR whispering')&&v.customIntent==='receive'})()");
   await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=direct] .ad-focus-menu-inner>button')].find(b=>b.textContent.includes('Reset this quiz'))).click()");
-  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.values(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v4')).multiAnswers).every(a=>Array.isArray(a)&&a.length===0)");
+  await check('Direct reset removes only direct saved answers and starts at question 1', "window.AfterDarkDirectQuizBridge.getProgress().position===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===0&&Object.values(JSON.parse(localStorage.getItem('afterdark_direct_quiz_v5')).multiAnswers).every(a=>Array.isArray(a)&&a.length===0)");
   await check('Reset clears only matching direct quiz and custom interests', "window.AfterDarkDirectQuizBridge.exportState().customThings===''&&window.AfterDarkDirectQuizBridge.exportState().customIntent==='unsure'");
   await evaluate("(()=>{const t=document.querySelector('#customInterestText');t.value='I want to try a private whispering experience\\nI would like to talk about strap-on play';t.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#customInterestIntent').value='together';document.querySelector('#customInterestIntent').dispatchEvent(new Event('change',{bubbles:true}))})()");
   await check('User can enter several unlisted ideas without adding quiz questions',
-    "(()=>{const x=window.AfterDarkCanonicalReport.buildData();return x.direct.personalIdeas.length===2&&x.direct.personalIdeas.every(i=>i.intent==='together')&&window.AfterDarkAdultQuiz.length===56})()");
+    "(()=>{const x=window.AfterDarkCanonicalReport.buildData();return x.direct.personalIdeas.length===2&&x.direct.personalIdeas.every(i=>i.intent==='together')&&window.AfterDarkAdultQuiz.length===62})()");
+  await evaluate("(()=>{const original=window.AfterDarkDirectQuizBridge.exportState();original.qIndex=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown);window.AfterDarkDirectQuizBridge.importState(original)})()");
+  await check('Porn genre question lives within the same 62-question quiz with searchable multi-select dropdown',
+    "window.AfterDarkAdultQuiz.length===62&&window.AfterDarkAdultQuiz.filter(q=>q.dropdown).length===1&&document.querySelector('#quizCard .quiz-media-dropdown')!==null&&document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option').length>=55");
+  await evaluate("document.querySelector('#quizCard .quiz-media-dropdown summary').click();const input=document.querySelector('#quizCard .quiz-media-search');input.value='group';input.dispatchEvent(new Event('input',{bubbles:true}))");
+  await check('Porn category dropdown searches across diverse grouped adult interests',
+    "document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option:not([hidden])').length>=2&&document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option[hidden]').length>20");
+  await evaluate("(()=>{const t=document.querySelector('#quizCard .quiz-media-search');t.value='';t.dispatchEvent(new Event('input',{bubbles:true}));const labels=[...document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option')];labels.find(x=>x.textContent.includes('Consensual threesomes')).querySelector('input').click();labels.find(x=>x.textContent.includes('group sex / orgy scenes')).querySelector('input').click();document.querySelector('#quizCard .quiz-question-intent input[value=fantasy]').click()})()");
+  await check('Multiple adult-media categories and fantasy-only choice save without implying a real-life preference',
+    "(()=>{const x=window.AfterDarkDirectQuizBridge.exportState(),i=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown),r=window.AfterDarkCanonicalReport.buildData();return x.multiAnswers[i].length===2&&x.questionIntents[i]==='fantasy'&&r.direct.questions[i].intentLabel.includes('Fantasy only')&&r.direct.specificSelections.filter(x=>x.context==='Adult media watched / imagined').length===2})()");
+  await evaluate("(()=>{const v=window.AfterDarkDirectQuizBridge.exportState();v.qIndex=0;window.AfterDarkDirectQuizBridge.importState(v)})()");
+  await check('Every direct question offers optional fantasy-only or exploring intent',
+    "document.querySelectorAll('#quizCard .quiz-question-intent input[type=radio]').length===3");
+  await evaluate("document.querySelector('#quizCard .quiz-question-intent input[value=explore]').click()");
+  await check('Explicit exploring intent persists independently of fantasy-only media intent',
+    "(()=>{const e=window.AfterDarkDirectQuizBridge.exportState(),i=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown);return e.questionIntents[0]==='explore'&&e.questionIntents[i]==='fantasy'})()");
   await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0].click();document.querySelectorAll('#quizCard .quiz-multi-option input')[1].click()");
 
   await evaluate("[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')).click()");
-  for(let i=1;i<56;i++){await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0]?.click();[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('Show my results'))?.click()");}
-  await check('All 32 direct questions show ranked results',"document.querySelector('.direct-answer-summary')!==null && document.querySelector('#quizCard .compare')!==null");
+  for(let i=1;i<62;i++){await evaluate("document.querySelectorAll('#quizCard .quiz-multi-option input')[0]?.click();[...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('Show my results'))?.click()");}
+  await check('All 62 direct questions show ranked results',"document.querySelector('.direct-answer-summary')!==null && document.querySelector('#quizCard .compare')!==null");
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
   await check('Quiz offers private PDF and saves interests', "typeof window.InterestNotebook?.printQuiz==='function' && !![...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Save quiz results as PDF')) && !!document.querySelector('#quizCard .interest-result button')");
@@ -140,7 +155,7 @@ try{
     "(()=>{const d=window.AfterDarkCanonicalReport.buildData();return d.direct.specificSelections.length>=32&&d.direct.specificSelections.some(x=>x.text)&&d.interests.some(x=>x.specificSelected>0)})()");
 
 
-  await check('Both 32-question versions map their options to identical themes',"window.AfterDarkAdultQuiz.length===56 && window.AfterDarkPsychologyQuiz.length===32 && window.AfterDarkAdultQuiz.filter(q=>q.id<=32).every(q=>q.options.length===window.AfterDarkPsychologyQuiz[q.id-1].options.length && q.options.every((o,j)=>o.axes===window.AfterDarkPsychologyQuiz[q.id-1].options[j].axes))");
+  await check('All 32 original paired questions retain corresponding psychological axes',"window.AfterDarkAdultQuiz.length===56 && window.AfterDarkPsychologyQuiz.length===32 && window.AfterDarkAdultQuiz.filter(q=>q.id<=32).every(q=>q.options.length===window.AfterDarkPsychologyQuiz[q.id-1].options.length && q.options.every((o,j)=>o.axes===window.AfterDarkPsychologyQuiz[q.id-1].options[j].axes))");
   const beforePair=await evaluate("JSON.stringify([...document.querySelectorAll('#quizCard .interest-result')].map(el=>el.querySelector('h3')?.textContent+'|'+el.querySelector('.interest-percentage')?.textContent))");
   await evaluate("document.querySelector('[data-tab=psych-quiz]').click()");
   await check('Psychological quiz has a separate non-explicit view',"document.querySelector('#psych-quiz').classList.contains('visible') && !!window.AfterDarkPsychQuizBridge && document.querySelector('#psychQuizCard button')?.textContent.includes('Start the psychology')");
@@ -156,7 +171,7 @@ try{
   await evaluate("([...document.querySelectorAll('[data-quiz-tools=psych] .ad-primary-actions button')].find(b=>b.textContent.includes('Resume'))).click()");
   await check('Psychology resume leaves preview and returns to saved selections', "window.AfterDarkPsychQuizBridge.getProgress().position===0&&document.querySelectorAll('#psychQuizCard input:checked').length===2");
   await evaluate("window.confirm=()=>true;([...document.querySelectorAll('[data-quiz-tools=psych] .ad-primary-actions button')].find(b=>b.textContent.includes('Reset quiz'))).click()");
-  await check('Psychology reset clears only psychology answers, leaving direct quiz results intact', "window.AfterDarkPsychQuizBridge.getProgress().position===0&&window.AfterDarkPsychQuizBridge.getProgress().answered===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===32");
+  await check('Psychology reset clears only psychology answers, leaving direct quiz results intact', "window.AfterDarkPsychQuizBridge.getProgress().position===0&&window.AfterDarkPsychQuizBridge.getProgress().answered===0&&window.AfterDarkDirectQuizBridge.getProgress().answered===62");
   await evaluate("document.querySelectorAll('#psychQuizCard input[type=checkbox]')[0].click();document.querySelectorAll('#psychQuizCard input[type=checkbox]')[1].click()");
   for(let i=0;i<32;i++){
     await evaluate("(()=>{const btn=[...document.querySelectorAll('#psychQuizCard button')].find(b=>b.textContent.includes('Save & next')||b.textContent.includes('View shared interest shelf'));btn?.click();})()");
@@ -208,11 +223,11 @@ try{
 
 
   await check('Detailed PDF uses the same canonical answers and named interests in both quizzes',
-    "(()=>{const d=window.AfterDarkCanonicalReport?.buildData?.(),r=window.AfterDarkDetailedReport?.build?.();return !!d && d.direct.answered===32 && d.psych.answered===32 && d.interests.length>=12 && r?.querySelectorAll('.report-interest').length===d.interests.length && !!r.querySelector('.report-cover-stats') && r.querySelector('.report-cover')?.textContent.includes('My Interests & Psychology Report')})()");
+    "(()=>{const d=window.AfterDarkCanonicalReport?.buildData?.(),r=window.AfterDarkDetailedReport?.build?.();return !!d && d.direct.answered===62 && d.psych.answered===32 && d.interests.length>=12 && r?.querySelectorAll('.report-interest').length===d.interests.length && !!r.querySelector('.report-cover-stats') && r.querySelector('.report-cover')?.textContent.includes('My Interests & Psychology Report')})()");
   await check('Interest PDF pairs individual psychology, answer evidence, suggested activities and discussion prompts',
     "(()=>{const r=window.AfterDarkDetailedReport?.build?.();const p=r?.querySelector('.report-interest');return !!p && !!p.querySelector('.report-lenses') && p.textContent.includes('Sexual-preferences quiz') && p.textContent.includes('Non-explicit psychology quiz') && p.textContent.includes('Things you might consider or like') && p.textContent.includes('Discussing this specific interest with a partner') && p.querySelectorAll('.report-idea-list li').length>=3 && p.querySelectorAll('.report-evidence li').length>=1 && !!r.querySelector('.report-related')})()");
   await check('PDF includes all original answers, psychology suggestions, boundaries and readable print styling',
-    "(()=>{const r=window.AfterDarkDetailedReport?.build?.(),css=[...document.styleSheets].some(s=>{try{return [...s.cssRules].some(x=>x.cssText.includes('print-detailed-report'))}catch{return false}});return !!r && r.textContent.includes('Appendix A') && r.textContent.includes('Appendix B') && r.textContent.includes('Specific interests') && r.textContent.includes('convers') && r.querySelectorAll('.report-answer').length>=64 && r.querySelectorAll('.report-step').length===6 && css})()");
+    "(()=>{const r=window.AfterDarkDetailedReport?.build?.(),css=[...document.styleSheets].some(s=>{try{return [...s.cssRules].some(x=>x.cssText.includes('print-detailed-report'))}catch{return false}});return !!r && r.textContent.includes('Appendix A') && r.textContent.includes('Appendix B') && r.textContent.includes('Specific interests') && r.textContent.includes('convers') && r.querySelectorAll('.report-answer').length>=94 && r.querySelectorAll('.report-step').length===6 && css})()");
 
 
   await evaluate("[...document.querySelectorAll('#quizCard .interest-result button')].find(b=>b.textContent.includes('Save & explain'))?.click()");
