@@ -183,8 +183,12 @@ try{
   await evaluate("document.querySelector('[data-tab=howto]').click()");
   await check('Orgasm-only library opens with 18 guides',"document.querySelector('#howto')?.classList.contains('visible') && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length===18 && document.querySelector('#howto-category option')?.textContent==='All guides'");
   await check('All guides are specifically about orgasm',"window.AfterDarkIntimacyGuides.guides.length===18 && window.AfterDarkIntimacyGuides.guides.every(g=>/orgasm/i.test(g.title+' '+g.subtitle+' '+g.facts)) && !window.AfterDarkIntimacyGuides.guides.some(g=>['squirting','communication','toys','sexual-health'].includes(g.id))");
+  await check('Orgasm guides offer practical steps without repetitive partner scripts',"window.AfterDarkIntimacyGuides.guides.every(g=>g.steps.length===5 && !('partner' in g)) && document.querySelector('#howto .lead')?.textContent.includes('starting approach') && document.querySelector('#howto .note')?.textContent.includes('withdraws consent')");
+
   await evaluate("document.querySelector('#howto [data-guide-open=vaginal-orgasm]').click()");
   await check('Internal vaginal orgasm guide includes practical steps, nuance, sources and safety',"document.querySelector('#howto-guide-detail').hidden===false && document.querySelector('#howto-guide-detail h2')?.textContent.includes('vaginal') && document.querySelectorAll('#howto-guide-detail ol li').length>=4 && document.querySelectorAll('#howto-guide-detail .howto-guide-sources a[href^=https]').length>=2 && document.querySelector('#howto-guide-detail').textContent.includes('clitoral')");
+  await check('Orgasm detail has a getting-started heading without scripted partner coaching',"document.querySelector('#howto-guide-detail .howto-guide-steps h3')?.textContent.includes('practical way to get started') && !document.querySelector('#howto-guide-detail .howto-guide-partner')");
+
   await evaluate("document.querySelector('#howto [data-guide-open=nipple-pleasure]').click()");
   await check('Nipple orgasm guide remains available',"document.querySelector('#howto-guide-detail h2')?.textContent.includes('Nipple') && document.querySelector('#howto-guide-detail').textContent.includes('scientifically established')");
   await evaluate("document.querySelector('#howto [data-guide-open=testicular-orgasm]').click()");
