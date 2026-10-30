@@ -77,7 +77,8 @@ function resumePlace(){
  const existing=bookmarks.last&&bookmarks.sections[bookmarks.last]?bookmarks.sections[bookmarks.last]:null;
  const direct=Number(DIRECT()?.getProgress?.()?.position??-1);
  const psych=Number(PSYCH()?.getProgress?.()?.position??-1);
- const place=existing||(direct>=0&&direct<32?{tab:'quiz',offset:0}:psych>=0&&psych<32?{tab:'psych-quiz',offset:0}:null);
+ const directCount=DIRECT()?.getProgress?.()?.questions||56;
+ const place=existing||(direct>=0&&direct<directCount?{tab:'quiz',offset:0}:psych>=0&&psych<32?{tab:'psych-quiz',offset:0}:null);
  if(!place){setStatus('No saved place yet. Open a guide or start a quiz first.');return;}
  restoring=true;
  goTo(place.tab);
@@ -95,16 +96,16 @@ function refreshReading(){
  if(!target)return;
  const direct=Number(DIRECT()?.getProgress?.()?.position??-1);
  const psych=Number(PSYCH()?.getProgress?.()?.position??-1);
- const actual=last||(direct>=0&&direct<32?'quiz':psych>=0&&psych<32?'psych-quiz':null);
+ const actual=last||(direct>=0&&direct<(DIRECT()?.getProgress?.()?.questions||56)?'quiz':psych>=0&&psych<32?'psych-quiz':null);
  target.disabled=!actual;
  target.textContent=actual?'↪ Continue '+friendlyTab(actual):'↪ Continue later';
 }
 function formatProgress(kind){
  const p=kind==='direct'?DIRECT()?.getProgress?.():PSYCH()?.getProgress?.();
  if(!p)return 'Unavailable';
- if(p.complete)return 'Completed · '+p.answered+' of 32 answered';
+ if(p.complete)return 'Completed · '+p.answered+' of '+(p.questions||32)+' answered';
  if(p.position<0)return 'Not started';
- return 'Saved at question '+(p.position+1)+' of 32 · '+p.answered+' answered';
+ return 'Saved at question '+(p.position+1)+' of '+(p.questions||32)+' · '+p.answered+' answered';
 }
 function answered(kind){
  const p=kind==='direct'?DIRECT()?.getProgress?.():PSYCH()?.getProgress?.();
@@ -139,23 +140,26 @@ function validatePayload(value){
   const index=type==='direct'?raw.qIndex:raw.position;
   const answerSet=type==='direct'?raw.multiAnswers:raw.answers;
   const noteSet=type==='direct'?raw.freeResponses:raw.notes;
-  if(type==='direct'&&raw.questionVersion!==2)throw Error('This export uses an older question set. To protect your original answers, it cannot be applied to the revised 32 questions. Keep the original file as a separate record.');
+  if(type==='direct'&&![2,3].includes(raw.questionVersion))throw Error('This export belongs to an incompatible question version. Original answers will not be remapped silently.');
   if(type==='direct'&&((raw.customThings!==undefined&&(typeof raw.customThings!=='string'||raw.customThings.length>1200))||
       (raw.customIntent!==undefined&&!['unsure','receive','give','together','watch','fantasy'].includes(raw.customIntent))))
     throw Error('Invalid custom interest or intended role in saved quiz.');
-  if(!Number.isInteger(index)||index< -1||index>32||
+  const questionCount=type==='direct'?(raw.questionVersion===2?32:56):32;
+  if(!Number.isInteger(index)||index< -1||index>questionCount||
     !answerSet||typeof answerSet!=='object'||Array.isArray(answerSet)||
     !noteSet||typeof noteSet!=='object'||Array.isArray(noteSet))throw Error('Invalid saved quiz position or answers');
   const questions=type==='direct'?window.AfterDarkAdultQuiz:window.AfterDarkPsychologyQuiz;
-  if(!Array.isArray(questions)||questions.length!==32)throw Error('Quiz questions are unavailable');
-  if(Object.keys(answerSet).length>32||Object.keys(noteSet).length>32)throw Error('Too many quiz entries');
-  const validKeys=obj=>Object.keys(obj).every(k=>/^(?:[0-9]|[12][0-9]|3[01])$/.test(k));
+  if(!Array.isArray(questions)||(type==='direct'&&questions.length!==56)||(type==='psych'&&questions.length!==32))throw Error('Quiz questions are unavailable');
+  if(Object.keys(answerSet).length>questionCount||Object.keys(noteSet).length>questionCount)throw Error('Too many quiz entries');
+  const validKeys=obj=>Object.keys(obj).every(k=>/^(0|[1-9][0-9]*)$/.test(k)&&Number(k)<questionCount);
   if(!validKeys(answerSet)||!validKeys(noteSet))throw Error('Unexpected question in saved file');
-  for(let i=0;i<32;i++){
+  for(let i=0;i<questionCount;i++){
+   const question=type==='direct'&&raw.questionVersion===2?questions.find(q=>q.id===i+1):questions[i];
+   if(!question)throw Error('Cannot find question '+(i+1));
    if(Object.hasOwn(answerSet,i)){
     const entries=answerSet[i];
-    if(!Array.isArray(entries)||entries.length>questions[i].options.length||
-       !entries.every(n=>Number.isInteger(n)&&n>=0&&n<questions[i].options.length))throw Error('Invalid selected answer at question '+(i+1));
+    if(!Array.isArray(entries)||entries.length>question.options.length||
+       !entries.every(n=>Number.isInteger(n)&&n>=0&&n<question.options.length))throw Error('Invalid selected answer at question '+(i+1));
    }
    if(Object.hasOwn(noteSet,i)&&(typeof noteSet[i]!=='string'||noteSet[i].length>600))
     throw Error('Invalid private note at question '+(i+1));
