@@ -69,3 +69,185 @@
  body.print-notebook #print-document article {border:1px solid #bbb!important;padding:11px;margin:12px 0}
  body.print-notebook #print-document .interest-percentage {font-weight:700!important}
 }
+
+
+/* Detailed quiz report: designed for standard US Letter paper.
+ * Unlike the ordinary notebook printout, long interest profiles may flow
+ * across pages with their section headings kept alongside the next paragraph.
+ */
+@media screen {
+ .afterdark-detailed-report{--ink:#322139;--plum:#43244f;--rose:#ad528b;--gold:#be9244;--muted:#63516a}
+}
+@media print {
+ @page{size:letter;margin:13mm 15mm}
+ html,body.print-notebook.print-detailed-report{background:#fff!important;color:#322139!important}
+ body.print-notebook.print-detailed-report #print-document{
+  display:block!important;width:100%!important;max-width:none!important;
+  margin:0!important;padding:0!important;position:static!important;
+  color:#322139!important;background:#fff!important;
+  font:9.5pt/1.45 "Segoe UI",Arial,sans-serif!important;
+ }
+ body.print-notebook.print-detailed-report #print-document *{
+  box-sizing:border-box;break-inside:auto!important;orphans:3;widows:3;
+  print-color-adjust:exact;-webkit-print-color-adjust:exact;
+  box-shadow:none!important;text-shadow:none!important;filter:none!important;
+ }
+ body.print-notebook.print-detailed-report #print-document .afterdark-detailed-report{
+  --ink:#322139;--plum:#43244f;--rose:#ad528b;--gold:#be9244;--muted:#63516a;
+  color:var(--ink)!important;background:#fff!important;
+ }
+ body.print-notebook.print-detailed-report #print-document p,
+ body.print-notebook.print-detailed-report #print-document li{font:inherit;line-height:1.44;margin:4pt 0 7pt;overflow-wrap:anywhere;color:var(--ink)!important}
+ body.print-notebook.print-detailed-report #print-document strong{font-weight:750;color:#392344!important}
+ body.print-notebook.print-detailed-report #print-document h1,
+ body.print-notebook.print-detailed-report #print-document h2,
+ body.print-notebook.print-detailed-report #print-document h3,
+ body.print-notebook.print-detailed-report #print-document h4{
+  color:var(--plum)!important;break-after:avoid-page;page-break-after:avoid;
+  font-family:Georgia,"Times New Roman",serif;font-weight:700;line-height:1.17
+ }
+ body.print-notebook.print-detailed-report #print-document h1{font-size:31pt;margin:14pt 0 18pt;letter-spacing:-.8pt}
+ body.print-notebook.print-detailed-report #print-document h2{font-size:17pt;margin:8pt 0 12pt}
+ body.print-notebook.print-detailed-report #print-document h3{font-size:13pt;margin:8pt 0 6pt}
+ body.print-notebook.print-detailed-report #print-document h4{font-size:10.5pt;margin:11pt 0 6pt}
+ body.print-notebook.print-detailed-report #print-document ul,
+ body.print-notebook.print-detailed-report #print-document ol{padding-left:18pt;margin:6pt 0 12pt}
+ body.print-notebook.print-detailed-report #print-document li{padding-left:3pt;margin:3pt 0 6pt}
+ body.print-notebook.print-detailed-report #print-document article{
+  border:0!important;padding:0!important;margin:0;background:none!important;break-inside:auto!important;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover{
+  display:block;min-height:229mm;page-break-after:always;break-after:page;
+  position:relative;padding:16mm 10mm 7mm;border-top:9mm solid #482653!important;
+  border-bottom:3mm solid #c685a8!important;
+  background:linear-gradient(156deg,#fff8f9 0%,#fff 66%)!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover>.report-kicker{
+  color:#925076!important;letter-spacing:2pt;font:800 10pt "Segoe UI",Arial,sans-serif!important;
+  margin:6mm 0 8mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover h1{
+  font-size:33pt;line-height:1.12;max-width:150mm;color:#3e254f!important;margin:12mm 0 9mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover>.report-lead{
+  color:#584564!important;font-size:12pt;max-width:160mm;line-height:1.65;
+  margin:8mm 0 9mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover-stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4mm;margin-top:13mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover-stat{
+  padding:6mm 4mm;background:#f4e9f2!important;border:1pt solid #dfc3d7!important;
+  border-radius:3mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover-stat strong{
+  display:block;font:750 19pt "Segoe UI",Arial,sans-serif;color:#512b61!important;margin:0 0 2mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-cover-stat span{
+  display:block;font:700 8pt "Segoe UI",Arial,sans-serif;color:#725a7f!important;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-roadmap{
+  margin-top:17mm;background:#fff1da!important;border-left:4pt solid #c79d59!important;
+  padding:5mm 6mm!important;line-height:1.4;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-roadmap strong{
+  display:block;font:750 9pt "Segoe UI",Arial,sans-serif;color:#7d533b!important;letter-spacing:.5pt
+ }
+ body.print-notebook.print-detailed-report #print-document .report-roadmap p{margin:3mm 0 0;line-height:1.6}
+ body.print-notebook.print-detailed-report #print-document .report-section{
+  margin:8mm 0 10mm;padding:0!important;background:none!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-section>h2{
+  border-bottom:1.5pt solid #b17cac!important;padding:0 0 3mm;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-muted{
+  color:#74647a!important;font-size:8.5pt;line-height:1.5
+ }
+ body.print-notebook.print-detailed-report #print-document .report-emphasis{
+  border-left:3pt solid #b56b92!important;background:#fbf0f7!important;
+  padding:4mm 5mm;margin:4mm 0 5mm;font-weight:650
+ }
+ body.print-notebook.print-detailed-report #print-document .report-theme{
+  border-left:2pt solid #b47d9b!important;padding:2mm 0 3mm 4mm!important;margin:4mm 0 5mm!important;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-theme h3{color:#79466f!important;font-size:11.5pt}
+ body.print-notebook.print-detailed-report #print-document .report-theme ul{
+  color:#584365!important;margin:0;padding-left:15pt
+ }
+ body.print-notebook.print-detailed-report #print-document .report-interest{
+  border:1pt solid #d5bfd2!important;border-top:3pt solid #875c91!important;
+  padding:6mm 6mm 5mm!important;margin:7mm 0!important;
+  border-radius:2.5mm;break-inside:auto!important;
+  background:linear-gradient(to bottom,#fbf8fd 0%,#fff 30mm)!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-interest>.report-kicker{
+  font:800 7.5pt "Segoe UI",Arial,sans-serif!important;letter-spacing:1pt;
+  color:#97667f!important;text-transform:uppercase;margin:0 0 2mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-interest>h3{
+  font-size:18pt;color:#4e2b5c!important;margin:0 0 1mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-status{
+  display:inline-block;padding:2mm 3mm;border:1pt solid #dfc1d4!important;
+  border-radius:2mm;background:#f8e8f1!important;
+  font:750 8pt "Segoe UI",Arial,sans-serif!important;color:#6b3e68!important;
+  margin:1mm 0 4mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-interest>.report-lead{
+  font:10.4pt/1.55 Georgia,serif!important;color:#513956!important;margin:2mm 0 4mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-interest h4{
+  padding:2mm 2.7mm;margin-top:5mm;background:#f0e7f2!important;
+  border-left:2pt solid #ad78a0!important;color:#4a3059!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-evidence{
+  padding-left:19pt;margin:3mm 0 5mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-evidence li{
+  border-bottom:.6pt solid #eadde7!important;padding-bottom:2mm;margin-bottom:2mm;
+  break-inside:avoid!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-evidence li strong{
+  font-size:9pt;display:block
+ }
+ body.print-notebook.print-detailed-report #print-document .report-evidence li p{margin:2mm 0 1mm;font-size:8.7pt}
+ body.print-notebook.print-detailed-report #print-document .report-lenses li{
+  padding:0 0 1mm;border-bottom:.5pt solid #e7d8e5!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-evidence-note{display:block;font-size:8pt;color:#7c6680!important}
+ body.print-notebook.print-detailed-report #print-document .report-note{
+  font-style:italic;color:#69415c!important;border-left:1.5pt solid #cfa3b9!important;padding-left:3mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-idea-list{
+  border-left:3pt solid #d1a04e!important;background:#fff9ed!important;padding:3mm 3mm 3mm 9mm;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-idea-list li{color:#513e37!important;margin:2mm 0}
+ body.print-notebook.print-detailed-report #print-document .report-related{
+  padding:2mm 0 2mm 8mm;background:#f7f0f9!important;border-left:2pt solid #b291bf!important;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-script{
+  padding:4mm 5mm;margin:3mm 0;background:#f7eff6!important;
+  border-left:3pt solid #a66d9a!important;font:italic 10pt/1.55 Georgia,serif!important;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-boundaries{
+  border-left:3pt solid #bd924d!important;background:#fff7e8!important;
+  padding:3mm 4mm
+ }
+ body.print-notebook.print-detailed-report #print-document .report-extra{
+  border:1pt solid #e4cedf!important;background:#fcf8fd!important;
+  padding:4mm!important;margin:4mm 0!important;
+ }
+ body.print-notebook.print-detailed-report #print-document .report-step{
+  border-left:3pt solid #ac78a1!important;padding-left:4mm!important;
+  margin:4mm 0!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-answer{
+  border-bottom:.6pt solid #dbcfdf!important;padding:3mm 0;
+  break-inside:avoid!important
+ }
+ body.print-notebook.print-detailed-report #print-document .report-answer strong{font-size:9pt}
+ body.print-notebook.print-detailed-report #print-document .report-footer{
+  color:#806a83!important;border-top:1pt solid #c1a9c8!important;
+  padding:4mm 0;margin-top:9mm;text-align:center;font:8pt "Segoe UI",Arial,sans-serif!important
+ }
+}
