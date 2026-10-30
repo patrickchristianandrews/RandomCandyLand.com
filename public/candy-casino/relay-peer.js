@@ -81,8 +81,12 @@ class RelayPeer extends Events{
    }
   };
   ws.onerror=()=>{if(!this.destroyed&&!this.refused)this.emit('error',{type:'network'})};
-  ws.onclose=()=>{
+  ws.onclose=event=>{
    if(this.destroyed||this.socket!==ws)return;
+   if(event.code===4409&&!this.refused){
+    this.refused=true;this.emit('error',{type:'unavailable-id'});
+    return;
+   }
    const c=this.connection;this.connection=null;c?.close(false);
    this.open=false;this.disconnected=true;
    if(!this.refused)this.emit('disconnected');
@@ -108,9 +112,13 @@ class RelayPeer extends Events{
   ws.onerror=()=>{
    if(!this.destroyed&&!refused&&this.connection===c)this.emit('error',{type:'network'});
   };
-  ws.onclose=()=>{
+  ws.onclose=event=>{
    if(this.destroyed||this.socket!==ws)return;
-   if(!refused&&!accepted&&this.connection===c)this.emit('error',{type:'network'});
+   if(!refused&&this.connection===c){
+    if(event.code===4404){refused=true;this.emit('error',{type:'peer-unavailable'})}
+    else if(event.code===4410){refused=true;this.emit('error',{type:'room-full'})}
+    else if(!accepted)this.emit('error',{type:'network'});
+   }
    c.close(false);
   };
   return c;
