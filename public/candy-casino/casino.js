@@ -185,14 +185,14 @@ function chooseGame(next){
  * A failed first join is retried, and stale asynchronous events are ignored. */
 let roomEpoch=0,joinAttempts=0,joinRetryTimer=0,joinWatchdog=0,hostWatchdog=0,roomFull=false,roomClaimCount=0;
 let hostOffersReceived=0,lastPeerEvent='No events yet',lastIceState='not available';
-let healthTimer=0,lastRemoteMessageAt=0,lastHeartbeatRtt=0,connectionOpenedAt=0,connectionDrops=0,lastCloseReason='none',remoteConfirmed=false;
+let healthTimer=0,lastRemoteMessageAt=0,lastHeartbeatRtt=0,connectionOpenedAt=0,connectionDrops=0,lastCloseReason='none',remoteConfirmed=false,healthWarningActive=false;
 const healthInterval=7500,heartbeatTimeout=42000,handshakeTimeout=24000;
 const stopHealth=()=>{clearTimeout(healthTimer);healthTimer=0};
 const ageSeconds=when=>when?Math.max(0,Math.round((Date.now()-when)/1000)):'none';
 const markPeerEvent=s=>lastPeerEvent=String(s).slice(0,160);
 const clearJoinTimers=()=>{clearTimeout(joinRetryTimer);clearTimeout(joinWatchdog);clearTimeout(hostWatchdog);joinRetryTimer=joinWatchdog=hostWatchdog=0;};
 const activePeer=(p,epoch)=>peer===p&&roomEpoch===epoch&&mode==='friend';
-const networkVersion='room-connection-20261030-v8-invite-clarity';
+const networkVersion='room-connection-20261030-v9-heartbeat-recovery';
 const relayEnabled=!!window.CandyCasinoRelay?.enabled;
 const transportName=relayEnabled?'Cloudflare WebSocket room relay':'PeerJS/WebRTC fallback (relay not activated)';
 const makePeer=id=>relayEnabled?new window.CandyCasinoRelay.Peer(id):new window.Peer(id,peerOptions);
@@ -241,7 +241,7 @@ const friendlyError=error=>{
  return 'Connection failed'+(type?' ('+type+')':'')+'. Try again or switch networks.';
 };
 function leave(text='Online room closed.'){
- roomEpoch++;clearJoinTimers();stopHealth();remoteConfirmed=false;lastRemoteMessageAt=0;lastHeartbeatRtt=0;connectionOpenedAt=0;connectionDrops=0;lastCloseReason='none';roomFull=false;joinAttempts=0;hostOffersReceived=0;lastPeerEvent='Room closed';lastIceState='not available';
+ roomEpoch++;clearJoinTimers();stopHealth();remoteConfirmed=false;healthWarningActive=false;lastRemoteMessageAt=0;lastHeartbeatRtt=0;connectionOpenedAt=0;connectionDrops=0;lastCloseReason='none';roomFull=false;joinAttempts=0;hostOffersReceived=0;lastPeerEvent='Room closed';lastIceState='not available';
  const old=connection;connection=null;const p=peer;peer=null;
  try{old?.close()}catch{}try{p?.destroy()}catch{}
  online=false;roomId='';$('invite-panel').hidden=true;$('leave-room').hidden=true;
@@ -290,7 +290,7 @@ function tryJoin(p,epoch){
  },16000);
 }
 function connect(c){
- stopHealth();remoteConfirmed=false;lastRemoteMessageAt=0;connectionOpenedAt=0;lastHeartbeatRtt=0;
+ stopHealth();remoteConfirmed=false;healthWarningActive=false;lastRemoteMessageAt=0;connectionOpenedAt=0;lastHeartbeatRtt=0;
  connection=c;
  markPeerEvent((host?'Host received connection from ':'Guest connecting to ')+(c.peer||'remote'));
  const pc=c.peerConnection;
@@ -301,12 +301,17 @@ function connect(c){
  }
  const confirmRemote=()=>{
   if(connection!==c||!online||remoteConfirmed)return;
-  remoteConfirmed=true;
+  remoteConfirmed=true;healthWarningActive=false;
   markPeerEvent('Bidirectional game messages confirmed');
   onlineStatus('🟢 Both players connected and responding. Ready to play!');
  };
  const healthCheck=()=>{
   if(connection!==c||!online||!c.open)return;
+  // Mobile browsers suspend timers in background tabs. A paused tab does not by itself mean the Cloudflare socket failed.
+  if(relayEnabled&&document.hidden){
+   healthTimer=setTimeout(healthCheck,healthInterval);
+   return;
+  }
   const idle=Date.now()-lastRemoteMessageAt;
   if(!remoteConfirmed&&Date.now()-connectionOpenedAt>handshakeTimeout){
    lastCloseReason='No reply to game handshake';
@@ -314,14 +319,15 @@ function connect(c){
    stopHealth();try{c.close()}catch{}
    return;
   }
-  if(remoteConfirmed&&idle>heartbeatTimeout){
+  if(remoteConfirmed&&idle>(relayEnabled?90000:heartbeatTimeout)){
    lastCloseReason='No response for '+Math.round(idle/1000)+' seconds';
    markPeerEvent('Peer silent despite game heartbeats');
    stopHealth();try{c.close()}catch{}
    return;
   }
-  if(lastRemoteMessageAt&&idle>healthInterval*2){
-   onlineStatus('🟠 Connection is unstable; checking the other player...');
+  if(remoteConfirmed&&idle>(relayEnabled?30000:healthInterval*2)&&!healthWarningActive){
+   healthWarningActive=true;
+   onlineStatus('🟠 Waiting for your friend to respond. Keep both games open; checking the connection...');
   }
   send({type:'heartbeat',sent:Date.now()});
   healthTimer=setTimeout(healthCheck,healthInterval);
@@ -342,6 +348,12 @@ function connect(c){
  c.on('data',msg=>{
   if(connection!==c||!msg||typeof msg!=='object')return;
   lastRemoteMessageAt=Date.now();
+  // A successful heartbeat must clear an earlier warning, even if no game move was sent.
+  if(healthWarningActive&&remoteConfirmed){
+   healthWarningActive=false;
+   markPeerEvent('Connection recovered; opponent responded');
+   onlineStatus('🟢 Both players connected and responding. Ready to play!');
+  }
   if(msg.type==='heartbeat'){send({type:'heartbeat-ack',sent:msg.sent});return;}
   if(msg.type==='heartbeat-ack'){if(typeof msg.sent==='number'&&msg.sent>0)lastHeartbeatRtt=Math.max(0,Date.now()-msg.sent);return;}
   if(['hello','state','ready','draw','reset'].includes(msg.type))confirmRemote();
@@ -574,7 +586,17 @@ async function joinRoom(preserveClaimCount=false){
 }
 // Browsers can suspend sockets when backgrounded. Reconnect the host when visible again.
 document.addEventListener('visibilitychange',()=>{
- if(document.hidden||mode!=='friend'||!host||!peer||online)return;
+ if(document.hidden||mode!=='friend'||!peer)return;
+ // On returning from a suspended mobile tab, probe the open relay before treating idle time as a failure.
+ if(relayEnabled&&online&&connection?.open){
+  lastRemoteMessageAt=Date.now();
+  healthWarningActive=true;
+  onlineStatus('🟡 Rechecking Cloudflare connection after reopening the game...');
+  stopHealth();send({type:'heartbeat',sent:Date.now()});
+  healthTimer=setTimeout(healthCheck,healthInterval);
+  return;
+ }
+ if(!host||online)return;
  if(peer.disconnected&&!peer.destroyed){
   onlineStatus('🟠 Reconnecting host after returning to the casino...');
   try{peer.reconnect()}catch{}
@@ -626,8 +648,8 @@ $('friend-name').addEventListener('change',()=>{players[me()]=sanitize($('friend
 const incoming=new URL(location.href).searchParams.get('room');
 if(incoming){mode='friend';players=['Waiting...',sanitize($('friend-name').value)];host=false;$('remote-controls').hidden=false;$('friends').hidden=false;$('room-input').value=roomCode(incoming);onlineStatus('🍬 Invitation detected! Connecting to the host...');setTimeout(()=>{if(mode==='friend'&&!peer)joinRoom();},50);}
 if($('casino-network-version'))$('casino-network-version').textContent=relayEnabled
- ?'Multiplayer v8 · dedicated Cloudflare relay ACTIVE'
- :'Multiplayer v8 · PeerJS direct connection (relay NOT ACTIVE; may disconnect)';
+ ?'Multiplayer v9 · dedicated Cloudflare relay ACTIVE'
+ :'Multiplayer v9 · PeerJS direct connection (relay NOT ACTIVE; may disconnect)';
 if($('casino-transport-note'))$('casino-transport-note').textContent=relayEnabled
  ?'Connection method: Cloudflare game relay'
  :'Connection method: direct PeerJS — Cloudflare game relay not connected';
