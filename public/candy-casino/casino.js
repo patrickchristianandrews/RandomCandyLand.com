@@ -374,7 +374,12 @@ function connect(c){
   markPeerEvent('Data channel closed ('+lastCloseReason+')');
   online=false;remoteConfirmed=false;connection=null;render();
   if(host){onlineStatus('🟠 Friend disconnected. Room remains open so they can rejoin.');}
-  else if(!roomFull&&peer){scheduleJoin(peer,roomEpoch,'Connection dropped. Rejoining automatically.');}
+  else if(!roomFull&&peer){
+   if(!relayEnabled&&connectionDrops>=4){
+    clearJoinTimers();
+    onlineStatus('⚠️ Direct WebRTC keeps dropping on these networks. The Cloudflare room relay is not activated yet; that is the durable fix. The room is still open on the host.');
+   }else scheduleJoin(peer,roomEpoch,'Connection dropped. Rejoining automatically.');
+  }
   else if(!roomFull){onlineStatus('⚠️ Disconnected. Tap JOIN ROOM to reconnect.');}
  });
  c.on('error',error=>{
@@ -456,14 +461,21 @@ function registerHostRoom(epoch,reclaimed=false){
  });
  p.on('disconnected',()=>{
   if(!activePeer(p,epoch))return;
-  markPeerEvent('Host signaling disconnected');
-  onlineStatus('🟠 Host signaling interrupted. Keep this tab visible while reconnecting...');
-  try{if(!p.destroyed)p.reconnect()}catch{}
+  markPeerEvent(online&&connection?.open
+   ?'Signaling interrupted but existing game data channel is still open'
+   :'Host signaling disconnected');
+  if(!online)onlineStatus('🟠 Room registration interrupted. Reconnecting...');
+  // Reconnecting signaling must not tear down a working WebRTC data channel.
+  try{if(!p.destroyed&&p.disconnected)p.reconnect()}catch{}
  });
  p.on('error',error=>{
   if(!activePeer(p,epoch))return;
   const type=error?.type||'unknown';
   markPeerEvent('Host error: '+type);
+  if(type==='unavailable-id'&&online&&connection?.open){
+   markPeerEvent('Room ID collision on signaling; keeping the active data channel');
+   return;
+  }
   if(type==='unavailable-id'){
    // Two browsers may race to recover an abandoned room. The loser becomes the guest.
    clearJoinTimers();
@@ -530,7 +542,7 @@ async function joinRoom(preserveClaimCount=false){
   if(!activePeer(p,epoch))return;
   markPeerEvent('Guest peer error: '+(error?.type||error?.message||'unknown'));
   if(error?.type==='peer-unavailable'){
-   claimMissingRoom(p,epoch);
+   if(!online)claimMissingRoom(p,epoch);
    return;
   }
   if(error?.type==='room-full'){
@@ -538,13 +550,19 @@ async function joinRoom(preserveClaimCount=false){
    onlineStatus('⚠️ This room already has two players. Ask the host for a new room.');
    return;
   }
+  if(online&&connection?.open){
+   markPeerEvent('Signaling warning while data channel remains open: '+(error?.type||'unknown'));
+   return;
+  }
   onlineStatus('⚠️ Guest connection: '+friendlyError(error)+' Use COPY CONNECTION DETAILS to report the error.');
  });
  p.on('disconnected',()=>{
   if(!activePeer(p,epoch))return;
-  markPeerEvent('Guest signaling disconnected');
-  onlineStatus('🟠 Room service interrupted. Reconnecting...');
-  try{if(!p.destroyed)p.reconnect()}catch{}
+  markPeerEvent(online&&connection?.open
+   ?'Guest signaling interrupted but game data channel stays open'
+   :'Guest signaling disconnected');
+  if(!online)onlineStatus('🟠 Room service interrupted. Reconnecting...');
+  try{if(!p.destroyed&&p.disconnected)p.reconnect()}catch{}
  });
  render();
 }
@@ -602,8 +620,8 @@ $('friend-name').addEventListener('change',()=>{players[me()]=sanitize($('friend
 const incoming=new URL(location.href).searchParams.get('room');
 if(incoming){mode='friend';players=['Waiting...',sanitize($('friend-name').value)];host=false;$('remote-controls').hidden=false;$('friends').hidden=false;$('room-input').value=roomCode(incoming);onlineStatus('🍬 Invitation detected! Connecting to the host...');setTimeout(()=>{if(mode==='friend'&&!peer)joinRoom();},50);}
 if($('casino-network-version'))$('casino-network-version').textContent=relayEnabled
- ?'Multiplayer v6 · dedicated Cloudflare relay ACTIVE'
- :'Multiplayer v6 · relay awaiting Cloudflare activation; PeerJS fallback still in use';
+ ?'Multiplayer v7 · dedicated Cloudflare relay ACTIVE'
+ :'Multiplayer v7 · PeerJS direct connection (relay NOT ACTIVE; may disconnect)';
 render();
 window.CandyCasinoDebug=Object.freeze({state:()=>({mode,duel,round,phase:stage,scores,online,hand:hands[me()]}),connectionDetails,version:networkVersion,rules:P});
 document.body.dataset.candyCasinoReady='true';
