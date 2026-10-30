@@ -592,8 +592,8 @@ document.addEventListener('visibilitychange',()=>{
   lastRemoteMessageAt=Date.now();
   healthWarningActive=true;
   onlineStatus('🟡 Rechecking Cloudflare connection after reopening the game...');
-  stopHealth();send({type:'heartbeat',sent:Date.now()});
-  healthTimer=setTimeout(healthCheck,healthInterval);
+  // Keep the connection's existing heartbeat timer; its callback belongs to connect().
+  send({type:'heartbeat',sent:Date.now()});
   return;
  }
  if(!host||online)return;
