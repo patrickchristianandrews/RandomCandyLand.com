@@ -750,28 +750,35 @@ function combinedAxes(){
 }
 function interestMatches(){
   const signals=combinedAxes();
+  const namedDirect=new Map();
+  qdata.forEach((q,i)=>(multiAnswers[i]||[]).forEach(n=>{
+   for(const name of q.options[n]?.interests||[])namedDirect.set(name,(namedDirect.get(name)||0)+1);
+  }));
   const highest=Math.max(1,...Object.values(signals));
   const companion=window.AfterDarkPsychQuizBridge?.getProgress?.();
   const coverage=Math.min(1,(Math.max(answered,companion?.answered||0)+deeperAnswered*1.5)/16);
-  return topics.filter(x=>choices[x.id]!=='no'&&(!x.warning||choices[x.id]==='yes'||choices[x.id]==='maybe')).map(x=>{
+  return topics.filter(x=>choices[x.id]!=='no'&&(!x.warning||choices[x.id]==='yes'||choices[x.id]==='maybe'||namedDirect.has(x.name))).map(x=>{
     const similarity=x.tags.length
       ? x.tags.reduce((total,tag)=>total+Math.min(1,(signals[tag]||0)/highest),0)/x.tags.length:0;
     const deeper=x.tags.length
       ? x.tags.reduce((total,tag)=>total+(deeperAxes[tag]||0),0)/x.tags.length:0;
     const chosen=choices[x.id],direct=chosen==='yes'?2:chosen==='maybe'?1:0;
+    const selectedSpecifically=namedDirect.get(x.name)||0;
     const selectedFromDirect=qdata.reduce((n,q,i)=>n+(multiAnswers[i]||[]).filter(k=>q.options[k]?.axes.split(' ').some(t=>x.tags.includes(t))).length,0);
     const selectedFromPsych=(window.AfterDarkPsychologyQuiz||[]).reduce((n,q,i)=>n+(companion?.answers?.[i]||[]).filter(k=>q.options[k]?.axes.split(' ').some(t=>x.tags.includes(t))).length,0);
     const selectedSignals=Math.max(selectedFromDirect,selectedFromPsych);
     // A direct Interested/Curious selection takes precedence over all theme matching.
     const percentage=chosen==='yes'?Math.min(99,90+Math.round(similarity*9)):
       chosen==='maybe'?Math.min(89,67+Math.round(similarity*18)):
+      selectedSpecifically?Math.min(88,65+Math.min(14,selectedSpecifically*7)+Math.round(similarity*9)):
       Math.round(Math.min(85,(18+34*similarity+Math.min(12,deeper*3)+Math.min(4,selectedSignals)*5)*coverage));
     const source=chosen==='yes'?'You marked: Interested':
       chosen==='maybe'?'You marked: Curious':
+      selectedSpecifically?'Named in your selected sexual-quiz answers':
       selectedSignals>0?'Related to your quiz selections':'Topic theme overlap only';
-    return {x,percentage,source,direct,deeper,similarity};
-  }).filter(r=>r.direct||Math.max(answered,companion?.answered||0)+deeperAnswered>=8)
-    .sort((a,b)=>b.direct-a.direct||b.percentage-a.percentage||a.x.name.localeCompare(b.x.name));
+    return {x,percentage,source,direct,deeper,similarity,selectedSpecifically};
+  }).filter(r=>r.direct||r.selectedSpecifically||Math.max(answered,companion?.answered||0)+deeperAnswered>=8)
+    .sort((a,b)=>b.direct-a.direct||b.selectedSpecifically-a.selectedSpecifically||b.percentage-a.percentage||a.x.name.localeCompare(b.x.name));
 }
 // Two concrete, consent-based paths per interest. Risk-bearing categories
 // intentionally suggest discussion/learning, not dangerous physical techniques.
@@ -922,6 +929,14 @@ function showResults(targetId='quizCard'){
   const axesOrdered=Object.entries(signals).sort((a,b)=>b[1]-a[1]);
   const themes=axesOrdered.slice(0,5).map(([k])=>DB.lenses[k]?.[0]).filter(Boolean);
   box.append(elText('p','Sexual quiz: '+answered+'/32 · Psychology quiz: '+companionAnswered+'/32 · Shared themes: '+(themes.join(' · ')||'Open exploration'),'stat'));
+  if(qIndex===qdata.length&&!companionAnswered){
+   const next=elText('section','','quiz-stage-next');
+   next.append(elText('h3','Step 1 complete · Explore the psychology behind your interests'),
+    elText('p','Your specific preferences are saved. Take the second 32-question quiz to compare emotional themes, identify intersections, and build your full report. You can return here anytime.'));
+   const proceed=elText('button','Continue to Step 2 · Psychology Quiz →','btn');
+   proceed.onclick=()=>{renderTabs('psych-quiz');window.AfterDarkPsychQuizBridge?.open?.()};
+   next.append(proceed);box.append(next);
+  }
   const overview=document.createElement('details');overview.className='psych-overview';overview.open=true;
   overview.append(elText('summary','🧠 Your psychological reflection report'));
   overview.append(elText('p','Patterns reflected by your choices: '+(themes.join(', ')||'not enough responses to interpret')+'. These dimensions are clues to discuss, not a diagnosis, fixed personality type, or proof of a specific preference.'));
@@ -1286,7 +1301,12 @@ window.AfterDarkCanonicalReport=Object.freeze({
    created:new Date().toISOString(),totalQuestions:64,
    direct:{answered,complete:qIndex===qdata.length,
     questions:summarize(qdata,multiAnswers,freeResponses),
-    personalIdeas:customEntries()},
+    personalIdeas:customEntries(),
+    specificSelections:qdata.flatMap((q,i)=>(multiAnswers[i]||[]).map(n=>{
+     const option=q.options[n];if(!option)return null;
+     return {questionNumber:i+1,question:q.q,text:option.text,role:option.role||'unspecified',
+       axes:option.axes.split(' '),interests:option.interests||[]};
+    }).filter(Boolean))},
    psych:{answered:companion?.answered||0,complete:Boolean(companion?.complete),
     questions:summarize(psychQuestions,companion?.answers,companion?.notes)},
    axes:{combined:{...signals},direct:{...axes},psych:{...(companion?.axes||{})}},
@@ -1295,8 +1315,8 @@ window.AfterDarkCanonicalReport=Object.freeze({
    interests:interestMatches().slice(0,24).map(r=>({
     id:r.x.id,name:r.x.name,category:r.x.cat,description:r.x.description,
     psychology:r.x.psych||'',themeTags:[...r.x.tags],warn:Boolean(r.x.warning),
-    confidenceType:r.direct===2?'Marked Interested':r.direct===1?'Marked Curious':'Suggested from theme matching',
-    directSelection:r.direct,illustrativeFit:r.percentage,source:r.source,
+    confidenceType:r.direct===2?'Marked Interested':r.direct===1?'Marked Curious':r.selectedSpecifically?'Named in sexual-quiz selections':'Suggested from theme matching',
+    directSelection:r.direct,specificSelected:r.selectedSpecifically,illustrativeFit:r.percentage,source:r.source,
     similarity:r.similarity,activities:explorationActs(r.x).slice(0,2)
    }))
   };
