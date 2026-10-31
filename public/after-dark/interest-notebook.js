@@ -39,8 +39,8 @@
     const root=$('notebook-content');if(!root)return;root.replaceChildren();
     root.append(item('p','Everything stays private on this device until you select items and create a share link or PDF. You can remove any saved entry. A link can be forwarded; only share it with someone you trust.','notebook-help'));
     const intro=item('div','','notebook-intro');
-    const heading=item('h3','💌 A thoughtful invitation to understand');
-    intro.append(heading,item('p','Start with an invitation that asks for listening, not immediate agreement or participation. Choose exactly which topics to include.'));
+    const heading=item('h3','A conversation worth having');
+    intro.append(heading,item('p','Choose what you want to share and add a note in your own words. Nothing here asks the other person to agree or participate.'));
     const name=field('Name or nickname to sign with',sessionStorage.getItem('afterdark_share_name')||'',v=>{try{sessionStorage.setItem('afterdark_share_name',v);}catch{}},'Your nickname (optional)',1);
     const opening=field('What I want you to understand',sessionStorage.getItem('afterdark_share_intro')||'',v=>{try{sessionStorage.setItem('afterdark_share_intro',v);}catch{}},'I want to share something personal and would appreciate a calm, curious conversation. You do not have to agree or participate.');
     name.dataset.notebook='name';opening.dataset.notebook='intro';intro.append(name,opening);root.append(intro);
