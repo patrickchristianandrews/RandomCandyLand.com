@@ -20,8 +20,106 @@ const petals=(g,r,n,rotation,energy,colors,density)=>{
  }
  g.restore();
 };
+
+/* Retro presets: audio spectrum rendered directly, without video decoding or external libraries. */
+function retro(g,o,st,twist,R,cols,n,D,energy){
+ const TAU2=Math.PI*2, {w,h,mode,data,active=false,glow=12}=o;
+ const cx=w/2,cy=h/2,bass=st.bass,mid=st.mid,high=st.high,beat=st.pulse;
+ const sample=(u)=>{
+   if(!data||!data.length)return .1+.07*Math.sin(u*42+twist*3);
+   const at=Math.max(0,Math.min(data.length-1,Math.floor(Math.pow(u,1.6)*data.length*.85)));
+   return active ? Math.min(1.5,(data[at]||0)/255*(+o.sensitivity||1.3)) : .09+.075*Math.sin(u*38+twist*2);
+ };
+ g.save();g.translate(cx,cy);g.lineJoin='round';g.lineCap='round';
+ const blur=Math.min(16,glow*.72);
+ if(mode==='spectrum'){
+   const count=Math.min(128,Math.max(56,Math.floor(w/9))),start=R*.38+beat*R*.1;
+   g.rotate(twist*.055);
+   for(let ring=0;ring<2;ring++){
+    g.beginPath();g.arc(0,0,start*(ring?1.3:1),0,TAU2);
+    g.lineWidth=ring?1.2:2;g.strokeStyle=cols[ring%cols.length];g.globalAlpha=.28+.32*beat;g.stroke();
+   }
+   for(let i=0;i<count;i++){
+     const u=i/count,angle=u*TAU2-Math.PI/2,amp=sample(u);
+     const radius=start,span=R*(.08+amp*.77)*(1+beat*.28);
+     const x=Math.cos(angle),y=Math.sin(angle);
+     g.beginPath();g.moveTo(x*radius,y*radius);g.lineTo(x*(radius+span),y*(radius+span));
+     g.strokeStyle=cols[Math.floor(u*cols.length*4)%cols.length];g.lineWidth=1.5+(i%4===0?1.3:0);
+     g.globalAlpha=.66+.27*Math.min(1,amp);g.shadowBlur=(i%3===0?blur:0);g.shadowColor=g.strokeStyle;g.stroke();
+   }
+   g.shadowBlur=0;g.globalAlpha=.65;
+   for(let j=0;j<3;j++){g.beginPath();g.arc(0,0,R*(.13+j*.065)+beat*5,0,TAU2);g.strokeStyle=cols[(j+1)%cols.length];g.lineWidth=1.3;g.stroke();}
+ }else if(mode==='scope'){
+   const waveform=o.wave||[],points=Math.min(512,Math.max(180,Math.floor(w/3)));
+   g.rotate(Math.sin(twist*.12)*.08);
+   for(let ribbon=0;ribbon<6;ribbon++){
+    const offset=(ribbon-2.5)*R*.28;
+    g.beginPath();
+    for(let i=0;i<=points;i++){
+      const u=i/points,x=(u-.5)*w*.9;
+      const signal=waveform.length ? ((waveform[Math.min(waveform.length-1,Math.floor(u*waveform.length))]-128)/128) : Math.sin(u*TAU2*4+twist*5);
+      const wobble=Math.sin(u*TAU2*(3+ribbon*.27)+twist*(2+ribbon*.11))*R*.075;
+      const y=offset+signal*R*(.34+energy*.46)+wobble+Math.sin(twist*.58+ribbon)*R*.05;
+      if(i)g.lineTo(x,y);else g.moveTo(x,y);
+    }
+    g.globalAlpha=.36+ribbon*.095;g.lineWidth=ribbon===2?2.7:1.3;
+    g.strokeStyle=cols[ribbon%cols.length];g.shadowColor=g.strokeStyle;g.shadowBlur=ribbon===2?blur:4;g.stroke();
+   }
+ }else if(mode==='starfield'){
+   const vanishing=R*(.1+beat*.2),travel=twist*.45;
+   for(let row=0;row<26;row++){
+     const depth=((row/26+travel)%1+1)%1;
+     const perspective=depth*depth;
+     const radius=vanishing+R*1.8*perspective;
+     const spin=twist*.20+depth*.6;
+     g.beginPath();
+     const sides=n+((row%3)*2);
+     for(let i=0;i<=sides;i++){
+       const a=i*TAU2/sides+spin;
+       const skew=1+.12*Math.sin(a*3+twist*.4);
+       const x=Math.cos(a)*radius*skew,y=Math.sin(a)*radius*.84*skew;
+       if(i)g.lineTo(x,y);else g.moveTo(x,y);
+     }
+     g.closePath();g.strokeStyle=cols[row%cols.length];
+     g.globalAlpha=.1+.7*perspective;g.lineWidth=.7+2*perspective;g.shadowBlur=row%4===0?blur:0;g.shadowColor=g.strokeStyle;g.stroke();
+   }
+   g.shadowBlur=0;
+   for(let i=0;i<Math.min(90,26+D*7);i++){
+      const z=((i*.61803398875+travel)%1+1)%1;
+      const ang=i*2.399963+twist*.12,rad=R*1.8*z*z,star=1+z*3+beat;
+      g.beginPath();g.arc(Math.cos(ang)*rad,Math.sin(ang)*rad,star,0,TAU2);
+      g.fillStyle=cols[i%cols.length];g.globalAlpha=.18+z*.7;g.fill();
+   }
+ }else if(mode==='plasma'){
+   // Mirrored luminous ribbons and counter-rotating polygon rosettes.
+   const spokes=n*2,loops=Math.min(13,5+D);
+   for(let layer=0;layer<4;layer++){
+     g.save();g.rotate(twist*(layer%2?.16:-.21)+layer*.45);
+     for(let i=0;i<spokes;i++){
+       const angle=i*TAU2/spokes,base=angle+Math.sin(twist*.27+layer)*.09;
+       g.beginPath();
+       for(let p=0;p<=loops*3;p++){
+         const u=p/(loops*3),r=R*(.06+u*.98)*(1+beat*.13);
+         const a=base+Math.sin(u*TAU2*(1.4+layer*.2)+twist*.68+layer)*(.12+.19*u)+u*u*.62;
+         const x=Math.cos(a)*r,y=Math.sin(a)*r;
+         if(p)g.lineTo(x,y);else g.moveTo(x,y);
+       }
+       g.strokeStyle=cols[(layer+i)%cols.length];g.globalAlpha=.18+.15*energy+layer*.045;g.lineWidth=.7+layer*.25;
+       g.shadowColor=g.strokeStyle;g.shadowBlur=(i%3===0)?blur:0;g.stroke();
+     }
+     g.restore();
+   }
+   g.shadowBlur=0;
+   for(let j=0;j<9;j++){
+     const r=R*(.15+j*.094)*(1+beat*.15),sides=n+j%4*2;
+     polygon(g,r,sides,twist*(j%2?.11:-.16)+j*.31,cols[j%cols.length],.15+j*.045,1.1);
+   }
+ }
+ g.restore();g.globalAlpha=1;g.shadowBlur=0;g.globalCompositeOperation='source-over';
+}
+
 function render(g,o){
- const {w,h,time,data,cols,active=false,sensitivity=1.3,glow=15,mode='hypno',symmetry=8,density=6,trails=.65,speed=1,reduced=false}=o;
+ const {w,h,time,data,wave,cols,active=false,sensitivity=1.3,glow=15,mode='hypno',symmetry=8,density=6,trails=.65,speed=1,reduced=false}=o;
  const st=state,metric=w+'x'+h;if(metric!==st.lastSize){st.lastSize=metric;g.fillStyle='#050515';g.fillRect(0,0,w,h);st.particles=[];}
  if(mode!==st.lastMode){st.lastMode=mode;st.particles=[];}
  st.frame++;
@@ -34,7 +132,7 @@ function render(g,o){
  if(rising&&time-st.beatAt>.22&&active){st.beatAt=time;st.pulse=1;}
  st.baseline=st.baseline*.97+st.bass*.03;
  st.pulse*=.93;
- const motion=(reduced?.15:1)*speed,twist=time*motion;
+ const motion=(reduced?.15:1)*speed*1.3,twist=time*motion;
  const f=clamp(1-trails,0.08,.95);
  g.globalCompositeOperation='source-over';
  g.fillStyle='rgba(3,4,14,'+f.toFixed(3)+')';g.fillRect(0,0,w,h);
@@ -42,10 +140,13 @@ function render(g,o){
  const background=g.createRadialGradient(cx,cy,5,cx,cy,Math.max(w,h)*.7);
  background.addColorStop(0,cols[0]+'14');background.addColorStop(.55,cols[2]+'08');background.addColorStop(1,'#05051508');
  g.fillStyle=background;g.fillRect(0,0,w,h);
- g.save();g.translate(cx,cy);g.lineJoin='round';g.lineCap='round';g.shadowBlur=clamp(glow*(w<520?.58:1),0,30);g.shadowColor=cols[0];
+ g.save();g.translate(cx,cy);g.lineJoin='round';g.lineCap='round';g.shadowBlur=clamp(glow*(w<520?.58:1),0,18);g.shadowColor=cols[0];
  const n=clamp(Math.round(symmetry),4,16),D=clamp(Math.round(density),2,10);
  const isClassic=['orbit','bars','wave','bloom'].includes(mode);
- if(mode==='bars'||mode==='wave'){
+ if(['plasma','starfield','spectrum','scope'].includes(mode)){
+  g.restore();retro(g,o,st,twist,R,cols,n,D,energy);
+  return;
+ }else if(mode==='bars'||mode==='wave'){
   g.restore();g.save();g.lineJoin='round';g.lineCap='round';g.shadowBlur=glow;
   if(mode==='bars'){
    const count=Math.round(clamp(w/6,36,160));const bw=(w-36)/count;
