@@ -3,7 +3,7 @@
  * identifiers are not visitor copy and are intentionally not rewritten. */
 import fs from 'node:fs';
 import path from 'node:path';
-const roots=['public','src/components','src/pages','src/App.tsx','index.html'];
+const roots=['public','src','index.html'];
 const formats=/\.(html|js|jsx|ts|tsx|css|svg|json|webmanifest)$/i;
 const branded=/\bAI\b|\b(?:OpenAI|ChatGPT|Claude|Gemini)\b|\bartificial[ -]+intelligence\b|\b(?:GPT-[0-9]|LLM)\b/g;
 const exceptions=[];
