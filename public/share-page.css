@@ -1,0 +1,15 @@
+/* Shared visual styling across Random Candy Land, without altering game layouts. */
+.rcl-share-strip{position:sticky;top:0;z-index:92;width:100%;max-width:1220px;margin:0 auto 8px;padding:6px clamp(10px,2vw,20px);display:flex;justify-content:flex-end;pointer-events:none}
+.rcl-share-button{appearance:none;pointer-events:auto;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border:1px solid #ffc9e5aa;border-radius:999px;background:linear-gradient(120deg,#8c3c79,#60276b);color:#fff7ff;box-shadow:0 4px 14px #0b071c66;font:800 12px/1.2 system-ui,-apple-system,sans-serif;letter-spacing:.015em;padding:9px 14px;min-height:36px;white-space:nowrap}
+.rcl-share-button:hover{filter:brightness(1.13)}
+.rcl-share-button:focus-visible,.rcl-share-dialog button:focus-visible,.rcl-share-dialog input:focus-visible{outline:3px solid #ffe7b2;outline-offset:2px}
+.od-bookmark-bar .rcl-share-button{box-shadow:none;border-radius:11px;padding:10px 12px;min-height:38px;font-size:12px}
+.rcl-share-overlay[hidden]{display:none!important}
+.rcl-share-overlay{position:fixed;inset:0;z-index:2147483600;display:grid;place-items:center;background:#070411dc;padding:16px}
+.rcl-share-dialog{max-width:100%;width:min(440px,100%);border:1px solid #be95c5;border-radius:18px;padding:20px;color:#fff3ff;background:linear-gradient(135deg,#362641,#20132e);box-shadow:0 20px 70px #000a;font:14px/1.5 system-ui,sans-serif}
+.rcl-share-dialog h2{font:700 23px/1.2 Georgia,serif;color:#ffe4f3;margin:0 0 8px}
+.rcl-share-dialog p{font-size:13px;color:#e7d1ed;margin:8px 0 14px}
+.rcl-share-dialog input{box-sizing:border-box;width:100%;border:1px solid #ae83b3;border-radius:9px;padding:11px;background:#281a34;color:#fff;font:13px/1.4 system-ui,sans-serif}
+.rcl-share-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+.rcl-share-actions button{border-radius:10px;border:1px solid #b483af;background:#714a78;color:#fff;cursor:pointer;padding:9px 12px;font:700 13px/1.2 system-ui,sans-serif}
+@media print{.rcl-share-strip,.rcl-share-overlay{display:none!important}}
