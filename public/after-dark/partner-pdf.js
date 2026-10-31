@@ -79,7 +79,12 @@ function build(){
    add(s,'h3',category,'partner-topic-group');
    for(const item of items){
     const label=item.directSelection===2?'Marked Interested':item.directSelection===1?'Marked Curious':'Something I picked in the quiz';
-    topic(s,item.name,label,item.description);
+    const c=topic(s,item.name,label,item.description);
+     const preferences=(d.direct.specificSelections||[]).filter(x=>x.context!=='Adult media watched / imagined'&&(x.interests||[]).includes(item.name));
+     const chosen=[...new Set(preferences.map(x=>x.intentLabel).filter(x=>x&&x!=='Not specified'))];
+     if(chosen.length)add(c,'p','How I described my interest: '+chosen.join(' / '),'partner-report-status');
+     if(selected.has('themes')&&item.psych)add(c,'p','Optional interpretation I chose to share: '+item.psych,'partner-pdf-muted');
+     if(selected.has('conversations'))add(c,'p','A question we could talk about: What part of this topic is most meaningful, and what would we each prefer to keep private or imaginary?','partner-pdf-muted');
    }
   }
  }
@@ -110,7 +115,7 @@ function build(){
   const s=section(root,'How the two quizzes connect');
   const a=d.axes?.direct||{},b=d.axes?.psych||{};
   const both=Object.keys(d.lenses||{}).filter(k=>a[k]>0&&b[k]>0).sort((x,y)=>(a[y]+b[y])-(a[x]+b[x])).slice(0,8);
-  if(both.length){add(s,'p','Some themes showed up in both kinds of questions:');bullets(s,both.map(x=>d.lenses[x].label));}
+  if(both.length){add(s,'p','Shared theme labels show places we can ask better questions. They do not establish causes or cancel anyone’s limits:');bullets(s,both.map(x=>d.lenses[x].label+' - '+d.lenses[x].detail));}
   else add(s,'p','There are not enough overlapping answers yet for a helpful comparison.');
   add(s,'p','These are simply connections that might give us something interesting to talk about.','partner-pdf-muted');
  }
