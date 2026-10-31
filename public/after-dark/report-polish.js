@@ -142,6 +142,11 @@
   }
   const related=article.querySelector(':scope > .report-related');
   if(related){const heading=related.previousElementSibling;related.remove();if(heading?.tagName==='H3')heading.remove();}
+  // Offer a friendly invitation, without turning theme overlap into a prediction.
+  for(const p of article.querySelectorAll(':scope > p')){
+   if(p.textContent.startsWith('This interest was suggested from the same psychological themes behind your answers.'))
+    p.textContent='A possibility worth a peek: '+item.name+'. Some of your reflections touch on themes connected to this topic. It might be interesting to read about, and only you get to decide whether it fits.';
+  }
   // Distinguish self-selected topics from suggested reading.
   article.dataset.evidence=item.directSelection||item.specificSelected?'selected':'suggested';
  }
@@ -189,7 +194,7 @@
   const section=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('05'));
   if(!section)return;
   const heading=section.querySelector(':scope > h2');
-  if(heading)heading.textContent='05 · Further reading suggestions';
+  if(heading)heading.textContent='05 · A few more ideas worth a peek';
   for(const article of section.querySelectorAll(':scope > .report-extra')){
    const ul=article.querySelector('ul');
    if(ul)[...ul.children].slice(1).forEach(node=>node.remove());
@@ -214,7 +219,7 @@
   const guidance=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('07'));
   if(guidance){
    const title=guidance.querySelector('h2');
-   if(title)title.textContent='07 · Reading the results responsibly';
+   if(title)title.textContent='07 · A few gentle reminders';
   }
   return doc;
  }
