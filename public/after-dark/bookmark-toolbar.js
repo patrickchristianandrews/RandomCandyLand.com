@@ -214,6 +214,11 @@ function build(){
  const save=button('☆ Bookmark this spot',bookmark,'od-bookmark-button od-bookmark-save');
  const cont=button('↪ Continue',resume,'od-bookmark-button od-bookmark-continue');cont.id='od-continue';
  wrap.append(save,cont);
+ const topButton=button('↑ Back to Top',()=>{
+  window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+ },'od-bookmark-button od-back-to-top');
+ topButton.id='od-back-to-top';
+ wrap.append(topButton);
  const menu=text('details',undefined,'od-bookmark-menu');menu.id='od-bookmark-menu';
  const summary=text('summary',undefined,'od-bookmark-button od-bookmark-summary');summary.append(document.createTextNode('Saved spots · '));
  const count=text('b','0');count.id='od-bookmark-count';summary.append(count);menu.append(summary);
