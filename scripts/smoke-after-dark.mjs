@@ -126,6 +126,11 @@ try{
   await check('Non-explicit quiz maps answers to specific Atlas interests independently',"window.AfterDarkPsychBridge?.recommend({answered:1,answers:{0:[0]}},topics)?.some(r=>r.x.name==='Slow build-up')");
   await check('Homepage clearly explains all three quiz-related PDF reports and what stays private',
     "(()=>{const x=document.querySelector('#home .od-home-report-showcase');return !!x&&document.querySelectorAll('#home .od-home-report-card').length===3&&x.textContent.includes('69-question Sexual Preferences Quiz')&&x.textContent.includes('32-question nonsexual Psychology Quiz')&&x.textContent.includes('You Might Not Have Considered')&&x.textContent.includes('Exact quiz answers and private notes')&&x.textContent.includes('Nonsexual by default')&&x.textContent.includes('not probabilities, diagnoses')&&x.querySelector('a[href*=report-samples]')})()");
+  await check('The Other Drawer now has six clearly labeled entry points across the full site',
+    "document.querySelectorAll('#home .od-home-directory-tile').length===6 && !!document.querySelector('#home #od-home-directory-heading') && ['psych','notebook','chat','atlas','psych-quiz','howto'].every(tab=>document.querySelector('#home .od-home-directory-tile[data-tab='+tab+']'))");
+  await evaluate("document.querySelector('#home .od-home-directory-tile[data-tab=psych]').click()");
+  await check('New homepage directory buttons open the existing sections',"document.querySelector('#psych')?.classList.contains('visible')");
+  await evaluate("renderTabs('home')");
   await check('The Other Drawer features Quiz and Ask Anything first',"document.querySelectorAll('.afterdark-featured-grid .card').length===2 && document.querySelector('.afterdark-featured-grid .card:first-child h3')?.textContent==='Curiosity Quiz' && document.querySelector('.afterdark-featured-grid .card:nth-child(2) h3')?.textContent==='Ask Anything'");
   await check('After Dark describes all remaining sections in page body',"document.querySelectorAll('.afterdark-landing-grid .card').length===5 && document.querySelectorAll('.top [data-tab]').length===1");
   await evaluate("document.querySelector('.enter-after-dark').click()");
