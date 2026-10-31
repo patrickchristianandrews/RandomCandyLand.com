@@ -140,7 +140,7 @@
   const psychTile=make('div','report-comparison-tile');
   psychTile.append(make('strong','','Everyday Psychology Quiz'),make('p','','Adds nonsexual answers about trust, attention, anticipation, sensation, roles and context. It does not create a new sexual preference.'));
   sub.append(directTile,psychTile);comparison.append(sub);
-  const chosen=[...both.slice(0,3),...different.slice(0,1)];
+  const chosen=[...both.slice(0,10),...different.slice(0,6)];
   for(const p of chosen){
    const row=make('article','report-comparison-pair');
    const source=make('div');
@@ -171,37 +171,20 @@
   // Do not silently truncate supporting evidence to improve page count.
   // A single shared guidance section explains general limits and safeguards.
   // Keep distinctive, topic-specific caution where applicable.
-  for(const heading of [...article.querySelectorAll(':scope > h4')]){
-   const label=heading.textContent||'';
-   if(/^6\.|^7\./.test(label)){
-    const isSafety=/^7\./.test(label);
-    let node=heading.nextSibling;
-    while(node&&!(node.nodeType===1&&node.tagName==='H4')){
-     const next=node.nextSibling;
-     if(!(isSafety&&item.warn&&node.nodeType===1&&node.classList.contains('report-boundaries')))node.remove();
-     node=next;
-    }
-    heading.remove();
-   }else if(/^3\./.test(label))heading.textContent='Evidence from your answers';
-   else if(/^4\./.test(label))heading.textContent='Ideas to reflect on';
-   else if(/^5\./.test(label))heading.textContent='Conversation starter';
-   else if(/^2\./.test(label))heading.textContent='Related psychological themes';
-   else if(/^1\./.test(label))heading.textContent='Why this topic appears';
-  }
-  // Avoid restating disclaimers and cross-links in every profile.
-  const lead=[...article.querySelectorAll(':scope > p.report-muted')];
-  for(const p of lead){
-   if(p.textContent.startsWith('These are optional, named possibilities')||
-      p.textContent.startsWith('Partner responses are independent.'))p.remove();
-  }
-  const related=article.querySelector(':scope > .report-related');
-  if(related){const heading=related.previousElementSibling;related.remove();if(heading?.tagName==='H3')heading.remove();}
-  // Offer a friendly invitation, without turning theme overlap into a prediction.
-  for(const p of article.querySelectorAll(':scope > p')){
-   if(p.textContent.startsWith('This interest was suggested from the same psychological themes behind your answers.'))
-    p.textContent='Another connection to consider: '+item.name+'. Some of your reflections touch on themes connected to this topic. It might be interesting to read about, and only you get to decide whether it fits.';
-  }
-  // Distinguish selected, specifically named, fantasy-only and unconfirmed topics.
+  // Preserve the complete topic-level explanations. Do not suppress psychological
+   // context, possible learning pathways, alternative interpretations, safety
+   // or linked interests in the name of making the PDF shorter.
+   for(const heading of article.querySelectorAll(':scope > h4')){
+    const label=heading.textContent||'';
+    if(/^1\./.test(label))heading.textContent='Why this topic appears';
+    else if(/^2\./.test(label))heading.textContent='Psychology and possible associations';
+    else if(/^3\./.test(label))heading.textContent='Evidence from your answers';
+    else if(/^4\./.test(label))heading.textContent='Specific ideas to reflect on';
+    else if(/^5\./.test(label))heading.textContent='Discussing this topic with a partner';
+    else if(/^6\./.test(label))heading.textContent='Possible origins: questions, not conclusions';
+    else if(/^7\./.test(label))heading.textContent='Comfort, safety and limits';
+   }
+   // Distinguish selected, specifically named, fantasy-only and unconfirmed topics.
   const classification=item.directSelection===2?'interested':item.directSelection===1?'curious':item.specificSelected?'named':'suggested';
   article.dataset.evidence=classification==='suggested'?'suggested':'selected';
   article.dataset.selectionType=classification;
