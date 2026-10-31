@@ -396,7 +396,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  </article>
 <article class="card afterdark-feature-card">
  <span class="eyebrow">FEATURED · QUESTIONS & ANSWERS</span><div class="afterdark-card-icon" aria-hidden="true">💬</div>
- <img class="ad-card-visual" src="/after-dark/visuals/chat.svg" alt="" loading="lazy" decoding="async" width="600" height="400"><h3>Ask Atlas</h3><p>Ask your own questions about adult interests, the psychology of attraction, communicating with partners or setting boundaries. This private, on-device reference searches the educational Atlas and its built-in Q&A library; it is not a generative AI counselor.</p>
+ <img class="ad-card-visual" src="/after-dark/visuals/chat.svg" alt="" loading="lazy" decoding="async" width="600" height="400"><h3>Ask Atlas</h3><p>Ask your own questions about adult interests, the psychology of attraction, communicating with partners or setting boundaries. This friendly, on-device guide searches the After Dark library and helps you find explanations and conversation starters.</p>
  <button type="button" class="btn " data-tab="chat">Ask Atlas →</button>
  </article></div>
  <div class="afterdark-section-intro"><span class="eyebrow">QUICK SELF-DISCOVERY</span><h2>Explore <span class="italic">your way.</span></h2><p>Choose a short, direct path to specific interests, or build a longer personal reflection.</p></div>
@@ -494,7 +494,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <button type="button" data-ask="How do I bring up a sexual interest with my partner?">Talking to a partner</button>
   </div>
   <form id="askForm" class="chatinput"><input class="field" id="chatText" autocomplete="off" maxlength="480" aria-label="Ask Atlas a question" placeholder="Try “why do I like praise”, “peggin”, “how to tell my partner”, or just a keyword…" required><button class="btn" type="submit">Ask →</button></form>
-  <p class="tiny">Atlas is a locally programmed educational guide, <strong>not a generative AI chatbot</strong> or therapist. Your questions are processed on your device, not sent to a server. It cannot know the cause of any individual's preferences. See Resources for further reading.</p>
+  <p class="tiny">Atlas is your friendly, on-device library guide. Your questions stay on your device. It can help you learn about interests and reflect on what feels right for you. See Resources for further reading.</p>
 </section>
 <section id="howto" class="tab" aria-label="Orgasm-only anatomy and practical guides">
  <div class="ad-section-art-banner">
@@ -1348,7 +1348,7 @@ function respond(question){
  if(/\b(wrong|bad|sick|ill|broken|abnormal)\b/.test(lower)&&/\b(kink|fetish|sexual|sex|i am|am i)\b/.test(lower))
    return 'Having a consensual interest does not, on its own, make someone ill or defective. Distress, impairment, or harm/nonconsent are different concerns. You can reflect on your values and boundaries without judging yourself. If an interest causes ongoing distress, a qualified nonjudgmental clinician may help.';
  if(/\b(who are you|diagnos|predict my|tell me my fetish)\b/i.test(lower))
-   return 'I am an on-device, rule-based educational guide—not a generative AI or a clinician. I cannot diagnose you, predict your orientation, or infer your private preferences. I can explain named subjects and offer questions for reflection.';
+   return 'I'm your friendly After Dark library guide. I can explain topics, offer thoughtful questions, and help you discover what feels meaningful to you. Only you get to decide what fits.';
  if(/\b(talk|tell|discuss|bring up|ask my partner|communicat|disclose|explain)\b/i.test(lower)&&/\b(partner|boyfriend|girlfriend|wife|husband|relationship|someone|interest|want)\b/i.test(lower)){
    const contextual=window.AtlasFlexibleSearch?.answer(str,{topics,faqs:DB.faqs});
    if(contextual)return contextual;
