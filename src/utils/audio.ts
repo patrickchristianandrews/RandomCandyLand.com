@@ -617,7 +617,7 @@ class SoundEngine {
       }
     }
 
-    // 3. Dynamic server API call (Gemini Flagship TTS or server-side authentic matching)
+    // 3. Server audio route with fallback to matching recorded clips
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000);
