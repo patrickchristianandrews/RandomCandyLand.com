@@ -106,6 +106,29 @@ if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
   console.error('The Other Drawer homepage must lead with Quiz and Ask Anything cards, without a top tab menu.');failures++;
 }
 
+// A single public-page share control must be present across generated routes.
+for(const asset of ['dist/share-page.js','dist/share-page.css','dist/after-dark/guide-illustrations.css']){
+ if(!fs.existsSync(asset)||fs.statSync(asset).size<100){
+  console.error('Missing site-wide sharing or illustration asset:',asset);failures++;
+ }
+}
+for(const [file,tokens] of [
+ ['dist/index.html',['share-page.js?v=sitewide-1','share-page.css?v=sitewide-1']],
+ ['dist/after-dark/index.html',['share-page.js?v=sitewide-1','share-page.css?v=sitewide-1','guide-illustrations.css?v=20261031-v1']],
+ ['dist/music-visualizer/index.html',['share-page.js?v=sitewide-1']],
+ ['dist/candy-casino/index.html',['share-page.js?v=sitewide-1']]
+]){
+ if(!fs.existsSync(file)){failures++;continue;}
+ const html=fs.readFileSync(file,'utf8');
+ for(const token of tokens)if(!html.includes(token)){console.error('Missing share/visual reference:',file,token);failures++}
+}
+for(const name of ['chest-sensation','clitoral-network','vulva-external','pelvic-sensation','anal-pelvic','prostate-pelvic','penile-scrotal','response-pathways','response-variation']){
+ const file='dist/after-dark/visuals/'+name+'.svg';
+ if(!fs.existsSync(file)||!fs.readFileSync(file,'utf8').includes('<svg')){
+  console.error('Missing educational illustration:',name);failures++;
+ }
+}
+
 // Always ship the private bookmark toolbar with the public site.
 for (const asset of ['dist/after-dark/bookmark-toolbar.js','dist/after-dark/bookmark-toolbar.css']) {
  if (!fs.existsSync(asset) || !fs.statSync(asset).size) {
