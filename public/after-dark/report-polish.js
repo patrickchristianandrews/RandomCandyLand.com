@@ -69,9 +69,9 @@
   const confirmed=(data.interests||[]).filter(x=>x.directSelection||x.specificSelected);
   const suggested=(data.interests||[]).filter(x=>!x.directSelection&&!x.specificSelected);
   for(const [icon,value,label] of [
-   ['✦',confirmed.length,'Named by your selections'],
-   ['✧',suggested.length,'Ideas to consider'],
-   ['◉',Object.values(data.axes?.combined||{}).filter(v=>v>0).length,'Themes reflected']
+   ['✦',confirmed.length,'Directly named / selected'],
+   ['✧',suggested.length,'Unconfirmed suggestions'],
+   ['◉',Object.values(data.axes?.combined||{}).filter(v=>v>0).length,'Themes in answers']
   ]){
    const box=make('div','report-glance-card');
    box.append(make('span','report-glance-icon',icon),make('strong','',value),make('span','',label));
@@ -98,23 +98,12 @@
  }
  function pruneRepeated(article,item){
   article.classList.add('report-interest-compact');
-  // Theme definitions are already fully explained once in section 02.
-  const lenses=article.querySelector(':scope > .report-lenses');
-  if(lenses){
-   lenses.classList.add('report-theme-pills');
-   for(const li of lenses.querySelectorAll('li')){
-    const label=li.querySelector('strong')?.textContent.replace(/:\s*$/,'')||li.textContent;
-    li.replaceChildren(make('span','',label));
-   }
-  }
-  // Preserve one direct and one reflective example per profile.
-  for(const ol of article.querySelectorAll(':scope > .report-evidence')){
-   [...ol.children].slice(1).forEach(node=>node.remove());
-  }
-  for(const ul of article.querySelectorAll(':scope > ul:not(.report-lenses):not(.report-evidence)')){
-   if(ul.classList.contains('report-idea-list'))continue;
-   [...ul.children].slice(0).forEach((node,index)=>{if(index>=2)node.remove()});
-  }
+  // Keep short, specific supporting explanations beside each selected theme.
+  // Those explanations are the value of a combined psychology report.
+  // Keep up to three examples per quiz: the authoring layer already caps the
+  // evidence lists. Do not erase the specific answers behind a report claim.
+  // The contributor's own themes and reflection prompts remain visible.
+  // Do not silently truncate supporting evidence to improve page count.
   // A single shared guidance section explains general limits and safeguards.
   // Keep distinctive, topic-specific caution where applicable.
   for(const heading of [...article.querySelectorAll(':scope > h4')]){
@@ -147,8 +136,26 @@
    if(p.textContent.startsWith('This interest was suggested from the same psychological themes behind your answers.'))
     p.textContent='Another connection to consider: '+item.name+'. Some of your reflections touch on themes connected to this topic. It might be interesting to read about, and only you get to decide whether it fits.';
   }
-  // Distinguish self-selected topics from suggested reading.
-  article.dataset.evidence=item.directSelection||item.specificSelected?'selected':'suggested';
+  // Distinguish selected, specifically named, fantasy-only and unconfirmed topics.
+  const classification=item.directSelection===2?'interested':item.directSelection===1?'curious':item.specificSelected?'named':'suggested';
+  article.dataset.evidence=classification==='suggested'?'suggested':'selected';
+  article.dataset.selectionType=classification;
+  const status=article.querySelector('.report-status');
+  if(status){
+   status.textContent=classification==='interested'?'You marked this topic: Interested':
+    classification==='curious'?'You marked this topic: Curious':
+    classification==='named'?'You specifically selected this topic':'Theme-based suggestion only';
+   const match=(window.AfterDarkCanonicalReport?.buildData?.()?.direct?.specificSelections||[])
+    .filter(p=>p.context!=='Adult media watched / imagined'&&(p.interests||[]).includes(item.name))
+    .map(p=>p.intentLabel).filter(x=>x&&x!=='Not specified');
+   const distinct=[...new Set(match)];
+   if(distinct.length){
+    const intent=make('span','report-intent-label',distinct.join(' · '));
+    status.after(intent);
+   }
+   const score=make('small','report-scoring-caption',`Illustrative theme fit: ${item.illustrativeFit}/100; not a probability or an assessment.`);
+   status.after(score);
+  }
  }
  function groupProfiles(doc,data){
   const section=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('04'));
