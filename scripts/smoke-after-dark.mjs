@@ -96,6 +96,14 @@ try{
   await check('Adult entry is present', "!!document.querySelector('#enter')");
   await evaluate("document.querySelector('#enter').click()");
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
+  await check('Save-your-place toolbar appears on the main page',
+    "!!document.querySelector('#od-bookmark-bar .od-bookmark-save') && !!document.querySelector('#od-continue') && !!document.querySelector('#od-bookmark-menu') && typeof window.OtherDrawerBookmarks?.save==='function'");
+  await evaluate("document.querySelector('#od-bookmark-bar .od-bookmark-save').click()");
+  await check('Saving a bookmark persists without quiz answers leaving the device',
+    "window.OtherDrawerBookmarks.list().length===1 && !!localStorage.getItem('otherdrawer_saved_places_v1') && document.querySelector('#od-bookmark-count').textContent==='1'");
+  await evaluate("document.querySelector('#od-bookmark-menu').open=true;document.querySelector('#od-bookmark-list .od-saved-actions button:last-child').click()");
+  await check('Saved places can be removed',
+    "window.OtherDrawerBookmarks.list().length===0 && document.querySelector('#od-bookmark-count').textContent==='0'");
   await check('After Dark opens on the introduction rather than the atlas',"document.querySelector('#home').classList.contains('visible') && !document.querySelector('#atlas').classList.contains('visible')");
   await check('After Dark has its illustrated discovery logo and quick access to four experiences',"!!document.querySelector('#home .afterdark-home-hero .ad-discovery-image') && document.querySelectorAll('#home .ad-home-express-nav button').length===4 && !!document.querySelector('#home [data-goto=psych-quiz]') && !!document.querySelector('#home [data-goto=quiz]')");
   await check('After Dark is visually illustrated throughout',"document.querySelectorAll('#home .ad-card-visual').length===10 && document.querySelectorAll('.ad-section-art-banner>img').length>=7 && document.querySelector('#home .ad-discovery-image')?.getAttribute('src').includes('discovery-emblem.svg')");
