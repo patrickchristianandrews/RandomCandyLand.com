@@ -49,7 +49,7 @@ export const HeadlineModal: React.FC<HeadlineModalProps> = ({ stats, onClose }) 
     fetchHeadline();
   }, [stats.evolutionStage]);
 
-  // Speak the quote with AI sound generator voice
+  // Speak the quote using the site's existing audio service
   const handleSpeak = async () => {
     if (!headlineData) return;
     setIsSpeaking(true);
