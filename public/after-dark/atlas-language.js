@@ -108,7 +108,7 @@ function answer(question,context){
  if(isPartner&&(isTalk||/\b(how|what|why)\b/.test(q))){
   const subject=first?.score>=3.3?first.t:null;
   return 'You might say: “Can I tell you something personal? I’d like you to listen, but I’m not asking you to participate.”\n\n'+
-  (subject?'If you mean '+subject.name.toLowerCase()+', '+subject.description+'\n\n':/\\bprais/.test(q)?'If you mean praise, say which words make you feel genuinely valued.\n\n':'')+
+  (subject?'If you mean '+subject.name.toLowerCase()+', '+subject.description+'\n\n':/prais/.test(q)?'If you mean praise, say which words make you feel genuinely valued.\n\n':'')+
   'Explain whether it is fantasy, curiosity, or something you want to discuss. Then ask how they feel, and give them room to say no or take time.';
  }
  if(!first||first.score<2.8||(!first.major&&first.score<5)||(tokens.length>=3&&first.matched<Math.ceil(tokens.length/2)&&first.score<11)){
