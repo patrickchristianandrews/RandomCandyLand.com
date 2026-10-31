@@ -1,10 +1,10 @@
 /* One Sexual Preferences Quiz, organized into focused thematic groups.
- * Each of the 68 individual question IDs remains separately answerable,
+ * Each of the 69 individual question IDs remains separately answerable,
  * exportable and reportable. Group navigation is only presentation.
  */
 (()=>{
 'use strict';
-const groupPlan=[["Connection & initiation",[1,2,4,6]],["Sounds & voices",[3,7,43,44]],["Fantasy & communication",[15,17,50,27,47]],["Orgasm & anticipation",[5,38,18,25,37]],["Sensations & intensity",[10,35,51]],["Body fluids & sensory curiosities",[63,64,65,66,67,68]],["Body areas & touch",[31,33,34]],["Giving, receiving & activities",[13,41,42,16,40]],["Toys, aesthetics & adult media",[26,39,45,62]],["Power exchange & BDSM",[8,48,49,11,14,22]],["Watching & group experiences",[9,12,36,52,57,21,53,54,58,59,60]],["Relationship arrangements",[23,55]],["Atmosphere & shared attention",[24,46]],["Boundaries & safety",[19,20,28,56,61,29]],["Your interests & next steps",[30,32]]];
+const groupPlan=[["Connection & initiation",[1,2,4,6]],["Sounds & voices",[3,7,43,44]],["Fantasy & communication",[15,17,50,27,47]],["Orgasm & anticipation",[5,38,18,25,37]],["Sensations & intensity",[10,35,51,69]],["Body fluids & sensory curiosities",[63,64,65,66,67,68]],["Body areas & touch",[31,33,34]],["Giving, receiving & activities",[13,41,42,16,40]],["Toys, aesthetics & adult media",[26,39,45,62]],["Power exchange & BDSM",[8,48,49,11,14,22]],["Watching & group experiences",[9,12,36,52,57,21,53,54,58,59,60]],["Relationship arrangements",[23,55]],["Atmosphere & shared attention",[24,46]],["Boundaries & safety",[19,20,28,56,61,29]],["Your interests & next steps",[30,32]]];
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined&&text!==null)node.textContent=String(text);if(cls)node.className=cls;return node;};
 const button=(text,cls,fn)=>{const node=el('button',text,cls);node.type='button';node.onclick=fn;return node;};
 const skipOption=o=>o.mediaGroup==='Preferences & boundaries'||/\b(none|neither|nothing|don't want|not interested|no preferred|no waiting|not sure|prefer not to)\b/i.test(o.text);
@@ -111,6 +111,14 @@ function render(ctx){
    };
    label.append(input,document.createTextNode(option.text));return label;
   };
+  // Certain questions retain their saved option indices while displaying broad
+  // sensory categories first, with specific interests nested naturally below.
+  const displayRows=Array.isArray(q.optionDisplayOrder)&&
+   q.optionDisplayOrder.length===q.options.length&&
+   new Set(q.optionDisplayOrder).size===q.options.length&&
+   q.optionDisplayOrder.every(i=>Number.isInteger(i)&&i>=0&&i<q.options.length)
+    ?q.optionDisplayOrder.map(i=>[q.options[i],i])
+    :q.options.map((option,i)=>[option,i]);
   if(q.dropdown){
    const dropdown=el('details',undefined,'quiz-media-dropdown');
    mediaSummary=el('summary',selected.size?selected.size+' categories selected · Edit':'Choose multiple categories');
@@ -142,7 +150,7 @@ function render(ctx){
    mediaContent.append(options);dropdown.append(mediaContent);inside.append(dropdown);
   }else{
    let latestHeading='';
-   q.options.forEach((option,i)=>{
+   displayRows.forEach(([option,i])=>{
     const heading=option.subheading||'';
     if(heading&&heading!==latestHeading)options.append(el('h4',heading,'quiz-group-option-subheading'));
     latestHeading=heading;
