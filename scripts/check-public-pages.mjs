@@ -117,6 +117,17 @@ if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
   console.error('The Other Drawer homepage must lead with Quiz and Ask Anything cards, without a top tab menu.');failures++;
 }
 
+// Category recommendations and opt-in partner introductions are mandatory export features.
+for(const file of ['dist/after-dark/discover-interests.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-discovery.css']){
+ if(!fs.existsSync(file)||!fs.statSync(file).size){console.error('Missing report/partner feature:',file);failures++;continue;}
+ if(file.endsWith('.js')){
+  try{new vm.Script(fs.readFileSync(file,'utf8'),{filename:file});}
+  catch(e){console.error('Broken partner or discovery script:',file,e.message);failures++;}
+ }
+}
+for(const token of ['discover-interests.js?v=','new-partner-report.js?v=','partner-discovery.css?v=','id="new-partner-report"']){
+ if(!afterDarkLanding.includes(token)){console.error('After Dark missing partner/discovery integration:',token);failures++;}
+}
 // The expanded developmental origins library must be shipped, with linked research.
 for(const file of ['dist/after-dark/origins-pathways.js','dist/after-dark/origins-pathways.css']){
  if(!fs.existsSync(file)||!fs.statSync(file).size){console.error('Missing origins-pathways library asset:',file);failures++;}
