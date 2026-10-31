@@ -108,7 +108,7 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
   }
 }
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
-if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
+if(!afterDarkLanding.includes('<section id="home" class="tab visible od-hub-home"') ||
    !afterDarkLanding.includes('<div class="afterdark-featured-grid"') ||
    !afterDarkLanding.includes('Curiosity Quiz') ||
    !afterDarkLanding.includes('Ask Anything') ||
