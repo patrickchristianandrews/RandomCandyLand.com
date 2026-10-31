@@ -290,7 +290,7 @@ try{
      "(()=>{const areas=document.querySelectorAll('#new-partner-report .new-partner-choices');return areas.length===2&&[...areas].every(x=>x.querySelector('input[type=checkbox]'))})()");
    await evaluate("(()=>{const n=document.querySelector('#new-partner-report');const fields=n.querySelectorAll('.new-partner-choice input');const toggles=n.querySelectorAll('.new-partner-toggle input');toggles[0].click();toggles[1].click();const details=n.querySelectorAll('.new-partner-choices');details.forEach(x=>x.querySelector('input')?.click());})()");
    await check('New partner report only discloses separately opted-in psych and sexual interests',
-     "(()=>{const x=window.AfterDarkNewPartnerReport.build();return x.textContent.includes('Some everyday answers I chose to show you')&&x.textContent.includes('Intimacy and what I choose to share')&&x.querySelectorAll('.partner-report-card').length>=3})()");
+     "(()=>{const x=window.AfterDarkNewPartnerReport.build();return x.textContent.includes('Some everyday answers I chose to show you')&&x.textContent.includes('Intimacy and what I choose to share')&&x.querySelectorAll('.partner-report-card').length===2})()");
    await check('Both personal and partner reports include the offline After Dark QR footer',
     "(()=>{const full=window.AfterDarkDetailedReport?.build?.(),partner=window.AfterDarkPartnerPDF?.build?.();return !!full?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&!!partner?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&partner.querySelector('.partner-report-cover')?.textContent.includes('Before you read')})()");
   await check('Partner report chooser defaults to protecting answers and private notes',
