@@ -1,8 +1,8 @@
 {
   "id": "/after-dark/",
-  "name": "After Dark Curiosity Atlas | Random Candy Land",
-  "short_name": "After Dark",
-  "description": "After Dark Curiosity Atlas — an independently installable Random Candy Land web app.",
+  "name": "The Other Drawer | Random Candy Land",
+  "short_name": "Other Drawer",
+  "description": "The Other Drawer — a discreet little corner of Random Candy Land.",
   "start_url": "/after-dark/",
   "scope": "/after-dark/",
   "display": "standalone",
