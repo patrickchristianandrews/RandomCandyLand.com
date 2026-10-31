@@ -113,7 +113,7 @@ function answer(question,context){
  }
  if(!first||first.score<2.8||(!first.major&&first.score<5)||(tokens.length>=3&&first.matched<Math.ceil(tokens.length/2)&&first.score<11)){
   const proposals=relevant.filter(x=>x.major&&x.score>=2.2).slice(0,3).map(x=>x.t.name);
-  if(proposals.length)return 'Do you mean '+proposals.join(', ')+'? Tell me which one, and we can dig into it.';
+  if(proposals.length && first?.major && first.score>=5 && tokens.length<=2)return 'I’m not sure. Did you mean '+proposals.join(', ')+'?';
   return 'I’m not sure which topic you mean. Try a keyword, or say it another way. Slang and everyday language are fine.';
  }
  const t=first.t;
