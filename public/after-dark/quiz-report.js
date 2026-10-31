@@ -205,7 +205,7 @@ function build(){
  const doc=el('div',undefined,'afterdark-detailed-report');
  doc.setAttribute('data-report-version','2');
  const cover=el('header',undefined,'report-cover');
- add(cover,'p','THE VELVET RABBIT HOLE · PERSONAL DISCOVERY','report-kicker');
+ add(cover,'p','THE OTHER DRAWER · PERSONAL DISCOVERY','report-kicker');
  add(cover,'h1','My Interests & Psychology Report');
  add(cover,'p','A specific, joined interpretation of your Sexual Preferences Quiz and Non-explicit Psychology Quiz — with the named interests, actual selected responses, psychological connections, and respectful discussion ideas.','report-lead');
  add(cover,'p','Prepared '+new Date(data.created).toLocaleDateString()+' · Private / for personal reflection','report-muted');
