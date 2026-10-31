@@ -64,7 +64,7 @@ function setStatus(message){
  if(feedback)feedback.textContent=message;
 }
 function friendlyTab(tab){
- return {'quiz':'Sexual Preferences Quiz','psych-quiz':'Psychology Quiz','howto':'Orgasm Guides','atlas':'Curiosity Atlas','psych':'Psychology Library','ideas':'Idea Lab','chat':'Ask Atlas','guide':'Resources','notebook':'My Notebook'}[tab]||'your reading';
+ return {'quiz':'Sexual Preferences Quiz','psych-quiz':'Psychology Quiz','howto':'Orgasm Guides','atlas':'Curiosity Cabinet','psych':'Psychology Library','ideas':'Idea Lab','chat':'The Whisper Line','guide':'Resources','notebook':'My Notebook'}[tab]||'your reading';
 }
 function goTo(tab){
  if(tab==='quiz'){DIRECT()?.resume?.();return;}
