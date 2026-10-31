@@ -117,6 +117,14 @@ if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
   console.error('The Other Drawer homepage must lead with Quiz and Ask Anything cards, without a top tab menu.');failures++;
 }
 
+// The homepage should accurately preview all three private PDF report types.
+if(!fs.existsSync('dist/after-dark/home-report-showcase.css')||
+   !afterDarkLanding.includes('od-home-report-showcase')||
+   !afterDarkLanding.includes('home-report-showcase.css?v=')||
+   !afterDarkLanding.includes('Getting to know me.')||
+   !afterDarkLanding.includes('Not for me')){
+ console.error('The Other Drawer homepage report explainer is missing or incomplete');failures++;
+}
 // Category recommendations and opt-in partner introductions are mandatory export features.
 for(const file of ['dist/after-dark/discover-interests.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-discovery.css']){
  if(!fs.existsSync(file)||!fs.statSync(file).size){console.error('Missing report/partner feature:',file);failures++;continue;}
