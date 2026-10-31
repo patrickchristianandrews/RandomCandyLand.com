@@ -156,8 +156,20 @@ jobs:
               -H "Cache-Control: no-cache" \
               "https://randomcandyland.com/release-id.txt?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
             if [[ "$current" == "$GITHUB_SHA" ]]; then
-              echo "::notice::LIVE WEBSITE VERIFIED: ${GITHUB_SHA}"
-              exit 0
+              drawer=$(curl --fail --silent --show-error --location --max-time 15 \
+                -H "Cache-Control: no-cache" \
+                "https://randomcandyland.com/after-dark/?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
+              drawer_css=$(curl --fail --silent --show-error --location --max-time 15 \
+                -H "Cache-Control: no-cache" \
+                "https://randomcandyland.com/after-dark/home-hub.css?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
+              if [[ "$drawer" == *'id="od-home-directory-heading"'* &&
+                    "$drawer" == *'od-home-directory-tile'* &&
+                    "$drawer" == *'Ask Atlas'* &&
+                    "$drawer_css" == *'od-home-directory-tile'* ]]; then
+                echo "::notice::LIVE AFTER DARK HOMEPAGE AND STYLES VERIFIED: ${GITHUB_SHA}"
+                exit 0
+              fi
+              echo "The main domain is current, but the After Dark homepage or styles are still stale."
             fi
             echo "Waiting for the new release to appear at the domain."
             sleep 6
