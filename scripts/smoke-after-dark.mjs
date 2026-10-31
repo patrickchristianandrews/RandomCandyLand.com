@@ -106,12 +106,12 @@ try{
 
   await check('No internal analytics or unchanged status copy is visible',"!/site analytics are enabled|quiz \(unchanged\)|are unchanged/i.test(document.body.innerText)");
   await check('Non-explicit quiz maps answers to specific Atlas interests independently',"window.AfterDarkPsychBridge?.recommend({answered:1,answers:{0:[0]}},topics)?.some(r=>r.x.name==='Slow build-up')");
-  await check('The Other Drawer features Quiz and The Whisper Line first',"document.querySelectorAll('.afterdark-featured-grid .card').length===2 && document.querySelector('.afterdark-featured-grid .card:first-child h3')?.textContent==='Curiosity Quiz' && document.querySelector('.afterdark-featured-grid .card:nth-child(2) h3')?.textContent==='The Whisper Line'");
+  await check('The Other Drawer features Quiz and Ask Anything first',"document.querySelectorAll('.afterdark-featured-grid .card').length===2 && document.querySelector('.afterdark-featured-grid .card:first-child h3')?.textContent==='Curiosity Quiz' && document.querySelector('.afterdark-featured-grid .card:nth-child(2) h3')?.textContent==='Ask Anything'");
   await check('After Dark describes all remaining sections in page body',"document.querySelectorAll('.afterdark-landing-grid .card').length===5 && document.querySelectorAll('.top [data-tab]').length===1");
   await evaluate("document.querySelector('.enter-after-dark').click()");
   await check('Featured Quiz call to action opens the Quiz',"document.querySelector('#quiz').classList.contains('visible')");
   await evaluate("document.querySelector('#home button[data-tab=chat]').click()");
-  await check('Featured Ask Atlas opens chat',"document.querySelector('#chat').classList.contains('visible')");
+  await check('Featured Ask Anything opens chat',"document.querySelector('#chat').classList.contains('visible')");
   await evaluate("document.querySelector('[data-tab=atlas]').click()");
   console.log('Atlas diagnostics:',await evaluate("JSON.stringify({count:document.querySelectorAll('#topicGrid .topic').length,all:document.querySelector('#allCount')?.textContent,script:typeof window.renderAtlas,errors:window.onerror?.toString().slice(0,100)||'none'})"),JSON.stringify(testErrors));
   await check('Atlas has 100+ working interest cards',"document.querySelectorAll('#topicGrid .topic').length>=100");
@@ -257,7 +257,7 @@ try{
   await check('Editorial PDF groups similar interests and retains concise evidence and reflection ideas',
     "(()=>{const r=window.AfterDarkDetailedReport?.build?.();const p=r?.querySelector('.report-interest');return !!r?.classList.contains('report-editorial') && r.querySelectorAll('.report-cluster').length>=2 && !!r.querySelector('.report-glance') && !!r.querySelector('.report-theme-chart') && !!p?.querySelector('.report-theme-pills') && p.textContent.includes('Sexual-preferences quiz') && p.textContent.includes('Non-explicit psychology quiz') && p.textContent.includes('Ideas to reflect on') && p.textContent.includes('Conversation starter') && p.querySelectorAll('.report-idea-list li').length>=2 && p.querySelectorAll('.report-evidence li').length>=1})()");
   await check('Both personal and partner reports include the offline After Dark QR footer',
-    "(()=>{const full=window.AfterDarkDetailedReport?.build?.(),partner=window.AfterDarkPartnerPDF?.build?.();return !!full?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&!!partner?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&partner.querySelector('.partner-report-cover')?.textContent.includes('Hello, you')})()");
+    "(()=>{const full=window.AfterDarkDetailedReport?.build?.(),partner=window.AfterDarkPartnerPDF?.build?.();return !!full?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&!!partner?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&partner.querySelector('.partner-report-cover')?.textContent.includes('Before you read')})()");
   await check('Partner report chooser defaults to protecting answers and private notes',
     "(()=>{const panel=document.querySelector('#quizCard .partner-pdf-chooser');const answers=panel?.querySelector('input[value=answers]');const notes=panel?.querySelector('input[value=notes]');const r=window.AfterDarkPartnerPDF?.build?.();return !!panel&&!!answers&&!answers.checked&&!!notes&&!notes.checked&&r.querySelectorAll('.partner-report-section').length===4&&!r.textContent.includes('My selected quiz answers')&&!r.textContent.includes('My own words')})()");
   await check('PDF includes all original answers, psychology suggestions, boundaries and readable print styling',
