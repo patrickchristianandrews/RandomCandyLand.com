@@ -15,7 +15,11 @@ const fields=[
  ['stress','When life gets overwhelming','What helps? Space, reassurance, a practical solution, a slower conversation?'],
  ['boundaries','My everyday boundaries and needs','Personal space, schedules, privacy, pacing, limits, accessibility or sensory preferences.'],
  ['relationship','What I hope for in a relationship','What does a mutually supportive and enjoyable relationship look like to you?'],
- ['fun','My quirks, favorite things, and little joys','Music, food, hobbies, unexpected habits, favorite experiences or a story that sums you up.']
+ ['fun','My quirks, favorite things, and little joys','Music, food, hobbies, unexpected habits, favorite experiences or a story that sums you up.'],
+ ['values','My values and priorities','What do you care about? What principles guide how you treat other people?'],
+ ['conflict','How I repair disagreements','What does accountability, an apology, listening and reconnecting look like for you?'],
+ ['pace','My preferred relationship pace','How quickly do you like to build closeness and share personal details?'],
+ ['support','What support looks like to me','When should someone offer reassurance, practical help, conversation or space?']
 ];
 const sexFields=[
  ['intimacy','What connection and intimacy mean to me','In your own words: the emotional qualities of intimacy you enjoy.'],
@@ -116,6 +120,9 @@ function content(){
   'What is something you love that another person might not immediately guess?',
   'What are the boundaries and privacy expectations we should respect?',
   'What would a relaxed, enjoyable day together look like?',
+   'When is a sincere apology most helpful, and what comes after it?',
+   'How do we each balance personal space with closeness?',
+   'What is a small habit or sensory preference you would like me to know?',
  ];
  if(showSex&&(selectedSex.size||sexFields.some(([id])=>String(draft['sex-'+id]||'').trim())))
   prompts.push('Is there anything about intimacy you would like to discuss, leave as fantasy, or keep private?');
