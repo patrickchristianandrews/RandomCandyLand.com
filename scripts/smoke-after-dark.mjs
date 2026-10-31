@@ -285,6 +285,9 @@ try{
    await evaluate("(()=>{const t=document.querySelector('#new-partner-introduction');t.value='I love a quiet morning and value direct communication.';t.dispatchEvent(new Event('input',{bubbles:true}));})()");
    await check('New partner report includes only chosen everyday content by default',
      "(()=>{const x=window.AfterDarkNewPartnerReport.build();return x.textContent.includes('quiet morning')&&!x.textContent.includes('Intimacy and what I choose to share')&&!x.textContent.includes('Some everyday answers I chose to show you')&&!x.textContent.includes('My selected quiz answers')})()");
+   await evaluate("document.querySelector('#new-partner-report .new-partner-actions button:last-child').click()");
+   await check('New partner report refreshes optional choices after quizzes are completed',
+     "(()=>{const areas=document.querySelectorAll('#new-partner-report .new-partner-choices');return areas.length===2&&[...areas].every(x=>x.querySelector('input[type=checkbox]'))})()");
    await evaluate("(()=>{const n=document.querySelector('#new-partner-report');const fields=n.querySelectorAll('.new-partner-choice input');const toggles=n.querySelectorAll('.new-partner-toggle input');toggles[0].click();toggles[1].click();const details=n.querySelectorAll('.new-partner-choices');details.forEach(x=>x.querySelector('input')?.click());})()");
    await check('New partner report only discloses separately opted-in psych and sexual interests',
      "(()=>{const x=window.AfterDarkNewPartnerReport.build();return x.textContent.includes('Some everyday answers I chose to show you')&&x.textContent.includes('Intimacy and what I choose to share')&&x.querySelectorAll('.partner-report-card').length>=3})()");
