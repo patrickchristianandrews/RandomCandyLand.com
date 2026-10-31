@@ -125,7 +125,7 @@ function acceptSync(packet){
 }
 function connect(){
  const code=$('code').value.trim().toLowerCase().replace(/[\s-]+/g,'');
- if(!/^([a-f0-9]{12}|[a-f0-9]{20})$/.test(code)){status('Enter the exact 20-character code from Pulse on your phone.');return;}
+ if(!/^[a-f0-9]{20}$/.test(code)){status('Enter the exact 20-character code from Pulse on your phone.');return;}
  if(!window.WebSocket||!g){status('This TV browser needs WebSocket and Canvas support. Use Android screen mirroring instead.');return;}
  disconnect();running=false;frame=null;window.CandyPulseGeometry.reset();
  $('overlay').hidden=false;status('Connecting to your phone…');
@@ -164,7 +164,7 @@ window.addEventListener('resize',resize);
 window.addEventListener('pagehide',disconnect,{once:true});
 resize();raf=requestAnimationFrame(draw);
 const codeFromLink=location.hash.slice(1);
-if(/^([a-f0-9]{12}|[a-f0-9]{20})$/i.test(codeFromLink)){
+if(/^[a-f0-9]{20}$/i.test(codeFromLink)){
  $('code').value=codeFromLink;connect();
 }
 </script></body></html>
