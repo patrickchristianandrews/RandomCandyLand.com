@@ -101,6 +101,7 @@
  load();
  window.AfterDarkPsychQuizBridge=Object.freeze({
   getProgress:state,render,open,revise,restart,
+  goToQuestion:index=>{if(!Number.isInteger(index)||index<0||index>=questions.length)return false;position=index;preview=false;save();open();return true},
   exportState:()=>({position,answers:{...answers},notes:{...notes}}),
   importState:value=>{
    if(!value||typeof value!=='object'||Array.isArray(value))return false;
