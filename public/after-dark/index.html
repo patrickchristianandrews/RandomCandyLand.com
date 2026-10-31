@@ -1432,11 +1432,11 @@ function respond(question){
  if(/\b(wrong|bad|sick|ill|broken|abnormal)\b/.test(lower)&&/\b(kink|fetish|sexual|sex|i am|am i)\b/.test(lower))
    return 'Having a consensual interest does not, on its own, make someone ill or defective. Distress, impairment, or harm/nonconsent are different concerns. You can reflect on your values and boundaries without judging yourself. If an interest causes ongoing distress, a qualified nonjudgmental clinician may help.';
  if(/\b(who are you|diagnos|predict my|tell me my fetish)\b/i.test(lower))
-   return 'I'm Atlas. Ask me about an interest, something in your report, or a conversation you're trying to have. We'll take it one question at a time.';
+   return `I'm Atlas. Ask me about an interest, something in your report, or a conversation you're trying to have. We'll take it one question at a time.`;
  if(/\b(talk|tell|discuss|bring up|ask my partner|communicat|disclose|explain)\b/i.test(lower)&&/\b(partner|boyfriend|girlfriend|wife|husband|relationship|someone|interest|want)\b/i.test(lower)){
    const contextual=window.AtlasFlexibleSearch?.answer(str,{topics,faqs:DB.faqs});
    if(contextual)return contextual;
-   return 'Try: “There's something I'd like to talk about. No pressure to do anything—would you be open to hearing it?”\n\nExplain what interests you, then ask how they feel. Give them room to say no or think it over.';
+   return `Try: “There's something I'd like to talk about. No pressure to do anything—would you be open to hearing it?”\n\nExplain what interests you, then ask how they feel. Give them room to say no or think it over.`;
  }
  const originAnswer=window.AfterDarkOrigins?.answer(str);
  if(originAnswer)return originAnswer;
@@ -1449,7 +1449,7 @@ function respond(question){
  const flexible=window.AtlasFlexibleSearch?.answer(str,{topics,faqs:DB.faqs});
  if(flexible)return flexible;
  const q=askTokens(lower);
- if(!q.length)return 'What's on your mind? A few words are fine.';
+ if(!q.length)return `What's on your mind? A few words are fine.`;
  const scored=knowledge.map(k=>{
    const titleTokens=askTokens(k.q),titleSet=new Set(titleTokens),overlap=q.filter(word=>titleSet.has(word)).length;
    const exact=askNormalize(k.q)===lower;
@@ -1460,10 +1460,10 @@ function respond(question){
  const best=scored[0];
  // Refuse one-word accidental overlaps in longer questions; no invented relevance.
  if(!best || (!best.phrase&&!best.exact&&best.overlap<2 && q.length>1)){
-   return 'I'm not sure which topic you mean. Try saying it another way, or give me a keyword.';
+   return `I'm not sure which topic you mean. Try saying it another way, or give me a keyword.`;
  }
  const personal=/\b(why|i enjoy|i like|i love|reason|appeal)\b/i.test(lower);
- return (personal?'Here's one way to look at it:\n\n':'')+best.k.q+'\n\n'+best.k.a+'\n\n'+(personal?'Does that sound like your experience, or is it something else?':'What's the part you'd like to go into?');
+ return (personal?`Here's one way to look at it:\n\n`:'')+best.k.q+'\n\n'+best.k.a+'\n\n'+(personal?'Does that sound like your experience, or is it something else?':`What's the part you'd like to go into?`);
 }
 function addChat(text,user=false){const b=elText('div',text,'bubble'+(user?' user':''));$('chatWindow').append(b);$('chatWindow').scrollTop=$('chatWindow').scrollHeight;}
 let lastAtlasTopic='';
