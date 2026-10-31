@@ -116,7 +116,8 @@ function build(){
  }
  if(selected.has('conversations')){
   const s=section(root,'Things we could chat about','There is nothing we have to decide after reading this.');
-  const identifiedItems=identified(d).slice(0,8);
+  // Avoid revealing named interests through conversation prompts when the interests section is excluded.
+  const identifiedItems=selected.has('interests')?identified(d).slice(0,8):[];
   for(const x of identifiedItems){
    const c=topic(s,x.name,'A conversation starter');
    bullets(c,['What about this topic interests or puzzles us?', 'Would either of us prefer it to stay a fantasy or just an idea?']);
