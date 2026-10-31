@@ -181,7 +181,7 @@
     area.append(item('p',pack.intro||'I would appreciate you hearing the meaning behind these interests. There is no obligation to agree or participate.'));
     area.append(item('p','💛 You can listen without agreeing, ask questions, take more time, or respectfully decline. This is not consent to any activity.','notebook-help'));
     area.append(item('h3','📖 Want to understand before you reply?'));
-    area.append(item('p','The Whisper Line about why someone might find an interest meaningful, what a word means, or how to talk about it respectfully. The guide uses an on-device topic library and never sends a question to the person who invited you.'));
+    area.append(item('p','Have a question before you respond? Ask about a topic, what someone might find appealing, or how to start a respectful conversation. The reference guide stays on your device and never sends your question to the person who invited you.'));
     const openAsk=(question)=>{
       document.querySelector('[data-tab=chat]')?.click();
       const input=$('chatText');if(!input)return;
@@ -189,14 +189,14 @@
       $('askForm')?.requestSubmit();
       input.focus();
     };
-    area.append(button('💬 The Whisper Line how to listen and respond',()=>openAsk('How do I talk respectfully to my partner about an interest they shared?'),'btn alt'));
+    area.append(button('Ask how to start the conversation',()=>openAsk('How do I talk respectfully to my partner about an interest they shared?'),'btn alt'));
     for(const x of pack.items){
       const block=item('article','','partner-interest');
       block.append(item('h3',x.title),item('p',x.description));
       if(x.meaning)block.append(item('p','💗 Why it matters: '+x.meaning));
       if(x.boundary)block.append(item('p','🛑 Boundaries: '+x.boundary));
       if(x.request)block.append(item('p','💬 How to respond: '+x.request));
-      block.append(button('❓ The Whisper Line why this might appeal to someone',()=>openAsk('Why might someone enjoy '+x.title+' and how do I discuss it with my partner?'),'btn alt'));
+      block.append(button('Ask what makes this interesting',()=>openAsk('Why might someone enjoy '+x.title+' and how do I discuss it with my partner?'),'btn alt'));
       area.append(block);
     }
     const panel=item('div','','partner-accept');panel.append(item('h3','How do you feel about talking?'),item('p','Choose a response that respects both people. No response is sent automatically.'));
