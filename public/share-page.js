@@ -77,10 +77,11 @@ function install(){
   if(bar){const menu=document.getElementById('od-bookmark-menu');const btn=makeButton(true);if(menu)bar.insertBefore(btn,menu);else bar.append(btn);}
   return;
  }
+ // Float one compact control rather than inserting a full-width header row.
+ // The previous extra row appeared as a dark/black bar above site content.
  const strip=document.createElement('div');strip.className='rcl-share-strip';strip.setAttribute('role','region');strip.setAttribute('aria-label','Page sharing');
- strip.append(makeButton());const head=document.querySelector('.candyland-navbar,header.candyland-game-site-header,header.top,header.site-header,header.header,header');
- if(head?.parentElement)head.insertAdjacentElement('afterend',strip);
- else (document.querySelector('main')||document.body).prepend(strip);
+ strip.append(makeButton());
+ document.body.append(strip);
 }
 function openTopicLink(){
  if(!/^\/after-dark(?:\/|\/index\.html)?$/i.test(location.pathname))return;
