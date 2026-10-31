@@ -16,7 +16,7 @@ This is the **current source repository**, not a bundle of historic deployments.
 | Original larger talking Pocket Pet | `src/pages/TrumpGotchaPage.tsx` and related `src/components`, `src/hooks`, `src/utils`, `src/types` |
 | Pixel-art Trumpagotchi Tiny Pet | `public/trumpagotchi-fm1/index.html`, `game.js`, `fm1-pixel-screen.js`, `melody.js`, `game.css` |
 | Standalone attractions | `public/goo-rush/`, `public/candy-simon/`, `public/candy-match/`, `public/music-visualizer/` |
-| Curiosity Atlas and psychology lab | `public/after-dark/` including `psychology-lab/` |
+| The Other Drawer and psychology lab | `public/after-dark/` including `psychology-lab/` |
 | Shared public sound files | `public/audio/trump/` — do not recreate root `audio/` |
 | Site image, logos, icon master files | `public/random-candy-land-art.webp`, `public/icon*`, `public/apple-touch-icon.png` |
 | Mobile install script, service worker and manifests | `public/install-app.js`, `public/sw.js`, `public/manifest.json`, `public/app-manifests/` |
