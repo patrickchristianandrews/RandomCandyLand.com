@@ -3,10 +3,10 @@
 const ID='rcl-share-page';
 const sections=new Set(['home','atlas','quiz','psych-quiz','psych','ideas','chat','howto','guide','notebook']);
 function itemURL(kind,id){
- if(!['guide','topic'].includes(kind)||!/^[a-z0-9-]{1,80}$/.test(String(id||'')))return null;
+ if(!['guide','topic','origin'].includes(kind)||!/^[a-z0-9-]{1,80}$/.test(String(id||'')))return null;
  const url=new URL('/after-dark/',location.origin);
  url.searchParams.set(kind,id);
- url.hash=kind==='guide'?'howto':'atlas';
+ url.hash=kind==='guide'?'howto':kind==='origin'?'psych':'atlas';
  return url.href;
 }
 function cleanURL(){
