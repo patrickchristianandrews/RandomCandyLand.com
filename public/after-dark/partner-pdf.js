@@ -42,7 +42,7 @@ function build(){
  if(!selected.size)throw Error('Choose at least one section to share.');
  const root=make('div',undefined,'afterdark-detailed-report report-editorial partner-pdf-report');
  const cover=make('header',undefined,'partner-report-cover');
- add(cover,'p','THE OTHER DRAWER · A NOTE FROM ME','partner-report-eyebrow');
+ add(cover,'p','THE OTHER DRAWER · WHAT DESIRES REVEAL ABOUT US','partner-report-eyebrow');
  add(cover,'h1','A little more about me');
  add(cover,'p','A thoughtful invitation to learn about each other.','partner-report-subtitle');
  add(cover,'h2','Hello, you. ♡');
