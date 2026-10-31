@@ -6,12 +6,12 @@ const data=()=>window.AfterDarkCanonicalReport?.buildData?.();
 const make=(tag,value,cls)=>{const n=document.createElement(tag);if(value!==undefined)n.textContent=String(value);if(cls)n.className=cls;return n};
 const add=(to,tag,value,cls)=>{const n=make(tag,value,cls);to.append(n);return n};
 const menu=[
- ['overview','A little overview','A gentle introduction to the results'],
+ ['overview','The highlights','A quick look at my answers'],
  ['interests','Interests I picked','Topics I marked or specifically selected'],
- ['themes','The themes behind my answers','A colorful picture of the big patterns'],
+ ['themes','The themes behind my answers','The patterns that stood out'],
  ['ideas','Ideas worth a peek','Possible interests to read about'],
  ['connections','How the two quizzes connect','Themes shared between both quizzes'],
- ['conversations','Things to chat about','Conversation ideas and friendly prompts'],
+ ['conversations','Conversation starters','Conversation ideas and friendly prompts'],
  ['boundaries','My comfort zones','Stated intentions and boundaries'],
  ['answers','My exact quiz answers','Selected options, without personal notes'],
  ['notes','My personal notes','Private written reflections, included only if checked']
@@ -43,24 +43,24 @@ function build(){
  const root=make('div',undefined,'afterdark-detailed-report report-editorial partner-pdf-report');
  const cover=make('header',undefined,'partner-report-cover');
  add(cover,'p','THE OTHER DRAWER · WHAT DESIRES REVEAL ABOUT US','partner-report-eyebrow');
- add(cover,'h1','A little more about me');
- add(cover,'p','A thoughtful invitation to learn about each other.','partner-report-subtitle');
- add(cover,'h2','Hello, you. ♡');
- add(cover,'p','I picked out a few pages from my Other Drawer results that I thought you might enjoy reading. They can help explain some of my curiosities, the things that matter to me, and a few ideas I might want to talk about. Some are interests I chose myself; others are just possibilities worth a peek.');
- add(cover,'p','There is no pressure to agree, try anything, or even have an answer right away. We can talk, ask questions, laugh, skip a topic, or say no. I hope this feels like a gentle invitation to understand me a little better.');
+ add(cover,'h1','Something I wanted to share');
+ add(cover,'p','A conversation, not a checklist.','partner-report-subtitle');
+ add(cover,'h2','Before you read');
+ add(cover,'p','I chose these pages because they say something about what catches my attention. Some are interests I know; others are ideas I am still thinking about. I wanted you to have the context, not just the headlines.');
+ add(cover,'p','No expectations attached. We can talk about whatever stands out, ask each other questions, or leave a topic right here.');
  const note=noteBox?.value?.trim();
  if(note){
   const c=make('div',undefined,'partner-report-personal-note');
-  add(c,'strong','A little note, just for you');
+  add(c,'strong','In my own words');
   add(c,'p',note.slice(0,900));cover.append(c);
  }
- add(cover,'p','Only the pages I chose are in this copy.','partner-pdf-muted');
+ add(cover,'p','This copy contains only the sections I chose to share.','partner-pdf-muted');
  root.append(cover);
  const toc=make('div',undefined,'partner-report-contents');
  add(toc,'h2','What’s inside');
  bullets(toc,menu.filter(x=>selected.has(x[0])).map(x=>x[1]));root.append(toc);
  if(selected.has('overview')){
-  const s=section(root,'At a glance','A little context about the questions I answered.');
+  const s=section(root,'The highlights','A quick look at the questions I answered.');
   const stats=make('div',undefined,'partner-summary-tiles');
   for(const [value,label] of [[d.direct.answered+'/'+d.direct.questions.length,'Preferences answered'],[d.psych.answered+'/'+d.psych.questions.length,'Psychology answered'],[identified(d).length,'Interests I named']]){
    const c=make('div',undefined,'partner-summary-tile');add(c,'strong',value);add(c,'span',label);stats.append(c);
@@ -84,7 +84,7 @@ function build(){
   }
  }
  if(selected.has('themes')){
-  const s=section(root,'The themes behind my answers','This little color map shows which ideas came up most in my responses.');
+  const s=section(root,'The themes behind my answers','These themes came up most often in my responses.');
   const values=Object.entries(d.axes?.combined||{}).filter(([k,v])=>v>0&&d.lenses?.[k]).sort((a,b)=>b[1]-a[1]).slice(0,7);
   const max=values[0]?.[1]||1;
   for(const [key,value] of values){
@@ -188,8 +188,8 @@ function mount(parent){
  if(!parent||parent.querySelector('.partner-pdf-chooser'))return;
  panel=make('section',undefined,'partner-pdf-chooser');
  add(panel,'span','A COPY FOR YOUR PARTNER','eyebrow');
- add(panel,'h3','Share a little, or share a lot. ♡');
- add(panel,'p','Make a special PDF for someone you care about. Choose exactly what they can read. Your private notes stay out unless you invite them in.');
+ add(panel,'h3','Choose what they get to see.');
+ add(panel,'p','Choose the sections you want someone to read. Private answers and personal notes stay out unless you include them.');
  const disclosure=make('details',undefined,'partner-pdf-options');
  const summary=make('summary','Choose sections for my partner’s PDF');
  disclosure.append(summary);
@@ -203,9 +203,9 @@ function mount(parent){
  }
  disclosure.append(options);panel.append(disclosure);
  const counter=make('p',selected.size+' sections selected','partner-pdf-count');panel.append(counter);
- add(panel,'label','An optional hello from you','partner-pdf-note-label');
+ add(panel,'label','Add your own note (optional)','partner-pdf-note-label');
  noteBox=make('textarea');noteBox.rows=2;noteBox.maxLength=900;
- noteBox.placeholder='A little note to make this feel like you (optional)…';
+ noteBox.placeholder='Anything you want to say in your own words…';
  noteBox.setAttribute('aria-label','Optional note at the beginning of your partner report');panel.append(noteBox);
  const actions=make('div',undefined,'partner-pdf-actions');
  const preview=make('button','👀 Preview their PDF','btn alt');preview.type='button';preview.onclick=renderPreview;
