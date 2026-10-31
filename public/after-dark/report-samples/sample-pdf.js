@@ -254,52 +254,61 @@ function buildPdf(report){
  for(const t of wrap(report.lead,10,RIGHT-LEFT-28)){text(LEFT+12,leadY,t,10,false,[.28,.19,.31]);leadY-=16;}
  y-=106;
  for(const [title,paras] of report.sections){heading(title);for(const p of paras)paragraph(p);}
- // Every sample closes with a dedicated QR / methodology page.
+ // The last page is a PUBLIC flyer, intentionally separate from personal results.
  nextPage();
- text(LEFT,713,'THE METHOD BEHIND YOUR RESULTS',10,true,[.60,.33,.50]);
- text(LEFT,681,'How The Other Drawer works',22,true,[.32,.17,.37]);
- for(const [i,t] of wrap('This adult educational site helps you reflect on what you selected and what it may mean to you. Scan the code below to explore the quizzes, guides and full methodology.',10,505).entries())
-   text(LEFT,650-i*15,t,10,false,[.35,.27,.39]);
- const methods=[
-  ['01 / Your direct choices','The 69-question preferences quiz records named interests, fantasy-only choices, curiosity, intentions and boundaries.'],
-  ['02 / Everyday psychology','The 32-question nonsexual quiz asks about trust, attention, relationships, sensory details and other everyday themes.'],
-  ['03 / Shared editorial themes','Answers map to themes such as sensation or anticipation. The report shows overlapping and different answers, not forced agreement.'],
-  ['04 / Your report, your choice','Your private report explains selected themes; optional partner reports share only what you choose to include.']
+ commands.push('.23 .12 .30 rg 0 590 612 165 re f');
+ commands.push('.45 .26 .47 rg 510 604 150 150 re f');
+ text(LEFT,722,'RANDOM CANDY LAND PRESENTS',9,true,[.98,.79,.89]);
+ text(LEFT,677,'THE OTHER DRAWER',30,true,[1,.96,1]);
+ text(LEFT,649,'EXPLORE  /  REFLECT  /  CONNECT',11,true,[.97,.76,.87]);
+ text(LEFT,620,'An adults-only space for curiosity and meaningful connection.',10,false,[.99,.90,.98]);
+ text(LEFT,562,'Curious about what makes you, you?',20,true,[.35,.20,.42]);
+ const opening='Explore interests and everyday psychology, understand your own boundaries, and find new ways to communicate in relationships. Everything starts with your choices.';
+ wrap(opening,10.3,500).forEach((part,i)=>text(LEFT,541-15*i,part,10.3,false,[.36,.27,.41]));
+ const promos=[
+  ['FOR YOURSELF','Learn your patterns','Explore curiosities, feelings','and boundaries at your pace.'],
+  ['FOR COUPLES','Connect more deeply','Talk about needs, comfort','and how you feel understood.'],
+  ['FOR NEW PARTNERS','Get to know each other','Share communication styles,','values and everyday needs.']
  ];
- methods.forEach(([title,body],i)=>{
-   const x=i%2===0?LEFT:LEFT+260, cy=i<2?475:356, w=249,h=106;
-   commands.push('.968 .948 .974 rg '+x+' '+cy+' '+w+' '+h+' re f');
-   commands.push('.81 .66 .79 RG 0.7 w '+x+' '+cy+' '+w+' '+h+' re S');
-   commands.push('.69 .37 .57 rg '+x+' '+(cy+h-6)+' '+w+' 6 re f');
-   text(x+13,cy+h-28,title,11,true,[.37,.20,.44]);
-   wrap(body,8.5,w-28).slice(0,5).forEach((t,j)=>text(x+13,cy+h-48-j*12,t,8.5,false,[.35,.28,.40]));
+ promos.forEach(([label,head,a,b],i)=>{
+  const x=51+i*174, yy=388, ww=161,hh=105;
+  commands.push('.969 .939 .975 rg '+x+' '+yy+' '+ww+' '+hh+' re f');
+  commands.push('.79 .66 .79 RG 0.8 w '+x+' '+yy+' '+ww+' '+hh+' re S');
+  commands.push('.72 .42 .61 rg '+x+' '+(yy+hh-5)+' '+ww+' 5 re f');
+  text(x+10,yy+hh-23,label,8,true,[.54,.28,.46]);
+  text(x+10,yy+hh-44,head,12.2,true,[.35,.20,.41]);
+  text(x+10,yy+hh-65,a,8.4,false,[.34,.29,.39]);
+  text(x+10,yy+hh-80,b,8.4,false,[.34,.29,.39]);
  });
- commands.push('.95 .91 .96 rg '+LEFT+' 105 509 237 re f');
- commands.push('.69 .42 .59 rg '+LEFT+' 105 4 237 re f');
- text(LEFT+15,319,'How to interpret the results',13,true,[.33,.17,.39]);
- const cautions=[
-  'Theme matches and relative scores are editorial,',
-  'not statistical probabilities, validated diagnoses,',
-  'proof of a preference\'s origin or predictions of',
-  'compatibility or enjoyment.',
-  '',
-  'Your explicit Not for me choices override',
-  'general suggestions. Theme-only ideas remain',
-  'unconfirmed until you choose them yourself.',
-  '',
-  'PDFs are created on your device. Always review',
-  'personal information before sharing a saved copy.'
+ commands.push('.98 .96 .98 rg '+LEFT+' 256 509 120 re f');
+ commands.push('.80 .67 .81 RG .7 w '+LEFT+' 256 509 120 re S');
+ text(LEFT+13,355,'HOW THE PROGRAM WORKS',11,true,[.41,.21,.48]);
+ const explanation=[
+   'Two connected quizzes - 69 specific-preference questions and',
+   '32 nonsexual psychology questions - organize your own answers',
+   'into themes such as trust, sensation, affirmation and imagination.',
+   'The program creates a detailed personal report, an optional',
+   'selective partner PDF, and a new-partner introduction.',
+   'Results guide reflection; they are not diagnoses or probabilities.'
  ];
- cautions.forEach((t,j)=>{if(t)text(LEFT+15,296-j*14,t,8.9,false,[.35,.25,.40]);});
- const qx=424,qy=166,side=122,n=QR_ROWS.length,moduleSize=side/n;
- commands.push('1 1 1 rg '+(qx-7)+' '+(qy-8)+' '+(side+14)+' '+(side+16)+' re f');
+ explanation.forEach((t,i)=>text(LEFT+13,333-14*i,t,9.5,false,[.37,.29,.41]));
+ commands.push('.28 .15 .35 rg '+LEFT+' 83 509 162 re f');
+ text(LEFT+15,224,'PASS THE CURIOSITY ON',10,true,[.97,.77,.87]);
+ text(LEFT+15,195,'Know someone who might enjoy this?',15,true,[1,.96,1]);
+ [
+  'Give this page to a friend, or scan the code to',
+  'discover The Other Drawer for yourself.',
+  '',
+  'Explore privately. Share only what you choose.',
+  'A partner never receives answers automatically.'
+ ].forEach((t,i)=>{if(t)text(LEFT+15,170-17*i,t,9.3,false,[.97,.89,.97]);});
+ const qx=417,qy=103,side=118,n=QR_ROWS.length,moduleSize=side/n;
+ commands.push('1 1 1 rg '+(qx-9)+' '+(qy-9)+' '+(side+18)+' '+(side+18)+' re f');
  commands.push('0 0 0 rg');
  for(let row=0;row<n;row++)for(let col=0;col<n;col++)if(QR_ROWS[row][col]==='1')
     commands.push((qx+col*moduleSize).toFixed(3)+' '+(qy+(n-row-1)*moduleSize).toFixed(3)+' '+(moduleSize+.035).toFixed(3)+' '+(moduleSize+.035).toFixed(3)+' re f');
- text(438,309,'SCAN THE SITE',9,true,[.36,.19,.43]);
- text(421,141,'randomcandyland.com',8,true,[.37,.24,.45]);
- text(442,129,'/after-dark/',8,true,[.37,.24,.45]);
- text(LEFT,83,'THE OTHER DRAWER  |  WHAT DESIRES REVEAL ABOUT US',8,true,[.62,.41,.55]);
+ text(425,232,'SCAN TO EXPLORE',9,true,[1,.97,1]);
+ text(408,94,'randomcandyland.com/after-dark/',7.8,true,[1,.94,1]);
  pages.push(commands.join('\n'));
  const objs=[''];
  const put=s=>{objs.push(s);return objs.length-1;};
