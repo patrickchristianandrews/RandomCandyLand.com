@@ -214,5 +214,6 @@ function mount(parent){
  previewArea=make('div',undefined,'partner-pdf-preview');previewArea.hidden=true;panel.append(previewArea);
  parent.append(panel);
 }
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-partner-report'));
 window.AfterDarkPartnerPDF=Object.freeze({mount,build,print,menu:menu.map(x=>x.slice(0,2))});
 })();
