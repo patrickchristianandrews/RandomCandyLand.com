@@ -1348,7 +1348,7 @@ function respond(question){
  if(/\b(wrong|bad|sick|ill|broken|abnormal)\b/.test(lower)&&/\b(kink|fetish|sexual|sex|i am|am i)\b/.test(lower))
    return 'Having a consensual interest does not, on its own, make someone ill or defective. Distress, impairment, or harm/nonconsent are different concerns. You can reflect on your values and boundaries without judging yourself. If an interest causes ongoing distress, a qualified nonjudgmental clinician may help.';
  if(/\b(who are you|diagnos|predict my|tell me my fetish)\b/i.test(lower))
-   return 'I'm your friendly After Dark library guide. I can explain topics, offer thoughtful questions, and help you discover what feels meaningful to you. Only you get to decide what fits.';
+   return 'I’m your friendly After Dark library guide. I can explain topics, offer thoughtful questions, and help you discover what feels meaningful to you. Only you get to decide what fits.';
  if(/\b(talk|tell|discuss|bring up|ask my partner|communicat|disclose|explain)\b/i.test(lower)&&/\b(partner|boyfriend|girlfriend|wife|husband|relationship|someone|interest|want)\b/i.test(lower)){
    const contextual=window.AtlasFlexibleSearch?.answer(str,{topics,faqs:DB.faqs});
    if(contextual)return contextual;
