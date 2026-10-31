@@ -96,6 +96,71 @@
   chart(wrap,data);
   overview.insertBefore(wrap,overview.children[2]||null);
  }
+ function insightAndAgreement(doc,data){
+  const overview=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('01'));
+  const top=Object.entries(data.axes?.combined||{}).filter(([k,v])=>v>0&&data.lenses?.[k])
+   .sort((a,b)=>b[1]-a[1]).slice(0,3);
+  if(overview){
+   const intro=make('div','report-insight');
+   appendKicker(intro,'YOUR PERSONAL INTERPRETATION');
+   intro.append(make('h3','',top.length?'What stands out from your answers':'A first look at your answers'));
+   if(top.length){
+    const labels=top.map(([k])=>data.lenses[k].label.toLowerCase());
+    intro.append(make('p','', 'Your answers repeatedly touch on '+labels.join(', ')+'. These are themes in what you selected, not claims about what caused any interest.'));
+   }
+   const direct=(data.interests||[]).filter(x=>x.directSelection||x.specificSelected).slice(0,3);
+   if(direct.length)intro.append(make('p','', 'You have directly named or marked '+direct.map(x=>x.name.toLowerCase()).join(', ')+'. Your own stated intentions carry more weight than any theme-only match.'));
+   else intro.append(make('p','', 'No particular interest has yet been directly named or marked. Any interests further in this report are topics to read about, not preferences inferred about you.'));
+   if(data.direct.answered>0&&data.psych.answered>0){
+    intro.append(make('p','', 'The second questionnaire adds everyday context. When it overlaps with a chosen interest, it helps you ask a better question about meaning—without turning that overlap into a diagnosis.'));
+   }else intro.append(make('p','', 'This is a partial interpretation. You can still finish either quiz and generate an updated report.'));
+   overview.insertBefore(intro,overview.querySelector('.report-glance')||overview.children[2]||null);
+  }
+  const map=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('03'));
+  if(!map)return;
+  const comparison=make('div','report-comparison');
+  appendKicker(comparison,'SIDE BY SIDE · YOUR ACTUAL ANSWERS');
+  comparison.append(make('h3','','What each quiz contributed'));
+  const pairs=[];
+  for(let i=0;i<data.psych.questions.length;i++){
+   const psych=data.psych.questions[i],direct=data.direct.questions.find(q=>q.coreId===i+1);
+   if(!psych?.selected?.length||!direct?.selected?.length)continue;
+   const shared=[...new Set(direct.selected.flatMap(a=>a.axes||[]))]
+    .filter(tag=>psych.selected.some(b=>(b.axes||[]).includes(tag)));
+   pairs.push({direct,psych,shared});
+  }
+  const both=pairs.filter(x=>x.shared.length);
+  const different=pairs.filter(x=>!x.shared.length);
+  comparison.append(make('p','',pairs.length?
+   both.length+' of '+pairs.length+' corresponding answered pairs share at least one coded theme. This counts overlap in the site’s categories; it is not a validity score or a probability of desire.':
+   'Not enough matching answers have been provided to compare the quizzes yet.'));
+  const sub=make('div','report-comparison-columns');
+  const directTile=make('div','report-comparison-tile');
+  directTile.append(make('strong','','Sexual Preferences Quiz'),make('p','','Captures named interests, specific activities, self-reported intention, fantasy-only choices and personal boundaries.'));
+  const psychTile=make('div','report-comparison-tile');
+  psychTile.append(make('strong','','Everyday Psychology Quiz'),make('p','','Adds nonsexual answers about trust, attention, anticipation, sensation, roles and context. It does not create a new sexual preference.'));
+  sub.append(directTile,psychTile);comparison.append(sub);
+  const chosen=[...both.slice(0,3),...different.slice(0,1)];
+  for(const p of chosen){
+   const row=make('article','report-comparison-pair');
+   const source=make('div');
+   source.append(make('strong','','Direct: Q'+p.direct.number),make('p','',(p.direct.selected||[]).map(x=>x.text).join(' / ').slice(0,230)));
+   const reflected=make('div');
+   reflected.append(make('strong','','Psychology: Q'+p.psych.number),make('p','',(p.psych.selected||[]).map(x=>x.text).join(' / ').slice(0,230)));
+   row.append(source,reflected);
+   row.append(make('small','',p.shared.length?'Shared coded themes: '+p.shared.map(t=>data.lenses?.[t]?.label||t).join(', '):'Different emphasis: no shared coded theme in this pair. That is not a contradiction.'));
+   comparison.append(row);
+  }
+  const boundary=(data.direct.specificSelections||[]).filter(x=>x.intent==='fantasy').slice(0,4);
+  if(boundary.length){
+   const b=make('div','report-intentions');
+   b.append(make('strong','','Fantasy-only selections remain fantasy-only'));
+   b.append(make('p','',boundary.map(x=>x.text).join(' · ').slice(0,320)));
+   comparison.append(b);
+  }
+  comparison.append(make('p','report-muted','Directly selected interests and explicit Not for me choices always override broader thematic associations. A mismatch is a question to consider, not an error to conceal.'));
+  map.append(comparison);
+ }
  function pruneRepeated(article,item,data){
   article.classList.add('report-interest-compact');
   // Keep short, specific supporting explanations beside each selected theme.
@@ -236,6 +301,7 @@
    cover.insertBefore(art,cover.firstChild);
   }
   glance(doc,data);
+  insightAndAgreement(doc,data);
   groupProfiles(doc,data);
   abbreviateSuggestions(doc);
   if(window.AfterDarkReportQR?.create)doc.append(window.AfterDarkReportQR.create());
