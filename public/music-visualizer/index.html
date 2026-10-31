@@ -53,6 +53,11 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 #tv-code{font:bold 21px ui-monospace,monospace;word-break:break-all;color:#fff0a8;letter-spacing:.06em}
 #tv-link{display:block;width:100%;min-width:0;max-width:100%;padding:9px;border-radius:10px;background:#0b0920;border:1px solid #8270a9;color:#e3d7f8;margin:10px 0}
 #tv-status{color:#bbf3ff;min-height:32px;font-size:13px}
+#airplay-help{margin-top:12px;padding:14px 16px;border:1px solid #806488;border-radius:14px;background:#21192fcc;color:#f6eaff}
+#airplay-help[hidden],#airplay-pick[hidden]{display:none!important}
+#airplay-help p{margin:8px 0;font-size:13px;line-height:1.6}
+#airplay-help .row{margin:12px 0 4px}
+#airplay-status{color:#c8efff}
 @media(max-width:700px){.cast-grid{grid-template-columns:1fr}.stage-ui{align-items:flex-end;flex-wrap:wrap}.stage-ui .pill{flex:1}}
 /* Show the real visualizer first, not an introductory panel. */.stage{margin-top:8px}.top{padding-bottom:8px!important}.wrap{padding-top:8px!important}</style>
 <link rel="manifest" href="/app-manifests/candy-pulse.webmanifest">
@@ -96,6 +101,7 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 <p>Visuals need a TV browser with Canvas and WebSockets. TV audio additionally needs WebRTC support and may require a tap on the television. Spectrum data is sent through the Cloudflare signaling relay; uploaded music files stay on your phone. For Chromecast without a TV browser, use Android screen mirroring.</p>
 </article>
 </div>
+<p><strong>Using a HomePod?</strong> It is an AirPlay audio speaker, not a display. For music playing through HomePod, open <strong>HomePod / AirPlay</strong> in the sound controls above. On Android, Pulse can react to the HomePod through the microphone; iPhone/iPad/Mac may also route compatible media to HomePod through AirPlay.</p>
 <p><strong>For standard Chromecast:</strong> On Android open Google Home → your Cast device → Cast screen, then return to Pulse and enter Full screen. On desktop Chrome use ⋮ → Cast, save and share → Cast tab. Native one-tap Cast of custom visuals requires a registered Google Cast receiver app.</p>
 </section>
 <div class="panel">
@@ -106,9 +112,18 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 <button class="btn" id="mic" type="button">🎙️ Use microphone</button>
 <button class="btn" id="play" type="button" disabled>▶ Play</button>
 <button class="btn" id="stop" type="button">■ Stop</button>
+<button class="btn" id="airplay-toggle" type="button" aria-expanded="false" aria-controls="airplay-help">🔊 HomePod / AirPlay</button>
 </div>
 <p class="hint" id="track">Audio files never leave your device. Mic access is optional and starts only when you tap.</p>
 <audio id="player" preload="metadata" playsinline style="width:100%;margin-top:14px" controls></audio>
+<div id="airplay-help" hidden aria-label="HomePod and AirPlay setup">
+<strong>🔊 Listen with HomePod</strong>
+<p><strong>iPhone, iPad or Mac:</strong> Play a music file in Pulse. Choose your HomePod using the AirPlay picker if available, or Apple’s audio output controls. AirPlay availability depends on Safari, the music source and device setup.</p>
+<div class="row"><button class="btn primary" id="airplay-pick" type="button" hidden>Choose AirPlay speaker</button></div>
+<p><strong>Android / other music apps:</strong> Play your music on the HomePod through a supported source, keep the speaker near your phone, and tap <strong>Use microphone</strong> in Pulse. The visuals will follow the real sound without needing to intercept the music app.</p>
+<p><strong>For visuals on a TV:</strong> HomePod itself has no screen. Use the Cast / TV controls for an Apple TV, compatible smart-TV browser, or Chromecast. HomePod supplies sound; a separate display shows the effects.</p>
+<p id="airplay-status" role="status"></p>
+</div>
 </section>
 <section class="controls" aria-label="Visual style"><h2>🌈 Customize the visuals</h2>
 <div class="row">
@@ -177,6 +192,22 @@ $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await docume
 let ros;if('ResizeObserver' in window){ros=new ResizeObserver(resize);ros.observe(canvas)}else window.addEventListener('resize',resize);
 document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible){lastFrame=0;}});
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const canAirPlay=typeof audio.webkitShowPlaybackTargetPicker==='function';
+if(canAirPlay)$('airplay-pick').hidden=false;
+$('airplay-toggle').onclick=()=>{
+ const panel=$('airplay-help');
+ panel.hidden=!panel.hidden;
+ $('airplay-toggle').setAttribute('aria-expanded',String(!panel.hidden));
+ if(!panel.hidden)$('airplay-status').textContent=canAirPlay
+  ? 'Safari AirPlay selection is available for supported media. Choose a track first.'
+  : 'Native AirPlay selection is not provided by this browser. You can still use your HomePod as the music source and Pulse microphone as the visual input.';
+};
+$('airplay-pick').onclick=()=>{
+ if(!canAirPlay)return;
+ if(!audio.currentSrc){$('airplay-status').textContent='Load a music file first, then choose your HomePod.';return;}
+ try{audio.webkitShowPlaybackTargetPicker();}
+ catch(e){$('airplay-status').textContent='AirPlay could not be opened here. Try Safari’s media controls or your device’s audio output menu.';}
+};
 $('cast-toggle').onclick=()=>{const panel=$('cast-tools');panel.hidden=!panel.hidden;$('cast-toggle').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden)panel.scrollIntoView({behavior:'smooth',block:'start'});};
 window.CandyPulseAudio={ensureAudio:()=>{ensureAudio();return ctx},get analyser(){return analyser},get source(){return sourceType}};
 let pulseFrames=0;
