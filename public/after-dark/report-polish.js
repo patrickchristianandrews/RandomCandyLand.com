@@ -96,7 +96,7 @@
   chart(wrap,data);
   overview.insertBefore(wrap,overview.children[2]||null);
  }
- function pruneRepeated(article,item){
+ function pruneRepeated(article,item,data){
   article.classList.add('report-interest-compact');
   // Keep short, specific supporting explanations beside each selected theme.
   // Those explanations are the value of a combined psychology report.
@@ -145,7 +145,7 @@
    status.textContent=classification==='interested'?'You marked this topic: Interested':
     classification==='curious'?'You marked this topic: Curious':
     classification==='named'?'You specifically selected this topic':'Theme-based suggestion only';
-   const match=(window.AfterDarkCanonicalReport?.buildData?.()?.direct?.specificSelections||[])
+   const match=(data.direct?.specificSelections||[])
     .filter(p=>p.context!=='Adult media watched / imagined'&&(p.interests||[]).includes(item.name))
     .map(p=>p.intentLabel).filter(x=>x&&x!=='Not specified');
    const distinct=[...new Set(match)];
@@ -166,15 +166,31 @@
   const groups=buckets.map(()=>[]);
   for(let i=0;i<articles.length;i++){
    const item=items[i];if(!item)continue;
-   pruneRepeated(articles[i],item);
+   pruneRepeated(articles[i],item,data);
+   if(!item.directSelection&&!item.specificSelected){
+    const suggested=make('div','report-unconfirmed');
+    // Attach to Section 05, separate from declared or directly named interests.
+    const other=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('05'));
+    if(other){
+     let list=other.querySelector(':scope > .report-unconfirmed-collection');
+     if(!list){
+      list=make('div','report-unconfirmed-collection');
+      list.append(make('h3','','Possible connections — not declared interests'));
+      list.append(make('p','report-muted','The following names arise from overlapping themes. You did not directly confirm these topics as something you want.'));
+      other.insertBefore(list,other.children[2]||null);
+     }
+     list.append(articles[i]);
+    }
+    continue;
+   }
    groups[bucketFor(item)].push({article:articles[i],item,order:i});
   }
   for(const group of groups)group.sort((a,b)=>
    a.item.category.localeCompare(b.item.category)||a.order-b.order);
   const heading=section.querySelector(':scope > h2');
-  if(heading)heading.textContent='04 · Related interests, thoughtfully grouped';
+  if(heading)heading.textContent='04 · Interests you named or selected';
   const subtitle=heading?.nextElementSibling;
-  if(subtitle?.tagName==='P')subtitle.textContent='Browse by common psychological themes. Each short profile keeps the specific reasoning and a small sample of supporting answers; complete responses remain in the appendices.';
+  if(subtitle?.tagName==='P')subtitle.textContent='Only directly named interests and your own Curious / Interested selections are presented here. Each profile shows direct answers alongside related nonsexual psychology answers. Unconfirmed ideas appear separately in Section 05.';
   for(const g of buckets){
    const entries=groups[buckets.indexOf(g)];
    if(!entries.length)continue;
@@ -201,10 +217,10 @@
   const section=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('05'));
   if(!section)return;
   const heading=section.querySelector(':scope > h2');
-  if(heading)heading.textContent='05 · More connections to explore';
+  if(heading)heading.textContent='05 · Unconfirmed ideas for further reading';
   for(const article of section.querySelectorAll(':scope > .report-extra')){
    const ul=article.querySelector('ul');
-   if(ul)[...ul.children].slice(1).forEach(node=>node.remove());
+   // Retain the originally selected explanations, up to the original three examples.
   }
  }
  function polish(doc){
