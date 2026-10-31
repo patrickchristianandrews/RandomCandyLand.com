@@ -108,6 +108,12 @@ try{
     "!!document.querySelector('#od-back-to-top') && !!document.querySelector('#rcl-share-page') && typeof window.RandomCandyLandShare?.share==='function'");
   await check('Guide and topic links contain no private quiz data',
     "(()=>{const s=window.RandomCandyLandShare;const g=s.itemURL('guide','nipple-pleasure'),t=s.itemURL('topic','0-0');return g.endsWith('?guide=nipple-pleasure#howto')&&t.endsWith('?topic=0-0#atlas')&&!g.includes('answer')&&!t.includes('answer')})()");
+  await check('Origins library loads 16 research-aware nonsexual development topics',
+    "window.AfterDarkOrigins?.entries()?.length===16&&document.querySelectorAll('#origins-grid .od-origin-card').length===16");
+  await check('Oral fixation is explained without deterministic sexual inference',
+    "document.querySelector('#origin-oral-comfort').innerText.includes('not a reliable clinical explanation') && window.AfterDarkOrigins.answer('Is thumb-sucking an oral fixation?')?.includes('no reliable way')");
+  await check('Specific psychology topics have shareable public deep links',
+    "window.RandomCandyLandShare?.itemURL('origin','oral-comfort')?.includes('origin=oral-comfort') && window.RandomCandyLandShare?.itemURL('origin','oral-comfort')?.endsWith('#psych')");
   await check('After Dark opens on the introduction rather than the atlas',"document.querySelector('#home').classList.contains('visible') && !document.querySelector('#atlas').classList.contains('visible')");
   await check('After Dark has its illustrated discovery logo and quick access to four experiences',"!!document.querySelector('#home .afterdark-home-hero .ad-discovery-image') && document.querySelectorAll('#home .ad-home-express-nav button').length===4 && !!document.querySelector('#home [data-goto=psych-quiz]') && !!document.querySelector('#home [data-goto=quiz]')");
   await check('After Dark is visually illustrated throughout',"document.querySelectorAll('#home .ad-card-visual').length===10 && document.querySelectorAll('.ad-section-art-banner>img').length>=7 && document.querySelector('#home .ad-discovery-image')?.getAttribute('src').includes('discovery-emblem.svg')");
