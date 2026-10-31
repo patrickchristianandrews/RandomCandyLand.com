@@ -4,26 +4,26 @@ const SAMPLE={
 personal:{
  name:'The Other Drawer - Full Personal Report (Sample).pdf',
  title:'MY INTERESTS & PSYCHOLOGY REPORT',
- subtitle:'An expanded fictional example | Morgan | Both quizzes completed',
+ subtitle:'Fictional example written to you | Both quizzes completed',
  lead:'A private guide to what was selected, what the quizzes share, possible personal meanings and useful reflection questions. This example is fictional and never identifies real visitors.',
  sections:[
  ['01 / Reading this report',[
- 'This personal report combines a 69-question Sexual Preferences Quiz and a 32-question nonsexual Psychology Quiz. All responses in this example are fictional. In a genuine report, counts, interest profiles, explanations and appendices change to reflect the saved selections.',
+ 'Your personal report combines your 69-question Sexual Preferences Quiz and 32-question nonsexual Psychology Quiz answers. All answers shown here are fictional examples, not your real responses. In your actual report, counts, interest profiles, explanations and appendices change to reflect the answers you save.',
  'This is not a clinical evaluation. It cannot reveal hidden desires, determine the causes of a preference or predict whether any activity would be enjoyable. Results reflect the site’s editorial theme map.']],
  ['02 / Executive overview',[
- 'Morgan emphasizes genuine appreciation, trust in shared decisions, meaningful sensory detail and anticipation. Explicit choices are more informative about specific interests than broad emotional themes.',
- 'The main distinction is between what Morgan selected, what Morgan would only imagine, and other topics suggested for optional reading. Those categories should never be merged into a single score.']],
+ 'Your illustrative responses emphasize genuine appreciation, trust in shared decisions, meaningful sensory detail and anticipation. Explicit choices are more informative about specific interests than broad emotional themes.',
+ 'The main distinction is between what you selected, what you would only imagine, and other topics suggested for optional reading. Those categories should never be merged into a single score.']],
  ['03 / How the relative theme ranking reads',[
  'Illustrative relative emphasis: Appreciation and affirmation - 100; Anticipation and ritual - 84; Sensory aesthetics - 75; Trust and negotiated roles - 68; Story and imagination - 55. These numbers show relative strength within the site’s own coded themes, not probabilities or scientifically validated measurements.',
  'A strong match does not prove that an intimate experience will be desirable. A low match does not rule one out. A direct Not for me response takes priority over any broader match.']],
  ['04 / Directly stated interests and intent',[
- 'Praise and appreciation: Morgan selected Interested in exploring. Meaningful, particular words of recognition are appealing; vague flattery is less compelling.',
- 'Role switching: Morgan selected Curious about discussion. The interest centers on the possibility of shared choices and changing roles, not a blanket willingness to participate.',
- 'Satin and silk: Morgan selected Fantasy only. This is described as a sensory and visual interest with no intention to enact anything.',
- 'Private consensual observation: Morgan selected Fantasy only. Imagining this is not consent to include an observer, take photographs or involve anyone else.']],
+ 'Praise and appreciation: You marked Interested in exploring. Meaningful, particular words of recognition are appealing; vague flattery is less compelling.',
+ 'Role switching: You marked Curious about discussion. The interest centers on the possibility of shared choices and changing roles, not a blanket willingness to participate.',
+ 'Satin and silk: You marked Fantasy only. This is described as a sensory and visual interest with no intention to enact anything.',
+ 'Private consensual observation: You marked Fantasy only. Imagining this is not consent to include an observer, take photographs or involve anyone else.']],
  ['05 / The psychology of appreciation',[
  'The direct quiz example includes a preference for specific praise. The everyday quiz includes valuing sincere, specific appreciation. This is a thematic overlap that may point to the importance of feeling noticed.',
- 'Possible interpretations include recognition, emotional closeness, trust, or the pleasure of specific words. None is established as the cause. Morgan could ask: Do I like the message, the tone, the person giving it, or the feeling of being understood?',
+ 'Possible interpretations include recognition, emotional closeness, trust, or the pleasure of specific words. None is established as the cause. You might ask yourself: Do I like the message, the tone, who is speaking, or the feeling of being understood?',
  'Evidence snapshot: Preferences example - Specific praise: interested. Psychology example - Thoughtful recognition rather than generic compliments. Both support an appreciation theme without proving causation.']],
  ['06 / Shared roles, choices and trust',[
  'An explicit curiosity about switching roles intersects with everyday answers describing collaborative decisions and clarity about personal limits.',
@@ -31,7 +31,7 @@ personal:{
  'Reflection: Which decisions should always stay shared? What boundaries would make a conversation comfortable? What would remain completely off limits?']],
  ['07 / Sensory details, comfort and imagination',[
  'Satin and silk appear as fantasy-only aesthetic choices. The related nonsexual questions invite reflection on fabric feel, textures, sound, visual style and comfort. An interest in textiles does not establish a sexual preference.',
- 'The same topic can appeal for comfort, memory, fashion, or imaginative atmosphere. Morgan can explore which description fits without assuming an origin or a plan for action.']],
+ 'The same topic can appeal for comfort, memory, fashion, or imaginative atmosphere. You can consider which description fits without assuming an origin or a plan for action.']],
  ['08 / Connections across both questionnaires',[
  'The two quizzes use a shared set of editorial themes, such as trust, affirmation, sensory qualities, novelty, anticipation, imagination and relationships.',
  'Agreement example: Specific praise in the direct quiz and sincere everyday appreciation in the psychology quiz both relate to affirmation.',
@@ -40,15 +40,15 @@ personal:{
  ['09 / Associations that may develop over time',[
  'Interests sometimes develop through ordinary associative learning: a comforting sensation becomes associated with a meaningful setting, a certain kind of attention becomes memorable, or anticipation acquires its own emotional weight.',
  'Repetition, family norms, stories, identity, social context and relationships can change what someone notices. None of these pathways is a diagnosis, and no questionnaire can reliably identify the first event that created a particular preference.',
- 'Morgan’s answers make reflection on recognition and sensory context potentially useful; they do not establish a personal history.']],
+ 'Your sample answers make reflection on recognition and sensory context potentially useful; they do not establish your personal history.']],
  ['10 / You might not have considered',[
  'Affectionate ritual: A possible topic because the answers emphasize meaningful recurring gestures. Ask whether small repeated acts of appreciation appeal or whether spontaneity matters more.',
  'Sound and voice atmosphere: A possible topic because sensory quality and sincere expression appear in different answers. Distinguish appreciation of voice or sound from any wish to act.',
  'Creative anticipation: A possible topic because imagined scenarios and pleasant expectation recur in the answers. The possibility of a private story or written note may be more appealing than an event.',
- 'These are unconfirmed suggestions for learning and conversation, NOT undeclared preferences. Each should be accepted, rejected or ignored by Morgan.']],
+ 'These are unconfirmed suggestions for learning and conversation, NOT undeclared preferences. You can accept, reject or ignore any of these ideas.']],
  ['11 / Boundaries, fantasy and real-world choices',[
  'Fantasy only means fantasy only. Curious may mean wanting to read or ask questions; it is not an agreement to participate. Interested describes a self-reported preference, not another person’s consent.',
- 'Fictional Morgan marks group play and partner swapping Not for me. This boundary overrides suggestions from any shared themes.',
+ 'In this fictional answer set, you marked group play and partner swapping Not for me. This boundary overrides suggestions from any shared themes.',
  'In any relationship, comfort, privacy, informed consent and the ability to change one’s mind are separate from a quiz score.']],
  ['12 / How to talk about one topic',[
  'A gentle opening might be: I came across a topic that interests me. I am not asking for anything to happen; would you be comfortable hearing what I find appealing about it?',
@@ -58,7 +58,7 @@ personal:{
  'When do specific words of appreciation feel sincere rather than performative?',
  'Is role curiosity about autonomy, trust, responsibility, fiction, or something else?',
  'Which sensory experiences are comforting in everyday life, independent of intimacy?',
- 'Which topics would Morgan prefer to keep private, even from a partner?',
+ 'Which topics would you prefer to keep private, even from a partner?',
  'Are there interests that felt important in one context but not another?']],
  ['14 / Selected-answer evidence appendix - illustrative excerpt',[
  'Preferences example Q: How do you experience praise? Selection: Specific, sincere appreciation; interested in exploring.',
@@ -70,7 +70,7 @@ personal:{
  'Psychology example Q: What sensory details stand out? Selection: Texture and quiet sound.',
  'This fictional appendix is an excerpt demonstrating how real exports preserve every answered question, selected option, recorded intention and any personal note. It does not pretend to reproduce 101 actual answers.']],
  ['15 / Reading the results responsibly',[
- 'This PDF is an educational example of structure, not an assessment of Morgan or anyone else. The site’s rankings are not diagnostic, probabilistic or scientific compatibility scores.',
+ 'This PDF is an educational example addressed to you using fictional answers. It is not an actual assessment of you or anyone else. The site’s rankings are not diagnostic, probabilistic or scientific compatibility scores.',
  'Personal reports include private answers by design. Share a selective partner PDF or self-written introduction instead of forwarding an entire personal report unless you deliberately want to disclose it.']]
 ]},
 selected:{
