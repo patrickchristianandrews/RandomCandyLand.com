@@ -1,0 +1,13 @@
+/* Guide illustration layouts: educational, readable, and responsive */
+.howto-guide-thumb{display:block;width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:11px;border:1px solid #81638c;margin:7px 0 11px;background:#24182e}
+.howto-guide-figure{padding:0;margin:17px 0 22px;border:1px solid #a77c9c;border-radius:15px;overflow:hidden;background:#20172c}
+.howto-guide-figure img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover}
+.howto-guide-caption{padding:10px 13px;color:#e2cbe3;font-size:12px;line-height:1.4}
+.howto-guide-focus{border:1px solid #805e88;border-radius:14px;background:#261934;padding:16px 19px;margin:18px 0}
+.howto-guide-focus h3{color:#ffe9cd;margin:0 0 9px}
+.howto-guide-focus ul{margin:0;padding-left:23px;color:#f4e7f5;font-size:14px;line-height:1.65}
+.howto-guide-focus li+li{margin-top:8px}
+.rcl-topic-share{margin:7px 0 0;min-height:30px;padding:6px 10px;font-size:11px}
+.rcl-shared-topic{outline:3px solid #ffd5a4;outline-offset:5px;scroll-margin-top:95px}
+@media(max-width:650px){.howto-guide-thumb{aspect-ratio:2/1}.howto-guide-focus{padding:13px}.howto-guide-figure{margin:13px 0 18px}}
+@media print{.howto-guide-thumb{break-inside:avoid}.howto-guide-figure{break-inside:avoid}}
