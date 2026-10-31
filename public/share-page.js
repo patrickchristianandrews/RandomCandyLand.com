@@ -2,6 +2,13 @@
 (()=>{'use strict';
 const ID='rcl-share-page';
 const sections=new Set(['home','atlas','quiz','psych-quiz','psych','ideas','chat','howto','guide','notebook']);
+function itemURL(kind,id){
+ if(!['guide','topic'].includes(kind)||!/^[a-z0-9-]{1,80}$/.test(String(id||'')))return null;
+ const url=new URL('/after-dark/',location.origin);
+ url.searchParams.set(kind,id);
+ url.hash=kind==='guide'?'howto':'atlas';
+ return url.href;
+}
 function cleanURL(){
  const url=new URL(location.pathname,location.origin);
  // Only include well-known public sections. No query strings, game-room codes,
@@ -41,14 +48,19 @@ function dialog(url){
  document.getElementById('rcl-share-url').focus();
  document.getElementById('rcl-share-url').select();
 }
-async function share(){
- const url=cleanURL();
+async function shareItem(kind,id,title){
+ const url=itemURL(kind,id);
+ if(!url)return;
+ return openShare(url,String(title||document.title).slice(0,120));
+}
+async function openShare(url,title){
  if(typeof navigator.share==='function'){
-  try{await navigator.share({title:document.title||'Random Candy Land',url});return}
+  try{await navigator.share({title:title||document.title||'Random Candy Land',url});return}
   catch(e){if(e?.name==='AbortError')return}
  }
  dialog(url);
 }
+async function share(){return openShare(cleanURL(),document.title||'Random Candy Land')}
 function makeButton(inToolbar=false){
  const button=document.createElement('button');button.type='button';button.id=ID;
  button.className=inToolbar?'od-bookmark-button rcl-share-button':'rcl-share-button';
@@ -68,6 +80,16 @@ function install(){
  if(head?.parentElement)head.insertAdjacentElement('afterend',strip);
  else (document.querySelector('main')||document.body).prepend(strip);
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
-window.RandomCandyLandShare=Object.freeze({share,cleanURL,install,makeButton});
+function openTopicLink(){
+ if(!/^\/after-dark(?:\/|\/index\.html)?$/i.test(location.pathname))return;
+ const id=new URL(location.href).searchParams.get('topic');
+ if(!id||!/^[0-9]+-[0-9]+$/.test(id))return;
+ const topic=[...document.querySelectorAll('[data-share-topic]')].find(el=>el.dataset.shareTopic===id);
+ if(!topic)return;
+ document.querySelector('[data-tab="atlas"]')?.click();
+ setTimeout(()=>{topic.classList.add('rcl-shared-topic');topic.scrollIntoView({block:'center',behavior:'instant'});},120);
+}
+function start(){install();openTopicLink()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+window.RandomCandyLandShare=Object.freeze({share,shareItem,itemURL,cleanURL,install,makeButton});
 })();
