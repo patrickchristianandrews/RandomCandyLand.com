@@ -117,6 +117,14 @@ if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
   console.error('The Other Drawer homepage must lead with Quiz and Ask Anything cards, without a top tab menu.');failures++;
 }
 
+// Sample previews must work in a browser even when chat PDF attachments cannot be downloaded.
+if(!fs.existsSync('dist/after-dark/report-samples/index.html')){
+ console.error('Missing browser report sample gallery');failures++;
+}else{
+ const gallery=fs.readFileSync('dist/after-dark/report-samples/index.html','utf8');
+ for(const token of ['id="personal"','id="selected"','id="new"','window.print()'])
+  if(!gallery.includes(token)){console.error('Incomplete report preview gallery:',token);failures++;}
+}
 // The homepage should accurately preview all three private PDF report types.
 if(!fs.existsSync('dist/after-dark/home-report-showcase.css')||
    !afterDarkLanding.includes('od-home-report-showcase')||
