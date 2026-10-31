@@ -277,7 +277,7 @@ try{
   await check('Expanded PDF clearly distinguishes named interests from unconfirmed psychology suggestions',
     "(()=>{const d=window.AfterDarkCanonicalReport.buildData(),r=window.AfterDarkDetailedReport.build(),confirmed=d.interests.filter(i=>i.directSelection||i.specificSelected).length;return !!r.querySelector('.report-insight') && !!r.querySelector('.report-comparison') && r.querySelectorAll('.report-interest[data-evidence=selected]').length===confirmed && r.querySelectorAll('.report-interest[data-evidence=suggested]').length===d.interests.length-confirmed && !!r.querySelector('.report-comparison-pair') && r.textContent.includes('not a probability')})()");
    await check('Live report has print styling for comparison and selection evidence',
-    "!!document.querySelector('link[href*=report-upgrade.css]') && !!window.AfterDarkDetailedReport.build().querySelector('.report-comparison-columns')");
+    "!!document.querySelector('link[href*=report-upgrade]') && !!window.AfterDarkDetailedReport.build().querySelector('.report-comparison-columns')");
    await check('Both personal and partner reports include the offline After Dark QR footer',
     "(()=>{const full=window.AfterDarkDetailedReport?.build?.(),partner=window.AfterDarkPartnerPDF?.build?.();return !!full?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&!!partner?.querySelector('.afterdark-qr-section img[src^=\\\"data:image/png;base64,\\\"]')&&partner.querySelector('.partner-report-cover')?.textContent.includes('Before you read')})()");
   await check('Partner report chooser defaults to protecting answers and private notes',
