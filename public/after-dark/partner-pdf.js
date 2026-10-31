@@ -9,10 +9,10 @@ const menu=[
  ['overview','The highlights','A quick look at my answers'],
  ['interests','Interests I picked','Topics I marked or specifically selected'],
  ['themes','The themes behind my answers','The patterns that stood out'],
- ['ideas','Ideas worth a peek','Possible interests to read about'],
+ ['ideas','Other possibilities','Possible interests to read about'],
  ['connections','How the two quizzes connect','Themes shared between both quizzes'],
  ['conversations','Conversation starters','Conversation ideas and friendly prompts'],
- ['boundaries','My comfort zones','Stated intentions and boundaries'],
+ ['boundaries','My boundaries','Stated intentions and boundaries'],
  ['answers','My exact quiz answers','Selected options, without personal notes'],
  ['notes','My personal notes','Private written reflections, included only if checked']
 ];
@@ -95,7 +95,7 @@ function build(){
   }
  }
  if(selected.has('ideas')){
-  const s=section(root,'Ideas worth a peek','These are reading suggestions inspired by the themes in my answers, not promises or conclusions about me.');
+  const s=section(root,'Other possibilities','These are reading suggestions inspired by the themes in my answers, not promises or conclusions about me.');
   const seen=new Set();
   const suggestions=(d.psychSuggestions||[]).concat((d.interests||[]).filter(x=>!x.directSelection&&!x.specificSelected));
   for(const item of suggestions){
@@ -125,7 +125,7 @@ function build(){
   bullets(s,['What makes each of us feel comfortable and heard?','What topics would we rather skip?','How can we talk openly without pressure or assumptions?']);
  }
  if(selected.has('boundaries')){
-  const s=section(root,'My comfort zones','These are the boundaries and choices I decided to include.');
+  const s=section(root,'My boundaries','These are the boundaries and choices I decided to include.');
   const ids=new Set([19,20,28,56,61,68]);let count=0;
   for(const q of d.direct.questions||[]){
    if(!q.selected?.length)continue;
