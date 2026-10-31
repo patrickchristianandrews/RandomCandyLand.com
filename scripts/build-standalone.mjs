@@ -93,4 +93,28 @@ for (const stale of ['standalone.html']) {
   const oldPath = path.join(distDir, stale);
   if (fs.existsSync(oldPath)) fs.rmSync(oldPath);
 }
+// Inject the same privacy-safe share control on every published HTML page.
+// Run after generating standalone homepage/404 so those files are covered too.
+function installSiteSharing(dir) {
+ for (const entry of fs.readdirSync(dir,{withFileTypes:true})) {
+  const file=path.join(dir,entry.name);
+  if(entry.isDirectory()){installSiteSharing(file);continue;}
+  if(!entry.isFile()||!entry.name.toLowerCase().endsWith('.html'))continue;
+  let html=fs.readFileSync(file,'utf8');
+  if(!html.includes('/share-page.css?v=sitewide-1')) {
+   const position=html.search(/<\/head\s*>/i);
+   if(position<0)throw Error('Cannot add sharing to HTML without head: '+file);
+   html=html.slice(0,position)+'<link rel="stylesheet" href="/share-page.css?v=sitewide-1">'+html.slice(position);
+  }
+  if(!html.includes('/share-page.js?v=sitewide-1')) {
+   const position=html.search(/<\/body\s*>/i);
+   if(position<0)throw Error('Cannot add sharing to HTML without body: '+file);
+   html=html.slice(0,position)+'<script src="/share-page.js?v=sitewide-1" defer></script>'+html.slice(position);
+  }
+  fs.writeFileSync(file,html,'utf8');
+ }
+}
+installSiteSharing(distDir);
+console.log('Installed Share Page on every published Candy Land HTML page.');
+
 console.log('Built current Candy Land homepage and valid /trump/ + 404 fallbacks (no stale source copies).');
