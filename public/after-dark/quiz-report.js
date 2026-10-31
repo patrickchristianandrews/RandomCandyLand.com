@@ -149,8 +149,8 @@ function renderInterest(parent,item,index,data){
  }
  article.append(explanations);
  add(article,'h4','3. The actual selections supporting this connection');
- evidenceList(article,evidenceFor(data.direct.questions,item.themeTags,3),'Sexual-preferences quiz');
- evidenceList(article,evidenceFor(data.psych.questions,item.themeTags,3),'Non-explicit psychology quiz');
+ evidenceList(article,evidenceFor(data.direct.questions,item.themeTags,6),'Sexual-preferences quiz');
+ evidenceList(article,evidenceFor(data.psych.questions,item.themeTags,6),'Non-explicit psychology quiz');
  const rec=data.psychSuggestions.find(x=>x.id===item.id);
  if(rec?.reasons?.length){
   subsection(article,'Additional specific psychology-to-interest suggestions');
@@ -203,7 +203,7 @@ function build(){
  const data=window.AfterDarkCanonicalReport?.buildData?.();
  if(!data)throw Error('Canonical quiz report is not available');
  const doc=el('div',undefined,'afterdark-detailed-report');
- doc.setAttribute('data-report-version','2');
+ doc.setAttribute('data-report-version','4');
  const cover=el('header',undefined,'report-cover');
  add(cover,'p','THE OTHER DRAWER · WHAT DESIRES REVEAL ABOUT US','report-kicker');
  add(cover,'h1','My Interests & Psychology Report');
@@ -286,7 +286,7 @@ function build(){
   const supporting=selected.filter(x=>x.axes.some(tag=>(data.axes.psych[tag]||0)>0));
   add(relationships,'p',supporting.length+' of '+selected.length+' selected activities share at least one coded theme with the Psychology Quiz'+
    (data.psych.answered?' (the other selections have no matching theme yet).':' (finish the second quiz to make this comparison).'),'report-emphasis');
-  const limited=selected.slice(0,20);
+  const limited=selected.slice(0,70);
   for(const a of limited){
    const common=a.axes.filter(tag=>(data.axes.psych[tag]||0)>0&&data.lenses[tag]);
    const box=el('article',undefined,'report-answer');
@@ -306,7 +306,7 @@ function build(){
  else named.forEach((item,i)=>renderInterest(interests,item,i,data));
  const suggestions=section(doc,'05 · Additional psychology-to-interest suggestions','These suggestions reflect the non-explicit quiz’s thematic connections. They are not proof of any sexual interest and do not override any “Not for me” selections.');
  const seen=new Set(named.map(x=>x.id));
- const extras=data.psychSuggestions.filter(x=>!seen.has(x.id)).slice(0,16);
+ const extras=data.psychSuggestions.filter(x=>!seen.has(x.id)).slice(0,24);
  if(!extras.length)add(suggestions,'p','No additional distinct psychology-only interests were suggested beyond the interest profiles already explained above.');
  extras.forEach((x,i)=>{
   const article=el('article',undefined,'report-extra');
@@ -317,7 +317,37 @@ function build(){
   add(article,'p','Before assuming this fits, ask yourself whether the specific interest resonates or only the broader emotional theme.','report-muted');
   suggestions.append(article);
  });
- const communicate=section(doc,'06 · Making sense of this with a partner','A practical sequence for a low-pressure discussion. It applies to every interest in this report.');
+ const pathway=section(doc,'Understanding how associations and interests can develop over time',
+ 'Possible developmental pathways to consider, never diagnoses or inferred memories. Only you can decide what fits.');
+add(pathway,'p','Preferences can become meaningful through comfort, attention, sensory experiences, anticipation, cultural stories, imagination or learning over time. A similar everyday habit does not mean someone has a specific intimate interest.');
+const pathways=[
+ ['Sensory associations','Texture, scent, sound, color and visual details may feel meaningful through comfort or repeated positive associations. A sensory preference by itself is not a sexual preference.',['sensation','aesthetics']],
+ ['Attention and reassurance','Feeling seen, valued and secure may matter in daily life and intimate imagination. A shared theme is an invitation to reflect, not proof of a cause.',['affirmation','attachment','trust']],
+ ['Anticipation and familiar rituals','Routines and playful suspense can be appealing through expectation, familiarity or positive experience.',['anticipation','ritual']],
+ ['Identity and fictional roles','A story or role may allow curiosity about perspective, confidence or identity without indicating a desire to act.',['control','narrative']],
+ ['Novelty and unconventional ideas','An unfamiliar idea may attract curiosity because of imagination or difference, not because someone wants to experience it.',['novelty','taboo','associations']]
+];
+for(const [label,description,tags] of pathways){
+ const active=tags.filter(t=>(data.axes.combined[t]||0)>0);if(!active.length)continue;
+ const card=el('article',undefined,'report-theme');add(card,'h3',label);add(card,'p',description);
+ const supporting=[...evidenceFor(data.direct.questions,active,2).map(q=>'Preferences Q'+q.number+': '+q.answers.join(' / ')),
+  ...evidenceFor(data.psych.questions,active,2).map(q=>'Everyday Q'+q.number+': '+q.answers.join(' / '))];
+ if(supporting.length){add(card,'p','Answers that make this topic useful to reflect on:');list(card,supporting);}
+ add(card,'p','Ask whether this connection resonates, partly fits, or does not fit. The report cannot know what originally shaped your interests.','report-muted');
+ pathway.append(card);
+}
+const declared=section(doc,'Confirmed selections, unconfirmed suggestions and fantasy-only boundaries',
+ 'Direct choices have priority. Never confuse a suggestion with something you told us you want.');
+const chosen=(data.interests||[]).filter(x=>x.directSelection||x.specificSelected);
+const unconfirmed=(data.interests||[]).filter(x=>!x.directSelection&&!x.specificSelected);
+add(declared,'h3','Topics named or directly selected ('+chosen.length+')');
+if(chosen.length)list(declared,chosen.map(x=>x.name+' - '+(x.directSelection===2?'Interested':x.directSelection===1?'Curious':'Specifically selected')));else add(declared,'p','No directly named topics yet.');
+add(declared,'h3','Suggestions for reading, not confirmed preferences ('+unconfirmed.length+')');
+if(unconfirmed.length)list(declared,unconfirmed.map(x=>x.name+' - unconfirmed theme overlap'));else add(declared,'p','No distinct suggestions yet.');
+const fantasized=(data.direct.specificSelections||[]).filter(x=>x.intent==='fantasy');
+if(fantasized.length){add(declared,'h3','Fantasy-only selections');list(declared,fantasized.map(x=>'Q'+x.questionNumber+': '+x.text));}
+add(declared,'p','Explicit “Not for me” choices override broad associations. When the quizzes emphasize different themes, those differences are preserved as reflections rather than falsely reconciled.','report-boundaries');
+const communicate=section(doc,'06 · Making sense of this with a partner','A practical sequence for a low-pressure discussion. It applies to every interest in this report.');
  const steps=[
   ['Choose one interest, not a list of demands','Pick a specific name from the profiles above. Identify what you like about the idea, what you are unsure about, and whether it is fantasy-only.'],
   ['Ask for a conversation, not immediate participation','Try: “I’ve learned something about my interests. Would you be open to hearing what it means to me? You can say no, and I’m not asking for a commitment.”'],
