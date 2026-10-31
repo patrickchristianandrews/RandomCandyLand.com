@@ -77,7 +77,7 @@ function resumePlace(){
  const existing=bookmarks.last&&bookmarks.sections[bookmarks.last]?bookmarks.sections[bookmarks.last]:null;
  const direct=Number(DIRECT()?.getProgress?.()?.position??-1);
  const psych=Number(PSYCH()?.getProgress?.()?.position??-1);
- const directCount=DIRECT()?.getProgress?.()?.questions||56;
+ const directCount=DIRECT()?.getProgress?.()?.questions||69;
  const place=existing||(direct>=0&&direct<directCount?{tab:'quiz',offset:0}:psych>=0&&psych<32?{tab:'psych-quiz',offset:0}:null);
  if(!place){setStatus('No saved place yet. Open a guide or start a quiz first.');return;}
  restoring=true;
