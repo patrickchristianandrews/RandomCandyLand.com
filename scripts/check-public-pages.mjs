@@ -100,10 +100,10 @@ const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
 if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
    !afterDarkLanding.includes('<div class="afterdark-featured-grid"') ||
    !afterDarkLanding.includes('Curiosity Quiz') ||
-   !afterDarkLanding.includes('Ask Atlas') ||
+   !afterDarkLanding.includes('The Whisper Line') ||
    !afterDarkLanding.includes("else renderTabs('home');") ||
    afterDarkLanding.includes('<nav class="top" aria-label="After Dark sections">')){
-  console.error('After Dark homepage must lead with Quiz and Ask Atlas cards, without a top tab menu.');failures++;
+  console.error('After Dark homepage must lead with Quiz and The Whisper Line cards, without a top tab menu.');failures++;
 }
 
 for (const [path, expected] of required) {
