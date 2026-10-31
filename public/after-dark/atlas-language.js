@@ -107,26 +107,25 @@ function answer(question,context){
  const isTalk=/\b(tell|talk|communicat|listen|ask|respond|discuss|bring up|explain|decline|rejection|accept)\b/.test(q);
  if(isPartner&&(isTalk||/\b(how|what|why)\b/.test(q))){
   const subject=first?.score>=3.3?first.t:null;
-  return 'Start with an invitation, not a demand: “There is something personal I want to explain, and you do not have to agree or participate. Would you be open to hearing about it?”\n\n'+
-  (subject?'About '+subject.name+': '+subject.description+'\n\nPossible reasons it matters: '+(subject.tags||[]).slice(0,3).map(t=>usefulTags[t]).filter(Boolean).join(', ')+'.\n\n':'')+
-  'A useful three-part conversation:\n1. What it means to me: describe the feeling or story, not just the activity.\n2. What I am and am not asking: explain whether this is fantasy-only, a question, or something you might discuss trying.\n3. What you think: invite curiosity, questions, time, or an unqualified no.\n\n'+
-  'The listener can say: “Thank you for trusting me. I can listen and ask questions, but I am not agreeing to participate.” Neither person should push the other toward a yes. You can revisit later only if both want to.';
+  return 'You might say: “Can I tell you something personal? I’m not asking you to try it. I’d just like to talk.”\n\n'+
+  (subject?'If you mean '+subject.name.toLowerCase()+', '+subject.description+'\n\n':'')+
+  'Explain what interests you and whether it is a fantasy, a question, or something you might want to discuss trying. Then ask how they feel. Give them room to say no, ask questions, or take time.';
  }
  if(!first||first.score<2.8||(!first.major&&first.score<5)||(tokens.length>=3&&first.matched<Math.ceil(tokens.length/2)&&first.score<11)){
   const proposals=relevant.filter(x=>x.major&&x.score>=2.2).slice(0,3).map(x=>x.t.name);
-  if(proposals.length)return 'I could not match this question confidently. Did you mean '+proposals.join(', ')+ '? You can use a shorter phrase or a keyword, and I will explain the closest match rather than guessing.';
-  return 'I could not match an Atlas topic confidently from that phrasing. Try one or two keywords, or name the experience—for example “pegging,” “praise kink,” “why do I like restraint,” “aftercare,” or “talk to my partner about a fantasy.”';
+  if(proposals.length)return 'Do you mean '+proposals.join(', ')+'? Tell me which one, and we can dig into it.';
+  return 'I’m not sure which topic you mean. Try a keyword, or say it another way. Slang and everyday language are fine.';
  }
  const t=first.t;
  const why=(t.tags||[]).slice(0,4).map(k=>usefulTags[k]).filter(Boolean);
- let reply=(isWhy?'One possible explanation for enjoying ':'About ')+t.name+': '+t.description;
+ let reply=(isWhy?'There are a few reasons someone might connect with ':'Let’s talk about ')+t.name.toLowerCase()+'. '+t.description;
  if(isWhy||/psycholog|meaning|feel|emotion|reason/.test(q))
-  reply+='\n\nPeople might connect with this because of '+(why.length?why.join(', '):'personal feelings, imagination and the context')+'. These are possibilities to reflect on—not a way to infer your identity or diagnose a cause.';
- if(isSafety)reply+='\n\nIf considering any real-world activity, discuss specific limits, comfort, sexual health or injury risks, and ongoing consent. Some physical practices require specialized professional safety knowledge.';
- if(isTalk)reply+='\n\nTry asking: “What part of this interests you, and which parts would you prefer to keep imaginary?”';
+  reply+='\n\nIt may involve '+(why.length?why.join(', '):'personal memories, feelings or context')+'. Only you can say what fits.';
+ if(isSafety)reply+='\n\nIf you’re thinking about trying it, agree on boundaries first and check any health or injury risks. Consent can change at any time.';
+ if(isTalk)reply+='\n\nYou could ask: “What part interests you? Is it something you want to talk about, or keep as fantasy?”';
  const alternatives=relevant.slice(1).filter(x=>x.major&&x.score>=first.score*0.63).slice(0,2).map(x=>x.t.name);
  if(alternatives.length)reply+='\n\nRelated Atlas topics: '+alternatives.join(' · ')+'.';
- reply+='\n\nFor your own reflection: is the appeal mostly sensation, attention, power, trust, anticipation, aesthetics or a specific story?';
+ if(isWhy)reply+='\n\nWhich part feels most relevant to you?';
  return reply;
 }
 window.AtlasFlexibleSearch=Object.freeze({answer,rank:candidates});
