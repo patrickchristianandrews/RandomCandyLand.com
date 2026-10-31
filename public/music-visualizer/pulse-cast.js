@@ -1,99 +1,150 @@
-/* Candy Pulse TV streaming: encrypted WebRTC audio+canvas video.
- * Uses only existing two-client Cloudflare WebSocket relay for SDP and ICE.
- * No recorded audio, uploaded media, user account or persistent server data.
- * This mode works in TV browsers supporting WebRTC, NOT in the Chromecast
- * default media receiver. For Chromecast, mirror Android's screen instead.
+/* Candy Pulse TV Sync.
+ * Phone streams a compact spectrum/control feed via the existing Cloudflare two-peer relay.
+ * TV renders the original geometry locally rather than encoding/decoding canvas video.
+ * If WebRTC audio is available, it uses a separate encrypted peer-to-peer audio-only link.
+ * Uploaded file bytes are never sent to the relay. Pairing codes are ephemeral.
  */
 (()=>{
 'use strict';
 const endpoint='wss://candy-casino-relay.patrick-christian-andrews.workers.dev';
 const $=id=>document.getElementById(id);
 const roomPrefix='rcl-casino-';
-const bytes=()=>{const a=new Uint8Array(10);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('')};
-let socket=null,pc=null,stream=null,mediaDestination=null,iceQueue=[],channelOpen=false;
-const status=(s)=>{const el=$('tv-status');if(el)el.textContent=s};
-const send=(kind,payload)=>{if(socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify({t:'data',d:{type:'draw',kind,...payload}}));};
-const cleanupPeer=()=>{
- if(pc){try{pc.close()}catch{}pc=null}
- iceQueue=[];
-};
-function stop(){
- cleanupPeer();
- if(socket){const s=socket;socket=null;s.onclose=null;try{s.close(1000,'TV session ended')}catch{}}
- if(stream){stream.getTracks().filter(t=>t.kind==='video').forEach(t=>t.stop());stream=null}
- if(mediaDestination){try{window.CandyPulseAudio?.analyser?.disconnect(mediaDestination)}catch{}mediaDestination=null}
- $('tv-start').hidden=false;$('tv-stop').hidden=true;
- $('tv-room').hidden=true;status('TV stream stopped.');
+const token=()=>{const b=new Uint8Array(6);crypto.getRandomValues(b);return Array.from(b,x=>x.toString(16).padStart(2,'0')).join('');};
+let socket=null,pc=null,mediaDestination=null,syncTimer=0,viewerReady=false,iceQueue=[],audioAttempted=false;
+const status=s=>{const el=$('tv-status');if(el)el.textContent=s;};
+function send(kind,payload){
+ if(socket?.readyState!==WebSocket.OPEN)return;
+ try{socket.send(JSON.stringify({t:'data',d:{type:'draw',kind,...payload}}));}catch{}
 }
-async function peerReady(){
- if(!window.RTCPeerConnection){status('Your browser does not support live TV streaming. Use screen mirroring.');return}
- cleanupPeer();
+function closeAudio(){
+ iceQueue=[];
+ if(pc){try{pc.close();}catch{}pc=null;}
+ if(mediaDestination){
+  try{window.CandyPulseAudio?.analyser?.disconnect(mediaDestination);}catch{}
+  mediaDestination=null;
+ }
+ audioAttempted=false;
+}
+function stop(){
+ viewerReady=false;clearInterval(syncTimer);syncTimer=0;closeAudio();
+ if(socket){const ws=socket;socket=null;ws.onclose=null;try{ws.close(1000,'TV sync ended');}catch{}}
+ $('tv-start').hidden=false;$('tv-stop').hidden=true;$('tv-room').hidden=true;
+ status('TV Sync stopped. Create a new room when ready.');
+}
+const shrink=(arr,count)=>{
+ const out=[];
+ if(!arr?.length)return out;
+ for(let i=0;i<count;i++){
+  const start=Math.floor(i*arr.length/count),end=Math.max(start+1,Math.floor((i+1)*arr.length/count));
+  let total=0;
+  for(let j=start;j<end;j++)total+=arr[j]||0;
+  out.push(Math.round(total/(end-start)));
+ }
+ return out;
+};
+function emitSpectrum(){
+ if(!viewerReady)return;
+ const frame=window.CandyPulseCastFrame;
+ if(!frame)return;
+ send('sync',{
+  time:Math.round(frame.time*1000)/1000,
+  mode:frame.mode,cols:frame.cols,
+  active:frame.active,reduced:frame.reduced,
+  bands:shrink(frame.data,80),
+  wave:shrink(frame.wave,128),
+  sensitivity:+$('sensitivity').value,
+  glow:+$('glow').value,
+  symmetry:+$('symmetry').value,
+  density:+$('density').value,
+  trails:+$('trails').value,
+  speed:+$('speed').value
+ });
+}
+async function beginAudio(){
+ // A failed WebRTC audio handshake must never block the low-bandwidth visual feed.
+ if(audioAttempted||!window.RTCPeerConnection)return;
+ audioAttempted=true;closeAudio();audioAttempted=true;
  try{
-  const g=$('canvas');
-  if(typeof g.captureStream!=='function')throw Error('Canvas capture unavailable. Try Chrome or use screen mirroring.');
-  // Audio is shared via Web Audio without sending uploaded file bytes to a server.
-  const audio=window.CandyPulseAudio?.ensureAudio?.();
-  if(!audio)throw Error('Start the audio visualizer first, then select TV streaming.');
-  await audio.resume();
-  mediaDestination=audio.createMediaStreamDestination();
+  const ctx=window.CandyPulseAudio?.ensureAudio?.();
+  if(!ctx)throw Error('Audio unavailable');
+  if(ctx.state!=='running')await ctx.resume();
+  mediaDestination=ctx.createMediaStreamDestination();
   window.CandyPulseAudio.analyser.connect(mediaDestination);
-  stream=g.captureStream(24);
-  const audioTracks=mediaDestination.stream.getAudioTracks();
-  if(audioTracks.length)stream.addTrack(audioTracks[0]);
+  const stream=mediaDestination.stream;
   pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
-  for(const track of stream.getTracks())pc.addTrack(track,stream);
-  pc.onicecandidate=event=>{if(event.candidate)send('ice',{candidate:event.candidate.toJSON()})};
+  for(const track of stream.getAudioTracks())pc.addTrack(track,stream);
+  pc.onicecandidate=e=>{if(e.candidate)send('ice',{candidate:e.candidate.toJSON()});};
   pc.onconnectionstatechange=()=>{
-   if(pc?.connectionState==='connected')status('🟢 Video and music are streaming to the TV browser.');
-   else if(pc?.connectionState==='failed')status('TV connection failed. Keep both devices on the same Wi-Fi or use Android screen mirroring.');
-   else if(pc?.connectionState==='disconnected')status('TV connection interrupted. Reconnecting may require reopening the TV link.');
+   if(pc?.connectionState==='connected')status('🟢 TV visuals live · audio connected.');
+   if(pc?.connectionState==='failed')status('🟢 TV visuals live. TV audio could not connect; keep sound on your phone.');
   };
   const offer=await pc.createOffer();await pc.setLocalDescription(offer);
   send('offer',{sdp:pc.localDescription.sdp});
-  status('The TV joined. Negotiating the private video and audio stream…');
- }catch(e){status('TV stream unavailable: '+(e?.message||String(e))+' Use Android screen mirroring instead.');cleanupPeer()}
+ }catch(e){
+  closeAudio();audioAttempted=true;
+  status('🟢 TV visuals live. TV audio unavailable — use your phone or screen mirroring for sound.');
+ }
 }
-async function onMessage(event){
+async function receive(event){
  let msg;try{msg=JSON.parse(event.data)}catch{return}
- if(msg.t==='host-ready')status('Room created. Open the TV link in a smart-TV browser.');
- if(msg.t==='peer-ready')await peerReady();
- if(msg.t==='peer-left'){cleanupPeer();status('TV disconnected. Your session remains open for another TV connection.')}
+ if(msg.t==='host-ready'){status('Room is ready. Enter the code in your TV browser.');return}
+ if(msg.t==='peer-ready'){
+  viewerReady=true;emitSpectrum();
+  status('🟢 TV Sync connected. Visuals stream as lightweight spectrum data.');
+  beginAudio();return;
+ }
+ if(msg.t==='peer-left'){
+  viewerReady=false;closeAudio();status('TV left the room. Re-enter the code on your television.');return;
+ }
  if(msg.t!=='data'||msg.d?.type!=='draw')return;
  try{
   if(msg.d.kind==='answer'&&pc){
-   await pc.setRemoteDescription({type:'answer',sdp:msg.d.sdp});
-   for(const c of iceQueue)await pc.addIceCandidate(c);
-   iceQueue=[];
+    await pc.setRemoteDescription({type:'answer',sdp:msg.d.sdp});
+    for(const c of iceQueue)await pc.addIceCandidate(c);
+    iceQueue=[];
   }else if(msg.d.kind==='ice'&&msg.d.candidate){
-   if(pc?.remoteDescription)await pc.addIceCandidate(msg.d.candidate);else iceQueue.push(msg.d.candidate);
+    if(pc?.remoteDescription)await pc.addIceCandidate(msg.d.candidate);
+    else iceQueue.push(msg.d.candidate);
+  }else if(msg.d.kind==='ready'){
+    viewerReady=true;emitSpectrum();
   }
- }catch(e){status('Could not establish the TV stream: '+(e?.message||'connection error'))}
+ }catch{status('TV visuals continue; audio pairing could not complete.');}
 }
 function start(){
- if(!window.RTCPeerConnection||typeof $('canvas').captureStream!=='function'){
-  status('This device cannot stream to a TV browser. Use Google Home → Cast my screen.');return;
+ stop();
+ if(!window.WebSocket||!window.crypto?.getRandomValues){
+  status('This browser cannot establish a secure TV room. Use Android screen mirroring.');return;
  }
- stop();const token=bytes(),room=roomPrefix+token;
- const link=location.origin+'/music-visualizer/tv.html#'+token;
- $('tv-code').textContent=token.toUpperCase();
- $('tv-link').value=link;$('tv-room').hidden=false;
- $('tv-start').hidden=true;$('tv-stop').hidden=false;
- status('Open the link on your TV browser. The stream is private to whoever has the room code.');
- socket=new WebSocket(endpoint+'/room/'+room+'?role=host');
- socket.onmessage=onMessage;
- socket.onerror=()=>status('TV signaling connection failed. Use screen mirroring instead.');
- socket.onclose=()=>{if(socket)status('TV signaling disconnected. Choose Create TV room again.');cleanupPeer()};
+ const secret=token(),room=roomPrefix+secret;
+ $('tv-code').textContent=secret.toUpperCase();
+ $('tv-link').value=location.origin+'/music-visualizer/tv.html#'+secret;
+ $('tv-room').hidden=false;$('tv-start').hidden=true;$('tv-stop').hidden=false;
+ status('Opening TV room…');
+ try{
+  const ws=new WebSocket(endpoint+'/room/'+room+'?role=host');
+  socket=ws;
+  ws.onmessage=receive;
+  ws.onerror=()=>status('Cannot reach TV sync relay. Check connectivity or use screen mirroring.');
+  ws.onclose=()=>{if(socket===ws){viewerReady=false;clearInterval(syncTimer);syncTimer=0;closeAudio();status('TV room disconnected. Create another room to retry.');}};
+  syncTimer=setInterval(emitSpectrum,85);
+ }catch(e){stop();status('Could not open a TV room. Use Android screen mirroring.');}
 }
-const onReady=()=>{
+const ready=()=>{
  $('tv-start')?.addEventListener('click',start);
  $('tv-stop')?.addEventListener('click',stop);
  $('tv-copy')?.addEventListener('click',async()=>{
-  const link=$('tv-link').value;try{await navigator.clipboard.writeText(link);status('TV link copied. Open it in a browser on the television.')}
-  catch{$('tv-link').focus();$('tv-link').select();status('Select and copy the highlighted link.')}
+  const url=$('tv-link').value;
+  try{await navigator.clipboard.writeText(url);status('TV link copied. Open it in the TV browser.');}
+  catch{$('tv-link').focus();$('tv-link').select();status('Copy the selected TV link.');}
  });
- $('tv-share')?.addEventListener('click',async()=>{const link=$('tv-link').value;if(navigator.share)try{await navigator.share({title:'Candy Pulse live TV stream',url:link})}catch{}else status('Use Copy TV link to share it to a TV with a web browser.')});
+ $('tv-share')?.addEventListener('click',async()=>{
+  const url=$('tv-link').value;
+  if(navigator.share)try{await navigator.share({title:'Candy Pulse TV Sync',url});}catch{}
+  else status('Use Copy TV link to share it to a smart-TV browser.');
+ });
  window.addEventListener('pagehide',stop,{once:true});
 };
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',onReady);else onReady();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);
+else ready();
 window.CandyPulseTV=Object.freeze({stop});
 })();
