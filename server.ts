@@ -11,7 +11,7 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// Initialize Google GenAI client
+// Set up the optional server-side content provider
 const apiKey = process.env.GEMINI_API_KEY || '';
 const ai = new GoogleGenAI({
   apiKey,
@@ -100,7 +100,7 @@ Return a JSON object with:
     const index = Math.floor(Math.random() * FALLBACK_HEADLINES.length);
     return res.json(FALLBACK_HEADLINES[index]);
   } catch (err) {
-    console.warn('Gemini headline generation error or timeout, using fallback:', err);
+    console.warn('Headline service unavailable; using fallback:', err);
     const index = Math.floor(Math.random() * FALLBACK_HEADLINES.length);
     return res.json(FALLBACK_HEADLINES[index]);
   }
@@ -170,7 +170,7 @@ function getMatchingAuthenticClip(text: string): string {
   return 'better_than_ever_before.mp3';
 }
 
-// Endpoint: Generate Real Audio Voice using Gemini TTS with Instant Authentic Trump Voice Fallback
+// Endpoint: Serve synthesized or prerecorded character audio with a safe fallback
 app.post('/api/trump/voice', async (req, res) => {
   const { text, isBaby = false, clipName } = req.body;
 
@@ -196,7 +196,7 @@ app.post('/api/trump/voice', async (req, res) => {
     });
   }
 
-  // 2. Try Gemini Flagship TTS if API key is present
+  // 2. Try the optional server audio provider if a credential is configured
   if (apiKey) {
     try {
       const cleanedText = text.replace(/["*]/g, '').trim();
@@ -244,7 +244,7 @@ app.post('/api/trump/voice', async (req, res) => {
         });
       }
     } catch (err: any) {
-      console.warn('Gemini TTS unavailable or quota reached, serving authentic Trump clip:', err?.message || err);
+      console.warn('Audio provider unavailable; serving recorded fallback:', err?.message || err);
     }
   }
 
