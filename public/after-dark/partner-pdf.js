@@ -42,11 +42,11 @@ function build(){
  if(!selected.size)throw Error('Choose at least one section to share.');
  const root=make('div',undefined,'afterdark-detailed-report report-editorial partner-pdf-report');
  const cover=make('header',undefined,'partner-report-cover');
- add(cover,'p','THE VELVET RABBIT HOLE · A NOTE FROM ME','partner-report-eyebrow');
+ add(cover,'p','THE OTHER DRAWER · A NOTE FROM ME','partner-report-eyebrow');
  add(cover,'h1','A little more about me');
  add(cover,'p','A thoughtful invitation to learn about each other.','partner-report-subtitle');
  add(cover,'h2','Hello, you. ♡');
- add(cover,'p','I picked out a few pages from my Velvet Rabbit Hole results that I thought you might enjoy reading. They can help explain some of my curiosities, the things that matter to me, and a few ideas I might want to talk about. Some are interests I chose myself; others are just possibilities worth a peek.');
+ add(cover,'p','I picked out a few pages from my Other Drawer results that I thought you might enjoy reading. They can help explain some of my curiosities, the things that matter to me, and a few ideas I might want to talk about. Some are interests I chose myself; others are just possibilities worth a peek.');
  add(cover,'p','There is no pressure to agree, try anything, or even have an answer right away. We can talk, ask questions, laugh, skip a topic, or say no. I hope this feels like a gentle invitation to understand me a little better.');
  const note=noteBox?.value?.trim();
  if(note){
