@@ -14,6 +14,8 @@ function cleanURL(){
  // Only include well-known public sections. No query strings, game-room codes,
  // report links, personal answers, bookmarks or private hash payloads.
  if(/^\/after-dark(?:\/|\/index\.html)?$/i.test(url.pathname)){
+  const detail=document.getElementById('howto-guide-detail');
+  if(!detail?.hidden&&detail?.dataset.shareGuide)return itemURL('guide',detail.dataset.shareGuide);
   const tab=document.querySelector('.tab.visible')?.id;
   if(tab&&sections.has(tab))url.hash=tab;
   else if(sections.has(location.hash.slice(1)))url.hash=location.hash.slice(1);
