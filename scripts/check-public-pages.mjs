@@ -117,6 +117,21 @@ if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
   console.error('The Other Drawer homepage must lead with Quiz and Ask Anything cards, without a top tab menu.');failures++;
 }
 
+// The expanded developmental origins library must be shipped, with linked research.
+for(const file of ['dist/after-dark/origins-pathways.js','dist/after-dark/origins-pathways.css']){
+ if(!fs.existsSync(file)||!fs.statSync(file).size){console.error('Missing origins-pathways library asset:',file);failures++;}
+}
+if(fs.existsSync('dist/after-dark/origins-pathways.js')){
+ const content=fs.readFileSync('dist/after-dark/origins-pathways.js','utf8');
+ try{new vm.Script(content,{filename:'Origins & Pathways'});}catch(e){console.error('Broken origins script:',e.message);failures++;}
+ for(const word of ['oral-comfort','sensory-textures','attachment-reassurance','media-learning','nonsexual','Freud']){
+  if(!content.includes(word)){console.error('Origins library missing topic:',word);failures++;}
+ }
+}
+if(!afterDarkLanding.includes('id="origins-pathways"')||
+   !afterDarkLanding.includes('origins-pathways.js?v=')){
+ console.error('Expanded origins library is not linked to After Dark psychology section');failures++;
+}
 // A single public-page share control must be present across generated routes.
 for(const asset of ['dist/share-page.js','dist/share-page.css','dist/after-dark/guide-illustrations.css']){
  if(!fs.existsSync(asset)||fs.statSync(asset).size<100){
