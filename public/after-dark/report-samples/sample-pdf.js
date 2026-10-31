@@ -163,6 +163,45 @@ new:{
 };
 function ascii(value){return String(value||'').replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"').replace(/[\u2013\u2014]/g,'-').replace(/[\u2022]/g,'-').replace(/[^\x20-\x7E]/g,' ');}
 function escaped(s){return ascii(s).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');}
+const QR_ROWS=[
+'0000000000000000000000000000000000000',
+'0000000000000000000000000000000000000',
+'0000000000000000000000000000000000000',
+'0000000000000000000000000000000000000',
+'0000111111101011001010111011111110000',
+'0000100000101001011011101010000010000',
+'0000101110100000110010001010111010000',
+'0000101110101101011101110010111010000',
+'0000101110100101111110010010111010000',
+'0000100000100111100011111010000010000',
+'0000111111101010101010101011111110000',
+'0000000000001000100011001000000000000',
+'0000101101110111100011110010010110000',
+'0000010110001111110010111111100010000',
+'0000001011101011010010001111001100000',
+'0000101010010001111000111101000010000',
+'0000001100110000100001010000011000000',
+'0000001001000011011100010010001110000',
+'0000100001101110101011111100101110000',
+'0000011001001111010000000001000100000',
+'0000111100100101100010110101110100000',
+'0000010110001101010101001001011100000',
+'0000100010110011100110000101101000000',
+'0000000100010001100011100111001000000',
+'0000011100100011010011011111111000000',
+'0000000000001100111011101000111110000',
+'0000111111101100110000111010110100000',
+'0000100000101010000000101000110100000',
+'0000101110100110101111001111101000000',
+'0000101110101110101111000101110010000',
+'0000101110101110111010001001001010000',
+'0000100000100010000010001100010100000',
+'0000111111101100101000111101010100000',
+'0000000000000000000000000000000000000',
+'0000000000000000000000000000000000000',
+'0000000000000000000000000000000000000',
+'0000000000000000000000000000000000000'
+];
 function buildPdf(report){
  const WIDTH=612, HEIGHT=792, LEFT=51, RIGHT=560, TOP=727, BOTTOM=66;
  const pages=[];let commands=[],y=TOP,pageNum=0;
@@ -175,6 +214,7 @@ function buildPdf(report){
   if(pageNum)pages.push(commands.join('\n'));
   pageNum++;commands=[];y=TOP;
   commands.push('.15 .09 .21 rg 0 755 612 37 re f');
+  commands.push('.69 .42 .57 rg 0 748 612 7 re f');
   text(LEFT,770,'THE OTHER DRAWER  /  REPORT SAMPLES',10,true,[1,.9,.96]);
   text(RIGHT-92,770,'FICTIONAL EXAMPLE',7,true,[1,.83,.9]);
   line(746);
@@ -196,21 +236,70 @@ function buildPdf(report){
   y-=8;
  }
  function heading(value){
-  const lines=wrap(value,14,RIGHT-LEFT-8);
+  const lines=wrap(value,15,RIGHT-LEFT-8);
   const needed=lines.length*19+22;
   if(y< BOTTOM+needed)nextPage();
-  y-=8;for(const part of lines){text(LEFT,y,part,14,true,[.45,.19,.43]);y-=19;}
+  y-=8;for(const part of lines){text(LEFT,y,part,15,true,[.45,.19,.43]);y-=21;}
   line(y+5);y-=15;
  }
  nextPage();
  y-=18;
- for(const t of wrap(report.title,21,RIGHT-LEFT-4)){text(LEFT,y,t,21,true,[.39,.18,.39]);y-=28;}
+ commands.push('.94 .80 .89 rg 470 586 190 190 re f');
+ commands.push('.83 .63 .78 rg 532 618 62 62 re f');
+ for(const t of wrap(report.title,24,RIGHT-LEFT-4)){text(LEFT,y,t,24,true,[.34,.16,.35]);y-=31;}
  y-=5;paragraph(report.subtitle,{size:11,leading:16,color:[.43,.31,.43]});y-=12;
- commands.push('.96 .92 .96 rg '+LEFT+' '+(y-64)+' '+(RIGHT-LEFT)+' 79 re f');
+ commands.push('.96 .92 .96 rg '+LEFT+' '+(y-80)+' '+(RIGHT-LEFT)+' 91 re f');
+ commands.push('.73 .42 .60 rg '+LEFT+' '+(y-80)+' 4 91 re f');
  let leadY=y+1;
  for(const t of wrap(report.lead,10,RIGHT-LEFT-28)){text(LEFT+12,leadY,t,10,false,[.28,.19,.31]);leadY-=16;}
- y-=100;
+ y-=106;
  for(const [title,paras] of report.sections){heading(title);for(const p of paras)paragraph(p);}
+ // Every sample closes with a dedicated QR / methodology page.
+ nextPage();
+ text(LEFT,713,'THE METHOD BEHIND YOUR RESULTS',10,true,[.60,.33,.50]);
+ text(LEFT,681,'How The Other Drawer works',22,true,[.32,.17,.37]);
+ for(const [i,t] of wrap('This adult educational site helps you reflect on what you selected and what it may mean to you. Scan the code below to explore the quizzes, guides and full methodology.',10,505).entries())
+   text(LEFT,650-i*15,t,10,false,[.35,.27,.39]);
+ const methods=[
+  ['01 / Your direct choices','The 69-question preferences quiz records named interests, fantasy-only choices, curiosity, intentions and boundaries.'],
+  ['02 / Everyday psychology','The 32-question nonsexual quiz asks about trust, attention, relationships, sensory details and other everyday themes.'],
+  ['03 / Shared editorial themes','Answers map to themes such as sensation or anticipation. The report shows overlapping and different answers, not forced agreement.'],
+  ['04 / Your report, your choice','Your private report explains selected themes; optional partner reports share only what you choose to include.']
+ ];
+ methods.forEach(([title,body],i)=>{
+   const x=i%2===0?LEFT:LEFT+260, cy=i<2?475:356, w=249,h=106;
+   commands.push('.968 .948 .974 rg '+x+' '+cy+' '+w+' '+h+' re f');
+   commands.push('.81 .66 .79 RG 0.7 w '+x+' '+cy+' '+w+' '+h+' re S');
+   commands.push('.69 .37 .57 rg '+x+' '+(cy+h-6)+' '+w+' 6 re f');
+   text(x+13,cy+h-28,title,11,true,[.37,.20,.44]);
+   wrap(body,8.5,w-28).slice(0,5).forEach((t,j)=>text(x+13,cy+h-48-j*12,t,8.5,false,[.35,.28,.40]));
+ });
+ commands.push('.95 .91 .96 rg '+LEFT+' 105 509 237 re f');
+ commands.push('.69 .42 .59 rg '+LEFT+' 105 4 237 re f');
+ text(LEFT+15,319,'How to interpret the results',13,true,[.33,.17,.39]);
+ const cautions=[
+  'Theme matches and relative scores are editorial,',
+  'not statistical probabilities, validated diagnoses,',
+  'proof of a preference\'s origin or predictions of',
+  'compatibility or enjoyment.',
+  '',
+  'Your explicit Not for me choices override',
+  'general suggestions. Theme-only ideas remain',
+  'unconfirmed until you choose them yourself.',
+  '',
+  'PDFs are created on your device. Always review',
+  'personal information before sharing a saved copy.'
+ ];
+ cautions.forEach((t,j)=>{if(t)text(LEFT+15,296-j*14,t,8.9,false,[.35,.25,.40]);});
+ const qx=424,qy=166,side=122,n=QR_ROWS.length,moduleSize=side/n;
+ commands.push('1 1 1 rg '+(qx-7)+' '+(qy-8)+' '+(side+14)+' '+(side+16)+' re f');
+ commands.push('0 0 0 rg');
+ for(let row=0;row<n;row++)for(let col=0;col<n;col++)if(QR_ROWS[row][col]==='1')
+    commands.push((qx+col*moduleSize).toFixed(3)+' '+(qy+(n-row-1)*moduleSize).toFixed(3)+' '+(moduleSize+.035).toFixed(3)+' '+(moduleSize+.035).toFixed(3)+' re f');
+ text(438,309,'SCAN THE SITE',9,true,[.36,.19,.43]);
+ text(421,141,'randomcandyland.com',8,true,[.37,.24,.45]);
+ text(442,129,'/after-dark/',8,true,[.37,.24,.45]);
+ text(LEFT,83,'THE OTHER DRAWER  |  WHAT DESIRES REVEAL ABOUT US',8,true,[.62,.41,.55]);
  pages.push(commands.join('\n'));
  const objs=[''];
  const put=s=>{objs.push(s);return objs.length-1;};
