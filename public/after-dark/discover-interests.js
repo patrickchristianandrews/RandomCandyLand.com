@@ -10,17 +10,29 @@ const selectedNames=d=>new Set((d.direct?.specificSelections||[])
 const classify=t=>String(t.name||'').toLowerCase();
 const val=n=>Math.max(0,Number(n)||0);
 const safe=a=>Array.isArray(a)?a:[];
+const negativeChoice=s=>/^(?:none|neither|not interested|no interest|i (?:don't|do not) |prefer not|nothing|unsure|i am not sure|not for me|skip)/i.test(String(s||''));
 const directEvidence=(d,tags)=>safe(d.direct?.questions).filter(q=>safe(q.selected).some(opt=>
-  safe(opt.axes).some(tag=>tags.includes(tag)))).slice(0,2)
+  !negativeChoice(opt.text)&&safe(opt.axes).some(tag=>tags.includes(tag)))).slice(0,2)
   .map(q=>({question:q.question,answer:safe(q.selected).filter(opt=>safe(opt.axes).some(tag=>tags.includes(tag)))
-  .map(x=>x.text).slice(0,2).join(' / '),intent:q.intentLabel||''}));
+  .filter(x=>!negativeChoice(x.text)).map(x=>x.text).slice(0,2).join(' / '),intent:q.intentLabel||''}));
 const psychEvidence=(d,tags)=>safe(d.psych?.questions).filter(q=>safe(q.selected).some(opt=>
   safe(opt.axes).some(tag=>tags.includes(tag)))).slice(0,2)
  .map(q=>({question:q.question,answer:safe(q.selected).filter(opt=>safe(opt.axes).some(tag=>tags.includes(tag)))
  .map(x=>x.text).slice(0,2).join(' / ')}));
 function evaluate(d=get()){
  if(!d||d.direct?.answered<4)return{suggestions:[],categories:[],eligible:false,reason:'Complete more of the Sexual Preferences Quiz to explore possible new topics. Everyday psychology answers alone do not establish sexual interests.'};
- const direct=d.axes?.direct||{},psych=d.axes?.psych||{},lenses=d.lenses||{};
+ // Recount affirmative direct-quiz selections only: negation options such as
+ // "None of these" have theme tags for quiz navigation, not evidence of desire.
+ const negative=/^(?:none|neither|not interested|no interest|i (?:don't|do not) |prefer not|nothing|unsure|i am not sure|not for me|skip)/i;
+ const direct={};
+ for(const q of safe(d.direct?.questions)){
+  if(q?.coreId===61||/adult.media|pornograph/i.test(q?.question||''))continue;
+  for(const option of safe(q?.selected)){
+   if(negative.test(option.text||''))continue;
+   for(const axis of safe(option.axes)){direct[axis]=(direct[axis]||0)+1;}
+  }
+ }
+ const psych=d.axes?.psych||{},lenses=d.lenses||{};
  const marked=new Set(Object.keys(d.selections||{}).filter(id=>['yes','maybe','no'].includes(d.selections[id])));
  const already=selectedNames(d);
  const topDirect=Math.max(1,...Object.values(direct).map(val));
@@ -117,4 +129,16 @@ function render(root=document.createElement('section')){
  return root;
 }
 window.AfterDarkDiscovery=Object.freeze({evaluate,render});
+const baseReport=window.AfterDarkDetailedReport;
+if(baseReport&&typeof baseReport.build==='function'){
+ window.AfterDarkDetailedReport=Object.freeze({...baseReport,build(){
+  const doc=baseReport.build();
+  const section=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('05'));
+  if(section){
+   const s=document.createElement('div');s.className='report-discover-module';
+   section.append(window.AfterDarkDiscovery.render(s));
+  }
+  return doc;
+ }});
+}
 })();
