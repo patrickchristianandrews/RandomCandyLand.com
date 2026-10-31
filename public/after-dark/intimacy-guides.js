@@ -505,6 +505,8 @@ const DATA={
   }
 };
 const guides=DATA.guides, sources=DATA.sources;
+const visualByGuide={"nipple-pleasure":"chest-sensation","clitoral-pleasure":"clitoral-network","outer-vulva":"vulva-external","vaginal-orgasm":"pelvic-sensation","front-wall":"pelvic-sensation","deep-pelvic":"pelvic-sensation","anal-orgasm":"anal-pelvic","prostate-anatomy":"prostate-pelvic","testicular-orgasm":"penile-scrotal","penile-orgasm":"penile-scrotal","blended-orgasm":"response-pathways","multiple-orgasms":"response-variation","dry-orgasm":"response-pathways","non-genital":"response-pathways","coregasm":"response-variation","sleep-orgasm":"response-pathways","whole-body":"response-variation","orgasm-difficulty":"response-variation"};
+const guideNotes={"nipple-pleasure":["The areola surrounds the nipple, and sensitivity may differ between them.","Breast and nipple nerve signals interact with the brain; this is not a reliable orgasm trigger for everyone."],"clitoral-pleasure":["The glans is visible externally, while the body, crura and bulbs extend internally.","Indirect contact through the hood or adjacent tissue can be preferred to direct contact."],"outer-vulva":["The labia, clitoral hood and vestibule are different structures.","Arousal, friction and comfort can change which areas feel pleasant."],"vaginal-orgasm":["The vagina and clitoral network are anatomically close but not the same structure.","Combining external and internal sensation is common; penetration alone is not a requirement."],"front-wall":["The anterior vaginal wall lies toward the bladder and urethra.","The 'G-spot' is not a reliably separate organ or a guaranteed point of response."],"deep-pelvic":["The cervix lies at the upper end of the vaginal canal.","Deep pressure ranges from enjoyable to uncomfortable; pain is never a useful target."],"anal-orgasm":["The anus and anal canal have sensory nerves and nearby pelvic-floor muscles.","No particular act or penetration is required for someone to experience arousal from this area."],"prostate-anatomy":["The prostate lies below the bladder, surrounds part of the urethra and is in front of the rectum.","Prostate-related sensations vary; pain or bleeding is not a normal technique."],"testicular-orgasm":["The scrotum is skin around the testes; they are not the same sensory tissue.","Avoid forceful pressure or impact. Sudden testicular pain needs prompt medical evaluation."],"penile-orgasm":["The penile glans and shaft have different sensory properties.","Orgasm and ejaculation often occur together but are different physiological events."],"blended-orgasm":["More than one kind of sensation may contribute to a single experience.","There is no single neurological pathway that everyone must use."],"multiple-orgasms":["Recovery time varies widely across people and from one day to the next.","Multiple orgasms are not a measure of sexual health or skill."],"dry-orgasm":["Orgasm and semen release are separate processes.","A new or unexplained absence of semen may have a medical cause; it is not automatically something to train."],"non-genital":["Mental imagery, anticipation and sensations outside the genitals can affect arousal.","Scientific evidence is limited; reports do not establish a universal technique."],"coregasm":["Some people report orgasm during exercise, particularly with sustained trunk or lower-body effort.","These reports are varied and do not establish a safe exercise prescription to produce orgasm."],"sleep-orgasm":["Orgasm may occur during sleep without deliberate touch.","A dream-associated response does not imply intention or a wish to act out the dream."],"whole-body":["The term describes a subjective experience rather than a distinct anatomical reflex.","Attention, breathing and bodily sensations can contribute, but outcomes vary."],"orgasm-difficulty":["Stress, medication, discomfort and context can influence response.","Persistent change, pain or distress is a reason to seek individualized medical guidance."]};
 const $=id=>document.getElementById(id);
 const make=(tag,text,className)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n};
 const normalize=s=>String(s||'').toLowerCase().replace(/[^a-z0-9\s-]/g,' ').replace(/\s+/g,' ').trim();
@@ -542,7 +544,11 @@ function paint(){
  for(const g of match){
   const card=make('article',undefined,'howto-guide-card');
   card.append(make('span',g.category,'howto-guide-category'));
-  card.append(make('div',g.icon,'howto-guide-illustration'));
+  const thumb=make('img',undefined,'howto-guide-thumb');
+  thumb.src='/after-dark/visuals/'+visualByGuide[g.id]+'.svg';
+  thumb.alt='Educational illustration: '+g.title;
+  thumb.loading='lazy';thumb.decoding='async';
+  card.append(thumb);
   card.append(make('h3',g.title));
   card.append(make('p',g.subtitle));
   const btn=make('button','Read guide →','btn alt');
@@ -561,6 +567,16 @@ function open(id){
  out.replaceChildren();out.dataset.shareGuide=g.id;
  out.append(make('span',g.category,'eyebrow'),make('h2',g.icon+' '+g.title),make('p',g.subtitle,'howto-guide-lead'));
  const box=make('div',undefined,'howto-guide-insight');box.append(make('h3','Understand the experience'),make('p',g.facts));out.append(box);
+ const figure=make('figure',undefined,'howto-guide-figure');
+ const image=make('img');image.src='/after-dark/visuals/'+visualByGuide[g.id]+'.svg';
+ image.alt='Educational visual overview of '+g.title+', showing the relevant anatomy or response factors.';
+ image.loading='lazy';image.decoding='async';
+ const caption=make('figcaption','A simplified visual reference, not to anatomical scale.','howto-guide-caption');
+ figure.append(image,caption);out.append(figure);
+ const focus=make('section',undefined,'howto-guide-focus');
+ focus.append(make('h3','What matters here'));
+ const points=make('ul');for(const note of guideNotes[g.id]||[])points.append(make('li',note));
+ focus.append(points);out.append(focus);
  const steps=make('section',undefined,'howto-guide-steps');
  steps.append(make('h3','A practical way to get started'));
  const ol=make('ol');g.steps.forEach(s=>ol.append(make('li',s)));steps.append(ol);out.append(steps);
