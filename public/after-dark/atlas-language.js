@@ -1,5 +1,5 @@
 /* Ask Atlas: forgiving, on-device topic lookup with typo and synonym handling.
-   A relevance ranking is not a scientific probability or a generated AI answer. */
+   Suggestions are reading ideas to help people explore at their own pace. */
 (()=>{
 'use strict';
 const norm=s=>String(s||'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
