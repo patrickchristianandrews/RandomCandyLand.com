@@ -93,6 +93,11 @@ function content(){
  return {paint};
 }
 const state=content();
+document.querySelectorAll('[data-scroll-origins]').forEach(b=>b.addEventListener('click',()=>{
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  document.getElementById('origins-pathways')?.scrollIntoView({block:'start',behavior:'smooth'});
+ }));
+}));
 function deepLink(){
  const id=new URL(location.href).searchParams.get('origin');if(!id||!/^[a-z0-9-]{1,80}$/.test(id))return;
  const target=$('origin-'+id);if(!target)return;
