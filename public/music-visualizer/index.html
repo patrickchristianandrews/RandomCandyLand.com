@@ -74,7 +74,7 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 </section>
 <section class="cast-tools" id="cast-tools" hidden aria-label="Cast Pulse to your TV">
 <h2>📺 Put Candy Pulse on your TV</h2>
-<p>Choose your method. <strong>Android screen casting mirrors the whole moving visualizer and its sound to Chromecast or Google TV.</strong> A separate TV-browser link is also available for televisions with WebRTC browsers.</p>
+<p><strong>New low-latency TV Sync:</strong> Your phone sends only a lightweight live music spectrum while the TV draws the visuals itself, avoiding video-stream lag. Compatible smart-TV browsers can display visuals even without WebRTC; WebRTC adds optional TV audio. Standard Chromecast devices still use Android screen mirroring.</p>
 <div class="cast-grid">
 <article><h3>Google TV / Chromecast · Android</h3>
 <ol class="cast-steps">
@@ -85,18 +85,18 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 </ol>
 <p>The regular Google Cast media button cannot directly send an animated web canvas; Android screen mirroring is the supported solution for Chromecast without a custom registered receiver.</p>
 </article>
-<article><h3>Direct live link · Smart-TV browser</h3>
-<p>Stream live geometry and audio directly from Pulse to a TV browser that supports WebRTC. Start your music first, create a TV room, and open its link in the television's browser.</p>
+<article><h3>✨ Recommended · Fast TV Sync (smart-TV browser)</h3>
+<p>Play a track or start the microphone, then create a room. On the TV open <strong>RandomCandyLand.com/music-visualizer/tv.html</strong>, type the 12-character code and connect. The TV generates full-screen visuals locally instead of decoding video. A TV browser with WebRTC can also receive your music when supported.</p>
 <div class="row"><button class="btn primary" id="tv-start" type="button">📡 Create TV room</button><button class="btn" id="tv-stop" type="button" hidden>■ Stop TV stream</button></div>
 <div id="tv-room" hidden><p>TV pairing code: <strong id="tv-code"></strong></p>
 <label for="tv-link">Open this link in the TV browser</label>
 <input readonly id="tv-link" aria-label="Link to open on television"/>
 <div class="row"><button class="btn" id="tv-copy" type="button">Copy TV link</button><button class="btn" id="tv-share" type="button">Share link</button></div>
 </div><p id="tv-status" role="status">Start a TV room to pair your television.</p>
-<p>TV browsers must support WebRTC. Basic Chromecast devices cannot open this page; use screen mirroring instead. Audio and video stream peer-to-peer when connected.</p>
+<p>Visuals need a TV browser with Canvas and WebSockets. TV audio additionally needs WebRTC support and may require a tap on the television. Spectrum data is sent through the Cloudflare signaling relay; uploaded music files stay on your phone. For Chromecast without a TV browser, use Android screen mirroring.</p>
 </article>
 </div>
-<p>On a laptop, Chrome's <strong>Cast</strong> menu can also cast this tab. On Apple TV, use supported device screen-mirroring options.</p>
+<p><strong>For standard Chromecast:</strong> On Android open Google Home → your Cast device → Cast screen, then return to Pulse and enter Full screen. On desktop Chrome use ⋮ → Cast, save and share → Cast tab. Native one-tap Cast of custom visuals requires a registered Google Cast receiver app.</p>
 </section>
 <div class="panel">
 <section class="controls" aria-label="Music source controls"><h2>🎵 Choose your sound</h2>
@@ -112,25 +112,32 @@ label.select{display:inline-flex;flex-direction:column;gap:4px;font-size:12px;co
 </section>
 <section class="controls" aria-label="Visual style"><h2>🌈 Customize the visuals</h2>
 <div class="row">
-<label class="select">Visual journey<select id="mode"><option value="auto">✧ Infinite Hypno Journey</option><option value="hypno">✺ Hypnotic Geometry</option><option value="mandala">❁ Sacred Mandala</option><option value="kaleido">✧ Kaleidoscope</option><option value="vortex">◎ Infinite Vortex</option><option value="tunnel">▱ Neon Tunnel</option><option value="lissajous">∞ Flowing Geometry</option><option value="orbit">◉ Candy Orbit · Classic</option><option value="bloom">✿ Dream Bloom</option><option value="bars">▥ Neon Bars · Classic</option><option value="wave">〰 Electric Wave · Classic</option></select></label>
-<label class="select">Palette<select id="palette"><option value="candy">Candy Glow</option><option value="gold">Golden Hour</option><option value="ocean">Ocean Light</option><option value="prism">Rainbow</option></select></label>
+<label class="select">Visual journey<select id="mode"><option value="auto">✧ Infinite Hypno Journey · Retro Mix</option><option value="plasma">🌈 Psychedelic Plasma · MilkDrop style</option><option value="starfield">✦ 3D Starfield Tunnel</option><option value="spectrum">◎ 360° Spectrum Reactor</option><option value="scope">〰 Electric Oscilloscope</option><option value="hypno">✺ Hypnotic Geometry</option><option value="mandala">❁ Sacred Mandala</option><option value="kaleido">✧ Kaleidoscope</option><option value="vortex">◎ Infinite Vortex</option><option value="tunnel">▱ Neon Tunnel</option><option value="lissajous">∞ Flowing Geometry</option><option value="orbit">◉ Candy Orbit · Classic</option><option value="bloom">✿ Dream Bloom</option><option value="bars">▥ Neon Bars · Classic</option><option value="wave">〰 Electric Wave · Classic</option></select></label>
+<label class="select">Performance<select id="quality"><option value="auto">Smooth · 60 FPS target</option><option value="high">Extra detail</option><option value="battery">Battery saver</option></select></label><label class="select">Palette<select id="palette"><option value="candy">Candy Glow</option><option value="gold">Golden Hour</option><option value="ocean">Ocean Light</option><option value="prism">Rainbow</option></select></label>
 </div>
-<div class="sliders"><label>Sensitivity <input id="sensitivity" type="range" min="0.4" max="2.8" step="0.1" value="1.35"></label><label>Glow <input id="glow" type="range" min="0" max="30" step="1" value="17"></label><label>Symmetry <input id="symmetry" type="range" min="4" max="16" step="2" value="10"></label><label>Complexity <input id="density" type="range" min="2" max="10" step="1" value="7"></label><label>Light trails <input id="trails" type="range" min="0" max=".93" step=".05" value=".79"></label><label>Motion speed <input id="speed" type="range" min=".2" max="2.2" step=".1" value=".85"></label></div><div class="row pulse-actions"><button class="btn" type="button" id="surprise">✧ Surprise me</button><button class="btn" type="button" id="motion">☾ Calm motion</button><button class="btn" type="button" id="reset-look">↺ Restore visual defaults</button></div>
-<p class="hint">Every geometric layer responds to your audio: bass expands the tunnel and rings, mids reshape geometry, and treble lights up the particles. Auto Journey evolves the scene. For another music app, use microphone capture where permitted; protected Spotify playback cannot be captured directly in a browser.</p>
+<div class="sliders"><label>Sensitivity <input id="sensitivity" type="range" min="0.4" max="2.8" step="0.1" value="1.35"></label><label>Glow <input id="glow" type="range" min="0" max="30" step="1" value="12"></label><label>Symmetry <input id="symmetry" type="range" min="4" max="16" step="2" value="10"></label><label>Complexity <input id="density" type="range" min="2" max="10" step="1" value="6"></label><label>Light trails <input id="trails" type="range" min="0" max=".93" step=".05" value=".72"></label><label>Motion speed <input id="speed" type="range" min=".2" max="2.2" step=".1" value="1.4"></label></div><div class="row pulse-actions"><button class="btn" type="button" id="surprise">✧ Surprise me</button><button class="btn" type="button" id="motion">☾ Calm motion</button><button class="btn" type="button" id="reset-look">↺ Restore visual defaults</button></div>
+<p class="hint">Classic visualizer effects now include 3D star tunnels, psychedelic plasma, circular spectrum bars and real audio waveforms. Bass drives depth and beat flashes; mids morph geometry and treble illuminates fine detail. Auto Journey switches presets approximately every 12 seconds. For another music app, use microphone capture where permitted; protected Spotify playback cannot be captured directly in a browser.</p>
 </section></div>
 <footer class="privacy">Candy Pulse is a browser-local music visualizer. Audio from uploaded files and the microphone is processed on your device and is not uploaded. © Random Candy Land.</footer>
 </div>
-<script src="/music-visualizer/pulse-engine.js?v=pulse-fixed-20261030-v2"></script>
+<script src="/music-visualizer/pulse-engine.js?v=pulse-retro-20261030-v3"></script>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
 const canvas=$('canvas'),g=canvas.getContext('2d',{alpha:false}),audio=$('player'),mode=$('mode'),palette=$('palette');
 let ctx=null,analyser=null,mediaSrc=null,micStream=null,micSrc=null,demoSources=[],demoLoopTimer=0,fileURL=null,sourceType='none';
 let data=new Uint8Array(512),wave=new Uint8Array(512),raf=0,lastFrame=0,t=0,visible=true;
+const castFrame={time:0,data,wave,mode:'plasma',palette:'candy',cols:[],active:false,reduced:false};window.CandyPulseCastFrame=castFrame;
 let w=0,h=0,dpr=1;
 const colors={candy:['#ff86bb','#ffdd82','#97ddff','#ca92ff'],gold:['#ffe799','#ffa43b','#ff7096','#fff9d8'],ocean:['#6de4ff','#4e94ff','#4af9c9','#dafcff'],prism:['#ff3f73','#fff55f','#65f2ad','#7ca9ff','#d67bff']};
 function setStatus(text){$('status').textContent=text;}
-function resize(){const r=canvas.getBoundingClientRect();w=Math.max(1,r.width);h=Math.max(1,r.height);dpr=Math.min(window.devicePixelRatio||1,1.5);const nw=Math.round(w*dpr),nh=Math.round(h*dpr);if(canvas.width!==nw||canvas.height!==nh){canvas.width=nw;canvas.height=nh;}g.setTransform(dpr,0,0,dpr,0,0);}
+function resize(){const r=canvas.getBoundingClientRect();w=Math.max(1,r.width);h=Math.max(1,r.height);
+ const quality=$('quality').value,preferred=quality==='battery'?1:quality==='high'?1.65:(w<700?1.15:1.4);
+ dpr=Math.min(window.devicePixelRatio||1,preferred,Math.sqrt(1850000/(w*h)));
+ const nw=Math.max(1,Math.round(w*dpr)),nh=Math.max(1,Math.round(h*dpr));
+ if(canvas.width!==nw||canvas.height!==nh){canvas.width=nw;canvas.height=nh;}
+ g.setTransform(dpr,0,0,dpr,0,0);
+}
 function ensureAudio(){if(ctx)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Audio processing is not supported by this browser.');ctx=new AC();analyser=ctx.createAnalyser();analyser.fftSize=1024;analyser.smoothingTimeConstant=.78;data=new Uint8Array(analyser.frequencyBinCount);wave=new Uint8Array(analyser.fftSize);}
 function stopDemo(){if(demoLoopTimer){clearTimeout(demoLoopTimer);demoLoopTimer=0;}demoSources.forEach(s=>{try{s.stop()}catch(e){}});demoSources=[];}
 function stopMic(){if(micSrc){try{micSrc.disconnect()}catch(e){};micSrc=null;}if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;}}
@@ -173,28 +180,29 @@ const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 $('cast-toggle').onclick=()=>{const panel=$('cast-tools');panel.hidden=!panel.hidden;$('cast-toggle').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden)panel.scrollIntoView({behavior:'smooth',block:'start'});};
 window.CandyPulseAudio={ensureAudio:()=>{ensureAudio();return ctx},get analyser(){return analyser},get source(){return sourceType}};
 let pulseFrames=0;
-const settings={sensitivity:'1.35',glow:'17',symmetry:'10',density:'7',trails:'.79',speed:'.85'};
+const settings={sensitivity:'1.35',glow:'12',symmetry:'10',density:'6',trails:'.72',speed:'1.4'};
 let calmMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches||false;
 function draw(now){
  raf=requestAnimationFrame(draw);
- if(!visible||now-lastFrame<30)return;
- const delta=lastFrame?Math.min(.065,(now-lastFrame)/1000):.032;
+ if(!visible||now-lastFrame<($('quality').value==='battery'?32:15.5))return;
+ const delta=lastFrame?Math.min(.055,(now-lastFrame)/1000):.016;
  lastFrame=now;resize();t+=delta;pulseFrames++;
  const cols=colors[palette.value]||colors.candy;
  if(analyser&&sourceType!=='none'){analyser.getByteFrequencyData(data);analyser.getByteTimeDomainData(wave);}
  else{data.fill(0);wave.fill(128);}
- const autoModes=['hypno','kaleido','mandala','tunnel','lissajous','vortex'];
- const chosen=mode.value==='auto'?autoModes[Math.floor(t/24)%autoModes.length]:mode.value;
+ const autoModes=['plasma','starfield','spectrum','kaleido','vortex','scope','mandala','tunnel','lissajous','hypno'];
+ const chosen=mode.value==='auto'?autoModes[Math.floor(t/12)%autoModes.length]:mode.value;
+ const isActive=sourceType!=='none'&&(sourceType!=='file'||!audio.paused);
+ castFrame.time=t;castFrame.data=data;castFrame.wave=wave;castFrame.mode=chosen;castFrame.palette=palette.value;castFrame.cols=cols;castFrame.active=isActive;castFrame.reduced=calmMotion;
  window.CandyPulseGeometry.render(g,{
-  w,h,time:t,data,cols,mode:chosen,active:sourceType!=='none'&&
-  (sourceType!=='file'||!audio.paused),reduced:calmMotion,
+  w,h,time:t,data,wave,cols,mode:chosen,active:isActive,reduced:calmMotion,
   sensitivity:+$('sensitivity').value,glow:+$('glow').value,
   symmetry:+$('symmetry').value,density:+$('density').value,
   trails:+$('trails').value,speed:+$('speed').value
  });
 }
 $('surprise').onclick=()=>{
- const looks=['hypno','mandala','kaleido','vortex','tunnel','lissajous','bloom','orbit'];
+ const looks=['plasma','starfield','spectrum','scope','hypno','mandala','kaleido','vortex','tunnel','lissajous','bloom','orbit'];
  mode.value=looks[Math.floor(Math.random()*looks.length)];
  palette.value=Object.keys(colors)[Math.floor(Math.random()*Object.keys(colors).length)];
  $('symmetry').value=String(4+2*Math.floor(Math.random()*7));
@@ -212,5 +220,5 @@ window.CandyPulseDebug=Object.freeze({get frameCount(){return pulseFrames},get s
 resize();raf=requestAnimationFrame(draw);
 window.addEventListener('pagehide',()=>{cancelAnimationFrame(raf);stopAll(false);if(ros)ros.disconnect();if(ctx)ctx.close()},{once:true});
 </script>
-<script src="/music-visualizer/pulse-cast.js?v=pulse-tv-20261030-v1"></script>
+<script src="/music-visualizer/pulse-cast.js?v=pulse-tv-sync-20261030-v2"></script>
 </body></html>
