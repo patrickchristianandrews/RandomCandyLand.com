@@ -547,7 +547,10 @@ function paint(){
   card.append(make('p',g.subtitle));
   const btn=make('button','Read guide →','btn alt');
   btn.type='button';btn.onclick=()=>open(g.id);
-  card.append(btn);grid.append(card);
+  const share=make('button','↗ Share this guide','btn alt');
+  share.type='button';share.setAttribute('aria-label','Share '+g.title);
+  share.onclick=()=>window.RandomCandyLandShare?.shareItem?.('guide',g.id,g.title);
+  card.append(btn,share);grid.append(card);
  }
  if(!match.length)grid.append(make('p','No orgasm guides match those keywords. Try “nipple”, “clitoral”, “vaginal”, “anal”, “testicular” or “multiple”.','howto-empty'));
 }
@@ -555,7 +558,7 @@ function open(id){
  const g=guides.find(g=>g.id===id);if(!g)return;
  selectedId=g.id;
  const out=$('howto-guide-detail');if(!out)return;
- out.replaceChildren();
+ out.replaceChildren();out.dataset.shareGuide=g.id;
  out.append(make('span',g.category,'eyebrow'),make('h2',g.icon+' '+g.title),make('p',g.subtitle,'howto-guide-lead'));
  const box=make('div',undefined,'howto-guide-insight');box.append(make('h3','Understand the experience'),make('p',g.facts));out.append(box);
  const steps=make('section',undefined,'howto-guide-steps');
@@ -569,7 +572,9 @@ function open(id){
  const back=make('button','← All guides','btn alt');back.onclick=()=>{selectedId='';out.hidden=true;document.getElementById('howto-filters')?.scrollIntoView({behavior:'smooth',block:'start'})};
  const ask=make('button','💬 The Whisper Line about this','btn alt');ask.onclick=()=>{document.querySelector('[data-tab=chat]')?.click();const inp=$('chatText');if(inp){inp.value='What is a practical, safe starting approach for '+g.title+'?';inp.focus();}};
  const browse=make('button','📚 Browse the Curiosity Cabinet','btn alt');browse.onclick=()=>document.querySelector('[data-tab=atlas]')?.click();
- actions.append(back,ask,browse);out.append(actions);
+ const share=make('button','↗ Share this guide','btn');
+ share.onclick=()=>window.RandomCandyLandShare?.shareItem?.('guide',g.id,g.title);
+ actions.append(share,back,ask,browse);out.append(actions);
  out.hidden=false;out.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function init(){
@@ -585,8 +590,12 @@ function init(){
    open(button.dataset.guideOpen);
   });
  });
+ const sharedGuide=new URL(location.href).searchParams.get('guide');
+ if(sharedGuide && guides.some(g=>g.id===sharedGuide)){
+  document.querySelector('[data-tab=howto]')?.click();open(sharedGuide);
+ }
  const hash=window.location.hash;
- if(hash.startsWith('#howto:')){
+ if(!sharedGuide&&hash.startsWith('#howto:')){
   const id=hash.slice('#howto:'.length);
   document.querySelector('[data-tab=howto]')?.click();open(id);
  }
