@@ -9,7 +9,7 @@
 const endpoint='wss://candy-casino-relay.patrick-christian-andrews.workers.dev';
 const $=id=>document.getElementById(id);
 const roomPrefix='rcl-casino-';
-const token=()=>{const b=new Uint8Array(6);crypto.getRandomValues(b);return Array.from(b,x=>x.toString(16).padStart(2,'0')).join('');};
+const token=()=>{const b=new Uint8Array(10);crypto.getRandomValues(b);return Array.from(b,x=>x.toString(16).padStart(2,'0')).join('');};
 let socket=null,pc=null,mediaDestination=null,syncTimer=0,viewerReady=false,iceQueue=[],audioAttempted=false;
 const status=s=>{const el=$('tv-status');if(el)el.textContent=s;};
 function send(kind,payload){
