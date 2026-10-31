@@ -185,7 +185,7 @@ let calmMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches||
 function draw(now){
  raf=requestAnimationFrame(draw);
  if(!visible||now-lastFrame<($('quality').value==='battery'?32:15.5))return;
- const delta=lastFrame?Math.min(.055,(now-lastFrame)/1000):.016;
+ const delta=lastFrame?Math.min(.2,(now-lastFrame)/1000):.016;
  lastFrame=now;resize();t+=delta;pulseFrames++;
  const cols=colors[palette.value]||colors.candy;
  if(analyser&&sourceType!=='none'){analyser.getByteFrequencyData(data);analyser.getByteTimeDomainData(wave);}
