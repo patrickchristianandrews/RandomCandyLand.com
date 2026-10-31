@@ -11,47 +11,65 @@ const element=(tag,text,cls)=>{
  return e;
 };
 function create(){
- const page=element('section',undefined,'afterdark-qr-section afterdark-methodology-last-page');
- page.setAttribute('aria-label','Final page: report methodology and QR code to The Other Drawer');
- const top=element('div',undefined,'afterdark-method-top');
- top.append(
-   element('p','UNDERSTAND THE METHOD · EXPLORE THE SOURCE','afterdark-qr-eyebrow'),
-   element('h2','How your report was created'),
-   element('p','The Other Drawer is an adults-only educational space within Random Candy Land. It helps you explore questions about interests, everyday psychology, relationships and how to discuss them thoughtfully. This report organizes your own answers: it does not discover secret facts about you.')
+ const flyer=element('section',undefined,'afterdark-qr-section afterdark-methodology-last-page afterdark-share-flyer');
+ flyer.setAttribute('aria-label','Last page: shareable flyer about The Other Drawer and QR code to the program');
+ const mast=element('div',undefined,'od-flyer-mast');
+ mast.append(element('span','RANDOM CANDY LAND PRESENTS','od-flyer-eyebrow'));
+ mast.append(element('span','THE OTHER DRAWER','od-flyer-brand'));
+ mast.append(element('span','A SPACE TO EXPLORE. REFLECT. CONNECT.','od-flyer-tagline'));
+ flyer.append(mast);
+
+ const hero=element('div',undefined,'od-flyer-hero');
+ hero.append(
+  element('h2','Curious about what makes you, you?'),
+  element('p','The Other Drawer is an adults-only educational experience about attraction, interests, everyday psychology and relationships. Explore privately, understand yourself better, and find better ways to start meaningful conversations.')
  );
- page.append(top);
- const steps=[
-   ['01','You tell us what fits','The 69-question Sexual Preferences Quiz records named interests, curiosity, fantasy-only choices, intentions and boundaries. It respects what you explicitly selected.'],
-   ['02','You add everyday context','The 32-question nonsexual Psychology Quiz considers trust, sensory experiences, communication, reassurance, anticipation and other themes. Completing both adds more context; either quiz can produce a partial report.'],
-   ['03','Shared themes are compared','Both questionnaires use a shared editorial theme map. The report shows answer-level evidence, overlap and meaningful differences. A direct "Not for me" choice overrides an indirect suggestion.'],
-   ['04','You interpret and choose','The personal report explores your answers in detail. Optional partner and new-partner reports let you decide which content, if any, to disclose. Nothing is sent to someone else automatically.']
+ flyer.append(hero);
+
+ const value=element('div',undefined,'od-flyer-value-grid');
+ const cards=[
+  ['FOR YOURSELF','Put words to your curiosity','Explore your interests, preferences, imagination and boundaries — at your own pace.'],
+  ['FOR COUPLES','Understand each other more deeply','Compare how you like to connect, communicate and feel understood, without assuming you must share every interest.'],
+  ['FOR NEW RELATIONSHIPS','Make getting to know each other easier','Create a thoughtful introduction covering everyday life, emotional needs, communication and only the intimate details you choose.']
  ];
- const workflow=element('div',undefined,'afterdark-method-flow');
- for(const [number,heading,body] of steps){
-   const card=element('article',undefined,'afterdark-method-step');
-   card.append(element('span',number,'afterdark-method-number'),element('h3',heading),element('p',body));
-   workflow.append(card);
+ for(const [label,title,detail] of cards){
+  const card=element('article',undefined,'od-flyer-value-card');
+  card.append(element('span',label,'od-flyer-card-label'),element('h3',title),element('p',detail));
+  value.append(card);
  }
- page.append(workflow);
- const bottom=element('div',undefined,'afterdark-method-bottom');
- const interpretation=element('div',undefined,'afterdark-method-interpretation');
- interpretation.append(
-   element('h3','What the results mean — and what they do not'),
-   element('p','Percentages and theme rankings describe relative matches in the site’s editorial scoring system. They are not scientifically validated probabilities, diagnoses, explanations of childhood experiences, measures of compatibility or predictions of enjoyment. Theme-only interests are suggestions for optional reading until you confirm them yourself.'),
-   element('p','Your report is assembled in your browser from your saved selections. Downloaded PDFs are copies you control; review sensitive information before sharing.'),
-   element('p','You can read about the methodology and the different report formats at randomcandyland.com/after-dark/report-samples/','afterdark-method-location')
+ flyer.append(value);
+
+ const method=element('div',undefined,'od-flyer-method');
+ method.append(element('h3','What happens when you use the program?'));
+ method.append(element('p','Two connected questionnaires — 69 Sexual Preferences questions and 32 nonsexual Psychology questions — organize the answers you choose around shared themes such as trust, sensation, affirmation, imagination and anticipation. You can take either quiz or both.'));
+ method.append(element('p','Your answers are used to prepare a detailed personal report with your own selections, interest-by-interest explanations, links between the questionnaires, reflection prompts and optional topics for further discovery. Theme matches are exploratory, not diagnoses, scientific probabilities or hidden facts about you.'));
+ const outputs=element('div',undefined,'od-flyer-outputs');
+ outputs.append(
+  element('span','PRIVATE PERSONAL REPORT','od-flyer-output-pill'),
+  element('span','CHOOSE-WHAT-TO-SHARE PARTNER PDF','od-flyer-output-pill'),
+  element('span','NEW-PARTNER INTRODUCTION','od-flyer-output-pill')
  );
- const qr=element('div',undefined,'afterdark-qr-block');
+ method.append(outputs);flyer.append(method);
+
+ const end=element('div',undefined,'od-flyer-last');
+ const message=element('div',undefined,'od-flyer-invite');
+ message.append(element('span','PASS THE CURIOSITY ON','od-flyer-eyebrow'));
+ message.append(element('h3','Know someone who might enjoy this?'));
+ message.append(element('p','This page is yours to share. Hand this flyer to a friend, send them the website, or scan the QR code to explore The Other Drawer yourself.'));
+ message.append(element('p','You choose what you answer and what you share. No partner gets your private answers automatically.','od-flyer-disclaimer'));
+ const qr=element('div',undefined,'afterdark-qr-block od-flyer-qr');
+ qr.append(element('strong','SCAN TO EXPLORE','od-flyer-scan'));
  const img=document.createElement('img');
  img.src='data:image/png;base64,'+png;
- img.alt='QR code to The Other Drawer on Random Candy Land';
+ img.alt='QR code linking to The Other Drawer on Random Candy Land';
  img.width=190;img.height=190;img.decoding='sync';
- qr.append(element('strong','SCAN TO EXPLORE','afterdark-method-scan'),img,element('p',link,'afterdark-qr-url'));
- const linkNode=document.createElement('a');linkNode.href=link;linkNode.rel='noopener noreferrer';linkNode.textContent='Visit The Other Drawer';
- qr.append(linkNode);
- bottom.append(interpretation,qr);page.append(bottom);
- page.append(element('p','THE OTHER DRAWER  ·  RANDOM CANDY LAND  ·  EDUCATIONAL SELF-REFLECTION','afterdark-method-signoff'));
- return page;
+ qr.append(img);
+ const url=element('p',link,'afterdark-qr-url');qr.append(url);
+ const anchor=document.createElement('a');anchor.href=link;anchor.rel='noopener noreferrer';
+ anchor.textContent='Open The Other Drawer';qr.append(anchor);
+ end.append(message,qr);flyer.append(end);
+ flyer.append(element('p','ADULT EDUCATION · SELF-REFLECTION · RESPECT · CONSENT · NO DIAGNOSES','od-flyer-footnote'));
+ return flyer;
 }
 window.AfterDarkReportQR=Object.freeze({create,link});
 })();
