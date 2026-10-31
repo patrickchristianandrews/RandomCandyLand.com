@@ -207,7 +207,7 @@ function build(){
  const cover=el('header',undefined,'report-cover');
  add(cover,'p','THE OTHER DRAWER · WHAT DESIRES REVEAL ABOUT US','report-kicker');
  add(cover,'h1','My Interests & Psychology Report');
- add(cover,'p','A specific, joined interpretation of your Sexual Preferences Quiz and Non-explicit Psychology Quiz — with the named interests, actual selected responses, psychological connections, and respectful discussion ideas.','report-lead');
+ add(cover,'p','A closer look at what interests you, the themes behind your answers, and the questions worth exploring further. Your choices stay yours.','report-lead');
  add(cover,'p','Prepared '+new Date(data.created).toLocaleDateString()+' · Private / for personal reflection','report-muted');
  const coverStats=el('div',undefined,'report-cover-stats');
  for(const [value,label] of [[data.direct.answered+'/'+data.direct.questions.length,'Direct answers'],[data.psych.answered+'/32','Psychology answers'],[data.interests.length,'Named interest profiles']]){
