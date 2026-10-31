@@ -1,0 +1,44 @@
+/* Additional combined-quiz report clarity. Applies to live preview and printed PDF. */
+.report-editorial .report-insight{margin:16px 0;padding:22px 23px;border-radius:15px;border:1px solid #dfc4df;background:linear-gradient(130deg,#fbf1f8,#fff9f6);color:#412944}
+.report-insight h3{font:700 24px/1.2 Georgia,serif;color:#56335f;margin:5px 0 12px}
+.report-insight p{font-size:13.5px;line-height:1.66;color:#534157}
+.report-editorial .report-comparison{margin:20px 0;padding:20px 19px;border:1px solid #dfd0e2;border-radius:12px;background:#fcf8fc}
+.report-comparison>h3{font:700 23px Georgia,serif;color:#4d315f;margin:5px 0 12px}
+.report-comparison>p{font-size:13px;line-height:1.6;color:#53435b}
+.report-comparison-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.report-comparison-tile{border:1px solid #e0cfe4;border-radius:12px;padding:14px;background:#fff}
+.report-comparison-tile strong{font-size:13px;color:#653d69}
+.report-comparison-tile p{font-size:12px;color:#57445e;line-height:1.55;margin:7px 0 0}
+.report-comparison-pair{display:grid;grid-template-columns:1fr 1fr;column-gap:13px;row-gap:5px;padding:14px;margin:11px 0;border:1px solid #e4d5e7;border-radius:11px;background:#fff}
+.report-comparison-pair strong{font:800 11px/1.2 system-ui,sans-serif;color:#71477c}
+.report-comparison-pair p{font-size:12px;line-height:1.5;margin:5px 0;color:#4a3955}
+.report-comparison-pair small{grid-column:1/-1;color:#81618a;font-size:11px;padding-top:7px;border-top:1px solid #eee2ee}
+.report-intentions{padding:12px;border-left:4px solid #b27b9b;border-radius:5px;background:#f8eef6;margin:13px 0;color:#643c67}
+.report-intentions strong{font-size:12px}
+.report-intentions p{font-size:12px;margin:6px 0}
+.report-scoring-caption{display:block;font-size:10px;color:#795d80;margin:3px 0 7px}
+.report-intent-label{display:block;font-size:11px;font-weight:750;color:#6a3b72;margin:3px 0 9px}
+.report-unconfirmed-collection{margin:16px 0 25px;padding:14px 16px;border:1px dashed #d6b994;border-radius:13px;background:#fffcf8}
+.report-unconfirmed-collection>h3{font:700 21px Georgia,serif;color:#76563b}
+.report-unconfirmed-collection>.report-muted{font-size:13px}
+.report-editorial .report-interest-compact[data-selection-type="suggested"]{border-left-color:#c39a77;background:#fffbf5}
+.report-editorial .report-interest-compact[data-selection-type="interested"]{border-left-color:#8350a2}
+.report-editorial .report-interest-compact[data-selection-type="curious"]{border-left-color:#bf91a8}
+.report-editorial .report-interest-compact>.report-status{display:inline-block;padding:5px 9px;border-radius:20px;background:#f5e9f4;color:#6c466b;font-size:11px;font-weight:800}
+.report-editorial .report-interest-compact[data-selection-type="suggested"]>.report-status{background:#f8ecdd;color:#8b5a2d}
+@media(max-width:680px){.report-comparison-columns,.report-comparison-pair{grid-template-columns:1fr}.report-editorial .report-insight,.report-editorial .report-comparison{padding:14px}}
+@media print{
+ body.print-notebook.print-detailed-report #print-document .report-insight,
+ body.print-notebook.print-detailed-report #print-document .report-comparison{background:#faf5fa!important;border:0.7pt solid #dfc9e0!important;padding:4mm 5mm!important;break-inside:auto}
+ body.print-notebook.print-detailed-report #print-document .report-comparison-columns,
+ body.print-notebook.print-detailed-report #print-document .report-comparison-pair{display:grid!important;grid-template-columns:1fr 1fr!important;gap:3mm!important}
+ body.print-notebook.print-detailed-report #print-document .report-comparison-pair{background:#fff!important;padding:3mm!important;border:0.7pt solid #e7d5e7!important;break-inside:avoid!important}
+ body.print-notebook.print-detailed-report #print-document .report-comparison-pair small{grid-column:1/-1!important;font-size:8pt!important}
+ body.print-notebook.print-detailed-report #print-document .report-comparison-tile{padding:3mm!important;background:#fff!important;border:0.5pt solid #e3cfdf!important}
+ body.print-notebook.print-detailed-report #print-document .report-unconfirmed-collection{background:#fffcf7!important;border:0.7pt dashed #cda47d!important;padding:4mm!important}
+ body.print-notebook.print-detailed-report #print-document .report-interest-compact>.report-status{color:#684369!important;background:#f4e8f3!important;font-size:8pt!important}
+ body.print-notebook.print-detailed-report #print-document .report-scoring-caption,
+ body.print-notebook.print-detailed-report #print-document .report-intent-label{font-size:8pt!important}
+ body.print-notebook.print-detailed-report #print-document .report-interest-compact .report-lenses:not(.report-theme-pills){padding-left:5mm!important}
+ body.print-notebook.print-detailed-report #print-document .report-interest-compact .report-lenses li{break-inside:avoid!important}
+}
