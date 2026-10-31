@@ -3,7 +3,7 @@
 (()=>{
 'use strict';
 const link='https://randomcandyland.com/after-dark/';
-const png='iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoAQAAAABSnlx4AAACS0lEQVR42u2awWqcQQyD9ZW+/yurB9sz00APoV5oQVnIZvfXSTGyLBvrGz8/FHTQQQcd9L+B/ilJ1N/GaPQcSbLweRoGt/gukpGQsTBGkpGEz9MwuMW3kFy0G7tY7/I+T8PgNhqBDEy1H6kJgx9B4xIQJFuGcPIZPfnSJat1ytS/wGFwCy3bQ6f/8LrAMPi3aPzlE64q99Mvw+A6utpj+e9iWjYl4YCIH9xDI8xUNLKnaQoJbBMGN9H0HAmyEL622/VFGNxEuyd3G84M75o361HmnUW0Kz1p+bavlAuBPX01DC7piTUioiefsnDpSfKT5bxq2mUlKOrMyt0yO8AKg1v+pHMqgaGZLzdY82UblDC45U88OoIl28iW3IVN5+JhcCk/GQvSiSwtKvWhBSYM7uk3rqboKvXS7Z42zemhYXCtvqdndjjos3/ozDD9ctF/4xtdoV6jVXKCjkMPg4v5SUUmJyk5u8vunPEnO2juMrgV5ewun4pPv1zOT+ya4MuflHqXpIt7EhEGd+p7aloWv0fgp4emvhf9idGUdI/vz86SJ1MJgzv9ssgePXG995JHj0EJg0t+UNQQXyHhW9I09ZnnN/2g1SvKc+aD4WaxJI/d1O9Ju+t48BjwJykMg4t8z4xTIUpPm51d6VxIhMG9vKpZvznVHXqeX2FwC905CXNkRe8gcF2fOPcnH0DP/H6vqvqgLfcnH0G3WveGp6zhmTTD4J5+32myu6Xw2fBU2cd/L+Ynh/THnsxFih5LGAZX+A4nQQcddND/HfoXkmJE2OrXgGkAAAAASUVORK5CYII=';
+const png='iVBORw0KGgoAAAANSUhEUgAAALkAAAC5AQAAAABc1qPxAAABvUlEQVR42u1XMW7cMBCcPQmgOtovoF4iKVXKfCKfOEDCSTgDLvOlk/yKdNQDApCVKYC6SaE4aZJ2AxjehiS2mCVndjEU4q8xnfCP+Ei8g0QUkVMcBEscpJpFpFKs6kLeUPitw5ODkNR8kl0q2NFVDS4eiFJr8xHLNc1OJP0PMdgRFSK9uhILJmCvDcNUV7BHBVrgk0gXs8OC3oEiogUOHhEuNAwFza/zqNXng2ziRADskhY8rYp9bo23XEdsHXpIK9lpcn5utxN6JKAgYAdJepyH3pm7pYcwA40ljRLnIJnB2wF59SRHR01wl1pmJFh6zsxQvHm4MEmAM3MA0IZeDbwErNTfG2BNn28E+Bi+OkXBAZx59YahR2pQeE3Or94wFD419kpztyOo9+wxO8xfttK8njJiF/WGDEjS827pDQNcgs1OcbZjqvES9jp2KOYKsYTqzUmGgpAAZxig1mpv7hUAGptXLCi81mz/7V7PNW+AQ6Nso3apYEtUsxi/ycO5VXev47GmBs9ey0yUf7bbp/AN9vXxh6pvL5hgM3g/KnieNQU3iXTR+Gqxg4APeoIrAUsAyG826uPv/N4TPwGUTg3KlwEe+wAAAABJRU5ErkJggg==';
 const element=(tag,text,cls)=>{
  const e=document.createElement(tag);
  if(text!==undefined)e.textContent=String(text);
@@ -15,10 +15,10 @@ function create(){
  const text=element('div',undefined,'afterdark-qr-description');
  text.append(element('p','EXPLORE THE FULL EXPERIENCE','afterdark-qr-eyebrow'),
   element('h2','Learn more at After Dark'),
-  element('p','After Dark is a private, adults-only self-reflection and educational resource. It offers a 69-question Sexual Preferences Quiz, a 32-question non-explicit Psychology Quiz, an interest library, and tools for understanding preferences, boundaries, and partner communication.'));
+  element('p','After Dark is an adults-only place to explore interests, better understand yourself, and find ways to talk openly with a partner. You can take the preferences quiz, explore the psychology quiz, or browse topics at your own pace.'));
  text.append(element('h3','How this report was created'));
- text.append(element('p','Your selected answers are organized by predefined themes such as trust, sensation, affirmation, novelty, control, and imagination. Related topics are offered as editorial suggestions, not scientifically validated predictions or diagnoses. Direct choices carry more weight than thematic similarities. A percentage shown elsewhere is an illustrative match score, not the probability that someone likes an activity.'));
- text.append(element('p','Answers remain in the browser unless you explicitly choose to export or share them. A shared PDF contains only what the person who created it chose to include.','afterdark-qr-privacy'));
+ text.append(element('p','The report brings together the answers you chose and looks for connections between them. Themes such as trust, curiosity, closeness, imagination, and sensation help organize the results. Some interests are ones you selected yourself; others are simply ideas that might be worth reading about. The best judge of what fits is you.'));
+ text.append(element('p','Your answers stay on your device unless you choose to save or share them. Partner reports contain only the sections you select.','afterdark-qr-privacy'));
  const qr=element('div',undefined,'afterdark-qr-block');
  const img=document.createElement('img');
  img.src='data:image/png;base64,'+png;
