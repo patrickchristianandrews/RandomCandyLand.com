@@ -210,6 +210,7 @@
   glance(doc,data);
   groupProfiles(doc,data);
   abbreviateSuggestions(doc);
+  if(window.AfterDarkReportQR?.create)doc.append(window.AfterDarkReportQR.create());
   const guidance=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('07'));
   if(guidance){
    const title=guidance.querySelector('h2');
