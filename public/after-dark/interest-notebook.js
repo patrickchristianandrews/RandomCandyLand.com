@@ -46,8 +46,8 @@
     name.dataset.notebook='name';opening.dataset.notebook='intro';intro.append(name,opening);root.append(intro);
     const list=included();root.append(item('h3','Your saved & selected interests ('+list.length+')'));
     if(!list.length){
-      root.append(item('div','No saved interests yet. Go to the Curiosity Atlas, mark Interested or Curious, or save any interest directly from your quiz results. Then return here.','notebook-empty'));
-      root.append(button('📚 Browse the Curiosity Atlas →',()=>document.querySelector('#home [data-tab=atlas]')?.click(),'btn alt'));
+      root.append(item('div','No saved interests yet. Go to the Curiosity Cabinet, mark Interested or Curious, or save any interest directly from your quiz results. Then return here.','notebook-empty'));
+      root.append(button('📚 Browse the Curiosity Cabinet →',()=>document.querySelector('#home [data-tab=atlas]')?.click(),'btn alt'));
     }
     for(const t of list){
       const v=notes[t.id]||{},card=item('article','','notebook-interest');card.id='saved-interest-'+t.id;
@@ -163,7 +163,7 @@
     try{report=window.AfterDarkDetailedReport?.build?.();}
     catch(error){console.error('Could not create detailed quiz report',error);}
     if(!report){
-      setStatus('Detailed report could not be prepared. Reload After Dark and try again.');return;
+      setStatus('Detailed report could not be prepared. Reload The Other Drawer and try again.');return;
     }
     let doc=$('print-document');
     if(!doc){doc=item('div');doc.id='print-document';document.body.append(doc);}
@@ -181,7 +181,7 @@
     area.append(item('p',pack.intro||'I would appreciate you hearing the meaning behind these interests. There is no obligation to agree or participate.'));
     area.append(item('p','💛 You can listen without agreeing, ask questions, take more time, or respectfully decline. This is not consent to any activity.','notebook-help'));
     area.append(item('h3','📖 Want to understand before you reply?'));
-    area.append(item('p','Ask Atlas about why someone might find an interest meaningful, what a word means, or how to talk about it respectfully. The guide uses an on-device topic library and never sends a question to the person who invited you.'));
+    area.append(item('p','The Whisper Line about why someone might find an interest meaningful, what a word means, or how to talk about it respectfully. The guide uses an on-device topic library and never sends a question to the person who invited you.'));
     const openAsk=(question)=>{
       document.querySelector('[data-tab=chat]')?.click();
       const input=$('chatText');if(!input)return;
@@ -189,14 +189,14 @@
       $('askForm')?.requestSubmit();
       input.focus();
     };
-    area.append(button('💬 Ask Atlas how to listen and respond',()=>openAsk('How do I talk respectfully to my partner about an interest they shared?'),'btn alt'));
+    area.append(button('💬 The Whisper Line how to listen and respond',()=>openAsk('How do I talk respectfully to my partner about an interest they shared?'),'btn alt'));
     for(const x of pack.items){
       const block=item('article','','partner-interest');
       block.append(item('h3',x.title),item('p',x.description));
       if(x.meaning)block.append(item('p','💗 Why it matters: '+x.meaning));
       if(x.boundary)block.append(item('p','🛑 Boundaries: '+x.boundary));
       if(x.request)block.append(item('p','💬 How to respond: '+x.request));
-      block.append(button('❓ Ask Atlas why this might appeal to someone',()=>openAsk('Why might someone enjoy '+x.title+' and how do I discuss it with my partner?'),'btn alt'));
+      block.append(button('❓ The Whisper Line why this might appeal to someone',()=>openAsk('Why might someone enjoy '+x.title+' and how do I discuss it with my partner?'),'btn alt'));
       area.append(block);
     }
     const panel=item('div','','partner-accept');panel.append(item('h3','How do you feel about talking?'),item('p','Choose a response that respects both people. No response is sent automatically.'));
