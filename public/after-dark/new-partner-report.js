@@ -128,6 +128,7 @@ function content(){
   prompts.push('Is there anything about intimacy you would like to discuss, leave as fantasy, or keep private?');
  const ul=make('ul',undefined,'partner-report-list');for(const q of prompts)add(ul,'li',q);conversation.append(ul);
  add(root,'footer','Prepared locally on this device. No questionnaire notes or sexual answers were automatically included. Review the finished copy before sharing.','report-footer');
+ if(window.AfterDarkReportQR?.create)root.append(window.AfterDarkReportQR.create());
  if(!included&&!intro)throw Error('Write something about yourself or explicitly choose a quiz answer before creating the partner report.');
  return root;
 }
