@@ -1,92 +1,170 @@
 <!doctype html>
 <html lang="en"><head>
-<!-- GA4: sanitized page visits; never include quiz answers or private invitation URLs. -->
+<!-- GA4: sanitized page visits; never include music data or private pairing URLs. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script>
 <script src="/analytics.js?v=ga4-20261030-v1"></script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
-<!-- End Google Tag Manager -->
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080612">
-<title>Candy Pulse · TV Stream</title>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080612">
+<title>Candy Pulse · Low-Latency TV Sync</title>
 <style>
 :root{color-scheme:dark}*{box-sizing:border-box}
-html,body{width:100%;height:100%;background:#060612;color:#fff;margin:0;font:16px/1.5 system-ui,-apple-system,sans-serif}
-#video{width:100%;height:100%;object-fit:contain;background:black;display:none}
-#overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:30px;text-align:center;background:radial-gradient(ellipse at center,#2d164f,#080615 67%)}
-h1{font-size:clamp(30px,5vw,66px);margin:0;color:#ffc3f7}
-p{max-width:670px;margin:0;color:#d6cce6}input{padding:14px 16px;min-width:min(80vw,380px);font-size:26px;letter-spacing:.12em;text-align:center;border:1px solid #ac76e8;border-radius:13px;background:#211737;color:white;text-transform:uppercase}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#03040e;color:#fff;font:16px/1.5 system-ui,-apple-system,sans-serif}
+#visual{display:block;width:100vw;height:100vh;background:#03040e}
+#overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:30px;text-align:center;background:radial-gradient(ellipse at center,#2d164fe8,#080615fa 70%);z-index:3}
+h1{font-size:clamp(30px,5vw,66px);line-height:1.06;margin:0;color:#ffc3f7}
+p{max-width:730px;margin:0;color:#e0d6eb}
+input{padding:13px 16px;width:min(92vw,430px);font-size:26px;letter-spacing:.15em;text-align:center;border:1px solid #ac76e8;border-radius:13px;background:#211737;color:white;text-transform:uppercase}
 button{padding:13px 22px;border:0;border-radius:15px;background:linear-gradient(110deg,#ffb5dc,#a8d8ff);color:#24112f;font-size:17px;font-weight:bold;cursor:pointer;min-height:52px}
-#status{font-size:15px;color:#bceeff;max-width:680px}
-#replay{position:absolute;bottom:18px;right:18px;z-index:2;display:none;background:#1c1425c9;color:white;border:1px solid #bb9ad4;font-size:13px}
-</style>
-</head><body>
+button:focus-visible,input:focus-visible{outline:3px solid #fff39e;outline-offset:3px}
+#status{font-size:15px;color:#bceeff;max-width:680px;min-height:26px}
+#headup{position:absolute;top:16px;left:18px;padding:6px 12px;background:#06051495;border:1px solid #ffffff40;border-radius:50px;color:#e9d8fe;pointer-events:none;font-size:13px;display:none;z-index:2}
+#sound,#fs{position:absolute;right:16px;z-index:2;background:#170c27e5;color:#fff;border:1px solid #ad8dd9;font-size:13px;display:none}
+#sound{bottom:17px}#fs{top:16px}
+#overlay[hidden],#sound[hidden],#fs[hidden],#headup[hidden]{display:none!important}
+#sound:disabled{opacity:.5}
+.small{font-size:13px;opacity:.9}
+</style></head>
+<body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<video id="video" autoplay playsinline></video>
+<canvas id="visual" aria-label="Live music-reactive 3D style geometric visualizer"></canvas>
+<div id="headup" hidden>✦ Candy Pulse · TV Sync</div>
 <div id="overlay">
  <h1>✺ Candy Pulse · TV</h1>
- <p>Open Candy Pulse on your phone, select <b>Cast / TV</b>, then <b>Create TV room</b>. Enter the code from your phone here to watch and hear the live visualizer.</p>
- <input id="code" autocomplete="off" spellcheck="false" inputmode="text" maxlength="20" placeholder="20-character code" aria-label="TV pairing code"/>
- <button id="join" type="button">Connect to Pulse</button>
- <p id="status" role="status">Both devices need internet access. For best results use the same Wi-Fi network.</p>
- <p style="font-size:13px">Requires a TV browser with WebRTC support. Basic Chromecasts cannot open arbitrary websites: use Android’s Google Home → Cast my screen instead.</p>
+ <p>Open <strong>RandomCandyLand.com/music-visualizer/</strong> on your phone, start your music, tap <strong>Cast / TV → Create TV room</strong>, then enter the code below. The TV renders the moving visualizer locally for a smoother picture.</p>
+ <input id="code" autocomplete="off" spellcheck="false" inputmode="text" maxlength="20" placeholder="12-character code" aria-label="TV pairing code"/>
+ <button id="join" type="button">✨ Start TV Sync</button>
+ <p id="status" role="status">Use the same Wi-Fi for the most reliable results. A TV browser with Canvas and WebSockets is required.</p>
+ <p class="small">No video decoding is needed. If your TV browser supports WebRTC, you may also enable the streamed audio. Standard Chromecast devices should use phone screen mirroring instead.</p>
 </div>
-<button type="button" id="replay">🔊 Enable TV audio / reconnect</button>
+<audio id="remote-audio" autoplay playsinline></audio>
+<button type="button" id="sound" hidden>🔊 Enable TV sound</button>
+<button type="button" id="fs" hidden>⛶ Full screen</button>
+<script src="/music-visualizer/pulse-engine.js?v=pulse-retro-20261030-v3"></script>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
 const endpoint='wss://candy-casino-relay.patrick-christian-andrews.workers.dev';
-let socket=null,pc=null,iceQueue=[];
-const status=text=>{$('status').textContent=text};
-const send=(kind,payload)=>{if(socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify({t:'data',d:{type:'draw',kind,...payload}}))};
-function stopPeer(){if(pc){try{pc.close()}catch{}pc=null}iceQueue=[]}
-async function connect(){
- const token=$('code').value.trim().toLowerCase();
- if(!/^[a-f0-9]{20}$/.test(token)){status('Enter the exact 20-character room code shown on your phone.');return}
- if(!window.RTCPeerConnection){status('This TV browser does not support WebRTC. Cast your Android screen using Google Home instead.');return}
- stopPeer();if(socket)try{socket.close()}catch{}
- socket=new WebSocket(endpoint+'/room/rcl-casino-'+token+'?role=guest');
- status('Connecting to the phone’s live TV room…');
- socket.onmessage=async event=>{
-  let msg;try{msg=JSON.parse(event.data)}catch{return}
-  if(msg.t==='missing'){status('Room not found. Start a TV room on your phone and retry.');return}
-  if(msg.t==='full'){status('This TV room already has a viewer.');return}
-  if(msg.t==='peer-left'){stopPeer();status('Phone disconnected. Reconnect when the phone is ready.');$('overlay').style.display='flex';return}
-  if(msg.t==='peer-ready'){status('Connected to the phone. Setting up encrypted video and audio…');return}
-  if(msg.t!=='data'||msg.d?.type!=='draw')return;
-  try{
-   if(msg.d.kind==='offer'){
-    stopPeer();
-    pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
-    pc.onicecandidate=e=>{if(e.candidate)send('ice',{candidate:e.candidate.toJSON()})};
-    pc.ontrack=e=>{
-     $('video').srcObject=e.streams[0];
-     $('video').style.display='block';
-     $('overlay').style.display='none';$('replay').style.display='block';
-     $('video').muted=false;
-     $('video').play().catch(()=>{$('replay').textContent='🔊 Tap to enable TV audio';$('replay').style.display='block'});
-    };
-    pc.onconnectionstatechange=()=>{
-     if(pc?.connectionState==='failed'){status('Video connection failed. Try again on the same Wi-Fi or use Android screen mirroring.');$('overlay').style.display='flex'}
-    };
-    await pc.setRemoteDescription({type:'offer',sdp:msg.d.sdp});
-    const answer=await pc.createAnswer();await pc.setLocalDescription(answer);
-    send('answer',{sdp:pc.localDescription.sdp});
-    for(const candidate of iceQueue)await pc.addIceCandidate(candidate);
-    iceQueue=[];
-   }else if(msg.d.kind==='ice'&&msg.d.candidate){
-    if(pc?.remoteDescription)await pc.addIceCandidate(msg.d.candidate);else iceQueue.push(msg.d.candidate);
-   }
-  }catch(e){status('TV setup error: '+(e?.message||String(e)));$('overlay').style.display='flex'}
+const canvas=$('visual'),g=canvas.getContext('2d',{alpha:false});
+let socket=null,pc=null,iceQueue=[],running=false,frame=null,offset=0,lastSync=0,lastRender=0,raf=0,width=1,height=1;
+const status=s=>{$('status').textContent=s;};
+const send=(kind,payload)=>{
+ if(socket?.readyState===WebSocket.OPEN)try{socket.send(JSON.stringify({t:'data',d:{type:'draw',kind,...payload}}));}catch{}
+};
+function stopAudio(){if(pc)try{pc.close();}catch{}pc=null;iceQueue=[];$('remote-audio').pause();$('remote-audio').srcObject=null;$('sound').hidden=true;}
+function disconnect(){if(socket){const ws=socket;socket=null;ws.onclose=null;try{ws.close();}catch{}}stopAudio();}
+function resize(){
+ width=Math.max(1,innerWidth);height=Math.max(1,innerHeight);
+ const scale=Math.min(devicePixelRatio||1,1.35,Math.sqrt(2200000/(width*height)));
+ const cw=Math.max(1,Math.floor(width*scale)),ch=Math.max(1,Math.floor(height*scale));
+ if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch;}
+ g.setTransform(scale,0,0,scale,0,0);
+}
+function draw(now){
+ raf=requestAnimationFrame(draw);
+ if(!running||!frame||document.hidden||now-lastRender<15.5)return;
+ lastRender=now;resize();
+ if(now-lastSync>16000){
+  running=false;$('overlay').hidden=false;
+  status('TV signal lost. Check that Pulse is still open on your phone, then reconnect.');
+  return;
+ }
+ const currentTime=now/1000+offset;
+ window.CandyPulseGeometry.render(g,{
+  w:width,h:height,time:currentTime,
+  data:frame.bands,wave:frame.wave,cols:frame.cols,
+  mode:frame.mode,active:frame.active,reduced:frame.reduced,
+  sensitivity:frame.sensitivity,glow:frame.glow,symmetry:frame.symmetry,
+  density:frame.density,trails:frame.trails,speed:frame.speed
+ });
+}
+async function startAudio(offer){
+ if(!window.RTCPeerConnection)return;
+ stopAudio();
+ try{
+  pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+  pc.onicecandidate=e=>{if(e.candidate)send('ice',{candidate:e.candidate.toJSON()});};
+  pc.ontrack=e=>{
+   const media=$('remote-audio');
+   media.srcObject=e.streams?.[0]||new MediaStream([e.track]);
+   media.muted=false;
+   $('sound').hidden=false;
+   media.play().then(()=>{$('sound').textContent='🔊 TV sound on';}).catch(()=>{$('sound').textContent='🔊 Tap to enable TV sound';});
+  };
+  pc.onconnectionstatechange=()=>{
+   if(pc?.connectionState==='failed'){$('sound').textContent='TV sound unavailable · visuals continue';$('sound').disabled=true;$('sound').hidden=false;}
+  };
+  await pc.setRemoteDescription({type:'offer',sdp:offer});
+  const answer=await pc.createAnswer();await pc.setLocalDescription(answer);
+  send('answer',{sdp:pc.localDescription.sdp});
+  for(const c of iceQueue)await pc.addIceCandidate(c);
+  iceQueue=[];
+ }catch{stopAudio();}
+}
+function acceptSync(packet){
+ if(!Array.isArray(packet.bands)||!Array.isArray(packet.wave)||!Array.isArray(packet.cols))return;
+ if(!/^(plasma|starfield|spectrum|scope|hypno|mandala|kaleido|vortex|tunnel|lissajous|orbit|bloom|bars|wave)$/.test(packet.mode))return;
+ const clean=(val,lo,hi,fallback)=>Number.isFinite(+val)?Math.max(lo,Math.min(hi,+val)):fallback;
+ frame={
+  bands:Uint8Array.from(packet.bands.map(v=>clean(v,0,255,0))),
+  wave:Uint8Array.from(packet.wave.map(v=>clean(v,0,255,128))),
+  mode:packet.mode,cols:packet.cols.slice(0,5).filter(s=>/^#[0-9a-fA-F]{6}$/.test(s)),
+  active:!!packet.active,reduced:!!packet.reduced,
+  sensitivity:clean(packet.sensitivity,.2,3,1.3),glow:clean(packet.glow,0,30,12),
+  symmetry:clean(packet.symmetry,4,16,10),density:clean(packet.density,2,10,6),
+  trails:clean(packet.trails,0,.95,.72),speed:clean(packet.speed,.2,2.5,1.4)
  };
- socket.onerror=()=>status('Cannot reach the Cloudflare TV relay. Check network connectivity.');
- socket.onclose=()=>{status('TV pairing connection closed. Open a fresh room on your phone to retry.');$('overlay').style.display='flex'};
+ if(!frame.cols.length)return;
+ const desired=clean(packet.time,0,1e9,0)-performance.now()/1000;
+ offset=running?offset*.88+desired*.12:desired;
+ lastSync=performance.now();
+ if(!running){
+  running=true;window.CandyPulseGeometry.reset();$('overlay').hidden=true;
+  $('fs').hidden=false;$('headup').hidden=false;
+ }
+}
+function connect(){
+ const code=$('code').value.trim().toLowerCase().replace(/[\s-]+/g,'');
+ if(!/^([a-f0-9]{12}|[a-f0-9]{20})$/.test(code)){status('Enter the exact 12-character code from Pulse on your phone.');return;}
+ if(!window.WebSocket||!g){status('This TV browser needs WebSocket and Canvas support. Use Android screen mirroring instead.');return;}
+ disconnect();running=false;frame=null;window.CandyPulseGeometry.reset();
+ $('overlay').hidden=false;status('Connecting to your phone…');
+ try{
+  const ws=new WebSocket(endpoint+'/room/rcl-casino-'+code+'?role=guest');
+  socket=ws;
+  ws.onmessage=async event=>{
+   let msg;try{msg=JSON.parse(event.data);}catch{return;}
+   if(msg.t==='missing'){status('TV room was not found. Create a new room on your phone.');return;}
+   if(msg.t==='full'){status('A television is already connected to this room.');return;}
+   if(msg.t==='peer-left'){running=false;frame=null;stopAudio();$('overlay').hidden=false;status('Phone disconnected. Reconnect when Pulse is ready.');return;}
+   if(msg.t==='peer-ready'){status('Paired. Loading your live music spectrum…');send('ready',{});return;}
+   if(msg.t!=='data'||msg.d?.type!=='draw')return;
+   const pkt=msg.d;
+   try{
+    if(pkt.kind==='sync')acceptSync(pkt);
+    else if(pkt.kind==='offer')await startAudio(pkt.sdp);
+    else if(pkt.kind==='ice'&&pkt.candidate){
+     if(pc?.remoteDescription)await pc.addIceCandidate(pkt.candidate);
+     else iceQueue.push(pkt.candidate);
+    }
+   }catch{ /* TV visuals are intentionally independent of audio negotiation. */ }
+  };
+  ws.onerror=()=>status('TV relay unavailable. Check your Wi-Fi and try another room.');
+  ws.onclose=()=>{if(socket===ws){running=false;$('overlay').hidden=false;status('TV connection closed. Reconnect using a fresh room code.');}};
+ }catch{status('Cannot open TV Sync on this device. Use screen mirroring.');}
 }
 $('join').onclick=connect;
-$('code').addEventListener('keydown',event=>{if(event.key==='Enter')connect()});
-$('replay').onclick=async()=>{try{$('video').muted=false;await $('video').play();$('replay').textContent='✓ Sound enabled'}catch{$('replay').textContent='Tap here again to enable sound'}};
-const hash=location.hash.slice(1);if(/^[a-f0-9]{20}$/i.test(hash)){$('code').value=hash;$('join').focus();}
+$('code').addEventListener('keydown',e=>{if(e.key==='Enter')connect();});
+$('sound').onclick=async()=>{
+ const media=$('remote-audio');try{media.muted=false;await media.play();$('sound').textContent='🔊 TV sound on';}
+ catch{$('sound').textContent='Try enabling TV sound again';}
+};
+$('fs').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen();}catch{}};
+window.addEventListener('resize',resize);
+window.addEventListener('pagehide',disconnect,{once:true});
+resize();raf=requestAnimationFrame(draw);
+const codeFromLink=location.hash.slice(1);
+if(/^([a-f0-9]{12}|[a-f0-9]{20})$/i.test(codeFromLink)){
+ $('code').value=codeFromLink;connect();
+}
 </script></body></html>
