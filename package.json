@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && node scripts/build-standalone.mjs",
+    "build": "vite build && node scripts/build-standalone.mjs && node scripts/check-visitor-copy.mjs",
     "start": "node server.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "audit:copy": "node scripts/check-visitor-copy.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
