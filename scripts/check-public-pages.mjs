@@ -106,6 +106,17 @@ if(!afterDarkLanding.includes('<section id="home" class="tab visible"') ||
   console.error('The Other Drawer homepage must lead with Quiz and Ask Anything cards, without a top tab menu.');failures++;
 }
 
+// Always ship the private bookmark toolbar with the public site.
+for (const asset of ['dist/after-dark/bookmark-toolbar.js','dist/after-dark/bookmark-toolbar.css']) {
+ if (!fs.existsSync(asset) || !fs.statSync(asset).size) {
+  console.error('Missing save-your-place toolbar asset:',asset);failures++;
+ }
+}
+if (!afterDarkLanding.includes('bookmark-toolbar.js?v=') ||
+    !afterDarkLanding.includes('bookmark-toolbar.css?v=')) {
+ console.error('The Other Drawer is missing its persistent bookmark toolbar.');failures++;
+}
+
 for (const [path, expected] of required) {
   if (!fs.existsSync(path)) {
     console.error('Missing published page:', path);
