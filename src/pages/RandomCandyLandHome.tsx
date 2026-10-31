@@ -51,7 +51,7 @@ const PORTALS: Portal[] = [
   {emoji:'🍭',title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
   {emoji:'🃏',title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'games',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
   {emoji:'🌈',title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
-  {emoji:'🌙',title:'The Other Drawer',blurb:"A curious little corner with more beneath the surface, including the Clue Compass psychology lab.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
+  {emoji:'🌙',title:'The Other Drawer',blurb:"What Desires Reveal About Us. A curious little corner with more beneath the surface, including the Clue Compass psychology lab.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
 ];
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
