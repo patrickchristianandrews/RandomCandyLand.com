@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#21152f"><title>Example PDF Reports · The Other Drawer</title>
+<meta name="description" content="View a fictional preview of the full personal report, selective quiz-results partner PDF, and new partner introduction.">
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff1f7;background:#1e142d}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 3% 0%,#72426a5e,transparent 40%),#1e142d}
+button,a{font:inherit}button:focus-visible,a:focus-visible{outline:3px solid #fff0a6;outline-offset:3px}
+.wrap{max-width:1080px;margin:auto;padding:23px clamp(15px,3vw,36px) 90px}
+.back{display:inline-block;color:#fcd5e9;font-weight:700;text-decoration:none;margin:2px 0 20px}
+.eyebrow{display:block;color:#f4b8df;font-size:11px;font-weight:850;letter-spacing:.15em}
+h1,h2,h3{font-family:Georgia,serif;line-height:1.15}h1{font-size:clamp(31px,5.3vw,55px);margin:10px 0}
+.lead{color:#e4cfe4;line-height:1.65;max-width:830px}
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0}
+.choice{border:1px solid #8a698e;color:#fbedf6;background:#392642;border-radius:12px;padding:14px;text-align:left;cursor:pointer;min-height:96px}
+.choice strong{display:block;font:700 19px/1.2 Georgia,serif;margin-bottom:7px}
+.choice small{line-height:1.4;color:#e4cde6}
+.choice[aria-pressed=true]{border:2px solid #f6b2dd;background:#71466b}
+.note{color:#f6d3e5;font-size:12px;line-height:1.6;border-left:3px solid #d996c0;padding:7px 12px}
+.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0}
+.btn{display:inline-flex;padding:11px 18px;border:1px solid #f0b4de;border-radius:10px;cursor:pointer;text-decoration:none;color:white;background:#8c5387;font-weight:800;font-size:13px}
+.btn.alt{background:transparent}
+.paper{background:#fff;color:#35233e;border:1px solid #ddd;border-top:8px solid #8f578b;border-radius:8px;margin:14px auto;padding:clamp(19px,4vw,42px);max-width:810px;box-shadow:0 19px 52px #10081985}
+.paper:not(.visible){display:none}
+.paper .eyebrow{color:#a77099}.paper h2{font-size:clamp(28px,4vw,42px);margin:7px 0 11px;color:#4e315c}
+.paper h3{font-size:23px;margin:25px 0 10px;color:#704978;border-bottom:1px solid #e8d8e9;padding-bottom:7px}
+.paper h4{color:#563b63;font-size:17px;margin:17px 0 6px}
+.paper p,.paper li{font-size:13px;line-height:1.65;color:#4b3c52}
+.paper li{margin-bottom:7px}.paper blockquote{border-left:4px solid #bd89ac;padding:9px 14px;background:#f9f2f9;color:#60456d;margin:18px 0}
+.paper .tag{display:inline-block;padding:5px 11px;border-radius:99px;color:#714879;background:#f4e4f1;font-size:11px;font-weight:800;margin:3px}
+.paper .details{background:#f9f3f8;padding:13px 16px;border-radius:9px}
+.paper .disclaimer{font-size:11px;color:#7a6a7e}
+@media(max-width:680px){.menu{grid-template-columns:1fr}.choice{min-height:auto;padding:12px}.paper{padding:20px}}
+@media print{body{background:#fff!important}.wrap{max-width:none;margin:0;padding:0}.back,.menu,.actions,.lead,.wrap>h1,.wrap>.eyebrow,.note{display:none!important}.paper{display:none!important}.paper.visible{display:block!important;box-shadow:none!important;border:0!important;border-top:7pt solid #9d698e!important;border-radius:0!important;margin:0!important;max-width:none!important;padding:16mm 14mm!important}@page{size:letter;margin:12mm}.paper h3,.paper h4{break-after:avoid}.paper blockquote{break-inside:avoid}}
+</style></head><body><main class="wrap"><a class="back" href="/after-dark/">← The Other Drawer</a>
+<span class="eyebrow">SEE WHAT THE QUIZZES GENERATE</span><h1>Three different reports. <em>One private story.</em></h1>
+<p class="lead">These are fictional, shortened browser previews of the three PDF formats. You can view them without taking either quiz, then select <strong>Print / Save as PDF</strong> to save the current example on your own device. Actual exported reports use the person's responses and section choices.</p>
+<div class="menu" role="group" aria-label="Choose a fictional example report">
+<button class="choice" data-choice="personal" aria-pressed="true"><strong>01 · Personal report</strong><small>Both quizzes · personal insights · new suggestions · full private export</small></button>
+<button class="choice" data-choice="selected" aria-pressed="false"><strong>02 · Selected partner PDF</strong><small>Only the quiz findings and specific details the creator selects</small></button>
+<button class="choice" data-choice="new" aria-pressed="false"><strong>03 · New partner introduction</strong><small>Nonsexual life first · optional intimate disclosures</small></button></div>
+<p class="note">The previews contain fictional answers, not someone else's private data. The score displays are editorial theme matches, never probabilities of desire, psychological diagnoses, or partner-compatibility ratings.</p>
+<div class="actions"><button class="btn" id="print-current">Print / Save as PDF</button><a class="btn alt" href="/after-dark/">Take the quizzes</a></div>
+<article class="paper visible" id="personal" aria-label="Fictional personal report example">
+<span class="eyebrow">THE OTHER DRAWER / FULL PRIVATE REPORT</span><h2>What draws you in.</h2>
+<p>The interests, emotions, and little details behind your answers.</p>
+<div><span class="tag">Sexual Preferences: 69/69</span><span class="tag">Psychology: 32/32</span><span class="tag">Fictional example</span></div>
+<h3>01 · Your personal interpretation</h3><p>For Morgan, specific appreciation, deliberate anticipation and flexible shared leadership recur across the two sets of answers. These are reported patterns, not verified root causes.</p>
+<h3>02 · Interests you actually selected</h3><ul><li><b>Praise and appreciation:</b> Interested in exploring; sincere and specific words matter.</li><li><b>Switching roles:</b> Interested in discussing alternate leadership, with agreed boundaries.</li><li><b>Satin and silk:</b> Fantasy only; a sensory/aesthetic preference.</li><li><b>Consensual private observation:</b> Curious, fantasy only.</li></ul>
+<h3>03 · Where the quizzes connect</h3><blockquote><b>Direct quiz:</b> “Specific praise.”<p><b>Psychology quiz:</b> “Sincere, specific appreciation.”</p>Shared theme: feeling noticed and valued. This overlap does not establish a causal explanation.</blockquote>
+<h3>04 · You might not have considered…</h3><p>Relative theme relevance identifies optional reading topics from outside the person's original selections. For Morgan, examples could include affectionate ritual, gentle sound preferences and sensory atmosphere. They are <b>unconfirmed suggestions</b>, not new stated desires.</p>
+<h3>05 · Fantasy, boundaries and reflection</h3><p>“Not for me” selections take precedence over shared-theme matches. Fantasy-only topics are not framed as invitations to act. The complete private report also contains category charts, individual interest profiles, direct-answer evidence, conversation prompts and both original-answer appendices.</p>
+<p class="disclaimer">This browser preview is condensed. The separate downloadable personal-report sample is a longer illustrative PDF.</p>
+</article>
+<article class="paper" id="selected" aria-label="Selected partner results report example">
+<span class="eyebrow">THE OTHER DRAWER / A SELECTED COPY</span><h2>Something I wanted to share.</h2>
+<p>A conversation, not a checklist.</p>
+<div><span class="tag">Fictional example</span><span class="tag">Selected sections only</span></div>
+<h3>Before you read</h3><p>“I chose a few things I feel comfortable sharing because I'd like you to understand me a little better. There is no expectation that we'll try any of them.”</p>
+<h3>Interests I picked</h3><ul><li><b>Praise and appreciation:</b> Interested in exploring.</li><li><b>Shared leadership:</b> Curious about discussing.</li><li><b>Satin and silk:</b> Fantasy only.</li></ul>
+<h3>Connections I chose to disclose</h3><blockquote>Direct preference: “Specific praise.”<p>Everyday psychology: “Sincere, specific appreciation.”</p>These responses both make authentic recognition important, without proving anything about its origin.</blockquote>
+<h3>Boundaries and conversation starters</h3><p>Group play and partner swapping: not interested. Fantasy-only selections remain fantasy-only. A partner could ask, “What makes appreciation feel genuine?” or “Are there things you prefer to discuss but not experience?”</p>
+<div class="details"><b>Not in this copy:</b><p>Complete quiz answers, private notes, unselected interests or other disclosures the creator did not include.</p></div>
+</article>
+<article class="paper" id="new" aria-label="Getting to know me report example">
+<span class="eyebrow">THE OTHER DRAWER / NEW PARTNER INTRODUCTION</span><h2>Getting to know me.</h2>
+<p>The person, the little things, and what connection looks like to me.</p>
+<div><span class="tag">Fictional example</span><span class="tag">Nonsexual by default</span></div>
+<h3>Who I am</h3><p>“I'm playful once I feel comfortable. I enjoy thoughtful conversation, a spontaneous stop on a trip and music that changes the whole atmosphere.”</p>
+<h3>A good ordinary day</h3><p>A leisurely morning, wandering around somewhere new, a shared interest, and a quiet dinner without constant distractions.</p>
+<h3>Communication and care</h3><p>“I'd rather ask a calm question than guess what you mean. When I'm overwhelmed, a little space before a conversation helps. I appreciate specific compliments and small commitments kept.”</p>
+<h3>My boundaries and hopes</h3><p>Privacy matters early in a relationship. Time alone can be restorative. I'm looking for mutual curiosity, kindness, consistency, laughter and a relationship where disagreement doesn't mean disrespect.</p>
+<h3>An everyday psychology response I approved</h3><blockquote>“Sincere, specific appreciation” - a nonsexual answer I chose to include because it helps explain what makes me feel understood.</blockquote>
+<h3>Optional intimacy page</h3><p>Only if the creator enables it: a self-written description of intimacy, separately approved interests, fantasy-only limits, and ways to discuss comfort. Nothing intimate appears automatically.</p>
+<h3>Questions we could ask each other</h3><ul><li>What little gesture makes you feel appreciated?</li><li>How do you like to resolve a misunderstanding?</li><li>What's something you enjoy that I wouldn't guess?</li></ul>
+</article></main>
+<script>
+(()=>{'use strict';
+const choices=[...document.querySelectorAll('[data-choice]')];
+function select(which){
+ if(!['personal','selected','new'].includes(which))which='personal';
+ for(const b of choices)b.setAttribute('aria-pressed',String(b.dataset.choice===which));
+ for(const art of document.querySelectorAll('.paper'))art.classList.toggle('visible',art.id===which);
+ const u=new URL(location.href);u.searchParams.set('report',which);history.replaceState(null,'',u);
+}
+choices.forEach(b=>b.addEventListener('click',()=>select(b.dataset.choice)));
+document.getElementById('print-current').addEventListener('click',()=>window.print());
+select(new URL(location.href).searchParams.get('report'));
+})();
+</script></body></html>
