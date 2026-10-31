@@ -567,8 +567,8 @@ function open(id){
  for(const key of g.sources){const s=sources[key];if(!s)continue;const a=make('a',s.label+' ↗');a.href=s.url;a.rel='noopener noreferrer';a.target='_blank';refs.append(a)}out.append(refs);
  const actions=make('div',undefined,'result-actions');
  const back=make('button','← All guides','btn alt');back.onclick=()=>{selectedId='';out.hidden=true;document.getElementById('howto-filters')?.scrollIntoView({behavior:'smooth',block:'start'})};
- const ask=make('button','💬 Ask Atlas about this','btn alt');ask.onclick=()=>{document.querySelector('[data-tab=chat]')?.click();const inp=$('chatText');if(inp){inp.value='What is a practical, safe starting approach for '+g.title+'?';inp.focus();}};
- const browse=make('button','📚 Browse the Curiosity Atlas','btn alt');browse.onclick=()=>document.querySelector('[data-tab=atlas]')?.click();
+ const ask=make('button','💬 The Whisper Line about this','btn alt');ask.onclick=()=>{document.querySelector('[data-tab=chat]')?.click();const inp=$('chatText');if(inp){inp.value='What is a practical, safe starting approach for '+g.title+'?';inp.focus();}};
+ const browse=make('button','📚 Browse the Curiosity Cabinet','btn alt');browse.onclick=()=>document.querySelector('[data-tab=atlas]')?.click();
  actions.append(back,ask,browse);out.append(actions);
  out.hidden=false;out.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -598,7 +598,7 @@ function answer(question){
  if(!/\b(orgasm[a-z]*|climax|coregasm)\b/.test(q))return null;
  if(!/\b(how|why|what|can|could|does|do|is|are|guide|tips|steps|technique|learn|teach|explain|help)\b/.test(q))return null;
  const g=find(question);if(!g)return null;
- return g.title+'\n\n'+g.facts+'\n\n'+g.steps.slice(0,3).map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\n'+g.myth+'\n\nOpen After Dark → Orgasm Guides for the full practical approach, anatomy, safety notes and sources.';
+ return g.title+'\n\n'+g.facts+'\n\n'+g.steps.slice(0,3).map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\n'+g.myth+'\n\nOpen The Other Drawer → Guides for the full practical approach, anatomy, safety notes and sources.';
 }
 window.AfterDarkIntimacyGuides=Object.freeze({guides,open,find,answer});
 init();
