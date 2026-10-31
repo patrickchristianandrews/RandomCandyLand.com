@@ -174,8 +174,15 @@ function mount(){
  message=make('p','Your writing autosaves on this device. Quiz disclosures start turned off every time.','new-partner-status');
  message.setAttribute('role','status');panel.append(message);
  preview=make('div',undefined,'new-partner-preview');preview.hidden=true;panel.append(preview);
- host.append(panel);choiceList(ps,selectedQuestions(summaryData()),selectedPsych);
- choiceList(st,sexualInterests(summaryData()),selectedSex);
+ host.append(panel);
+ const refreshChoices=()=>{
+  choiceList(ps,selectedQuestions(summaryData()),selectedPsych);
+  choiceList(st,sexualInterests(summaryData()),selectedSex);
+ };
+ refreshChoices();
+ document.addEventListener('click',event=>{
+  if(event.target.closest('[data-tab="notebook"],[data-new-partner]'))setTimeout(refreshChoices,70);
+ });
  document.querySelectorAll('[data-new-partner]').forEach(button=>button.addEventListener('click',()=>{
   requestAnimationFrame(()=>requestAnimationFrame(()=>host.scrollIntoView({block:'start',behavior:'smooth'})));
  }));
