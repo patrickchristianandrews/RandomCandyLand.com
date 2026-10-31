@@ -176,6 +176,9 @@ function mount(){
  preview=make('div',undefined,'new-partner-preview');preview.hidden=true;panel.append(preview);
  host.append(panel);choiceList(ps,selectedQuestions(summaryData()),selectedPsych);
  choiceList(st,sexualInterests(summaryData()),selectedSex);
+ document.querySelectorAll('[data-new-partner]').forEach(button=>button.addEventListener('click',()=>{
+  requestAnimationFrame(()=>requestAnimationFrame(()=>host.scrollIntoView({block:'start',behavior:'smooth'})));
+ }));
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 window.AfterDarkNewPartnerReport=Object.freeze({mount,build:content,preview:doPreview,exportPDF:print,sexualChoices:()=>sexualInterests(summaryData()).map(x=>x.title)});
