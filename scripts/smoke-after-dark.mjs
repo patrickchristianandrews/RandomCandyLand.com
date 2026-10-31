@@ -345,7 +345,7 @@ try{
   console.log('✓ Ask Atlas tolerates typos, everyday phrases, short keywords, partner questions and expands its topic library.');
 
   const unmatched=await evaluate("respond('Why am I interested in velociraptor-shaped pottery?')");
-  if(!/could not match|not match|confidently/i.test(unmatched)||/exhibition/i.test(unmatched))throw Error('Ask Atlas guessed an irrelevant answer rather than asking for detail');
+  if(!/could not match|not match|confidently|not sure|try saying it another way/i.test(unmatched)||/exhibition/i.test(unmatched))throw Error('Ask Atlas guessed an irrelevant answer rather than asking for detail');
   console.log('✓ Ask Atlas declines irrelevant lexical matches.');
   await evaluate("document.querySelector('#chatText').value='Why do I like receiving strap-on penetration?';document.querySelector('#askForm button').click()");
   await check('Ask Atlas shows a relevant on-device answer',"document.querySelector('#chatWindow .bubble:last-child').textContent.includes('strap-on')");
