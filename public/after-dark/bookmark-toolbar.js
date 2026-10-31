@@ -95,7 +95,7 @@ function capture(){
 function updateAuto(){
  if(isRestoring)return;
  const p=capture();if(!p)return;
- state.auto[p.tab]=p;state.last=p.tab;write();refresh();
+ state.auto[p.tab]=p;if(p.tab!=='home'||!state.last)state.last=p.tab;write();refresh();
 }
 function labelFor(p){
  if(p.tab==='quiz'||p.tab==='psych-quiz'){
@@ -129,7 +129,8 @@ function scrollBack(p){
   return;
  }
  const root=$(p.tab);
- const el=p.anchor?$(p.anchor):(p.path?(()=>{try{return root?.querySelector(p.path)}catch{return null}})():null);
+ const byId=p.anchor?$(p.anchor):null;
+ const el=(byId&&root?.contains(byId)?byId:null)||(p.path?(()=>{try{return root?.querySelector(p.path)}catch{return null}})():null);
  const limit=Math.max(0,document.documentElement.scrollHeight-innerHeight);
  const absolute=el?scrollY+el.getBoundingClientRect().top-
    (Math.max(140,Math.min(innerHeight-90,innerHeight*.36))+p.delta):p.y;
