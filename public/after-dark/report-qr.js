@@ -14,7 +14,7 @@ function create(){
  const section=element('section',undefined,'afterdark-qr-section');
  const text=element('div',undefined,'afterdark-qr-description');
  text.append(element('p','EXPLORE THE FULL EXPERIENCE','afterdark-qr-eyebrow'),
-  element('h2','Meet The Other Drawer'),
+  element('h2','The Other Drawer: What Desires Reveal About Us'),
   element('p','The Other Drawer is a free, adults-only place to explore interests, better understand yourself, and find ways to talk openly with a partner. You can take the preferences quiz, explore the psychology quiz, or browse topics at your own pace.'));
  text.append(element('h3','How the pieces fit together'));
  text.append(element('p','The report brings together the answers you chose and looks for connections between them. Themes such as trust, curiosity, closeness, imagination, and sensation help organize the results. Some interests are ones you selected yourself; others are simply ideas that might be worth reading about. The best judge of what fits is you.'));
