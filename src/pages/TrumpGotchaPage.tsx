@@ -294,6 +294,9 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
         
+        <a className="rcl-game-home-icon" href="/" onClick={e=>{e.preventDefault();onReturnHome();}} aria-label="Random Candy Land home" title="Random Candy Land home">
+          <img src="/icon.svg?v=candy-logo-no-white-3" width={50} height={50} alt="" />
+        </a>
         <CandyGoo className="candyland-header-goo" color="bubblegum" />
       </header>
       {/* How To Play always stays above the handheld, before the page banner. */}
