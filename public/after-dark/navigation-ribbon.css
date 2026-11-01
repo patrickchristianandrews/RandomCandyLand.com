@@ -247,10 +247,18 @@
  .top.od-simple-site-header>.brand{white-space:normal}
 }
 @media(max-width:390px){
- .top.od-simple-site-header{grid-template-columns:minmax(0,1fr) auto}
+ .top.od-simple-site-header{grid-template-columns:minmax(0,1fr) auto auto;gap:5px}
  .top.od-simple-site-header>.brand{font-size:11px}
- #od-nav-toggle{grid-column:2;padding:8px 9px;font-size:11px}
- .top.od-simple-site-header>.rcl-site-home-icon{display:none}
+ #od-nav-toggle{grid-column:2;padding:8px 10px;min-width:44px}
+ #od-nav-toggle .od-nav-text{display:none}
+ .top.od-simple-site-header>.rcl-site-home-icon{
+  display:inline-flex;grid-column:3;width:40px;height:40px;
+  min-width:40px;min-height:40px;flex-basis:40px}
+}
+/* The main menu stays visible as a graceful fallback if scripts do not load. */
+@media(max-width:760px){
+ .top.od-simple-site-header:not(.od-navigation-ready) .od-ribbon-nav{display:grid!important}
+ .top.od-simple-site-header:not(.od-navigation-ready) #od-nav-toggle{display:none}
 }
 @media(prefers-reduced-motion:reduce){
  .top.od-simple-site-header .od-ribbon-link,
