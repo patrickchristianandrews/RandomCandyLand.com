@@ -118,6 +118,12 @@ try{
   await evaluate("document.querySelector('#od-bookmark-bar .od-bookmark-save').click()");
   await check('Saving a bookmark persists without quiz answers leaving the device',
     "window.OtherDrawerBookmarks.list().length===1 && !!localStorage.getItem('otherdrawer_saved_places_v1') && document.querySelector('#od-bookmark-count').textContent==='1'");
+  await check('Saved place controls include search, section filters and separate quiz backups',
+    "!!document.querySelector('#od-saved-search') && !!document.querySelector('#od-saved-section') && !!document.querySelector('#od-saved-sort') && !!document.querySelector('.od-backup-quizzes') && !!document.querySelector('#od-bookmark-panel, .od-bookmark-panel')");
+  await evaluate("document.querySelector('#od-bookmark-menu').open=true;document.querySelector('#od-saved-search').value='no-such-saved-spot';document.querySelector('#od-saved-search').dispatchEvent(new Event('input',{bubbles:true}))");
+  await check('Saved place search narrows results without losing stored bookmarks',
+    "document.querySelector('#od-saved-results').textContent.includes('0 of 1') && window.OtherDrawerBookmarks.list().length===1");
+  await evaluate("document.querySelector('#od-saved-search').value='';document.querySelector('#od-saved-search').dispatchEvent(new Event('input',{bubbles:true}))");
   await evaluate("document.querySelector('#od-bookmark-menu').open=true;document.querySelector('#od-bookmark-list .od-saved-actions button:last-child').click()");
   await check('Saved places can be removed',
     "window.OtherDrawerBookmarks.list().length===0 && document.querySelector('#od-bookmark-count').textContent==='0'");
@@ -143,6 +149,8 @@ try{
   await check('Non-explicit quiz maps answers to specific Atlas interests independently',"window.AfterDarkPsychBridge?.recommend({answered:1,answers:{0:[0]}},topics)?.some(r=>r.x.name==='Slow build-up')");
   await check('The Other Drawer uses a short explanation and links to report samples',
     "!!document.querySelector('#home .od-compact-tool a[href*=report-samples]') && document.querySelectorAll('#home .od-compact-tool').length===3 && !document.querySelector('#home .od-home-report-showcase')");
+  await check('Upgraded menu has a labelled mobile toggle and current section feedback',
+    "!!document.querySelector('#od-nav-toggle[aria-controls=od-ribbon-nav]') && !!document.querySelector('.od-ribbon-nav button[data-tab=home][aria-current=page]')");
   await check('Top ribbon makes all Other Drawer sections discoverable',
     "(()=>{const h=document.querySelector('.od-ribbon-nav');return !!h && !!h.querySelector('a[href*=report-samples]') && ['home','quiz','psych-quiz','chat','atlas','psych','notebook','ideas','howto','guide'].every(tab=>h.querySelector('[data-tab='+tab+']')) && !!h.querySelector('a[href*=psychology-lab]')})()");
   await evaluate("document.querySelector('.od-ribbon-menu-quizzes summary').click();document.querySelector('.od-ribbon-menu-quizzes button[data-tab=psych-quiz]').click()");
