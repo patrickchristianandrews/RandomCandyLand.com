@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar, WandSparkles } from 'lucide-react';
+import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar } from 'lucide-react';
 import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
 import { CandyGoo } from '../components/CandyGoo';
@@ -201,16 +201,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <p className="candyland-install-footnote">These are individually installable web apps, not Apple App Store or Google Play downloads. Installation options vary by browser and device.</p>
       </section>
 
-      <section className="candyland-finale">
-        <img src="/icon.svg?v=candy-logo-no-white-3" width={160} height={160} alt="" loading="lazy" />
-        <div>
-          <span><WandSparkles size={16}/> STILL CURIOUS?</span>
-          <h2>Follow the rainbow.</h2>
-          <p>The candy door is always open.</p>
-        </div>
-        <a href="#adventures" className="candyland-primary">EXPLORE MORE <ArrowRight size={20}/></a>
-        <CandyGoo className="candyland-finale-goo" color="lemon" />
-      </section>
       <footer className="candyland-footer">
         <span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span>
         <a href="#top">Back to the candy castle ↑</a>
