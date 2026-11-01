@@ -157,3 +157,13 @@ body.print-quiz .od-bookmark-bar,body.print-notebook .od-bookmark-bar,body.print
 @media(prefers-reduced-motion:reduce){
  .od-bookmark-bar :is(button,summary){transition:none!important}
 }
+
+/* Inline bookmark names stay editable without a disruptive browser prompt. */
+.od-inline-rename{width:100%;min-height:42px;padding:10px;border:1px solid #f6dbb7;
+ border-radius:10px;background:#201829;color:#fff;font:700 12px/1.3 system-ui,sans-serif}
+.od-inline-edit-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+@media(max-width:660px){
+ .od-bookmark-heading{display:none}
+ .od-bookmark-bar{row-gap:5px}
+ .od-bookmark-bar .od-bookmark-notice{padding-left:3px}
+}
