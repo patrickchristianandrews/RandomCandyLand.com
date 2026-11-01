@@ -12,7 +12,7 @@ const HEADLINES = [
   '🦄 UNICORN NEWS NETWORK','📜 VERY SERIOUS ANNOUNCEMENT',
   '🌈 RAINBOW WEATHER ADVISORY','🧀 DEPARTMENT OF CHEESE',
   '🛸 INTERGALACTIC GOSSIP','🧁 CUPCAKE COURT TRANSCRIPT',
-  '💌 LETTER FROM ANOTHER DIMENSION','🗞️ THE BALONEY BULLETIN',
+  '💌 LETTER FROM ANOTHER DIMENSION','🗞️ GAZETTE EXCLUSIVE',
   '🎺 TINY TRUMPET BREAKING NEWS','🔮 THE ORACLE HAS GIGGLED',
   '🎡 WELCOME TO THE NONSENSE ZONE','🐙 OCTOPUS OFFICE MEMO',
   '🧠 THOUGHTS THAT ESCAPED','🥨 SUSPICIOUS PRETZEL REPORT',
@@ -233,7 +233,7 @@ export function RandomNonsenseGenerator() {
   const generate = () => { setCycle(advance); setCopied(false); };
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText('THE CANDY LAND DAILY | SATIRE EDITION' + '\\n' + nonsense.headline + '\\n\\n' + nonsense.location + ' ' + nonsense.followup + '\\n\\n— Random Candy Land | Fictional story');
+      await navigator.clipboard.writeText('THE CANDY LAND GAZETTE | SATIRE EDITION' + '\\n' + nonsense.headline + '\\n\\n' + nonsense.location + ' ' + nonsense.followup + '\\n\\n— Random Candy Land | Fictional story');
       setCopied(true);
     } catch { setCopied(false); }
   };
@@ -243,8 +243,8 @@ export function RandomNonsenseGenerator() {
       <header className="nonsense-news-masthead">
         <span className="nonsense-masthead-icon" aria-hidden="true"><Newspaper size={23}/></span>
         <div className="nonsense-news-title-wrap">
-          <span className="nonsense-edition">THE WORLD'S LEAST RELIABLE NEWS SOURCE</span>
-          <h2 id="nonsense-heading">The Candy Land <em>Daily</em></h2>
+          <span className="nonsense-edition">ALL THE NEWS THAT PROBABLY NEVER HAPPENED</span>
+          <h2 id="nonsense-heading">The Candy Land <em>Gazette</em></h2>
         </div>
         <span className="nonsense-edition-pill">SATIRE EDITION</span>
       </header>
@@ -256,7 +256,7 @@ export function RandomNonsenseGenerator() {
         <h3>{nonsense.headline}</h3>
         <p className="nonsense-news-lede">{nonsense.location}</p>
         <p className="nonsense-news-body">{nonsense.followup}</p>
-        <div className="nonsense-news-footer"><span>THE CANDY LAND DAILY</span><span>Fictional news · Just for laughs</span></div>
+        <div className="nonsense-news-footer"><span>THE CANDY LAND GAZETTE</span><span>Fictional news · Just for laughs</span></div>
       </article>
       <div className="nonsense-actions">
         <button className="nonsense-generate" type="button" onClick={generate}>
