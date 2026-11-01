@@ -33,8 +33,8 @@ function isRunningInstalledCandyLand(): boolean {
 // These routes each have a separate web-app manifest and start URL.
 const INSTALL_CHOICES = [
   {emoji:'🏰',name:'Full Candy Land',url:'/'},
+  {emoji:'🎮',name:'Trumpagotchi OG',url:'/trump/'},
   {emoji:'🎮',name:'FM-1 Trumpagotchi',url:'/trumpagotchi-fm1/'},
-  {emoji:'🎮',name:'Trumpagotchi',url:'/trump/'},
   {emoji:'🍬',name:'Goo Rush',url:'/goo-rush/'},
   {emoji:'🎰',name:'Candy Land Casino',url:'/candy-casino/'},
   {emoji:'🍭',name:'Candy Simon Says',url:'/candy-simon/'},
@@ -43,10 +43,10 @@ const INSTALL_CHOICES = [
   {emoji:'🌙',name:'The Other Drawer',url:'/after-dark/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['FM-1 Trumpagotchi','Trumpagotchi 2','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
+const TOOL_MENU_NAMES = ['Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
 const TOOL_MENU_ICONS = [
-  '/trumpagotchi-fm1/pixel-icon.svg',
   '/tool-icons/trumpagotchi-2.svg',
+  '/trumpagotchi-fm1/pixel-icon.svg',
   '/tool-icons/goo-rush.svg',
   '/tool-icons/casino.svg',
   '/tool-icons/simon.svg',
@@ -56,8 +56,8 @@ const TOOL_MENU_ICONS = [
 ] as const;
 
 const PORTALS: Portal[] = [
+  {emoji:'🎮',title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
   {emoji:'🎮',title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
-  {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
   {emoji:'🍬',title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
   {emoji:'🎰',title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'games',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
   {emoji:'🍭',title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
