@@ -137,3 +137,16 @@
  #home.od-compact-home .od-compact-hero .lead{font-size:13px;line-height:1.6}
  #home.od-compact-home .od-compact-tools h2{font-size:25px}
 }
+
+/* Every menu category stays visible on small screens; no hidden side-scroll discovery. */
+@media(max-width:970px){
+ .top.od-simple-site-header .od-ribbon-nav{
+  display:flex;flex-wrap:wrap;justify-content:flex-start;
+  overflow:visible;gap:6px;padding-bottom:6px;
+ }
+ .top.od-simple-site-header .od-ribbon-submenu{
+  position:absolute;top:calc(100% + 7px);left:0!important;right:auto!important;
+  width:min(280px,calc(100vw - 30px));min-width:0;max-width:calc(100vw - 30px);
+ }
+ .top.od-simple-site-header .od-ribbon-menu-more .od-ribbon-submenu{left:auto!important;right:0!important}
+}
