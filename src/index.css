@@ -434,3 +434,147 @@ body {
  .nonsense-newsroom .nonsense-news-footer{font-size:9px}
  .nonsense-newsroom .nonsense-generate{width:100%;font-size:15px}
 }
+
+/* The Candy Land homepage now features the illustrated tool directory in the hero.
+   No repeated icon menu in the header, no eyebrow/intro/button between title and icons. */
+.candyland-opening.candyland-opening{
+  grid-template-columns:minmax(0,1fr);
+  max-width:980px;
+  min-height:0;
+  padding:clamp(14px,3vw,34px) clamp(12px,2.5vw,32px) clamp(75px,8vw,108px);
+  gap:0;
+}
+.candyland-opening .candyland-opening-art{
+  width:min(100%,660px);
+  max-width:100%;
+  justify-self:center;
+  align-self:center;
+  margin:0 auto;
+}
+.candyland-opening .candyland-opening-copy{
+  width:100%;
+  max-width:none;
+  min-width:0;
+  padding:0;
+  text-align:center;
+}
+.candyland-opening .candyland-opening-copy h1{
+  margin:12px auto 26px;
+  max-width:700px;
+  font-size:clamp(40px,6vw,74px);
+  line-height:.98;
+}
+.candyland-hero-tools{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(9px,2vw,20px);
+  width:100%;
+  max-width:890px;
+  margin:12px auto 0;
+  position:relative;
+  z-index:5;
+  align-items:stretch;
+}
+.candyland-hero-tools .candyland-hero-tool-link{
+  display:flex;
+  min-width:0;
+  width:100%;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  padding:4px 0 8px;
+  background:transparent;
+  border:0;
+  border-radius:19px;
+  font:850 12px/1.22 'Fredoka',system-ui,sans-serif;
+  color:#fff7f6;
+  text-decoration:none;
+  text-align:center;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .2s ease,filter .2s ease;
+}
+.candyland-hero-tools .candyland-hero-tool-link:hover{
+  transform:translateY(-5px);
+  filter:brightness(1.08);
+}
+.candyland-hero-tools .candyland-hero-tool-link:focus-visible{
+  outline:3px solid #ffeb98;
+  outline-offset:3px;
+}
+.candyland-hero-tools .candyland-hero-tool-image{
+  display:grid;
+  place-items:center;
+  width:100%;
+  max-width:165px;
+  aspect-ratio:1;
+  padding:3px;
+  position:relative;
+  border-radius:25%;
+  background:radial-gradient(circle at 50% 42%,#e25eff59 5%,#7d2baa25 65%,transparent 79%);
+}
+.candyland-hero-tools .candyland-hero-tool-image img{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  aspect-ratio:1;
+  object-fit:contain;
+  filter:drop-shadow(0 5px 7px #2d0b5baa);
+}
+.candyland-hero-tools .candyland-hero-tool-link:first-child .candyland-hero-tool-image img{
+  width:78%;
+  height:78%;
+  border:4px solid #ffd5f8;
+  border-radius:32%;
+  background:linear-gradient(140deg,#ff8ee7,#a637c9);
+  image-rendering:pixelated;
+  box-shadow:0 7px 14px #29045580,0 0 12px #ffd7ff70;
+}
+.candyland-hero-tools .candyland-hero-tool-name{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  width:100%;
+  max-width:185px;
+  min-height:36px;
+  padding:8px 5px;
+  border:2px solid #ffe6a4;
+  border-radius:50px;
+  background:linear-gradient(135deg,#653080e8,#411964e8);
+  box-shadow:inset 0 1px 4px #ffffff40,0 5px 7px #27073f78,0 0 7px #ffb6f85a;
+  color:#fff8f4;
+  font-size:clamp(11px,1.25vw,15px);
+  line-height:1.14;
+  text-shadow:0 2px 4px #15062d;
+  overflow-wrap:normal;
+}
+@media(max-width:660px){
+  .candyland-opening.candyland-opening{
+    padding:16px 9px 69px;
+    margin:8px 9px 0;
+    border-radius:35px;
+  }
+  .candyland-opening .candyland-opening-art{width:min(100%,470px)}
+  .candyland-opening .candyland-opening-copy h1{
+    margin:8px auto 20px;
+    font-size:clamp(40px,10vw,61px);
+  }
+  .candyland-hero-tools{gap:11px 6px;margin-top:8px}
+  .candyland-hero-tools .candyland-hero-tool-link{gap:4px;padding:0 0 3px}
+  .candyland-hero-tools .candyland-hero-tool-image{width:100%;max-width:100%;padding:0}
+  .candyland-hero-tools .candyland-hero-tool-name{
+    font-size:clamp(9px,2.55vw,12px);
+    min-height:39px;
+    padding:6px 2px;
+    line-height:1.12;
+    letter-spacing:-.015em;
+    border-width:1.5px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .candyland-hero-tools .candyland-hero-tool-link{transition:none}
+  .candyland-hero-tools .candyland-hero-tool-link:hover{transform:none}
+}
