@@ -343,3 +343,11 @@ body {
 @media(max-width:630px){.candyland-next .candyland-navbar .candyland-brand-icon {
  width:48px;height:48px;flex-basis:48px;
 }}
+
+/* Icon-only homepage shortcut on the standalone Trumpagotchi page. */
+.candyland-game-navbar .rcl-game-home-icon{position:relative;z-index:16;margin-left:auto;flex:0 0 56px;width:56px;height:56px;display:grid;place-items:center;padding:4px;border:2px solid #ffe7a6;border-radius:50%;background:linear-gradient(145deg,#bb3aaf,#522b90);box-shadow:0 4px 14px #15061c7a;transition:transform .2s ease,box-shadow .2s ease}
+.candyland-game-navbar .rcl-game-home-icon img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%;background:transparent;max-width:none}
+.candyland-game-navbar .rcl-game-home-icon:hover{transform:translateY(-2px);box-shadow:0 8px 18px #15061c9a}
+.candyland-game-navbar .rcl-game-home-icon:focus-visible{outline:3px solid #fff0ad;outline-offset:4px}
+@media(max-width:640px){.candyland-game-navbar .rcl-game-home-icon{width:50px;height:50px;flex-basis:50px}}
+@media(prefers-reduced-motion:reduce){.candyland-game-navbar .rcl-game-home-icon{transition:none}.candyland-game-navbar .rcl-game-home-icon:hover{transform:none}}
