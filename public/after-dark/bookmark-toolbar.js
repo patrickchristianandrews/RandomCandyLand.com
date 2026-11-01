@@ -51,7 +51,7 @@ function migrate(){
  write();
 }
 migrate();
-let isRestoring=false,saveTimer=0,ui=null,notice=null;
+let isRestoring=false,saveTimer=0,feedbackTimer=0,ui=null,notice=null;
 function status(message){if(notice)notice.textContent=message}
 function pathFor(node,tab){
  const root=$(tab);if(!root?.contains(node)||root===node)return'';
@@ -114,8 +114,25 @@ function bookmark(){
  state.items.unshift(p);state.items=state.items.slice(0,150);
  state.auto[p.tab]=p;state.last=p.tab;
  const ok=write();
- if(ok){const name=$('od-bookmark-name');if(name)name.value='';status('Saved: '+p.label);refresh();}
- else status('Storage is unavailable. Your place was not saved.');
+ if(ok){
+  const name=$('od-bookmark-name');if(name)name.value='';
+  status('Saved: '+p.label);refresh();
+  const button=ui?.querySelector('.od-bookmark-save');
+  if(button){
+   clearTimeout(feedbackTimer);
+   button.textContent='✓ Saved';
+   feedbackTimer=setTimeout(()=>{button.textContent='☆ Save this spot'},1800);
+  }
+ }
+ else{
+  status('Storage is unavailable. Your place was not saved.');
+  const button=ui?.querySelector('.od-bookmark-save');
+  if(button){
+   clearTimeout(feedbackTimer);
+   button.textContent='Could not save';
+   feedbackTimer=setTimeout(()=>{button.textContent='☆ Save this spot'},2200);
+  }
+ }
 }
 function navigate(tab){
  if(tab==='quiz'||tab==='psych-quiz'){bridge(tab)?.resume?.();return;}
