@@ -550,13 +550,15 @@ try{
   const trackingReady=await home.evaluate("window.dataLayer?.some(x=>x?.event==='gtm.js') && [...document.scripts].some(s=>s.src.includes('googletagmanager.com/gtm.js?id=GTM-TQRDB5KL'))");
   if(!trackingReady)throw Error('Homepage Google Tag Manager failed to initialize');
   console.log('✓ GTM initializes on both the homepage and After Dark.');
-  const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-display p')");
-  if(!nonsenseReady)throw Error('Homepage nonsense generator did not mount');
-  const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-display p').textContent");
+  const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-news-article h3') && document.querySelector('#nonsense .nonsense-generate')?.textContent.includes('NEXT STORY') && !document.querySelector('#nonsense .nonsense-eyebrow')");
+  if(!nonsenseReady)throw Error('Candy Land Daily article or Next Story button did not mount');
+  const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
   await home.evaluate("document.querySelector('.nonsense-generate').click()");
-  const afterNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-display p').textContent");
-  if(beforeNonsense===afterNonsense)throw Error('Nonsense generator repeated its previous story');
-  console.log('✓ Candy Land nonsense generator creates a new non-repeating story.');
+  const afterNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
+  if(beforeNonsense===afterNonsense)throw Error('Next Story repeated its previous article');
+  await home.evaluate("document.querySelector('#nonsense .nonsense-copy').click()");
+  await home.evaluate("document.querySelector('#nonsense').scrollIntoView({block:'center'})");
+  console.log('✓ Candy Land Daily displays a new satirical headline when Next Story is clicked.');
 
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
