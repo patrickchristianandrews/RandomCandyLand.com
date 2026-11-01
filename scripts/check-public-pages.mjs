@@ -108,13 +108,16 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
   }
 }
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
-if(!afterDarkLanding.includes('<section id="home" class="tab visible od-hub-home"') ||
-   !afterDarkLanding.includes('<div class="afterdark-featured-grid"') ||
-   !afterDarkLanding.includes('Curiosity Quiz') ||
-   !afterDarkLanding.includes('Ask Anything') ||
+if(!afterDarkLanding.includes('<section id="home" class="tab visible od-hub-home od-compact-home"') ||
+   !afterDarkLanding.includes('<nav class="od-ribbon-nav"') ||
+   !afterDarkLanding.includes('class="od-compact-tools-grid"') ||
+   !afterDarkLanding.includes('Take the quizzes') ||
+   !afterDarkLanding.includes('Your reports') ||
+   !afterDarkLanding.includes('Ask Atlas') ||
    !afterDarkLanding.includes("else renderTabs('home');") ||
-   afterDarkLanding.includes('<nav class="top" aria-label="After Dark sections">')){
-  console.error('The Other Drawer homepage must lead with Quiz and Ask Anything cards, without a top tab menu.');failures++;
+   afterDarkLanding.includes('od-home-directory-tile') ||
+   !fs.existsSync('dist/after-dark/navigation-ribbon.css')){
+  console.error('The Other Drawer landing must be brief, with Quiz, Reports, Atlas and a complete navigation ribbon.');failures++;
 }
 
 // Report samples are direct PDF downloads, not visible previews on the sample page.
@@ -144,13 +147,14 @@ if(!fs.existsSync(samplePage)||!fs.existsSync(sampleGenerator)){
  try {new vm.Script(generator,{filename:sampleGenerator});}
  catch(error){console.error('Broken report sample PDF script:',error.message);failures++;}
 }
-// The homepage should accurately preview all three private PDF report types.
-if(!fs.existsSync('dist/after-dark/home-report-showcase.css')||
-   !afterDarkLanding.includes('od-home-report-showcase')||
-   !afterDarkLanding.includes('home-report-showcase.css?v=')||
-   !afterDarkLanding.includes('Getting to know me.')||
-   !afterDarkLanding.includes('Not for me')){
- console.error('The Other Drawer homepage report explainer is missing or incomplete');failures++;
+// Detailed report explanations belong on the dedicated samples page, not the simple homepage.
+if(!afterDarkLanding.includes('href="/after-dark/report-samples/"') ||
+   !afterDarkLanding.includes('data-tab="quiz"') ||
+   !afterDarkLanding.includes('data-tab="psych-quiz"') ||
+   !afterDarkLanding.includes('data-tab="chat"') ||
+   !afterDarkLanding.includes('data-tab="notebook"') ||
+   !fs.existsSync('dist/after-dark/home-report-showcase.css')){
+ console.error('The Other Drawer homepage is missing quiz, sample-report or Atlas destinations');failures++;
 }
 // Category recommendations and opt-in partner introductions are mandatory export features.
 for(const file of ['dist/after-dark/discover-interests.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-discovery.css']){
