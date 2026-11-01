@@ -37,3 +37,123 @@ body.print-quiz .od-bookmark-bar,body.print-notebook .od-bookmark-bar,body.print
 @media print{.od-bookmark-bar{display:none!important}}
 @media(max-width:650px){.od-bookmark-bar{padding:8px 9px;margin:5px 0 12px;gap:6px;border-radius:11px}.od-bookmark-heading{width:100%;margin:0 0 1px}.od-bookmark-button{flex:1 1 auto;padding:9px 8px;font-size:11px;min-height:36px}.od-bookmark-menu{flex:1 1 auto}.od-bookmark-summary{width:100%}.od-bookmark-panel{right:-4px;min-width:min(340px,calc(100vw - 28px))}.od-bookmark-notice{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.od-bookmark-button{transition:none}}
+
+/* Personal library 2.0: compact on-page controls, substantial searchable panel. */
+.od-bookmark-bar{
+ --save-pink:#ffc5e6;--save-cream:#fff0db;
+ position:sticky;top:0;z-index:99;display:flex;align-items:center;
+ flex-wrap:wrap;gap:9px;padding:10px clamp(10px,2vw,17px);
+ margin:8px 0 22px;border:1px solid #f4bdd463;border-radius:16px;
+ background:linear-gradient(110deg,#22192feb 0%,#3b2545f5 65%,#2c203af5);
+ box-shadow:0 13px 36px #0906179c,inset 0 1px #ffffff16;
+ backdrop-filter:none;
+}
+.od-bookmark-heading{display:flex;flex:1 1 auto;min-width:120px;flex-direction:column;
+ gap:1px;margin:0;letter-spacing:.08em;color:var(--save-pink)}
+.od-bookmark-heading strong{font:900 11px/1.3 system-ui,sans-serif;letter-spacing:.14em}
+.od-bookmark-heading small{font:600 10px/1.35 system-ui,sans-serif;letter-spacing:0;color:#ddc6df}
+.od-bookmark-bar .od-bookmark-button{
+ min-height:44px;padding:11px 14px;flex:0 0 auto;border-radius:12px;
+ font:800 12px/1.1 system-ui,sans-serif;
+ border:1px solid #efc1dd55;background:#ffffff0f;color:#fff2f6;
+}
+.od-bookmark-bar .od-bookmark-save{
+ border-color:#ffe5bd;background:linear-gradient(120deg,#ffe6bf,#ffb9df);
+ color:#3e183f;box-shadow:0 4px 10px #10091b52;
+}
+.od-bookmark-bar .od-bookmark-save:hover,
+.od-bookmark-bar .od-bookmark-save:focus-visible{background:#fff0dc;color:#37143c;border-color:#ffffff}
+.od-bookmark-bar .od-bookmark-continue:not(:disabled){background:#5b3a6e;border-color:#b59ace}
+.od-bookmark-bar .od-bookmark-menu{position:relative;flex:0 0 auto}
+.od-bookmark-bar .od-bookmark-summary{display:flex;align-items:center;justify-content:center;
+ gap:5px;list-style:none;cursor:pointer;white-space:nowrap}
+.od-bookmark-menu[open]>.od-bookmark-summary{background:#754d77;border-color:#ffe2b3}
+.od-bookmark-bar .od-bookmark-notice{display:block;flex:1 0 100%;margin:0;
+ min-height:0;font:600 11px/1.35 system-ui,sans-serif;color:#eec9dc}
+.od-bookmark-bar .od-bookmark-notice:empty{display:none}
+.od-bookmark-panel{
+ position:absolute;right:0;top:calc(100% + 11px);z-index:160;
+ box-sizing:border-box;width:min(445px,calc(100vw - 24px));min-width:0;max-width:none;
+ max-height:min(76dvh,730px);padding:0;border:1px solid #d2a5c8;border-radius:20px;
+ background:linear-gradient(150deg,#30213f,#211c33 70%);
+ overflow:auto;overscroll-behavior:contain;box-shadow:0 24px 60px #090319e8;
+ color:#fff1f5;
+}
+.od-bookmark-panel-head{display:flex;align-items:center;justify-content:space-between;
+ gap:12px;padding:20px 18px 14px;border-bottom:1px solid #e9bed726}
+.od-bookmark-panel-head h2{font:700 29px/1.07 Georgia,serif;margin:5px 0 0;color:#fff3ea}
+.od-panel-eyebrow{font:800 10px/1.2 system-ui,sans-serif;letter-spacing:.15em;color:#ffb9d5}
+.od-local-badge{flex:0 0 auto;border:1px solid #ecc9d180;border-radius:99px;
+ padding:6px 9px;background:#ffffff0a;color:#f6d8e8;font:800 9px/1.1 system-ui,sans-serif;letter-spacing:.04em}
+.od-current-place{padding:12px 18px;color:#eed3ea;background:#ffffff08;
+ font:650 12px/1.5 system-ui,sans-serif}
+.od-save-form{margin:16px 17px 20px;padding:16px;border:1px solid #f7ccdd70;
+ border-radius:16px;background:linear-gradient(130deg,#5a345e,#372843)}
+.od-save-form>strong{display:block;font:800 15px/1.35 system-ui,sans-serif;color:#fff2e7}
+.od-save-form .od-bookmark-help{margin:5px 0 11px;font:500 12px/1.55 system-ui,sans-serif;color:#ecd6eb}
+.od-bookmark-panel input[type="text"],.od-bookmark-panel input[type="search"],
+.od-bookmark-panel select{
+ box-sizing:border-box;width:100%;min-height:44px;padding:11px 12px;
+ border-radius:11px;border:1px solid #cfa5cb80;background:#1e162cf2;
+ color:#fff2f9;font:650 13px/1.3 system-ui,sans-serif;
+}
+.od-bookmark-panel input::placeholder{color:#cbb5d1}
+.od-save-form .od-save-current{width:100%;margin:10px 0 0;
+ border:1px solid #ffe6bd;background:#edbddb;color:#39203a}
+.od-bookmark-list-header{display:flex;align-items:center;justify-content:space-between;
+ gap:10px;margin:0 18px 10px}
+.od-bookmark-list-header strong{color:#fff0e7;font:800 15px/1.3 system-ui,sans-serif}
+.od-bookmark-results{font:700 11px/1.3 system-ui,sans-serif;color:#dcc4df}
+.od-bookmark-browse{display:grid;gap:9px;margin:0 17px 14px}
+.od-saved-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.od-bookmark-panel .od-saved-filters select{font-size:12px;padding:8px}
+.od-bookmark-list{padding:0 17px 10px;max-height:290px;overflow:auto;overscroll-behavior:contain;
+ scrollbar-color:#b781af transparent}
+.od-saved-item{gap:7px;margin:0 0 8px;padding:12px;border:1px solid #efbfdb30;
+ border-radius:12px;background:#ffffff09}
+.od-saved-item:hover{border-color:#f6c5df80;background:#ffffff11}
+.od-saved-open{color:#ffe7ef;font-size:13px;line-height:1.37}
+.od-saved-meta{color:#d7bdd7;font-size:10px}
+.od-saved-actions{gap:5px}
+.od-saved-mini{min-height:36px;padding:8px 10px;border-radius:9px;
+ border-color:#d4a9d05b;color:#f6e4f1;background:#493352;
+ font:750 11px/1.2 system-ui,sans-serif}
+.od-bookmark-tools{display:grid;grid-template-columns:1fr 1fr;
+ gap:8px;margin:5px 17px 0;padding:16px 0 12px;border-top:1px solid #f2c9df42}
+.od-tools-label{grid-column:1/-1;color:#ffe6d6;font:800 12px/1.3 system-ui,sans-serif}
+.od-bookmark-tools .od-saved-mini{min-height:43px;text-align:center}
+.od-bookmark-tools .od-upload{display:flex;align-items:center;justify-content:center}
+.od-privacy-note{margin:0;padding:12px 18px 18px;border-top:1px solid #e9bed726;
+ color:#d9c7dd;font:500 11px/1.6 system-ui,sans-serif}
+.od-bookmark-panel :is(input,select,button,a,summary,label):focus-visible{
+ outline:3px solid #ffe1ad;outline-offset:2px}
+.od-empty{margin:8px 0 18px;padding:20px;border:1px dashed #daaece88;
+ border-radius:13px;text-align:center;font-size:12px}
+@media(max-width:660px){
+ .od-bookmark-bar{gap:7px;padding:8px 9px;margin:7px 0 13px;border-radius:13px}
+ .od-bookmark-heading{flex:1 0 100%;flex-direction:row;align-items:baseline;
+ justify-content:space-between;min-width:0;padding:1px 3px}
+ .od-bookmark-heading strong{font-size:10px}
+ .od-bookmark-heading small{font-size:10px}
+ .od-bookmark-bar>.od-bookmark-button{flex:1 1 auto;min-width:0;min-height:43px;
+ padding:10px 6px;font-size:11px}
+ .od-bookmark-bar .od-bookmark-menu{flex:1 1 auto}
+ .od-bookmark-bar .od-bookmark-summary{width:100%;min-height:43px;padding:10px 7px;font-size:11px}
+ .od-bookmark-panel{right:-4px;width:min(445px,calc(100vw - 28px));
+  max-height:min(78dvh,680px);border-radius:16px}
+ .od-bookmark-bar .od-bookmark-notice{font-size:10px}
+ .od-bookmark-panel-head{padding:16px 14px 12px}
+ .od-save-form{margin:12px}
+ .od-bookmark-list-header{margin:0 12px 10px}
+ .od-bookmark-browse{margin:0 12px 12px}
+ .od-bookmark-list{padding:0 12px 8px}
+ .od-bookmark-tools{margin:5px 12px 0}
+}
+@media(max-width:360px){
+ .od-bookmark-heading small{font-size:9px}
+ .od-bookmark-bar>.od-bookmark-button,.od-bookmark-bar .od-bookmark-summary{font-size:10px}
+ .od-saved-filters{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+ .od-bookmark-bar :is(button,summary){transition:none!important}
+}
