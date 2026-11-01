@@ -395,3 +395,8 @@ body {
   font-size:10px;white-space:normal;overflow-wrap:anywhere;
  }
 }
+
+/* First tool uses the authentic FM-1 pixel-art logo, not an emoji. */
+.candyland-navbar .candyland-tool-menu-icon:has(.candyland-fm1-logo){display:grid;place-items:center;line-height:1}
+.candyland-navbar .candyland-fm1-logo{width:36px;height:36px;max-width:100%;aspect-ratio:1;object-fit:cover;border:1px solid rgba(255,233,194,.9);border-radius:9px;background:#202b3d;box-shadow:0 2px 7px #1c082580;image-rendering:pixelated}
+@media(max-width:640px){.candyland-navbar .candyland-fm1-logo{width:32px;height:32px}}
