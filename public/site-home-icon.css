@@ -1,0 +1,18 @@
+/* Shared, small icon-only route to the Random Candy Land homepage.
+   Loaded by subpages; never alters the main homepage or the destination. */
+.rcl-site-home-icon{
+  box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 56px;width:56px;height:56px;min-width:56px;min-height:56px;
+  margin-left:auto;padding:4px;border-radius:50%;position:relative;z-index:15;
+  border:2px solid rgba(255,231,166,.85);
+  background:linear-gradient(145deg,#bb3aaf,#522b90);
+  box-shadow:0 4px 14px rgba(16,5,31,.45),0 0 0 3px rgba(255,157,216,.11);
+  text-decoration:none!important;line-height:1;transition:transform .2s ease,box-shadow .2s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.rcl-site-home-icon img{display:block!important;box-sizing:border-box;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;aspect-ratio:1;object-fit:cover;border:0!important;border-radius:50%;background:transparent!important}
+.rcl-site-home-icon:hover{transform:translateY(-2px) scale(1.045);box-shadow:0 7px 19px rgba(16,5,31,.48),0 0 0 4px rgba(255,191,229,.22)}
+.rcl-site-home-icon:focus-visible{outline:3px solid #fff0ad!important;outline-offset:4px}
+.rcl-report-topline{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:5px}
+@media(max-width:600px){.rcl-site-home-icon{flex-basis:50px;width:50px;min-width:50px;height:50px;min-height:50px}}
+@media(prefers-reduced-motion:reduce){.rcl-site-home-icon{transition:none}.rcl-site-home-icon:hover{transform:none}}
