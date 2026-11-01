@@ -404,7 +404,7 @@ for(const token of ['makeBoard','startRound','endRound','shareChallenge','data-m
   if(!gooPage.includes(token)){console.error('Goo Rush missing gameplay:',token);failures++;}
 }
 // The nonsense generator has a full-cycle, non-repeating shuffle and actual goo SVG.
-for (const token of ['nonsense-lab', 'GIVE ME MORE NONSENSE',
+for (const token of ['nonsense-lab', 'NEXT STORY', 'THE CANDY LAND DAILY',
   'random-candy-land-nonsense-complete-cycle-v1', 'candyland-header-goo',
   'goo-fill-']) {
   if (!homeBundle.includes(token)) {
