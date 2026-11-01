@@ -381,3 +381,17 @@ body {
  .candyland-navbar .candyland-tool-menu-icon{font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){.candyland-navbar .candyland-tool-menu-link{transition:none}.candyland-navbar .candyland-tool-menu-link:hover{transform:none}}
+
+/* All eight tool shortcuts fit on a phone as two rows, with no scrolling required. */
+@media(max-width:640px){
+ .candyland-navbar>.candyland-tools-strip{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;
+  justify-content:stretch;overflow:visible;gap:6px;width:100%;padding:4px 0 10px;
+ }
+ .candyland-navbar .candyland-tool-menu-link{
+  flex:none;min-width:0;max-width:none;width:100%;min-height:69px;padding:7px 3px;
+ }
+ .candyland-navbar .candyland-tool-menu-label{
+  font-size:10px;white-space:normal;overflow-wrap:anywhere;
+ }
+}
