@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar } from 'lucide-react';
-import { TrumpCartoonLookalike } from '../components/TrumpCartoonLookalike';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
 import { CandyGoo } from '../components/CandyGoo';
 
@@ -11,7 +10,7 @@ interface RandomCandyLandHomeProps {
 type Category = 'all' | 'games' | 'music' | 'discovery';
 
 type Portal = {
-  emoji: string;
+  icon: string;
   title: string;
   blurb: string;
   kind: Exclude<Category, 'all'>;
@@ -32,15 +31,15 @@ function isRunningInstalledCandyLand(): boolean {
 
 // These routes each have a separate web-app manifest and start URL.
 const INSTALL_CHOICES = [
-  {emoji:'🏰',name:'Full Candy Land',url:'/'},
-  {emoji:'🎮',name:'Trumpagotchi OG',url:'/trump/'},
-  {emoji:'🎮',name:'FM-1 Trumpagotchi',url:'/trumpagotchi-fm1/'},
-  {emoji:'🍬',name:'Goo Rush',url:'/goo-rush/'},
-  {emoji:'🎰',name:'Candy Land Casino',url:'/candy-casino/'},
-  {emoji:'🍭',name:'Candy Simon Says',url:'/candy-simon/'},
-  {emoji:'🃏',name:'Candy Match',url:'/candy-match/'},
-  {emoji:'🌈',name:'Candy Pulse',url:'/music-visualizer/'},
-  {emoji:'🌙',name:'The Other Drawer',url:'/after-dark/'},
+  {icon:'/icon.svg',name:'Full Candy Land',url:'/'},
+  {icon:'/tool-icons/trumpagotchi-2.svg',name:'Trumpagotchi OG',url:'/trump/'},
+  {icon:'/trumpagotchi-fm1/pixel-icon.svg',name:'FM-1 Trumpagotchi',url:'/trumpagotchi-fm1/'},
+  {icon:'/tool-icons/goo-rush.svg',name:'Goo Rush',url:'/goo-rush/'},
+  {icon:'/tool-icons/casino.svg',name:'Candy Land Casino',url:'/candy-casino/'},
+  {icon:'/tool-icons/simon.svg',name:'Candy Simon Says',url:'/candy-simon/'},
+  {icon:'/tool-icons/candy-match.svg',name:'Candy Match',url:'/candy-match/'},
+  {icon:'/tool-icons/candy-pulse.svg',name:'Candy Pulse',url:'/music-visualizer/'},
+  {icon:'/tool-icons/other-drawer.svg',name:'The Other Drawer',url:'/after-dark/'},
 ] as const;
 
 const TOOL_MENU_NAMES = ['Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
@@ -56,14 +55,14 @@ const TOOL_MENU_ICONS = [
 ] as const;
 
 const PORTALS: Portal[] = [
-  {emoji:'🎮',title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
-  {emoji:'🎮',title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
-  {emoji:'🍬',title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
-  {emoji:'🎰',title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'games',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
-  {emoji:'🍭',title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
-  {emoji:'🃏',title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'games',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
-  {emoji:'🌈',title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
-  {emoji:'🌙',title:'The Other Drawer',blurb:"What Desires Reveal About Us. Explore the details of attraction, the fantasies that linger, and what they might mean.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
+  {icon:TOOL_MENU_ICONS[0],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
+  {icon:TOOL_MENU_ICONS[1],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {icon:TOOL_MENU_ICONS[2],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
+  {icon:TOOL_MENU_ICONS[3],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'games',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
+  {icon:TOOL_MENU_ICONS[4],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
+  {icon:TOOL_MENU_ICONS[5],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'games',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
+  {icon:TOOL_MENU_ICONS[6],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
+  {icon:TOOL_MENU_ICONS[7],title:'The Other Drawer',blurb:"What Desires Reveal About Us. Explore the details of attraction, the fantasies that linger, and what they might mean.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
 ];
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
@@ -167,7 +166,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           {shown.map(portal => {
             const inner = <>
               <div className="candyland-portal-icon">
-                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : portal.href === '/trumpagotchi-fm1/' ? <img src="/trumpagotchi-fm1/pixel-icon.svg" width={96} height={96} alt="FM-1 Trumpagotchi game logo" loading="lazy" /> : <span>{portal.emoji}</span>}
+                <img src={portal.icon} width={96} height={96} alt={portal.title + ' game artwork'} loading="lazy" className={portal.icon.includes('pixel-icon') ? 'candyland-icon-pixel' : undefined} />
               </div>
               <span className="candyland-portal-tag">{portal.label}</span>
               <h3>{portal.title}</h3>
@@ -198,7 +197,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <div className="candyland-install-grid">
           {installChoices.map(item => (
             <article className="candyland-install-card" key={item.url}>
-              <div className="candyland-install-card-name"><span aria-hidden="true">{item.emoji}</span><strong>{item.name}</strong></div>
+              <div className="candyland-install-card-name"><img src={item.icon} width={45} height={45} alt="" loading="lazy" /><strong>{item.name}</strong></div>
               <div className="candyland-install-card-actions">
                 <a href={item.url + (item.url.includes('?') ? '&' : '?') + 'install=1'} target="_blank" rel="noopener noreferrer" aria-label={'Open '+item.name+' installation page'}>
                   📲 Install to Home Screen
