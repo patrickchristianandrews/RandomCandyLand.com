@@ -161,11 +161,11 @@ jobs:
                 "https://randomcandyland.com/after-dark/?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
               drawer_css=$(curl --fail --silent --show-error --location --max-time 15 \
                 -H "Cache-Control: no-cache" \
-                "https://randomcandyland.com/after-dark/home-hub.css?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
-              if [[ "$drawer" == *'id="od-home-directory-heading"'* &&
-                    "$drawer" == *'od-home-directory-tile'* &&
+                "https://randomcandyland.com/after-dark/navigation-ribbon.css?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
+              if [[ "$drawer" == *'id="od-compact-tools-heading"'* &&
+                    "$drawer" == *'od-ribbon-nav'* &&
                     "$drawer" == *'Ask Atlas'* &&
-                    "$drawer_css" == *'od-home-directory-tile'* ]]; then
+                    "$drawer_css" == *'od-ribbon-menu'* ]]; then
                 echo "::notice::LIVE AFTER DARK HOMEPAGE AND STYLES VERIFIED: ${GITHUB_SHA}"
                 exit 0
               fi
