@@ -38,7 +38,10 @@ try{
     if(client)client.close();
     const target=await (await fetch(`http://127.0.0.1:${browserPort}/json/new?${encodeURIComponent(url)}`,{method:'PUT'})).json();
     client=new WebSocket(target.webSocketDebuggerUrl);
-    await new Promise((resolve,reject)=>{client.addEventListener('open',resolve,{once:true});client.addEventListener('error',reject,{once:true})});
+    await Promise.race([
+      new Promise((resolve,reject)=>{client.addEventListener('open',resolve,{once:true});client.addEventListener('error',reject,{once:true});}),
+      delay(20000).then(()=>{throw Error('Chrome WebSocket connection timed out: '+url);})
+    ]);
     let next=0;
     const pending=new Map();
     client.addEventListener('message',event=>{
@@ -47,7 +50,21 @@ try{
       if(msg.method==='Log.entryAdded'&&msg.params?.entry?.level==='error')testErrors.push(msg.params.entry.text);
       if(msg.id&&pending.has(msg.id)){const [resolve,reject]=pending.get(msg.id);pending.delete(msg.id);if(msg.error)reject(new Error(msg.error.message));else resolve(msg.result);}
     });
-    const command=(method,params={})=>new Promise((resolve,reject)=>{const id=++next;pending.set(id,[resolve,reject]);client.send(JSON.stringify({id,method,params}));});
+    // Never leave CI hanging forever if Chrome stops answering one command.
+    // Keep genuine browser regressions fatal, but surface the operation and URL.
+    const command=(method,params={})=>new Promise((resolve,reject)=>{
+      const id=++next;
+      const watchdog=setTimeout(()=>{
+        pending.delete(id);
+        reject(Error('Chrome DevTools timeout: '+method+' at '+url+' (20 seconds without a response)'));
+      },20000);
+      pending.set(id,[
+        result=>{clearTimeout(watchdog);resolve(result);},
+        error=>{clearTimeout(watchdog);reject(error);}
+      ]);
+      try{client.send(JSON.stringify({id,method,params}));}
+      catch(error){clearTimeout(watchdog);pending.delete(id);reject(error);}
+    });
     await command('Runtime.enable');
     await command('Page.enable');
     // Force navigation after Runtime.enable so initial script failures are visible.
