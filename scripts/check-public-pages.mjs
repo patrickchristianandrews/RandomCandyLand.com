@@ -278,7 +278,7 @@ if (homeBundle.includes('PURE CANDY CHAOS!') || homeBundle.includes('sugar-unive
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
 // Keep the requested music tools and standalone games available on the homepage.
-if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Candy Simon Says!') || !homeBundle.includes('Candy Match!') || !homeBundle.includes('Trumpagotchi: The Tiny Pet')) {
+if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Candy Simon Says!') || !homeBundle.includes('Candy Match!') || !homeBundle.includes('FM-1 Trumpagotchi')) {
   console.error('A current attraction is missing from the published homepage.');
   failures++;
 }
