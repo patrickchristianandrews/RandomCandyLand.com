@@ -298,17 +298,31 @@ for (const [route, destination] of expectedLegacyRoutes) {
     failures++;
   }
 }
-if (homeBundle.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE') ||
-    homeBundle.includes('ENTER CANDY LAND') ||
-    homeBundle.includes('candyland-tools-strip')) {
-  console.error('The removed homepage intro or duplicate top navigation has returned.');
+// Look at the actual homepage component, NOT the compiled HTML bundle.
+ // The bundle may contain unused CSS class names (including the retired top
+ // navigation), even when those elements are absent from the rendered page.
+if (homeInstallSource.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE') ||
+    homeInstallSource.includes('ENTER CANDY LAND') ||
+    homeInstallSource.includes('className="candyland-tools-strip"')) {
+  console.error('The removed homepage introduction or duplicate header navigation is rendered again.');
   failures++;
 }
-if (!homeBundle.includes('candyland-hero-tools') ||
-    !homeBundle.includes('candyland-hero-tool-link') ||
-    !homeBundle.includes('TOOL_MENU_ICONS') && !homeBundle.includes('tool-icons/candy-pulse.svg') ||
-    !homeBundle.includes('/trumpagotchi-fm1/')) {
-  console.error('The Candy Land homepage must display all eight illustrated shortcuts beneath its slogan.');
+const toolIcons = [
+  'trumpagotchi-fm1/pixel-icon.svg',
+  'tool-icons/trumpagotchi-2.svg',
+  'tool-icons/goo-rush.svg',
+  'tool-icons/casino.svg',
+  'tool-icons/simon.svg',
+  'tool-icons/candy-match.svg',
+  'tool-icons/candy-pulse.svg',
+  'tool-icons/other-drawer.svg'
+];
+if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
+    !homeInstallSource.includes('className="candyland-hero-tool-link"') ||
+    !homeInstallSource.includes('TOOL_MENU_ICONS[index]') ||
+    !homeInstallSource.includes("PORTALS.map((portal,index)") ||
+    !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
+  console.error('The Candy Land homepage must display all eight illustrated game and tool shortcuts.');
   failures++;
 }
 if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpagotchi-pet/')) {
