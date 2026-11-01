@@ -298,12 +298,17 @@ for (const [route, destination] of expectedLegacyRoutes) {
     failures++;
   }
 }
-if (homeBundle.includes('PLAY THE TINY PET') || homeBundle.includes('candyland-tiny-link')) {
-  console.error('The retired Tiny Pet shortcut beside ENTER CANDY LAND returned.');
+if (homeBundle.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE') ||
+    homeBundle.includes('ENTER CANDY LAND') ||
+    homeBundle.includes('candyland-tools-strip')) {
+  console.error('The removed homepage intro or duplicate top navigation has returned.');
   failures++;
 }
-if (!homeBundle.includes('ENTER CANDY LAND') || !homeBundle.includes('/trumpagotchi-fm1/')) {
-  console.error('Homepage entrance or Tiny Pet game link is missing.');
+if (!homeBundle.includes('candyland-hero-tools') ||
+    !homeBundle.includes('candyland-hero-tool-link') ||
+    !homeBundle.includes('TOOL_MENU_ICONS') && !homeBundle.includes('tool-icons/candy-pulse.svg') ||
+    !homeBundle.includes('/trumpagotchi-fm1/')) {
+  console.error('The Candy Land homepage must display all eight illustrated shortcuts beneath its slogan.');
   failures++;
 }
 if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpagotchi-pet/')) {
