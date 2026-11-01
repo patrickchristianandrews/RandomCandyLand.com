@@ -115,27 +115,28 @@ try{
   await check('Specific psychology topics have shareable public deep links',
     "window.RandomCandyLandShare?.itemURL('origin','oral-comfort')?.includes('origin=oral-comfort') && window.RandomCandyLandShare?.itemURL('origin','oral-comfort')?.endsWith('#psych')");
   await check('After Dark opens on the introduction rather than the atlas',"document.querySelector('#home').classList.contains('visible') && !document.querySelector('#atlas').classList.contains('visible')");
-  await check('After Dark has its illustrated discovery logo and quick access to four experiences',"!!document.querySelector('#home .afterdark-home-hero .ad-discovery-image') && document.querySelectorAll('#home .ad-home-express-nav button').length===4 && !!document.querySelector('#home [data-goto=psych-quiz]') && !!document.querySelector('#home [data-goto=quiz]')");
-  await check('After Dark is visually illustrated throughout',"document.querySelectorAll('#home .ad-card-visual').length===10 && document.querySelectorAll('.ad-section-art-banner>img').length>=7 && document.querySelector('#home .ad-discovery-image')?.getAttribute('src').includes('discovery-emblem.svg')");
-  await check('Curved Candy Land goo decorates After Dark throughout',"window.AfterDarkCandyGoo?.count()>=20 && document.querySelector('.top>.ad-liquid-goo') && document.querySelector('.afterdark-home-hero>.ad-liquid-goo') && document.querySelector('.ad-practical-guides-teaser>.ad-liquid-goo') && document.querySelectorAll('.ad-section-art-banner>.ad-liquid-goo').length>=7 && document.querySelectorAll('.afterdark-feature-card>.ad-liquid-goo').length>=2 && document.querySelectorAll('.howto-guide-card>.ad-liquid-goo').length>=16 && document.querySelector('.footer>.ad-liquid-goo')");
+  await check('Other Drawer homepage is compact and introduces its three featured tools',"!!document.querySelector('#home .afterdark-home-hero .ad-discovery-image') && document.querySelectorAll('#home .od-compact-tool').length===3 && !!document.querySelector('#home [data-tab=psych-quiz]') && !!document.querySelector('#home [data-tab=quiz]')");
+  await check('After Dark retains illustrations throughout the site without a crowded landing',"document.querySelectorAll('#home .ad-card-visual').length===3 && document.querySelectorAll('.ad-section-art-banner>img').length>=7 && document.querySelector('#home .ad-discovery-image')?.getAttribute('src').includes('discovery-emblem.svg')");
+  await check('Candy Land goo still decorates the pages without adding repeated homepage cards',"window.AfterDarkCandyGoo?.count()>=20 && document.querySelector('.top>.ad-liquid-goo') && document.querySelector('.afterdark-home-hero>.ad-liquid-goo') && document.querySelectorAll('.ad-section-art-banner>.ad-liquid-goo').length>=7 && document.querySelectorAll('.afterdark-feature-card>.ad-liquid-goo').length===3 && document.querySelectorAll('.howto-guide-card>.ad-liquid-goo').length>=16 && document.querySelector('.footer>.ad-liquid-goo')");
   await check('The goo is a real curved liquid silhouette with glaze instead of rectangular bars',"document.querySelector('.ad-liquid-goo path[data-goo-outline]')?.getAttribute('d').includes('C 925,107 921,143 901,150') && document.querySelectorAll('.ad-liquid-goo linearGradient').length>=2 && !document.querySelector('.ad-home-goo')");
   await check('Decorative goo cannot intercept any clicks or controls',"Array.from(document.querySelectorAll('.ad-liquid-goo')).every(svg=>getComputedStyle(svg).pointerEvents==='none' && svg.getAttribute('aria-hidden')==='true')");
   await check('Candy goo header and hero preserve space for scrolling and controls',"parseInt(getComputedStyle(document.querySelector('.top')).marginBottom,10)>=60 && parseInt(getComputedStyle(document.querySelector('.afterdark-home-hero')).marginBottom,10)>=70");
 
   await check('No internal analytics or unchanged status copy is visible',"!/site analytics are enabled|quiz \(unchanged\)|are unchanged/i.test(document.body.innerText)");
   await check('Non-explicit quiz maps answers to specific Atlas interests independently',"window.AfterDarkPsychBridge?.recommend({answered:1,answers:{0:[0]}},topics)?.some(r=>r.x.name==='Slow build-up')");
-  await check('Homepage clearly explains all three quiz-related PDF reports and what stays private',
-    "(()=>{const x=document.querySelector('#home .od-home-report-showcase');return !!x&&document.querySelectorAll('#home .od-home-report-card').length===3&&x.textContent.includes('69-question Sexual Preferences Quiz')&&x.textContent.includes('32-question nonsexual Psychology Quiz')&&x.textContent.includes('You Might Not Have Considered')&&x.textContent.includes('Exact quiz answers and private notes')&&x.textContent.includes('Nonsexual by default')&&x.textContent.includes('not probabilities, diagnoses')&&x.querySelector('a[href*=report-samples]')})()");
-  await check('The Other Drawer now has six clearly labeled entry points across the full site',
-    "document.querySelectorAll('#home .od-home-directory-tile').length===6 && !!document.querySelector('#home #od-home-directory-heading') && ['psych','notebook','chat','atlas','psych-quiz','howto'].every(tab=>document.querySelector('#home .od-home-directory-tile[data-tab='+tab+']'))");
-  await evaluate("document.querySelector('#home .od-home-directory-tile[data-tab=psych]').click()");
-  await check('New homepage directory buttons open the existing sections',"document.querySelector('#psych')?.classList.contains('visible')");
+  await check('The Other Drawer uses a short explanation and links to report samples',
+    "!!document.querySelector('#home .od-compact-tool a[href*=report-samples]') && document.querySelectorAll('#home .od-compact-tool').length===3 && !document.querySelector('#home .od-home-report-showcase')");
+  await check('Top ribbon makes all Other Drawer sections discoverable',
+    "(()=>{const h=document.querySelector('.od-ribbon-nav');return !!h && !!h.querySelector('a[href*=report-samples]') && ['home','quiz','psych-quiz','chat','atlas','psych','notebook','ideas','howto','guide'].every(tab=>h.querySelector('[data-tab='+tab+']')) && !!h.querySelector('a[href*=psychology-lab]')})()");
+  await evaluate("document.querySelector('.od-ribbon-menu-quizzes summary').click();document.querySelector('.od-ribbon-menu-quizzes button[data-tab=psych-quiz]').click()");
+  await check('Ribbon dropdown opens psychology quiz and closes cleanly',
+    "document.querySelector('#psych-quiz').classList.contains('visible')&&!document.querySelector('.od-ribbon-menu-quizzes').open");
   await evaluate("renderTabs('home')");
-  await check('The Other Drawer features Quiz and Ask Anything first',"document.querySelectorAll('.afterdark-featured-grid .card').length===2 && document.querySelector('.afterdark-featured-grid .card:first-child h3')?.textContent==='Curiosity Quiz' && document.querySelector('.afterdark-featured-grid .card:nth-child(2) h3')?.textContent==='Ask Anything'");
-  await check('After Dark describes all remaining sections in page body',"document.querySelectorAll('.afterdark-landing-grid .card').length===5 && document.querySelectorAll('.top [data-tab]').length===1");
+  await check('Homepage features only Quiz, Reports and Atlas',
+    "document.querySelectorAll('#home .od-compact-tool').length===3 && document.querySelectorAll('#home .od-compact-tool h3').length===3 && !document.querySelector('#home .od-home-directory-tile')");
   await evaluate("document.querySelector('.enter-after-dark').click()");
   await check('Featured Quiz call to action opens the Quiz',"document.querySelector('#quiz').classList.contains('visible')");
-  await evaluate("document.querySelector('#home button[data-tab=chat]').click()");
+  await evaluate("document.querySelector('#home .od-compact-tool button[data-tab=chat]').click()");
   await check('Featured Ask Anything opens chat',"document.querySelector('#chat').classList.contains('visible')");
   await evaluate("document.querySelector('[data-tab=atlas]').click()");
   console.log('Atlas diagnostics:',await evaluate("JSON.stringify({count:document.querySelectorAll('#topicGrid .topic').length,all:document.querySelector('#allCount')?.textContent,script:typeof window.renderAtlas,errors:window.onerror?.toString().slice(0,100)||'none'})"),JSON.stringify(testErrors));
@@ -375,8 +376,8 @@ try{
   await check('Orgasm guide search filters correctly',"document.querySelectorAll('#howto-guide-grid .howto-guide-card').length>=1 && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length<18");
   await evaluate("document.querySelector('#howto-search').value='';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
   await check('Ask Atlas answers orgasm questions with new guides',"respond('how do nipple orgasms work').includes('Nipple') && respond('how can vaginal orgasm work').includes('vaginal') && respond('how does testicular orgasm work').includes('testicular')");
-  await evaluate("document.querySelector('[data-tab=home]').click();document.querySelector('#home [data-guide-open=vaginal-orgasm]').click()");
-  await check('Homepage orgasm button opens internal vaginal guide',"document.querySelector('#howto').classList.contains('visible') && !document.querySelector('#howto-guide-detail').hidden && document.querySelector('#howto-guide-detail h2')?.textContent.includes('vaginal')");
+  await evaluate("document.querySelector('.od-ribbon-nav [data-tab=home]').click();document.querySelector('.od-ribbon-menu-more summary').click();document.querySelector('.od-ribbon-menu-more [data-tab=howto]').click();document.querySelector('#howto [data-guide-open=vaginal-orgasm]').click()");
+  await check('Ribbon guides link opens internal vaginal guide',"document.querySelector('#howto').classList.contains('visible') && !document.querySelector('#howto-guide-detail').hidden && document.querySelector('#howto-guide-detail h2')?.textContent.includes('vaginal')");
   console.log('✓ After Dark offers 18 orgasm-specific articles, practical steps, anatomy, sources and Ask Atlas answers.');
 
   const lab=await navigate(site+'/after-dark/psychology-lab/');
