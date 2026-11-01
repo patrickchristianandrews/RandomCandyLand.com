@@ -103,7 +103,8 @@ try{
   if(!await tv.evaluate("!!document.querySelector('#join')&&!!document.querySelector('#code')&&typeof window.RTCPeerConnection==='function'"))
     throw Error('Pulse regression: TV WebRTC receiver page is not available');
   console.log('✓ Candy Pulse standalone TV receiver loads in Chrome.');
-  const {evaluate}=await navigate(site+'/after-dark/');
+  const afterDark=await navigate(site+'/after-dark/');
+  const {evaluate}=afterDark;
   const check=async(desc,js)=>{
     const value=await evaluate(js);
     if(!value)throw Error('After Dark regression: '+desc);
@@ -115,6 +116,11 @@ try{
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
   await check('Save-your-place toolbar appears on the main page',
     "!!document.querySelector('#od-bookmark-bar .od-bookmark-save') && !!document.querySelector('#od-continue') && !!document.querySelector('#od-bookmark-menu') && typeof window.OtherDrawerBookmarks?.save==='function'");
+  const oneRowCheck="(()=>{const bar=document.querySelector('#od-bookmark-bar');const buttons=[bar.querySelector('.od-bookmark-save'),bar.querySelector('.od-bookmark-continue'),bar.querySelector('.od-bookmark-summary')];const tops=buttons.map(el=>Math.round(el.getBoundingClientRect().top));return getComputedStyle(bar).display==='grid'&&new Set(tops).size===1&&bar.getBoundingClientRect().height<=72})()";
+  await check('Save bar is one row on desktop',oneRowCheck);
+  await afterDark.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  await check('Save bar is one row at phone width',oneRowCheck);
+  await afterDark.command('Emulation.clearDeviceMetricsOverride');
   await evaluate("document.querySelector('#od-bookmark-bar .od-bookmark-save').click()");
   await check('Saving a bookmark persists without quiz answers leaving the device',
     "window.OtherDrawerBookmarks.list().length===1 && !!localStorage.getItem('otherdrawer_saved_places_v1') && document.querySelector('#od-bookmark-count').textContent==='1'");
