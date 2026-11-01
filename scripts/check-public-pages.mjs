@@ -325,6 +325,16 @@ if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
   console.error('The Candy Land homepage must display all eight illustrated game and tool shortcuts.');
   failures++;
 }
+// The new artwork must replace the old emoji/cartoon thumbnails in every
+// larger game portal and in each individual app installation card.
+if (!homeInstallSource.includes('<img src={portal.icon}') ||
+    !homeInstallSource.includes('<img src={item.icon}') ||
+    !homeInstallSource.includes('icon:TOOL_MENU_ICONS[0]') ||
+    !homeInstallSource.includes('icon:TOOL_MENU_ICONS[7]') ||
+    /portal\.emoji|item\.emoji|TrumpCartoonLookalike/.test(homeInstallSource)) {
+  console.error('Old homepage game icons remain outside the top shortcut ribbon.');
+  failures++;
+}
 if (homeBundle.includes('Pocket Pet Adventure') || homeBundle.includes('/trumpagotchi-pet/')) {
   console.error('Unwanted second pet is still linked from the homepage.');
   failures++;
