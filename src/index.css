@@ -351,3 +351,33 @@ body {
 .candyland-game-navbar .rcl-game-home-icon:focus-visible{outline:3px solid #fff0ad;outline-offset:4px}
 @media(max-width:640px){.candyland-game-navbar .rcl-game-home-icon{width:50px;height:50px;flex-basis:50px}}
 @media(prefers-reduced-motion:reduce){.candyland-game-navbar .rcl-game-home-icon{transition:none}.candyland-game-navbar .rcl-game-home-icon:hover{transform:none}}
+
+/* Main Candy Land: only icon and name for each tool in the top ribbon. */
+.candyland-navbar>.candyland-tools-strip{
+ display:flex;flex:1 0 100%;align-items:stretch;justify-content:center;gap:6px;
+ min-width:0;max-width:100%;padding:4px 2px 9px;overflow-x:auto;overflow-y:hidden;
+ scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#f6b5ff79 transparent;
+}
+.candyland-navbar .candyland-tool-menu-link{
+ display:flex;flex:1 0 auto;flex-direction:column;align-items:center;justify-content:center;
+ gap:4px;padding:9px 10px 8px;min-width:88px;max-width:149px;min-height:77px;
+ color:#fffafc;text-decoration:none;border-radius:15px;
+ border:1px solid #ffe8feb3;background:linear-gradient(150deg,#ffffff29,#4e23792a);
+ font:800 11px/1.25 system-ui,sans-serif;cursor:pointer;text-align:center;
+ text-shadow:0 1px 2px #3a174b;box-shadow:0 3px 6px #1b073727;
+ scroll-snap-align:start;transition:background .18s ease,transform .18s ease;
+}
+.candyland-navbar .candyland-tool-menu-link:hover{background:#ffffff45;transform:translateY(-2px)}
+.candyland-navbar .candyland-tool-menu-link:focus-visible{outline:3px solid #fff3b1;outline-offset:2px}
+.candyland-navbar .candyland-tool-menu-icon{font-size:25px;line-height:1.1}
+.candyland-navbar .candyland-tool-menu-label{display:block;white-space:nowrap}
+@media(max-width:980px){
+ .candyland-navbar>.candyland-tools-strip{justify-content:flex-start;-webkit-overflow-scrolling:touch;padding-bottom:10px}
+ .candyland-navbar .candyland-tool-menu-link{min-width:93px;flex:0 0 auto}
+}
+@media(max-width:640px){
+ .candyland-navbar>.candyland-tools-strip{width:100%;margin:0 auto;padding:5px 0 8px;gap:6px}
+ .candyland-navbar .candyland-tool-menu-link{min-width:93px;min-height:72px;padding:8px 9px}
+ .candyland-navbar .candyland-tool-menu-icon{font-size:22px}
+}
+@media(prefers-reduced-motion:reduce){.candyland-navbar .candyland-tool-menu-link{transition:none}.candyland-navbar .candyland-tool-menu-link:hover{transform:none}}
