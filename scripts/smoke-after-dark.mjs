@@ -550,6 +550,10 @@ try{
   const trackingReady=await home.evaluate("window.dataLayer?.some(x=>x?.event==='gtm.js') && [...document.scripts].some(s=>s.src.includes('googletagmanager.com/gtm.js?id=GTM-TQRDB5KL'))");
   if(!trackingReady)throw Error('Homepage Google Tag Manager failed to initialize');
   console.log('✓ GTM initializes on both the homepage and After Dark.');
+  await check('Candy Land hero contains eight illustrated, working shortcuts, with no redundant intro',
+    "(()=>{const hero=document.querySelector('.candyland-opening');const tiles=[...document.querySelectorAll('.candyland-hero-tools .candyland-hero-tool-link')];return !!hero&&tiles.length===8&&tiles.every(x=>!!x.querySelector('img')&&!!x.querySelector('.candyland-hero-tool-name'))&&!!tiles[0].querySelector('img[src*=pixel-icon]')&&!!tiles[7].getAttribute('href')?.includes('/after-dark/')&&!document.querySelector('.candyland-tools-strip')&&!hero.textContent.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE')&&!hero.textContent.includes('ENTER CANDY LAND')})()");
+  await check('All eight illustrated homepage game icons load',
+    "Array.from(document.querySelectorAll('.candyland-hero-tools img')).length===8&&Array.from(document.querySelectorAll('.candyland-hero-tools img')).every(img=>img.complete&&img.naturalWidth>0)");
   const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-news-article h3') && document.querySelector('#nonsense .nonsense-generate')?.textContent.includes('NEXT STORY') && !document.querySelector('#nonsense .nonsense-eyebrow')");
   if(!nonsenseReady)throw Error('Candy Land Gazette article or Next Story button did not mount');
   const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
