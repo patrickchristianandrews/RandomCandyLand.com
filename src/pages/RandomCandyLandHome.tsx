@@ -33,7 +33,7 @@ function isRunningInstalledCandyLand(): boolean {
 // These routes each have a separate web-app manifest and start URL.
 const INSTALL_CHOICES = [
   {emoji:'🏰',name:'Full Candy Land',url:'/'},
-  {emoji:'🐣',name:'Trumpagotchi Tiny Pet',url:'/trumpagotchi-fm1/'},
+  {emoji:'🎮',name:'FM-1 Trumpagotchi',url:'/trumpagotchi-fm1/'},
   {emoji:'🎮',name:'Trumpagotchi',url:'/trump/'},
   {emoji:'🍬',name:'Goo Rush',url:'/goo-rush/'},
   {emoji:'🎰',name:'Candy Land Casino',url:'/candy-casino/'},
@@ -43,10 +43,10 @@ const INSTALL_CHOICES = [
   {emoji:'🌙',name:'The Other Drawer',url:'/after-dark/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Tiny Pet','Trumpagotchi','Goo Rush','Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
+const TOOL_MENU_NAMES = ['FM-1 Trumpagotchi','Trumpagotchi','Goo Rush','Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
 
 const PORTALS: Portal[] = [
-  {emoji:'🐣',title:'Trumpagotchi: The Tiny Pet',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {emoji:'🎮',title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
   {emoji:'🍬',title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
   {emoji:'🎰',title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'games',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
@@ -101,7 +101,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </a>
         <nav className="candyland-tools-strip" aria-label="Jump to a Candy Land tool">
           {PORTALS.map((portal,index) => {
-            const icon = <><span className="candyland-tool-menu-icon" aria-hidden="true">{portal.emoji}</span><span className="candyland-tool-menu-label">{TOOL_MENU_NAMES[index]}</span></>;
+            const icon = <><span className="candyland-tool-menu-icon" aria-hidden="true">{index === 0 ? <img className="candyland-fm1-logo" src="/trumpagotchi-fm1/pixel-icon.svg" width={38} height={38} alt="" /> : portal.emoji}</span><span className="candyland-tool-menu-label">{TOOL_MENU_NAMES[index]}</span></>;
             return portal.oldPet
               ? <button type="button" key={portal.title} onClick={onNavigateToTrump} className="candyland-tool-menu-link" aria-label={'Open '+TOOL_MENU_NAMES[index]}>{icon}</button>
               : <a key={portal.title} href={portal.href} className="candyland-tool-menu-link" aria-label={'Open '+TOOL_MENU_NAMES[index]}>{icon}</a>;
@@ -155,7 +155,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           {shown.map(portal => {
             const inner = <>
               <div className="candyland-portal-icon">
-                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : portal.href === '/trumpagotchi-fm1/' ? <img src="/trumpagotchi-fm1/pixel-icon.svg" width={96} height={96} alt="Pixel-art Trumpagotchi Tiny Pet" loading="lazy" /> : <span>{portal.emoji}</span>}
+                {portal.oldPet ? <TrumpCartoonLookalike size={98} animate /> : portal.href === '/trumpagotchi-fm1/' ? <img src="/trumpagotchi-fm1/pixel-icon.svg" width={96} height={96} alt="FM-1 Trumpagotchi game logo" loading="lazy" /> : <span>{portal.emoji}</span>}
               </div>
               <span className="candyland-portal-tag">{portal.label}</span>
               <h3>{portal.title}</h3>
