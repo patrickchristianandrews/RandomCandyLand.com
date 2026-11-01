@@ -136,7 +136,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             {PORTALS.map((portal,index) => {
               const content = <>
                 <span className="candyland-hero-tool-image">
-                  <img src={TOOL_MENU_ICONS[index]} width={160} height={160} alt="" loading={index < 4 ? 'eager' : 'lazy'} />
+                  <img src={TOOL_MENU_ICONS[index]} width={160} height={160} alt="" loading="eager" />
                 </span>
                 <span className="candyland-hero-tool-name">{TOOL_MENU_NAMES[index]}</span>
               </>;
