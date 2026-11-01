@@ -300,7 +300,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
         <CandyGoo className="candyland-header-goo" color="bubblegum" />
       </header>
       {/* How To Play always stays above the handheld, before the page banner. */}
-      <section id="how-to-play" aria-label="Quick guide to Trumpagotchi" className="relative z-20 w-[calc(100%-24px)] max-w-2xl mx-auto my-4 rounded-2xl border border-sky-400/40 bg-[#102039]/95 p-3 sm:p-4 text-white">
+      <section id="how-to-play" aria-label="Quick guide to Trumpagotchi OG" className="relative z-20 w-[calc(100%-24px)] max-w-2xl mx-auto my-4 rounded-2xl border border-sky-400/40 bg-[#102039]/95 p-3 sm:p-4 text-white">
             <details>
               <summary className="cursor-pointer list-none flex items-center justify-between gap-2 text-sm font-black text-sky-100">
                 <span>❓ HOW TO PLAY · 30-second guide</span>
@@ -594,7 +594,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
               </div>
               <div>
                 <h3 className="text-xl sm:text-2xl font-serif-luxury font-black text-amber-300">
-                  How to Win Trumpagotchi
+                  How to Win Trumpagotchi OG
                 </h3>
                 <p className="text-xs text-amber-100/70 font-sans">
                   The ultimate objective: Evolve Donald through all 5 life stages to Commander-in-Chief!
@@ -689,7 +689,7 @@ export function TrumpGotchaPage({ onReturnHome }: TrumpGotchaPageProps) {
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-serif-luxury font-black text-amber-300">
-                    Add Trumpagotchi to Your Phone Home Screen
+                    Add Trumpagotchi OG to Your Phone Home Screen
                   </h3>
                   <p className="text-xs text-amber-100/70 font-sans">
                     Launch your digipet in full screen with one tap — looks and plays like a native app!
