@@ -161,10 +161,19 @@ function resume(){
  if(p)restore(p);else status('No saved place yet. Explore a section or start a quiz.');
 }
 function erase(id){state.items=state.items.filter(x=>x.id!==id);write();refresh();status('Bookmark removed.')}
-function rename(p){
- const name=prompt('Rename this bookmark:',p.label);
- if(name===null)return;
- if(name.trim()){p.label=name.trim().slice(0,90);write();refresh();}
+function rename(p,container){
+ const field=text('input',undefined,'od-inline-rename');field.type='text';field.maxLength=90;field.value=p.label;
+ field.setAttribute('aria-label','Rename saved place');
+ const actions=text('div',undefined,'od-inline-edit-actions');
+ const done=()=>{const name=field.value.trim();if(name){p.label=name.slice(0,90);write();status('Bookmark renamed.');}refresh();};
+ const cancel=()=>refresh();
+ actions.append(button('Save name',done,'od-saved-mini'),button('Cancel',cancel,'od-saved-mini'));
+ container.replaceChildren(field,actions);
+ field.addEventListener('keydown',event=>{
+  if(event.key==='Enter'){event.preventDefault();done();}
+  if(event.key==='Escape'){event.preventDefault();cancel();}
+ });
+ field.focus();field.select();
 }
 function backup(){
  const blob=new Blob([JSON.stringify({format:'otherdrawer-bookmarks',version:1,bookmarks:state},null,2)],{type:'application/json'});
@@ -211,7 +220,7 @@ function refresh(){
   const meta=text('span',(LABELS[p.tab]||p.tab)+' · Saved '+new Date(p.time||Date.now()).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}),'od-saved-meta');
   const copy=text('div',undefined,'od-saved-copy');copy.append(main,meta);
   const actions=text('div',undefined,'od-saved-actions');
-  actions.append(button('Rename',()=>rename(p),'od-saved-mini'),button('Remove',()=>erase(p.id),'od-saved-mini'));
+  actions.append(button('Rename',()=>rename(p,copy),'od-saved-mini'),button('Remove',()=>erase(p.id),'od-saved-mini'));
   line.append(copy,actions);list.append(line);
  }
  const resumeButton=$('od-continue');if(resumeButton){
