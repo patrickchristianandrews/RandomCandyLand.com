@@ -167,3 +167,93 @@ body.print-quiz .od-bookmark-bar,body.print-notebook .od-bookmark-bar,body.print
  .od-bookmark-bar{row-gap:5px}
  .od-bookmark-bar .od-bookmark-notice{padding-left:3px}
 }
+
+
+/* Single-line save bar across screen sizes.
+   The expandable library stays in its own overlay, not a second toolbar row. */
+.od-bookmark-bar{
+ display:grid;
+ grid-template-columns:minmax(105px,1fr) auto auto auto;
+ align-items:center;
+ column-gap:8px;
+ row-gap:0;
+ flex-wrap:nowrap;
+ padding:8px 12px;
+ min-height:60px;
+}
+.od-bookmark-bar>.od-bookmark-heading{
+ display:flex;
+ min-width:0;
+ width:auto;
+ margin:0;
+ padding:0;
+ flex:none;
+}
+.od-bookmark-bar>.od-bookmark-button{
+ display:inline-flex;
+ justify-content:center;
+ align-items:center;
+ min-width:0;
+ width:auto;
+ margin:0;
+ white-space:nowrap;
+}
+.od-bookmark-bar>.od-bookmark-menu{
+ display:block;
+ position:relative;
+ min-width:0;
+ width:auto;
+ margin:0;
+ flex:none;
+}
+.od-bookmark-bar>.od-bookmark-menu>.od-bookmark-summary{
+ display:inline-flex;
+ width:auto;
+ min-width:0;
+ white-space:nowrap;
+}
+/* Keep the existing accessible live announcements without producing a new row. */
+.od-bookmark-bar>.od-bookmark-notice{
+ position:absolute!important;
+ width:1px!important;
+ height:1px!important;
+ min-width:0!important;
+ min-height:0!important;
+ padding:0!important;
+ margin:0!important;
+ overflow:hidden!important;
+ clip-path:inset(50%)!important;
+ white-space:nowrap!important;
+ border:0!important;
+}
+@media(max-width:760px){
+ .od-bookmark-bar{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;
+  padding:7px 8px;
+  min-height:55px;
+  border-radius:13px;
+ }
+ .od-bookmark-bar>.od-bookmark-heading{display:none}
+ .od-bookmark-bar>.od-bookmark-button,
+ .od-bookmark-bar>.od-bookmark-menu>.od-bookmark-summary{
+  width:100%;
+  min-width:0;
+  min-height:42px;
+  padding:8px 5px;
+  font-size:clamp(10px,2.7vw,12px);
+  text-align:center;
+  gap:3px;
+ }
+ .od-bookmark-bar>.od-bookmark-menu{width:100%;min-width:0}
+ .od-bookmark-bar .od-bookmark-panel{
+  right:-4px;
+  width:min(445px,calc(100vw - 28px));
+  max-width:calc(100vw - 28px);
+ }
+}
+@media(max-width:340px){
+ .od-bookmark-bar{gap:4px;padding:7px 5px}
+ .od-bookmark-bar>.od-bookmark-button,
+ .od-bookmark-bar>.od-bookmark-menu>.od-bookmark-summary{padding:8px 2px;font-size:10px}
+}
