@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Dices, Sparkles, WandSparkles } from 'lucide-react';
+import { ArrowRight, Copy, Newspaper } from 'lucide-react';
 import { CandyGoo } from './CandyGoo';
 
 /** Full-cycle, persistent shuffle: each generated combination appears once
@@ -216,9 +216,13 @@ function decode(id: number) {
     words.push(pool[remaining % pool.length]);
     remaining = Math.floor(remaining / pool.length);
   }
+  const lead = words[1] + ' ' + words[2] + ' ' + words[3];
   return {
-    headline: words[0],
-    story: words[1] + ' ' + words[2] + ' ' + words[3] + ' ' + words[4] + '. ' + words[5]
+    section: words[0],
+    headline: lead.charAt(0).toUpperCase() + lead.slice(1),
+    location: 'The reported incident unfolded ' + words[4] + '.',
+    followup: words[5],
+    story: lead + ' ' + words[4] + '. ' + words[5]
   };
 }
 
@@ -229,38 +233,42 @@ export function RandomNonsenseGenerator() {
   const generate = () => { setCycle(advance); setCopied(false); };
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(nonsense.headline + '\n\n' + nonsense.story + '\n\n— Random Candy Land');
+      await navigator.clipboard.writeText('THE CANDY LAND DAILY | SATIRE EDITION' + '\\n' + nonsense.headline + '\\n\\n' + nonsense.location + ' ' + nonsense.followup + '\\n\\n— Random Candy Land | Fictional story');
       setCopied(true);
     } catch { setCopied(false); }
   };
   return (
-    <section id="nonsense" className="nonsense-lab" aria-labelledby="nonsense-heading">
+    <section id="nonsense" className="nonsense-lab nonsense-newsroom" aria-labelledby="nonsense-heading">
       <CandyGoo className="nonsense-lab-drips" color="blueberry" />
-      <div className="nonsense-lab-head">
-        <div className="nonsense-lab-intro">
-          <span className="nonsense-eyebrow"><Sparkles size={17}/> HIGHLY SCIENTIFIC SILLINESS LAB</span>
-          <h2 id="nonsense-heading">The Random <em>Nonsense</em> Generator</h2>
-          <p>Absurd headlines, ridiculous characters and questionable plot twists. Hit the big button to make reality slightly more confused.</p>
+      <header className="nonsense-news-masthead">
+        <span className="nonsense-masthead-icon" aria-hidden="true"><Newspaper size={23}/></span>
+        <div className="nonsense-news-title-wrap">
+          <span className="nonsense-edition">THE WORLD'S LEAST RELIABLE NEWS SOURCE</span>
+          <h2 id="nonsense-heading">The Candy Land <em>Daily</em></h2>
         </div>
-        <div className="nonsense-mascot" aria-hidden="true">🍭<span>?!</span></div>
-      </div>
-      <div className="nonsense-display" key={cycle.current} aria-live="polite" aria-atomic="true">
-        <div className="nonsense-stamp">✨ OFFICIAL CERTIFICATE OF ABSOLUTE NONSENSE</div>
+        <span className="nonsense-edition-pill">SATIRE EDITION</span>
+      </header>
+      <article className="nonsense-display nonsense-news-article" key={cycle.current} aria-live="polite" aria-atomic="true">
+        <div className="nonsense-story-meta">
+          <span className="nonsense-breaking">BREAKING NONSENSE</span>
+          <span className="nonsense-section-tag">{nonsense.section}</span>
+        </div>
         <h3>{nonsense.headline}</h3>
-        <p>{nonsense.story}</p>
-        <span className="nonsense-fineprint">Certified 100% silly</span>
-      </div>
+        <p className="nonsense-news-lede">{nonsense.location}</p>
+        <p className="nonsense-news-body">{nonsense.followup}</p>
+        <div className="nonsense-news-footer"><span>THE CANDY LAND DAILY</span><span>Fictional news · Just for laughs</span></div>
+      </article>
       <div className="nonsense-actions">
         <button className="nonsense-generate" type="button" onClick={generate}>
-          <Dices size={24}/> GIVE ME MORE NONSENSE <WandSparkles size={20}/>
+          NEXT STORY <ArrowRight size={22}/>
         </button>
         <button className="nonsense-copy" type="button" onClick={copy}>
-          <Copy size={19}/> {copied ? 'COPIED!' : 'COPY THIS ONE'}
+          <Copy size={19}/> {copied ? 'COPIED!' : 'COPY STORY'}
         </button>
       </div>
       <div className="nonsense-facts">
-        <span>🎭 <strong>{TOTAL.toLocaleString('en-US')}</strong> possible silly stories</span>
-        <span>♻️ <strong>{cycle.shown.toLocaleString('en-US')}</strong> unique discoveries on this device</span>
+        <span>🗞️ <strong>{TOTAL.toLocaleString('en-US')}</strong> possible stories</span>
+        <span>♻️ <strong>{cycle.shown.toLocaleString('en-US')}</strong> unique stories on this device</span>
         <span>🍬 No exact repeats while this device retains its browser data.</span>
       </div>
     </section>
