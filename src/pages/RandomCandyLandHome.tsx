@@ -43,6 +43,8 @@ const INSTALL_CHOICES = [
   {emoji:'🌙',name:'The Other Drawer',url:'/after-dark/'},
 ] as const;
 
+const TOOL_MENU_NAMES = ['Tiny Pet','Trumpagotchi','Goo Rush','Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
+
 const PORTALS: Portal[] = [
   {emoji:'🐣',title:'Trumpagotchi: The Tiny Pet',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
   {emoji:'🎮',title:"Donald’s Pocket Pet",blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
@@ -97,7 +99,14 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <span className="candyland-brand-icon" aria-hidden="true"><img src="/icon.svg?v=candy-logo-no-white-3" alt="" width={55} height={55} /></span>
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
-        
+        <nav className="candyland-tools-strip" aria-label="Jump to a Candy Land tool">
+          {PORTALS.map((portal,index) => {
+            const icon = <><span className="candyland-tool-menu-icon" aria-hidden="true">{portal.emoji}</span><span className="candyland-tool-menu-label">{TOOL_MENU_NAMES[index]}</span></>;
+            return portal.oldPet
+              ? <button type="button" key={portal.title} onClick={onNavigateToTrump} className="candyland-tool-menu-link" aria-label={'Open '+TOOL_MENU_NAMES[index]}>{icon}</button>
+              : <a key={portal.title} href={portal.href} className="candyland-tool-menu-link" aria-label={'Open '+TOOL_MENU_NAMES[index]}>{icon}</a>;
+          })}
+        </nav>
         <CandyGoo className="candyland-header-goo" color="bubblegum" />
       </header>
 
