@@ -1,0 +1,139 @@
+/* The Other Drawer: concise landing and accessible, grouped top navigation.
+   Scope everything to the header and home. Existing quizzes and content stay unchanged. */
+.top.od-simple-site-header{
+ display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px;
+ padding:12px 14px 16px;background:linear-gradient(135deg,#341b3e,#241c36);
+ border:1px solid rgba(245,185,219,.25);border-bottom:1px solid #e2a1d2;
+ border-radius:17px 17px 0 0;
+}
+.top.od-simple-site-header>.brand{margin-right:0;color:#ffe8f5;font-size:clamp(14px,2vw,18px);letter-spacing:.06em}
+.top.od-simple-site-header>.top-current{margin-left:auto}
+.top.od-simple-site-header>.rcl-site-home-icon{margin-left:auto;flex-shrink:0}
+.top.od-simple-site-header>.top-current:not([hidden])+.rcl-site-home-icon{margin-left:0}
+.top.od-simple-site-header .od-ribbon-nav{
+ display:flex;flex:0 0 100%;align-items:center;gap:7px;min-width:0;flex-wrap:wrap;
+ padding-top:12px;border-top:1px solid rgba(241,180,223,.24);
+}
+.top.od-simple-site-header .od-ribbon-link,
+.top.od-simple-site-header .od-ribbon-menu>summary{
+ box-sizing:border-box;display:inline-flex;justify-content:center;align-items:center;
+ gap:6px;min-height:43px;padding:10px 13px;border:1px solid rgba(255,213,236,.28);
+ border-radius:11px;background:#513351;color:#fff0f6;text-decoration:none;
+ font:800 12px/1.25 system-ui,sans-serif;white-space:nowrap;cursor:pointer;
+}
+.top.od-simple-site-header .od-ribbon-nav>button.selected,
+.top.od-simple-site-header .od-ribbon-nav>button:hover,
+.top.od-simple-site-header .od-ribbon-nav>a:hover,
+.top.od-simple-site-header .od-ribbon-menu>summary:hover,
+.top.od-simple-site-header .od-ribbon-menu[open]>summary{
+ border-color:#f9c1dc;background:#794b79;color:#fff;
+}
+.top.od-simple-site-header .od-ribbon-menu{position:relative;list-style:none;flex-shrink:0}
+.top.od-simple-site-header .od-ribbon-menu>summary{list-style:none;user-select:none}
+.top.od-simple-site-header .od-ribbon-menu>summary::-webkit-details-marker{display:none}
+.top.od-simple-site-header .od-ribbon-menu>summary span{font-size:12px;color:#ffdfbc}
+.top.od-simple-site-header .od-ribbon-submenu{
+ position:absolute;z-index:95;top:calc(100% + 7px);left:0;
+ display:grid;gap:4px;min-width:220px;padding:8px;border:1px solid #e5b4dc;
+ border-radius:14px;background:#291d3c;box-shadow:0 17px 42px #080412ba;
+}
+.top.od-simple-site-header .od-ribbon-menu:not([open]) .od-ribbon-submenu{display:none}
+.top.od-simple-site-header .od-ribbon-menu-more .od-ribbon-submenu{left:auto;right:0;min-width:245px}
+.top.od-simple-site-header .od-ribbon-submenu button,
+.top.od-simple-site-header .od-ribbon-submenu a{
+ display:block;width:100%;min-height:44px;padding:12px 13px;
+ border:0;border-radius:9px;text-align:left;text-decoration:none;
+ font:750 13px/1.28 system-ui,sans-serif;background:transparent;color:#ffe9f5;cursor:pointer;
+}
+.top.od-simple-site-header .od-ribbon-submenu button:hover,
+.top.od-simple-site-header .od-ribbon-submenu a:hover,
+.top.od-simple-site-header .od-ribbon-submenu button.selected{background:#613b67;color:#fff}
+.top.od-simple-site-header .od-ribbon-submenu button:focus-visible,
+.top.od-simple-site-header .od-ribbon-submenu a:focus-visible,
+.top.od-simple-site-header .od-ribbon-link:focus-visible,
+.top.od-simple-site-header .od-ribbon-menu>summary:focus-visible{outline:3px solid #ffe3ab;outline-offset:2px}
+#home.od-compact-home{padding-top:10px}
+#home.od-compact-home .od-compact-hero{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(110px,195px);
+ gap:14px;align-items:center;padding:24px clamp(17px,3vw,30px);
+ margin:8px 0 76px;background:linear-gradient(120deg,#342040,#241b38 75%);
+}
+#home.od-compact-home .od-compact-hero .ad-home-hero-copy{max-width:730px}
+#home.od-compact-home .od-compact-kicker{display:block;margin-bottom:12px;color:#ffdaa9;
+ font:800 10px/1.4 system-ui,sans-serif;letter-spacing:.16em}
+#home.od-compact-home .od-compact-hero h1{
+ max-width:710px;margin:5px 0 12px;color:#fff0ed;letter-spacing:-.03em;
+ font:700 clamp(32px,4.1vw,53px)/1.13 Georgia,serif;
+}
+#home.od-compact-home .od-compact-hero h1 .ad-home-heading-second{
+ display:block;font:650 clamp(22px,2.65vw,33px)/1.25 Georgia,serif;margin:8px 0 0;
+ color:#ffdbc8;
+}
+#home.od-compact-home .od-compact-hero .lead{margin:0;max-width:680px;font-size:15px;line-height:1.66;color:#efdaeb}
+#home.od-compact-home .od-compact-hero .ad-home-illustration{
+ display:grid;place-items:center;justify-self:end;max-width:190px;width:100%;
+ padding:0;min-width:0;
+}
+#home.od-compact-home .od-compact-hero .ad-home-illustration img{
+ display:block;width:100%;height:auto;max-width:175px;aspect-ratio:1;object-fit:contain;
+}
+#home.od-compact-home .od-compact-tools{margin:0}
+#home.od-compact-home .od-compact-tools h2{font-size:clamp(24px,3vw,33px);margin:8px 0 16px;color:#fff0ed}
+#home.od-compact-home .od-compact-tools-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;
+ align-items:stretch;margin-bottom:55px;
+}
+#home.od-compact-home .od-compact-tool{
+ display:flex;flex-direction:column;align-items:stretch;gap:12px;
+ padding:16px;min-width:0;min-height:270px;margin:0;
+ border:1px solid #bf91be;border-radius:19px;background:linear-gradient(145deg,#3d284a,#241d36);
+}
+#home.od-compact-home .od-compact-tool .ad-card-visual{
+ margin:0;max-height:92px;height:92px;border-radius:12px;object-fit:cover;
+}
+#home.od-compact-home .od-compact-tool h3{font:700 23px/1.17 Georgia,serif;margin:4px 0}
+#home.od-compact-home .od-compact-tool p{font:400 13px/1.58 system-ui,sans-serif;color:#edd7e8;margin:3px 0 0}
+#home.od-compact-home .od-compact-tool .eyebrow{font-size:9px;letter-spacing:.1em}
+#home.od-compact-home .od-compact-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}
+#home.od-compact-home .od-compact-actions .btn{flex:1 1 120px;width:auto;min-height:42px;
+ display:inline-flex;align-items:center;justify-content:center;padding:10px;
+ font:800 12px/1.25 system-ui,sans-serif;white-space:normal;text-align:center;text-decoration:none;
+}
+#home.od-compact-home .od-compact-footnote{font:500 13px/1.6 system-ui,sans-serif;
+ color:#e3cde3;margin:10px 0 12px}
+#home.od-compact-home .od-compact-footnote strong{color:#ffe3b1}
+#home.od-compact-home .afterdark-landing-safety{padding:12px 15px;font-size:12px;line-height:1.6}
+@media(min-width:970px){.top.od-simple-site-header{position:sticky!important;top:0;z-index:60}}
+@media(max-width:970px){
+ .top.od-simple-site-header .od-ribbon-nav{flex-wrap:nowrap;overflow-x:auto;overflow-y:visible;
+   -webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#f2b6da90 transparent;
+   padding-bottom:9px}
+ .top.od-simple-site-header .od-ribbon-submenu{position:fixed;top:auto;left:14px!important;right:14px!important;
+   min-width:0;max-width:calc(100vw - 28px);width:auto;z-index:95}
+ .top.od-simple-site-header>.top-current{display:none}
+ .top.od-simple-site-header .rcl-site-home-icon{margin-left:auto!important}
+}
+@media(max-width:780px){
+ #home.od-compact-home .od-compact-tools-grid{grid-template-columns:1fr;gap:13px;margin-bottom:55px}
+ #home.od-compact-home .od-compact-tool{display:grid;grid-template-columns:92px minmax(0,1fr);
+   grid-template-rows:auto auto;align-items:center;gap:9px 13px;min-height:0;padding:14px 15px}
+ #home.od-compact-home .od-compact-tool .ad-card-visual{grid-row:1;grid-column:1;
+   width:92px;height:92px;max-height:92px}
+ #home.od-compact-home .od-compact-tool>div:first-of-type{grid-column:2;grid-row:1}
+ #home.od-compact-home .od-compact-actions{grid-column:1/-1;grid-row:2}
+ #home.od-compact-home .od-compact-tool h3{font-size:22px}
+}
+@media(max-width:590px){
+ .top.od-simple-site-header{gap:5px;padding:9px 10px 14px}
+ .top.od-simple-site-header>.brand{width:auto!important;font-size:13px}
+ .top.od-simple-site-header .od-ribbon-nav{gap:5px;padding-top:10px}
+ .top.od-simple-site-header .od-ribbon-link,.top.od-simple-site-header .od-ribbon-menu>summary{
+   padding:9px 11px;min-height:42px;font-size:11px}
+ #home.od-compact-home .od-compact-hero{grid-template-columns:minmax(0,1fr) 75px;
+   padding:18px 14px;gap:4px;margin-bottom:76px;border-radius:18px}
+ #home.od-compact-home .od-compact-hero .ad-home-illustration img{width:75px;height:75px}
+ #home.od-compact-home .od-compact-hero h1{font-size:30px}
+ #home.od-compact-home .od-compact-hero h1 .ad-home-heading-second{font-size:21px}
+ #home.od-compact-home .od-compact-hero .lead{font-size:13px;line-height:1.6}
+ #home.od-compact-home .od-compact-tools h2{font-size:25px}
+}
