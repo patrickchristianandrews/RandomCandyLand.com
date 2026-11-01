@@ -1,8 +1,8 @@
 {
   "id": "/trump/",
-  "name": "Donald’s Pocket Pet | Random Candy Land",
-  "short_name": "Pocket Pet",
-  "description": "Donald’s Pocket Pet — an independently installable Random Candy Land web app.",
+  "name": "Trumpagotchi OG | Random Candy Land",
+  "short_name": "Trumpagotchi OG",
+  "description": "Trumpagotchi OG — the original talking digital pet on Random Candy Land.",
   "start_url": "/trump/",
   "scope": "/trump/",
   "display": "standalone",
