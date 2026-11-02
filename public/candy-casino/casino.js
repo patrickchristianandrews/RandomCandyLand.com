@@ -95,6 +95,9 @@ function renderPokerOutcome(){
 function render(){
  for(const b of document.querySelectorAll('[data-duel]')){let on=b.dataset.duel===duel;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));}
  for(const b of document.querySelectorAll('[data-opponent]')){let on=b.dataset.opponent===mode;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));}
+ // Show the simple hands chart only for poker, below the complete game area.
+ $('poker-hand-guide').hidden=duel!=='poker';
+ $('poker-rules-jump').hidden=duel!=='poker';
  const [k,title,description]=labels[duel];$('game-kicker').textContent=k;$('game-title').textContent=title;$('duel-description').textContent=description;
  $('self-name').textContent=players[me()];$('opponent-name').textContent=players[them()];
  $('self-score').textContent=scores[me()];$('other-score').textContent=scores[them()];
