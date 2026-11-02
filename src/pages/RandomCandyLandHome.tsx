@@ -42,7 +42,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/other-drawer.svg',name:'The Other Drawer',url:'/after-dark/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
+const TOOL_MENU_NAMES = ['Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer','RemoteFM1'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/trumpagotchi-2.svg',
   '/trumpagotchi-fm1/pixel-icon.svg',
@@ -51,7 +51,8 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/simon.svg',
   '/tool-icons/candy-match.svg',
   '/tool-icons/candy-pulse.svg',
-  '/tool-icons/other-drawer.svg'
+  '/tool-icons/other-drawer.svg',
+  '/tool-icons/remote-fm1.svg'
 ] as const;
 
 const PORTALS: Portal[] = [
@@ -63,6 +64,7 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[5],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'games',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
   {icon:TOOL_MENU_ICONS[6],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {icon:TOOL_MENU_ICONS[7],title:'The Other Drawer',blurb:"What Desires Reveal About Us. Explore the details of attraction, the fantasies that linger, and what they might mean.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
+  {icon:TOOL_MENU_ICONS[8],title:'RemoteFM1',blurb:'Explore a dedicated FM-1 music and firmware environment. Launch the original browser app, visit the firmware installer, and discover its creator’s project.',kind:'music',label:'NEW · FM-1 MUSIC LAB',palette:'blue',href:'/remote-fm1/'},
 ];
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
