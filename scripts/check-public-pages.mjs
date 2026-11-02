@@ -189,10 +189,10 @@ for(const asset of ['dist/share-page.js','dist/share-page.css','dist/after-dark/
  }
 }
 for(const [file,tokens] of [
- ['dist/index.html',['share-page.js?v=sitewide-1','share-page.css?v=sitewide-1']],
- ['dist/after-dark/index.html',['share-page.js?v=sitewide-1','share-page.css?v=sitewide-1','guide-illustrations.css?v=20261031-v1']],
- ['dist/music-visualizer/index.html',['share-page.js?v=sitewide-1']],
- ['dist/candy-casino/index.html',['share-page.js?v=sitewide-1']]
+ ['dist/index.html',['share-page.js?v=sitewide-2','share-page.css?v=sitewide-2']],
+ ['dist/after-dark/index.html',['share-page.js?v=sitewide-2','share-page.css?v=sitewide-2','guide-illustrations.css?v=20261031-v1']],
+ ['dist/music-visualizer/index.html',['share-page.js?v=sitewide-2']],
+ ['dist/candy-casino/index.html',['share-page.js?v=sitewide-2']]
 ]){
  if(!fs.existsSync(file)){failures++;continue;}
  const html=fs.readFileSync(file,'utf8');
