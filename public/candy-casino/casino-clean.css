@@ -187,3 +187,83 @@ footer{margin-top:15px;padding:18px 2px;border-top:1px solid #715183;font-size:1
  .friends-connect .friend-actions button{flex-basis:120px}
 }
 @media(prefers-reduced-motion:reduce){.game-pick{transition:none}}
+
+
+/* November casino refresh: one compact, consistent game header. The legacy
+   double-logo candy banner has been removed from the HTML itself. */
+.candy-casino .shell{max-width:1080px;padding-top:9px}
+.candy-casino .site-head.casino-compact-header{
+ box-sizing:border-box;min-height:0;height:auto;max-width:none;
+ display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;
+ gap:10px;padding:7px 3px 12px;margin:0 0 8px;
+ border:0;border-bottom:1px solid #d9afd647;
+ background:none;box-shadow:none;
+}
+.candy-casino .casino-back{
+ flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+ gap:7px;min-height:41px;padding:9px 12px;border:1px solid #d9aee077;
+ border-radius:11px;background:#29173e;color:#fcedf7;text-decoration:none;
+ font:800 12px/1.2 system-ui,sans-serif;
+}
+.candy-casino .casino-back:hover{background:#4b2a62;border-color:#ffe4bf}
+.candy-casino .casino-header-title{
+ flex:1 1 auto;min-width:0;display:flex;gap:10px;align-items:center;
+ justify-content:center;font:900 clamp(12px,1.65vw,18px)/1.2 system-ui,sans-serif;
+ letter-spacing:.03em;color:#f8f1fa;text-align:center;
+}
+.candy-casino .casino-header-title img{
+ flex:0 0 auto;display:block;width:34px;height:34px;object-fit:contain;
+ border-radius:9px;filter:drop-shadow(0 2px 4px #12072566)
+}
+.candy-casino .casino-header-title strong{color:#ffe1a5}
+.candy-casino .casino-header-note{
+ flex:0 0 auto;display:inline-flex;align-items:center;
+ min-height:33px;padding:8px 11px;border:1px solid #cfa8c75e;
+ border-radius:999px;background:#33194b;color:#e7cfde;
+ font:850 10px/1.2 system-ui,sans-serif;letter-spacing:.06em;white-space:nowrap;
+}
+.candy-casino .howto{margin:6px 0 11px}
+.candy-casino .scorebar{
+ position:relative;max-width:none;margin:0 0 16px;
+ display:flex;flex-wrap:nowrap;align-items:center;gap:0;
+ padding:11px 13px 11px 112px;
+ border-radius:13px;
+ background:linear-gradient(115deg,#34204c,#241336);
+}
+.candy-casino .casino-scorebar-heading{
+ position:absolute;left:14px;top:50%;transform:translateY(-50%);
+ max-width:85px;color:#f2cde5;font:900 10px/1.3 system-ui,sans-serif;
+ letter-spacing:.1em;word-spacing:50vw;
+}
+.candy-casino .scorebar>div{gap:9px;min-width:0;flex:1 1 50%}
+.candy-casino .scorebar strong{font-size:clamp(19px,2.8vw,25px)}
+.candy-casino .games-section .section-heading{margin-bottom:5px}
+.candy-casino .game-pickers{margin:10px 0 13px}
+.candy-casino .play-table-head{gap:12px}
+.candy-casino .poker-showdown-panel{box-shadow:0 12px 35px #0c0621d0}
+.candy-casino .casino-release-label{
+ display:inline-block;margin-left:7px;padding:3px 8px;
+ border-radius:99px;border:1px solid #ad8ab94a;
+ font:700 10px/1.3 system-ui,sans-serif;letter-spacing:0;color:#bda7c8
+}
+@media(max-width:620px){
+ .candy-casino .site-head.casino-compact-header{
+  gap:8px;padding:4px 1px 11px;margin-bottom:6px;
+ }
+ .candy-casino .casino-back{padding:8px 10px;min-height:39px;font-size:11px}
+ .candy-casino .casino-header-title{gap:5px;font-size:clamp(10px,2.8vw,14px)}
+ .candy-casino .casino-header-title img{width:30px;height:30px}
+ .candy-casino .casino-header-note{display:none}
+ .candy-casino .scorebar{padding:9px 8px 9px 78px;margin-bottom:13px}
+ .candy-casino .casino-scorebar-heading{left:8px;max-width:65px;font-size:9px}
+ .candy-casino .scorebar>div{gap:4px;padding:2px 5px}
+ .candy-casino .scorebar span:not(.casino-scorebar-heading){font-size:9px}
+ .candy-casino .game-pick{min-height:55px}
+ .candy-casino .poker-score-strip{max-width:100%}
+}
+@media(max-width:375px){
+ .candy-casino .casino-header-title img{width:24px;height:24px}
+ .candy-casino .casino-header-title{font-size:10px}
+ .candy-casino .scorebar{padding-left:69px}
+ .candy-casino .casino-scorebar-heading{max-width:55px;font-size:8px}
+}
