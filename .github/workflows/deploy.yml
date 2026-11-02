@@ -177,7 +177,14 @@ jobs:
                     "$casino" == *'casino-compact-header'* &&
                     "$casino" == *'Casino refresh · Nov 2026'* &&
                     "$casino" == *'id="poker-showdown"'* &&
-                    "$casino" == *'casino.js?v=casino-refresh-20261101'* &&
+                    "$casino" == *'casino.js?v=hand-guide-20261101'* &&
+                    "$casino" == *'id="poker-hand-guide"'* &&
+                    "$casino" == *'Which poker hands win?'* &&
+                    "$casino" == *'Royal flush'* &&
+                    "$casino" == *'High card'* &&
+                    "$casino_css" == *'Poker hand rankings:'* &&
+                    "$casino_js" == *"poker-hand-guide"* &&
+                    "$casino" != *'RemoteFM1'* &&
                     "$casino_css" == *'November casino refresh'* &&
                     "$casino_js" == *'renderPokerOutcome'* ]]; then
                 echo "::notice::LIVE HOMEPAGE, CASINO AND OTHER DRAWER VERIFIED: ${GITHUB_SHA}"
