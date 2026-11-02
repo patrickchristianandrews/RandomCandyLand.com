@@ -523,6 +523,8 @@ try{
   if(!casinoReady)throw Error('Candy Casino must show ONLY three competitive games with computer and friend choices');
   const casinoHeader=await casino.evaluate("(()=>{const h=document.querySelector('.casino-compact-header');const back=h?.querySelector('a.casino-back');return !!h&&back?.getAttribute('href')==='/'&&h.querySelector('.casino-header-title img')?.getAttribute('src')?.includes('casino.svg')&&!h.querySelector('.site-goo')&&!h.querySelector('.rcl-site-home-icon')&&document.querySelector('.casino-release-label')?.textContent.includes('Casino refresh')&&getComputedStyle(h).minHeight==='0px'})()");
   if(!casinoHeader)throw Error('Casino is showing the older duplicate-logo page instead of the compact refreshed header');
+  const pokerGuideReady=await casino.evaluate("(()=>{const guide=document.querySelector('#poker-hand-guide'),arena=document.querySelector('#casino-arena'),rows=[...guide.querySelectorAll('.poker-rank-row')],names=rows.map(row=>row.querySelector('.poker-rank-meaning strong')?.textContent);return !guide.hidden && !!(arena.compareDocumentPosition(guide)&Node.DOCUMENT_POSITION_FOLLOWING) && rows.length===10 && names[0]==='Royal flush' && names[9]==='High card' && rows.every(row=>row.querySelectorAll('.poker-example-card').length===5) && document.querySelector('#poker-rules-jump')?.getAttribute('href')==='#poker-hand-guide'})()");
+  if(!pokerGuideReady)throw Error('Casino poker hand rankings must appear below the game, from Royal flush down to High card with five-card examples');
   const compactCasino=await casino.evaluate("(()=>{const friends=document.querySelector('#friends'),howto=document.querySelector('#casino-howto'),scores=document.querySelector('.scorebar'),games=document.querySelector('#games');return document.querySelectorAll('.scorebar>div').length===2 && !document.querySelector('.hero') && !document.querySelector('#hero-play-friend') && howto?.compareDocumentPosition(scores)===Node.DOCUMENT_POSITION_FOLLOWING && scores?.compareDocumentPosition(games)===Node.DOCUMENT_POSITION_FOLLOWING && friends?.hidden && getComputedStyle(friends).display==='none' && document.querySelectorAll('.game-pickers .game-pick').length===3 && !!document.querySelector('.connection-troubleshoot') && !document.querySelector('.friend-arena')})()");
   if(!compactCasino)throw Error('Casino must have no giant hero banner and must keep game controls and optional friend setup');
   await casino.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
@@ -552,6 +554,8 @@ try{
   if(!nextPoker)throw Error('Poker scoreboard did not advance to round two');
 
   await casino.evaluate("document.querySelector('[data-duel=card]').click();document.querySelector('#duel-ready').click()");
+  const guideHiddenOutsidePoker=await casino.evaluate("document.querySelector('#poker-hand-guide').hidden && getComputedStyle(document.querySelector('#poker-hand-guide')).display==='none' && document.querySelector('#poker-rules-jump').hidden");
+  if(!guideHiddenOutsidePoker)throw Error('Poker hand guide must hide when High Card is selected');
   const high=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelector('#duel-display').textContent.includes('drew')");
   if(!high)throw Error('High Card did not play versus computer');
   await casino.evaluate("document.querySelector('[data-duel=dice]').click();document.querySelector('#duel-ready').click()");
@@ -594,10 +598,10 @@ try{
     if(!result)throw Error('Candy Land homepage regression: '+desc);
     console.log('✓',desc);
   };
-  await checkHomepage('Candy Land hero contains nine illustrated, working shortcuts, with no redundant intro',
-    "(()=>{const hero=document.querySelector('.candyland-opening');const tiles=[...document.querySelectorAll('.candyland-hero-tools .candyland-hero-tool-link')];return !!hero&&tiles.length===9&&tiles.every(x=>!!x.querySelector('img')&&!!x.querySelector('.candyland-hero-tool-name'))&&tiles[0].textContent.includes('Trumpagotchi OG')&&tiles[0].tagName==='BUTTON'&&tiles[0].querySelector('img')?.getAttribute('src')?.includes('trumpagotchi-2.svg')&&tiles[1].textContent.includes('FM-1 Trumpagotchi')&&!!tiles[1].querySelector('img[src*=pixel-icon]')&&!!tiles[7].getAttribute('href')?.includes('/after-dark/')&&!!tiles[8].getAttribute('href')?.includes('/remote-fm1/')&&!document.querySelector('.candyland-tools-strip')&&!hero.textContent.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE')&&!hero.textContent.includes('ENTER CANDY LAND')})()");
-  await checkHomepage('All nine illustrated homepage game icons load',
-    "Array.from(document.querySelectorAll('.candyland-hero-tools img')).length===9&&Array.from(document.querySelectorAll('.candyland-hero-tools img')).every(img=>img.complete&&img.naturalWidth>0)");
+  await checkHomepage('Candy Land hero contains eight illustrated, working shortcuts, with no redundant intro',
+    "(()=>{const hero=document.querySelector('.candyland-opening');const tiles=[...document.querySelectorAll('.candyland-hero-tools .candyland-hero-tool-link')];return !!hero&&tiles.length===8&&tiles.every(x=>!!x.querySelector('img')&&!!x.querySelector('.candyland-hero-tool-name'))&&tiles[0].textContent.includes('Trumpagotchi OG')&&tiles[0].tagName==='BUTTON'&&tiles[0].querySelector('img')?.getAttribute('src')?.includes('trumpagotchi-2.svg')&&tiles[1].textContent.includes('FM-1 Trumpagotchi')&&!!tiles[1].querySelector('img[src*=pixel-icon]')&&!!tiles[7].getAttribute('href')?.includes('/after-dark/')&&!document.querySelector('.candyland-tools-strip')&&!hero.textContent.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE')&&!hero.textContent.includes('ENTER CANDY LAND')})()");
+  await checkHomepage('All eight illustrated homepage game icons load',
+    "Array.from(document.querySelectorAll('.candyland-hero-tools img')).length===8&&Array.from(document.querySelectorAll('.candyland-hero-tools img')).every(img=>img.complete&&img.naturalWidth>0)");
   const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-news-article h3') && document.querySelector('#nonsense .nonsense-generate')?.textContent.includes('NEXT STORY') && !document.querySelector('#nonsense .nonsense-eyebrow')");
   if(!nonsenseReady)throw Error('Candy Land Gazette article or Next Story button did not mount');
   const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
