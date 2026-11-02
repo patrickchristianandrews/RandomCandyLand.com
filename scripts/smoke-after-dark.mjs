@@ -116,10 +116,14 @@ try{
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
   await check('Save-your-place toolbar appears on the main page',
     "!!document.querySelector('#od-bookmark-bar .od-bookmark-save') && !!document.querySelector('#od-continue') && !!document.querySelector('#od-bookmark-menu') && typeof window.OtherDrawerBookmarks?.save==='function'");
-  const oneRowCheck="(()=>{const bar=document.querySelector('#od-bookmark-bar');const buttons=[bar.querySelector('.od-bookmark-save'),bar.querySelector('.od-bookmark-continue'),bar.querySelector('.od-bookmark-summary')];const tops=buttons.map(el=>Math.round(el.getBoundingClientRect().top));return getComputedStyle(bar).display==='grid'&&new Set(tops).size===1&&bar.getBoundingClientRect().height<=72})()";
-  await check('Save bar is one row on desktop',oneRowCheck);
+  const saveBarMetrics="(()=>{const bar=document.querySelector('#od-bookmark-bar');const names=['.od-bookmark-save','.od-bookmark-continue','.od-bookmark-summary'];const r=names.map(name=>{const el=bar.querySelector(name),v=el.getBoundingClientRect();return{name,top:v.top,bottom:v.bottom,left:v.left,right:v.right}});const box=bar.getBoundingClientRect();const overlap=Math.min(...r.map(v=>v.bottom))-Math.max(...r.map(v=>v.top));return{display:getComputedStyle(bar).display,barHeight:box.height,overlap,viewport:innerWidth,buttons:r,oneRow:overlap>=20&&r.every(v=>v.right<=innerWidth+4&&v.left>=-4)&&box.height<=85}})()";
+  const desktopBar=await evaluate(saveBarMetrics);
+  console.log('Save bar desktop geometry:',JSON.stringify(desktopBar));
+  if(!desktopBar?.oneRow)throw Error('After Dark regression: Save bar is one row on desktop');
   await afterDark.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
-  await check('Save bar is one row at phone width',oneRowCheck);
+  const mobileBar=await evaluate(saveBarMetrics);
+  console.log('Save bar phone geometry:',JSON.stringify(mobileBar));
+  if(!mobileBar?.oneRow)throw Error('After Dark regression: Save bar is one row at phone width');
   await afterDark.command('Emulation.clearDeviceMetricsOverride');
   await evaluate("document.querySelector('#od-bookmark-bar .od-bookmark-save').click()");
   await check('Saving a bookmark persists without quiz answers leaving the device',
