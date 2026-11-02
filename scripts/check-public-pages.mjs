@@ -10,7 +10,7 @@ const required = [
   ['dist/candy-casino/index.html', ['Choose your game','id="casino-howto"','data-duel="poker"','data-duel="card"','data-duel="dice"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
-  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-header', 'tiny-goo-fill', 'candyland-game-site-goo', 'HOW TO PLAY', 'id="remix-studio"']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-header', 'candyland-game-site-back', 'HOW TO PLAY', 'id="remix-studio"']],
 ];
 
 let failures = 0;
@@ -315,14 +315,15 @@ const toolIcons = [
   'tool-icons/simon.svg',
   'tool-icons/candy-match.svg',
   'tool-icons/candy-pulse.svg',
-  'tool-icons/other-drawer.svg'
+  'tool-icons/other-drawer.svg',
+  'tool-icons/remote-fm1.svg'
 ];
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
     !homeInstallSource.includes('className="candyland-hero-tool-link"') ||
     !homeInstallSource.includes('TOOL_MENU_ICONS[index]') ||
     !homeInstallSource.includes("PORTALS.map((portal,index)") ||
     !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
-  console.error('The Candy Land homepage must display all eight illustrated game and tool shortcuts.');
+  console.error('The Candy Land homepage must display all nine illustrated game and tool shortcuts.');
   failures++;
 }
 // The new artwork must replace the old emoji/cartoon thumbnails in every
@@ -465,11 +466,12 @@ for (const path of ['dist/index.html','dist/404.html','dist/trump/index.html']) 
 // Trumpagotchi pet, not another redirect or hardware/firmware information page.
 const tinyPetHtml=fs.readFileSync('dist/trumpagotchi-fm1/index.html','utf8');
 const tinyGooCss=fs.readFileSync('dist/trumpagotchi-fm1/game.css','utf8');
-if (!tinyPetHtml.includes('viewBox="0 0 1200 182"') ||
-    !tinyPetHtml.includes('url(#tiny-goo-fill)') ||
-    !tinyGooCss.includes('tinyCandyGooWobble') ||
-    tinyGooCss.includes('.candyland-game-site-goo{position:absolute;pointer-events:none;left:0;top:calc(100% - 3px);width:100%;height:62px;background:linear-gradient')) {
-  console.error('Tiny Pet must render the curved candy goo SVG, not a jagged CSS polygon.');
+if (!tinyPetHtml.includes('class="candyland-game-site-back"') ||
+    tinyPetHtml.includes('candyland-game-site-goo') ||
+    tinyPetHtml.includes('candyland-game-site-brand') ||
+    tinyPetHtml.includes('rcl-site-home-icon') ||
+    !tinyGooCss.includes('Compact game-first header. No duplicate logos')) {
+  console.error('FM-1 Trumpagotchi must use the clean one-line header without duplicate logos or oversized drips.');
   failures++;
 }
 
@@ -480,6 +482,18 @@ if (!(tinyPetHtml.indexOf('id="how-to-play"') >= 0 &&
 }
 if (tinyPetHtml.includes('YOUR CUTE LITTLE POCKET PET GAME') || tinyPetHtml.includes('Original Trumpagotchi')) {
   console.error('A retired banner or game label remains visible.');
+  failures++;
+}
+// RemoteFM1 uses the original hosted web app, with an informative local entry point.
+// Do not imply that a third-party device firmware installer is hosted by Candy Land.
+const remoteHtml=fs.readFileSync('dist/remote-fm1/index.html','utf8');
+if (!remoteHtml.includes('https://quixotic7.github.io/RemoteFM1/') ||
+    !remoteHtml.includes('https://quixotic7.github.io/RemoteFM1/installer/') ||
+    !remoteHtml.includes('https://github.com/Quixotic7/RemoteFM1') ||
+    !remoteHtml.includes('href="/remote-fm1/style.css') ||
+    !homeInstallSource.includes("title:'RemoteFM1'") ||
+    !fs.existsSync('dist/remote-fm1/style.css')) {
+  console.error('RemoteFM1 must be linked from the music tools with a working official app and installer.');
   failures++;
 }
 const originalGuideSource=fs.readFileSync('src/pages/TrumpGotchaPage.tsx','utf8');
