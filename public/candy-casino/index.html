@@ -21,12 +21,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Candy Casino">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/candy-casino/casino.css?v=casino-refresh-20261101">
-<link rel="stylesheet" href="/candy-casino/casino-clean.css?v=casino-refresh-20261101">
+<link rel="stylesheet" href="/candy-casino/casino-clean.css?v=hand-guide-20261101">
 <script src="/install-app.js" defer></script>
 <script src="/candy-casino/poker-engine.js?v=casino-refresh-20261101" defer></script>
 <script src="/candy-casino/relay-config.js?v=casino-refresh-20261101" defer></script>
 <script src="/candy-casino/relay-peer.js?v=casino-refresh-20261101" defer></script>
-<script src="/candy-casino/casino.js?v=casino-refresh-20261101" defer></script>
+<script src="/candy-casino/casino.js?v=hand-guide-20261101" defer></script>
 </head>
 <body class="candy-casino">
 <!-- Google Tag Manager (noscript) -->
@@ -86,7 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  </div>
 </section>
 <div class="play-table" id="casino-arena">
-<div class="play-table-head"><div><span class="eyebrow" id="game-kicker">WELCOME TO THE POKER PALACE</span><h3 id="game-title">🃏 Sugar Rush Poker</h3><p id="duel-description">Draw five cards and swap up to three.</p></div>
+<div class="play-table-head"><div><span class="eyebrow" id="game-kicker">WELCOME TO THE POKER PALACE</span><h3 id="game-title">🃏 Sugar Rush Poker</h3><p id="duel-description">Draw five cards and swap up to three.</p><a class="poker-rules-jump" id="poker-rules-jump" href="#poker-hand-guide">Which poker hand wins? See the easy chart ↓</a></div>
 <div class="opponent-choice" role="group" aria-label="Choose your opponent">
 <button type="button" class="opponent-pick selected" data-opponent="computer" aria-pressed="true">🤖 Candybot</button>
 <button type="button" class="opponent-pick" data-opponent="friend" aria-pressed="false">🌍 Play a friend</button>
@@ -122,6 +122,72 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <button type="button" class="text-button" id="duel-reset">↻ NEW 5-ROUND MATCH</button></div>
 <div class="duel-status" id="duel-status" role="status">Choose a game and play!</div>
 </div></section>
+
+<section class="poker-hand-guide" id="poker-hand-guide" aria-labelledby="poker-hand-guide-heading">
+ <div class="poker-hand-guide-heading">
+  <span class="poker-guide-eyebrow">POKER MADE SIMPLE</span>
+  <h2 id="poker-hand-guide-heading">Which poker hands win?</h2>
+  <p>Start at <strong>#1 (strongest)</strong> and read downward to <strong>#10 (weakest)</strong>. A hand higher on this list beats every hand below it.</p>
+ </div>
+ <div class="poker-guide-legend"><span>🏆 <strong>#1 is best</strong></span><span>🃏 All examples use five cards</span></div>
+ <ol class="poker-rank-list" aria-label="Five-card poker hand rankings from strongest to weakest">
+<li class="poker-rank-row poker-rank-top">
+    <span class="poker-rank-number" aria-hidden="true">1</span>
+    <div class="poker-rank-meaning"><strong>Royal flush</strong><span>10, J, Q, K, A — all the same suit.</span><small>Strongest possible hand</small></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: 10♠, J♠, Q♠, K♠, A♠"><span class="poker-example-card " aria-hidden="true">10♠</span><span class="poker-example-card " aria-hidden="true">J♠</span><span class="poker-example-card " aria-hidden="true">Q♠</span><span class="poker-example-card " aria-hidden="true">K♠</span><span class="poker-example-card " aria-hidden="true">A♠</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">2</span>
+    <div class="poker-rank-meaning"><strong>Straight flush</strong><span>Five in a row, all the same suit.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: 5♥, 6♥, 7♥, 8♥, 9♥"><span class="poker-example-card red" aria-hidden="true">5♥</span><span class="poker-example-card red" aria-hidden="true">6♥</span><span class="poker-example-card red" aria-hidden="true">7♥</span><span class="poker-example-card red" aria-hidden="true">8♥</span><span class="poker-example-card red" aria-hidden="true">9♥</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">3</span>
+    <div class="poker-rank-meaning"><strong>Four of a kind</strong><span>Four cards with the same number or letter.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: K♠, K♥, K♣, K♦, 2♠"><span class="poker-example-card " aria-hidden="true">K♠</span><span class="poker-example-card red" aria-hidden="true">K♥</span><span class="poker-example-card " aria-hidden="true">K♣</span><span class="poker-example-card red" aria-hidden="true">K♦</span><span class="poker-example-card " aria-hidden="true">2♠</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">4</span>
+    <div class="poker-rank-meaning"><strong>Full house</strong><span>Three of one rank plus a pair.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: Q♠, Q♥, Q♦, 7♣, 7♥"><span class="poker-example-card " aria-hidden="true">Q♠</span><span class="poker-example-card red" aria-hidden="true">Q♥</span><span class="poker-example-card red" aria-hidden="true">Q♦</span><span class="poker-example-card " aria-hidden="true">7♣</span><span class="poker-example-card red" aria-hidden="true">7♥</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">5</span>
+    <div class="poker-rank-meaning"><strong>Flush</strong><span>Any five cards with the same suit (not in order).</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: A♣, J♣, 8♣, 6♣, 2♣"><span class="poker-example-card " aria-hidden="true">A♣</span><span class="poker-example-card " aria-hidden="true">J♣</span><span class="poker-example-card " aria-hidden="true">8♣</span><span class="poker-example-card " aria-hidden="true">6♣</span><span class="poker-example-card " aria-hidden="true">2♣</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">6</span>
+    <div class="poker-rank-meaning"><strong>Straight</strong><span>Five ranks in a row, with any suits.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: 5♣, 6♠, 7♥, 8♣, 9♦"><span class="poker-example-card " aria-hidden="true">5♣</span><span class="poker-example-card " aria-hidden="true">6♠</span><span class="poker-example-card red" aria-hidden="true">7♥</span><span class="poker-example-card " aria-hidden="true">8♣</span><span class="poker-example-card red" aria-hidden="true">9♦</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">7</span>
+    <div class="poker-rank-meaning"><strong>Three of a kind</strong><span>Three cards with the same rank.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: J♠, J♥, J♣, 8♣, 2♦"><span class="poker-example-card " aria-hidden="true">J♠</span><span class="poker-example-card red" aria-hidden="true">J♥</span><span class="poker-example-card " aria-hidden="true">J♣</span><span class="poker-example-card " aria-hidden="true">8♣</span><span class="poker-example-card red" aria-hidden="true">2♦</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">8</span>
+    <div class="poker-rank-meaning"><strong>Two pair</strong><span>Two matching cards plus another matching pair.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: A♠, A♥, 4♣, 4♦, 9♠"><span class="poker-example-card " aria-hidden="true">A♠</span><span class="poker-example-card red" aria-hidden="true">A♥</span><span class="poker-example-card " aria-hidden="true">4♣</span><span class="poker-example-card red" aria-hidden="true">4♦</span><span class="poker-example-card " aria-hidden="true">9♠</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">9</span>
+    <div class="poker-rank-meaning"><strong>One pair</strong><span>Just two cards with the same rank.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: 10♠, 10♥, A♦, 7♣, 2♠"><span class="poker-example-card " aria-hidden="true">10♠</span><span class="poker-example-card red" aria-hidden="true">10♥</span><span class="poker-example-card red" aria-hidden="true">A♦</span><span class="poker-example-card " aria-hidden="true">7♣</span><span class="poker-example-card " aria-hidden="true">2♠</span></div>
+  </li>
+<li class="poker-rank-row">
+    <span class="poker-rank-number" aria-hidden="true">10</span>
+    <div class="poker-rank-meaning"><strong>High card</strong><span>No matching hand? Your highest card matters.</span></div>
+    <div class="poker-example-cards" role="img" aria-label="Example: A♣, J♦, 8♠, 6♥, 3♣"><span class="poker-example-card " aria-hidden="true">A♣</span><span class="poker-example-card red" aria-hidden="true">J♦</span><span class="poker-example-card " aria-hidden="true">8♠</span><span class="poker-example-card red" aria-hidden="true">6♥</span><span class="poker-example-card " aria-hidden="true">3♣</span></div>
+  </li>
+ </ol>
+ <div class="poker-guide-tie">
+  <strong>What if we have the same kind of hand?</strong>
+  <p>Higher card ranks win. For example, <strong>a pair of Kings beats a pair of Tens.</strong> If the main cards match, the remaining high cards decide. Exact ties split the round; suits never break a tie.</p>
+ </div>
+ <p class="poker-guide-play-tip"><strong>How to play:</strong> Deal 5 cards → tap up to 3 cards to swap → select <strong>Draw selected cards</strong> → compare the finished hands. The better hand wins the round.</p>
+</section>
 
 <p class="fine-print">🍬 Free virtual chips only · No deposits, prizes or real-money gambling. <span class="casino-release-label" aria-label="Casino layout version">Casino refresh · Nov 2026</span></p>
 </main>
