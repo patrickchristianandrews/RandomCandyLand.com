@@ -66,7 +66,7 @@ async function share(){return openShare(cleanURL(),document.title||'Random Candy
 function makeButton(inToolbar=false){
  const button=document.createElement('button');button.type='button';button.id=ID;
  button.className=inToolbar?'od-bookmark-button rcl-share-button':'rcl-share-button';
- button.textContent='↗ Share Page';button.setAttribute('aria-label','Share this page');
+ button.textContent=inToolbar?'↗ Share':'↗ Share Page';button.setAttribute('aria-label','Share this page');
  button.addEventListener('click',share);return button;
 }
 function install(){
