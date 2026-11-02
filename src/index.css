@@ -582,16 +582,3 @@ body {
   .candyland-hero-tools .candyland-hero-tool-link{transition:none}
   .candyland-hero-tools .candyland-hero-tool-link:hover{transform:none}
 }
-
-
-/* Nine illustrated tool shortcuts share a balanced, readable 3 × 3 layout. */
-.candyland-next .candyland-hero-tools{
- grid-template-columns:repeat(3,minmax(0,1fr));
- max-width:780px;
- gap:clamp(7px,1.7vw,17px);
-}
-@media(max-width:560px){
- .candyland-next .candyland-hero-tools{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 5px}
- .candyland-next .candyland-hero-tool-link{min-width:0}
- .candyland-next .candyland-hero-tool-name{font-size:clamp(10px,2.65vw,12px);padding:6px 3px;white-space:normal}
-}
