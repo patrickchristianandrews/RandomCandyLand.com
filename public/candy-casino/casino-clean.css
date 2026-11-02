@@ -267,3 +267,118 @@ footer{margin-top:15px;padding:18px 2px;border-top:1px solid #715183;font-size:1
  .candy-casino .scorebar{padding-left:69px}
  .candy-casino .casino-scorebar-heading{max-width:55px;font-size:8px}
 }
+
+
+/* Poker hand rankings: a plain-English, always-readable cheat sheet below
+   the game. Visible only while Poker is selected, without opening a modal. */
+.candy-casino .poker-rules-jump{
+ display:inline-flex;align-items:center;gap:5px;margin:9px 0 1px;
+ color:#ffe3ab;text-underline-offset:3px;font:800 12px/1.4 system-ui,sans-serif;
+}
+.candy-casino .poker-rules-jump[hidden],
+.candy-casino .poker-hand-guide[hidden]{display:none!important}
+.candy-casino .poker-hand-guide{
+ box-sizing:border-box;margin:19px auto 8px;max-width:970px;
+ padding:clamp(16px,2.8vw,27px);
+ border:1px solid #e7c5e375;border-radius:20px;
+ background:linear-gradient(135deg,#332345,#211a33 70%);
+ box-shadow:0 9px 25px #0a041b77;color:#fbf2fc;
+ scroll-margin-top:16px;
+}
+.candy-casino .poker-hand-guide-heading h2{
+ font:900 clamp(24px,3.4vw,33px)/1.17 system-ui,sans-serif;
+ letter-spacing:-.025em;color:#fff0ca;margin:7px 0 8px;
+}
+.candy-casino .poker-guide-eyebrow{
+ font:900 10px/1.3 system-ui,sans-serif;letter-spacing:.17em;color:#ffbcd9;
+}
+.candy-casino .poker-hand-guide-heading p{
+ font:500 14px/1.55 system-ui,sans-serif;color:#eedff2;
+ max-width:740px;margin:0 0 14px;
+}
+.candy-casino .poker-hand-guide-heading strong{color:#ffe6ac}
+.candy-casino .poker-guide-legend{
+ display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;
+}
+.candy-casino .poker-guide-legend>span{
+ display:inline-flex;align-items:center;gap:3px;padding:7px 10px;
+ border:1px solid #cd9dcd77;border-radius:999px;background:#50345780;
+ color:#fff0e6;font:700 11px/1.25 system-ui,sans-serif;
+}
+.candy-casino .poker-rank-list{
+ display:grid;grid-template-columns:1fr;gap:7px;margin:0;padding:0;
+ list-style:none;counter-reset:none;
+}
+.candy-casino .poker-rank-row{
+ display:grid;grid-template-columns:34px minmax(160px,1fr) auto;
+ align-items:center;gap:11px;min-width:0;
+ padding:10px 12px;border:1px solid #c3a3cf48;border-radius:12px;
+ background:#fff9ff0a;
+}
+.candy-casino .poker-rank-row:nth-child(even){background:#fff9ff05}
+.candy-casino .poker-rank-row.poker-rank-top{
+ border-color:#f6d797b0;background:linear-gradient(100deg,#5c3d5a,#47304a9e);
+}
+.candy-casino .poker-rank-number{
+ display:grid;place-items:center;width:32px;height:32px;
+ flex:none;border:1px solid #edbbd59e;border-radius:10px;
+ background:#60406f;color:#fff2c0;
+ font:900 16px/1 system-ui,sans-serif;font-variant-numeric:tabular-nums;
+}
+.candy-casino .poker-rank-top .poker-rank-number{
+ background:#f4ce88;border-color:#fff0c5;color:#3a2140;
+}
+.candy-casino .poker-rank-meaning{display:flex;flex-direction:column;min-width:0;gap:2px}
+.candy-casino .poker-rank-meaning strong{
+ font:850 14px/1.25 system-ui,sans-serif;color:#fff1d5;
+}
+.candy-casino .poker-rank-meaning>span{
+ color:#e7d4e6;font:500 12px/1.4 system-ui,sans-serif;
+}
+.candy-casino .poker-rank-meaning small{
+ color:#ffe0a3;font:800 10px/1.35 system-ui,sans-serif;
+}
+.candy-casino .poker-example-cards{
+ display:flex;justify-content:flex-end;gap:3px;
+ min-width:0;white-space:nowrap;
+}
+.candy-casino .poker-example-card{
+ display:grid;place-items:center;flex:0 0 33px;width:33px;height:43px;
+ background:#fff8e9;color:#22223c;border:1px solid #c9b9c9;
+ border-radius:6px;box-shadow:0 2px 3px #160c2369;
+ font:900 13px/1.2 system-ui,sans-serif;
+}
+.candy-casino .poker-example-card.red{color:#be304a}
+.candy-casino .poker-guide-tie,.candy-casino .poker-guide-play-tip{
+ margin:12px 0 0;padding:12px 14px;
+ border:1px solid #e0bfcc66;border-radius:12px;
+ background:#4b315568;
+}
+.candy-casino .poker-guide-tie>strong{
+ color:#ffdfa4;font:850 13px/1.4 system-ui,sans-serif;
+}
+.candy-casino .poker-guide-tie p,.candy-casino .poker-guide-play-tip{
+ color:#f4e3f2;font:500 12px/1.6 system-ui,sans-serif;
+}
+.candy-casino .poker-guide-tie p{margin:5px 0 0}
+.candy-casino .poker-guide-play-tip{
+ border-color:#c4b0dd66;background:#291f43;
+}
+.candy-casino .poker-guide-play-tip strong{color:#ffdfa4}
+@media(max-width:740px){
+ .candy-casino .poker-rank-row{
+  grid-template-columns:31px minmax(0,1fr);gap:6px 9px;padding:11px;
+ }
+ .candy-casino .poker-rank-number{width:30px;height:30px;font-size:14px}
+ .candy-casino .poker-example-cards{
+  grid-column:2;grid-row:2;justify-content:flex-start;margin-top:4px;
+ }
+ .candy-casino .poker-example-card{flex-basis:34px;width:34px;height:42px}
+}
+@media(max-width:420px){
+ .candy-casino .poker-hand-guide{margin-top:14px;padding:13px 10px;border-radius:15px}
+ .candy-casino .poker-rank-meaning strong{font-size:13px}
+ .candy-casino .poker-rank-meaning>span{font-size:11px}
+ .candy-casino .poker-example-card{flex-basis:32px;width:32px;height:40px;font-size:12px}
+ .candy-casino .poker-hand-guide-heading p{font-size:13px}
+}
