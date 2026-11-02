@@ -13,7 +13,7 @@ permissions:
 
 # Latest website release wins. Do not let two custom builds deploy out of order.
 concurrency:
-  group: sugarverse-production
+  group: sugarverse-production-recovery-20261101
   cancel-in-progress: true
 
 jobs:
