@@ -121,7 +121,7 @@ function bookmark(){
   if(button){
    clearTimeout(feedbackTimer);
    button.textContent='✓ Saved';
-   feedbackTimer=setTimeout(()=>{button.textContent='☆ Save this spot'},1800);
+   feedbackTimer=setTimeout(()=>{button.textContent='☆ Save'},1800);
   }
  }
  else{
@@ -130,7 +130,7 @@ function bookmark(){
   if(button){
    clearTimeout(feedbackTimer);
    button.textContent='Could not save';
-   feedbackTimer=setTimeout(()=>{button.textContent='☆ Save this spot'},2200);
+   feedbackTimer=setTimeout(()=>{button.textContent='☆ Save'},2200);
   }
  }
 }
@@ -253,7 +253,7 @@ function build(){
  const heading=text('div',undefined,'od-bookmark-heading');
  heading.append(text('strong','MY SPACE'),text('small','Auto-saved on this device'));
  wrap.append(heading);
- const save=button('☆ Save this spot',bookmark,'od-bookmark-button od-bookmark-save');
+ const save=button('☆ Save',bookmark,'od-bookmark-button od-bookmark-save');
  const cont=button('↪ Continue',resume,'od-bookmark-button od-bookmark-continue');cont.id='od-continue';
  wrap.append(save,cont);
  const topButton=button('↑ Back to Top',()=>{
