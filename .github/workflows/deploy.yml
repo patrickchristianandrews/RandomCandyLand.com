@@ -147,8 +147,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Check live RandomCandyLand matches this commit
-        continue-on-error: true
+      - name: Check live homepage, casino and Other Drawer match this commit
         shell: bash
         run: |
           for attempt in {1..20}; do
@@ -162,17 +161,32 @@ jobs:
               drawer_css=$(curl --fail --silent --show-error --location --max-time 15 \
                 -H "Cache-Control: no-cache" \
                 "https://randomcandyland.com/after-dark/navigation-ribbon.css?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
+              casino=$(curl --fail --silent --show-error --location --max-time 15 \
+                -H "Cache-Control: no-cache" \
+                "https://randomcandyland.com/candy-casino/?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
+              casino_css=$(curl --fail --silent --show-error --location --max-time 15 \
+                -H "Cache-Control: no-cache" \
+                "https://randomcandyland.com/candy-casino/casino-clean.css?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
+              casino_js=$(curl --fail --silent --show-error --location --max-time 15 \
+                -H "Cache-Control: no-cache" \
+                "https://randomcandyland.com/candy-casino/casino.js?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
               if [[ "$drawer" == *'id="od-compact-tools-heading"'* &&
                     "$drawer" == *'od-ribbon-nav'* &&
                     "$drawer" == *'Ask Atlas'* &&
-                    "$drawer_css" == *'od-ribbon-menu'* ]]; then
-                echo "::notice::LIVE AFTER DARK HOMEPAGE AND STYLES VERIFIED: ${GITHUB_SHA}"
+                    "$drawer_css" == *'od-ribbon-menu'* &&
+                    "$casino" == *'casino-compact-header'* &&
+                    "$casino" == *'Casino refresh · Nov 2026'* &&
+                    "$casino" == *'id="poker-showdown"'* &&
+                    "$casino" == *'casino.js?v=casino-refresh-20261101'* &&
+                    "$casino_css" == *'November casino refresh'* &&
+                    "$casino_js" == *'renderPokerOutcome'* ]]; then
+                echo "::notice::LIVE HOMEPAGE, CASINO AND OTHER DRAWER VERIFIED: ${GITHUB_SHA}"
                 exit 0
               fi
-              echo "The main domain is current, but the After Dark homepage or styles are still stale."
+              echo "The main domain is current, but the casino or Other Drawer pages/assets are still stale."
             fi
             echo "Waiting for the new release to appear at the domain."
             sleep 6
           done
-          echo "::warning::Pages accepted deployment, but the live domain could not yet be verified."
+          echo "::warning::Pages accepted deployment, but live homepage, casino and Other Drawer could not all be verified."
           exit 1
