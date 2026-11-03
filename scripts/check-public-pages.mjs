@@ -108,6 +108,7 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
     console.error('Duplicate navigation-button row returned:',path);failures++;
   }
 }
+const homeInstallSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
 if(!homeInstallSource.includes("title:'Unwrapped'")||
    !homeInstallSource.includes("name:'Unwrapped'")||
@@ -264,7 +265,6 @@ for (const forbidden of ['pop stars battle for the crown','face pop-culture gues
 }
 // The full Candy Land install option must disappear inside the installed app,
 // while individual attraction install options remain available.
-const homeInstallSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 for (const token of ['isRunningInstalledCandyLand', 'installChoices', "INSTALL_CHOICES.filter(item => item.url !== '/')"]) {
   if (!homeInstallSource.includes(token)) {
     console.error('Missing conditional installed-app install menu:', token);
