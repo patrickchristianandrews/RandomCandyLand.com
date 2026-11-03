@@ -589,7 +589,7 @@ if(fs.existsSync('dist/osint-academy/game.js')){
      !js.includes('Trace an email claim') ||
      !js.includes('Capstone: Amber Point dossier') ||
      !js.includes('window.TraceAcademyDebug')){
-    console.error('TRACE Academy must include all 24 professional training cases and the interactive case engine.');failures++;
+    console.error('TRACE Academy must include all 25 professional training cases and the interactive case engine.');failures++;
   }
 }
 if (!homeBundle.includes('/candy-casino/')) {
