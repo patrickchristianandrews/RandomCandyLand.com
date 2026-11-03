@@ -193,11 +193,12 @@ function renderCase(){
  const next=$('next-decision');if(next)next.onclick=()=>{if(step<2){step++;renderCase();}else{if(!state.finished.includes(active)){state.finished.push(active);state.finished.sort((a,b)=>a-b);save();}updateStats();if(active<missions.length-1){active++;step=firstQuestion(active);renderList();renderCase();}else{renderList();$('mission-stage').innerHTML='<div class="mission-content"><div class="case-takeaway"><strong>🏅 All 25 training cases cleared</strong><p>You completed the simulation. Use the Case Portfolio to write and export a defensible capstone report. This game is not a professional accreditation; real-world proficiency requires supervised work and continuing education.</p><div class="mission-actions"><button type="button" class="cta" data-switch="report">Open case portfolio →</button></div></div></div>';$('mission-stage').querySelector('[data-switch]').onclick=()=>switchTab('report');}}};
 }
 function switchTab(tab){
- if(!['missions','setup','tools','report'].includes(tab))return;
+ if(!['missions','scope','setup','tools','report'].includes(tab))return;
  currentTab=tab;
  for(const b of document.querySelectorAll('[data-switch]'))if(b.getAttribute('role')==='tab')b.setAttribute('aria-selected',String(b.dataset.switch===tab));
- for(const id of ['missions','setup','tools','report'])$('view-'+id).hidden=id!==tab;
+ for(const id of ['missions','scope','setup','tools','report'])$('view-'+id).hidden=id!==tab;
  if(tab==='missions'){renderList();renderCase();}
+ if(tab==='scope')refreshScope();
  document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
 }
 document.querySelectorAll('[data-switch]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.switch)));
@@ -277,6 +278,52 @@ const download=(name,content)=>{const file=new Blob([content],{type:'text/markdo
 $('export-brief').onclick=()=>{const fields=['Investigation mandate','Source register','Evidence and verification','Alternative explanations','Findings and confidence','Ethics and privacy review'];download('trace-osint-training-brief.md','# TRACE | Training Investigation Brief\n\n**Date:** '+new Date().toISOString().slice(0,10)+'\n\n**Training-only:** Do not substitute this for a verified professional report.\n\n'+notes.map((n,i)=>'## '+fields[i]+'\n\n'+(state.notes[n]||'Not completed')+'\n').join('\n'));$('report-status').textContent='Case brief exported.'};
 $('export-transcript').onclick=()=>{const completed=state.finished.map(i=>'- '+String(i+1).padStart(2,'0')+' '+missions[i].title).join('\n');const answers=Object.values(state.answers),correct=answers.filter(a=>a.correct).length;download('trace-osint-training-transcript.md','# TRACE | Training Transcript\n\n**Date:** '+new Date().toISOString().slice(0,10)+'\n\n**Modules cleared:** '+state.finished.length+'/24\n\n**First-attempt decisions:** '+correct+'/'+answers.length+'\n\n**This is an educational game transcript, not a professional credential or certification.**\n\n'+completed);$('report-status').textContent='Training transcript exported.'};
 $('reset-progress').onclick=()=>{if(!confirm('Reset mission scores and workstation checklist? Your case notebook will be preserved.'))return;state.answers={};state.finished=[];state.setup=[];save();active=0;step=0;updateStats();renderList();renderCase();$('setup-grid').querySelectorAll('input').forEach(x=>x.checked=false);$('report-status').textContent='Training progress was reset; your portfolio remains saved.'};
+
+/* SCOPE is TRACE's independent, case-aware field guide. It does not search
+   the web, obtain identities, or reveal quiz answers. */
+const scopeSpecialties={
+ 'FOUNDATIONS':['Document the exact mandate and authorized boundaries.','A written case charter, source log and the official primary source.','Ask whether each recorded fact directly answers the defined question.','Minimize unrelated personal data and do not use access credentials you were not authorized to use.'],
+ 'OPSEC':['Separate research and personal browsing, then create a reproducible case folder.','A dedicated browser profile, current security updates, MFA and backups.','Check that a second analyst could reconstruct the source trail.','Do not open untrusted attachments without proper safeguards.'],
+ 'DISCOVERY':['Break the public claim into specific, testable subclaims.','Search operators, official websites and dated public records.','Trace citations back to their originating documents.','Avoid intrusive searches outside the mandate.'],
+ 'ARCHIVES':['Build a dated comparison between snapshots and live pages.','Wayback Machine and web capture tools.','Confirm dates, differences and missing captures before inferring significance.','Do not assume a change proves a hidden motive.'],
+ 'EVALUATION':['Compare source provenance, independence and possible limitations.','Source registers, original documents and verification matrices.','Find independent corroboration and record counterevidence.','Never suppress contrary facts.'],
+ 'SOCIAL VERIFICATION':['Identify the original account, first publication and date.','Official agency channels and searchable public posts.','Compare independent announcements and actual event dates.','Do not equate reposts, popularity or a profile photo with authenticity.'],
+ 'IMAGE VERIFICATION':['Identify the earliest image appearances and original context.','Google Lens and public image archives.','Check visual details against dated independent evidence.','Do not identify private people from unconsented images.'],
+ 'FACE-IMAGE METHODS':['Learn the false-positive risk and authorization requirements before considering a comparison.','NIST face recognition evaluation materials and consented training examples.','Require corroboration beyond appearance; measure uncertainty and bias.','Do not perform nonconsensual stranger identification or publish sensitive biometrics.'],
+ 'VIDEO VERIFICATION':['Locate full-length source footage and original captions.','Official video archives, timestamps and related public documents.','Compare dialogue against the full recording and verified transcript.','Do not assume editing alone proves deception.'],
+ 'GEOLOCATION':['List independent landmarks to test candidate areas.','OpenStreetMap, available public imagery and QGIS.','Seek multiple matching features without unexplained contradictions.','Avoid pinpointing private homes or protected personal locations.'],
+ 'CHRONOLOCATION':['Establish the geographic context before estimating a time interval.','Dated public images, sun position and archival records.','Compare timing clues and express a justified date range.','Avoid presenting exact times that cannot be supported.'],
+ 'CONTACT DATA':['Limit inquiries to authorized public organizational contact details.','Numbering-plan metadata and official business listings.','Recheck official sources; formatting never establishes current owner.','Do not trace private individuals or expose recycled-number associations.'],
+ 'EMAIL FORENSICS':['Analyze a message you are entitled to inspect and identify the domain claim.','Full headers, SPF, DKIM, DMARC and public DNS resources.','Check authentication and compare official organizational channels.','A matching display name or domain alone does not establish sender identity.'],
+ 'DOMAIN INTELLIGENCE':['Separate domain ownership claims from hosting infrastructure clues.','ICANN RDAP, public DNS and certificate information.','Compare records across dates and note redactions.','Shared IP addresses do not prove common ownership.'],
+ 'PUBLIC RECORDS':['Document which decision stage the public record establishes.','Government meeting minutes, agency notices and public datasets.','Compare official records, amendments and effective dates.','Do not bypass restrictions to withheld records.'],
+ 'COMPANY RECORDS':['Resolve legal entity names and identifiers before drawing connections.','SEC EDGAR and appropriate public business registries.','Match filing dates, entity identifiers and relationship documentation.','Avoid treating similar names or shared addresses as proof of collusion.'],
+ 'CONTRACTS':['Separate original procurement criteria, amendments and final award.','Public procurement portals, addenda and award documents.','Reconcile scope changes and quoted amounts.','A surprising award or common name is not proof of corruption.'],
+ 'FINANCIAL ANALYSIS':['Ensure compared figures refer to the same periods and definitions.','Primary financial filings, notes and spreadsheet calculations.','Recalculate the claim and check accounting treatment.','An anomaly alone is not fraud evidence.'],
+ 'LINK ANALYSIS':['Assign source-backed relationship types to each graph edge.','Corporate records, source logs and public graph tools.','Audit every relationship independently; label hypotheses separately.','Do not imply intent or guilt through visual proximity alone.'],
+ 'METADATA':['Keep the original file, document its provenance, then inspect a copy.','ExifTool and SHA-256 checksums.','Corroborate embedded dates with external originals.','Editable metadata is not definitive proof of authorship or intent.'],
+ 'CYBER CONTEXT':['Define authorized systems before any technical observations.','Public domain records and passive security documentation.','Confirm which asset is in scope and note false positives.','Never scan, exploit or collect exposed personal data without authorization.'],
+ 'EVIDENCE HANDLING':['Create a source register that another analyst can audit.','ArchiveWeb.page, file hashes and secure case folders.','Preserve versions, capture dates and citations.','Apply minimization, retention and access controls.'],
+ 'ANALYSIS':['Write at least two plausible competing explanations.','Hypothesis matrices and a structured source log.','Seek evidence that could disprove the preferred conclusion.','Do not mistake confidence for independent evidence.'],
+ 'REPORTING':['Present findings, uncertainty and source citations together.','Report templates, dated source logs and quality review.','Verify each sentence has the support it claims.','Correct errors transparently and redact unrelated private information.'],
+ 'FINAL ASSESSMENT':['Organize the fictional case as a claim-by-claim evidence matrix.','The complete source log, archived copies and mapping tools.','Distinguish verified facts, reasonable inferences and unresolved claims.','Never publish accusations or personal data beyond the evidence and mandate.']
+};
+function refreshScope(){
+ const mission=missions[active],head=$('scope-case-label');
+ if(head)head.textContent='CASE '+String(active+1).padStart(2,'0')+' · '+mission.title.toUpperCase();
+ const box=$('scope-answer');
+ if(box){box.replaceChildren();const h=document.createElement('strong');h.textContent='Select a research question above.';box.append(h);}
+}
+document.querySelectorAll('[data-scope-prompt]').forEach(b=>b.addEventListener('click',()=>{
+ const m=missions[active],p=scopeSpecialties[m.field]||scopeSpecialties.FOUNDATIONS;
+ const idx={plan:0,tools:1,verify:2,ethics:3}[b.dataset.scopePrompt];
+ if(idx===undefined)return;
+ const answer=$('scope-answer'),strong=document.createElement('strong'),paragraph=document.createElement('p');
+ strong.textContent=['Plan the inquiry','Tools that fit','Verify your finding','Safety and ethics'][idx];
+ paragraph.textContent=p[idx];
+ answer.replaceChildren(strong,paragraph);
+ document.querySelectorAll('[data-scope-prompt]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+}));
 active=unlocked();step=firstQuestion(active);if(step===3)step=0;updateStats();renderList();renderCase();
 window.TraceAcademyDebug=Object.freeze({missionCount:missions.length,toolCount:toolbox.length,getProgress:()=>({completed:state.finished.length,questionsAnswered:Object.keys(state.answers).length,active,step,tab:currentTab}),version:'workstation-command-20261103'});
 document.body.dataset.traceReady='true';
