@@ -531,7 +531,7 @@ try{
   const traceStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===1 && !!document.querySelector('.question-choices button:nth-child(1)')");
   if(!traceStep)throw Error('TRACE next-decision control did not advance the case');
   await trace.evaluate("document.querySelector('#tab-scope').click();document.querySelector('[data-scope-prompt=plan]').click()");
-  const scopeGuide=await trace.evaluate("!document.querySelector('#view-scope').hidden && document.querySelector('#scope-case-label').textContent.includes('Define the mandate') && document.querySelector('#scope-answer').textContent.includes('mandate')");
+  const scopeGuide=await trace.evaluate("!document.querySelector('#view-scope').hidden && document.querySelector('#scope-case-label').textContent.includes('DEFINE THE MANDATE') && document.querySelector('#scope-answer').textContent.includes('mandate')");
   if(!scopeGuide)throw Error('SCOPE research coach must open and explain current mission with its own identity');
   await trace.evaluate("document.querySelector('#tab-tools').click()");
   const traceTools=await trace.evaluate("!document.querySelector('#view-tools').hidden && !!document.querySelector('#atlas-search') && document.querySelectorAll('.tool-card').length===4 && document.querySelectorAll('[data-atlas]').length===6");
