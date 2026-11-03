@@ -32,6 +32,7 @@ function isRunningInstalledCandyLand(): boolean {
 // These routes each have a separate web-app manifest and start URL.
 const INSTALL_CHOICES = [
   {icon:'/icon.svg',name:'Full Candy Land',url:'/'},
+  {icon:'/tool-icons/unwrapped.svg',name:'Unwrapped',url:'/after-dark/'},
   {icon:'/tool-icons/trumpagotchi-2.svg',name:'Trumpagotchi OG',url:'/trump/'},
   {icon:'/trumpagotchi-fm1/pixel-icon.svg',name:'FM-1 Trumpagotchi',url:'/trumpagotchi-fm1/'},
   {icon:'/tool-icons/goo-rush.svg',name:'Goo Rush',url:'/goo-rush/'},
@@ -39,12 +40,12 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/simon.svg',name:'Candy Simon Says',url:'/candy-simon/'},
   {icon:'/tool-icons/candy-match.svg',name:'Candy Match',url:'/candy-match/'},
   {icon:'/tool-icons/candy-pulse.svg',name:'Candy Pulse',url:'/music-visualizer/'},
-  {icon:'/tool-icons/other-drawer.svg',name:'The Other Drawer',url:'/after-dark/'},
   {icon:'/tool-icons/osint-academy.svg',name:'TRACE OSINT Academy',url:'/osint-academy/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer','TRACE OSINT'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT'] as const;
 const TOOL_MENU_ICONS = [
+  '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
   '/trumpagotchi-fm1/pixel-icon.svg',
   '/tool-icons/goo-rush.svg',
@@ -52,19 +53,18 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/simon.svg',
   '/tool-icons/candy-match.svg',
   '/tool-icons/candy-pulse.svg',
-  '/tool-icons/other-drawer.svg',
   '/tool-icons/osint-academy.svg'
 ] as const;
 
 const PORTALS: Portal[] = [
-  {icon:TOOL_MENU_ICONS[0],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'pets',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
-  {icon:TOOL_MENU_ICONS[1],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'pets',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
-  {icon:TOOL_MENU_ICONS[2],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'arcade',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
-  {icon:TOOL_MENU_ICONS[3],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'competitive',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
-  {icon:TOOL_MENU_ICONS[4],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'arcade',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
-  {icon:TOOL_MENU_ICONS[5],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'arcade',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
-  {icon:TOOL_MENU_ICONS[6],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
-  {icon:TOOL_MENU_ICONS[7],title:'The Other Drawer',blurb:"What Desires Reveal About Us. Explore the details of attraction, the fantasies that linger, and what they might mean.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
+  {icon:TOOL_MENU_ICONS[0],title:'Unwrapped',blurb:"There's more to you. Let someone discover it. Explore your psychology, feelings, attraction, communication and relationships through quizzes, guides and partner-friendly reports.",kind:'discovery',label:'KNOW YOURSELF · SHARE MORE · 18+',palette:'purple',href:'/after-dark/'},
+  {icon:TOOL_MENU_ICONS[1],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'pets',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
+  {icon:TOOL_MENU_ICONS[2],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'pets',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {icon:TOOL_MENU_ICONS[3],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'arcade',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
+  {icon:TOOL_MENU_ICONS[4],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'competitive',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
+  {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'arcade',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
+  {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'arcade',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
+  {icon:TOOL_MENU_ICONS[7],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/'},
 ];
 
