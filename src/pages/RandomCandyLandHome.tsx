@@ -65,7 +65,7 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[5],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'arcade',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
   {icon:TOOL_MENU_ICONS[6],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {icon:TOOL_MENU_ICONS[7],title:'The Other Drawer',blurb:"What Desires Reveal About Us. Explore the details of attraction, the fantasies that linger, and what they might mean.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
-  {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 24 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/'},
+  {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/'},
 ];
 
 const COLLECTIONS = [
