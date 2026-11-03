@@ -522,11 +522,11 @@ try{
   const trace=await navigate(site+'/osint-academy/');
   const traceReady=await trace.evaluate("document.body.dataset.traceReady==='true' && window.TraceAcademyDebug?.missionCount===25 && window.TraceAcademyDebug?.toolCount>=15 && document.querySelectorAll('.mission-option').length===25 && document.querySelector('#mission-stage').textContent.includes('Define the mandate')");
   if(!traceReady)throw Error('TRACE OSINT Academy failed to load the 25-case interactive mission desk');
-  await trace.evaluate("document.querySelector('[data-choice=\\\"1\\\"]').click()");
+  await trace.evaluate("document.querySelector('.question-choices button:nth-child(2)').click()");
   const traceAnswered=await trace.evaluate("document.querySelector('.question-feedback')?.textContent.includes('Correct decision') && window.TraceAcademyDebug.getProgress().questionsAnswered===1");
   if(!traceAnswered)throw Error('TRACE OSINT mission choice must receive feedback and save grading');
   await trace.evaluate("document.querySelector('#next-decision').click()");
-  const traceStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===1 && document.querySelector('[data-choice=\\\"0\\\"]')");
+  const traceStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===1 && !!document.querySelector('.question-choices button:nth-child(1)')");
   if(!traceStep)throw Error('TRACE next-decision control did not advance the case');
   await trace.evaluate("document.querySelector('#tab-tools').click()");
   const traceTools=await trace.evaluate("!document.querySelector('#view-tools').hidden && document.querySelectorAll('.tool-card').length>=15 && document.querySelector('#tools-grid').textContent.includes('libphonenumber')");
@@ -622,7 +622,7 @@ try{
   await checkHomepage('All nine illustrated homepage game icons load',
     "Array.from(document.querySelectorAll('.candyland-hero-tools img')).length===9&&Array.from(document.querySelectorAll('.candyland-hero-tools img')).every(img=>img.complete&&img.naturalWidth>0)");
   await checkHomepage('Games are grouped and Moodropolis remains in the development lineup',
-    "document.querySelectorAll('.candyland-game-category').length===6 && !!document.querySelector('.candyland-future-games') && document.querySelector('.candyland-future-games').textContent.includes('Moodropolis') && document.querySelector('.candyland-game-category[aria-label=\\\"Learning & Investigation\\\"]')?.textContent.includes('TRACE')");
+    "document.querySelectorAll('.candyland-game-category').length===6 && !!document.querySelector('.candyland-future-games') && document.querySelector('.candyland-future-games').textContent.includes('Moodropolis') && [...document.querySelectorAll('.candyland-game-category')].some(x=>x.getAttribute('aria-label')==='Learning & Investigation'&&x.textContent.includes('TRACE'))");
   const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-news-article h3') && document.querySelector('#nonsense .nonsense-generate')?.textContent.includes('NEXT STORY') && !document.querySelector('#nonsense .nonsense-eyebrow')");
   if(!nonsenseReady)throw Error('Candy Land Gazette article or Next Story button did not mount');
   const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
