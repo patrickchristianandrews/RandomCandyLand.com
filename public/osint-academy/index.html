@@ -20,9 +20,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
 <link rel="manifest" href="/app-manifests/osint-academy.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/osint-academy/style.css?v=scope-guide-20261103">
+<link rel="stylesheet" href="/osint-academy/style.css?v=workstation-command-20261103">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/game.js?v=scope-guide-20261103" defer></script>
+<script src="/osint-academy/game.js?v=workstation-command-20261103" defer></script>
 </head>
 <body class="trace-app">
 <!-- Google Tag Manager (noscript) -->
@@ -96,14 +96,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </section>
 <section id="view-setup" class="trace-view" role="tabpanel" aria-labelledby="tab-setup" hidden>
-<div class="section-intro"><h2>Build an investigator's workstation</h2><p>Follow these steps to prepare a lawful, safe, documented OSINT workflow. Save your checklist on this device.</p></div>
-<div class="callout">Only research information you're authorized to use for a legitimate purpose. No password bypasses, leaked credentials, stalking, doxxing, or nonconsensual face identification.</div>
-<div id="setup-grid" class="setup-grid"></div>
+<div class="section-intro"><h2>The investigator's workstation</h2><p>A guided four-stage professional setup: define your mandate, protect your research environment, collect verifiable sources, and communicate defensible findings. Each step explains <strong>why</strong> it matters, <strong>how</strong> to do it, and <strong>what ready looks like</strong>.</p></div>
+<div class="workstation-progress"><div><span>WORKSTATION READINESS</span><strong id="setup-progress-label">0 of 12 steps ready</strong></div><div class="workstation-progress-rail"><div id="setup-progress-fill"></div></div><p id="setup-next-action">Start by defining the purpose and boundaries of your research.</p></div>
+<div class="command-panel" id="command-desk">
+ <div class="command-heading"><span class="terminal-prompt-symbol" aria-hidden="true">&gt;_</span><div><h3>Research Command Desk</h3><p>Run guided commands, check formats locally, browse the tool catalog and open approved web tools—no terminal install required.</p></div><span class="command-label">BROWSER MODE</span></div>
+ <div class="command-samples" aria-label="Try a command">
+   <button type="button" data-command="help">help</button>
+   <button type="button" data-command="tools">tools</button>
+   <button type="button" data-command="tools email">tools email</button>
+   <button type="button" data-command="phone +1 202-555-0146">phone +1 202-555-0146</button>
+   <button type="button" data-command="domain example.org">domain example.org</button>
+   <button type="button" data-command="case">case</button>
+ </div>
+ <form id="command-form" class="command-form" autocomplete="off">
+   <label for="command-input" class="sr-only">Enter a TRACE research command</label>
+   <span class="terminal-prefix" aria-hidden="true">trace&gt;</span>
+   <input id="command-input" type="text" maxlength="300" spellcheck="false" placeholder="Type help to see commands" aria-describedby="command-disclaimer">
+   <button type="submit">Run</button>
+ </form>
+ <div id="command-output" class="command-output" role="log" aria-live="polite" aria-relevant="additions text">TRACE Research Desk ready. Enter help or tap a sample command.</div>
+ <div class="command-links" id="command-links" aria-label="Tool links returned by your command"></div>
+ <p id="command-disclaimer" class="command-disclaimer">This is a guided browser command console, not a shell. Offline checks never reveal private identities or run third-party software. External sites open only when you choose their links; their own terms, accounts and data policies apply.</p>
+</div>
+<div class="callout">Work only within your lawful, documented research scope. Don't seek credentials, bypass access controls, identify strangers from face images, or publish irrelevant private data.</div>
+<div class="workstation-stages" id="setup-grid"></div>
 </section>
 <section id="view-tools" class="trace-view" role="tabpanel" aria-labelledby="tab-tools" hidden>
-<div class="section-intro"><h2>The tool atlas</h2><p>Explore actual research tools by purpose. Open provider websites in a new tab and learn to assess their reliability, coverage, terms, and limitations.</p></div>
-<div class="callout">Tool availability and licensing change. No external lookup is performed by TRACE: the investigations are self-contained simulations and your case data is fictional.</div>
-<div id="tools-grid" class="tools-grid"></div>
+<div class="section-intro"><h2>Tool Atlas</h2><p>Start with everyday essentials, filter by specialty, or search for the task you need. The directory only opens official resources when you choose a link.</p></div>
+<div class="atlas-toolbar"><label for="atlas-search">FIND A TOOL<input type="search" id="atlas-search" placeholder="Try images, phone, email, maps…" autocomplete="off"></label><span id="atlas-result-count" role="status" aria-live="polite"></span></div>
+<div id="atlas-categories" class="atlas-categories" role="group" aria-label="Filter tools by research category"></div>
+<div id="tools-grid" class="tools-grid atlas-compact-list"></div>
+<details class="atlas-safety-note"><summary>Privacy, licensing and training-data limitations</summary><p>Access, coverage and licensing vary. TRACE does not perform live searches; exercises use fictional data. For contact details, faces or organizational records, work within an appropriate mandate and avoid exposing unrelated personal information.</p></details>
 </section>
 <section id="view-report" class="trace-view" role="tabpanel" aria-labelledby="tab-report" hidden>
 <div class="section-intro"><h2>Capstone case portfolio</h2><p>Document evidence like a professional: define the question, show source provenance, consider alternatives, and state what the facts do—and don't—prove.</p></div>
