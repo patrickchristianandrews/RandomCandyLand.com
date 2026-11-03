@@ -598,6 +598,12 @@ if(homeInstallSource.includes('candyland-grouped-collections') ||
    !homeInstallSource.includes('<details className="candyland-install-apps"')){
   console.error('Homepage must use one icon grid with compact category filters and collapsible optional sections.'); failures++;
 }
+if(!homeInstallSource.includes('candyland-unwrapped-promo') ||
+   !homeInstallSource.includes('personal and partner reports') ||
+   (homeInstallSource.match(/<aside className="candyland-unwrapped-promo"/g)||[]).length!==1 ||
+   !homeInstallSource.includes('href="/after-dark/"')){
+  console.error('Homepage needs exactly one short Unwrapped feature with reports and a working link.');failures++;
+}
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
@@ -613,6 +619,11 @@ for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
   'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
   if(!fs.existsSync(asset)){console.error('OSINT Academy asset missing:',asset);failures++;}
 }
+const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
+for(const token of ['id="command-desk"','id="command-form"','id="command-input"','id="command-output"',
+  'id="setup-grid"','id="setup-progress-label"','id="atlas-search"','id="atlas-categories"']){
+  if(!traceHtml.includes(token)){console.error('Missing TRACE workstation/console control:',token);failures++;}
+}
 if(fs.existsSync('dist/osint-academy/game.js')){
   const js=fs.readFileSync('dist/osint-academy/game.js','utf8');
   try{new vm.Script(js,{filename:'TRACE OSINT Academy'});}
@@ -622,7 +633,12 @@ if(fs.existsSync('dist/osint-academy/game.js')){
      !js.includes('Public phone number analysis') ||
      !js.includes('Trace an email claim') ||
      !js.includes('Capstone: Amber Point dossier') ||
-     !js.includes('window.TraceAcademyDebug')){
+     !js.includes('window.TraceAcademyDebug') ||
+     !js.includes("function renderAtlas()") ||
+     !js.includes("async function runCommand(raw)") ||
+     !js.includes("const setupGroups=[") ||
+     !js.includes("const toolAliases=") ||
+     !js.includes("updateSetupProgress()")){
     console.error('TRACE Academy must include all 25 professional training cases and the interactive case engine.');failures++;
   }
 }
