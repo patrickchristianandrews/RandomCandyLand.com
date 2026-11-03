@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ArrowRight, Copy, Newspaper } from 'lucide-react';
-import { CandyGoo } from './CandyGoo';
 
 /** Full-cycle, persistent shuffle: each generated combination appears once
  * before the billions-long sequence can repeat (unless browser data is cleared).
@@ -239,7 +238,6 @@ export function RandomNonsenseGenerator() {
   };
   return (
     <section id="nonsense" className="nonsense-lab nonsense-newsroom" aria-labelledby="nonsense-heading">
-      <CandyGoo className="nonsense-lab-drips" color="blueberry" />
       <header className="nonsense-news-masthead">
         <span className="nonsense-masthead-icon" aria-hidden="true"><Newspaper size={23}/></span>
         <div className="nonsense-news-title-wrap">
