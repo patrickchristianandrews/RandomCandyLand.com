@@ -11,7 +11,7 @@ const required = [
   ['dist/candy-casino/index.html', ['Choose your game','id="casino-howto"','data-duel="poker"','data-duel="card"','data-duel="dice"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
-  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'candyland-game-site-header', 'candyland-game-site-back', 'HOW TO PLAY', 'id="remix-studio"']],
+  ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'HOW TO PLAY', 'id="remix-studio"']],
 ];
 
 let failures = 0;
@@ -478,12 +478,15 @@ for (const path of ['dist/index.html','dist/404.html','dist/trump/index.html']) 
 // Trumpagotchi pet, not another redirect or hardware/firmware information page.
 const tinyPetHtml=fs.readFileSync('dist/trumpagotchi-fm1/index.html','utf8');
 const tinyGooCss=fs.readFileSync('dist/trumpagotchi-fm1/game.css','utf8');
-if (!tinyPetHtml.includes('class="candyland-game-site-back"') ||
+if (tinyPetHtml.includes('<header class="candyland-game-site-header"') ||
     tinyPetHtml.includes('candyland-game-site-goo') ||
     tinyPetHtml.includes('candyland-game-site-brand') ||
     tinyPetHtml.includes('rcl-site-home-icon') ||
-    !tinyGooCss.includes('Compact game-first header. No duplicate logos')) {
-  console.error('FM-1 Trumpagotchi must use the clean one-line header without duplicate logos or oversized drips.');
+    tinyPetHtml.includes('class="pocket-topbar"') ||
+    !tinyPetHtml.includes('game.css?v=no-candy-header-20261103') ||
+    !tinyPetHtml.includes('<div class="shell">\n<main>\n<details class="instructions how-to-play-top"') ||
+    !tinyGooCss.includes('FM-1 Trumpagotchi — no page-level branding or candy icing above the game.')) {
+  console.error('FM-1 Trumpagotchi must start with How to Play and show no giant header, duplicate logos, or goo strip.');
   failures++;
 }
 
