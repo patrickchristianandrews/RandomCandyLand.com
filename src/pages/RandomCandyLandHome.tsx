@@ -7,7 +7,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'games' | 'music' | 'discovery';
+type Category = 'all' | 'pets' | 'arcade' | 'competitive' | 'music' | 'learning' | 'discovery';
 
 type Portal = {
   icon: string;
@@ -40,9 +40,10 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/candy-match.svg',name:'Candy Match',url:'/candy-match/'},
   {icon:'/tool-icons/candy-pulse.svg',name:'Candy Pulse',url:'/music-visualizer/'},
   {icon:'/tool-icons/other-drawer.svg',name:'The Other Drawer',url:'/after-dark/'},
+  {icon:'/tool-icons/osint-academy.svg',name:'TRACE OSINT Academy',url:'/osint-academy/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer'] as const;
+const TOOL_MENU_NAMES = ['Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','The Other Drawer','TRACE OSINT'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/trumpagotchi-2.svg',
   '/trumpagotchi-fm1/pixel-icon.svg',
@@ -51,19 +52,30 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/simon.svg',
   '/tool-icons/candy-match.svg',
   '/tool-icons/candy-pulse.svg',
-  '/tool-icons/other-drawer.svg'
+  '/tool-icons/other-drawer.svg',
+  '/tool-icons/osint-academy.svg'
 ] as const;
 
 const PORTALS: Portal[] = [
-  {icon:TOOL_MENU_ICONS[0],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'games',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
-  {icon:TOOL_MENU_ICONS[1],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'games',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
-  {icon:TOOL_MENU_ICONS[2],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'games',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
-  {icon:TOOL_MENU_ICONS[3],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'games',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
-  {icon:TOOL_MENU_ICONS[4],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'games',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
-  {icon:TOOL_MENU_ICONS[5],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'games',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
+  {icon:TOOL_MENU_ICONS[0],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'pets',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
+  {icon:TOOL_MENU_ICONS[1],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'pets',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {icon:TOOL_MENU_ICONS[2],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'arcade',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
+  {icon:TOOL_MENU_ICONS[3],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'competitive',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
+  {icon:TOOL_MENU_ICONS[4],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'arcade',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
+  {icon:TOOL_MENU_ICONS[5],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'arcade',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
   {icon:TOOL_MENU_ICONS[6],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {icon:TOOL_MENU_ICONS[7],title:'The Other Drawer',blurb:"What Desires Reveal About Us. Explore the details of attraction, the fantasies that linger, and what they might mean.",kind:'discovery',label:'EXPLORE · 18+',palette:'purple',href:'/after-dark/'},
+  {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 24 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/'},
 ];
+
+const COLLECTIONS = [
+  {id:'pets',title:'Virtual Pets',description:'Care, play and watch your little characters evolve.',symbol:'🐣'},
+  {id:'competitive',title:'Competitive Games',description:'Play against a computer or challenge another person.',symbol:'🏆'},
+  {id:'arcade',title:'Arcade & Puzzles',description:'Quick games, memory challenges and satisfying wins.',symbol:'🕹️'},
+  {id:'learning',title:'Learning & Investigation',description:'Solve complex problems and build useful real-world skills.',symbol:'🔎'},
+  {id:'music',title:'Music & Visuals',description:'Turn sound into an immersive visual experience.',symbol:'🎵'},
+  {id:'discovery',title:'Explore & Discover',description:'Dive into curiosity, psychology and interactive tools.',symbol:'🌙'},
+] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
   const [category, setCategory] = useState<Category>('all');
@@ -158,28 +170,52 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <p>Every doorway leads somewhere different. Every door opens a fresh adventure. Pick what sounds fun and jump in.</p>
         </div>
         <div className="candyland-filters" role="group" aria-label="Filter attractions">
-          {([['all','✨ Everything'],['games','🎮 Games'],['music','🌈 Music'],['discovery','🌙 Explore']] as const).map(([key,label]) => (
+          {([['all','✨ Everything'],['pets','🐣 Virtual Pets'],['competitive','🏆 Competitive'],['arcade','🕹️ Arcade'],['learning','🔎 Learn'],['music','🎵 Music'],['discovery','🌙 Explore']] as const).map(([key,label]) => (
             <button key={key} type="button" className={category === key ? 'is-selected' : ''} aria-pressed={category === key} onClick={() => setCategory(key)}>{label}</button>
           ))}
         </div>
-        <div className="candyland-portals">
-          {shown.map(portal => {
-            const inner = <>
-              <div className="candyland-portal-icon">
-                <img src={portal.icon} width={96} height={96} alt={portal.title + ' game artwork'} loading="lazy" className={portal.icon.includes('pixel-icon') ? 'candyland-icon-pixel' : undefined} />
+        <div className="candyland-grouped-collections">
+          {COLLECTIONS.filter(group => category === 'all' || group.id === category).map(group => (
+            <section className="candyland-game-category" key={group.id} aria-label={group.title}>
+              <div className="candyland-game-category-heading">
+                <span aria-hidden="true">{group.symbol}</span>
+                <div><h3>{group.title}</h3><p>{group.description}</p></div>
+                <span className="candyland-game-category-count">{shown.filter(portal => portal.kind === group.id).length} {shown.filter(portal => portal.kind === group.id).length === 1 ? 'tool' : 'tools'}</span>
               </div>
-              <span className="candyland-portal-tag">{portal.label}</span>
-              <h3>{portal.title}</h3>
-              <p>{portal.blurb}</p>
-              <span className="candyland-portal-go">Let's go <ArrowRight size={19}/></span>
-              <CandyGoo className="candyland-portal-drips" color={portal.palette === 'peach' ? 'peach' : portal.palette === 'blue' ? 'blueberry' : portal.palette === 'purple' ? 'grape' : 'bubblegum'} />
-            </>;
-            return portal.oldPet ? (
-              <button key={portal.title} type="button" onClick={onNavigateToTrump} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</button>
-            ) : (
-              <a key={portal.title} href={portal.href} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</a>
-            );
-          })}
+            <div className="candyland-portals">
+              {shown.filter(portal => portal.kind === group.id).map(portal => {
+                const inner = <>
+                  <div className="candyland-portal-icon">
+                    <img src={portal.icon} width={96} height={96} alt={portal.title + ' game artwork'} loading="lazy" className={portal.icon.includes('pixel-icon') ? 'candyland-icon-pixel' : undefined} />
+                  </div>
+                  <span className="candyland-portal-tag">{portal.label}</span>
+                  <h3>{portal.title}</h3>
+                  <p>{portal.blurb}</p>
+                  <span className="candyland-portal-go">Let's go <ArrowRight size={19}/></span>
+                  <CandyGoo className="candyland-portal-drips" color={portal.palette === 'peach' ? 'peach' : portal.palette === 'blue' ? 'blueberry' : portal.palette === 'purple' ? 'grape' : 'bubblegum'} />
+                </>;
+                return portal.oldPet ? (
+                  <button key={portal.title} type="button" onClick={onNavigateToTrump} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</button>
+                ) : (
+                  <a key={portal.title} href={portal.href} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</a>
+                );
+              })}
+            </div>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section className="candyland-future-games" aria-label="Games in development">
+        <div className="candyland-section-heading">
+          <span>✨ ON THE DRAWING BOARD</span>
+          <h2>New worlds <em>in development.</em></h2>
+          <p>These are upcoming concepts, not playable games yet.</p>
+        </div>
+        <div className="candyland-future-grid">
+          <article><strong>🏙️ Moodropolis</strong><p>An emotionally alive city builder where people, neighborhoods and culture evolve with your choices.</p></article>
+          <article><strong>🏛️ The Corridors: Rise to Power</strong><p>Explore how policy, negotiation, influence, ethics, and government decisions interact.</p></article>
+          <article><strong>⚖️ The Docket</strong><p>Investigate legal cases, evaluate evidence, and navigate courtroom decisions and consequences.</p></article>
         </div>
       </section>
 
