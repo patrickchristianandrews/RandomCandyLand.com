@@ -127,19 +127,36 @@ const toolbox=[
 ['GRAPH RESEARCH','Maltego','Learn documented entity and relationship graphs; licensing varies.','https://www.maltego.com/']
 ];
 const setup=[
-['Ethics and mandate','Document legitimate purpose, jurisdiction, authorized assets, prohibited sources and privacy rules.'],
-['Research identity separation','Use a dedicated browser profile; do not blend personal accounts with research or impersonate others.'],
-['Baseline security','Apply OS updates, use password manager/MFA, and secure encrypted backups.'],
-['Repeatable case folders','Create case IDs and folders for source logs, raw copies, working notes and final reports.'],
-['Collection protocol','Record source, publishing organization, URL, access time, capture time and context.'],
-['File integrity','Keep originals unchanged and use checksums when authenticity or preservation matters.'],
-['Verification workflow','Plan how to challenge every important claim with independent evidence and counterexamples.'],
-['Location and time tools','Learn map layers, reverse-image search, historical imagery and chronolocation limits.'],
-['Phone and email boundaries','Analyze consented/public business contact data; never treat formatting, headers or a lookup as owner proof.'],
-['Face-image safeguards','Learn matching errors, consent and legal authority; do not build unauthorized face-identification lists.'],
-['Reporting template','Define finding, supporting sources, confidence, alternative explanations, limitations and privacy review.'],
-['Portfolio and independent review','Complete an investigation brief and have another analyst check reproducibility before claiming proficiency.']
+ ['Ethics and mandate','Write the case question, legitimate purpose, authorized sources, geographic reach and data boundaries.','Without a lawful scope, research can become intrusive and findings become unusable.','Write one question, define what is in/out of scope, and record permission for any nonpublic material.','A written mandate someone else could follow without guessing.'],
+ ['Research identity separation','Use a dedicated browser profile and keep your personal accounts out of cases.','An accidental personal sign-in can expose you, contaminate results or mix unrelated information.','Create a separate profile, turn on MFA for research accounts, and document site access limitations.','An isolated, labeled profile and an access log.'],
+ ['Baseline security','Keep operating systems, browsers and extensions updated; secure accounts and devices.','Malicious links, downloads and account takeovers can compromise both you and case material.','Use automatic updates, a password manager, MFA, device encryption, and backups.','A protected device with a tested recovery plan.'],
+ ['Repeatable case folders','Organize originals, screenshots, source logs, working notes and output by case ID.','Unsorted evidence is easy to misattribute or lose.','Create folders: 01_scope, 02_sources, 03_captures, 04_analysis, 05_report.','One sample case folder containing a dated source register.'],
+ ['Collection protocol','Preserve links, publication and access dates, author/publisher, claims and context.','A screenshot or bare URL without context can mislead the next reviewer.','For each source log an identifier, origin, when accessed, what it supports, and known limitations.','Three sample entries that another person can revisit.'],
+ ['File integrity','Preserve originals separately from edited working copies and document relevant hashes.','Later modifications can weaken the reliability of an investigative record.','Save an original and a copy; record origin and SHA-256 for significant files.','A source with an unchanged original and a reproducible hash.'],
+ ['Verification workflow','Challenge leads using source independence, contradictory evidence and provenance.','Repeated claims are not necessarily independent corroboration.','Make a claim-evidence matrix with primary sources, secondary reports, and disconfirming facts.','A claim supported or limited by clearly documented sources.'],
+ ['Location and time tools','Choose public map layers, historical imagery and reverse-image research appropriately.','Locations and dates are frequently mislabeled or inferred too confidently.','Compare several landmarks and time cues, note contradictions, and report ranges when precision is limited.','A geolocation reasoning trail that distinguishes evidence from guesses.'],
+ ['Phone and email boundaries','Analyze only authorized correspondence and publicly listed organizational contact details.','Number ownership is uncertain, message display names can be forged, and personal data is sensitive.','Use offline format checks first; use public company listings and received message headers for corroboration.','A report that explains what metadata can and cannot establish.'],
+ ['Face-image safeguards','Learn the error rates, consent requirements and limitations of facial comparison.','Visual resemblance and algorithm scores can produce mistaken identities and privacy harm.','Use consented training portraits only; validate any permitted findings with independent nonbiometric records.','Documented uncertainty without unauthorized identity claims.'],
+ ['Reporting template','Separate fact, inference, confidence, alternatives and privacy review in each finding.','A useful report must survive critical reading by someone who did not do the research.','Write an executive summary, sourced findings, limitations, and a reproducible method section.','A draft brief with evidence immediately adjacent to claims.'],
+ ['Portfolio and independent review','Practice on simulated cases and receive feedback from other analysts.','Passing a game alone does not demonstrate professional competence.','Export a case brief, ask someone to reproduce one finding, and log any corrections.','A revised portfolio piece with transparent methodology.']
 ];
+const setupGroups=[
+ {title:'01 · Scope & protection',why:'Know exactly why you are investigating and protect the research environment.',steps:[0,1,2]},
+ {title:'02 · Collect & preserve',why:'Create a source trail another analyst can inspect.',steps:[3,4,5]},
+ {title:'03 · Verify responsibly',why:'Understand the power and limits of imagery, public contact data and independent sources.',steps:[6,7,8,9]},
+ {title:'04 · Explain & defend',why:'Transform research into a clear, accountable professional report.',steps:[10,11]}
+];
+const atlasGroups=[
+ {id:'starter',label:'Start here',tags:['LEARNING','PRACTICE','HISTORICAL WEB','IMAGE MATCHING']},
+ {id:'images',label:'Images & maps',tags:['IMAGE MATCHING','MAPS','GIS','FACE-IMAGE SCIENCE','METADATA']},
+ {id:'contacts',label:'Contacts & domains',tags:['PHONE FORMATS','EMAIL AUTHENTICATION','DOMAIN RESEARCH']},
+ {id:'records',label:'Records & networks',tags:['PUBLIC FILINGS','PUBLIC DATA','GRAPH RESEARCH']},
+ {id:'evidence',label:'Evidence & security',tags:['WEB CAPTURE','METADATA','CYBER DEFENSE']},
+ {id:'all',label:'All tools',tags:[]}
+];
+const toolAliases=['bellingcat','challenge','wayback','lens','osm','qgis','edgar','rdap','phone-meta','headers','exiftool','webcapture','data','observatory','nist-face','maltego'];
+let atlasFilter='starter';
+let atlasSearch='';
 const esc=v=>String(v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const KEY='trace-osint-professional-v1';
 let state={answers:{},finished:[],setup:[],notes:{}};
@@ -184,9 +201,76 @@ function switchTab(tab){
  document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
 }
 document.querySelectorAll('[data-switch]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.switch)));
-$('setup-grid').innerHTML=setup.map((x,i)=>'<div class="setup-card"><strong>'+String(i+1).padStart(2,'0')+' · '+esc(x[0])+'</strong><p>'+esc(x[1])+'</p><label><input type="checkbox" data-setup="'+i+'" '+(state.setup.includes(i)?'checked':'')+'><span>Mark this step prepared</span></label></div>').join('');
-$('setup-grid').querySelectorAll('[data-setup]').forEach(b=>b.onchange=()=>{const i=Number(b.dataset.setup);state.setup=state.setup.filter(x=>x!==i);if(b.checked)state.setup.push(i);save()});
-$('tools-grid').innerHTML=toolbox.map(x=>'<article class="tool-card"><small>'+esc(x[0])+'</small><h3>'+esc(x[1])+'</h3><p>'+esc(x[2])+'</p><a href="'+esc(x[3])+'" target="_blank" rel="noopener noreferrer">Official resource ↗</a></article>').join('');
+function updateSetupProgress(){
+ const done=state.setup.filter(i=>Number.isInteger(i)&&i>=0&&i<setup.length).length;
+ $('setup-progress-label').textContent=done+' of '+setup.length+' steps ready';
+ $('setup-progress-fill').style.width=(done/setup.length*100)+'%';
+ const next=setup.find((step,i)=>!state.setup.includes(i));
+ $('setup-next-action').textContent=next?'Next: '+next[0]+' — '+next[1]:'All steps marked ready. Review and maintain your workstation as your case needs change.';
+}
+$('setup-grid').innerHTML=setupGroups.map(group=>'<section class="workstation-stage"><header><strong>'+esc(group.title)+'</strong><span>'+esc(group.why)+'</span></header><div class="workstation-step-list">'+group.steps.map(i=>{const t=setup[i],ready=state.setup.includes(i);return '<details class="setup-card" '+(i===0?'open':'')+'><summary><span class="setup-step-num">'+String(i+1).padStart(2,'0')+'</span><span>'+esc(t[0])+'</span><span class="setup-step-ready">'+(ready?'✓ Ready':'Learn & prepare')+'</span></summary><div class="setup-card-content"><p>'+esc(t[1])+'</p><dl><dt>WHY IT MATTERS</dt><dd>'+esc(t[2])+'</dd><dt>HOW TO SET IT UP</dt><dd>'+esc(t[3])+'</dd><dt>WHAT READY LOOKS LIKE</dt><dd>'+esc(t[4])+'</dd></dl><label><input type="checkbox" data-setup="'+i+'" '+(ready?'checked':'')+'><span>I can demonstrate this step</span></label></div></details>';}).join('')+'</div></section>').join('');
+$('setup-grid').querySelectorAll('[data-setup]').forEach(b=>b.onchange=()=>{const i=Number(b.dataset.setup);state.setup=state.setup.filter(x=>x!==i);if(b.checked)state.setup.push(i);save();const mark=b.closest('.setup-card').querySelector('.setup-step-ready');if(mark)mark.textContent=b.checked?'✓ Ready':'Learn & prepare';updateSetupProgress()});
+updateSetupProgress();
+function renderAtlas(){
+ const query=atlasSearch.trim().toLowerCase();
+ const group=atlasGroups.find(g=>g.id===atlasFilter)||atlasGroups[0];
+ const found=toolbox.map((t,i)=>({t,i})).filter(({t})=>(group.id==='all'||group.tags.includes(t[0]))&&(!query||t.join(' ').toLowerCase().includes(query)));
+ $('atlas-categories').innerHTML=atlasGroups.map(g=>'<button type="button" data-atlas="'+g.id+'" aria-pressed="'+String(atlasFilter===g.id)+'">'+esc(g.label)+'</button>').join('');
+ $('atlas-categories').querySelectorAll('[data-atlas]').forEach(b=>b.onclick=()=>{atlasFilter=b.dataset.atlas;renderAtlas()});
+ $('atlas-result-count').textContent=found.length+' of '+toolbox.length+' tools';
+ $('tools-grid').innerHTML=found.length?found.map(({t,i})=>'<article class="tool-card" data-tool-alias="'+esc(toolAliases[i])+'"><div><small>'+esc(t[0])+'</small><h3>'+esc(t[1])+'</h3><p>'+esc(t[2])+'</p></div><a href="'+esc(t[3])+'" target="_blank" rel="noopener noreferrer" aria-label="Open official '+esc(t[1])+' resource">Official site ↗</a></article>').join(''):'<p class="atlas-empty">No tools match. Try another category or search term.</p>';
+}
+$('atlas-search').addEventListener('input',e=>{atlasSearch=e.target.value; if(atlasSearch.trim())atlasFilter='all';renderAtlas()});
+renderAtlas();
+const consoleOut=$('command-output');
+const consoleLinks=$('command-links');
+const validDomain=value=>/^(?=.{4,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$/i.test(value);
+const toolMatches=term=>toolbox.map((t,i)=>({t,i})).filter(({t,i})=>(toolAliases[i]+' '+t.join(' ')).toLowerCase().includes(term.toLowerCase()));
+async function runCommand(raw){
+ const command=String(raw||'').trim().slice(0,300);
+ consoleLinks.replaceChildren();
+ if(!command){consoleOut.textContent='Enter help to see available commands.';return;}
+ const m=command.match(/^(\\S+)(?:\\s+([\\s\\S]*))?$/);
+ const action=m[1].toLowerCase(),arg=(m[2]||'').trim();
+ const result={text:'',links:[]};
+ if(action==='help'){
+   result.text='TRACE BROWSER COMMANDS\\nhelp — show these instructions\\ntools [topic] — browse official OSINT tools by specialty\\nopen <alias> — get a direct official resource link\\nphone <number> — local number-format check (not an ownership lookup)\\nemail <address> — local syntax check (not mailbox verification)\\ndomain <name> — local domain syntax check + RDAP resource\\nhash <text> — calculate local SHA-256 of supplied text\\nscope — what a research mandate needs\\ncase — show current fictional mission\\nsetup — workstation readiness\\nreport — open your case portfolio\\nclear — clear this output\\n\\nExamples: tools maps | open wayback | domain example.org';
+ }else if(action==='tools'){
+   const found=toolMatches(arg);
+   result.text=found.length?found.map(({t,i})=>toolAliases[i]+'  ·  '+t[1]+'  ('+t[0].toLowerCase()+')').join('\\n'):'No matching tools. Use tools without a filter to list every available resource.';
+   result.links=found.slice(0,8).map(({t,i})=>({label:toolAliases[i]+' ↗',url:t[3]}));
+ }else if(action==='open'){
+   const idx=toolAliases.findIndex(alias=>alias===arg.toLowerCase());
+   if(idx<0){result.text='Unknown alias. Run tools to see the allowed tool names.';}
+   else{const t=toolbox[idx];result.text=t[1]+' — '+t[2]+'\\nSelect the official link below; no software is installed or run inside TRACE.';result.links=[{label:'Open '+t[1]+' ↗',url:t[3]}];}
+ }else if(action==='phone'){
+   const digits=arg.replace(/[^0-9]/g,'');
+   result.text=arg&&/^[+0-9() .-]+$/.test(arg)&&digits.length>=7&&digits.length<=15
+   ?'Phone-number FORMAT only: '+digits.length+' digits supplied. International formats often use a + and country code. This does not establish validity, carrier, present owner, location or identity. Compare public business numbers with the organization’s own listings.'
+   :'Provide a number containing 7–15 digits with optional +, spaces or punctuation. Example: phone +1 202-555-0146';
+   result.links=[{label:'Number format reference ↗',url:toolbox[8][3]}];
+ }else if(action==='email'){
+   const ok=/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(arg);
+   result.text=ok?'Syntax is plausible for '+arg.split('@')[1]+'. Syntax alone cannot establish a live mailbox, sender identity or message authenticity. When authorized, inspect the full headers and authentication results.':'Enter an email address to assess its format. Example: email team@example.org';
+   result.links=[{label:'Message-header tool ↗',url:toolbox[9][3]}];
+ }else if(action==='domain'){
+   result.text=validDomain(arg)?'Domain syntax looks plausible. To learn who publishes a site, compare its official pages, independent records and domain registration data where available. An RDAP listing may redact personal information.':'Enter a public domain name like example.org. This is an offline syntax check, not an ownership or DNS lookup.';
+   result.links=[{label:'ICANN RDAP lookup ↗',url:toolbox[7][3]}];
+ }else if(action==='hash'){
+   if(!arg){result.text='Usage: hash <ordinary non-sensitive text>. Hashing runs locally in this browser.';}
+   else if(!globalThis.crypto?.subtle){result.text='SHA-256 is unavailable in this browser context.';}
+   else{const bytes=new TextEncoder().encode(arg), digest=await crypto.subtle.digest('SHA-256',bytes);result.text='SHA-256 (local text input):\\n'+[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')+'\\nA hash confirms byte-for-byte integrity, not whether a claim is true.';}
+ }else if(action==='scope'){result.text='A proper mandate names the research question, legitimate purpose, client/authority, public sources, jurisdiction, time range, privacy exclusions, retention plan and reporting audience.';}
+ else if(action==='case'){result.text='Current case: '+missions[active].title+'. '+missions[active].brief;}
+ else if(action==='setup'){result.text=state.setup.length+' of '+setup.length+' steps marked ready. Open the four-stage checklist below to see WHY, HOW and what evidence proves readiness.';}
+ else if(action==='report'){switchTab('report');result.text='Opened your case portfolio. Write your methodology and export the brief when you are ready.';}
+ else if(action==='clear'){result.text='Console cleared. Type help when you need guidance.';}
+ else{result.text='Command not recognized. Type help. This browser console only supports the listed commands; it does not execute shell programs, scrape websites or access private data.';}
+ consoleOut.textContent=result.text.replaceAll('\\n','\\n');
+ for(const link of result.links){const a=document.createElement('a');a.href=link.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=link.label;consoleLinks.append(a);}
+}
+$('command-form').addEventListener('submit',event=>{event.preventDefault();const input=$('command-input');runCommand(input.value).catch(()=>consoleOut.textContent='Command could not complete. Check the input and try again.');});
+document.querySelectorAll('[data-command]').forEach(b=>b.addEventListener('click',()=>{$('command-input').value=b.dataset.command;runCommand(b.dataset.command).catch(()=>consoleOut.textContent='Command could not complete.');}));
 const notes=['mandate','sources','verification','alternatives','findings','ethics'];
 for(const id of notes){const elem=$('note-'+id);elem.value=typeof state.notes[id]==='string'?state.notes[id]:'';elem.addEventListener('input',()=>{state.notes[id]=elem.value.slice(0,20000);save()});}
 const download=(name,content)=>{const file=new Blob([content],{type:'text/markdown;charset=utf-8'}),url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)};
@@ -194,6 +278,6 @@ $('export-brief').onclick=()=>{const fields=['Investigation mandate','Source reg
 $('export-transcript').onclick=()=>{const completed=state.finished.map(i=>'- '+String(i+1).padStart(2,'0')+' '+missions[i].title).join('\n');const answers=Object.values(state.answers),correct=answers.filter(a=>a.correct).length;download('trace-osint-training-transcript.md','# TRACE | Training Transcript\n\n**Date:** '+new Date().toISOString().slice(0,10)+'\n\n**Modules cleared:** '+state.finished.length+'/24\n\n**First-attempt decisions:** '+correct+'/'+answers.length+'\n\n**This is an educational game transcript, not a professional credential or certification.**\n\n'+completed);$('report-status').textContent='Training transcript exported.'};
 $('reset-progress').onclick=()=>{if(!confirm('Reset mission scores and workstation checklist? Your case notebook will be preserved.'))return;state.answers={};state.finished=[];state.setup=[];save();active=0;step=0;updateStats();renderList();renderCase();$('setup-grid').querySelectorAll('input').forEach(x=>x.checked=false);$('report-status').textContent='Training progress was reset; your portfolio remains saved.'};
 active=unlocked();step=firstQuestion(active);if(step===3)step=0;updateStats();renderList();renderCase();
-window.TraceAcademyDebug=Object.freeze({missionCount:missions.length,toolCount:toolbox.length,getProgress:()=>({completed:state.finished.length,questionsAnswered:Object.keys(state.answers).length,active,step,tab:currentTab}),version:'professional-20261103'});
+window.TraceAcademyDebug=Object.freeze({missionCount:missions.length,toolCount:toolbox.length,getProgress:()=>({completed:state.finished.length,questionsAnswered:Object.keys(state.answers).length,active,step,tab:currentTab}),version:'workstation-command-20261103'});
 document.body.dataset.traceReady='true';
 })();
