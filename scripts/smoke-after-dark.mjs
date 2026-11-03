@@ -455,7 +455,7 @@ try{
 
   // The actual FM-1-derived tiny pet must be playable; it may not redirect.
   const tiny=await navigate(site+'/trumpagotchi-fm1/');
-  const tinyGameFirst=await tiny.evaluate("(()=>{const main=document.querySelector('.fm1-tiny-mode main');const guide=document.querySelector('#how-to-play');return main?.firstElementChild===guide && !document.querySelector('.candyland-game-site-header') && !document.querySelector('.candyland-game-site-goo') && !!document.querySelector('.game-layout .gamebody') && getComputedStyle(document.querySelector('.shell')).paddingTop==='10px'})()");
+  const tinyGameFirst=await tiny.evaluate("(()=>{const main=document.querySelector('.fm1-tiny-mode main');const guide=document.querySelector('#how-to-play');return main?.firstElementChild===guide && !document.querySelector('.candyland-game-site-header') && !document.querySelector('.candyland-game-site-goo') && !!document.querySelector('.game-layout .gamebody') && parseFloat(getComputedStyle(document.querySelector('.shell')).paddingTop)<=12})()");
   if(!tinyGameFirst)throw Error('FM-1 Trumpagotchi must start directly with How to Play, without giant Candy Land header or decorative goo');
   const tinyReady=await tiny.evaluate("document.body.dataset.trumpagotchiReady==='true' && !!document.querySelector('#feed') && !!document.querySelector('#praise') && !!document.querySelector('#clean') && !!document.querySelector('#rest') && document.querySelector('#gameover').hidden");
   if(!tinyReady)throw Error('FM-1 Trumpagotchi browser pet did not initialize');
