@@ -224,25 +224,25 @@ $('atlas-search').addEventListener('input',e=>{atlasSearch=e.target.value; if(at
 renderAtlas();
 const consoleOut=$('command-output');
 const consoleLinks=$('command-links');
-const validDomain=value=>/^(?=.{4,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$/i.test(value);
+const validDomain=value=>/^(?=.{4,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/i.test(value);
 const toolMatches=term=>toolbox.map((t,i)=>({t,i})).filter(({t,i})=>(toolAliases[i]+' '+t.join(' ')).toLowerCase().includes(term.toLowerCase()));
 async function runCommand(raw){
  const command=String(raw||'').trim().slice(0,300);
  consoleLinks.replaceChildren();
  if(!command){consoleOut.textContent='Enter help to see available commands.';return;}
- const m=command.match(/^(\\S+)(?:\\s+([\\s\\S]*))?$/);
+ const m=command.match(/^(\S+)(?:\s+([\s\S]*))?$/);
  const action=m[1].toLowerCase(),arg=(m[2]||'').trim();
  const result={text:'',links:[]};
  if(action==='help'){
-   result.text='TRACE BROWSER COMMANDS\\nhelp — show these instructions\\ntools [topic] — browse official OSINT tools by specialty\\nopen <alias> — get a direct official resource link\\nphone <number> — local number-format check (not an ownership lookup)\\nemail <address> — local syntax check (not mailbox verification)\\ndomain <name> — local domain syntax check + RDAP resource\\nhash <text> — calculate local SHA-256 of supplied text\\nscope — what a research mandate needs\\ncase — show current fictional mission\\nsetup — workstation readiness\\nreport — open your case portfolio\\nclear — clear this output\\n\\nExamples: tools maps | open wayback | domain example.org';
+   result.text='TRACE BROWSER COMMANDS\nhelp — show these instructions\ntools [topic] — browse official OSINT tools by specialty\nopen <alias> — get a direct official resource link\nphone <number> — local number-format check (not an ownership lookup)\nemail <address> — local syntax check (not mailbox verification)\ndomain <name> — local domain syntax check + RDAP resource\nhash <text> — calculate local SHA-256 of supplied text\nscope — what a research mandate needs\ncase — show current fictional mission\nsetup — workstation readiness\nreport — open your case portfolio\nclear — clear this output\n\nExamples: tools maps | open wayback | domain example.org';
  }else if(action==='tools'){
    const found=toolMatches(arg);
-   result.text=found.length?found.map(({t,i})=>toolAliases[i]+'  ·  '+t[1]+'  ('+t[0].toLowerCase()+')').join('\\n'):'No matching tools. Use tools without a filter to list every available resource.';
+   result.text=found.length?found.map(({t,i})=>toolAliases[i]+'  ·  '+t[1]+'  ('+t[0].toLowerCase()+')').join('\n'):'No matching tools. Use tools without a filter to list every available resource.';
    result.links=found.slice(0,8).map(({t,i})=>({label:toolAliases[i]+' ↗',url:t[3]}));
  }else if(action==='open'){
    const idx=toolAliases.findIndex(alias=>alias===arg.toLowerCase());
    if(idx<0){result.text='Unknown alias. Run tools to see the allowed tool names.';}
-   else{const t=toolbox[idx];result.text=t[1]+' — '+t[2]+'\\nSelect the official link below; no software is installed or run inside TRACE.';result.links=[{label:'Open '+t[1]+' ↗',url:t[3]}];}
+   else{const t=toolbox[idx];result.text=t[1]+' — '+t[2]+'\nSelect the official link below; no software is installed or run inside TRACE.';result.links=[{label:'Open '+t[1]+' ↗',url:t[3]}];}
  }else if(action==='phone'){
    const digits=arg.replace(/[^0-9]/g,'');
    result.text=arg&&/^[+0-9() .-]+$/.test(arg)&&digits.length>=7&&digits.length<=15
@@ -250,7 +250,7 @@ async function runCommand(raw){
    :'Provide a number containing 7–15 digits with optional +, spaces or punctuation. Example: phone +1 202-555-0146';
    result.links=[{label:'Number format reference ↗',url:toolbox[8][3]}];
  }else if(action==='email'){
-   const ok=/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(arg);
+   const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(arg);
    result.text=ok?'Syntax is plausible for '+arg.split('@')[1]+'. Syntax alone cannot establish a live mailbox, sender identity or message authenticity. When authorized, inspect the full headers and authentication results.':'Enter an email address to assess its format. Example: email team@example.org';
    result.links=[{label:'Message-header tool ↗',url:toolbox[9][3]}];
  }else if(action==='domain'){
@@ -259,14 +259,14 @@ async function runCommand(raw){
  }else if(action==='hash'){
    if(!arg){result.text='Usage: hash <ordinary non-sensitive text>. Hashing runs locally in this browser.';}
    else if(!globalThis.crypto?.subtle){result.text='SHA-256 is unavailable in this browser context.';}
-   else{const bytes=new TextEncoder().encode(arg), digest=await crypto.subtle.digest('SHA-256',bytes);result.text='SHA-256 (local text input):\\n'+[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')+'\\nA hash confirms byte-for-byte integrity, not whether a claim is true.';}
+   else{const bytes=new TextEncoder().encode(arg), digest=await crypto.subtle.digest('SHA-256',bytes);result.text='SHA-256 (local text input):\n'+[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('')+'\nA hash confirms byte-for-byte integrity, not whether a claim is true.';}
  }else if(action==='scope'){result.text='A proper mandate names the research question, legitimate purpose, client/authority, public sources, jurisdiction, time range, privacy exclusions, retention plan and reporting audience.';}
  else if(action==='case'){result.text='Current case: '+missions[active].title+'. '+missions[active].brief;}
  else if(action==='setup'){result.text=state.setup.length+' of '+setup.length+' steps marked ready. Open the four-stage checklist below to see WHY, HOW and what evidence proves readiness.';}
  else if(action==='report'){switchTab('report');result.text='Opened your case portfolio. Write your methodology and export the brief when you are ready.';}
  else if(action==='clear'){result.text='Console cleared. Type help when you need guidance.';}
  else{result.text='Command not recognized. Type help. This browser console only supports the listed commands; it does not execute shell programs, scrape websites or access private data.';}
- consoleOut.textContent=result.text.replaceAll('\\n','\\n');
+ consoleOut.textContent=result.text;
  for(const link of result.links){const a=document.createElement('a');a.href=link.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=link.label;consoleLinks.append(a);}
 }
 $('command-form').addEventListener('submit',event=>{event.preventDefault();const input=$('command-input');runCommand(input.value).catch(()=>consoleOut.textContent='Command could not complete. Check the input and try again.');});
