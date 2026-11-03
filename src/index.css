@@ -726,3 +726,31 @@ body {
     grid-column:2;justify-self:start;padding:8px 10px;font-size:11px;
   }
 }
+
+/* Global cleanup: no decorative liquid / drip art on the homepage.
+   Keep the candy artwork, playable Goo Rush game and all controls intact. */
+.candyland-next .candy-goo,
+.candyland-next .candyland-header-goo,
+.candyland-next .candyland-drips,
+.candyland-next .candyland-portal-drips,
+.candyland-next .candyland-finale-goo,
+.candyland-next .nonsense-lab-drips{display:none!important}
+.candyland-next .candyland-navbar{
+  margin-bottom:18px;
+  padding-bottom:16px;
+  border-radius:0 0 24px 24px;
+}
+.candyland-next .candyland-navbar:after{content:none!important}
+.candyland-next .candyland-opening{
+  padding-bottom:clamp(22px,3.5vw,40px);
+}
+.candyland-next .nonsense-lab{
+  margin-top:22px;
+  margin-bottom:32px;
+  padding-bottom:clamp(20px,3vw,38px);
+}
+@media(max-width:630px){
+  .candyland-next .candyland-navbar{margin-bottom:12px;padding-bottom:15px}
+  .candyland-next .candyland-opening{padding-bottom:20px}
+  .candyland-next .nonsense-lab{margin:17px 11px 26px}
+}
