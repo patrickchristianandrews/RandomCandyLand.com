@@ -530,7 +530,7 @@ try{
   await trace.evaluate("document.querySelector('#next-decision').click()");
   const traceStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===1 && !!document.querySelector('.question-choices button:nth-child(1)')");
   if(!traceStep)throw Error('TRACE next-decision control did not advance the case');
-  await trace.evaluate("document.querySelector('#tab-tools').click()");
+  await trace.evaluate("document.querySelector('#tab-tools').click();document.querySelector('[data-atlas=all]').click()");
   const traceTools=await trace.evaluate("!document.querySelector('#view-tools').hidden && document.querySelectorAll('.tool-card').length>=15 && document.querySelector('#tools-grid').textContent.includes('libphonenumber')");
   if(!traceTools)throw Error('TRACE tool atlas missing phone/email and other professional resources');
   await trace.evaluate("document.querySelector('#tab-setup').click()");
