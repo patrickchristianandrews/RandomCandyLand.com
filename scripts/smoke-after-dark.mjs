@@ -551,7 +551,7 @@ try{
   await trace.evaluate("(()=>{document.querySelector('#command-input').value='tools email';document.querySelector('#command-form').requestSubmit()})()");
   const traceCommandTools=await trace.evaluate("document.querySelector('#command-output').textContent.includes('headers') && !!document.querySelector('#command-links a')");
   if(!traceCommandTools)throw Error('TRACE command desk must return a linked official tool from search');
-  await trace.evaluate("document.querySelector('[data-setup=0]').click()");
+  await trace.evaluate("document.querySelector('[data-setup]').click()");
   const traceChecklist=await trace.evaluate("document.querySelector('#setup-progress-label').textContent.includes('1 of 12')");
   if(!traceChecklist)throw Error('TRACE workstation step tracking did not update');
   await trace.evaluate("document.querySelector('#tab-report').click()");
