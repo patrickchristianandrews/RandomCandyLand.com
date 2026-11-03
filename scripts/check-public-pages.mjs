@@ -7,6 +7,7 @@ const required = [
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/music-visualizer/index.html', ['id="canvas"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
+  ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','GTM-TQRDB5KL']],
   ['dist/candy-casino/index.html', ['Choose your game','id="casino-howto"','data-duel="poker"','data-duel="card"','data-duel="dice"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
@@ -315,14 +316,15 @@ const toolIcons = [
   'tool-icons/simon.svg',
   'tool-icons/candy-match.svg',
   'tool-icons/candy-pulse.svg',
-  'tool-icons/other-drawer.svg'
+  'tool-icons/other-drawer.svg',
+  'tool-icons/osint-academy.svg'
 ];
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
     !homeInstallSource.includes('className="candyland-hero-tool-link"') ||
     !homeInstallSource.includes('TOOL_MENU_ICONS[index]') ||
     !homeInstallSource.includes("PORTALS.map((portal,index)") ||
     !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
-  console.error('The Candy Land homepage must display all eight illustrated game and tool shortcuts.');
+  console.error('The Candy Land homepage must display all nine illustrated game and tool shortcuts.');
   failures++;
 }
 // The new artwork must replace the old emoji/cartoon thumbnails in every
@@ -560,6 +562,34 @@ if (!fs.existsSync(melodySourcePath)) {
       console.error('Trumpagotchi playable melody feature missing:',marker);
       failures++;
     }
+  }
+}
+// TRACE is a distinct educational game with graded simulated missions and a
+// complete workstation, resource atlas and case-reporting interface.
+if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
+   !homeInstallSource.includes("url:'/osint-academy/'") ||
+   !homeInstallSource.includes("Moodropolis") ||
+   !homeInstallSource.includes('candyland-grouped-collections') ||
+   !homeInstallSource.includes('Virtual Pets') ||
+   !homeInstallSource.includes('Learning & Investigation') ||
+   !homeBundle.includes('/osint-academy/')){
+  console.error('Grouped homepage, Moodropolis or TRACE Academy portal is missing.'); failures++;
+}
+for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
+  'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
+  if(!fs.existsSync(asset)){console.error('OSINT Academy asset missing:',asset);failures++;}
+}
+if(fs.existsSync('dist/osint-academy/game.js')){
+  const js=fs.readFileSync('dist/osint-academy/game.js','utf8');
+  try{new vm.Script(js,{filename:'TRACE OSINT Academy'});}
+  catch(e){console.error('Broken TRACE Academy game JavaScript:',e.message);failures++;}
+  if((js.match(/caseFile\('/g)||[]).length!==25 ||
+     !js.includes('Faces, identity and false matches') ||
+     !js.includes('Public phone number analysis') ||
+     !js.includes('Trace an email claim') ||
+     !js.includes('Capstone: Amber Point dossier') ||
+     !js.includes('window.TraceAcademyDebug')){
+    console.error('TRACE Academy must include all 24 professional training cases and the interactive case engine.');failures++;
   }
 }
 if (!homeBundle.includes('/candy-casino/')) {
