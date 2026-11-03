@@ -153,12 +153,12 @@ function updateStats(){
  const answers=Object.values(state.answers);
  const right=answers.filter(x=>x.correct).length;
  const xp=right*20+state.finished.length*40;
- const level=state.finished.length>=24?'Academy Graduate':state.finished.length>=19?'Senior Analyst':state.finished.length>=12?'Investigator':state.finished.length>=6?'Research Associate':'Trainee';
- $('stat-rank').textContent=level;$('stat-xp').textContent=xp;$('stat-cleared').textContent=state.finished.length+' / 24';
+ const level=state.finished.length>=25?'Academy Graduate':state.finished.length>=19?'Senior Analyst':state.finished.length>=12?'Investigator':state.finished.length>=6?'Research Associate':'Trainee';
+ $('stat-rank').textContent=level;$('stat-xp').textContent=xp;$('stat-cleared').textContent=state.finished.length+' / 25';
  $('stat-accuracy').textContent=answers.length?Math.round(right/answers.length*100)+'%':'—';
 }
 function renderList(){
- $('mission-counter').textContent=String(active+1).padStart(2,'0')+' / 24';
+ $('mission-counter').textContent=String(active+1).padStart(2,'0')+' / 25';
  $('mission-list').innerHTML=missions.map((m,i)=>{const done=isFinished(i),lock=i>unlocked();return '<button type="button" class="mission-option'+(active===i?' active':'')+'" data-mission="'+i+'" '+(lock?'disabled':'')+'><span class="mission-num">'+String(i+1).padStart(2,'0')+'</span><span><b>'+esc(m.title)+'</b><small>'+esc(m.field)+'</small></span><span class="done">'+(done?'✓':lock?'🔒':'')+'</span></button>';}).join('');
  $('mission-list').querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>{active=Number(b.dataset.mission);step=firstQuestion(active);if(step===3)step=0;renderList();renderCase();});
 }
@@ -173,7 +173,7 @@ function renderCase(){
  if(isFinished(active)){html+='<div class="case-takeaway"><strong>✓ Completed case</strong> Review the questions to reinforce methods, or continue to the next unlocked mission. Replays do not earn additional XP.</div>';}
  html+='</div>';$('mission-stage').innerHTML=html;
  $('mission-stage').querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{if(key in state.answers)return;const selected=Number(b.dataset.choice);state.answers[key]={selected,correct:selected===item.correct};save();updateStats();renderCase();});
- const next=$('next-decision');if(next)next.onclick=()=>{if(step<2){step++;renderCase();}else{if(!state.finished.includes(active)){state.finished.push(active);state.finished.sort((a,b)=>a-b);save();}updateStats();if(active<missions.length-1){active++;step=firstQuestion(active);renderList();renderCase();}else{renderList();$('mission-stage').innerHTML='<div class="mission-content"><div class="case-takeaway"><strong>🏅 All 24 training cases cleared</strong><p>You completed the simulation. Use the Case Portfolio to write and export a defensible capstone report. This game is not a professional accreditation; real-world proficiency requires supervised work and continuing education.</p><div class="mission-actions"><button type="button" class="cta" data-switch="report">Open case portfolio →</button></div></div></div>';$('mission-stage').querySelector('[data-switch]').onclick=()=>switchTab('report');}}};
+ const next=$('next-decision');if(next)next.onclick=()=>{if(step<2){step++;renderCase();}else{if(!state.finished.includes(active)){state.finished.push(active);state.finished.sort((a,b)=>a-b);save();}updateStats();if(active<missions.length-1){active++;step=firstQuestion(active);renderList();renderCase();}else{renderList();$('mission-stage').innerHTML='<div class="mission-content"><div class="case-takeaway"><strong>🏅 All 25 training cases cleared</strong><p>You completed the simulation. Use the Case Portfolio to write and export a defensible capstone report. This game is not a professional accreditation; real-world proficiency requires supervised work and continuing education.</p><div class="mission-actions"><button type="button" class="cta" data-switch="report">Open case portfolio →</button></div></div></div>';$('mission-stage').querySelector('[data-switch]').onclick=()=>switchTab('report');}}};
 }
 function switchTab(tab){
  if(!['missions','setup','tools','report'].includes(tab))return;
@@ -181,7 +181,7 @@ function switchTab(tab){
  for(const b of document.querySelectorAll('[data-switch]'))if(b.getAttribute('role')==='tab')b.setAttribute('aria-selected',String(b.dataset.switch===tab));
  for(const id of ['missions','setup','tools','report'])$('view-'+id).hidden=id!==tab;
  if(tab==='missions'){renderList();renderCase();}
- document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'instant'});
+ document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
 }
 document.querySelectorAll('[data-switch]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.switch)));
 $('setup-grid').innerHTML=setup.map((x,i)=>'<div class="setup-card"><strong>'+String(i+1).padStart(2,'0')+' · '+esc(x[0])+'</strong><p>'+esc(x[1])+'</p><label><input type="checkbox" data-setup="'+i+'" '+(state.setup.includes(i)?'checked':'')+'><span>Mark this step prepared</span></label></div>').join('');
