@@ -164,8 +164,16 @@ try{let data=JSON.parse(localStorage.getItem(KEY)||'null');if(data&&typeof data=
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}};
 let active=0,step=0,currentTab='missions';
 const unlocked=()=>Math.min(missions.length-1,state.finished.length);
-const firstQuestion=idx=>{for(let j=0;j<3;j++)if(!(idx+'-'+j in state.answers))return j;return 3};
+const firstQuestion=idx=>{
+ for(let j=0;j<3;j++)if(!(idx+'-'+j in state.answers))return j;
+ return state.finished.includes(idx)?0:2; // Return to the final decision if ready to finish.
+};
 const isFinished=idx=>state.finished.includes(idx);
+const caseIndex=()=>String(active+1).padStart(2,'0');
+const focusCase=(selector='.question-block')=>{
+ const target=$('mission-stage')?.querySelector(selector)||$('mission-stage');
+ if(target)target.scrollIntoView({block:'start',behavior:'smooth'});
+};
 function updateStats(){
  const answers=Object.values(state.answers);
  const right=answers.filter(x=>x.correct).length;
@@ -173,24 +181,70 @@ function updateStats(){
  const level=state.finished.length>=25?'Academy Graduate':state.finished.length>=19?'Senior Analyst':state.finished.length>=12?'Investigator':state.finished.length>=6?'Research Associate':'Trainee';
  $('stat-rank').textContent=level;$('stat-xp').textContent=xp;$('stat-cleared').textContent=state.finished.length+' / 25';
  $('stat-accuracy').textContent=answers.length?Math.round(right/answers.length*100)+'%':'—';
+ const continueBtn=$('continue-training');
+ if(continueBtn)continueBtn.textContent=state.finished.length===25?'✓ Review your completed cases':'▶ '+(state.finished.length?'Resume':'Start')+' Case '+caseIndex();
+ const hint=$('training-next-hint');
+ if(hint)hint.textContent=state.finished.length===25?'Great work! Your complete training record is in My reports.':(state.finished.length+' of 25 cases completed · '+Object.keys(state.answers).length+' of 75 decisions made · auto-saved');
 }
 function renderList(){
- $('mission-counter').textContent=String(active+1).padStart(2,'0')+' / 25';
- $('mission-list').innerHTML=missions.map((m,i)=>{const done=isFinished(i),lock=i>unlocked();return '<button type="button" class="mission-option'+(active===i?' active':'')+'" data-mission="'+i+'" '+(lock?'disabled':'')+'><span class="mission-num">'+String(i+1).padStart(2,'0')+'</span><span><b>'+esc(m.title)+'</b><small>'+esc(m.field)+'</small></span><span class="done">'+(done?'✓':lock?'🔒':'')+'</span></button>';}).join('');
- $('mission-list').querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>{active=Number(b.dataset.mission);step=firstQuestion(active);if(step===3)step=0;renderList();renderCase();});
+ $('mission-counter').textContent=caseIndex()+' / 25';
+ const groups=[['CORE SKILLS',0],['IMAGES & GEOLOCATION',6],['CONTACTS & DOMAINS',11],['RECORDS & CONNECTIONS',14],['ANALYSIS & REPORTING',19]];
+ $('mission-list').innerHTML=missions.map((m,i)=>{
+  const done=isFinished(i),lock=i>unlocked(),selected=active===i;
+  const group=groups.find(g=>g[1]===i);
+  const heading=group?'<div class="mission-group-heading">'+esc(group[0])+'</div>':'';
+  const status=done?'✓ Done':selected?'▶ Current':lock?'🔒 Locked':'● Ready';
+  return heading+'<button type="button" class="mission-option'+(selected?' active':'')+'" data-mission="'+i+'" '+(lock?'disabled':'')+' aria-current="'+(selected?'step':'false')+'"><span class="mission-num">'+String(i+1).padStart(2,'0')+'</span><span><b>'+esc(m.title)+'</b><small>'+esc(m.field)+'</small></span><span class="done">'+status+'</span></button>';
+ }).join('');
+ $('mission-list').querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>{
+   active=Number(b.dataset.mission);step=firstQuestion(active);renderList();renderCase();updateStats();
+   $('case-directory').open=false;focusCase('.case-header');
+ });
 }
 function renderCase(){
  const m=missions[active];
- let html='<div class="mission-content"><header class="case-header"><div><span class="case-kicker">CASE '+String(active+1).padStart(2,'0')+' · '+esc(m.field)+'</span><h2>'+esc(m.title)+'</h2></div><span class="case-badge">'+(isFinished(active)?'✓ CASE CLEARED':'LIVE SIMULATION')+'</span></header><p class="case-brief">'+esc(m.brief)+'</p>';
- html+='<div class="evidence-board">'+m.items.map(x=>'<div class="evidence-tile"><i aria-hidden="true">'+x[0]+'</i><strong>'+esc(x[1])+'</strong><span>'+esc(x[2])+'</span></div>').join('')+'</div>';
  const item=m.questions[step],key=active+'-'+step,record=state.answers[key];
- html+='<section class="question-block"><span class="question-counter">DECISION '+(step+1)+' OF 3</span><h3>'+esc(item.prompt)+'</h3><div class="question-choices">'+item.options.map((answer,i)=>'<button type="button" data-choice="'+i+'" '+(record?'disabled':'')+' class="'+(record&&i===item.correct?'good':record&&i===record.selected&&!record.correct?'bad':'')+'">'+String.fromCharCode(65+i)+'. '+esc(answer)+'</button>').join('')+'</div>';
- if(record){html+='<div class="question-feedback'+(record.correct?'':' incorrect')+'" role="status"><strong>'+(record.correct?'✓ Correct decision':'▣ Learning moment — review the evidence')+'</strong>'+esc(item.why)+'</div><div class="mission-actions"><button type="button" class="cta" id="next-decision">'+(step===2?'✓ Finish case':'Next decision →')+'</button></div>';}
- html+='</section><div class="case-progress"><div style="width:'+((step+(record?1:0))/3*100)+'%"></div></div><div class="case-footer"><span>Skills earned through evidence-based choices</span><span>Records saved on this device</span></div>';
- if(isFinished(active)){html+='<div class="case-takeaway"><strong>✓ Completed case</strong> Review the questions to reinforce methods, or continue to the next unlocked mission. Replays do not earn additional XP.</div>';}
+ const last=step===2;
+ let html='<div class="mission-content">';
+ html+='<div class="case-navigation"><div><span class="case-navigation-tag">CURRENT CASE · '+caseIndex()+' OF 25</span><strong>'+esc(m.title)+'</strong></div><span class="case-navigation-progress">'+(step+1)+' / 3 DECISIONS</span></div>';
+ html+='<div class="case-steps" aria-label="Progress through this case">';
+ for(let i=0;i<3;i++)html+='<span class="'+(i<step?'completed':i===step?'now':'')+'"><b>'+(i<step?'✓':i+1)+'</b><span>Decision '+(i+1)+'</span></span>';
+ html+='</div>';
+ html+='<header class="case-header"><div><span class="case-kicker">'+esc(m.field)+' · TRAINING SIMULATION</span><h2 tabindex="-1">'+esc(m.title)+'</h2></div><span class="case-badge">'+(isFinished(active)?'✓ REVIEWING CLEARED CASE':'▶ IN PROGRESS')+'</span></header>';
+ html+='<div class="case-direction"><strong>YOUR NEXT MOVE</strong><p>'+(record?'Read why this answer works or does not, then press the green button to continue.':'Read the short case and clues below, then choose one answer. You cannot get stuck: every choice teaches you something.')+'</p></div>';
+ html+='<p class="case-brief"><strong>THE SITUATION</strong><br>'+esc(m.brief)+'</p>';
+ html+='<section class="case-evidence" aria-label="Available evidence"><h3>◈ Clues to consider</h3><div class="evidence-board">'+m.items.map(x=>'<div class="evidence-tile"><i aria-hidden="true">'+x[0]+'</i><strong>'+esc(x[1])+'</strong><span>'+esc(x[2])+'</span></div>').join('')+'</div></section>';
+ html+='<section class="question-block" id="current-decision"><span class="question-counter">YOUR DECISION · QUESTION '+(step+1)+' / 3</span><h3>'+esc(item.prompt)+'</h3>';
+ html+='<div class="question-choices">'+item.options.map((answer,i)=>'<button type="button" data-choice="'+i+'" '+(record?'disabled':'')+' class="'+(record&&i===item.correct?'good':record&&i===record.selected&&!record.correct?'bad':'')+'">'+String.fromCharCode(65+i)+'. '+esc(answer)+'</button>').join('')+'</div>';
+ if(record)html+='<div class="question-feedback'+(record.correct?'':' incorrect')+'" role="status"><strong>'+(record.correct?'✓ Correct decision':'▣ Learning moment — review the evidence')+'</strong>'+esc(item.why)+'</div>';
+ html+='<div class="mission-actions">';
+ if(step>0)html+='<button type="button" class="outline" id="previous-decision">← Previous</button>';
+ if(record)html+='<button type="button" class="cta next-decision" id="next-decision">'+(last?(active===missions.length-1?'✓ Finish academy →':'✓ Complete case & start next →'):'Continue to question '+(step+2)+' →')+'</button>';
+ else html+='<span class="decision-nudge">↑ Choose an answer above to unlock the next step.</span>';
+ html+='</div></section>';
+ html+='<div class="case-progress"><div style="width:'+((step+(record?1:0))/3*100)+'%"></div></div><div class="case-footer"><span>'+(record?'✓ Decision recorded':'Awaiting your answer')+'</span><span>Automatically saved on this device</span></div>';
+ if(isFinished(active))html+='<div class="case-takeaway"><strong>✓ You already cleared this case.</strong> Review the lesson above or open Browse cases to revisit a different one.</div>';
  html+='</div>';$('mission-stage').innerHTML=html;
- $('mission-stage').querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{if(key in state.answers)return;const selected=Number(b.dataset.choice);state.answers[key]={selected,correct:selected===item.correct};save();updateStats();renderCase();});
- const next=$('next-decision');if(next)next.onclick=()=>{if(step<2){step++;renderCase();}else{if(!state.finished.includes(active)){state.finished.push(active);state.finished.sort((a,b)=>a-b);save();}updateStats();if(active<missions.length-1){active++;step=firstQuestion(active);renderList();renderCase();}else{renderList();$('mission-stage').innerHTML='<div class="mission-content"><div class="case-takeaway"><strong>🏅 All 25 training cases cleared</strong><p>You completed the simulation. Use the Case Portfolio to write and export a defensible capstone report. This game is not a professional accreditation; real-world proficiency requires supervised work and continuing education.</p><div class="mission-actions"><button type="button" class="cta" data-switch="report">Open case portfolio →</button></div></div></div>';$('mission-stage').querySelector('[data-switch]').onclick=()=>switchTab('report');}}};
+ $('mission-stage').querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{
+   if(key in state.answers)return;
+   const selected=Number(b.dataset.choice);
+   state.answers[key]={selected,correct:selected===item.correct};
+   save();updateStats();renderCase();focusCase('.question-feedback');
+ });
+ const prev=$('previous-decision');
+ if(prev)prev.onclick=()=>{step=Math.max(0,step-1);renderCase();focusCase('#current-decision')};
+ const next=$('next-decision');
+ if(next)next.onclick=()=>{
+   if(step<2){step++;renderCase();focusCase('#current-decision');return;}
+   if(!state.finished.includes(active)){state.finished.push(active);state.finished.sort((a,b)=>a-b);save();}
+   updateStats();
+   if(active<missions.length-1){active++;step=firstQuestion(active);renderList();renderCase();updateStats();focusCase('.case-navigation');}
+   else{renderList();$('mission-stage').innerHTML='<div class="mission-content"><div class="case-finished"><span aria-hidden="true">🏅</span><h2>Academy cases complete!</h2><p>You have reached the end of all 25 training cases. Your choices are saved. Write or export your investigation portfolio to practice professional reporting.</p><button type="button" class="cta" data-switch="report">Open My reports →</button><button type="button" class="outline" id="review-training">Review the cases</button></div></div>';
+     $('mission-stage').querySelector('[data-switch]').onclick=()=>switchTab('report');
+     $('review-training').onclick=()=>{active=0;step=0;renderList();renderCase();updateStats();focusCase('.case-navigation')};
+     focusCase('.case-finished');
+   }
+ };
 }
 function switchTab(tab){
  if(!['missions','scope','setup','tools','report'].includes(tab))return;
@@ -199,9 +253,11 @@ function switchTab(tab){
  for(const id of ['missions','scope','setup','tools','report'])$('view-'+id).hidden=id!==tab;
  if(tab==='missions'){renderList();renderCase();}
  if(tab==='scope')refreshScope();
- document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
+ if(tab==='missions')focusCase('.case-navigation'); else document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
 }
 document.querySelectorAll('[data-switch]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.switch)));
+// On the landing page, this is the single obvious path into the current lesson.
+$('continue-training').addEventListener('click',()=>focusCase('.case-navigation'));
 function updateSetupProgress(){
  const done=state.setup.filter(i=>Number.isInteger(i)&&i>=0&&i<setup.length).length;
  $('setup-progress-label').textContent=done+' of '+setup.length+' steps ready';
@@ -324,7 +380,7 @@ document.querySelectorAll('[data-scope-prompt]').forEach(b=>b.addEventListener('
  answer.replaceChildren(strong,paragraph);
  document.querySelectorAll('[data-scope-prompt]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
 }));
-active=unlocked();step=firstQuestion(active);if(step===3)step=0;updateStats();renderList();renderCase();
-window.TraceAcademyDebug=Object.freeze({missionCount:missions.length,toolCount:toolbox.length,getProgress:()=>({completed:state.finished.length,questionsAnswered:Object.keys(state.answers).length,active,step,tab:currentTab}),version:'workstation-command-20261103'});
+active=unlocked();step=firstQuestion(active);updateStats();renderList();renderCase();
+window.TraceAcademyDebug=Object.freeze({missionCount:missions.length,toolCount:toolbox.length,getProgress:()=>({completed:state.finished.length,questionsAnswered:Object.keys(state.answers).length,active,step,tab:currentTab}),version:'clear-path-20261103'});
 document.body.dataset.traceReady='true';
 })();
