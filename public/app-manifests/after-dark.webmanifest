@@ -1,14 +1,20 @@
 {
   "id": "/after-dark/",
-  "name": "The Other Drawer | Random Candy Land",
-  "short_name": "Other Drawer",
-  "description": "The Other Drawer: What Desires Reveal About Us. Attraction, fantasy, and the psychology behind what draws you in.",
+  "name": "Unwrapped | Random Candy Land",
+  "short_name": "Unwrapped",
+  "description": "There's more to you. Understand every layer. Appreciate the whole person. Psychology, attraction, intimacy, relationships and communication.",
   "start_url": "/after-dark/",
   "scope": "/after-dark/",
   "display": "standalone",
   "background_color": "#201331",
   "theme_color": "#170d26",
   "icons": [
+    {
+      "src": "/tool-icons/unwrapped.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
