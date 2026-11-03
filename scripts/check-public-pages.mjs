@@ -279,7 +279,7 @@ if (!installSource.includes("app.id==='site' && isInstalled()")) {
 if (!homeBundle.includes('candyland-next') ||
     !homeBundle.includes('Stay sweet.') ||
     !homeBundle.includes('Get weird.') ||
-    !homeBundle.includes('candyland-portals')) {
+    !homeBundle.includes('candyland-hero-categories')) {
   console.error('The replacement Candy Land homepage is missing from the published bundle.');
   failures++;
 }
@@ -340,7 +340,7 @@ if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
 }
 // The new artwork must replace the old emoji/cartoon thumbnails in every
 // larger game portal and in each individual app installation card.
-if (!homeInstallSource.includes('<img src={portal.icon}') ||
+if (!homeInstallSource.includes('<img src={TOOL_MENU_ICONS[index]}') ||
     !homeInstallSource.includes('<img src={item.icon}') ||
     !homeInstallSource.includes('icon:TOOL_MENU_ICONS[0]') ||
     !homeInstallSource.includes('icon:TOOL_MENU_ICONS[7]') ||
@@ -578,12 +578,24 @@ if (!fs.existsSync(melodySourcePath)) {
     }
   }
 }
+// The homepage displays game icons only once: never reintroduce enormous
+// duplicate cards for virtual pets or other categories.
+if(homeInstallSource.includes('candyland-grouped-collections') ||
+   homeInstallSource.includes('className="candyland-portals"') ||
+   homeInstallSource.includes('className="candyland-portal ') ||
+   homeInstallSource.includes('id="adventures"') ||
+   !homeInstallSource.includes('PORTALS.map((portal,index)') ||
+   !homeInstallSource.includes("category !== 'all' && portal.kind !== category") ||
+   !homeInstallSource.includes('<details className="candyland-future-games"') ||
+   !homeInstallSource.includes('<details className="candyland-install-apps"')){
+  console.error('Homepage must use one icon grid with compact category filters and collapsible optional sections.'); failures++;
+}
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes("url:'/osint-academy/'") ||
    !homeInstallSource.includes("Moodropolis") ||
-   !homeInstallSource.includes('candyland-grouped-collections') ||
+   !homeInstallSource.includes('candyland-hero-categories') ||
    !homeInstallSource.includes('Virtual Pets') ||
    !homeInstallSource.includes('Learning & Investigation') ||
    !homeBundle.includes('/osint-academy/')){
