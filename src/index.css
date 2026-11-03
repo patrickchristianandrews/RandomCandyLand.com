@@ -582,3 +582,32 @@ body {
   .candyland-hero-tools .candyland-hero-tool-link{transition:none}
   .candyland-hero-tools .candyland-hero-tool-link:hover{transform:none}
 }
+
+
+/* Game library is explicitly organized by genre instead of one long mixed list. */
+.candyland-next .candyland-grouped-collections{display:grid;gap:clamp(20px,3vw,34px);margin-top:19px}
+.candyland-next .candyland-game-category{min-width:0}
+.candyland-next .candyland-game-category-heading{display:flex;align-items:center;gap:12px;margin:0 0 13px;padding:12px 15px;border-radius:16px;border:1px solid #f3c7f76e;background:linear-gradient(100deg,#441b6ed6,#241542bd)}
+.candyland-next .candyland-game-category-heading>span:first-child{font-size:27px;filter:drop-shadow(0 2px 4px #0006)}
+.candyland-next .candyland-game-category-heading>div{min-width:0;flex:1}
+.candyland-next .candyland-game-category-heading h3{margin:0;font-weight:950;color:#fff7da;font-size:clamp(17px,2vw,22px)}
+.candyland-next .candyland-game-category-heading p{font-size:12px;color:#ead8f3;margin:3px 0 0;line-height:1.35}
+.candyland-next .candyland-game-category-count{padding:6px 9px;background:#a63ea845;border:1px solid #f7d5ec85;border-radius:99px;font-size:10px;color:#fffae3;white-space:nowrap;font-weight:900}
+.candyland-next .candyland-game-category>.candyland-portals{margin:0}
+.candyland-next .candyland-hero-tools{grid-template-columns:repeat(3,minmax(0,1fr));max-width:780px;gap:clamp(7px,1.6vw,17px)}
+.candyland-next .candyland-hero-tools .candyland-hero-tool-link{min-width:0}
+.candyland-next .candyland-filters{row-gap:7px}
+.candyland-next .candyland-future-games{margin:clamp(28px,5vw,52px) auto 16px;max-width:1200px;padding:0 clamp(10px,2vw,25px)}
+.candyland-next .candyland-future-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.candyland-next .candyland-future-grid article{padding:17px;border:1px solid #ebbbeb89;border-radius:16px;background:linear-gradient(145deg,#52276bb0,#271342d8);box-shadow:0 6px 20px #25052a45}
+.candyland-next .candyland-future-grid strong{display:block;font-size:clamp(15px,1.9vw,19px);color:#fff0b2}
+.candyland-next .candyland-future-grid p{font-size:12px;line-height:1.5;color:#f4e5f6;margin:8px 0 0}
+@media(max-width:650px){
+ .candyland-next .candyland-hero-tools{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 5px}
+ .candyland-next .candyland-game-category-heading{padding:10px;gap:9px}
+ .candyland-next .candyland-game-category-heading>span:first-child{font-size:22px}
+ .candyland-next .candyland-game-category-heading h3{font-size:17px}
+ .candyland-next .candyland-game-category-heading p{font-size:11px}
+ .candyland-next .candyland-game-category-count{font-size:9px;padding:5px 7px}
+ .candyland-next .candyland-future-grid{grid-template-columns:1fr}
+}
