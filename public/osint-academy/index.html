@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Analytics is limited to page visits; research answers and notebook content stay local. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script>
+<script src="/analytics.js?v=ga4-20261030-v1"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#091b25">
+<meta name="description" content="TRACE OSINT Academy: a playable professional open-source intelligence training course with investigations, source verification, identity and contact-data ethics, tools, workstations and reporting.">
+<meta property="og:title" content="TRACE — OSINT Academy | Random Candy Land">
+<title>TRACE — OSINT Academy</title>
+<link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
+<link rel="manifest" href="/app-manifests/osint-academy.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/osint-academy/style.css?v=professional-20261103">
+<script src="/install-app.js" defer></script>
+<script src="/osint-academy/game.js?v=professional-20261103" defer></script>
+</head>
+<body class="trace-app">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="shell">
+<header class="trace-header">
+<a href="/" class="trace-back">← Candy Land</a>
+<div class="trace-brand"><img src="/tool-icons/osint-academy.svg" alt="" width="42" height="42"><span><strong>TRACE / OSINT</strong><small>INVESTIGATOR ACADEMY</small></span></div>
+<span class="trace-online">● TRAINING SIMULATOR</span>
+</header>
+<section class="trace-hero">
+<div class="radar-orbit" aria-hidden="true"></div>
+<div class="eyebrow">PROFESSIONAL SKILLS · FICTIONAL CASE LAB</div>
+<h1>Don't just search.<br><em>Investigate.</em></h1>
+<p>Master evidence-led open-source research. Learn the tools, build your workstation, verify imagery and public contact information, map complex records, and defend your conclusions in a case report.</p>
+<div class="hero-actions">
+<button type="button" class="cta" data-switch="missions">◈ Begin investigation</button>
+<button type="button" class="outline" data-switch="setup">⚙ Build your workstation</button>
+<button type="button" class="outline" data-switch="tools">⌕ Tool atlas</button>
+</div>
+<span class="hero-disclosure">◎ 24 MISSION FILES · 72 DECISIONS · A CAPSTONE PORTFOLIO · FICTIONAL SUBJECTS ONLY</span>
+</section>
+<section class="trace-stats" aria-label="Academy progress">
+<div><span>YOUR RANK</span><strong id="stat-rank">Trainee</strong></div>
+<div><span>EXPERIENCE</span><strong id="stat-xp">0</strong></div>
+<div><span>CASES CLEARED</span><strong id="stat-cleared">0 / 24</strong></div>
+<div><span>FIRST-TRY ACCURACY</span><strong id="stat-accuracy">—</strong></div>
+</section>
+<div class="trace-tabs" role="tablist" aria-label="Academy areas">
+<button type="button" role="tab" id="tab-missions" aria-controls="view-missions" aria-selected="true" data-switch="missions">◈ Missions</button>
+<button type="button" role="tab" id="tab-setup" aria-controls="view-setup" aria-selected="false" data-switch="setup">⚙ Workstation</button>
+<button type="button" role="tab" id="tab-tools" aria-controls="view-tools" aria-selected="false" data-switch="tools">⌕ Tool atlas</button>
+<button type="button" role="tab" id="tab-report" aria-controls="view-report" aria-selected="false" data-switch="report">▤ Case portfolio</button>
+</div>
+<main>
+<section id="view-missions" class="trace-view" role="tabpanel" aria-labelledby="tab-missions">
+<div class="trace-desk">
+<aside class="mission-sidebar"><div class="sidebar-title"><b>CASE FILES</b><span id="mission-counter">01 / 24</span></div><div class="mission-list" id="mission-list"></div></aside>
+<article id="mission-stage" class="mission-stage" aria-live="polite"></article>
+</div>
+</section>
+<section id="view-setup" class="trace-view" role="tabpanel" aria-labelledby="tab-setup" hidden>
+<div class="section-intro"><h2>Build an investigator's workstation</h2><p>Follow these steps to prepare a lawful, safe, documented OSINT workflow. Save your checklist on this device.</p></div>
+<div class="callout">Only research information you're authorized to use for a legitimate purpose. No password bypasses, leaked credentials, stalking, doxxing, or nonconsensual face identification.</div>
+<div id="setup-grid" class="setup-grid"></div>
+</section>
+<section id="view-tools" class="trace-view" role="tabpanel" aria-labelledby="tab-tools" hidden>
+<div class="section-intro"><h2>The tool atlas</h2><p>Explore actual research tools by purpose. Open provider websites in a new tab and learn to assess their reliability, coverage, terms, and limitations.</p></div>
+<div class="callout">Tool availability and licensing change. No external lookup is performed by TRACE: the investigations are self-contained simulations and your case data is fictional.</div>
+<div id="tools-grid" class="tools-grid"></div>
+</section>
+<section id="view-report" class="trace-view" role="tabpanel" aria-labelledby="tab-report" hidden>
+<div class="section-intro"><h2>Capstone case portfolio</h2><p>Document evidence like a professional: define the question, show source provenance, consider alternatives, and state what the facts do—and don't—prove.</p></div>
+<div class="callout">This is skills practice, not an accredited OSINT certification. Notebook text is saved locally in your browser. Don't enter sensitive real-world details; export before clearing browser storage.</div>
+<div class="notebook-grid">
+<label>Mandate and lawful scope<textarea id="note-mandate" placeholder="Research question, purpose, jurisdiction, permissions, exclusions, time range." rows="5"></textarea></label>
+<label>Evidence log and source dates<textarea id="note-sources" placeholder="Source, URL or document ID, creator, capture date, what it establishes." rows="5"></textarea></label>
+<label>Verification steps and contradictions<textarea id="note-verification" placeholder="Independent corroboration, reverse search, records, contradictory information." rows="5"></textarea></label>
+<label>Alternative explanations and blind spots<textarea id="note-alternatives" placeholder="What else could explain the observations? How could you be wrong?" rows="5"></textarea></label>
+<label>Findings and confidence<textarea id="note-findings" placeholder="Separate established facts, inference, and unknowns; state confidence and justification." rows="5"></textarea></label>
+<label>Ethics, safety and disclosures<textarea id="note-ethics" placeholder="Minimization, secure storage, retention, identity uncertainty, limitations." rows="5"></textarea></label>
+</div>
+<div class="report-actions"><button type="button" class="cta" id="export-brief">↓ Export case brief</button><button type="button" class="outline" id="export-transcript">↓ Export training transcript</button><button type="button" class="outline" id="reset-progress">Reset training progress</button></div>
+<p class="fine" id="report-status" role="status"></p>
+</section>
+</main>
+<footer class="trace-footer"><span>TRACE OSINT ACADEMY · EDUCATIONAL SIMULATION · PRACTICE RESPONSIBLY</span><a href="/">← Random Candy Land</a></footer>
+</div>
+</body></html>
