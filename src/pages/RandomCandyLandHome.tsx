@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Music2, Gamepad2, Sparkles, MoonStar } from 'lucide-react';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
 import { CandyGoo } from '../components/CandyGoo';
 
@@ -99,7 +98,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
     };
   }, []);
   const installChoices = candyLandInstalled ? INSTALL_CHOICES.filter(item => item.url !== '/') : INSTALL_CHOICES;
-  const shown = PORTALS.filter(portal => category === 'all' || portal.kind === category);
   const copyAppLink = async (path:string) => {
     const url = new URL(path, window.location.origin).href;
     try {
@@ -143,8 +141,18 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <div className="candyland-opening-copy">
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
+          <div className="candyland-hero-categories" role="group" aria-label="Filter games by category">
+            <button type="button" className={category === 'all' ? 'is-selected' : ''} aria-pressed={category === 'all'} onClick={() => setCategory('all')}>✨ All</button>
+            {COLLECTIONS.map(group => (
+              <button key={group.id} type="button" className={category === group.id ? 'is-selected' : ''} aria-pressed={category === group.id} onClick={() => setCategory(group.id)}>
+                <span aria-hidden="true">{group.symbol}</span> {group.title}
+              </button>
+            ))}
+          </div>
+          <p className="candyland-hero-filter-summary" aria-live="polite">{category === 'all' ? 'All games & tools' : COLLECTIONS.find(group => group.id === category)?.title} · {PORTALS.filter(portal => category === 'all' || portal.kind === category).length}</p>
           <nav className="candyland-hero-tools" aria-label="Games and tools — choose one to open">
             {PORTALS.map((portal,index) => {
+              if (category !== 'all' && portal.kind !== category) return null;
               const content = <>
                 <span className="candyland-hero-tool-image">
                   <img src={TOOL_MENU_ICONS[index]} width={160} height={160} alt="" loading="eager" />
@@ -163,50 +171,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
       <RandomNonsenseGenerator />
 
-      <section id="adventures" className="candyland-adventures">
-        <div className="candyland-section-heading">
-          <span><Sparkles size={19}/> PICK YOUR PORTAL</span>
-          <h2>A world made of <em>what if?</em></h2>
-          <p>Every doorway leads somewhere different. Every door opens a fresh adventure. Pick what sounds fun and jump in.</p>
-        </div>
-        <div className="candyland-filters" role="group" aria-label="Filter attractions">
-          {([['all','✨ Everything'],['pets','🐣 Virtual Pets'],['competitive','🏆 Competitive'],['arcade','🕹️ Arcade'],['learning','🔎 Learn'],['music','🎵 Music'],['discovery','🌙 Explore']] as const).map(([key,label]) => (
-            <button key={key} type="button" className={category === key ? 'is-selected' : ''} aria-pressed={category === key} onClick={() => setCategory(key)}>{label}</button>
-          ))}
-        </div>
-        <div className="candyland-grouped-collections">
-          {COLLECTIONS.filter(group => category === 'all' || group.id === category).map(group => (
-            <section className="candyland-game-category" key={group.id} aria-label={group.title}>
-              <div className="candyland-game-category-heading">
-                <span aria-hidden="true">{group.symbol}</span>
-                <div><h3>{group.title}</h3><p>{group.description}</p></div>
-                <span className="candyland-game-category-count">{shown.filter(portal => portal.kind === group.id).length} {shown.filter(portal => portal.kind === group.id).length === 1 ? 'tool' : 'tools'}</span>
-              </div>
-            <div className="candyland-portals">
-              {shown.filter(portal => portal.kind === group.id).map(portal => {
-                const inner = <>
-                  <div className="candyland-portal-icon">
-                    <img src={portal.icon} width={96} height={96} alt={portal.title + ' game artwork'} loading="lazy" className={portal.icon.includes('pixel-icon') ? 'candyland-icon-pixel' : undefined} />
-                  </div>
-                  <span className="candyland-portal-tag">{portal.label}</span>
-                  <h3>{portal.title}</h3>
-                  <p>{portal.blurb}</p>
-                  <span className="candyland-portal-go">Let's go <ArrowRight size={19}/></span>
-                  <CandyGoo className="candyland-portal-drips" color={portal.palette === 'peach' ? 'peach' : portal.palette === 'blue' ? 'blueberry' : portal.palette === 'purple' ? 'grape' : 'bubblegum'} />
-                </>;
-                return portal.oldPet ? (
-                  <button key={portal.title} type="button" onClick={onNavigateToTrump} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</button>
-                ) : (
-                  <a key={portal.title} href={portal.href} className={'candyland-portal candyland-portal--'+portal.palette}>{inner}</a>
-                );
-              })}
-            </div>
-            </section>
-          ))}
-        </div>
-      </section>
-
-      <section className="candyland-future-games" aria-label="Games in development">
+      <details className="candyland-future-games" aria-label="Games in development">
+        <summary>✨ Upcoming worlds <span>3 concepts</span></summary>
         <div className="candyland-section-heading">
           <span>✨ ON THE DRAWING BOARD</span>
           <h2>New worlds <em>in development.</em></h2>
@@ -217,9 +183,10 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <article><strong>🏛️ The Corridors: Rise to Power</strong><p>Explore how policy, negotiation, influence, ethics, and government decisions interact.</p></article>
           <article><strong>⚖️ The Docket</strong><p>Investigate legal cases, evaluate evidence, and navigate courtroom decisions and consequences.</p></article>
         </div>
-      </section>
+      </details>
 
-      <section className="candyland-install-apps" id="install-apps" aria-label="Install individual Candy Land apps on Android or iPhone">
+      <details className="candyland-install-apps" id="install-apps" aria-label="Install individual Candy Land apps on Android or iPhone">
+        <summary>📲 Install your favorites <span>Optional</span></summary>
         <div className="candyland-section-heading">
           <span>📲 MAKE IT YOUR OWN</span>
           <h2>Install your <em>favorites.</em></h2>
@@ -246,7 +213,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           ))}
         </div>
         <p className="candyland-install-footnote">These are individually installable web apps, not Apple App Store or Google Play downloads. Installation options vary by browser and device.</p>
-      </section>
+      </details>
 
       <footer className="candyland-footer">
         <span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span>
