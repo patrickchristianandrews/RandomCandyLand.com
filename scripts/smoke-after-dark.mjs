@@ -518,6 +518,25 @@ try{
 
   // The new arcade must be fully interactive, not just a styled landing page.
   // Candy Casino must offer 5 functioning solo games even without online signaling.
+  // TRACE must be a playable 25-case academy, not a static tool directory.
+  const trace=await navigate(site+'/osint-academy/');
+  const traceReady=await trace.evaluate("document.body.dataset.traceReady==='true' && window.TraceAcademyDebug?.missionCount===25 && window.TraceAcademyDebug?.toolCount>=15 && document.querySelectorAll('.mission-option').length===25 && document.querySelector('#mission-stage').textContent.includes('Define the mandate')");
+  if(!traceReady)throw Error('TRACE OSINT Academy failed to load the 25-case interactive mission desk');
+  await trace.evaluate("document.querySelector('[data-choice=\\\"1\\\"]').click()");
+  const traceAnswered=await trace.evaluate("document.querySelector('.question-feedback')?.textContent.includes('Correct decision') && window.TraceAcademyDebug.getProgress().questionsAnswered===1");
+  if(!traceAnswered)throw Error('TRACE OSINT mission choice must receive feedback and save grading');
+  await trace.evaluate("document.querySelector('#next-decision').click()");
+  const traceStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===1 && document.querySelector('[data-choice=\\\"0\\\"]')");
+  if(!traceStep)throw Error('TRACE next-decision control did not advance the case');
+  await trace.evaluate("document.querySelector('#tab-tools').click()");
+  const traceTools=await trace.evaluate("!document.querySelector('#view-tools').hidden && document.querySelectorAll('.tool-card').length>=15 && document.querySelector('#tools-grid').textContent.includes('libphonenumber')");
+  if(!traceTools)throw Error('TRACE tool atlas missing phone/email and other professional resources');
+  await trace.evaluate("document.querySelector('#tab-setup').click()");
+  const traceSetup=await trace.evaluate("!document.querySelector('#view-setup').hidden && document.querySelectorAll('[data-setup]').length>=10");
+  if(!traceSetup)throw Error('TRACE professional workstation checklist missing');
+  await trace.evaluate("document.querySelector('#tab-report').click()");
+  const traceReport=await trace.evaluate("!document.querySelector('#view-report').hidden && !!document.querySelector('#export-brief') && !!document.querySelector('#export-transcript')");
+  if(!traceReport)throw Error('TRACE capstone portfolio and export controls missing');
   const casino=await navigate(site+'/candy-casino/');
   const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-duel]').length===3 && document.querySelectorAll('[data-game]').length===0 && !!document.querySelector('[data-opponent=computer]') && !!document.querySelector('[data-opponent=friend]')");
   if(!casinoReady)throw Error('Candy Casino must show ONLY three competitive games with computer and friend choices');
@@ -598,10 +617,12 @@ try{
     if(!result)throw Error('Candy Land homepage regression: '+desc);
     console.log('✓',desc);
   };
-  await checkHomepage('Candy Land hero contains eight illustrated, working shortcuts, with no redundant intro',
-    "(()=>{const hero=document.querySelector('.candyland-opening');const tiles=[...document.querySelectorAll('.candyland-hero-tools .candyland-hero-tool-link')];return !!hero&&tiles.length===8&&tiles.every(x=>!!x.querySelector('img')&&!!x.querySelector('.candyland-hero-tool-name'))&&tiles[0].textContent.includes('Trumpagotchi OG')&&tiles[0].tagName==='BUTTON'&&tiles[0].querySelector('img')?.getAttribute('src')?.includes('trumpagotchi-2.svg')&&tiles[1].textContent.includes('FM-1 Trumpagotchi')&&!!tiles[1].querySelector('img[src*=pixel-icon]')&&!!tiles[7].getAttribute('href')?.includes('/after-dark/')&&!document.querySelector('.candyland-tools-strip')&&!hero.textContent.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE')&&!hero.textContent.includes('ENTER CANDY LAND')})()");
-  await checkHomepage('All eight illustrated homepage game icons load',
-    "Array.from(document.querySelectorAll('.candyland-hero-tools img')).length===8&&Array.from(document.querySelectorAll('.candyland-hero-tools img')).every(img=>img.complete&&img.naturalWidth>0)");
+  await checkHomepage('Candy Land hero contains nine illustrated, working shortcuts, with no redundant intro',
+    "(()=>{const hero=document.querySelector('.candyland-opening');const tiles=[...document.querySelectorAll('.candyland-hero-tools .candyland-hero-tool-link')];return !!hero&&tiles.length===9&&tiles.every(x=>!!x.querySelector('img')&&!!x.querySelector('.candyland-hero-tool-name'))&&tiles[0].textContent.includes('Trumpagotchi OG')&&tiles[0].tagName==='BUTTON'&&tiles[0].querySelector('img')?.getAttribute('src')?.includes('trumpagotchi-2.svg')&&tiles[1].textContent.includes('FM-1 Trumpagotchi')&&!!tiles[1].querySelector('img[src*=pixel-icon]')&&!!tiles[7].getAttribute('href')?.includes('/after-dark/')&&!!tiles[8].getAttribute('href')?.includes('/osint-academy/')&&!document.querySelector('.candyland-tools-strip')&&!hero.textContent.includes('WELCOME TO YOUR CANDY-COATED UNIVERSE')&&!hero.textContent.includes('ENTER CANDY LAND')})()");
+  await checkHomepage('All nine illustrated homepage game icons load',
+    "Array.from(document.querySelectorAll('.candyland-hero-tools img')).length===9&&Array.from(document.querySelectorAll('.candyland-hero-tools img')).every(img=>img.complete&&img.naturalWidth>0)");
+  await checkHomepage('Games are grouped and Moodropolis remains in the development lineup',
+    "document.querySelectorAll('.candyland-game-category').length===6 && !!document.querySelector('.candyland-future-games') && document.querySelector('.candyland-future-games').textContent.includes('Moodropolis') && document.querySelector('.candyland-game-category[aria-label=\\\"Learning & Investigation\\\"]')?.textContent.includes('TRACE')");
   const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-news-article h3') && document.querySelector('#nonsense .nonsense-generate')?.textContent.includes('NEXT STORY') && !document.querySelector('#nonsense .nonsense-eyebrow')");
   if(!nonsenseReady)throw Error('Candy Land Gazette article or Next Story button did not mount');
   const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
