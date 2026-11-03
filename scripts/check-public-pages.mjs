@@ -110,6 +110,13 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
 }
 const homeInstallSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
+if(!homeInstallSource.includes('className="candyland-unwrapped-promo"') ||
+   !homeInstallSource.includes('including a partner-friendly version you can choose to share') ||
+   !homeInstallSource.includes('including a partner-friendly version') && !homeInstallSource.includes('a partner-friendly version') ||
+   !homeInstallSource.includes('Results are exploratory, not a diagnosis.') ||
+   !homeInstallSource.includes('aria-label="Explore Unwrapped"')){
+  console.error('Compact Unwrapped promotional section is missing or overpromises results.'); failures++;
+}
 if(!homeInstallSource.includes("title:'Unwrapped'")||
    !homeInstallSource.includes("name:'Unwrapped'")||
    !homeInstallSource.includes("There's more to you. Understand every layer. Appreciate the whole person.")||
