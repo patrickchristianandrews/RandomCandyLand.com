@@ -397,3 +397,31 @@ body.fm1-tiny-mode.candyland-game-page{color:#fff7ff;background:radial-gradient(
  .fm1-tiny-mode main > .how-to-play-top summary{padding:10px 12px;min-height:44px;font-size:12px}
  .fm1-tiny-mode main > .how-to-play-top summary small{font-size:11px}
 }
+
+/* FM-1 Trumpagotchi — no page-level branding or candy icing above the game.
+   Keep the How to Play instructions and the actual pet controls on screen. */
+body.fm1-tiny-mode .candyland-game-site-header,
+body.fm1-tiny-mode .candyland-game-site-goo,
+body.fm1-tiny-mode .candyland-game-site-brand,
+body.fm1-tiny-mode .pocket-topbar,
+body.fm1-tiny-mode .pocket-top-goo,
+body.fm1-tiny-mode .topbar,
+body.fm1-tiny-mode main > .site-goo {
+ display:none!important;
+ height:0!important;
+ min-height:0!important;
+ margin:0!important;
+ padding:0!important;
+ border:0!important;
+}
+body.fm1-tiny-mode .shell{padding-top:10px!important;}
+body.fm1-tiny-mode main{display:block;}
+body.fm1-tiny-mode main > .how-to-play-top{
+ margin:0 auto 13px!important;
+ max-width:920px;
+}
+body.fm1-tiny-mode main > .game-layout{margin-top:0!important;}
+@media(max-width:630px){
+ body.fm1-tiny-mode .shell{padding-top:7px!important;}
+ body.fm1-tiny-mode main > .how-to-play-top{margin:0 auto 11px!important;}
+}
