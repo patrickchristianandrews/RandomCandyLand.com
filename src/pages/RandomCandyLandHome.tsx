@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
-import { CandyGoo } from '../components/CandyGoo';
 
 interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
@@ -118,7 +117,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <span className="candyland-brand-icon" aria-hidden="true"><img src="/icon.svg?v=candy-logo-no-white-3" alt="" width={55} height={55} /></span>
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
-        <CandyGoo className="candyland-header-goo" color="bubblegum" />
       </header>
 
       <section className="candyland-opening" aria-label="Welcome to Random Candy Land">
@@ -165,7 +163,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             })}
           </nav>
         </div>
-        <CandyGoo className="candyland-drips" color="bubblegum" />
       </section>
 
       <aside className="candyland-unwrapped-promo" aria-label="Featured: Unwrapped personal insight and connection">
