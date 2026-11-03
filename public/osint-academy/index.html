@@ -20,9 +20,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
 <link rel="manifest" href="/app-manifests/osint-academy.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/osint-academy/style.css?v=workstation-command-20261103">
+<link rel="stylesheet" href="/osint-academy/style.css?v=clear-path-20261103">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/game.js?v=workstation-command-20261103" defer></script>
+<script src="/osint-academy/game.js?v=clear-path-20261103" defer></script>
 </head>
 <body class="trace-app">
 <!-- Google Tag Manager (noscript) -->
@@ -53,18 +53,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div><span>CASES CLEARED</span><strong id="stat-cleared">0 / 25</strong></div>
 <div><span>FIRST-TRY ACCURACY</span><strong id="stat-accuracy">—</strong></div>
 </section>
+<section class="trace-first-steps" aria-label="How to play TRACE">
+  <div class="trace-first-steps-intro"><span class="eyebrow">START HERE · YOUR INVESTIGATION PATH</span><h2>Learn by solving a case.</h2><p>You do not need to set up any tools first. Each case has three short decisions; the explanation after every answer teaches you what a professional would do.</p></div>
+  <ol class="trace-play-steps"><li><span>1</span><strong>Read the case</strong><small>Check the scenario and evidence.</small></li><li><span>2</span><strong>Choose your answer</strong><small>Get instant feedback and a lesson.</small></li><li><span>3</span><strong>Press Next</strong><small>Finish 3 decisions to unlock a case.</small></li></ol>
+  <div class="trace-first-steps-foot"><button type="button" class="cta" id="continue-training" data-switch="missions">▶ Start Case 01</button><span id="training-next-hint">Your progress saves automatically on this device.</span></div>
+</section>
 <div class="trace-tabs" role="tablist" aria-label="Academy areas">
-<button type="button" role="tab" id="tab-missions" aria-controls="view-missions" aria-selected="true" data-switch="missions">◈ Missions</button>
-<button type="button" role="tab" id="tab-scope" aria-controls="view-scope" aria-selected="false" data-switch="scope">◎ SCOPE Guide</button>
-<button type="button" role="tab" id="tab-setup" aria-controls="view-setup" aria-selected="false" data-switch="setup">⚙ Workstation</button>
-<button type="button" role="tab" id="tab-tools" aria-controls="view-tools" aria-selected="false" data-switch="tools">⌕ Tool atlas</button>
-<button type="button" role="tab" id="tab-report" aria-controls="view-report" aria-selected="false" data-switch="report">▤ Case portfolio</button>
+<button type="button" role="tab" id="tab-missions" aria-controls="view-missions" aria-selected="true" data-switch="missions">▶ Play cases</button>
+<button type="button" role="tab" id="tab-scope" aria-controls="view-scope" aria-selected="false" data-switch="scope">◎ Get help</button>
+<button type="button" role="tab" id="tab-setup" aria-controls="view-setup" aria-selected="false" data-switch="setup">⚙ Setup guide</button>
+<button type="button" role="tab" id="tab-tools" aria-controls="view-tools" aria-selected="false" data-switch="tools">⌕ Research tools</button>
+<button type="button" role="tab" id="tab-report" aria-controls="view-report" aria-selected="false" data-switch="report">▤ My reports</button>
 </div>
 <main>
 <section id="view-missions" class="trace-view" role="tabpanel" aria-labelledby="tab-missions">
 <div class="trace-desk">
-<aside class="mission-sidebar"><div class="sidebar-title"><b>CASE FILES</b><span id="mission-counter">01 / 25</span></div><div class="mission-list" id="mission-list"></div></aside>
-<article id="mission-stage" class="mission-stage" aria-live="polite"></article>
+  <article id="mission-stage" class="mission-stage" aria-live="polite"></article>
+  <details class="mission-sidebar" id="case-directory">
+    <summary class="sidebar-title"><span><b>▣ Browse cases</b><small>Open to choose or revisit a mission</small></span><span id="mission-counter">01 / 25</span></summary>
+    <div class="mission-list" id="mission-list"></div>
+  </details>
 </div>
 </section>
 <section id="view-scope" class="trace-view" role="tabpanel" aria-labelledby="tab-scope" hidden>
