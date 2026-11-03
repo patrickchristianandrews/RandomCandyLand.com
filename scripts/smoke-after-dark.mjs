@@ -531,11 +531,26 @@ try{
   const traceStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===1 && !!document.querySelector('.question-choices button:nth-child(1)')");
   if(!traceStep)throw Error('TRACE next-decision control did not advance the case');
   await trace.evaluate("document.querySelector('#tab-tools').click();document.querySelector('[data-atlas=all]').click()");
-  const traceTools=await trace.evaluate("!document.querySelector('#view-tools').hidden && document.querySelectorAll('.tool-card').length>=15 && document.querySelector('#tools-grid').textContent.includes('libphonenumber')");
-  if(!traceTools)throw Error('TRACE tool atlas missing phone/email and other professional resources');
+  const traceTools=await trace.evaluate("!document.querySelector('#view-tools').hidden && !!document.querySelector('#atlas-search') && document.querySelectorAll('.tool-card').length===4 && document.querySelectorAll('[data-atlas]').length===6");
+  if(!traceTools)throw Error('TRACE Tool Atlas should open with a compact essentials view and six categories');
+  await trace.evaluate("document.querySelector('[data-atlas=all]').click()");
+  const traceAllTools=await trace.evaluate("document.querySelectorAll('.tool-card').length>=16 && document.querySelector('#tools-grid').textContent.includes('libphonenumber')");
+  if(!traceAllTools)throw Error('TRACE all-tools filter must reveal the complete official tool catalog');
+  await trace.evaluate("(()=>{const input=document.querySelector('#atlas-search');input.value='email';input.dispatchEvent(new Event('input',{bubbles:true}))})()");
+  const traceSearch=await trace.evaluate("document.querySelectorAll('.tool-card').length>=1 && document.querySelector('#tools-grid').textContent.includes('Google Admin Toolbox')");
+  if(!traceSearch)throw Error('TRACE Tool Atlas search must find email-header tools');
   await trace.evaluate("document.querySelector('#tab-setup').click()");
-  const traceSetup=await trace.evaluate("!document.querySelector('#view-setup').hidden && document.querySelectorAll('[data-setup]').length>=10");
-  if(!traceSetup)throw Error('TRACE professional workstation checklist missing');
+  const traceSetup=await trace.evaluate("!document.querySelector('#view-setup').hidden && document.querySelectorAll('[data-setup]').length===12 && document.querySelectorAll('.workstation-stage').length===4 && !!document.querySelector('#command-form') && !!document.querySelector('#command-input')");
+  if(!traceSetup)throw Error('TRACE guided four-stage workstation and browser command desk missing');
+  await trace.evaluate("document.querySelector('.command-samples button:nth-child(4)').click()");
+  const tracePhone=await trace.evaluate("document.querySelector('#command-output').textContent.includes('Phone-number FORMAT only')");
+  if(!tracePhone)throw Error('TRACE phone command must provide local format guidance');
+  await trace.evaluate("(()=>{document.querySelector('#command-input').value='tools email';document.querySelector('#command-form').requestSubmit()})()");
+  const traceCommandTools=await trace.evaluate("document.querySelector('#command-output').textContent.includes('headers') && !!document.querySelector('#command-links a')");
+  if(!traceCommandTools)throw Error('TRACE command desk must return a linked official tool from search');
+  await trace.evaluate("document.querySelector('[data-setup=0]').click()");
+  const traceChecklist=await trace.evaluate("document.querySelector('#setup-progress-label').textContent.includes('1 of 12')");
+  if(!traceChecklist)throw Error('TRACE workstation step tracking did not update');
   await trace.evaluate("document.querySelector('#tab-report').click()");
   const traceReport=await trace.evaluate("!document.querySelector('#view-report').hidden && !!document.querySelector('#export-brief') && !!document.querySelector('#export-transcript')");
   if(!traceReport)throw Error('TRACE capstone portfolio and export controls missing');
@@ -633,6 +648,8 @@ try{
   await home.evaluate("document.querySelector('.candyland-hero-categories button:first-child').click()");
   await checkHomepage('All game icons return with Unwrapped still first',
     "document.querySelectorAll('.candyland-hero-tools .candyland-hero-tool-link').length===9 && document.querySelector('.candyland-hero-tools .candyland-hero-tool-link')?.textContent.includes('Unwrapped')");
+  await checkHomepage('One concise Unwrapped feature explains real quiz and partner-report outputs',
+    "(()=>{const blocks=[...document.querySelectorAll('.candyland-unwrapped-promo')];const card=blocks[0];return blocks.length===1 && !!card?.querySelector('a.candyland-unwrapped-promo-link') && card.textContent.includes('personal and partner reports') && card.textContent.includes('Appreciate the whole person.')})()");
   const nonsenseReady=await home.evaluate("!!document.querySelector('#nonsense .nonsense-news-article h3') && document.querySelector('#nonsense .nonsense-generate')?.textContent.includes('NEXT STORY') && !document.querySelector('#nonsense .nonsense-eyebrow')");
   if(!nonsenseReady)throw Error('Candy Land Gazette article or Next Story button did not mount');
   const beforeNonsense=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
