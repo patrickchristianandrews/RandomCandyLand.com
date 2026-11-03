@@ -178,6 +178,16 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <a className="candyland-unwrapped-promo-link" href="/after-dark/" aria-label="Explore Unwrapped">Explore <span aria-hidden="true">↗</span></a>
       </aside>
 
+      <aside className="candyland-unwrapped-promo" aria-label="Featured: Unwrapped personal insight and connection">
+        <img className="candyland-unwrapped-promo-icon" src="/tool-icons/unwrapped.svg" width={76} height={76} alt="" loading="lazy" />
+        <div className="candyland-unwrapped-promo-copy">
+          <span className="candyland-unwrapped-promo-eyebrow">FEATURED · 18+ · SELF-UNDERSTANDING & CONNECTION</span>
+          <h2>Unwrapped <span>— Understand every layer. Appreciate the whole person.</span></h2>
+          <p>Two connected quizzes help you reflect on your psychology, feelings, attraction, interests, and ways of connecting. Explore personalized results, explanations, potential interests to consider, and detailed, shareable personal and partner reports—so you can understand yourself more deeply, express what matters, appreciate differences, and build more meaningful conversations.</p>
+        </div>
+        <a className="candyland-unwrapped-promo-link" href="/after-dark/" aria-label="Explore Unwrapped, for adults 18 and older">Explore Unwrapped <span aria-hidden="true">↗</span></a>
+      </aside>
+
       {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
       <RandomNonsenseGenerator />
 
