@@ -620,7 +620,8 @@ for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
   if(!fs.existsSync(asset)){console.error('OSINT Academy asset missing:',asset);failures++;}
 }
 const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
-for(const token of ['id="command-desk"','id="command-form"','id="command-input"','id="command-output"',
+for(const token of ['id="continue-training"','class="trace-first-steps"','class="trace-play-steps"','id="case-directory"','class="mission-sidebar"',
+  'id="command-desk"','id="command-form"','id="command-input"','id="command-output"',
   'id="setup-grid"','id="setup-progress-label"','id="atlas-search"','id="atlas-categories"']){
   if(!traceHtml.includes(token)){console.error('Missing TRACE workstation/console control:',token);failures++;}
 }
@@ -638,7 +639,10 @@ if(fs.existsSync('dist/osint-academy/game.js')){
      !js.includes("async function runCommand(raw)") ||
      !js.includes("const setupGroups=[") ||
      !js.includes("const toolAliases=") ||
-     !js.includes("updateSetupProgress()")){
+     !js.includes("updateSetupProgress()") ||
+     !js.includes("case-navigation") ||
+     !js.includes("Complete case & start next") ||
+     !js.includes("const focusCase=")){
     console.error('TRACE Academy must include all 25 professional training cases and the interactive case engine.');failures++;
   }
 }
