@@ -20,9 +20,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
 <link rel="manifest" href="/app-manifests/osint-academy.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/osint-academy/style.css?v=professional-20261103">
+<link rel="stylesheet" href="/osint-academy/style.css?v=scope-guide-20261103">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/game.js?v=professional-20261103" defer></script>
+<script src="/osint-academy/game.js?v=scope-guide-20261103" defer></script>
 </head>
 <body class="trace-app">
 <!-- Google Tag Manager (noscript) -->
@@ -42,6 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="hero-actions">
 <button type="button" class="cta" data-switch="missions">◈ Begin investigation</button>
 <button type="button" class="outline" data-switch="setup">⚙ Build your workstation</button>
+<button type="button" class="outline" data-switch="scope">◎ Meet SCOPE</button>
 <button type="button" class="outline" data-switch="tools">⌕ Tool atlas</button>
 </div>
 <span class="hero-disclosure">◎ 25 MISSION FILES · 75 DECISIONS · A CAPSTONE PORTFOLIO · FICTIONAL SUBJECTS ONLY</span>
@@ -54,6 +55,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 <div class="trace-tabs" role="tablist" aria-label="Academy areas">
 <button type="button" role="tab" id="tab-missions" aria-controls="view-missions" aria-selected="true" data-switch="missions">◈ Missions</button>
+<button type="button" role="tab" id="tab-scope" aria-controls="view-scope" aria-selected="false" data-switch="scope">◎ SCOPE Guide</button>
 <button type="button" role="tab" id="tab-setup" aria-controls="view-setup" aria-selected="false" data-switch="setup">⚙ Workstation</button>
 <button type="button" role="tab" id="tab-tools" aria-controls="view-tools" aria-selected="false" data-switch="tools">⌕ Tool atlas</button>
 <button type="button" role="tab" id="tab-report" aria-controls="view-report" aria-selected="false" data-switch="report">▤ Case portfolio</button>
@@ -63,6 +65,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="trace-desk">
 <aside class="mission-sidebar"><div class="sidebar-title"><b>CASE FILES</b><span id="mission-counter">01 / 25</span></div><div class="mission-list" id="mission-list"></div></aside>
 <article id="mission-stage" class="mission-stage" aria-live="polite"></article>
+</div>
+</section>
+<section id="view-scope" class="trace-view" role="tabpanel" aria-labelledby="tab-scope" hidden>
+<div class="scope-desk">
+  <div class="scope-head">
+    <span class="scope-mark" aria-hidden="true">◎</span>
+    <div>
+      <div class="eyebrow">YOUR CASE-AWARE FIELD GUIDE</div>
+      <h2>SCOPE</h2>
+      <p>Get practical investigation guidance tailored to the case you're studying. Learn how to plan, select tools, corroborate sources, and protect privacy.</p>
+    </div>
+  </div>
+  <div class="scope-case-chip" id="scope-case-label">CASE 01 · DEFINE THE MANDATE</div>
+  <p class="scope-intro">Choose a topic. SCOPE explains a research method without revealing the answer to your mission.</p>
+  <div class="scope-prompts" role="group" aria-label="Ask SCOPE about investigative methods">
+    <button type="button" data-scope-prompt="plan">◈ How should I start?</button>
+    <button type="button" data-scope-prompt="tools">⌕ Which tools fit?</button>
+    <button type="button" data-scope-prompt="verify">✓ How do I verify it?</button>
+    <button type="button" data-scope-prompt="ethics">⚖ What must I avoid?</button>
+  </div>
+  <div class="scope-answer" id="scope-answer" role="status" aria-live="polite">
+    <strong>Choose a research question above.</strong>
+    <p>Guidance will update for whichever mission is selected. It is a built-in training reference, not a live investigator or search engine.</p>
+  </div>
+  <div class="scope-actions">
+    <button type="button" class="cta" data-switch="missions">← Return to your case</button>
+    <button type="button" class="outline" data-switch="tools">Browse tool atlas</button>
+  </div>
 </div>
 </section>
 <section id="view-setup" class="trace-view" role="tabpanel" aria-labelledby="tab-setup" hidden>
