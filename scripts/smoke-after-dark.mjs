@@ -576,7 +576,7 @@ try{
   const traceFinishCue=await trace.evaluate("document.querySelector('#next-decision')?.textContent.includes('Complete case & start next')");
   if(!traceFinishCue)throw Error('TRACE must show an explicit finish-and-continue action');
   await trace.evaluate("document.querySelector('#next-decision').click()");
-  const traceAdvanced=await trace.evaluate("window.TraceAcademyDebug.getProgress().completed===1 && window.TraceAcademyDebug.getProgress().active===1 && document.querySelector('#mission-stage h2')?.textContent.includes('Build a secure workstation') && !!document.querySelector('[data-mission="1"]:not([disabled])') && document.querySelector('#continue-training')?.textContent.includes('Resume Case 02')");
+  const traceAdvanced=await trace.evaluate("window.TraceAcademyDebug.getProgress().completed===1 && window.TraceAcademyDebug.getProgress().active===1 && document.querySelector('#mission-stage h2')?.textContent.includes('Build a secure workstation') && document.querySelectorAll('.mission-option')[1]?.disabled===false && document.querySelector('#continue-training')?.textContent.includes('Resume Case 02')");
   if(!traceAdvanced)throw Error('TRACE must unlock and automatically open the next case and update its resume button');
   await trace.evaluate("document.querySelector('#case-directory > summary').click()");
   const traceDirectory=await trace.evaluate("document.querySelector('#case-directory').open && document.querySelectorAll('.mission-option').length===25");
