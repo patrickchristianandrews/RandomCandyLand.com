@@ -453,14 +453,16 @@ catch(err){console.error('Goo Rush has broken JavaScript:',err.message);failures
 for(const token of ['makeBoard','startRound','endRound','shareChallenge','data-mode="duel"','data-mode="challenge"','navigator.clipboard','state.players.push(freshPlayer(1))']){
   if(!gooPage.includes(token)){console.error('Goo Rush missing gameplay:',token);failures++;}
 }
-// The nonsense generator has a full-cycle, non-repeating shuffle and actual goo SVG.
-for (const token of ['nonsense-lab', 'NEXT STORY', 'THE CANDY LAND GAZETTE',
-  'random-candy-land-nonsense-complete-cycle-v1', 'candyland-header-goo',
-  'goo-fill-']) {
-  if (!homeBundle.includes(token)) {
-    console.error('Candy Land nonsense/goo experience is missing from the homepage:', token);
-    failures++;
-  }
+// Keep the news game, but never reintroduce dripping liquid overlays.
+for(const token of ['nonsense-lab','NEXT STORY','THE CANDY LAND GAZETTE','random-candy-land-nonsense-complete-cycle-v1']){
+  if(!homeBundle.includes(token)){ console.error('Missing news generator:',token);failures++; }
+}
+const nonsenseSource=fs.readFileSync('src/components/RandomNonsenseGenerator.tsx','utf8');
+if(homeInstallSource.includes('CandyGoo') ||
+   nonsenseSource.includes('CandyGoo') ||
+   afterDarkLanding.includes('candy-goo.js') ||
+   afterDarkLanding.includes('.ad-liquid-goo')){
+  console.error('Removed decorative goo was reintroduced.'); failures++;
 }
 // Never ship the obsolete pre-redesign entrypoint or HTML shell again.
 if (fs.existsSync('dist/standalone-index.html')) {
