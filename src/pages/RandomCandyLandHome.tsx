@@ -168,6 +168,16 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <CandyGoo className="candyland-drips" color="bubblegum" />
       </section>
 
+      <aside className="candyland-unwrapped-promo" aria-label="Unwrapped featured experience">
+        <img src="/tool-icons/unwrapped.svg" alt="" width={60} height={60} loading="lazy" />
+        <div className="candyland-unwrapped-promo-copy">
+          <span className="candyland-unwrapped-promo-eyebrow">A LITTLE CLOSER LOOK · 18+</span>
+          <h2>Unwrapped <span>— Understand every layer. Appreciate the whole person.</span></h2>
+          <p>More than a quiz: explore your personality, emotions, attraction, interests, and communication through two complementary questionnaires. Turn your answers into personalized psychological insights, interest profiles, practical guides, and downloadable reports—including a partner-friendly version you can choose to share. Discover patterns, start more meaningful conversations, and help someone understand and appreciate the whole you. Results are exploratory, not a diagnosis.</p>
+        </div>
+        <a className="candyland-unwrapped-promo-link" href="/after-dark/" aria-label="Explore Unwrapped">Explore <span aria-hidden="true">↗</span></a>
+      </aside>
+
       {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
       <RandomNonsenseGenerator />
 
