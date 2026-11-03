@@ -108,8 +108,19 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
     console.error('Duplicate navigation-button row returned:',path);failures++;
   }
 }
+const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
+if(!homeInstallSource.includes("title:'Unwrapped'")||
+   !homeInstallSource.includes("name:'Unwrapped'")||
+   !homeInstallSource.includes("There's more to you. Understand every layer. Appreciate the whole person.")||
+   !afterDarkManifest.includes('"name": "Unwrapped | Random Candy Land"')||
+   !afterDarkManifest.includes('/tool-icons/unwrapped.svg')){
+  console.error('Unwrapped homepage, tagline or installable app branding is missing.');failures++;
+}
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
-if(!afterDarkLanding.includes('<section id="home" class="tab visible od-hub-home od-compact-home"') ||
+if(!afterDarkLanding.includes('<h1>There\'s more to you.') ||
+   !afterDarkLanding.includes('Appreciate the whole person.') ||
+   !afterDarkLanding.includes('UNWRAPPED') ||
+   !afterDarkLanding.includes('<section id="home" class="tab visible od-hub-home od-compact-home"') ||
    !afterDarkLanding.includes('<nav class="od-ribbon-nav"') ||
    !afterDarkLanding.includes('class="od-compact-tools-grid"') ||
    !afterDarkLanding.includes('Take the quizzes') ||
@@ -316,7 +327,7 @@ const toolIcons = [
   'tool-icons/simon.svg',
   'tool-icons/candy-match.svg',
   'tool-icons/candy-pulse.svg',
-  'tool-icons/other-drawer.svg',
+  'tool-icons/unwrapped.svg',
   'tool-icons/osint-academy.svg'
 ];
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
