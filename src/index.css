@@ -679,3 +679,50 @@ body {
  .candyland-next details.candyland-future-games>summary,
  .candyland-next details.candyland-install-apps>summary{font-size:14px;padding:14px 2px}
 }
+
+/* Small editorial promotion for Unwrapped. Never another oversized game tile. */
+.candyland-next .candyland-unwrapped-promo{
+  position:relative;display:flex;align-items:center;gap:14px;
+  width:min(100% - 30px,1000px);margin:18px auto 23px;padding:14px 17px;
+  border:1px solid rgba(245,179,226,.72);border-radius:17px;
+  background:linear-gradient(110deg,rgba(65,25,82,.96),rgba(45,21,70,.94));
+  box-shadow:0 6px 22px rgba(35,9,42,.22);color:#fff6fa;
+}
+.candyland-next .candyland-unwrapped-promo>img{
+  width:58px;height:58px;flex:none;object-fit:contain;border-radius:13px;
+}
+.candyland-next .candyland-unwrapped-promo-copy{flex:1;min-width:0}
+.candyland-next .candyland-unwrapped-promo-eyebrow{
+  display:block;color:#ffd3ec;font:850 10px/1.4 system-ui,sans-serif;letter-spacing:.08em;
+}
+.candyland-next .candyland-unwrapped-promo h2{
+  margin:3px 0 5px;font:900 clamp(17px,2.1vw,21px)/1.25 system-ui,sans-serif;color:#fff4e1;
+}
+.candyland-next .candyland-unwrapped-promo h2 span{
+  color:#ffe1ec;font:650 clamp(12px,1.6vw,15px)/1.35 system-ui,sans-serif;
+}
+.candyland-next .candyland-unwrapped-promo p{
+  margin:0;max-width:790px;color:#f7e5f3;font:500 12px/1.54 system-ui,sans-serif;
+}
+.candyland-next .candyland-unwrapped-promo-link{
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  flex:none;padding:9px 12px;border:1px solid #ffd7e8;
+  border-radius:10px;background:#ffe7ef;color:#531d53;text-decoration:none;
+  font:850 12px/1.25 system-ui,sans-serif;white-space:nowrap;
+}
+.candyland-next .candyland-unwrapped-promo-link:hover{background:#fff7fb}
+@media(max-width:650px){
+  .candyland-next .candyland-unwrapped-promo{
+    width:calc(100% - 20px);padding:12px;gap:10px;align-items:flex-start;
+    display:grid;grid-template-columns:44px minmax(0,1fr);
+    margin:12px auto 18px;border-radius:13px;
+  }
+  .candyland-next .candyland-unwrapped-promo>img{width:44px;height:44px}
+  .candyland-next .candyland-unwrapped-promo-copy{grid-column:2}
+  .candyland-next .candyland-unwrapped-promo h2{margin-top:2px;font-size:16px}
+  .candyland-next .candyland-unwrapped-promo h2 span{display:block;font-size:12px}
+  .candyland-next .candyland-unwrapped-promo p{font-size:11px;line-height:1.48}
+  .candyland-next .candyland-unwrapped-promo-link{
+    grid-column:2;justify-self:start;padding:8px 10px;font-size:11px;
+  }
+}
