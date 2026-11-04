@@ -177,7 +177,11 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             ))}
           </div>
           <p className="candyland-category-guide">Pick a quick break, an ongoing world, a story worth an hour or a creative challenge. Everything is grouped below.</p>
-          <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
+
+        </div>
+      </section>
+
+      <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
             {COLLECTIONS.filter(group => category === 'all' || category === group.id).map(group => {
               const games = PORTALS.filter(portal => portal.kind === group.id);
               return (
@@ -211,8 +215,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
               );
             })}
           </div>
-        </div>
-      </section>
 
       <section className="candyland-notify-section" aria-label="Optional notifications for ongoing games">
         <div id="rcl-notify-center">
