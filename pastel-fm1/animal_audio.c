@@ -3,7 +3,7 @@
  * Eight licensed CC0 field recordings. Generator and per-file credits:
  * pastel-fm1/generate_animal_samples.py and AUDIO_CREDITS.md.
  *
- * Generated samples are 16kHz mono ITU-T G711 mu-law and reside in read-only
+ * Generated samples are 12kHz mono ITU-T G711 mu-law and reside in read-only
  * flash, not in scratch SRAM. Playback resamples with interpolation to FM-1's
  * ~44.118kHz DAC rate. The existing synth/FX continue to work unchanged.
  * No synthesized animal imitation tone is used.
@@ -62,8 +62,8 @@ static void pastel_animal_render(int32_t *out, uint32_t n)
             v->running=1u;
         }
     }
-    /* 16k / (24MHz / 544) = 0.362666 samples per FM-1 output sample. */
-    const uint32_t step=(uint32_t)((16000ull * 544ull * 65536ull + 12000000ull) / 24000000ull);
+    /* 12k / (24MHz / 544) = 0.362666 samples per FM-1 output sample. */
+    const uint32_t step=(uint32_t)((12000ull * 544ull * 65536ull + 12000000ull) / 24000000ull);
     for (uint32_t vnum = 0; vnum < PASTEL_ANIMAL_VOICES; vnum++) {
         pastel_animal_voice_t *v=&pastel_animal_voices[vnum];
         if (!v->running) continue;
