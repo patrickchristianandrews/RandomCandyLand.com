@@ -336,19 +336,22 @@ const toolIcons = [
   'tool-icons/candy-match.svg',
   'tool-icons/candy-pulse.svg',
   'tool-icons/unwrapped.svg',
-  'tool-icons/osint-academy.svg'
+  'tool-icons/osint-academy.svg',
+  'tool-icons/moodropolis.svg',
+  'tool-icons/the-corridors.svg',
+  'tool-icons/the-docket.svg'
 ];
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
     !homeInstallSource.includes('className="candyland-hero-tool-link"') ||
-    !homeInstallSource.includes('TOOL_MENU_ICONS[index]') ||
+    !homeInstallSource.includes('src={portal.icon}') ||
     !homeInstallSource.includes("PORTALS.map((portal,index)") ||
     !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
-  console.error('The Candy Land homepage must display all nine illustrated game and tool shortcuts.');
+  console.error('The Candy Land homepage must display all twelve illustrated game and tool shortcuts.');
   failures++;
 }
 // The new artwork must replace the old emoji/cartoon thumbnails in every
 // larger game portal and in each individual app installation card.
-if (!homeInstallSource.includes('<img src={TOOL_MENU_ICONS[index]}') ||
+if (!homeInstallSource.includes('<img src={portal.icon}') ||
     !homeInstallSource.includes('<img src={item.icon}') ||
     !homeInstallSource.includes('icon:TOOL_MENU_ICONS[0]') ||
     !homeInstallSource.includes('icon:TOOL_MENU_ICONS[7]') ||
@@ -613,7 +616,11 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes("Moodropolis") ||
    !homeInstallSource.includes('candyland-hero-categories') ||
    !homeInstallSource.includes('Virtual Pets') ||
-   !homeInstallSource.includes('Learning & Investigation') ||
+   !homeInstallSource.includes('Deep Learning') ||
+   !homeInstallSource.includes('Quick Games') ||
+   !homeInstallSource.includes('Long Adventures') ||
+   !homeInstallSource.includes("href:'/the-corridors/'") ||
+   !homeInstallSource.includes("href:'/the-docket/'") ||
    !homeBundle.includes('/osint-academy/')){
   console.error('Grouped homepage, Moodropolis or TRACE Academy portal is missing.'); failures++;
 }
@@ -680,11 +687,27 @@ for (const [slug, title, needed] of [
  }
  if(!homeBundle.includes('/'+slug+'/')){console.error('Unlinked Meridian world from homepage:',slug);failures++;}
 }
-for(const shared of ['dist/worlds/core.js','dist/worlds/common.css']){
+for(const shared of ['dist/worlds/core.js','dist/worlds/common.css','dist/worlds/experience.js','dist/worlds/immersive.css']){
  if(!fs.existsSync(shared)){console.error('Missing Meridian shared asset:',shared);failures++;}
 }
 if(fs.existsSync('dist/worlds/core.js')){
  try{new vm.Script(fs.readFileSync('dist/worlds/core.js','utf8'));}catch(e){console.error('Broken Meridian helpers:',e.message);failures++;}
+}
+
+
+for (const [slug,markers] of [
+ ['moodropolis',['residentChallenge','sceneCity','citizenReply','badgeRow']],
+ ['the-corridors',['sceneHall','consult','powerWeb','stakeholderDesk']],
+ ['the-docket',['caseBoard','linkPanel','witnessPanel','witness']],
+]) {
+ const src='dist/'+slug+'/game.js';
+ if(fs.existsSync(src)){
+  const content=fs.readFileSync(src,'utf8');
+  if(markers.some(m=>!content.includes(m))){
+   console.error('Immersive gameplay features missing from '+slug);
+   failures++;
+  }
+ }
 }
 
 if (failures) process.exit(1);
