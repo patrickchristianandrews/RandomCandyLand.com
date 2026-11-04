@@ -97,21 +97,13 @@ static int32_t pastel_live_energy(void)
 }
 static __attribute__((noinline)) void pastel_live_orbit(uint32_t phase,int32_t energy)
 {
-    for(uint32_t r=0;r<3u;r++){
-        int32_t rad=27+(int32_t)r*22+energy/7;
-        uint16_t c=pastel_live_color(r,36);
-        int32_t px=120+rad,py=88;
-        for(uint32_t i=4u;i<=128u;i+=4u){
-            int32_t x=120+rad*pastel_live_sin(i+8u)/16;
-            int32_t y=88+rad*pastel_live_sin(i)/16;
-            cv_line(px,py,x,y,c);
-            px=x;py=y;
-        }
-        cv_disc(120+rad*pastel_live_sin(phase+r*8u+8u)/16,
-                88+rad*pastel_live_sin(phase+r*8u)/16,8,
-                pastel_live_color(r+1u,72),0);
+    for(uint32_t j=0;j<3u;j++){
+        int32_t r=24+(int32_t)j*20+energy/8;
+        cv_ring(120,88,2*r,pastel_live_color(j,36u));
+        cv_disc(120+r*pastel_live_sin(phase/(j+1u)+8u)/16,
+                88+r*pastel_live_sin(phase/(j+1u))/16,8,
+                pastel_live_color(j+1u,71u),0);
     }
-    cv_disc(120,88,12+energy/10,pastel_live_color(2,70),0);
 }
 
 static __attribute__((noinline)) void pastel_live_prism(uint32_t phase,int32_t energy)
@@ -129,14 +121,12 @@ static __attribute__((noinline)) void pastel_live_prism(uint32_t phase,int32_t e
 
 static __attribute__((noinline)) void pastel_live_stars(uint32_t phase,int32_t energy)
 {
-    for(uint32_t i=0;i<33u;i++){
-        int32_t x=(int32_t)((i*67u+phase*(i%3u+1u))%228u)+6;
-        int32_t y=(int32_t)((i*41u+phase*(i%4u+1u))%143u)+6;
-        uint16_t c=pastel_live_color(i,i%5u==0u?75u:32u);
-        cv_rect(x,y,i%5u==0u?3:2,i%5u==0u?3:2,c);
+    for(uint32_t k=0;k<24u;k++){
+        int32_t x=4+(int32_t)((k*73u+phase*(k%3u+1u))%232u);
+        int32_t y=6+(int32_t)((k*41u+phase)%146u);
+        cv_rect(x,y,3,3,pastel_live_color(k,40u));
     }
-    cv_ring(120,88,38+energy/2,pastel_live_color(0,65));
-    cv_ring(120,88,65+energy/2,pastel_live_color(2,30));
+    cv_ring(120,88,44+energy/2,pastel_live_color(0,74u));
 }
 
 static __attribute__((noinline)) void pastel_live_liquid(uint32_t phase,int32_t energy)
