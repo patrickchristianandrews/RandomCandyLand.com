@@ -101,10 +101,10 @@ jobs:
         run: printf '%s\n' "$GITHUB_SHA" > dist/release-id.txt
 
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Save the new website for publishing
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
@@ -147,53 +147,42 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Check live homepage, casino and Other Drawer match this commit
+      # GitHub Pages requires Settings > Pages > Build and deployment > GitHub Actions.
+      # A CNAME file alone does not set the Pages custom domain in repository settings.
+      - name: Verify published Pages site (informational while domain DNS is configured)
         shell: bash
+        continue-on-error: true
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+          EXPECTED_RELEASE: ${{ github.sha }}
         run: |
-          for attempt in {1..20}; do
-            current=$(curl --fail --silent --show-error --location --max-time 15 \
+          set -euo pipefail
+          base="${PAGES_URL%/}"
+          if [[ -z "$base" ]]; then
+            echo "::warning::No Pages URL was returned. Verify GitHub Pages source and custom domain in repository Settings."
+            exit 1
+          fi
+          echo "GitHub Pages deployment URL: $base"
+          echo "Checking for built artifact release $EXPECTED_RELEASE"
+          for attempt in 1 2 3 4 5 6; do
+            current=$(curl --fail --silent --show-error --location --max-time 12 \
               -H "Cache-Control: no-cache" \
-              "https://randomcandyland.com/release-id.txt?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
-            if [[ "$current" == "$GITHUB_SHA" ]]; then
-              drawer=$(curl --fail --silent --show-error --location --max-time 15 \
-                -H "Cache-Control: no-cache" \
-                "https://randomcandyland.com/after-dark/?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
-              drawer_css=$(curl --fail --silent --show-error --location --max-time 15 \
-                -H "Cache-Control: no-cache" \
-                "https://randomcandyland.com/after-dark/navigation-ribbon.css?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
-              casino=$(curl --fail --silent --show-error --location --max-time 15 \
-                -H "Cache-Control: no-cache" \
-                "https://randomcandyland.com/candy-casino/?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
-              casino_css=$(curl --fail --silent --show-error --location --max-time 15 \
-                -H "Cache-Control: no-cache" \
-                "https://randomcandyland.com/candy-casino/casino-clean.css?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
-              casino_js=$(curl --fail --silent --show-error --location --max-time 15 \
-                -H "Cache-Control: no-cache" \
-                "https://randomcandyland.com/candy-casino/casino.js?rev=${GITHUB_SHA}&attempt=${attempt}" || true)
-              if [[ "$drawer" == *'id="od-compact-tools-heading"'* &&
-                    "$drawer" == *'od-ribbon-nav'* &&
-                    "$drawer" == *'Ask Atlas'* &&
-                    "$drawer_css" == *'od-ribbon-menu'* &&
-                    "$casino" == *'casino-compact-header'* &&
-                    "$casino" == *'Casino refresh · Nov 2026'* &&
-                    "$casino" == *'id="poker-showdown"'* &&
-                    "$casino" == *'casino.js?v=hand-guide-20261101'* &&
-                    "$casino" == *'id="poker-hand-guide"'* &&
-                    "$casino" == *'Which poker hands win?'* &&
-                    "$casino" == *'Royal flush'* &&
-                    "$casino" == *'High card'* &&
-                    "$casino_css" == *'Poker hand rankings:'* &&
-                    "$casino_js" == *"poker-hand-guide"* &&
-                    "$casino" != *'RemoteFM1'* &&
-                    "$casino_css" == *'November casino refresh'* &&
-                    "$casino_js" == *'renderPokerOutcome'* ]]; then
-                echo "::notice::LIVE HOMEPAGE, CASINO AND OTHER DRAWER VERIFIED: ${GITHUB_SHA}"
-                exit 0
-              fi
-              echo "The main domain is current, but the casino or Other Drawer pages/assets are still stale."
+              "$base/release-id.txt?release=$EXPECTED_RELEASE&attempt=$attempt" || true)
+            if [[ "$current" == "$EXPECTED_RELEASE" ]]; then
+              for route in moodropolis the-corridors the-docket; do
+                page=$(curl --fail --silent --show-error --location --max-time 12 \
+                  -H "Cache-Control: no-cache" "$base/$route/?release=$EXPECTED_RELEASE" || true)
+                if [[ "$page" != *"<title>"* ]]; then
+                  echo "::warning::$route is not readable on the published Pages URL yet."
+                  exit 1
+                fi
+              done
+              echo "::notice::GitHub Pages serves this exact release and the three Meridian games."
+              exit 0
             fi
-            echo "Waiting for the new release to appear at the domain."
-            sleep 6
+            echo "Pages publication is still propagating (check $attempt/6)."
+            sleep 5
           done
-          echo "::warning::Pages accepted deployment, but live homepage, casino and Other Drawer could not all be verified."
+          echo "::warning::Pages deployment was accepted, but the returned site URL has not caught up."
+          echo "::warning::Check GitHub Pages source, custom domain and DNS before switching away from any working host."
           exit 1
