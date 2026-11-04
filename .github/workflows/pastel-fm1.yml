@@ -44,8 +44,7 @@ jobs:
         # The custom palette changes the known light-theme list; validate it
         # directly and exercise the unchanged browser updater controls.
         mkdir -p build/host
-        cc -O1 -ffp-contract=off -Wall -Wno-unused-function -Ibuild/gen -Ifirmware/src \\
-          -o build/host/pastel_theme_test tests/theme_test.c -lm
+        cc -O1 -ffp-contract=off -Wall -Wno-unused-function -Ibuild/gen -Ifirmware/src -o build/host/pastel_theme_test tests/theme_test.c -lm
         build/host/pastel_theme_test
         node web/test_installer.mjs
         node web/test_install_safety.mjs
