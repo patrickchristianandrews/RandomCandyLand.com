@@ -15,6 +15,16 @@ let conversations=readStore(),currentId=null,engine=null,loadedModel='',isGenera
 let noticeTimer=0,toolFilter='All';
 // The Studio uses local WebGPU inference only. No remote chat endpoints or API keys.
 let selectedMode='local';
+// Instant AI is an optional hosted Worker with an owner-controlled public URL.
+// Neither visitor API keys nor private account credentials are used in the browser.
+const instantRaw=typeof window.CANDY_FREE_AI_ENDPOINT==='string'?window.CANDY_FREE_AI_ENDPOINT.trim():'';
+let instantEndpoint='';
+try{const u=new URL(instantRaw);if(u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash)instantEndpoint=u.href.replace(/\/$/,'');}catch{}
+let instantReady=false,instantCheckPromise=null;
+const chatModeKey='random-ai-transport-v1';
+let chatMode='instant';
+try{if(localStorage.getItem(chatModeKey)==='local')chatMode='local'}catch{}
+
 const CATEGORIES=['All','Writing','Work & Career','Marketing','Learning','Creative'];
 const TOOLS=[
  {id:'professional-email',name:'Professional Email',icon:'✉',group:'Writing',description:'Clear, thoughtful emails that sound like you.',prompt:'Draft a polished professional email with a clear subject line, a warm opening, a concise request, and an appropriate closing. Ask for missing essentials only if they truly matter. Situation:'},
@@ -93,7 +103,8 @@ $('#chatFile').addEventListener('change',async e=>{const file=e.target.files?.[0
 async function sendMessage(){
  if(isGenerating)return;
  const raw=$('#chatInput').value.trim();if(!raw&&!attached)return;
- if(!engine){navigate('settings');notice('Download and load a local model to chat. Your prompt is preserved.');return;}
+ if(chatMode==='instant'&&!instantReady){navigate('settings');notice('Instant AI is not connected yet. Your prompt is still in Chat. Set up the Cloudflare Worker or choose Local AI.');return;}
+ if(chatMode==='local'&&!engine){navigate('settings');notice('Download and load a local model first. Your prompt is still in Chat.');return;}
  const c=currentConversation();if(!c)return;
  const full=raw+(attached?'\n\n[Attached text: '+attached.name+']\n'+attached.text:'');
  c.messages.push({role:'user',content:full});if(c.messages.length===1)c.title=raw.slice(0,64)||attached.name;
@@ -102,6 +113,21 @@ async function sendMessage(){
  const messages=[{role:'system',content:SYSTEM},...c.messages.slice(0,-1).slice(-15).map(m=>({role:m.role,content:m.content.slice(0,10000)}))];
  const target=c.messages[c.messages.length-1];
  try{
+  if(chatMode==='instant'){
+   const preset=window.RandomAIStacks?.current?.()||null;
+   const prompt=(preset?'TASK STACK: '+preset.name+'\n'+preset.instructions+'\n\n':'')+full;
+   const prior=messages.slice(1,-1).filter(m=>m.role==='user'||m.role==='assistant').slice(-7)
+     .map(m=>({role:m.role,content:String(m.content).slice(0,2100)}));
+   const out=[...prior,{role:'user',content:prompt.slice(0,2400)}];
+   while(out.length>1&&out.reduce((sum,m)=>sum+m.content.length,0)>8200)out.shift();
+   const response=await fetch(instantEndpoint+'/chat',{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},
+     signal:controller.signal,body:JSON.stringify({model:$('#instantModel').value,messages:out})});
+   const data=await response.json().catch(()=>({error:'Hosted AI returned an unreadable response.'}));
+   if(!response.ok)throw Error(String(data.error||'Hosted AI returned HTTP '+response.status));
+   const answer=String(data?.choices?.[0]?.message?.content||'');
+   if(!answer.trim())throw Error('The service returned no answer.');
+   target.content=answer;updateLastMessage(answer);writeStore();
+  }else{
   const active=window.RandomAIStacks?.current?.() || null;
   const system=SYSTEM+(active?'\n\nACTIVE TASK STACK: '+active.name+'\n'+active.instructions:'');
   const localMessages=[{role:'system',content:system},...messages.slice(1)];
@@ -124,7 +150,8 @@ async function sendMessage(){
     }catch(error){target.content=draft+'\n\n[Refinement could not finish; the first-pass result is preserved.]';}
   }
   writeStore();
- }catch(error){target.content=controller.signal.aborted?'Generation stopped.':'Could not generate a response: '+(error?.message||'Unknown error')+'\n\nCheck your model connection in Settings.';updateLastMessage(target.content);writeStore();}
+  }
+ }catch(error){target.content=controller.signal.aborted?'Generation stopped.':'Could not generate a response: '+(error?.message||'Unknown error')+'\n\nCheck the selected AI mode under Models & setup.';updateLastMessage(target.content);writeStore();}
  finally{isGenerating=false;activeStream=null;$('#chatSend').disabled=false;$('#chatStop').hidden=true;renderChat();}
 }
 function updateLastMessage(text){const last=$('#chatMessages .bubble.assistant:last-child .bubble-body');if(last)last.textContent=text;$('#chatMessages').scrollTop=$('#chatMessages').scrollHeight;}
@@ -137,34 +164,129 @@ function exportAll(){download('candy-studio-backup-'+new Date().toISOString().sl
 $('#exportHistory').addEventListener('click',exportAll);
 $('#settingsExport').addEventListener('click',exportAll);
 $('#clearConversations').addEventListener('click',()=>{if(!confirm('Delete all local Studio conversations? Export a backup first if you want to keep them.'))return;conversations=[];newChat(false);writeStore();notice('Local conversation history cleared.')});
+function setDownloadProgress(value,label,state='loading'){
+ const parent=$('#modelProgress'),bar=$('#modelProgressBar');
+ if(!parent)return;
+ parent.hidden=false;parent.dataset.state=state;
+ const pct=clamp(Number(value)||0,0,100);
+ $('#modelProgressFill').style.width=pct+'%';
+ $('#modelProgressPercent').textContent=Math.round(pct)+'%';
+ bar?.setAttribute('aria-valuenow',String(Math.round(pct)));
+ $('#modelProgressTitle').textContent=state==='error'?'Could not load model':state==='ready'?'✓ Local model ready':state==='loading'?'Downloading local model…':'Preparing local model…';
+ $('#modelProgressText').textContent=String(label||'Preparing local model…').slice(0,350);
+ $('#modelProgressTip').textContent=state==='error'?'Try a smaller model, or use Instant AI when the hosted service is available.':state==='ready'?'You can now start chatting on this device.':'First downloads can take several minutes and several gigabytes. Keep this tab open.';
+ $('#modelProgressClose').hidden=state==='loading';
+}
+$('#modelProgressClose').addEventListener('click',()=>{$('#modelProgress').hidden=true;});
+const instantStatus=(message,ready)=>{
+ for(const id of ['instantStatus','instantSetupStatus']){
+  const node=$('#'+id);
+  if(node){node.textContent=message;node.dataset.ready=String(Boolean(ready));}
+ }
+};
+function updateChatMode(){
+ $('#chatTransport').value=chatMode;
+ $('#hostedChoice').hidden=chatMode!=='instant';
+ if(chatMode==='instant'){
+  $('#chatModelName').textContent=instantReady?'⚡ Instant AI':'⚡ Instant AI · not connected';
+  $('#chatModelHint').textContent=instantReady?'Hosted chat · no model download · prompts leave this device':'Hosted service is not connected. Use Private Local AI or follow the setup guide.';
+  setStatus(instantReady?'Instant AI online':'Instant AI not connected',instantReady);
+ }else{
+  $('#chatModelName').textContent=engine?(window.RandomAILocal?.getName?.(loadedModel)||loadedModel):'Local model not loaded';
+  $('#chatModelHint').textContent=engine?'Runs on your device · no API key':'Download a compatible local model to begin.';
+  setStatus(engine?'Local model ready':'Model not loaded',!!engine);
+ }
+}
+async function checkInstant(){
+ if(!instantEndpoint){
+  instantReady=false;
+  instantStatus('Not connected: the site owner needs to deploy studio-free-ai/ and set its HTTPS Worker URL in public/studio/free-config.js. Visitors can use Private Local AI meanwhile.',false);
+  updateChatMode();return false;
+ }
+ if(instantCheckPromise)return instantCheckPromise;
+ instantStatus('Checking the hosted AI service…',false);
+ instantCheckPromise=(async()=>{
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+  try{
+   const response=await fetch(instantEndpoint+'/health',{cache:'no-store',signal:controller.signal,mode:'cors'});
+   if(!response.ok)throw Error('Health check returned HTTP '+response.status);
+   const body=await response.json();
+   if(body?.available!==true)throw Error('Worker is online, but its AI binding is not available.');
+   instantReady=true;
+   instantStatus('✓ Instant AI connected. Visitors can chat without downloading a model. Hosted requests are subject to free-service quotas.',true);
+  }catch(error){
+   instantReady=false;
+   instantStatus('Instant AI is unavailable: '+String(error?.message||'connection failed').slice(0,145)+'. Local models can still be used.',false);
+  }finally{clearTimeout(timer);instantCheckPromise=null;updateChatMode()}
+  return instantReady;
+ })();
+ return instantCheckPromise;
+}
+$('#chatTransport').addEventListener('change',e=>{
+ chatMode=e.target.value==='local'?'local':'instant';
+ try{localStorage.setItem(chatModeKey,chatMode)}catch{}
+ updateChatMode();
+});
+$('#instantStart').addEventListener('click',()=>{chatMode='instant';try{localStorage.setItem(chatModeKey,chatMode)}catch{}updateChatMode();navigate('chat');if(!instantReady)notice('Instant AI needs the site owner’s hosted service. See Models & setup.');});
+$('#instantCheck').addEventListener('click',checkInstant);
+$('#instantSetupCheck').addEventListener('click',checkInstant);
+void checkInstant();
 function updateModelLabel(){
- const loaded=Boolean(engine),name=loaded?(window.RandomAILocal?.getName?.(loadedModel)||loadedModel):'Choose a local model';
- $('#chatModelName').textContent=name;
- $('#chatModelHint').textContent=loaded?'Model running on this device · API-free':'Select a downloadable model above or under Models & setup';
- setStatus(loaded?'Local model ready':'Model not loaded',loaded);
+ if(chatMode==='local')updateChatMode();
+ const loaded=!!engine;
  if($('#topModelDownload'))$('#topModelDownload').textContent=loaded&&$('#topModelSelect')?.value===loadedModel?'✓ Loaded':'↓ Load';
 }
 updateModelLabel();
-const gpu=navigator.gpu;$('#gpuCheck').textContent=gpu?'✓ WebGPU detected. A first-time model download may take several minutes.':'WebGPU unavailable here. Try a compatible up-to-date Chrome or Edge browser/device. No cloud fallback is used.';if(!gpu)$('#loadModel').disabled=true;
+const gpu=navigator.gpu;
+$('#gpuCheck').textContent=gpu?'WebGPU detected. Choose a small model to begin. The exact GPU adapter is checked when you press Load.':'This browser does not offer WebGPU. Local loading is unavailable; hosted Instant AI does not need WebGPU.';
+if(!gpu)$('#loadModel').disabled=true;
+let loadingModel=false;
 $('#loadModel').addEventListener('click',async()=>{
- if(!gpu)return notice('This browser does not support WebGPU.');
- if(isGenerating)return notice('Stop generation before switching models.');
- const id=$('#modelSelect').value;if(!id)return notice('Choose a supported local model from the catalog.');const btn=$('#loadModel');btn.disabled=true;btn.textContent='Loading model…';$('#modelProgress').hidden=false;$('#modelProgressText').textContent='Loading model library…';$('#modelProgressFill').style.width='2%';
+ if(loadingModel)return;
+ if(!gpu){setDownloadProgress(0,'WebGPU is unavailable. Use current desktop Chrome/Edge, or Instant AI after setup.','error');return;}
+ if(isGenerating){setDownloadProgress(0,'Stop the current chat generation before switching models.','error');return;}
+ const id=$('#modelSelect').value;
+ if(!id){setDownloadProgress(0,'Choose a supported local model from the full catalog. If the list is empty, retry the model catalog.','error');return;}
+ const btn=$('#loadModel');
+ loadingModel=true;btn.disabled=true;$('#topModelDownload').disabled=true;
+ btn.textContent='Loading model…';$('#topModelDownload').textContent='⏳ Loading…';
+ setDownloadProgress(1,'Checking WebGPU compatibility and loading the model engine…');
+ // When invoked from the topbar, the global bar is visible in any view.
+ $('#modelProgress').scrollIntoView({block:'nearest',behavior:'auto'});
  try{
-  // The WebLLM module is loaded only when requested. No server model cost.
+  const adapter=await gpu.requestAdapter();
+  if(!adapter)throw Error('No compatible GPU adapter was found. Enable hardware acceleration or try a smaller model on Chrome/Edge.');
+  setDownloadProgress(2,'Loading the WebLLM JavaScript runtime…');
   const lib=await import('https://esm.run/@mlc-ai/web-llm@0.2.87');
-  if(!lib.prebuiltAppConfig.model_list.some(m=>m.model_id===id))throw Error('That model is unavailable in the published model list.');
-  if(engine&&loadedModel!==id){try{await engine.unload()}catch{}engine=null;loadedModel='';}
-  if(!engine){engine=await lib.CreateMLCEngine(id,{initProgressCallback:(p)=>{const pct=typeof p.progress==='number'?Math.round(p.progress*100):0;$('#modelProgressFill').style.width=clamp(pct,0,100)+'%';$('#modelProgressText').textContent=String(p.text||'Preparing local model…').slice(0,190);}});}
-  else if(loadedModel!==id)await engine.reload(id);
-  loadedModel=id;selectedMode='local';if($('#topModelSelect').querySelector('option[value="'+CSS.escape(id)+'"]'))$('#topModelSelect').value=id;$('#modelProgressFill').style.width='100%';$('#modelProgressText').textContent='Ready to create';updateModelLabel();notice('Model loaded. Chat is ready.');navigate('chat');
- }catch(error){engine=null;loadedModel='';updateModelLabel();$('#modelProgressText').textContent='Could not load: '+(error?.message||'Unknown error');notice('Local model could not load. Try a smaller model or a supported browser.')}
- finally{btn.disabled=!gpu||!$('#modelSelect').value;btn.textContent='↓ Download & load model';updateModelLabel();}
+  if(!lib?.CreateMLCEngine||!Array.isArray(lib?.prebuiltAppConfig?.model_list))throw Error('The model library did not load correctly. Check connectivity and try again.');
+  if(!lib.prebuiltAppConfig.model_list.some(m=>m.model_id===id))throw Error('That model ID is no longer offered by this version of WebLLM. Refresh the model list.');
+  if(engine&&loadedModel===id){setDownloadProgress(100,'Already loaded — start chatting!','ready');chatMode='local';updateModelLabel();navigate('chat');return;}
+  if(engine){try{await engine.unload()}catch{}engine=null;loadedModel='';}
+  engine=await lib.CreateMLCEngine(id,{initProgressCallback:report=>{
+    const value=typeof report.progress==='number'?Math.round(report.progress*100):2;
+    setDownloadProgress(value,report.text||'Downloading model files and initializing GPU…');
+  }});
+  loadedModel=id;selectedMode='local';chatMode='local';
+  try{localStorage.setItem(chatModeKey,chatMode)}catch{}
+  const top=$('#topModelSelect');if([...top.options].some(o=>o.value===id))top.value=id;
+  setDownloadProgress(100,'✓ Download complete. The model is ready for private local chat.','ready');
+  updateModelLabel();notice('Local AI is ready. Start chatting.');navigate('chat');
+ }catch(error){
+  engine=null;loadedModel='';updateModelLabel();
+  const message=String(error?.message||'Unknown model error');
+  setDownloadProgress(0,message,'error');
+  notice('Model failed to load. The reason is shown in the progress panel.');
+ }finally{
+  loadingModel=false;btn.disabled=!gpu||!$('#modelSelect').value;
+  btn.textContent='↓ Download & load model';
+  $('#topModelDownload').disabled=!gpu||!$('#topModelSelect').value;
+  updateModelLabel();
+ }
 });
 // Quick header picker uses the same local loader, so model downloads follow one verified path.
 $('#topModelDownload').addEventListener('click',()=>{
  const id=$('#topModelSelect').value;
- if(!id)return notice('Choose a local model first.');
+ if(!id){setDownloadProgress(0,'Choose a local model first. Open All models to retry the catalog if the list is empty.','error');return;}
  $('#modelSelect').value=id;$('#modelSelect').dispatchEvent(new Event('change'));$('#loadModel').click();
 });
 $('#topModelSelect').addEventListener('change',()=>{
