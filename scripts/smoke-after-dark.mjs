@@ -704,9 +704,15 @@ try{
   const studioArt=await studio.evaluate("document.querySelector('#view-visual.active')!==null && document.querySelector('#artCanvas').width===1024 && document.querySelector('#artCanvas').getContext('2d').getImageData(30,30,1,1).data[3]>0");
   if(!studioArt)throw Error('Candy Studio original artwork generator did not create pixels');
   await studio.evaluate(`document.querySelector('[data-view="settings"]').click()`);
-  const studioSettings=await studio.evaluate("!!document.querySelector('#view-settings.active') && !!document.querySelector('#communityStatus') && !!document.querySelector('#loadModel') && !!document.querySelector('#connectCloud')");
-  if(!studioSettings)throw Error('Candy Studio local, community and personal-provider settings are missing');
-  console.log('✓ Candy Studio runs separately: library search, guided prompts, abstract art and provider settings work.');
+  const studioSettings=await studio.evaluate("!!document.querySelector('#view-settings.active') && !!document.querySelector('#modelSelect') && !!document.querySelector('#loadModel') && !!document.querySelector('#topModelSelect') && !!document.querySelector('#modelResults') && !document.querySelector('#cloudKey') && !document.querySelector('#connectCloud') && !document.querySelector('#communityStatus')");
+  if(!studioSettings)throw Error('Random AI must expose only API-free local model catalog and direct download controls');
+  await studio.evaluate("document.querySelector('[data-view=home]').click();document.querySelector('#stackTaskHome').value='coding';document.querySelector('#stackTaskHome').dispatchEvent(new Event('change',{bubbles:true}))");
+  const featuredStack=await studio.evaluate("window.RandomAIStacks?.current?.().id==='coding' && document.querySelector('#stackSpotlightName')?.textContent==='Code Architect' && document.querySelector('#stackSpotlightSteps')?.children.length===4");
+  if(!featuredStack)throw Error('Random AI featured coding stack did not recommend and configure an actual workflow');
+  await studio.evaluate("document.querySelector('#stackTaskHome').value='writing';document.querySelector('#stackTaskHome').dispatchEvent(new Event('change',{bubbles:true}))");
+  const writingStack=await studio.evaluate("window.RandomAIStacks?.current?.().id==='writing' && document.querySelector('#stackSpotlightName')?.textContent==='Precision Writer' && document.querySelector('#stackTaskChat').value==='writing'");
+  if(!writingStack)throw Error('Random AI stack selection did not update the active chat workflow');
+  console.log('✓ Random AI local-only model controls, featured coding/writing stacks, guided prompts and abstract art work.');
 
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
