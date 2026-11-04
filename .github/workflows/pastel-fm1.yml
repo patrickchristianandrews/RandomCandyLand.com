@@ -21,6 +21,10 @@ on:
       - '.github/workflows/pastel-fm1.yml'
   workflow_dispatch:
 
+concurrency:
+  group: pastel-fm1-latest
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
