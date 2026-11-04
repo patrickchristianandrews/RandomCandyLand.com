@@ -95,7 +95,7 @@ static int32_t pastel_live_energy(void)
     if(peak>92)peak=92;
     return peak;
 }
-static void pastel_live_orbit(uint32_t phase,int32_t energy)
+static __attribute__((noinline)) void pastel_live_orbit(uint32_t phase,int32_t energy)
 {
     for(uint32_t r=0;r<3u;r++){
         int32_t rad=27+(int32_t)r*22+energy/7;
@@ -114,7 +114,7 @@ static void pastel_live_orbit(uint32_t phase,int32_t energy)
     cv_disc(120,88,12+energy/10,pastel_live_color(2,70),0);
 }
 
-static void pastel_live_prism(uint32_t phase,int32_t energy)
+static __attribute__((noinline)) void pastel_live_prism(uint32_t phase,int32_t energy)
 {
     for(uint32_t j=0;j<5u;j++){
         int32_t r=13+(int32_t)j*19+energy/(j+6u);
@@ -127,7 +127,7 @@ static void pastel_live_prism(uint32_t phase,int32_t energy)
     }
 }
 
-static void pastel_live_stars(uint32_t phase,int32_t energy)
+static __attribute__((noinline)) void pastel_live_stars(uint32_t phase,int32_t energy)
 {
     for(uint32_t i=0;i<33u;i++){
         int32_t x=(int32_t)((i*67u+phase*(i%3u+1u))%228u)+6;
@@ -139,7 +139,7 @@ static void pastel_live_stars(uint32_t phase,int32_t energy)
     cv_ring(120,88,65+energy/2,pastel_live_color(2,30));
 }
 
-static void pastel_live_liquid(uint32_t phase,int32_t energy)
+static __attribute__((noinline)) void pastel_live_liquid(uint32_t phase,int32_t energy)
 {
     pastel_liquid_layers(156,80-(energy/5), (uint32_t)energy*350u, phase,3u);
     for(uint32_t k=0;k<13u;k++){
@@ -150,9 +150,9 @@ static void pastel_live_liquid(uint32_t phase,int32_t energy)
         if(k%4u==0)cv_disc(x+pastel_live_sin(at)/3,y,4,pastel_live_color(k,54),0);
     }
 }
-static void pastel_live_draw(void)
+static __attribute__((noinline)) void pastel_live_draw(void)
 {
-    if (!ui.force && (ui.frame&1u)) return;
+    if (!ui.force && (ui.frame%3u)) return; /* ~20 fps, respect 12 MHz LCD link */
     uint32_t phase=fm1_ms/(37u+(13u-pastel_live_flow)*13u);
     int32_t energy=pastel_live_energy();
     int32_t excited=(int32_t)(fm1_ms-pastel_live_hit)<950;
