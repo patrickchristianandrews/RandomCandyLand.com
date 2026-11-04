@@ -76,7 +76,7 @@ class QuickRoom {
   if(!this.available())return;
   this.destroy();this.epoch++;const epoch=this.epoch;
   this.open();this.host=true;this.room=newRoom();this.status('Opening room…');this.update();
-  this.peer=new relay().Peer(this.room);
+  this.peer=new (relay().Peer)(this.room);
   this.bindPeer(this.peer,epoch);
   this.peer.on('open',()=>{
    if(epoch!==this.epoch)return;
@@ -91,7 +91,7 @@ class QuickRoom {
   if(!code){this.open();this.status('Paste a valid invite link or room code');return}
   this.destroy();this.epoch++;const epoch=this.epoch;
   this.open();this.host=false;this.room=code;this.status('Connecting to host…');this.update();
-  this.peer=new relay().Peer();
+  this.peer=new (relay().Peer)();
   this.bindPeer(this.peer,epoch);
   this.peer.on('open',()=>{
    if(epoch!==this.epoch)return;
