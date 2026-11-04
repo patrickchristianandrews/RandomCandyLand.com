@@ -1,6 +1,6 @@
 # Pastel FM-1 — feature selection and provenance
 
-**Pastel v0.1** is a focused, source-available custom firmware built from [Melodee 1.6.1](https://github.com/keremimo/melodee/tree/v1.6.1), in turn derived from [Felucca](https://github.com/hugelton/Felucca) with acknowledged, GPL-compatible [SLOOP](https://github.com/isod89/sloop-fm1) elements. It is not a binary splice of different incompatible systems.
+**Pastel v0.2 — Liquid Edition** is a focused, source-available custom firmware built from [Melodee 1.6.1](https://github.com/keremimo/melodee/tree/v1.6.1), in turn derived from [Felucca](https://github.com/hugelton/Felucca) with acknowledged, GPL-compatible [SLOOP](https://github.com/isod89/sloop-fm1) elements. It is not a binary splice of different incompatible systems.
 
 ## Selected features already implemented in Pastel's upstream core
 
@@ -13,7 +13,7 @@
 | Musical assistance | AUTO/AUTO2 chords, strum/stroke, scale/root functions, MIDI learned controls | Fast melody and harmony creation |
 | External connectivity | Bluetooth MIDI, TRS MIDI input, USB MIDI host support and USB stereo/stem capture | Phone and computer workflows |
 | Safety and performance | Preserved upstream update protocol, boot safeguards, dual-core recovery, host tests | Cosmetic changes should not compromise the bootloader |
-| Appearance | Pastel-branded boot screen, Pastel palette and on-device About name | A soft coordinated interface distinct from the stock look |
+| Appearance | Pastel-branded boot screen, Pastel palette, Liquid Edition branding and ripple/bubble overlays on Stage | A flowing identity that celebrates the nickname Liquid without overwhelming the musician |
 
 ## Why particular features were not copied
 
@@ -32,4 +32,4 @@ These exclusions are intentional. Shipping unreviewed code from every project on
 - Existing SLOOP integration credits: https://github.com/keremimo/melodee/blob/v1.6.1/LICENSING.md
 - Android phone updater: https://github.com/HyruleanHero1988/FM-1-Swap
 
-**Limitations:** a successful compiler and test suite do not substitute for physical FM-1 testing. Only the screen palette, splash and About branding have been changed; physical LEDs and button hardware colors are unchanged. The main UI retains upstream Melodee's mature control architecture rather than adding a new UI framework.
+**Limitations:** a successful compiler and test suite do not substitute for physical FM-1 testing. Only the screen palette, splash, About branding, audio-reactive Stage graphics and decorative card graphics have been changed; physical LEDs and button hardware colors are unchanged. The main UI retains upstream Melodee's mature control architecture rather than adding a new UI framework.

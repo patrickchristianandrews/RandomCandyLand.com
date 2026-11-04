@@ -1,6 +1,6 @@
-# Pastel FM-1 — v0.1
+# Pastel FM-1 — v0.2 · Liquid Edition
 
-**Status:** custom pastel-themed Melodee 1.6.1 derivative. Source overlay and GitHub build workflow. NOT hardware tested.
+**Status:** custom pastel-themed Melodee 1.6.1 derivative, now with Liquid Edition animation and nickname branding. Source overlay and GitHub build workflow. NOT hardware tested.
 
 The firmware retains a full-featured multi-engine instrument rather than trying to concatenate incompatible firmware binaries:
 - Felucca/Melodee sound engines: FM6/DX7-style, virtual analog, physical models, sample/granular, drum/chiptune and other included engines.
@@ -8,9 +8,10 @@ The firmware retains a full-featured multi-engine instrument rather than trying 
 - SLOOP-derived live punch effects (27 types), shared effects routing, note automation, quantized recording, chord harmonies and strums.
 - USB stereo audio or four-track capture, USB-host MIDI (hardware support varies), TRS MIDI input and Bluetooth MIDI.
 - New default **Pastel** 240 x 240 LCD theme: blush pink background, rose/lavender cards, deep-plum legible labels, four coordinated instrument colors.
-- Boot screen and on-device About name: Pastel.
+- **Liquid Edition:** flowing pastel ribbons on the Stage audio strip, music-reactive fluid displacement, drifting bubbles, watery underlay beneath knob visuals, soft droplets in track cards, and animated-style splash graphics with **LIQUID EDITION** beneath PASTEL. Lightweight integer math and no additional audio processing.
+- Boot screen and on-device About name: Pastel — Liquid Edition.
 
-**This is NOT** a port of every community instrument and it does **not** change the fixed-color hardware LEDs. "Pastel" reuses Melodee's audio, MIDI, arranger and resilience code. No proprietary or paid firmware has been copied.
+**This is NOT** a port of every community instrument and it does **not** change the fixed-color hardware LEDs. The liquid effect is screen-rendered, not a change to the firmware's audio engine or physical hardware. "Pastel" reuses Melodee's audio, MIDI, arranger and resilience code. No proprietary or paid firmware has been copied.
 
 ## Firmware binary
 After the GitHub build succeeds, the workflow publishes `pastel-fm1/Pastel.fwsc` to this **pastel-fm1** branch. Use only that actual *.fwsc* file (not this Python source or a ZIP of source) for flashing. The workflow also provides a "packages" build artifact with a SHA-256 checksum.
