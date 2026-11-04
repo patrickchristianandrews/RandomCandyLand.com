@@ -198,6 +198,29 @@ exact(pathlib.Path("firmware/src/browse.c"),
       '[3] = "OLBBBBBBLLLLLLLLPSPPGGKKUUERFFFF",',
       '[3] = "OLBBBBBBLLLLLLLLPSPPGGKKUUERFFFF" "BBBBBBBLPPUUPGPP",')
 
+# Exercise the real Animal Jam third HOME page in the existing full host
+# screen renderer, validate its text/no overlap and save 240x240 previews.
+exact(pathlib.Path("tests/ui_render.c"),
+      '    song_punch_sweep(out);',
+      '''    for (uint32_t a = 0; a < PASTEL_ANIMALS; a++) {
+        char name[32];
+        snprintf(name, sizeof name, "animal_%u", a);
+        cur_name = name;
+        setup(S_HOME);
+        pal(0);
+        ui.home_pg = 2u;
+        pastel_animal_selected = (uint8_t)a;
+        pastel_animal_last_ms = fm1_ms;
+        draw(-1);
+        lint();
+        write_ppm(out, "PASTEL", name);
+    }
+    cur_name = "animal_mono";
+    setup(S_HOME); pal(UI_GRAY_INDEX);
+    ui.home_pg = 2u; pastel_animal_selected = 0u;
+    draw(-1); lint(); mono_check();
+    song_punch_sweep(out);''')
+
 shutil.copyfile(pathlib.Path(__file__).with_name("animal_test.c"),
                 root / "tests/pastel_animal_test.c")
 print("Pastel v0.3 hybrid: Melodee/Felucca/ChoralRoot harmonies,"
