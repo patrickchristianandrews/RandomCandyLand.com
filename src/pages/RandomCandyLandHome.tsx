@@ -180,6 +180,12 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
+      <section className="candyland-notify-section" aria-label="Optional notifications for ongoing games">
+        <div id="rcl-notify-center">
+          <p>🔔 Opt-in phone reminders for your ongoing adventures, with no surprise alerts.</p>
+        </div>
+      </section>
+
       <aside className="candyland-unwrapped-promo" aria-label="Featured: Unwrapped personal insight and connection">
         <img className="candyland-unwrapped-promo-icon" src="/tool-icons/unwrapped.svg" width={76} height={76} alt="" loading="lazy" />
         <div className="candyland-unwrapped-promo-copy">
