@@ -1,0 +1,27 @@
+{
+  "name": "candy-studio-free-ai",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "ai": {
+    "binding": "AI"
+  },
+  "ratelimits": [
+    {
+      "name": "PER_VISITOR",
+      "namespace_id": "728202",
+      "simple": {
+        "limit": 3,
+        "period": 60
+      }
+    },
+    {
+      "name": "SHARED_LIMIT",
+      "namespace_id": "728203",
+      "simple": {
+        "limit": 35,
+        "period": 60
+      }
+    }
+  ]
+}
