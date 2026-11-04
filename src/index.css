@@ -754,3 +754,37 @@ body {
   .candyland-next .candyland-opening{padding-bottom:20px}
   .candyland-next .nonsense-lab{margin:17px 11px 26px}
 }
+
+
+/* Three new fictional world simulations: compact launch ribbon, no homepage clutter. */
+.candyland-next .candyland-world-strip{
+ display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;
+ width:min(100% - 30px,1000px);margin:11px auto 20px;padding:10px 12px;
+ border:1px solid #68587a;border-radius:16px;
+ background:linear-gradient(110deg,#261c42,#3a2855);box-shadow:0 6px 20px #1b0d2b30
+}
+.candyland-next .candyland-world-strip-heading{
+ font:800 11px/1.3 system-ui,sans-serif;letter-spacing:.065em;color:#ffe6aa;white-space:nowrap;padding:0 4px
+}
+.candyland-next .candyland-world-strip a{
+ display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+ border:1px solid #78648d;border-radius:11px;padding:5px 9px 5px 5px;
+ background:#ffffff16;color:#fff6ff;font:800 12px/1.2 system-ui,sans-serif;
+ transition:background .15s,transform .15s
+}
+.candyland-next .candyland-world-strip a:hover{background:#ffffff2a;transform:translateY(-1px)}
+.candyland-next .candyland-world-strip a img{width:30px;height:30px;border-radius:9px}
+.candyland-next .candyland-world-strip a span{color:#f0c5f7}
+.candyland-next .candyland-world-play{
+ display:inline-flex;align-items:center;justify-content:center;
+ padding:8px 12px;margin-top:9px;border-radius:10px;background:#fee5f4;
+ color:#3e234d;text-decoration:none;font:800 12px/1.3 system-ui,sans-serif
+}
+.candyland-next .candyland-world-play:hover{background:#fff6ff}
+@media(max-width:650px){
+ .candyland-next .candyland-world-strip{width:calc(100% - 20px);padding:9px;gap:6px}
+ .candyland-next .candyland-world-strip-heading{width:100%;text-align:center;font-size:10px}
+ .candyland-next .candyland-world-strip a{flex:1;justify-content:center;min-width:0;font-size:10px;padding:5px 4px;gap:4px}
+ .candyland-next .candyland-world-strip a img{width:26px;height:26px}
+ .candyland-next .candyland-world-strip a span{display:none}
+}
