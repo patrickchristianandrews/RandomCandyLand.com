@@ -153,6 +153,13 @@ exact(pathlib.Path("firmware/src/ui_draw.c"),
       'for (i = 0, x += 6; i < 2u; i++) {',
       'for (i = 0, x += 6; i < 3u; i++) {')
 
+# New projects open on community-inspired SLOOP, Melodee FM6 and ChoralRoot
+# styles, not the original M-VAVE factory bank. Saved projects/templates remain
+# user-owned and are not wiped or silently overwritten.
+exact(pathlib.Path("firmware/src/engines.c"),
+      'static const uint8_t TRK_DEF[NPART][2] = {{ENGI_PROPHET, 1}, {ENGI_FM6, 10}, {ENGI_CZ, 52}, {ENGI_DRUM, 0}};',
+      'static const uint8_t TRK_DEF[NPART][2] = {{3u, 32u}, {ENGI_FM6, 10u}, {3u, 44u}, {ENGI_DRUM, 0u}};')
+
 # Sixteen accessible curated patch approximations of celebrated community
 # synth sound designs. They use Melodee's still-supported SID oscillator and
 # envelope model; no stock M-VAVE sample ROM or proprietary voices.
