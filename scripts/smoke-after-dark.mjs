@@ -704,15 +704,23 @@ try{
   const studioArt=await studio.evaluate("document.querySelector('#view-visual.active')!==null && document.querySelector('#artCanvas').width===1024 && document.querySelector('#artCanvas').getContext('2d').getImageData(30,30,1,1).data[3]>0");
   if(!studioArt)throw Error('Candy Studio original artwork generator did not create pixels');
   await studio.evaluate(`document.querySelector('[data-view="settings"]').click()`);
-  const studioSettings=await studio.evaluate("!!document.querySelector('#view-settings.active') && !!document.querySelector('#modelSelect') && !!document.querySelector('#loadModel') && !!document.querySelector('#topModelSelect') && !!document.querySelector('#modelResults') && !document.querySelector('#cloudKey') && !document.querySelector('#connectCloud') && !document.querySelector('#communityStatus')");
-  if(!studioSettings)throw Error('Random AI must expose only API-free local model catalog and direct download controls');
+  const studioSettings=await studio.evaluate("!!document.querySelector('#view-settings.active') && !!document.querySelector('#modelSelect') && !!document.querySelector('#loadModel') && !!document.querySelector('#topModelSelect') && !!document.querySelector('#modelResults') && !!document.querySelector('#instantSetup') && !!document.querySelector('#instantSetupCheck') && !document.querySelector('#cloudKey') && !document.querySelector('#connectCloud') && !document.querySelector('#communityStatus')");
+  if(!studioSettings)throw Error('Random AI must expose local and Instant AI setup without browser-side provider credentials');
+  const persistentProgress=await studio.evaluate("(()=>{const p=document.querySelector('#modelProgress'),bar=document.querySelector('#modelProgressBar');return !!p && !!bar && p.closest('.workspace') && !p.closest('#view-settings') && !!document.querySelector('#modelProgressPercent') && !!document.querySelector('#modelProgressText') && !!document.querySelector('#modelProgressClose') && document.querySelectorAll('#modelProgress').length===1})()");
+  if(!persistentProgress)throw Error('Model download progress needs to be accessible outside Settings');
+  await studio.evaluate("document.querySelector('[data-view=chat]').click();document.querySelector('#chatTransport').value='local';document.querySelector('#chatTransport').dispatchEvent(new Event('change',{bubbles:true}))");
+  const localModeControl=await studio.evaluate("document.querySelector('#hostedChoice')?.hidden && !!document.querySelector('#chatModelHint')?.textContent.includes('device')");
+  if(!localModeControl)throw Error('Local AI mode selection is not working');
+  await studio.evaluate("document.querySelector('#chatTransport').value='instant';document.querySelector('#chatTransport').dispatchEvent(new Event('change',{bubbles:true}))");
+  const instantModeControl=await studio.evaluate("!document.querySelector('#hostedChoice')?.hidden && !!document.querySelector('#instantStatus')?.textContent && !!document.querySelector('#instantModel').value");
+  if(!instantModeControl)throw Error('Instant AI no-download selection or status is unavailable');
   await studio.evaluate("document.querySelector('[data-view=home]').click();document.querySelector('#stackTaskHome').value='coding';document.querySelector('#stackTaskHome').dispatchEvent(new Event('change',{bubbles:true}))");
   const featuredStack=await studio.evaluate("window.RandomAIStacks?.current?.().id==='coding' && document.querySelector('#stackSpotlightName')?.textContent==='Code Architect' && document.querySelector('#stackSpotlightSteps')?.children.length===4");
   if(!featuredStack)throw Error('Random AI featured coding stack did not recommend and configure an actual workflow');
   await studio.evaluate("document.querySelector('#stackTaskHome').value='writing';document.querySelector('#stackTaskHome').dispatchEvent(new Event('change',{bubbles:true}))");
   const writingStack=await studio.evaluate("window.RandomAIStacks?.current?.().id==='writing' && document.querySelector('#stackSpotlightName')?.textContent==='Precision Writer' && document.querySelector('#stackTaskChat').value==='writing'");
   if(!writingStack)throw Error('Random AI stack selection did not update the active chat workflow');
-  console.log('✓ Random AI local-only model controls, featured coding/writing stacks, guided prompts and abstract art work.');
+  console.log('✓ Random AI no-download/hosted selection, persistent loading progress and task stacks work.');
 
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
