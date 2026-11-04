@@ -1,0 +1,31 @@
+{
+  "id": "/the-docket/",
+  "name": "The Docket | Random Candy Land",
+  "short_name": "The Docket",
+  "description": "Investigate fictional cases, test evidence, protect due process, and discover what legal outcomes mean.",
+  "start_url": "/the-docket/",
+  "scope": "/the-docket/",
+  "display": "standalone",
+  "background_color": "#f3f1eb",
+  "theme_color": "#f3f1eb",
+  "icons": [
+    {
+      "src": "/tool-icons/the-docket.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
