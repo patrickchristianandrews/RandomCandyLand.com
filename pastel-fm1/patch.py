@@ -42,4 +42,7 @@ exact(pathlib.Path("firmware/src/melodee.c"),
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
       '!strcmp(UI_PALETTES[0].name, "PASTEL")')
+exact(pathlib.Path("tests/theme_test.c"),
+      'assert((p == 1u || p == 6u) == ux.light)',
+      'assert((p == 0u || p == 1u || p == 6u) == ux.light)')
 print("Pastel patch applied. Core synth, effects, MIDI and recovery paths remain upstream Melodee 1.6.1.")
