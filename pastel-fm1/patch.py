@@ -38,7 +38,7 @@ exact(pathlib.Path("firmware/src/main.c"), '"MELODEE", T_THEME', '"PASTEL", T_TH
 exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T_THEME')
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
-      '#define MELODEE_VERSION "Pastel v0.2"')
+      '#define MELODEE_VERSION "Pastel v0.3"')
 # Preserve upstream palette name-order coverage while explicitly expecting Pastel.
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
@@ -89,4 +89,110 @@ exact(pathlib.Path("firmware/src/main.c"),
 exact(pathlib.Path("firmware/src/ui_menu.c"),
       'y = menu_text("Multi-engine synthesizer", y + 146, T_SEC, draw);',
       'y = menu_text("LIQUID EDITION - multi-engine synthesizer", y + 146, T_SEC, draw);')
-print("Pastel patch applied. Liquid Edition: animation and soft ribbon/splash customization; DSP and update mechanisms unchanged.")
+# Pastel v0.3: an independently synthesized Animal Jam performance surface.
+# We leave the original FM-1 update loader, engine IDs and preset storage layout
+# unmodified. The animal voices are separate from the original synth and never
+# overwrite existing user preset banks.
+for src_name, dst_name in (
+    ("animal_audio.c", "pastel_animal_audio.c"),
+    ("animal_view.c", "pastel_animal_view.c"),
+):
+    target = root / "firmware/src" / dst_name
+    if target.exists():
+        raise RuntimeError(f"Refusing to overwrite {target}")
+    shutil.copyfile(pathlib.Path(__file__).with_name(src_name), target)
+
+exact(pathlib.Path("firmware/src/seq.c"),
+      '#define KB_SILENT 255u',
+      '#include "pastel_animal_audio.c"\n#define KB_SILENT 255u')
+exact(pathlib.Path("firmware/src/seq.c"),
+      '            if (song.grid == 2u)                  /* NAME / pattern selection: keys belong to the UI */',
+      '            if (pastel_animal_active) {           /* Animal Jam: keys call animals, not the song */\n'
+      '                kb_note[k] = KB_SILENT;\n'
+      '                pastel_animal_hit(k);\n'
+      '                continue;\n'
+      '            }\n'
+      '            if (song.grid == 2u)                  /* NAME / pattern selection: keys belong to the UI */')
+
+exact(pathlib.Path("firmware/src/audio.c"),
+      '    mix_block(out, n);',
+      '    mix_block(out, n);\n    pastel_animal_render(out, n);')
+
+# Give the HOME key three pages: the sequencer, chord wheel and Animal Jam.
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      '    dq_poll();                                          /* (destructive edits waiting for their loop end) */',
+      '    pastel_animal_active = (uint8_t)(ui.home && ui.home_pg == 2u && !ui.menu && !ui.confirm && !pop.on && !ui.layer);\n'
+      '    dq_poll();                                          /* (destructive edits waiting for their loop end) */')
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      'ui.home_pg = (uint8_t)!ui.home_pg;              /* other page (ui_view.c) */',
+      'ui.home_pg = (uint8_t)((ui.home_pg + 1u) % 3u); /* Stage, chord wheel, animals */')
+exact(pathlib.Path("firmware/src/ui.c"),
+      'uint8_t home_pg;             /* HOME\'s page: 0 Stage, 1 the chord view (ui_view.c); HOME tapped on HOME turns it */',
+      'uint8_t home_pg;             /* HOME: 0 Stage, 1 chord view, 2 Animal Jam */')
+
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      '#include "ui_view.c"                                    /* HOME\'s second page: the chord, pictures of what plays */',
+      '#include "ui_view.c"                                    /* HOME\'s second page: the chord, pictures of what plays */\n'
+      '#include "pastel_animal_view.c"                         /* HOME\'s third page: dancing animal synthesizer */')
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      '        if (ui.home && ui.home_pg)                      /* HOME\'s second page (ui_view.c) */\n'
+      '            view_draw();',
+      '        if (ui.home && ui.home_pg == 2u)\n'
+      '            pastel_animal_draw();\n'
+      '        else if (ui.home && ui.home_pg == 1u)         /* HOME\'s second page (ui_view.c) */\n'
+      '            view_draw();')
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      '    } else if (ui.home) {                               /* Stage: the engine (a kit: its name, "909 KIT") */',
+      '    } else if (ui.home && ui.home_pg == 2u) {\n'
+      '        str_cpy(b, "ANIMALS", 16);\n'
+      '    } else if (ui.home) {                               /* Stage: the engine (a kit: its name, "909 KIT") */')
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      'x + 6 + 28 <= 236 - cw',
+      'x + 6 + 48 <= 236 - cw')
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      'for (i = 0, x += 6; i < 2u; i++) {',
+      'for (i = 0, x += 6; i < 3u; i++) {')
+
+# Sixteen accessible curated patch approximations of celebrated community
+# synth sound designs. They use Melodee's still-supported SID oscillator and
+# envelope model; no stock M-VAVE sample ROM or proprietary voices.
+exact(pathlib.Path("firmware/src/eng_sid.c"),
+      '};\n#undef SIDP\n\nstatic const engine_t ENG_SID = {',
+      '''    /* Community-inspired Pastel sounds (SLOOP and ChoralRoot).
+     * SLOOP's ANALOG and LOFI patches are NOT wire-compatible with Melodee
+     * SID. These are newly voiced SID equivalents; they are not byte copies.
+     * No original M-VAVE factory audio or preset ROM is included.
+     */
+    SIDP("SLP 808 BOOM", 1, 0, 0, 64, 127,  0, 7,  8,   0, 95,   0, 28,  0, 1, 0,0,0,0),
+    SIDP("SLP 303 ACID", 0, 1, 0, 58,  35, 13, 1, 62,   0, 55,  45, 20, 58, 1, 0,0,0,0),
+    SIDP("SLP REESE",    0, 1, 5, 64,  48,  9, 0, 40,   0, 70, 115, 34, 10, 1, 0,0,0,0),
+    SIDP("SLP WOBBLE",   0, 2, 4, 45,  45, 12, 1, 66,   0, 65, 124, 36, 55, 1, 0,0,0,0),
+    SIDP("SLP FUNK",     1, 2, 1, 38,  65,  7, 0, 35,   0, 60,  75, 23, 25, 1, 0,0,0,0),
+    SIDP("SLP PLUGG",    1, 0, 0, 64, 120,  0, 7,  5,   0, 84,  60, 20,  0, 1, 0,0,0,0),
+    SIDP("SLP GLIDE",    1, 2, 4, 38,  75,  4, 0, 20,   8, 67, 105, 40,  0, 1, 0,0,0,0),
+    SIDP("SLP SAW",      1, 1, 5, 64, 115,  8, 0, 18,   4, 72, 116, 44, 20, 1, 0,0,0,0),
+    SIDP("SLP WARM PAD", 1, 4, 4, 64,  57,  8, 0,  5,  92, 88, 110, 96,  0, 0, 0,0,0,0),
+    SIDP("SLP ATMOS",    0, 4, 7, 50,  72,  6, 4,  0,  99, 95, 105, 99,  0, 0, 0,0,0,0),
+    SIDP("SLP PLUCK",    0, 0, 0, 50,  65,  3, 7,  8,   0, 92,  12, 41, 38, 0, 0,0,0,0),
+    SIDP("SLP PANPIPE",  1, 0, 0, 64, 120,  0, 7,  0,  10, 90,  91, 45,  0, 1, 0,0,0,0),
+    SIDP("CR CHORDPAD",  1, 4, 4, 64,  55,  4, 0,  0,  96, 92, 119, 99,  0, 0, 0,0,0,0),
+    SIDP("CR BLOOM",     1, 0, 7, 64, 115,  2, 7,  0,  66, 94,  96, 91,  0, 0, 0,0,0,0),
+    SIDP("CR HARP",      1, 0, 2, 64, 110,  0, 7,  0,   0, 89,  15, 72,  0, 0, 0,0,0,0),
+    SIDP("CR DREAM",     0, 2, 1, 46,  75,  3, 4, 10,  84, 93, 111, 99,  0, 0, 0,0,0,0),
+};
+#undef SIDP
+
+static const engine_t ENG_SID = {''')
+
+# SID's category index has one category letter per preset. SLOOP new preset
+# categories: 7 basses, one lead, 2 pads, pluck, wind; CR: pad, bell,
+# pluck, pad. Retain the original 32 category letters unchanged.
+exact(pathlib.Path("firmware/src/browse.c"),
+      '[3] = "OLBBBBBBLLLLLLLLPSPPGGKKUUERFFFF",',
+      '[3] = "OLBBBBBBLLLLLLLLPSPPGGKKUUERFFFF" "BBBBBBBLPPUUPGPP",')
+
+shutil.copyfile(pathlib.Path(__file__).with_name("animal_test.c"),
+                root / "tests/pastel_animal_test.c")
+print("Pastel v0.3 hybrid: Melodee/Felucca/ChoralRoot harmonies,"
+      " SLOOP/ChoralRoot-inspired SID bank and original Animal Jam visuals/audio.")
+print("Pastel patch applied. Liquid Edition: animation and soft ribbon/splash customization; user synth engines and updater unchanged.")
