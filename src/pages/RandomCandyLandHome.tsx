@@ -5,7 +5,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'pets' | 'quick' | 'deep' | 'music' | 'learning' | 'discovery';
+type Category = 'all' | 'quick' | 'ongoing' | 'story' | 'learning' | 'creative' | 'discovery';
 
 type Portal = {
   icon: string;
@@ -43,10 +43,10 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/moodropolis.svg',name:'Moodropolis',url:'/moodropolis/'},
   {icon:'/tool-icons/the-corridors.svg',name:'The Corridors',url:'/the-corridors/'},
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
-  {icon:'/tool-icons/candy-studio.svg',name:'Candy Studio',url:'/studio/'},
+  {icon:'/tool-icons/candy-studio.svg',name:'Random AI',url:'/studio/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT','Moodropolis','The Corridors','The Docket','Candy Studio'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
@@ -65,27 +65,27 @@ const TOOL_MENU_ICONS = [
 
 const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[0],title:'Unwrapped',blurb:"There's more to you. Understand every layer. Appreciate the whole person. Explore psychology, feelings, attraction, communication and relationships, then share what matters through quizzes, guides and partner-friendly reports.",kind:'discovery',label:'KNOW YOURSELF · SHARE MORE · 18+',palette:'purple',href:'/after-dark/'},
-  {icon:TOOL_MENU_ICONS[1],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'pets',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
-  {icon:TOOL_MENU_ICONS[2],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'pets',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
+  {icon:TOOL_MENU_ICONS[1],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'ongoing',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
+  {icon:TOOL_MENU_ICONS[2],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'ongoing',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
   {icon:TOOL_MENU_ICONS[3],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'quick',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
   {icon:TOOL_MENU_ICONS[4],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'quick',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
   {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'quick',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
   {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'quick',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
-  {icon:TOOL_MENU_ICONS[7],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
+  {icon:TOOL_MENU_ICONS[7],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'creative',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/',duration:'LONG COURSE'},
-  {icon:TOOL_MENU_ICONS[9],title:'Moodropolis',blurb:'Build a city that feels alive. Meet citizens, respond to their problems, rebuild neighborhoods, discover events, and shape the future of Meridian.',kind:'deep',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
-  {icon:TOOL_MENU_ICONS[10],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'deep',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
-  {icon:TOOL_MENU_ICONS[11],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'deep',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
-  {icon:TOOL_MENU_ICONS[12],title:'Candy Studio',blurb:'An all-in-one creative workspace: local-model chat, 24 guided writing tools, original abstract art, photo editing, read-aloud voices, and dictation. Save your work right in your browser.',kind:'discovery',label:'CREATIVE SUITE · NO ACCOUNT NEEDED',palette:'purple',href:'/studio/',duration:'CREATE ANYTIME'},
+  {icon:TOOL_MENU_ICONS[9],title:'Moodropolis',blurb:'Build a city that feels alive. Meet citizens, respond to their problems, rebuild neighborhoods, discover events, and shape the future of Meridian.',kind:'ongoing',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
+  {icon:TOOL_MENU_ICONS[10],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
+  {icon:TOOL_MENU_ICONS[11],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
+  {icon:TOOL_MENU_ICONS[12],title:'Random AI',blurb:'An all-in-one creative workspace: local-model chat, 24 guided writing tools, original abstract art, photo editing, read-aloud voices, and dictation. Save your work right in your browser.',kind:'discovery',label:'CREATIVE SUITE · NO ACCOUNT NEEDED',palette:'purple',href:'/studio/',duration:'CREATE ANYTIME'},
 ];
 
 const COLLECTIONS = [
-  {id:'pets',title:'Virtual Pets',description:'Care, evolve, and play with your digital characters.',symbol:'🐣'},
-  {id:'quick',title:'Quick Games',description:'Jump in for a short session, challenge, or match.',symbol:'⚡'},
-  {id:'deep',title:'Long Adventures',description:'Story-rich worlds, big decisions, and lasting progress.',symbol:'🏙️'},
-  {id:'learning',title:'Deep Learning',description:'Immersive guided investigations and skill building.',symbol:'🧠'},
-  {id:'music',title:'Music & Visuals',description:'Music-powered interactive environments.',symbol:'🎵'},
-  {id:'discovery',title:'Explore & Discover',description:'Psychology, creativity and curious self-discovery.',symbol:'🌙'},
+  {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
+  {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
+  {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
+  {id:'learning',title:'Courses & Training',description:'Hands-on investigations and guided learning you can complete at your own pace.',symbol:'🧠',time:'EXTENDED'},
+  {id:'creative',title:'Creative & Music Tools',description:'Design, write, code, make art and enjoy interactive sound.',symbol:'🎨',time:'YOUR PACE'},
+  {id:'discovery',title:'Explore & Understand',description:'Learn more about yourself, relationships and curiosity.',symbol:'🌙',time:'YOUR PACE'},
 ] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
@@ -168,31 +168,49 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <div className="candyland-opening-copy">
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
-          <div className="candyland-hero-categories" role="group" aria-label="Filter games by category">
-            <button type="button" className={category === 'all' ? 'is-selected' : ''} aria-pressed={category === 'all'} onClick={() => setCategory('all')}>✨ All</button>
+          <div className="candyland-hero-categories" role="group" aria-label="Jump to a kind of experience">
+            <button type="button" className={category === 'all' ? 'is-selected' : ''} aria-pressed={category === 'all'} onClick={() => setCategory('all')}>✨ See everything</button>
             {COLLECTIONS.map(group => (
               <button key={group.id} type="button" className={category === group.id ? 'is-selected' : ''} aria-pressed={category === group.id} onClick={() => setCategory(group.id)}>
                 <span aria-hidden="true">{group.symbol}</span> {group.title}
               </button>
             ))}
           </div>
-          <p className="candyland-hero-filter-summary" aria-live="polite">{category === 'all' ? 'All games & tools' : COLLECTIONS.find(group => group.id === category)?.title} · {PORTALS.filter(portal => category === 'all' || portal.kind === category).length}</p>
-          <p className="candyland-category-guide">⚡ Quick Games: a few minutes · 🏙️ Long Adventures: stories worth returning to · 🧠 Deep Learning: guided courses</p>
-          <nav className="candyland-hero-tools" aria-label="Game and experience library">
-            {PORTALS.map((portal,index) => {
-              if (category !== 'all' && portal.kind !== category) return null;
-              const content = <>
-                <span className="candyland-hero-tool-image">
-                  <img src={portal.icon} width={160} height={160} alt="" loading="eager" />
-                </span>
-                <span className="candyland-hero-tool-name">{TOOL_MENU_NAMES[index]}</span>
-                <span className="candyland-hero-tool-duration">{portal.duration || (portal.kind === 'quick' ? '5–15 MIN' : portal.kind === 'pets' ? 'DROP IN ANYTIME' : portal.kind === 'music' ? 'INSTANT' : 'EXPLORE')}</span>
-              </>;
-              return portal.oldPet
-                ? <button key={portal.title} type="button" onClick={onNavigateToTrump} className="candyland-hero-tool-link" aria-label={'Open '+TOOL_MENU_NAMES[index]}>{content}</button>
-                : <a key={portal.title} href={portal.href} className="candyland-hero-tool-link" aria-label={'Open '+TOOL_MENU_NAMES[index]}>{content}</a>;
+          <p className="candyland-category-guide">Pick a quick break, an ongoing world, a story worth an hour or a creative challenge. Everything is grouped below.</p>
+          <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
+            {COLLECTIONS.filter(group => category === 'all' || category === group.id).map(group => {
+              const games = PORTALS.filter(portal => portal.kind === group.id);
+              return (
+                <section className={'candyland-play-shelf candyland-play-shelf-'+group.id} key={group.id} aria-labelledby={'shelf-'+group.id}>
+                  <div className="candyland-play-shelf-heading">
+                    <div className="candyland-play-shelf-lead">
+                      <span className="candyland-play-shelf-emoji" aria-hidden="true">{group.symbol}</span>
+                      <div>
+                        <h2 id={'shelf-'+group.id}>{group.title}</h2>
+                        <p>{group.description}</p>
+                      </div>
+                    </div>
+                    <span className="candyland-play-shelf-time">{group.time} · {games.length} {games.length===1 ? 'experience' : 'experiences'}</span>
+                  </div>
+                  <nav className="candyland-hero-tools" aria-label={group.title}>
+                    {games.map(portal => {
+                      const content = <>
+                        <span className="candyland-hero-tool-image"><img src={portal.icon} width={120} height={120} alt="" loading="lazy" /></span>
+                        <span className="candyland-hero-tool-info">
+                          <span className="candyland-hero-tool-name">{portal.title}</span>
+                          <span className="candyland-hero-tool-blurb">{portal.blurb}</span>
+                          <span className="candyland-hero-tool-duration">{portal.duration || (group.id === 'quick' ? '5–15 MIN' : group.id === 'ongoing' ? 'DROP IN ANYTIME' : 'EXPLORE')}</span>
+                        </span>
+                      </>;
+                      return portal.oldPet
+                        ? <button key={portal.title} type="button" onClick={onNavigateToTrump} className="candyland-hero-tool-link" aria-label={'Open '+portal.title}>{content}</button>
+                        : <a key={portal.title} href={portal.href} className="candyland-hero-tool-link" aria-label={'Open '+portal.title}>{content}</a>;
+                    })}
+                  </nav>
+                </section>
+              );
             })}
-          </nav>
+          </div>
         </div>
       </section>
 
@@ -216,11 +234,11 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       <RandomNonsenseGenerator />
 
       <details className="candyland-future-games" aria-label="Three connected playable worlds">
-        <summary>✨ Meet the Meridian universe <span>3 games · Play now</span></summary>
+        <summary>✨ Meridian Universe <span>3 connected stories</span></summary>
         <div className="candyland-section-heading">
           <span>✨ THREE CONNECTED STORIES</span>
           <h2>A city. Its power. <em>Its justice.</em></h2>
-          <p>All three now appear in Long Adventures above. Make choices, uncover surprises and keep a shared Meridian chronicle on your device.</p>
+          <p>All three are grouped in the ongoing and story sections above. Make choices, uncover surprises and keep a shared Meridian chronicle on your device.</p>
         </div>
         <div className="candyland-future-grid">
           <article><strong>🏙️ Moodropolis</strong><p>Manage neighborhoods, emotional wellbeing, a budget, residents, and evolving city events.</p><a href="/moodropolis/" className="candyland-world-play">Play Moodropolis ↗</a></article>
