@@ -169,18 +169,18 @@ static __attribute__((noinline)) void pastel_live_draw(void)
             int32_t x=2+(int32_t)k*60;
             uint16_t c=pastel_live_color(k,20);
             cv_rrect(x,158,56,43,6,c,T_BG);
-            cv_text_c(x+28,ty_y(171,TY_LB),TY_LB,labels[k],T_TEXT,c);
+            cv_text_c(x+28,ty_y(170,TY_LB),TY_LB,labels[k],T_TEXT,c);
             char v[8];
             if(k==0u)fmt_int(v,(int32_t)pastel_live_scene+1);
             else if(k==1u)fmt_int(v,TSEL->p[P_CHRD]);
             else if(k==2u)fmt_int(v,pastel_live_flow);
             else fmt_int(v,(int32_t)pastel_live_tint+1);
-            cv_text_c(x+28,ty_y(189,TY_LB),TY_LB,v,T_THEME,c);
+            cv_text_c(x+28,ty_y(190,TY_LB),TY_LB,v,T_THEME,c);
         }
         /* On PRESET: the actual loaded native engine/voice name. */
         char title[16];
         sound_name(TSEL,title); /* reuse Melodee's correct preset name path */
-        cv_text_c(120,ty_y(211,TY_LB),TY_LB,title,T_TEXT,T_BG);
+        cv_text_c(120,ty_y(142,TY_LB),TY_LB,title,T_TEXT,T_BG);
         cv_oy=0;
         cv_blit(0,H_HEAD+band*52u);
     }
