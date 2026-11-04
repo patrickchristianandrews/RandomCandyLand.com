@@ -1,55 +1,69 @@
-# Candy Studio — an additional Random Candy Land feature
+# Random AI — enable Instant AI (no visitor downloads)
 
-**Random Candy Land remains the homepage at /**. Candy Studio lives in a separate static route at `/studio/` and is one item in the homepage's **Explore & Discover** category, not a new homepage or replacement for the other games.
+Random AI lives at **https://randomcandyland.com/studio/**. The website remains deployed through GitHub Pages. The optional hosted backend is the Cloudflare Worker in this directory.
 
-## What's available without account setup
+## What is already built
 
-- 24 searchable prompt-driven writing, marketing, learning and business helpers.
-- Abstract procedural art generator with PNG export.
-- Browser-based photo resizing and plain-background color removal (not a complex-scene segmentation model).
-- Browser text-to-speech, with voice choices where supported.
-- Browser speech-to-text where a compatible speech recognition service exists (browser providers may process your voice).
-- Local chat via user-downloaded WebGPU models on compatible browsers, plus local conversation storage and export.
-- Optional external model-provider chat using a **visitor's own** API credentials, kept in tab memory only.
-- **Shared no-login chat** from Cloudflare's Workers AI free allocation **after** the site owner deploys and connects the Worker.
+- **Instant AI** is a selectable hosted-chat mode. Visitors do not download a model, obtain an API key, or need WebGPU.
+- **Private Local AI** uses downloadable WebLLM language models directly in compatible browsers. A persistent progress panel displays initialization, percentage, readiness and errors, including when loading from the top toolbar.
+- Featured **task stacks** recommend coding, writing, reasoning, research, brainstorming, and image/video prompts. The current hosted Worker provides **text chat**, not generated photo or video files.
+- The UI checks `GET /health` before saying Instant AI is ready. If the Worker is unavailable, it displays an accurate setup/connection message. Cloudflare free service is **limited**, not unlimited.
 
-No visitor pays or signs up to access browser tools. Cloudflare's limited free inference allowance is shared by all users; no website can truthfully guarantee unlimited compute for everyone forever.
+**Status: the hosting service must be deployed and linked by the website owner.** Committing the frontend does not automatically create an AI endpoint, and this repository deliberately contains no private provider keys.
 
-## Enable FREE community chat (site owner only)
+## Method A: Connect from your laptop using Cloudflare's GitHub integration
 
-This is **not yet enabled** in `public/studio/free-config.js`. It intentionally remains empty so the website never claims a cloud model is online when it isn't.
+1. Sign in to [Cloudflare Dashboard](https://dash.cloudflare.com/), choose **Workers & Pages** and create a Worker that imports the existing GitHub repository **`patrickchristianandrews/RandomCandyLand.com`**.
+2. Select root directory **`studio-free-ai`** and use the deployment command **`npx wrangler deploy`**, with **`studio-free-ai/wrangler.jsonc`** as the Worker configuration. Verify that the **AI**, **PER_VISITOR**, and **SHARED_LIMIT** bindings are present. Do not replace your website's GitHub Pages hosting.
+3. Deploy using **Workers Free** initially if possible, and verify the Worker exists and its AI binding is enabled. Record the **HTTPS `workers.dev` URL** shown after publishing.
+4. In GitHub, edit **`public/studio/free-config.js`** to assign ONLY that public URL, for example:
+   ```js
+   window.CANDY_FREE_AI_ENDPOINT = 'https://candy-studio-free-ai.YOUR-SUBDOMAIN.workers.dev';
+   ```
+   This URL is public routing information, not a secret. **Do not insert tokens or API keys.**
+5. After the GitHub Pages workflow succeeds, open [Random AI](https://randomcandyland.com/studio/), navigate to **Models & setup** and click **Verify Instant AI**. The status should say **Instant AI connected**.
+6. Open **Chat & create**, choose **Instant AI — no download**, select Fast or Quality, then send a short test message. Test on another browser/device as well.
 
-1. Sign in at <https://dash.cloudflare.com/> using your existing Cloudflare account. You **do not need to move the domain or change the website hosting**.
-2. Navigate to **Workers & Pages → Create application → Import a repository**. Choose **`patrickchristianandrews/RandomCandyLand.com`**, main branch. If GitHub isn't linked, authorize this repository.
-3. Set worker name **`candy-studio-free-ai`**, root directory **`studio-free-ai`**, and deploy command **`npx wrangler deploy`** (no additional website build). Cloudflare Workers AI must be available on the account. Confirm Worker bindings **`AI`**, **`PER_VISITOR`**, and **`SHARED_LIMIT`** are present in its deployment configuration.
-4. Keep **Cloudflare Workers Free**, so exhausted inference yields a quota error rather than silently billing your account. There is a shared neuron budget and model cost differs by model; this is free-with-limits, not unlimited.
-5. Open `https://candy-studio-free-ai.YOUR-SUBDOMAIN.workers.dev/health` **from the site**. The endpoint requires the official site origin, so a direct browser address-bar visit may return a 403; this is intentional. A JavaScript request from the hosted Studio will be permitted.
-6. Set the **public URL only**, **without any token**, in `public/studio/free-config.js`:
+The health endpoint checks the request `Origin`, so opening the `/health` URL directly in a browser address bar may display **403**. The Studio sends an allowed cross-origin fetch from randomcandyland.com.
 
-   `window.CANDY_FREE_AI_ENDPOINT = 'https://candy-studio-free-ai.YOUR-SUBDOMAIN.workers.dev';`
+## Method B: Deploy from a laptop command prompt
 
-7. Publish the site using its existing GitHub Pages workflow. On `/studio/#settings`, **Community chat** should report the service online, and the ordinary chat tab will use it by default.
+If the Cloudflare dashboard does not support your GitHub Worker setup, install Node.js and use these commands in a clone of the repository:
 
-**Never put any Cloudflare API token, model provider key, secret, or payment credential in a public file.** This worker uses an account-level AI binding, not a visitor-visible key. It restricts message length, calls per IP, and total calls per region. The site does not save visitors' chat content on the Cloudflare worker, but the model provider receives each submitted chat message and applies its policies. Origin checks alone do not prevent deliberate abuse, so Cloudflare WAF/rate limits and cost monitoring are recommended as traffic grows.
+```bash
+cd studio-free-ai
+npx wrangler login
+npx wrangler deploy
+```
 
-## Expected limitations
+Wrangler will request authorization in your browser. It uses `wrangler.jsonc` to define the Worker and its AI/rate-limit bindings. Copy the published Worker URL to the public config file as above, then commit the config change to GitHub. **Never paste Cloudflare account tokens into this chat or a frontend file.**
 
-- The worker is **not** deployed by committing these files alone. Cloudflare account authorization is required.
-- Model quality and image capability are **not** identical to the linked commercial service. Workers AI currently powers chat only; abstract art and photo tools run entirely in the browser.
-- When its free inference budget runs out or its Worker is unavailable, the Studio tells users to use local models or offline browser tools.
-- Local models require WebGPU and can download hundreds of MB.
-- Some voice transcription browsers send audio to their speech service; it is not necessarily offline.
-- Stored conversations are browser-local and can be lost if site data is cleared.
-- The new site section is independently installable from `/studio/`, alongside the existing Random Candy Land apps.
+## What the visitor sees
 
-## Source locations
+- With an active Worker: **Instant AI connected**, with hosted text responses (no model download).
+- With no Worker URL: **Instant AI not connected**, plus the correct setup explanation; no fake answers or invented progress.
+- On a browser with WebGPU: **Private Local AI** can download a selected WebLLM model with a visible progress bar at the top. A completed download reports **Local model ready**.
+- On a browser lacking WebGPU: the **Load** button explains the problem instead of appearing to do nothing. Chrome or Edge on a sufficiently capable laptop is usually the simplest starting point.
 
-- `public/studio/index.html` / `studio.css` / `studio.js`: standalone accessible UI and working browser tools.
-- `public/studio/free-config.js`: safe public worker address configuration.
-- `public/app-manifests/candy-studio.webmanifest`: installable sub-app.
-- `studio-free-ai/worker.js` / `wrangler.jsonc`: rate-limited open-model backend.
-- `src/pages/RandomCandyLandHome.tsx`: **one additional** menu tile and installation option, leaving the site structure intact.
+## Costs, limits and security
+
+Cloudflare Workers AI has a limited free daily inference allocation; additional usage may require a paid plan. The Worker caps requests and message lengths, and its Cloudflare AI binding means no visitor-visible API key. The default Worker configuration uses two text models:
+- `free-fast`: `@cf/meta/llama-3.2-3b-instruct`
+- `free-quality`: `@cf/meta/llama-3.1-8b-instruct-fp8-fast`
+
+Keep Cloudflare spending alerts and limits enabled. The current Worker does **not** implement owner-only usage analytics or a hard monthly dollar budget. Configure those before turning on unrestricted public paid usage. `Origin` filtering alone is not sufficient protection against malicious clients; rate limits, Cloudflare WAF and abuse monitoring are also important.
+
+**Privacy:** Local AI inference stays on the visitor's device after the model assets are downloaded. Instant AI sends the chat messages to your Cloudflare Worker and its model service for processing. The website stores chat history in browser local storage; the Worker shown here does not persist that history. Do not market hosted inference as fully on-device.
+
+## Relevant files
+
+- `public/studio/index.html`: Instant/Local selector, hosted setup, download progress UI.
+- `public/studio/studio.js`: secure optional hosted routing and WebLLM initialization progress.
+- `public/studio/model-explorer.js`: full WebLLM-supported model list and stack recommendations.
+- `public/studio/free-config.js`: **public Worker URL only**, initially empty.
+- `studio-free-ai/worker.js`: Cloudflare AI inference, input validation and rate limits.
+- `studio-free-ai/wrangler.jsonc`: Worker deployment configuration.
 
 ## Verification
 
-The site is built by the existing GitHub Actions workflow and validated by its full website tests. API quota, actual device performance, browsers' voice behavior, and Cloudflare connectivity must also be tested on a live account.
+GitHub Actions validates the website and browser controls. Its smoke tests do not download multi-gigabyte models or verify a Cloudflare service that has not yet been authorized. Actual model download performance depends on browser, GPU, memory, disk space, network, and the selected model.
