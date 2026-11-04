@@ -16,7 +16,7 @@ const $=s=>document.querySelector(s);
 const endpoint=typeof window.RCL_PUSH_ENDPOINT==='string'?window.RCL_PUSH_ENDPOINT.trim().replace(/\/$/,''):'';
 let ready=false,publicKey='',working=false;
 let prefs=load();
-function load(){try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&typeof r==='object'&&Array.isArray(r.games))return r;}catch{}return {token:'',games:GAMES.map(x=>x.id),hour:18,frequency:'twice-weekly',subscribed:false}}
+function load(){try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&typeof r==='object'&&Array.isArray(r.games))return r;}catch{}return {token:'',games:[],hour:18,frequency:'twice-weekly',subscribed:false}}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(prefs))}catch{}}
 const installed=()=>window.matchMedia?.('(display-mode: standalone)').matches||navigator.standalone===true;
 const isMobile=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -39,18 +39,20 @@ function decodeKey(text){const s=text.replace(/-/g,'+').replace(/_/g,'/');const 
 function status(message,error=false){const el=$('#rcl-notify-status');if(!el)return;el.textContent=message;el.dataset.error=error?'yes':'no'}
 function render(){
  const node=$('#rcl-notify-center');if(!node||node.dataset.bound)return;
+ const game=GAMES.find(g=>g.id===node.dataset.game);
+ if(!game)return; // The homepage no longer includes the global reminder center.
  node.dataset.bound='yes';
- node.innerHTML='<div class="rcl-notify-heading"><div><span class="rcl-notify-eyebrow">✨ YOUR NEXT ADVENTURE IS WAITING</span><h2>Keep the story going, on your schedule.</h2><p>Choose which ongoing games may send gentle reminders to your phone. No alerts until you opt in, and no punishment for skipping a day.</p></div><span class="rcl-notify-bell" aria-hidden="true">🔔</span></div>'+
- '<div class="rcl-notify-steps"><span><b>1</b> Install Candy Land</span><span><b>2</b> Pick your games</span><span><b>3</b> Allow notifications</span></div>'+
- '<div class="rcl-notify-games" id="rcl-notify-games">'+GAMES.map(g=>'<label class="rcl-notify-game"><input type="checkbox" data-game="'+g.id+'" '+(prefs.games.includes(g.id)?'checked':'')+'><span>'+g.icon+'</span><span>'+g.name+'</span><small data-state="'+g.id+'"></small></label>').join('')+'</div>'+
+ node.innerHTML='<div class="rcl-notify-heading"><div><span class="rcl-notify-eyebrow">🔔 '+game.icon+' '+game.name.toUpperCase()+'</span><h2>Get a reminder to pick up where you left off.</h2><p>Only for this game, only if you choose. Alerts are scheduled for unfinished play, not automatic event-by-event updates.</p></div></div>'+
+ '<div class="rcl-notify-steps"><span><b>1</b> Install this game</span><span><b>2</b> Select reminders</span><span><b>3</b> Allow notifications</span></div>'+
+ '<div class="rcl-notify-games" id="rcl-notify-games">'+[game].map(g=>'<label class="rcl-notify-game"><input type="checkbox" data-game="'+g.id+'" '+(prefs.games.includes(g.id)?'checked':'')+'><span>'+g.icon+'</span><span>'+g.name+'</span><small data-state="'+g.id+'"></small></label>').join('')+'</div>'+
  '<div class="rcl-notify-options"><label>Reminder schedule<select id="rcl-notify-frequency"><option value="twice-weekly">Twice a week (Mon & Thu)</option><option value="weekly">Once a week (Saturday)</option><option value="daily">Once a day</option></select></label>'+
  '<label>Time on your phone<select id="rcl-notify-hour"><option value="9">9:00 AM</option><option value="13">1:00 PM</option><option value="18">6:00 PM</option></select></label></div>'+
  '<div class="rcl-notify-actions"><button id="rcl-notify-enable" type="button">🔔 Enable phone reminders</button><button id="rcl-notify-test" type="button" hidden>Send test push</button><button id="rcl-notify-disable" type="button" hidden>Turn off reminders</button></div>'+
  '<p class="rcl-notify-status" id="rcl-notify-status" role="status" aria-live="polite">Checking notification support…</p>'+
- '<p class="rcl-notify-small">Notifications are optional, limited to one selected game per scheduled day, and never sent between 9 PM and 8 AM. iPhone: install the website to your Home Screen, then open that icon and tap Enable. Android: install it in Chrome. Game notes and private answers stay on your device.</p>';
+ '<p class="rcl-notify-small">Only optional reminders for unfinished sessions, never late-night alerts. On iPhone, install this game to the Home Screen and open that icon first. On Android, use a supported browser or installed app. Detailed game data stays on your device. Cloudflare push service configuration is required for background delivery.</p>';
  $('#rcl-notify-frequency').value=prefs.frequency;
  $('#rcl-notify-hour').value=String(prefs.hour);
- for(const input of node.querySelectorAll('[data-game]'))input.addEventListener('change',()=>{prefs.games=[...node.querySelectorAll('input[data-game]:checked')].map(x=>x.dataset.game);persist();if(prefs.subscribed)void sync(true);updateUI()});
+ for(const input of node.querySelectorAll('[data-game]'))input.addEventListener('change',()=>{const id=input.dataset.game;prefs.games=input.checked?[...new Set([...prefs.games,id])]:prefs.games.filter(g=>g!==id);persist();if(prefs.subscribed)void sync(true);updateUI()});
  for(const id of ['frequency','hour'])$('#rcl-notify-'+id).addEventListener('change',e=>{prefs[id]=id==='hour'?Number(e.target.value):e.target.value;persist();if(prefs.subscribed)void sync(true)});
  $('#rcl-notify-enable').addEventListener('click',enable);
  $('#rcl-notify-disable').addEventListener('click',disable);
@@ -65,15 +67,15 @@ function updateUI(){
  if(test)test.hidden=!prefs.subscribed;
  if(enable)enable.textContent=prefs.subscribed?'✓ Phone reminders enabled':'🔔 Enable phone reminders';
  if(enable)enable.disabled=working||prefs.subscribed||!ready;
- const started=GAMES.filter(g=>prefs.games.includes(g.id)&&p[g.id]==='active').length;
+ const scoped=GAMES.find(g=>g.id===node.dataset.game);const checked=!!scoped&&prefs.games.includes(scoped.id);const started=checked&&p[scoped.id]==='active'?1:0;
  if(!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window)){status('This browser cannot receive Web Push. Try a supported installed Android or iPhone web app.',true);return;}
- if(isMobile()&&!installed()){status('Install the Random Candy Land homepage to your phone, open its icon, then enable alerts.',false);if(enable)enable.disabled=true;return}
+ if(isMobile()&&!installed()){status('Install this game to your Home Screen, open its icon, then enable alerts.',false);if(enable)enable.disabled=true;return}
  if(Notification.permission==='denied'){status('Notification permission is blocked in device settings. Re-enable it there first.',true);if(enable)enable.disabled=true;return}
- if(!endpoint){status('The reminder service is not yet connected to Cloudflare. The controls are prepared, but background alerts are not active.',true);return}
+ if(!endpoint){status('Background alerts are not available yet: the site owner must connect the notification service. You can play without alerts.',true);if(enable)enable.disabled=true;return}
  if(!ready){status('Connecting to the notification service…',false);return}
- if(prefs.games.length===0){status('Choose at least one game to follow.',false);if(enable)enable.disabled=true;return}
- if(prefs.subscribed)status(started?'Reminders are on. '+started+' selected game'+(started===1?' is':'s are')+' in progress.': 'Reminders are on. Start a selected game to receive its next scheduled reminder.');
- else status('Ready: allow notifications to receive reminders for selected games on your chosen days.');
+ if(!checked){status('Select this game above to opt in to reminders.',false);if(enable)enable.disabled=true;return}
+ if(prefs.subscribed)status(started?'This game is selected for scheduled reminders while your adventure is unfinished.':'This game is selected. Reminders only apply after you start playing.');
+ else status('Ready: allow scheduled phone reminders for this game on days you choose.');
 }
 async function api(path,data){if(!endpoint)throw Error('Notification service is not connected');const response=await fetch(endpoint+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),mode:'cors',cache:'no-store',keepalive:path==='/update'});let json;try{json=await response.json()}catch{json={error:'Invalid response from server'}}if(!response.ok)throw Error(json.error||'Push service request failed');return json}
 async function registration(){return await navigator.serviceWorker.ready}
@@ -91,6 +93,7 @@ async function ensureConnection(){
 function payload(sub){return {token:prefs.token,subscription:sub.toJSON(),preferences:{games:prefs.games,timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC',hour:prefs.hour,frequency:prefs.frequency,progress:progress()}}}
 async function enable(){
  if(working||prefs.subscribed||!ready||prefs.games.length<1)return;
+ const node=$('#rcl-notify-center');if(node?.dataset.game&&!prefs.games.includes(node.dataset.game))return;
  if(isMobile()&&!installed()){updateUI();return}
  working=true;updateUI();
  try{
@@ -134,7 +137,7 @@ async function test(){
  catch(e){status('Test push failed: '+(e?.message||'try again'),true)}
  finally{button.disabled=false}
 }
-function mount(){render();void ensureConnection();if(prefs.subscribed){window.setTimeout(()=>void sync(),1700)}}
+function mount(){const node=$('#rcl-notify-center');if(!node||!GAMES.some(g=>g.id===node.dataset.game))return;render();void ensureConnection();if(prefs.subscribed){window.setTimeout(()=>void sync(),1700)}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){updateUI();if(prefs.subscribed)void sync()}});
 window.addEventListener('pagehide',()=>{if(prefs.subscribed&&ready)void sync()});
