@@ -55,11 +55,75 @@ const roles=[
  ['prosecutor','📑 Prosecutor','Disclose helpful and harmful evidence, and seek outcomes supported by proof.'],
  ['judge','⚖️ Judge','Manage procedure impartially and decide only on reliable evidence.']
 ];
-const initial={index:0,role:null,phase:'intake',reviewed:[],openEvidence:-1,motion:null,decision:null,appeal:null,integrity:60,reasoning:55,reputation:53,history:[],journal:[],report:false,finished:false};
+const initial={index:0,role:null,phase:'intake',reviewed:[],openEvidence:-1,motion:null,decision:null,appeal:null,integrity:60,reasoning:55,reputation:53,history:[],journal:[],report:false,finished:false,linkA:-1,linkB:-1,linkResult:null,linkSolved:false,linkAttempts:0,interviewed:false,witnessResult:null,medals:[]};
 let state=W.load(KEY,initial);
 if(!Array.isArray(state.history)||!Array.isArray(state.reviewed)||state.index>cases.length)state=W.copy(initial);
+
+const badges=[
+ {icon:'📁',name:'Case Opened',ok:()=>state.role!==null||state.history.length>0},
+ {icon:'🧵',name:'Link Detective',ok:()=>state.journal.some(x=>x.text.startsWith('Evidence link:')&&x.text.includes('correct'))},
+ {icon:'🎙️',name:'Cross-Examiner',ok:()=>state.journal.some(x=>x.text.startsWith('Witness question:'))},
+ {icon:'🔍',name:'Complete Record',ok:()=>state.journal.some(x=>x.text.includes('Examined all five'))},
+ {icon:'🏛️',name:'Experienced Advocate',ok:()=>state.history.length>=3},
+ {icon:'⚖️',name:'Meridian Justice',ok:()=>state.finished}
+];
+function linkSelect(i){
+ if(state.phase!=='investigate'||!state.reviewed.includes(i)||state.linkSolved)return;
+ if(state.linkA===i){state.linkA=-1;state.linkB=-1}
+ else if(state.linkA<0||state.linkB>=0){state.linkA=i;state.linkB=-1}
+ else state.linkB=i;
+ save();render()
+}
+function linkCheck(type){
+ if(state.phase!=='investigate'||state.linkA<0||state.linkB<0||state.linkSolved)return;
+ const first=c().evidence[state.linkA],second=c().evidence[state.linkB];
+ const opposite=(first[3]<0)!==(second[3]<0),bothReliable=first[5]&&second[5];
+ const expected=opposite?'conflict':bothReliable?'support':'verify';
+ const good=type===expected;state.linkAttempts++;
+ state.linkResult=(good?'✓ Sound reasoning. ':'↺ Look closer. ')+
+ (opposite?'The two exhibits point toward different possibilities.':bothReliable?'Both authenticated items point in the same direction.':'At least one exhibit needs an authenticity or context check.')+
+ ' '+first[4]+' '+second[4];
+ if(good){state.linkSolved=true;state.reasoning+=8;state.integrity+=4;window.WorldFX?.celebrate('🧵')}
+ else{state.reasoning-=2;state.linkA=-1;state.linkB=-1}
+ log('Evidence link: '+(good?'correct':'needs revisiting')+' · '+first[0]+' / '+second[0]+'. '+state.linkResult);
+ save();render()
+}
+function linkPanel(){
+ if(state.reviewed.length<2)return '<p class="note">Inspect at least two exhibits to unlock evidence connections.</p>';
+ const selected=state.linkA>=0&&state.linkB>=0;
+ return '<div class="wfx-link-board"><span class="overline">🧵 THE RED-STRING CHALLENGE</span><h3>Connect the evidence</h3><p class="subline">Select two exhibits and decide whether they support, conflict with, or require verification against each other. Correct reasoning earns points.</p>'+
+ (state.linkSolved?'<span class="wfx-trait good">🏅 Connection solved</span>': '<div class="wfx-link-grid">'+state.reviewed.map(i=>'<button data-link-select="'+i+'" class="'+(state.linkA===i||state.linkB===i?'chosen':'')+'">'+(state.linkA===i?'① ':state.linkB===i?'② ':'◉ ')+W.escape(c().evidence[i][0])+'</button>').join('')+'</div>')+
+ (selected&&!state.linkSolved?'<div class="choices" style="margin-top:12px">'+[
+ ['support','These exhibits reinforce one another'],
+ ['conflict','These exhibits suggest conflicting accounts'],
+ ['verify','At least one exhibit requires more verification']
+ ].map(x=>'<button class="option" data-link-check="'+x[0]+'"><b>'+W.escape(x[1])+'</b></button>').join('')+'</div>':'')+
+ (state.linkResult?'<div class="wfx-link-result" role="status">'+W.escape(state.linkResult)+'</div>':'')+'</div>';
+}
+function witnessPanel(){
+ if(state.reviewed.length<2)return '';
+ const response=state.witnessResult;
+ return '<div class="wfx-quest"><span class="overline">🎙️ CROSS-EXAMINATION</span><h3>Question a witness</h3><p class="subline">The way you frame questions can reveal uncertainty—or obscure it. One question per case.</p>'+
+ (state.interviewed?'<div class="wfx-link-result">Interview complete: '+W.escape(response||'Statement added to the case record.')+'</div>':
+ '<div class="choices">'+[
+ ['0','Ask how the witness knows the timeline','Pin down dates, direct observation and original sources.'],
+ ['1','Demand a confession from the witness','Pressure without reliable evidence can distort testimony.'],
+ ['2','Ask what might disprove their interpretation','Look for alternatives, contradictions and exculpatory details.']
+ ].map(q=>'<button class="option" data-witness="'+q[0]+'"><b>'+W.escape(q[1])+'</b><small>'+W.escape(q[2])+'</small></button>').join('')+'</div>')+'</div>';
+}
+function witness(i){
+ if(state.phase!=='investigate'||state.interviewed||state.reviewed.length<2)return;
+ const note=i===0?c().evidence[2][4]:i===1?'I will not speculate about facts you have not shown me.':c().evidence[4][4];
+ state.witnessResult=(i===1?'The witness refuses to guess: ':'The witness points to the record: ')+note;
+ state.interviewed=true;state.reasoning+=i===1?-3:i===2?8:6;state.integrity+=i===1?-6:4;
+ log('Witness question: '+state.witnessResult);window.WorldFX?.celebrate('🎙️');save();render()
+}
+function medalsHtml(){
+ return '<div class="wfx-achievements">'+badges.map(m=>'<span class="wfx-medal '+(state.medals.includes(m.name)?'':'is-locked')+'">'+m.icon+' '+W.escape(m.name)+'</span>').join('')+'</div>';
+}
+
 const num=n=>Math.round(n),c=()=>cases[state.index],role=()=>roles.find(r=>r[0]===state.role),done=()=>state.history.length;
-const save=()=>{['integrity','reasoning','reputation'].forEach(k=>state[k]=W.clamp(state[k]));W.save(KEY,state)};
+const save=()=>{['integrity','reasoning','reputation'].forEach(k=>state[k]=W.clamp(state[k]));if(!Array.isArray(state.medals))state.medals=[];badges.forEach(b=>{if(b.ok()&&!state.medals.includes(b.name))state.medals.push(b.name)});W.save(KEY,state)};
 const log=t=>{state.journal.push({when:'CASE '+(state.index+1),text:t});state.journal=state.journal.slice(-90)};
 const label=d=>d==='liable'?'Find responsibility established':d==='notproven'?'Find the allegation NOT proven':'Order further fact-finding / review';
 function report(){return [
@@ -74,7 +138,7 @@ function report(){return [
 function review(i){
  if(state.phase!=='investigate')return;
  const ev=c().evidence[i];if(!ev)return;state.openEvidence=i;
- if(!state.reviewed.includes(i)){state.reviewed.push(i);state.reasoning+=2;log('Examined '+ev[0]+': '+ev[4])}
+ if(!state.reviewed.includes(i)){state.reviewed.push(i);state.reasoning+=2;log('Examined '+ev[0]+': '+ev[4]);if(state.reviewed.length===5)log('Examined all five exhibits in '+c().id)}
  save();render()
 }
 function selectRole(name){
@@ -137,7 +201,7 @@ function nextCase(){
  const current=c();
  state.history.push({id:current.id,title:current.title,role:role()[1],decision:label(state.decision),comment:state.feedback,appeal:state.appeal});
  W.chronicle('The Docket',current.id+' · '+current.title+' concluded: '+label(state.decision)+'.');
- state.index++;state.role=null;state.phase='intake';state.reviewed=[];state.openEvidence=-1;state.motion=null;state.decision=null;state.appeal=null;state.feedback='';
+ state.index++;state.role=null;state.phase='intake';state.reviewed=[];state.openEvidence=-1;state.motion=null;state.decision=null;state.appeal=null;state.feedback='';state.linkA=-1;state.linkB=-1;state.linkResult=null;state.linkSolved=false;state.linkAttempts=0;state.interviewed=false;state.witnessResult=null;
  if(state.index>=cases.length)state.finished=true;
  save();render();window.scrollTo({top:0,behavior:'smooth'})
 }
@@ -151,9 +215,9 @@ function evidenceHtml(){
   return '<button class="evidence '+(seen?'acquired':'')+'" data-evidence="'+i+'" aria-expanded="'+active+'"><strong>'+['📑','📼','🔎','🗂️','📎'][i]+' '+W.escape(e[0])+'</strong><span>'+W.escape(e[1])+'</span><span class="tag">'+(seen?'✓ Analyzed':'Tap to inspect')+' · '+W.escape(e[2])+'</span></button>';
  }).join('');
  const inspected=state.openEvidence>=0?cs.evidence[state.openEvidence]:null;
- return '<section class="panel"><span class="overline">INVESTIGATION · '+state.reviewed.length+' / '+cs.evidence.length+' SOURCES REVIEWED</span><h2>Case Intelligence Board</h2><p class="subline">Trace the source, reliability, context and custody of each item. Some material challenges the obvious theory.</p><div class="evidence-grid">'+cards+'</div>'+
+ return '<section class="panel"><span class="overline">INVESTIGATION · '+state.reviewed.length+' / '+cs.evidence.length+' SOURCES REVIEWED</span><h2>Case Intelligence Board</h2><p class="subline">Trace the source, reliability, context and custody of each item. Some material challenges the obvious theory.</p>'+window.WorldFX.caseBoard(cs.evidence,state.reviewed)+'<div class="evidence-grid">'+cards+'</div>'+
  (inspected?'<div class="callout" style="margin-top:14px"><strong>🔎 Evidence examination: '+W.escape(inspected[0])+'</strong><p>'+W.escape(inspected[4])+'</p><p><b>Procedural status:</b> '+(inspected[5]?'Initially authenticated in the simulation.':'Contested: further verification or admissibility review needed.')+'</p></div>':'')+
- '<p class="note">Evidence score is not a real legal standard. Material can be relevant yet inadmissible, and an allegation can remain unproven.</p><div class="button-row"><button class="button" data-pretrial '+(state.reviewed.length<3?'disabled':'')+'>Proceed to pretrial review →</button><span class="pill">'+Math.max(0,3-state.reviewed.length)+' more items needed</span></div></section>';
+ linkPanel()+witnessPanel()+'<p class="note">Evidence score is not a real legal standard. Material can be relevant yet inadmissible, and an allegation can remain unproven.</p><div class="button-row"><button class="button" data-pretrial '+(state.reviewed.length<3?'disabled':'')+'>Proceed to pretrial review →</button><span class="pill">'+Math.max(0,3-state.reviewed.length)+' more items needed</span></div></section>';
 }
 function pretrialHtml(){
  return '<section class="panel"><span class="overline">PRETRIAL · PROCEDURE MATTERS</span><h2>Decide what can be heard</h2><p class="subline">Your '+W.escape(role()[1])+' path influences how you prepare. Some evidence is contested and may require a foundation or review.</p><div class="choices">'+Object.keys(motions).map(k=>'<button class="option" data-motion="'+k+'"><b>'+W.escape(motions[k].name)+'</b><small>'+W.escape(motions[k].why)+'</small></button>').join('')+'</div><div class="callout" style="margin-top:13px"><b>Case rule:</b> '+W.escape(c().standard)+'</div></section>';
@@ -183,7 +247,7 @@ function finalHtml(){
 }
 function render(){
  const cs=c(),progress=Math.min(state.index+1,cases.length);
- let html='<div class="maincol"><section class="panel"><span class="overline">MERIDIAN COURTHOUSE · '+(state.finished?'COMPLETE':'FILE '+progress+' OF '+cases.length)+'</span><h2>'+(state.finished?'Career completed':W.escape(cs.title))+'</h2><p class="subline">'+(state.finished?'Your cases are preserved in your legal dossier.':W.escape(cs.story))+'</p><div class="timeline">'+['intake','investigate','pretrial','hearing','result','closed'].map(p=>'<span class="'+(state.phase===p&&!state.finished?'current':'')+'">'+p.toUpperCase()+'</span>').join('')+'</div></section>';
+ let html='<div class="maincol"><section class="panel"><span class="overline">MERIDIAN COURTHOUSE · '+(state.finished?'COMPLETE':'FILE '+progress+' OF '+cases.length)+'</span><h2>'+(state.finished?'Career completed':W.escape(cs.title))+'</h2><p class="subline">'+(state.finished?'Your cases are preserved in your legal dossier.':W.escape(cs.story))+'</p><div class="timeline">'+['intake','investigate','pretrial','hearing','result','closed'].map(p=>'<span class="'+(state.phase===p&&!state.finished?'current':'')+'">'+p.toUpperCase()+'</span>').join('')+'</div>'+(!state.finished?window.WorldFX.sceneCourt(state.phase,cs.title):'')+'</section>';
  if(state.finished)html+=finalHtml();
  else if(state.phase==='intake')html+=roleHtml();
  else if(state.phase==='investigate')html+=evidenceHtml();
@@ -192,7 +256,7 @@ function render(){
  else if(state.phase==='result')html+=resultHtml();
  else if(state.phase==='closed')html+=closedHtml();
  html+='<section class="panel"><span class="overline">THE RULES BEHIND THE VERDICT</span><h2>Beyond guilty or not guilty</h2><p class="subline">A fictional legal world built around the reality that process shapes results. Different case types can use different burdens and remedies.</p><div class="compare"><div><strong>🔬 EVIDENCE</strong><p>Source, corroboration, alternatives, chain of custody, authentication.</p></div><div><strong>⚖️ PROCEDURE</strong><p>Notice, disclosure, hearings, motions, fairness, appeals.</p></div></div></section></div>';
- html+='<aside class="sidecol"><section class="panel"><h2>Your legal profile</h2><div class="statgrid">'+W.stat('Integrity',num(state.integrity))+W.stat('Reasoning',num(state.reasoning))+W.stat('Reputation',num(state.reputation))+'</div><p class="note">Different roles have different duties. Professional judgment is about truth, process and fairness—not a conviction or win rate.</p></section>';
+ html+='<aside class="sidecol"><section class="panel"><h2>Achievements</h2>'+medalsHtml()+'</section><section class="panel"><h2>Your legal profile</h2><div class="statgrid">'+W.stat('Integrity',num(state.integrity))+W.stat('Reasoning',num(state.reasoning))+W.stat('Reputation',num(state.reputation))+'</div><p class="note">Different roles have different duties. Professional judgment is about truth, process and fairness—not a conviction or win rate.</p></section>';
  html+='<section class="panel"><h2>Case docket</h2><div class="case-grid">'+cases.map((x,i)=>'<div class="casecard '+(i===state.index&&!state.finished?'active':'')+'"><em>'+W.escape(x.id)+'</em><strong style="display:block;margin-top:4px">'+W.escape(x.title)+'</strong><small>'+(i<state.index?'✓ CLOSED':i===state.index&&!state.finished?'● ACTIVE':'○ LOCKED')+'</small></div>').join('')+'</div></section>';
  html+='<section class="panel"><h2>Legal dossier</h2><div class="button-row"><button class="button-quiet" data-report>📋 '+(state.report?'Hide':'Open')+' Legal Reality Report</button><button class="button-quiet" data-download>↓ Export report</button><button class="button-quiet" data-reset>↺ Reset career</button></div></section>';
  html+='<section class="panel"><h2>Your case record</h2>'+W.journal(state.journal)+'</section><section class="panel"><h2>Elsewhere in Meridian</h2>'+W.cross('The Docket')+'</section></aside>';
@@ -203,6 +267,9 @@ app.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b||b.disabled)return;
  if(b.dataset.role)selectRole(b.dataset.role);
  else if(b.hasAttribute('data-evidence'))review(Number(b.dataset.evidence));
+ else if(b.hasAttribute('data-link-select'))linkSelect(Number(b.dataset.linkSelect));
+ else if(b.dataset.linkCheck)linkCheck(b.dataset.linkCheck);
+ else if(b.hasAttribute('data-witness'))witness(Number(b.dataset.witness));
  else if(b.hasAttribute('data-pretrial'))toPretrial();
  else if(b.dataset.motion)moveMotion(b.dataset.motion);
  else if(b.dataset.decide)decide(b.dataset.decide);
