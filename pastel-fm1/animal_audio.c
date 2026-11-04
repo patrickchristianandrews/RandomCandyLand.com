@@ -21,7 +21,7 @@ static const char *const pastel_animal_names[PASTEL_ANIMALS] = {
     "CAT", "DOG", "DUCK", "FROG", "BIRD", "COW", "PIG", "SHEEP"
 };
 static const char *const pastel_animal_calls[PASTEL_ANIMALS] = {
-    "MEOW", "WOOF", "QUACK", "RIBBIT", "CHIRP", "MOO", "OINK", "BAA"
+    "MEOW", "WOOF", "QUACK", "RIBBIT", "CAW", "MOO", "OINK", "BAA"
 };
 typedef struct {
     uint32_t position;          /* 16.16 fractional address, local to sample */
@@ -63,7 +63,7 @@ static void pastel_animal_render(int32_t *out, uint32_t n)
         }
     }
     /* 16k / (24MHz / 544) = 0.362666 samples per FM-1 output sample. */
-    const uint32_t step=(16000u * 544u * 65536u + 12000000u) / 24000000u;
+    const uint32_t step=(uint32_t)((16000ull * 544ull * 65536ull + 12000000ull) / 24000000ull);
     for (uint32_t vnum = 0; vnum < PASTEL_ANIMAL_VOICES; vnum++) {
         pastel_animal_voice_t *v=&pastel_animal_voices[vnum];
         if (!v->running) continue;
@@ -75,7 +75,7 @@ static void pastel_animal_render(int32_t *out, uint32_t n)
             if(k>=len) {v->running=0u;break;}
             int32_t a=pastel_mulaw_decode(src[k]);
             int32_t b=pastel_mulaw_decode(src[k+1u<len?k+1u:k]);
-            int32_t sample=a+((b-a)*(int32_t)(pos&65535u)>>16);
+            int32_t sample=a+(int32_t)(((int64_t)(b-a)*(int64_t)(pos&65535u))>>16);
             /* Up to three animal calls overlap; 28% per voice leaves headroom. */
             sample=(sample*7)/25;
             int32_t l=out[2u*i]+sample, r=out[2u*i+1u]+sample;
