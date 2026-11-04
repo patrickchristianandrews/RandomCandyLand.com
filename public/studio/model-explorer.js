@@ -136,7 +136,7 @@ function selectRecord(id){
  '<div class="model-guide-actions"><button type="button" id="guideLoad" class="primary">↓ Download selected model</button><a href="/ai-academy/" class="outline">Learn prompting in AI Academy ↗</a></div>';
  $('#guideLoad')?.addEventListener('click',()=>$('#loadModel')?.click());
  if($('#loadModel'))$('#loadModel').disabled=!navigator.gpu;
- if($('#topModelDownload'))$('#topModelDownload').disabled=!navigator.gpu;
+ if($('#topModelDownload'))$('#topModelDownload').disabled=false; // Keep actionable: Load explains unsupported GPU/catalog instead of silently doing nothing.
  renderCatalog();
 }
 function setupModelCatalog(){
@@ -169,17 +169,18 @@ async function loadCatalog(force=false){
   const picks=records.filter(x=>!x.special).sort((a,b)=>weight(b)-weight(a));
   const unique=[];const fam=new Set();
   for(const m of picks){const tag=m.family+' '+(m.vram>3500?'big':'small');if(fam.has(tag))continue;fam.add(tag);unique.push(m);if(unique.length>=8)break}
-  if(top)top.innerHTML='<option value="">Pick a recommended model…</option>'+unique.map(m=>'<option value="'+E(m.id)+'">'+E(displayName(m.id))+' · '+E(vramLabel(m))+'</option>').join('');
+  if(top){top.innerHTML='<option value="">Pick a recommended model…</option>'+unique.map(m=>'<option value="'+E(m.id)+'">'+E(displayName(m.id))+' · '+E(vramLabel(m))+'</option>').join('');$('#topModelDownload').disabled=false;}
   selectRecord(recommendModel()?.id||records[0].id);
   if(top)top.value=records.find(m=>m.id===selectedRecord?.id&&unique.some(u=>u.id===m.id))?.id||unique[0]?.id||'';
   renderStack();
-  if(!navigator.gpu){if($('#gpuCheck'))$('#gpuCheck').textContent='WebGPU unavailable on this browser/device. Model downloads are disabled until a compatible browser is used.';}
+  if(!navigator.gpu){if($('#gpuCheck'))$('#gpuCheck').textContent='WebGPU unavailable on this browser/device. The top Load button can explain the problem; hosted Instant AI does not require WebGPU.';}
  }catch(error){
   loadError=String(error?.message||error).slice(0,190);
   if($('#modelSelect'))$('#modelSelect').innerHTML='<option value="">Catalog unavailable; retry below</option>';
   if($('#topModelSelect'))$('#topModelSelect').innerHTML='<option value="">Models unavailable</option>';
   if($('#loadModel'))$('#loadModel').disabled=true;
-  if($('#topModelDownload'))$('#topModelDownload').disabled=true;
+  if($('#topModelDownload'))$('#topModelDownload').disabled=false; // Show error when pressed, rather than a dead button.
+  if($('#gpuCheck'))$('#gpuCheck').textContent='Model list unavailable: '+loadError+'. Check connectivity and use the retry button below.';
   renderCatalog();
  }
 }
