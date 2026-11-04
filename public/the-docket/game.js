@@ -74,7 +74,7 @@ function report(){return [
 function review(i){
  if(state.phase!=='investigate')return;
  const ev=c().evidence[i];if(!ev)return;state.openEvidence=i;
- if(!state.reviewed.includes(i)){state.reviewed.push(i);state.reasoning+=2;log('Examined '+ev[0]+': '+ev[3])}
+ if(!state.reviewed.includes(i)){state.reviewed.push(i);state.reasoning+=2;log('Examined '+ev[0]+': '+ev[4])}
  save();render()
 }
 function selectRole(name){
@@ -152,7 +152,7 @@ function evidenceHtml(){
  }).join('');
  const inspected=state.openEvidence>=0?cs.evidence[state.openEvidence]:null;
  return '<section class="panel"><span class="overline">INVESTIGATION · '+state.reviewed.length+' / '+cs.evidence.length+' SOURCES REVIEWED</span><h2>Case Intelligence Board</h2><p class="subline">Trace the source, reliability, context and custody of each item. Some material challenges the obvious theory.</p><div class="evidence-grid">'+cards+'</div>'+
- (inspected?'<div class="callout" style="margin-top:14px"><strong>🔎 Evidence examination: '+W.escape(inspected[0])+'</strong><p>'+W.escape(inspected[3])+'</p><p><b>Procedural status:</b> '+(inspected[5]?'Initially authenticated in the simulation.':'Contested: further verification or admissibility review needed.')+'</p></div>':'')+
+ (inspected?'<div class="callout" style="margin-top:14px"><strong>🔎 Evidence examination: '+W.escape(inspected[0])+'</strong><p>'+W.escape(inspected[4])+'</p><p><b>Procedural status:</b> '+(inspected[5]?'Initially authenticated in the simulation.':'Contested: further verification or admissibility review needed.')+'</p></div>':'')+
  '<p class="note">Evidence score is not a real legal standard. Material can be relevant yet inadmissible, and an allegation can remain unproven.</p><div class="button-row"><button class="button" data-pretrial '+(state.reviewed.length<3?'disabled':'')+'>Proceed to pretrial review →</button><span class="pill">'+Math.max(0,3-state.reviewed.length)+' more items needed</span></div></section>';
 }
 function pretrialHtml(){
