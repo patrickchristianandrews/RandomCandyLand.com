@@ -46,9 +46,9 @@ def encode_frame(pixels):
         if head&128:
             ink=result[j];j+=1;recovered.extend([ink]*k)
         else:
-            for b in result[j:j+(k+1)//2]:
-                recovered.extend([b>>4,b&15])
-            recovered=recovered[:n]
+            for m in range(k):
+                byte=result[j+m//2]
+                recovered.append(byte>>4 if m%2==0 else byte&15)
             j+=(k+1)//2
     assert recovered==pixels
     return result
