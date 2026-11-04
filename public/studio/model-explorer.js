@@ -1,110 +1,192 @@
-/* Random AI model explorer and self-contained Code Lab.
-   Family catalog is discovery guidance, not proof of provider availability.
-   No keys are stored, and no media-generation capability is simulated.
-*/
+/* Random AI: API-free WebLLM model catalog + featured local task stacks.
+ * Each model option comes from the exact runtime used for inference.
+ * Stacks use one downloaded model; the optional refinement pass is real generation.
+ * Image/video tasks produce prompts only: this text runtime does not render media.
+ */
 (()=>{'use strict';
-const $=q=>document.querySelector(q),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const GROUPS=[['all','✦ All'],['chat','💬 Chat'],['reasoning','🧠 Reasoning'],['coding','⌘ Coding'],['image','🖼️ Images'],['video','🎬 Video'],['vision','👁️ Vision'],['audio','🎙️ Audio'],['local','📱 Local']];
-const F=[
- ['SmolLM2 360M','local','Browser / WebGPU','Very small local chat option','SmolLM2-360M-Instruct-q4f16_1-MLC','local'],
- ['Llama 3.2 1B','local','Browser / WebGPU','Local everyday questions','Llama-3.2-1B-Instruct-q4f16_1-MLC','local'],
- ['SmolLM2 1.7B','local','Browser / WebGPU','Larger browser chat','SmolLM2-1.7B-Instruct-q4f16_1-MLC','local'],
- ['Llama 3.3','chat','Hosted text model','General writing and instruction following','meta-llama/llama-3.3-70b-instruct','cloud'],
- ['Llama 3.1','chat','Hosted text model','Long-form writing and Q&A','','cloud'],
- ['Qwen3','chat','Hosted text model','Multilingual chat, coding and problem solving','','cloud'],
- ['Qwen2.5','chat','Hosted text model','General purpose language work','','cloud'],
- ['Mistral Small','chat','Hosted text model','Fast everyday assistance','','cloud'],
- ['Mixtral','chat','Hosted text model','Creative writing and drafts','','cloud'],
- ['Gemma 3','chat','Hosted text model','Efficient general assistance','','cloud'],
- ['Phi-4','chat','Hosted text model','Compact math, writing and tasks','','cloud'],
- ['Command A','chat','Hosted text model','Document and knowledge workflows','','cloud'],
- ['Granite','chat','Hosted text model','Enterprise-oriented language tasks','','cloud'],
- ['DeepSeek V3','reasoning','Hosted text model','Extended analysis and planning','','cloud'],
- ['DeepSeek R1','reasoning','Hosted text model','Complex reasoning and problem solving','deepseek/deepseek-r1','cloud'],
- ['QwQ','reasoning','Hosted text model','Analytical questions and math','','cloud'],
- ['Qwen3 Thinking','reasoning','Hosted text model','Reasoning-heavy tasks','','cloud'],
- ['Nemotron','reasoning','Hosted text model','Research and reasoning support','','cloud'],
- ['Kimi K2','reasoning','Hosted text model','Tool-using workflows and complex tasks','','cloud'],
- ['Qwen3 Coder','coding','Hosted text model','Software projects, refactors and code repair','','cloud'],
- ['Qwen2.5 Coder','coding','Hosted text model','Programming and debugging','','cloud'],
- ['DeepSeek Coder','coding','Hosted text model','Code writing and explanations','','cloud'],
- ['Codestral','coding','Hosted text model','Code completion and project support','','cloud'],
- ['Devstral','coding','Hosted text model','Software engineering workflows','','cloud'],
- ['StarCoder2','coding','Hosted text model','Open code models','','cloud'],
- ['Code Llama','coding','Hosted text model','Coding and code reasoning','','cloud'],
- ['FLUX.1','image','Image generation provider','Photorealistic images and creative imagery','','media'],
- ['FLUX.2','image','Image generation provider','Advanced visual generation, if offered','','media'],
- ['Stable Diffusion XL','image','Image generation provider','Illustration, product art and local image workflows','','media'],
- ['Stable Diffusion 3.5','image','Image generation provider','Detailed text-to-image creation','','media'],
- ['Qwen-Image','image','Image generation provider','Visual creation and typography workflows','','media'],
- ['Recraft','image','Image generation provider','Design-focused image output','','media'],
- ['Ideogram','image','Image generation provider','Image compositions with lettering','','media'],
- ['Imagen','image','Image generation provider','High-quality photography and illustration','','media'],
- ['Wan2.2','video','Video generation provider','Motion, scene direction and video clips','','media'],
- ['Wan2.1','video','Video generation provider','Text/image to video workflows','','media'],
- ['LTX-Video','video','Video generation provider','Fast video experiments','','media'],
- ['HunyuanVideo','video','Video generation provider','Cinematic clips','','media'],
- ['CogVideoX','video','Video generation provider','Short form text-to-video','','media'],
- ['Mochi 1','video','Video generation provider','Motion-focused video generation','','media'],
- ['Kling','video','Video generation provider','Text/image-driven cinematic scenes','','media'],
- ['Runway','video','Video generation provider','Video storytelling and visual editing','','media'],
- ['Pika','video','Video generation provider','Creative short-form motion','','media'],
- ['Luma Ray','video','Video generation provider','Camera movement and short scenes','','media'],
- ['Llama Vision','vision','Hosted multimodal model','Analyze user-provided pictures','','cloud'],
- ['Qwen VL','vision','Hosted multimodal model','Understand images and documents','','cloud'],
- ['Gemma 3 Vision','vision','Hosted multimodal model','Describe and interpret images','','cloud'],
- ['Whisper','audio','Audio processing provider','Transcribe existing audio','','media'],
- ['XTTS','audio','Audio processing provider','Synthesize spoken audio','','media'],
- ['Bark','audio','Audio processing provider','Text-driven speech and sounds','','media'],
- ['SpeechT5','audio','Audio processing provider','Text-to-speech workflows','','media']
-].map(([name,group,provider,description,id,method],i)=>({name,group,provider,description,id,method,i}));
-let category='all',selected=null;
-const status={local:'Browser model · WebGPU required',cloud:'Requires provider chat API',media:'Requires compatible media API'};
-function renderModels(){
- const q=($('#modelSearch')?.value||'').trim().toLowerCase();
- const list=F.filter(m=>(category==='all'||m.group===category)&&(m.name+' '+m.description+' '+m.provider+' '+m.group).toLowerCase().includes(q));
- $('#modelCount').textContent=list.length+' model families / variants to explore · availability and pricing vary by provider';
- $('#modelResults').innerHTML=list.length?list.map(m=>
- '<button type="button" class="model-card '+(selected?.i===m.i?'chosen':'')+'" data-model="'+m.i+'"><span class="model-kicker">'+E(m.group.toUpperCase())+'</span><strong>'+E(m.name)+'</strong><span>'+E(m.description)+'</span><small>'+E(status[m.method])+'</small></button>').join(''):'<p class="fine-print">No matching models. Try a different category or search phrase.</p>';
+const $=q=>document.querySelector(q);
+const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const WEBLLM='https://esm.run/@mlc-ai/web-llm@0.2.87';
+const stackKey='random-ai-stack-v1';
+const PRESETS=[
+ {id:'coding',label:'💻 Build an app or website',name:'Code Architect',description:'Build working software with clear requirements, readable files, edge-case handling and practical tests.',steps:['Define features & constraints','Write working code','Audit bugs & accessibility','Deliver tests & setup'],family:/coder|qwen|phi|llama/i,temperature:.25,firstTokens:1100,secondTokens:1150,
+ instructions:'You are a careful software engineer. State assumptions briefly, produce usable code with filenames and no fake dependencies. Respect existing files and scope. Include implementation steps and realistic test cases.',review:'Check syntax, missing imports, error handling, accessibility, security, mobile usability and requirements. Correct mistakes and give the complete best solution.'},
+ {id:'writing',label:'✍️ Write or improve text',name:'Precision Writer',description:'Turn rough ideas into clear, compelling, audience-appropriate writing without changing the underlying facts.',steps:['Identify audience & purpose','Draft with clarity','Tighten tone & flow','Deliver polished copy'],family:/llama|gemma|qwen|mistral/i,temperature:.7,firstTokens:850,secondTokens:950,
+ instructions:'You are a professional editor. Respect the facts and voice of the user. Craft coherent, engaging writing with the requested tone and formatting. Avoid filler or invented details.',review:'Remove repetition, improve readability, verify against the user-provided facts, strengthen the opening and ensure the result is ready to use.'},
+ {id:'reasoning',label:'🧠 Solve a difficult problem',name:'Reason & Verify',description:'Break down complicated choices, compare trade-offs and openly identify assumptions and uncertainty.',steps:['Frame the question','Compare approaches','Check gaps & trade-offs','Explain the recommendation'],family:/phi|qwen|deepseek|llama/i,temperature:.25,firstTokens:900,secondTokens:1050,
+ instructions:'Be analytical, precise and concise. Clarify assumptions, evaluate alternatives and identify missing evidence. Do not claim to have researched facts or verified external data.',review:'Recheck calculations and consistency, challenge unsupported leaps, examine counterexamples, explain limitations and give a grounded final recommendation.'},
+ {id:'research',label:'🔎 Research & fact-check',name:'Evidence Detective',description:'Organize available evidence, identify what needs checking and develop a reliable investigation plan.',steps:['Separate claims from facts','Evaluate supplied evidence','Spot missing sources','Build a verification plan'],family:/qwen|llama|gemma|phi/i,temperature:.3,firstTokens:900,secondTokens:1000,
+ instructions:'Act as an evidence analyst working only from information the user supplies. Never fabricate sources, links, quotes or current findings. Mark unverified claims and describe what primary documents to check.',review:'Audit every factual claim for support in the provided material, remove invented citations and create a practical next-check list.'},
+ {id:'ideas',label:'💡 Brainstorm something new',name:'Idea Accelerator',description:'Generate diverse creative options, select the most promising and turn one into an actionable concept.',steps:['Generate contrasting directions','Choose the strongest options','Assess feasibility','Develop the best concept'],family:/llama|qwen|gemma|mistral/i,temperature:.85,firstTokens:900,secondTokens:900,
+ instructions:'Be inventive and specific. Produce varied options, not superficial synonyms. Explain which are feasible and which are unconventional. Keep original ideas distinct and actionable.',review:'Discard derivative or impractical ideas, improve originality, and expand the most compelling option with a first-step plan.'},
+ {id:'image',label:'🖼️ Design an image prompt',name:'Visual Art Director',description:'Compose a detailed, professional prompt with subject, composition, lighting, style and exclusions.',steps:['Define the subject','Direct the composition','Specify lighting & materials','Polish the generation prompt'],family:/qwen|llama|gemma/i,temperature:.65,firstTokens:650,secondTokens:750,
+ instructions:'You are an art director writing prompts for a separate image-generation tool. Give a detailed image prompt: subject, composition, perspective, lighting, materials, style, aspect ratio and exclusions. Do not claim to produce an image in this chat.',review:'Improve visual coherence, remove contradictory instructions and deliver a single clear image-generation prompt with optional variation.'},
+ {id:'video',label:'🎬 Direct a short video',name:'Cinematic Storyboard',description:'Describe realistic shots, camera movement, timing and continuity in a concise video-generation brief.',steps:['Plan scene & duration','Lay out shots','Specify motion & continuity','Refine the storyboard'],family:/qwen|llama|gemma/i,temperature:.65,firstTokens:750,secondTokens:820,
+ instructions:'You write production-ready prompts for a separate video generator. Specify subject, location, shot order, movement, camera, lighting, duration and continuity. Do not claim to render or download video.',review:'Fix impossible movements, clarify timing, simplify contradictory actions and output a clean storyboard plus concise video prompt.'},
+ {id:'custom',label:'🛠️ My own workflow',name:'Custom Studio',description:'Choose your own instructions and build a reusable personalized process.',steps:['Set a goal','Follow your instructions','Review if refined','Deliver final output'],family:/llama|qwen|phi/i,temperature:.55,firstTokens:850,secondTokens:950,
+ instructions:'Follow the custom process defined by the user; otherwise provide a helpful structured answer with assumptions and an actionable deliverable.',review:'Check the draft against the custom instructions and the original question. Correct unsupported claims and improve completeness.'}
+];
+let currentId='coding',records=[],activeGroup='all',selectedRecord=null,loadError='';
+try{const state=JSON.parse(localStorage.getItem(stackKey)||'null');if(PRESETS.some(p=>p.id===state?.id))currentId=state.id}catch{}
+const currentPreset=()=>PRESETS.find(p=>p.id===currentId)||PRESETS[0];
+function current(){
+ const p=currentPreset();
+ const custom=$('#stackCustomInstruction')?.value?.trim();
+ return {...p,refined:$('#stackDepth')?.value!=='fast',
+  instructions:p.id==='custom'&&custom?p.instructions+'\nUser workflow: '+custom.slice(0,1400):p.instructions};
 }
-function guide(m){
- const isLocal=m.method==='local',isCloud=m.method==='cloud',media=m.method==='media';
- const warning=media?'<p class="guide-warning">Image, video and audio models cannot be run through this chat-only endpoint. To generate media, a provider-specific media API or hosted app is needed. This listing is an overview—not an active media generator.</p>':
- '<p class="guide-warning">Check the provider model catalog and account eligibility before use. Provider usage and billing rules apply. This browser can only call endpoints that allow cross-origin requests.</p>';
- const steps=isLocal?[
- 'Check whether your browser supports WebGPU and whether your device has enough memory.',
- 'Select '+m.name+' under Local language models below.',
- 'Tap “Download & load model”. After it finishes, open Chat and start creating.'
- ]:isCloud?[
- 'Create an account with a trusted model provider that supports standard chat completions and browser requests.',
- 'Copy the provider’s API key and exact model identifier (provider IDs change).',
- 'Paste the HTTPS completion endpoint, model identifier and your key into Own Provider below; press Connect. Your key stays in this tab, and prompts are sent to that provider.'
- ]:[
- 'Choose a trusted provider that hosts '+m.name+' for '+m.group+' tasks.',
- 'Review its media API, pricing, supported resolutions, output format, usage policy and CORS/browser support.',
- 'Use the provider’s application or connect a secure media relay. This studio currently provides guided prompts and local visual tools, not a working generic hosted '+m.group+' service.'
+window.RandomAIStacks={current,choose:setStack,presets:PRESETS.map(p=>({id:p.id,name:p.name,label:p.label}))};
+const normalize=r=>({
+ id:String(r.model_id),vram:Number(r.vram_required_MB)||0,
+ family:family(r.model_id),role:role(r.model_id),
+ source:String(r.model||''),special:/vision|audio|speech|multimodal|vl-/i.test(r.model_id)
+});
+function family(id){const s=id.toLowerCase();if(/qwen/.test(s))return 'Qwen';if(/llama|hermes/.test(s))return 'Llama / Hermes';if(/gemma/.test(s))return 'Gemma';if(/mistral/.test(s))return 'Mistral';if(/phi-/.test(s))return 'Phi';if(/smollm/.test(s))return 'SmolLM';if(/deepseek/.test(s))return 'DeepSeek';return 'Other'}
+function role(id){const s=id.toLowerCase();return /coder|code/.test(s)?'Coding':/reason|r1|qwq|think/.test(s)?'Reasoning':/vision|vl-|multi.?modal/.test(s)?'Multimodal': 'Chat & writing'}
+function displayName(id){return String(id).replace(/-MLC$/,'').replace(/-(?:q[0-9][a-z0-9_]+)$/i,'').replace(/-/g,' ')}
+function vramLabel(m){return m.vram?(m.vram/1024).toFixed(1)+' GB GPU memory':'GPU memory estimate unavailable'}
+function weight(m,task='coding'){
+ let points=0;const id=m.id.toLowerCase();
+ if(/qwen2\.5|llama-3\.2|llama-3\.1|phi-3\.5|gemma-2|mistral-7b|smollm2/.test(id))points+=25;
+ if(currentPreset().family.test(m.id))points+=12;
+ if(task==='coding'&&/coder|code/.test(id))points+=22;
+ if(task==='reasoning'&&/phi|qwen|reason/.test(id))points+=12;
+ if(m.special)points-=55;
+ if(m.vram>0)points+=m.vram<1800?16:m.vram<=3800?23:m.vram<=6200?9:-9;
+ if(/q4f16_1|q4f32_1/i.test(m.id))points+=8;
+ return points;
+}
+function recommendModel(p=currentPreset()){
+ const candidates=records.filter(m=>!m.special);
+ if(!candidates.length)return null;
+ return candidates.slice().sort((a,b)=>weight(b,p.id)-weight(a,p.id)||a.vram-b.vram)[0];
+}
+function setStack(id){
+ if(!PRESETS.some(p=>p.id===id))return;
+ currentId=id;try{localStorage.setItem(stackKey,JSON.stringify({id}))}catch{}
+ for(const el of document.querySelectorAll('[data-stack-task]'))el.value=id;
+ renderStack();
+}
+function renderStack(){
+ const p=currentPreset(),pick=recommendModel(p),steps=$('#stackSpotlightSteps');
+ if($('#stackSpotlightName'))$('#stackSpotlightName').textContent=p.name;
+ if($('#stackSpotlightDesc'))$('#stackSpotlightDesc').textContent=p.description;
+ if(steps)steps.innerHTML=p.steps.map((t,i)=>'<span><b>'+String(i+1).padStart(2,'0')+'</b> '+E(t)+'</span>').join('');
+ if($('#stackModelSuggestion'))$('#stackModelSuggestion').textContent=pick?'Suggested local model: '+displayName(pick.id)+' · '+vramLabel(pick)+' (device dependent).':'Choose a compatible local model from the full catalog to run this stack.';
+ if($('#stackChatNote'))$('#stackChatNote').textContent='✦ '+p.name+': '+p.steps.join(' → ')+' · '+($('#stackDepth')?.value==='fast'?'one model pass':'two local model passes')+'.'+(p.id==='image'||p.id==='video'?' Produces prompts, not finished media.':'');
+ if($('#stackCustomWrap'))$('#stackCustomWrap').hidden=p.id!=='custom';
+}
+function setupStacks(){
+ const markup=PRESETS.map(p=>'<option value="'+p.id+'">'+E(p.label)+'</option>').join('');
+ for(const el of document.querySelectorAll('[data-stack-task]')){el.innerHTML=markup;el.value=currentId;el.addEventListener('change',()=>setStack(el.value))}
+ $('#stackDepth')?.addEventListener('change',renderStack);
+ $('#stackCustomInstruction')?.addEventListener('input',renderStack);
+ $('#stackUse')?.addEventListener('click',()=>{
+  const chatButton=document.querySelector('[data-go="chat"]');
+  chatButton?.click();$('#chatInput')?.focus();
+ });
+ renderStack();
+}
+function browseFilters(){
+ return [
+ ['all','✦ All local models'],
+ ['popular','⭐ Popular / practical'],
+ ['small','📱 Small (<1.5 GB)'],
+ ['balanced','⚖️ Medium (1.5–4 GB)'],
+ ['large','💻 Large (>4 GB)'],
+ ['code','⌘ Coding'],
+ ['reason','🧠 Reasoning']
  ];
- $('#modelGuide').innerHTML='<h3>'+E(m.name)+' <small>· '+E(m.group)+'</small></h3><p>'+E(m.description)+' · '+E(m.provider)+'</p><ol>'+steps.map(s=>'<li>'+E(s)+'</li>').join('')+'</ol>'+warning+
- '<div class="model-guide-actions">'+(m.method==='local'?'<button type="button" class="primary" id="applyModel">Select local model ↓</button>':m.method==='cloud'?'<button type="button" class="primary" id="applyModel">Fill provider model ↓</button>':'<button type="button" class="outline" id="mediaPrompt">Make a professional prompt ↗</button>')+
- '<a class="outline" href="https://openrouter.ai/models" target="_blank" rel="noopener noreferrer">Compare hosted text models ↗</a><a class="outline" href="/ai-academy/">Learn prompting in AI Academy ↗</a></div>';
- $('#applyModel')?.addEventListener('click',()=>{
-  if(isLocal){$('#modelSelect').value=m.id;$('#modelSelect').focus();$('#modelSelect').scrollIntoView({behavior:'smooth',block:'center'})}
-  else{if(m.id)$('#cloudModel').value=m.id;$('#cloudModel').focus();$('#cloudModel').scrollIntoView({behavior:'smooth',block:'center'})}
- });
- $('#mediaPrompt')?.addEventListener('click',()=>{
-  const task='Create a detailed '+m.group+' production prompt for '+m.name+'. Ask me for subject, composition, desired style, aspect ratio, camera or motion requirements and important exclusions. Return a ready-to-copy prompt and a short verification checklist.';
-  const box=$('#chatInput');if(box)box.value=task;document.querySelector('[data-view="chat"]')?.click();
- });
 }
-function select(i){selected=F[i]||null;renderModels();if(selected)guide(selected)}
+function filterRecords(){
+ const term=$('#modelSearch')?.value?.trim().toLowerCase()||'';
+ return records.filter(m=>{
+  if(term&&!(m.id+' '+m.family+' '+m.role).toLowerCase().includes(term))return false;
+  if(activeGroup==='popular')return weight(m)>45&&!m.special;
+  if(activeGroup==='small')return m.vram>0&&m.vram<1536;
+  if(activeGroup==='balanced')return m.vram>=1536&&m.vram<=4096;
+  if(activeGroup==='large')return m.vram>4096;
+  if(activeGroup==='code')return m.role==='Coding';
+  if(activeGroup==='reason')return m.role==='Reasoning';
+  return true;
+ }).sort((a,b)=>activeGroup==='popular'?weight(b)-weight(a):a.family.localeCompare(b.family)||a.vram-b.vram);
+}
+function renderCatalog(){
+ const list=filterRecords();
+ $('#modelCount').textContent=loadError?'Unable to load the runtime catalog: '+loadError:records.length+' WebLLM-supported downloadable variants · '+list.length+' shown · model support depends on device';
+ $('#modelResults').innerHTML=loadError?'<div class="finder-guide"><p>Catalog unavailable. Check your connection and try again.</p><button type="button" id="retryModels" class="primary">Retry catalog download</button></div>':
+ list.map(m=>'<button type="button" class="model-card '+(selectedRecord?.id===m.id?'chosen':'')+'" data-local-id="'+E(m.id)+'"><span class="model-kicker">'+E(m.family)+' · '+E(m.role)+'</span><strong>'+E(displayName(m.id))+'</strong><span>'+E(m.id)+'</span><small>'+E(vramLabel(m))+(m.special?' · Specialized runtime':'')+'</small></button>').join('')||'<p class="fine-print">No matching local models. Try another search.</p>';
+ $('#retryModels')?.addEventListener('click',()=>{loadError='';loadCatalog(true)});
+}
+function selectRecord(id){
+ const m=records.find(x=>x.id===id);
+ if(!m)return;
+ selectedRecord=m;
+ const dropdown=$('#modelSelect'),top=$('#topModelSelect');
+ if(dropdown&&dropdown.value!==id)dropdown.value=id;
+ if(top&&[...top.options].some(o=>o.value===id))top.value=id;
+ const details=$('#selectedModelDetails');
+ if(details)details.textContent=m.family+' · '+m.role+' · '+vramLabel(m)+(m.special?' · specialized model; chat-only input may be insufficient':'');
+ const guide=$('#modelGuide');
+ if(guide)guide.innerHTML='<h3>'+E(displayName(m.id))+'</h3><p>'+E(m.id)+'</p><ol>'+
+ '<li>Use an up-to-date browser with WebGPU support and enough GPU memory ('+E(vramLabel(m))+').</li>'+
+ '<li>Press <b>Download &amp; load model</b>. The weights are downloaded to your browser cache.</li>'+
+ '<li>Wait until the status says <b>Local model ready</b>, then open Chat and choose a task stack.</li></ol>'+
+ '<p class="guide-warning">Initial download requires internet and substantial storage. This model runs locally afterward, subject to cache retention. No chat API or API key is used. Runtime catalog inclusion does not guarantee your device can run it.</p>'+
+ '<div class="model-guide-actions"><button type="button" id="guideLoad" class="primary">↓ Download selected model</button><a href="/ai-academy/" class="outline">Learn prompting in AI Academy ↗</a></div>';
+ $('#guideLoad')?.addEventListener('click',()=>$('#loadModel')?.click());
+ if($('#loadModel'))$('#loadModel').disabled=!navigator.gpu;
+ if($('#topModelDownload'))$('#topModelDownload').disabled=!navigator.gpu;
+ renderCatalog();
+}
+function setupModelCatalog(){
+ const filters=$('#modelCategoryFilters');
+ if(!filters)return;
+ filters.innerHTML=browseFilters().map(([id,label])=>'<button type="button" class="'+(id===activeGroup?'active':'')+'" data-group="'+id+'">'+E(label)+'</button>').join('');
+ filters.addEventListener('click',e=>{
+  const b=e.target.closest('[data-group]');if(!b)return;
+  activeGroup=b.dataset.group;for(const x of filters.querySelectorAll('button'))x.classList.toggle('active',x===b);renderCatalog();
+ });
+ $('#modelSearch')?.addEventListener('input',renderCatalog);
+ $('#modelResults')?.addEventListener('click',e=>{const b=e.target.closest('[data-local-id]');if(b)selectRecord(b.dataset.localId)});
+ $('#modelSelect')?.addEventListener('change',e=>selectRecord(e.target.value));
+}
+function getName(id){return displayName(id)}
+window.RandomAILocal={getName,getModels:()=>records.slice(),select:selectRecord,refresh:()=>loadCatalog(true)};
+async function loadCatalog(force=false){
+ if(force){loadError='';records=[]}
+ if($('#modelCount'))$('#modelCount').textContent='Loading the complete list from the local-model runtime…';
+ try{
+  const library=await import('https://esm.run/@mlc-ai/web-llm@0.2.87');
+  const original=library?.prebuiltAppConfig?.model_list;
+  if(!Array.isArray(original)||!original.length)throw Error('The runtime returned no downloadable models.');
+  const ids=new Set();
+  records=original.filter(x=>x?.model_id&&x?.model&&x?.model_lib&&!ids.has(x.model_id)&&(ids.add(x.model_id),true)).map(normalize);
+  if(!records.length)throw Error('No complete downloadable model records were found.');
+  records.sort((a,b)=>a.family.localeCompare(b.family)||a.vram-b.vram);
+  const dropdown=$('#modelSelect'),top=$('#topModelSelect');
+  if(dropdown)dropdown.innerHTML=records.map(m=>'<option value="'+E(m.id)+'">'+E(displayName(m.id))+' — '+E(vramLabel(m))+'</option>').join('');
+  const picks=records.filter(x=>!x.special).sort((a,b)=>weight(b)-weight(a));
+  const unique=[];const fam=new Set();
+  for(const m of picks){const tag=m.family+' '+(m.vram>3500?'big':'small');if(fam.has(tag))continue;fam.add(tag);unique.push(m);if(unique.length>=8)break}
+  if(top)top.innerHTML='<option value="">Pick a recommended model…</option>'+unique.map(m=>'<option value="'+E(m.id)+'">'+E(displayName(m.id))+' · '+E(vramLabel(m))+'</option>').join('');
+  selectRecord(recommendModel()?.id||records[0].id);
+  if(top)top.value=records.find(m=>m.id===selectedRecord?.id&&unique.some(u=>u.id===m.id))?.id||unique[0]?.id||'';
+  renderStack();
+  if(!navigator.gpu){if($('#gpuCheck'))$('#gpuCheck').textContent='WebGPU unavailable on this browser/device. Model downloads are disabled until a compatible browser is used.';}
+ }catch(error){
+  loadError=String(error?.message||error).slice(0,190);
+  if($('#modelSelect'))$('#modelSelect').innerHTML='<option value="">Catalog unavailable; retry below</option>';
+  if($('#topModelSelect'))$('#topModelSelect').innerHTML='<option value="">Models unavailable</option>';
+  if($('#loadModel'))$('#loadModel').disabled=true;
+  if($('#topModelDownload'))$('#topModelDownload').disabled=true;
+  renderCatalog();
+ }
+}
 function initialize(){
- if(!$('#modelResults'))return;
- $('#modelCategoryFilters').innerHTML=GROUPS.map(([id,name])=>'<button type="button" data-model-group="'+id+'" class="'+(id===category?'active':'')+'">'+E(name)+'</button>').join('');
- $('#modelCategoryFilters').addEventListener('click',e=>{const button=e.target.closest('[data-model-group]');if(!button)return;category=button.dataset.modelGroup;for(const node of $('#modelCategoryFilters').children)node.classList.toggle('active',node===button);renderModels()});
- $('#modelSearch').addEventListener('input',renderModels);
- $('#modelResults').addEventListener('click',e=>{const b=e.target.closest('[data-model]');if(b)select(Number(b.dataset.model))});
- renderModels();select(0);
- setupLab();
+ setupStacks();setupModelCatalog();setupLab();
+ // The runtime JavaScript loads only; model weights download after explicit user action.
+ void loadCatalog();
 }
 const CODE_KEY='random-ai-code-lab-v1';
 const starters={
