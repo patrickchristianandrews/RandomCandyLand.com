@@ -3,7 +3,7 @@
  * Server sees game IDs and active/completed status only, never save files.
  */
 (()=>{'use strict';
-const KEY='rcl-game-push-settings-v1',LAST='rcl-game-push-sync-v1';
+const KEY='rcl-game-push-settings-v1',LAST='rcl-game-push-sync-v1',LAST_PROGRESS='rcl-game-push-progress-v1';
 const GAMES=[
  {id:'moodropolis',name:'Moodropolis',icon:'🏙️'},
  {id:'corridors',name:'The Corridors',icon:'🚪'},
@@ -22,7 +22,7 @@ const installed=()=>window.matchMedia?.('(display-mode: standalone)').matches||n
 const isMobile=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 function readState(key){try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):null}catch{return null}}
 function progress(){
- const mood=readState('moodropolis-save-v1'),corr=readState('corridors-save-v1'),docket=readState('docket-save-v1'),trace=readState('trace-osint-academy-v1'),pet=readState('random-candy-land-trumpagotchi-original-fm1-adaptation-v1'),orig=readState('trumpagotchi_save_v2');
+ const mood=readState('moodropolis-save-v1'),corr=readState('corridors-save-v1'),docket=readState('docket-save-v1'),trace=readState('trace-osint-professional-v1'),pet=readState('random-candy-land-trumpagotchi-original-fm1-adaptation-v1'),orig=readState('trumpagotchi_save_v2');
  const out={
   moodropolis:mood?'active':'not-started',
   corridors:corr?(corr.finished?'completed':'active'):'not-started',
@@ -109,11 +109,13 @@ async function enable(){
 async function sync(force=false){
  if(!prefs.subscribed||!ready||!prefs.token)return;
  const last=Number(localStorage.getItem(LAST)||0);
- if(!force&&Date.now()-last<90*60*1000)return;
+ const summary=JSON.stringify(progress());
+ if(!force&&Date.now()-last<90*60*1000&&localStorage.getItem(LAST_PROGRESS)===summary)return;
  try{
   const sub=await subscription();if(!sub){prefs.subscribed=false;persist();updateUI();return}
   await api('/update',payload(sub));
   localStorage.setItem(LAST,String(Date.now()));
+  localStorage.setItem(LAST_PROGRESS,summary);
  }catch(e){if(force)status('Reminder settings could not sync: '+(e?.message||'server unavailable'),true)}
 }
 async function disable(){
@@ -136,5 +138,5 @@ function mount(){render();void ensureConnection();if(prefs.subscribed){window.se
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){updateUI();if(prefs.subscribed)void sync()}});
 window.addEventListener('pagehide',()=>{if(prefs.subscribed&&ready)void sync()});
-window.RandomCandyNotifications={getProgress:progress,refresh:()=>{updateUI();void sync(true)}};
+window.RandomCandyNotifications={getProgress:progress,refresh:()=>{updateUI();void sync(true)},mount};
 })();
