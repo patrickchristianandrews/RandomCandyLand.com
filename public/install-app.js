@@ -5,14 +5,48 @@
 (() => {
   'use strict';
   const apps = [{"id":"tiny-pet","path":"/trumpagotchi-fm1/","title":"Trumpagotchi Tiny Pet","short":"Tiny Pet"},{"id":"pocket-pet","path":"/trump/","title":"Donald’s Pocket Pet","short":"Pocket Pet"},{"id":"goo-rush","path":"/goo-rush/","title":"Goo Rush Candy Arcade","short":"Goo Rush"},{"id":"candy-casino","path":"/candy-casino/","title":"Candy Land Casino","short":"Candy Casino"},{"id":"candy-simon","path":"/candy-simon/","title":"Candy Simon Says","short":"Candy Simon"},{"id":"candy-match","path":"/candy-match/","title":"Candy Match","short":"Candy Match"},{"id":"candy-pulse","path":"/music-visualizer/","title":"Candy Pulse Music Visualizer","short":"Candy Pulse"},{"id":"after-dark","path":"/after-dark/","title":"Unwrapped","short":"Unwrapped"},{"id":"osint-academy","path":"/osint-academy/","title":"TRACE OSINT Academy","short":"TRACE OSINT"}];
-  // Notification client is shared by the installed homepage and individual
+  // Each ongoing game owns its own, collapsed, opt-in reminder control.
+  // The homepage never renders a global notification signup section.
+  const gameReminderPages=[
+    {path:'/moodropolis/',id:'moodropolis',title:'Remind me about unfinished city decisions'},
+    {path:'/the-corridors/',id:'corridors',title:'Remind me to continue my political story'},
+    {path:'/the-docket/',id:'docket',title:'Remind me to continue a case'},
+    {path:'/osint-academy/',id:'trace',title:'Remind me about unfinished investigations'},
+    {path:'/trumpagotchi-fm1/',id:'pet',title:'Remind me to check on my digital pet'},
+    {path:'/trump/',id:'originalpet',title:'Remind me to check on my digital pet'}
+  ];
+  function mountGameReminder(){
+    const item=gameReminderPages.find(g=>location.pathname===g.path.slice(0,-1)||location.pathname.startsWith(g.path));
+    if(!item||document.getElementById('rcl-game-reminder'))return;
+    const panel=document.createElement('details');
+    panel.id='rcl-game-reminder';panel.className='rcl-game-reminder';
+    const summary=document.createElement('summary');
+    summary.textContent='🔔 '+item.title+' (optional)';
+    const text=document.createElement('p');
+    text.className='rcl-game-reminder-caption';
+    text.textContent='Your adventure continues here. Choose whether you want occasional reminders about unfinished play.';
+    const container=document.createElement('div');
+    container.id='rcl-notify-center';container.dataset.game=item.id;
+    panel.append(summary,text,container);
+    const footer=document.querySelector('footer');
+    if(footer)footer.before(panel);
+    else document.body.append(panel);
+    const style=document.createElement('link');
+    style.rel='stylesheet';style.href='/notifications/embedded.css?v=2';
+    document.head.append(style);
+    // Dynamic injection also works when the shared notification client loaded earlier.
+    window.RandomCandyNotifications?.mount?.();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountGameReminder,{once:true});
+  else mountGameReminder();
+  // Notification client is shared by the individual ongoing
   // attractions; it never asks for permission without a deliberate button tap.
   if(!document.querySelector('script[data-rcl-push-config]')){
     const c=document.createElement('script');c.src='/notifications/push-config.js?v=1';c.dataset.rclPushConfig='1';
     document.head.append(c);
     c.addEventListener('load',()=>{
       if(document.querySelector('script[data-rcl-push-client]'))return;
-      const p=document.createElement('script');p.src='/notifications/center.js?v=1';p.dataset.rclPushClient='1';
+      const p=document.createElement('script');p.src='/notifications/center.js?v=2';p.dataset.rclPushClient='1';
       document.head.append(p);
     },{once:true});
   }
