@@ -38,7 +38,7 @@ exact(pathlib.Path("firmware/src/main.c"), '"MELODEE", T_THEME', '"PASTEL", T_TH
 exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T_THEME')
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
-      '#define MELODEE_VERSION "Pastel v0.3"')
+      '#define MELODEE_VERSION "Pastel v0.4"')
 # Preserve upstream palette name-order coverage while explicitly expecting Pastel.
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
@@ -91,7 +91,7 @@ exact(pathlib.Path("firmware/src/ui_menu.c"),
       'y = menu_text("LIQUID EDITION - multi-engine synthesizer", y + 146, T_SEC, draw);')
 # Pastel v0.3: an independently synthesized Animal Jam performance surface.
 # We leave the original FM-1 update loader, engine IDs and preset storage layout
-# unmodified. The animal voices are separate from the original synth and never
+# unmodified. The recorded animal voices are separate from the original synth and never
 # overwrite existing user preset banks.
 for src_name, dst_name in (
     ("animal_audio.c", "pastel_animal_audio.c"),
@@ -224,5 +224,5 @@ exact(pathlib.Path("tests/ui_render.c"),
 shutil.copyfile(pathlib.Path(__file__).with_name("animal_test.c"),
                 root / "tests/pastel_animal_test.c")
 print("Pastel v0.3 hybrid: Melodee/Felucca/ChoralRoot harmonies,"
-      " SLOOP/ChoralRoot-inspired SID bank and original Animal Jam visuals/audio.")
+      " SLOOP/ChoralRoot-inspired SID bank and real recorded Animal Jam sounds and original artwork.")
 print("Pastel patch applied. Liquid Edition: animation and soft ribbon/splash customization; user synth engines and updater unchanged.")
