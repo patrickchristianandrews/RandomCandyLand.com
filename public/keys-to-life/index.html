@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111029"><meta name="description" content="The Keys to Life: a seven-door interactive adventure. Solve playful challenges, uncover evolving worlds, and return for a new daily spark.">
+<meta property="og:title" content="The Keys to Life — A Seven-Door Adventure"><title>The Keys to Life | Random Candy Land</title>
+<link rel="icon" href="/tool-icons/keys-to-life.svg" type="image/svg+xml"><link rel="manifest" href="/app-manifests/keys-to-life.webmanifest"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/keys-to-life/style.css?v=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script><script src="/analytics.js?v=ga4-20261030-v1"></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
+<script src="/install-app.js" defer></script><script src="/keys-to-life/game.js?v=1" defer></script>
+</head>
+<body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>The Keys to Life requires JavaScript to play.</p></noscript>
+<div class="world-shell">
+ <header class="nav-bar">
+ <a href="/" class="brand"><span class="brand-mark">✧</span><span><strong>THE KEYS TO LIFE</strong><small>AN ORIGINAL CANDY LAND ADVENTURE</small></span></a>
+ <div class="nav-actions"><span id="topProgress" class="nav-progress" aria-label="Journey progress">0 / 7 DOORS</span><button id="audioButton" type="button" class="utility-button" aria-pressed="false" title="Toggle gentle sound effects">♫ <span>Sound off</span></button><a class="nav-home" href="/">← Candy Land</a></div>
+ </header>
+
+ <section id="hub" class="hub">
+  <div class="hero" aria-label="The Seven Doors, an illustrated fantasy world">
+   <div class="atmosphere" aria-hidden="true"><span class="star s1">✦</span><span class="star s2">✧</span><span class="star s3">✦</span><span class="star s4">·</span><span class="star s5">✧</span><span class="halo"></span><span class="ridge ridge-far"></span><span class="ridge ridge-mid"></span><span class="ridge ridge-near"></span><span class="valley-river"></span></div>
+   <div class="hero-inner"><span class="eyebrow">✦ SEVEN DOORS · ONE UNFINISHED STORY</span>
+   <h1>Every door<br>changes <em>your world.</em></h1>
+   <p>Explore seven magical realms. Solve hands-on challenges, choose your own path, collect luminous keys, and build a world that becomes brighter with every discovery.</p>
+   <div class="hero-cta"><button type="button" id="continueBtn" class="gold-button">✦ Begin your journey <span>→</span></button><button type="button" id="howBtn" class="soft-button">How to play ↗</button></div>
+   <div class="hero-tags"><span>✳ 7 playable worlds</span><span>✧ New daily spark</span><span>◈ Saves in this browser</span></div>
+   </div><div class="hero-jewel" aria-hidden="true"><span class="jewel-ring"></span><span class="jewel-key">✧</span></div>
+  </div>
+
+  <section class="journey-summary" aria-label="Your adventure progress">
+   <div><span>YOUR JOURNEY</span><strong id="summaryDoors">0 <small>/ 7 doors</small></strong></div>
+   <div><span>LIGHT GATHERED</span><strong id="summaryLight">0 <small>✦</small></strong></div>
+   <div><span>WORLD BRIGHTNESS</span><strong id="summaryBloom">Seedling</strong></div>
+   <div class="summary-progress"><span>THE PATH TO DAWN</span><div class="progress-track"><span id="mainProgress"></span></div><small id="summaryMessage">Your adventure begins with one decision.</small></div>
+  </section>
+
+  <div class="heading-row"><div><span class="eyebrow">CHOOSE YOUR CHAPTER</span><h2>The seven realms</h2><p>No two doors play alike. Each world has its own story, interactive puzzle, and one lesson you can take into everyday life.</p></div><span class="scroll-cue">SCROLL TO EXPLORE ↓</span></div>
+  <div id="doorGrid" class="door-grid" aria-label="Seven playable doors"></div>
+
+  <section class="return-row" aria-label="Come back to your journey">
+   <article class="daily-card"><div class="daily-glow" aria-hidden="true">✺</div><span class="eyebrow">A LITTLE SOMETHING NEW</span><h2>The Daily Spark</h2><p id="dailyDescription">A fresh miniature quest every local calendar day. Play when you feel like it; there are no streak penalties.</p><div class="daily-bottom"><button class="gold-button" id="dailyButton" type="button">Play today's spark →</button><span id="dailyStatus">Available today</span></div></article>
+   <article class="treasury-card"><span class="eyebrow">YOUR STORY SO FAR</span><h2>The Lantern Journal</h2><p>See every key you've earned, your evolving realm, and the moments you chose to remember. Export your journey any time.</p><div class="journal-counts"><span id="journalKeys">◈ ◈ ◈ ◈ ◈ ◈ ◈</span><span id="journalMilestones">0 milestones discovered</span></div><div class="daily-bottom"><button type="button" id="journalButton" class="soft-button">Open my journal ↗</button><button type="button" id="shareButton" class="text-button">Share progress ↗</button></div></article>
+  </section>
+  <section class="finale-teaser" id="finaleTeaser"><span class="eyebrow">THE EIGHTH LIGHT</span><h2>Something waits beyond the seventh door.</h2><p>Gather the seven keys to reveal the sunrise ending. The world will remember the path you took.</p><span class="finale-symbol" aria-hidden="true">✺</span></section>
+ </section>
+
+ <section id="playView" class="play-view" hidden aria-label="Interactive challenge">
+  <div class="play-top"><button id="backToHub" class="return-link" type="button">← Return to the seven doors</button><div class="chapter-pips" id="chapterPips" aria-label="Challenge progress"></div><span id="chapterCounter" class="chapter-counter">CHALLENGE 1 OF 3</span></div>
+  <div id="gameStage" class="game-stage" data-theme="fear">
+    <div class="stage-sky" aria-hidden="true"><span class="stage-moon"></span><span class="stage-ring r1"></span><span class="stage-ring r2"></span><span class="stage-horizon"></span><span class="stage-particles">✦　·　　 ✧　　 ·　 ✦</span></div>
+    <div class="stage-content"><span class="eyebrow" id="chapterEyebrow">THE FIRST KEY</span><h1 id="chapterTitle">The Door of Courage</h1><p id="chapterIntro"></p>
+      <div class="scene-card"><div class="scene-kicker" id="sceneKicker">SCENE ONE</div><h2 id="sceneTitle"></h2><p id="sceneText"></p><div id="sceneInteract" class="scene-interact"></div><div id="sceneFeedback" class="scene-feedback" role="status" aria-live="polite" hidden></div><button id="nextScene" class="gold-button" type="button" hidden>Continue the story →</button></div>
+    </div>
+  </div>
+ </section>
+
+ <section id="journalView" class="journal-view" hidden aria-label="Your journey journal">
+  <button type="button" id="journalBack" class="return-link">← Return to the seven doors</button>
+  <span class="eyebrow">THE STORY ONLY YOU COULD MAKE</span><h1>The Lantern Journal</h1><p>Your discoveries, the things you tried, and a world made brighter by experience—not by perfection.</p>
+  <div id="journalContent" class="journal-content"></div>
+  <div class="journal-actions"><button type="button" id="exportJournal" class="gold-button">↓ Save my journal</button><button type="button" id="copyStory" class="soft-button">Copy story summary</button></div>
+  <details class="reset-panel"><summary>Start the adventure over</summary><p>This clears only your local Keys to Life journey on this device. Other Candy Land games are unaffected.</p><button type="button" id="resetJourney" class="danger-button">Reset my journey</button></details>
+ </section>
+
+ <div id="dialogBackdrop" class="dialog-backdrop" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><button type="button" class="dialog-close" id="dialogClose" aria-label="Close dialog">×</button><span class="eyebrow" id="dialogEyebrow">A KEY UNLOCKED</span><div class="dialog-art" id="dialogArt" aria-hidden="true">✧</div><h2 id="dialogTitle"></h2><p id="dialogMessage"></p><div id="dialogBonus" class="dialog-bonus"></div><button type="button" class="gold-button" id="dialogContinue">Continue →</button></div></div>
+ <div id="toast" class="toast" role="status" aria-live="polite"></div>
+ <footer class="footer"><span>THE KEYS TO LIFE · A RANDOM CANDY LAND ORIGINAL</span><span>All stories are fictional · Your progress stays in this browser · <a href="/">Return to Candy Land</a></span></footer>
+</div></body></html>
