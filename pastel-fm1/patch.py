@@ -261,6 +261,15 @@ exact(pathlib.Path("firmware/src/browse.c"),
 exact(pathlib.Path("firmware/src/browse.c"),
       '[12] = "KEBRPEGUKRBEEKGSPLUEWEBEO",',
       '[12] = "KEBRPEGUKRBEEKGSPLUEWEBEO" PASTEL_FACTORY_CATEGORIES,')
+# Pastel v0.7: upstream main-app build promotes -Os to -O2 for LLVM IR.
+# This causes XIP overflow when the 128 built-in factory voices are present.
+# Restore -Os to the main app IR pass, as the sound/ISR helpers were already
+# developed for upstream -Os size targets. Do not move flash partitions or
+# reduce the sample, animal, user-preset or project data.
+exact(pathlib.Path("tools/build.py"),
+      'irflags = [("-O2" if f == "-Os" else f) for f in flags if not f.startswith(("-I", "-D", "-W"))]',
+      'irflags = [("-Os" if f == "-Os" else f) for f in flags if not f.startswith(("-I", "-D", "-W"))]')
+print("Pastel v0.7: size-optimize compiled main application without changing the flash memory map.")
 print("Pastel v0.7: all 128 original M-VAVE factory voices are selectable inside FM6 PRESETS, no separate import needed.")
 
 print("Pastel v0.3 hybrid: Melodee/Felucca/ChoralRoot harmonies,"
