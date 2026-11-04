@@ -5,7 +5,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'pets' | 'arcade' | 'competitive' | 'music' | 'learning' | 'discovery';
+type Category = 'all' | 'pets' | 'quick' | 'deep' | 'music' | 'learning' | 'discovery';
 
 type Portal = {
   icon: string;
@@ -16,6 +16,7 @@ type Portal = {
   href?: string;
   palette: string;
   oldPet?: boolean;
+  duration?: string;
 };
 
 // The current app can detect when it is launched from its installed home-screen
@@ -44,7 +45,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT','Moodropolis','The Corridors','The Docket'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
@@ -54,28 +55,34 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/simon.svg',
   '/tool-icons/candy-match.svg',
   '/tool-icons/candy-pulse.svg',
-  '/tool-icons/osint-academy.svg'
+  '/tool-icons/osint-academy.svg',
+  '/tool-icons/moodropolis.svg',
+  '/tool-icons/the-corridors.svg',
+  '/tool-icons/the-docket.svg'
 ] as const;
 
 const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[0],title:'Unwrapped',blurb:"There's more to you. Understand every layer. Appreciate the whole person. Explore psychology, feelings, attraction, communication and relationships, then share what matters through quizzes, guides and partner-friendly reports.",kind:'discovery',label:'KNOW YOURSELF · SHARE MORE · 18+',palette:'purple',href:'/after-dark/'},
   {icon:TOOL_MENU_ICONS[1],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'pets',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
   {icon:TOOL_MENU_ICONS[2],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'pets',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
-  {icon:TOOL_MENU_ICONS[3],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'arcade',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
-  {icon:TOOL_MENU_ICONS[4],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'competitive',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
-  {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'arcade',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
-  {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'arcade',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
+  {icon:TOOL_MENU_ICONS[3],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'quick',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
+  {icon:TOOL_MENU_ICONS[4],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'quick',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
+  {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'quick',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
+  {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'quick',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
   {icon:TOOL_MENU_ICONS[7],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'music',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
-  {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/'},
+  {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/',duration:'LONG COURSE'},
+  {icon:TOOL_MENU_ICONS[9],title:'Moodropolis',blurb:'Build a city that feels alive. Meet citizens, respond to their problems, rebuild neighborhoods, discover events, and shape the future of Meridian.',kind:'deep',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
+  {icon:TOOL_MENU_ICONS[10],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'deep',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
+  {icon:TOOL_MENU_ICONS[11],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'deep',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
 ];
 
 const COLLECTIONS = [
-  {id:'pets',title:'Virtual Pets',description:'Care, play and watch your little characters evolve.',symbol:'🐣'},
-  {id:'competitive',title:'Competitive Games',description:'Play against a computer or challenge another person.',symbol:'🏆'},
-  {id:'arcade',title:'Arcade & Puzzles',description:'Quick games, memory challenges and satisfying wins.',symbol:'🕹️'},
-  {id:'learning',title:'Learning & Investigation',description:'Solve complex problems and build useful real-world skills.',symbol:'🔎'},
-  {id:'music',title:'Music & Visuals',description:'Turn sound into an immersive visual experience.',symbol:'🎵'},
-  {id:'discovery',title:'Explore & Discover',description:'Dive into curiosity, psychology and interactive tools.',symbol:'🌙'},
+  {id:'pets',title:'Virtual Pets',description:'Care, evolve, and play with your digital characters.',symbol:'🐣'},
+  {id:'quick',title:'Quick Games',description:'Jump in for a short session, challenge, or match.',symbol:'⚡'},
+  {id:'deep',title:'Long Adventures',description:'Story-rich worlds, big decisions, and lasting progress.',symbol:'🏙️'},
+  {id:'learning',title:'Deep Learning',description:'Immersive guided investigations and skill building.',symbol:'🧠'},
+  {id:'music',title:'Music & Visuals',description:'Music-powered interactive environments.',symbol:'🎵'},
+  {id:'discovery',title:'Explore & Discover',description:'Psychology, creativity and curious self-discovery.',symbol:'🌙'},
 ] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
@@ -151,14 +158,16 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             ))}
           </div>
           <p className="candyland-hero-filter-summary" aria-live="polite">{category === 'all' ? 'All games & tools' : COLLECTIONS.find(group => group.id === category)?.title} · {PORTALS.filter(portal => category === 'all' || portal.kind === category).length}</p>
-          <nav className="candyland-hero-tools" aria-label="Games and tools — choose one to open">
+          <p className="candyland-category-guide">⚡ Quick Games: a few minutes · 🏙️ Long Adventures: stories worth returning to · 🧠 Deep Learning: guided courses</p>
+          <nav className="candyland-hero-tools" aria-label="Game and experience library">
             {PORTALS.map((portal,index) => {
               if (category !== 'all' && portal.kind !== category) return null;
               const content = <>
                 <span className="candyland-hero-tool-image">
-                  <img src={TOOL_MENU_ICONS[index]} width={160} height={160} alt="" loading="eager" />
+                  <img src={portal.icon} width={160} height={160} alt="" loading="eager" />
                 </span>
                 <span className="candyland-hero-tool-name">{TOOL_MENU_NAMES[index]}</span>
+                <span className="candyland-hero-tool-duration">{portal.duration || (portal.kind === 'quick' ? '5–15 MIN' : portal.kind === 'pets' ? 'DROP IN ANYTIME' : portal.kind === 'music' ? 'INSTANT' : 'EXPLORE')}</span>
               </>;
               return portal.oldPet
                 ? <button key={portal.title} type="button" onClick={onNavigateToTrump} className="candyland-hero-tool-link" aria-label={'Open '+TOOL_MENU_NAMES[index]}>{content}</button>
@@ -178,13 +187,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <a className="candyland-unwrapped-promo-link" href="/after-dark/" aria-label="Explore Unwrapped, for adults 18 and older">Explore Unwrapped <span aria-hidden="true">↗</span></a>
       </aside>
 
-      <nav className="candyland-world-strip" aria-label="Explore three new interactive worlds">
-        <span className="candyland-world-strip-heading">✦ NEW PLAYABLE WORLDS</span>
-        <a href="/moodropolis/"><img src="/tool-icons/moodropolis.svg" width={31} height={31} alt="" />Moodropolis <span>↗</span></a>
-        <a href="/the-corridors/"><img src="/tool-icons/the-corridors.svg" width={31} height={31} alt="" />The Corridors <span>↗</span></a>
-        <a href="/the-docket/"><img src="/tool-icons/the-docket.svg" width={31} height={31} alt="" />The Docket <span>↗</span></a>
-      </nav>
-
       {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
       <RandomNonsenseGenerator />
 
@@ -193,7 +195,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <div className="candyland-section-heading">
           <span>✨ THREE CONNECTED STORIES</span>
           <h2>A city. Its power. <em>Its justice.</em></h2>
-          <p>Play each world on its own, or move between them. Your decisions save on this device and shape a shared Meridian chronicle.</p>
+          <p>All three now appear in Long Adventures above. Make choices, uncover surprises and keep a shared Meridian chronicle on your device.</p>
         </div>
         <div className="candyland-future-grid">
           <article><strong>🏙️ Moodropolis</strong><p>Manage neighborhoods, emotional wellbeing, a budget, residents, and evolving city events.</p><a href="/moodropolis/" className="candyland-world-play">Play Moodropolis ↗</a></article>
