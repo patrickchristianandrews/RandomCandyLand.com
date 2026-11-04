@@ -10,6 +10,8 @@ on:
       - 'pastel-fm1/animal_audio.c'
       - 'pastel-fm1/animal_view.c'
       - 'pastel-fm1/animal_test.c'
+      - 'pastel-fm1/generate_animal_samples.py'
+      - 'pastel-fm1/AUDIO_CREDITS.md'
       - 'pastel-fm1/README.md'
       - '.github/workflows/pastel-fm1.yml'
   workflow_dispatch:
@@ -30,6 +32,7 @@ jobs:
         set -euo pipefail
         git clone --depth 1 --branch v1.6.1 https://github.com/keremimo/melodee.git upstream-melodee
         test "$(git -C upstream-melodee rev-parse HEAD)" = 165d177a425944f3d30b0b669255a6ed0050c3a5
+        python3 pastel-fm1/generate_animal_samples.py upstream-melodee
         python3 pastel-fm1/patch.py upstream-melodee
         sudo apt-get update
         sudo apt-get install -y libharfbuzz-dev libfribidi-dev libraqm-dev
