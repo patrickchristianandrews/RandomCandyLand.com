@@ -1,11 +1,12 @@
-/* Keep the visitor-facing Random Candy Land experience free of provider branding.
+/* Keep the visitor-facing Random Candy Land experience free of unwanted third-party provider branding.
+ * The explicitly requested Random AI / AI Academy product names are allowed.
  * This checks public assets and client-side source. Server-only implementation
  * identifiers are not visitor copy and are intentionally not rewritten. */
 import fs from 'node:fs';
 import path from 'node:path';
 const roots=['public','src','index.html'];
 const formats=/\.(html|js|jsx|ts|tsx|css|svg|json|webmanifest)$/i;
-const branded=/\bAI\b|\b(?:OpenAI|ChatGPT|Claude|Gemini)\b|\bartificial[ -]+intelligence\b|\b(?:GPT-[0-9]|LLM)\b/g;
+const branded=/\b(?:OpenAI|ChatGPT|Claude|Gemini)\b|\bartificial[ -]+intelligence\b|\b(?:GPT-[0-9]|LLM)\b/g;
 const exceptions=[];
 let files=0;const found=[];
 function scan(file){
