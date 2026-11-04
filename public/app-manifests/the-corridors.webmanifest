@@ -1,0 +1,31 @@
+{
+  "id": "/the-corridors/",
+  "name": "The Corridors: Rise to Power | Random Candy Land",
+  "short_name": "The Corridors",
+  "description": "Walk the halls of influence in the fictional city of Meridian. Policy, power, relationships, ethics, and consequences.",
+  "start_url": "/the-corridors/",
+  "scope": "/the-corridors/",
+  "display": "standalone",
+  "background_color": "#111a30",
+  "theme_color": "#111a30",
+  "icons": [
+    {
+      "src": "/tool-icons/the-corridors.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
