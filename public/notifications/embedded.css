@@ -1,0 +1,45 @@
+/* Tool-scoped notification controls. Never show this panel on the homepage.
+   Permission is requested only when the player presses Enable.
+   Works for original dark and light game pages without overriding their UI. */
+.rcl-game-reminder{
+ --notify-bg:#211c3f;--notify-text:#fff8fe;--notify-sub:#decee6;--notify-line:#ae9cb7;
+ width:min(calc(100% - 24px),1080px);margin:22px auto 26px;
+ border:1px solid #a0a5c6;border-radius:18px;color:var(--notify-text);
+ background:linear-gradient(135deg,#292451,#233d50);
+ box-shadow:0 12px 30px #0002;overflow:hidden;
+ font-family:system-ui,-apple-system,sans-serif
+}
+.rcl-game-reminder>summary{cursor:pointer;list-style:none;padding:17px 19px;display:flex;align-items:center;gap:10px;
+ font-size:14px;font-weight:850;color:#fff6dd;min-height:52px}
+.rcl-game-reminder>summary::-webkit-details-marker{display:none}
+.rcl-game-reminder>summary:after{content:"+";margin-left:auto;font-size:22px;color:#d6fadd}
+.rcl-game-reminder[open]>summary:after{content:"−"}
+.rcl-game-reminder>summary:hover{background:#ffffff10}
+.rcl-game-reminder .rcl-game-reminder-caption{font-size:12px;color:var(--notify-sub);line-height:1.55;margin:0;padding:0 19px 10px}
+.rcl-game-reminder #rcl-notify-center{padding:2px 19px 20px}
+.rcl-game-reminder .rcl-notify-heading{display:flex;justify-content:space-between;gap:14px;margin:10px 0}
+.rcl-game-reminder .rcl-notify-heading h2{font-size:18px;line-height:1.2;margin:5px 0 8px;color:var(--notify-text)}
+.rcl-game-reminder .rcl-notify-heading p,.rcl-game-reminder .rcl-notify-small{font-size:11px;line-height:1.55;color:var(--notify-sub);margin:3px 0 10px}
+.rcl-game-reminder .rcl-notify-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#baf7d5;font-weight:850}
+.rcl-game-reminder .rcl-notify-steps{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.rcl-game-reminder .rcl-notify-steps span{font-size:11px;border:1px solid #ffffff36;border-radius:28px;padding:6px 9px;background:#ffffff12;color:var(--notify-text)}
+.rcl-game-reminder .rcl-notify-steps b{color:#d6f9ce}
+.rcl-game-reminder .rcl-notify-games{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.rcl-game-reminder .rcl-notify-game{display:flex;align-items:center;gap:9px;border:1px solid var(--notify-line);border-radius:12px;padding:12px 14px;background:#ffffff17;font-size:13px;color:var(--notify-text);font-weight:750}
+.rcl-game-reminder .rcl-notify-game input{height:19px;width:19px;accent-color:#8df4c2}
+.rcl-game-reminder .rcl-notify-game small{font-weight:600;color:var(--notify-sub)}
+.rcl-game-reminder .rcl-notify-options{display:flex;flex-wrap:wrap;gap:14px;margin:11px 0}
+.rcl-game-reminder .rcl-notify-options label{display:flex;flex-direction:column;gap:6px;flex:1 1 160px;font-size:11px;font-weight:750;color:var(--notify-text)}
+.rcl-game-reminder select{background:#fff;color:#1d2842;border:1px solid #99a7c4;border-radius:9px;min-height:40px;padding:7px 9px;font:600 13px system-ui,sans-serif;max-width:100%}
+.rcl-game-reminder button{border:1px solid #e6d69e;border-radius:10px;background:#f9df93;color:#31254b;
+ padding:10px 13px;font-size:12px;font-weight:850;min-height:42px}
+.rcl-game-reminder .rcl-notify-actions{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}
+.rcl-game-reminder .rcl-notify-actions button:not(:first-child){background:#ffffff17;color:#fff}
+.rcl-game-reminder button[hidden]{display:none}
+.rcl-game-reminder button:disabled{opacity:.55;cursor:not-allowed}
+.rcl-game-reminder .rcl-notify-status{margin:10px 0;border-left:3px solid #9becc6;background:#ffffff10;color:#d6f9e8;padding:10px;font-size:12px;line-height:1.4}
+.rcl-game-reminder .rcl-notify-status[data-error=yes]{border-color:#f7c39b;color:#ffe8dc}
+.rcl-game-reminder a:focus-visible,.rcl-game-reminder button:focus-visible,
+.rcl-game-reminder select:focus-visible,.rcl-game-reminder input:focus-visible,
+.rcl-game-reminder>summary:focus-visible{outline:3px solid #aafee1;outline-offset:3px}
+@media(max-width:600px){.rcl-game-reminder{margin:15px auto}.rcl-game-reminder>summary{font-size:12px}.rcl-game-reminder .rcl-notify-steps{gap:5px}.rcl-game-reminder .rcl-notify-steps span{font-size:10px}}
