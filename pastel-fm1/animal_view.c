@@ -18,9 +18,11 @@ static void pastel_sprite_pixel(uint32_t pixel,uint32_t ink,
     if(!ink)return;
     int32_t py=y+(int32_t)((pixel/PASTEL_SPRITE_W)*scale)+cv_oy;
     if(py+(int32_t)scale<=(int32_t)cv_top || py>=(int32_t)(cv_top+cv_rows))return;
+    uint16_t c=pal[ink];
+    if(ux.mono)c=ux_gray(ux_luma(c)*31u/255u); /* host MONO compatibility */
     cv_rect(x+(int32_t)((pixel%PASTEL_SPRITE_W)*scale),
             y+(int32_t)((pixel/PASTEL_SPRITE_W)*scale),
-            (int32_t)scale,(int32_t)scale,pal[ink]);
+            (int32_t)scale,(int32_t)scale,c);
 }
 
 static void pastel_sprite_draw(uint32_t frame,int32_t x,int32_t y,uint32_t scale)
