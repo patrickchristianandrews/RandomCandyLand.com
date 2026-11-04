@@ -339,14 +339,15 @@ const toolIcons = [
   'tool-icons/osint-academy.svg',
   'tool-icons/moodropolis.svg',
   'tool-icons/the-corridors.svg',
-  'tool-icons/the-docket.svg'
+  'tool-icons/the-docket.svg',
+  'tool-icons/candy-studio.svg'
 ];
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
     !homeInstallSource.includes('className="candyland-hero-tool-link"') ||
     !homeInstallSource.includes('src={portal.icon}') ||
     !homeInstallSource.includes("PORTALS.map((portal,index)") ||
     !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
-  console.error('The Candy Land homepage must display all twelve illustrated game and tool shortcuts.');
+  console.error('The Candy Land homepage must display all thirteen illustrated game and tool shortcuts.');
   failures++;
 }
 // The new artwork must replace the old emoji/cartoon thumbnails in every
@@ -621,6 +622,7 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes('Long Adventures') ||
    !homeInstallSource.includes("href:'/the-corridors/'") ||
    !homeInstallSource.includes("href:'/the-docket/'") ||
+   !homeInstallSource.includes("href:'/studio/'") ||
    !homeBundle.includes('/osint-academy/')){
   console.error('Grouped homepage, Moodropolis or TRACE Academy portal is missing.'); failures++;
 }
