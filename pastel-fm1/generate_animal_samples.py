@@ -1,107 +1,110 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-only
-"""Fetch individually verified CC0 real-animal recordings and pack for FM-1.
-Fail closed on download / source changes. Build reproducible embedded G711
-mu-law audio at 12 kHz and produce firmware/src/pastel_recordings.h.
+"""Embed REAL CC0 animal field recordings as 12kHz mono IMA ADPCM.
+The audio is placed in Melodee's verified .mres read-only resource flash
+rather than its tightly size-limited application body.
 """
 from __future__ import annotations
-import hashlib, pathlib, subprocess, tempfile, urllib.request, struct
+import hashlib,pathlib,struct,subprocess,tempfile,urllib.request
 
 SOUND_BASE="https://raw.githubusercontent.com/djfksjd/session-alarm/7da7e78245025e65ae77fd9d3c87b82dad0465db/plugins/session-alarm/assets/sounds/"
 DUCK_URL="https://raw.githubusercontent.com/andlo/ovos-skill-sound-like/77d00889839d6e13af953bf0ee70afb067852aa1/sounds/animals/duck.mp3"
-
-# Name, source file, published source SHA256, maximum excerpt duration, offset.
-# Source metadata and original artists: AUDIO_CREDITS.md.
+RATE=12000
 SOUNDS=[
- ("cat",  "cat.wav",  "7ed83e7ded1ea71b8f38e067b575851d2a135c54a26064f5d37d0f36a7725726",0.75,0.00),
- ("dog",  "dog.wav",  "483b18e71676c52c0af79a8159011792fdf64e4fac7fae8bcb1f7b2f7e490377",1.10,0.00),
- ("duck", "duck.mp3", None, 1.05,0.00),
- ("frog", "frog.wav", "75ad2a297bb8959c0682de6476cabe7ede7bb6212652e3d763f8dcf03f592994",1.25,0.00),
- ("bird", "crow.wav", "945c38b21a8e4f057e413955dc9f7116dbe60a9a23c56787494d06260983c2c5",0.44,0.00),
- ("cow",  "cow.wav",  "fa248f7a2bdb008720c5a2676f43b73e4c9bd10a0aa99349dbbc01c8eba23942",1.35,0.00),
- ("pig",  "pig.wav",  "27d73a86f942f8b10220ac59d507641349a27a2f03a4af967c5b73b471f0107c",0.72,0.00),
- ("sheep","sheep.wav","3310253c1713a669e18fa2cc70ad844178b25d808f2330a2cc0ec664962f57a2",1.45,0.00),
+ ("cat", "cat.wav","7ed83e7ded1ea71b8f38e067b575851d2a135c54a26064f5d37d0f36a7725726",0.50,0),
+ ("dog", "dog.wav","483b18e71676c52c0af79a8159011792fdf64e4fac7fae8bcb1f7b2f7e490377",0.65,0),
+ ("duck","duck.mp3",None,0.60,0),
+ ("frog","frog.wav","75ad2a297bb8959c0682de6476cabe7ede7bb6212652e3d763f8dcf03f592994",0.55,0),
+ ("bird","crow.wav","945c38b21a8e4f057e413955dc9f7116dbe60a9a23c56787494d06260983c2c5",0.35,0),
+ ("cow", "cow.wav","fa248f7a2bdb008720c5a2676f43b73e4c9bd10a0aa99349dbbc01c8eba23942",0.85,0),
+ ("pig", "pig.wav","27d73a86f942f8b10220ac59d507641349a27a2f03a4af967c5b73b471f0107c",0.45,0),
+ ("sheep","sheep.wav","3310253c1713a669e18fa2cc70ad844178b25d808f2330a2cc0ec664962f57a2",0.95,0),
 ]
+STEP=[
+    7,8,9,10,11,12,13,14,16,17,19,21,23,25,28,31,34,37,41,45,
+    50,55,60,66,73,80,88,97,107,118,130,143,157,173,190,209,
+    230,253,279,307,337,371,408,449,494,544,598,658,724,796,
+    876,963,1060,1166,1282,1411,1552,1707,1878,2066,2272,
+    2499,2749,3024,3327,3660,4026,4428,4871,5358,5894,6484,
+    7132,7845,8630,9493,10442,11487,12635,13899,15289,16818,
+    18500,20350,22385,24623,27086,29794,32767,
+]
+INDEX=(-1,-1,-1,-1,2,4,6,8)
 
 def fetch(url):
-    if not url.startswith("https://raw.githubusercontent.com/"):
-        raise RuntimeError("Untrusted source")
-    req=urllib.request.Request(url,headers={"User-Agent":"Pastel-FM1-build/1.0"})
-    with urllib.request.urlopen(req,timeout=35) as f:
-        data=f.read(3_000_001)
-    if len(data)>3_000_000 or len(data)<1000:
-        raise RuntimeError(f"Source size invalid: {url}")
-    return data
+    if not url.startswith("https://raw.githubusercontent.com/"):raise RuntimeError("Untrusted recording source")
+    req=urllib.request.Request(url,headers={"User-Agent":"Pastel-FM1-build/1.1"})
+    with urllib.request.urlopen(req,timeout=35) as f:d=f.read(3_000_001)
+    if len(d)>3_000_000 or len(d)<1000:raise RuntimeError("Source file invalid")
+    return d
 
-def mu_law(x):
-    # ITU-T G.711 encoding on signed 16-bit PCM. Perfect silence => 0xff.
-    # Returned byte is an unsigned logarithmic 8-bit encoded sample.
-    if x<0: sign=0x80; x=-x
-    else: sign=0
-    x=min(x,32635)+132
-    exp=7
-    for e in range(8):
-        if x < (1<<(e+8)):
-            exp=e
-            break
-    mant=(x>>(exp+3))&15
-    return (~(sign | (exp<<4) | mant))&255
+def encode_adpcm(samples):
+    pred=0;idx=0;out=bytearray();lo=None
+    for target in samples:
+        step=STEP[idx]
+        delta=target-pred
+        code=8 if delta<0 else 0
+        delta=abs(delta)
+        diff=step//8
+        if delta>=step:
+            code|=4;delta-=step;diff+=step
+        if delta>=step//2:
+            code|=2;delta-=step//2;diff+=step//2
+        if delta>=step//4:
+            code|=1;diff+=step//4
+        pred+= -diff if code&8 else diff
+        pred=max(-32768,min(32767,pred))
+        idx=max(0,min(88,idx+INDEX[code&7]))
+        if lo is None:lo=code
+        else:out.append(lo|(code<<4));lo=None
+    if lo is not None:out.append(lo)
+    return bytes(out)
 
-def make(outdir):
-    outdir=pathlib.Path(outdir)
-    dest=outdir/"firmware/src/pastel_recordings.h"
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    wavs=[]; provenance=[]
-    with tempfile.TemporaryDirectory(prefix="pastel-audio-") as t:
-        for name,file,expected,maxsec,offset in SOUNDS:
+def main(root):
+    dest=pathlib.Path(root)/"firmware/src/pastel_recordings.h"
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    blobs=[];lengths=[]
+    with tempfile.TemporaryDirectory(prefix="pastel-sounds-") as td:
+        for name,file,expected,duration,start in SOUNDS:
             url=DUCK_URL if file=="duck.mp3" else SOUND_BASE+file
-            src=fetch(url)
-            digest=hashlib.sha256(src).hexdigest()
-            if expected and digest!=expected:
-                raise RuntimeError(f"{name} source SHA256 mismatch: {digest}")
-            source=pathlib.Path(t)/file
-            source.write_bytes(src)
+            src=fetch(url);sha=hashlib.sha256(src).hexdigest()
+            if expected and sha!=expected:raise RuntimeError(f"{name} source SHA changed")
+            p=pathlib.Path(td)/file;p.write_bytes(src)
             cmd=["ffmpeg","-nostdin","-hide_banner","-loglevel","error",
-                 "-ss",str(offset),"-i",str(source),"-t",str(maxsec),
-                 "-af","highpass=f=70,lowpass=f=5300,alimiter=limit=0.90",
-                 "-ac","1","-ar","12000","-f","s16le","-acodec","pcm_s16le","-"]
-            wav=subprocess.run(cmd,check=True,stdout=subprocess.PIPE).stdout
-            if len(wav)<1200 or len(wav)%2:
-                raise RuntimeError(f"{name}: audio not decoded")
-            samples=struct.unpack("<"+str(len(wav)//2)+"h",wav)
-            amp=max(abs(x) for x in samples)
-            if amp<200:
-                raise RuntimeError(f"{name}: recording silent")
-            # Normalize only moderately, to avoid clipped animal calls.
-            scale=min(2.5,28000/max(amp,1))
-            data=bytes(mu_law(int(x*scale)) for x in samples)
-            wavs.append(data)
-            provenance.append((name,digest,len(data),url))
-            print(f"Recording {name}: {len(data)} frames at 12kHz, amp {amp}, sha256={digest}")
-    total=sum(map(len,wavs))
-    if total>112_000:
-        raise RuntimeError(f"Recorded sample pack exceeds budget: {total} bytes")
-    starts=[];p=0
-    for w in wavs: starts.append((p,len(w)));p+=len(w)
+                 "-ss",str(start),"-i",str(p),"-t",str(duration),
+                 "-af","highpass=f=65,lowpass=f=5200,alimiter=limit=0.90",
+                 "-ar",str(RATE),"-ac","1","-f","s16le","-acodec","pcm_s16le","-"]
+            pcm=subprocess.run(cmd,check=True,stdout=subprocess.PIPE).stdout
+            if len(pcm)<800 or len(pcm)%2:raise RuntimeError(f"{name} audio undecodable")
+            samples=struct.unpack("<"+str(len(pcm)//2)+"h",pcm)
+            amp=max(abs(s) for s in samples)
+            if amp<200:raise RuntimeError(f"{name} source audio silent")
+            gain=min(2.5,28000/max(amp,1))
+            b=encode_adpcm([max(-32768,min(32767,int(x*gain))) for x in samples])
+            blobs.append(b);lengths.append(len(samples))
+            print(f"Real {name}: {len(samples)} 12kHz samples, {len(b)} ADPCM bytes, sha256={sha}")
+    total=sum(map(len,blobs))
+    if total>31_000:raise RuntimeError(f"CC0 resource audio exceeds remaining resource-flash budget: {total}")
+    starts=[];off=0
+    for b in blobs:starts.append(off);off+=len(b)
     lines=[
-        "/* AUTOGENERATED by pastel-fm1/generate_animal_samples.py */",
-        "/* Recorded CC0 animal sounds, 12kHz mono G.711 mu-law. See AUDIO_CREDITS.md. */",
-        "#ifndef PASTEL_RECORDINGS_H",
-        "#define PASTEL_RECORDINGS_H",
-        "#define PASTEL_RECORDED_RATE 12000u",
-        f"#define PASTEL_RECORDED_SIZE {total}u",
-        "static const unsigned char pastel_recorded_pcm[] = {",
-    ]
-    blob=b"".join(wavs)
-    for i in range(0,len(blob),24):
-        lines.append(" "+",".join("0x%02x"%v for v in blob[i:i+24])+",")
-    lines.extend(["};","static const unsigned int pastel_recording_start[8] = {"+",".join(f"{x}u" for x,n in starts)+"};",
-        "static const unsigned int pastel_recording_length[8] = {"+",".join(f"{n}u" for x,n in starts)+"};",
-        "#endif /* PASTEL_RECORDINGS_H */",""])
+      "/* AUTOGENERATED verified real-animal CC0 recordings; see AUDIO_CREDITS.md */",
+      "/* 12 kHz mono IMA ADPCM, low nibble first. Placed in .mres, not app body. */",
+      "#ifndef PASTEL_RECORDINGS_H","#define PASTEL_RECORDINGS_H",
+      "#ifndef MELODEE_RES","#define MELODEE_RES","#endif",
+      "#define PASTEL_RECORDED_RATE 12000u",
+      "static const unsigned char pastel_recorded_adpcm[] MELODEE_RES = {"]
+    raw=b"".join(blobs)
+    for i in range(0,len(raw),32):
+        lines.append(" "+",".join("0x%02x"%x for x in raw[i:i+32])+",")
+    lines.extend(["};",
+      "static const unsigned int pastel_recording_start[8]={"+",".join(str(x)+"u" for x in starts)+"};",
+      "static const unsigned int pastel_recording_length[8]={"+",".join(str(x)+"u" for x in lengths)+"};",
+      "#endif /* PASTEL_RECORDINGS_H */",""])
     dest.write_text("\n".join(lines),encoding="ascii")
-    print(f"Real animal pack {total} bytes, embedded as {dest} ({dest.stat().st_size} source bytes)")
+    print(f"Verified 8 real-animal ADPCM recordings: {total} bytes of .mres resource flash")
 
 if __name__=="__main__":
     import sys
-    if len(sys.argv)!=2: raise SystemExit("Usage: generate_animal_samples.py UPSTREAM_REPO_ROOT")
-    make(sys.argv[1])
+    if len(sys.argv)!=2:raise SystemExit("Usage: generate_animal_samples.py UPSTREAM_ROOT")
+    main(sys.argv[1])
