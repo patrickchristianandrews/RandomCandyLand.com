@@ -1041,12 +1041,12 @@ body {
   align-items:center;
   justify-content:stretch;
   column-gap:clamp(8px,1.4vw,18px);
-  width:min(calc(100% - 24px),1280px);
-  max-width:1280px;
-  min-height:76px;
-  margin:0 auto 12px;
-  padding:8px clamp(10px,1.8vw,22px);
-  border-radius:0 0 19px 19px;
+  width:min(calc(100% - 24px),1100px);
+  max-width:1100px;
+  min-height:58px;
+  margin:0 auto 9px;
+  padding:5px clamp(8px,1.3vw,15px);
+  border-radius:0 0 15px 15px;
   box-shadow:0 9px 24px #22023f60;
 }
 .candyland-next header.candyland-navbar>.candyland-identity{
@@ -1058,15 +1058,15 @@ body {
   align-items:center;
   justify-content:center;
   justify-self:center;
-  gap:7px;
-  font-size:clamp(14px,1.6vw,19px);
+  gap:6px;
+  font-size:clamp(13px,1.3vw,17px);
   line-height:1.15;
   white-space:nowrap;
 }
 .candyland-next header.candyland-navbar .candyland-brand-icon{
-  width:43px;
-  height:43px;
-  flex:0 0 43px;
+  width:35px;
+  height:35px;
+  flex:0 0 35px;
 }
 .candyland-next header.candyland-navbar>.candyland-navbar-feature{
   display:block;
@@ -1087,11 +1087,11 @@ body {
   align-items:center;
   justify-content:flex-start;
   width:100%;
-  min-height:55px;
-  gap:9px;
-  padding:7px 9px;
+  min-height:43px;
+  gap:7px;
+  padding:4px 7px;
   border:1px solid #fff3ed55;
-  border-radius:12px;
+  border-radius:10px;
   background:#21093c38;
   box-shadow:none;
   color:#fff8fe;
@@ -1107,9 +1107,9 @@ body {
 }
 .candyland-next header.candyland-navbar .candyland-navbar-feature-link>img{
   display:block;
-  width:39px;
-  height:39px;
-  flex:0 0 39px;
+  width:29px;
+  height:29px;
+  flex:0 0 29px;
   object-fit:contain;
   border-radius:10px;
 }
@@ -1124,16 +1124,16 @@ body {
 .candyland-next header.candyland-navbar .candyland-navbar-feature-kicker{
   display:block;
   color:#ffe5a9;
-  font:850 8px/1.2 system-ui,sans-serif;
+  font:850 7px/1.2 system-ui,sans-serif;
   letter-spacing:.08em;
 }
 .candyland-next header.candyland-navbar .candyland-navbar-feature-copy strong{
   color:#fff8fd;
-  font:900 14px/1.2 system-ui,sans-serif;
+  font:900 13px/1.2 system-ui,sans-serif;
 }
 .candyland-next header.candyland-navbar .candyland-navbar-feature-copy small{
   display:block;
-  font:600 10px/1.3 system-ui,sans-serif;
+  font:600 9px/1.25 system-ui,sans-serif;
   color:#fff1fd;
   white-space:normal;
 }
@@ -1148,7 +1148,7 @@ body {
 @media(max-width:1040px){
   .candyland-next header.candyland-navbar{column-gap:9px}
   .candyland-next header.candyland-navbar .candyland-navbar-feature-link>img{
-    width:32px;height:32px;flex-basis:32px;
+    width:27px;height:27px;flex-basis:27px;
   }
   .candyland-next header.candyland-navbar .candyland-navbar-feature-copy small{font-size:9px}
   .candyland-next header.candyland-navbar .candyland-navbar-feature-arrow{display:none}
@@ -1156,22 +1156,22 @@ body {
 @media(max-width:720px){
   .candyland-next header.candyland-navbar{
     width:calc(100% - 12px);
-    min-height:60px;
+    min-height:49px;
     gap:5px;
-    padding:7px;
-    margin-bottom:10px;
-    border-radius:0 0 15px 15px;
+    padding:4px 6px;
+    margin-bottom:7px;
+    border-radius:0 0 12px 12px;
   }
   .candyland-next header.candyland-navbar>.candyland-identity{gap:4px;font-size:13px}
   .candyland-next header.candyland-navbar .candyland-brand-icon{
-    width:35px;height:35px;flex-basis:35px;
+    width:30px;height:30px;flex-basis:30px;
   }
   .candyland-next header.candyland-navbar .candyland-navbar-feature-link{
-    min-height:43px;gap:5px;padding:6px;
+    min-height:36px;gap:4px;padding:4px 5px;
     border-radius:9px;
   }
   .candyland-next header.candyland-navbar .candyland-navbar-feature-link>img{
-    width:26px;height:26px;flex-basis:26px;
+    width:23px;height:23px;flex-basis:23px;
   }
   .candyland-next header.candyland-navbar .candyland-navbar-feature-kicker,
   .candyland-next header.candyland-navbar .candyland-navbar-feature-copy small{display:none}
@@ -1182,7 +1182,7 @@ body {
 @media(max-width:540px){
   .candyland-next header.candyland-navbar>.candyland-identity>span:last-child{display:none}
   .candyland-next header.candyland-navbar .candyland-brand-icon{
-    width:39px;height:39px;flex-basis:39px;
+    width:32px;height:32px;flex-basis:32px;
   }
 }
 @media(max-width:365px){
