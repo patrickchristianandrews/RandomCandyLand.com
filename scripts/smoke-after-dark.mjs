@@ -686,6 +686,28 @@ try{
   await home.evaluate("document.querySelector('#nonsense').scrollIntoView({block:'center'})");
   console.log('✓ Candy Land Gazette displays a new satirical headline when Next Story is clicked.');
 
+  // Candy Studio is an additional /studio/ section, never the new homepage.
+  // Test actual browser controls without a paid model or customer credentials.
+  const studio=await navigate(site+'/studio/');
+  const studioLoaded=await studio.evaluate("!!document.querySelector('#view-home.active') && document.querySelectorAll('.feature-card').length===4 && !!document.querySelector('a.brand[href="/"]') && !!document.querySelector('#free-config-absent')===false");
+  if(!studioLoaded)throw Error('Candy Studio did not load as its own add-on section');
+  await studio.evaluate("document.querySelector('[data-view="tools"]').click()");
+  const studioTools=await studio.evaluate("document.querySelector('#view-tools.active')!==null && document.querySelectorAll('#toolsGrid .tool-card').length===24");
+  if(!studioTools)throw Error('Candy Studio must show 24 working guided tools');
+  await studio.evaluate("document.querySelector('#toolSearch').value='email';document.querySelector('#toolSearch').dispatchEvent(new Event('input',{bubbles:true}))");
+  const studioSearch=await studio.evaluate("document.querySelectorAll('#toolsGrid .tool-card').length>=1 && [...document.querySelectorAll('#toolsGrid .tool-card')].every(x=>x.textContent.toLowerCase().includes('email'))");
+  if(!studioSearch)throw Error('Candy Studio searchable tools filter did not work');
+  await studio.evaluate("document.querySelector('#toolsGrid [data-tool="professional-email"]').click()");
+  const studioPrompt=await studio.evaluate("!!document.querySelector('#view-chat.active') && document.querySelector('#chatInput').value.includes('Draft a polished professional email')");
+  if(!studioPrompt)throw Error('Candy Studio guided tool did not open chat with a real prompt');
+  await studio.evaluate("document.querySelector('[data-view="visual"]').click();document.querySelector('#artPrompt').value='bright playful nebula';document.querySelector('#artGenerate').click()");
+  const studioArt=await studio.evaluate("document.querySelector('#view-visual.active')!==null && document.querySelector('#artCanvas').width===1024 && document.querySelector('#artCanvas').getContext('2d').getImageData(30,30,1,1).data[3]>0");
+  if(!studioArt)throw Error('Candy Studio original artwork generator did not create pixels');
+  await studio.evaluate("document.querySelector('[data-view="settings"]').click()");
+  const studioSettings=await studio.evaluate("!!document.querySelector('#view-settings.active') && !!document.querySelector('#communityStatus') && !!document.querySelector('#loadModel') && !!document.querySelector('#connectCloud')");
+  if(!studioSettings)throw Error('Candy Studio local, community and personal-provider settings are missing');
+  console.log('✓ Candy Studio runs separately: library search, guided prompts, abstract art and provider settings work.');
+
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
 } finally{
