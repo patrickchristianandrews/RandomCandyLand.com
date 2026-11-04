@@ -1,6 +1,6 @@
-# Pastel FM-1 — v0.4 · Liquid Edition / Real Animal Jam
+# Pastel FM-1 — v0.6 · Liquid Edition / Animal Sequencer + Original Factory Sounds
 
-**Status:** custom pastel-themed Melodee 1.6.1 derivative, now with Liquid Edition animation, an interactive Animal Jam screen, and SLOOP/ChoralRoot-inspired presets. Source overlay and GitHub build workflow. NOT hardware tested.
+**Status:** Pastel v0.6 source adds a real 8-lane **ANIMAL KIT** for SEQ > STEP and REC. The complete 128-voice original M-VAVE factory sounds are supplied in a separately importable SysEx pack. **Do not treat the new firmware as released until its GitHub Actions build and publish jobs both succeed.** Not tested on physical FM-1 hardware.
 
 The firmware retains a full-featured multi-engine instrument rather than trying to concatenate incompatible firmware binaries:
 - Melodee active engines: FM6/DX7-style, Prophet virtual analog, native CZ-1, SID chiptune, synthesized drums, plus MIDI. Additional retired legacy engines are not enabled by default.
@@ -9,20 +9,20 @@ The firmware retains a full-featured multi-engine instrument rather than trying 
 - USB stereo audio or four-track capture, USB-host MIDI (hardware support varies), TRS MIDI input and Bluetooth MIDI.
 - New default **Pastel** 240 x 240 LCD theme: blush pink background, rose/lavender cards, deep-plum legible labels, four coordinated instrument colors.
 - **Liquid Edition:** flowing pastel ribbons on the Stage audio strip, music-reactive fluid displacement, drifting bubbles, watery underlay beneath knob visuals, soft droplets in track cards, and animated-style splash graphics with **LIQUID EDITION** beneath PASTEL. Lightweight integer math and no additional audio processing.
-- **ANIMAL JAM**, a third HOME screen: eight animated pastel animals dance in two original pixel-art poses and trigger short real CC0 field recordings when any of the 27 physical keys is pressed. HOME cycles **Stage → Chord Wheel → Animal Jam**.
+- **ANIMAL SEQ**, the third HOME screen: select the native DRUM **ANIMAL KIT** with eight *real recorded animal voices*. The hardware's 27 keys, 64-step DRUM grid, REC, patterns, MIDI and SONG sequencing now trigger and record the eight animals. HOME cycles **Stage → Chord Wheel → Animal Sequencer**.
 - **16 new community-inspired SID presets**: 12 SLOOP-style bass/lead/pad/pluck sounds and 4 ChoralRoot-style chord-friendly sounds, recreated for the supported SID engine rather than copying incompatible patch data.
-- New projects default to SLOOP-style 808, Melodee FM6 bass, ChoralRoot-style pad, and a synthesized drum kit. Existing saved projects and templates are not erased.
+- New projects default to SLOOP-style SID bass, FM6 bass, ChoralRoot-inspired pad and **ANIMAL KIT**. Existing projects and personal templates are not erased.
 - Boot screen and on-device About name: Pastel — Liquid Edition.
 
 **This is NOT** a complete port of every community instrument or the separate ChoralRoot two-handed keybed/looper, and it does **not** change the fixed-color hardware LEDs. The liquid effect is screen-rendered, not a change to the firmware's audio engine or physical hardware. "Pastel" reuses Melodee's audio, MIDI, arranger and resilience code. No proprietary or paid firmware has been copied.
 
 ## Firmware binary
-After the GitHub build succeeds, the workflow publishes `pastel-fm1/Pastel.fwsc` to this **pastel-fm1** branch. Use only that actual *.fwsc* file (not this Python source or a ZIP of source) for flashing. The workflow also provides a "packages" build artifact with a SHA-256 checksum.
+After the GitHub build succeeds, the workflow publishes both `pastel-fm1/Pastel.fwsc` and `pastel-fm1/PastelFactory128.zip` to this **pastel-fm1** branch. Use only the real *.fwsc* file for firmware flashing. The ZIP is **four banks of original M-VAVE FM-1 DX7 presets** (32 sounds each) for safe, optional import into FM6 user slots using the compatible Melodee web editor. It is **not a firmware file**; see [all 128 factory presets and installation steps](FACTORY_BANKS.md).
 
 ## Install using an Android phone
 1. Install **FM-1 Swap** from its official GitHub releases: find it in https://github.com/cicloid/awesome-fm-1 under "Firmware update and recovery". Its Android APK installs community `.fwsc` via USB MIDI.
 2. Download `Pastel.fwsc` to your phone, then use a reliable USB-C **data** cable to connect the FM-1 directly to your phone (Android USB OTG / USB host).
-3. In **FM-1 Swap → SAVED → IMPORT**, select `Pastel.fwsc`, then **TRY** to preview it on your phone. Press HOME twice in the virtual FM-1 to check ANIMAL JAM. Back up presets/projects and only use **FLASH** if device compatibility and recovery risks are understood and power/cable are stable.
+3. In **FM-1 Swap → SAVED → IMPORT**, select `Pastel.fwsc`, then **TRY** to preview it on your phone. Press HOME twice in the virtual FM-1 to check ANIMAL SEQ. On the real sequencer, open SEQ → STEP on the DRUM track and play or record Cat, Dog, Duck, Frog, Bird, Cow, Pig, and Sheep. Back up presets/projects and only use **FLASH** if device compatibility and recovery risks are understood and power/cable are stable.
 4. Do not unplug, switch apps or let the phone sleep during transfer. First boot may take longer. Confirm the LCD splash says "PASTEL".
 
 A plain USB cable does not enable Bluetooth firmware updates; this is **USB** flashing. The file must not be copied to the synth as if it were a storage drive.
@@ -37,6 +37,6 @@ Apply `pastel-fm1/patch.py` to an exact source checkout. GPL-3.0-only and upstre
 Not associated with M-VAVE, Melodee, Hügelton Instruments, or their authors. Retain original source attribution.
 
 ## Community hybrid details and keyboard map
-For the exact sound list, source attribution, included features and limits, see **[HYBRID.md](HYBRID.md)** and [FEATURES.md](FEATURES.md). Animal Jam uses **eight real CC0 recorded animal calls**, not imitation tones; the samples are stored in the FM-1's dedicated resource flash as 12 kHz IMA ADPCM. The colorful artwork is 16 custom pixel-art frames and is displayed in compact bands. See [AUDIO_CREDITS.md](AUDIO_CREDITS.md).
+For the exact sound list, source attribution, included features and limits, see **[HYBRID.md](HYBRID.md)** and [FEATURES.md](FEATURES.md). The ANIMAL KIT uses **eight real CC0 recorded animal calls**, not imitation tones; the samples are stored in the FM-1's dedicated resource flash as 12 kHz IMA ADPCM. Audio is now triggered by existing drum-sequencer note events, not only by a special HOME screen. The colorful artwork is 16 custom pixel-art frames and is displayed in compact bands. See [AUDIO_CREDITS.md](AUDIO_CREDITS.md).
 
-**Real animal-audio build:** the 29.4 KB CC0 IMA ADPCM pack occupies spare validated resource flash; 16 animal art frames are nibble-RLE compressed (8.7 KB). The last automated build passed LCD, audio and updater checks. Source code was not tested on physical FM-1 hardware.
+**Real animal-audio build:** the 29.4 KB CC0 IMA ADPCM pack occupies spare validated resource flash; 16 animal art frames are nibble-RLE compressed (8.7 KB). The prior v0.4 automated build passed LCD, audio and updater checks; v0.6 must pass again before its binary is published. Source code was not tested on physical FM-1 hardware.
