@@ -1,4 +1,4 @@
-# Pastel FM-1 — v0.3 · Liquid Edition Hybrid
+# Pastel FM-1 — v0.4 · Liquid Edition / Real Animal Jam
 
 **Status:** custom pastel-themed Melodee 1.6.1 derivative, now with Liquid Edition animation, an interactive Animal Jam screen, and SLOOP/ChoralRoot-inspired presets. Source overlay and GitHub build workflow. NOT hardware tested.
 
@@ -9,7 +9,7 @@ The firmware retains a full-featured multi-engine instrument rather than trying 
 - USB stereo audio or four-track capture, USB-host MIDI (hardware support varies), TRS MIDI input and Bluetooth MIDI.
 - New default **Pastel** 240 x 240 LCD theme: blush pink background, rose/lavender cards, deep-plum legible labels, four coordinated instrument colors.
 - **Liquid Edition:** flowing pastel ribbons on the Stage audio strip, music-reactive fluid displacement, drifting bubbles, watery underlay beneath knob visuals, soft droplets in track cards, and animated-style splash graphics with **LIQUID EDITION** beneath PASTEL. Lightweight integer math and no additional audio processing.
-- **ANIMAL JAM**, a third HOME screen: eight animated pastel animals dance with synthesized animal-inspired calls when any of the 27 physical keys is pressed. HOME cycles **Stage → Chord Wheel → Animal Jam**.
+- **ANIMAL JAM**, a third HOME screen: eight animated pastel animals dance in two original pixel-art poses and trigger short real CC0 field recordings when any of the 27 physical keys is pressed. HOME cycles **Stage → Chord Wheel → Animal Jam**.
 - **16 new community-inspired SID presets**: 12 SLOOP-style bass/lead/pad/pluck sounds and 4 ChoralRoot-style chord-friendly sounds, recreated for the supported SID engine rather than copying incompatible patch data.
 - New projects default to SLOOP-style 808, Melodee FM6 bass, ChoralRoot-style pad, and a synthesized drum kit. Existing saved projects and templates are not erased.
 - Boot screen and on-device About name: Pastel — Liquid Edition.
@@ -37,4 +37,6 @@ Apply `pastel-fm1/patch.py` to an exact source checkout. GPL-3.0-only and upstre
 Not associated with M-VAVE, Melodee, Hügelton Instruments, or their authors. Retain original source attribution.
 
 ## Community hybrid details and keyboard map
-For the exact sound list, source attribution, included features and limits, see **[HYBRID.md](HYBRID.md)** and [FEATURES.md](FEATURES.md). Animal calls are synthesized, not recordings.
+For the exact sound list, source attribution, included features and limits, see **[HYBRID.md](HYBRID.md)** and [FEATURES.md](FEATURES.md). Animal Jam uses **eight real CC0 recorded animal calls**, not imitation tones; the samples are stored in the FM-1's dedicated resource flash as 12 kHz IMA ADPCM. The colorful artwork is 16 custom pixel-art frames and is displayed in compact bands. See [AUDIO_CREDITS.md](AUDIO_CREDITS.md).
+
+**Real animal-audio build:** the 29.4 KB CC0 IMA ADPCM pack occupies spare validated resource flash; 16 animal art frames are nibble-RLE compressed (8.7 KB). The last automated build passed LCD, audio and updater checks. Source code was not tested on physical FM-1 hardware.

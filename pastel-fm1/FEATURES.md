@@ -1,6 +1,6 @@
 # Pastel FM-1 — feature selection and provenance
 
-**Pastel v0.3 — Liquid Edition Hybrid** is a focused, source-available custom firmware built from [Melodee 1.6.1](https://github.com/keremimo/melodee/tree/v1.6.1), in turn derived from [Felucca](https://github.com/hugelton/Felucca) with acknowledged, GPL-compatible [SLOOP](https://github.com/isod89/sloop-fm1) elements. It is not a binary splice of different incompatible systems.
+**Pastel v0.4 — Liquid Edition Hybrid / Real Animal Jam** is a focused, source-available custom firmware built from [Melodee 1.6.1](https://github.com/keremimo/melodee/tree/v1.6.1), in turn derived from [Felucca](https://github.com/hugelton/Felucca) with acknowledged, GPL-compatible [SLOOP](https://github.com/isod89/sloop-fm1) elements. It is not a binary splice of different incompatible systems.
 
 ## Selected features already implemented in Pastel's upstream core
 
@@ -15,7 +15,7 @@
 | Safety and performance | Preserved upstream update protocol, boot safeguards, dual-core recovery, host tests | Cosmetic changes should not compromise the bootloader |
 | Appearance | Pastel-branded boot screen, Pastel palette, Liquid Edition branding and ripple/bubble overlays on Stage | A flowing identity that celebrates the nickname Liquid without overwhelming the musician |
 | Community sounds | 12 SLOOP-inspired and 4 ChoralRoot-inspired SID voices added after existing presets (16 total); community roles default for new projects | Compatible reinterpretations of their popular analog/lo-fi and chord-pad sounds |
-| Animal Jam | A third HOME screen featuring eight dancing pastel animals with independent synthesized animal calls and keyboard mapping | Cute creative performance without replacing normal instrument notes on other screens |
+| Animal Jam | A third HOME screen featuring eight dancing pastel animals with two original pixel-art poses and **real CC0 animal calls stored in resource flash** and keyboard mapping | Cute creative performance without replacing normal instrument notes on other screens |
 
 ## Why particular features were not copied
 
@@ -34,4 +34,9 @@ These exclusions are intentional. Shipping unreviewed code from every project on
 - Existing SLOOP integration credits: https://github.com/keremimo/melodee/blob/v1.6.1/LICENSING.md
 - Android phone updater: https://github.com/HyruleanHero1988/FM-1-Swap
 
-**Limitations:** a successful compiler and test suite do not substitute for physical FM-1 testing. The main UI retains upstream Melodee's mature control architecture, and its stock M-VAVE V15 firmware sounds are not used. The hybrid adds a third HOME screen, original synthesis for the Animal Jam sounds and a selected community-inspired SID bank. Existing CZ-1, Prophet and FM6 engine-native built-in presets remain for compatibility. Physical LEDs and button hardware colors are unchanged. See [HYBRID.md](HYBRID.md) for exact provenance and limitations.
+**Limitations:** a successful compiler and test suite do not substitute for physical FM-1 testing. The main UI retains upstream Melodee's mature control architecture, and its stock M-VAVE V15 firmware sounds are not used. The hybrid adds a third HOME screen, recorded animal audio and compressed sprite artwork for Animal Jam and a selected community-inspired SID bank. Existing CZ-1, Prophet and FM6 engine-native built-in presets remain for compatibility. Physical LEDs and button hardware colors are unchanged. See [HYBRID.md](HYBRID.md) for exact provenance and limitations.
+
+### Audio and visual improvements in v0.4
+- Eight genuine CC0 recordings (cat, dog, duck, frog, crow, cow, pig and sheep), 12 kHz mono 4-bit IMA ADPCM; the file's resource payload is packaged with the firmware and works offline.
+- Sixteen hand-directed custom chibi pixel-art frames, two dancing poses per animal; pastel coloring, bubble/ripple backgrounds and music-reactive motion.
+- [Source credits](AUDIO_CREDITS.md). No stock M-VAVE sounds are used for the animal voices. Physical-hardware listening/animation testing remains outstanding.

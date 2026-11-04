@@ -1,4 +1,4 @@
-# Pastel Liquid Edition v0.3 — FM-1 community hybrid
+# Pastel Liquid Edition v0.4 — FM-1 community hybrid
 
 The build lives only in the `pastel-fm1` branch. The RandomCandyLand.com website on its normal branch was not changed.
 
@@ -22,21 +22,21 @@ A new project starts with three sound roles pulled from the community-oriented p
 
 1. Tap **HOME** to cycle **STAGE → CHORD WHEEL → ANIMAL JAM → STAGE**. The header has three page markers.
 2. While ANIMAL JAM is displayed, press **any piano key**. Eight animals repeat from left to right across the 27-key keyboard. Key index modulo eight picks the species.
-3. The selected character grows on the display and dances; the sound is played through the FM-1's own output (and the normal USB audio capture path when enabled). Overlapping calls use at most four voices.
+3. The selected character grows on the display and dances; the sound is played through the FM-1's own output (and the normal USB audio capture path when enabled). Overlapping calls use at most three voices.
 4. Tap HOME again to leave the animal page. Buttons, MIDI functions and editing outside this special mode keep their original meaning.
 
 | Animal | Sound concept |
 | --- | --- |
-| Cat | Sliding synthetic meow |
-| Dog | Two-stage barking growl |
-| Duck | Nasal synthetic quack |
-| Frog | Pulsed ribbit |
-| Bird | Rising/falling digital chirp |
-| Cow | Low mooo |
-| Pig | Squealing oink |
-| Sheep | Quavery baa |
+| Cat | Actual short cat meow recording |
+| Dog | Actual dog bark recording |
+| Duck | Actual duck quack recording |
+| Frog | Actual croaking frog recording |
+| Bird | Actual crow call (caw) |
+| Cow | Actual cow moo recording |
+| Pig | Actual pig oink recording |
+| Sheep | Actual sheep bleat recording |
 
-All eight calls are **procedurally synthesized** using the FM-1 CPU, not sampled animals; the sound quality reflects that difference. The animal graphics are made from LCD circles/lines/rounded shapes, with subtle pastel gradients and motion, not image sprites.
+All eight calls are **actual CC0 field recordings**, clipped to 0.35–0.95 seconds and encoded as 12 kHz mono IMA ADPCM to fit the fixed resource flash. They are not synthesized. The animals are rendered from **16 original colorful pixel-art frames** (eight animals × two dance poses), compressed as 4-bit nibble-RLE artwork. See [AUDIO_CREDITS.md](AUDIO_CREDITS.md) for sources and licenses.
 
 ## Install and safety
 
@@ -50,7 +50,7 @@ The build is **not tested on a physical FM-1**. Updates are inherently risky and
 
 - Upstream base: [Melodee v1.6.1](https://github.com/keremimo/melodee/tree/v1.6.1), pinned to commit `165d177a425944f3d30b0b669255a6ed0050c3a5`.
 - Sound references: [SLOOP](https://github.com/isod89/sloop-fm1), [ChoralRoot](https://github.com/Quixotic7/ChoralRootFM1), [Felucca](https://github.com/hugelton/Felucca).
-- [Source patch](patch.py), [Animal Jam sound engine](animal_audio.c), [Animated animal screen](animal_view.c), [Audio host test](animal_test.c).
+- [Source patch](patch.py), [real-animal ADPCM player](animal_audio.c), [source and CC0 credits](AUDIO_CREDITS.md), [recording packer](generate_animal_samples.py), [pixel-art packer](generate_animal_sprites.py), [animated screen](animal_view.c), and [host audio test](animal_test.c).
 - Generated `Pastel.fwsc` is built, tested and published automatically on this branch by [GitHub Actions](../.github/workflows/pastel-fm1.yml).
 - GPL-3.0-only terms and all upstream source notices remain applicable.
 
