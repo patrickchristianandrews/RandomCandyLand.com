@@ -13,6 +13,8 @@ const uuid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID(
 const date=()=>new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
 let conversations=readStore(),currentId=null,engine=null,loadedModel='',isGenerating=false,activeStream=null,attached=null,external=null,seedCounter=1,recognition=null,photoSource=null,photoDimensions=null,photoOutputReady=false;
 let noticeTimer=0,toolFilter='All';
+const communityEndpoint=typeof window.CANDY_FREE_AI_ENDPOINT==='string' ? window.CANDY_FREE_AI_ENDPOINT.trim().replace(/\\/$/,'') : '';
+let communityHealthy=false,selectedMode='community';
 const CATEGORIES=['All','Writing','Work & Career','Marketing','Learning','Creative'];
 const TOOLS=[
  {id:'professional-email',name:'Professional Email',icon:'✉',group:'Writing',description:'Clear, thoughtful emails that sound like you.',prompt:'Draft a polished professional email with a clear subject line, a warm opening, a concise request, and an appropriate closing. Ask for missing essentials only if they truly matter. Situation:'},
@@ -91,7 +93,7 @@ $('#chatFile').addEventListener('change',async e=>{const file=e.target.files?.[0
 async function sendMessage(){
  if(isGenerating)return;
  const raw=$('#chatInput').value.trim();if(!raw&&!attached)return;
- if(!external&&!engine){navigate('settings');notice('Load a browser model or connect your own compatible provider first.');return;}
+ if(!(selectedMode==='community'&&communityHealthy)&&!(selectedMode==='external'&&external)&&!(selectedMode==='local'&&engine)){navigate('settings');notice('Community service is not yet available. Choose a local model or your own provider.');return;}
  const c=currentConversation();if(!c)return;
  const full=raw+(attached?'\n\n[Attached text: '+attached.name+']\n'+attached.text:'');
  c.messages.push({role:'user',content:full});if(c.messages.length===1)c.title=raw.slice(0,64)||attached.name;
@@ -100,7 +102,14 @@ async function sendMessage(){
  const messages=[{role:'system',content:SYSTEM},...c.messages.slice(0,-1).slice(-15).map(m=>({role:m.role,content:m.content.slice(0,10000)}))];
  const target=c.messages[c.messages.length-1];
  try{
-  if(external){
+  if(selectedMode==='community'&&communityHealthy){
+   const requestMessages=messages.filter(m=>m.role==='user'||m.role==='assistant').slice(-10).map(m=>({role:m.role,content:m.content.slice(0,2500)}));
+   const response=await fetch(communityEndpoint+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:$('#communityModel').value,messages:requestMessages}),signal:controller.signal});
+   const result=await response.json().catch(()=>({error:'Service returned unreadable data.'}));
+   if(!response.ok)throw Error(result.error||'Free community service unavailable.');
+   target.content=result?.choices?.[0]?.message?.content||'No response returned by the community model.';
+   updateLastMessage(target.content);writeStore();
+  }else if(selectedMode==='external'&&external){
    const response=await fetch(external.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+external.key},body:JSON.stringify({model:external.model,messages,stream:false,max_tokens:800}),signal:controller.signal});
    if(!response.ok){const body=(await response.text()).slice(0,340);throw Error('Provider returned '+response.status+': '+body)}
    const result=await response.json();target.content=result?.choices?.[0]?.message?.content||'The provider returned no text.';
@@ -125,8 +134,32 @@ $('#exportHistory').addEventListener('click',exportAll);
 $('#settingsExport').addEventListener('click',exportAll);
 $('#clearConversations').addEventListener('click',()=>{if(!confirm('Delete all local Studio conversations? Export a backup first if you want to keep them.'))return;conversations=[];newChat(false);writeStore();notice('Local conversation history cleared.')});
 const MODELS={'SmolLM2-360M-Instruct-q4f16_1-MLC':'SmolLM2 · 360M','Llama-3.2-1B-Instruct-q4f16_1-MLC':'Llama 3.2 · 1B','SmolLM2-1.7B-Instruct-q4f16_1-MLC':'SmolLM2 · 1.7B'};
-function updateModelLabel(){const name=external?'Your cloud provider':loadedModel?(MODELS[loadedModel]||loadedModel):'Local model';$('#chatModelName').textContent=name;$('#chatModelHint').textContent=external?'Connected using your own provider key':loadedModel?'Running locally in this tab':'Choose and load a model to start';setStatus(external?'Provider connected':loadedModel?'Local model ready':'Model not loaded',Boolean(external||engine))}
+function updateModelLabel(){
+ const free=selectedMode==='community'&&communityHealthy,remote=selectedMode==='external'&&Boolean(external),local=selectedMode==='local'&&Boolean(engine);
+ const name=free?'Free Community':remote?'Your cloud provider':local?(MODELS[loadedModel]||loadedModel):'Choose a model';
+ $('#chatModelName').textContent=name;
+ $('#chatModelHint').textContent=free?'Open-model chat · shared free allocation · no login':remote?'Connected using your own provider key':local?'Running locally in this tab':'Select a model in Settings to start';
+ setStatus(free?'Free chat ready':remote?'Provider connected':local?'Local model ready':'Model not loaded',free||remote||local);
+}
 updateModelLabel();
+async function checkCommunity(){
+ const label=$('#communityStatus');
+ if(!communityEndpoint){communityHealthy=false;label.textContent='Free community chat is not connected yet. The site owner must deploy the free worker and set its address. Other studio tools still work.';updateModelLabel();return;}
+ let endpoint;try{endpoint=new URL(communityEndpoint)}catch{communityHealthy=false;label.textContent='Free service configuration is invalid.';updateModelLabel();return;}
+ if(endpoint.protocol!=='https:'){communityHealthy=false;label.textContent='Free service must use HTTPS.';updateModelLabel();return;}
+ label.textContent='Checking free chat availability…';
+ try{
+  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),6000);
+  let response;try{response=await fetch(endpoint.href.replace(/\\/$/,'')+'/health',{headers:{Accept:'application/json'},signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timer)}
+  const data=await response.json();communityHealthy=response.ok&&data.available===true;
+  label.textContent=communityHealthy?'● Free chat online. No visitor account or key needed. Daily allowance applies.':'Community chat is not configured or is currently unavailable.';
+  if(communityHealthy&&selectedMode==='community')updateModelLabel();
+ }catch{communityHealthy=false;label.textContent='Free community chat is currently unreachable. Local models and browser tools remain available.';}
+ updateModelLabel();
+}
+$('#refreshCommunity').addEventListener('click',checkCommunity);
+$('#communityModel').addEventListener('change',()=>{if(communityHealthy){selectedMode='community';updateModelLabel();notice('Switched to free community chat.');}});
+checkCommunity();
 const gpu=navigator.gpu;$('#gpuCheck').textContent=gpu?'✓ WebGPU detected. A first-time model download can still be substantial.':'WebGPU is unavailable in this browser. Try up-to-date desktop Chrome/Edge or use your own compatible provider.';if(!gpu)$('#loadModel').disabled=true;
 $('#loadModel').addEventListener('click',async()=>{
  if(!gpu)return notice('This browser does not support WebGPU.');
@@ -139,12 +172,12 @@ $('#loadModel').addEventListener('click',async()=>{
   if(engine&&loadedModel!==id){try{await engine.unload()}catch{}engine=null;loadedModel='';}
   if(!engine){engine=await lib.CreateMLCEngine(id,{initProgressCallback:(p)=>{const pct=typeof p.progress==='number'?Math.round(p.progress*100):0;$('#modelProgressFill').style.width=clamp(pct,0,100)+'%';$('#modelProgressText').textContent=String(p.text||'Preparing local model…').slice(0,190);}});}
   else if(loadedModel!==id)await engine.reload(id);
-  loadedModel=id;external=null;$('#cloudKey').value='';$('#cloudStatus').textContent='Local model selected; provider disconnected.';$('#modelProgressFill').style.width='100%';$('#modelProgressText').textContent='Ready to create';updateModelLabel();notice('Model loaded. Chat is ready.');navigate('chat');
+  loadedModel=id;selectedMode='local';external=null;$('#cloudKey').value='';$('#cloudStatus').textContent='Local model selected; provider disconnected.';$('#modelProgressFill').style.width='100%';$('#modelProgressText').textContent='Ready to create';updateModelLabel();notice('Model loaded. Chat is ready.');navigate('chat');
  }catch(error){engine=null;loadedModel='';updateModelLabel();$('#modelProgressText').textContent='Could not load: '+(error?.message||'Unknown error');notice('Local model could not load. Try a smaller model or a supported browser.')}
  finally{btn.disabled=false;btn.textContent='↓ Download & load model';}
 });
-$('#connectCloud').addEventListener('click',()=>{const endpoint=$('#cloudEndpoint').value.trim(),model=$('#cloudModel').value.trim(),key=$('#cloudKey').value.trim();let url;try{url=new URL(endpoint)}catch{return notice('Enter a valid endpoint URL.')}if(url.protocol!=='https:'&&url.hostname!=='localhost'&&url.hostname!=='127.0.0.1')return notice('Use HTTPS for external model endpoints.');if(!model||!key)return notice('Enter the model identifier and your own provider key.');if(!confirm('Connect to '+url.hostname+'? Prompts and your session key will be sent directly to this service when you send a chat message. Provider charges or limits may apply.'))return;external={endpoint:url.href,model,key};$('#cloudKey').value='';$('#cloudStatus').textContent='Connected to '+url.hostname+'. Key held in memory for this tab only.';updateModelLabel();notice('Provider connected. Open Chat to send a prompt.');});
-$('#disconnectCloud').addEventListener('click',()=>{external=null;$('#cloudKey').value='';$('#cloudStatus').textContent='Not connected.';updateModelLabel();notice('Provider disconnected.')});
+$('#connectCloud').addEventListener('click',()=>{const endpoint=$('#cloudEndpoint').value.trim(),model=$('#cloudModel').value.trim(),key=$('#cloudKey').value.trim();let url;try{url=new URL(endpoint)}catch{return notice('Enter a valid endpoint URL.')}if(url.protocol!=='https:'&&url.hostname!=='localhost'&&url.hostname!=='127.0.0.1')return notice('Use HTTPS for external model endpoints.');if(!model||!key)return notice('Enter the model identifier and your own provider key.');if(!confirm('Connect to '+url.hostname+'? Prompts and your session key will be sent directly to this service when you send a chat message. Provider charges or limits may apply.'))return;external={endpoint:url.href,model,key};selectedMode='external';$('#cloudKey').value='';$('#cloudStatus').textContent='Connected to '+url.hostname+'. Key held in memory for this tab only.';updateModelLabel();notice('Provider connected. Open Chat to send a prompt.');});
+$('#disconnectCloud').addEventListener('click',()=>{external=null;selectedMode=communityHealthy?'community':engine?'local':'community';$('#cloudKey').value='';$('#cloudStatus').textContent='Not connected.';updateModelLabel();notice('Provider disconnected.')});
 const PALETTES={candy:['#180c3f','#6941ac','#e390d5','#ffca91','#e5c6ff'],ocean:['#070d25','#133b68','#187b9b','#7cd9cf','#c7dffa'],sunset:['#27113c','#8b3266','#ef725d','#ffc67b','#fff0b7'],forest:['#0a1b27','#1d5151','#39837a','#8bc58f','#eadf95'],mono:['#171133','#44346f','#8067af','#b4a4dd','#f1dbfb']};
 const artCanvas=$('#artCanvas'),artCtx=artCanvas.getContext('2d');
 function artRand(seed){let n=seed>>>0;return()=>{n=(n*1664525+1013904223)>>>0;return n/4294967296}}
