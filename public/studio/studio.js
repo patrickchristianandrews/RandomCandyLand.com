@@ -13,7 +13,7 @@ const uuid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID(
 const date=()=>new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
 let conversations=readStore(),currentId=null,engine=null,loadedModel='',isGenerating=false,activeStream=null,attached=null,external=null,seedCounter=1,recognition=null,photoSource=null,photoDimensions=null,photoOutputReady=false;
 let noticeTimer=0,toolFilter='All';
-const communityEndpoint=typeof window.CANDY_FREE_AI_ENDPOINT==='string' ? window.CANDY_FREE_AI_ENDPOINT.trim().replace(/\\/$/,'') : '';
+const communityEndpoint=typeof window.CANDY_FREE_AI_ENDPOINT==='string' ? window.CANDY_FREE_AI_ENDPOINT.trim().replace(/\/$/,'') : '';
 let communityHealthy=false,selectedMode='community';
 const CATEGORIES=['All','Writing','Work & Career','Marketing','Learning','Creative'];
 const TOOLS=[
@@ -150,7 +150,7 @@ async function checkCommunity(){
  label.textContent='Checking free chat availability…';
  try{
   const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),6000);
-  let response;try{response=await fetch(endpoint.href.replace(/\\/$/,'')+'/health',{headers:{Accept:'application/json'},signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timer)}
+  let response;try{response=await fetch(endpoint.href.replace(/\/$/,'')+'/health',{headers:{Accept:'application/json'},signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timer)}
   const data=await response.json();communityHealthy=response.ok&&data.available===true;
   label.textContent=communityHealthy?'● Free chat online. No visitor account or key needed. Daily allowance applies.':'Community chat is not configured or is currently unavailable.';
   if(communityHealthy&&selectedMode==='community')updateModelLabel();
@@ -232,7 +232,7 @@ function refreshVoices(){const s=$('#voiceSelect');const voices=speechSynthesis.
 if('speechSynthesis'in window){refreshVoices();speechSynthesis.addEventListener?.('voiceschanged',refreshVoices);}
 $('#voiceRate').addEventListener('input',e=>$('#voiceRateLabel').textContent=Number(e.target.value).toFixed(1)+'×');
 $('#speakBtn').addEventListener('click',()=>{if(!('speechSynthesis'in window))return notice('Speech synthesis is unavailable in this browser.');const text=$('#speechText').value.trim();if(!text)return notice('Enter text to read.');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text.slice(0,15000));const voices=speechSynthesis.getVoices();if($('#voiceSelect').value!=='')u.voice=voices[Number($('#voiceSelect').value)]||null;u.rate=Number($('#voiceRate').value);u.onerror=()=>notice('Voice playback could not start.');speechSynthesis.speak(u);notice('Reading aloud…');});
-$('#stopSpeakBtn').addEventListener('click',()=>{speechSynthesis?.cancel();notice('Playback stopped.')});
+$('#stopSpeakBtn').addEventListener('click',()=>{window.speechSynthesis?.cancel();notice('Playback stopped.')});
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;$('#dictationStatus').textContent=SR?'Voice recognition is available. Some browsers send speech to their provider.':'Voice dictation is not supported in this browser. Try desktop Chrome or a supported mobile browser.';
 $('#listenBtn').disabled=!SR;
 $('#listenBtn').addEventListener('click',()=>{if(!SR)return;recognition=new SR();recognition.lang=document.documentElement.lang||'en-US';recognition.continuous=true;recognition.interimResults=true;const start=$('#dictationText').value;recognition.onresult=e=>{let final=start,partial='';for(let i=0;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)final+=' '+t;else partial+=t}$('#dictationText').value=(final+' '+partial).trim()};recognition.onerror=e=>$('#dictationStatus').textContent='Recognition error: '+e.error;recognition.onend=()=>{$('#dictationStatus').textContent='Dictation stopped.'};try{recognition.start();$('#dictationStatus').textContent='● Listening…'}catch{notice('Could not start dictation.')}});
