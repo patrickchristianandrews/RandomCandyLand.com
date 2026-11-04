@@ -287,7 +287,7 @@ if (!installSource.includes("app.id==='site' && isInstalled()")) {
 if (!homeBundle.includes('candyland-next') ||
     !homeBundle.includes('Stay sweet.') ||
     !homeBundle.includes('Get weird.') ||
-    !homeBundle.includes('candyland-hero-categories')) {
+    !homeBundle.includes('candyland-play-shelves')) {
   console.error('The replacement Candy Land homepage is missing from the published bundle.');
   failures++;
 }
@@ -610,7 +610,9 @@ if(homeInstallSource.includes('candyland-grouped-collections') ||
    homeInstallSource.includes('className="candyland-portal ') ||
    homeInstallSource.includes('id="adventures"') ||
    !homeInstallSource.includes('games.map(portal =>') ||
-   !homeInstallSource.includes("COLLECTIONS.filter(group => category === 'all' || category === group.id)") ||
+   !homeInstallSource.includes('COLLECTIONS.map(group =>') ||
+   homeInstallSource.includes('candyland-hero-categories') ||
+   homeInstallSource.includes('candyland-category-guide') ||
    !homeInstallSource.includes('<details className="candyland-future-games"') ||
    !homeInstallSource.includes('<details className="candyland-install-apps"')){
   console.error('Homepage must use categorized compact game shelves with collapsible optional sections.'); failures++;
@@ -646,7 +648,7 @@ if(fs.existsSync('dist/ai-academy/academy.js')){
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes("url:'/osint-academy/'") ||
    !homeInstallSource.includes("Moodropolis") ||
-   !homeInstallSource.includes('candyland-hero-categories') ||
+   !homeInstallSource.includes('candyland-play-shelves') ||
    !homeInstallSource.includes('Ongoing Worlds & Pets') ||
    !homeInstallSource.includes('Courses & Training') ||
    !homeInstallSource.includes('Quick Games') ||
