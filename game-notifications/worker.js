@@ -22,7 +22,7 @@ async function hkdfExpand(prk,info,length){let result=new Uint8Array(0),previous
 async function idFor(endpoint){const sum=await crypto.subtle.digest('SHA-256',enc.encode(endpoint));return 'sub:'+base64url(sum)}
 function endpointOK(url){try{const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.search||u.hash)return false;const h=u.hostname.toLowerCase();return h==='fcm.googleapis.com'||h==='updates.push.services.mozilla.com'||h==='web.push.apple.com'||h.endsWith('.push.apple.com')||h.endsWith('.push.services.mozilla.com')}catch{return false}}
 function validToken(t){return typeof t==='string'&&/^[0-9a-f]{32,64}$/.test(t)}
-function validSub(s){return !!s&&typeof s==='object'&&typeof s.endpoint==='string'&&s.endpoint.length<1700&&endpointOK(s.endpoint)&&typeof s.keys?.p256dh==='string'&&typeof s.keys?.auth==='string'&&s.keys.p256dh.length<170&&s.keys.auth.length<100&&unbase64url(s.keys.p256dh).length===65&&unbase64url(s.keys.auth).length===16}
+function validSub(s){try{return !!s&&typeof s==='object'&&typeof s.endpoint==='string'&&s.endpoint.length<1700&&endpointOK(s.endpoint)&&typeof s.keys?.p256dh==='string'&&typeof s.keys?.auth==='string'&&s.keys.p256dh.length<170&&s.keys.auth.length<100&&unbase64url(s.keys.p256dh).length===65&&unbase64url(s.keys.auth).length===16}catch{return false}}
 function preferences(src){
  if(!src||typeof src!=='object')return null;
  const games=Array.isArray(src.games)?[...new Set(src.games.filter(x=>typeof x==='string'&&Object.hasOwn(GAME_INFO,x)))].slice(0,6):[];
