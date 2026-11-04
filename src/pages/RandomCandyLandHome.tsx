@@ -39,6 +39,9 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/candy-match.svg',name:'Candy Match',url:'/candy-match/'},
   {icon:'/tool-icons/candy-pulse.svg',name:'Candy Pulse',url:'/music-visualizer/'},
   {icon:'/tool-icons/osint-academy.svg',name:'TRACE OSINT Academy',url:'/osint-academy/'},
+  {icon:'/tool-icons/moodropolis.svg',name:'Moodropolis',url:'/moodropolis/'},
+  {icon:'/tool-icons/the-corridors.svg',name:'The Corridors',url:'/the-corridors/'},
+  {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
 ] as const;
 
 const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT'] as const;
@@ -175,20 +178,27 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <a className="candyland-unwrapped-promo-link" href="/after-dark/" aria-label="Explore Unwrapped, for adults 18 and older">Explore Unwrapped <span aria-hidden="true">↗</span></a>
       </aside>
 
+      <nav className="candyland-world-strip" aria-label="Explore three new interactive worlds">
+        <span className="candyland-world-strip-heading">✦ NEW PLAYABLE WORLDS</span>
+        <a href="/moodropolis/"><img src="/tool-icons/moodropolis.svg" width={31} height={31} alt="" />Moodropolis <span>↗</span></a>
+        <a href="/the-corridors/"><img src="/tool-icons/the-corridors.svg" width={31} height={31} alt="" />The Corridors <span>↗</span></a>
+        <a href="/the-docket/"><img src="/tool-icons/the-docket.svg" width={31} height={31} alt="" />The Docket <span>↗</span></a>
+      </nav>
+
       {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
       <RandomNonsenseGenerator />
 
-      <details className="candyland-future-games" aria-label="Games in development">
-        <summary>✨ Upcoming worlds <span>3 concepts</span></summary>
+      <details className="candyland-future-games" aria-label="Three connected playable worlds">
+        <summary>✨ Meet the Meridian universe <span>3 games · Play now</span></summary>
         <div className="candyland-section-heading">
-          <span>✨ ON THE DRAWING BOARD</span>
-          <h2>New worlds <em>in development.</em></h2>
-          <p>These are upcoming concepts, not playable games yet.</p>
+          <span>✨ THREE CONNECTED STORIES</span>
+          <h2>A city. Its power. <em>Its justice.</em></h2>
+          <p>Play each world on its own, or move between them. Your decisions save on this device and shape a shared Meridian chronicle.</p>
         </div>
         <div className="candyland-future-grid">
-          <article><strong>🏙️ Moodropolis</strong><p>An emotionally alive city builder where people, neighborhoods and culture evolve with your choices.</p></article>
-          <article><strong>🏛️ The Corridors: Rise to Power</strong><p>Explore how policy, negotiation, influence, ethics, and government decisions interact.</p></article>
-          <article><strong>⚖️ The Docket</strong><p>Investigate legal cases, evaluate evidence, and navigate courtroom decisions and consequences.</p></article>
+          <article><strong>🏙️ Moodropolis</strong><p>Manage neighborhoods, emotional wellbeing, a budget, residents, and evolving city events.</p><a href="/moodropolis/" className="candyland-world-play">Play Moodropolis ↗</a></article>
+          <article><strong>🏛️ The Corridors: Rise to Power</strong><p>Navigate seven branching policy battles, political bargains, money, ethics, oversight, and relationships.</p><a href="/the-corridors/" className="candyland-world-play">Enter The Corridors ↗</a></article>
+          <article><strong>⚖️ The Docket</strong><p>Work five cases from four professional roles, review evidence, argue procedure, reach a conclusion, and explore appeals.</p><a href="/the-docket/" className="candyland-world-play">Open The Docket ↗</a></article>
         </div>
       </details>
 
