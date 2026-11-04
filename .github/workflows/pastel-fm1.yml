@@ -1,0 +1,75 @@
+# GPL-3.0-only overlay built from keremimo/melodee v1.6.1.
+# Runs only on an isolated branch; never modifies the RandomCandyLand website.
+name: Build Pastel FM-1 firmware
+on:
+  push:
+    branches: [pastel-fm1]
+    paths:
+      - 'pastel-fm1/patch.py'
+      - 'pastel-fm1/README.md'
+      - '.github/workflows/pastel-fm1.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  firmware:
+    uses: zvenson/fm1-build/.github/workflows/build.yml@v1
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    with:
+      sdk: true
+      tests-block: true
+      build: |
+        set -euo pipefail
+        git clone --depth 1 --branch v1.6.1 https://github.com/keremimo/melodee.git upstream-melodee
+        test "$(git -C upstream-melodee rev-parse HEAD)" = 165d177a425944f3d30b0b669255a6ed0050c3a5
+        python3 pastel-fm1/patch.py upstream-melodee
+        sudo apt-get update
+        sudo apt-get install -y libharfbuzz-dev libfribidi-dev libraqm-dev
+        python3 -m pip install -r upstream-melodee/tools/requirements-build.txt mido
+        npm ci --prefix upstream-melodee/web
+        cd upstream-melodee
+        python3 tools/gen_ui_palettes.py /tmp/pastel-theme.h --report
+        PARALLEL=2 ./build.sh
+        mkdir -p ../pastel-fm1/dist
+        cp build/melodee.fwsc ../pastel-fm1/dist/Pastel.fwsc
+        tar -czf ../pastel-fm1/dist/Pastel-source.tar.gz --exclude=.git --exclude=build .
+      test: |
+        set -euo pipefail
+        cd upstream-melodee
+        SOUND=0 PARALLEL=2 tests/run_tests.sh
+      packages: pastel-fm1/dist/*
+
+  publish:
+    name: Put phone-ready firmware on Pastel branch
+    needs: firmware
+    if: github.ref == 'refs/heads/pastel-fm1'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pastel-fm1
+      - uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: incoming
+      - name: Save firmware and checksum without modifying website
+        shell: bash
+        run: |
+          set -euo pipefail
+          file="$(find incoming -type f -name Pastel.fwsc -print -quit)"
+          test -s "$file"
+          cp "$file" pastel-fm1/Pastel.fwsc
+          sha256sum pastel-fm1/Pastel.fwsc > pastel-fm1/Pastel.sha256
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f pastel-fm1/Pastel.fwsc pastel-fm1/Pastel.sha256
+          if ! git diff --cached --quiet; then
+            git commit -m 'Build Pastel FM-1 firmware (generated, do not hand-edit)'
+            git push origin HEAD:pastel-fm1
+          fi
