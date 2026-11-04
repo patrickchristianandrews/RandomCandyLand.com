@@ -7,6 +7,7 @@ storage formats. Source: https://github.com/keremimo/melodee/tree/v1.6.1
 GPL-3.0-only; retained upstream notices and licenses are required.
 """
 import pathlib
+import shutil
 import sys
 
 root=pathlib.Path(sys.argv[1]).resolve() if len(sys.argv)>1 else pathlib.Path(".").resolve()
@@ -37,7 +38,7 @@ exact(pathlib.Path("firmware/src/main.c"), '"MELODEE", T_THEME', '"PASTEL", T_TH
 exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T_THEME')
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
-      '#define MELODEE_VERSION "Pastel v0.1"')
+      '#define MELODEE_VERSION "Pastel v0.2"')
 # Preserve upstream palette name-order coverage while explicitly expecting Pastel.
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
@@ -45,4 +46,47 @@ exact(pathlib.Path("tests/theme_test.c"),
 exact(pathlib.Path("tests/theme_test.c"),
       'assert((p == 1u || p == 6u) == ux.light)',
       'assert((p == 0u || p == 1u || p == 6u) == ux.light)')
-print("Pastel patch applied. Core synth, effects, MIDI and recovery paths remain upstream Melodee 1.6.1.")
+# New independent liquid animation implementation. Kept outside the upstream
+# source tree; copied only into the ephemeral build checkout.
+liquid_src = pathlib.Path(__file__).with_name("liquid_effects.c")
+liquid_dst = root / "firmware/src/pastel_liquid.c"
+if liquid_dst.exists():
+    raise RuntimeError("Refusing to overwrite a pre-existing liquid source")
+shutil.copyfile(liquid_src, liquid_dst)
+
+# Stage's existing 30-pixel refresh already runs at half UI frame rate.
+# We draw beneath waveform and notes, leave touch/knob logic unchanged,
+# and only add static bubbles to full-row redraws.
+exact(pathlib.Path("firmware/src/ui_stage.c"),
+      "static void stage_band(void)",
+      '#include "pastel_liquid.c"\\nstatic void stage_band(void)')
+exact(pathlib.Path("firmware/src/ui_stage.c"),
+      "cv_begin(240, ST_BAND_H, T_BG);",
+      "cv_begin(240, ST_BAND_H, T_BG);\\n    pastel_liquid_band(ST_BAND_H);")
+exact(pathlib.Path("firmware/src/ui_stage.c"),
+      "cv_bg = T_BG;\\n        if (pic == SP_FILTER)",
+      "cv_bg = T_BG;\\n        pastel_liquid_shape(H_GRAPH);\\n        if (pic == SP_FILTER)")
+exact(pathlib.Path("firmware/src/ui_stage.c"),
+      "stage_rec_paint(0, 0, BOX_W, h, 8, lv);         /* armed: the red border */",
+      "stage_rec_paint(0, 0, BOX_W, h, 8, lv);         /* armed: the red border */\\n            pastel_liquid_droplets(bg, tc, h);")
+
+# Keep the name Pastel, with "Liquid Edition" as its custom identity.
+exact(pathlib.Path("firmware/src/main.c"),
+      'draw_text_box(0, 140, 240, TY_TX, "Starting up", T_MID, 1);',
+      'draw_text_box(0, 140, 240, TY_TX, "LIQUID EDITION", T_MID, 1);')
+exact(pathlib.Path("firmware/src/main.c"),
+      'draw_text_box(0, 140, 240, TY_TX, "Multi-engine synth", T_MID, 1);',
+      'draw_text_box(0, 140, 240, TY_TX, "LIQUID EDITION", T_MID, 1);')
+exact(pathlib.Path("firmware/src/main.c"),
+      'draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);',
+      'draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);\\n    pastel_liquid_splash();',
+      expected=1)
+# The second splash is inside a conditional; preserve its indentation.
+exact(pathlib.Path("firmware/src/main.c"),
+      '        draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);',
+      '        draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);\\n        pastel_liquid_splash();',
+      expected=1)
+exact(pathlib.Path("firmware/src/ui_menu.c"),
+      'y = menu_text("Multi-engine synthesizer", y + 146, T_SEC, draw);',
+      'y = menu_text("LIQUID EDITION - multi-engine synthesizer", y + 146, T_SEC, draw);')
+print("Pastel patch applied. Liquid Edition: animation and soft ribbon/splash customization; DSP and update mechanisms unchanged.")
