@@ -345,7 +345,7 @@ const toolIcons = [
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
     !homeInstallSource.includes('className="candyland-hero-tool-link"') ||
     !homeInstallSource.includes('src={portal.icon}') ||
-    !homeInstallSource.includes("PORTALS.map((portal,index)") ||
+    !homeInstallSource.includes("games.map(portal =>") ||
     !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
   console.error('The Candy Land homepage must display all thirteen illustrated game and tool shortcuts.');
   failures++;
@@ -592,17 +592,27 @@ if (!fs.existsSync(melodySourcePath)) {
     }
   }
 }
+
+// Notifications live inside games and require explicit user permission. Never
+// restore a dedicated homepage notification setup/signup section.
+if(homeInstallSource.includes('candyland-notify-section') ||
+   homeInstallSource.includes('id="rcl-notify-center"') ||
+   !fs.readFileSync('dist/install-app.js','utf8').includes('mountGameReminder') ||
+   !fs.readFileSync('dist/notifications/center.js','utf8').includes('node.dataset.game') ||
+   !fs.existsSync('dist/notifications/embedded.css')){
+  console.error('Notifications must be embedded in individual games, not the homepage.');failures++;
+}
 // The homepage displays game icons only once: never reintroduce enormous
 // duplicate cards for virtual pets or other categories.
 if(homeInstallSource.includes('candyland-grouped-collections') ||
    homeInstallSource.includes('className="candyland-portals"') ||
    homeInstallSource.includes('className="candyland-portal ') ||
    homeInstallSource.includes('id="adventures"') ||
-   !homeInstallSource.includes('PORTALS.map((portal,index)') ||
-   !homeInstallSource.includes("category !== 'all' && portal.kind !== category") ||
+   !homeInstallSource.includes('games.map(portal =>') ||
+   !homeInstallSource.includes("COLLECTIONS.filter(group => category === 'all' || category === group.id)") ||
    !homeInstallSource.includes('<details className="candyland-future-games"') ||
    !homeInstallSource.includes('<details className="candyland-install-apps"')){
-  console.error('Homepage must use one icon grid with compact category filters and collapsible optional sections.'); failures++;
+  console.error('Homepage must use categorized compact game shelves with collapsible optional sections.'); failures++;
 }
 if(!homeInstallSource.includes('candyland-unwrapped-promo') ||
    !homeInstallSource.includes('personal and partner reports') ||
@@ -616,10 +626,10 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes("url:'/osint-academy/'") ||
    !homeInstallSource.includes("Moodropolis") ||
    !homeInstallSource.includes('candyland-hero-categories') ||
-   !homeInstallSource.includes('Virtual Pets') ||
-   !homeInstallSource.includes('Deep Learning') ||
+   !homeInstallSource.includes('Ongoing Worlds & Pets') ||
+   !homeInstallSource.includes('Courses & Training') ||
    !homeInstallSource.includes('Quick Games') ||
-   !homeInstallSource.includes('Long Adventures') ||
+   !homeInstallSource.includes('Story Adventures') ||
    !homeInstallSource.includes("href:'/the-corridors/'") ||
    !homeInstallSource.includes("href:'/the-docket/'") ||
    !homeInstallSource.includes("href:'/studio/'") ||
