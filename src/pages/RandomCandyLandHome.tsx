@@ -5,7 +5,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'quick' | 'ongoing' | 'story' | 'learning' | 'creative' | 'discovery';
+type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'creative' | 'discovery';
 
 type Portal = {
   icon: string;
@@ -17,6 +17,7 @@ type Portal = {
   palette: string;
   oldPet?: boolean;
   duration?: string;
+  multiplayer?: 'online' | 'same-screen';
 };
 
 // The current app can detect when it is launched from its installed home-screen
@@ -67,10 +68,10 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[0],title:'Unwrapped',blurb:"There's more to you. Understand every layer. Appreciate the whole person. Explore psychology, feelings, attraction, communication and relationships, then share what matters through quizzes, guides and partner-friendly reports.",kind:'discovery',label:'KNOW YOURSELF · SHARE MORE · 18+',palette:'purple',href:'/after-dark/'},
   {icon:TOOL_MENU_ICONS[1],title:'Trumpagotchi OG',blurb:"The original talking Trumpagotchi: care for him, play mini-games, and hear complete recorded reactions.",kind:'ongoing',label:'RETRO DIGIPET',palette:'peach',oldPet:true},
   {icon:TOOL_MENU_ICONS[2],title:'FM-1 Trumpagotchi',blurb:"A playful pixel-art digital pet with food, praise, cleaning, naps, news and music. Keep your tiny pet happy.",kind:'ongoing',label:'NOW PLAYABLE · PIXEL PET',palette:'pink',href:'/trumpagotchi-fm1/'},
-  {icon:TOOL_MENU_ICONS[3],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'quick',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/'},
-  {icon:TOOL_MENU_ICONS[4],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'quick',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/'},
+  {icon:TOOL_MENU_ICONS[3],title:'GOO RUSH! — Candy Arcade',blurb:"A lightning-fast candy-hunting game with combos, fever bonuses, same-screen 2-player duels, daily puzzles, and friend challenges.",kind:'multiplayer',label:'NEW · SOLO & MULTIPLAYER',palette:'pink',href:'/goo-rush/',multiplayer:'same-screen',duration:'5–15 MIN'},
+  {icon:TOOL_MENU_ICONS[4],title:'Candy Land Casino!',blurb:'A sugar-dripped casino with five-card draw poker, high-card clashes and dice duels. Every game pits you against Candybot or a real person online. Virtual chips only!',kind:'multiplayer',label:'NEW · POKER & HUMAN OR COMPUTER RIVALS',palette:'purple',href:'/candy-casino/',multiplayer:'online',duration:'5–30 MIN'},
   {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'quick',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
-  {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'quick',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/'},
+  {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'multiplayer',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/',multiplayer:'same-screen',duration:'5–15 MIN'},
   {icon:TOOL_MENU_ICONS[7],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'creative',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/',duration:'LONG COURSE'},
   {icon:TOOL_MENU_ICONS[9],title:'Moodropolis',blurb:'Build a city that feels alive. Meet citizens, respond to their problems, rebuild neighborhoods, discover events, and shape the future of Meridian.',kind:'ongoing',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
@@ -80,6 +81,7 @@ const PORTALS: Portal[] = [
 ];
 
 const COLLECTIONS = [
+  {id:'multiplayer',title:'Multiplayer & Play Together',description:'Play with other people. Online rooms and same-screen modes are clearly marked.',symbol:'👥',time:'PLAY TOGETHER'},
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
   {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
@@ -176,7 +178,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
               </button>
             ))}
           </div>
-          <p className="candyland-category-guide">Pick a quick break, an ongoing world, a story worth an hour or a creative challenge. Everything is grouped below.</p>
+          <p className="candyland-category-guide">Choose a multiplayer match, a quick break, an ongoing world, a story worth an hour or a creative challenge. Everything is grouped below.</p>
 
         </div>
       </section>
@@ -204,6 +206,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                           <span className="candyland-hero-tool-name">{portal.title}</span>
                           <span className="candyland-hero-tool-blurb">{portal.blurb}</span>
                           <span className="candyland-hero-tool-duration">{portal.duration || (group.id === 'quick' ? '5–15 MIN' : group.id === 'ongoing' ? 'DROP IN ANYTIME' : 'EXPLORE')}</span>
+                          <span className={'candyland-multiplayer-tag '+(portal.multiplayer||'single')}>{portal.multiplayer==='online'?'🌐 Online friends · relay required':portal.multiplayer==='same-screen'?'👥 Same-screen multiplayer':'👤 Single-player / solo'}</span>
                         </span>
                       </>;
                       return portal.oldPet
