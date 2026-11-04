@@ -1,28 +1,27 @@
-# Original M-VAVE FM-1 factory preset library — all 128 sounds
+# Original M-VAVE FM-1 factory preset library — all 128 built into Pastel v0.7
 
-Pastel 0.6 includes an **ANIMAL KIT sequencer** as a real selectable DRUM preset. The **128 original M-VAVE FM-1 factory patches** are supplied separately as **four 32-voice DX7 SysEx banks** in `PastelFactory128.zip`.
+Pastel v0.7 keeps the **ANIMAL KIT sequencer** and adds the **128 original M-VAVE FM-1 factory patches** directly as built-in FM6 sounds. The four-bank DX7 SysEx ZIP is optional.
 
 These are **genuine recovered voices**, not newly approximated presets. Source: [KingParamount/fm1-factory-presets](https://github.com/KingParamount/fm1-factory-presets). Their provenance analysis identifies 126 byte-identical community DX7 patches, with additional origins documented in that project's credits. Do not claim these recordings and sounds were newly created for Pastel.
 
-## Why the 128 voices are an extra bank download
+## Built into Pastel's FM6 browser (v0.7)
 
-Pastel/Melodee already contains extensive Prophet, FM6, CZ-1, SID and synthesized drum preset banks *and* about 29 KB of eight recorded animal calls with about 9 KB of animal sprites. The separate resource flash is essentially full (Pastel 0.4: 83,244 bytes out of ~86,016 bytes). Adding 16,384 bytes of original FM-1 DX7 patch bytes directly would cross the device's protected flash layout.
+All 128 original M-VAVE DX7 voices are now built into firmware **as read-only FM6 factory presets**, not silently imported into occupied user slots. This approach keeps the first 24 original FM6 sounds and their existing **INIT VOICE** index 24 untouched. New factory sounds occupy indices **25–152** and can be chosen on the device through **PRESETS → FM6** (or the main categorized browser), assuming the new firmware has been successfully built, installed and checked.
 
-The correct safe solution is to make all 128 available as a **one-time import** into Melodee's shared user preset slots. These slots have room for 384 voices across the engines, **subject to whatever is already saved**. Importing does not replace the built-in factory patches. It is not safe to prefill the user's 384 slots without consent.
+The original factory voice bank occupies 16,384 bytes (128 voices × 128 bytes), plus preset names. Because the resource flash is nearly full with animal calls, sprite art and upstream audio, the new voices must live in **XIP program .rodata**, not in .mres. The firmware builder enforces app flash limits; if it fails to fit, do not flash an outdated binary marked v0.7.
 
-## How to add all 128 to your FM-1
+The complete original four-bank `PastelFactory128.zip` remains available for backup, compatibility, and manual import into a different FM6-enabled firmware. **No ZIP import is required on Pastel v0.7**. A firmware update never writes into the existing 384 shared user sound slots.
 
-1. Download `PastelFactory128.zip` from this folder (after the next build succeeds). Unzip it into the four files:
-   - `FM-1_factory_bank1.syx`: piano, organ, lead, pad
-   - `FM-1_factory_bank2.syx`: guitar, electric guitar, bass and synth bass
-   - `FM-1_factory_bank3.syx`: brass, woodwind, string, voice
-   - `FM-1_factory_bank4.syx`: percussion, special effects
-2. **Back up your existing projects and sounds first.** An existing user preset slot will not be overwritten silently by this firmware update. However, manually importing into occupied slots can replace those slots if you confirm it.
-3. Open the Melodee-compatible **web editor** in a browser with WebMIDI support (desktop Chrome/Edge is most reliable). Connect your USB-C **data cable** to the FM-1.
-4. In the **User presets** panel, select the **FM6** preset collection if offered, and **Import .syx**. Select bank1 and confirm its 32 imported tones. Choose enough **empty** destinations to preserve existing sounds; use the editor's occupied-slot confirmations to avoid overwrites. Repeat for bank2, bank3 and bank4.
-5. Disconnect safely. On the FM-1, turn **PRESETS** and choose FM6. The new voices appear as user FM6 presets after the standard built-ins. They are genuine DX7 voice data rendered by Melodee's FM6/Dexed-like engine. Sound may differ slightly from stock V15 due to engine and effects calibration.
+## If you want to use the separate banks elsewhere
 
-**Important:** A regular firmware flash does not automatically import these user presets, because doing so could erase someone's existing library. The `PastelFactory128.zip` file is the full 128-voice source library, not a firmware update. Each voice is a 128-byte packed DX7 record; each bank is a 4,104-byte standard DX7 SysEx file. The four source file Git blob hashes are verified in the GitHub build before the ZIP is published.
+The optional ZIP contains four DX7-compatible SysEx banks:
+
+- `FM-1_factory_bank1.syx`: piano, organ, lead, pad
+- `FM-1_factory_bank2.syx`: guitar, electric guitar, bass, synth bass
+- `FM-1_factory_bank3.syx`: brass, woodwind, string, voice
+- `FM-1_factory_bank4.syx`: percussion, special effects
+
+Back up first before importing them into **user** slots on another firmware. The built-in v0.7 sounds cannot overwrite user slots, but a manual import into occupied slots may replace them if confirmed. They are original packed DX7 VMEM records rendered by the FM6/Dexed-derived engine, which may sound somewhat different from stock V15.
 
 ### Animal Sequencer: ANIMAL KIT
 

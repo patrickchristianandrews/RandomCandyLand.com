@@ -1,6 +1,6 @@
-# Pastel FM-1 — v0.6 · Liquid Edition / Animal Sequencer + Original Factory Sounds
+# Pastel FM-1 — v0.7 · Liquid Edition / Animal Sequencer + 128 Built-in Original Factory Sounds
 
-**Status:** Pastel v0.6 source adds a real 8-lane **ANIMAL KIT** for SEQ > STEP and REC. The complete 128-voice original M-VAVE factory sounds are supplied in a separately importable SysEx pack. **Do not treat the new firmware as released until its GitHub Actions build and publish jobs both succeed.** Not tested on physical FM-1 hardware.
+**Status:** Pastel v0.7 source adds all 128 original M-VAVE factory DX7 voices as **read-only, built-in FM6 presets**, numbered after the current 24 FM6 presets and INIT VOICE. No user preset import is required. The pre-existing 8-lane ANIMAL KIT and other engines remain. **Do not treat v0.7 as released until its GitHub Actions build and publish jobs succeed and the code image fits its XIP flash region.** Not tested on physical FM-1 hardware.
 
 The firmware retains a full-featured multi-engine instrument rather than trying to concatenate incompatible firmware binaries:
 - Melodee active engines: FM6/DX7-style, Prophet virtual analog, native CZ-1, SID chiptune, synthesized drums, plus MIDI. Additional retired legacy engines are not enabled by default.
@@ -17,7 +17,7 @@ The firmware retains a full-featured multi-engine instrument rather than trying 
 **This is NOT** a complete port of every community instrument or the separate ChoralRoot two-handed keybed/looper, and it does **not** change the fixed-color hardware LEDs. The liquid effect is screen-rendered, not a change to the firmware's audio engine or physical hardware. "Pastel" reuses Melodee's audio, MIDI, arranger and resilience code. No proprietary or paid firmware has been copied.
 
 ## Firmware binary
-After the GitHub build succeeds, the workflow publishes both `pastel-fm1/Pastel.fwsc` and `pastel-fm1/PastelFactory128.zip` to this **pastel-fm1** branch. Use only the real *.fwsc* file for firmware flashing. The ZIP is **four banks of original M-VAVE FM-1 DX7 presets** (32 sounds each) for safe, optional import into FM6 user slots using the compatible Melodee web editor. It is **not a firmware file**; see [all 128 factory presets and installation steps](FACTORY_BANKS.md).
+After the GitHub build succeeds, the workflow publishes both `pastel-fm1/Pastel.fwsc` and `pastel-fm1/PastelFactory128.zip` to this **pastel-fm1** branch. Use only the real *.fwsc* file for firmware flashing. The ZIP remains an optional export of the same four original SysEx banks; once v0.7 is successfully built and installed, the 128 sounds should already appear in **FM6 PRESETS**. Importing the ZIP is not necessary. It is **not a firmware file**; see [factory presets and verification](FACTORY_BANKS.md).
 
 ## Install using an Android phone
 1. Install **FM-1 Swap** from its official GitHub releases: find it in https://github.com/cicloid/awesome-fm-1 under "Firmware update and recovery". Its Android APK installs community `.fwsc` via USB MIDI.
@@ -39,4 +39,4 @@ Not associated with M-VAVE, Melodee, Hügelton Instruments, or their authors. Re
 ## Community hybrid details and keyboard map
 For the exact sound list, source attribution, included features and limits, see **[HYBRID.md](HYBRID.md)** and [FEATURES.md](FEATURES.md). The ANIMAL KIT uses **eight real CC0 recorded animal calls**, not imitation tones; the samples are stored in the FM-1's dedicated resource flash as 12 kHz IMA ADPCM. Audio is now triggered by existing drum-sequencer note events, not only by a special HOME screen. The colorful artwork is 16 custom pixel-art frames and is displayed in compact bands. See [AUDIO_CREDITS.md](AUDIO_CREDITS.md).
 
-**Real animal-audio build:** the 29.4 KB CC0 IMA ADPCM pack occupies spare validated resource flash; 16 animal art frames are nibble-RLE compressed (8.7 KB). The prior v0.4 automated build passed LCD, audio and updater checks; v0.6 must pass again before its binary is published. Source code was not tested on physical FM-1 hardware.
+**Built-in original sounds:** the 128 authentic 128-byte DX7 voices (16,384 bytes) are linked into XIP program flash, never the nearly full animal/audio resource region. Preset indices 0–24 stay unchanged; the new built-ins are indices 25–152. No user slots are written during firmware installation. The build must pass size checks and CI before the replacement firmware is considered published. Physical-hardware compatibility remains unverified. Source code was not tested on physical FM-1 hardware.

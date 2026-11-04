@@ -38,7 +38,7 @@ exact(pathlib.Path("firmware/src/main.c"), '"MELODEE", T_THEME', '"PASTEL", T_TH
 exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T_THEME')
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
-      '#define MELODEE_VERSION "Pastel v0.6"')
+      '#define MELODEE_VERSION "Pastel v0.7"')
 # Preserve upstream palette name-order coverage while explicitly expecting Pastel.
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
@@ -223,6 +223,46 @@ exact(pathlib.Path("tests/ui_render.c"),
 
 shutil.copyfile(pathlib.Path(__file__).with_name("animal_test.c"),
                 root / "tests/pastel_animal_test.c")
+# Pastel v0.7: 128 ORIGINAL M-VAVE FM-1 DX7 voices in read-only program flash.
+# Preserve original FM6 indices 0..24, including 24 = INIT VOICE. The
+# factory voices append at indices 25..152, rather than pre-filling user slots.
+# The ~16 KB voice ROM must NOT go into the almost-full .mres region.
+exact(pathlib.Path("firmware/src/eng_fm6.c"),
+      '#include "eng_fm6_rom.h"         /* FM6_ROM[FM6_NROM]: F9.. */',
+      '#include "eng_fm6_rom.h"         /* FM6_ROM[FM6_NROM]: F9.. */\n'
+      '#include "pastel_factory_voices.h"       /* appended original FM-1 factory bank; XIP, not .mres */')
+exact(pathlib.Path("firmware/src/eng_fm6.c"),
+      '''        uint8_t pk[FM6_PACKED], v[FP_SIZE + 1u];
+        if (t->preset < FM6_NFAC)
+            fm6_factory(t->preset, pk);
+        fm6_unpack(t->preset < FM6_NFAC ? pk : FM6_INIT, v);   /* (past F24: INIT VOICE) */
+        fm6_put_patch(tr, v, 1);''',
+      '''        uint8_t pk[FM6_PACKED], v[FP_SIZE + 1u];
+        const uint8_t *voice = FM6_INIT;
+        if (t->preset < FM6_NFAC) {
+            fm6_factory(t->preset, pk);
+            voice = pk;
+        } else if (t->preset > FM6_NFAC &&
+                   t->preset < FM6_NFAC + 1u + PASTEL_FACTORY_COUNT) {
+            voice = PASTEL_FACTORY_VOICES[t->preset - FM6_NFAC - 1u];
+        }
+        fm6_unpack(voice, v);
+        fm6_put_patch(tr, v, 1);''')
+exact(pathlib.Path("firmware/src/eng_fm6.c"),
+      '};\n#undef FM6_PR\n_Static_assert(FM6_NROM == 16u,',
+      '#include "pastel_factory_names.inc"\n};\n#undef FM6_PR\n_Static_assert(FM6_NROM == 16u,')
+exact(pathlib.Path("firmware/src/eng_fm6.c"),
+      '_Static_assert(NELEM(FM6_PRESETS) == FM6_NFAC + 1u, "FM6: F1..F24, then INIT VOICE");',
+      '_Static_assert(NELEM(FM6_PRESETS) == FM6_NFAC + 1u + PASTEL_FACTORY_COUNT, "FM6: original 24 + INIT + 128 stock voices");\n'
+      '_Static_assert(FM6_NFAC + 1u + PASTEL_FACTORY_COUNT <= 255u, "FM6 preset index must fit a byte");')
+exact(pathlib.Path("firmware/src/browse.c"),
+      'static const char *const PRESET_CAT[NENGINES] = {',
+      '#include "pastel_factory_categories.h"\nstatic const char *const PRESET_CAT[NENGINES] = {')
+exact(pathlib.Path("firmware/src/browse.c"),
+      '[12] = "KEBRPEGUKRBEEKGSPLUEWEBEO",',
+      '[12] = "KEBRPEGUKRBEEKGSPLUEWEBEO" PASTEL_FACTORY_CATEGORIES,')
+print("Pastel v0.7: all 128 original M-VAVE factory voices are selectable inside FM6 PRESETS, no separate import needed.")
+
 print("Pastel v0.3 hybrid: Melodee/Felucca/ChoralRoot harmonies,"
       " SLOOP/ChoralRoot-inspired SID bank and real recorded Animal Jam sounds and original artwork.")
 print("Pastel patch applied. Liquid Edition: animation and soft ribbon/splash customization; user synth engines and updater unchanged.")
