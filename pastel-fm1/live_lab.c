@@ -10,7 +10,7 @@
 #define PASTEL_LIVE_SCENES 4u
 #define PASTEL_LIVE_SOUNDS 24u
 static uint8_t pastel_live_scene;
-static uint8_t pastel_live_sense = 7u;  /* 1..12 */
+static uint8_t pastel_live_sense = 7u;  /* default audio sensitivity */
 static uint8_t pastel_live_flow = 6u;   /* 1..12 */
 static uint8_t pastel_live_tint = 0u;   /* 0..3 */
 static uint8_t pastel_live_patch = 0u;
@@ -65,7 +65,14 @@ static void pastel_live_knob(uint32_t k,int32_t n)
 {
     switch(k) {
     case 0: pastel_live_scene=(uint8_t)clamp((int32_t)pastel_live_scene+n,0,3);break;
-    case 1: pastel_live_sense=(uint8_t)clamp((int32_t)pastel_live_sense+n,1,12);break;
+    case 1: {
+        /* The scale-aware CHORD harmonizer is Melodee/ChoralRoot lineage.
+         * Keep the existing track parameters and motion recording. */
+        int32_t mode=clamp((int32_t)TSEL->p[P_CHRD]+n,TP[P_CHRD].min,TP[P_CHRD].max);
+        TSEL->p[P_CHRD]=(int16_t)mode;
+        motion_capture(TSEL,P_CHRD,mode);
+        break;
+    }
     case 2: pastel_live_flow=(uint8_t)clamp((int32_t)pastel_live_flow+n,1,12);break;
     case 3: pastel_live_tint=(uint8_t)((pastel_live_tint+(n%4)+4)%4);break;
     }
@@ -192,7 +199,7 @@ static void pastel_live_draw(void)
             prev=y;prevx=x;
         }
         /* Four music-oriented control cards, not decorative dead buttons. */
-        static const char *const labels[4]={"SCENE","SENSE","FLOW","TINT"};
+        static const char *const labels[4]={"SCENE","CHORD","FLOW","TINT"};
         for(uint32_t k=0;k<4u;k++){
             int32_t x=2+(int32_t)k*60;
             uint16_t c=pastel_live_color(k,20);
@@ -200,7 +207,7 @@ static void pastel_live_draw(void)
             cv_text_c(x+28,ty_y(171,TY_LB),TY_LB,labels[k],T_TEXT,c);
             char v[8];
             if(k==0u)fmt_int(v,(int32_t)pastel_live_scene+1);
-            else if(k==1u)fmt_int(v,pastel_live_sense);
+            else if(k==1u)fmt_int(v,TSEL->p[P_CHRD]);
             else if(k==2u)fmt_int(v,pastel_live_flow);
             else fmt_int(v,(int32_t)pastel_live_tint+1);
             cv_text_c(x+28,ty_y(189,TY_LB),TY_LB,v,T_THEME,c);
