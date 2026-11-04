@@ -6,6 +6,8 @@ on:
     branches: [pastel-fm1]
     paths:
       - 'pastel-fm1/patch.py'
+      - 'pastel-fm1/sequencer_patch.py'
+      - 'pastel-fm1/FACTORY_BANKS.md'
       - 'pastel-fm1/liquid_effects.c'
       - 'pastel-fm1/animal_audio.c'
       - 'pastel-fm1/animal_view.c'
@@ -40,6 +42,7 @@ jobs:
         python3 pastel-fm1/generate_animal_sprites.py upstream-melodee
         python3 pastel-fm1/generate_animal_samples.py upstream-melodee
         python3 pastel-fm1/patch.py upstream-melodee
+        python3 pastel-fm1/sequencer_patch.py upstream-melodee
         sudo apt-get install -y libharfbuzz-dev libfribidi-dev libraqm-dev
         python3 -m pip install -r upstream-melodee/tools/requirements-build.txt mido
         npm ci --prefix upstream-melodee/web
@@ -48,6 +51,26 @@ jobs:
         PARALLEL=2 ./build.sh
         mkdir -p ../pastel-fm1/dist
         cp build/melodee.fwsc ../pastel-fm1/dist/Pastel.fwsc
+        cd ..
+        # Actual original M-VAVE factory presets: 4 × 32 DX7 compatible voices,
+        # shipped as a *separate* library, never silently over user patches.
+        git clone --depth 1 https://github.com/KingParamount/fm1-factory-presets.git upstream-factory
+        test "$(git -C upstream-factory hash-object banks/FM-1_factory_bank1.syx)" = ccbe58b1e1c1a425d599f50994e2ecc6a739d841
+        test "$(git -C upstream-factory hash-object banks/FM-1_factory_bank2.syx)" = 1948a797654002ca3a1a8f18d460252408f8ac57
+        test "$(git -C upstream-factory hash-object banks/FM-1_factory_bank3.syx)" = 97b0a553090a5db7e3579d6e32294a35c6d22513
+        test "$(git -C upstream-factory hash-object banks/FM-1_factory_bank4.syx)" = 043937bfc2b262795646100edffda619ac888fe3
+        python3 - <<'PY'
+        from pathlib import Path
+        banks=sorted(Path("upstream-factory/banks").glob("FM-1_factory_bank*.syx"))
+        assert len(banks)==4
+        for bank in banks:
+            b=bank.read_bytes()
+            assert len(b)==4104 and b[0]==0xf0 and b[-1]==0xf7 and b[3]==0x09
+            print("Verified real M-VAVE bank",bank.name,": 32 DX7 voices")
+        print("Total factory voices:",len(banks)*32)
+        PY
+        (cd upstream-factory && zip -q -j ../pastel-fm1/dist/PastelFactory128.zip banks/FM-1_factory_bank*.syx)
+        cd upstream-melodee
         tar -czf ../pastel-fm1/dist/Pastel-source.tar.gz --exclude=.git --exclude=build .
       test: |
         set -euo pipefail
@@ -92,10 +115,13 @@ jobs:
           file="$(find incoming -type f -name Pastel.fwsc -print -quit)"
           test -s "$file"
           cp "$file" pastel-fm1/Pastel.fwsc
-          sha256sum pastel-fm1/Pastel.fwsc > pastel-fm1/Pastel.sha256
+          factory="$(find incoming -type f -name PastelFactory128.zip -print -quit)"
+          test -s "$factory"
+          cp "$factory" pastel-fm1/PastelFactory128.zip
+          sha256sum pastel-fm1/Pastel.fwsc pastel-fm1/PastelFactory128.zip > pastel-fm1/Pastel.sha256
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f pastel-fm1/Pastel.fwsc pastel-fm1/Pastel.sha256
+          git add -f pastel-fm1/Pastel.fwsc pastel-fm1/PastelFactory128.zip pastel-fm1/Pastel.sha256
           if ! git diff --cached --quiet; then
             git commit -m 'Build Pastel FM-1 firmware (generated, do not hand-edit)'
             git push origin HEAD:pastel-fm1
