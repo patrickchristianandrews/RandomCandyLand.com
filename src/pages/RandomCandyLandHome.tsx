@@ -130,11 +130,35 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       <div className="candyland-starfield" aria-hidden="true">
         <span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span>
       </div>
-      <header className="candyland-navbar">
+      <header className="candyland-navbar" aria-label="Random Candy Land and featured experiences">
+        <aside className="candyland-unwrapped-promo candyland-navbar-feature" aria-label="Explore Unwrapped: personal and partner reports, quizzes and connection for adults 18 and older">
+          <a className="candyland-unwrapped-promo-link candyland-navbar-feature-link" href="/after-dark/" aria-label="Explore Unwrapped: personal and partner reports, quizzes and connection for adults 18 and older">
+            <img src="/tool-icons/unwrapped.svg" width={48} height={48} alt="" loading="eager" />
+            <span className="candyland-navbar-feature-copy">
+              <span className="candyland-navbar-feature-kicker">✦ FEATURED · 18+</span>
+              <strong>Unwrapped</strong>
+              <small>Understand every layer. Appreciate the whole person.</small>
+              <span className="candyland-navbar-feature-detail">Two connected quizzes · personal and partner reports · meaningful conversations</span>
+            </span>
+            <span className="candyland-navbar-feature-arrow" aria-hidden="true">↗</span>
+          </a>
+        </aside>
         <a className="candyland-identity" href="#top" aria-label="Random Candy Land — current homepage, back to top">
           <span className="candyland-brand-icon" aria-hidden="true"><img src="/icon.svg?v=candy-logo-no-white-3" alt="" width={55} height={55} /></span>
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
+        <aside className="candyland-random-ai-promo candyland-navbar-feature" aria-label="Explore Random AI: local AI models, coding and creative task stacks">
+          <a className="candyland-random-ai-promo-link candyland-navbar-feature-link" href="/studio/" aria-label="Explore Random AI: local AI models, coding and creative task stacks">
+            <img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" loading="eager" />
+            <span className="candyland-navbar-feature-copy">
+              <span className="candyland-navbar-feature-kicker">✦ FEATURED · CREATE</span>
+              <strong>Random AI</strong>
+              <small>Imagine more. Make it real.</small>
+              <span className="candyland-navbar-feature-detail">Download local models · create · code · task stacks</span>
+            </span>
+            <span className="candyland-navbar-feature-arrow" aria-hidden="true">↗</span>
+          </a>
+        </aside>
       </header>
 
       <section className="candyland-opening" aria-label="Welcome to Random Candy Land">
@@ -167,35 +191,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           </div>
           <p className="candyland-category-guide">Choose a multiplayer match, a quick break, an ongoing world, a story worth an hour or a creative challenge. Everything is grouped below.</p>
 
-        </div>
-      </section>
-
-      <section className="candyland-featured-spotlights" aria-label="Featured experiences: Unwrapped and Random AI">
-        <div className="candyland-featured-spotlights-heading">
-          <span>✦ FEATURED EXPERIENCES</span>
-          <h2>Discover yourself. Create something extraordinary.</h2>
-          <p>Two worlds worth exploring—one for understanding, one for making.</p>
-        </div>
-        <div className="candyland-featured-spotlights-grid">
-        <aside className="candyland-unwrapped-promo" aria-label="Featured: Unwrapped personal insight and connection">
-          <img className="candyland-unwrapped-promo-icon" src="/tool-icons/unwrapped.svg" width={76} height={76} alt="" loading="lazy" />
-          <div className="candyland-unwrapped-promo-copy">
-            <span className="candyland-unwrapped-promo-eyebrow">FEATURED · 18+ · SELF-UNDERSTANDING & CONNECTION</span>
-            <h2>Unwrapped <span>— Understand every layer. Appreciate the whole person.</span></h2>
-            <p>Two connected quizzes help you reflect on your psychology, feelings, attraction, interests, and ways of connecting. Explore personalized results, explanations, potential interests to consider, and detailed, shareable personal and partner reports—so you can understand yourself more deeply, express what matters, appreciate differences, and build more meaningful conversations.</p>
-          </div>
-          <a className="candyland-unwrapped-promo-link" href="/after-dark/" aria-label="Explore Unwrapped, for adults 18 and older">Explore Unwrapped <span aria-hidden="true">↗</span></a>
-        </aside>
-          <aside className="candyland-random-ai-promo" aria-label="Featured: Random AI creative studio">
-            <img className="candyland-random-ai-promo-icon" src="/tool-icons/candy-studio.svg" width={76} height={76} alt="" loading="lazy" />
-            <div className="candyland-random-ai-promo-copy">
-              <span className="candyland-random-ai-promo-eyebrow">FEATURED · CREATE · CODE · EXPLORE</span>
-              <h2>Random AI <span>— Imagine more. Make it real.</span></h2>
-              <p>Turn a half-formed idea into your next project. Find models for writing, reasoning, coding, image and video workflows; create with the tools available in your browser, or connect a compatible provider for more.</p>
-              <p className="candyland-random-ai-promo-fineprint">Local tools work in your browser. Hosted generation requires an available model service and may have limits or charges.</p>
-            </div>
-            <a className="candyland-random-ai-promo-link" href="/studio/" aria-label="Explore Random AI creative studio">Explore Random AI <span aria-hidden="true">↗</span></a>
-          </aside>
         </div>
       </section>
 
