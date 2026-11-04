@@ -1197,3 +1197,16 @@ body {
   .candyland-next header.candyland-navbar .candyland-navbar-feature-link{transition:none}
   .candyland-next header.candyland-navbar .candyland-navbar-feature-link:hover{transform:none}
 }
+
+/* Keep the free unlimited LOCAL AI proposition visible even in the short mobile header. */
+.candyland-next header.candyland-navbar>.candyland-random-ai-promo .candyland-navbar-feature-kicker{
+ color:#c1ffde;
+}
+@media(max-width:720px){
+ .candyland-next header.candyland-navbar>.candyland-random-ai-promo .candyland-navbar-feature-kicker{
+  display:block;font-size:7px;letter-spacing:0;line-height:1.3;
+ }
+ .candyland-next header.candyland-navbar>.candyland-random-ai-promo .candyland-navbar-feature-copy{
+  gap:1px;
+ }
+}
