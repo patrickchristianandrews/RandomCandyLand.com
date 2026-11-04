@@ -17,14 +17,14 @@ def exact(path,old,new):
     p.write_text(s.replace(old,new))
     print(f"Animal sequencer: {path}")
 
-# Audio/player is linked before the engine table and note event dispatcher,
-# so a sequencer hit and a physical key execute the same actual recording.
+# Load the audio player in engines.c so host test renders and device firmware
+# both expose the same eight real recorded calls before DRUM and UI sources.
 exact("firmware/src/seq.c",
       '#include "pastel_animal_audio.c"\n#define KB_SILENT 255u',
       '#define KB_SILENT 255u')
-exact("firmware/src/melodee.c",
-      '#include "core.h"\n#include "engines.c"',
-      '#include "core.h"\n#include "pastel_animal_audio.c"\n#include "engines.c"')
+exact("firmware/src/engines.c",
+      '#include "dsp.c"\n#include "audio_batch.h"',
+      '#include "dsp.c"\n#include "audio_batch.h"\n#include "pastel_animal_audio.c"')
 # No bypass / audition-only keyboard! Ordinary note-on now reaches REC and
 # the real step grid, including live MIDI and saved project patterns.
 exact("firmware/src/seq.c",
