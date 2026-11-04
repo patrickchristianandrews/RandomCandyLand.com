@@ -45,9 +45,10 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/the-corridors.svg',name:'The Corridors',url:'/the-corridors/'},
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
   {icon:'/tool-icons/candy-studio.svg',name:'Random AI',url:'/studio/'},
+  {icon:'/tool-icons/ai-academy.svg',name:'AI Academy',url:'/ai-academy/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','Candy Pulse','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI','AI Academy'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
@@ -61,7 +62,8 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/moodropolis.svg',
   '/tool-icons/the-corridors.svg',
   '/tool-icons/the-docket.svg',
-  '/tool-icons/candy-studio.svg'
+  '/tool-icons/candy-studio.svg',
+  '/tool-icons/ai-academy.svg'
 ] as const;
 
 const PORTALS: Portal[] = [
@@ -77,7 +79,8 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[9],title:'Moodropolis',blurb:'Build a city that feels alive. Meet citizens, respond to their problems, rebuild neighborhoods, discover events, and shape the future of Meridian.',kind:'ongoing',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
   {icon:TOOL_MENU_ICONS[10],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[11],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
-  {icon:TOOL_MENU_ICONS[12],title:'Random AI',blurb:'An all-in-one creative workspace: local-model chat, 24 guided writing tools, original abstract art, photo editing, read-aloud voices, and dictation. Save your work right in your browser.',kind:'discovery',label:'CREATIVE SUITE · NO ACCOUNT NEEDED',palette:'purple',href:'/studio/',duration:'CREATE ANYTIME'},
+  {icon:TOOL_MENU_ICONS[12],title:'Random AI',blurb:'Go from an idea to a real result. Explore models by writing, coding, reasoning, images or video; connect your own provider, create work and keep your drafts.',kind:'creative',label:'CREATE · CODE · IMAGES · VIDEO',palette:'purple',href:'/studio/',duration:'CREATE ANYTIME'},
+  {icon:TOOL_MENU_ICONS[13],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
 ];
 
 const COLLECTIONS = [
@@ -85,7 +88,7 @@ const COLLECTIONS = [
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
   {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
-  {id:'learning',title:'Courses & Training',description:'Hands-on investigations and guided learning you can complete at your own pace.',symbol:'🧠',time:'EXTENDED'},
+  {id:'learning',title:'Courses & Training',description:'Master prompting in AI Academy or train as an investigator in TRACE. Learn by doing at your own pace.',symbol:'🧠',time:'EXTENDED'},
   {id:'creative',title:'Creative & Music Tools',description:'Design, write, code, make art and enjoy interactive sound.',symbol:'🎨',time:'YOUR PACE'},
   {id:'discovery',title:'Explore & Understand',description:'Learn more about yourself, relationships and curiosity.',symbol:'🌙',time:'YOUR PACE'},
 ] as const;
