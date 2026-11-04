@@ -54,6 +54,12 @@ jobs:
             test -s "public/$image" || { echo "::error::Missing Candy Land app icon: $image"; exit 1; }
           done
 
+      - name: Validate Candy Studio JavaScript and free-worker syntax
+        run: |
+          node --check public/studio/studio.js
+          node --check public/studio/free-config.js
+          node --check studio-free-ai/worker.js
+
       - name: Build the entire website
         run: bun run build
 
