@@ -89,6 +89,22 @@ const COLLECTIONS = [
 ] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
+  // The notification client is loaded by the shared PWA installer. React may
+  // render this page after DOMContentLoaded, so mount the optional preferences
+  // panel once its script becomes available.
+  useEffect(() => {
+    let tries = 0;
+    const mount = () => {
+      const api = (window as Window & {RandomCandyNotifications?: {mount?: () => void}}).RandomCandyNotifications;
+      if(api?.mount){api.mount();return true}
+      return false;
+    };
+    if(mount()) return;
+    const timer=window.setInterval(() => {
+      if(mount() || ++tries >= 20) window.clearInterval(timer);
+    },250);
+    return () => window.clearInterval(timer);
+  }, []);
   const [category, setCategory] = useState<Category>('all');
   const [copiedUrl,setCopiedUrl] = useState('');
   const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
