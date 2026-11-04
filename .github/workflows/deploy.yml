@@ -59,6 +59,12 @@ jobs:
           node --check public/studio/studio.js
           node --check public/studio/free-config.js
           node --check studio-free-ai/worker.js
+          node --check public/sw.js
+          node --check public/notifications/center.js
+          node --check public/notifications/push-config.js
+          node --check game-notifications/worker.js
+          node --check game-notifications/generate-vapid.mjs
+          node scripts/test-game-push.mjs
 
       - name: Build the entire website
         run: bun run build
