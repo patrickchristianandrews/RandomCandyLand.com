@@ -110,7 +110,7 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
 }
 const homeInstallSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
-if(!homeInstallSource.includes('className="candyland-unwrapped-promo"') ||
+if(!homeInstallSource.includes('className="candyland-unwrapped-promo candyland-navbar-feature"') ||
    !homeInstallSource.includes('Understand every layer. Appreciate the whole person.') ||
    !homeInstallSource.includes('Two connected quizzes') ||
    !homeInstallSource.includes('personal and partner reports') ||
@@ -617,9 +617,19 @@ if(homeInstallSource.includes('candyland-grouped-collections') ||
 }
 if(!homeInstallSource.includes('candyland-unwrapped-promo') ||
    !homeInstallSource.includes('personal and partner reports') ||
-   (homeInstallSource.match(/<aside className="candyland-unwrapped-promo"/g)||[]).length!==1 ||
+   (homeInstallSource.match(/<aside className="candyland-unwrapped-promo candyland-navbar-feature"/g)||[]).length!==1 ||
    !homeInstallSource.includes('href="/after-dark/"')){
   console.error('Homepage needs exactly one short Unwrapped feature with reports and a working link.');failures++;
+}
+// Featured Unwrapped and Random AI must remain inside the shorter, centered homepage header.
+const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="candyland-navbar"'),homeInstallSource.indexOf('</header>')+9);
+if(!featuredHeader.includes('candyland-unwrapped-promo')||
+   !featuredHeader.includes('candyland-identity')||
+   !featuredHeader.includes('candyland-random-ai-promo')||
+   !featuredHeader.includes('href="/studio/"')||
+   featuredHeader.indexOf('candyland-identity')<featuredHeader.indexOf('candyland-unwrapped-promo')||
+   featuredHeader.indexOf('candyland-identity')>featuredHeader.indexOf('candyland-random-ai-promo')){
+  console.error('Compact homepage header needs centered Candy Land identity and both featured links.');failures++;
 }
 // AI Academy is a standalone learning destination, with its own course and manifest.
 for(const file of ['dist/ai-academy/index.html','dist/ai-academy/academy.js','dist/ai-academy/academy.css','dist/app-manifests/ai-academy.webmanifest','dist/tool-icons/ai-academy.svg','dist/studio/model-explorer.js','dist/studio/model-explorer.css']){
