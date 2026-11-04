@@ -15,7 +15,7 @@ int main(void)
         pastel_animal_hit(id);
         assert(pastel_animal_selected == id);
         assert(pastel_animal_requests & (1u<<id));
-        for (uint32_t b=0;b<510u;b++) {
+        for (uint32_t b=0;b<1600u;b++) {
             int32_t out[128]={0};
             pastel_animal_render(out,64u);
             for (uint32_t i=0;i<128u;i++) {
@@ -33,6 +33,6 @@ int main(void)
     int32_t out[128]={0};
     pastel_animal_render(out,64u);
     for(uint32_t i=0;i<128u;i++)assert(out[i]>=-32767 && out[i]<=32767);
-    puts("Pastel Animal Jam: 8 animal calls, tails, stereo balance, clamping OK");
+    puts("Pastel Animal Jam: 8 REAL recordings, 16kHz resampling, tails, stereo balance, clamping OK");
     return 0;
 }
