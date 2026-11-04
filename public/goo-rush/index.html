@@ -187,7 +187,7 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
    $('timeTrack').setAttribute('aria-valuenow',String(Math.ceil(seconds)));
  }
  function freshPlayer(i){return {id:i,score:0,combo:0,hits:0,misses:0,board:null,feedback:'FIND THE CANDY!',feedbackTimer:0}}
- function newPuzzle(player){player.board=makeBoard(state.seed,player.hits,state.mode==='duel'?9:16)}
+ function newPuzzle(player){player.board=makeBoard(state.seed,player.hits,state.mode==='duel'?12:16)}
  function escapeText(str){return str.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
  function panel(player){
  const name=state.mode==='duel'?(player.id===0?'PLAYER 1':'PLAYER 2'):modeName();
