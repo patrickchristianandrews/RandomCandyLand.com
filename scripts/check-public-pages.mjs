@@ -696,7 +696,7 @@ if(fs.existsSync('dist/worlds/core.js')){
 
 
 for (const [slug,markers] of [
- ['moodropolis',['residentChallenge','sceneCity','citizenReply','badgeRow']],
+ ['moodropolis',['residentChallenge','sceneCity','citizenReply','badges']],
  ['the-corridors',['sceneHall','consult','powerWeb','stakeholderDesk']],
  ['the-docket',['caseBoard','linkPanel','witnessPanel','witness']],
 ]) {
