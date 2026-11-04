@@ -116,14 +116,14 @@ static __attribute__((noinline)) void pastel_live_orbit(uint32_t phase,int32_t e
 
 static __attribute__((noinline)) void pastel_live_prism(uint32_t phase,int32_t energy)
 {
-    for(uint32_t j=0;j<5u;j++){
-        int32_t r=13+(int32_t)j*19+energy/(j+6u);
-        int32_t tilt=pastel_live_sin(phase/(j+2u))*2;
-        uint16_t c=pastel_live_color(j,39+j*7u);
-        cv_line(120+tilt,88-r,120+r,88,c);
-        cv_line(120+r,88,120-tilt,88+r,c);
-        cv_line(120-tilt,88+r,120-r,88,c);
-        cv_line(120-r,88,120+tilt,88-r,c);
+    for(uint32_t j=0;j<4u;j++){
+        int32_t radius=17+(int32_t)j*23+energy/9;
+        int32_t sway=pastel_live_sin(phase/(j+2u));
+        uint16_t c=pastel_live_color(j,40+j*9u);
+        cv_line(120+sway,88-radius,120+radius,88,c);
+        cv_line(120+radius,88,120-sway,88+radius,c);
+        cv_line(120-sway,88+radius,120-radius,88,c);
+        cv_line(120-radius,88,120+sway,88-radius,c);
     }
 }
 
@@ -141,15 +141,10 @@ static __attribute__((noinline)) void pastel_live_stars(uint32_t phase,int32_t e
 
 static __attribute__((noinline)) void pastel_live_liquid(uint32_t phase,int32_t energy)
 {
-    pastel_liquid_layers(156,80-(energy/5), (uint32_t)energy*350u, phase,3u);
-    for(uint32_t k=0;k<13u;k++){
-        uint32_t at=phase/(k%3u+1u)+k*9u;
-        int32_t x=12+(int32_t)((k*29u+phase*(k%4u+1u))%214u);
-        int32_t y=31+(int32_t)((k*13u+phase/(k%3u+1u))%119u);
-        cv_ring(x,y,6+(int32_t)(k%3u)*3,pastel_live_color(k,31));
-        if(k%4u==0)cv_disc(x+pastel_live_sin(at)/3,y,4,pastel_live_color(k,54),0);
-    }
+    pastel_liquid_layers(156,81-energy/5,(uint32_t)energy*350u,phase,4u);
+    pastel_liquid_bubbles(156,phase);
 }
+
 static __attribute__((noinline)) void pastel_live_draw(void)
 {
     if (!ui.force && (ui.frame%3u)) return; /* ~20 fps, respect 12 MHz LCD link */
@@ -177,9 +172,7 @@ static __attribute__((noinline)) void pastel_live_draw(void)
             uint32_t slot=(scope_w-1u-(uint32_t)(232-x)*2u)&(SCOPE_N-1u);
             int32_t v=scope_buf[slot];
             int32_t y=104-(v*(12+energy/4))/32768;
-            if(y<45)y=45;
-            if(y>151)y=151;
-            cv_line(prevx,prev,x,y,trace);
+                    cv_line(prevx,prev,x,y,trace);
             prev=y;prevx=x;
         }
         /* Four music-oriented control cards, not decorative dead buttons. */
