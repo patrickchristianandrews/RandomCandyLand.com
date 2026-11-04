@@ -23,6 +23,9 @@ static const char *const pastel_animal_names[8]={
 static const char *const pastel_animal_calls[8]={
     "MEOW","WOOF","QUACK","RIBBIT","CAW","MOO","OINK","BAA"
 };
+static const char *const pastel_animal_abbr[8]={
+    "CT","DG","DK","FR","BD","CW","PG","SH"
+};
 
 static const uint16_t pastel_ima_steps[89]={
   7,8,9,10,11,12,13,14,16,17,19,21,23,25,28,31,34,37,41,45,
@@ -48,6 +51,13 @@ static void pastel_animal_hit(uint32_t key)
     pastel_animal_requests |= 1u<<id;
     pastel_animal_selected=(uint8_t)id;
     pastel_animal_last_ms=fm1_ms;
+}
+
+/* The sequencer uses DRUM_LANE_NOTE, and its recorded STEP/REC hits map here.
+ * The same player and artwork respond to live, recorded and MIDI triggers. */
+static void pastel_animal_hit_lane(uint32_t lane)
+{
+    pastel_animal_hit(lane & 7u);
 }
 
 static int32_t pastel_ima_decode(pastel_animal_voice_t *v)
