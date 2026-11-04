@@ -910,3 +910,108 @@ body {
  .candyland-next .rcl-notify-options{gap:8px}
 }
 @media(prefers-reduced-motion:reduce){.candyland-next .rcl-notify-game{transition:none}}
+
+
+/* Compact, always-visible game shelves grouped by session length and intent. */
+.candyland-next .candyland-play-shelves{
+ width:min(calc(100% - 32px),1170px);margin:22px auto 30px;display:grid;gap:16px;
+ position:relative;z-index:2
+}
+.candyland-next .candyland-play-shelf{
+ --shelf-accent:#edb2e9;
+ border:1px solid #f1d0ff5c;
+ border-radius:22px;
+ padding:clamp(14px,2.4vw,24px);
+ background:linear-gradient(145deg,#30204edb,#211534ee);
+ box-shadow:0 12px 38px #1005254a,inset 0 1px 0 #ffffff21;
+}
+.candyland-next .candyland-play-shelf-quick{--shelf-accent:#ffe68d}
+.candyland-next .candyland-play-shelf-ongoing{--shelf-accent:#b6f5c8}
+.candyland-next .candyland-play-shelf-story{--shelf-accent:#eeb6ff}
+.candyland-next .candyland-play-shelf-learning{--shelf-accent:#a6eaff}
+.candyland-next .candyland-play-shelf-creative{--shelf-accent:#fbd2b2}
+.candyland-next .candyland-play-shelf-discovery{--shelf-accent:#f7c6ef}
+.candyland-next .candyland-play-shelf-heading{
+ display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+ padding-bottom:12px;margin-bottom:10px;border-bottom:1px solid #ffffff1e
+}
+.candyland-next .candyland-play-shelf-lead{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.candyland-next .candyland-play-shelf-emoji{
+ display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff36;
+ border-radius:14px;background:linear-gradient(145deg,#ffffff2c,#ffffff0a);
+ font-size:24px;flex:none
+}
+.candyland-next .candyland-play-shelf-heading h2{
+ color:var(--shelf-accent);font:950 clamp(18px,2.2vw,24px)/1.2 system-ui,sans-serif;
+ letter-spacing:-.035em;margin:0 0 4px
+}
+.candyland-next .candyland-play-shelf-heading p{
+ color:#e3d8ef;font:500 clamp(11px,1.2vw,12px)/1.5 system-ui,sans-serif;margin:0;
+ max-width:700px
+}
+.candyland-next .candyland-play-shelf-time{
+ flex:none;font:900 10px/1.3 system-ui,sans-serif;letter-spacing:.05em;
+ color:#fff9e7;padding:8px 11px;border:1px solid #ffffff48;border-radius:30px;
+ background:#ffffff10
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tools{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;
+ margin:0;max-width:none;width:100%
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-link{
+ display:flex;flex-direction:row;align-items:center;justify-content:flex-start;
+ gap:10px;padding:10px;min-height:92px;border-radius:15px;text-align:left;
+ background:#fffafa12;border:1px solid #ffeaff2d;color:#fff;transition:transform .18s,background .18s;
+ text-decoration:none
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-link:hover{
+ background:#fff6fc20;transform:translateY(-3px)
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-image{
+ width:68px;height:68px;min-width:68px;max-width:68px;
+ padding:0;background:none;flex:none;box-shadow:none;border:0
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-image img{
+ width:100%;height:100%;max-width:none;object-fit:contain;border-radius:13px;filter:drop-shadow(0 4px 5px #08021844)
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-link:nth-child(2) .candyland-hero-tool-image img{
+ width:100%;height:100%;border:0;background:none;box-shadow:none;border-radius:13px;
+ image-rendering:auto
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-info{
+ display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-name{
+ width:auto;min-height:0;max-width:100%;border:0;background:transparent;box-shadow:none;
+ padding:0;line-height:1.25;font:900 13px/1.28 system-ui,sans-serif;color:#fff4ff;
+ letter-spacing:-.025em;text-align:left;display:block
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-blurb{
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+ font:500 10px/1.4 system-ui,sans-serif;color:#dfcfe9;
+ width:100%;max-width:100%
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-duration{
+ display:inline-block;min-height:0;margin-top:2px;padding:3px 7px;border-radius:6px;
+ border:1px solid #fff9e239;background:#eed6ff12;color:var(--shelf-accent);
+ text-shadow:none;font:900 9px/1.25 system-ui,sans-serif;letter-spacing:.05em
+}
+@media(max-width:1000px){
+ .candyland-next .candyland-play-shelf .candyland-hero-tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:590px){
+ .candyland-next .candyland-play-shelves{width:calc(100% - 20px);gap:10px;margin:12px auto 19px}
+ .candyland-next .candyland-play-shelf{padding:11px;border-radius:16px}
+ .candyland-next .candyland-play-shelf-heading{align-items:start;gap:7px;padding-bottom:10px}
+ .candyland-next .candyland-play-shelf-emoji{width:36px;height:36px;font-size:20px;border-radius:10px}
+ .candyland-next .candyland-play-shelf-heading h2{font-size:17px}
+ .candyland-next .candyland-play-shelf-heading p{font-size:10px}
+ .candyland-next .candyland-play-shelf-time{padding:5px 8px;font-size:9px}
+ .candyland-next .candyland-play-shelf .candyland-hero-tools{gap:7px}
+ .candyland-next .candyland-play-shelf .candyland-hero-tool-link{padding:8px;min-height:94px;flex-direction:column;text-align:center;gap:5px}
+ .candyland-next .candyland-play-shelf .candyland-hero-tool-image{width:55px;min-width:55px;height:55px;max-width:55px}
+ .candyland-next .candyland-play-shelf .candyland-hero-tool-info{align-items:center;gap:3px}
+ .candyland-next .candyland-play-shelf .candyland-hero-tool-name{text-align:center;font-size:11px}
+ .candyland-next .candyland-play-shelf .candyland-hero-tool-blurb{display:none}
+ .candyland-next .candyland-play-shelf .candyland-hero-tool-duration{font-size:8px}
+}
