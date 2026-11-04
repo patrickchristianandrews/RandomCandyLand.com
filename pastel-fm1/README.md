@@ -1,0 +1,33 @@
+# Pastel FM-1 — v0.1
+
+**Status:** custom pastel-themed Melodee 1.6.1 derivative. Source overlay and GitHub build workflow. NOT hardware tested.
+
+The firmware retains a full-featured multi-engine instrument rather than trying to concatenate incompatible firmware binaries:
+- Felucca/Melodee sound engines: FM6/DX7-style, virtual analog, physical models, sample/granular, drum/chiptune and other included engines.
+- Four local synth parts + four MIDI-only tracks, 64 song sections, 16 patterns per local track, and 32 project slots.
+- SLOOP-derived live punch effects (27 types), shared effects routing, note automation, quantized recording, chord harmonies and strums.
+- USB stereo audio or four-track capture, USB-host MIDI (hardware support varies), TRS MIDI input and Bluetooth MIDI.
+- New default **Pastel** 240 x 240 LCD theme: blush pink background, rose/lavender cards, deep-plum legible labels, four coordinated instrument colors.
+- Boot screen and on-device About name: Pastel.
+
+**This is NOT** a port of every community instrument and it does **not** change the fixed-color hardware LEDs. "Pastel" reuses Melodee's audio, MIDI, arranger and resilience code. No proprietary or paid firmware has been copied.
+
+## Firmware binary
+After the GitHub build succeeds, the workflow publishes `pastel-fm1/Pastel.fwsc` to this **pastel-fm1** branch. Use only that actual *.fwsc* file (not this Python source or a ZIP of source) for flashing. The workflow also provides a "packages" build artifact with a SHA-256 checksum.
+
+## Install using an Android phone
+1. Install **FM-1 Swap** from its official GitHub releases: find it in https://github.com/cicloid/awesome-fm-1 under "Firmware update and recovery". Its Android APK installs community `.fwsc` via USB MIDI.
+2. Download `Pastel.fwsc` to your phone, then use a reliable USB-C **data** cable to connect the FM-1 directly to your phone (Android USB OTG / USB host).
+3. In FM-1 Swap, back up your presets/projects as supported, choose "Install local firmware", select `Pastel.fwsc`, authorize the FM-1 USB device and flash **only while battery and cable are stable**.
+4. Do not unplug, switch apps or let the phone sleep during transfer. First boot may take longer. Confirm the LCD splash says "PASTEL".
+
+A plain USB cable does not enable Bluetooth firmware updates; this is **USB** flashing. The file must not be copied to the synth as if it were a storage drive.
+
+## Recovery and compatibility
+The FM-1 uses single-bank flash. Custom firmware can brick it. BACK UP first. Some newer factory V16 devices should be transitioned using a compatible recovery/installer path; don't assume a V15-only patcher accepts V16. Read the [Melodee README](https://github.com/keremimo/melodee), the [boot safety guide](https://github.com/keremimo/melodee/blob/v1.6.1/docs/BOOT-SAFETY.md), and the [community recovery guide](https://github.com/cicloid/awesome-fm-1#firmware-update-and-recovery) before installing. To return to stock use the verified M-VAVE release, not a renamed file.
+
+## Reproducible source and licenses
+Upstream source: https://github.com/keremimo/melodee , tag `v1.6.1`, commit `165d177a425944f3d30b0b669255a6ed0050c3a5`.
+Apply `pastel-fm1/patch.py` to an exact source checkout. GPL-3.0-only and upstream third-party notices apply. The GitHub workflow makes the file with JieLi's toolchain and SDK (which it downloads separately), and runs upstream host/UI tests. A passing build does not prove real-hardware safety.
+
+Not associated with M-VAVE, Melodee, Hügelton Instruments, or their authors. Retain original source attribution.
