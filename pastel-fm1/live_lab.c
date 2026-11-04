@@ -97,64 +97,48 @@ static int32_t pastel_live_energy(void)
 }
 static void pastel_live_orbit(uint32_t phase,int32_t energy)
 {
-    uint16_t c0=pastel_live_color(0,35),c1=pastel_live_color(1,55);
-    int32_t cx=120,cy=88;
-    for(uint32_t r=0;r<3u;r++) {
-        int32_t rad=23+(int32_t)r*21+energy/5;
-        int32_t lastx=cx+rad,lasty=cy;
-        for(uint32_t i=1;i<=32u;i++) {
-            int32_t x=cx+rad*pastel_live_sin(i*4u)/16;
-            int32_t y=cy+rad*pastel_live_sin(i*4u+8u)/16;
-            cv_line(lastx,lasty,x,y,c0);
-            lastx=x;lasty=y;
+    for(uint32_t r=0;r<3u;r++){
+        int32_t rad=27+(int32_t)r*22+energy/7;
+        uint16_t c=pastel_live_color(r,36);
+        int32_t px=120+rad,py=88;
+        for(uint32_t i=4u;i<=128u;i+=4u){
+            int32_t x=120+rad*pastel_live_sin(i+8u)/16;
+            int32_t y=88+rad*pastel_live_sin(i)/16;
+            cv_line(px,py,x,y,c);
+            px=x;py=y;
         }
-        uint32_t at=phase/(1u+r)+r*9u;
-        int32_t px=cx+rad*pastel_live_sin(at+8u)/16;
-        int32_t py=cy+rad*pastel_live_sin(at)/16;
-        cv_disc(px,py,7+(r==0?4:0),c1,0);
+        cv_disc(120+rad*pastel_live_sin(phase+r*8u+8u)/16,
+                88+rad*pastel_live_sin(phase+r*8u)/16,8,
+                pastel_live_color(r+1u,72),0);
     }
-    cv_disc(cx,cy,12+energy/8,pastel_live_color(2,68),0);
+    cv_disc(120,88,12+energy/10,pastel_live_color(2,70),0);
 }
+
 static void pastel_live_prism(uint32_t phase,int32_t energy)
 {
-    int32_t cx=120,cy=88;
     for(uint32_t j=0;j<5u;j++){
-        int32_t radius=14+(int32_t)j*18+energy/(j+4u);
-        uint16_t c=pastel_live_color(j,35u+j*8u);
-        int32_t shift=pastel_live_sin(phase/(j+2u))*3/2;
-        cv_line(cx+shift,cy-radius,cx+radius,cy,c);
-        cv_line(cx+radius,cy,cx-shift,cy+radius,c);
-        cv_line(cx-shift,cy+radius,cx-radius,cy,c);
-        cv_line(cx-radius,cy,cx+shift,cy-radius,c);
-        if(j&1u){
-            cv_disc(cx+radius,cy,6,c,0);
-            cv_disc(cx-radius,cy,6,c,0);
-        }
-    }
-    for(uint32_t i=0;i<7u;i++){
-        int32_t span=20+(int32_t)i*10;
-        int32_t d=pastel_live_sin(phase+i*9u)*energy/30;
-        cv_line(cx-span,cy+d,cx+span,cy-d,pastel_live_color(i+2u,24));
+        int32_t r=13+(int32_t)j*19+energy/(j+6u);
+        int32_t tilt=pastel_live_sin(phase/(j+2u))*2;
+        uint16_t c=pastel_live_color(j,39+j*7u);
+        cv_line(120+tilt,88-r,120+r,88,c);
+        cv_line(120+r,88,120-tilt,88+r,c);
+        cv_line(120-tilt,88+r,120-r,88,c);
+        cv_line(120-r,88,120+tilt,88-r,c);
     }
 }
+
 static void pastel_live_stars(uint32_t phase,int32_t energy)
 {
-    uint32_t seed=(uint32_t)pastel_live_note*1349u+0x9e3779b9u;
-    for(uint32_t i=0;i<56u;i++){
-        seed^=seed<<13;seed^=seed>>17;seed^=seed<<5;
-        int32_t x=(int32_t)(seed%236u)+2;
-        seed=seed*1664525u+1013904223u;
-        int32_t yy=(int32_t)(seed%155u)+12;
-        int32_t y=(yy+(int32_t)(phase*(1u+i%3u)))%151+10;
-        uint16_t c=pastel_live_color(i,(i%7u==0)?77:35);
-        int32_t height=(i%5u==0)?4:2;
-        cv_rect(x,y,height,height,c);
-        if(i%7u==0)cv_line(x-3,y,x+height+3,y,c);
+    for(uint32_t i=0;i<33u;i++){
+        int32_t x=(int32_t)((i*67u+phase*(i%3u+1u))%228u)+6;
+        int32_t y=(int32_t)((i*41u+phase*(i%4u+1u))%143u)+6;
+        uint16_t c=pastel_live_color(i,i%5u==0u?75u:32u);
+        cv_rect(x,y,i%5u==0u?3:2,i%5u==0u?3:2,c);
     }
-    int32_t pulse=12+energy/3;
-    cv_ring(120,88,pulse*2,pastel_live_color(0,62));
-    cv_ring(120,88,(pulse+12)*2,pastel_live_color(2,35));
+    cv_ring(120,88,38+energy/2,pastel_live_color(0,65));
+    cv_ring(120,88,65+energy/2,pastel_live_color(2,30));
 }
+
 static void pastel_live_liquid(uint32_t phase,int32_t energy)
 {
     pastel_liquid_layers(156,80-(energy/5), (uint32_t)energy*350u, phase,3u);
