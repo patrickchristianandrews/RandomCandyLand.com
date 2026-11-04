@@ -70,3 +70,49 @@
 @media(max-width:1000px){.stack-feature{grid-template-columns:1fr}.stack-spotlight{border-left:0;border-top:1px solid #ffffff22}.top-model-picker .top-model-all{display:none}}
 @media(max-width:680px){.stack-feature{margin:12px 0 21px;border-radius:16px}.stack-feature-copy,.stack-spotlight{padding:16px}.stack-spotlight h3{font-size:26px}.stack-steps{gap:6px}.stack-steps span{font-size:10px;min-height:42px}.stack-chat-controls{grid-template-columns:1fr}.topbar{height:auto;min-height:75px;flex-wrap:wrap;padding:9px 3%}.top-actions{width:100%;justify-content:space-between;flex-wrap:wrap;margin-left:0}.top-model-picker{flex:1}.top-model-picker select{width:100%;min-width:120px;flex:1}.status-pill{font-size:10px}.top-actions>.small-pill{font-size:10px}}
 @media(max-width:440px){.top-model-picker{width:100%}.top-model-picker button{font-size:10px}.stack-steps{grid-template-columns:1fr}}
+
+/* Persistent model-loading status stays visible even from the header picker. */
+.model-progress-banner{position:sticky;top:0;z-index:28;margin:0 12px 8px;padding:12px 15px;border:1px solid #a8ffe4;border-radius:0 0 14px 14px;background:linear-gradient(115deg,#113b45,#27213f);box-shadow:0 10px 26px #0c102488}
+.model-progress-banner[hidden]{display:none!important}
+.model-progress-head{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#e5fff6;font:900 13px 'DM Sans',system-ui,sans-serif;margin-bottom:9px}
+.model-progress-head span{font-weight:950;min-width:44px;text-align:right;color:#afffe1;font-variant-numeric:tabular-nums}
+.model-progress-banner .progress-track{height:12px;background:#080f23;border:1px solid #ffffff48;border-radius:20px}
+.model-progress-banner .progress-track span{background:linear-gradient(90deg,#75aef8,#91ffe0,#d7ff9b);box-shadow:0 0 14px #91ffe099;min-width:0}
+.model-progress-banner p{color:#e6f4ff;font-size:12px;margin:8px 0 5px;line-height:1.45}
+.model-progress-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.model-progress-foot>span{font-size:10px;color:#bfd9dc}
+.model-progress-banner[data-state="error"]{border-color:#ffb2ae;background:linear-gradient(120deg,#65384a,#282035)}
+.model-progress-banner[data-state="error"] .progress-track span{background:#ff9c9c}
+.model-progress-banner[data-state="ready"]{border-color:#b4ffc8}
+.model-progress-banner[data-state="ready"] .progress-track span{background:#8af8ae}
+.chat-provider-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px 13px;padding:14px 16px;border-bottom:1px solid #ffffff25;background:linear-gradient(105deg,#23334b,#22203d)}
+.chat-provider-controls label{font-size:11px;display:block;font-weight:900;color:#baffdf;margin-bottom:7px}
+.chat-provider-controls select{width:100%;min-height:41px;border:1px solid #d8caff72;border-radius:10px;background:#11162e;color:#fff;padding:8px;font:700 11px 'DM Sans',system-ui,sans-serif}
+.chat-provider-controls .instant-status{align-self:center;grid-column:1/2;font-size:11px;color:#eedce8;line-height:1.5;margin:0}
+.chat-provider-controls #instantCheck{align-self:center;justify-self:end}
+.chat-provider-controls .instant-status[data-ready="true"]{color:#a8ffdb}
+.chat-provider-controls .instant-status[data-ready="false"]{color:#ffd0ac}
+.chat-provider-controls #hostedChoice[hidden]{display:none}
+.instant-hero-action{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 20px;margin:15px 0 17px;background:linear-gradient(110deg,#203c4c,#312455);border-radius:18px;border:1px solid #a3ffe564}
+.instant-hero-action>div{display:flex;flex-direction:column;gap:6px}
+.instant-hero-action strong{font:900 18px 'Outfit',system-ui,sans-serif;color:#fff}
+.instant-hero-action small{font:700 11px/1.5 'DM Sans',system-ui,sans-serif;color:#d4d3ed}
+.instant-hero-action button{white-space:nowrap}
+.instant-setup{margin:18px 0 24px;border-color:#93e8d36a;background:linear-gradient(150deg,#1c3441,#1d203b)}
+.instant-setup h2{font:900 25px 'Outfit',system-ui,sans-serif;margin:10px 0}
+.instant-setup p,.instant-setup li{font-size:12px;line-height:1.65;color:#d7d6eb}
+.instant-setup ol{padding-left:22px}
+.instant-setup li{margin:8px 0}
+.instant-setup code{padding:2px 5px;border-radius:5px;background:#070e1c;color:#ccffe4;overflow-wrap:anywhere}
+#instantSetupStatus{border-radius:9px;padding:11px;background:#ffffff0e;border:1px solid #ffffff3b;font-size:12px;color:#e7e1f0}
+.instant-setup .lab-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.instant-setup .lab-buttons a{text-decoration:none}
+@media(max-width:740px){
+ .instant-hero-action{flex-direction:column;align-items:stretch;padding:15px}
+ .instant-hero-action button{align-self:flex-start}
+ .chat-provider-controls{grid-template-columns:1fr}
+ .chat-provider-controls .instant-status{grid-column:1}
+ .chat-provider-controls #instantCheck{justify-self:start}
+ .model-progress-banner{margin-left:5px;margin-right:5px}
+}
+@media(prefers-reduced-motion:reduce){.model-progress-banner .progress-track span{transition:none}}
