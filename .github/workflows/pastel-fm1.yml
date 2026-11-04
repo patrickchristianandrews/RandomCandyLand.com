@@ -7,6 +7,9 @@ on:
     paths:
       - 'pastel-fm1/patch.py'
       - 'pastel-fm1/liquid_effects.c'
+      - 'pastel-fm1/animal_audio.c'
+      - 'pastel-fm1/animal_view.c'
+      - 'pastel-fm1/animal_test.c'
       - 'pastel-fm1/README.md'
       - '.github/workflows/pastel-fm1.yml'
   workflow_dispatch:
@@ -47,6 +50,8 @@ jobs:
         mkdir -p build/host
         cc -O1 -ffp-contract=off -Wall -Wno-unused-function -Ibuild/gen -Ifirmware/src -o build/host/pastel_theme_test tests/theme_test.c -lm
         build/host/pastel_theme_test
+        cc -O1 -Wall -Wextra -Werror -Ifirmware/src -o build/host/pastel_animal_test tests/pastel_animal_test.c -lm
+        build/host/pastel_animal_test
         # Render the exact firmware UI in the host simulator and inspect all
         # screens for clipping/overlap, including the animated Stage surface.
         cc -O1 -w -DMELODEE_USB_AUDIO=1 -DMELODEE_USB_HOST=1 -Ibuild/gen -Ifirmware/src -Itests -o build/host/pastel_ui_render tests/ui_render.c -lm
