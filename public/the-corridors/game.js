@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 const W=window.WorldKit,app=document.getElementById('app'),KEY='corridors-save-v1';
-const start={chapter:0,influence:36,knowledge:32,relationships:53,reputation:55,ethics:70,trust:54,actors:[51,55,45,52,48,50],role:'Policy aide',journal:[],pending:null,report:false,finished:false};
+const start={chapter:0,influence:36,knowledge:32,relationships:53,reputation:55,ethics:70,trust:54,actors:[51,55,45,52,48,50],role:'Policy aide',journal:[],pending:null,report:false,finished:false,consulted:[],briefing:null,medals:[]};
 let state=W.load(KEY,start);
 if(!Array.isArray(state.actors)||state.actors.length!==6)state=W.copy(start);
 const factions=[
@@ -73,9 +73,49 @@ const scenes=[
    {name:'Promise everything and secretly divert oversight funds',pitch:'Win applause today while leaving the numbers unworkable.',effect:[18,-14,8,-25,-32,-24],actors:[-20,15,-9,-20,-28,19],legality:'Misstating appropriations and diverting restricted funds could lead to serious oversight or legal action.',impact:'The city gets a grand announcement and fragile institutions.',flags:'Unfunded promises legacy'}
   ]}
 ];
+
+const briefingLines=[
+ 'Residents need improvements, not slogans. They are watching which neighborhoods lose out.',
+ 'Investors favor speed, but private special treatment could poison later contracts.',
+ 'Frontline workers know the risks and costs that official plans leave out.',
+ 'Reporters compare official claims with budgets, meeting minutes and primary records.',
+ 'Independent oversight asks: who has authority, who benefits, and which records exist?',
+ 'Leadership wants votes now. Political alliances often attach strings to a promise.'
+];
+const medalDefs=[
+ {icon:'🚪',name:'First Door',ok:()=>state.chapter>=1},
+ {icon:'🗣️',name:'The Listener',ok:()=>state.journal.some(x=>x.text.startsWith('Stakeholder briefing:'))},
+ {icon:'🤝',name:'Public Trust',ok:()=>state.trust>=75},
+ {icon:'🧭',name:'Steady Compass',ok:()=>state.ethics>=90},
+ {icon:'🏛️',name:'Meridian Insider',ok:()=>state.chapter>=4},
+ {icon:'🏅',name:'The Legacy',ok:()=>state.finished}
+];
+function consult(i){
+ if(state.finished||state.pending!==null||i<0||i>=factions.length||state.consulted.includes(i)||state.consulted.length>=2)return;
+ state.consulted.push(i);state.briefing={actor:factions[i][0],text:briefingLines[i]};
+ state.knowledge+=5;state.relationships+=2;state.influence-=1;state.actors[i]+=6;
+ if(i===0||i===4)state.trust+=2;
+ state.journal.push({when:'CHAPTER '+(state.chapter+1),text:'Stakeholder briefing: '+factions[i][0]+'. '+briefingLines[i]});
+ window.WorldFX?.celebrate('🗣️');save();render()
+}
+function stakeholderDesk(){
+ const used=state.consulted.length;
+ return '<div class="wfx-quest"><span class="overline">WHISPER NETWORK · '+used+'/2 CONSULTATIONS</span><h3>Who will you meet behind the scenes?</h3>'+
+ (state.briefing?'<div class="wfx-briefing"><strong>🎙️ '+W.escape(state.briefing.actor)+'</strong><p>'+W.escape(state.briefing.text)+'</p></div>':'<p>Listen to two stakeholder perspectives before committing to a political decision.</p>')+
+ '<div class="wfx-intel-grid">'+factions.map((a,i)=>'<button data-consult="'+i+'" '+(state.consulted.includes(i)||used>=2?'disabled':'')+'><span class="emoji">'+a[1]+'</span><b>'+W.escape(a[0])+'</b><small>'+(state.consulted.includes(i)?'✓ Interviewed':'+5 knowledge · +6 support')+'</small></button>').join('')+'</div></div>';
+}
+function powerWeb(){
+ const pts=[[160,31],[267,89],[251,219],[160,258],[65,219],[51,89]];
+ return '<svg class="wfx-faction-svg" viewBox="0 0 320 290" role="img" aria-label="Animated relationship network with all six power factions">'+
+ '<circle cx="160" cy="145" r="49" fill="#263d60" stroke="#e2c489" stroke-width="3"/><text x="160" y="145" text-anchor="middle" font-size="28">🏛️</text><text x="160" y="174" text-anchor="middle" font-size="11" fill="#f3d7a4" font-weight="900">YOU</text>'+
+ pts.map((p,i)=>'<line x1="160" y1="145" x2="'+p[0]+'" y2="'+p[1]+'" stroke="#dfba7d" stroke-width="'+Math.max(2,num(state.actors[i])/15)+'" opacity="'+(.25+state.actors[i]/150)+'"/>').join('')+
+ pts.map((p,i)=>'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="29" fill="'+(state.actors[i]>65?'#327a74':state.actors[i]<35?'#82515d':'#456085')+'" stroke="#f3d7a4" stroke-width="2"/><text x="'+p[0]+'" y="'+(p[1]-1)+'" text-anchor="middle" font-size="23">'+factions[i][1]+'</text><text x="'+p[0]+'" y="'+(p[1]+18)+'" text-anchor="middle" font-size="11" font-weight="900" fill="#fff">'+num(state.actors[i])+'</text>').join('')+'</svg>';
+}
+const badgeRow=()=>'<div class="wfx-achievements">'+medalDefs.map(m=>'<span class="wfx-medal '+(state.medals.includes(m.name)?'':'is-locked')+'">'+m.icon+' '+W.escape(m.name)+'</span>').join('')+'</div>';
+
 const keys=['influence','knowledge','relationships','reputation','ethics','trust'];
 const num=v=>Math.round(v);
-const save=()=>{keys.forEach(k=>state[k]=W.clamp(state[k]));state.actors=state.actors.map(v=>W.clamp(v));W.save(KEY,state)};
+const save=()=>{keys.forEach(k=>state[k]=W.clamp(state[k]));state.actors=state.actors.map(v=>W.clamp(v));if(!Array.isArray(state.medals))state.medals=[];medalDefs.forEach(m=>{if(m.ok()&&!state.medals.includes(m.name))state.medals.push(m.name)});W.save(KEY,state)};
 const currentRole=()=>{if(state.chapter>=6)return 'Executive decision-maker';if(state.chapter>=4)return 'Chief policy negotiator';if(state.chapter>=2)return 'Committee strategist';return 'Policy aide'};
 const ending=()=>{
  if(state.ethics<32)return 'Power Without Legitimacy';
@@ -89,29 +129,29 @@ function makeReport(){return ['THE CORRIDORS / INSIDE THE DECISION','A fictional
 'Reputation: '+num(state.reputation)+'; Relationships: '+num(state.relationships)+'; Ethics: '+num(state.ethics),'',
 state.finished?'CAREER OUTCOME: '+ending():'CAREER IN PROGRESS','',
 'RELATIONSHIP WEB',...factions.map((f,i)=>f[0]+': '+num(state.actors[i])+'/100'),'',
-'DECISION RECORD',...state.journal.map(j=>j.when+': '+j.text),
+'CAREER ACHIEVEMENTS',...(state.medals||[]),'','DECISION RECORD',...state.journal.map(j=>j.when+': '+j.text),
 '','This simulation uses imagined Meridian rules and simplified legal concepts. It is educational entertainment, not legal advice.'].join('\n')}
 function choose(i){
  if(state.finished||state.pending!==null)return;
  const scene=scenes[state.chapter],opt=scene&&scene.choices[i];if(!opt)return;
  keys.forEach((k,n)=>state[k]+=opt.effect[n]);state.actors=state.actors.map((v,n)=>v+opt.actors[n]);
- state.role=currentRole();state.pending=i;
+ state.role=currentRole();state.pending=i;window.WorldFX?.celebrate('🚪');
  state.journal.push({when:'CHAPTER '+(state.chapter+1),text:opt.name+'. '+opt.impact+' Rule: '+opt.legality});
  W.chronicle('The Corridors',opt.flags+'; policy consequence: '+opt.impact);
  save();render()
 }
 function next(){
  if(state.pending===null||state.finished)return;
- state.chapter++;state.pending=null;
+ state.chapter++;state.pending=null;state.consulted=[];state.briefing=null;window.WorldFX?.celebrate('🏛️');
  if(state.chapter>=scenes.length)state.finished=true;
  state.role=currentRole();save();render();window.scrollTo({top:0,behavior:'smooth'})
 }
 function sceneHtml(){
  if(state.finished)return '<section class="panel ending"><div class="big">🏛️</div><span class="overline">CAREER COMPLETE · CITYWIDE LEGACY</span><h2>'+W.escape(ending())+'</h2><p>Every political choice changed the people and institutions around you. Your public story and your private trail are not the same.</p><div class="statgrid" style="margin:20px 0">'+W.stat('Integrity',num(state.ethics))+W.stat('Public trust',num(state.trust))+W.stat('Influence',num(state.influence))+'</div><div class="button-row" style="justify-content:center"><button class="button" data-report>Read your legacy report</button><button class="button-quiet" data-download>Export career dossier</button></div></section>';
  const sc=scenes[state.chapter],opt=state.pending!==null?sc.choices[state.pending]:null;
- let h='<section class="panel"><span class="overline">'+W.escape(sc.tag)+'</span><h2>'+W.escape(sc.title)+'</h2><p class="subline">Meridian, fictional city hall · You hold one vote, but many people can influence it.</p><div class="scene"><h3>Behind the chamber doors</h3><p>'+W.escape(sc.story)+'</p><div class="compare"><div><strong>📣 PUBLIC MESSAGE</strong><p>'+W.escape(sc.visible)+'</p></div><div><strong>🤫 PRIVATE PRESSURE</strong><p>'+W.escape(sc.private)+'</p></div></div><p class="note"><strong>Who matters:</strong> '+W.escape(sc.who)+'</p></div>';
- if(!opt){h+='<h3 style="margin:18px 0 10px">Choose your next move</h3><div class="choices">'+sc.choices.map((o,i)=>'<button class="option" data-pick="'+i+'"><span class="tag">DOOR 0'+(i+1)+'</span><b>'+W.escape(o.name)+'</b><small>'+W.escape(o.pitch)+'</small></button>').join('')+'</div>'}
- else{h+='<div class="result" style="margin-top:15px"><span class="overline">INSIDE THE DECISION · WHAT REALLY HAPPENED</span><h3>'+W.escape(opt.name)+'</h3><p><b>What the public sees:</b> '+W.escape(sc.visible)+'</p><p><b>Who gains or loses:</b> '+W.escape(opt.impact)+'</p><p><b>Legal and ethical reality:</b> '+W.escape(opt.legality)+'</p><p><b>Power lesson:</b> '+W.escape(sc.legal)+'</p><p><b>Who is involved:</b> '+W.escape(sc.who)+'</p><button class="button" data-next>'+(state.chapter===scenes.length-1?'Reveal your career outcome':'Open the next door →')+'</button></div>'}
+ let h='<section class="panel"><span class="overline">'+W.escape(sc.tag)+'</span><h2>'+W.escape(sc.title)+'</h2><p class="subline">Meridian, fictional city hall · You hold one vote, but many people can influence it.</p><div class="scene"><h3>Behind the chamber doors</h3><p>'+W.escape(sc.story)+'</p><div class="compare"><div><strong>📣 PUBLIC MESSAGE</strong><p>'+W.escape(sc.visible)+'</p></div><div><strong>🤫 PRIVATE PRESSURE</strong><p>'+W.escape(state.consulted.length>0||state.pending!==null?sc.private:'Classified until you talk to a stakeholder below.')+'</p></div></div><p class="note"><strong>Who matters:</strong> '+W.escape(sc.who)+'</p></div>';
+ if(!opt){h+='<h3 style="margin:18px 0 10px">Choose your next door</h3>'+window.WorldFX.sceneHall(state.chapter,sc.choices,false)+stakeholderDesk()+'<p class="note">Speak to two factions for private intelligence, then open one of the three glowing doors above.</p>'}
+ else{h+=window.WorldFX.sceneHall(state.chapter,sc.choices,true)+'<div class="result" style="margin-top:15px"><span class="overline">INSIDE THE DECISION · WHAT REALLY HAPPENED</span><h3>'+W.escape(opt.name)+'</h3><p><b>What the public sees:</b> '+W.escape(sc.visible)+'</p><p><b>Who gains or loses:</b> '+W.escape(opt.impact)+'</p><p><b>Legal and ethical reality:</b> '+W.escape(opt.legality)+'</p><p><b>Power lesson:</b> '+W.escape(sc.legal)+'</p><p><b>Who is involved:</b> '+W.escape(sc.who)+'</p><button class="button" data-next>'+(state.chapter===scenes.length-1?'Reveal your career outcome':'Open the next door →')+'</button></div>'}
  return h+'</section>';
 }
 function render(){
@@ -119,7 +159,7 @@ function render(){
  let html='<div class="maincol"><section class="panel"><span class="overline">CAREER PATH · '+(state.finished?'COMPLETE':'CHAPTER '+progress+' OF '+scenes.length)+'</span><h2>'+W.escape(currentRole())+'</h2><p class="subline">Build your career in the fictional Meridian government. Power without process can produce a very different legacy.</p><div class="statgrid">'+W.stat('Influence',num(state.influence))+W.stat('Knowledge',num(state.knowledge))+W.stat('Public trust',num(state.trust))+'</div><div class="timeline" style="margin-top:15px">'+scenes.map((s,i)=>'<span class="'+(i<state.chapter?'done':i===state.chapter&&!state.finished?'current':'')+'">'+(i+1)+'</span>').join('')+'</div></section>';
  html+=sceneHtml();
  html+='<section class="panel"><span class="overline">REALITY CHECK</span><h2>Rules, gray areas and oversight</h2><p class="subline">Actions may be lawful, questionable or prohibited depending on context. The city’s fictional charter is your training ground, not a statement of real law.</p><div class="callout"><strong>Ask four questions:</strong><p>Who has legal authority? What was promised publicly? Who benefits privately? Which records, conflicts and approvals will withstand independent review?</p></div></section></div>';
- html+='<aside class="sidecol"><section class="panel"><h2>Power profile</h2><div class="statgrid">'+W.stat('Reputation',num(state.reputation))+W.stat('Relationships',num(state.relationships))+W.stat('Ethics',num(state.ethics))+'</div><p class="note">These indicators can diverge. Popular moves can be ethically dubious, and responsible choices can cost influence.</p></section>';
+ html+='<aside class="sidecol"><section class="panel"><h2>Career achievements</h2>'+badgeRow()+'</section><section class="panel"><h2>Your live power web</h2><p class="note">The six alliance scores change when you negotiate.</p>'+powerWeb()+'</section><section class="panel"><h2>Power profile</h2><div class="statgrid">'+W.stat('Reputation',num(state.reputation))+W.stat('Relationships',num(state.relationships))+W.stat('Ethics',num(state.ethics))+'</div><p class="note">These indicators can diverge. Popular moves can be ethically dubious, and responsible choices can cost influence.</p></section>';
  html+='<section class="panel"><h2>Relationship web</h2><p class="note">Every decision strengthens and weakens alliances.</p><div class="actors">'+factions.map((f,i)=>'<div class="actor"><strong>'+f[1]+' '+W.escape(f[0])+'</strong><span>'+W.escape(f[2])+'</span><div class="meter"><i style="width:'+num(state.actors[i])+'%"></i></div></div>').join('')+'</div></section>';
  html+='<section class="panel"><h2>Your career dossier</h2><div class="button-row"><button class="button-quiet" data-report>📋 '+(state.report?'Hide':'Open')+' decision report</button><button class="button-quiet" data-download>↓ Export dossier</button><button class="button-quiet" data-reset>↺ New career</button></div></section>';
  html+='<section class="panel"><h2>Private record</h2>'+W.journal(state.journal)+'</section><section class="panel"><h2>Elsewhere in Meridian</h2>'+W.cross('The Corridors')+'</section></aside>';
@@ -129,6 +169,7 @@ function render(){
 app.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b||b.disabled)return;
  if(b.hasAttribute('data-pick'))choose(Number(b.dataset.pick));
+ else if(b.hasAttribute('data-consult'))consult(Number(b.dataset.consult));
  else if(b.hasAttribute('data-next'))next();
  else if(b.hasAttribute('data-report')){state.report=!state.report;save();render()}
  else if(b.hasAttribute('data-download'))W.download('The-Corridors-career-dossier.txt',makeReport());
