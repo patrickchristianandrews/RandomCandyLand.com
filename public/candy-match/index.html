@@ -75,7 +75,7 @@ footer{text-align:center;margin-top:38px;font-size:13px;color:#e9c7f0}
 <meta name="apple-mobile-web-app-title" content="Candy Match">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script src="/install-app.js" defer></script>
-<link rel="stylesheet" href="/site-home-icon.css?v=20261031-topright-v1">
+<link rel="stylesheet" href="/site-home-icon.css?v=20261031-topright-v1"><link rel="stylesheet" href="/multiplayer/quick-room.css?v=1">
 </head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -91,7 +91,7 @@ footer{text-align:center;margin-top:38px;font-size:13px;color:#e9c7f0}
 <div class="controls"><button class="action" id="newgame" type="button">🎮 NEW GAME</button><button class="action secondary" type="button" id="hint" disabled>💡 Sweet Hint (2)</button></div>
 </main>
 <aside class="panel sidebar"><details class="game-help"><summary>❔ How to play</summary><ol><li>Tap one card to see what's underneath.</li><li>Tap another. If both candies match, they stay uncovered!</li><li>Match every pair to win. Fewer moves earn more stars!</li><li>Two-player mode: share this screen, alternate after a miss, and keep your turn after a match.</li></ol></details>
-<label for="playStyle">Who is playing?<select id="playStyle"><option value="solo">👤 Solo challenge</option><option value="duel">👥 Two players · take turns on one board</option></select></label><div id="duelScore" class="match-duel" hidden aria-live="polite">🍬 Player 1: <strong id="duelOne">0</strong> pairs · 🌸 Player 2: <strong id="duelTwo">0</strong> pairs · <span id="duelTurn">Player 1's turn</span></div><label for="difficulty">How sweet is your challenge?
+<label for="playStyle">Who is playing?<select id="playStyle"><option value="solo">👤 Solo challenge</option><option value="duel">👥 Two players · take turns on one board</option><option value="remote">🌐 Remote friend · each device</option></select></label><div id="matchRemoteRoom" hidden></div><div id="duelScore" class="match-duel" hidden aria-live="polite">🍬 Player 1: <strong id="duelOne">0</strong> pairs · 🌸 Player 2: <strong id="duelTwo">0</strong> pairs · <span id="duelTurn">Player 1's turn</span></div><label for="difficulty">How sweet is your challenge?
 <select id="difficulty"><option value="easy">🧸 Easy · 6 pairs</option><option value="medium">🍬 Classic · 8 pairs</option><option value="hard">⚡ Expert · 12 pairs</option></select></label>
 <label class="check"><input id="audio" type="checkbox" checked> 🎶 Cute musical sounds</label>
 <div class="best" id="best">🏆 Best: —</div>
@@ -99,14 +99,16 @@ footer{text-align:center;margin-top:38px;font-size:13px;color:#e9c7f0}
 </aside></div>
 <footer>Made for <a href="/">Random Candy Land</a> · An original candy-themed matching game 💗</footer>
 </div>
-<script>
+<script src="/candy-casino/relay-config.js"></script><script src="/candy-casino/relay-peer.js"></script><script src="/multiplayer/quick-room.js?v=1"></script><script>
 (function(){
 'use strict';
 const treats=[['🍓','Strawberry'],['🍉','Melon'],['🧁','Cupcake'],['🍩','Donut'],['🍒','Cherries'],['🍋','Lemon'],['🍭','Lollipop'],['🍪','Cookie'],['🍦','Ice Cream'],['🍬','Sweet'],['🍇','Grapes'],['🫐','Berries'],['🍌','Banana'],['🍍','Pineapple'],['🥨','Pretzel'],['🍑','Peach']];
 const board=document.querySelector('#board'),difficulty=document.querySelector('#difficulty'),newBtn=document.querySelector('#newgame'),hintBtn=document.querySelector('#hint');
 const playStyle=document.querySelector('#playStyle'),duelScore=document.querySelector('#duelScore'),duelOne=document.querySelector('#duelOne'),duelTwo=document.querySelector('#duelTwo'),duelTurn=document.querySelector('#duelTurn');
 const msg=document.querySelector('#message'),detail=document.querySelector('#detail'),pairsEl=document.querySelector('#pairs'),movesEl=document.querySelector('#moves'),timeEl=document.querySelector('#time'),starsEl=document.querySelector('#stars'),bar=document.querySelector('#progress'),bestEl=document.querySelector('#best'),celebrate=document.querySelector('#celebration');
-let deck=[],open=[],lock=false,matched=0,moves=0,stars=0,hints=2,startedAt=0,elapsed=0,clock=null,round=0,finished=false,audio=null,turn=0,duelPoints=[0,0];
+let deck=[],open=[],lock=false,matched=0,moves=0,stars=0,hints=2,startedAt=0,elapsed=0,clock=null,round=0,finished=false,audio=null,turn=0,duelPoints=[0,0],remote=null,remoteSeq=0,remoteSeen=-1;
+const dueling=()=>playStyle.value==='duel'||playStyle.value==='remote';
+const remoteMode=()=>playStyle.value==='remote';
 function count(){return {easy:6,medium:8,hard:12}[difficulty.value]||6}
 function getBest(){try{return JSON.parse(localStorage.getItem('candy-match-best-'+difficulty.value+'-v1')||'null')}catch{return null}}
 function saveBest(){const old=getBest(),time=Math.round(elapsed/1000);if(!old||moves<old.moves||(moves===old.moves&&time<old.time)){try{localStorage.setItem('candy-match-best-'+difficulty.value+'-v1',JSON.stringify({moves,time}))}catch{}}}
@@ -118,7 +120,7 @@ function sound(freq=500,len=.11){
  try{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;audio=audio||new Audio();if(audio.state==='suspended')audio.resume().catch(()=>{});const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.setValueAtTime(freq,audio.currentTime);g.gain.setValueAtTime(.0001,audio.currentTime);g.gain.exponentialRampToValueAtTime(.11,audio.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+len);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+len+.02)}catch{}
 }
 function format(ms){const s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
-function display(){pairsEl.textContent=matched+'/'+count();movesEl.textContent=moves;starsEl.textContent=stars;timeEl.textContent=format(elapsed);bar.style.width=(100*matched/count())+'%';hintBtn.textContent='💡 Sweet Hint ('+hints+')';hintBtn.disabled=finished||lock||hints<1||open.length>0||playStyle.value==='duel';duelScore.hidden=playStyle.value!=='duel';duelOne.textContent=duelPoints[0];duelTwo.textContent=duelPoints[1];duelTurn.textContent=finished?'Game over':('Player '+(turn+1)+'\'s turn')}
+function display(){pairsEl.textContent=matched+'/'+count();movesEl.textContent=moves;starsEl.textContent=stars;timeEl.textContent=format(elapsed);bar.style.width=(100*matched/count())+'%';hintBtn.textContent='💡 Sweet Hint ('+hints+')';hintBtn.disabled=finished||lock||hints<1||open.length>0||dueling();duelScore.hidden=!dueling();newBtn.disabled=remoteMode()&&remote?.active&&!remote.host;difficulty.disabled=remoteMode()&&remote?.active&&!remote.host;duelOne.textContent=duelPoints[0];duelTwo.textContent=duelPoints[1];duelTurn.textContent=finished?'Game over':('Player '+(turn+1)+'\'s turn')}
 function startTimer(){if(startedAt)return;startedAt=Date.now();clock=setInterval(()=>{if(finished)return;elapsed=Date.now()-startedAt;timeEl.textContent=format(elapsed)},250)}
 function render(){
  board.textContent='';
@@ -129,31 +131,37 @@ function render(){
  });
 }
 function start(){
+ if(remoteMode()&&remote?.active&&!remote.host)return;
  round++;clearInterval(clock);clock=null;startedAt=0;elapsed=0;matched=0;moves=0;stars=0;hints=2;open=[];lock=false;finished=false;turn=0;duelPoints=[0,0];
  const selection=shuffle(treats.slice()).slice(0,count());deck=shuffle(selection.flatMap((x,id)=>[{pair:id,emoji:x[0],label:x[1],matched:false},{pair:id,emoji:x[0],label:x[1],matched:false}]));
- render();newBtn.textContent='↻ SHUFFLE AGAIN';say('🍭 Find the matching candies!',playStyle.value==='duel'?'Player 1 starts! Correct matches earn points and another turn. A miss passes to the other player.':'Tap any two cards to uncover them.');celebrate.textContent='✨ 🍬 ✨';showBest();display();
+ render();newBtn.textContent='↻ SHUFFLE AGAIN';say('🍭 Find the matching candies!',dueling()?'Player 1 starts! Correct matches earn points and another turn. A miss passes to the other player.':'Tap any two cards to uncover them.');celebrate.textContent='✨ 🍬 ✨';showBest();display();remoteSync();
 }
-function flip(i){
+function flip(i,fromGuest=false){
+ if(remoteMode()){
+  if(!remote?.ready)return;
+  if(!remote.host){if(turn!==1||lock||finished)return;remote.send({type:'draw',action:'flip',index:i});return;}
+  if(fromGuest?turn!==1:turn!==0)return;
+ }
  if(finished||lock||open.includes(i)||deck[i].matched)return;
  startTimer();const btn=board.children[i];btn.classList.add('flipped');btn.setAttribute('aria-label',deck[i].label+' candy revealed');open.push(i);sound(520+open.length*90);
- if(open.length!==2){display();return}
- moves++;display();const [a,b]=open;
+ if(open.length!==2){display();remoteSync();return}
+ moves++;display();remoteSync();const [a,b]=open;
  if(deck[a].pair===deck[b].pair){
   lock=true;const token=round;sound(830,.15);
   setTimeout(()=>{if(token!==round)return;
    deck[a].matched=deck[b].matched=true;board.children[a].classList.add('matched');board.children[b].classList.add('matched');
    board.children[a].disabled=true;board.children[b].disabled=true;
-   matched++;stars+=Math.max(5,16-Math.max(0,moves-matched));if(playStyle.value==='duel')duelPoints[turn]++;open=[];lock=false;
+   matched++;stars+=Math.max(5,16-Math.max(0,moves-matched));if(dueling())duelPoints[turn]++;open=[];lock=false;
    if(matched===count()){
     finished=true;clearInterval(clock);elapsed=Date.now()-startedAt;saveBest();showBest();
-    say('🏆 '+(playStyle.value==='duel'?(duelPoints[0]===duelPoints[1]?'IT\'S A TIE!': 'PLAYER '+(duelPoints[0]>duelPoints[1]?'1':'2')+' WINS!'):'YOU MATCHED THEM ALL!'),playStyle.value==='duel'?'Player 1: '+duelPoints[0]+' pairs · Player 2: '+duelPoints[1]+' pairs. Rematch to play again!':'Amazing! '+moves+' moves · '+format(elapsed)+' · '+stars+' stars. Play again for a new shuffle!');
+    say('🏆 '+(dueling()?(duelPoints[0]===duelPoints[1]?'IT\'S A TIE!': 'PLAYER '+(duelPoints[0]>duelPoints[1]?'1':'2')+' WINS!'):'YOU MATCHED THEM ALL!'),dueling()?'Player 1: '+duelPoints[0]+' pairs · Player 2: '+duelPoints[1]+' pairs. Rematch to play again!':'Amazing! '+moves+' moves · '+format(elapsed)+' · '+stars+' stars. Play again for a new shuffle!');
     celebrate.textContent='🎉 🌟 🍭 🌟 🎉';sound(1040,.24);
    }else{say(['🌟 SUPER SWEET!','🍓 PERFECT PAIR!','🧁 CANDY GENIUS!'][matched%3],'That pair is yours! '+(count()-matched)+' more to find.');}
-   display();
+   display();remoteSync();
   },260);
  }else{
   lock=true;const token=round;say('💗 Not quite a match!','Remember what you saw. These candies are hiding again.');
-  setTimeout(()=>{if(token!==round)return;board.children[a].classList.remove('flipped');board.children[b].classList.remove('flipped');board.children[a].setAttribute('aria-label','Hidden candy card '+(a+1));board.children[b].setAttribute('aria-label','Hidden candy card '+(b+1));open=[];lock=false;if(playStyle.value==='duel'){turn=1-turn;say('🎮 PLAYER '+(turn+1)+'\'S TURN','Missed pair! Now it is the other player\'s chance.')}display()},870);
+  setTimeout(()=>{if(token!==round)return;board.children[a].classList.remove('flipped');board.children[b].classList.remove('flipped');board.children[a].setAttribute('aria-label','Hidden candy card '+(a+1));board.children[b].setAttribute('aria-label','Hidden candy card '+(b+1));open=[];lock=false;if(dueling()){turn=1-turn;say('🎮 PLAYER '+(turn+1)+'\'S TURN','Missed pair! Now it is the other player\'s chance.')}display();remoteSync()},870);
  }
 }
 function useHint(){
@@ -165,7 +173,74 @@ function useHint(){
  sound(910,.19);say('💡 PEEK-A-BOO!','Take a good look at these two matching candies!');
  display();setTimeout(()=>{if(round!==token)return;for(const x of [a,b])board.children[x.i].classList.remove('flipped');lock=false;display()},1100);
 }
-newBtn.addEventListener('click',start);hintBtn.addEventListener('click',useHint);difficulty.addEventListener('change',start);playStyle.addEventListener('change',start);
+
+function remoteSync(){
+ if(!remoteMode()||!remote?.ready||!remote.host||!deck.length)return;
+ const cards=deck.map((c,i)=>{
+  const shown=c.matched||open.includes(i);
+  return {pair:shown?c.pair:-1,emoji:shown?c.emoji:'',label:shown?c.label:'',matched:c.matched,faceUp:open.includes(i)};
+ });
+ remote.send({type:'state',seq:++remoteSeq,difficulty:difficulty.value,cards,turn,points:duelPoints.slice(),
+  matched,moves,stars,elapsed,finished,locked:lock,
+  message:msg.textContent,detail:detail.textContent});
+}
+function applyRemoteState(data){
+ if(remote?.host||!remoteMode()||!Array.isArray(data.cards)||data.cards.length>24||
+    !Number.isSafeInteger(data.seq)||data.seq<=remoteSeen)return;
+ remoteSeen=data.seq;
+ const legal=['easy','medium','hard'];if(!legal.includes(data.difficulty))return;
+ const number={easy:12,medium:16,hard:24}[data.difficulty];
+ if(data.cards.length!==number)return;
+ const safe=data.cards.map(c=>{
+  const known=treats.find(x=>x[0]===c.emoji&&x[1]===c.label);
+  return {pair:known&&Number.isInteger(c.pair)?c.pair:-1,emoji:known?c.emoji:'🍬',label:known?c.label:'Hidden',
+    matched:!!c.matched,faceUp:!!c.faceUp};
+ });
+ difficulty.value=data.difficulty;deck=safe;open=safe.flatMap((c,i)=>c.faceUp?[i]:[]);
+ matched=Math.min(12,Math.max(0,Number(data.matched)||0));
+ moves=Math.min(9999,Math.max(0,Number(data.moves)||0));stars=Math.max(0,Number(data.stars)||0);
+ turn=data.turn===1?1:0;duelPoints=Array.isArray(data.points)?data.points.slice(0,2).map(x=>Math.max(0,Number(x)||0)):[0,0];
+ finished=!!data.finished;lock=!!data.locked;elapsed=Math.max(0,Number(data.elapsed)||0);
+ round++;clearInterval(clock);clock=null;
+ if(elapsed>0&&!finished){startedAt=Date.now()-elapsed;clock=setInterval(()=>{if(!finished){elapsed=Date.now()-startedAt;timeEl.textContent=format(elapsed)}},350)}
+ else startedAt=0;
+ render();
+ safe.forEach((c,i)=>{const btn=board.children[i];if(c.faceUp||c.matched)btn.classList.add(c.matched?'matched':'flipped');if(c.matched)btn.disabled=true;});
+ say(String(data.message||'Candy Match!').slice(0,160),String(data.detail||'').slice(0,200));
+ display();
+}
+remote=window.CandyQuickRoom.create({root:'#matchRemoteRoom',game:'match',
+ onConnected(role){
+  if(playStyle.value!=='remote'){playStyle.value='remote';start()}
+  if(role==='host'){say('🌐 Friend connected','Player 1 starts. Each player takes turns on their own device.');remoteSync()}
+  else say('🌐 Connected to host','Waiting for the shared game board…');
+  display();
+ },
+ onWaiting(){say('🌐 Share your invite','The remote game starts when your friend joins.');display()},
+ onMessage(data){
+  if(!remoteMode())return;
+  if(remote.host){
+   if(data.type==='hello')remoteSync();
+   if(data.type==='draw'&&data.action==='flip'&&Number.isInteger(data.index)&&data.index>=0&&data.index<deck.length)flip(data.index,true);
+   if(data.type==='reset')start();
+  }else if(data.type==='state')applyRemoteState(data);
+ },
+ onDisconnected(reason){if(remoteMode()){say('🌐 Friend disconnected',reason==='left'?'Reconnect from the invite to resume.':'Check the room or network.');display()}}
+});
+newBtn.addEventListener('click',start);
+hintBtn.addEventListener('click',useHint);
+difficulty.addEventListener('change',start);
+playStyle.addEventListener('change',()=>{
+ if(!remoteMode()&&remote?.active)remote.leave();
+ document.querySelector('#matchRemoteRoom').hidden=!remoteMode();
+ if(remoteMode())remote.open();
+ start();display();
+});
 start();
+if(new URLSearchParams(location.search).has('room')){
+ playStyle.value='remote';document.querySelector('#matchRemoteRoom').hidden=false;
+ start();remote.tryInvite();
+}
+
 })();
 </script></body></html>
