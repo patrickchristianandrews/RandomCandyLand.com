@@ -36,7 +36,7 @@ static const uint8_t pastel_live_sounds[PASTEL_LIVE_SOUNDS][2] = {
 static uint32_t pastel_live_on(void)
 {
     return ui.home && ui.home_pg == 3u && !ui.menu && !ui.confirm &&
-           !pop.on && !ui.layer;
+           !ui.layer;
 }
 static void pastel_live_keys(uint32_t notes)
 {
