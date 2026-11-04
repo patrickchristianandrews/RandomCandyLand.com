@@ -340,14 +340,15 @@ const toolIcons = [
   'tool-icons/moodropolis.svg',
   'tool-icons/the-corridors.svg',
   'tool-icons/the-docket.svg',
-  'tool-icons/candy-studio.svg'
+  'tool-icons/candy-studio.svg',
+  'tool-icons/ai-academy.svg'
 ];
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
     !homeInstallSource.includes('className="candyland-hero-tool-link"') ||
     !homeInstallSource.includes('src={portal.icon}') ||
     !homeInstallSource.includes("games.map(portal =>") ||
     !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
-  console.error('The Candy Land homepage must display all thirteen illustrated game and tool shortcuts.');
+  console.error('The Candy Land homepage must display all fourteen illustrated game and tool shortcuts.');
   failures++;
 }
 // The new artwork must replace the old emoji/cartoon thumbnails in every
@@ -620,6 +621,16 @@ if(!homeInstallSource.includes('candyland-unwrapped-promo') ||
    !homeInstallSource.includes('href="/after-dark/"')){
   console.error('Homepage needs exactly one short Unwrapped feature with reports and a working link.');failures++;
 }
+// AI Academy is a standalone learning destination, with its own course and manifest.
+for(const file of ['dist/ai-academy/index.html','dist/ai-academy/academy.js','dist/ai-academy/academy.css','dist/app-manifests/ai-academy.webmanifest','dist/tool-icons/ai-academy.svg','dist/studio/model-explorer.js','dist/studio/model-explorer.css']){
+ if(!fs.existsSync(file)){console.error('Standalone Academy or Random AI asset missing:',file);failures++;}
+}
+if(fs.existsSync('dist/ai-academy/academy.js')){
+ const text=fs.readFileSync('dist/ai-academy/academy.js','utf8');
+ for(const needle of ['LESSONS=[','id:\'first-prompt\'','id:\'video\'','id:\'coding\'','KEY=','buildTask']){
+  if(!text.includes(needle)){console.error('Standalone Academy course feature missing:',needle);failures++;}
+ }
+}
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
@@ -633,6 +644,7 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes("href:'/the-corridors/'") ||
    !homeInstallSource.includes("href:'/the-docket/'") ||
    !homeInstallSource.includes("href:'/studio/'") ||
+   !homeInstallSource.includes("href:'/ai-academy/'") ||
    !homeBundle.includes('/osint-academy/')){
   console.error('Grouped homepage, Moodropolis or TRACE Academy portal is missing.'); failures++;
 }
