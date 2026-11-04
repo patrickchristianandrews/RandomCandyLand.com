@@ -59,16 +59,16 @@ shutil.copyfile(liquid_src, liquid_dst)
 # and only add static bubbles to full-row redraws.
 exact(pathlib.Path("firmware/src/ui_stage.c"),
       "static void stage_band(void)",
-      '#include "pastel_liquid.c"\\nstatic void stage_band(void)')
+      '#include "pastel_liquid.c"\nstatic void stage_band(void)')
 exact(pathlib.Path("firmware/src/ui_stage.c"),
       "cv_begin(240, ST_BAND_H, T_BG);",
-      "cv_begin(240, ST_BAND_H, T_BG);\\n    pastel_liquid_band(ST_BAND_H);")
+      "cv_begin(240, ST_BAND_H, T_BG);\n    pastel_liquid_band(ST_BAND_H);")
 exact(pathlib.Path("firmware/src/ui_stage.c"),
-      "cv_bg = T_BG;\\n        if (pic == SP_FILTER)",
-      "cv_bg = T_BG;\\n        pastel_liquid_shape(H_GRAPH);\\n        if (pic == SP_FILTER)")
+      "cv_bg = T_BG;\n        if (pic == SP_FILTER)",
+      "cv_bg = T_BG;\n        pastel_liquid_shape(H_GRAPH);\n        if (pic == SP_FILTER)")
 exact(pathlib.Path("firmware/src/ui_stage.c"),
       "stage_rec_paint(0, 0, BOX_W, h, 8, lv);         /* armed: the red border */",
-      "stage_rec_paint(0, 0, BOX_W, h, 8, lv);         /* armed: the red border */\\n            pastel_liquid_droplets(bg, tc, h);")
+      "stage_rec_paint(0, 0, BOX_W, h, 8, lv);         /* armed: the red border */\n            pastel_liquid_droplets(bg, tc, h);")
 
 # Keep the name Pastel, with "Liquid Edition" as its custom identity.
 exact(pathlib.Path("firmware/src/main.c"),
@@ -79,12 +79,12 @@ exact(pathlib.Path("firmware/src/main.c"),
       'draw_text_box(0, 140, 240, TY_TX, "LIQUID EDITION", T_MID, 1);')
 exact(pathlib.Path("firmware/src/main.c"),
       'draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);',
-      'draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);\\n    pastel_liquid_splash();',
+      'draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);\n    pastel_liquid_splash();',
       expected=1)
 # The second splash is inside a conditional; preserve its indentation.
 exact(pathlib.Path("firmware/src/main.c"),
       '        draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);',
-      '        draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);\\n        pastel_liquid_splash();',
+      '        draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);\n        pastel_liquid_splash();',
       expected=1)
 exact(pathlib.Path("firmware/src/ui_menu.c"),
       'y = menu_text("Multi-engine synthesizer", y + 146, T_SEC, draw);',
