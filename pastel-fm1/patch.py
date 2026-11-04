@@ -38,4 +38,8 @@ exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
       '#define MELODEE_VERSION "Pastel v0.1"')
+# Preserve upstream palette name-order coverage while explicitly expecting Pastel.
+exact(pathlib.Path("tests/theme_test.c"),
+      '!strcmp(UI_PALETTES[0].name, "NIGHT")',
+      '!strcmp(UI_PALETTES[0].name, "PASTEL")')
 print("Pastel patch applied. Core synth, effects, MIDI and recovery paths remain upstream Melodee 1.6.1.")
