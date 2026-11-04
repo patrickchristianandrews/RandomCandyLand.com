@@ -38,7 +38,7 @@ exact(pathlib.Path("firmware/src/main.c"), '"MELODEE", T_THEME', '"PASTEL", T_TH
 exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T_THEME')
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
-      '#define MELODEE_VERSION "Pastel v0.4"')
+      '#define MELODEE_VERSION "Pastel v0.5"')
 # Preserve upstream palette name-order coverage while explicitly expecting Pastel.
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
@@ -226,3 +226,78 @@ shutil.copyfile(pathlib.Path(__file__).with_name("animal_test.c"),
 print("Pastel v0.3 hybrid: Melodee/Felucca/ChoralRoot harmonies,"
       " SLOOP/ChoralRoot-inspired SID bank and real recorded Animal Jam sounds and original artwork.")
 print("Pastel patch applied. Liquid Edition: animation and soft ribbon/splash customization; user synth engines and updater unchanged.")
+
+# Pastel v0.5 -- genuinely interactive audiovisual performance (HOME #4).
+# These additions run after the 0.4 patch and cannot silently modify stored
+# project layouts, erase user banks or alter the boot loader.
+live_src=pathlib.Path(__file__).with_name("live_lab.c")
+live_dst=root/"firmware/src/pastel_live.c"
+if live_dst.exists():
+    raise RuntimeError("Refusing to overwrite existing live source")
+shutil.copyfile(live_src,live_dst)
+
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      """#include "pastel_animal_view.c"                         /* HOME's third page: dancing animal synthesizer */""",
+      """#include "pastel_animal_view.c"                         /* HOME's third page: dancing animal synthesizer */
+#include "pastel_live.c"                                /* HOME #4: full live audiovisual performance */""")
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      "        if (ui.home && ui.home_pg == 2u)",
+      "        if (ui.home && ui.home_pg == 3u)\n"
+      "            pastel_live_draw();\n"
+      "        else if (ui.home && ui.home_pg == 2u)")
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      "} else if (ui.home && ui.home_pg == 2u) {",
+      "} else if (ui.home && ui.home_pg == 3u) {\n"
+      '        str_cpy(b, "LIVE LAB", 16);\n'
+      "    } else if (ui.home && ui.home_pg == 2u) {")
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      "x + 6 + 48 <= 236 - cw",
+      "x + 6 + 68 <= 236 - cw")
+exact(pathlib.Path("firmware/src/ui_draw.c"),
+      "for (i = 0, x += 6; i < 3u; i++) {",
+      "for (i = 0, x += 6; i < 4u; i++) {")
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      "ui.home_pg = (uint8_t)((ui.home_pg + 1u) % 3u);",
+      "ui.home_pg = (uint8_t)((ui.home_pg + 1u) % 4u);")
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      "    dq_poll();                                          /* (destructive edits waiting for their loop end) */",
+      "    if (pastel_live_on()) pastel_live_keys(notes);\n"
+      "    dq_poll();                                          /* (destructive edits waiting for their loop end) */")
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      "    if (s && !ui.home && cur_page()->graph == GR_SCALE_PICKER) {",
+      "    if (s && pastel_live_on()) {\n"
+      "        pastel_live_sound_step(s);\n"
+      "    } else if (s && !ui.home && cur_page()->graph == GR_SCALE_PICKER) {")
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      "        } else if (!ui.home) {                          /* the section's pages (BPM: SEQ > TEMPO; the notes, the hits:",
+      "        } else if (pastel_live_on()) {\n"
+      "            pastel_live_knob(0u,s);\n"
+      "        } else if (!ui.home) {                          /* the section's pages (BPM: SEQ > TEMPO; the notes, the hits:")
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      "        page_knob(k, s);",
+      "        if (pastel_live_on()) { pastel_live_knob(k,s); continue; }\n"
+      "        page_knob(k, s);")
+# Return the default sound mix to guaranteed native synth models. These are
+# Melodee-native patches, not the original M-VAVE firmware sound library.
+exact(pathlib.Path("firmware/src/engines.c"),
+      "static const uint8_t TRK_DEF[NPART][2] = {{3u, 32u}, {ENGI_FM6, 10u}, {3u, 44u}, {ENGI_DRUM, 0u}};",
+      "static const uint8_t TRK_DEF[NPART][2] = {{ENGI_PROPHET, 1}, {ENGI_FM6, 10}, {ENGI_CZ, 52}, {ENGI_DRUM, 0}};")
+# The actual source renderer draws the new fourth-page modes, lints every
+# text boundary, and checks both color and monochrome palette rendering.
+exact(pathlib.Path("tests/ui_render.c"),
+      "    song_punch_sweep(out);",
+      """    for (uint32_t mode=0u; mode<PASTEL_LIVE_SCENES; mode++) {
+        char name[32];
+        snprintf(name,sizeof name,"live_%u",mode);
+        cur_name=name;
+        setup(S_HOME); pal(0);
+        ui.home_pg=3u; pastel_live_scene=(uint8_t)mode;
+        draw(-1); lint();
+        write_ppm(out,"PASTEL",name);
+    }
+    cur_name="live_mono";
+    setup(S_HOME); pal(UI_GRAY_INDEX);
+    ui.home_pg=3u; pastel_live_scene=2u;
+    draw(-1); lint(); mono_check();
+    song_punch_sweep(out);""")
+print("Pastel v0.5: added LIQUID LIVE (4 visual modes, curated native instrument gallery, real controls)")
