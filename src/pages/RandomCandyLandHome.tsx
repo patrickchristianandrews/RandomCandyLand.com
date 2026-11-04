@@ -94,7 +94,6 @@ const COLLECTIONS = [
 ] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
-  const [category, setCategory] = useState<Category>('all');
   const [copiedUrl,setCopiedUrl] = useState('');
   const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
   // Hide the full-site install CTA when the current PWA is installed, and
@@ -181,21 +180,11 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <div className="candyland-opening-copy">
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
-          <div className="candyland-hero-categories" role="group" aria-label="Jump to a kind of experience">
-            <button type="button" className={category === 'all' ? 'is-selected' : ''} aria-pressed={category === 'all'} onClick={() => setCategory('all')}>✨ See everything</button>
-            {COLLECTIONS.map(group => (
-              <button key={group.id} type="button" className={category === group.id ? 'is-selected' : ''} aria-pressed={category === group.id} onClick={() => setCategory(group.id)}>
-                <span aria-hidden="true">{group.symbol}</span> {group.title}
-              </button>
-            ))}
-          </div>
-          <p className="candyland-category-guide">Choose a multiplayer match, a quick break, an ongoing world, a story worth an hour or a creative challenge. Everything is grouped below.</p>
-
         </div>
       </section>
 
       <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
-            {COLLECTIONS.filter(group => category === 'all' || category === group.id).map(group => {
+            {COLLECTIONS.map(group => {
               const games = PORTALS.filter(portal => portal.kind === group.id);
               return (
                 <section className={'candyland-play-shelf candyland-play-shelf-'+group.id} key={group.id} aria-labelledby={'shelf-'+group.id}>
