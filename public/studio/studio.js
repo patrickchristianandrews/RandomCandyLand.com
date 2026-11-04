@@ -1,4 +1,4 @@
-/* Random AI — a browser-first API-free creative suite.
+/* Random AI — private local inference and optional hosted Instant AI.
    No hidden server keys, no pretend generated replies, no automatic uploads.
    Local WebGPU models are fetched from MLC's published model library.
 */
@@ -193,7 +193,7 @@ function updateChatMode(){
   setStatus(instantReady?'Instant AI online':'Instant AI not connected',instantReady);
  }else{
   $('#chatModelName').textContent=engine?(window.RandomAILocal?.getName?.(loadedModel)||loadedModel):'Local model not loaded';
-  $('#chatModelHint').textContent=engine?'Runs on your device · no API key':'Download a compatible local model to begin.';
+  $('#chatModelHint').textContent=engine?'Runs on your device · no API key':'Download a compatible local model to run on this device.';
   setStatus(engine?'Local model ready':'Model not loaded',!!engine);
  }
 }
@@ -279,7 +279,7 @@ $('#loadModel').addEventListener('click',async()=>{
  }finally{
   loadingModel=false;btn.disabled=!gpu||!$('#modelSelect').value;
   btn.textContent='↓ Download & load model';
-  $('#topModelDownload').disabled=!gpu||!$('#topModelSelect').value;
+  $('#topModelDownload').disabled=false; // If no GPU/catalog is available, clicking Load shows an explanation.
   updateModelLabel();
  }
 });
