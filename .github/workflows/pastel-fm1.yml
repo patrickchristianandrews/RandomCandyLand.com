@@ -9,6 +9,7 @@ on:
       - 'pastel-fm1/liquid_effects.c'
       - 'pastel-fm1/animal_audio.c'
       - 'pastel-fm1/animal_view.c'
+      - 'pastel-fm1/live_lab.c'
       - 'pastel-fm1/animal_test.c'
       - 'pastel-fm1/generate_animal_samples.py'
       - 'pastel-fm1/AUDIO_CREDITS.md'
