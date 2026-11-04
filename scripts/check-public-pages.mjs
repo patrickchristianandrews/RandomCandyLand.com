@@ -663,5 +663,29 @@ if (!homeBundle.includes('/trumpagotchi-fm1/')) {
   failures++;
 }
 
+
+/* Meridian universe regression checks: never ship blank or unlinked new worlds. */
+for (const [slug, title, needed] of [
+ ['moodropolis','Moodropolis',['district-grid','data-act','data-next','data-event','moodropolis-save-v1']],
+ ['the-corridors','The Corridors',['data-pick','data-next','Relationship web','corridors-save-v1']],
+ ['the-docket','The Docket',['data-role','data-evidence','data-motion','data-appeal','docket-save-v1']],
+]) {
+ const html='dist/'+slug+'/index.html',game='dist/'+slug+'/game.js',manifest='dist/app-manifests/'+slug+'.webmanifest';
+ for (const p of [html,game,manifest])if(!fs.existsSync(p)){console.error('Missing Meridian world asset:',p);failures++;}
+ if(fs.existsSync(html)&&!fs.readFileSync(html,'utf8').includes(title)){console.error('Missing Meridian title:',slug);failures++;}
+ if(fs.existsSync(game)){
+  const js=fs.readFileSync(game,'utf8');
+  try{new vm.Script(js,{filename:game});}catch(e){console.error('Broken Meridian game:',slug,e.message);failures++;}
+  if(needed.some(s=>!js.includes(s))){console.error('Missing gameplay mechanic:',slug);failures++;}
+ }
+ if(!homeBundle.includes('/'+slug+'/')){console.error('Unlinked Meridian world from homepage:',slug);failures++;}
+}
+for(const shared of ['dist/worlds/core.js','dist/worlds/common.css']){
+ if(!fs.existsSync(shared)){console.error('Missing Meridian shared asset:',shared);failures++;}
+}
+if(fs.existsSync('dist/worlds/core.js')){
+ try{new vm.Script(fs.readFileSync('dist/worlds/core.js','utf8'));}catch(e){console.error('Broken Meridian helpers:',e.message);failures++;}
+}
+
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');
