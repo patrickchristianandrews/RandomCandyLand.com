@@ -147,14 +147,14 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <span className="candyland-brand-icon" aria-hidden="true"><img src="/icon.svg?v=candy-logo-no-white-3" alt="" width={55} height={55} /></span>
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
-        <aside className="candyland-random-ai-promo candyland-navbar-feature" aria-label="Explore Random AI: local AI models, coding and creative task stacks">
-          <a className="candyland-random-ai-promo-link candyland-navbar-feature-link" href="/studio/" aria-label="Explore Random AI: local AI models, coding and creative task stacks">
+        <aside className="candyland-random-ai-promo candyland-navbar-feature" aria-label="Random AI: free unlimited private local AI chats with no API keys or message caps; device limits apply">
+          <a className="candyland-random-ai-promo-link candyland-navbar-feature-link" href="/studio/" aria-label="Open Random AI: free unlimited private local AI chats, no API keys or message caps. Device limits apply.">
             <img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" loading="eager" />
             <span className="candyland-navbar-feature-copy">
-              <span className="candyland-navbar-feature-kicker">✦ FEATURED · CREATE</span>
+              <span className="candyland-navbar-feature-kicker">✦ FREE · UNLIMITED · LOCAL</span>
               <strong>Random AI</strong>
-              <small>Imagine more. Make it real.</small>
-              <span className="candyland-navbar-feature-detail">Download local models · create · code · task stacks</span>
+              <small>Private AI chats. No API keys or message caps.</small>
+              <span className="candyland-navbar-feature-detail">Runs on your device · subject to hardware limits · optional hosted APIs are separate</span>
             </span>
             <span className="candyland-navbar-feature-arrow" aria-hidden="true">↗</span>
           </a>
