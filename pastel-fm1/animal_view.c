@@ -6,20 +6,42 @@
  */
 #include "pastel_sprites.h"
 
+/* Draw a 40x40 image from a nibble PackBits frame. Each code is either
+ * a 1-128 pixel repetition (0x80|length-1, color) or a literal run
+ * (length-1, 4bpp pixels in high/low nibble order). One linear scan,
+ * no full framebuffer, and 0=transparent ink.
+ */
+static void pastel_sprite_pixel(uint32_t pixel,uint32_t ink,
+                                const uint16_t *pal,int32_t x,int32_t y,
+                                uint32_t scale)
+{
+    if(!ink)return;
+    int32_t py=y+(int32_t)((pixel/PASTEL_SPRITE_W)*scale)+cv_oy;
+    if(py+(int32_t)scale<=(int32_t)cv_top || py>=(int32_t)(cv_top+cv_rows))return;
+    cv_rect(x+(int32_t)((pixel%PASTEL_SPRITE_W)*scale),
+            y+(int32_t)((pixel/PASTEL_SPRITE_W)*scale),
+            (int32_t)scale,(int32_t)scale,pal[ink]);
+}
+
 static void pastel_sprite_draw(uint32_t frame,int32_t x,int32_t y,uint32_t scale)
 {
-    const uint8_t *bits=pastel_sprite_bits + (frame%16u)*(PASTEL_SPRITE_W*PASTEL_SPRITE_W/2u);
-    const uint16_t *pal=pastel_sprite_pal[frame%16u];
-    for(uint32_t row=0;row<PASTEL_SPRITE_W;row++){
-        /* A banded draw still uses logical coordinates; skip out-of-band
-         * rows before decoding them to keep the CPU from wasting work. */
-        int32_t py=y+(int32_t)(row*scale)+cv_oy;
-        if(py+(int32_t)scale<=(int32_t)cv_top || py>=(int32_t)(cv_top+cv_rows))continue;
-        for(uint32_t col=0;col<PASTEL_SPRITE_W;col++){
-            uint32_t at=row*PASTEL_SPRITE_W+col;
-            uint32_t ink=(at&1u)?bits[at>>1]&15u:bits[at>>1]>>4;
-            if(ink)cv_rect(x+(int32_t)(col*scale),y+(int32_t)(row*scale),
-                           (int32_t)scale,(int32_t)scale,pal[ink]);
+    frame%=16u;
+    const uint8_t *src=pastel_sprite_bits+pastel_sprite_ofs[frame];
+    const uint16_t *pal=pastel_sprite_pal[frame];
+    uint32_t at=0;
+    while(at<PASTEL_SPRITE_W*PASTEL_SPRITE_W){
+        uint32_t code=*src++, n=(code&127u)+1u;
+        if(code&128u){
+            uint32_t ink=*src++;
+            for(uint32_t k=0;k<n;k++)
+                pastel_sprite_pixel(at++,ink,pal,x,y,scale);
+        }else{
+            const uint8_t *pixels=src;
+            for(uint32_t k=0;k<n;k++){
+                uint32_t ink=k&1u?pixels[k>>1]&15u:pixels[k>>1]>>4;
+                pastel_sprite_pixel(at++,ink,pal,x,y,scale);
+            }
+            src+=(n+1u)>>1u;
         }
     }
 }
