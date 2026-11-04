@@ -1,0 +1,31 @@
+{
+  "id": "/moodropolis/",
+  "name": "Moodropolis | Random Candy Land",
+  "short_name": "Moodropolis",
+  "description": "Shape a living, emotional city. Make trade-offs, meet its people, and watch neighborhoods transform.",
+  "start_url": "/moodropolis/",
+  "scope": "/moodropolis/",
+  "display": "standalone",
+  "background_color": "#f9f6fa",
+  "theme_color": "#f9f6fa",
+  "icons": [
+    {
+      "src": "/tool-icons/moodropolis.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
