@@ -1015,3 +1015,19 @@ body {
  .candyland-next .candyland-play-shelf .candyland-hero-tool-blurb{display:none}
  .candyland-next .candyland-play-shelf .candyland-hero-tool-duration{font-size:8px}
 }
+
+/* Friend-play shelf: never confuse online invitations with local shared-screen play. */
+.candyland-next .candyland-play-shelf-multiplayer{--shelf-accent:#9efce4;border-color:#86f6d254;background:linear-gradient(125deg,#17474bdb,#252047f2)}
+.candyland-next .candyland-multiplayer-tag{
+ display:inline-flex;align-items:center;width:fit-content;max-width:100%;border-radius:7px;
+ font:800 9px/1.2 system-ui,sans-serif;padding:4px 6px;
+ background:#30264a;color:#f0e6ff;border:1px solid #fff5da33;
+}
+.candyland-next .candyland-multiplayer-tag.online{color:#a6ffdc;background:#114a40;border-color:#62c99f}
+.candyland-next .candyland-multiplayer-tag.same-screen{color:#ffeeaf;background:#514128;border-color:#dabd7b}
+.candyland-next .candyland-multiplayer-tag.single{color:#d8d1e6;background:#ffffff0e}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-link{min-height:120px}
+@media(max-width:590px){
+ .candyland-next .candyland-multiplayer-tag{font-size:8px;padding:4px 5px;text-align:center}
+ .candyland-next .candyland-play-shelf .candyland-hero-tool-link{min-height:124px}
+}
