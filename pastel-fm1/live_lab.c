@@ -10,7 +10,6 @@
 #define PASTEL_LIVE_SCENES 4u
 #define PASTEL_LIVE_SOUNDS 24u
 static uint8_t pastel_live_scene;
-static uint8_t pastel_live_sense = 7u;  /* default audio sensitivity */
 static uint8_t pastel_live_flow = 6u;   /* 1..12 */
 static uint8_t pastel_live_tint = 0u;   /* 0..3 */
 static uint8_t pastel_live_patch = 0u;
@@ -91,7 +90,7 @@ static uint16_t pastel_live_color(uint32_t n,uint32_t strength)
 static int32_t pastel_live_energy(void)
 {
     uint32_t e=pastel_liquid_energy();
-    int32_t peak=2+(int32_t)(e*(uint32_t)pastel_live_sense/2400u);
+    int32_t peak=2+(int32_t)(e*7u/2400u);
     if(peak>92)peak=92;
     return peak;
 }
@@ -180,13 +179,8 @@ static __attribute__((noinline)) void pastel_live_draw(void)
             cv_text_c(x+28,ty_y(189,TY_LB),TY_LB,v,T_THEME,c);
         }
         /* On PRESET: the actual loaded native engine/voice name. */
-        char title[24];
-        uint32_t ei=TSEL->eng_req%NENGINES;
-        const engine_t *en=ENGINES[ei];
-        if(en->npresets && TSEL->preset<en->npresets) {
-            const preset_t *p=eng_preset(en,TSEL->preset);
-            str_cpy(title,p->name,sizeof title);
-        } else str_cpy(title,en->name,sizeof title);
+        char title[16];
+        sound_name(TSEL,title); /* reuse Melodee's correct preset name path */
         cv_text_c(120,ty_y(211,TY_LB),TY_LB,title,T_TEXT,T_BG);
         cv_oy=0;
         cv_blit(0,H_HEAD+band*52u);
