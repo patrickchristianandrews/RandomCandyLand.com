@@ -81,8 +81,12 @@ static void pastel_animal_draw(void)
     int32_t dy = active ? (wobble<0 ? wobble/4 : -wobble/4) : wobble/9;
     uint16_t fur = ux_mix(T_BG, T_TRK(id&3u), 35);
     uint16_t pale = ux_mix(T_BG, T_TRK(1u+(id&2u)), 15);
-    cv_begin(240, 124, T_BG);
-    pastel_liquid_layers(124, 100, pastel_liquid_energy(), fm1_ms/85u, 5u);
+    /* The real FM-1 has a 64-row drawing buffer. Draw the 124px upper
+     * stage as two 62px slices, with shared logical coordinates. */
+    for (uint32_t band=0;band<2u;band++) {
+        cv_begin(240, 62, T_BG);
+        cv_oy = -(int32_t)(band*62u);
+        pastel_liquid_layers(124, 100, pastel_liquid_energy(), fm1_ms/85u, 5u);
     for (uint32_t i=0;i<5u;i++) {
         int32_t bx=(int32_t)((i*53u+fm1_ms/(180u+i*15u))%240u);
         int32_t by=(int32_t)((i*29u+fm1_ms/(250u+i*50u))%115u);
@@ -100,9 +104,14 @@ static void pastel_animal_draw(void)
     cv_disc(x-15,y+30,14,fur,0);
     cv_disc(x+15,y+30,14,fur,0);
     pastel_animal_face(id,x,y,64,T_BG);
-    cv_blit(0, H_HEAD);
+        cv_oy=0;
+        cv_blit(0, H_HEAD+band*62u);
+    }
 
-    cv_begin(240, 84, T_BG);
+    /* The 84px keypad is also two slices, never a 240x84 canvas. */
+    for (uint32_t band=0;band<2u;band++) {
+        cv_begin(240, 42, T_BG);
+        cv_oy = -(int32_t)(band*42u);
     cv_text_c(120, ty_y(11,TY_LB), TY_LB, pastel_animal_calls[id], T_TEXT, T_BG);
     for (uint32_t a=0;a<PASTEL_ANIMALS;a++) {
         int32_t col=(int32_t)(a%4u),row=(int32_t)(a/4u);
@@ -114,5 +123,7 @@ static void pastel_animal_draw(void)
                   a==2u?"DUK":a==3u?"FRG":a==4u?"BRD":a==7u?"BAA":pastel_animal_names[a],
                   T_TEXT,fill);
     }
-    cv_blit(0, H_HEAD+124);
+        cv_oy=0;
+        cv_blit(0, H_HEAD+124u+band*42u);
+    }
 }
