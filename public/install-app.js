@@ -5,6 +5,17 @@
 (() => {
   'use strict';
   const apps = [{"id":"tiny-pet","path":"/trumpagotchi-fm1/","title":"Trumpagotchi Tiny Pet","short":"Tiny Pet"},{"id":"pocket-pet","path":"/trump/","title":"Donald’s Pocket Pet","short":"Pocket Pet"},{"id":"goo-rush","path":"/goo-rush/","title":"Goo Rush Candy Arcade","short":"Goo Rush"},{"id":"candy-casino","path":"/candy-casino/","title":"Candy Land Casino","short":"Candy Casino"},{"id":"candy-simon","path":"/candy-simon/","title":"Candy Simon Says","short":"Candy Simon"},{"id":"candy-match","path":"/candy-match/","title":"Candy Match","short":"Candy Match"},{"id":"candy-pulse","path":"/music-visualizer/","title":"Candy Pulse Music Visualizer","short":"Candy Pulse"},{"id":"after-dark","path":"/after-dark/","title":"Unwrapped","short":"Unwrapped"},{"id":"osint-academy","path":"/osint-academy/","title":"TRACE OSINT Academy","short":"TRACE OSINT"}];
+  // Notification client is shared by the installed homepage and individual
+  // attractions; it never asks for permission without a deliberate button tap.
+  if(!document.querySelector('script[data-rcl-push-config]')){
+    const c=document.createElement('script');c.src='/notifications/push-config.js?v=1';c.dataset.rclPushConfig='1';
+    document.head.append(c);
+    c.addEventListener('load',()=>{
+      if(document.querySelector('script[data-rcl-push-client]'))return;
+      const p=document.createElement('script');p.src='/notifications/center.js?v=1';p.dataset.rclPushClient='1';
+      document.head.append(p);
+    },{once:true});
+  }
   // Clue Compass is a feature under After Dark; use After Dark's web-app manifest.
   const current = () => apps.slice().sort((a,b)=>b.path.length-a.path.length).find(app =>
     location.pathname === app.path.slice(0,-1) || location.pathname.startsWith(app.path)
