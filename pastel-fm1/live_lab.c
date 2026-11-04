@@ -40,11 +40,10 @@ static uint32_t pastel_live_on(void)
 static void pastel_live_keys(uint32_t notes)
 {
     if (!pastel_live_on() || !notes) return;
-    for (uint32_t k=0;k<27u;k++) if ((notes>>k)&1u) {
-        pastel_live_note=(uint8_t)(k+48u);
-        pastel_live_hit=fm1_ms;
-        break;
-    }
+    uint32_t k=0;
+    while (!(notes&1u)) { notes>>=1; ++k; }
+    pastel_live_note=(uint8_t)(k+48u);
+    pastel_live_hit=fm1_ms;
 }
 static void pastel_live_sound_step(int32_t n)
 {
