@@ -78,8 +78,8 @@ exact(pathlib.Path("firmware/src/main.c"),
       'draw_text_box(0, 140, 240, TY_TX, "Multi-engine synth", T_MID, 1);',
       'draw_text_box(0, 140, 240, TY_TX, "LIQUID EDITION", T_MID, 1);')
 exact(pathlib.Path("firmware/src/main.c"),
-      'draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);',
-      'draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);\n    pastel_liquid_splash();',
+      '    draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);   /* (#86: the version at power-on) */',
+      '    draw_text_box(0, 176, 240, TY_LB, MELODEE_VERSION, T_MID, 1);   /* (#86: the version at power-on) */\n    pastel_liquid_splash();',
       expected=1)
 # The second splash is inside a conditional; preserve its indentation.
 exact(pathlib.Path("firmware/src/main.c"),
