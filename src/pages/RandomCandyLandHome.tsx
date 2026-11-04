@@ -91,22 +91,6 @@ const COLLECTIONS = [
 ] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
-  // The notification client is loaded by the shared PWA installer. React may
-  // render this page after DOMContentLoaded, so mount the optional preferences
-  // panel once its script becomes available.
-  useEffect(() => {
-    let tries = 0;
-    const mount = () => {
-      const api = (window as Window & {RandomCandyNotifications?: {mount?: () => void}}).RandomCandyNotifications;
-      if(api?.mount){api.mount();return true}
-      return false;
-    };
-    if(mount()) return;
-    const timer=window.setInterval(() => {
-      if(mount() || ++tries >= 20) window.clearInterval(timer);
-    },250);
-    return () => window.clearInterval(timer);
-  }, []);
   const [category, setCategory] = useState<Category>('all');
   const [copiedUrl,setCopiedUrl] = useState('');
   const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
@@ -218,12 +202,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
               );
             })}
           </div>
-
-      <section className="candyland-notify-section" aria-label="Optional notifications for ongoing games">
-        <div id="rcl-notify-center">
-          <p>🔔 Opt-in phone reminders for your ongoing adventures, with no surprise alerts.</p>
-        </div>
-      </section>
 
       <aside className="candyland-unwrapped-promo" aria-label="Featured: Unwrapped personal insight and connection">
         <img className="candyland-unwrapped-promo-icon" src="/tool-icons/unwrapped.svg" width={76} height={76} alt="" loading="lazy" />
