@@ -788,3 +788,37 @@ body {
  .candyland-next .candyland-world-strip a img{width:26px;height:26px}
  .candyland-next .candyland-world-strip a span{display:none}
 }
+
+
+/* Play-time-first homepage library. Each experience is represented once in the illustrated menu. */
+.candyland-next .candyland-category-guide{
+ margin:5px auto 7px;max-width:850px;color:#ffeace;
+ font:700 11px/1.65 system-ui,sans-serif;text-align:center
+}
+.candyland-next .candyland-hero-tool-duration{
+ display:block;min-height:18px;color:#fbe4f5;letter-spacing:.07em;font:800 9px/1.3 system-ui,sans-serif;
+ text-shadow:0 2px 5px #260038d9
+}
+.candyland-next .candyland-hero-tools{
+ grid-template-columns:repeat(4,minmax(0,1fr));max-width:925px;
+ gap:clamp(9px,1.3vw,18px)
+}
+.candyland-next .candyland-hero-tools .candyland-hero-tool-link{
+ position:relative;border-radius:18px;gap:5px;padding:7px 5px 10px;
+ background:linear-gradient(155deg,#ffffff12,#ffffff04);
+ border:1px solid #ffffff32;
+ transition:transform .2s,box-shadow .2s,background .2s
+}
+.candyland-next .candyland-hero-tools .candyland-hero-tool-link:hover,
+.candyland-next .candyland-hero-tools .candyland-hero-tool-link:focus-visible{
+ box-shadow:0 9px 22px #18052770,0 0 0 1px #fee7f377;background:#ffffff1f
+}
+.candyland-next .candyland-hero-tools .candyland-hero-tool-name{
+ font-size:clamp(10px,1.2vw,14px);min-height:36px
+}
+@media(max-width:690px){
+ .candyland-next .candyland-hero-tools{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;max-width:100%}
+ .candyland-next .candyland-hero-tools .candyland-hero-tool-link{border-radius:12px;padding:4px 3px 7px}
+ .candyland-next .candyland-hero-tool-duration{font-size:8px;min-height:21px}
+ .candyland-next .candyland-category-guide{font-size:10px}
+}
