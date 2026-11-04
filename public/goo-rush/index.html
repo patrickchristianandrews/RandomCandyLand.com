@@ -96,7 +96,7 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
 <meta name="apple-mobile-web-app-title" content="Goo Rush">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script src="/install-app.js" defer></script>
-<link rel="stylesheet" href="/site-home-icon.css?v=20261031-topright-v1">
+<link rel="stylesheet" href="/site-home-icon.css?v=20261031-topright-v1"><link rel="stylesheet" href="/multiplayer/quick-room.css?v=1">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -110,12 +110,12 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
 <h1 class="compact-game-title">🍬 GOO RUSH!</h1>
 <div class="modes" role="group" aria-label="Choose a game mode">
  <button class="mode" data-mode="solo" aria-pressed="true">🍬 Solo Rush</button>
- <button class="mode" data-mode="duel" aria-pressed="false">⚔️ 2-Player Duel</button>
+ <button class="mode" data-mode="duel" aria-pressed="false">⚔️ Same-screen Duel</button><button class="mode" data-mode="remote" aria-pressed="false">🌐 Remote Duel</button>
  <button class="mode" data-mode="daily" aria-pressed="false">🏆 Daily Dash</button>
  <button class="mode" data-mode="challenge" aria-pressed="false">🔗 Friend Challenge</button>
 </div>
-<div class="info" aria-live="polite">
- <span id="modeInfo">40-second rush · Beat your best!</span>
+<div id="gooRemoteRoom" hidden></div><div class="info" aria-live="polite">
+ <span id="modeInfo">40-second rush · Beat your best!</span><span id="gooFriendScore" hidden>🌐 Friend: 0</span>
  <span id="bestInfo">🏅 Personal best: 0</span>
  <span id="soundStatus">🔊 Sounds on</span>
 </div>
@@ -133,12 +133,12 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
  
  <p><strong>1.</strong> Look at the giant candy at the top of your board. <strong>2.</strong> Tap that exact candy in the grid. <strong>3.</strong> Repeat as fast as you can to build combo multipliers. Wrong taps cost points and break your combo!</p>
  <p><strong>2-Player Duel:</strong> Compete simultaneously on the same screen. Each player gets an equally generated set of puzzles, and the highest score when time runs out wins.</p>
- <p><strong>Friend Challenge:</strong> Send your link to a friend. Both of you play the exact same seeded set of puzzles on your own devices, then compare scores. This is an asynchronous challenge, not a live internet match.</p>
+ <p><strong>Remote Duel:</strong> Create a room, copy the invite link, and play live on separate devices using the same puzzle seed. The host starts the 40-second round and scores update as you play.</p><p><strong>Friend Challenge:</strong> Send a seed link to play the same puzzles later, without a live room.</p>
  <details><summary>🎯 Scoring tricks</summary><p>Every correct pick increases your streak; every three hits increases the multiplier up to x6. At seven consecutive hits, you enter <strong>SUGAR FEVER</strong> for double points! Every fifth consecutive hit adds a second to the clock (up to 50 seconds). Misses cost 25 points.</p></details>
 </details>
 <footer class="footer"><span>Made for Random Candy Land · A silly, competitive candy frenzy.</span><a href="/">← Back to the Candy Castle</a></footer>
 </div><div class="toast" id="toast" role="status" hidden></div>
-<script>
+<script src="/candy-casino/relay-config.js"></script><script src="/candy-casino/relay-peer.js"></script><script src="/multiplayer/quick-room.js?v=1"></script><script>
 'use strict';
 (function(){
  const CANDY=['🍬','🍭','🍩','🧁','🍪','🍦','🍫','🍡','🍓','🍋','🍉','🍒','🍰','🫐','🥨','🍯','🥝','🥥'];
@@ -156,6 +156,7 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
  const $=id=>document.getElementById(id);
  const modes=Array.from(document.querySelectorAll('[data-mode]'));
  const state={mode:invited?'challenge':'solo',phase:'ready',seed:invited?challengeNumber>>>0:0,players:[],endsAt:0,tick:null,sound:true,timeLimit:40000};
+ let remote=null,remoteRival=0,remoteFinal=null,localFinal=null,lastProgressAt=0;
  let audio=null;
  try{state.sound=localStorage.getItem('goo-rush-muted')!=='true'}catch(_){}
  function storageKey(){return 'goo-rush-best-v1-'+state.mode}
@@ -171,14 +172,17 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
    oscillator.connect(gain);gain.connect(audio.destination);oscillator.start(when);oscillator.stop(when+duration);
  }catch(_){}}
  function vibrate(ms){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(_){}}
- function modeName(){return state.mode==='duel'?'2-Player Duel':state.mode==='daily'?'Daily Dash':state.mode==='challenge'?'Friend Challenge':'Solo Rush'}
+ function modeName(){return state.mode==='remote'?'Remote Duel':state.mode==='duel'?'2-Player Duel':state.mode==='daily'?'Daily Dash':state.mode==='challenge'?'Friend Challenge':'Solo Rush'}
  function setMode(mode){if(state.phase==='live')endRound(true);
-   state.mode=mode;state.phase='ready';state.players=[];
+   if(state.mode==='remote'&&mode!=='remote'&&remote?.active)remote.leave();
+   state.mode=mode;state.phase='ready';state.players=[];remoteRival=0;remoteFinal=null;localFinal=null;
+   $('gooRemoteRoom').hidden=mode!=='remote';$('gooFriendScore').hidden=mode!=='remote';$('gooFriendScore').textContent='🌐 Friend: 0';
    $('result').hidden=true;$('result').innerHTML='';
    modes.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
-   $('modeInfo').textContent=mode==='duel'?'2 players · 40 seconds · Same screen':mode==='daily'?'Same daily puzzle · One new challenge each UTC day':mode==='challenge'?'Share this puzzle seed and compare scores':'40-second rush · Beat your best!';
+   $('modeInfo').textContent=mode==='remote'?'🌐 Play live with a remote friend · 40 seconds':mode==='duel'?'2 players · 40 seconds · Same screen':mode==='daily'?'Same daily puzzle · One new challenge each UTC day':mode==='challenge'?'Share this puzzle seed and compare scores':'40-second rush · Beat your best!';
    $('bestInfo').textContent='🏅 Personal best: '+best().toLocaleString();
-   $('start').textContent='▶ START '+(mode==='duel'?'DUEL':'ROUND');
+   $('start').textContent='▶ START '+(mode==='duel'||mode==='remote'?'DUEL':'ROUND');
+   $('start').disabled=mode==='remote'&&!remote?.ready;
    $('stage').className='stage';$('stage').innerHTML='<div class="ready"><div><div class="ready-icon">🍭</div><h2>'+modeName().toUpperCase()+'</h2><p>Tap START ROUND to begin. Go fast, but tap the right candy!</p></div></div>';
    updateClock(40000);
  }
@@ -208,14 +212,17 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
    $('feedback'+p.id).textContent=p.feedback;
    $('tiles'+p.id).innerHTML=p.board.tiles.map((icon,index)=>'<button class="tile" type="button" data-player="'+p.id+'" data-index="'+index+'" aria-label="Candy '+escapeText(icon)+'">'+icon+'</button>').join('');
  }
- function startRound(){
-  if(state.tick)clearInterval(state.tick);
+ function startRound(remoteSeed){
+  if(state.mode==='remote'&&(!remote?.ready||(!remote.host&&!Number.isSafeInteger(remoteSeed)))){notify('Host starts the remote round after both players connect.');return;}
+  if(state.tick)clearInterval(state.tick);remoteRival=0;remoteFinal=null;localFinal=null;
+  $('gooFriendScore').textContent='🌐 Friend: 0';
   state.phase='live';state.timeLimit=40000;
-  state.seed=state.mode==='daily'?mix(dayNumber*0x5bd1e995):state.mode==='challenge'&&invited?challengeNumber>>>0:mix((Date.now()^Math.floor(Math.random()*4294967295))>>>0);
+  state.seed=state.mode==='remote'&&Number.isSafeInteger(remoteSeed)?remoteSeed>>>0:state.mode==='daily'?mix(dayNumber*0x5bd1e995):state.mode==='challenge'&&invited?challengeNumber>>>0:mix((Date.now()^Math.floor(Math.random()*4294967295))>>>0);
+  if(state.mode==='remote'&&remote.host)remote.send({type:'state',event:'start',seed:state.seed});
   state.players=[freshPlayer(0)];if(state.mode==='duel')state.players.push(freshPlayer(1));
   state.players.forEach(newPuzzle);
   state.endsAt=performance.now()+state.timeLimit;$('result').hidden=true;$('result').innerHTML='';
-  $('start').textContent='↻ RESTART ROUND';draw();updateClock(40000);
+  $('start').textContent='↻ RESTART ROUND';$('start').disabled=state.mode==='remote'&&!remote.host;draw();updateClock(40000);
   tone(570,.13,'triangle',.07);setTimeout(()=>tone(850,.12,'triangle',.065),115);
   state.tick=setInterval(()=>{const remain=Math.max(0,state.endsAt-performance.now());updateClock(remain);if(remain<=0)endRound(false)},75);
  }
@@ -225,21 +232,22 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
   document.querySelectorAll('.tile').forEach(b=>b.disabled=true);
   if(abandoned)return;
   let caption='',score=state.players[0].score;
+  if(state.mode==='remote'){localFinal=score;sendRemote('finish',true);}
   if(state.mode==='duel'){const a=state.players[0].score,b=state.players[1].score;
     caption=a===b?"IT'S A SWEET TIE!":(a>b?'PLAYER 1 WINS!':'PLAYER 2 WINS!');
     score=Math.max(a,b);
-  }else caption='SWEET RUN!';
+  }else caption=state.mode==='remote'?(remoteFinal===null?'WAITING FOR FRIEND…':(score===remoteFinal?"IT'S A SWEET TIE!":(score>remoteFinal?'YOU WIN!':'YOUR FRIEND WINS!'))):'SWEET RUN!';
   const oldBest=best();saveBest(score);
   $('bestInfo').textContent='🏅 Personal best: '+best().toLocaleString();
-  const details=state.mode==='duel'?'P1: '+state.players[0].score.toLocaleString()+' · P2: '+state.players[1].score.toLocaleString():'Correct: '+state.players[0].hits+' · Misses: '+state.players[0].misses;
+  const details=state.mode==='duel'?'P1: '+state.players[0].score.toLocaleString()+' · P2: '+state.players[1].score.toLocaleString():state.mode==='remote'?'You: '+score.toLocaleString()+' · Friend: '+(remoteFinal===null?'still playing':remoteFinal.toLocaleString()):'Correct: '+state.players[0].hits+' · Misses: '+state.players[0].misses;
   $('result').hidden=false;
   $('result').innerHTML='<div class="result"><span class="eyebrow">ROUND COMPLETE</span><h2>🍬 '+caption+'</h2><div class="big">'+score.toLocaleString()+' POINTS</div><p>'+details+'</p><p>'+(score>oldBest?'🏆 NEW PERSONAL BEST!':'Try again and beat '+best().toLocaleString()+'!')+'</p><button id="again" class="action">↻ PLAY AGAIN</button> <button id="resultShare" class="action secondary">🔗 CHALLENGE A FRIEND</button></div>';
   $('again').addEventListener('click',()=>{startRound();window.scrollTo({top:250,behavior:'smooth'})});
-  $('resultShare').addEventListener('click',shareChallenge);
+  $('resultShare').addEventListener('click',state.mode==='remote'?()=>remote?.copy():shareChallenge);
   tone(650,.18,'triangle',.06);setTimeout(()=>tone(890,.17,'triangle',.06),145);
  }
  function pick(id,index){
-  if(state.phase!=='live')return;
+  if(state.phase!=='live'||state.mode==='remote'&&!remote?.ready)return;
   const p=state.players[id];if(!p)return;
   const node=document.querySelector('.tile[data-player="'+id+'"][data-index="'+index+'"]');
   if(index===p.board.answer){
@@ -252,13 +260,13 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
     else p.feedback=fever?'🔥 SUGAR FEVER! +'+points:'✨ SWEET! +'+points;
     tone(Math.min(1300,410+(p.combo%15)*48),.08,'sine',.048);
     if(p.combo%5===0)vibrate(20);else vibrate(8);
-    newPuzzle(p);updatePlayer(p);
+    newPuzzle(p);updatePlayer(p);if(state.mode==='remote')sendRemote('progress');
   }else{
     p.combo=0;p.misses++;p.score=Math.max(0,p.score-25);p.feedback='💥 GOO SPLAT! -25';
     if(node){node.classList.remove('wrong');void node.offsetWidth;node.classList.add('wrong')}
     tone(190,.13,'sawtooth',.037);vibrate(18);
     $('score'+p.id).textContent=p.score.toLocaleString();$('combo'+p.id).textContent='⚡ COMBO 0';
-    $('combo'+p.id).className='';$('multiply'+p.id).textContent='x1 combo';$('feedback'+p.id).textContent=p.feedback;
+    $('combo'+p.id).className='';$('multiply'+p.id).textContent='x1 combo';$('feedback'+p.id).textContent=p.feedback;if(state.mode==='remote')sendRemote('progress');
   }
  }
  async function shareChallenge(){
@@ -273,13 +281,58 @@ h1 span{color:#fff} .sub{max-width:620px;font-size:clamp(14px,1.6vw,18px);line-h
   prompt('Copy your candy challenge link:',link);
  }
  function soundButton(){$('sound').textContent=state.sound?'🔊 Sound on':'🔇 Sound off';$('soundStatus').textContent=state.sound?'🔊 Sounds on':'🔇 Sounds off'}
- modes.forEach(button=>button.addEventListener('click',()=>{setMode(button.dataset.mode);tone(450,.07,'triangle',.035)}));
+
+function sendRemote(event,force=false){
+ if(state.mode!=='remote'||!remote?.ready||!state.players.length)return;
+ const now=performance.now();
+ if(event==='progress'&&!force&&now-lastProgressAt<350)return;
+ lastProgressAt=now;
+ const p=state.players[0];
+ remote.send({type:remote.host?'state':'draw',event,score:Math.max(0,p.score),hits:p.hits,misses:p.misses});
+}
+function remoteFinish(){
+ if(state.mode!=='remote'||state.phase!=='ended'||localFinal===null||remoteFinal===null)return;
+ const title=$('result').querySelector('h2');
+ const details=$('result').querySelector('.result p');
+ if(title)title.textContent='🍬 '+(localFinal===remoteFinal?"IT'S A SWEET TIE!":(localFinal>remoteFinal?'YOU WIN!':'YOUR FRIEND WINS!'));
+ if(details)details.textContent='You: '+localFinal.toLocaleString()+' · Friend: '+remoteFinal.toLocaleString();
+}
+remote=window.CandyQuickRoom.create({root:'#gooRemoteRoom',game:'goo-rush',
+ onConnected(role){
+  if(state.mode!=='remote')setMode('remote');
+  $('modeInfo').textContent='🌐 Connected · '+(role==='host'?'tap Start Round to begin':'waiting for host');
+  $('start').disabled=role==='guest';
+ },
+ onWaiting(){
+  $('modeInfo').textContent='🌐 Share your invitation link, then start together.';
+  $('start').disabled=true;
+ },
+ onMessage(data){
+  if(state.mode!=='remote')return;
+  if(data.event==='start'&&!remote.host&&data.type==='state'&&Number.isSafeInteger(data.seed)){
+   startRound(data.seed);return;
+  }
+  if(!['progress','finish'].includes(data.event))return;
+  if(!Number.isSafeInteger(data.score)||data.score<0||data.score>5000000)return;
+  remoteRival=data.score;
+  $('gooFriendScore').textContent='🌐 Friend: '+remoteRival.toLocaleString();
+  if(data.event==='finish'){remoteFinal=remoteRival;remoteFinish()}
+ },
+ onDisconnected(reason){
+  if(state.mode!=='remote')return;
+  $('modeInfo').textContent='🌐 Disconnected · '+(reason==='left'?'share a fresh invite':'check connection');
+  $('start').disabled=true;
+  if(state.phase==='live')endRound(true);
+ }
+});
+ modes.forEach(button=>button.addEventListener('click',()=>{setMode(button.dataset.mode);if(button.dataset.mode==='remote')remote.open();tone(450,.07,'triangle',.035)}));
  $('start').addEventListener('click',()=>startRound());
  $('sound').addEventListener('click',()=>{state.sound=!state.sound;try{localStorage.setItem('goo-rush-muted',String(!state.sound))}catch(_){}soundButton();if(state.sound)tone(690,.12,'sine',.06)});
  $('share').addEventListener('click',shareChallenge);
  $('stage').addEventListener('click',event=>{const button=event.target.closest('button[data-player][data-index]');if(!button||button.disabled)return;pick(Number(button.dataset.player),Number(button.dataset.index))});
  window.addEventListener('pagehide',()=>{if(state.tick)clearInterval(state.tick)});
  soundButton();setMode(invited?'challenge':'solo');
+ if(new URLSearchParams(location.search).has('room')){setMode('remote');remote.tryInvite();}
  if(invited)notify('Friend challenge loaded — same puzzles, same clock!');
 })();
 </script>
