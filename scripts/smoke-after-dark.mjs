@@ -425,6 +425,11 @@ try{
     "(()=>{const rec=window.UnwrappedToyLibrary?.recommend;if(!rec)return false;const none=rec({direct:{specificSelections:[]},interests:[{name:'Nipple interest',directSelection:0,specificSelected:false}]});const wish=rec({direct:{specificSelections:[{text:'Strap-on play',intent:'fantasy',questionNumber:1}]},interests:[{name:'Strap-on play',specificSelected:true,directSelection:0}]});const excluded=rec({direct:{specificSelections:[{text:'Anal play interests me',intent:'explore',questionNumber:1},{text:'Anal play is not for me',intent:'explore',questionNumber:2}]}});return none.length===0&&wish.some(x=>x.id==='harness')&&wish.every(x=>x.mode.includes('Fantasy-only'))&&!excluded.some(x=>x.id==='anal-plug')})()");
   console.log('✓ After Dark offers 18 orgasm-specific articles, practical steps, anatomy, sources and Ask Atlas answers.');
 
+  // All three fictional PDF downloads must reuse the actual toy anatomy guide.
+  const samples=await navigate(site+'/after-dark/report-samples/');
+  const sampleCheck=await samples.evaluate("(()=>{const pdf=window.AfterDarkSamplePDF,lib=window.UnwrappedToyLibrary;if(!pdf||!lib||pdf.keys.length!==3||lib.types.length!==12)return false;const words=k=>pdf.sampleSections(k).map(([title,paras])=>title+' '+paras.join(' ')).join(' ');const personal=words('personal'),selected=words('selected'),newPartner=words('new');return ['Male anatomy','Female anatomy','Shared / partner use','Safety and design'].every(word=>personal.includes(word)&&selected.includes(word))&&personal.includes('FANTASY ONLY')&&selected.includes('section OFF')&&!newPartner.includes('Male anatomy (')&&newPartner.includes('NO sex toy suggestions')&&document.querySelectorAll('[data-sample-download]').length===3})()");
+  if(!sampleCheck)throw Error('Unwrapped sample PDF routes are missing updated toy, safety, anatomy or sharing explanations');
+  console.log('✓ Three sample PDF formats use shared anatomy descriptions and independent privacy controls.');
   const lab=await navigate(site+'/after-dark/psychology-lab/');
   await checkLab(lab.evaluate);
   // Regression: the actual POLL label in Trumpagotchi must be clickable,
