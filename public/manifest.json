@@ -1,7 +1,7 @@
 {
-  "name": "Random Candy Land — Play, Music & Discovery",
+  "name": "Random Candy Land — Play & Discovery",
   "short_name": "RandomCandyLand",
-  "description": "Explore Random Candy Land: a colorful universe of playful experiences, music visualizations, creative surprises, and curiosity.",
+  "description": "Explore Random Candy Land: playful games, interactive stories, curiosity, learning and personal discovery.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -48,11 +48,6 @@
       "name": "Candy Match",
       "url": "/candy-match/",
       "description": "Candy Match"
-    },
-    {
-      "name": "Candy Pulse",
-      "url": "/music-visualizer/",
-      "description": "Candy Pulse Music Visualizer"
     },
     {
       "name": "The Other Drawer",
