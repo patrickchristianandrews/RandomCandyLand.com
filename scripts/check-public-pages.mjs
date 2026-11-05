@@ -155,11 +155,11 @@ if(!afterDarkLanding.includes('<h1>There\'s more to you.') ||
    !afterDarkLanding.includes('class="od-compact-tools-grid"') ||
    !afterDarkLanding.includes('Take the quizzes') ||
    !afterDarkLanding.includes('Your reports') ||
-   !afterDarkLanding.includes('Ask Atlas') ||
+   !afterDarkLanding.includes('Ask Mira') ||
    !afterDarkLanding.includes("else renderTabs('home');") ||
    afterDarkLanding.includes('od-home-directory-tile') ||
    !fs.existsSync('dist/after-dark/navigation-ribbon.css')){
-  console.error('The Other Drawer landing must be brief, with Quiz, Reports, Atlas and a complete navigation ribbon.');failures++;
+  console.error('The Other Drawer landing must be brief, with Quiz, Reports, Mira and a complete navigation ribbon.');failures++;
 }
 
 // Report samples are direct PDF downloads, not visible previews on the sample page.
@@ -196,7 +196,7 @@ if(!afterDarkLanding.includes('href="/after-dark/report-samples/"') ||
    !afterDarkLanding.includes('data-tab="chat"') ||
    !afterDarkLanding.includes('data-tab="notebook"') ||
    !fs.existsSync('dist/after-dark/home-report-showcase.css')){
- console.error('The Other Drawer homepage is missing quiz, sample-report or Atlas destinations');failures++;
+ console.error('The Other Drawer homepage is missing quiz, sample-report or Mira destinations');failures++;
 }
 // Category recommendations and opt-in partner introductions are mandatory export features.
 for(const file of ['dist/after-dark/discover-interests.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-discovery.css']){
