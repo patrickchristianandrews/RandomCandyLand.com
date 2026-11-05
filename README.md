@@ -15,7 +15,7 @@ This is the **current source repository**, not a bundle of historic deployments.
 | React app routing | `src/App.tsx` |
 | Original larger talking Pocket Pet | `src/pages/TrumpGotchaPage.tsx` and related `src/components`, `src/hooks`, `src/utils`, `src/types` |
 | Pixel-art Trumpagotchi Tiny Pet | `public/trumpagotchi-fm1/index.html`, `game.js`, `fm1-pixel-screen.js`, `melody.js`, `game.css` |
-| Standalone attractions | `public/goo-rush/`, `public/candy-simon/`, `public/candy-match/`, `public/music-visualizer/` |
+| Standalone attractions | `public/goo-rush/`, `public/candy-simon/`, `public/candy-match/` |
 | The Other Drawer and psychology lab | `public/after-dark/` including `psychology-lab/` |
 | Shared public sound files | `public/audio/trump/` — do not recreate root `audio/` |
 | Site image, logos, icon master files | `public/random-candy-land-art.webp`, `public/icon*`, `public/apple-touch-icon.png` |
@@ -31,7 +31,7 @@ This is the **current source repository**, not a bundle of historic deployments.
 - `/` — current Random Candy Land homepage; includes the Nonsense Generator and attraction catalog.
 - `/trump/` — original larger talking Pocket Pet with extra mini-games, accessed from the homepage.
 - `/trumpagotchi-fm1/` — standalone pixel-art Tiny Pet; Feed, Praise, Clean, Rest, Watch News (walk to chair and watch TV), Cheer, Play Him a Melody.
-- `/goo-rush/`, `/candy-simon/`, `/candy-match/`, `/music-visualizer/` — separate games/tools.
+- `/goo-rush/`, `/candy-simon/`, `/candy-match/` — separate games/tools.
 - `/after-dark/`, `/after-dark/psychology-lab/` — education and private self-reflection tools.
 - `/fm1-emu/` — **intentional backwards-compatible redirect** to the tiny pet. Leave it in place unless redirect tests and external links are migrated.
 
