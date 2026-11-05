@@ -49,6 +49,8 @@ personal:{
  ['Optional sex-toy ideas based on chosen interests',[
  'Example of how the real report behaves: If I directly select interest in low-intensity external sensation, the report may suggest reading about a wand or bullet vibrator. It does not assume my anatomy, gender, orientation or a particular brand.',
  'One wand may have several possible uses: externally on compatible anatomy, over clothing for milder sensation, in a partner-led setting with consent, or as a general body massager if the manufacturer permits.',
+ 'Male and female use comparison: A wand can provide external stimulation around intact penile or perineal skin for someone with a penis, and external vulvar or clitoral-hood sensation for someone with a vulva. Each person chooses the body area, pressure and settings that feel comfortable.',
+ 'Anatomy-specific limits: A penis sleeve is made for penile anatomy; a clitoral air-pulse device is shaped for clitoral anatomy; a prostate massager is only prostate-targeted for someone who has a prostate. A partner may help operate a device without it necessarily fitting their own anatomy.',
  'If I select strap-on play as fantasy-only, any related harness or dildo categories are labeled reading-only; nothing in the report suggests purchasing or trying one.',
  'Material, fit, hygiene, compatible lubricant, cleaning between uses and product-specific limits matter. Anal use requires a secure flared base. Any uncomfortable sensation is a reason to stop.',
  'Suggestions change with saved quiz answers and may be absent. These fictional examples do not describe the real reader.']],
