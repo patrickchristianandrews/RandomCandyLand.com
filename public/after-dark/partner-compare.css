@@ -1,0 +1,23 @@
+/* Compact, readable private partner comparison */
+#uc-comparison{margin:16px 0;padding:clamp(13px,2vw,22px);border:1px solid #a978b8;border-radius:16px;background:#271738}
+#uc-comparison h2{margin:0 0 8px;font-size:clamp(20px,2vw,26px)}
+#uc-comparison>p{font-size:13px;line-height:1.55}
+#uc-comparison details{margin:13px 0;padding:12px;border:1px solid #795486;border-radius:12px;background:#21132e}
+#uc-comparison summary{cursor:pointer;font-weight:850;color:#ffe3b5}
+#uc-select{display:grid;gap:7px;margin:12px 0;max-height:360px;overflow:auto}
+#uc-select h4{margin:9px 0 1px;font-size:13px}
+#uc-select input:not([type=checkbox]){box-sizing:border-box;width:100%;min-height:40px;padding:8px;border:1px solid #a484b0;border-radius:9px;background:#130d21;color:#fff}
+#uc-comparison .uc-check{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;padding:6px 8px;background:#ffffff0b;border-radius:8px}
+#uc-comparison .uc-check input{flex:none;margin-top:4px;accent-color:#fcb2db}
+#uc-comparison .uc-answer-list{display:grid;gap:5px;max-height:230px;overflow:auto;padding:8px 0}
+#uc-comparison .uc-upload{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+#uc-comparison .uc-upload label{font-weight:750;font-size:12px;display:grid;gap:6px;min-width:0}
+#uc-comparison .uc-upload input{box-sizing:border-box;max-width:100%;width:100%;font-size:11px;padding:9px;border-radius:9px;border:1px solid #9573a0;background:#180f27;color:#fff}
+#uc-comparison .uc-note{font-size:11px;color:#e2cadd;line-height:1.5}
+#uc-status{font-size:12px;color:#ffe2ab}
+#uc-results{display:grid;gap:10px;margin-top:15px}
+#uc-results h3{margin:0}
+#uc-results .uc-result{background:#ffffff0b;border:1px solid #765884;border-radius:12px;padding:12px}
+#uc-results .uc-result h4{margin:0 0 6px;color:#ffe2b4}
+#uc-results .uc-result p{margin:0;font-size:12px;line-height:1.65}
+@media(max-width:590px){#uc-comparison .uc-upload{grid-template-columns:1fr}}
