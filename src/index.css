@@ -1607,366 +1607,128 @@ body {
 }
 
 
-/* UNWRAPPED 2026: refined editorial showcase.
-   Keep existing adaptive game shelves intact; make this single feature easy to scan. */
+/* Unwrapped: short, clean featured experience instead of a long report grid. */
 .candyland-next .candyland-play-shelf-discovery{
-  padding:clamp(15px,2vw,22px);
-  border:1px solid #eeabd48f;
-  background:
-    radial-gradient(ellipse at 0% 5%,#cc588f21 0,transparent 46%),
-    radial-gradient(ellipse at 100% 85%,#a97fdf22 0,transparent 53%),
-    linear-gradient(135deg,#321e43 0%,#241a38 65%,#31213f 100%);
-  box-shadow:0 12px 32px #0b082a52,inset 0 1px #ffe6f120;
+ padding:clamp(12px,1.8vw,19px);
+ border:1px solid #f6b5d980;
+ background:linear-gradient(125deg,#32203e,#2b2042 55%,#292039);
+ box-shadow:0 10px 26px #0e09295e;
 }
 .candyland-next .candyland-play-shelf-discovery .candyland-play-shelf-heading{
-  margin-bottom:12px;
-  padding-bottom:11px;
+ margin-bottom:9px;padding-bottom:8px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tools{
+ display:grid;grid-template-columns:1fr;
 }
 .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-card{
-  display:grid;
-  grid-template-columns:clamp(126px,16vw,178px) minmax(0,1fr);
-  align-items:start;
-  gap:clamp(16px,3vw,32px);
-  padding:clamp(17px,2.4vw,27px);
-  border:1px solid #dda1c27d;
-  border-radius:19px;
-  background:
-    radial-gradient(ellipse at 3% 8%,#fd93ca21,transparent 42%),
-    linear-gradient(118deg,#37203fe8,#372446d6 63%,#27223fce);
-  box-shadow:inset 0 1px #fff2f423,0 12px 32px #11092336;
-  min-height:0;
-  color:#fff5fa;
-  overflow:hidden;
+ display:grid;grid-template-columns:108px minmax(0,1fr);
+ align-items:center;gap:clamp(14px,2vw,22px);
+ min-height:0;padding:clamp(13px,1.7vw,20px);
+ border:1px solid #f5b8d178;border-radius:14px;
+ background:linear-gradient(110deg,#4b2d54ae,#322846ac);
+ box-shadow:inset 0 1px #fff5fa23;
+ text-decoration:none;color:#fff6fb;text-align:left;
 }
 .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-card:hover{
-  border-color:#ffd9ea;
-  background:linear-gradient(118deg,#41234df0,#3d2b51e8 60%,#2b2748ed);
-  box-shadow:inset 0 1px #fff1fa51,0 16px 35px #0d062e66;
+ border-color:#ffe8ee;background:linear-gradient(110deg,#633a68bc,#3d3255bf);
+ transform:translateY(-1px);
 }
 .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-image{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  align-self:start;
-  justify-content:flex-start;
-  width:100%;
-  min-width:0;
-  max-width:none;
-  height:auto;
-  aspect-ratio:auto;
-  margin:0;
-  padding:8px 0 0;
-  background:none;
-  box-shadow:none;
-  border:0;
-  isolation:isolate;
-}
-.candyland-next .candyland-unwrapped-feature-card .candyland-unwrapped-logo-glow{
-  position:absolute;
-  display:block;
-  top:-13px;
-  width:100%;
-  aspect-ratio:1;
-  border-radius:50%;
-  background:radial-gradient(circle,#f09ad767 0%,#e680ba28 43%,transparent 73%);
-  filter:blur(10px);
-  z-index:-1;
-  pointer-events:none;
+ position:relative;display:flex;align-self:center;justify-content:center;
+ width:100%;height:108px;max-width:none;min-width:0;
+ aspect-ratio:1/1;margin:0;padding:0;border:0;background:none;
+ box-shadow:none;isolation:isolate;
 }
 .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-image img{
-  display:block;
-  width:100%;
-  height:auto;
-  aspect-ratio:1;
-  object-fit:contain;
-  max-width:172px;
-  filter:drop-shadow(0 8px 14px #1b0c24a0);
-  border-radius:25px;
+ display:block;width:100%;height:100%;max-width:108px;object-fit:contain;
+ filter:drop-shadow(0 8px 14px #15082575);border-radius:20px;
 }
-.candyland-next .candyland-unwrapped-logo-caption{
-  display:block;
-  color:#dfbed7;
-  width:100%;
-  max-width:174px;
-  text-align:center;
-  font:800 10px/1.5 system-ui,sans-serif;
-  letter-spacing:.1em;
-  margin-top:15px;
-}
-.candyland-next .candyland-unwrapped-logo-caption b{
-  display:block;
-  color:#fff0b9;
-  font-weight:950;
+.candyland-next .candyland-unwrapped-feature-card .candyland-unwrapped-logo-glow{
+ position:absolute;display:block;inset:0;
+ border-radius:50%;background:radial-gradient(circle,#f9b8d841,transparent 72%);
+ filter:blur(9px);z-index:-1;
 }
 .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-info{
-  align-items:stretch;
-  display:flex;
-  flex-direction:column;
-  min-width:0;
-  gap:0;
-  text-align:left;
+ display:flex;flex-direction:column;align-items:stretch;
+ gap:0;min-width:0;text-align:left;
 }
 .candyland-next .candyland-unwrapped-feature-eyebrow{
-  display:block;
-  font:900 10px/1.35 system-ui,sans-serif;
-  color:#ffcbdb;
-  letter-spacing:.1em;
-  margin:0 0 7px;
+ display:block;color:#ffd3e1;font:850 9px/1.3 system-ui,sans-serif;
+ letter-spacing:.07em;margin:0 0 4px;
 }
 .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-name{
-  color:#fff5fb;
-  font:950 clamp(27px,3.3vw,41px)/1.05 system-ui,sans-serif;
-  letter-spacing:-.055em;
-  margin:0 0 8px;
+ display:block;color:#fff3fa;
+ font:950 clamp(24px,2.6vw,33px)/1.1 system-ui,sans-serif;
+ letter-spacing:-.045em;margin:0 0 5px;text-align:left;
 }
 .candyland-next .candyland-unwrapped-feature-body{
-  display:flex;
-  align-items:stretch;
-  flex-direction:column;
-  gap:10px;
-  min-width:0;
-  width:100%;
+ display:flex;flex-direction:column;align-items:stretch;
+ gap:6px;width:100%;min-width:0;
 }
 .candyland-next .candyland-unwrapped-feature-headline{
-  font:900 clamp(15px,1.7vw,21px)/1.24 system-ui,sans-serif;
-  color:#ffe5a9;
-  letter-spacing:-.025em;
+ display:block;color:#ffe3b4;font:850 clamp(13px,1.45vw,17px)/1.3 system-ui,sans-serif;
+ letter-spacing:-.02em;
 }
 .candyland-next .candyland-unwrapped-feature-description{
-  display:block;
-  color:#f5e4f0;
-  font:500 clamp(12px,1.03vw,14px)/1.58 system-ui,sans-serif;
-  max-width:800px;
-}
-.candyland-next .candyland-unwrapped-feature-journey{
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:7px;
-  margin:3px 0 2px;
-  color:#f7dde9;
-  font:800 10px/1.3 system-ui,sans-serif;
-}
-.candyland-next .candyland-unwrapped-feature-journey>span:nth-child(odd){
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:5px 9px 5px 5px;
-  border:1px solid #f8c7e14d;
-  background:#ffdae40e;
-  border-radius:100px;
-}
-.candyland-next .candyland-unwrapped-feature-journey b{
-  display:grid;
-  place-items:center;
-  width:23px;
-  height:23px;
-  border-radius:100%;
-  font-size:9px;
-  background:#ffdce9;
-  color:#52234a;
-}
-.candyland-next .candyland-unwrapped-feature-journey>span:nth-child(even){
-  color:#f5afce;
-  font:800 15px/1 system-ui,sans-serif;
-}
-.candyland-next .candyland-unwrapped-feature-report-panel{
-  display:block;
-  min-width:0;
-  padding:14px;
-  margin-top:4px;
-  border-radius:14px;
-  background:#180f2a75;
-  border:1px solid #f5c2dd49;
-}
-.candyland-next .candyland-unwrapped-feature-output-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:8px;
-  color:#ffe1bb;
-  font:900 10px/1.35 system-ui,sans-serif;
-  letter-spacing:.095em;
-  margin:0 0 12px;
-}
-.candyland-next .candyland-unwrapped-feature-output-title>span{
-  color:#d6bedb;
-  font:800 9px/1.4 system-ui,sans-serif;
-  letter-spacing:.07em;
-}
-.candyland-next .candyland-unwrapped-feature-outputs{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:8px;
-  min-width:0;
-  width:100%;
-}
-.candyland-next .candyland-unwrapped-feature-outputs>span{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:4px;
-  min-width:0;
-  padding:11px 12px;
-  border-radius:10px;
-  border:1px solid #f4c5d93d;
-  background:linear-gradient(125deg,#e5b8d310,#ae9cdb0d);
-  color:#fff2f9;
-  white-space:normal;
-  text-align:left;
-  font:600 12px/1.38 system-ui,sans-serif;
-}
-.candyland-next .candyland-unwrapped-feature-outputs>span:last-child{
-  grid-column:span 2;
-  background:linear-gradient(115deg,#85547845,#63528d3f);
-}
-.candyland-next .candyland-unwrapped-feature-outputs b{
-  display:block;
-  color:#ffe9f6;
-  font:850 12px/1.32 system-ui,sans-serif;
-  letter-spacing:0;
-}
-.candyland-next .candyland-unwrapped-feature-outputs small{
-  display:block;
-  color:#d9c9dc;
-  font:500 11px/1.4 system-ui,sans-serif;
+ display:block;max-width:740px;color:#f1dfeb;
+ font:500 clamp(12px,1.15vw,14px)/1.5 system-ui,sans-serif;
 }
 .candyland-next .candyland-unwrapped-feature-footer{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px 18px;
-  flex-wrap:wrap;
-  margin-top:5px;
+ display:flex;align-items:center;justify-content:space-between;
+ gap:8px 16px;flex-wrap:wrap;margin-top:6px;
 }
 .candyland-next .candyland-unwrapped-feature-help{
-  display:block;
-  flex:1;
-  min-width:215px;
-  max-width:570px;
-  color:#dbc9e0;
-  font:500 11px/1.5 system-ui,sans-serif;
+ display:block;flex:1;min-width:160px;max-width:540px;
+ color:#d5c0d9;font:500 10px/1.35 system-ui,sans-serif;
 }
 .candyland-next .candyland-unwrapped-feature-cta{
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  gap:11px;
-  flex:none;
-  margin:0;
-  padding:12px 17px;
-  border-radius:11px;
-  border:1px solid #ffe9dc;
-  background:linear-gradient(110deg,#ffe5ed,#f4bddb);
-  color:#522547;
-  box-shadow:0 5px 14px #110c2061;
-  font:900 12px/1.2 system-ui,sans-serif;
-  white-space:nowrap;
+ display:inline-flex;align-items:center;justify-content:center;gap:9px;
+ flex:none;margin:0;padding:9px 13px;border:1px solid #ffebd9;
+ border-radius:9px;background:linear-gradient(120deg,#ffe9ee,#f2b7d3);
+ color:#522747;box-shadow:0 4px 12px #17082f50;
+ font:900 12px/1.2 system-ui,sans-serif;white-space:nowrap;
 }
-.candyland-next .candyland-unwrapped-feature-cta span{
-  font-size:16px;
-}
-@media(max-width:1040px){
- .candyland-next .candyland-unwrapped-feature-outputs{
-  grid-template-columns:repeat(2,minmax(0,1fr));
- }
- .candyland-next .candyland-unwrapped-feature-outputs>span:last-child{
-  grid-column:span 2;
- }
-}
-@media(max-width:690px){
+.candyland-next .candyland-unwrapped-feature-cta span{font-size:15px}
+@media(max-width:610px){
+ .candyland-next .candyland-play-shelf-discovery{padding:11px}
  .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-card{
-  display:grid;
-  grid-template-columns:minmax(0,1fr);
-  gap:13px;
-  padding:16px;
+  grid-template-columns:66px minmax(0,1fr);align-items:start;
+  gap:10px;padding:12px;border-radius:12px;
  }
  .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-image{
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content:flex-start;
-  gap:14px;
-  padding:0;
-  width:100%;
-  max-width:none;
-  height:auto;
+  width:66px;height:66px;align-self:start;
  }
  .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-image img{
-  width:76px;
-  height:76px;
-  max-width:76px;
-  flex:none;
+  width:66px;height:66px;
  }
- .candyland-next .candyland-unwrapped-feature-card .candyland-unwrapped-logo-glow{
-  top:0;
-  left:0;
-  width:76px;
- }
- .candyland-next .candyland-unwrapped-logo-caption{
-  width:auto;
-  max-width:none;
-  margin:0;
-  text-align:left;
-  font-size:10px;
- }
- .candyland-next .candyland-unwrapped-logo-caption b{display:block}
- .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-info{
-  align-items:stretch;
-  text-align:left;
- }
+ .candyland-next .candyland-unwrapped-feature-eyebrow{font-size:8px}
  .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-name{
-  font-size:29px;
-  text-align:left;
-  margin:0 0 7px;
+  font-size:23px;text-align:left;
  }
- .candyland-next .candyland-unwrapped-feature-headline{
-  font-size:17px;
-  text-align:left;
- }
+ .candyland-next .candyland-unwrapped-feature-headline{font-size:14px}
  .candyland-next .candyland-unwrapped-feature-description{
-  font-size:12px;
-  line-height:1.6;
- }
- .candyland-next .candyland-unwrapped-feature-outputs{
-  grid-template-columns:minmax(0,1fr);
- }
- .candyland-next .candyland-unwrapped-feature-outputs>span:last-child{
-  grid-column:auto;
+  display:block;font-size:12px;line-height:1.45;
  }
  .candyland-next .candyland-unwrapped-feature-footer{
-  flex-direction:column;
-  align-items:stretch;
+  flex-direction:column;align-items:stretch;gap:8px;
  }
- .candyland-next .candyland-unwrapped-feature-help{
-  min-width:0;
-  max-width:none;
-  font-size:11px;
- }
+ .candyland-next .candyland-unwrapped-feature-help{min-width:0;font-size:9px}
  .candyland-next .candyland-unwrapped-feature-cta{
-  align-self:stretch;
-  min-height:44px;
+  align-self:flex-start;min-height:35px;padding:8px 12px;font-size:11px;
  }
 }
-@media(max-width:420px){
- .candyland-next .candyland-unwrapped-feature-journey{
-  gap:4px;
+@media(max-width:390px){
+ .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-card{
+  grid-template-columns:52px minmax(0,1fr);gap:8px;
  }
- .candyland-next .candyland-unwrapped-feature-journey>span:nth-child(odd){
-  padding:4px 6px 4px 4px;
-  gap:4px;
-  font-size:9px;
+ .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-image,
+ .candyland-next .candyland-unwrapped-feature-card .candyland-hero-tool-image img{
+  width:52px;height:52px;
  }
- .candyland-next .candyland-unwrapped-feature-journey b{
-  width:20px;height:20px;
- }
- .candyland-next .candyland-unwrapped-feature-report-panel{
-  padding:11px;
- }
- .candyland-next .candyland-unwrapped-feature-outputs>span{
-  padding:9px 10px;
+}
+@media(prefers-reduced-motion:reduce){
+ .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-card:hover{
+  transform:none;
  }
 }
 
