@@ -119,7 +119,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .afterdark-fast-card h3{font-size:24px;margin:6px 0}.afterdark-fast-card p{flex:1;font-size:14px;line-height:1.65;margin:2px 0 12px}
 .afterdark-fast-card .btn{margin-top:auto;min-height:44px;text-decoration:none}
 @media(max-width:660px){.afterdark-fast-grid{grid-template-columns:1fr}}
-</style><link rel="stylesheet" href="/after-dark/interest-notebook.css?v=partner-pdf-20261031-v5"><link rel="stylesheet" href="/after-dark/bookmark-toolbar.css?v=20261101-onerow-v2"><link rel="stylesheet" href="/after-dark/guide-illustrations.css?v=20261031-v1"><link rel="stylesheet" href="/after-dark/origins-pathways.css?v=20261031-v1"><link rel="stylesheet" href="/after-dark/report-upgrade.css?v=20261031-report-v1"><link rel="stylesheet" href="/after-dark/partner-discovery.css?v=20261031-partner-v1"><link rel="stylesheet" href="/after-dark/home-report-showcase.css?v=20261031-home-v1"><style>
+</style><link rel="stylesheet" href="/after-dark/interest-notebook.css?v=partner-pdf-20261031-v5"><link rel="stylesheet" href="/after-dark/toy-library.css?v=toy-guides-20261105-v1"><link rel="stylesheet" href="/after-dark/bookmark-toolbar.css?v=20261101-onerow-v2"><link rel="stylesheet" href="/after-dark/guide-illustrations.css?v=20261031-v1"><link rel="stylesheet" href="/after-dark/origins-pathways.css?v=20261031-v1"><link rel="stylesheet" href="/after-dark/report-upgrade.css?v=20261031-report-v1"><link rel="stylesheet" href="/after-dark/partner-discovery.css?v=20261031-partner-v1"><link rel="stylesheet" href="/after-dark/home-report-showcase.css?v=20261031-home-v1"><style>
 .quiz-multi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0}
 .quiz-multi-option{display:flex;gap:11px;align-items:center;min-height:58px;padding:12px 14px;border:2px solid #9876af;border-radius:14px;background:#311c40;cursor:pointer;color:#fff;font-size:14px;line-height:1.5}
 .quiz-multi-option.selected{background:#623371;border-color:#ffe7ad}
@@ -306,6 +306,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a class="od-ribbon-link" href="/after-dark/report-samples/">📄 Reports</a>
   <button type="button" class="od-ribbon-link" data-tab="chat">💬 Ask Atlas</button>
   <button type="button" class="od-ribbon-link" data-tab="atlas">📚 Browse Topics</button>
+  <button type="button" class="od-ribbon-link" data-tab="toys">◈ Sex Toy Guide</button>
   <details class="od-ribbon-menu od-ribbon-menu-more">
    <summary>✨ More to Explore <span aria-hidden="true">⌄</span></summary>
    <div class="od-ribbon-submenu">
@@ -313,6 +314,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <button type="button" data-tab="notebook">Notebook &amp; Partner Reports</button>
     <button type="button" data-tab="ideas">Idea Lab</button>
     <button type="button" data-tab="howto">Intimacy Guides</button>
+    <button type="button" data-tab="toys">Sex Toy Guide</button>
     <button type="button" data-tab="guide">Resources &amp; FAQs</button>
     <a href="/after-dark/psychology-lab/">Clue Compass</a>
    </div>
@@ -347,6 +349,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <img class="ad-card-visual" src="/after-dark/visuals/chat.svg" alt="" width="600" height="400" loading="lazy">
     <div><span class="eyebrow">KEEP THE CONVERSATION GOING</span><h3>Ask Atlas</h3><p>Ask about your results, relationships or anything in the library. Use your own words.</p></div>
     <div class="od-compact-actions"><button class="btn" type="button" data-tab="chat">Talk to Atlas</button></div>
+   </article>
+   <article class="card afterdark-feature-card od-compact-tool">
+    <img class="ad-card-visual" src="/after-dark/visuals/guide.svg" alt="" width="600" height="400" loading="lazy">
+    <div><span class="eyebrow">PRACTICAL SEXUAL WELLNESS</span><h3>Sex Toy Guide</h3><p>Compare 12 types of sex toys, learn several possible uses and safety notes for each, and see optional ideas drawn from your own quiz selections.</p></div>
+    <div class="od-compact-actions"><button class="btn" type="button" data-tab="toys">Explore Toy Types</button><button class="btn alt" type="button" data-tab="quiz">Personalize from Quiz</button></div>
    </article>
   </div>
  </section>
@@ -414,6 +421,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <form id="askForm" class="chatinput"><input class="field" id="chatText" autocomplete="off" maxlength="480" aria-label="Ask Anything a question" placeholder="Try “why do I like praise”, “peggin”, “how to tell my partner”, or just a keyword…" required><button class="btn" type="submit">Ask →</button></form>
   <p class="tiny">Answers come from the site's reference library, and your questions stay on this device. See Resources for more reading.</p>
 </section>
+<section id="toys" class="tab" aria-label="Adult sex toy library, many uses, safety and quiz-linked suggestions">
+ <div id="toy-library">
+  <div class="toy-hero"><div><span class="eyebrow">UNWRAPPED · SEXUAL WELLNESS</span><h2>One toy. More than one possibility.</h2><p>A practical, pressure-free guide to adult sex toys: what each type is designed for, different ways people might use it, what to check before choosing one, and when a product may not be suitable. Explore without buying or answering a quiz.</p></div><div class="toy-hero-figure" aria-hidden="true">✧</div></div>
+  <div class="toy-quick-start"><div><span class="eyebrow">BROWSE AT YOUR PACE</span><h3>Find a toy type</h3><p>Choose a category or search by body area, sensation or type. Each guide lists multiple possible uses and important safety limits.</p></div>
+   <div class="toy-filters"><label>Search toy types<input id="toy-search" type="search" autocomplete="off" placeholder="Try wand, clitoral, sleeve, anal, harness…"></label><label>Category<select id="toy-filter"><option value="">All categories</option></select></label></div>
+   <p class="tiny" id="toy-count" role="status">Loading guides…</p>
+  </div>
+  <div id="toy-grid" class="toy-grid" aria-live="polite"></div>
+  <article id="toy-detail" class="toy-detail" tabindex="-1" aria-label="Selected toy type" hidden></article>
+  <section class="toy-match-wrap" aria-labelledby="toy-match-heading"><div class="toy-match-heading"><div><span class="eyebrow">OPTIONAL · FROM YOUR SAVED ANSWERS</span><h3 id="toy-match-heading">Types you might want to learn about</h3></div><button class="btn alt" type="button" id="toy-refresh-matches">Refresh my matches</button></div>
+   <p>Only interests you actually selected are used. Fantasy-only ideas stay reading suggestions. No anatomy, orientation, diagnosis or consent is inferred from a score. Results never leave this browser.</p>
+   <div class="toy-matches" id="toy-recommendations" aria-live="polite"></div>
+  </section>
+  <aside class="toy-sources"><strong>Safer-use essentials:</strong> Follow the specific product instructions; favor nonporous, body-safe materials for insertable products; use compatible lubricant, including sufficient lubricant for anal play; never use a non-flared device anally; clean between users and body areas, and use a fresh barrier when sharing. Pause for discomfort or pain. Sources: <a href="https://www.plannedparenthood.org/learn/sex-pleasure-and-sexual-dysfunction/sex-and-pleasure/sex-toys" target="_blank" rel="noopener noreferrer">Planned Parenthood</a> and <a href="https://www.ashasexualhealth.org/safer-sex-toolbox/" target="_blank" rel="noopener noreferrer">American Sexual Health Association</a>. Not medical advice or a substitute for individual consent.</aside>
+ </div>
+</section>
 <section id="howto" class="tab" aria-label="Orgasm-only anatomy and practical guides">
  <div class="ad-section-art-banner">
   <div class="ad-section-copy">
@@ -467,7 +490,7 @@ let choices={},qIndex=-1,axes={},lastAsk='',lastHits=[],lastIdea=-1;
 function getChoices(){try{return JSON.parse(localStorage.getItem('afterdark_choices')||'{}')}catch{return {}}}
 choices=getChoices();
 function save(){try{localStorage.setItem('afterdark_choices',JSON.stringify(choices))}catch{}}
-function renderTabs(tab){document.querySelectorAll('.tab').forEach(el=>el.classList.toggle('visible',el.id===tab));document.querySelectorAll('[data-tab]').forEach(el=>el.classList.toggle('selected',el.dataset.tab===tab));const labels={home:'Unwrapped',howto:'Practical Guides',atlas:'Curiosity Library',quiz:'Sexual Preferences Quiz','psych-quiz':'Psychology Curiosity Quiz',psych:'Psychology & Feelings',ideas:'Idea Lab',chat:'Ask Anything',guide:'Resources & Guidance',notebook:'My Saved Interests', 'partner-view':'Shared Invitation','share-results':'Share Selected Results'};const section=document.getElementById('afterdark-current');if(section)section.textContent=labels[tab]||'Unwrapped';if(location.hash.slice(1)!==tab)history.replaceState(null,'','#'+tab);window.scrollTo({top:0,behavior:'smooth'});}
+function renderTabs(tab){document.querySelectorAll('.tab').forEach(el=>el.classList.toggle('visible',el.id===tab));document.querySelectorAll('[data-tab]').forEach(el=>el.classList.toggle('selected',el.dataset.tab===tab));const labels={home:'Unwrapped',howto:'Practical Guides',toys:'Sex Toy Guide',atlas:'Curiosity Library',quiz:'Sexual Preferences Quiz','psych-quiz':'Psychology Curiosity Quiz',psych:'Psychology & Feelings',ideas:'Idea Lab',chat:'Ask Anything',guide:'Resources & Guidance',notebook:'My Saved Interests', 'partner-view':'Shared Invitation','share-results':'Share Selected Results'};const section=document.getElementById('afterdark-current');if(section)section.textContent=labels[tab]||'Unwrapped';if(location.hash.slice(1)!==tab)history.replaceState(null,'','#'+tab);window.scrollTo({top:0,behavior:'smooth'});}
 document.querySelectorAll('[data-tab]').forEach(el=>el.onclick=()=>renderTabs(el.dataset.tab));
 document.querySelectorAll('.od-ribbon-submenu [data-tab]').forEach(el=>el.addEventListener('click',()=>{
   const menu=el.closest('details');if(menu)menu.open=false;
@@ -1325,7 +1348,7 @@ $('askForm').onsubmit=e=>{e.preventDefault();const input=$('chatText');const tex
 document.querySelectorAll('[data-ask]').forEach(b=>b.onclick=()=>ask(b.dataset.ask));
 // 18+ entry is initialized independently before this large educational library.
 const hash=location.hash.slice(1);if(hash.startsWith('partner-view?data=')||hash.startsWith('partner-results?data=')){ /* Keep selected invitation in fragment until its local reader loads. */ }
-else if(['home','atlas','quiz','psych-quiz','psych','ideas','chat','howto','guide','notebook'].includes(hash))renderTabs(hash);else renderTabs('home');
+else if(['home','atlas','quiz','psych-quiz','psych','ideas','chat','howto','toys','guide','notebook'].includes(hash))renderTabs(hash);else renderTabs('home');
 window.AfterDarkSharedQuizResults=(targetId='quizCard')=>showResults(targetId);
 window.AfterDarkDirectQuizBridge=Object.freeze({
  getProgress:()=>({position:qIndex,answered,complete:qIndex===qdata.length,questions:qdata.length,
@@ -1420,4 +1443,4 @@ window.AfterDarkNotebookBridge={
   getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.()?.complete),
   quizText:()=>document.getElementById('quizCard')?.innerText||''
 };
-</script><link rel="stylesheet" href="/after-dark/partner-results-share.css?v=20261030-v1"><script src="/after-dark/quiz-report.js?v=integrated69-v2"></script><script src="/after-dark/report-qr.js?v=standalone-share-flyer-20261101-v2"></script><script src="/after-dark/report-polish.js?v=editorial-qr-20261031-v2"></script><script src="/after-dark/discover-interests.js?v=20261031-categories-v1"></script><script src="/after-dark/partner-pdf.js?v=partner-selective-20261031-v1"></script><script src="/after-dark/new-partner-report.js?v=20261101-final-qr-v1"></script><script src="/after-dark/report-visuals.js?v=1"></script><script src="/after-dark/interest-notebook.js?v=report-20261030-v2"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/continue-and-transfer.js?v=integrated69-v2" defer></script><script src="/after-dark/partner-results-share.js?v=integrated69-v2" defer></script><script src="/after-dark/bookmark-toolbar.js?v=20261101-onerow-v2" defer></script><script src="/after-dark/origins-pathways.js?v=20261031-v1" defer></script><script src="/after-dark/navigation-upgrade.js?v=20261101-nav3" defer></script><link rel="stylesheet" href="/after-dark/partner-compare.css?v=1"><script src="/after-dark/partner-compare.js?v=1" defer></script></body></html>
+</script><link rel="stylesheet" href="/after-dark/partner-results-share.css?v=20261030-v1"><script src="/after-dark/toy-library.js?v=toy-guides-20261105-v1"></script><script src="/after-dark/quiz-report.js?v=toy-guides-20261105-v1"></script><script src="/after-dark/report-qr.js?v=standalone-share-flyer-20261101-v2"></script><script src="/after-dark/report-polish.js?v=editorial-qr-20261031-v2"></script><script src="/after-dark/discover-interests.js?v=20261031-categories-v1"></script><script src="/after-dark/partner-pdf.js?v=partner-selective-20261031-v1"></script><script src="/after-dark/new-partner-report.js?v=20261101-final-qr-v1"></script><script src="/after-dark/report-visuals.js?v=1"></script><script src="/after-dark/interest-notebook.js?v=report-20261030-v2"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/continue-and-transfer.js?v=integrated69-v2" defer></script><script src="/after-dark/partner-results-share.js?v=integrated69-v2" defer></script><script src="/after-dark/bookmark-toolbar.js?v=20261101-onerow-v2" defer></script><script src="/after-dark/origins-pathways.js?v=20261031-v1" defer></script><script src="/after-dark/navigation-upgrade.js?v=20261101-nav3" defer></script><link rel="stylesheet" href="/after-dark/partner-compare.css?v=1"><script src="/after-dark/partner-compare.js?v=1" defer></script></body></html>
