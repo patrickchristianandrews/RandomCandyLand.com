@@ -72,6 +72,9 @@ jobs:
       - name: Verify specialist Random AI workflow catalog and chat navigation
         run: node scripts/test-random-ai-library.mjs
 
+      - name: Verify Unwrapped toy library and personalized report privacy
+        run: node scripts/test-unwrapped-toys.mjs
+
       - name: Build the entire website
         run: bun run build
 
