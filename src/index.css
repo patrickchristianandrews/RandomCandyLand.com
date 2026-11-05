@@ -2213,3 +2213,121 @@ body {
  .candyland-next #nonsense.nonsense-report .nonsense-report-marquee{animation:none}
  .candyland-next #nonsense.nonsense-report .nonsense-report-live i{animation:none}
 }
+
+
+/* The Nonsense Report: compact, continuous fictional news stream, open on click. */
+.candyland-next .nonsense-lab.nonsense-report{
+  max-width:1260px;
+  margin:21px auto 25px;
+  padding:0;
+  border:1px solid #f2d09c8e;
+  border-radius:15px;
+  background:#210d38;
+  box-shadow:0 7px 25px #170b2a5e;
+  min-height:0;
+  overflow:hidden;
+}
+.nonsense-report .nonsense-report-ticker{
+  display:flex;align-items:stretch;gap:0;min-height:64px;
+  background:linear-gradient(110deg,#3b164b,#231a49 58%,#291a47);
+}
+.nonsense-report .nonsense-report-brand{
+  display:flex;align-items:center;gap:9px;flex:none;padding:9px 13px;
+  background:linear-gradient(110deg,#772a87,#51226c);
+  border-right:1px solid #ffffff2f;
+}
+.nonsense-report .nonsense-report-icon{
+  display:grid;place-items:center;color:#fff2bd;
+}
+.nonsense-report .nonsense-report-brand-copy{display:flex;flex-direction:column;gap:3px}
+.nonsense-report .nonsense-report-brand strong{
+  font:950 14px/1.1 system-ui,sans-serif;
+  letter-spacing:.015em;color:#fff;
+  white-space:nowrap;
+}
+.nonsense-report .nonsense-report-brand strong em{font-style:normal;color:#ffe7a7}
+.nonsense-report .nonsense-report-brand small{
+  color:#eed0e9;letter-spacing:.07em;font:750 8px/1.3 system-ui,sans-serif;
+}
+.nonsense-report .nonsense-report-live{
+  display:flex;align-items:center;gap:5px;flex:none;padding:0 11px;
+  color:#ffd7cf;font:900 11px/1.3 system-ui,sans-serif;
+  letter-spacing:.05em;
+}
+.nonsense-report .nonsense-report-live i{
+  display:block;width:8px;height:8px;border-radius:50%;background:#ff5e72;
+  box-shadow:0 0 9px #ff5e72;
+  animation:nonsense-live-pulse 1.8s ease-in-out infinite;
+}
+.nonsense-report .nonsense-report-live span{color:#b7ffd9;font-size:9px}
+.nonsense-report .nonsense-report-open{
+  flex:1;min-width:0;display:flex;align-items:center;gap:12px;
+  border:0;padding:0 11px;background:none;color:#fff;cursor:pointer;
+  text-align:left;
+}
+.nonsense-report .nonsense-report-open:hover,.nonsense-report .nonsense-report-open:focus-visible{
+  background:#ffffff12;outline-offset:-3px;
+}
+.nonsense-report .nonsense-report-viewport{
+  position:relative;overflow:hidden;min-width:0;display:block;flex:1;
+  border-left:1px solid #ffffff2c;padding-left:12px;
+}
+.nonsense-report .nonsense-report-marquee{
+  display:flex;align-items:center;gap:25px;white-space:nowrap;width:max-content;
+  font:800 14px/1.5 system-ui,sans-serif;color:#fff2dc;
+  animation:nonsense-live-scroll 30s linear infinite;
+}
+.nonsense-report .nonsense-report-marquee>span{display:inline-block}
+.nonsense-report .nonsense-report-marquee b{color:#eab6ff;padding:0 7px}
+.nonsense-report .nonsense-report-open:hover .nonsense-report-marquee,
+.nonsense-report .nonsense-report-open:focus-visible .nonsense-report-marquee{animation-play-state:paused}
+.nonsense-report .nonsense-report-read{
+  display:flex;align-items:center;gap:5px;flex:none;white-space:nowrap;
+  border:1px solid #ffe0c0bb;border-radius:8px;padding:9px 10px;
+  background:#ffe9bb;color:#4b2145;
+  font:900 10px/1.1 system-ui,sans-serif;
+}
+.nonsense-report .nonsense-report-skip{
+  flex:none;min-width:42px;padding:0 10px;
+  background:#ffffff13;color:#fff5d6;border:0;
+  border-left:1px solid #ffffff24;cursor:pointer;font-size:20px;
+}
+.nonsense-report .nonsense-report-detail[hidden]{display:none}
+.nonsense-report .nonsense-report-detail{
+  padding:16px clamp(12px,2vw,23px) 21px;
+  background:linear-gradient(130deg,#5d2f7d,#483068);
+}
+.nonsense-report .nonsense-report-detail .nonsense-display{
+  margin:0 0 15px;min-height:0;animation:none;
+}
+.nonsense-report .nonsense-report-detail .nonsense-actions{gap:8px}
+.nonsense-report .nonsense-report-detail .nonsense-actions button{
+  min-height:38px;border-radius:9px;padding:8px 13px;
+  font:850 11px/1.2 system-ui,sans-serif;
+}
+.nonsense-report .nonsense-report-detail .nonsense-facts{margin-top:12px}
+.nonsense-report .nonsense-report-close{
+  border:1px solid #fff9ef!important;background:#3b255d!important;color:#fff!important;
+}
+@keyframes nonsense-live-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes nonsense-live-pulse{50%{opacity:.45;box-shadow:0 0 2px #ff5e72}}
+@media(max-width:800px){
+ .nonsense-report .nonsense-report-brand{padding:8px 10px;gap:6px}
+ .nonsense-report .nonsense-report-brand strong{font-size:12px}
+ .nonsense-report .nonsense-report-live span{display:none}
+ .nonsense-report .nonsense-report-read{font-size:0;padding:8px}
+ .nonsense-report .nonsense-report-read svg{width:17px;height:17px}
+}
+@media(max-width:600px){
+ .candyland-next .nonsense-lab.nonsense-report{margin:12px 8px 20px}
+ .nonsense-report .nonsense-report-ticker{min-height:52px}
+ .nonsense-report .nonsense-report-brand strong{font-size:11px}
+ .nonsense-report .nonsense-report-brand small{display:none}
+ .nonsense-report .nonsense-report-live{padding:0 6px;font-size:9px}
+ .nonsense-report .nonsense-report-open{padding:0 5px;gap:4px}
+ .nonsense-report .nonsense-report-marquee{font-size:12px}
+ .nonsense-report .nonsense-report-skip{min-width:34px;padding:0 7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .nonsense-report .nonsense-report-marquee,.nonsense-report .nonsense-report-live i{animation:none}
+}
