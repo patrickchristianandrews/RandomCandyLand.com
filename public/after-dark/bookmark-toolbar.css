@@ -290,3 +290,45 @@ body.print-quiz .od-bookmark-bar,body.print-notebook .od-bookmark-bar,body.print
 @media(max-width:350px){
  .od-bookmark-bar>#rcl-share-page{padding:8px 2px;font-size:10px}
 }
+
+
+/* 2026-11-05 bottom dock. Keep the actions on screen as the document scrolls. */
+:root{--unwrapped-dock-height:78px}
+body:has(#od-bookmark-bar){padding-bottom:calc(var(--unwrapped-dock-height) + env(safe-area-inset-bottom,0px) + 14px)}
+body:has(#od-bookmark-bar) :is(#home,#atlas,#quiz,#psych-quiz,#psych,#ideas,#chat,#howto,#guide,#notebook){scroll-margin-bottom:calc(var(--unwrapped-dock-height) + 18px)}
+body #od-bookmark-bar{
+ position:fixed!important;top:auto!important;bottom:calc(9px + env(safe-area-inset-bottom,0px))!important;
+ left:50%!important;transform:translateX(-50%)!important;
+ width:min(900px,calc(100vw - 22px));max-width:calc(100vw - 22px);margin:0!important;
+ z-index:1100!important;min-height:56px;grid-template-columns:minmax(70px,1fr) repeat(4,minmax(0,auto));
+ background:linear-gradient(120deg,#2b1b37f7,#3d244bf5);border:1px solid #e8b5db8a;
+ box-shadow:0 -7px 35px #080411bb;border-radius:15px;padding:7px 10px;
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+body #od-bookmark-bar>.od-bookmark-menu{position:relative}
+body #od-bookmark-bar .od-bookmark-panel{
+ position:absolute!important;top:auto!important;bottom:calc(100% + 12px)!important;right:0!important;
+ max-height:min(68dvh,630px);overscroll-behavior:contain;
+ box-shadow:0 0 28px #070410b8;background:#2c203c
+}
+body #od-bookmark-bar #rcl-share-page{width:100%;height:44px}
+body #od-bookmark-bar>.od-bookmark-button{min-height:44px}
+body #od-bookmark-bar>.od-bookmark-notice{position:absolute!important}
+@media(max-width:760px){
+ :root{--unwrapped-dock-height:71px}
+ body #od-bookmark-bar{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(44px,auto);gap:5px;padding:7px;bottom:calc(6px + env(safe-area-inset-bottom,0px))!important}
+ body #od-bookmark-bar>.od-bookmark-heading{display:none!important}
+ body #od-bookmark-bar>.od-bookmark-menu{grid-column:4!important;min-width:0}
+ body #od-bookmark-bar>.od-bookmark-save{grid-column:1!important}
+ body #od-bookmark-bar>.od-bookmark-continue{grid-column:2!important}
+ body #od-bookmark-bar>#rcl-share-page{grid-column:3!important;font-size:11px;padding:7px 4px}
+ body #od-bookmark-bar .od-bookmark-panel{position:fixed!important;bottom:calc(100% + 12px)!important;
+  right:0!important;width:min(420px,calc(100vw - 22px))!important;max-width:calc(100vw - 22px)!important}
+ body #od-bookmark-bar :is(.od-bookmark-save,.od-bookmark-continue,.od-bookmark-summary){font-size:11px!important;padding:7px 3px!important}
+}
+@media(max-width:390px){
+ body #od-bookmark-bar{width:calc(100vw - 12px);max-width:calc(100vw - 12px);gap:3px;padding:6px 4px}
+ body #od-bookmark-bar #rcl-share-page{font-size:10px;padding:6px 2px}
+ body #od-bookmark-bar .od-bookmark-summary{font-size:10px!important}
+}
+@media print{body:has(#od-bookmark-bar){padding-bottom:0!important}body #od-bookmark-bar{display:none!important}}
