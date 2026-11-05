@@ -738,7 +738,8 @@ try{
   console.log('✓ Random AI no-download/hosted selection, persistent loading progress and task stacks work.');
 
   // TRACE Evidence Files stays in the course; the profile tool is on an independent route.
-  const evidenceReady=await trace.evaluate("(()=>{document.querySelector('#tab-identity').click();return document.querySelector('#view-identity h2')?.textContent==='Evidence Files'&&!!document.querySelector('#trace-identity-lab [data-idcase]')&&!document.querySelector('#trace-profile-review')})()");
+  const traceEvidence=await navigate(site+'/osint-academy/');
+  const evidenceReady=await traceEvidence.evaluate("(()=>{document.querySelector('#tab-identity').click();return document.querySelector('#view-identity h2')?.textContent==='Evidence Files'&&!!document.querySelector('#trace-identity-lab [data-idcase]')&&!document.querySelector('#trace-profile-review')})()");
   if(!evidenceReady)throw Error('TRACE Evidence Files challenge or standalone separation failed');
   const traceProfile=await navigate(site+'/identity-lab/');
   const profileReady=await traceProfile.evaluate("(()=>{const p=window.TraceProfileReview;return !!p&&p.getCurrentStep()===0&&!!document.querySelector('#trace-profile-review')&&document.querySelectorAll('#profileSteps [data-profile-step]').length===3&&document.querySelector('#profile-username')})()");
