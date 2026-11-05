@@ -1733,6 +1733,60 @@ body {
 }
 
 
+/* Unwrapped: restore the spacious bubble-style highlights rather than one dense paragraph. */
+.candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-body{
+  gap:12px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-output-title{
+  display:block;
+  margin-top:4px;
+  color:#ffdfb2;
+  font:850 clamp(10px,1vw,12px)/1.5 system-ui,sans-serif;
+  letter-spacing:.11em;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-outputs{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:stretch;
+  gap:12px 14px;
+  width:100%;
+  margin:0 0 3px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-outputs>span{
+  display:flex;
+  flex:1 1 200px;
+  align-items:center;
+  justify-content:center;
+  min-height:43px;
+  padding:10px 17px;
+  border-radius:999px;
+  border:1px solid rgba(255,202,230,.66);
+  background:linear-gradient(125deg,rgba(143,70,133,.38),rgba(107,65,137,.35));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 3px 10px rgba(16,6,31,.19);
+  color:#fff4fc;
+  text-align:center;
+  font:760 clamp(11px,1.05vw,13px)/1.45 system-ui,sans-serif;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-outputs>span:nth-child(3n+2){
+  border-color:rgba(220,193,255,.68);
+  background:linear-gradient(120deg,rgba(107,77,161,.38),rgba(86,60,137,.32));
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-outputs>span:nth-child(3n){
+  border-color:rgba(255,226,174,.62);
+  background:linear-gradient(120deg,rgba(145,94,120,.38),rgba(119,73,111,.32));
+}
+@media(max-width:610px){
+  .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-body{gap:11px}
+  .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-outputs{gap:9px}
+  .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-outputs>span{
+    flex:1 1 135px;
+    min-height:42px;
+    padding:9px 11px;
+    font-size:11px;
+    white-space:normal;
+  }
+}
+
 /* The Absurdity Report ticker: a compact animated FICTIONAL satire news strip,
    with an accessible expansion for the entire story. */
 .candyland-next #nonsense.nonsense-report{
