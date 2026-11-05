@@ -382,3 +382,10 @@ footer{margin-top:15px;padding:18px 2px;border-top:1px solid #715183;font-size:1
  .candy-casino .poker-example-card{flex-basis:32px;width:32px;height:40px;font-size:12px}
  .candy-casino .poker-hand-guide-heading p{font-size:13px}
 }
+
+/* Slim friend connection guide */
+.casino-friend-steps{margin:2px 0 5px;color:#ffeed0;font-size:11px;line-height:1.5}
+.friends-connect .invite{padding:8px 10px}
+.casino-invite-actions{display:flex;gap:7px;flex-wrap:wrap}
+.friends-connect .casino-invite-actions button{flex:1;min-width:110px;margin-top:7px}
+.friends-connect .network-version{display:none}
