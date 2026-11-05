@@ -655,6 +655,20 @@ if(fs.existsSync('dist/ai-academy/academy.js')){
   if(!text.includes(needle)){console.error('Standalone Academy course feature missing:',needle);failures++;}
  }
 }
+// Report visual system must work offline in HTML preview and Save as PDF exports.
+for(const path of ['dist/after-dark/report-visuals.js','dist/after-dark/report-visuals.css']){
+ if(!fs.existsSync(path)){console.error('Report visual asset missing:',path);failures++;}
+}
+if(!afterDarkLanding.includes('report-visuals.js?v=1')||!afterDarkLanding.includes('report-visuals.css?v=1')){
+ console.error('Unwrapped must load print-ready report visualizations.');failures++;
+}
+if(fs.existsSync('dist/after-dark/report-visuals.js')){
+ const visualJS=fs.readFileSync('dist/after-dark/report-visuals.js','utf8');
+ try{new vm.Script(visualJS,{filename:'report-visuals.js'})}catch(err){console.error('Unwrapped visual report script syntax:',err.message);failures++;}
+ for(const name of ['enhancePersonal','enhancePartner','enhanceIntroduction','report-visual-matrix','report-visual-status-table']){
+  if(!visualJS.includes(name)){console.error('Missing report visualization:',name);failures++;}
+ }
+}
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
