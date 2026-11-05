@@ -624,6 +624,23 @@ if(!homeInstallSource.includes('candyland-unwrapped-promo') ||
    !homeInstallSource.includes('href="/after-dark/"')){
   console.error('Homepage needs exactly one short Unwrapped feature with reports and a working link.');failures++;
 }
+// First section is a full Unwrapped introduction, not a tiny one-card shelf.
+const categoryBlock=homeInstallSource.slice(homeInstallSource.indexOf('const COLLECTIONS = ['),homeInstallSource.indexOf('] as const;',homeInstallSource.indexOf('const COLLECTIONS = [')));
+if(!categoryBlock.trimStart().startsWith("const COLLECTIONS = [\n  {id:'discovery'") ||
+   !homeInstallSource.includes('candyland-unwrapped-feature-body') ||
+   !homeInstallSource.includes('candyland-unwrapped-feature-outputs') ||
+   !homeInstallSource.includes('Personal insights report') ||
+   !homeInstallSource.includes('New-partner introduction report') ||
+   !homeInstallSource.includes('Shareable, downloadable reports') ||
+   !homeInstallSource.includes('/tool-icons/unwrapped.svg')) {
+  console.error('Explore & Understand must lead the homepage with Unwrapped logo, personal/partner benefits and report outputs.');failures++;
+}
+const homepageStyle=fs.readFileSync('src/index.css','utf8');
+if(!homepageStyle.includes('candyland-play-shelf-discovery .candyland-hero-tool-link') ||
+   !homepageStyle.includes('candyland-unwrapped-feature-outputs') ||
+   !homepageStyle.includes('candyland-unwrapped-feature-description')) {
+  console.error('Unwrapped first-shelf feature styling is missing.');failures++;
+}
 // Featured Unwrapped and Random AI must remain inside the shorter, centered homepage header.
 const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="candyland-navbar"'),homeInstallSource.indexOf('</header>')+9);
 if(!featuredHeader.includes('candyland-unwrapped-promo')||
