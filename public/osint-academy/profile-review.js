@@ -151,7 +151,7 @@ function openStep(index){
  if(index===2)renderReport();
 }
 function owner(){return root.querySelector('input[name="profile-owner"]:checked')?.value==='authorized'?'authorized':'self'}
-function authorized(){if($('#profile-consent').checked)return true;setStatus('Please confirm that you own this information or have permission before exporting or printing.');$('#profile-consent').focus();return false}
+function authorized(){if($('profile-consent').checked)return true;setStatus('Please confirm that you own this information or have permission before exporting or printing.');$('profile-consent').focus();return false}
 function payload(){return {type:'trace-consent-based-profile-review',version:2,created:new Date().toISOString(),consentBasis:owner()==='self'?'self-asserted':'other-person-authorization-asserted',profile:collectProfile(),candidates:state.candidates.map(({id,platform,url,source,notes,indicators})=>({id,platform,url,source,notes,indicators,score:score({indicators}).value})),scoring:'Illustrative user-selected evidence-strength rubric. NOT a statistically calibrated probability or independently verified account connection.',limitations:'No reverse lookup, identity discovery, hidden-account search, live location tracing, tracking or server transmission.'}}
 function exportReview(){
  if(!authorized())return;
@@ -175,13 +175,13 @@ function importReview(file){
  file.text().then(data=>{
   const obj=JSON.parse(data);
   if(obj?.type!=='trace-consent-based-profile-review'||![1,2].includes(obj.version)||!obj.profile||typeof obj.profile!=='object'||!Array.isArray(obj.candidates))throw Error('Unrecognized report format.');
-  for(const [id] of profileFields){const old=id==='publicAddress'?'publicOrganizationAddress':id;const v=obj.profile[id]??obj.profile[old]??'';$('#profile-'+id).value=String(v).slice(0,450)}
+  for(const [id] of profileFields){const old=id==='publicAddress'?'publicOrganizationAddress':id;const v=obj.profile[id]??obj.profile[old]??'';$('profile-'+id).value=String(v).slice(0,450)}
   state.candidates=obj.candidates.slice(0,50).filter(c=>c&&typeof c==='object').map(c=>({
    id:idFor(),platform:String(c.platform||'').slice(0,85),url:(()=>{try{const u=new URL(String(c.url||''));return /^https?:$/.test(u.protocol)&&!u.username&&!u.password?u.href:''}catch{return''}})(),
    source:String(c.source||'').slice(0,400),notes:String(c.notes||'').slice(0,1600),
    indicators:(Array.isArray(c.indicators)?c.indicators:[]).filter(id=>signals.some(s=>s.id===id))
   }));
-  clearCandidateFields();$('#profile-consent').checked=false;renderCandidates();openStep(1);setStatus('Report imported on this device. Please review the information and confirm permission again before exporting.');
+  clearCandidateFields();$('profile-consent').checked=false;renderCandidates();openStep(1);setStatus('Report imported on this device. Please review the information and confirm permission again before exporting.');
  }).catch(()=>setStatus('Could not import this file. Use a JSON review exported from TRACE.'));
 }
 $$('[data-profile-step]').forEach(btn=>btn.addEventListener('click',()=>openStep(Number(btn.dataset.profileStep))));
@@ -194,17 +194,17 @@ $('profile-candidates').addEventListener('click',event=>{
  if(edit)editCandidate(edit.dataset.editCandidate);
  if(remove){state.candidates=state.candidates.filter(c=>c.id!==remove.dataset.removeCandidate);if(state.editing===remove.dataset.removeCandidate)clearCandidateFields();renderCandidates()}
 });
-$('profile-import').addEventListener('click',()=>$('#profile-import-file').click());
+$('profile-import').addEventListener('click',()=>$('profile-import-file').click());
 $('profile-import-file').addEventListener('change',e=>{importReview(e.target.files?.[0]);e.target.value=''});
 root.querySelectorAll('[name=profile-owner]').forEach(r=>r.addEventListener('change',()=>{
- $('#profile-consent').checked=false;$('#profile-consent-text').textContent=owner()==='self'?'I authorize the export or printing of the information I chose to include about myself.':'I have explicit permission to review, export and print the supplied details about this person.';
+ $('profile-consent').checked=false;$('profile-consent-text').textContent=owner()==='self'?'I authorize the export or printing of the information I chose to include about myself.':'I have explicit permission to review, export and print the supplied details about this person.';
 }));
 $('profile-export').addEventListener('click',exportReview);
 $('profile-print').addEventListener('click',printReview);
 $('profile-clear').addEventListener('click',()=>{
  if(!window.confirm('Start a new review and clear all details from this page?'))return;
- for(const [id] of profileFields)$('#profile-'+id).value='';
- state.candidates=[];clearCandidateFields();renderCandidates();$('#profile-consent').checked=false;setStatus('New blank review ready.');openStep(0);
+ for(const [id] of profileFields)$('profile-'+id).value='';
+ state.candidates=[];clearCandidateFields();renderCandidates();$('profile-consent').checked=false;setStatus('New blank review ready.');openStep(0);
 });
 renderCandidates();openStep(0);
 window.TraceProfileReview=Object.freeze({getCount:()=>state.candidates.length,getSummary:()=>({details:report().provided.length,connections:state.candidates.length}),step:openStep,exportData:()=>JSON.stringify(payload()),getCurrentStep:()=>state.step});
