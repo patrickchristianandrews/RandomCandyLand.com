@@ -54,3 +54,32 @@
 @media(max-width:830px){.toy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.toy-hero-figure{width:82px;height:82px;flex-basis:82px;font-size:45px}}
 @media(max-width:580px){.toy-grid,.toy-filters,.toy-matches{grid-template-columns:1fr}.toy-hero-figure{display:none}.toy-quick-start,.toy-match-wrap{padding:15px}}
 @media print{.toy-grid,.toy-hero,.toy-quick-start,.toy-detail,.toy-match-wrap,.toy-sources{display:none!important}.toy-report-rec{background:#fff;border:1px solid #ccc;break-inside:avoid}}
+
+
+/* Understand every device across male, female and shared anatomical contexts. */
+.toy-filters{grid-template-columns:minmax(0,1.55fr) minmax(150px,1fr) minmax(205px,1.2fr)}
+.toy-anatomy-disclaimer{font:550 11px/1.6 system-ui,sans-serif!important;color:#e9cfe6!important;margin:0!important}
+.toy-body-comparison{margin:24px 0 14px;padding:18px;border:1px solid #a27caa;background:#23172c;border-radius:18px}
+.toy-body-comparison h4{font-size:19px!important;letter-spacing:-.02em;margin:0 0 8px!important}
+.toy-body-comparison>.toy-disclaimer{max-width:750px}
+.toy-body-rows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}
+.toy-body-cell{min-width:0;background:linear-gradient(155deg,#3a2646,#291a34);border-radius:14px;border:1px solid #775d82;padding:15px;display:flex;flex-direction:column;gap:10px}
+.toy-body-cell h5{font:850 15px/1.35 system-ui,sans-serif;color:#fff4ff;margin:0}
+.toy-body-cell p{font:500 12px/1.65 system-ui,sans-serif;color:#f3e4f1;margin:0}
+.toy-body-fit{font:800 10px/1.35 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:#ffdfef}
+.toy-body-cell[data-fit="direct"]{border-color:#99c9af}
+.toy-body-cell[data-fit="direct"] .toy-body-fit{color:#c1f4d4}
+.toy-body-cell[data-fit="conditional"]{border-color:#cbb08c}
+.toy-body-cell[data-fit="conditional"] .toy-body-fit{color:#ffe2af}
+.toy-body-cell[data-fit="not-targeted"]{border-color:#997881}
+.toy-body-cell[data-fit="not-targeted"] .toy-body-fit{color:#ffc8c8}
+.toy-body-shared{background:linear-gradient(155deg,#513359,#33213b)}
+.toy-card-body-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px}
+.toy-card-body-badges span{font:800 10px/1.3 system-ui,sans-serif;background:#5d416a;border:1px solid #a683b1;border-radius:999px;padding:6px 9px;color:#fff0fa}
+.toy-card-body-note{display:grid;gap:5px;padding:10px;border:1px solid #9b75a2;border-radius:11px;background:#2b1a39}
+.toy-card-body-note b{font:800 11px/1.45 system-ui,sans-serif;color:#ffebf4}
+.toy-card-body-note>span{font:500 11px/1.5 system-ui,sans-serif;color:#e5cde4}
+.toy-card-body-note:not(:has(b)){font:550 11px/1.5 system-ui,sans-serif;color:#f2dff1}
+@media(max-width:900px){.toy-body-rows{grid-template-columns:repeat(2,minmax(0,1fr))}.toy-body-shared{grid-column:1/-1}.toy-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.toy-filters>label:last-child{grid-column:1/-1}}
+@media(max-width:580px){.toy-body-rows,.toy-filters{grid-template-columns:1fr}.toy-body-shared,.toy-filters>label:last-child{grid-column:auto}.toy-body-comparison{padding:12px}}
+@media print{.toy-body-rows{display:grid;grid-template-columns:1fr 1fr;gap:8px}.toy-body-cell{background:#fff;color:#34273f;border-color:#ccc;break-inside:avoid}.toy-body-cell p,.toy-body-cell h5,.toy-body-fit{color:#34273f}.toy-body-shared{grid-column:1/-1}}
