@@ -155,9 +155,19 @@ function authorized(){if($('#profile-consent').checked)return true;setStatus('Pl
 function payload(){return {type:'trace-consent-based-profile-review',version:2,created:new Date().toISOString(),consentBasis:owner()==='self'?'self-asserted':'other-person-authorization-asserted',profile:collectProfile(),candidates:state.candidates.map(({id,platform,url,source,notes,indicators})=>({id,platform,url,source,notes,indicators,score:score({indicators}).value})),scoring:'Illustrative user-selected evidence-strength rubric. NOT a statistically calibrated probability or independently verified account connection.',limitations:'No reverse lookup, identity discovery, hidden-account search, live location tracing, tracking or server transmission.'}}
 function exportReview(){
  if(!authorized())return;
- const blob=new Blob([JSON.stringify(payload(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob);
- const a=document.createElement('a');a.href=url;a.download='trace-my-identity-review.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
- setStatus('Review file prepared for download. Keep it private and review before sharing.');
+ try{
+  const documentText=JSON.stringify(payload(),null,2);
+  if(typeof documentText!=='string'||!documentText.length)throw Error('The report could not be assembled.');
+  const blob=new Blob([documentText],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='trace-my-identity-review.json';document.body.append(a);
+  try{a.click()}finally{a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000)}
+  setStatus('Review file prepared for download. Keep it private and review before sharing.');
+ }catch(error){
+  const message=String(error?.message||'Unknown download error').slice(0,180);
+  setStatus('Export could not start: '+message);
+  console.error('TRACE identity report export failed:',error);
+ }
 }
 function printReview(){if(!authorized())return;renderReport();window.print();setStatus('Print view opened. Choose Save as PDF to keep a copy.')}
 function importReview(file){
