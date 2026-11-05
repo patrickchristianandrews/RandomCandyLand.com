@@ -213,9 +213,9 @@ const BODY_GUIDE=Object.freeze({
   }
 });
 const FIT_LABELS=Object.freeze({
- direct:'Designed for this anatomy / external use',
- conditional:'Only if this model permits the intended use',
- partner:'Best described as partner-assisted use',
+ direct:'Can be used as designed',
+ conditional:'Check model and body-area approval',
+ partner:'Partner-assisted, not a direct fit',
  'not-targeted':'Not designed for this anatomy'
 });
 const SOURCES=[
@@ -281,6 +281,7 @@ function recommendations(data){
 function init(){
  const root=document.getElementById('toy-library');if(!root)return;
  const search=root.querySelector('#toy-search'),filter=root.querySelector('#toy-filter'),
+ bodyFocus=root.querySelector('#toy-body-focus'),
  grid=root.querySelector('#toy-grid'),detail=root.querySelector('#toy-detail'),count=root.querySelector('#toy-count'),
  recommend=root.querySelector('#toy-recommendations');
  const groups=[...new Set(TOYS.map(x=>x.group))];
@@ -292,6 +293,19 @@ function init(){
   detail.append(make('span',toy.group,'toy-eyebrow'),make('h3',toy.name),make('p',toy.summary,'toy-intro'));
   detail.append(make('h4','Different ways this toy can be considered'));
   const ul=make('ul');toy.uses.forEach(use=>ul.append(make('li',use)));detail.append(ul);
+  const comparison=make('section',undefined,'toy-body-comparison');
+  comparison.append(make('h4','How this same type applies to male and female anatomy'));
+  comparison.append(make('p','Anatomy matters more than gender: not every toy is compatible with every body. A partner can often participate without being the person who wears or uses it.','toy-disclaimer'));
+  const rows=make('div',undefined,'toy-body-rows'),guide=BODY_GUIDE[id];
+  for(const [kind,title] of [['male','Male anatomy · penis / prostate'],['female','Female anatomy · vulva / vagina']]){
+   const content=guide[kind],card=make('article',undefined,'toy-body-cell');
+   card.dataset.fit=content.fit;
+   card.append(make('h5',title),make('span',FIT_LABELS[content.fit],'toy-body-fit'),make('p',content.note));
+   rows.append(card);
+  }
+  const shared=make('article',undefined,'toy-body-cell toy-body-shared');
+  shared.append(make('h5','With a partner · any gender'),make('span','Shared use and communication','toy-body-fit'),make('p',guide.together));rows.append(shared);
+  comparison.append(rows);detail.append(comparison);
   const caution=make('div',undefined,'toy-safety');caution.append(make('strong','Important safety notes'),make('p',toy.safety));detail.append(caution);
   detail.append(make('p','These are educational possibilities, not a checklist. Suitability depends on the device model, anatomy, individual comfort and informed consent.','toy-disclaimer'));
   const bar=make('div',undefined,'toy-actions');
@@ -300,11 +314,27 @@ function init(){
  }
  function render(){
   const q=normalize(search.value.trim()),category=filter.value;
-  const items=TOYS.filter(x=>(!category||category===x.group)&&(!q||normalize([x.name,x.summary,x.group,...x.uses,...x.tags].join(' ')).includes(q)));
+  const focus=bodyFocus?.value||'both';
+  const items=TOYS.filter(x=>(!category||category===x.group)&&(!q||normalize([x.name,x.summary,x.group,...x.uses,...x.tags,BODY_GUIDE[x.id].male.note,BODY_GUIDE[x.id].female.note].join(' ')).includes(q)));
   grid.replaceChildren();count.textContent=items.length+' of '+TOYS.length+' toy categories';
   for(const t of items){
    const card=make('article',undefined,'toy-card'),b=make('button',undefined,'toy-open');b.type='button';b.dataset.toyOpen=t.id;b.setAttribute('aria-pressed',String(detail.dataset.toyId===t.id&&!detail.hidden));
-   b.append(make('span',t.icon,'toy-card-icon'),make('small',t.group),make('strong',t.name),make('span',t.summary,'toy-card-desc'),make('em','Explore '+t.uses.length+' uses & safety notes →'));b.onclick=()=>open(t.id);card.append(b);grid.append(card);
+   b.append(make('span',t.icon,'toy-card-icon'),make('small',t.group),make('strong',t.name),make('span',t.summary,'toy-card-desc'));
+   const fit=BODY_GUIDE[t.id];
+   if(focus==='male'||focus==='female'){
+    const selected=fit[focus];
+    const note=make('span',undefined,'toy-card-body-note');
+    note.append(make('b',(focus==='male'?'Male anatomy':'Female anatomy')+' · '+FIT_LABELS[selected.fit]),make('span',selected.note));
+    b.append(note);
+   }else if(focus==='together'){
+    b.append(make('span','For partners: '+fit.together,'toy-card-body-note'));
+   }else{
+    const badges=make('span',undefined,'toy-card-body-badges');
+    badges.append(make('span','Male: '+(fit.male.fit==='direct'?'Direct':fit.male.fit==='conditional'?'Check model':fit.male.fit==='partner'?'Partner use':'Not targeted')),
+      make('span','Female: '+(fit.female.fit==='direct'?'Direct':fit.female.fit==='conditional'?'Check model':fit.female.fit==='partner'?'Partner use':'Not targeted')));
+    b.append(badges);
+   }
+   b.append(make('em','Compare male, female and partner uses →'));b.onclick=()=>open(t.id);card.append(b);grid.append(card);
   }
   if(!items.length)grid.append(make('p','No toy types matched. Try a different keyword or choose All categories.','toy-empty'));
  }
@@ -321,10 +351,15 @@ function init(){
    row.append(make('span',item.mode,'toy-match-label'),make('h4',item.name),make('p',item.why));
    if(item.evidence.length)row.append(make('p','Based on: '+item.evidence.slice(0,2).join(' · '),'toy-match-evidence'));
    if(item.profileThemes?.length)row.append(make('p','Related psychology themes: '+item.profileThemes.join(', ')+'. These help prioritize reading, not predict enjoyment.','toy-match-evidence'));
-   const b=make('button','Read uses & safety','btn alt');b.type='button';b.onclick=()=>open(item.id);row.append(b);recommend.append(row);
+   const body=item.bodyUses;
+   if(body){
+    row.append(make('p','Male anatomy: '+FIT_LABELS[body.male.fit]+' · Female anatomy: '+FIT_LABELS[body.female.fit]+'. Choose by the actual body area and device instructions.','toy-match-evidence'));
+   }
+   const b=make('button','Read male / female uses & safety','btn alt');b.type='button';b.onclick=()=>open(item.id);row.append(b);recommend.append(row);
   }
  }
  search.addEventListener('input',render);filter.addEventListener('change',render);
+ bodyFocus?.addEventListener('change',render);
  root.querySelector('#toy-refresh-matches').addEventListener('click',renderMatches);
  render();renderMatches();
 }
