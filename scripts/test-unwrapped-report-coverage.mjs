@@ -15,6 +15,8 @@ const share=read('partner-results-share.js');
 const compare=read('partner-compare.js');
 const qr=read('report-qr.js');
 const main=read('index.html');
+const connections=read('report-connections.js');
+const demoFixtures=read('fictional-respondents.js');
 
 for(const [path,source] of [
  ['toy-library.js',toy],['report-samples/sample-pdf.js',sample],['quiz-report.js',personal],
@@ -73,4 +75,15 @@ assert.match(qr,/Sex Toy Guide/);
 assert.match(main,/id="toy-body-focus"/);
 assert.match(main,/UnwrappedToyLibrary\?\.answer/);
 assert.match(main,/report-coverage-20261105-v5/);
+assert.match(main,/report-connections\.js\?v=/);
+assert.match(main,/Ask Mira/);
+assert.match(connections,/report-cross-pair-table/);
+assert.match(connections,/report-cross-topic/);
+assert.match(connections,/specificSelections/);
+assert.match(demoFixtures,/questionVersion:5/);
+assert.match(demoFixtures,/AfterDarkDirectQuizBridge/);
+assert.match(demoFixtures,/AfterDarkPsychQuizBridge/);
+assert.match(samplePage,/complete-rowan-personal-report\.pdf/);
+assert.match(samplePage,/complete-ellis-personal-report\.pdf/);
+assert.ok(samplePage.includes('101 / 101 ANSWERED'),'Full simulated results must be described explicitly');
 console.log('✓ Personal, partner, new-partner, selected links, comparison JSON, downloadable samples and QR all use opt-in toy/anatomy guidance.');
