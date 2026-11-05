@@ -62,7 +62,7 @@ function pairCounts(direct,psych){
 function build(d){
  const sec=make('section','report-section report-deep-connections');
  sec.dataset.reportConnections='complete';
- add(sec,'p','report-kicker','THE CONNECTION ATLAS · EVIDENCE, NOT INFERENCE');
+ add(sec,'p','report-kicker','THE CONNECTION MAP · EVIDENCE, NOT INFERENCE');
  add(sec,'h2','','The connections behind your answers');
  add(sec,'p','report-cross-lead','Follow the actual answer in each quiz to its coded psychological theme, then to the selected interests and smaller related patterns. A shared label describes a possible association for reflection. It does not prove a cause, diagnose a trait, or discover an interest you did not select.');
  const direct=collect(d,'direct'),psych=collect(d,'psych');
