@@ -84,13 +84,13 @@ const PORTALS: Portal[] = [
 ];
 
 const COLLECTIONS = [
+  {id:'discovery',title:'Explore & Understand',description:'A fuller picture of who you are—psychology, personal interests, relationships and how to express what matters.',symbol:'🌙',time:'DISCOVER · CONNECT'},
   {id:'multiplayer',title:'Multiplayer & Play Together',description:'Play with other people. Online rooms and same-screen modes are clearly marked.',symbol:'👥',time:'PLAY TOGETHER'},
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
   {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
   {id:'learning',title:'Courses & Training',description:'Master prompting in AI Academy or train as an investigator in TRACE. Learn by doing at your own pace.',symbol:'🧠',time:'EXTENDED'},
   {id:'creative',title:'Creative & Music Tools',description:'Design, write, code, make art and enjoy interactive sound.',symbol:'🎨',time:'YOUR PACE'},
-  {id:'discovery',title:'Explore & Understand',description:'Learn more about yourself, relationships and curiosity.',symbol:'🌙',time:'YOUR PACE'},
 ] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
@@ -190,7 +190,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                 <section className={'candyland-play-shelf candyland-play-shelf-'+group.id} key={group.id} aria-labelledby={'shelf-'+group.id}>
                   <div className="candyland-play-shelf-heading">
                     <div className="candyland-play-shelf-lead">
-                      <span className="candyland-play-shelf-emoji" aria-hidden="true">{group.symbol}</span>
+                      <span className="candyland-play-shelf-emoji" aria-hidden="true">{group.id === 'discovery' ? <img src="/tool-icons/unwrapped.svg" width={40} height={40} alt="" loading="lazy" /> : group.symbol}</span>
                       <div>
                         <h2 id={'shelf-'+group.id}>{group.title}</h2>
                         <p>{group.description}</p>
@@ -198,19 +198,38 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                     </div>
                     <span className="candyland-play-shelf-time">{group.time} · {games.length} {games.length===1 ? 'experience' : 'experiences'}</span>
                   </div>
-                  <nav className="candyland-hero-tools" aria-label={group.title}>
+                  <nav className="candyland-hero-tools" data-count={games.length} aria-label={group.title}>
                     {games.map(portal => {
                       const content = <>
                         <span className="candyland-hero-tool-image"><img src={portal.icon} width={120} height={120} alt="" loading="lazy" /></span>
                         <span className="candyland-hero-tool-info">
                           <span className="candyland-hero-tool-name">{portal.title}</span>
-                          <span className="candyland-hero-tool-blurb">{portal.blurb}</span>
-                          <span className="candyland-hero-tool-duration">{portal.duration || (group.id === 'quick' ? '5–15 MIN' : group.id === 'ongoing' ? 'DROP IN ANYTIME' : 'EXPLORE')}</span>
-                          <span className={'candyland-multiplayer-tag '+(portal.multiplayer||'single')}>{portal.multiplayer==='online'?'🌐 Online friends · relay required':portal.multiplayer==='same-screen'?'👥 Same-screen multiplayer':'👤 Single-player / solo'}</span>
+                          {portal.kind === 'discovery' ? (
+                            <span className="candyland-unwrapped-feature-body">
+                              <span className="candyland-unwrapped-feature-headline">Discover more than one side of yourself.</span>
+                              <span className="candyland-unwrapped-feature-description">Unwrapped brings together personal psychology, emotions, communication, relationships and intimate interests in one guided experience. Two complementary quizzes help you explore patterns and possibilities, then translate your answers into insights you can understand, reflect on and share.</span>
+                              <span className="candyland-unwrapped-feature-output-title">WHAT YOU CAN TAKE AWAY</span>
+                              <span className="candyland-unwrapped-feature-outputs">
+                                <span>✧ Personal insights report</span>
+                                <span>✧ Interests &amp; curiosity profile</span>
+                                <span>✧ Psychology &amp; communication reflections</span>
+                                <span>✧ New-partner introduction report</span>
+                                <span>✧ Shareable, downloadable reports</span>
+                              </span>
+                              <span className="candyland-unwrapped-feature-help">For understanding yourself more fully, starting meaningful conversations and helping a partner appreciate the whole person—not just individual preferences.</span>
+                              <span className="candyland-unwrapped-feature-cta">Explore Unwrapped <span aria-hidden="true">↗</span> <small>Adults 18+</small></span>
+                            </span>
+                          ) : (
+                            <>
+                              <span className="candyland-hero-tool-blurb">{portal.blurb}</span>
+                              <span className="candyland-hero-tool-duration">{portal.duration || (group.id === 'quick' ? '5–15 MIN' : group.id === 'ongoing' ? 'DROP IN ANYTIME' : 'EXPLORE')}</span>
+                              <span className={'candyland-multiplayer-tag '+(portal.multiplayer||'single')}>{portal.multiplayer==='online'?'🌐 Online friends · relay required':portal.multiplayer==='same-screen'?'👥 Same-screen multiplayer':'👤 Single-player / solo'}</span>
+                            </>
+                          )}
                         </span>
                       </>;
                       return portal.oldPet
-                        ? <button key={portal.title} type="button" onClick={onNavigateToTrump} className="candyland-hero-tool-link" aria-label={'Open '+portal.title}>{content}</button>
+                        ? <button key={portal.title} type="button" onClick={onNavigateToTrump} className={'candyland-hero-tool-link'+(portal.kind === 'discovery' ? ' candyland-unwrapped-feature-card' : '')} aria-label={'Open '+portal.title}>{content}</button>
                         : <a key={portal.title} href={portal.href} className="candyland-hero-tool-link" aria-label={'Open '+portal.title}>{content}</a>;
                     })}
                   </nav>
