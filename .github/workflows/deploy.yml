@@ -69,6 +69,9 @@ jobs:
       - name: Verify Random AI saved models survive new visits and cache changes
         run: node scripts/test-random-ai-model-memory.mjs
 
+      - name: Verify specialist Random AI workflow catalog and chat navigation
+        run: node scripts/test-random-ai-library.mjs
+
       - name: Build the entire website
         run: bun run build
 
