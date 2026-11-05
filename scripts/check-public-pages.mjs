@@ -669,6 +669,33 @@ if(fs.existsSync('dist/after-dark/report-visuals.js')){
   if(!visualJS.includes(name)){console.error('Missing report visualization:',name);failures++;}
  }
 }
+// Keep the consent-based two-person visual report feature self-contained and testable.
+for(const path of ['dist/after-dark/partner-compare.js','dist/after-dark/partner-compare.css']){
+ if(!fs.existsSync(path)){console.error('Private partner comparison asset missing:',path);failures++;}
+}
+if(!afterDarkLanding.includes('id="uc-comparison"')||
+   !afterDarkLanding.includes('partner-compare.js?v=1')||
+   !afterDarkLanding.includes('partner-compare.css?v=1')){
+ console.error('Unwrapped must offer a visible two-person report comparison with matching assets.');failures++;
+}
+if(fs.existsSync('dist/after-dark/partner-compare.js')){
+ const text=fs.readFileSync('dist/after-dark/partner-compare.js','utf8');
+ try{new vm.Script(text,{filename:'partner-compare.js'});}catch(e){console.error('Broken partner comparison script:',e.message);failures++;}
+ for(const token of ['unwrapped-shared-comparison-v1','function exportChoices','function validate','function compare','uc-connection-map','uc-metric-grid','uc-print','window.print()','identical reports']){
+  if(!text.includes(token)){console.error('Missing partner comparison behavior:',token);failures++;}
+ }
+}
+if(fs.existsSync('dist/after-dark/report-visuals.js')){
+ const text=fs.readFileSync('dist/after-dark/report-visuals.js','utf8');
+ for(const token of ['function addConnectionMap','report-connection-lane','report-connection-explanations']){
+  if(!text.includes(token)){console.error('Missing personal/partner report connection diagram:',token);failures++;}
+ }
+}
+if(fs.existsSync('dist/after-dark/partner-compare.css')&&
+ !fs.readFileSync('dist/after-dark/partner-compare.css','utf8').includes('print-unwrapped-comparison')){
+ console.error('Partner visual comparison cannot be printed as a complete report.');failures++;
+}
+
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
