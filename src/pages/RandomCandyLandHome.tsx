@@ -195,7 +195,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                         <span className="candyland-hero-tool-image">
                           <span className="candyland-unwrapped-logo-glow" aria-hidden="true" />
                           <img src={portal.icon} width={120} height={120} alt="" loading="lazy" />
-                          {portal.kind === 'discovery' && <span className="candyland-unwrapped-logo-caption">MORE THAN A LABEL. <b>THE WHOLE YOU.</b></span>}
+
                         </span>
                         <span className="candyland-hero-tool-info">
                           {portal.kind === 'discovery' ? (
@@ -203,27 +203,10 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                               <span className="candyland-unwrapped-feature-eyebrow">✦ A DIFFERENT KIND OF SELF-DISCOVERY · 18+</span>
                               <span className="candyland-hero-tool-name">{portal.title}</span>
                               <span className="candyland-unwrapped-feature-body">
-                                <span className="candyland-unwrapped-feature-headline">Understand yourself. Connect more deeply.</span>
-                                <span className="candyland-unwrapped-feature-description">Explore the psychology behind your interests, emotions, communication and relationships. Two complementary quizzes bring the pieces together into a fuller picture of you—not just a list of preferences.</span>
-                                <span className="candyland-unwrapped-feature-journey">
-                                  <span><b>01</b> Explore</span>
-                                  <span aria-hidden="true">›</span>
-                                  <span><b>02</b> Understand</span>
-                                  <span aria-hidden="true">›</span>
-                                  <span><b>03</b> Connect</span>
-                                </span>
-                                <span className="candyland-unwrapped-feature-report-panel">
-                                  <span className="candyland-unwrapped-feature-output-title">A PERSONALIZED LOOK AT THE WHOLE PERSON <span>YOUR TAKEAWAYS</span></span>
-                                  <span className="candyland-unwrapped-feature-outputs">
-                                    <span><b>✧ Personal insights report</b><small>Recognize your patterns and what matters most.</small></span>
-                                    <span><b>✧ Interests &amp; curiosity profile</b><small>See how different facets of you fit together.</small></span>
-                                    <span><b>✧ Psychology &amp; communication reflections</b><small>Find language for feelings and conversations.</small></span>
-                                    <span><b>✧ New-partner introduction report</b><small>Share who you are beyond a first impression.</small></span>
-                                    <span><b>✧ Shareable, downloadable reports</b><small>Choose what to keep private or discuss together.</small></span>
-                                  </span>
-                                </span>
+                                <span className="candyland-unwrapped-feature-headline">A personalized look at the whole person.</span>
+                                <span className="candyland-unwrapped-feature-description">Two complementary quizzes explore the psychology behind your interests, feelings and relationships—bringing everything together in thoughtful personal insights and partner-friendly reports.</span>
                                 <span className="candyland-unwrapped-feature-footer">
-                                  <span className="candyland-unwrapped-feature-help">Reflect privately, appreciate the whole person and start more meaningful conversations. These insights aren't a clinical assessment.</span>
+                                  <span className="candyland-unwrapped-feature-help">Private, self-paced reflection · Adults 18+ · Not a clinical assessment</span>
                                   <span className="candyland-unwrapped-feature-cta">Explore Unwrapped <span aria-hidden="true">↗</span></span>
                                 </span>
                               </span>
