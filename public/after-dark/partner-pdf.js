@@ -10,6 +10,7 @@ const menu=[
  ['interests','Interests I picked','Topics I marked or specifically selected'],
  ['themes','The themes behind my answers','The patterns that stood out'],
  ['ideas','Other possibilities','Possible interests to read about'],
+ ['toys','Toy ideas I want to share','Optional toy-type suggestions and safer-use notes; off by default'],
  ['connections','How the two quizzes connect','Themes shared between both quizzes'],
  ['conversations','Conversation starters','Conversation ideas and friendly prompts'],
  ['boundaries','My boundaries','Stated intentions and boundaries'],
@@ -110,6 +111,19 @@ function build(){
    if(item.reasons?.length)add(c,'p','One connection: '+item.reasons[0].answer,'partner-pdf-muted');
   }
   if(!seen.size)add(s,'p','No extra reading ideas came up this time.');
+ }
+ if(selected.has('toys')){
+  // Deliberate opt-in: no toy details appear in partner exports unless this checkbox was chosen.
+  const s=section(root,'Toy ideas I want to share','I chose to include these category-level reading ideas. Nothing here is an invitation, purchase request, or assumption of shared interest.');
+  const suggestions=window.UnwrappedToyLibrary?.recommend?.(d)||[];
+  if(!suggestions.length)add(s,'p','I have not directly selected interests that support a particular toy recommendation. That is completely fine.','partner-pdf-muted');
+  for(const item of suggestions){
+   const card=topic(s,item.name,item.mode,item.why);
+   if(item.evidence?.length)add(card,'p','My relevant selection: '+item.evidence[0],'partner-pdf-muted');
+   bullets(card,item.uses.slice(0,2));
+   add(card,'p','Safety considerations: '+item.safety,'partner-pdf-muted');
+  }
+  add(s,'p','Any new activity would need a separate, unpressured conversation and agreement. Being curious—or choosing a fantasy-only answer—does not mean I want to try it.','partner-pdf-muted');
  }
  if(selected.has('connections')){
   const s=section(root,'How the two quizzes connect');
