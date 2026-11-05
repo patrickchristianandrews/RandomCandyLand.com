@@ -165,7 +165,7 @@ function metricRow(){
 function sourceHtml(s){
  return '<details class="cp-sources"><summary>Official research & policy references · '+s.refs.length+' sources</summary><p>References explain mechanisms and implementation risks; the scores and events in this game are fictional, not findings or forecasts from the sources.</p>'+s.refs.map(id=>{const ref=sources[id];return '<div class="cp-source"><a href="'+esc(ref.url)+'" target="_blank" rel="noopener noreferrer">'+esc(ref.title)+' ↗</a><span>'+esc(ref.why)+'</span></div>'}).join('')+'</details>';
 }
-function modeBar(){return '<nav class="cp-mode-nav" aria-label="The Corridors game mode"><button type="button" data-corridor-mode="policy" aria-current="page">🧭 Policy consequences <small>Make a decision and follow its effects</small></button><button type="button" data-corridor-mode="career">🏛️ Political career <small>Original story and saved choices</small></button></nav>'}
+function modeBar(active='policy'){return '<nav class="cp-mode-nav" aria-label="The Corridors game mode"><button type="button" data-corridor-mode="policy" '+(active==='policy'?'aria-current="page"':'')+'>🧭 Policy consequences <small>Make a decision and follow its effects</small></button><button type="button" data-corridor-mode="career" '+(active==='career'?'aria-current="page"':'')+'>🏛️ Political career <small>Original story and saved choices</small></button></nav>'}
 function scenarioCards(){
  return '<div class="cp-scenario-tabs" role="group" aria-label="Select a policy scenario">'+scenarios.map((s,i)=>'<button type="button" data-policy-case="'+i+'" '+(state.choice!==null?'disabled':'')+' aria-pressed="'+String(i===state.scenario)+'">'+s.icon+' <span>'+esc(s.title)+'</span></button>').join('')+'</div>';
 }
