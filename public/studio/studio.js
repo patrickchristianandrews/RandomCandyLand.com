@@ -25,7 +25,8 @@ const chatModeKey='random-ai-transport-v1';
 let chatMode='instant';
 try{if(localStorage.getItem(chatModeKey)==='local')chatMode='local'}catch{}
 
-const CATEGORIES=['All','Writing','Work & Career','Marketing','Learning','Creative'];
+const CATEGORY_INFO=window.RandomAIDeepWorkflows?.categories||[];
+const CATEGORIES=['All',...CATEGORY_INFO.map(c=>c.name)];
 const TOOLS=[
  {id:'professional-email',name:'Professional Email',icon:'✉',group:'Writing',description:'Clear, thoughtful emails that sound like you.',prompt:'Draft a polished professional email with a clear subject line, a warm opening, a concise request, and an appropriate closing. Ask for missing essentials only if they truly matter. Situation:'},
  {id:'rewrite',name:'Rewrite & Refine',icon:'✎',group:'Writing',description:'Improve clarity and flow without losing your voice.',prompt:'Rewrite the following text so it is clearer, more polished and easier to read. Preserve its original meaning and any facts. Text:'},
@@ -52,6 +53,18 @@ const TOOLS=[
  {id:'goal',name:'Goal & Habit Planner',icon:'◇',group:'Work & Career',description:'Turn intentions into achievable actions.',prompt:'Convert my goal into a realistic step-by-step plan with milestones, habits, risks and ways to measure progress. Keep it flexible, not judgmental. Goal and constraints:'},
  {id:'creative-brief',name:'Creative Brief',icon:'▰',group:'Creative',description:'A useful plan for designers and creators.',prompt:'Draft a professional creative brief including audience, objective, mood, tone, deliverables, constraints and success criteria. Clearly label assumptions. Project:'}
 ];
+// Preserve the original popular tools and existing saved shortcuts while placing them in the deeper taxonomy.
+const legacyGroups={'Writing':'Communication & Writing','Work & Career':'Career & Productivity','Marketing':'Marketing & Sales','Learning':'Learning & Teaching','Creative':'Creative Writing & Ideation'};
+for(const tool of TOOLS){
+ tool.group=legacyGroups[tool.group]||tool.group;
+ tool.inputs='Your goal, audience and any source material or constraints';
+ tool.outputs='A useful, editable answer or draft with next steps';
+ tool.limits='Check important claims and supply real details instead of relying on assumptions.';
+ tool.depth='Everyday assistant';
+}
+TOOLS.push(...(window.RandomAIDeepWorkflows?.tools||[]));
+const uniqueToolIds=new Set(TOOLS.map(t=>t.id));
+if(uniqueToolIds.size!==TOOLS.length)console.error('Random AI workflow IDs must be unique.');
 const SYSTEM='You are the Random AI creative assistant. Be accurate, practical, welcoming and clear. State uncertainties. Never claim to have looked up live information, run a tool, read an attachment, or generated an image unless the user has actually supplied it or the application really did so. Keep outputs useful and responsive to instructions.';
 const names={home:'Discover',chat:'Random AI Chat',tools:'Tool library',academy:'AI Academy',code:'Code Lab',visual:'Visual lab',photos:'Photo workshop',voice:'Voice studio',history:'Saved work',settings:'Model & privacy'};
 function notice(message){clearTimeout(noticeTimer);const el=$('#toast');el.textContent=message;el.classList.add('show');noticeTimer=setTimeout(()=>el.classList.remove('show'),3200);}
@@ -68,19 +81,88 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeStudioMenu()});
 window.addEventListener('resize',()=>{if(window.innerWidth>780)closeStudioMenu()});
 $('#topNew').addEventListener('click',()=>newChat(true));
 $('#chatReset').addEventListener('click',()=>newChat(true));
+// Searchable depth-first workflow browser, with a compact first batch for phone screens.
+let toolVisibleLimit=24;
+const pinnedCategories=['All','Research & Verification','Software & Engineering','Data & Spreadsheets','Finance & Accounting','Design & Imagery','Government & Public Service','AI & Prompt Engineering'];
+function selectWorkflowCategory(category){
+ if(!CATEGORIES.includes(category))category='All';
+ toolFilter=category;toolVisibleLimit=24;
+ const select=$('#toolCategorySelect');if(select)select.value=category;
+ $$('#toolCategories [data-category],#libraryCategoryGrid [data-category]').forEach(b=>{
+  const active=b.dataset.category===category;
+  b.classList.toggle('active',active);
+  b.setAttribute('aria-pressed',String(active));
+ });
+ renderTools();
+}
+function renderWorkflowCategories(){
+ $('#toolCategorySelect').innerHTML=CATEGORIES.map(c=>'<option value="'+esc(c)+'">'+(c==='All'?'All subject areas':esc(c))+'</option>').join('');
+ $('#toolCategories').innerHTML=pinnedCategories.map(c=>'<button type="button" data-category="'+esc(c)+'" aria-pressed="'+String(c==='All')+'">'+(c==='All'?'✦ All domains':esc(c))+'</button>').join('');
+ $('#libraryCategoryCount').textContent=CATEGORY_INFO.length+' subject areas';
+ $('#libraryCategoryGrid').innerHTML=CATEGORY_INFO.map(c=>{
+  const count=TOOLS.filter(t=>t.group===c.name).length;
+  return '<button type="button" class="library-category-tile" data-category="'+esc(c.name)+'" aria-pressed="false"><span aria-hidden="true">'+esc(c.icon)+'</span><strong>'+esc(c.name)+'</strong><small>'+esc(c.summary)+'</small><em>'+count+' workflows</em></button>';
+ }).join('');
+}
 function renderTools(){
  const grid=$('#toolsGrid'),q=$('#toolSearch').value.trim().toLowerCase();
- const found=TOOLS.filter(t=>(toolFilter==='All'||t.group===toolFilter)&&[t.name,t.description,t.group].join(' ').toLowerCase().includes(q));
- grid.innerHTML=found.map(t=>'<button class="tool-card" data-tool="'+esc(t.id)+'"><span class="tool-emoji">'+t.icon+'</span><strong>'+esc(t.name)+'</strong><p>'+esc(t.description)+'</p><small>'+esc(t.group.toUpperCase())+' · START WITH A PROMPT →</small></button>').join('');
+ const found=TOOLS.filter(t=>(toolFilter==='All'||t.group===toolFilter)&&
+  [t.name,t.description,t.group,t.inputs||'',t.outputs||'',t.method||''].join(' ').toLowerCase().includes(q));
+ const shown=found.slice(0,toolVisibleLimit);
+ grid.innerHTML=shown.map(t=>{
+  const tag=t.depth==='Specialist workflow'?'SPECIALIST':'ESSENTIAL';
+  return '<article class="tool-card deep-tool-card" data-workflow="'+esc(t.id)+'">'+
+   '<div class="deep-tool-top"><span class="tool-emoji" aria-hidden="true">'+esc(t.icon)+'</span><span class="deep-tool-depth">'+tag+'</span></div>'+
+   '<span class="deep-tool-category">'+esc(t.group)+'</span><strong>'+esc(t.name)+'</strong><p>'+esc(t.description)+'</p>'+
+   '<dl><div><dt>YOU PROVIDE</dt><dd>'+esc(t.inputs||'Your goal and source material')+'</dd></div>'+
+   '<div><dt>YOU GET</dt><dd>'+esc(t.outputs||'An editable answer or draft')+'</dd></div></dl>'+
+   '<div class="deep-tool-actions"><button type="button" data-tool="'+esc(t.id)+'">✳ Use workflow</button><button type="button" data-preview="'+esc(t.id)+'" class="deep-tool-preview">Details</button></div></article>';
+ }).join('');
  $('#toolsEmpty').hidden=found.length!==0;
- $('#libraryTotal').textContent=TOOLS.length+' guided tools';
+ $('#libraryTotal').textContent=TOOLS.length+' workflows · '+CATEGORY_INFO.length+' areas';
  $('#toolsCount').textContent=String(TOOLS.length);
+ $('#libraryMatches').textContent=found.length+' matching workflows'+(toolFilter==='All'?'':' in '+toolFilter)+(found.length>shown.length?' · showing '+shown.length:'');
+ const more=$('#libraryShowMore');more.hidden=found.length<=shown.length;
+ more.textContent='Show '+Math.min(24,found.length-shown.length)+' more workflows ↓';
+ $$('#toolCategories [data-category],#libraryCategoryGrid [data-category]').forEach(b=>{
+  const active=b.dataset.category===toolFilter;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
+ });
 }
-$('#toolCategories').innerHTML=CATEGORIES.map(c=>'<button data-category="'+esc(c)+'" class="'+(c==='All'?'active':'')+'">'+esc(c)+'</button>').join('');
-$('#toolCategories').addEventListener('click',e=>{const b=e.target.closest('[data-category]');if(!b)return;toolFilter=b.dataset.category;$$('[data-category]').forEach(el=>el.classList.toggle('active',el===b));renderTools()});
-$('#toolSearch').addEventListener('input',renderTools);
-$('#toolsGrid').addEventListener('click',e=>{const b=e.target.closest('[data-tool]');if(b)activateTool(b.dataset.tool)});
-function activateTool(id){const tool=TOOLS.find(t=>t.id===id);if(!tool)return;navigate('chat');$('#chatInput').value=tool.prompt+'\n\n';$('#chatInput').focus();notice(tool.name+' is ready. Add your details and send.');}
+function workflowDetails(id){
+ const tool=TOOLS.find(t=>t.id===id),panel=$('#workflowPreview');if(!tool)return;
+ panel.hidden=false;
+ panel.innerHTML='<div class="workflow-preview-header"><div><span class="eyebrow">'+esc(tool.group)+' · '+esc(tool.depth||'Workflow')+'</span><h2>'+esc(tool.name)+'</h2><p>'+esc(tool.description)+'</p></div><button type="button" data-close-preview aria-label="Close workflow details">✕</button></div>'+
+  '<div class="workflow-preview-columns"><section><h3>What to provide</h3><p>'+esc(tool.inputs||'Your task and any relevant context.')+'</p></section>'+
+  '<section><h3>What you will receive</h3><p>'+esc(tool.outputs||'An editable response tailored to your task.')+'</p></section>'+
+  '<section><h3>How the workflow approaches it</h3><p>'+esc(tool.method||'Start from your goals, use the information you supply, and iterate.')+'</p></section>'+
+  '<section><h3>Accuracy and capability limits</h3><p>'+esc(tool.limits||'Check important claims and confirm that required services are available.')+'</p></section></div>'+
+  '<p class="workflow-preview-note">This is a prompt workflow for the active text model. It cannot itself access live data, run code, produce photorealistic images or generate videos without an actual connected capability.</p>'+
+  '<button type="button" class="primary" data-tool="'+esc(tool.id)+'">Open '+esc(tool.name)+' in chat →</button>';
+ panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+renderWorkflowCategories();
+$('#toolCategories').addEventListener('click',e=>{const btn=e.target.closest('[data-category]');if(btn){$('#toolSearch').value='';selectWorkflowCategory(btn.dataset.category)}});
+$('#libraryCategoryGrid').addEventListener('click',e=>{const btn=e.target.closest('[data-category]');if(btn){$('#toolSearch').value='';selectWorkflowCategory(btn.dataset.category);$('#libraryMatches').scrollIntoView({block:'start',behavior:'smooth'})}});
+$('#toolCategorySelect').addEventListener('change',e=>{selectWorkflowCategory(e.target.value)});
+$('#toolSearch').addEventListener('input',()=>{toolVisibleLimit=24;renderTools()});
+$('#libraryShowMore').addEventListener('click',()=>{toolVisibleLimit+=24;renderTools()});
+$('#toolsGrid').addEventListener('click',e=>{
+ const launch=e.target.closest('[data-tool]');if(launch){activateTool(launch.dataset.tool);return}
+ const more=e.target.closest('[data-preview]');if(more)workflowDetails(more.dataset.preview);
+});
+$('#workflowPreview').addEventListener('click',e=>{
+ const close=e.target.closest('[data-close-preview]');if(close){$('#workflowPreview').hidden=true;return}
+ const launch=e.target.closest('[data-tool]');if(launch)activateTool(launch.dataset.tool);
+});
+function activateTool(id){
+ const tool=TOOLS.find(t=>t.id===id);if(!tool)return;
+ navigate('chat');
+ $('#chatInput').value=tool.prompt+'\n\n';
+ $('#chatInput').focus();
+ notice(tool.name+' opened. Add details to the prompt before sending.');
+}
+window.RandomAILibraryDebug=Object.freeze({count:TOOLS.length,categories:CATEGORY_INFO.length,specialists:window.RandomAIDeepWorkflows?.tools?.length||0,ids:()=>TOOLS.map(t=>t.id)});
+renderTools();
 $('#homePopular').innerHTML=['professional-email','business-name','resume','study-notes','social-captions','story','product-description','brainstorm'].map(id=>{const t=TOOLS.find(x=>x.id===id);return '<button class="mini-card" data-tool="'+t.id+'"><span class="tool-emoji">'+t.icon+'</span><b>'+esc(t.name)+'</b><small>'+esc(t.group)+'</small></button>'}).join('');
 $('#homePopular').addEventListener('click',e=>{const b=e.target.closest('[data-tool]');if(b)activateTool(b.dataset.tool)});
 $('#chatShortcuts').innerHTML=['rewrite','blog-outline','cover-letter','flashcards','tagline'].map(id=>{const t=TOOLS.find(x=>x.id===id);return '<button class="shortcut" data-tool="'+t.id+'"><span>'+t.icon+'</span>'+esc(t.name)+' →</button>'}).join('');
