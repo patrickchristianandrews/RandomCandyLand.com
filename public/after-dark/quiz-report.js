@@ -367,6 +367,13 @@ else {
    if(item.profileThemes?.length)add(card,'p','Related nonsexual psychology themes: '+item.profileThemes.join(', ')+'. These only help order directly supported topics; they do not establish a preference.','report-muted');
    add(card,'p','Ways to learn about it:');
    list(card,item.uses.slice(0,3));
+   if(item.bodyUses){
+    add(card,'h4','How it differs for male and female anatomy');
+    const male=item.bodyUses.male,female=item.bodyUses.female;
+    add(card,'p','Male anatomy (penis / prostate) — '+(toyGuide.fitLabels[male.fit]||male.fit)+': '+male.note,'report-muted');
+    add(card,'p','Female anatomy (vulva / vagina) — '+(toyGuide.fitLabels[female.fit]||female.fit)+': '+female.note,'report-muted');
+    add(card,'p','With a partner — '+item.bodyUses.together,'report-muted');
+   }
    add(card,'p','Safety: '+item.safety,'report-muted');
    const link=el('a','Open the full sex toy guide and additional uses →');
    link.href='/after-dark/#toys';card.append(link);toys.append(card);
