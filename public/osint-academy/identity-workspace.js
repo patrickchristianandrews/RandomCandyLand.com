@@ -5,6 +5,14 @@
  const root=document.getElementById('view-identity');
  if(!root)return;
  const panes={cases:document.getElementById('identity-cases-pane'),profile:document.getElementById('identity-profile-pane')};
+ const profileButton=root.querySelector('[data-identity-mode="profile"]');
+ const casesButton=root.querySelector('[data-identity-mode="cases"]');
+ if(profileButton&&casesButton){
+  const heading=profileButton.querySelector('strong'),caption=profileButton.querySelector('small');
+  if(heading)heading.textContent='Research a clue';
+  if(caption)caption.textContent='One detail · public evidence';
+  casesButton.parentNode.insertBefore(profileButton,casesButton);
+ }
  function choose(mode){
   if(!panes[mode])return;
   Object.entries(panes).forEach(([id,pane])=>{pane.hidden=id!==mode});
