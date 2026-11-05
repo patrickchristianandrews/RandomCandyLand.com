@@ -3,7 +3,7 @@
 'use strict';
 const W=window.WorldKit,app=document.getElementById('app'),KEY='docket-save-v1';
 const cases=[
- {id:'HV-04',title:'The Harborview Tender',type:'Public procurement · Civil review',story:'The city's shelter contract may have been changed after bidding closed. A whistleblower accuses the winning bidder of favoritism; public funds and livelihoods are at stake.',
+ {id:'HV-04',title:'The Harborview Tender',type:'Public procurement · Civil review',story:'The municipal shelter contract may have been changed after bidding closed. A whistleblower accuses the winning bidder of favoritism; public funds and livelihoods are at stake.',
   issue:'Was the contract award supported by a fair, properly documented process?',standard:'The fictional tribunal examines whether procurement safeguards were followed, not whether every suspicious fact proves corruption.',best:'remand',bestWhy:'The preserved timestamps merit independent verification before a final award. The anonymous tip alone cannot establish wrongdoing.',
   evidence:[
    ['Submission receipt','A signed receipt shows the winning bid was filed on time.','document',1,'Verified original receipt; supports timely filing.',true],
@@ -22,7 +22,7 @@ const cases=[
    ['Street performer schedule','Another performer used an identical bag that day.','exculpatory',-2,'A plausible alternative explanation needing investigation.',true]
   ]},
  {id:'SH-19',title:'The Shelter Deadline',type:'Emergency housing · Administrative',story:'Residents were removed from an emergency shelter under a temporary rule. Officials cite safety, but several affected families never received notice or a hearing.',
-  issue:'Was a protective emergency policy applied with adequate individualized process?',standard:'The city's fictional administrative code calls for notice, reasons and a prompt opportunity to respond, even when temporary measures are urgent.',best:'remand',bestWhy:'The record supports real safety concerns but also gaps in notice and opportunities to respond.',
+  issue:'Was a protective emergency policy applied with adequate individualized process?',standard:'The fictional municipal administrative code calls for notice, reasons and a prompt opportunity to respond, even when temporary measures are urgent.',best:'remand',bestWhy:'The record supports real safety concerns but also gaps in notice and opportunities to respond.',
   evidence:[
    ['Fire marshal report','Inspection finds real blocked emergency exits.','document',2,'Authenticated report supports temporary safety steps.',true],
    ['Eviction notice log','Notice forms are absent for three families.','document',-2,'Official files fail to show the required notice.',true],
