@@ -186,6 +186,8 @@ const instantStatus=(message,ready)=>{
 };
 function updateChatMode(){
  $('#chatTransport').value=chatMode;
+ const saved=window.RandomAIModelMemory?.savedIds?.()||[];
+ const savedHint=$('#chatSavedModelHint');if(savedHint)savedHint.textContent=saved.length?'✓ '+saved.length+' downloaded local model'+(saved.length===1?'':'s')+' available for reuse':'';
  $('#hostedChoice').hidden=chatMode!=='instant';
  if(chatMode==='instant'){
   $('#chatModelName').textContent=instantReady?'⚡ Instant AI':'⚡ Instant AI · not connected';
@@ -193,7 +195,8 @@ function updateChatMode(){
   setStatus(instantReady?'Instant AI online':'Instant AI not connected',instantReady);
  }else{
   $('#chatModelName').textContent=engine?(window.RandomAILocal?.getName?.(loadedModel)||loadedModel):'Local model not loaded';
-  $('#chatModelHint').textContent=engine?'Runs on your device · no API key':'Download a compatible local model to run on this device.';
+  const saved=window.RandomAIModelMemory?.savedIds?.()||[];
+  $('#chatModelHint').textContent=engine?'Runs on your device · no API key':saved.length?'You have '+saved.length+' saved model'+(saved.length===1?'':'s')+'. Open Models & setup to load one.':'Choose a local model to download and use on this device.';
   setStatus(engine?'Local model ready':'Model not loaded',!!engine);
  }
 }
@@ -234,9 +237,10 @@ void checkInstant();
 function updateModelLabel(){
  if(chatMode==='local')updateChatMode();
  const loaded=!!engine;
- if($('#topModelDownload'))$('#topModelDownload').textContent=loaded&&$('#topModelSelect')?.value===loadedModel?'✓ Loaded':'↓ Load';
+ if($('#topModelDownload'))$('#topModelDownload').textContent=loaded&&$('#topModelSelect')?.value===loadedModel?'✓ Loaded':window.RandomAIModelMemory?.isSaved?.($('#topModelSelect')?.value)?'▶ Load saved':'↓ Load';
 }
 updateModelLabel();
+window.addEventListener('random-ai-saved-models-changed',()=>{updateModelLabel();updateChatMode()});
 const gpu=navigator.gpu;
 $('#gpuCheck').textContent=gpu?'WebGPU detected. Choose a small model to begin. The exact GPU adapter is checked when you press Load.':'This browser does not offer WebGPU. Local loading is unavailable; hosted Instant AI does not need WebGPU.';
 if(!gpu)$('#loadModel').disabled=true;
@@ -261,26 +265,28 @@ $('#loadModel').addEventListener('click',async()=>{
   if(!lib?.CreateMLCEngine||!Array.isArray(lib?.prebuiltAppConfig?.model_list))throw Error('The model library did not load correctly. Check connectivity and try again.');
   if(!lib.prebuiltAppConfig.model_list.some(m=>m.model_id===id))throw Error('That model ID is no longer offered by this version of WebLLM. Refresh the model list.');
   if(engine&&loadedModel===id){setDownloadProgress(100,'Already loaded — start chatting!','ready');chatMode='local';updateModelLabel();navigate('chat');return;}
-  if(engine){try{await engine.unload()}catch{}engine=null;loadedModel='';}
+  if(engine){try{await engine.unload()}catch{}engine=null;loadedModel='';window.RandomAIActiveModel='';}
   engine=await lib.CreateMLCEngine(id,{initProgressCallback:report=>{
     const value=typeof report.progress==='number'?Math.round(report.progress*100):2;
     setDownloadProgress(value,report.text||'Downloading model files and initializing GPU…');
   }});
-  loadedModel=id;selectedMode='local';chatMode='local';
+  loadedModel=id;window.RandomAIActiveModel=id;selectedMode='local';chatMode='local';
+  window.RandomAIModelMemory?.markLoaded?.(id);
   try{localStorage.setItem(chatModeKey,chatMode)}catch{}
   const top=$('#topModelSelect');if([...top.options].some(o=>o.value===id))top.value=id;
   setDownloadProgress(100,'✓ Download complete. The model is ready for private local chat.','ready');
   updateModelLabel();notice('Local AI is ready. Start chatting.');navigate('chat');
  }catch(error){
-  engine=null;loadedModel='';updateModelLabel();
+  engine=null;loadedModel='';window.RandomAIActiveModel='';updateModelLabel();
   const message=String(error?.message||'Unknown model error');
   setDownloadProgress(0,message,'error');
   notice('Model failed to load. The reason is shown in the progress panel.');
  }finally{
   loadingModel=false;btn.disabled=!gpu||!$('#modelSelect').value;
-  btn.textContent='↓ Download & load model';
+  btn.textContent=window.RandomAIModelMemory?.isSaved?.($('#modelSelect').value)?'▶ Load saved model':'↓ Download & load model';
   $('#topModelDownload').disabled=false; // If no GPU/catalog is available, clicking Load shows an explanation.
   updateModelLabel();
+  window.RandomAILocal?.refreshButtons?.();
  }
 });
 // Quick header picker uses the same local loader, so model downloads follow one verified path.
