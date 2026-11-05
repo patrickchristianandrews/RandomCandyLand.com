@@ -219,10 +219,10 @@ function build(){
  cover.append(coverStats);
  const roadmap=el('div',undefined,'report-roadmap');
  add(roadmap,'strong','INSIDE YOUR REPORT');
- add(roadmap,'p','Your answers at a glance · Psychological themes · How both quizzes connect · Interest-by-interest profiles · Optional sex toy guide suggestions · Conversation guides · Original selections');
+ add(roadmap,'p','Your Answers, Unwrapped · Psychological themes · How both quizzes connect · Interest-by-interest profiles · Optional sex toy guide suggestions · Conversation guides · Original selections');
  cover.append(roadmap);
  doc.append(cover);
- const overview=section(doc,'01 · Your results at a glance');
+ const overview=section(doc,'01 · Your Answers, Unwrapped');
  const enough=data.direct.answered>0&&data.psych.answered>0;
  add(overview,'p','Sexual-preferences questions answered: '+data.direct.answered+'/'+data.direct.questions.length+(data.direct.complete?' (quiz finished)':' (still in progress)')+'.');
  add(overview,'p','Non-explicit psychology questions answered: '+data.psych.answered+'/32'+(data.psych.complete?' (quiz finished)':' (still in progress)')+'.');
