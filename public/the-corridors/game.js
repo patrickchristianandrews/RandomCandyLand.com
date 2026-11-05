@@ -19,8 +19,8 @@ const scenes=[
    {name:'Reject the developer and demand the complete original route',pitch:'Defend the promise but accept a costly delay.',effect:[-10,4,-7,7,8,7],actors:[14,-13,6,3,6,-13],legality:'A good-faith position still needs appropriations, procurement and legal approval.',impact:'Transit riders appreciate the fight; the budget committee resists.',flags:'Full-route commitment'}
   ]},
  {tag:'CHAPTER 02 · MONEY & ACCESS',title:'The Donor Dinner',
-  story:'A contractor bidding for Meridian’s new shelters offers to host an expensive private fundraiser. The official in charge of awarding the contract has been invited.',
-  legal:'Gift, campaign-finance and procurement rules differ in real jurisdictions. Meridian requires disclosure, recusal when a conflict exists and fair procurement.',
+  story:'A contractor bidding for The city's new shelters offers to host an expensive private fundraiser. The official in charge of awarding the contract has been invited.',
+  legal:'Gift, campaign-finance and procurement rules differ in real jurisdictions. The fictional jurisdiction requires disclosure, recusal when a conflict exists and fair procurement.',
   visible:'Leadership calls the event a routine way to raise campaign money.',private:'A bidder wants access before competing proposals are scored.',who:'Campaign donors, contract bidders, procurement staff.',
   choices:[
    {name:'Decline; document and report the invitation',pitch:'Protect procurement integrity even if campaign funding dries up.',effect:[-5,10,-3,12,15,10],actors:[9,-13,4,7,16,-5],legality:'Declining and documenting a potential conflict supports independent review.',impact:'The bidder loses privileged access; staff can evaluate proposals fairly.',flags:'Procurement conflict escalated'},
@@ -56,7 +56,7 @@ const scenes=[
   ]},
  {tag:'CHAPTER 06 · INFORMATION & PRESSURE',title:'The Blackout Records',
   story:'City employees discover that communications about a power outage contradict the official timeline. A journalist requests records while the mayor’s team pressures staff to keep silent.',
-  legal:'Public-records access, privileged information, privacy and whistleblower protections involve different rules. Meridian requires preservation, lawful review and timely responses.',
+  legal:'Public-records access, privileged information, privacy and whistleblower protections involve different rules. The fictional jurisdiction requires preservation, lawful review and timely responses.',
   visible:'The administration describes the outage response as coordinated and effective.',private:'Embarrassing documents reveal confusion but also contain residents’ private contact details.',who:'Reporter, utility staff, privacy officer, mayor.',
   choices:[
    {name:'Preserve files, redact private data and follow the records process',pitch:'Make the public story accurate without exposing private people.',effect:[1,16,4,14,16,14],actors:[13,-1,7,17,18,-7],legality:'Lawful access with privacy safeguards balances transparency and confidentiality.',impact:'The administration absorbs criticism while residents keep their privacy.',flags:'Lawful outage disclosure'},
@@ -87,7 +87,7 @@ const medalDefs=[
  {icon:'🗣️',name:'The Listener',ok:()=>state.journal.some(x=>x.text.startsWith('Stakeholder briefing:'))},
  {icon:'🤝',name:'Public Trust',ok:()=>state.trust>=75},
  {icon:'🧭',name:'Steady Compass',ok:()=>state.ethics>=90},
- {icon:'🏛️',name:'Meridian Insider',ok:()=>state.chapter>=4},
+ {icon:'🏛️',name:'Government Insider',ok:()=>state.chapter>=4},
  {icon:'🏅',name:'The Legacy',ok:()=>state.finished}
 ];
 function consult(i){
@@ -119,7 +119,7 @@ const save=()=>{keys.forEach(k=>state[k]=W.clamp(state[k]));state.actors=state.a
 const currentRole=()=>{if(state.chapter>=6)return 'Executive decision-maker';if(state.chapter>=4)return 'Chief policy negotiator';if(state.chapter>=2)return 'Committee strategist';return 'Policy aide'};
 const ending=()=>{
  if(state.ethics<32)return 'Power Without Legitimacy';
- if(state.trust>=73&&state.ethics>=75&&state.reputation>=67)return 'Steward of Meridian';
+ if(state.trust>=73&&state.ethics>=75&&state.reputation>=67)return 'Trusted Public Steward';
  if(state.influence>=75&&state.reputation>=48)return 'The Coalition Architect';
  if(state.knowledge>=75&&state.ethics>=65)return 'Guardian of the Process';
  return 'The Working Negotiator';
@@ -149,20 +149,20 @@ function next(){
 function sceneHtml(){
  if(state.finished)return '<section class="panel ending"><div class="big">🏛️</div><span class="overline">CAREER COMPLETE · CITYWIDE LEGACY</span><h2>'+W.escape(ending())+'</h2><p>Every political choice changed the people and institutions around you. Your public story and your private trail are not the same.</p><div class="statgrid" style="margin:20px 0">'+W.stat('Integrity',num(state.ethics))+W.stat('Public trust',num(state.trust))+W.stat('Influence',num(state.influence))+'</div><div class="button-row" style="justify-content:center"><button class="button" data-report>Read your legacy report</button><button class="button-quiet" data-download>Export career dossier</button></div></section>';
  const sc=scenes[state.chapter],opt=state.pending!==null?sc.choices[state.pending]:null;
- let h='<section class="panel"><span class="overline">'+W.escape(sc.tag)+'</span><h2>'+W.escape(sc.title)+'</h2><p class="subline">Meridian, fictional city hall · You hold one vote, but many people can influence it.</p><div class="scene"><h3>Behind the chamber doors</h3><p>'+W.escape(sc.story)+'</p><div class="compare"><div><strong>📣 PUBLIC MESSAGE</strong><p>'+W.escape(sc.visible)+'</p></div><div><strong>🤫 PRIVATE PRESSURE</strong><p>'+W.escape(state.consulted.length>0||state.pending!==null?sc.private:'Classified until you talk to a stakeholder below.')+'</p></div></div><p class="note"><strong>Who matters:</strong> '+W.escape(sc.who)+'</p></div>';
+ let h='<section class="panel"><span class="overline">'+W.escape(sc.tag)+'</span><h2>'+W.escape(sc.title)+'</h2><p class="subline">Fictional city hall · You hold one vote, but many people can influence it.</p><div class="scene"><h3>Behind the chamber doors</h3><p>'+W.escape(sc.story)+'</p><div class="compare"><div><strong>📣 PUBLIC MESSAGE</strong><p>'+W.escape(sc.visible)+'</p></div><div><strong>🤫 PRIVATE PRESSURE</strong><p>'+W.escape(state.consulted.length>0||state.pending!==null?sc.private:'Classified until you talk to a stakeholder below.')+'</p></div></div><p class="note"><strong>Who matters:</strong> '+W.escape(sc.who)+'</p></div>';
  if(!opt){h+='<h3 style="margin:18px 0 10px">Choose your next door</h3>'+window.WorldFX.sceneHall(state.chapter,sc.choices,false)+stakeholderDesk()+'<p class="note">Speak to two factions for private intelligence, then open one of the three glowing doors above.</p>'}
  else{h+=window.WorldFX.sceneHall(state.chapter,sc.choices,true)+'<div class="result" style="margin-top:15px"><span class="overline">INSIDE THE DECISION · WHAT REALLY HAPPENED</span><h3>'+W.escape(opt.name)+'</h3><p><b>What the public sees:</b> '+W.escape(sc.visible)+'</p><p><b>Who gains or loses:</b> '+W.escape(opt.impact)+'</p><p><b>Legal and ethical reality:</b> '+W.escape(opt.legality)+'</p><p><b>Power lesson:</b> '+W.escape(sc.legal)+'</p><p><b>Who is involved:</b> '+W.escape(sc.who)+'</p><button class="button" data-next>'+(state.chapter===scenes.length-1?'Reveal your career outcome':'Open the next door →')+'</button></div>'}
  return h+'</section>';
 }
 function render(){
  const progress=state.finished?scenes.length:state.chapter+1;
- let html='<div class="maincol"><section class="panel"><span class="overline">CAREER PATH · '+(state.finished?'COMPLETE':'CHAPTER '+progress+' OF '+scenes.length)+'</span><h2>'+W.escape(currentRole())+'</h2><p class="subline">Build your career in the fictional Meridian government. Power without process can produce a very different legacy.</p><div class="statgrid">'+W.stat('Influence',num(state.influence))+W.stat('Knowledge',num(state.knowledge))+W.stat('Public trust',num(state.trust))+'</div><div class="timeline" style="margin-top:15px">'+scenes.map((s,i)=>'<span class="'+(i<state.chapter?'done':i===state.chapter&&!state.finished?'current':'')+'">'+(i+1)+'</span>').join('')+'</div></section>';
+ let html='<div class="maincol"><section class="panel"><span class="overline">CAREER PATH · '+(state.finished?'COMPLETE':'CHAPTER '+progress+' OF '+scenes.length)+'</span><h2>'+W.escape(currentRole())+'</h2><p class="subline">Build your career in the fictional local government. Power without process can produce a very different legacy.</p><div class="statgrid">'+W.stat('Influence',num(state.influence))+W.stat('Knowledge',num(state.knowledge))+W.stat('Public trust',num(state.trust))+'</div><div class="timeline" style="margin-top:15px">'+scenes.map((s,i)=>'<span class="'+(i<state.chapter?'done':i===state.chapter&&!state.finished?'current':'')+'">'+(i+1)+'</span>').join('')+'</div></section>';
  html+=sceneHtml();
  html+='<section class="panel"><span class="overline">REALITY CHECK</span><h2>Rules, gray areas and oversight</h2><p class="subline">Actions may be lawful, questionable or prohibited depending on context. The city’s fictional charter is your training ground, not a statement of real law.</p><div class="callout"><strong>Ask four questions:</strong><p>Who has legal authority? What was promised publicly? Who benefits privately? Which records, conflicts and approvals will withstand independent review?</p></div></section></div>';
  html+='<aside class="sidecol"><section class="panel"><h2>Career achievements</h2>'+badgeRow()+'</section><section class="panel"><h2>Your live power web</h2><p class="note">The six alliance scores change when you negotiate.</p>'+powerWeb()+'</section><section class="panel"><h2>Power profile</h2><div class="statgrid">'+W.stat('Reputation',num(state.reputation))+W.stat('Relationships',num(state.relationships))+W.stat('Ethics',num(state.ethics))+'</div><p class="note">These indicators can diverge. Popular moves can be ethically dubious, and responsible choices can cost influence.</p></section>';
  html+='<section class="panel"><h2>Relationship web</h2><p class="note">Every decision strengthens and weakens alliances.</p><div class="actors">'+factions.map((f,i)=>'<div class="actor"><strong>'+f[1]+' '+W.escape(f[0])+'</strong><span>'+W.escape(f[2])+'</span><div class="meter"><i style="width:'+num(state.actors[i])+'%"></i></div></div>').join('')+'</div></section>';
  html+='<section class="panel"><h2>Your career dossier</h2><div class="button-row"><button class="button-quiet" data-report>📋 '+(state.report?'Hide':'Open')+' decision report</button><button class="button-quiet" data-download>↓ Export dossier</button><button class="button-quiet" data-reset>↺ New career</button></div></section>';
- html+='<section class="panel"><h2>Private record</h2>'+W.journal(state.journal)+'</section><section class="panel"><h2>Elsewhere in Meridian</h2>'+W.cross('The Corridors')+'</section></aside>';
+ html+='<section class="panel"><h2>Private record</h2>'+W.journal(state.journal)+'</section></aside>';
  if(state.report)html+='<section class="panel" style="grid-column:1/-1"><h2>Inside the Decision · career report</h2><pre style="white-space:pre-wrap;font:12px/1.7 inherit;overflow-wrap:anywhere">'+W.escape(makeReport())+'</pre></section>';
  app.innerHTML=html;
 }
