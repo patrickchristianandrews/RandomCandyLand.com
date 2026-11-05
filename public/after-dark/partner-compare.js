@@ -73,6 +73,7 @@ const only=(a,b)=>{const keys=new Set(b.map(x=>cleanLabel(x.label||x.title)));re
 const addText=(root,title,body)=>{const c=E('article',undefined,'uc-result');c.append(E('h4',title),E('p',body));root.append(c)};
 function compare(a,b){
  const out=$('uc-results');out.replaceChildren();
+ $('uc-print').hidden=false;
  out.append(E('h3','Your shared dynamics: '+(a.from||'Partner A')+' + '+(b.from||'Partner B')));
  out.append(E('p','A reflection guide based only on items both people chose to share. Different or missing selections are not evidence of incompatibility. Scores and descriptions cannot predict relationship outcomes.','uc-note'));
  const both=common(a.themes,b.themes),aOnly=only(a.themes,b.themes),bOnly=only(b.themes,a.themes);
@@ -120,14 +121,17 @@ function compare(a,b){
 }
 function mount(){
  const host=$('uc-comparison');if(!host)return;
- host.innerHTML='<h2>Compare two selected partner reports</h2><p>Explore intimacy, everyday psychology, or both. Each person chooses what to share; compare only the two selected files, right here in your browser.</p><details id="uc-export"><summary>Step 1 · Create my selected report</summary><div id="uc-select"></div><button class="btn" type="button" id="uc-save">Download selected report</button></details><div class="uc-upload"><label>Step 2 · Partner A report <input id="uc-a" type="file" accept=".json,application/json"></label><label>Step 3 · Partner B report <input id="uc-b" type="file" accept=".json,application/json"></label></div><button class="btn" type="button" id="uc-compare">Compare our chosen sections</button><p id="uc-status" role="status"></p><div id="uc-results" aria-live="polite"></div><p class="uc-note">Reports stay on this device while you compare; nothing is uploaded. Use selected-report JSON exports, not full private quiz backups. Never share a report without its owner’s permission.</p>';
+ host.innerHTML='<h2>Compare two selected partner reports</h2><p>Explore intimacy, everyday psychology, or both. Each person chooses what to share; compare only the two selected files, right here in your browser.</p><details id="uc-export"><summary>Step 1 · Create my selected report</summary><div id="uc-select"></div><button class="btn" type="button" id="uc-save">Download selected report</button></details><div class="uc-upload"><label>Step 2 · Partner A report <input id="uc-a" type="file" accept=".json,application/json"></label><label>Step 3 · Partner B report <input id="uc-b" type="file" accept=".json,application/json"></label></div><button class="btn" type="button" id="uc-compare">Compare our chosen sections</button><button class="btn alt" type="button" id="uc-print" hidden>Save visual comparison as PDF</button><p id="uc-status" role="status"></p><div id="uc-results" aria-live="polite"></div><p class="uc-note">Reports stay on this device while you compare; nothing is uploaded. Use selected-report JSON exports, not full private quiz backups. Never share a report without its owner’s permission.</p>';
  $('uc-export').addEventListener('toggle',()=>{if($('uc-export').open)exportChoices()});
  $('uc-save').onclick=save;
+ $('uc-print').onclick=()=>{if(!$('uc-results').children.length)return;document.body.classList.add('print-unwrapped-comparison');window.print()};
+ window.addEventListener('afterprint',()=>document.body.classList.remove('print-unwrapped-comparison'));
  $('uc-compare').onclick=async()=>{
   try{if(!$('uc-a').files[0]||!$('uc-b').files[0])throw Error('Choose both partners’ selected reports first.');
    const [a,b]=await Promise.all([readFile($('uc-a').files[0]),readFile($('uc-b').files[0])]);
+   if(JSON.stringify(a)===JSON.stringify(b))throw Error('These are identical reports. Choose one selected report from each person.');
    compare(a,b);status('Comparison ready · only shared selections were considered.');
-  }catch(e){$('uc-results').replaceChildren();status('Could not compare: '+(e.message||'Invalid file.'))}
+  }catch(e){$('uc-results').replaceChildren();$('uc-print').hidden=true;status('Could not compare: '+(e.message||'Invalid file.'))}
  };
  const button=E('button','Compare partner reports','btn alt');button.type='button';button.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('visible',t.id==='notebook'));document.querySelectorAll('[data-tab]').forEach(t=>t.classList.toggle('selected',t.dataset.tab==='notebook'));host.scrollIntoView({behavior:'smooth',block:'start'})};
  const card=document.querySelector('#home .od-compact-tools-grid .od-compact-tool:nth-child(2) .od-compact-actions');if(card)card.append(button);
