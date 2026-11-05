@@ -51,3 +51,30 @@
 #uc-comparison .uc-connection-link strong{z-index:1;padding:5px 9px;border-radius:22px;background:#3c2954;border:1px solid #b6ecd9;color:#fff;font-size:11px}
 #uc-comparison .uc-connection-link small{font-size:9px;color:#e8d9f4}
 @media(max-width:390px){#uc-comparison .uc-connection-row{grid-template-columns:minmax(50px,1fr) minmax(90px,2fr) minmax(50px,1fr)}#uc-comparison .uc-connection-person{font-size:9px}}
+
+/* Export the explanation AND visual connections in one readable PDF. */
+#uc-comparison #uc-print[hidden]{display:none!important}
+@media print{
+ body.print-unwrapped-comparison{background:#fff!important;color:#222!important}
+ body.print-unwrapped-comparison .wrap{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}
+ body.print-unwrapped-comparison .wrap>*:not(#notebook){display:none!important}
+ body.print-unwrapped-comparison #notebook{display:block!important;background:#fff!important;margin:0!important;padding:0!important;border:0!important}
+ body.print-unwrapped-comparison #notebook>*:not(#uc-comparison){display:none!important}
+ body.print-unwrapped-comparison #uc-comparison{display:block!important;margin:0!important;padding:0!important;border:0!important;background:#fff!important;color:#27202a!important;box-shadow:none!important}
+ body.print-unwrapped-comparison #uc-comparison>*:not(#uc-results){display:none!important}
+ body.print-unwrapped-comparison #uc-comparison #uc-results{display:grid!important;gap:9px!important;margin:0!important;color:#27202a!important}
+ body.print-unwrapped-comparison #uc-results:before{content:"UNWRAPPED · PARTNER CONNECTION REPORT";font:800 10pt/1.4 system-ui,sans-serif;letter-spacing:.08em;color:#703d74}
+ body.print-unwrapped-comparison #uc-results h3,body.print-unwrapped-comparison #uc-results h4{color:#4d3156!important}
+ body.print-unwrapped-comparison #uc-results>p,body.print-unwrapped-comparison #uc-results .uc-note{color:#55485c!important}
+ body.print-unwrapped-comparison #uc-results .uc-dashboard{background:#f8eff8!important;border:1px solid #d6bedf!important;color:#302334!important;break-inside:avoid-page}
+ body.print-unwrapped-comparison #uc-results .uc-metric{background:#fff!important;color:#302334!important;border:1px solid #dbcbdf!important}
+ body.print-unwrapped-comparison #uc-results .uc-metric strong{color:#5c3866!important}
+ body.print-unwrapped-comparison #uc-results .uc-metric small,body.print-unwrapped-comparison #uc-results .uc-chart-line small{color:#594b61!important}
+ body.print-unwrapped-comparison #uc-results .uc-result{background:#fff!important;color:#302334!important;border:1px solid #d6c8df!important;break-inside:avoid}
+ body.print-unwrapped-comparison #uc-results .uc-result h4{color:#51305b!important}
+ body.print-unwrapped-comparison #uc-results .uc-connection-map{background:#fff!important;color:#382744!important;border:1px solid #d8c6e1!important}
+ body.print-unwrapped-comparison #uc-results .uc-connection-person{color:#372740!important;background:#f6eaf4!important;border-color:#bd95b7!important}
+ body.print-unwrapped-comparison #uc-results .uc-connection-row .uc-connection-person:last-child{background:#e7f3f6!important;border-color:#a6cbd5!important}
+ body.print-unwrapped-comparison #uc-results .uc-connection-link strong{color:#382744!important;background:#fff!important}
+ body.print-unwrapped-comparison #uc-results .uc-connection-link small{color:#5b4e65!important}
+}
