@@ -1,4 +1,4 @@
-/* Ask Atlas: forgiving, on-device topic lookup with typo and synonym handling.
+/* Ask Mira: forgiving, on-device topic lookup with typo and synonym handling.
    Suggestions are reading ideas to help people explore at their own pace. */
 (()=>{
 'use strict';
@@ -124,7 +124,7 @@ function answer(question,context){
  if(isSafety)reply+='\n\nIf you’re thinking about trying it, agree on boundaries first and check any health or injury risks. Consent can change at any time.';
  if(isTalk)reply+='\n\nYou could ask: “What part interests you? Is it something you want to talk about, or keep as fantasy?”';
  const alternatives=relevant.slice(1).filter(x=>x.major&&x.score>=first.score*0.63).slice(0,2).map(x=>x.t.name);
- if(alternatives.length)reply+='\n\nRelated Atlas topics: '+alternatives.join(' · ')+'.';
+ if(alternatives.length)reply+='\n\nRelated Curiosity Library topics: '+alternatives.join(' · ')+'.';
  if(isWhy)reply+='\n\nWhich part feels most relevant to you?';
  return reply;
 }
