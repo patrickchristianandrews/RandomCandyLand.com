@@ -74,6 +74,8 @@ jobs:
 
       - name: Verify Unwrapped toy library and personalized report privacy
         run: node scripts/test-unwrapped-toys.mjs
+      - name: Verify all Unwrapped report types and downloadable sample PDFs
+        run: node scripts/test-unwrapped-report-coverage.mjs
 
       - name: Build the entire website
         run: bun run build
