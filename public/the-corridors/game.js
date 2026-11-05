@@ -2,9 +2,10 @@
 (function(){
 'use strict';
 const W=window.WorldKit,app=document.getElementById('app'),KEY='corridors-save-v1';
-const start={chapter:0,influence:36,knowledge:32,relationships:53,reputation:55,ethics:70,trust:54,actors:[51,55,45,52,48,50],role:'Policy aide',journal:[],pending:null,report:false,finished:false,consulted:[],briefing:null,medals:[]};
+const start={mode:'policy',chapter:0,influence:36,knowledge:32,relationships:53,reputation:55,ethics:70,trust:54,actors:[51,55,45,52,48,50],role:'Policy aide',journal:[],pending:null,report:false,finished:false,consulted:[],briefing:null,medals:[]};
 let state=W.load(KEY,start);
 if(!Array.isArray(state.actors)||state.actors.length!==6)state=W.copy(start);
+if(!['policy','career'].includes(state.mode))state.mode='policy';
 const factions=[
  ['Residents','🏘️','Daily life and services'],['Business council','🏦','Investment and contracts'],['Labor coalition','🛠️','Workers and protections'],['Press','📰','Information and accountability'],['Civic watchdog','🔎','Oversight and integrity'],['City leadership','🏛️','Coalitions and political power']
 ];
@@ -155,8 +156,10 @@ function sceneHtml(){
  return h+'</section>';
 }
 function render(){
+ if(state.mode==='policy'&&window.CorridorsPolicyLab){window.CorridorsPolicyLab.render(app);return}
  const progress=state.finished?scenes.length:state.chapter+1;
- let html='<div class="maincol"><section class="panel"><span class="overline">CAREER PATH · '+(state.finished?'COMPLETE':'CHAPTER '+progress+' OF '+scenes.length)+'</span><h2>'+W.escape(currentRole())+'</h2><p class="subline">Build your career in the fictional local government. Power without process can produce a very different legacy.</p><div class="statgrid">'+W.stat('Influence',num(state.influence))+W.stat('Knowledge',num(state.knowledge))+W.stat('Public trust',num(state.trust))+'</div><div class="timeline" style="margin-top:15px">'+scenes.map((s,i)=>'<span class="'+(i<state.chapter?'done':i===state.chapter&&!state.finished?'current':'')+'">'+(i+1)+'</span>').join('')+'</div></section>';
+ let html=window.CorridorsPolicyLab?.modeBar?.('career')||'';
+ html+='<div class="maincol"><section class="panel"><span class="overline">CAREER PATH · '+(state.finished?'COMPLETE':'CHAPTER '+progress+' OF '+scenes.length)+'</span><h2>'+W.escape(currentRole())+'</h2><p class="subline">Build your career in the fictional local government. Power without process can produce a very different legacy.</p><div class="statgrid">'+W.stat('Influence',num(state.influence))+W.stat('Knowledge',num(state.knowledge))+W.stat('Public trust',num(state.trust))+'</div><div class="timeline" style="margin-top:15px">'+scenes.map((s,i)=>'<span class="'+(i<state.chapter?'done':i===state.chapter&&!state.finished?'current':'')+'">'+(i+1)+'</span>').join('')+'</div></section>';
  html+=sceneHtml();
  html+='<section class="panel"><span class="overline">REALITY CHECK</span><h2>Rules, gray areas and oversight</h2><p class="subline">Actions may be lawful, questionable or prohibited depending on context. The city’s fictional charter is your training ground, not a statement of real law.</p><div class="callout"><strong>Ask four questions:</strong><p>Who has legal authority? What was promised publicly? Who benefits privately? Which records, conflicts and approvals will withstand independent review?</p></div></section></div>';
  html+='<aside class="sidecol"><section class="panel"><h2>Career achievements</h2>'+badgeRow()+'</section><section class="panel"><h2>Your live power web</h2><p class="note">The six alliance scores change when you negotiate.</p>'+powerWeb()+'</section><section class="panel"><h2>Power profile</h2><div class="statgrid">'+W.stat('Reputation',num(state.reputation))+W.stat('Relationships',num(state.relationships))+W.stat('Ethics',num(state.ethics))+'</div><p class="note">These indicators can diverge. Popular moves can be ethically dubious, and responsible choices can cost influence.</p></section>';
@@ -168,6 +171,7 @@ function render(){
 }
 app.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b||b.disabled)return;
+ if(b.hasAttribute('data-corridor-mode')){state.mode=b.dataset.corridorMode==='career'?'career':'policy';save();render();window.scrollTo({top:0,behavior:'smooth'});return}
  if(b.hasAttribute('data-pick'))choose(Number(b.dataset.pick));
  else if(b.hasAttribute('data-consult'))consult(Number(b.dataset.consult));
  else if(b.hasAttribute('data-next'))next();
