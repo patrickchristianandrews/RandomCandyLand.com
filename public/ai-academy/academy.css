@@ -45,3 +45,93 @@
 .coach-feedback .fine-print{font-size:10px;color:#b6b6c9}
 @media(max-width:730px){.showdown-grid,.coach-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.play-lab{padding:16px}}
 @media(max-width:430px){.tier-pick{font-size:11px}.play-toolbar select{width:min(100%,300px)}.showdown-panel{padding:12px}}
+
+/* Guided Academy: one meaningful screen at a time, especially on mobile. */
+.academy-flow-live .layout{display:block;min-height:calc(100vh - 120px)}
+.academy-flow-live .layout>.sidebar{display:none}
+.academy-flow-live .main{max-width:1020px;padding:clamp(12px,2.3vw,23px)}
+.academy-flow-live .hero{display:none}
+.academy-flow-live .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:8px 0}
+.academy-flow-live .stats>div{padding:10px 12px}
+.academy-flow-live .stats strong{font-size:20px}
+.academy-flow-live .stats small{font-size:10px}
+.academy-flow-live .main>[hidden],.academy-flow-live .academy-lesson-part[hidden],.academy-flow-live .academy-lesson-picker[hidden]{display:none!important}
+.academy-flow{background:linear-gradient(125deg,#25254a,#173943);border:1px solid #a6ddcf66;border-radius:20px;padding:16px;margin:11px 0 15px;scroll-margin-top:84px}
+.academy-flow-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.academy-flow-top h2{font:900 clamp(22px,3.1vw,31px)/1.1 'Outfit',sans-serif;margin:4px 0 5px}
+.academy-flow-top p{margin:0;color:#c9e3df;font-size:12px;line-height:1.5}
+.academy-flow-percent{background:#d8fff010;border:1px solid #b2e5d05e;border-radius:14px;padding:8px 12px;min-width:110px;text-align:center;flex:none}
+.academy-flow-percent strong{display:block;font:850 20px 'Outfit',sans-serif;color:#c5ffe8}
+.academy-flow-percent small{font-size:9px;color:#c9e4db}
+.academy-flow-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:16px}
+.academy-flow-nav button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;padding:10px 11px;background:#090e2773;color:#f7f5ff;border:1px solid #ffffff29;border-radius:12px;text-align:left;cursor:pointer}
+.academy-flow-nav button:hover,.academy-flow-nav button.selected{background:#d4fff0;color:#143b3b;border-color:#b2fff0}
+.academy-flow-nav button>span{font-size:10px;font-weight:900;opacity:.76}
+.academy-flow-nav button strong{font-size:13px;line-height:1.2}
+.academy-flow-nav button small{font-size:10px;opacity:.75;line-height:1.2}
+.academy-flow-actions{display:flex;justify-content:space-between;gap:9px;margin-top:12px}
+.academy-flow-actions>button{min-height:38px;padding:8px 13px}
+.academy-lesson-picker{margin-top:14px;border-top:1px solid #badacc4d;padding-top:10px}
+.academy-lesson-picker>summary{font-size:12px;font-weight:850;cursor:pointer;color:#d6ffe7;padding:5px}
+.academy-lesson-picker summary span{font-weight:550;color:#c5ddda;font-size:10px;padding-left:8px}
+.academy-lesson-picker #courseNav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:10px 0}
+.academy-lesson-picker .course-group{margin:0;border:1px solid #93bfae4d;border-radius:12px;background:#0c25338f;padding:8px}
+.academy-lesson-picker .course-group-label{padding:4px 5px 8px}
+.academy-lesson-picker .course-nav button{padding:8px;font-size:11px}
+.academy-course-progress{display:flex;align-items:center;gap:11px;margin:8px 0;color:#d6f7e5;font-size:11px}
+.academy-course-progress .progress-track{min-width:110px;flex:1;margin:0}
+.academy-course-progress .progress-label{margin:0}
+.academy-flow-live .learning-card,.academy-flow-live .play-lab,.academy-flow-live .builder,.academy-flow-live .end{margin:0 0 18px;padding:clamp(17px,2.9vw,27px)}
+.academy-flow-live .lesson-heading h2{font-size:clamp(24px,3.3vw,33px)}
+.academy-flow-live .lesson-heading-badge{font-size:27px}
+.academy-lesson-phase-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:15px 0}
+.academy-lesson-phase-tabs button{display:flex;justify-content:center;align-items:center;gap:8px;min-height:45px;border-radius:11px;background:#0d182e;color:#dfd7f2;border:1px solid #ffffff35;font-size:12px;font-weight:850}
+.academy-lesson-phase-tabs button span{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#ffffff18;font-size:11px}
+.academy-lesson-phase-tabs button.active{background:#a9f1dc;color:#0e3c3c;border-color:#b6ffed}
+.academy-lesson-phase-tabs button.active span{background:#1c6156;color:#fff}
+.academy-lesson-part{min-height:170px;padding:5px 0}
+.academy-lesson-part h3{margin:6px 0;font-size:17px}
+.academy-lesson-part>p{line-height:1.67}
+.academy-lesson-part .lesson-lead{font-size:14px;margin:6px 0 10px}
+.academy-small-nudge{background:#183c42a6;border-left:3px solid #a0ead5;border-radius:7px;padding:9px 12px;font-size:11px;color:#b9eada}
+.academy-lesson-part .lesson-copy{margin:2px 0 10px}
+.academy-extra-tips{border:1px solid #afbaab67;border-radius:11px;background:#233343b0;padding:10px 13px;margin:8px 0;color:#e0efea}
+.academy-extra-tips summary{cursor:pointer;font-size:12px;font-weight:850}
+.academy-extra-tips ul{font-size:12px;line-height:1.6}
+.academy-example-btn{margin-top:10px}
+.academy-lesson-part .quiz{margin:5px 0 10px}
+.academy-phase-footer{display:flex;gap:8px;justify-content:space-between;align-items:center;margin:14px 0 5px;border-top:1px solid #ffffff21;padding-top:13px}
+.academy-phase-footer button{min-width:125px}
+.academy-phase-footer span{color:#a7e7d4;font-size:11px;font-weight:750;text-align:center}
+.academy-flow-live .lesson-footer{margin-top:6px;border-top:0}
+.academy-flow-live .lesson-footer button{font-size:10px;min-height:35px;padding:7px 9px}
+.academy-flow-live .end{display:flex}
+.academy-flow-live #prompt-coach textarea{min-height:135px}
+@media(max-width:700px){
+ .academy-flow-live .top{position:sticky;top:0;z-index:15}
+ .academy-flow{scroll-margin-top:75px}
+ .academy-flow-top p{font-size:11px}
+ .academy-flow-nav{gap:4px}
+ .academy-flow-nav button{padding:9px 6px;align-items:center;text-align:center;min-height:73px}
+ .academy-flow-nav button strong{font-size:11px}
+ .academy-flow-nav button small{font-size:9px}
+ .academy-flow-percent{min-width:78px;padding:7px}
+ .academy-flow-percent strong{font-size:17px}
+ .academy-lesson-picker #courseNav{grid-template-columns:1fr}
+ .academy-flow-live .lesson-copy{grid-template-columns:1fr}
+ .academy-phase-footer span{font-size:10px}
+}
+@media(max-width:420px){
+ .academy-flow{padding:12px}
+ .academy-flow-top h2{font-size:21px}
+ .academy-flow-nav button span{font-size:9px}
+ .academy-flow-nav button strong{font-size:10px}
+ .academy-flow-nav button small{display:none}
+ .academy-flow-nav button{min-height:54px}
+ .academy-flow-live .stats>div{padding:7px}
+ .academy-flow-live .stats strong{font-size:17px}
+ .academy-flow-live .stats small{font-size:9px}
+ .academy-phase-footer{flex-wrap:wrap}
+ .academy-phase-footer button{min-width:90px;flex:1}
+ .academy-phase-footer span{order:-1;flex:1 1 100%;text-align:center}
+}
