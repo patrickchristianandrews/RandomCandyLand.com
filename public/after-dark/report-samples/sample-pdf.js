@@ -256,7 +256,7 @@ function buildPdf(report){
   pageNum++;commands=[];y=TOP;
   commands.push('.15 .09 .21 rg 0 755 612 37 re f');
   commands.push('.69 .42 .57 rg 0 748 612 7 re f');
-  text(LEFT,770,'THE OTHER DRAWER  /  REPORT SAMPLES',10,true,[1,.9,.96]);
+  text(LEFT,770,'UNWRAPPED  /  REPORT SAMPLES',10,true,[1,.9,.96]);
   text(RIGHT-92,770,'FICTIONAL EXAMPLE',7,true,[1,.83,.9]);
   line(746);
   text(LEFT,35,'EDUCATIONAL SAMPLE - NOT A DIAGNOSIS OR PREDICTION',8,false,[.46,.35,.49]);
@@ -300,7 +300,7 @@ function buildPdf(report){
  commands.push('.23 .12 .30 rg 0 590 612 165 re f');
  commands.push('.45 .26 .47 rg 510 604 150 150 re f');
  text(LEFT,722,'RANDOM CANDY LAND PRESENTS',9,true,[.98,.79,.89]);
- text(LEFT,677,'THE OTHER DRAWER',30,true,[1,.96,1]);
+ text(LEFT,677,'UNWRAPPED',30,true,[1,.96,1]);
  text(LEFT,649,'EXPLORE  /  REFLECT  /  CONNECT',11,true,[.97,.76,.87]);
  text(LEFT,620,'An adults-only space for curiosity and meaningful connection.',10,false,[.99,.90,.98]);
  text(LEFT,562,'Curious about what makes you, you?',20,true,[.35,.20,.42]);
@@ -338,7 +338,7 @@ function buildPdf(report){
  text(LEFT+15,195,'Know someone who might enjoy this?',15,true,[1,.96,1]);
  [
   'Give this page to a friend, or scan the code to',
-  'discover The Other Drawer for yourself.',
+  'discover Unwrapped for yourself.',
   '',
   'Explore privately. Share only what you choose.',
   'A partner never receives answers automatically.'
