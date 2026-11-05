@@ -46,6 +46,12 @@ personal:{
  'Sound and voice atmosphere: A possible topic because sensory quality and sincere expression appear in different answers. Distinguish appreciation of voice or sound from any wish to act.',
  'Creative anticipation: A possible topic because imagined scenarios and pleasant expectation recur in the answers. The possibility of a private story or written note may be more appealing than an event.',
  'These are unconfirmed suggestions for learning and conversation, NOT undeclared preferences. You can accept, reject or ignore any of these ideas.']],
+ ['Optional sex-toy ideas based on chosen interests',[
+ 'Example of how the real report behaves: If I directly select interest in low-intensity external sensation, the report may suggest reading about a wand or bullet vibrator. It does not assume my anatomy, gender, orientation or a particular brand.',
+ 'One wand may have several possible uses: externally on compatible anatomy, over clothing for milder sensation, in a partner-led setting with consent, or as a general body massager if the manufacturer permits.',
+ 'If I select strap-on play as fantasy-only, any related harness or dildo categories are labeled reading-only; nothing in the report suggests purchasing or trying one.',
+ 'Material, fit, hygiene, compatible lubricant, cleaning between uses and product-specific limits matter. Anal use requires a secure flared base. Any uncomfortable sensation is a reason to stop.',
+ 'Suggestions change with saved quiz answers and may be absent. These fictional examples do not describe the real reader.']],
  ['11 / Boundaries, fantasy and real-world choices',[
  'Fantasy only means fantasy only. Curious may mean wanting to read or ask questions; it is not an agreement to participate. Interested describes a self-reported preference, not another person’s consent.',
  'In this fictional answer set, you marked group play and partner swapping Not for me. This boundary overrides suggestions from any shared themes.',
