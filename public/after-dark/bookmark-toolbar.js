@@ -5,7 +5,7 @@
 const KEY='otherdrawer_saved_places_v1';
 const LEGACY='afterdark_reading_places_v1';
 const TABS=['home','atlas','quiz','psych-quiz','psych','ideas','chat','howto','guide','notebook'];
-const LABELS={home:'Home',atlas:'Curiosity Cabinet',quiz:'Sexual Preferences Quiz','psych-quiz':'Psychology Quiz',psych:'Psychology & Feelings',ideas:'Idea Lab',chat:'Ask Anything',howto:'Practical Guides',guide:'Resources',notebook:'My Notebook'};
+const LABELS={home:'Home',atlas:'Curiosity Cabinet',quiz:'Sexual Preferences Quiz','psych-quiz':'Psychology Quiz',psych:'Psychology & Feelings',ideas:'Idea Lab',chat:'Ask Mira',howto:'Practical Guides',guide:'Resources',notebook:'My Notebook'};
 const $=id=>document.getElementById(id);
 const text=(tag,value,cls)=>{const x=document.createElement(tag);if(value!==undefined)x.textContent=value;if(cls)x.className=cls;return x};
 const button=(title,click,cls)=>{const b=text('button',title,cls);b.type='button';b.addEventListener('click',click);return b};
