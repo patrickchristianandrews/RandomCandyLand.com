@@ -3,7 +3,7 @@
 'use strict';
 const W=window.WorldKit,app=document.getElementById('app'),KEY='docket-save-v1';
 const cases=[
- {id:'HV-04',title:'The Harborview Tender',type:'Public procurement · Civil review',story:'Meridian’s shelter contract may have been changed after bidding closed. A whistleblower accuses the winning bidder of favoritism; public funds and livelihoods are at stake.',
+ {id:'HV-04',title:'The Harborview Tender',type:'Public procurement · Civil review',story:'The city's shelter contract may have been changed after bidding closed. A whistleblower accuses the winning bidder of favoritism; public funds and livelihoods are at stake.',
   issue:'Was the contract award supported by a fair, properly documented process?',standard:'The fictional tribunal examines whether procurement safeguards were followed, not whether every suspicious fact proves corruption.',best:'remand',bestWhy:'The preserved timestamps merit independent verification before a final award. The anonymous tip alone cannot establish wrongdoing.',
   evidence:[
    ['Submission receipt','A signed receipt shows the winning bid was filed on time.','document',1,'Verified original receipt; supports timely filing.',true],
@@ -22,7 +22,7 @@ const cases=[
    ['Street performer schedule','Another performer used an identical bag that day.','exculpatory',-2,'A plausible alternative explanation needing investigation.',true]
   ]},
  {id:'SH-19',title:'The Shelter Deadline',type:'Emergency housing · Administrative',story:'Residents were removed from an emergency shelter under a temporary rule. Officials cite safety, but several affected families never received notice or a hearing.',
-  issue:'Was a protective emergency policy applied with adequate individualized process?',standard:'Meridian’s fictional administrative code calls for notice, reasons and a prompt opportunity to respond, even when temporary measures are urgent.',best:'remand',bestWhy:'The record supports real safety concerns but also gaps in notice and opportunities to respond.',
+  issue:'Was a protective emergency policy applied with adequate individualized process?',standard:'The city's fictional administrative code calls for notice, reasons and a prompt opportunity to respond, even when temporary measures are urgent.',best:'remand',bestWhy:'The record supports real safety concerns but also gaps in notice and opportunities to respond.',
   evidence:[
    ['Fire marshal report','Inspection finds real blocked emergency exits.','document',2,'Authenticated report supports temporary safety steps.',true],
    ['Eviction notice log','Notice forms are absent for three families.','document',-2,'Official files fail to show the required notice.',true],
@@ -65,7 +65,7 @@ const badges=[
  {icon:'🎙️',name:'Cross-Examiner',ok:()=>state.journal.some(x=>x.text.startsWith('Witness question:'))},
  {icon:'🔍',name:'Complete Record',ok:()=>state.journal.some(x=>x.text.includes('Examined all five'))},
  {icon:'🏛️',name:'Experienced Advocate',ok:()=>state.history.length>=3},
- {icon:'⚖️',name:'Meridian Justice',ok:()=>state.finished}
+ {icon:'⚖️',name:'Steady Justice',ok:()=>state.finished}
 ];
 function linkSelect(i){
  if(state.phase!=='investigate'||!state.reviewed.includes(i)||state.linkSolved)return;
@@ -127,7 +127,7 @@ const save=()=>{['integrity','reasoning','reputation'].forEach(k=>state[k]=W.cla
 const log=t=>{state.journal.push({when:'CASE '+(state.index+1),text:t});state.journal=state.journal.slice(-90)};
 const label=d=>d==='liable'?'Find responsibility established':d==='notproven'?'Find the allegation NOT proven':'Order further fact-finding / review';
 function report(){return [
- 'THE DOCKET / LEGAL REALITY REPORT','The Meridian Universe · Fictional cases and simplified legal concepts',
+ 'THE DOCKET / LEGAL REALITY REPORT','Independent fictional cases and simplified legal concepts',
  'Cases completed: '+done()+' / '+cases.length,'Integrity: '+num(state.integrity)+' · Reasoning: '+num(state.reasoning)+' · Reputation: '+num(state.reputation),
  '','CASE RESULTS',...state.history.map(h=>h.id+' '+h.title+' · '+h.role+' · '+h.decision+' · '+h.comment+' · '+h.appeal),
  '','CURRENT CASE',state.finished?'All cases concluded':c().id+' '+c().title,
@@ -247,7 +247,7 @@ function finalHtml(){
 }
 function render(){
  const cs=c(),progress=Math.min(state.index+1,cases.length);
- let html='<div class="maincol"><section class="panel"><span class="overline">MERIDIAN COURTHOUSE · '+(state.finished?'COMPLETE':'FILE '+progress+' OF '+cases.length)+'</span><h2>'+(state.finished?'Career completed':W.escape(cs.title))+'</h2><p class="subline">'+(state.finished?'Your cases are preserved in your legal dossier.':W.escape(cs.story))+'</p><div class="timeline">'+['intake','investigate','pretrial','hearing','result','closed'].map(p=>'<span class="'+(state.phase===p&&!state.finished?'current':'')+'">'+p.toUpperCase()+'</span>').join('')+'</div>'+(!state.finished?window.WorldFX.sceneCourt(state.phase,cs.title):'')+'</section>';
+ let html='<div class="maincol"><section class="panel"><span class="overline">THE COURTHOUSE · '+(state.finished?'COMPLETE':'FILE '+progress+' OF '+cases.length)+'</span><h2>'+(state.finished?'Career completed':W.escape(cs.title))+'</h2><p class="subline">'+(state.finished?'Your cases are preserved in your legal dossier.':W.escape(cs.story))+'</p><div class="timeline">'+['intake','investigate','pretrial','hearing','result','closed'].map(p=>'<span class="'+(state.phase===p&&!state.finished?'current':'')+'">'+p.toUpperCase()+'</span>').join('')+'</div>'+(!state.finished?window.WorldFX.sceneCourt(state.phase,cs.title):'')+'</section>';
  if(state.finished)html+=finalHtml();
  else if(state.phase==='intake')html+=roleHtml();
  else if(state.phase==='investigate')html+=evidenceHtml();
@@ -259,7 +259,7 @@ function render(){
  html+='<aside class="sidecol"><section class="panel"><h2>Achievements</h2>'+medalsHtml()+'</section><section class="panel"><h2>Your legal profile</h2><div class="statgrid">'+W.stat('Integrity',num(state.integrity))+W.stat('Reasoning',num(state.reasoning))+W.stat('Reputation',num(state.reputation))+'</div><p class="note">Different roles have different duties. Professional judgment is about truth, process and fairness—not a conviction or win rate.</p></section>';
  html+='<section class="panel"><h2>Case docket</h2><div class="case-grid">'+cases.map((x,i)=>'<div class="casecard '+(i===state.index&&!state.finished?'active':'')+'"><em>'+W.escape(x.id)+'</em><strong style="display:block;margin-top:4px">'+W.escape(x.title)+'</strong><small>'+(i<state.index?'✓ CLOSED':i===state.index&&!state.finished?'● ACTIVE':'○ LOCKED')+'</small></div>').join('')+'</div></section>';
  html+='<section class="panel"><h2>Legal dossier</h2><div class="button-row"><button class="button-quiet" data-report>📋 '+(state.report?'Hide':'Open')+' Legal Reality Report</button><button class="button-quiet" data-download>↓ Export report</button><button class="button-quiet" data-reset>↺ Reset career</button></div></section>';
- html+='<section class="panel"><h2>Your case record</h2>'+W.journal(state.journal)+'</section><section class="panel"><h2>Elsewhere in Meridian</h2>'+W.cross('The Docket')+'</section></aside>';
+ html+='<section class="panel"><h2>Your case record</h2>'+W.journal(state.journal)+'</section></aside>';
  if(state.report)html+='<section class="panel" style="grid-column:1/-1"><span class="overline">PERSONALIZED COURTROOM SUMMARY</span><h2>Legal Reality Report</h2><pre style="white-space:pre-wrap;font:12px/1.7 inherit;overflow-wrap:anywhere">'+W.escape(report())+'</pre></section>';
  app.innerHTML=html;
 }
