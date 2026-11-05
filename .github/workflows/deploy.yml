@@ -80,6 +80,9 @@ jobs:
       - name: Build the entire website
         run: bun run build
 
+      - name: Generate two complete fictional 101-answer Unwrapped reports from the actual browser engine
+        run: node scripts/generate-unwrapped-demo-reports.mjs
+
       - name: Validate After Dark scripts and all published pages
         run: node scripts/check-public-pages.mjs
 
