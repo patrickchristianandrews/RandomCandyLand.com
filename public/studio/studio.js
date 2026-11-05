@@ -22,8 +22,8 @@ let instantEndpoint='';
 try{const u=new URL(instantRaw);if(u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash)instantEndpoint=u.href.replace(/\/$/,'');}catch{}
 let instantReady=false,instantCheckPromise=null;
 const chatModeKey='random-ai-transport-v1';
-let chatMode='instant';
-try{if(localStorage.getItem(chatModeKey)==='local')chatMode='local'}catch{}
+let chatMode=instantEndpoint?'instant':'local';
+try{const choice=localStorage.getItem(chatModeKey);if(choice==='instant'||choice==='local')chatMode=choice}catch{}
 
 const CATEGORY_INFO=window.RandomAIDeepWorkflows?.categories||[];
 const CATEGORIES=['All',...CATEGORY_INFO.map(c=>c.name)];
@@ -185,7 +185,7 @@ function newChat(shouldNavigate=false){currentId=uuid();conversations.unshift({i
 if(conversations.length)currentId=conversations[0].id;else newChat(false);
 function renderChat(){
  const data=currentConversation();const area=$('#chatMessages');
- if(!data||!data.messages.length){area.innerHTML='<div class="welcome-chat"><div class="welcome-symbol">✳</div><h2>What can we make together?</h2><p>Ask a question, draft a message, plan a project, rewrite text or build something new.</p><div class="chat-suggestions"><button data-suggest="Help me plan a creative weekend project">Plan a project</button><button data-suggest="Give me ten original business name ideas for a small creative brand">Name a business</button><button data-suggest="Rewrite this message so it is friendly and professional: ">Rewrite a message</button></div></div>';return;}
+ if(!data||!data.messages.length){area.innerHTML='<div class="welcome-chat"><div class="welcome-symbol">✳</div><h2>What can I help with?</h2><p>Just describe it in everyday language. Choose an example below or type your own request.</p><div class="chat-suggestions"><button type="button" data-suggest="Explain this topic to me simply: ">💡 Explain something</button><button type="button" data-suggest="Help me write a friendly, professional email about: ">✉️ Write an email</button><button type="button" data-suggest="Help me create a simple plan to: ">🗓️ Make a plan</button><button type="button" data-suggest="Give me step-by-step help with: ">🛠️ Solve a problem</button></div></div>';return;}
  area.innerHTML=data.messages.map((m,i)=>bubbleHTML(m,i)).join('');area.scrollTop=area.scrollHeight;
 }
 function bubbleHTML(m,i){return '<article class="bubble '+(m.role==='user'?'user':'assistant')+'" data-message="'+i+'"><div class="bubble-name">'+(m.role==='user'?'You':'Random AI')+'</div><div class="bubble-body">'+esc(m.content)+'</div><div class="bubble-actions"><button data-copy-message="'+i+'" aria-label="Copy message '+(i+1)+'">Copy</button></div></article>'}
@@ -202,8 +202,8 @@ $('#chatFile').addEventListener('change',async e=>{const file=e.target.files?.[0
 async function sendMessage(){
  if(isGenerating)return;
  const raw=$('#chatInput').value.trim();if(!raw&&!attached)return;
- if(chatMode==='instant'&&!instantReady){navigate('settings');notice('Instant AI is not connected yet. Your prompt is still in Chat. Set up the Cloudflare Worker or choose Local AI.');return;}
- if(chatMode==='local'&&!engine){navigate('settings');notice('Download and load a local model first. Your prompt is still in Chat.');return;}
+ if(chatMode==='instant'&&!instantReady){updateChatBeginnerUI();$('#chatSetupHelp').scrollIntoView({block:'nearest',behavior:'smooth'});notice('Online chat is not connected. Choose Private on my device or manage models. Your message is safe in the box.');return;}
+ if(chatMode==='local'&&!engine){updateChatBeginnerUI();$('#chatSetupHelp').scrollIntoView({block:'nearest',behavior:'smooth'});notice('Your private model needs to be loaded first. Your message will stay in the box.');return;}
  const c=currentConversation();if(!c)return;
  const full=raw+(attached?'\n\n[Attached text: '+attached.name+']\n'+attached.text:'');
  c.messages.push({role:'user',content:full});if(c.messages.length===1)c.title=raw.slice(0,64)||attached.name;
@@ -300,7 +300,34 @@ function updateChatMode(){
   setStatus(engine?'Local model ready':'Model not loaded',!!engine);
  }
  updateComposerModelIdentity();
+ updateChatBeginnerUI();
 }
+function updateChatBeginnerUI(){
+ const ready=chatMode==='instant'?instantReady:Boolean(engine),help=$('#chatSetupHelp');
+ $('.chat-beginner-modes [data-chat-simple-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.chatSimpleMode===chatMode)));
+ const saved=window.RandomAIModelMemory?.savedIds?.()||[];
+ const status=$('#chatSimpleStatus');
+ if(chatMode==='instant'){
+  status.textContent=instantReady?'✓ Online chat ready · your messages are processed by the hosted service':'Online chat is not connected yet';
+  $('#chatSetupTitle').textContent='Online chat is not available right now';
+  $('#chatSetupText').textContent='You can switch to Private on my device above. That option needs one local model download or a previously saved model. Online chat requires a working hosted service.';
+  $('#chatSetupAction').textContent='Set up private chat →';
+ }else{
+  status.textContent=engine?'✓ Private AI ready on your device':saved.length?'◉ '+saved.length+' saved model'+(saved.length===1?'':'s')+' · load one to chat':'Private AI · choose a model to get started';
+  $('#chatSetupTitle').textContent=saved.length?'Your saved model is available':'Get started in one step';
+  $('#chatSetupText').textContent=saved.length?'You already downloaded a model. Open Models & setup and tap Load saved. Then return to chat.':'Choose a free local model in Models & setup. Your browser downloads it to this device once; later visits can reuse it while it remains cached.';
+  $('#chatSetupAction').textContent=saved.length?'Load a saved model →':'Choose a free model →';
+ }
+ help.hidden=ready;
+}
+$('.chat-beginner-modes [data-chat-simple-mode]').forEach(btn=>btn.addEventListener('click',()=>{
+ $('#chatTransport').value=btn.dataset.chatSimpleMode;$('#chatTransport').dispatchEvent(new Event('change',{bubbles:true}));
+}));
+$('#chatSetupAction').addEventListener('click',()=>{chatMode='local';try{localStorage.setItem(chatModeKey,chatMode)}catch{}updateChatMode();navigate('settings');});
+$('#chatModelOptions').addEventListener('click',()=>{
+ const d=$('#chatAdvanced');d.open=!d.open;$('#chatModelOptions').setAttribute('aria-expanded',String(d.open));if(d.open)d.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+$('#chatAdvanced').addEventListener('toggle',()=>$('#chatModelOptions').setAttribute('aria-expanded',String($('#chatAdvanced').open)));
 async function checkInstant(){
  if(!instantEndpoint){
   instantReady=false;
@@ -334,12 +361,12 @@ function updateComposerModelIdentity(){
   const id=engine&&loadedModel?loadedModel:'';
   const name=id?(window.RandomAILocal?.getName?.(id)||id):'No local model loaded';
   model.textContent='🔒 '+name;
-  detail.textContent=(id?'Active on this device':'Choose and load a local model')+' · '+workflow+' · '+depth;
+  detail.textContent=(id?'Ready to chat privately':'Load a local model to begin')+($('#chatAdvanced').open?' · '+workflow+' · '+depth:'');
   root.dataset.ready=String(Boolean(id));
  }else{
   const label=$('#instantModel')?.selectedOptions?.[0]?.textContent?.trim()||'Instant AI';
-  model.textContent='⚡ '+(instantReady?label:'Instant AI · disconnected');
-  detail.textContent=(instantReady?'Hosted model selected':'Hosted service unavailable')+' · '+workflow+' · '+depth;
+  model.textContent='⚡ '+(instantReady?label:'Online chat · unavailable');
+  detail.textContent=(instantReady?'Ready · processed by the hosted service':'Online service needs connection')+($('#chatAdvanced').open?' · '+workflow+' · '+depth:'');
   root.dataset.ready=String(instantReady);
  }
 }
