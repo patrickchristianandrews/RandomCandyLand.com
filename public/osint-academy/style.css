@@ -436,6 +436,47 @@
  .trace-profile-foot{gap:6px}
  .trace-profile-foot>button{min-width:0;flex:1}
 }
+
+/* One-clue live public research: restrained on mobile, accessible, without extra screens. */
+.trace-profile-quick{
+ display:grid;grid-template-columns:minmax(135px,.65fr) minmax(180px,1.5fr) auto;
+ align-items:end;gap:10px;padding:15px;margin-bottom:10px;
+ background:linear-gradient(125deg,#174851,#10343f);border:1px solid #82d1b2;
+ border-radius:16px;
+}
+.trace-profile-quick label{display:grid;gap:7px;min-width:0;font-size:12px;font-weight:850;color:#dcfff1}
+.trace-profile-quick input,.trace-profile-quick select{
+ width:100%;min-width:0;min-height:45px;padding:9px 11px;border:1px solid #87bdb3;
+ border-radius:9px;background:#082832;color:#f4fff8;font:500 13px/1.4 system-ui,sans-serif;
+}
+.trace-profile-quick .cta{min-height:45px;padding:9px 15px;white-space:normal}
+.trace-profile-research-permission{display:flex;align-items:flex-start;gap:9px;padding:11px 4px;font:500 11px/1.55 system-ui,sans-serif;color:#d7e9e6;cursor:pointer}
+.trace-profile-research-permission input{width:18px;height:18px;flex:none;margin:1px 0 0;accent-color:#aff8d8}
+.trace-profile-research-status{font:650 12px/1.5 system-ui,sans-serif;color:#c9f6e7;margin:4px 0 14px;min-height:19px}
+.trace-profile-research-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:5px 0 14px}
+.trace-profile-found-card{display:grid;align-content:start;gap:9px;padding:15px;min-width:0;border-radius:13px;border:1px solid #75afa3;background:#0e3039}
+.trace-profile-found-heading{display:grid;gap:5px}
+.trace-profile-found-heading small{font:800 10px/1.4 system-ui,sans-serif;color:#9affdc;letter-spacing:.025em}
+.trace-profile-found-heading strong{font:850 15px/1.4 system-ui,sans-serif;color:#e8fff6;overflow-wrap:anywhere}
+.trace-profile-found-card p{font:500 11px/1.55 system-ui,sans-serif;color:#cee3dd;margin:0;overflow-wrap:anywhere}
+.trace-profile-found-card .trace-profile-found-caution{color:#f9ddb3;border-left:3px solid #cbaa83;padding-left:9px}
+.trace-profile-found-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:3px;align-items:center}
+.trace-profile-found-actions>a,.trace-profile-found-actions>button{display:inline-flex;align-items:center;justify-content:center;min-height:35px;padding:7px 11px;border:1px solid #91dac3;border-radius:9px;background:#1f4e51;color:#f4fff8;text-decoration:none;font:750 11px/1.3 system-ui,sans-serif;cursor:pointer}
+.trace-profile-optional{border:1px solid #51867f;border-radius:12px;background:#0c3039;margin:9px 0 14px}
+.trace-profile-optional summary{cursor:pointer;padding:12px 14px;color:#caffeb;font:850 12px/1.45 system-ui,sans-serif}
+.trace-profile-optional[open] summary{border-bottom:1px solid #51867f}
+.trace-profile-optional .trace-profile-fields{margin:12px;max-width:calc(100% - 24px)}
+@media(max-width:900px){
+ .trace-profile-quick{grid-template-columns:1fr 1.4fr}
+ .trace-profile-quick .cta{grid-column:1/-1}
+}
+@media(max-width:590px){
+ .trace-profile-quick{grid-template-columns:1fr;padding:12px}
+ .trace-profile-quick .cta{grid-column:1}
+ .trace-profile-research-results{grid-template-columns:1fr}
+ .trace-profile-found-card{padding:12px}
+}
+
 @media print{
  body *{visibility:hidden!important}
  #view-identity,#identity-profile-pane,#trace-profile-review,#profile-report,#profile-report *{visibility:visible!important}
