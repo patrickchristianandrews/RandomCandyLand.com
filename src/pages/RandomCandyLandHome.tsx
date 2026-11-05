@@ -203,8 +203,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                               <span className="candyland-unwrapped-feature-eyebrow">✦ A DIFFERENT KIND OF SELF-DISCOVERY · 18+</span>
                               <span className="candyland-hero-tool-name">{portal.title}</span>
                               <span className="candyland-unwrapped-feature-body">
-                                <span className="candyland-unwrapped-feature-headline">A personalized look at the whole person.</span>
-                                <span className="candyland-unwrapped-feature-description">Two complementary quizzes explore the psychology behind your interests, feelings and relationships—bringing everything together in thoughtful personal insights and partner-friendly reports.</span>
+                                <span className="candyland-unwrapped-feature-headline">Explore your intimate side. Understand the whole person.</span>
+                                <span className="candyland-unwrapped-feature-description">Explore your bedroom interests alongside the psychology of your emotions, personality, communication and relationships. Two complementary quizzes bring these sides together into meaningful, logically organized insights and partner-friendly reports that help others understand you without judgment.</span>
                                 <span className="candyland-unwrapped-feature-output-title">EXPLORE EVERY LAYER · TAKE HOME REAL INSIGHTS</span>
                                 <span className="candyland-unwrapped-feature-outputs" aria-label="Unwrapped topics and takeaways">
                                   <span>🧠 Psychology &amp; emotions</span>
