@@ -4,7 +4,7 @@ import vm from 'node:vm';
 const required = [
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
-  ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
+  ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn', 'id="toys"', 'id="toy-grid"', 'toy-library.js?v=']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
   ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Wikidata','Mozilla Monitor','WhatsMyName','Codeberg','GitLab']],
@@ -126,6 +126,20 @@ if(!homeInstallSource.includes("title:'Unwrapped'")||
   console.error('Unwrapped homepage, tagline or installable app branding is missing.');failures++;
 }
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
+for(const file of ['dist/after-dark/toy-library.js','dist/after-dark/toy-library.css']){
+ if(!fs.existsSync(file)){console.error('Missing Unwrapped toy guide asset:',file);failures++;}
+}
+if(fs.existsSync('dist/after-dark/toy-library.js')){
+ const code=fs.readFileSync('dist/after-dark/toy-library.js','utf8');
+ try{new vm.Script(code,{filename:'Unwrapped toy library'});}catch(error){console.error('Invalid toy library JavaScript:',error.message);failures++;}
+ for(const marker of ['UnwrappedToyLibrary','recommendations(data)','Fantasy-only / read about it','TOYS=[']){
+  if(!code.includes(marker)){console.error('Unwrapped toy library is missing:',marker);failures++;}
+ }
+}
+for(const [file,marker] of [['dist/after-dark/quiz-report.js','Sex toy guide · Ideas that fit my selected interests'],['dist/after-dark/partner-pdf.js',"selected.has('toys')"]]){
+ if(!fs.existsSync(file)){console.error('Missing sex-toy report integration:',file);failures++;}
+ else if(!fs.readFileSync(file,'utf8').includes(marker)){console.error('Unwrapped toy report integration missing:',marker);failures++;}
+}
 if(!afterDarkLanding.includes('<h1>There\'s more to you.') ||
    !afterDarkLanding.includes('Appreciate the whole person.') ||
    !afterDarkLanding.includes('UNWRAPPED') ||
