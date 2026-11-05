@@ -317,8 +317,8 @@ exact(pathlib.Path("firmware/src/ui_input.c"),
 }
 static void page_tap(uint32_t b)''')
 exact(pathlib.Path("firmware/src/ui_input.c"),
-      '    } else if (save == BT_TAP && !ui.confirm)\\n        open_family(FAM_SAVE);',
-      '    } else if (save == BT_TAP && !ui.confirm)\\n        pastel_factory_save_tap();')
+      '    } else if (save == BT_TAP && !ui.confirm)\n        open_family(FAM_SAVE);',
+      '    } else if (save == BT_TAP && !ui.confirm)\n        pastel_factory_save_tap();')
 # One simple turn of KNOB 1 flips from the factory-only browser to ALL.
 # Turning it left from ALL returns to FM1 FACTORY; remaining categories keep
 # their original order and numeric IDs.
