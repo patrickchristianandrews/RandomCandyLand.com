@@ -624,7 +624,7 @@ const homepageStyle=fs.readFileSync('src/index.css','utf8');
 if(!/^const COLLECTIONS = \[\s*\{id:'discovery'/.test(categoryBlock) ||
    !homeInstallSource.includes('candyland-unwrapped-feature-card') ||
    !homeInstallSource.includes('candyland-unwrapped-feature-description') ||
-   !homeInstallSource.includes('A personalized look at the whole person.') ||
+   !homeInstallSource.includes('Explore your intimate side. Understand the whole person.') ||
    !homeInstallSource.includes('partner-friendly reports') ||
    !homeInstallSource.includes("href:'/after-dark/'") ||
    !homeInstallSource.includes('/tool-icons/unwrapped.svg') ||
