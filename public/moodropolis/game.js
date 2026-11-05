@@ -87,7 +87,7 @@ const events=[
   {name:'Open public cooling centers · -28',money:-28,trust:7,mood:8,stress:-10,why:'Protect residents immediately and build trust.'},
   {name:'Offer voluntary heat guidance · -4',money:-4,trust:-3,mood:-3,stress:4,why:'Cheap advice reaches fewer people without safe places to go.'}
  ]},
- {title:'The Meridian arts weekend',desc:'Performers want to fill the streets. Others worry about noise and rest.',opts:[
+ {title:'The neighborhood arts weekend',desc:'Performers want to fill the streets. Others worry about noise and rest.',opts:[
   {name:'Accessible stages and quiet hours · -20',money:-20,trust:6,mood:8,stress:-2,why:'Respect many sensory needs while preserving culture.'},
   {name:'Unrestricted all-night events · +14',money:14,trust:-6,mood:5,stress:10,why:'Collect fees, but residents needing rest feel ignored.'}
  ]},
@@ -117,7 +117,7 @@ function change(delta,d,mult){
 }
 function log(t){game.journal.push({when:'DAY '+game.day,text:t});game.journal=game.journal.slice(-80)}
 function report(){return [
- 'MOODROPOLIS / CITY INTELLIGENCE REPORT','Fictional city of Meridian · Day '+game.day,
+ 'MOODROPOLIS / CITY INTELLIGENCE REPORT','Fictional city of Moodropolis · Day '+game.day,
  'Condition: '+rank(),'Average mood: '+avg('mood')+'/100; stress: '+avg('stress')+'/100',
  'Trust: '+num(game.trust)+'/100; Environment: '+num(game.environment)+'/100',
  'Treasury: '+num(game.treasury)+' credits; Prosperity: '+num(game.prosperity)+'/100','',
@@ -142,7 +142,7 @@ function newDay(){
  game.districts.forEach((d,i)=>{d.mood+=(game.environment-50)*.012-(d.stress-40)*.015;d.stress+=1.7+(game.prosperity<35?1.2:0);d.trust+=(game.trust-d.trust)*.015;if(game.day%4===0&&i===Math.floor(game.day/4)%9)d.mood-=4});
  if(game.day%3===0){game.event=events[(game.day/3-1)%events.length].title;log('Citywide event: '+game.event)}
  else log('Daily revenue: '+revenue+' credits. Maintenance: 10. Conditions continue to evolve.');
- if(game.day%5===0)W.chronicle('Moodropolis','On day '+game.day+', Meridian is '+rank().toLowerCase()+' with a mood score of '+avg('mood')+'.');
+ if(game.day%5===0)W.chronicle('Moodropolis','On day '+game.day+', the city is '+rank().toLowerCase()+' with a mood score of '+avg('mood')+'.');
  save();render()
 }
 function eventChoice(i){
@@ -161,14 +161,14 @@ function render(){
  const choices=ev?'<div class="scene"><span class="overline">CITYWIDE EVENT · DECISION REQUIRED</span><h3>'+W.escape(ev.title)+'</h3><p>'+W.escape(ev.desc)+'</p><div class="choices">'+ev.opts.map((c,i)=>'<button class="option" data-event="'+i+'" '+(c.money<0&&game.treasury<-c.money?'disabled':'')+'><b>'+W.escape(c.name)+'</b><small>'+W.escape(c.why)+'</small></button>').join('')+'</div></div>':'<div class="action-grid">'+actions.map(a=>'<button class="choice" data-act="'+a.id+'" '+(game.actions<1||a.cost>game.treasury?'disabled':'')+'><span><b>'+a.icon+' '+W.escape(a.name)+'</b><small>'+(a.cost>=0?'Spend '+a.cost:'Gain '+-a.cost)+' credits · '+W.escape(a.why)+'</small></span></button>').join('')+'</div>';
  let html='<div class="maincol">';
  html+='<section class="panel"><span class="overline">CITY PULSE · DAY '+game.day+'</span><h2>'+rank()+'</h2><p class="subline">Nine connected neighborhoods. Choose one on the map and decide how to help. Policies spill into adjoining blocks.</p><div class="statgrid">'+W.stat('Average mood',avg('mood'))+W.stat('City stress',avg('stress'))+W.stat('Public trust',num(game.trust))+'</div></section>';
- html+='<section class="panel"><span class="overline">INTERACTIVE DISTRICT MAP</span><h2>Meridian, alive</h2><p class="subline">Tap a district. Watch its expression change as the city grows.</p>'+map+'</section>';
+ html+='<section class="panel"><span class="overline">INTERACTIVE DISTRICT MAP</span><h2>Your city, alive</h2><p class="subline">Tap a district. Watch its expression change as the city grows.</p>'+map+'</section>';
  html+='<section class="panel"><span class="overline">NEIGHBORHOOD STORIES</span><h2>'+W.escape(n[0])+'</h2><p class="subline">'+W.escape(n[2])+' · Every citizen has different priorities.</p><div class="callout"><strong>'+n[4]+' '+W.escape(n[3])+'</strong> · '+W.escape(n[5])+'<p>'+W.escape(story(game.selected))+'</p></div><div class="statgrid" style="margin-top:13px">'+W.stat('Mood',num(d.mood))+W.stat('Stress',num(d.stress))+W.stat('Local trust',num(d.trust))+'</div></section>';
  html+='<section class="panel"><span class="overline">CITY HALL · '+game.actions+' ACTIONS LEFT</span><h2>Help '+W.escape(n[0])+'</h2><p class="subline">Balance care, money, opportunity, environment and trust.</p>'+choices+'<div class="button-row" style="margin-top:14px"><button class="button" data-next '+(ev?'disabled':'')+'>☀️ Start day '+(game.day+1)+' →</button><span class="pill">💰 '+num(game.treasury)+' city credits</span></div></section>';
  html+='<section class="panel"><h2>The citizens have a voice</h2>'+residentChallenge()+'</section>';
  html+='<section class="panel"><h2>Citizen voices</h2><p class="subline">Happy averages never tell the whole story.</p><div class="citizens">'+names.slice(0,6).map((person,i)=>'<div class="citizen"><span class="avatar">'+person[4]+'</span><div><strong>'+W.escape(person[3])+' · '+W.escape(person[0])+'</strong><p>'+W.escape(story(i))+'</p></div></div>').join('')+'</div></section></div>';
  html+='<aside class="sidecol"><section class="panel"><h2>City achievements</h2><p class="note">Earn milestones by caring for people and keeping the city healthy.</p>'+badges()+'</section><section class="panel"><h2>City resources</h2><div class="statgrid">'+W.stat('Prosperity',num(game.prosperity))+W.stat('Ecology',num(game.environment))+W.stat('Treasury',num(game.treasury),'',250)+'</div><p class="note">Daily taxes arrive, maintenance costs 10 credits and stress builds without intervention.</p></section>';
  html+='<section class="panel"><h2>City planner</h2><p class="note">Build a happy, fair city without abandoning its smallest neighborhoods. Your city saves automatically on this device.</p><div class="button-row"><button class="button-quiet" data-report>📋 '+(game.report?'Hide':'Open')+' city report</button><button class="button-quiet" data-download>↓ Export report</button><button class="button-quiet" data-reset>↺ Start over</button></div></section>';
- html+='<section class="panel"><h2>Decision journal</h2>'+W.journal(game.journal)+'</section><section class="panel"><h2>Elsewhere in Meridian</h2>'+W.cross('Moodropolis')+'</section></aside>';
+ html+='<section class="panel"><h2>Decision journal</h2>'+W.journal(game.journal)+'</section></aside>';
  if(game.report)html+='<section class="panel" style="grid-column:1/-1"><span class="overline">CITY INTELLIGENCE</span><h2>Your city report</h2><pre style="white-space:pre-wrap;font:12px/1.7 inherit;overflow-wrap:anywhere">'+W.escape(report())+'</pre></section>';
  app.innerHTML=html;
 }
