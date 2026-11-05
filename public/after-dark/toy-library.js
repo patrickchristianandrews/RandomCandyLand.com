@@ -363,7 +363,7 @@ function init(){
  root.querySelector('#toy-refresh-matches').addEventListener('click',renderMatches);
  render();renderMatches();
 }
-// Use the same guide for Ask Atlas answers, the standalone explorer, and report exports.
+// Use the same guide for Mira answers, the standalone explorer, and report exports.
 function answer(question){
  const raw=normalize(question);
  if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|harness|pegging toy|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw))return '';
