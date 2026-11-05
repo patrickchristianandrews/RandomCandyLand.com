@@ -219,7 +219,7 @@ function build(){
  cover.append(coverStats);
  const roadmap=el('div',undefined,'report-roadmap');
  add(roadmap,'strong','INSIDE YOUR REPORT');
- add(roadmap,'p','Your answers at a glance · Psychological themes · How both quizzes connect · Interest-by-interest profiles · Things you might consider or like · Conversation guides · Original selections');
+ add(roadmap,'p','Your answers at a glance · Psychological themes · How both quizzes connect · Interest-by-interest profiles · Optional sex toy guide suggestions · Conversation guides · Original selections');
  cover.append(roadmap);
  doc.append(cover);
  const overview=section(doc,'01 · Your results at a glance');
@@ -347,6 +347,40 @@ if(unconfirmed.length)list(declared,unconfirmed.map(x=>x.name+' - unconfirmed th
 const fantasized=(data.direct.specificSelections||[]).filter(x=>x.intent==='fantasy');
 if(fantasized.length){add(declared,'h3','Fantasy-only selections');list(declared,fantasized.map(x=>'Q'+x.questionNumber+': '+x.text));}
 add(declared,'p','Explicit “Not for me” choices override broad associations. When the quizzes emphasize different themes, those differences are preserved as reflections rather than falsely reconciled.','report-boundaries');
+// Optional sex-toy reading suggestions are evidence-linked, not a new questionnaire.
+const toyGuide=window.UnwrappedToyLibrary;
+const toys=section(doc,'Sex toy guide · Ideas that fit my selected interests',
+ 'This section uses only my explicitly selected preferences or interests—not psychology themes alone. It is a reading shortlist, not a prediction or product endorsement.');
+if(!toyGuide?.recommend){add(toys,'p','The optional toy guide was unavailable while this report was generated.','report-muted');}
+else {
+ const suggestedToys=toyGuide.recommend(data);
+ if(!suggestedToys.length){
+  add(toys,'p','My direct answers do not support a specific toy suggestion yet. I can browse the library without taking a quiz, and I do not have to be interested in toys at all.','report-muted');
+ } else {
+  add(toys,'p','These are category-level educational ideas, not specific brands. I can decide whether each idea interests me, is only fantasy, or is not for me.');
+  for(const item of suggestedToys){
+   const card=el('article',undefined,'toy-report-rec');
+   add(card,'p',item.mode,'toy-report-label');
+   add(card,'h3',item.name);
+   add(card,'p',item.why);
+   if(item.evidence?.length)add(card,'p','Relevant selections: '+item.evidence.slice(0,2).join(' · '),'report-note');
+   add(card,'p','Ways to learn about it:');
+   list(card,item.uses.slice(0,3));
+   add(card,'p','Safety: '+item.safety,'report-muted');
+   const link=el('a','Open the full sex toy guide and additional uses →');
+   link.href='/after-dark/#toys';card.append(link);toys.append(card);
+  }
+ }
+ const sources=toyGuide.sources||[];
+ if(sources.length){
+  add(toys,'p','Sexual-health references (general safer-use guidance):','report-muted');
+  for(const source of sources){
+   const link=el('a',source.label+' ↗');link.href=source.url;link.rel='noopener noreferrer';link.target='_blank';
+   const wrap=el('p',undefined,'report-muted');wrap.append(link);toys.append(wrap);
+  }
+ }
+}
+add(toys,'p','No physical activity is implied by a selected fantasy, curiosity or quiz score. A partner must choose independently, and any use should follow product instructions, hygiene and individual comfort.','report-boundaries');
 const communicate=section(doc,'06 · Making sense of this with a partner','A practical sequence for a low-pressure discussion. It applies to every interest in this report.');
  const steps=[
   ['Choose one interest, not a list of demands','Pick a specific name from the profiles above. Identify what you like about the idea, what you are unsure about, and whether it is fantasy-only.'],
