@@ -459,7 +459,7 @@ for(const token of ['makeBoard','startRound','endRound','shareChallenge','data-m
   if(!gooPage.includes(token)){console.error('Goo Rush missing gameplay:',token);failures++;}
 }
 // Keep the news game, but never reintroduce dripping liquid overlays.
-for(const token of ['nonsense-lab','NEXT STORY','THE CANDY LAND GAZETTE','random-candy-land-nonsense-complete-cycle-v1']){
+for(const token of ['nonsense-lab','NEXT STORY','THE ABSURDITY REPORT','random-candy-land-nonsense-complete-cycle-v1']){
   if(!homeBundle.includes(token)){ console.error('Missing news generator:',token);failures++; }
 }
 const nonsenseSource=fs.readFileSync('src/components/RandomNonsenseGenerator.tsx','utf8');
@@ -618,42 +618,22 @@ if(homeInstallSource.includes('candyland-grouped-collections') ||
    !homeInstallSource.includes('<details className="candyland-install-apps"')){
   console.error('Homepage must show the game shelves and install options without Meridian Universe promotion.'); failures++;
 }
-if(!homeInstallSource.includes('candyland-unwrapped-feature-card') ||
-   !homeInstallSource.includes('Personal insights report') ||
-   !homeInstallSource.includes('New-partner introduction report') ||
-   !homeInstallSource.includes('candyland-unwrapped-feature-outputs') ||
-   !homeInstallSource.includes("href:'/after-dark/'")){
-  console.error('Unwrapped must remain prominent with the report benefits in the first Explore & Understand shelf.');failures++;
-}
-// First section is a full Unwrapped introduction, not a tiny one-card shelf.
+// Keep Unwrapped concise: one branded card with explanation, no oversized report grid.
 const categoryBlock=homeInstallSource.slice(homeInstallSource.indexOf('const COLLECTIONS = ['),homeInstallSource.indexOf('] as const;',homeInstallSource.indexOf('const COLLECTIONS = [')));
-if(!categoryBlock.trimStart().startsWith("const COLLECTIONS = [\n  {id:'discovery'") ||
-   !homeInstallSource.includes('candyland-unwrapped-feature-body') ||
-   !homeInstallSource.includes('candyland-unwrapped-feature-outputs') ||
-   !homeInstallSource.includes('Personal insights report') ||
-   !homeInstallSource.includes('New-partner introduction report') ||
-   !homeInstallSource.includes('Shareable, downloadable reports') ||
-   !homeInstallSource.includes('/tool-icons/unwrapped.svg')) {
-  console.error('Explore & Understand must lead the homepage with Unwrapped logo, personal/partner benefits and report outputs.');failures++;
-}
 const homepageStyle=fs.readFileSync('src/index.css','utf8');
-if(!homepageStyle.includes('candyland-play-shelf-discovery .candyland-hero-tool-link') ||
-   !homepageStyle.includes('candyland-unwrapped-feature-outputs') ||
+if(!/^const COLLECTIONS = \[\s*\{id:'discovery'/.test(categoryBlock) ||
+   !homeInstallSource.includes('candyland-unwrapped-feature-card') ||
+   !homeInstallSource.includes('candyland-unwrapped-feature-description') ||
+   !homeInstallSource.includes('A personalized look at the whole person.') ||
+   !homeInstallSource.includes('partner-friendly reports') ||
+   !homeInstallSource.includes("href:'/after-dark/'") ||
+   !homeInstallSource.includes('/tool-icons/unwrapped.svg') ||
+   !homeInstallSource.includes('candyland-unwrapped-feature-cta') ||
+   homeInstallSource.includes('candyland-unwrapped-feature-report-panel') ||
+   homeInstallSource.includes('candyland-unwrapped-feature-journey') ||
+   !homepageStyle.includes('candyland-unwrapped-feature-card') ||
    !homepageStyle.includes('candyland-unwrapped-feature-description')) {
-  console.error('Unwrapped first-shelf feature styling is missing.');failures++;
-}
-// Explore & Understand is the first experience section, not buried after the games.
-// Unwrapped uses its actual icon and explains the outputs rather than another generic tile.
-const shelvesSrc=homeInstallSource.slice(homeInstallSource.indexOf('const COLLECTIONS = ['),homeInstallSource.indexOf('] as const;',homeInstallSource.indexOf('const COLLECTIONS = [')));
-if(!/^const COLLECTIONS = \[\s*\{id:'discovery'/.test(shelvesSrc) ||
-   !homeInstallSource.includes("group.id === 'discovery' ? <img src=\"/tool-icons/unwrapped.svg\"") ||
-   !homeInstallSource.includes("data-count={games.length}") ||
-   !homeInstallSource.includes("candyland-unwrapped-feature-card") ||
-   !homeInstallSource.includes("candyland-unwrapped-feature-outputs") ||
-   !homeInstallSource.includes("Personal insights report") ||
-   !homeInstallSource.includes("New-partner introduction report") ||
-   !homeInstallSource.includes("Shareable, downloadable reports")){
- console.error('The first homepage shelf must introduce Unwrapped with its brand art, balanced context and clear reports.');failures++;
+  console.error('Explore & Understand must lead with the compact Unwrapped logo, useful explanation and one CTA.');failures++;
 }
 // The compact top bar has only the left-aligned Candy Land logo and the wide Random AI promotion.
 const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="candyland-navbar candyland-navbar-ai"'),homeInstallSource.indexOf('</header>')+9);
