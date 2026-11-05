@@ -171,6 +171,9 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
+      {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
+      <RandomNonsenseGenerator />
+
       <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
             {COLLECTIONS.map(group => {
               const games = PORTALS.filter(portal => portal.kind === group.id);
@@ -245,8 +248,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             })}
           </div>
 
-      {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
-      <RandomNonsenseGenerator />
 
       <details className="candyland-install-apps" id="install-apps" aria-label="Install individual Candy Land apps on Android or iPhone">
         <summary>📲 Install your favorites <span>Optional</span></summary>
