@@ -38,7 +38,7 @@ exact(pathlib.Path("firmware/src/main.c"), '"MELODEE", T_THEME', '"PASTEL", T_TH
 exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T_THEME')
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
-      '#define MELODEE_VERSION "Pastel v0.7"')
+      '#define MELODEE_VERSION "Pastel v0.8"')
 # Preserve upstream palette name-order coverage while explicitly expecting Pastel.
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
