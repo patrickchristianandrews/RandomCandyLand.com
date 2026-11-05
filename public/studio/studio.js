@@ -63,6 +63,75 @@ for(const tool of TOOLS){
  tool.depth='Everyday assistant';
 }
 TOOLS.push(...(window.RandomAIDeepWorkflows?.tools||[]));
+// My AI helpers are local prompt/stack shortcuts, never downloaded model weights.
+const helperKey='random-ai-helper-shortcuts-v1';
+const helperIds=new Set(TOOLS.map(t=>t.id));
+const savedHelpers={tools:[],stacks:[]};
+try{
+ const stored=JSON.parse(localStorage.getItem(helperKey)||'{}');
+ if(Array.isArray(stored.tools))savedHelpers.tools=[...new Set(stored.tools)].filter(x=>helperIds.has(x)).slice(0,40);
+ if(Array.isArray(stored.stacks))savedHelpers.stacks=[...new Set(stored.stacks)].filter(x=>typeof x==='string'&&x.length<48).slice(0,14);
+}catch{}
+function persistHelpers(){
+ try{localStorage.setItem(helperKey,JSON.stringify(savedHelpers));return true}catch{notice('Could not save helpers in this browser. Check private browsing or storage settings.');return false}
+}
+function knownStacks(){return window.RandomAIStacks?.presets||[]}
+function helperStack(id){return knownStacks().find(p=>p.id===id)}
+function toggleHelper(type,id){
+ if(!['tools','stacks'].includes(type))return;
+ if(type==='tools'&&!helperIds.has(id))return;
+ if(type==='stacks'&&!helperStack(id))return;
+ const list=savedHelpers[type],idx=list.indexOf(id);
+ if(idx>=0)list.splice(idx,1);else if(list.length<(type==='tools'?40:14))list.push(id);
+ persistHelpers();renderTools();renderMyAi();
+ notice(idx>=0?'Removed from My AI':'✓ Added to My AI — available next time you visit');
+}
+function useHelperStack(id){
+ if(!helperStack(id))return;
+ window.RandomAIStacks?.choose?.(id);
+ navigate('chat');
+ renderMyAi();
+ $('#chatInput')?.focus();
+ notice('✓ '+(helperStack(id)?.name||'AI stack')+' is active. Type your message normally.');
+}
+function renderMyAi(){
+ const toolRoot=$('#myAiSavedWorkflows'),stackRoot=$('#myAiSavedStacks'),chatRoot=$('#chatSavedHelpers');
+ if(!toolRoot||!stackRoot||!chatRoot)return;
+ savedHelpers.stacks=savedHelpers.stacks.filter(id=>!knownStacks().length||!!helperStack(id));
+ const savedTools=savedHelpers.tools.map(id=>TOOLS.find(t=>t.id===id)).filter(Boolean);
+ const savedStacks=savedHelpers.stacks.map(id=>helperStack(id)).filter(Boolean);
+ const current=window.RandomAIStacks?.current?.()?.id||'general';
+ $('#myAiCount').textContent=(savedTools.length+savedStacks.length)+' saved helpers';
+ toolRoot.innerHTML=savedTools.length?savedTools.map(t=>'<div class="my-ai-saved-item"><button type="button" data-fav-tool="'+esc(t.id)+'">'+esc(t.icon)+' '+esc(t.name)+'</button><button type="button" data-remove-tool="'+esc(t.id)+'" aria-label="Remove '+esc(t.name)+' from My AI">✕</button></div>').join(''):'<p class="my-ai-empty">None yet. Browse below and tap “Save” on anything useful.</p>';
+ stackRoot.innerHTML=savedStacks.length?savedStacks.map(p=>'<div class="my-ai-saved-item"><button type="button" data-fav-stack="'+esc(p.id)+'">'+esc(p.name)+(current===p.id?' · Active':'')+'</button><button type="button" data-remove-stack="'+esc(p.id)+'" aria-label="Remove '+esc(p.name)+' from My AI">✕</button></div>').join(''):'<p class="my-ai-empty">None yet. Open “Add an AI stack” below.</p>';
+ const shortcutItems=[
+  ...savedTools.map(t=>'<button type="button" data-fav-tool="'+esc(t.id)+'" title="Use saved workflow">'+esc(t.icon)+' '+esc(t.name)+'</button>'),
+  ...savedStacks.map(p=>'<button type="button" data-fav-stack="'+esc(p.id)+'" title="Use saved stack">'+(current===p.id?'✓ ':'◈ ')+esc(p.name)+'</button>')
+ ];
+ chatRoot.innerHTML=shortcutItems.length?shortcutItems.join(''):'<span>Not saved any yet? Choose a style below, or <button type="button" data-go="tools">browse the workflow library</button>.</span>';
+ const stackChoice=$('#chatStackChoices'),stackStore=$('#myAiStackCatalog'),presets=knownStacks();
+ if(stackChoice)stackChoice.innerHTML=presets.map(p=>
+  '<button type="button" data-use-stack="'+esc(p.id)+'" aria-pressed="'+String(current===p.id)+'"><strong>'+esc(p.label)+'</strong><small>'+esc(p.description)+'</small></button>'
+ ).join('');
+ if(stackStore)stackStore.innerHTML=presets.map(p=>
+  '<article class="my-ai-stack-card"><strong>'+esc(p.label)+'</strong><p>'+esc(p.description)+'</p><div><button type="button" class="primary" data-use-stack="'+esc(p.id)+'">Use now</button><button type="button" class="outline" data-save-stack="'+esc(p.id)+'">'+(savedHelpers.stacks.includes(p.id)?'✓ Saved':'＋ Save to My AI')+'</button></div></article>'
+ ).join('');
+ const active=helperStack(current);
+ if($('#chatStackCurrent'))$('#chatStackCurrent').textContent=active?active.name:'Everyday Assistant';
+ $('#toolsGrid [data-save-tool],#workflowPreview [data-save-tool]').forEach(btn=>{btn.textContent=savedHelpers.tools.includes(btn.dataset.saveTool)?'✓ Saved':'☆ Save';btn.setAttribute('aria-pressed',String(savedHelpers.tools.includes(btn.dataset.saveTool)))});
+}
+function onHelperAction(e){
+ const b=e.target.closest('button');if(!b)return;
+ if(b.hasAttribute('data-save-tool')){toggleHelper('tools',b.dataset.saveTool);return true}
+ if(b.hasAttribute('data-save-stack')){toggleHelper('stacks',b.dataset.saveStack);return true}
+ if(b.hasAttribute('data-remove-tool')){toggleHelper('tools',b.dataset.removeTool);return true}
+ if(b.hasAttribute('data-remove-stack')){toggleHelper('stacks',b.dataset.removeStack);return true}
+ if(b.hasAttribute('data-fav-tool')){activateTool(b.dataset.favTool);return true}
+ if(b.hasAttribute('data-fav-stack')){useHelperStack(b.dataset.favStack);return true}
+ if(b.hasAttribute('data-use-stack')){useHelperStack(b.dataset.useStack);return true}
+ return false;
+}
+
 const uniqueToolIds=new Set(TOOLS.map(t=>t.id));
 if(uniqueToolIds.size!==TOOLS.length)console.error('Random AI workflow IDs must be unique.');
 const SYSTEM='You are the Random AI creative assistant. Be accurate, practical, welcoming and clear. State uncertainties. Never claim to have looked up live information, run a tool, read an attachment, or generated an image unless the user has actually supplied it or the application really did so. Keep outputs useful and responsive to instructions.';
@@ -128,7 +197,7 @@ function renderTools(){
    '<span class="deep-tool-category">'+esc(t.group)+'</span><strong>'+esc(t.name)+'</strong><p>'+esc(t.description)+'</p>'+
    '<dl><div><dt>YOU PROVIDE</dt><dd>'+esc(t.inputs||'Your goal and source material')+'</dd></div>'+
    '<div><dt>YOU GET</dt><dd>'+esc(t.outputs||'An editable answer or draft')+'</dd></div></dl>'+
-   '<div class="deep-tool-actions"><button type="button" data-tool="'+esc(t.id)+'">✳ Use workflow</button><button type="button" data-preview="'+esc(t.id)+'" class="deep-tool-preview">Details</button></div></article>';
+   '<div class="deep-tool-actions"><button type="button" data-tool="'+esc(t.id)+'">✳ Use now</button><button type="button" data-save-tool="'+esc(t.id)+'" aria-pressed="'+String(savedHelpers.tools.includes(t.id))+'" class="deep-tool-save">'+(savedHelpers.tools.includes(t.id)?'✓ Saved':'☆ Save')+'</button><button type="button" data-preview="'+esc(t.id)+'" class="deep-tool-preview">Details</button></div></article>';
  }).join('');
  $('#toolsEmpty').hidden=found.length!==0;
  $('#libraryTotal').textContent=TOOLS.length+' workflows · '+CATEGORY_INFO.length+' areas';
@@ -149,7 +218,7 @@ function workflowDetails(id){
   '<section><h3>How the workflow approaches it</h3><p>'+esc(tool.method||'Start from your goals, use the information you supply, and iterate.')+'</p></section>'+
   '<section><h3>Accuracy and capability limits</h3><p>'+esc(tool.limits||'Check important claims and confirm that required services are available.')+'</p></section></div>'+
   '<p class="workflow-preview-note">This is a prompt workflow for the active text model. It cannot itself access live data, run code, produce photorealistic images or generate videos without an actual connected capability.</p>'+
-  '<button type="button" class="primary" data-tool="'+esc(tool.id)+'">Open '+esc(tool.name)+' in chat →</button>';
+  '<div class="workflow-preview-actions"><button type="button" class="primary" data-tool="'+esc(tool.id)+'">Use in chat →</button><button type="button" class="outline" data-save-tool="'+esc(tool.id)+'" aria-pressed="'+String(savedHelpers.tools.includes(tool.id))+'">'+(savedHelpers.tools.includes(tool.id)?'✓ Saved':'☆ Save to My AI')+'</button></div>';
  panel.scrollIntoView({behavior:'smooth',block:'start'});
 }
 renderWorkflowCategories();
@@ -159,10 +228,12 @@ $('#toolCategorySelect').addEventListener('change',e=>{selectWorkflowCategory(e.
 $('#toolSearch').addEventListener('input',()=>{toolVisibleLimit=24;renderTools()});
 $('#libraryShowMore').addEventListener('click',()=>{toolVisibleLimit+=24;renderTools()});
 $('#toolsGrid').addEventListener('click',e=>{
+ if(onHelperAction(e))return;
  const launch=e.target.closest('[data-tool]');if(launch){activateTool(launch.dataset.tool);return}
  const more=e.target.closest('[data-preview]');if(more)workflowDetails(more.dataset.preview);
 });
 $('#workflowPreview').addEventListener('click',e=>{
+ if(onHelperAction(e))return;
  const close=e.target.closest('[data-close-preview]');if(close){$('#workflowPreview').hidden=true;return}
  const launch=e.target.closest('[data-tool]');if(launch)activateTool(launch.dataset.tool);
 });
@@ -174,7 +245,11 @@ function activateTool(id){
  notice(tool.name+' opened. Add details to the prompt before sending.');
 }
 window.RandomAILibraryDebug=Object.freeze({count:TOOLS.length,categories:CATEGORY_INFO.length,specialists:window.RandomAIDeepWorkflows?.tools?.length||0,ids:()=>TOOLS.map(t=>t.id)});
-renderTools();
+renderTools();renderMyAi();
+for(const id of ['myAiSavedWorkflows','myAiSavedStacks','myAiStackCatalog','chatSavedHelpers','chatStackChoices'])$('#'+id)?.addEventListener('click',onHelperAction);
+window.addEventListener('load',renderMyAi);
+window.addEventListener('random-ai-stack-changed',renderMyAi);
+window.RandomAIHelpers=Object.freeze({saved:()=>({tools:savedHelpers.tools.slice(),stacks:savedHelpers.stacks.slice()}),saveWorkflow:id=>{if(helperIds.has(id)&&!savedHelpers.tools.includes(id))toggleHelper('tools',id)},saveStack:id=>{if(helperStack(id)&&!savedHelpers.stacks.includes(id))toggleHelper('stacks',id)},useStack:useHelperStack});
 $('#homePopular').innerHTML=['professional-email','business-name','resume','study-notes','social-captions','story','product-description','brainstorm'].map(id=>{const t=TOOLS.find(x=>x.id===id);return '<button class="mini-card" data-tool="'+t.id+'"><span class="tool-emoji">'+t.icon+'</span><b>'+esc(t.name)+'</b><small>'+esc(t.group)+'</small></button>'}).join('');
 $('#homePopular').addEventListener('click',e=>{const b=e.target.closest('[data-tool]');if(b)activateTool(b.dataset.tool)});
 $('#chatShortcuts').innerHTML=['rewrite','blog-outline','cover-letter','flashcards','tagline'].map(id=>{const t=TOOLS.find(x=>x.id===id);return '<button class="shortcut" data-tool="'+t.id+'"><span>'+t.icon+'</span>'+esc(t.name)+' →</button>'}).join('');
