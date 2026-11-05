@@ -78,6 +78,146 @@ const TOYS=[
  'Can be used as a conversation about trust, boundaries and technology privacy.'
  ],safety:'The wearer must retain a reliable stop control. Read app permissions and privacy terms, avoid recording intimate use and do not use in public if it involves nonconsenting bystanders.',tags:['remote','control','partner','trust','technology','vibrat','toy'],extra:'A possibility to read about if shared control or partner-led sensation was specifically selected.'},
 ];
+const BODY_GUIDE=Object.freeze({
+  "wand": {
+    "male": {
+      "fit": "direct",
+      "note": "External penile, perineal or other intact-skin sensation; no insertion unless the specific attachment is explicitly approved."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "External vulvar or clitoral-hood sensation; use a fabric barrier or lower setting if direct contact is too intense."
+    },
+    "together": "One person can operate it for another, or either can use it solo; communicate about intensity and change of body area."
+  },
+  "bullet": {
+    "male": {
+      "fit": "direct",
+      "note": "External contact on penile shaft, perineum or other intact skin when the product permits; small bullets are not anal insertables."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "Focused external sensation around the vulva or clitoral hood; adjust pressure and settings for comfort."
+    },
+    "together": "Small size can make it easy to use with a consenting partner, provided each person has a reliable stop option."
+  },
+  "air-pulse": {
+    "male": {
+      "fit": "not-targeted",
+      "note": "Typically designed around clitoral anatomy, not for penile stimulation. A person with a penis could help operate a partner’s device if invited; do not assume it is compatible with other anatomy."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "A clitoral-area model can provide localized external pulsing sensation when the fit is comfortable."
+    },
+    "together": "A partner can help with controls if requested; avoid assuming the device fits the other partner’s anatomy."
+  },
+  "insertable-vibe": {
+    "male": {
+      "fit": "conditional",
+      "note": "Most vaginal models are not safe for anal insertion. Some may be approved for external contact only; for anal use choose a separately anal-rated model with a flared base."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "A vagina-rated device may offer internal vaginal stimulation, and some models offer external vulvar settings; always check the maker’s use instructions."
+    },
+    "together": "A partner can assist with agreed external or vaginal use; use a fresh barrier or clean carefully when moving between body areas."
+  },
+  "dildo": {
+    "male": {
+      "fit": "conditional",
+      "note": "A dildo expressly rated for anal use, with a secure wide flared base, can be considered for anal stimulation; ordinary vaginal-only models are not anal-safe."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "A vagina-rated, nonporous model can be considered for vaginal use; anal use requires a separate, clearly anal-safe design."
+    },
+    "together": "Either partner may hold a compatible device or use it with an adjustable harness if both choose; clean between people and body areas."
+  },
+  "prostate": {
+    "male": {
+      "fit": "direct",
+      "note": "For someone who has a prostate, a purpose-built, flared-base device can be explored if internal anal use is appropriate and welcome."
+    },
+    "female": {
+      "fit": "not-targeted",
+      "note": "A person without a prostate has no prostate tissue for this device to target. Do not treat a prostate-specific product as a general vaginal toy; only use it where its design permits."
+    },
+    "together": "A partner of any gender can assist or discuss prostate-area interests, but the person using the device decides whether to proceed."
+  },
+  "anal-plug": {
+    "male": {
+      "fit": "direct",
+      "note": "An expressly anal-rated plug with a broad flared base can be used regardless of whether the person has a prostate."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "The same anal-safety design rules apply for someone with a vulva; do not transfer from anus to vagina without cleaning and a fresh barrier."
+    },
+    "together": "Either partner may use an anal-safe product if interested; never share or transfer it between body areas without appropriate hygiene."
+  },
+  "sleeve": {
+    "male": {
+      "fit": "direct",
+      "note": "A penile sleeve is shaped for external penile use, with appropriate lubricant, gentle pressure and careful cleaning."
+    },
+    "female": {
+      "fit": "partner",
+      "note": "A penis-shaped sleeve is not designed to fit the vulva or vagina. Someone with a vulva can choose to help a consenting partner use it instead."
+    },
+    "together": "The wearer or owner keeps control of pressure and stopping; a partner may participate by mutual agreement."
+  },
+  "ring": {
+    "male": {
+      "fit": "direct",
+      "note": "An easily removable penis ring is designed for suitable penile anatomy; remove immediately for numbness, color changes or pain."
+    },
+    "female": {
+      "fit": "partner",
+      "note": "Penis rings are not designed to be worn on the vulva. A vibrating attachment may provide external partner sensation, if the product is designed for this and both want it."
+    },
+    "together": "A vibrating model may create external sensation for both partners; fit, circulation, easy removal and time limits are essential."
+  },
+  "nipple-massager": {
+    "male": {
+      "fit": "direct",
+      "note": "For a person with chest or nipple sensitivity, low-level external massage over intact skin may be appropriate regardless of breast size."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "External breast/chest or nipple-area sensation can be explored gently, including over clothing if sensitivity is high."
+    },
+    "together": "Each partner can try externally rated modes on their own chest area or invite the other to help, without assuming equal sensitivity."
+  },
+  "harness": {
+    "male": {
+      "fit": "direct",
+      "note": "A person with a penis can wear a compatible adjustable harness, or be a receiving partner, depending on agreed roles and fit."
+    },
+    "female": {
+      "fit": "direct",
+      "note": "A person with a vulva can also wear a compatible harness or be a receiving partner; the device itself does not determine gender or role."
+    },
+    "together": "A harness can support shared role choices; attachments must be rated for their intended body area, especially for anal use."
+  },
+  "remote": {
+    "male": {
+      "fit": "conditional",
+      "note": "Choose a wearable model explicitly manufactured for the relevant anatomy; some penile or external designs exist, but vulva-focused insertables are not universal."
+    },
+    "female": {
+      "fit": "conditional",
+      "note": "Choose a model explicitly designed for vulvar, vaginal or other intended anatomy; the label 'remote-controlled' alone does not make it insertable or safe."
+    },
+    "together": "Any remote play is optional and private. The wearer must retain an immediate, dependable stop control and know what data the app collects."
+  }
+});
+const FIT_LABELS=Object.freeze({
+ direct:'Designed for this anatomy / external use',
+ conditional:'Only if this model permits the intended use',
+ partner:'Best described as partner-assisted use',
+ 'not-targeted':'Not designed for this anatomy'
+});
 const SOURCES=[
  {label:'Planned Parenthood · Sex toys and how to use them safely',url:'https://www.plannedparenthood.org/learn/sex-pleasure-and-sexual-dysfunction/sex-and-pleasure/sex-toys'},
  {label:'American Sexual Health Association · Safer-sex toolbox',url:'https://www.ashasexualhealth.org/safer-sex-toolbox/'}
@@ -133,7 +273,7 @@ function recommendations(data){
   score+=profileThemes.length*.15;
   const mode=!active?'Fantasy-only / read about it':score>=3?'Based on direct interest':'Tentative topic for reading';
   matched.push({id:toy.id,name:toy.name,summary:toy.summary,why:toy.extra,mode,
-   safety:toy.safety,uses:toy.uses.slice(),evidence:reasons,
+   safety:toy.safety,uses:toy.uses.slice(),bodyUses:BODY_GUIDE[toy.id],evidence:reasons,
    profileThemes:profileThemes.map(key=>data?.lenses?.[key]?.label||key),score});
  }
  return matched.sort((a,b)=>b.score-a.score||TOYS.findIndex(t=>t.id===a.id)-TOYS.findIndex(t=>t.id===b.id)).slice(0,4);
@@ -188,6 +328,6 @@ function init(){
  root.querySelector('#toy-refresh-matches').addEventListener('click',renderMatches);
  render();renderMatches();
 }
-window.UnwrappedToyLibrary=Object.freeze({types:TOYS,find:id=>TOYS.find(x=>x.id===id)||null,recommend:recommendations,sources:SOURCES});
+window.UnwrappedToyLibrary=Object.freeze({types:TOYS,bodyUses:id=>BODY_GUIDE[id]||null,fitLabels:FIT_LABELS,find:id=>TOYS.find(x=>x.id===id)||null,recommend:recommendations,sources:SOURCES});
 init();
 })();
