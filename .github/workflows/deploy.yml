@@ -66,6 +66,9 @@ jobs:
           node --check game-notifications/generate-vapid.mjs
           node scripts/test-game-push.mjs
 
+      - name: Verify Random AI saved models survive new visits and cache changes
+        run: node scripts/test-random-ai-model-memory.mjs
+
       - name: Build the entire website
         run: bun run build
 
