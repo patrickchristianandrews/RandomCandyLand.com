@@ -126,6 +126,26 @@ if(!homeInstallSource.includes("title:'Unwrapped'")||
    !afterDarkManifest.includes('/tool-icons/unwrapped.svg')){
   console.error('Unwrapped homepage, tagline or installable app branding is missing.');failures++;
 }
+// The complete fictional reports are produced from real quiz state during CI, not manually written prose.
+for(const filename of ['complete-rowan-personal-report.pdf','complete-ellis-personal-report.pdf']){
+ const pdfPath='dist/after-dark/report-samples/'+filename;
+ if(!fs.existsSync(pdfPath)){
+  console.error('Missing full 69+32 fictional-person PDF:',filename);failures++;continue;
+ }
+ const contents=fs.readFileSync(pdfPath);
+ if(contents.length<10000||contents.subarray(0,5).toString()!=='%PDF-'){
+  console.error('Invalid complete-fictional-report PDF:',filename);failures++;
+ }
+}
+const fictionalAuditPath='dist/after-dark/report-samples/fictional-full-quiz-audit.json';
+if(!fs.existsSync(fictionalAuditPath)){
+ console.error('Full 101-question fictional audit is missing');failures++;
+}else{
+ const audits=JSON.parse(fs.readFileSync(fictionalAuditPath,'utf8')).reports||[];
+ if(audits.length!==2||audits.some(x=>x.direct!==69||x.psych!==32||x.themes<5||x.subConnections<5||x.chosenInterests<2)){
+  console.error('Full quiz samples failed response/visual evidence checks');failures++;
+ }
+}
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
 for(const file of ['dist/after-dark/report-samples/sample-pdf.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-results-share.js','dist/after-dark/partner-compare.js']){
  if(!fs.existsSync(file)){console.error('Missing Unwrapped report or sample asset:',file);failures++;continue}
