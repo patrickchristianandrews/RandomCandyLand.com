@@ -1210,3 +1210,170 @@ body {
   gap:1px;
  }
 }
+
+
+/* First-shelf Unwrapped editorial feature: logo-led, holistic and readable on mobile. */
+.candyland-next .candyland-play-shelf-discovery{
+ --shelf-accent:#ffdbef;
+ border-color:#f5aeda95;
+ background:
+   radial-gradient(ellipse at 3% 2%,#f28cbb36 0%,transparent 46%),
+   radial-gradient(ellipse at 96% 94%,#bf9bff25 0%,transparent 43%),
+   linear-gradient(125deg,#4d245bfa,#2d1d47fa 54%,#251933f7);
+ box-shadow:0 18px 42px #10052555,inset 0 1px 0 #fff4f126;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-play-shelf-heading{
+ border-bottom-color:#ffcee64a;
+ margin-bottom:14px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-play-shelf-emoji{
+ background:none;border:0;
+ padding:0;overflow:hidden;border-radius:12px;
+ width:54px;height:54px;flex:0 0 54px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-play-shelf-emoji img{
+ display:block;width:100%;height:100%;object-fit:cover;border-radius:12px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-play-shelf-heading h2{
+ font-size:clamp(21px,2.6vw,29px);
+ color:#ffe7ee;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-play-shelf-heading p{
+ color:#f3dceb;font-size:clamp(11px,1.1vw,13px);
+ max-width:740px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tools{
+ display:grid;grid-template-columns:minmax(0,1fr);gap:0;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-link{
+ display:grid;
+ grid-template-columns:clamp(115px,14vw,168px) minmax(0,1fr);
+ align-items:start;
+ gap:clamp(15px,2.5vw,30px);
+ min-height:0;
+ padding:clamp(17px,2.5vw,30px);
+ border:1px solid #ffc8e480;
+ border-radius:21px;
+ background:linear-gradient(125deg,#6b3a6f5e,#342548b8 60%,#42274b98);
+ text-decoration:none;
+ text-align:left;
+ box-shadow:0 8px 25px #160b2833;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-link:hover{
+ transform:translateY(-2px);
+ background:linear-gradient(125deg,#78427b7f,#40305ac9);
+ border-color:#ffe4ee;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-image{
+ display:block;width:100%;max-width:none;height:auto;min-width:0;
+ aspect-ratio:1/1;align-self:start;
+ background:transparent;border:0;padding:0;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-image img{
+ display:block;width:100%;height:100%;object-fit:contain;
+ filter:drop-shadow(0 9px 15px #160a2a75);
+ border-radius:24px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-info{
+ display:flex;flex-direction:column;align-items:stretch;text-align:left;
+ width:100%;gap:0;min-width:0;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-name{
+ display:block;color:#ffeaef;font:900 clamp(22px,3vw,34px)/1.1 system-ui,sans-serif;
+ letter-spacing:-.045em;text-align:left;margin:1px 0 8px;
+}
+.candyland-next .candyland-unwrapped-feature-body{
+ display:flex;flex-direction:column;align-items:stretch;gap:13px;
+ width:100%;min-width:0;
+}
+.candyland-next .candyland-unwrapped-feature-headline{
+ display:block;color:#ffccdf;
+ font:850 clamp(15px,1.9vw,21px)/1.3 system-ui,sans-serif;
+}
+.candyland-next .candyland-unwrapped-feature-description{
+ display:block;color:#f4e5f1;font:500 clamp(12px,1.4vw,15px)/1.65 system-ui,sans-serif;
+ max-width:780px;
+}
+.candyland-next .candyland-unwrapped-feature-output-title{
+ display:block;color:#ffe0a8;font:900 10px/1.4 system-ui,sans-serif;
+ letter-spacing:.13em;margin-top:3px;
+}
+.candyland-next .candyland-unwrapped-feature-outputs{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:9px 13px;
+ width:100%;
+}
+.candyland-next .candyland-unwrapped-feature-outputs>span{
+ display:flex;align-items:center;gap:8px;
+ padding:10px 12px;border-radius:10px;
+ background:#fff5fb0e;border:1px solid #f8d1f23a;
+ color:#ffeefa;font:750 clamp(11px,1.2vw,13px)/1.35 system-ui,sans-serif;
+}
+.candyland-next .candyland-unwrapped-feature-help{
+ display:block;color:#eecfe4;font:500 clamp(12px,1.2vw,14px)/1.6 system-ui,sans-serif;
+ max-width:780px;
+}
+.candyland-next .candyland-unwrapped-feature-cta{
+ display:flex;align-items:center;gap:9px;
+ align-self:flex-start;
+ border-radius:12px;background:linear-gradient(120deg,#ffe0ef,#f9b3d5);
+ border:1px solid #fff4e9;
+ padding:12px 17px;
+ color:#55224b;font:900 13px/1.3 system-ui,sans-serif;
+ box-shadow:0 5px 14px #160a2775;
+ margin-top:3px;
+}
+.candyland-next .candyland-unwrapped-feature-cta small{
+ margin-left:5px;color:#753958;font-size:10px;
+}
+.candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-link:focus-visible{
+ outline:3px solid #ffe6a2;outline-offset:4px;
+}
+@media(max-width:800px){
+ .candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-link{
+  grid-template-columns:94px minmax(0,1fr);
+  gap:15px;
+ }
+ .candyland-next .candyland-play-shelf-discovery .candyland-unwrapped-feature-outputs{
+  grid-template-columns:1fr;
+ }
+}
+@media(max-width:590px){
+ .candyland-next .candyland-play-shelf-discovery{padding:13px}
+ .candyland-next .candyland-play-shelf-discovery .candyland-play-shelf-emoji{
+  width:43px;height:43px;flex-basis:43px;
+ }
+ .candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-link{
+  display:flex;flex-direction:column;align-items:stretch;
+  gap:12px;min-height:0;padding:15px;border-radius:16px;
+ }
+ .candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-image{
+  width:100px;min-width:0;max-width:100px;height:100px;
+  align-self:center;
+ }
+ .candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-info{
+  align-items:stretch;gap:0;
+ }
+ .candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-name{
+  text-align:center;font-size:25px;margin:0 0 9px;
+ }
+ .candyland-next .candyland-unwrapped-feature-body{gap:11px}
+ .candyland-next .candyland-unwrapped-feature-headline{
+  text-align:center;font-size:17px;
+ }
+ .candyland-next .candyland-unwrapped-feature-description{
+  display:block;font-size:13px;line-height:1.6;text-align:left;
+ }
+ .candyland-next .candyland-unwrapped-feature-outputs>span{
+  padding:9px 10px;font-size:12px;
+ }
+ .candyland-next .candyland-unwrapped-feature-help{
+  font-size:12px;line-height:1.55;
+ }
+ .candyland-next .candyland-unwrapped-feature-cta{
+  align-self:stretch;justify-content:center;font-size:12px;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .candyland-next .candyland-play-shelf-discovery .candyland-hero-tool-link:hover{transform:none}
+}
