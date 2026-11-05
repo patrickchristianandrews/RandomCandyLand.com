@@ -622,7 +622,7 @@ if(!homeInstallSource.includes('candyland-unwrapped-feature-card') ||
    !homeInstallSource.includes('Personal insights report') ||
    !homeInstallSource.includes('New-partner introduction report') ||
    !homeInstallSource.includes('candyland-unwrapped-feature-outputs') ||
-   !homeInstallSource.includes('href="/after-dark/"')){
+   !homeInstallSource.includes("href:'/after-dark/'")){
   console.error('Unwrapped must remain prominent with the report benefits in the first Explore & Understand shelf.');failures++;
 }
 // First section is a full Unwrapped introduction, not a tiny one-card shelf.
