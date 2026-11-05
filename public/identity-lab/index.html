@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081922">
+<meta name="description" content="Identity Lab helps you review your own public digital footprint through source-backed checks, official privacy services and a private downloadable report.">
+<title>Identity Lab · Your public footprint · Random Candy Land</title>
+<link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
+<link rel="manifest" href="/app-manifests/identity-lab.webmanifest">
+<link rel="stylesheet" href="/osint-academy/style.css?v=identity-standalone-20261105">
+<script src="/install-app.js" defer></script>
+<script src="/osint-academy/profile-review.js?v=identity-standalone-20261105" defer></script>
+<style>
+.identity-standalone{max-width:1110px;margin:0 auto;padding:20px clamp(14px,3vw,30px) 50px}
+.identity-standalone-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 20px;flex-wrap:wrap}
+.identity-standalone-header a{display:inline-flex;align-items:center;gap:8px;color:#c5ffe6;font:800 12px/1.3 system-ui,sans-serif;text-decoration:none;border:1px solid #477d76;border-radius:999px;padding:10px 14px}
+.identity-standalone-header a:hover{background:#245049}
+.identity-standalone-intro{display:grid;grid-template-columns:1.45fr .65fr;gap:23px;border:1px solid #78b8a4;border-radius:24px;background:radial-gradient(ellipse at 95% 15%,#3c8b8070,transparent 56%),linear-gradient(125deg,#103742,#142b39);padding:clamp(20px,4vw,35px);margin:0 0 17px}
+.identity-standalone-intro h1{font:900 clamp(30px,5vw,52px)/1.06 system-ui,sans-serif;color:#ecfff6;letter-spacing:-.04em;margin:8px 0 12px}
+.identity-standalone-intro p{font:500 13px/1.65 system-ui,sans-serif;color:#cee5df;margin:0;max-width:730px}
+.identity-standalone-benefits{display:grid;gap:9px;align-content:center}
+.identity-standalone-benefits span{display:block;border:1px solid #82bea8;border-radius:13px;background:#103e45;padding:11px;color:#d9ffed;font:750 12px/1.45 system-ui,sans-serif}
+.identity-source-hub{margin-top:19px;padding:21px;border:1px solid #4f8e88;border-radius:18px;background:#122e3a}
+.identity-source-hub h2{font:900 clamp(19px,2.6vw,25px)/1.2 system-ui,sans-serif;color:#eafff5;margin:0 0 9px}
+.identity-source-hub>p{color:#c5dfd9;font:500 12px/1.6 system-ui,sans-serif;margin:0 0 13px}
+.identity-source-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.identity-source-grid article{border:1px solid #518d89;background:#0c2935;border-radius:13px;padding:14px;min-width:0;display:flex;flex-direction:column;gap:7px}
+.identity-source-grid h3{font:850 14px/1.35 system-ui,sans-serif;color:#ebfff4;margin:0}
+.identity-source-grid p{font:500 11px/1.55 system-ui,sans-serif;color:#bdd8d3;margin:0;flex:1}
+.identity-source-grid span{color:#a7f8d9;font:850 10px/1.4 system-ui,sans-serif}
+.identity-source-grid a{display:inline-block;align-self:start;color:#102e3a;background:#c5ffe8;border:1px solid #e5fff7;border-radius:9px;text-decoration:none;font:850 11px/1.4 system-ui,sans-serif;padding:8px 11px;margin-top:4px}
+.identity-source-grid a:hover{background:#ecfff6}
+.identity-hub-footnote{font:500 11px/1.6 system-ui,sans-serif;color:#c5dcd5;margin:13px 0 0}
+.identity-standalone-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:600 11px/1.6 system-ui,sans-serif;color:#a8d3c8;padding-top:18px}
+.identity-standalone-footer a{color:#c3ffe6}
+@media(max-width:800px){.identity-standalone-intro{grid-template-columns:1fr}.identity-standalone-benefits{grid-template-columns:repeat(3,minmax(0,1fr))}.identity-source-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.identity-standalone-benefits,.identity-source-grid{grid-template-columns:1fr}.identity-standalone-intro{padding:18px}.identity-source-hub{padding:13px}}
+@media print{.identity-standalone-intro,.identity-standalone-header,.identity-source-hub,.identity-standalone-footer{display:none!important}}
+</style>
+</head>
+<body class="trace-app">
+<main class="identity-standalone">
+<header class="identity-standalone-header"><a href="/">← Random Candy Land</a><a href="/osint-academy/">Try the TRACE investigation game ↗</a></header>
+<section class="identity-standalone-intro" aria-labelledby="identity-title">
+<div><span class="eyebrow">STANDALONE SELF-RESEARCH · NOT A COURSE</span><h1 id="identity-title">Identity Lab</h1><p>See what your own public digital footprint reveals. Start with a single detail, review findings from public sources and build a clear report you control. No training missions, technical setup or compulsory forms.</p></div>
+<div class="identity-standalone-benefits"><span>① Start with one clue</span><span>② Review original sources</span><span>③ Save your private report</span></div>
+</section>
+<section id="trace-profile-review" aria-label="Create your own public identity report"><h2>Loading Identity Lab…</h2></section>
+<section class="identity-source-hub" aria-labelledby="source-hub-heading"><h2 id="source-hub-heading">Reliable tools for the deeper checks</h2><p>Identity Lab can query supported public directories directly. The services below require you to open their official websites yourself, because they may require sign-in, email verification, or have restrictions on automated access. They do not automatically contribute findings to the report.</p>
+<div class="identity-source-grid">
+<article><span>YOUR INFORMATION IN SEARCH</span><h3>Google · Results about you</h3><p>Review personal contact details surfaced in Google Search and request eligible removals.</p><a href="https://myactivity.google.com/results-about-you" target="_blank" rel="noopener noreferrer">Open official tool ↗</a></article>
+<article><span>ACCOUNT EXPOSURES</span><h3>Mozilla Monitor</h3><p>Check known breaches affecting an email address you control. Sign-in or verification may be needed.</p><a href="https://monitor.mozilla.org/" target="_blank" rel="noopener noreferrer">Open official tool ↗</a></article>
+<article><span>BREACH RECORDS</span><h3>Have I Been Pwned</h3><p>Review reported data breaches. Some results or features require verified control of an email address.</p><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener noreferrer">Open official tool ↗</a></article>
+<article><span>PAST WEB VERSIONS</span><h3>Internet Archive · Wayback</h3><p>Find historical snapshots of public websites and compare older information with current pages.</p><a href="https://web.archive.org/" target="_blank" rel="noopener noreferrer">Open official archive ↗</a></article>
+<article><span>DOMAIN REGISTRATION</span><h3>ICANN Lookup</h3><p>Check publicly available domain registration data; owner details can be masked or outdated.</p><a href="https://lookup.icann.org/en" target="_blank" rel="noopener noreferrer">Open official lookup ↗</a></article>
+<article><span>PUBLIC ACCOUNTS &amp; ENTITIES</span><h3>GitHub · Wikidata · Public DNS</h3><p>These are the supported live sources in the quick check above. A matching handle or directory record is only a lead until verified.</p><a href="#trace-profile-review">Use quick check ↑</a></article>
+</div><p class="identity-hub-footnote">No service can guarantee a complete or perfectly accurate portrait of a person. This is a self-audit, not a people-search dossier or background check. Review every source before including it in your report.</p>
+</section>
+<footer class="identity-standalone-footer"><span>Private-by-default: entries stay in this browser until you choose a public lookup or export. Public lookup providers receive the clue you submit.</span><a href="/osint-academy/">TRACE Evidence Files game</a></footer>
+</main></body></html>
