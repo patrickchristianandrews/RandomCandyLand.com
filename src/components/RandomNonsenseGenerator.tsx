@@ -244,7 +244,7 @@ export function RandomNonsenseGenerator() {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(
-        'THE NONSENSE DISPATCH | FICTIONAL SATIRE\n' +
+        'THE ABSURDITY REPORT | FICTIONAL SATIRE\n' +
         nonsense.headline + '\n\n' +
         nonsense.location + ' ' + nonsense.followup +
         '\n\n— Random Candy Land | Just for laughs'
@@ -253,31 +253,31 @@ export function RandomNonsenseGenerator() {
     } catch { setCopied(false); }
   };
   return (
-    <section id="nonsense" className="nonsense-lab nonsense-newsroom nonsense-dispatch" aria-labelledby="nonsense-heading">
-      <header className="nonsense-dispatch-ticker">
-        <div className="nonsense-dispatch-brand">
-          <span className="nonsense-dispatch-icon" aria-hidden="true"><Newspaper size={22}/></span>
-          <span className="nonsense-dispatch-brand-copy">
-            <strong id="nonsense-heading">THE NONSENSE <em>DISPATCH</em></strong>
+    <section id="nonsense" className="nonsense-lab nonsense-newsroom nonsense-report" aria-labelledby="nonsense-heading">
+      <header className="nonsense-report-ticker">
+        <div className="nonsense-report-brand">
+          <span className="nonsense-report-icon" aria-hidden="true"><Newspaper size={22}/></span>
+          <span className="nonsense-report-brand-copy">
+            <strong id="nonsense-heading">THE ABSURDITY <em>REPORT</em></strong>
             <small>ALL THE NEWS THAT NEVER HAPPENED</small>
           </span>
         </div>
-        <span className="nonsense-dispatch-live" aria-label="Live fictional satire"><i aria-hidden="true" /> LIVE <span>SATIRE</span></span>
-        <button className="nonsense-dispatch-open" type="button"
+        <span className="nonsense-report-live" aria-label="Live fictional satire"><i aria-hidden="true" /> LIVE <span>SATIRE</span></span>
+        <button className="nonsense-report-open" type="button"
           onClick={() => setExpanded(value => !value)}
           aria-expanded={expanded} aria-controls="nonsense-story-detail"
           aria-label={(expanded ? 'Close' : 'Read') + ' full fictional news story: ' + nonsense.headline}>
-          <span className="nonsense-dispatch-viewport">
-            <span className="nonsense-dispatch-marquee" aria-hidden="true">
+          <span className="nonsense-report-viewport">
+            <span className="nonsense-report-marquee" aria-hidden="true">
               <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
               <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
             </span>
           </span>
-          <span className="nonsense-dispatch-read">{expanded ? 'Close story' : 'Click to read full story'} <ArrowRight size={15}/></span>
+          <span className="nonsense-report-read">{expanded ? 'Close story' : 'Click to read full story'} <ArrowRight size={15}/></span>
         </button>
-        <button className="nonsense-dispatch-skip" type="button" onClick={generate} aria-label="Next fictional headline" title="Next fictional headline">↻</button>
+        <button className="nonsense-report-skip" type="button" onClick={generate} aria-label="Next fictional headline" title="Next fictional headline">↻</button>
       </header>
-      <div id="nonsense-story-detail" className="nonsense-dispatch-detail" hidden={!expanded}>
+      <div id="nonsense-story-detail" className="nonsense-report-detail" hidden={!expanded}>
         <article className="nonsense-display nonsense-news-article" key={cycle.current} aria-live="polite" aria-atomic="true">
           <div className="nonsense-story-meta">
             <span className="nonsense-breaking">BREAKING NONSENSE</span>
@@ -286,12 +286,12 @@ export function RandomNonsenseGenerator() {
           <h3>{nonsense.headline}</h3>
           <p className="nonsense-news-lede">{nonsense.location}</p>
           <p className="nonsense-news-body">{nonsense.followup}</p>
-          <div className="nonsense-news-footer"><span>THE NONSENSE DISPATCH</span><span>Fictional news · Just for laughs</span></div>
+          <div className="nonsense-news-footer"><span>THE ABSURDITY REPORT</span><span>Fictional news · Just for laughs</span></div>
         </article>
         <div className="nonsense-actions">
           <button className="nonsense-generate" type="button" onClick={generate}>NEXT STORY <ArrowRight size={22}/></button>
           <button className="nonsense-copy" type="button" onClick={copy}><Copy size={19}/> {copied ? 'COPIED!' : 'COPY STORY'}</button>
-          <button className="nonsense-dispatch-close" type="button" onClick={() => setExpanded(false)}>CLOSE STORY</button>
+          <button className="nonsense-report-close" type="button" onClick={() => setExpanded(false)}>CLOSE STORY</button>
         </div>
         <div className="nonsense-facts">
           <span>🗞️ <strong>{TOTAL.toLocaleString('en-US')}</strong> possible fictional stories</span>
