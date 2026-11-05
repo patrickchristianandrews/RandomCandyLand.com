@@ -7,7 +7,7 @@ const cap=(s,n=180)=>String(s||'').slice(0,n);
 const cleanLabel=s=>cap(s,110).trim().toLocaleLowerCase();
 const status=msg=>{const n=$('uc-status');if(n)n.textContent=msg};
 const canBuild=()=>window.AfterDarkCanonicalReport?.buildData?.();
-let selection={interest:new Set(),theme:new Set(),answers:new Set(),name:''};
+let selection={interest:new Set(),theme:new Set(),answers:new Set(),toys:new Set(),name:''};
 const interesting=d=>d.interests||[];
 function exportChoices(){
  const d=canBuild(),root=$('uc-select');if(!root)return;
@@ -34,6 +34,20 @@ function exportChoices(){
    box.onchange=()=>{box.checked?selection.answers.add(key):selection.answers.delete(key);allBox.checked=entries.every(e=>e.checked)};
    label.append(box,document.createTextNode(cap((kind==='direct'?'Intimate':'Psychology')+' · '+q.question,170)));body.append(label);entries.push(box)});
   more.append(body);root.append(more)}
+ const candidates=window.UnwrappedToyLibrary?.recommend?.(d)||[];
+ const toySection=E('details');toySection.append(E('summary','Optional toy information · extra permission required'));
+ const body=E('div',undefined,'uc-answer-list');
+ body.append(E('p','OFF by default. These contain male, female and partner-use compatibility, safety and fantasy-only labels. Even Include all report highlights does not select them.','uc-note'));
+ if(!candidates.length)body.append(E('p','No directly supported toy categories from your quiz choices.','uc-note'));
+ for(const item of candidates){
+  const label=E('label',undefined,'uc-check'),box=E('input');box.type='checkbox';box.checked=selection.toys.has(item.id);
+  box.onchange=()=>{
+   if(box.checked&&selection.toys.size>=2){box.checked=false;status('Choose up to two toy categories.');return}
+   box.checked?selection.toys.add(item.id):selection.toys.delete(item.id);
+  };
+  label.append(box,document.createTextNode(item.name+' · '+item.mode));body.append(label);
+ }
+ toySection.append(body);root.append(toySection);
  allBox.onchange=()=>{for(const kind of ['interest','theme','answers'])selection[kind].clear();
   if(allBox.checked){interesting(d).forEach(x=>selection.interest.add(x.id));Object.entries(d.axes?.combined||{}).filter(([k,v])=>v>0&&d.lenses?.[k]).forEach(([k])=>selection.theme.add(k));answered.forEach(({kind,q})=>selection.answers.add(kind+':'+q.number))}
   entries.forEach(box=>box.checked=allBox.checked)};
@@ -44,8 +58,14 @@ function build(){
  const interests=interesting(d).filter(x=>selection.interest.has(x.id)).map(x=>({title:cap(x.name,110),category:cap(x.category,80),status:cap(x.confidenceType,105),description:cap(x.description,330),themes:(x.themeTags||[]).slice(0,8).map(k=>cap(d.lenses?.[k]?.label||k,100))}));
  const themes=Object.entries(d.axes?.combined||{}).filter(([k,v])=>v>0&&selection.theme.has(k)&&d.lenses?.[k]).map(([k])=>({label:cap(d.lenses[k].label,110),description:cap(d.lenses[k].detail,330)}));
  const answers=['direct','psych'].flatMap(kind=>(d[kind]?.questions||[]).filter(q=>selection.answers.has(kind+':'+q.number)&&q.selected?.length).map(q=>({quiz:kind,question:cap(q.question,230),selection:q.selected.map(x=>cap(x.text,160)).slice(0,60),intentLabel:kind==='direct'?cap(q.intentLabel,80):''})));
- if(!interests.length&&!themes.length&&!answers.length)return null;
- return{format:FORMAT,version:1,from:cap(selection.name,55),interests,themes,answers,created:new Date().toISOString()};
+ const toys=(window.UnwrappedToyLibrary?.recommend?.(d)||[]).filter(x=>selection.toys.has(x.id)).slice(0,2)
+  .map(x=>({title:cap(x.name,80),mode:cap(x.mode,60),
+   male:cap(x.bodyUses?.male?.note,260),female:cap(x.bodyUses?.female?.note,260),
+   shared:cap(x.bodyUses?.together,260),safety:cap(x.safety,300)}));
+ if(!interests.length&&!themes.length&&!answers.length&&!toys.length)return null;
+ const pack={format:FORMAT,version:1,from:cap(selection.name,55),interests,themes,answers,created:new Date().toISOString()};
+ if(toys.length)pack.toys=toys;
+ return pack;
 }
 function save(){
  const pack=build();if(!pack){status('Select at least one item first.');return}
@@ -57,11 +77,12 @@ function validate(raw){
  if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.format!==FORMAT||raw.version!==1)throw Error('Choose a selected Unwrapped comparison report (.json), not a full quiz backup or PDF.');
  const arr=(x,n)=>Array.isArray(x)&&x.length<=n;
  const str=(s,n)=>typeof s==='string'&&s.length<=n;
- if(!str(raw.from,55)||!arr(raw.interests,30)||!arr(raw.themes,50)||!arr(raw.answers,110))throw Error('Unsupported report structure or size.');
+ if(!str(raw.from,55)||!arr(raw.interests,30)||!arr(raw.themes,50)||!arr(raw.answers,110)||(raw.toys!==undefined&&!arr(raw.toys,2)))throw Error('Unsupported report structure or size.');
  if(!raw.interests.every(x=>x&&str(x.title,110)&&str(x.category,80)&&str(x.status,105)&&str(x.description,330)&&arr(x.themes,8)&&x.themes.every(v=>str(v,100))))throw Error('Invalid interest entries.');
  if(!raw.themes.every(x=>x&&str(x.label,110)&&str(x.description,330)))throw Error('Invalid psychology entries.');
  if(!raw.answers.every(x=>x&&['direct','psych'].includes(x.quiz)&&str(x.question,230)&&arr(x.selection,60)&&x.selection.every(v=>str(v,160))&&str(x.intentLabel||'',80)))throw Error('Invalid answer entries.');
- if(!raw.interests.length&&!raw.themes.length&&!raw.answers.length)throw Error('This report contains no shared items.');
+ if(raw.toys&&!raw.toys.every(x=>x&&str(x.title,80)&&str(x.mode,60)&&str(x.male,260)&&str(x.female,260)&&str(x.shared,260)&&str(x.safety,300)))throw Error('Invalid shared toy entries.');
+ if(!raw.interests.length&&!raw.themes.length&&!raw.answers.length&&!(raw.toys||[]).length)throw Error('This report contains no shared items.');
  return raw;
 }
 async function readFile(file){
@@ -106,6 +127,7 @@ function compare(a,b){
  out.append(E('p','A reflection guide based only on items both people chose to share. Different or missing selections are not evidence of incompatibility. Scores and descriptions cannot predict relationship outcomes.','uc-note'));
  const both=common(a.themes,b.themes),aOnly=only(a.themes,b.themes),bOnly=only(b.themes,a.themes);
  const together=common(a.interests,b.interests),ia=only(a.interests,b.interests),ib=only(b.interests,a.interests);
+ const commonToys=common(a.toys||[],b.toys||[]),aToys=only(a.toys||[],b.toys||[]),bToys=only(b.toys||[],a.toys||[]);
  const dashboard=E('section',undefined,'uc-dashboard');dashboard.setAttribute('aria-label','Visual comparison of shared report selections');
  const tiles=E('div',undefined,'uc-metric-grid');
  for(const [value,label,context] of [[both.length,'Shared psychology themes','Reported by both'],[together.length,'Shared intimate topics','Selected by both'],[aOnly.length+bOnly.length,'Individual psychology themes','Not matched in shared selections'],[ia.length+ib.length,'Individual intimate topics','Not matched in shared selections']]){
@@ -142,6 +164,26 @@ function compare(a,b){
  if(together.length)addText(out,'Shared intimate interests',together.map(x=>x.one.title).join(' · ')+'. Compare what each interest means personally, including fantasy versus real-life intentions and boundaries.');
  if(aOnly.length||bOnly.length)addText(out,'Different psychology themes',(a.from||'Partner A')+': '+(aOnly.map(x=>x.label).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(bOnly.map(x=>x.label).join(', ')||'none separately selected')+'. Ask each other how to offer support rather than assuming these represent opposite personalities.');
  if(ia.length||ib.length)addText(out,'Individual interests',(a.from||'Partner A')+': '+(ia.map(x=>x.title).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(ib.map(x=>x.title).join(', ')||'none separately selected')+'. Each person can share curiosity without pressure to participate, agree, or explain private material.');
+ if(commonToys.length||aToys.length||bToys.length){
+  const toySection=E('section',undefined,'uc-answer-comparison');
+  toySection.append(E('h4','Toy-guide topics separately approved for comparison'),
+   E('p','Only categories individually included in each exported report appear here. A matching category is not agreement to use it; fantasy-only remains reading-only.','uc-note'));
+  if(commonToys.length)addText(toySection,'Topics both chose to disclose',commonToys.map(x=>x.one.title).join(' · ')+'. Compare each person’s comfort, anatomy and whether either simply wanted information.');
+  for(const [group,label] of [[a.toys||[],a.from||'Partner A'],[b.toys||[],b.from||'Partner B']]){
+   if(!group.length)continue;
+   const card=E('div',undefined,'uc-result');
+   card.append(E('h4',label+' · explicitly shared toy notes'));
+   for(const toy of group){
+    const entry=E('article',undefined,'uc-answer-pair');
+    entry.append(E('strong',toy.title+' · '+toy.mode),
+     E('p','Male anatomy: '+toy.male),E('p','Female anatomy: '+toy.female),
+     E('p','With a partner: '+toy.shared),E('p','Safety: '+toy.safety,'uc-note'));
+    card.append(entry);
+   }
+   toySection.append(card);
+  }
+  out.append(toySection);
+ }
  const matchedAnswers=questionMatches(a.answers,b.answers);
  if(matchedAnswers.length){
   const box=E('section',undefined,'uc-answer-comparison');
