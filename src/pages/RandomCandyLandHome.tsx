@@ -205,6 +205,15 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                               <span className="candyland-unwrapped-feature-body">
                                 <span className="candyland-unwrapped-feature-headline">A personalized look at the whole person.</span>
                                 <span className="candyland-unwrapped-feature-description">Two complementary quizzes explore the psychology behind your interests, feelings and relationships—bringing everything together in thoughtful personal insights and partner-friendly reports.</span>
+                                <span className="candyland-unwrapped-feature-output-title">EXPLORE EVERY LAYER · TAKE HOME REAL INSIGHTS</span>
+                                <span className="candyland-unwrapped-feature-outputs" aria-label="Unwrapped topics and takeaways">
+                                  <span>🧠 Psychology &amp; emotions</span>
+                                  <span>💫 Attraction &amp; interests</span>
+                                  <span>🤝 Relationship dynamics</span>
+                                  <span>💬 Communication insights</span>
+                                  <span>🪞 Personalized profiles</span>
+                                  <span>📄 Partner-friendly reports</span>
+                                </span>
                                 <span className="candyland-unwrapped-feature-footer">
                                   <span className="candyland-unwrapped-feature-help">Private, self-paced reflection · Adults 18+ · Not a clinical assessment</span>
                                   <span className="candyland-unwrapped-feature-cta">Explore Unwrapped <span aria-hidden="true">↗</span></span>
