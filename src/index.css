@@ -2093,3 +2093,117 @@ body {
 @media(prefers-reduced-motion:reduce){
  .nonsense-report .nonsense-report-marquee,.nonsense-report .nonsense-report-live i{animation:none}
 }
+
+
+/* Absurdity Report: final SLIM live ticker layout, replacing old tall news panel. */
+.candyland-next #nonsense.nonsense-report{
+ display:block;width:min(calc(100% - 20px),1100px);max-width:1100px;
+ min-height:0;padding:0;margin:7px auto 13px;
+ border:1px solid #f5b3ec;border-radius:99px;
+ background:linear-gradient(105deg,#3b105d,#251441 55%,#4b1957);
+ color:#fff7fd;box-shadow:0 0 9px #df71d755,0 6px 18px #19083059;
+ overflow:visible;isolation:isolate;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-ticker{
+ display:grid;grid-template-columns:minmax(0,185px) auto minmax(0,1fr) 29px;
+ align-items:center;gap:7px;padding:3px 7px;
+ border:0;border-radius:99px;min-height:44px;
+ background:none;box-shadow:none;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand{
+ display:flex;align-items:center;gap:6px;min-width:0;
+ padding:5px 9px;background:linear-gradient(110deg,#8f268d,#4a216d);
+ border:1px solid #ffbde8;border-radius:99px;box-shadow:0 0 8px #ed92de54;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-icon{
+ display:grid;place-items:center;flex:none;
+ height:18px;width:18px;color:#ffe2b2;border:0;background:transparent;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-icon svg{height:17px;width:17px}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy{
+ display:flex;flex-direction:column;gap:0;min-width:0;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy strong{
+ display:block;font:950 clamp(11px,1.05vw,13px)/1.05 system-ui,sans-serif;
+ color:#fff;white-space:nowrap;letter-spacing:-.025em;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy em{color:#ffe2a6;font-style:normal}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy small{display:none}
+.candyland-next #nonsense.nonsense-report .nonsense-report-live{
+ display:flex;align-items:center;justify-content:center;
+ gap:5px;flex:none;align-self:center;
+ padding:6px 9px;border:1px solid #ff9cb0;border-radius:99px;
+ background:#bd214f;color:#fff;font:900 9px/1 system-ui,sans-serif;
+ white-space:nowrap;letter-spacing:.06em;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-live i{
+ display:block;width:6px;height:6px;border-radius:50%;background:#fff;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-live span{display:none}
+.candyland-next #nonsense.nonsense-report .nonsense-report-open{
+ display:flex;align-items:center;gap:7px;min-width:0;width:100%;max-width:100%;
+ min-height:34px;margin:0;padding:2px 4px 2px 7px;
+ border:0;border-radius:99px;background:transparent;color:#fff;cursor:pointer;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-open:hover,
+.candyland-next #nonsense.nonsense-report .nonsense-report-open:focus-visible{background:#fff4fc1b}
+.candyland-next #nonsense.nonsense-report .nonsense-report-viewport{
+ display:block;flex:1;min-width:0;overflow:hidden;
+ white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-marquee{
+ display:flex;align-items:center;gap:18px;min-width:200%;width:max-content;
+ animation:absurd-headline-scroll 26s linear infinite;will-change:transform;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-marquee>span{
+ display:inline-block;flex:none;padding-right:18px;
+ font:800 12px/1.3 system-ui,sans-serif;color:#fff3ec;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-marquee b{color:#ffe3ad;padding:0 7px}
+.candyland-next #nonsense.nonsense-report .nonsense-report-open:is(:hover,:focus-visible) .nonsense-report-marquee{animation-play-state:paused}
+.candyland-next #nonsense.nonsense-report .nonsense-report-read{
+ display:flex;align-items:center;gap:5px;flex:none;white-space:nowrap;
+ padding:6px 9px;border:1px solid #ffe3a7;border-radius:99px;
+ background:#ffe3b2;box-shadow:none;
+ color:#3b1b49;font:900 10px/1 system-ui,sans-serif;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-read svg{height:14px;width:14px}
+.candyland-next #nonsense.nonsense-report .nonsense-report-skip{
+ display:grid;place-items:center;align-self:center;
+ flex:none;margin:0;padding:0;border:0;border-radius:50%;
+ width:28px;min-width:28px;height:28px;min-height:28px;
+ background:#ffffff18;color:#fff0d7;cursor:pointer;font:900 19px/1 system-ui,sans-serif;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-detail{
+ padding:15px;margin:3px 0 0;border-top:1px solid #f7bae678;
+ border-radius:0 0 17px 17px;background:linear-gradient(125deg,#4b206d,#2e1e4d);
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-detail[hidden]{display:none!important}
+.candyland-next #nonsense.nonsense-report:has(.nonsense-report-detail:not([hidden])){border-radius:18px;overflow:hidden}
+@keyframes absurd-headline-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:700px){
+ .candyland-next #nonsense.nonsense-report .nonsense-report-ticker{
+   grid-template-columns:minmax(0,155px) auto minmax(0,1fr) 26px;gap:5px;
+ }
+ .candyland-next #nonsense.nonsense-report .nonsense-report-read{padding:6px}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-read{font-size:0}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-read svg{height:16px;width:16px}
+}
+@media(max-width:520px){
+ .candyland-next #nonsense.nonsense-report{width:calc(100% - 12px);margin:5px auto 11px}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-ticker{
+  grid-template-columns:minmax(0,126px) auto minmax(0,1fr) 24px;gap:3px;min-height:40px;padding:3px 4px;
+ }
+ .candyland-next #nonsense.nonsense-report .nonsense-report-brand{padding:5px 6px;gap:3px}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-icon{display:none}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy strong{font-size:10px}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-live{font-size:8px;padding:5px}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-open{min-height:32px;gap:3px;padding:2px}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-marquee>span{font-size:11px}
+ .candyland-next #nonsense.nonsense-report .nonsense-report-skip{
+  width:24px;min-width:24px;height:24px;min-height:24px;font-size:16px
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .candyland-next #nonsense.nonsense-report .nonsense-report-marquee{animation:none}
+}
