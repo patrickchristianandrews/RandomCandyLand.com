@@ -16,7 +16,20 @@ for(const item of library.types){
  assert.ok(item.uses.length>=4,'Each toy type includes multiple distinct uses: '+item.id);
  assert.ok(item.safety.length>55,'Every toy needs meaningful safety guidance: '+item.id);
  assert.ok(item.name&&item.group&&item.summary,'Every toy has searchable information');
+ const uses=library.bodyUses(item.id);
+ assert.ok(uses&&uses.male&&uses.female&&uses.together,'Every toy must explain male, female and partner use: '+item.id);
+ for(const anatomy of ['male','female']){
+  assert.ok(['direct','conditional','partner','not-targeted'].includes(uses[anatomy].fit),'Anatomical suitability must be explicit for '+item.id);
+  assert.ok(uses[anatomy].note.length>60,'Body-specific explanation must be substantial: '+item.id+' '+anatomy);
+ }
+ assert.ok(uses.together.length>60,'Shared-use guidance must be clear: '+item.id);
 }
+assert.equal(library.bodyUses('prostate').female.fit,'not-targeted','Do not claim prostate-specific devices directly target anatomy without a prostate');
+assert.equal(library.bodyUses('air-pulse').male.fit,'not-targeted','Do not describe clitoral air-pulse device as universally penile-compatible');
+assert.equal(library.bodyUses('sleeve').female.fit,'partner','Penis sleeves are not directly fitted to the vulva');
+assert.equal(library.bodyUses('ring').female.fit,'partner','Penis rings are not made to be worn on the vulva');
+assert.equal(library.bodyUses('anal-plug').male.fit,'direct','Anal-rated toys can fit male anatomy');
+assert.equal(library.bodyUses('anal-plug').female.fit,'direct','Anal-rated toys can fit female anatomy');
 const data=(choices=[],interests=[],psych={})=>({
  direct:{specificSelections:choices.map((x,i)=>({questionNumber:i+1,intent:'explore',...x}))},
  interests,psych,axes:{psych:{sensation:100,novelty:100}},
@@ -33,9 +46,12 @@ const generic=library.recommend(data([{text:'Maybe I am curious about sex toys',
 assert.ok(generic.every(x=>['wand','bullet'].includes(x.id)),'Broad toy curiosity must not infer genital anatomy or anal activities');
 assert.ok(panel.includes('id="toys" class="tab"')&&panel.includes('id="toy-grid"')&&panel.includes('toy-library.js?v='),'The site offers the independent toy explorer');
 assert.ok(panel.includes("toys:'Sex Toy Guide'")&&panel.includes(",'toys',"),'Toy section is navigable and deep-linkable');
+assert.ok(panel.includes('id="toy-body-focus"')&&panel.includes('<option value="male">')&&panel.includes('<option value="female">')&&panel.includes('<option value="together">'),'Toy guide must offer anatomy-specific and shared-use filters');
 assert.ok(personal.includes('Sex toy guide · Ideas that fit my selected interests')&&personal.includes('UnwrappedToyLibrary'),'Personal reports must use the same recommendation function');
+assert.ok(personal.includes('How it differs for male and female anatomy')&&personal.includes('item.bodyUses.together'),'Personal reports must compare male/female/partner use without guessing identity');
 assert.ok(partner.includes("['toys','Toy ideas I want to share'"),'Partner report has a separate opt-in');
 assert.ok(partner.includes("selected.has('toys')"),'Partner export must not show toys unless explicitly chosen');
+assert.ok(partner.includes('Male anatomy: ')&&partner.includes('Female anatomy: ')&&partner.includes('Shared use: '),'Optional partner reports explain differences for both anatomies');
 assert.ok(!/const selected=new Set\([^)]*'toys'/.test(partner),'Toy section must be OFF by default in partner reports');
-assert.ok(styles.includes('.toy-grid')&&styles.includes('.toy-report-rec'),'Guide and print layout must have styles');
-console.log('✓ Toy Library: 12 multi-use guides, safety, direct-answer matches, exclusions, fantasy-only and optional partner sharing.');
+assert.ok(styles.includes('.toy-grid')&&styles.includes('.toy-report-rec')&&styles.includes('.toy-body-rows'),'Guide and print layout must have responsive side-by-side styles');
+console.log('✓ Toy Library: 12 multi-use guides, male/female/shared comparisons, safety, direct-answer matches, exclusions, fantasy-only and optional partner sharing.');
