@@ -1,0 +1,19 @@
+{
+  "id": "/identity-lab/",
+  "name": "Identity Lab | Random Candy Land",
+  "short_name": "Identity Lab",
+  "description": "Review your own public digital footprint and create a source-linked report.",
+  "start_url": "/identity-lab/",
+  "scope": "/identity-lab/",
+  "display": "standalone",
+  "background_color": "#081922",
+  "theme_color": "#0e363d",
+  "icons": [
+    {
+      "src": "/tool-icons/osint-academy.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
