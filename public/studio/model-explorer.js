@@ -10,6 +10,8 @@ const WEBLLM='https://esm.run/@mlc-ai/web-llm@0.2.87';
 const memory=()=>window.RandomAIModelMemory;
 const stackKey='random-ai-stack-v1';
 const PRESETS=[
+ {id:'general',label:'✳ Everyday chat · just ask',name:'Everyday Assistant',description:'A flexible helper for questions, writing, explanations and plans—without extra technical steps.',steps:['Understand your request','Give a useful response','Clarify what matters','Suggest a practical next step'],family:/llama|qwen|gemma|phi/i,temperature:.55,firstTokens:850,secondTokens:950,
+ instructions:'Respond naturally and helpfully to the user’s request. Avoid assuming they want code. Use clear language, ask only for essential missing details, and explain uncertainty.',review:'Check accuracy and usefulness, remove unnecessary complexity, and make the final answer easy to follow.'},
  {id:'coding',label:'💻 Build an app or website',name:'Code Architect',description:'Build working software with clear requirements, readable files, edge-case handling and practical tests.',steps:['Define features & constraints','Write working code','Audit bugs & accessibility','Deliver tests & setup'],family:/coder|qwen|phi|llama/i,temperature:.25,firstTokens:1100,secondTokens:1150,
  instructions:'You are a careful software engineer. State assumptions briefly, produce usable code with filenames and no fake dependencies. Respect existing files and scope. Include implementation steps and realistic test cases.',review:'Check syntax, missing imports, error handling, accessibility, security, mobile usability and requirements. Correct mistakes and give the complete best solution.'},
  {id:'writing',label:'✍️ Write or improve text',name:'Precision Writer',description:'Turn rough ideas into clear, compelling, audience-appropriate writing without changing the underlying facts.',steps:['Identify audience & purpose','Draft with clarity','Tighten tone & flow','Deliver polished copy'],family:/llama|gemma|qwen|mistral/i,temperature:.7,firstTokens:850,secondTokens:950,
@@ -27,7 +29,7 @@ const PRESETS=[
  {id:'custom',label:'🛠️ My own workflow',name:'Custom Studio',description:'Choose your own instructions and build a reusable personalized process.',steps:['Set a goal','Follow your instructions','Review if refined','Deliver final output'],family:/llama|qwen|phi/i,temperature:.55,firstTokens:850,secondTokens:950,
  instructions:'Follow the custom process defined by the user; otherwise provide a helpful structured answer with assumptions and an actionable deliverable.',review:'Check the draft against the custom instructions and the original question. Correct unsupported claims and improve completeness.'}
 ];
-let currentId='coding',records=[],activeGroup='all',selectedRecord=null,loadError='';
+let currentId='general',records=[],activeGroup='all',selectedRecord=null,loadError='';
 try{const state=JSON.parse(localStorage.getItem(stackKey)||'null');if(PRESETS.some(p=>p.id===state?.id))currentId=state.id}catch{}
 const currentPreset=()=>PRESETS.find(p=>p.id===currentId)||PRESETS[0];
 function current(){
@@ -36,7 +38,7 @@ function current(){
  return {...p,refined:$('#stackDepth')?.value!=='fast',
   instructions:p.id==='custom'&&custom?p.instructions+'\nUser workflow: '+custom.slice(0,1400):p.instructions};
 }
-window.RandomAIStacks={current,choose:setStack,presets:PRESETS.map(p=>({id:p.id,name:p.name,label:p.label}))};
+window.RandomAIStacks={current,choose:setStack,presets:PRESETS.map(p=>({id:p.id,name:p.name,label:p.label,description:p.description,steps:p.steps.slice()}))};
 const normalize=r=>({
  id:String(r.model_id),vram:Number(r.vram_required_MB)||0,
  family:family(r.model_id),role:role(r.model_id),
@@ -67,6 +69,7 @@ function setStack(id){
  currentId=id;try{localStorage.setItem(stackKey,JSON.stringify({id}))}catch{}
  for(const el of document.querySelectorAll('[data-stack-task]'))el.value=id;
  renderStack();
+ window.dispatchEvent(new CustomEvent('random-ai-stack-changed',{detail:{id}}));
 }
 function renderStack(){
  const p=currentPreset(),pick=recommendModel(p),steps=$('#stackSpotlightSteps');
