@@ -86,7 +86,7 @@ function connectionParagraph(item,data,hasDirect,hasPsych){
  const directOnly=active.filter(tag=>(data.axes.direct[tag]||0)>0&&!(data.axes.psych[tag]>0));
  const psychOnly=active.filter(tag=>(data.axes.psych[tag]||0)>0&&!(data.axes.direct[tag]>0));
  const names=tags=>tags.map(tag=>data.lenses[tag]?.label||tag).join(', ');
- if(!active.length)return 'No specific overlap with the answer themes was detected. This is primarily a saved, marked, or exploratory Atlas interest.';
+ if(!active.length)return 'No specific overlap with the answer themes was detected. This is primarily a saved, marked, or exploratory Curiosity Library interest.';
  return (both.length?'Both quizzes show overlap with '+names(both)+'. ':'')+
    (directOnly.length?'Direct-quiz answers also relate to '+names(directOnly)+'. ':'')+
    (psychOnly.length?'Everyday-psychology answers also relate to '+names(psychOnly)+'. ':'')+
@@ -302,7 +302,7 @@ function build(){
  }
  const named=data.interests;
  const interests=section(doc,'04 · Specific interests with the psychology behind each','Each profile below ties an identified interest to the actual quiz selections that match its themes, explains competing interpretations, and offers specific communication prompts. These are possibilities, not diagnoses.');
- if(!named.length)add(interests,'p','At least eight answered questions or direct Atlas selections are needed for named suggestions. You can save this partial report now and update it later.');
+ if(!named.length)add(interests,'p','At least eight answered questions or directly marked library selections are needed for named suggestions. You can save this partial report now and update it later.');
  else named.forEach((item,i)=>renderInterest(interests,item,i,data));
  const suggestions=section(doc,'05 · Additional psychology-to-interest suggestions','These suggestions reflect the non-explicit quiz’s thematic connections. They are not proof of any sexual interest and do not override any “Not for me” selections.');
  const seen=new Set(named.map(x=>x.id));
