@@ -76,7 +76,7 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'multiplayer',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/',multiplayer:'same-screen',duration:'5–15 MIN'},
   {icon:TOOL_MENU_ICONS[7],title:'Candy Pulse',blurb:"A hypnotic music-powered universe of shifting mandalas, kaleidoscopes, glowing particles, geometric tunnels, and bass-reactive light trails.",kind:'creative',label:'MUSIC VISUALIZER',palette:'blue',href:'/music-visualizer/'},
   {icon:TOOL_MENU_ICONS[8],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/',duration:'LONG COURSE'},
-  {icon:TOOL_MENU_ICONS[9],title:'Moodropolis',blurb:'Build a city that feels alive. Meet citizens, respond to their problems, rebuild neighborhoods, discover events, and shape the future of Meridian.',kind:'ongoing',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
+  {icon:TOOL_MENU_ICONS[9],title:'Moodropolis',blurb:'Build a city that feels alive. Meet citizens, solve neighborhood problems, respond to events, and shape your city's future.',kind:'ongoing',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
   {icon:TOOL_MENU_ICONS[10],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[11],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[12],title:'Random AI',blurb:'Go from an idea to a real result. Explore models by writing, coding, reasoning, images or video; connect your own provider, create work and keep your drafts.',kind:'creative',label:'CREATE · CODE · IMAGES · VIDEO',palette:'purple',href:'/studio/',duration:'CREATE ANYTIME'},
@@ -221,20 +221,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
 
       {/* Nonsense belongs close to the entrance, not buried after every attraction. */}
       <RandomNonsenseGenerator />
-
-      <details className="candyland-future-games" aria-label="Three connected playable worlds">
-        <summary>✨ Meridian Universe <span>3 connected stories</span></summary>
-        <div className="candyland-section-heading">
-          <span>✨ THREE CONNECTED STORIES</span>
-          <h2>A city. Its power. <em>Its justice.</em></h2>
-          <p>All three are grouped in the ongoing and story sections above. Make choices, uncover surprises and keep a shared Meridian chronicle on your device.</p>
-        </div>
-        <div className="candyland-future-grid">
-          <article><strong>🏙️ Moodropolis</strong><p>Manage neighborhoods, emotional wellbeing, a budget, residents, and evolving city events.</p><a href="/moodropolis/" className="candyland-world-play">Play Moodropolis ↗</a></article>
-          <article><strong>🏛️ The Corridors: Rise to Power</strong><p>Navigate seven branching policy battles, political bargains, money, ethics, oversight, and relationships.</p><a href="/the-corridors/" className="candyland-world-play">Enter The Corridors ↗</a></article>
-          <article><strong>⚖️ The Docket</strong><p>Work five cases from four professional roles, review evidence, argue procedure, reach a conclusion, and explore appeals.</p><a href="/the-docket/" className="candyland-world-play">Open The Docket ↗</a></article>
-        </div>
-      </details>
 
       <details className="candyland-install-apps" id="install-apps" aria-label="Install individual Candy Land apps on Android or iPhone">
         <summary>📲 Install your favorites <span>Optional</span></summary>
