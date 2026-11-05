@@ -15,9 +15,16 @@ const signals=[
  {id:'conflict',label:'Material contradictory evidence exists',points:-35,why:'A conflicting official statement, date, or claim should be documented and investigated.'}
 ];
 let candidates=[],editIndex=-1;
+const demoAccounts=[
+ {platform:'X',handle:'@BillGates',url:'https://x.com/BillGates'},
+ {platform:'Instagram',handle:'@thisisbillgates',url:'https://www.instagram.com/thisisbillgates/'},
+ {platform:'Gates Notes (personal website)',handle:'Gates Notes',url:'https://www.gatesnotes.com/'}
+];
 function render(){
  host.innerHTML='<div class="trace-profile-heading"><div><span class="eyebrow">CONSENT-BASED · ON-DEVICE ONLY</span><h2>Profile & connection review</h2><p>Create a report about yourself or someone who has explicitly authorized this review. Enter known identifiers and public account links, then assess the strength of the <em>supplied</em> evidence. The app does not search for undisclosed accounts, identify private users, or expose residences.</p></div><span class="trace-id-chip">PRIVATE WORKSPACE</span></div>'+
- '<label class="trace-profile-consent"><input type="checkbox" id="profile-consent"> I confirm that this profile is mine or that its subject has authorized this specific review and export.</label>'+
+ '<fieldset class="trace-profile-ownership"><legend>Whose profile is this?</legend><label><input type="radio" name="profile-owner" value="self" checked> This is my own profile</label><label><input type="radio" name="profile-owner" value="authorized"> Another person who explicitly authorized this review</label></fieldset>'+
+ '<label class="trace-profile-consent"><input type="checkbox" id="profile-consent"> <span id="profile-consent-text">I authorize this review of the details I voluntarily provide about myself.</span></label>'+
+ '<section class="trace-profile-demo"><div><strong>See an example using a real public figure</strong><p>Bill Gates: three public accounts/sites, with a verifiable source. No phone number, email, residence, or assumed private accounts.</p></div><button type="button" id="profile-example" class="outline" aria-expanded="false">Show public example</button><div id="profile-example-content" hidden></div></section>'+
  '<div class="trace-profile-fields"><label>Display name / business name<input id="profile-name" autocomplete="off" placeholder="Name shared with permission" maxlength="110"></label><label>Public username<input id="profile-username" autocomplete="off" placeholder="Public handle, optional" maxlength="90"></label><label>Contact email (optional)<input id="profile-email" type="email" autocomplete="off" placeholder="Authorized contact only" maxlength="160"></label><label>Contact phone (optional)<input id="profile-phone" type="tel" autocomplete="off" placeholder="Authorized contact only" maxlength="55"></label><label>Public organization address (optional)<input id="profile-address" autocomplete="off" placeholder="Business or public office address, not a residence" maxlength="190"></label><label>Review purpose<input id="profile-purpose" autocomplete="off" placeholder="Why and for whom is this review authorized?" maxlength="220"></label></div>'+
  '<div class="trace-profile-add"><h3>Add a supplied public account or business listing</h3><p>Include only a public account the subject has agreed to review. Enter the evidence you already possess. Names, usernames, emails and phone numbers alone never prove the account belongs to someone.</p>'+
  '<label>Platform / service<input id="candidate-platform" maxlength="75" placeholder="e.g. Professional directory"></label><label>Public profile URL<input id="candidate-url" type="url" maxlength="450" placeholder="https://example.org/public-profile"></label>'+
@@ -26,6 +33,12 @@ function render(){
  '<button type="button" id="candidate-add" class="cta">＋ Add account for review</button><span id="profile-status" role="status" aria-live="polite"></span></div>'+
  '<div class="trace-profile-results"><div class="trace-profile-results-title"><h3>Evidence-linked connections</h3><p>The percentage below is an illustrative <strong>evidence-strength rubric</strong>, not a statistical probability of shared identity. All indicators are entered by the reviewer, not independently checked by TRACE.</p></div><div id="profile-candidates"></div></div>'+
  '<div class="trace-profile-actions"><button type="button" id="profile-export" class="outline">↓ Export my review as JSON</button><button type="button" id="profile-clear" class="outline">Clear this review</button></div><p class="trace-profile-footnote">No background lookup, browser history tracking, or server submission. Nothing is saved by default; closing or reloading discards your entries. Verify sources yourself, redact unnecessary personal data, and never treat a score as proof of identity or wrongdoing.</p>';
+ host.querySelectorAll('input[name="profile-owner"]').forEach(input=>input.addEventListener('change',()=>{
+  const self=host.querySelector('input[name="profile-owner"]:checked')?.value==='self';
+  $('profile-consent-text').textContent=self?'I authorize this review of the details I voluntarily provide about myself.':'I have explicit permission from this person to review and export these specific details.';
+  $('profile-consent').checked=false;
+ }));
+ $('profile-example').addEventListener('click',toggleExample);
  $('candidate-add').addEventListener('click',add);
  $('profile-export').addEventListener('click',exportReview);
  $('profile-clear').addEventListener('click',()=>{if(confirm('Clear the current profile and all candidate accounts?')){candidates=[];editIndex=-1;render()}});
@@ -67,10 +80,32 @@ function showCandidates(){
  wrap.append(heading,bar,src,indicators,remove);list.append(wrap);
  });
 }
+function toggleExample(){
+ const panel=$('profile-example-content'),button=$('profile-example'),willOpen=panel.hidden;
+ panel.hidden=!willOpen;button.setAttribute('aria-expanded',String(willOpen));
+ button.textContent=willOpen?'Hide public example':'Show public example';
+ if(!willOpen)return;
+ panel.replaceChildren();
+ const title=document.createElement('h4');title.textContent='Bill Gates · publicly identified accounts';panel.append(title);
+ const desc=document.createElement('p');desc.textContent='The Gates Foundation publicly lists Bill Gates’s X and Instagram accounts on its verified-accounts page. His personal website, Gates Notes, identifies itself as his site. This is an example of documented public attribution—not discovery of unknown accounts.';panel.append(desc);
+ for(const account of demoAccounts){
+  const item=document.createElement('div');item.className='trace-profile-demo-account';
+  const name=document.createElement('strong');name.textContent=account.platform+' · '+account.handle;
+  const a=document.createElement('a');a.href=account.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='View publicly identified page ↗';
+  item.append(name,a);panel.append(item);
+ }
+ const source=document.createElement('p');source.className='trace-profile-demo-source';
+ source.append(document.createTextNode('Primary sources: '));
+ for(const [label,url] of [['Gates Foundation verified accounts','https://www.gatesfoundation.org/about/verified-accounts'],['Gates Notes','https://www.gatesnotes.com/']]){
+  const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label;source.append(a,document.createTextNode(' · '));
+ }
+ panel.append(source);
+ const why=document.createElement('p');why.textContent='Reasoning: an organization’s official verified-account listing is stronger evidence than a matching name, profile photo, or username. This example makes no claims about additional accounts or private contact data; no identity probability is calculated.';panel.append(why);
+}
 function exportReview(){
  const status=$('profile-status');if(!$('#profile-consent').checked){status.textContent='Confirm authorization before exporting.';return}
  const profile={name:val('profile-name'),username:val('profile-username'),email:val('profile-email'),phone:val('profile-phone'),publicOrganizationAddress:val('profile-address'),purpose:val('profile-purpose')};
- const payload={type:'trace-consent-based-profile-review',version:1,created:new Date().toISOString(),profile,candidates,scoring:'Reviewer-selected evidence strength rubric, NOT probability; candidates are NOT independently verified.',limitations:'Only voluntarily supplied links and contact information. No search for undisclosed accounts; no live identity or location lookup.'};
+ const payload={type:'trace-consent-based-profile-review',version:1,created:new Date().toISOString(),consentBasis:host.querySelector('input[name="profile-owner"]:checked')?.value==='self'?'self-asserted':'other-person-authorization-asserted',profile,candidates,scoring:'Reviewer-selected evidence strength rubric, NOT probability; candidates are NOT independently verified.',limitations:'Only voluntarily supplied links and contact information. No search for undisclosed accounts; no live identity or location lookup.'};
  if(!profile.name&&!candidates.length){status.textContent='Enter a name or at least one public candidate first.';return}
  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),href=URL.createObjectURL(blob),link=document.createElement('a');
  link.href=href;link.download='trace-authorized-profile-review.json';document.body.append(link);link.click();link.remove();
