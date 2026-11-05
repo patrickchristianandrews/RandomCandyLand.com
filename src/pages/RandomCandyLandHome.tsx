@@ -229,8 +229,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                         </span>
                       </>;
                       return portal.oldPet
-                        ? <button key={portal.title} type="button" onClick={onNavigateToTrump} className={'candyland-hero-tool-link'+(portal.kind === 'discovery' ? ' candyland-unwrapped-feature-card' : '')} aria-label={'Open '+portal.title}>{content}</button>
-                        : <a key={portal.title} href={portal.href} className="candyland-hero-tool-link" aria-label={'Open '+portal.title}>{content}</a>;
+                        ? <button key={portal.title} type="button" onClick={onNavigateToTrump} className="candyland-hero-tool-link" aria-label={'Open '+portal.title}>{content}</button>
+                        : <a key={portal.title} href={portal.href} className={'candyland-hero-tool-link'+(portal.kind === 'discovery' ? ' candyland-unwrapped-feature-card' : '')} aria-label={'Open '+portal.title}>{content}</a>;
                     })}
                   </nav>
                 </section>
