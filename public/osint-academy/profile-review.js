@@ -51,11 +51,16 @@ root.innerHTML=
  '<p id="profile-status" class="trace-profile-live-status" role="status" aria-live="polite"></p>';
 const demoBox=$('profile-demo-links');for(const d of demo){const wrap=document.createElement('div');const a=document.createElement('a');a.href=d.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=d.label+' ↗';const p=document.createElement('small');p.textContent=d.why;wrap.append(a,p);demoBox.append(wrap)}
 function value(id){return String($(id)?.value||'').trim()}
+/* No paid provider, API key, hidden-account lookup or background crawl.
+ * Open-source/open-data projects and free public-read APIs only. */
 const publicSources=Object.freeze({
- github:'GitHub public profile API',
- dns:'Google Public DNS',
- wikidata:'Wikidata public directory',
- wikidataSearch:'Wikidata public entity search'
+ github:'GitHub public REST API · free',
+ gitlab:'GitLab public REST API · free / open-core',
+ codeberg:'Codeberg Forgejo API · free / open source',
+ dns:'Google Public DNS JSON API · free',
+ archive:'Internet Archive Wayback Availability API · free',
+ wikidata:'Wikidata public directory · open data',
+ wikidataSearch:'Wikidata entity search · open data'
 });
 function clueType(raw,declared){
  if(declared&&declared!=='auto')return declared;
@@ -104,24 +109,36 @@ async function lookupClue(kind,raw){
  const results=[];
  if(kind==='username'){
   const username=raw.replace(/^@/,'').trim();
-  if(!/^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(username))throw Error('Enter a public username using letters, numbers and hyphens.');
-  const user=await publicJson('https://api.github.com/users/'+encodeURIComponent(username));
-  if(user&&user.type==='User'&&user.login){
-   const displayed=user.name||user.login;
-   const detail=['Exact public GitHub handle: @'+user.login,user.company?'Company claimed: '+user.company:'',user.bio?'Public bio: '+user.bio:'',user.blog?'Website supplied by account: '+user.blog:''].filter(Boolean).join(' · ');
-   results.push(resultFor('Account listing',displayed,detail,user.html_url,publicSources.github,'A platform profile exists for this exact handle; this does not establish that the target person owns it.'));
-  }
-  if(user&&user.type==='Organization'&&user.login){
-   results.push(resultFor('Organization listing',user.name||user.login,'GitHub organization account: '+user.login,user.html_url,publicSources.github,'Public organization account; ownership of any other account is not inferred.'));
-  }
-  if(!results.length)results.push(resultFor('No match','No exact GitHub handle found','Other services were not searched; this is not proof that an account is absent.','https://github.com/',publicSources.github,'No verified attribution.'));
+  if(!/^[a-z\d][a-z\d_.-]{0,37}[a-z\d]$/i.test(username)&&!/^[a-z\d]$/i.test(username))throw Error('Enter a public username using letters, numbers, underscores, periods or hyphens.');
+  const sources=[
+   {label:'GitHub',url:'https://api.github.com/users/'+encodeURIComponent(username),parse:d=>d&&String(d.login||'').toLowerCase()===username.toLowerCase()?[resultFor(d.type==='Organization'?'Organization listing':'Public account',d.name||d.login,['GitHub @'+d.login,d.company?'Organization claimed: '+d.company:'',d.bio?'Public bio: '+d.bio:''].filter(Boolean).join(' · '),d.html_url||'https://github.com/'+encodeURIComponent(d.login),publicSources.github,'The exact handle exists on GitHub; that does not establish a private identity or link other accounts.')]:[]},
+   {label:'GitLab',url:'https://gitlab.com/api/v4/users?username='+encodeURIComponent(username),parse:d=>(Array.isArray(d)?d:[]).filter(x=>String(x.username||'').toLowerCase()===username.toLowerCase()).slice(0,1).map(x=>resultFor('Public account',x.name||x.username,'GitLab @'+x.username+' · public profile',x.web_url||'https://gitlab.com/'+encodeURIComponent(x.username),publicSources.gitlab,'Matching usernames across platforms are not proof of common ownership.'))},
+   {label:'Codeberg',url:'https://codeberg.org/api/v1/users/'+encodeURIComponent(username),parse:d=>d&&String(d.login||'').toLowerCase()===username.toLowerCase()?[resultFor('Public account',d.full_name||d.login,'Codeberg @'+d.login+(d.description?' · '+d.description:''),d.html_url||'https://codeberg.org/'+encodeURIComponent(d.login),publicSources.codeberg,'Forgejo-based open-source host; verify before linking this account to your other profiles.')]:[]}
+  ];
+  const checked=await Promise.allSettled(sources.map(async p=>p.parse(await publicJson(p.url))));
+  let responded=0;const unavailable=[];
+  checked.forEach((r,i)=>{if(r.status==='fulfilled'){responded++;results.push(...r.value)}else unavailable.push(sources[i].label)});
+  if(!results.length&&responded)results.push(resultFor('No match','No exact handles on responding services','No match on the '+responded+' responding public code-hosting source'+(responded===1?'':'s')+'. Other networks were not searched.','', 'Open-source / free public profile APIs','A missing result does not prove that an account or person does not exist.'));
+  if(unavailable.length)results.push(resultFor('Source unavailable','Some free APIs could not be checked',unavailable.join(', ')+' could not answer (CORS, network failure or rate limit). Their results remain unknown.','', 'Free public API availability','No failed lookup was treated as an absent account, and no paid fallback was attempted.'));
  }
  if(kind==='email'||kind==='website'){
   const {domain,url}=kind==='email'?domainFrom(raw.split('@')[1]||''):domainFrom(raw);
   if(kind==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw))throw Error('Enter a valid email address.');
-  const dns=await publicJson('https://dns.google/resolve?name='+encodeURIComponent(domain)+'&type='+(kind==='email'?'MX':'A'));
-  const records=(dns?.Answer||[]).filter(x=>typeof x.data==='string').slice(0,4);
-  results.push(resultFor('Domain infrastructure',domain,records.length?(kind==='email'?'Published mail-server DNS records: ':'Published DNS addresses: ')+records.map(x=>x.data).join(' · '):'No matching DNS records returned from this source. Domain existence or mailbox ownership is not established.','https://dns.google/resolve?name='+encodeURIComponent(domain)+'&type='+(kind==='email'?'MX':'A'),publicSources.dns,'DNS checks establish infrastructure only; they do not verify an email inbox, identify a person or prove a site is safe.'));
+  const kindDNS=kind==='email'?'MX':'A';
+  const dnsUrl='https://dns.google/resolve?name='+encodeURIComponent(domain)+'&type='+kindDNS;
+  const checks=[{label:'Public DNS',run:()=>publicJson(dnsUrl),show:d=>{
+    const records=(d?.Answer||[]).filter(x=>typeof x.data==='string').slice(0,4);
+    return resultFor('Domain infrastructure',domain,records.length?'Published '+kindDNS+' records: '+records.map(x=>x.data).join(' · '):'No matching '+kindDNS+' records. This does not prove a website or inbox is absent.',dnsUrl,publicSources.dns,'Public DNS infrastructure does not prove a specific mailbox exists or identify a person.');
+  }}];
+  if(kind==='website')checks.push({label:'Internet Archive',run:()=>publicJson('https://archive.org/wayback/available?url='+encodeURIComponent(url.href)),show:d=>{
+    const snap=d?.archived_snapshots?.closest;
+    if(!snap?.available||!snap.url)return resultFor('No match','No snapshot available','The free Wayback API did not return a publicly accessible capture for this URL.','',publicSources.archive,'This does not prove the site was never online.');
+    const stamp=String(snap.timestamp||'');
+    const captured=/^\d{8}/.test(stamp)?stamp.slice(0,4)+'-'+stamp.slice(4,6)+'-'+stamp.slice(6,8):'unknown date';
+    return resultFor('Archived public page','Snapshot from '+captured,'Archived copy of the public '+domain+' website.',String(snap.url).replace(/^http:/,'https:'),publicSources.archive,'Historical pages may be incomplete or outdated; captures do not prove personal identity or current ownership.');
+  }});
+  const checked=await Promise.allSettled(checks.map(async p=>p.show(await p.run())));
+  checked.forEach((r,i)=>results.push(r.status==='fulfilled'?r.value:resultFor('Source unavailable',checks[i].label+' could not be checked',String(r.reason?.message||'Network failure').slice(0,150),'',checks[i].label+' · free API','Unavailable does not mean absent. No paid service was used.')));
   if(kind==='website'&&url.hostname.toLowerCase()==='github.com'){
    const handle=url.pathname.split('/').filter(Boolean)[0];
    if(handle&&/^[a-z\d-]{1,39}$/i.test(handle))results.push(...await lookupClue('username',handle));
@@ -164,7 +181,7 @@ function displayResearch(){
   card.append(addText('p',null,r.detail),addText('p','trace-profile-found-caution',r.notes));
   const actions=addText('div','trace-profile-found-actions','');
   if(r.url){const link=addText('a','outline','View source ↗');link.href=r.url;link.target='_blank';link.rel='noopener noreferrer';actions.append(link)}
-  if(!['No match','No public listing found'].includes(r.kind)){
+  if(!['No match','No public listing found','Source unavailable'].includes(r.kind)){
    const btn=addText('button','outline','+ Save as a lead');btn.type='button';btn.dataset.saveResult=String(i);actions.append(btn);
   }
   card.append(actions);area.append(card);
@@ -172,7 +189,7 @@ function displayResearch(){
 }
 function saveResearchResult(index,quiet=false){
  const r=state.researchResults[index];
- if(!r||['No match','No public listing found'].includes(r.kind))return;
+ if(!r||['No match','No public listing found','Source unavailable'].includes(r.kind))return;
  if(state.candidates.length>=50){if(!quiet)setStatus('Your evidence map contains 50 clues already.','profile-research-status');return}
  if(state.candidates.some(c=>c.url&&c.url===r.url)){if(!quiet)setStatus('This source is already in the evidence map.','profile-research-status');return}
  state.candidates.push({id:idFor(),platform:r.kind+': '+r.headline,url:r.url,source:r.source+' · retrieved '+new Date().toISOString().slice(0,10),notes:r.detail+' — '+r.notes,indicators:[]});
@@ -201,7 +218,7 @@ async function researchPublic(){
  state.researchBusy=true;state.researchResults=[];$('profile-report-from-results').hidden=true;
  const button=$('profile-research');button.disabled=true;button.textContent='Searching public sources…';
  $('profile-research-results').replaceChildren();
- setStatus('Checking '+clues.map(([type])=>type).join(', ')+' using public source APIs. No website account or private subscriber database is accessed.','profile-research-status');
+ setStatus('Checking '+clues.map(([type])=>type).join(', ')+' using open-data sources and free public APIs. No private subscriber or paid data service is accessed.','profile-research-status');
  let failures=0;
  try{
   const settled=await Promise.allSettled(clues.map(([type,v])=>lookupClue(type,v)));
