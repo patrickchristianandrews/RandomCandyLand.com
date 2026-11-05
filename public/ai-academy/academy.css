@@ -5,3 +5,43 @@
 @media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:15px}.course-nav{display:flex;overflow-x:auto;gap:8px;padding-bottom:5px}.course-group{flex:none;min-width:145px;margin:8px 0}.course-nav button{font-size:10px;min-height:43px}.sidebar-help{display:none}.sidebar h2{margin:4px 0}.sidebar>p{display:none}.hero-orbit{display:none}.top{position:relative}.top nav a{font-size:10px;padding:8px}.main{padding:12px}}
 @media(max-width:650px){.lesson-copy,.builder-grid,.split{grid-template-columns:1fr}.hero{padding:24px 19px}.learning-card,.builder{padding:18px}.end{flex-direction:column;align-items:stretch}.stats{gap:6px}.stats>div{padding:10px}.stats strong{font-size:23px}.brand{font-size:18px}.brand small{font-size:8px}.top{padding:11px}.top nav{gap:5px}.top nav a{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* Interactive Academy labs: responsive, recognizable and fully usable on phones. */
+.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.play-lab{border:1px solid #b4a5ed48;border-radius:23px;padding:clamp(17px,3vw,30px);background:linear-gradient(135deg,#242044,#142d3d);margin:20px 0;box-shadow:0 14px 30px #0003}
+.play-lab .section-title h2{font:900 clamp(24px,3.2vw,38px)/1.12 'Outfit',system-ui;margin:6px 0}
+.play-lab .section-title p{color:#ddd7ec;margin:5px 0 18px;font-size:12px}
+.play-toolbar,.play-bottom{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin:14px 0}
+.play-toolbar label{font-size:12px;font-weight:800;color:#e7e0f7}
+.play-toolbar select{display:block;margin-top:5px;border:1px solid #c2b6e38c;border-radius:10px;background:#171932;color:#fff;padding:10px;min-height:43px;width:min(310px,80vw)}
+.mission-progress,.mission-heading span{font-size:11px;color:#b9ffe4;font-weight:800}
+.mission-heading{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:12px;background:#ffffff09;border:1px solid #ffffff23;border-radius:10px}
+.mission-heading strong{font-size:14px}
+.tier-picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}
+.tier-pick{padding:11px 5px;min-height:43px;border-radius:11px;border:1px solid #ffffff4b;background:#ffffff11;color:#f8edff;font-weight:800}
+.tier-pick.selected{background:#bdf5e7;color:#18363b;border-color:#bbffe9}
+.tier-pick.explored:not(.selected){border-color:#9cf2da}
+.showdown-grid,.coach-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.showdown-panel{display:flex;flex-direction:column;align-items:flex-start;gap:8px;border-radius:13px;padding:15px;background:#0d172e;border:1px solid #ffffff2f;min-width:0}
+.showdown-panel.answer-panel{background:#213d3c}
+.showdown-panel p{overflow-wrap:anywhere;white-space:pre-line;font-size:13px;line-height:1.65;color:#fff;margin:3px 0;flex:1}
+.showdown-panel .mini-label{font-size:10px;font-weight:900;letter-spacing:.1em;color:#c3ffeb}
+.why-panel{font-size:11px;color:#e4f9ed;line-height:1.55}
+.play-bottom p{font-size:12px;color:#e3d8f4}
+.coach-grid{align-items:start}
+.coach-grid>div:first-child label{display:block;font-weight:800;font-size:12px;margin:3px 0 7px}
+.coach-grid textarea{resize:vertical;width:100%;border-radius:12px;min-height:174px;padding:13px;color:#fff;background:#0c162d;border:1px solid #ffffff48;line-height:1.5}
+.coach-grid .actions{margin-top:10px}
+.coach-feedback{border:1px solid #b5a5df77;padding:16px;border-radius:14px;background:#12192d}
+.coach-grade{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;font-weight:850}
+.coach-grade strong{font:900 25px 'Outfit',system-ui;color:#adfadb}
+.coach-meter{height:10px;border-radius:10px;background:#ffffff1c;overflow:hidden;margin:11px 0}
+.coach-meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#8ce1f7,#bfffc6);transition:width .2s}
+.coach-checks{display:grid;gap:6px}
+.coach-check{display:flex;align-items:center;gap:9px;background:#ffffff0b;border:1px solid #ffffff16;border-radius:9px;padding:9px;font-weight:700;font-size:11px}
+.coach-check span:first-child{font-weight:900;color:#e5bfd3}
+.coach-check.good{border-color:#95ead982;background:#143d38}
+.coach-check.good span:first-child{color:#aaffd3}
+.coach-feedback #coachAdvice{font-size:12px;color:#e9e4fa;margin:13px 0}
+.coach-feedback .fine-print{font-size:10px;color:#b6b6c9}
+@media(max-width:730px){.showdown-grid,.coach-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.play-lab{padding:16px}}
+@media(max-width:430px){.tier-pick{font-size:11px}.play-toolbar select{width:min(100%,300px)}.showdown-panel{padding:12px}}
