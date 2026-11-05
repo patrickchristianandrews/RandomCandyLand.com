@@ -27,6 +27,11 @@ vm.runInNewContext(toy,context,{filename:'toy-library.js'});
 vm.runInNewContext(sample,context,{filename:'sample-pdf.js'});
 const lib=context.window.UnwrappedToyLibrary;
 const samplePDF=context.window.AfterDarkSamplePDF;
+const answer=lib.answer('How do I use a wand with male and female anatomy?');
+assert.match(answer,/Male anatomy:/);
+assert.match(answer,/Female anatomy:/);
+assert.match(answer,/Partner use:/);
+assert.ok(!lib.answer('How can I get to know my partner?'),'Non-toy questions must be left for other educational content.');
 assert.equal(lib.types.length,12);
 assert.deepEqual(Array.from(samplePDF.keys).sort(),['new','personal','selected']);
 for(const item of lib.types){
@@ -66,4 +71,6 @@ assert.match(compare,/selection\.toys\.has\(item\.id\)/);
 assert.match(compare,/raw\.toys/);
 assert.match(qr,/Sex Toy Guide/);
 assert.match(main,/id="toy-body-focus"/);
+assert.match(main,/UnwrappedToyLibrary\?\.answer/);
+assert.match(main,/report-coverage-20261105-v5/);
 console.log('✓ Personal, partner, new-partner, selected links, comparison JSON, downloadable samples and QR all use opt-in toy/anatomy guidance.');
