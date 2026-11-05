@@ -170,6 +170,9 @@ function build(){
   }
   if(!count)add(s,'p','I have not written any notes yet.');
  }
+ // Only visualize the sections explicitly enabled for this exported partner copy.
+ // Never expose unselected quiz answers, notes or suggested interests.
+ window.AfterDarkReportVisuals?.enhancePartner?.(root,d,selected);
  if(window.AfterDarkReportQR?.create)root.append(window.AfterDarkReportQR.create());
  return root;
 }
