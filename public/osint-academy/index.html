@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/osint-academy/style.css?v=one-clue-research-20261105-v1">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/game.js?v=tools-20261105-v2" defer></script><script src="/osint-academy/identity-lab.js?v=identity-redesign-20261105" defer></script><script src="/osint-academy/profile-review.js?v=one-clue-research-20261105-v1" defer></script><script src="/osint-academy/identity-workspace.js?v=one-clue-research-20261105-v1" defer></script>
+<script src="/osint-academy/game.js?v=tools-20261105-v2" defer></script><script src="/osint-academy/identity-lab.js?v=identity-redesign-20261105" defer></script>
 </head>
 <body class="trace-app">
 <!-- Google Tag Manager (noscript) -->
@@ -41,7 +41,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>Master evidence-led open-source research. Learn the tools, build your workstation, verify imagery and public contact information, map complex records, and defend your conclusions in a case report.</p>
 <div class="hero-actions">
 <button type="button" class="cta" data-switch="missions">▶ Play the investigation</button>
-<button type="button" class="outline" data-switch="setup">⚙ Workstation setup (optional)</button>
+<button type="button" class="outline" data-switch="setup">⚙ Workstation setup (optional)</button><a href="/identity-lab/" class="outline">◎ My Identity Lab (separate tool)</a>
 </div>
 <span class="hero-disclosure">◎ 25 MISSION FILES · 75 DECISIONS · A CAPSTONE PORTFOLIO · FICTIONAL SUBJECTS ONLY</span>
 </section>
@@ -59,7 +59,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="trace-tabs" role="tablist" aria-label="Academy areas">
 <button type="button" role="tab" id="tab-missions" aria-controls="view-missions" aria-selected="true" data-switch="missions">▶ Play cases</button>
-<button type="button" role="tab" id="tab-identity" aria-controls="view-identity" aria-selected="false" data-switch="identity">🧩 Identity lab</button>
+<button type="button" role="tab" id="tab-identity" aria-controls="view-identity" aria-selected="false" data-switch="identity">🧩 Evidence Files</button>
 <button type="button" role="tab" id="tab-scope" aria-controls="view-scope" aria-selected="false" data-switch="scope">◎ Get help</button>
 <button type="button" role="tab" id="tab-setup" aria-controls="view-setup" aria-selected="false" data-switch="setup">⚙ Setup guide</button>
 <button type="button" role="tab" id="tab-tools" aria-controls="view-tools" aria-selected="false" data-switch="tools">⌕ Research tools</button>
@@ -75,7 +75,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </details>
 </div>
 </section>
-<section id="view-identity" class="trace-view identity-workspace" role="tabpanel" aria-labelledby="tab-identity" hidden><div class="identity-workspace-intro"><div><span class="eyebrow">TRACE · DIGITAL INVESTIGATION</span><h2>Identity Lab</h2><p>Practice investigations or investigate an authorized public profile from a single clue. Check live public sources, compare evidence, and assemble an attributed report.</p></div><span class="identity-security-mark">◈ OPT-IN PUBLIC RESEARCH</span></div><nav class="identity-workspace-switch" aria-label="Choose identity investigation workspace"><button type="button" data-identity-mode="cases" aria-selected="true"><span>◈</span><strong>Practice investigations</strong><small>Seven guided case files</small></button><button type="button" data-identity-mode="profile" aria-selected="false"><span>◎</span><strong>My profile review</strong><small>One clue · sourced results</small></button></nav><div class="identity-workspace-pane" id="identity-cases-pane"><div id="trace-identity-lab" aria-live="polite"><h2>Loading the fictional identity lab…</h2></div></div><div class="identity-workspace-pane" id="identity-profile-pane" hidden><section id="trace-profile-review" aria-label="Create an authorized identity and public-account report"></section></div></section>
+<section id="view-identity" class="trace-view identity-workspace" role="tabpanel" aria-labelledby="tab-identity" hidden>
+<div class="identity-workspace-intro">
+ <div><span class="eyebrow">TRACE · GAME CHALLENGE</span><h2>Evidence Files</h2><p>Seven interactive case assignments. Examine simulated records, evaluate conflicting claims, select a conclusion, and earn progress through the game.</p></div>
+ <span class="identity-security-mark">◈ FICTIONAL CHALLENGES</span>
+</div>
+<div class="identity-workspace-pane" id="identity-cases-pane"><div id="trace-identity-lab" aria-live="polite"><h2>Loading evidence challenges…</h2></div></div>
+<p class="trace-id-disclaimer">Looking to review your own online presence instead? <a href="/identity-lab/">Open the separate Identity Lab ↗</a>. It is a self-service tool, not part of the course.</p>
+</section>
 <section id="view-scope" class="trace-view" role="tabpanel" aria-labelledby="tab-scope" hidden>
 <div class="scope-desk">
   <div class="scope-head">
