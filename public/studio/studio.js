@@ -56,11 +56,16 @@ const SYSTEM='You are the Random AI creative assistant. Be accurate, practical, 
 const names={home:'Discover',chat:'Random AI Chat',tools:'Tool library',academy:'AI Academy',code:'Code Lab',visual:'Visual lab',photos:'Photo workshop',voice:'Voice studio',history:'Saved work',settings:'Model & privacy'};
 function notice(message){clearTimeout(noticeTimer);const el=$('#toast');el.textContent=message;el.classList.add('show');noticeTimer=setTimeout(()=>el.classList.remove('show'),3200);}
 function setStatus(text,connected=false){$('#statusPill').textContent=(connected?'● ':'◌ ')+text;$('#statusPill').style.color=connected?'#90e7cc':'#c9bafa';}
-function navigate(view){if(!names[view])view='home';$$('.view').forEach(n=>n.classList.toggle('active',n.id==='view-'+view));$$('.nav-btn').forEach(n=>{const active=n.dataset.view===view;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current')});$('#pageTitle').textContent=names[view];$('#sidebar').classList.remove('is-open');$('#menuBtn').setAttribute('aria-expanded','false');window.scrollTo({top:0,behavior:'auto'});if(view==='history')renderHistory();if(view==='chat')renderChat();try{history.replaceState({},'',view==='home'?'/studio/':'/studio/#'+view)}catch{}}
+function closeStudioMenu(){const side=$('#sidebar'),scrim=$('#sidebarScrim'),btn=$('#menuBtn');side.classList.remove('is-open');scrim.hidden=true;btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open navigation');document.body.classList.remove('studio-menu-open');}
+function setStudioMenu(open){const side=$('#sidebar'),scrim=$('#sidebarScrim'),btn=$('#menuBtn');side.classList.toggle('is-open',open);scrim.hidden=!open;btn.setAttribute('aria-expanded',String(open));btn.setAttribute('aria-label',open?'Close navigation':'Open navigation');document.body.classList.toggle('studio-menu-open',open);if(open)$('#sidebarClose').focus();}
+function navigate(view){if(!names[view])view='home';$$('.view').forEach(n=>n.classList.toggle('active',n.id==='view-'+view));$$('.nav-btn').forEach(n=>{const active=n.dataset.view===view;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current')});$('#pageTitle').textContent=names[view];closeStudioMenu();window.scrollTo({top:0,behavior:'auto'});if(view==='history')renderHistory();if(view==='chat')renderChat();try{history.replaceState({},'',view==='home'?'/studio/':'/studio/#'+view)}catch{}}
 $$('[data-view]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.view)));
 document.addEventListener('click',event=>{const button=event.target.closest('[data-go]');if(button)navigate(button.dataset.go);const suggest=event.target.closest('[data-suggest]');if(suggest){navigate('chat');$('#chatInput').value=suggest.dataset.suggest;$('#chatInput').focus();}});
-$('#menuBtn').addEventListener('click',()=>{const open=$('#sidebar').classList.toggle('is-open');$('#menuBtn').setAttribute('aria-expanded',String(open))});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#sidebar').classList.remove('is-open')});
+$('#menuBtn').addEventListener('click',()=>setStudioMenu(!$('#sidebar').classList.contains('is-open')));
+$('#sidebarClose').addEventListener('click',closeStudioMenu);
+$('#sidebarScrim').addEventListener('click',closeStudioMenu);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeStudioMenu()});
+window.addEventListener('resize',()=>{if(window.innerWidth>780)closeStudioMenu()});
 $('#topNew').addEventListener('click',()=>newChat(true));
 $('#chatReset').addEventListener('click',()=>newChat(true));
 function renderTools(){
@@ -200,6 +205,7 @@ function updateChatMode(){
   $('#chatModelHint').textContent=engine?'Runs on your device · no API key':saved.length?'You have '+saved.length+' saved model'+(saved.length===1?'':'s')+'. Open Models & setup to load one.':'Choose a local model to download and use on this device.';
   setStatus(engine?'Local model ready':'Model not loaded',!!engine);
  }
+ updateComposerModelIdentity();
 }
 async function checkInstant(){
  if(!instantEndpoint){
@@ -226,6 +232,26 @@ async function checkInstant(){
  })();
  return instantCheckPromise;
 }
+function updateComposerModelIdentity(){
+ const model=$('#composerActiveModel'),detail=$('#composerModelDetails'),root=$('#composerActiveModels');if(!model||!detail)return;
+ const workflow=$('#stackTaskChat')?.selectedOptions?.[0]?.textContent?.trim()||'Standard chat';
+ const depth=$('#stackDepth')?.selectedOptions?.[0]?.textContent?.trim()||'Single pass';
+ if(chatMode==='local'){
+  const id=engine&&loadedModel?loadedModel:'';
+  const name=id?(window.RandomAILocal?.getName?.(id)||id):'No local model loaded';
+  model.textContent='🔒 '+name;
+  detail.textContent=(id?'Active on this device':'Choose and load a local model')+' · '+workflow+' · '+depth;
+  root.dataset.ready=String(Boolean(id));
+ }else{
+  const label=$('#instantModel')?.selectedOptions?.[0]?.textContent?.trim()||'Instant AI';
+  model.textContent='⚡ '+(instantReady?label:'Instant AI · disconnected');
+  detail.textContent=(instantReady?'Hosted model selected':'Hosted service unavailable')+' · '+workflow+' · '+depth;
+  root.dataset.ready=String(instantReady);
+ }
+}
+$('#instantModel').addEventListener('change',updateComposerModelIdentity);
+$('#stackTaskChat').addEventListener('change',updateComposerModelIdentity);
+$('#stackDepth').addEventListener('change',updateComposerModelIdentity);
 $('#chatTransport').addEventListener('change',e=>{
  chatMode=e.target.value==='local'?'local':'instant';
  try{localStorage.setItem(chatModeKey,chatMode)}catch{}
