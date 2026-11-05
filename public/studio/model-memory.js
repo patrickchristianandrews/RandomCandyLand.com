@@ -8,7 +8,7 @@ const $=q=>document.querySelector(q);
 const esc=x=>String(x||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const name=id=>window.RandomAILocal?.getName?.(id)||id.replace(/-MLC$/,'').replace(/-/g,' ');
 let known=[],last='',records=[],library=null,checking=false,checked=0,unknown=false;
-const verified=new Map();
+const verified=new Map(),revision=new Map();
 try{const saved=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(saved))known=saved.filter(x=>typeof x==='string').slice(0,200);last=localStorage.getItem(LAST)||'';}catch{}
 function save(){
  try{localStorage.setItem(KEY,JSON.stringify([...new Set(known)].slice(0,200)));if(last)localStorage.setItem(LAST,last);else localStorage.removeItem(LAST)}catch{}
@@ -19,16 +19,17 @@ function preferred(){return last||known[0]||''}
 function tell(){window.dispatchEvent(new CustomEvent('random-ai-saved-models-changed',{detail:{count:savedIds().length,scanning:checking}}))}
 function render(){
  const count=savedIds().length,summary=$('#savedModelCount'),list=$('#savedModelList'),hint=$('#savedModelHint'),hero=$('#savedModelHome');
- if(summary)summary.textContent=checking?'Checking saved models… '+checked+'/'+records.length:count?count+' model'+(count===1?'':'s')+' stored on this device':unknown?'Could not verify stored models':'No saved models found on this device';
+ if(summary)summary.textContent=checking?'Checking saved models… '+checked+'/'+records.length:count?count+' model'+(count===1?'':'s')+' stored on this device':unknown?'Could not verify stored models':!records.length&&known.length?known.length+' previously used model'+(known.length===1?'':'s')+' · awaiting verification':'No saved models found on this device';
  if(hint)hint.textContent=unknown?'Local model files could not be checked. Try Refresh saved models while online.':
  checking?'Checking the actual browser files. This does not download model weights.':
  count?'Select a saved model and load it into memory to start chatting. No new weight download is needed while its files remain cached.':
+ !records.length&&known.length?'Previously used here: '+known.slice(0,5).map(name).join(', ')+'. The catalog must load before we can verify or reuse their cached files.':
  'Models downloaded previously may have been cleared by your browser or stored in another browser/profile. Select a model below to download it.';
- if(hero)hero.textContent=checking?'🔎 Checking saved AI models…':count?'✓ '+count+' saved local model'+(count===1?'':'s')+' available · tap to load':'No saved local models detected yet';
+ if(hero)hero.textContent=checking?'🔎 Checking saved AI models…':count?'✓ '+count+' saved local model'+(count===1?'':'s')+' available · tap to load':!records.length&&known.length?'◌ Previously used models · checking availability':'No saved local models detected yet';
  if(list){
   const ids=savedIds();
   list.innerHTML=ids.map(id=>'<div class="saved-model-item"><div><strong>✓ '+esc(name(id))+'</strong><small>Stored on this device · ready to load</small></div><button type="button" data-reuse-model="'+esc(id)+'" class="outline compact">Load saved</button><button type="button" data-remove-model="'+esc(id)+'" class="outline compact saved-remove" aria-label="Remove downloaded '+esc(name(id))+'">Remove</button></div>').join('')||
-   (checking?'<p class="saved-model-empty">Looking for previously downloaded models…</p>':'<p class="saved-model-empty">No verified cached models. New downloads will appear here automatically.</p>');
+   (checking?'<p class="saved-model-empty">Looking for previously downloaded models…</p>':!records.length&&known.length?'<p class="saved-model-empty">Last used: '+known.slice(0,4).map(x=>esc(name(x))).join(' · ')+' · waiting for catalog verification</p>':'<p class="saved-model-empty">No verified cached models. New downloads will appear here automatically.</p>');
  }
  tell();
 }
@@ -39,11 +40,11 @@ async function scan(){
  let next=0;
  async function worker(){
   while(next<ids.length){
-   const id=ids[next++];
+   const id=ids[next++],started=revision.get(id)||0;
    try{
     if(typeof library.hasModelInCache!=='function')throw Error('WebLLM cache inspection not available');
     const yes=await library.hasModelInCache(id,library.prebuiltAppConfig);
-    verified.set(id,yes===true);
+    if((revision.get(id)||0)===started)verified.set(id,yes===true);
     if(yes&&!known.includes(id))known.push(id);
    }catch{unknown=true;if(!verified.has(id))verified.set(id,null)}
    checked++;
@@ -72,6 +73,7 @@ async function keepStorage(){
 }
 function markLoaded(id){
  if(!id)return;
+ revision.set(id,(revision.get(id)||0)+1);
  verified.set(id,true);if(!known.includes(id))known.push(id);
  last=id;save();render();
  // User-initiated loading can improve durability without storing model weights in localStorage.
@@ -92,7 +94,7 @@ document.addEventListener('click',event=>{
  const reuse=event.target.closest('[data-reuse-model]');
  if(reuse){const id=reuse.dataset.reuseModel;window.RandomAILocal?.select?.(id);$('#loadModel')?.click();return}
  const del=event.target.closest('[data-remove-model]');if(del){void remove(del.dataset.removeModel);return}
- if(event.target.closest('#savedModelRefresh'))void scan();
+ if(event.target.closest('#savedModelRefresh')){if(library)void scan();else window.RandomAILocal?.refresh?.()}
  if(event.target.closest('#savedModelKeep'))void keepStorage();
 });
 window.RandomAIModelMemory=Object.freeze({register,scan,markLoaded,selected,isSaved,savedIds,preferred,getLast:()=>last,getKnown:()=>known.slice(),getChecking:()=>checking,render,keepStorage});
