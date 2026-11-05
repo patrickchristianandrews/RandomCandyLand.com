@@ -77,6 +77,23 @@ function compare(a,b){
  out.append(E('p','A reflection guide based only on items both people chose to share. Different or missing selections are not evidence of incompatibility. Scores and descriptions cannot predict relationship outcomes.','uc-note'));
  const both=common(a.themes,b.themes),aOnly=only(a.themes,b.themes),bOnly=only(b.themes,a.themes);
  const together=common(a.interests,b.interests),ia=only(a.interests,b.interests),ib=only(b.interests,a.interests);
+ const dashboard=E('section',undefined,'uc-dashboard');dashboard.setAttribute('aria-label','Visual comparison of shared report selections');
+ const tiles=E('div',undefined,'uc-metric-grid');
+ for(const [value,label,context] of [[both.length,'Shared psychology themes','Reported by both'],[together.length,'Shared intimate topics','Selected by both'],[aOnly.length+bOnly.length,'Individual psychology themes','Not matched in shared selections'],[ia.length+ib.length,'Individual intimate topics','Not matched in shared selections']]){
+  const tile=E('div',undefined,'uc-metric');tile.append(E('strong',value),E('span',label),E('small',context));tiles.append(tile);
+ }
+ dashboard.append(E('h4','Your shared landscape'),E('p','Counts represent selected report topics only—not percentages of relationship compatibility.','uc-note'),tiles);
+ const labels=[['Psychology themes',both.length,aOnly.length,bOnly.length],['Intimate topics',together.length,ia.length,ib.length]];
+ const chart=E('div',undefined,'uc-chart');
+ for(const [label,shared,first,second] of labels){
+  const total=Math.max(1,shared+first+second),line=E('div',undefined,'uc-chart-line');
+  line.append(E('strong',label));
+  const segments=E('div',undefined,'uc-chart-track');segments.setAttribute('role','img');segments.setAttribute('aria-label',label+': '+shared+' common, '+first+' A only, '+second+' B only');
+  for(const [amount,cls] of [[shared,'common'],[first,'a'],[second,'b']])if(amount){const seg=E('span',undefined,'uc-segment '+cls);seg.style.width=(amount/total*100)+'%';segments.append(seg)}
+  line.append(segments,E('small',shared+' shared · '+first+' A only · '+second+' B only'));chart.append(line);
+ }
+ dashboard.append(chart);out.append(dashboard);
+ addText(out,'How to read the visual overview','Matching labels are conversation starting points; individual selections can reflect different interests, different experiences, or simply what each person chose to disclose. The number of labels is not a scientific measure of how well you fit together.');
  if(both.length)addText(out,'Shared psychology themes',both.map(x=>x.one.label).join(' · ')+'. Ask when these patterns show up in daily life and what support feels helpful to each person.');
  if(together.length)addText(out,'Shared intimate interests',together.map(x=>x.one.title).join(' · ')+'. Compare what each interest means personally, including fantasy versus real-life intentions and boundaries.');
  if(aOnly.length||bOnly.length)addText(out,'Different psychology themes',(a.from||'Partner A')+': '+(aOnly.map(x=>x.label).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(bOnly.map(x=>x.label).join(', ')||'none separately selected')+'. Ask each other how to offer support rather than assuming these represent opposite personalities.');
