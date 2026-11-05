@@ -110,13 +110,13 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
 }
 const homeInstallSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
-if(!homeInstallSource.includes('className="candyland-unwrapped-promo candyland-navbar-feature"') ||
-   !homeInstallSource.includes('Understand every layer. Appreciate the whole person.') ||
-   !homeInstallSource.includes('Two connected quizzes') ||
-   !homeInstallSource.includes('personal and partner reports') ||
-   !homeInstallSource.includes('href="/after-dark/"') ||
-   !homeInstallSource.includes('candyland-unwrapped-promo-link')){
-  console.error('Compact Unwrapped promotion must explain the quizzes, reports and its destination.');failures++;
+if(!homeInstallSource.includes('className="candyland-navbar candyland-navbar-ai"') ||
+   !homeInstallSource.includes('candyland-navbar-feature-title') ||
+   !homeInstallSource.includes('Free, unlimited private local AI') ||
+   !homeInstallSource.includes('Optional hosted Instant AI when connected') ||
+   !homeInstallSource.includes('href="/studio/"') ||
+   homeInstallSource.includes('candyland-unwrapped-promo')){
+  console.error('Compact homepage header must show left brand + full-width Random AI, with Unwrapped only in its first shelf.');failures++;
 }
 if(!homeInstallSource.includes("title:'Unwrapped'")||
    !homeInstallSource.includes("name:'Unwrapped'")||
@@ -618,11 +618,11 @@ if(homeInstallSource.includes('candyland-grouped-collections') ||
    !homeInstallSource.includes('<details className="candyland-install-apps"')){
   console.error('Homepage must show the game shelves and install options without Meridian Universe promotion.'); failures++;
 }
-if(!homeInstallSource.includes('candyland-unwrapped-promo') ||
+if(!homeInstallSource.includes('candyland-unwrapped-feature-card') ||
    !homeInstallSource.includes('personal and partner reports') ||
-   (homeInstallSource.match(/<aside className="candyland-unwrapped-promo candyland-navbar-feature"/g)||[]).length!==1 ||
+   !homeInstallSource.includes('candyland-unwrapped-feature-outputs') ||
    !homeInstallSource.includes('href="/after-dark/"')){
-  console.error('Homepage needs exactly one short Unwrapped feature with reports and a working link.');failures++;
+  console.error('Unwrapped must remain prominent with the report benefits in the first Explore & Understand shelf.');failures++;
 }
 // First section is a full Unwrapped introduction, not a tiny one-card shelf.
 const categoryBlock=homeInstallSource.slice(homeInstallSource.indexOf('const COLLECTIONS = ['),homeInstallSource.indexOf('] as const;',homeInstallSource.indexOf('const COLLECTIONS = [')));
@@ -654,15 +654,15 @@ if(!/^const COLLECTIONS = \[\s*\{id:'discovery'/.test(shelvesSrc) ||
    !homeInstallSource.includes("Shareable, downloadable reports")){
  console.error('The first homepage shelf must introduce Unwrapped with its brand art, balanced context and clear reports.');failures++;
 }
-// Featured Unwrapped and Random AI must remain inside the shorter, centered homepage header.
-const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="candyland-navbar"'),homeInstallSource.indexOf('</header>')+9);
-if(!featuredHeader.includes('candyland-unwrapped-promo')||
-   !featuredHeader.includes('candyland-identity')||
-   !featuredHeader.includes('candyland-random-ai-promo')||
-   !featuredHeader.includes('href="/studio/"')||
-   featuredHeader.indexOf('candyland-identity')<featuredHeader.indexOf('candyland-unwrapped-promo')||
+// The compact top bar has only the left-aligned Candy Land logo and the wide Random AI promotion.
+const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="candyland-navbar candyland-navbar-ai"'),homeInstallSource.indexOf('</header>')+9);
+if(!featuredHeader.includes('candyland-identity') ||
+   !featuredHeader.includes('candyland-random-ai-promo') ||
+   !featuredHeader.includes('candyland-navbar-feature-action') ||
+   !featuredHeader.includes('href="/studio/"') ||
+   featuredHeader.includes('candyland-unwrapped-promo') ||
    featuredHeader.indexOf('candyland-identity')>featuredHeader.indexOf('candyland-random-ai-promo')){
-  console.error('Compact homepage header needs centered Candy Land identity and both featured links.');failures++;
+  console.error('Top homepage bar must place the logo at left and fill the remaining space with Random AI only.');failures++;
 }
 // AI Academy is a standalone learning destination, with its own course and manifest.
 for(const file of ['dist/ai-academy/index.html','dist/ai-academy/academy.js','dist/ai-academy/academy.css','dist/app-manifests/ai-academy.webmanifest','dist/tool-icons/ai-academy.svg','dist/studio/model-explorer.js','dist/studio/model-explorer.css']){
