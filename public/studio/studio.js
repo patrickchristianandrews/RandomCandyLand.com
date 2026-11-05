@@ -118,7 +118,7 @@ function renderMyAi(){
  ).join('');
  const active=helperStack(current);
  if($('#chatStackCurrent'))$('#chatStackCurrent').textContent=active?active.name:'Everyday Assistant';
- $('#toolsGrid [data-save-tool],#workflowPreview [data-save-tool]').forEach(btn=>{btn.textContent=savedHelpers.tools.includes(btn.dataset.saveTool)?'✓ Saved':'☆ Save';btn.setAttribute('aria-pressed',String(savedHelpers.tools.includes(btn.dataset.saveTool)))});
+ $$('#toolsGrid [data-save-tool],#workflowPreview [data-save-tool]').forEach(btn=>{btn.textContent=savedHelpers.tools.includes(btn.dataset.saveTool)?'✓ Saved':'☆ Save';btn.setAttribute('aria-pressed',String(savedHelpers.tools.includes(btn.dataset.saveTool)))});
 }
 function onHelperAction(e){
  const b=e.target.closest('button');if(!b)return;
@@ -379,7 +379,7 @@ function updateChatMode(){
 }
 function updateChatBeginnerUI(){
  const ready=chatMode==='instant'?instantReady:Boolean(engine),help=$('#chatSetupHelp');
- $('.chat-beginner-modes [data-chat-simple-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.chatSimpleMode===chatMode)));
+ $$('.chat-beginner-modes [data-chat-simple-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.chatSimpleMode===chatMode)));
  const saved=window.RandomAIModelMemory?.savedIds?.()||[];
  const status=$('#chatSimpleStatus');
  if(chatMode==='instant'){
@@ -395,7 +395,7 @@ function updateChatBeginnerUI(){
  }
  help.hidden=ready;
 }
-$('.chat-beginner-modes [data-chat-simple-mode]').forEach(btn=>btn.addEventListener('click',()=>{
+$$('.chat-beginner-modes [data-chat-simple-mode]').forEach(btn=>btn.addEventListener('click',()=>{
  $('#chatTransport').value=btn.dataset.chatSimpleMode;$('#chatTransport').dispatchEvent(new Event('change',{bubbles:true}));
 }));
 $('#chatSetupAction').addEventListener('click',()=>{chatMode='local';try{localStorage.setItem(chatModeKey,chatMode)}catch{}updateChatMode();navigate('settings');});
