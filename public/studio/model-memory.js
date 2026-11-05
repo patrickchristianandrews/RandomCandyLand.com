@@ -25,7 +25,7 @@ function render(){
  count?'Select a saved model and load it into memory to start chatting. No new weight download is needed while its files remain cached.':
  !records.length&&known.length?'Previously used here: '+known.slice(0,5).map(name).join(', ')+'. The catalog must load before we can verify or reuse their cached files.':
  'Models downloaded previously may have been cleared by your browser or stored in another browser/profile. Select a model below to download it.';
- if(hero)hero.textContent=checking?'🔎 Checking saved AI models…':count?'✓ '+count+' saved local model'+(count===1?'':'s')+' available · tap to load':!records.length&&known.length?'◌ Previously used models · checking availability':'No saved local models detected yet';
+ if(hero)hero.textContent=checking?'🔎 Checking saved AI models…':count?'✓ '+count+' saved local model'+(count===1?'':'s')+' available · choose above or open Models & setup':!records.length&&known.length?'◌ Previously used models · checking availability':'No saved local models detected yet';
  if(list){
   const ids=savedIds();
   list.innerHTML=ids.map(id=>'<div class="saved-model-item"><div><strong>✓ '+esc(name(id))+'</strong><small>Stored on this device · ready to load</small></div><button type="button" data-reuse-model="'+esc(id)+'" class="outline compact">Load saved</button><button type="button" data-remove-model="'+esc(id)+'" class="outline compact saved-remove" aria-label="Remove downloaded '+esc(name(id))+'">Remove</button></div>').join('')||
