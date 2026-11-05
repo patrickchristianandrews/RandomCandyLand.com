@@ -304,7 +304,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    </div>
   </details>
   <a class="od-ribbon-link" href="/after-dark/report-samples/">📄 Reports</a>
-  <button type="button" class="od-ribbon-link" data-tab="chat">💬 Ask Atlas</button>
+  <button type="button" class="od-ribbon-link od-ribbon-atlas-link" data-tab="chat">💬 Ask Atlas</button>
   <button type="button" class="od-ribbon-link" data-tab="atlas">📚 Browse Topics</button>
   <button type="button" class="od-ribbon-link" data-tab="toys">◈ Sex Toy Guide</button>
   <details class="od-ribbon-menu od-ribbon-menu-more">
@@ -347,7 +347,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    </article>
    <article class="card afterdark-feature-card od-compact-tool">
     <img class="ad-card-visual" src="/after-dark/visuals/chat.svg" alt="" width="600" height="400" loading="lazy">
-    <div><span class="eyebrow">KEEP THE CONVERSATION GOING</span><h3>Ask Atlas</h3><p>Ask about your results, relationships or anything in the library. Use your own words.</p></div>
+    <div><span class="eyebrow">ASK ATLAS · UNWRAPPED'S OWN GUIDE</span><h3>Ask Atlas</h3><p>Explore your answers, how intimate topics relate to everyday psychology, partner conversations, toy suitability, and the library's topics. Ask in your own words; answers use Unwrapped's on-device reference knowledge.</p></div>
     <div class="od-compact-actions"><button class="btn" type="button" data-tab="chat">Talk to Atlas</button></div>
    </article>
    <article class="card afterdark-feature-card od-compact-tool">
@@ -357,7 +357,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    </article>
   </div>
  </section>
- <p class="od-compact-footnote">Curious about something else? Use <strong>Browse Topics</strong> or <strong>More to Explore</strong> above.</p>
+ <section class="od-all-features" aria-labelledby="od-all-features-title">
+  <div class="od-all-features-heading"><span class="eyebrow">THE WHOLE UNWRAPPED EXPERIENCE</span><h2 id="od-all-features-title">More to explore, all in one place.</h2><p>These features are still here. Choose a destination without hunting through menus.</p></div>
+  <nav class="od-all-features-grid" aria-label="Every Unwrapped feature">
+   <button type="button" data-tab="chat"><span aria-hidden="true">💬</span><strong>Ask Atlas</strong><small>Questions, reports &amp; understanding</small></button>
+   <button type="button" data-tab="atlas"><span aria-hidden="true">📚</span><strong>Curiosity Library</strong><small>Interests, themes &amp; context</small></button>
+   <button type="button" data-tab="ideas"><span aria-hidden="true">✦</span><strong>Idea Lab</strong><small>Personalized ideas &amp; reflection</small></button>
+   <button type="button" data-tab="psych"><span aria-hidden="true">🧠</span><strong>Psychology</strong><small>Feelings &amp; everyday patterns</small></button>
+   <button type="button" data-tab="notebook"><span aria-hidden="true">📝</span><strong>Notebook &amp; partners</strong><small>Save &amp; selectively share</small></button>
+   <button type="button" data-tab="howto"><span aria-hidden="true">◇</span><strong>Intimacy Guides</strong><small>Practical educational topics</small></button>
+   <button type="button" data-tab="guide"><span aria-hidden="true">🧭</span><strong>Resources &amp; FAQs</strong><small>Guidance &amp; safety information</small></button>
+   <a href="/after-dark/psychology-lab/"><span aria-hidden="true">🔎</span><strong>Clue Compass</strong><small>Explore possible connections</small></a>
+  </nav>
+ </section>
+ <p class="od-compact-footnote">Two quizzes, one connected report. Ask Atlas, Idea Lab, your saved notebook and the full topic library remain available independently.</p>
  <div class="afterdark-landing-safety"><strong>Your choice, your pace.</strong> For adults 18+. Quiz answers and Atlas questions stay on your device. Nothing is shared automatically.</div>
 </section>
 <section id="notebook" class="tab" aria-label="Saved Interests Notebook and Partner Invitation"><div class="ad-section-art-banner"><div class="ad-section-copy">
@@ -408,9 +421,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <p class="tiny idea-lab-note">All participants must be adults who freely agree. No surprises, coercion, pressure, unsafe restraint or breath restriction. Anyone may decline or stop at any time. This tool provides discussion prompts, not instructions for risky practices.</p>
 </section>
 <section id="chat" class="tab" aria-label="Ask Anything educational guide"><div class="ad-section-art-banner"><div class="ad-section-copy">
-  <span class="eyebrow">A PRIVATE, TOPIC-AWARE REFERENCE GUIDE</span>
-  <h2>Go ahead. <span class="italic">Ask.</span></h2>
-  <p class="lead">Ask about an interest, a feeling, or a conversation you aren't sure how to start. No special wording required: ordinary questions and a few keywords work just fine.</p></div><img src="/after-dark/visuals/chat.svg" width="600" height="400" alt="" loading="lazy" decoding="async"></div>
+  <span class="eyebrow">ASK ATLAS · THE UNWRAPPED GUIDE</span>
+  <h2>Ask Atlas. <span class="italic">Make the connections.</span></h2>
+  <p class="lead">Ask about your report, selected interests, everyday psychological themes, relationships or the topic library. No special wording required. This is an on-device, topic-matching educational assistant, not a connected generative model or a therapist.</p></div><img src="/after-dark/visuals/chat.svg" width="600" height="400" alt="" loading="lazy" decoding="async"></div>
   <div id="chatWindow" class="chat" role="log" aria-live="polite" aria-label="Ask Anything answers"><div class="bubble">Hi, I’m Atlas. Ask about your report, a feeling, a relationship question, or a topic on the site. Say it however you like. We can keep talking about the same subject.</div></div>
   <div class="chatprompts pillrow">
     <button type="button" data-ask="Why might someone enjoy receiving strap-on penetration?">Why might I enjoy that?</button>
@@ -420,7 +433,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <button type="button" data-ask="How are sex toys used with male and female anatomy?">Male &amp; female toy guide</button>
   </div>
   <form id="askForm" class="chatinput"><input class="field" id="chatText" autocomplete="off" maxlength="480" aria-label="Ask Anything a question" placeholder="Try “why do I like praise”, “peggin”, “how to tell my partner”, or just a keyword…" required><button class="btn" type="submit">Ask →</button></form>
-  <p class="tiny">Answers come from the site's reference library, and your questions stay on this device. See Resources for more reading.</p>
+  <p class="tiny">Atlas uses Unwrapped's local educational knowledge, your question wording, and available report themes; it does not send your answers to a hosted model. For full evidence and visual connections, open your report. Atlas cannot diagnose hidden motives or establish preferences you did not select.</p>
 </section>
 <section id="toys" class="tab" aria-label="Male and female sex toy comparison, shared uses, safety and quiz-linked suggestions">
  <div id="toy-library">
