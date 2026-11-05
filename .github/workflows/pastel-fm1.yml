@@ -55,7 +55,10 @@ jobs:
         npm ci --prefix upstream-melodee/web
         cd upstream-melodee
         python3 tools/gen_ui_palettes.py /tmp/pastel-theme.h --report
-        PARALLEL=2 ./build.sh
+        # Keep synth engines, recorded animals, local MIDI device, USB audio and OTA.
+        # Omit optional BLE MIDI and USB MIDI host to fit 128 built-in factory
+        # voices within the *existing* verified application flash boundary.
+        MELODEE_USB_HOST=0 MELODEE_BLE=0 PARALLEL=2 ./build.sh
         mkdir -p ../pastel-fm1/dist
         cp build/melodee.fwsc ../pastel-fm1/dist/Pastel.fwsc
         cd ..
