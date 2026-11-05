@@ -5,6 +5,7 @@ const required = [
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn', 'id="toys"', 'id="toy-grid"', 'toy-library.js?v=']],
+  ['dist/after-dark/report-samples/index.html', ['data-sample-download="personal"', 'data-sample-download="selected"', 'data-sample-download="new"', 'id="toys-explained"', 'toy-library.js?v=', 'report-samples/sample-pdf.js?v=']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
   ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Wikidata','Mozilla Monitor','WhatsMyName','Codeberg','GitLab']],
@@ -126,6 +127,12 @@ if(!homeInstallSource.includes("title:'Unwrapped'")||
   console.error('Unwrapped homepage, tagline or installable app branding is missing.');failures++;
 }
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
+for(const file of ['dist/after-dark/report-samples/sample-pdf.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-results-share.js','dist/after-dark/partner-compare.js']){
+ if(!fs.existsSync(file)){console.error('Missing Unwrapped report or sample asset:',file);failures++;continue}
+ const code=fs.readFileSync(file,'utf8');
+ try{new vm.Script(code,{filename:file})}catch(err){console.error('Unwrapped report or sample has invalid syntax:',file,err.message);failures++}
+}
+
 for(const file of ['dist/after-dark/toy-library.js','dist/after-dark/toy-library.css']){
  if(!fs.existsSync(file)){console.error('Missing Unwrapped toy guide asset:',file);failures++;}
 }
