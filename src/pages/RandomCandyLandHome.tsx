@@ -78,6 +78,7 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[8],title:'Moodropolis',blurb:"Build a city that feels alive. Meet citizens, solve neighborhood problems, respond to events, and shape your city\'s future.",kind:'ongoing',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
   {icon:TOOL_MENU_ICONS[9],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[10],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
+  {icon:TOOL_MENU_ICONS[11],title:'Random AI',blurb:'Open the private local chat, guided tasks, coding and writing workspaces, model library, and optional connected model features.',kind:'learning',label:'CREATE · WRITE · CODE · EXPLORE MODELS',palette:'blue',href:'/studio/',duration:'OPEN CREATIVE STUDIO'},
   {icon:TOOL_MENU_ICONS[12],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
   {icon:TOOL_MENU_ICONS[13],title:'Identity Lab',blurb:'Review your own public digital footprint from one clue. Explore public accounts, domain records and trusted privacy tools, then export an evidence-linked report. Independent of the TRACE course.',kind:'research',label:'PERSONAL RESEARCH · NO COURSE REQUIRED',palette:'blue',href:'/identity-lab/',duration:'PRIVATE SELF-AUDIT'},
 ];
@@ -89,8 +90,17 @@ const COLLECTIONS = [
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
   {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
-  {id:'learning',title:'Courses & Training',description:'Master prompting in AI Academy or train as an investigator in TRACE. Learn by doing at your own pace.',symbol:'🧠',time:'EXTENDED'},
+  {id:'learning',title:'AI Tools & Learning',description:'Jump into Random AI for writing, coding and model tools, learn prompting in AI Academy, or work through TRACE investigator training.',symbol:'🧠',time:'CREATE · LEARN'},
 ] as const;
+
+// Always show the major destinations in a small, one-row shortcut ribbon.
+// The full categorized collections below remain unchanged and complete.
+const QUICK_ACCESS_ORDER = [
+ 'Random AI','AI Academy','Unwrapped','Identity Lab','TRACE: OSINT Academy',
+ 'Moodropolis','The Corridors: Rise to Power','The Docket','Candy Land Casino!',
+ 'Trumpagotchi OG','FM-1 Trumpagotchi','GOO RUSH! — Candy Arcade','Candy Simon Says!','Candy Match!'
+];
+const QUICK_ACCESS = [...PORTALS].sort((a,b) => QUICK_ACCESS_ORDER.indexOf(a.title)-QUICK_ACCESS_ORDER.indexOf(b.title));
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
   const [copiedUrl,setCopiedUrl] = useState('');
@@ -146,6 +156,21 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           </a>
         </aside>
       </header>
+
+      <nav className="candyland-quick-access" aria-label="Quick access to all Candy Land tools">
+        <span className="candyland-quick-access-heading">Your tools <span aria-hidden="true">›</span></span>
+        <div className="candyland-quick-access-list">
+          {QUICK_ACCESS.map(portal => portal.oldPet
+            ? <button type="button" key={portal.title} onClick={onNavigateToTrump} className="candyland-quick-access-link" aria-label={'Open '+portal.title}>
+                <img src={portal.icon} width={32} height={32} alt="" loading="eager" /><span>{portal.title}</span>
+              </button>
+            : <a key={portal.title} className="candyland-quick-access-link" href={portal.href} aria-label={'Open '+portal.title}>
+                <img src={portal.icon} width={32} height={32} alt="" loading="eager" /><span>{portal.title}</span>
+              </a>
+          )}
+        </div>
+        <span className="candyland-quick-access-hint" aria-hidden="true">Scroll to browse →</span>
+      </nav>
 
       <section className="candyland-opening" aria-label="Welcome to Random Candy Land">
         <div className="candyland-orbit candyland-orbit-one" aria-hidden="true">
