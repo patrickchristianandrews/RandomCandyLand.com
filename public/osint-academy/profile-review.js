@@ -36,7 +36,7 @@ const fields=profileFields.map(([id,label,type,placeholder])=>'<label>'+safe(lab
 root.innerHTML=
  '<header class="trace-profile-intro"><div><span class="eyebrow">PUBLIC-SOURCE RESEARCH · ALL DETAILS OPTIONAL</span><h2>Start with what you know</h2><p>Enter one clue to check available public sources. You can also add other details, compare evidence and build a report. Searches happen only when you press Search, and every result needs verification.</p></div><span class="trace-id-chip">SEARCH ONLY WHEN YOU CHOOSE</span></header>'+
  '<nav id="profileSteps" class="trace-profile-steps" aria-label="Build a profile in three simple stages"><button type="button" data-profile-step="0"><span>01</span><b>About</b><small>Known details</small></button><button type="button" data-profile-step="1"><span>02</span><b>Connections</b><small>Links & clues</small></button><button type="button" data-profile-step="2"><span>03</span><b>My report</b><small>Review & export</small></button></nav>'+
- '<section class="trace-profile-stage" data-profile-panel="0" aria-label="Known details"><div class="trace-profile-stage-header"><h3>Investigate one clue</h3><p>One detail is enough to begin. Nothing is sent anywhere until you choose to search. A result is a lead, not proof that two records belong to the same person.</p></div>'+ '<div class="trace-profile-quick"><label for="profile-quick-kind">Starting clue type<select id="profile-quick-kind"><option value="auto">Detect automatically</option><option value="phone">Phone number</option><option value="email">Email address</option><option value="username">Public username</option><option value="website">Website / domain</option><option value="name">Public name or organization</option></select></label><label for="profile-quick-input">What do you have?<input id="profile-quick-input" autocomplete="off" maxlength="220" placeholder="e.g. +1 202-555-0146 or @publichandle"></label><button type="button" class="cta" id="profile-research">⌕ Search public sources</button></div>'+ '<label class="trace-profile-research-permission"><input id="profile-research-consent" type="checkbox"><span>I am reviewing my own information, an organization, or information I am authorized to research. I understand my clue will be sent only to the public services named in the results.</span></label>'+ '<div id="profile-research-status" class="trace-profile-research-status" role="status" aria-live="polite">Ready to check available public data. No background search is running.</div><div id="profile-research-results" class="trace-profile-research-results" aria-live="polite"></div>'+ '<details class="trace-profile-optional"><summary>+ Add more known details (optional)</summary><div class="trace-profile-fields">'+fields+'</div></details><div class="trace-profile-tip"><strong>🔒 Privacy tip</strong><p>Only include contact details you are comfortable keeping in the report. A mailing or registered-agent address is not proof of where a person lives.</p></div></section>'+
+ '<section class="trace-profile-stage" data-profile-panel="0" aria-label="Known details"><div class="trace-profile-stage-header"><h3>Investigate one clue</h3><p>One detail is enough to begin. Nothing is sent anywhere until you choose to search. A result is a lead, not proof that two records belong to the same person.</p></div>'+ '<div class="trace-profile-quick"><label for="profile-quick-kind">Starting clue type<select id="profile-quick-kind"><option value="auto">Detect automatically</option><option value="phone">Phone number</option><option value="email">Email address</option><option value="username">Public username</option><option value="website">Website / domain</option><option value="name">Public name or organization</option></select></label><label for="profile-quick-input">What do you have?<input id="profile-quick-input" autocomplete="off" maxlength="220" placeholder="e.g. +1 202-555-0146 or @publichandle"></label><button type="button" class="cta" id="profile-research">⌕ Search public sources</button></div>'+ '<label class="trace-profile-research-permission"><input id="profile-research-consent" type="checkbox"><span>I am reviewing my own information, an organization, or information I am authorized to research. I understand my clue will be sent only to the public services named in the results.</span></label>'+ '<div id="profile-research-status" class="trace-profile-research-status" role="status" aria-live="polite">Ready to check available public data. No background search is running.</div><div id="profile-research-results" class="trace-profile-research-results" aria-live="polite"></div><div class="trace-profile-oneclick"><button type="button" class="cta" id="profile-report-from-results" hidden>✓ Build my report from these sources →</button><small>Only the source links you choose to include will go in your report. Nothing is published.</small></div>'+ '<details class="trace-profile-optional"><summary>+ Add more known details (optional)</summary><div class="trace-profile-fields">'+fields+'</div></details><div class="trace-profile-tip"><strong>🔒 Privacy tip</strong><p>Only include contact details you are comfortable keeping in the report. A mailing or registered-agent address is not proof of where a person lives.</p></div></section>'+
  '<section class="trace-profile-stage" data-profile-panel="1" aria-label="Public account evidence" hidden><div class="trace-profile-stage-header"><h3>Add public links or evidence</h3><p>An account URL, platform name, supporting note, and all indicators are <strong>optional</strong>. Add what you have; leave blanks when unknown. A blank card isn’t added.</p></div>'+
  '<div class="trace-profile-add"><div class="trace-profile-add-title"><strong id="candidateFormTitle">One account or clue</strong><span>Everything below is optional</span></div><div class="trace-profile-candidate-fields"><label>Platform or record type <small>optional</small><input id="candidate-platform" maxlength="85" placeholder="e.g. Instagram, public directory, document"></label><label>Public URL <small>optional</small><input id="candidate-url" maxlength="550" type="url" placeholder="https://example.com/profile"></label><label>Source, date or explanation <small>optional</small><input id="candidate-source" maxlength="400" placeholder="How do you know about this link?"></label><label>Your notes <small>optional</small><textarea id="candidate-notes" rows="2" maxlength="1600" placeholder="Record what is confirmed, questioned or missing."></textarea></label></div>'+
  '<details class="trace-profile-evidence-selector"><summary>+ Add evidence indicators <small>optional; see why a connection might be supported or disputed</small></summary><fieldset class="trace-profile-signals"><legend>Tick only indicators supported by the material you have</legend>'+signals.map(s=>'<label><input type="checkbox" data-profile-indicator="'+s.id+'"><span><b>'+safe(s.label)+'</b><small>'+safe(s.why)+'</small></span></label>').join('')+'</fieldset></details>'+
@@ -156,6 +156,7 @@ async function lookupClue(kind,raw){
 }
 function displayResearch(){
  const area=$('profile-research-results');area.replaceChildren();
+ $('profile-report-from-results').hidden=!state.researchResults.some(r=>r.url&&!['No match','No public listing found','Source unavailable'].includes(r.kind));
  for(const [i,r] of state.researchResults.entries()){
   const card=addText('article','trace-profile-found-card','');
   const top=addText('div','trace-profile-found-heading','');
@@ -169,13 +170,21 @@ function displayResearch(){
   card.append(actions);area.append(card);
  }
 }
-function saveResearchResult(index){
+function saveResearchResult(index,quiet=false){
  const r=state.researchResults[index];
  if(!r||['No match','No public listing found'].includes(r.kind))return;
- if(state.candidates.length>=50){setStatus('Your evidence map contains 50 clues already.','profile-research-status');return}
- if(state.candidates.some(c=>c.url&&c.url===r.url)){setStatus('This source is already in the evidence map.','profile-research-status');return}
+ if(state.candidates.length>=50){if(!quiet)setStatus('Your evidence map contains 50 clues already.','profile-research-status');return}
+ if(state.candidates.some(c=>c.url&&c.url===r.url)){if(!quiet)setStatus('This source is already in the evidence map.','profile-research-status');return}
  state.candidates.push({id:idFor(),platform:r.kind+': '+r.headline,url:r.url,source:r.source+' · retrieved '+new Date().toISOString().slice(0,10),notes:r.detail+' — '+r.notes,indicators:[]});
- renderCandidates();setStatus('Source added as an unverified lead. Check the original listing before drawing conclusions.','profile-research-status');
+ renderCandidates();if(!quiet)setStatus('Source added as an unverified lead. Check the original listing before drawing conclusions.','profile-research-status');
+}
+function prepareReportFromResults(){
+ for(let i=0;i<state.researchResults.length;i++){
+  const r=state.researchResults[i];
+  if(r.url&&!['No match','No public listing found','Source unavailable'].includes(r.kind))saveResearchResult(i,true);
+ }
+ openStep(2);
+ setStatus('Your report is ready to review. These links are leads, not verified identity matches. Check each original source before sharing.');
 }
 async function researchPublic(){
  if(state.researchBusy)return;
@@ -189,7 +198,7 @@ async function researchPublic(){
  if(!clues.length){setStatus('Enter any one clue, or expand the optional details and add what you know.','profile-research-status');return}
  clues=clues.slice(0,4);
  if(quick){const dest=clues[0][0];if(['phone','email','username','website','name'].includes(dest))$('profile-'+dest).value=quick}
- state.researchBusy=true;state.researchResults=[];
+ state.researchBusy=true;state.researchResults=[];$('profile-report-from-results').hidden=true;
  const button=$('profile-research');button.disabled=true;button.textContent='Searching public sources…';
  $('profile-research-results').replaceChildren();
  setStatus('Checking '+clues.map(([type])=>type).join(', ')+' using public source APIs. No website account or private subscriber database is accessed.','profile-research-status');
@@ -290,7 +299,9 @@ function renderReport(){
   const x=score(c),row=addText('div','trace-profile-connection-row','');
   row.append(addText('strong',null,c.platform||(c.url?'Public link':'Evidence note')));
   row.append(addText('span',null,x.category+(c.indicators.length?' · '+x.value+'/100':' · not assessed')));
-  if(c.source)row.append(addText('small',null,c.source));
+  if(c.url){const a=addText('a',null,'Open original source ↗');a.href=c.url;a.target='_blank';a.rel='noopener noreferrer';row.append(a)}
+  if(c.source)row.append(addText('small',null,'Source: '+c.source));
+  if(c.notes)row.append(addText('small',null,c.notes));
   analysis.append(row);
  }
  host.append(analysis);
@@ -344,6 +355,7 @@ $('profile-next').addEventListener('click',()=>openStep(state.step+1));
 $('profile-prev').addEventListener('click',()=>openStep(state.step-1));
 $('candidate-add').addEventListener('click',addCandidate);
 $('profile-research').addEventListener('click',researchPublic);
+$('profile-report-from-results').addEventListener('click',prepareReportFromResults);
 $('profile-quick-input').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();researchPublic()}});
 $('profile-research-results').addEventListener('click',event=>{const button=event.target.closest('[data-save-result]');if(button)saveResearchResult(Number(button.dataset.saveResult))});
 $('candidate-cancel').addEventListener('click',clearCandidateFields);
@@ -362,7 +374,7 @@ $('profile-print').addEventListener('click',printReview);
 $('profile-clear').addEventListener('click',()=>{
  if(!window.confirm('Start a new review and clear all details from this page?'))return;
  for(const [id] of profileFields)$('profile-'+id).value='';
- state.candidates=[];state.researchResults=[];$('profile-research-results').replaceChildren();$('profile-quick-input').value='';$('profile-quick-kind').value='auto';$('profile-research-consent').checked=false;clearCandidateFields();renderCandidates();$('profile-consent').checked=false;setStatus('New blank review ready.');openStep(0);
+ state.candidates=[];state.researchResults=[];$('profile-research-results').replaceChildren();$('profile-report-from-results').hidden=true;$('profile-quick-input').value='';$('profile-quick-kind').value='auto';$('profile-research-consent').checked=false;clearCandidateFields();renderCandidates();$('profile-consent').checked=false;setStatus('New blank review ready.');openStep(0);
 });
 renderCandidates();openStep(0);
 window.TraceProfileReview=Object.freeze({getCount:()=>state.candidates.length,getSummary:()=>({details:report().provided.length,connections:state.candidates.length}),step:openStep,exportData:()=>JSON.stringify(payload()),getCurrentStep:()=>state.step,getLiveResultCount:()=>state.researchResults.length});
