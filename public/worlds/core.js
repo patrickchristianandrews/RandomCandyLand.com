@@ -1,4 +1,4 @@
-/* Meridian Universe: local-only shared helpers for three fictional simulations. */
+/* Shared local-only helpers for three fictional simulations. */
 (function(){
 'use strict';
 const clamp=(n,lo=0,hi=100)=>Math.max(lo,Math.min(hi,Number(n)||0));
@@ -45,7 +45,7 @@ const shared=(skip)=>{
 };
 const cross=(skip)=>{
   const entries=shared(skip);
-  if(!entries.length)return '<p class="note">Stories from the other Meridian games appear here when you play them on this device.</p>';
+  if(!entries.length)return '<p class="note">Other game stories are stored privately on this device.</p>';
   return '<ul class="log">'+entries.map(x=>'<li><time>'+escape(x.origin)+' · '+escape(x.date)+'</time>'+escape(x.text)+'</li>').join('')+'</ul>';
 };
 const reset=(key,label)=>{if(confirm('Reset '+label+' progress on this device? This cannot be undone.')){localStorage.removeItem(key);location.reload()}};
