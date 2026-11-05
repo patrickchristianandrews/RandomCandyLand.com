@@ -77,6 +77,9 @@ jobs:
       - name: Verify all Unwrapped report types and downloadable sample PDFs
         run: node scripts/test-unwrapped-report-coverage.mjs
 
+      - name: Check two fictional adults completed all 69 plus 32 genuine questionnaire answers
+        run: node scripts/test-unwrapped-fictional-respondents.mjs
+
       - name: Build the entire website
         run: bun run build
 
