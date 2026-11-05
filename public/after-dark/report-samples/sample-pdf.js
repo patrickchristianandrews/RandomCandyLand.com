@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const SAMPLE={
 personal:{
- name:'The Other Drawer - Full Personal Report (Sample).pdf',
+ name:'Unwrapped - Full Personal Report (Sample).pdf',
  title:'MY INTERESTS & PSYCHOLOGY REPORT',
  subtitle:'Fictional example written to you | Both quizzes completed',
  lead:'A private guide to what was selected, what the quizzes share, possible personal meanings and useful reflection questions. This example is fictional and never identifies real visitors.',
@@ -46,14 +46,6 @@ personal:{
  'Sound and voice atmosphere: A possible topic because sensory quality and sincere expression appear in different answers. Distinguish appreciation of voice or sound from any wish to act.',
  'Creative anticipation: A possible topic because imagined scenarios and pleasant expectation recur in the answers. The possibility of a private story or written note may be more appealing than an event.',
  'These are unconfirmed suggestions for learning and conversation, NOT undeclared preferences. You can accept, reject or ignore any of these ideas.']],
- ['Optional sex-toy ideas based on chosen interests',[
- 'Example of how the real report behaves: If I directly select interest in low-intensity external sensation, the report may suggest reading about a wand or bullet vibrator. It does not assume my anatomy, gender, orientation or a particular brand.',
- 'One wand may have several possible uses: externally on compatible anatomy, over clothing for milder sensation, in a partner-led setting with consent, or as a general body massager if the manufacturer permits.',
- 'Male and female use comparison: A wand can provide external stimulation around intact penile or perineal skin for someone with a penis, and external vulvar or clitoral-hood sensation for someone with a vulva. Each person chooses the body area, pressure and settings that feel comfortable.',
- 'Anatomy-specific limits: A penis sleeve is made for penile anatomy; a clitoral air-pulse device is shaped for clitoral anatomy; a prostate massager is only prostate-targeted for someone who has a prostate. A partner may help operate a device without it necessarily fitting their own anatomy.',
- 'If I select strap-on play as fantasy-only, any related harness or dildo categories are labeled reading-only; nothing in the report suggests purchasing or trying one.',
- 'Material, fit, hygiene, compatible lubricant, cleaning between uses and product-specific limits matter. Anal use requires a secure flared base. Any uncomfortable sensation is a reason to stop.',
- 'Suggestions change with saved quiz answers and may be absent. These fictional examples do not describe the real reader.']],
  ['11 / Boundaries, fantasy and real-world choices',[
  'Fantasy only means fantasy only. Curious may mean wanting to read or ask questions; it is not an agreement to participate. Interested describes a self-reported preference, not another person’s consent.',
  'In this fictional answer set, you marked group play and partner swapping Not for me. This boundary overrides suggestions from any shared themes.',
@@ -82,7 +74,7 @@ personal:{
  'Personal reports include private answers by design. Share a selective partner PDF or self-written introduction instead of forwarding an entire personal report unless you deliberately want to disclose it.']]
 ]},
 selected:{
- name:'The Other Drawer - Selected Partner Report (Sample).pdf',
+ name:'Unwrapped - Selected Partner Report (Sample).pdf',
  title:'SOMETHING I WANTED TO SHARE',
  subtitle:'A fictional, selectively disclosed partner report | Morgan',
  lead:'This example shows how a partner might receive carefully selected topics with enough context to understand them, without getting access to the complete private report.',
@@ -120,7 +112,7 @@ selected:{
  'This is a fictional example. The actual selection screen allows different sections to be included or excluded.']]
 ]},
 new:{
- name:'The Other Drawer - New Partner Introduction (Sample).pdf',
+ name:'Unwrapped - New Partner Introduction (Sample).pdf',
  title:'GETTING TO KNOW ME',
  subtitle:'An everyday-first introduction for a new partner | Fictional Morgan',
  lead:'A personal introduction can reveal humor, daily needs and relationship hopes without requiring disclosure of intimate quiz answers. This sample keeps intimate details off by default.',
@@ -210,6 +202,47 @@ const QR_ROWS=[
 '0000000000000000000000000000000000000',
 '0000000000000000000000000000000000000'
 ];
+
+/* Generate examples from the same canonical anatomy guide as actual reports.
+   Sample answers are invented and never read private browser quiz data. */
+function toyExample(id,intent){
+ const lib=window.UnwrappedToyLibrary, toy=lib?.find?.(id),body=lib?.bodyUses?.(id);
+ if(!toy||!body)throw Error('Toy guide data missing. Please refresh this sample page.');
+ return [
+  toy.name+' - '+intent+'. A fictional example, not a real profile.',
+  'Three of the possible uses: '+toy.uses.slice(0,3).join(' | '),
+  'Male anatomy ('+lib.fitLabels[body.male.fit]+'): '+body.male.note,
+  'Female anatomy ('+lib.fitLabels[body.female.fit]+'): '+body.female.note,
+  'Shared / partner use: '+body.together,
+  'Safety and design: '+toy.safety
+ ];
+}
+function sampleSections(kind){
+ const sections=SAMPLE[kind].sections.map(([heading,body])=>[heading,body.slice()]);
+ if(kind==='personal'){
+  const index=sections.findIndex(x=>x[0].startsWith('11 /'));
+  sections.splice(index,0,['Optional toy guide - fictional preference-linked explanations',[
+   'Illustrative direct selection: external vibration - Curious. Illustrative strap-on interest: Fantasy only. These examples do not assume any gender or anatomy.',
+   ...toyExample('wand','curious about external sensation'),
+   ...toyExample('harness','FANTASY ONLY - a reading idea, never a recommendation to act'),
+   'Psychology themes can give context to directly chosen interests; they do not create new sex toy preferences.'
+  ]]);
+ }else if(kind==='selected'){
+  const index=sections.findIndex(x=>x[0].startsWith('08 /'));
+  sections.splice(index,0,['Toy information this fictional author explicitly shared',[
+   'The fictional sender checked the separate Toy ideas section. The REAL partner PDF leaves this section OFF unless the person explicitly selects it.',
+   ...toyExample('wand','an optional topic the fictional author chose to discuss'),
+   'This educational comparison is not a request for participation; either partner can decline.'
+  ]]);
+ }else if(kind==='new'){
+  sections.push(['Optional toy content intentionally excluded',[
+   'This everyday-first introduction contains NO sex toy suggestions. The real new-partner introduction begins with intimate content turned off.',
+   'If someone opts in separately, only the chosen toy explanations appear with male, female and partner fit notes; this fictional example contains no such disclosure.',
+   'Sexual quiz answers, other interests and private notes are not automatically shared.'
+  ]]);
+ }
+ return sections;
+}
 function buildPdf(report){
  const WIDTH=612, HEIGHT=792, LEFT=51, RIGHT=560, TOP=727, BOTTOM=66;
  const pages=[];let commands=[],y=TOP,pageNum=0;
@@ -261,7 +294,7 @@ function buildPdf(report){
  let leadY=y+1;
  for(const t of wrap(report.lead,10,RIGHT-LEFT-28)){text(LEFT+12,leadY,t,10,false,[.28,.19,.31]);leadY-=16;}
  y-=106;
- for(const [title,paras] of report.sections){heading(title);for(const p of paras)paragraph(p);}
+ for(const [title,paras] of sampleSections(report.kind)){heading(title);for(const p of paras)paragraph(p);}
  // The last page is a PUBLIC flyer, intentionally separate from personal results.
  nextPage();
  commands.push('.23 .12 .30 rg 0 590 612 165 re f');
@@ -340,7 +373,7 @@ function buildPdf(report){
 }
 function download(kind){
  const report=SAMPLE[kind];if(!report)return;
- const blob=buildPdf(report),url=URL.createObjectURL(blob),a=document.createElement('a');
+ const blob=buildPdf({...report,kind}),url=URL.createObjectURL(blob),a=document.createElement('a');
  a.href=url;a.download=report.name;a.style.display='none';document.body.append(a);a.click();a.remove();
  setTimeout(()=>URL.revokeObjectURL(url),4000);
 }
@@ -348,5 +381,5 @@ document.addEventListener('click',event=>{
  const b=event.target.closest('[data-sample-download]');if(!b)return;
  event.preventDefault();download(b.dataset.sampleDownload);
 });
-window.AfterDarkSamplePDF=Object.freeze({download,keys:Object.keys(SAMPLE)});
+window.AfterDarkSamplePDF=Object.freeze({download,keys:Object.keys(SAMPLE),sampleSections});
 })();
