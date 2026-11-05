@@ -361,5 +361,16 @@ $('#listenBtn').disabled=!SR;
 $('#listenBtn').addEventListener('click',()=>{if(!SR)return;recognition=new SR();recognition.lang=document.documentElement.lang||'en-US';recognition.continuous=true;recognition.interimResults=true;const start=$('#dictationText').value;recognition.onresult=e=>{let final=start,partial='';for(let i=0;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)final+=' '+t;else partial+=t}$('#dictationText').value=(final+' '+partial).trim()};recognition.onerror=e=>$('#dictationStatus').textContent='Recognition error: '+e.error;recognition.onend=()=>{$('#dictationStatus').textContent='Dictation stopped.'};try{recognition.start();$('#dictationStatus').textContent='● Listening…'}catch{notice('Could not start dictation.')}});
 $('#stopListenBtn').addEventListener('click',()=>{recognition?.stop();});
 $('#copyTranscript').addEventListener('click',()=>copy($('#dictationText').value));
-const initial=(location.hash||'').slice(1);if(initial&&names[initial])navigate(initial);
+// Explicit AI Academy handoff: restore one-time draft, leave it editable, never auto-send.
+try{
+ const draft=localStorage.getItem('rcl-academy-draft-prompt');
+ if(draft&&draft.trim()){
+  $('#chatInput').value=draft.slice(0,20000);
+  navigate('chat');
+  localStorage.removeItem('rcl-academy-draft-prompt');
+  notice('Your AI Academy prompt is ready to review and send.');
+ }
+}catch{}
+const initial=(location.hash||'').slice(1);
+if(initial&&names[initial]&&!(initial==='chat'&&$('#view-chat').classList.contains('active')))navigate(initial);
 window.addEventListener('hashchange',()=>{const view=(location.hash||'').slice(1);if(view&&names[view]&&!$('#view-'+view).classList.contains('active'))navigate(view)});
