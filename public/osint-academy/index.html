@@ -20,9 +20,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
 <link rel="manifest" href="/app-manifests/osint-academy.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/osint-academy/style.css?v=clear-path-20261103">
+<link rel="stylesheet" href="/osint-academy/style.css?v=tools-20261105-v2">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/game.js?v=clear-path-20261103" defer></script>
+<script src="/osint-academy/game.js?v=tools-20261105-v2" defer></script><script src="/osint-academy/identity-lab.js?v=address-20261105-v1" defer></script>
 </head>
 <body class="trace-app">
 <!-- Google Tag Manager (noscript) -->
@@ -59,6 +59,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="trace-tabs" role="tablist" aria-label="Academy areas">
 <button type="button" role="tab" id="tab-missions" aria-controls="view-missions" aria-selected="true" data-switch="missions">▶ Play cases</button>
+<button type="button" role="tab" id="tab-identity" aria-controls="view-identity" aria-selected="false" data-switch="identity">🧩 Identity lab</button>
 <button type="button" role="tab" id="tab-scope" aria-controls="view-scope" aria-selected="false" data-switch="scope">◎ Get help</button>
 <button type="button" role="tab" id="tab-setup" aria-controls="view-setup" aria-selected="false" data-switch="setup">⚙ Setup guide</button>
 <button type="button" role="tab" id="tab-tools" aria-controls="view-tools" aria-selected="false" data-switch="tools">⌕ Research tools</button>
@@ -74,6 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </details>
 </div>
 </section>
+<section id="view-identity" class="trace-view" role="tabpanel" aria-labelledby="tab-identity" hidden><div id="trace-identity-lab" aria-live="polite"><h2>Loading the fictional identity lab…</h2></div></section>
 <section id="view-scope" class="trace-view" role="tabpanel" aria-labelledby="tab-scope" hidden>
 <div class="scope-desk">
   <div class="scope-head">
@@ -131,6 +133,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section id="view-tools" class="trace-view" role="tabpanel" aria-labelledby="tab-tools" hidden>
 <div class="section-intro"><h2>Tool Atlas</h2><p>Start with everyday essentials, filter by specialty, or search for the task you need. The directory only opens official resources when you choose a link.</p></div>
 <div class="atlas-toolbar"><label for="atlas-search">FIND A TOOL<input type="search" id="atlas-search" placeholder="Try images, phone, email, maps…" autocomplete="off"></label><span id="atlas-result-count" role="status" aria-live="polite"></span></div>
+<div class="trace-tool-modes" id="atlas-modes" role="group" aria-label="Choose tool installation type"><button type="button" data-mode="browser" aria-pressed="true">🌐 Web & no-terminal tools</button><button type="button" data-mode="command" aria-pressed="false">⌨ Terminal / command-line</button><button type="button" data-mode="all" aria-pressed="false">All types</button></div><p class="atlas-mode-hint" id="atlas-mode-hint">Web and desktop tools do not require a command-line workflow. External websites open only when selected.</p>
 <div id="atlas-categories" class="atlas-categories" role="group" aria-label="Filter tools by research category"></div>
 <div id="tools-grid" class="tools-grid atlas-compact-list"></div>
 <details class="atlas-safety-note"><summary>Privacy, licensing and training-data limitations</summary><p>Access, coverage and licensing vary. TRACE does not perform live searches; exercises use fictional data. For contact details, faces or organizational records, work within an appropriate mandate and avoid exposing unrelated personal information.</p></details>
