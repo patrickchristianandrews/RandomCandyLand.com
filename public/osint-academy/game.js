@@ -247,10 +247,10 @@ function renderCase(){
  };
 }
 function switchTab(tab){
- if(!['missions','scope','setup','tools','report'].includes(tab))return;
+ if(!['missions','identity','terminal','scope','setup','tools','report'].includes(tab))return;
  currentTab=tab;
  for(const b of document.querySelectorAll('[data-switch]'))if(b.getAttribute('role')==='tab')b.setAttribute('aria-selected',String(b.dataset.switch===tab));
- for(const id of ['missions','scope','setup','tools','report'])$('view-'+id).hidden=id!==tab;
+ for(const id of ['missions','identity','terminal','scope','setup','tools','report']){const panel=$('view-'+id);if(panel)panel.hidden=id!==tab;}
  if(tab==='missions'){renderList();renderCase();}
  if(tab==='scope')refreshScope();
  if(tab==='missions')focusCase('.case-navigation'); else document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
@@ -332,7 +332,7 @@ const notes=['mandate','sources','verification','alternatives','findings','ethic
 for(const id of notes){const elem=$('note-'+id);elem.value=typeof state.notes[id]==='string'?state.notes[id]:'';elem.addEventListener('input',()=>{state.notes[id]=elem.value.slice(0,20000);save()});}
 const download=(name,content)=>{const file=new Blob([content],{type:'text/markdown;charset=utf-8'}),url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)};
 $('export-brief').onclick=()=>{const fields=['Investigation mandate','Source register','Evidence and verification','Alternative explanations','Findings and confidence','Ethics and privacy review'];download('trace-osint-training-brief.md','# TRACE | Training Investigation Brief\n\n**Date:** '+new Date().toISOString().slice(0,10)+'\n\n**Training-only:** Do not substitute this for a verified professional report.\n\n'+notes.map((n,i)=>'## '+fields[i]+'\n\n'+(state.notes[n]||'Not completed')+'\n').join('\n'));$('report-status').textContent='Case brief exported.'};
-$('export-transcript').onclick=()=>{const completed=state.finished.map(i=>'- '+String(i+1).padStart(2,'0')+' '+missions[i].title).join('\n');const answers=Object.values(state.answers),correct=answers.filter(a=>a.correct).length;download('trace-osint-training-transcript.md','# TRACE | Training Transcript\n\n**Date:** '+new Date().toISOString().slice(0,10)+'\n\n**Modules cleared:** '+state.finished.length+'/24\n\n**First-attempt decisions:** '+correct+'/'+answers.length+'\n\n**This is an educational game transcript, not a professional credential or certification.**\n\n'+completed);$('report-status').textContent='Training transcript exported.'};
+$('export-transcript').onclick=()=>{const completed=state.finished.map(i=>'- '+String(i+1).padStart(2,'0')+' '+missions[i].title).join('\n');const answers=Object.values(state.answers),correct=answers.filter(a=>a.correct).length;download('trace-osint-training-transcript.md','# TRACE | Training Transcript\n\n**Date:** '+new Date().toISOString().slice(0,10)+'\n\n**Modules cleared:** '+state.finished.length+'/'+missions.length+'\n\n**First-attempt decisions:** '+correct+'/'+answers.length+'\n\n**This is an educational game transcript, not a professional credential or certification.**\n\n'+completed);$('report-status').textContent='Training transcript exported.'};
 $('reset-progress').onclick=()=>{if(!confirm('Reset mission scores and workstation checklist? Your case notebook will be preserved.'))return;state.answers={};state.finished=[];state.setup=[];save();active=0;step=0;updateStats();renderList();renderCase();$('setup-grid').querySelectorAll('input').forEach(x=>x.checked=false);$('report-status').textContent='Training progress was reset; your portfolio remains saved.'};
 
 /* SCOPE is TRACE's independent, case-aware field guide. It does not search
