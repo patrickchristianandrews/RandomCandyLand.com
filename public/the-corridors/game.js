@@ -19,7 +19,7 @@ const scenes=[
    {name:'Reject the developer and demand the complete original route',pitch:'Defend the promise but accept a costly delay.',effect:[-10,4,-7,7,8,7],actors:[14,-13,6,3,6,-13],legality:'A good-faith position still needs appropriations, procurement and legal approval.',impact:'Transit riders appreciate the fight; the budget committee resists.',flags:'Full-route commitment'}
   ]},
  {tag:'CHAPTER 02 · MONEY & ACCESS',title:'The Donor Dinner',
-  story:'A contractor bidding for The city's new shelters offers to host an expensive private fundraiser. The official in charge of awarding the contract has been invited.',
+  story:'A contractor bidding for the municipal new shelters offers to host an expensive private fundraiser. The official in charge of awarding the contract has been invited.',
   legal:'Gift, campaign-finance and procurement rules differ in real jurisdictions. The fictional jurisdiction requires disclosure, recusal when a conflict exists and fair procurement.',
   visible:'Leadership calls the event a routine way to raise campaign money.',private:'A bidder wants access before competing proposals are scored.',who:'Campaign donors, contract bidders, procurement staff.',
   choices:[
@@ -130,7 +130,7 @@ function makeReport(){return ['THE CORRIDORS / INSIDE THE DECISION','A fictional
 state.finished?'CAREER OUTCOME: '+ending():'CAREER IN PROGRESS','',
 'RELATIONSHIP WEB',...factions.map((f,i)=>f[0]+': '+num(state.actors[i])+'/100'),'',
 'CAREER ACHIEVEMENTS',...(state.medals||[]),'','DECISION RECORD',...state.journal.map(j=>j.when+': '+j.text),
-'','This simulation uses imagined Meridian rules and simplified legal concepts. It is educational entertainment, not legal advice.'].join('\n')}
+'','This simulation uses imagined local-government rules and simplified legal concepts. It is educational entertainment, not legal advice.'].join('\n')}
 function choose(i){
  if(state.finished||state.pending!==null)return;
  const scene=scenes[state.chapter],opt=scene&&scene.choices[i];if(!opt)return;
