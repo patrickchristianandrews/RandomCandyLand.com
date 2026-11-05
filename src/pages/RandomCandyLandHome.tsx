@@ -5,7 +5,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery';
+type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery' | 'research';
 
 type Portal = {
   icon: string;
@@ -40,6 +40,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/simon.svg',name:'Candy Simon Says',url:'/candy-simon/'},
   {icon:'/tool-icons/candy-match.svg',name:'Candy Match',url:'/candy-match/'},
   {icon:'/tool-icons/osint-academy.svg',name:'TRACE OSINT Academy',url:'/osint-academy/'},
+  {icon:'/tool-icons/osint-academy.svg',name:'Identity Lab',url:'/identity-lab/'},
   {icon:'/tool-icons/moodropolis.svg',name:'Moodropolis',url:'/moodropolis/'},
   {icon:'/tool-icons/the-corridors.svg',name:'The Corridors',url:'/the-corridors/'},
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
@@ -47,7 +48,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/ai-academy.svg',name:'AI Academy',url:'/ai-academy/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI','AI Academy'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Casino','Simon Says','Candy Match','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI','AI Academy','Identity Lab'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
@@ -61,7 +62,8 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/the-corridors.svg',
   '/tool-icons/the-docket.svg',
   '/tool-icons/candy-studio.svg',
-  '/tool-icons/ai-academy.svg'
+  '/tool-icons/ai-academy.svg',
+  '/tool-icons/osint-academy.svg'
 ] as const;
 
 const PORTALS: Portal[] = [
@@ -77,10 +79,12 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[9],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[10],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[12],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
+  {icon:TOOL_MENU_ICONS[13],title:'Identity Lab',blurb:'Review your own public digital footprint from one clue. Explore public accounts, domain records and trusted privacy tools, then export an evidence-linked report. Independent of the TRACE course.',kind:'research',label:'PERSONAL RESEARCH · NO COURSE REQUIRED',palette:'blue',href:'/identity-lab/',duration:'PRIVATE SELF-AUDIT'},
 ];
 
 const COLLECTIONS = [
   {id:'discovery',title:'Explore & Understand',description:'A fuller picture of who you are—psychology, personal interests, relationships and how to express what matters.',symbol:'🌙',time:'DISCOVER · CONNECT'},
+  {id:'research',title:'Research & Digital Footprint',description:'A stand-alone, guided look at your own publicly visible information. Start with one clue and take away a source-linked report—no course required.',symbol:'🔎',time:'REVIEW · REPORT'},
   {id:'multiplayer',title:'Multiplayer & Play Together',description:'Play with other people. Online rooms and same-screen modes are clearly marked.',symbol:'👥',time:'PLAY TOGETHER'},
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
