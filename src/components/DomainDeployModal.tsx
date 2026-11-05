@@ -75,42 +75,32 @@ export function DomainDeployModal({ isOpen, onClose, onNavigateToTrump }: Domain
             </div>
           </div>
 
-          {/* DNS Configuration Guide */}
+          {/* GitHub Pages DNS Configuration Guide */}
           <div className="bg-black/60 border border-amber-500/30 rounded-2xl p-4">
             <h3 className="text-xs font-serif-luxury font-bold tracking-widest text-amber-400 mb-2 flex items-center gap-2">
-              <Globe className="w-4 h-4 text-amber-400" /> DNS RECORDS FOR RANDOMCANDYLAND.COM
+              <Globe className="w-4 h-4 text-amber-400" /> GITHUB PAGES ONLY · DOMAIN CONFIGURATION
             </h3>
             <p className="text-xs text-amber-200/70 font-serif-luxury mb-3">
-              To point your domain directly to this live instance or to your CDN, add these records at your domain registrar (GoDaddy, Namecheap, Cloudflare, Route53):
+              Use GitHub Settings → Pages → Build and deployment → GitHub Actions. Set the custom domain to randomcandyland.com. At your domain registrar, point the apex domain to the four GitHub Pages A records below; use a CNAME for www.
             </p>
-
             <div className="space-y-2 text-xs font-mono">
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#140b20] border border-amber-500/30">
-                <div className="text-amber-200 truncate mr-2">
-                  <span className="text-amber-400 font-bold">Type:</span> CNAME &nbsp;|&nbsp;
-                  <span className="text-amber-300">Host:</span> @ or www &nbsp;|&nbsp;
-                  <span className="text-emerald-400 font-bold">Target:</span> ais-pre-tbytyaiajs6c3susl2k2li-513211631453.us-east1.run.app
-                </div>
-                <button
-                  onClick={() => copyText('ais-pre-tbytyaiajs6c3susl2k2li-513211631453.us-east1.run.app', 'dns-cname-cloudrun')}
-                  className="p-1 rounded hover:bg-white/10 text-amber-300 cursor-pointer shrink-0"
-                >
-                  {copiedKey === 'dns-cname-cloudrun' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-[#140b20] border border-amber-500/30">
+                <span className="text-amber-200 break-all">A · @ → 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153</span>
+                <button onClick={() => copyText('185.199.108.153\n185.199.109.153\n185.199.110.153\n185.199.111.153', 'github-a')}
+                  className="p-1 rounded hover:bg-white/10 text-amber-300 cursor-pointer shrink-0" aria-label="Copy GitHub Pages A records">
+                  {copiedKey === 'github-a' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
-
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#140b20] border border-amber-500/30">
-                <div className="text-amber-200">
-                  <span className="text-amber-400 font-bold">Vercel/Netlify Alternative:</span> CNAME to <span className="text-emerald-400 font-bold">cname.vercel-dns.com</span>
-                </div>
-                <button
-                  onClick={() => copyText('cname.vercel-dns.com', 'dns-cname')}
-                  className="p-1 rounded hover:bg-white/10 text-amber-300 cursor-pointer shrink-0"
-                >
-                  {copiedKey === 'dns-cname' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-[#140b20] border border-amber-500/30">
+                <span className="text-amber-200 break-all">CNAME · www → patrickchristianandrews.github.io</span>
+                <button onClick={() => copyText('patrickchristianandrews.github.io', 'github-cname')}
+                  className="p-1 rounded hover:bg-white/10 text-amber-300 cursor-pointer shrink-0" aria-label="Copy GitHub Pages www CNAME">
+                  {copiedKey === 'github-cname' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
             </div>
+            <a href="https://github.com/patrickchristianandrews/RandomCandyLand.com/settings/pages" target="_blank" rel="noopener noreferrer"
+              className="inline-block text-emerald-300 underline text-xs mt-3">Open GitHub Pages settings ↗</a>
           </div>
 
           {/* GitHub Pages 1-Click Update */}
