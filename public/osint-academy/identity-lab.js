@@ -11,18 +11,41 @@ const cases=[
  {icon:'🎭',title:'Fake names and impersonation',kind:'ALIAS VALIDATION',intro:'A fictional community organization warns that an account named “Director Ellis” is asking for donations. Its page links to an unfamiliar payment site.',evidence:[['Organization notice','Official website warns of impersonation.','Primary advisory'],['Profile claim','Uses a plausible name, title and photo.','Self-asserted'],['Payment domain','Not listed among the group’s known sites.','Mismatch; not proof of operator']],question:'What can you establish without deanonymizing an individual?',choices:['The official warning and conflicting account claims support caution; report the impersonation and preserve public proof.','Locate the operator’s private residential address.','Declare every pseudonym fraudulent.'],correct:0,why:'Pseudonyms are not inherently deceptive. Evaluate specific claims of official representation, public disclaimers, and verifiable organization records. Do not guess a private operator.',method:'Verify official organization notice → document public claims → distinguish alias, parody and impersonation.'},
  {icon:'🧩',title:'Build an evidence-linked timeline',kind:'CROSS-PLATFORM CLAIMS',intro:'A fictional project uses several public pages, old usernames and changed organization names. You must report whether its account network is authentic, not identify hidden people.',evidence:[['Archived announcement','Dated link to an earlier official profile.','Historical primary link'],['Current organization site','Links to a replacement public account.','Current primary link'],['Third-party summary','Repeats an unattributed claim about additional aliases.','Weak secondary source']],question:'What should the final graph show?',choices:['All rumored aliases as confirmed connections.','Only accounts with identical colors and logos.','Dated, source-backed edges, an explicit confidence level, and separate unconfirmed hypotheses.'],correct:2,why:'Public cross-links and archived official notices can support an organization account-history timeline. Source every relationship and keep unsupported aliases as unverified.',method:'Normalize dates → cite each public relationship → show conflicting clues → communicate confidence.'}
 ];
-let current=0,selected=null;const host=document.getElementById('trace-identity-lab');if(!host)return;
-const safe=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function draw(){
- const c=cases[current];host.innerHTML='<div class="trace-id-heading"><div><span class="eyebrow">OPTIONAL FIELD LAB · '+(current+1)+' / '+cases.length+'</span><h2>'+c.icon+' Trace public identities responsibly</h2><p>Six fictional investigations: contacts, usernames, aliases, private-account claims and evidence-linked connections. No live searches or identification of private people.</p></div><span class="trace-id-chip">'+c.kind+'</span></div>'+
- '<div class="trace-id-nav" role="group" aria-label="Select a simulated investigation">'+cases.map((x,i)=>'<button type="button" data-idcase="'+i+'" aria-pressed="'+(i===current)+'" class="'+(i===current?'selected':'')+'">'+x.icon+' '+safe(x.title)+'</button>').join('')+'</div>'+
- '<div class="trace-id-case"><h3>'+safe(c.title)+'</h3><p>'+safe(c.intro)+'</p><div class="trace-id-evidence">'+c.evidence.map((x,i)=>'<article><span>CLUE '+(i+1)+'</span><strong>'+safe(x[0])+'</strong><p>'+safe(x[1])+'</p><small>'+safe(x[2])+'</small></article>').join('')+'</div><h4>'+safe(c.question)+'</h4><div class="trace-id-choices">'+c.choices.map((x,i)=>'<button data-idanswer="'+i+'" type="button" '+(selected!==null?'disabled':'')+' class="'+(selected===i?'chosen':'')+'">'+safe(x)+'</button>').join('')+'</div>'+
- (selected!==null?'<div class="trace-id-result" role="status"><strong>'+(selected===c.correct?'✓ Evidence-based decision':'Reconsider this conclusion')+'</strong><p>'+safe(c.why)+'</p><p><b>Workflow:</b> '+safe(c.method)+'</p><button type="button" data-idnext>Continue to '+(current===cases.length-1?'first case':'next case')+' →</button></div>':'<p class="trace-id-note">Choose an answer to see the reasoning and a repeatable professional workflow.</p>')+'</div>';
+const host=document.getElementById('trace-identity-lab');if(!host)return;
+const KEY='trace-identity-practice-v2';
+let current=0,selected=null,solved=new Set(),attempts=0;
+try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(Array.isArray(x.solved))solved=new Set(x.solved.filter(v=>Number.isInteger(v)&&v>=0&&v<cases.length));if(Number.isInteger(x.last))current=Math.max(0,Math.min(cases.length-1,x.last))}catch{}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({solved:[...solved],last:current}))}catch{}};
+const safe=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function go(index){
+ if(!Number.isInteger(index)||index<0||index>=cases.length)return;
+ current=index;selected=null;attempts=0;save();draw();
 }
-host.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
- if(b.hasAttribute('data-idcase')){current=Number(b.dataset.idcase);selected=null;draw()}
- else if(b.hasAttribute('data-idanswer')&&selected===null){selected=Number(b.dataset.idanswer);draw()}
- else if(b.hasAttribute('data-idnext')){current=(current+1)%cases.length;selected=null;draw();host.scrollIntoView({block:'start',behavior:'smooth'})}
+function draw(){
+ const c=cases[current],pct=Math.round(solved.size/cases.length*100),done=solved.has(current),correct=selected===c.correct;
+ const label=done?'✓ COMPLETED':selected===null?'READY TO INVESTIGATE':correct?'✓ SOLVED':'RECHECK THE EVIDENCE';
+ host.innerHTML=
+ '<div class="trace-id-heading"><div><span class="eyebrow">CASE FILES · SIMULATED INVESTIGATIONS</span><h2>Follow the evidence.</h2><p>Choose a case, examine three source clues, and decide what the evidence really supports. Each case builds practical investigative judgment—not private-person identification.</p></div><div class="trace-id-overview"><b>'+solved.size+' <span>/ '+cases.length+'</span></b><small>CASE FILES COMPLETED</small><div class="trace-id-overview-bar"><i style="width:'+pct+'%"></i></div></div></div>'+
+ '<div class="trace-id-nav" role="group" aria-label="Choose one of seven simulated case files">'+cases.map((x,i)=>'<button type="button" data-idcase="'+i+'" aria-pressed="'+(i===current)+'" class="'+(i===current?'selected ':'')+(solved.has(i)?'finished':'')+'"><span class="trace-id-nav-icon" aria-hidden="true">'+x.icon+'</span><span class="trace-id-nav-info"><b>'+safe(x.title)+'</b><small>'+safe(x.kind)+'</small></span><span class="trace-id-nav-number">'+(solved.has(i)?'✓':String(i+1).padStart(2,'0'))+'</span></button>').join('')+'</div>'+
+ '<article class="trace-id-case"><div class="trace-id-case-head"><div><span class="trace-id-chip">FILE '+String(current+1).padStart(2,'0')+' · '+safe(c.kind)+'</span><h3>'+safe(c.title)+'</h3><p>'+safe(c.intro)+'</p></div><div class="trace-id-case-status" data-good="'+String(done||correct)+'">'+label+'</div></div>'+
+ '<div class="trace-id-work-grid"><section class="trace-id-evidence-section"><div class="trace-id-section-kicker"><span>01</span><div><strong>Examine the source trail</strong><small>Facts first. Draw conclusions afterward.</small></div></div>'+
+ '<div class="trace-id-source-graph" aria-label="Evidence sources connect to the question under review"><div class="trace-id-source-line" aria-hidden="true"></div><div class="trace-id-source-nodes">'+c.evidence.map((x,i)=>'<article class="trace-id-source-card"><div class="trace-id-source-top"><span>◉ SOURCE '+(i+1)+'</span><small>'+safe(x[2])+'</small></div><strong>'+safe(x[0])+'</strong><p>'+safe(x[1])+'</p></article>').join('')+'</div><div class="trace-id-claim-marker">↓ Evaluate what these sources <strong>actually</strong> establish</div></div>'+
+ '<details class="trace-id-method" '+(selected!==null?'open':'')+'><summary>How to analyze this evidence</summary><p>'+safe(c.method)+'</p></details></section>'+
+ '<section class="trace-id-decision-section"><div class="trace-id-section-kicker"><span>02</span><div><strong>Make your assessment</strong><small>Select the most defensible conclusion.</small></div></div><h4>'+safe(c.question)+'</h4><div class="trace-id-choices">'+c.choices.map((x,i)=>'<button type="button" data-idanswer="'+i+'" aria-pressed="'+String(selected===i)+'" class="'+(selected===i?(correct?'correct':'incorrect'):'')+'" '+(done?'disabled':'')+'><span class="trace-id-answer-letter">'+String.fromCharCode(65+i)+'</span><span>'+safe(x)+'</span></button>').join('')+'</div>'+
+ (selected!==null?'<div class="trace-id-result" role="status" data-correct="'+String(correct)+'"><strong>'+(correct?'✓ Strong conclusion':'◌ Not supported yet')+'</strong><p>'+safe(c.why)+'</p>'+(correct?'<small>This case is complete. Move on, or revisit it anytime.</small>':'<small>Choose another answer after reviewing the clues above.</small>')+'</div>':'<p class="trace-id-note">You can change your answer. Only well-supported conclusions complete a case.</p>')+'</section></div>'+
+ '<footer class="trace-id-case-footer"><button type="button" data-idprev class="outline" '+(current===0?'disabled':'')+'>← Previous case</button><span>CASE '+(current+1)+' OF '+cases.length+'</span><button type="button" data-idnext class="cta">'+(current===cases.length-1?'Return to first case':'Next case →')+'</button></footer></article>'+
+ '<p class="trace-id-disclaimer">All case details are fictional. No live phone, email, location, or private-account lookups are performed. Similar names and handles alone do not establish common ownership.</p>';
+}
+host.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b||b.disabled)return;
+ if(b.hasAttribute('data-idcase'))go(Number(b.dataset.idcase));
+ else if(b.hasAttribute('data-idprev'))go(Math.max(0,current-1));
+ else if(b.hasAttribute('data-idnext')){go((current+1)%cases.length);host.scrollIntoView({block:'start',behavior:'smooth'})}
+ else if(b.hasAttribute('data-idanswer')){
+  selected=Number(b.dataset.idanswer);attempts++;
+  if(selected===cases[current].correct){solved.add(current);save()}
+  draw();
+ }
 });
-draw();window.TraceIdentityLab=Object.freeze({scenarios:cases.length});
+draw();window.TraceIdentityLab=Object.freeze({scenarios:cases.length,getProgress:()=>({completed:solved.size,total:cases.length,active:current}),openCase:go});
 })();
