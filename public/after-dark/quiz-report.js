@@ -219,7 +219,7 @@ function build(){
  cover.append(coverStats);
  const roadmap=el('div',undefined,'report-roadmap');
  add(roadmap,'strong','INSIDE YOUR REPORT');
- add(roadmap,'p','Your Answers, Unwrapped · Psychological themes · How both quizzes connect · Interest-by-interest profiles · Optional sex toy guide suggestions · Conversation guides · Original selections');
+ add(roadmap,'p','Your Answers, Unwrapped · Full psychology connection matrix · Linked subthemes and original answers · How both quizzes connect · Interest-by-interest profiles · Optional sex toy guide suggestions · Conversation guides · Original selections');
  cover.append(roadmap);
  doc.append(cover);
  const overview=section(doc,'01 · Your Answers, Unwrapped');
