@@ -325,12 +325,12 @@ function buildPdf(report){
  commands.push('.80 .67 .81 RG .7 w '+LEFT+' 256 509 120 re S');
  text(LEFT+13,355,'HOW THE PROGRAM WORKS',11,true,[.41,.21,.48]);
  const explanation=[
-   'Two connected quizzes - 69 specific-preference questions and',
-   '32 nonsexual psychology questions - organize your own answers',
-   'into themes such as trust, sensation, affirmation and imagination.',
-   'The program creates a detailed personal report, an optional',
-   'selective partner PDF, and a new-partner introduction.',
-   'Results guide reflection; they are not diagnoses or probabilities.'
+   'Two connected quizzes - 69 intimate and 32 everyday questions',
+   'organize your own answers into reflective themes and reports.',
+   'A toy guide compares male, female, and shared device uses.',
+   'Your personal report can suggest directly supported topics.',
+   'Partner PDFs require separate consent for toy details.',
+   'These examples are not diagnoses, consent or probabilities.'
  ];
  explanation.forEach((t,i)=>text(LEFT+13,333-14*i,t,9.5,false,[.37,.29,.41]));
  commands.push('.28 .15 .35 rg '+LEFT+' 83 509 162 re f');
