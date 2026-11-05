@@ -619,7 +619,7 @@ function init(){
 }
 function answer(question){
  const q=normalize(question);
- // These guides answer orgasm questions only. Do not hijack unrelated Atlas interests.
+ // These guides answer orgasm questions only. Do not hijack unrelated Curiosity Library interests.
  if(!/\b(orgasm[a-z]*|climax|coregasm)\b/.test(q))return null;
  if(!/\b(how|why|what|can|could|does|do|is|are|guide|tips|steps|technique|learn|teach|explain|help)\b/.test(q))return null;
  const g=find(question);if(!g)return null;
