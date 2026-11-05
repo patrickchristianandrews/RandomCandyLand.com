@@ -120,6 +120,7 @@ function build(){
   for(const item of suggestions){
    const card=topic(s,item.name,item.mode,item.why);
    if(item.evidence?.length)add(card,'p','My relevant selection: '+item.evidence[0],'partner-pdf-muted');
+   if(item.profileThemes?.length)add(card,'p','Related everyday themes: '+item.profileThemes.join(', ')+'. These are reflection cues, not predictions.','partner-pdf-muted');
    bullets(card,item.uses.slice(0,2));
    add(card,'p','Safety considerations: '+item.safety,'partner-pdf-muted');
   }
