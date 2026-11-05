@@ -71,6 +71,34 @@ async function readFile(file){
 const common=(a,b)=>{const map=new Map(a.map(x=>[cleanLabel(x.label||x.title),x]));return b.filter(x=>map.has(cleanLabel(x.label||x.title))).map(x=>({one:map.get(cleanLabel(x.label||x.title)),two:x}))};
 const only=(a,b)=>{const keys=new Set(b.map(x=>cleanLabel(x.label||x.title)));return a.filter(x=>!keys.has(cleanLabel(x.label||x.title)))};
 const addText=(root,title,body)=>{const c=E('article',undefined,'uc-result');c.append(E('h4',title),E('p',body));root.append(c)};
+const questionMatches=(a,b)=>{
+ const byQuestion=new Map(a.map(x=>[String(x.question).trim().toLocaleLowerCase(),x]));
+ return b.flatMap(x=>{const first=byQuestion.get(String(x.question).trim().toLocaleLowerCase());return first?[{one:first,two:x}]:[]});
+};
+function topicPrompt(label){
+ const t=String(label).toLocaleLowerCase();
+ if(/trust|safe|boundar|privacy|consent/.test(t))return 'What helps each of us feel safe saying yes, no, or not yet—and what should stay private?';
+ if(/communicat|listen|understand|express/.test(t))return 'When something matters, do you prefer to be heard first, asked questions, or offered solutions?';
+ if(/novel|explor|curios|experiment|surpris/.test(t))return 'How can we make room for curiosity while respecting different comfort levels and the option not to act?';
+ if(/attach|intimac|connect|closeness|affection/.test(t))return 'What small gestures help each of us feel close, and when do we need personal space?';
+ if(/affirm|prais|validat|attention/.test(t))return 'Which words or gestures feel encouraging—and which might feel uncomfortable?';
+ if(/control|autonom|lead|independ/.test(t))return 'Which choices do we each want to make independently, and which should we plan together?';
+ if(/sens|texture|comfort|stress|arousal/.test(t))return 'What environments, sensations, or pacing help each of us feel comfortable?';
+ if(/routine|ritual|anticipat|predict/.test(t))return 'How much advance planning versus flexibility feels supportive to each of us?';
+ return 'What does this theme mean to each of us, and what is one respectful way we could support each other?';
+}
+function visualActionPaths(out,labels){
+ if(!labels.length)return;
+ const wrap=E('section',undefined,'uc-action-paths');
+ wrap.append(E('h4','From shared themes to better conversations'),E('p','Choose a relevant question together; these are prompts for learning, not conclusions about either person.','uc-note'));
+ for(const label of [...new Set(labels)].slice(0,4)){
+  const row=E('div',undefined,'uc-action-path'),topic=E('span',label,'uc-action-topic');
+  const arrow=E('span','→','uc-action-arrow'),prompt=E('span',topicPrompt(label),'uc-action-prompt');
+  row.append(topic,arrow,prompt);wrap.append(row);
+ }
+ out.append(wrap);
+}
+
 function compare(a,b){
  const out=$('uc-results');out.replaceChildren();
  $('uc-print').hidden=false;
@@ -114,6 +142,26 @@ function compare(a,b){
  if(together.length)addText(out,'Shared intimate interests',together.map(x=>x.one.title).join(' · ')+'. Compare what each interest means personally, including fantasy versus real-life intentions and boundaries.');
  if(aOnly.length||bOnly.length)addText(out,'Different psychology themes',(a.from||'Partner A')+': '+(aOnly.map(x=>x.label).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(bOnly.map(x=>x.label).join(', ')||'none separately selected')+'. Ask each other how to offer support rather than assuming these represent opposite personalities.');
  if(ia.length||ib.length)addText(out,'Individual interests',(a.from||'Partner A')+': '+(ia.map(x=>x.title).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(ib.map(x=>x.title).join(', ')||'none separately selected')+'. Each person can share curiosity without pressure to participate, agree, or explain private material.');
+ const matchedAnswers=questionMatches(a.answers,b.answers);
+ if(matchedAnswers.length){
+  const box=E('section',undefined,'uc-answer-comparison');
+  box.append(E('h4','Questions you both chose to share'),E('p','Read the answers side by side. A shared question does not mean equal enthusiasm, intent, or permission to act.','uc-note'));
+  for(const x of matchedAnswers.slice(0,10)){
+   const card=E('article',undefined,'uc-answer-pair');
+   card.append(E('strong',x.one.question));
+   const pair=E('div',undefined,'uc-answer-columns');
+   for(const [answer,name] of [[x.one,a.from||'Partner A'],[x.two,b.from||'Partner B']]){
+    const side=E('div',undefined,'uc-answer-side');
+    side.append(E('b',name),E('p',(answer.selection||[]).join(' · ')));
+    if(answer.intentLabel)side.append(E('small','Stated intention: '+answer.intentLabel));
+    pair.append(side);
+   }
+   card.append(pair);box.append(card);
+  }
+  box.append(E('p','Try asking: “What did you mean by this answer, and does it refer to everyday life, imagination, or something you would actually want to discuss?”','uc-note'));
+  out.append(box);
+ }
+ visualActionPaths(out,[...both.map(x=>x.one.label),...aOnly.map(x=>x.label),...bOnly.map(x=>x.label)]);
  if(!both.length&&!together.length)addText(out,'Start with curiosity','Your selected sections have no exact shared labels. That may simply reflect different sharing choices. Ask what you value, what you need, and where you already work well together.');
  addText(out,'Communication: three useful prompts','1. “When do you feel most understood by me?”  2. “When we differ, do you prefer time, reassurance, questions, or practical problem-solving?”  3. “What is one small change we can each try this week?”');
  addText(out,'Growth plan','Choose one similarity to build on and one difference to discuss without blame. Take turns summarizing what you heard, ask whether you understood correctly, agree on one manageable action, then check in again. Respect a no, an unsure, or a preference to keep something private.');
