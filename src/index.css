@@ -1033,182 +1033,170 @@ body {
 }
 
 
-/* Compact homepage masthead. The logo stays centered between two featured links.
-   Keep the violet brand bar short on desktop and a single neat row on phones. */
-.candyland-next header.candyland-navbar{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
-  align-items:center;
-  justify-content:stretch;
-  column-gap:clamp(8px,1.4vw,18px);
-  width:min(calc(100% - 24px),1100px);
-  max-width:1100px;
-  min-height:58px;
-  margin:0 auto 9px;
-  padding:5px clamp(8px,1.3vw,15px);
-  border-radius:0 0 15px 15px;
-  box-shadow:0 9px 24px #22023f60;
+/* Compact masthead: brand left, Random AI fills the rest.
+   Unwrapped is featured only in Explore & Understand below the hero. */
+.candyland-next header.candyland-navbar.candyland-navbar-ai{
+ display:grid;
+ grid-template-columns:max-content minmax(0,1fr);
+ align-items:center;
+ justify-content:stretch;
+ column-gap:clamp(10px,1.8vw,22px);
+ width:min(calc(100% - 24px),1100px);
+ max-width:1100px;
+ min-height:62px;
+ margin:0 auto 9px;
+ padding:5px clamp(9px,1.25vw,15px);
+ border-radius:0 0 15px 15px;
+ box-shadow:0 9px 24px #22023f60;
 }
-.candyland-next header.candyland-navbar>.candyland-identity{
-  grid-column:2;
-  grid-row:1;
-  display:inline-flex;
-  width:max-content;
-  max-width:100%;
-  align-items:center;
-  justify-content:center;
-  justify-self:center;
-  gap:6px;
-  font-size:clamp(13px,1.3vw,17px);
-  line-height:1.15;
-  white-space:nowrap;
+.candyland-next header.candyland-navbar.candyland-navbar-ai>.candyland-identity{
+ grid-column:1;grid-row:1;
+ display:inline-flex;align-items:center;justify-self:start;
+ width:max-content;max-width:100%;gap:7px;
+ color:#fff6fc;
+ font-size:clamp(12px,1.25vw,16px);
+ font-weight:900;
+ line-height:1.14;
+ white-space:nowrap;
 }
-.candyland-next header.candyland-navbar .candyland-brand-icon{
-  width:35px;
-  height:35px;
-  flex:0 0 35px;
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-brand-icon{
+ width:38px;height:38px;flex:0 0 38px;
 }
-.candyland-next header.candyland-navbar>.candyland-navbar-feature{
-  display:block;
-  width:100%;
-  max-width:none;
-  min-width:0;
-  margin:0;
-  padding:0;
-  border:0;
-  background:none;
-  box-shadow:none;
-  border-radius:0;
+.candyland-next header.candyland-navbar.candyland-navbar-ai>.candyland-random-ai-promo{
+ display:block;
+ grid-column:2;grid-row:1;
+ min-width:0;width:100%;max-width:none;
+ margin:0;padding:0;border:0;
+ box-shadow:none;background:none;border-radius:0;
 }
-.candyland-next header.candyland-navbar>.candyland-unwrapped-promo{grid-column:1;grid-row:1}
-.candyland-next header.candyland-navbar>.candyland-random-ai-promo{grid-column:3;grid-row:1}
-.candyland-next header.candyland-navbar .candyland-navbar-feature-link{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  width:100%;
-  min-height:43px;
-  gap:7px;
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link{
+ display:flex;align-items:center;
+ width:100%;min-width:0;
+ min-height:53px;
+ padding:6px 12px;gap:12px;
+ border:1px solid #bfebcf78;
+ border-radius:12px;
+ background:linear-gradient(110deg,#1b405477,#30314d91 55%,#44265a65);
+ text-decoration:none;text-align:left;white-space:normal;
+ box-shadow:inset 0 1px #d6ffe522;
+ transition:background .2s,border-color .2s,transform .2s;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link:hover,
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link:focus-visible{
+ background:linear-gradient(115deg,#245365bb,#493363aa);
+ border-color:#c4ffe0;
+ transform:translateY(-1px);
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link>img{
+ display:block;width:38px;height:38px;flex:0 0 38px;
+ object-fit:contain;border-radius:9px;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-copy{
+ display:flex;flex-direction:column;align-items:flex-start;
+ gap:2px;flex:1;min-width:0;color:#f7fcff;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-kicker{
+ display:block;
+ color:#c5ffe7;
+ font:900 8px/1.2 system-ui,sans-serif;
+ letter-spacing:.09em;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-title{
+ display:flex;align-items:baseline;flex-wrap:wrap;
+ gap:6px 11px;min-width:0;
+ font:800 clamp(10px,1.1vw,12px)/1.25 system-ui,sans-serif;
+ color:#e2fae9;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-title strong{
+ color:#fff;
+ font:950 clamp(15px,1.65vw,20px)/1 system-ui,sans-serif;
+ letter-spacing:-.035em;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-title>span{
+ display:inline;
+ color:#d5ffe7;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-copy small{
+ display:block;
+ color:#f5ebff;
+ font:600 clamp(9px,.94vw,11px)/1.3 system-ui,sans-serif;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-detail{
+ display:block;
+ font:550 9px/1.28 system-ui,sans-serif;
+ color:#d5d1ea;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-action{
+ display:inline-flex;align-items:center;justify-content:center;
+ gap:7px;white-space:nowrap;flex:none;
+ border:1px solid #c2f2db8f;
+ border-radius:10px;
+ padding:9px 11px;
+ background:#a9f3d716;
+ font:850 11px/1.2 system-ui,sans-serif;
+ color:#d9ffe7;
+}
+.candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-action span{
+ font-size:15px;
+}
+@media(max-width:980px){
+ .candyland-next header.candyland-navbar.candyland-navbar-ai{
+  column-gap:10px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-detail{display:none}
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-action{
+  font-size:0;padding:7px 10px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-action span{font-size:17px}
+}
+@media(max-width:680px){
+ .candyland-next header.candyland-navbar.candyland-navbar-ai{
+  width:calc(100% - 12px);
+  min-height:50px;
+  column-gap:8px;
   padding:4px 7px;
-  border:1px solid #fff3ed55;
+  margin-bottom:7px;
+  border-radius:0 0 12px 12px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai>.candyland-identity{
+  font-size:12px;gap:4px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-brand-icon{
+  width:31px;height:31px;flex:0 0 31px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link{
+  min-height:44px;padding:5px 8px;gap:7px;
   border-radius:10px;
-  background:#21093c38;
-  box-shadow:none;
-  color:#fff8fe;
-  text-decoration:none;
-  white-space:normal;
-  transition:background .2s,border-color .2s,transform .2s;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link>img{
+  width:28px;height:28px;flex:0 0 28px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-kicker{
+  font-size:7px;letter-spacing:.02em;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-title{
+  gap:3px 7px;
+  font-size:10px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-title strong{font-size:14px}
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-copy small{display:none}
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-action{
+  border:0;background:none;padding:2px;
+ }
 }
-.candyland-next header.candyland-navbar .candyland-navbar-feature-link:hover,
-.candyland-next header.candyland-navbar .candyland-navbar-feature-link:focus-visible{
-  background:#ffffff27;
-  border-color:#ffe8d6;
-  transform:translateY(-1px);
+@media(max-width:530px){
+ .candyland-next header.candyland-navbar.candyland-navbar-ai>.candyland-identity>span:last-child{display:none}
 }
-.candyland-next header.candyland-navbar .candyland-navbar-feature-link>img{
-  display:block;
-  width:29px;
-  height:29px;
-  flex:0 0 29px;
-  object-fit:contain;
-  border-radius:10px;
-}
-.candyland-next header.candyland-navbar .candyland-navbar-feature-copy{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  min-width:0;
-  gap:1px;
-  flex:1;
-}
-.candyland-next header.candyland-navbar .candyland-navbar-feature-kicker{
-  display:block;
-  color:#ffe5a9;
-  font:850 7px/1.2 system-ui,sans-serif;
-  letter-spacing:.08em;
-}
-.candyland-next header.candyland-navbar .candyland-navbar-feature-copy strong{
-  color:#fff8fd;
-  font:900 13px/1.2 system-ui,sans-serif;
-}
-.candyland-next header.candyland-navbar .candyland-navbar-feature-copy small{
-  display:block;
-  font:600 9px/1.25 system-ui,sans-serif;
-  color:#fff1fd;
-  white-space:normal;
-}
-.candyland-next header.candyland-navbar .candyland-navbar-feature-detail{display:none}
-.candyland-next header.candyland-navbar .candyland-navbar-feature-arrow{
-  display:inline-block;
-  flex:none;
-  margin-left:auto;
-  color:#ffe3ad;
-  font:900 15px/1 system-ui,sans-serif;
-}
-@media(max-width:1040px){
-  .candyland-next header.candyland-navbar{column-gap:9px}
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-link>img{
-    width:27px;height:27px;flex-basis:27px;
-  }
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-copy small{font-size:9px}
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-arrow{display:none}
-}
-@media(max-width:720px){
-  .candyland-next header.candyland-navbar{
-    width:calc(100% - 12px);
-    min-height:49px;
-    gap:5px;
-    padding:4px 6px;
-    margin-bottom:7px;
-    border-radius:0 0 12px 12px;
-  }
-  .candyland-next header.candyland-navbar>.candyland-identity{gap:4px;font-size:13px}
-  .candyland-next header.candyland-navbar .candyland-brand-icon{
-    width:30px;height:30px;flex-basis:30px;
-  }
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-link{
-    min-height:36px;gap:4px;padding:4px 5px;
-    border-radius:9px;
-  }
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-link>img{
-    width:23px;height:23px;flex-basis:23px;
-  }
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-kicker,
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-copy small{display:none}
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-copy strong{
-    font-size:clamp(10px,2.6vw,12px);line-height:1.2;
-  }
-}
-@media(max-width:540px){
-  .candyland-next header.candyland-navbar>.candyland-identity>span:last-child{display:none}
-  .candyland-next header.candyland-navbar .candyland-brand-icon{
-    width:32px;height:32px;flex-basis:32px;
-  }
-}
-@media(max-width:365px){
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-link>img{
-    width:22px;height:22px;flex-basis:22px;
-  }
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-link{
-    padding:4px;gap:4px;
-  }
+@media(max-width:360px){
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link{
+  padding:4px 5px;gap:5px;
+ }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link>img{width:23px;height:23px;flex-basis:23px}
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-title>span{font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-link{transition:none}
-  .candyland-next header.candyland-navbar .candyland-navbar-feature-link:hover{transform:none}
-}
-
-/* Keep the free unlimited LOCAL AI proposition visible even in the short mobile header. */
-.candyland-next header.candyland-navbar>.candyland-random-ai-promo .candyland-navbar-feature-kicker{
- color:#c1ffde;
-}
-@media(max-width:720px){
- .candyland-next header.candyland-navbar>.candyland-random-ai-promo .candyland-navbar-feature-kicker{
-  display:block;font-size:7px;letter-spacing:0;line-height:1.3;
- }
- .candyland-next header.candyland-navbar>.candyland-random-ai-promo .candyland-navbar-feature-copy{
-  gap:1px;
- }
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link{transition:none}
+ .candyland-next header.candyland-navbar.candyland-navbar-ai .candyland-navbar-feature-link:hover{transform:none}
 }
 
 
