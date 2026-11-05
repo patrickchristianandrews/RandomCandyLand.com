@@ -92,7 +92,22 @@ function compare(a,b){
   for(const [amount,cls] of [[shared,'common'],[first,'a'],[second,'b']])if(amount){const seg=E('span',undefined,'uc-segment '+cls);seg.style.width=(amount/total*100)+'%';segments.append(seg)}
   line.append(segments,E('small',shared+' shared · '+first+' A only · '+second+' B only'));chart.append(line);
  }
- dashboard.append(chart);out.append(dashboard);
+ dashboard.append(chart);
+ const sharedConnections=[...both.map(x=>({label:x.one.label,kind:'Psychology'})),...together.map(x=>({label:x.one.title,kind:'Intimate'}))].slice(0,8);
+ if(sharedConnections.length){
+  const map=E('div',undefined,'uc-connection-map');
+  map.append(E('h4','Where your two reports connect'));
+  for(const item of sharedConnections){
+   const line=E('div',undefined,'uc-connection-row');
+   line.append(E('span',a.from||'Partner A','uc-connection-person'));
+   const link=E('div',undefined,'uc-connection-link');
+   link.append(E('i',undefined,'uc-connection-rule'),E('strong',item.label),E('small',item.kind+' · selected by both'));
+   line.append(link,E('span',b.from||'Partner B','uc-connection-person'));map.append(line);
+  }
+  map.append(E('p','These connections show matching topics voluntarily included by each person. They do not show agreement about meaning, boundaries or real-life participation.','uc-note'));
+  dashboard.append(map);
+ }
+ out.append(dashboard);
  addText(out,'How to read the visual overview','Matching labels are conversation starting points; individual selections can reflect different interests, different experiences, or simply what each person chose to disclose. The number of labels is not a scientific measure of how well you fit together.');
  if(both.length)addText(out,'Shared psychology themes',both.map(x=>x.one.label).join(' · ')+'. Ask when these patterns show up in daily life and what support feels helpful to each person.');
  if(together.length)addText(out,'Shared intimate interests',together.map(x=>x.one.title).join(' · ')+'. Compare what each interest means personally, including fantasy versus real-life intentions and boundaries.');
