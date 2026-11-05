@@ -2371,3 +2371,76 @@ body {
     max-width:104px;white-space:normal;font-size:10px;
   }
 }
+
+
+/* A single compact access ribbon keeps every active tool visible without
+   reintroducing an oversized menu or the intentionally retired pages. */
+.candyland-next .candyland-quick-access{
+  width:min(calc(100% - 24px),1170px);
+  margin:5px auto 8px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 9px;
+  background:#23163bde;
+  border:1px solid #e1c4fa68;
+  border-radius:13px;
+  box-shadow:0 3px 14px #1c102559;
+  position:relative;z-index:6;
+}
+.candyland-next .candyland-quick-access-heading{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font:900 11px/1.15 system-ui,sans-serif;
+  color:#ffe7fa;
+}
+.candyland-next .candyland-quick-access-heading span{color:#ffcf9a}
+.candyland-next .candyland-quick-access-list{
+  min-width:0;flex:1;
+  display:flex;align-items:stretch;
+  overflow-x:auto;overflow-y:hidden;
+  overscroll-behavior-inline:contain;
+  scroll-snap-type:x proximity;
+  scrollbar-width:thin;scrollbar-color:#ab81c6 #23163b;
+  gap:7px;
+  padding:2px 2px 5px;
+}
+.candyland-next .candyland-quick-access-link{
+  flex:0 0 auto;
+  min-width:98px;
+  max-width:142px;
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:5px 8px;
+  border-radius:9px;
+  border:1px solid #e8d5f64d;
+  background:linear-gradient(120deg,#53356496,#332149ce);
+  color:#fff5fe;
+  text-decoration:none;
+  text-align:left;
+  font:800 10px/1.2 system-ui,sans-serif;
+  cursor:pointer;
+  scroll-snap-align:start;
+}
+.candyland-next .candyland-quick-access-link:hover{border-color:#f6c5fb;background:#69457d}
+.candyland-next .candyland-quick-access-link:focus-visible{outline:3px solid #fff0a8;outline-offset:2px}
+.candyland-next .candyland-quick-access-link img{width:29px;height:29px;object-fit:contain;flex:0 0 29px}
+.candyland-next .candyland-quick-access-link span{display:block;min-width:0}
+.candyland-next .candyland-quick-access-hint{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font:800 9px/1.2 system-ui,sans-serif;
+  color:#f0dafa;
+}
+@media(max-width:650px){
+  .candyland-next .candyland-quick-access{margin:4px auto 6px;padding:5px 6px;gap:6px}
+  .candyland-next .candyland-quick-access-heading{font-size:9px}
+  .candyland-next .candyland-quick-access-link{min-width:91px;max-width:116px;min-height:42px;padding:4px 6px;gap:5px;font-size:9px}
+  .candyland-next .candyland-quick-access-link img{width:25px;height:25px;flex-basis:25px}
+  .candyland-next .candyland-quick-access-hint{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .candyland-next .candyland-quick-access-list{scroll-behavior:auto}
+}
