@@ -69,16 +69,28 @@ const SYSTEM='You are the Random AI creative assistant. Be accurate, practical, 
 const names={home:'Discover',chat:'Random AI Chat',tools:'Tool library',academy:'AI Academy',code:'Code Lab',visual:'Visual lab',photos:'Photo workshop',voice:'Voice studio',history:'Saved work',settings:'Model & privacy'};
 function notice(message){clearTimeout(noticeTimer);const el=$('#toast');el.textContent=message;el.classList.add('show');noticeTimer=setTimeout(()=>el.classList.remove('show'),3200);}
 function setStatus(text,connected=false){$('#statusPill').textContent=(connected?'● ':'◌ ')+text;$('#statusPill').style.color=connected?'#90e7cc':'#c9bafa';}
-function closeStudioMenu(){const side=$('#sidebar'),scrim=$('#sidebarScrim'),btn=$('#menuBtn');side.classList.remove('is-open');scrim.hidden=true;btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open navigation');document.body.classList.remove('studio-menu-open');}
-function setStudioMenu(open){const side=$('#sidebar'),scrim=$('#sidebarScrim'),btn=$('#menuBtn');side.classList.toggle('is-open',open);scrim.hidden=!open;btn.setAttribute('aria-expanded',String(open));btn.setAttribute('aria-label',open?'Close navigation':'Open navigation');document.body.classList.toggle('studio-menu-open',open);if(open)$('#sidebarClose').focus();}
-function navigate(view){if(!names[view])view='home';$$('.view').forEach(n=>n.classList.toggle('active',n.id==='view-'+view));$$('.nav-btn').forEach(n=>{const active=n.dataset.view===view;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current')});$('#pageTitle').textContent=names[view];closeStudioMenu();window.scrollTo({top:0,behavior:'auto'});if(view==='history')renderHistory();if(view==='chat')renderChat();try{history.replaceState({},'',view==='home'?'/studio/':'/studio/#'+view)}catch{}}
+function isStudioMenuOpen(){return window.innerWidth>780?!document.body.classList.contains('studio-desktop-collapsed'):$('#sidebar').classList.contains('is-open')}
+function closeStudioMenu(){setStudioMenu(false)}
+function setStudioMenu(open){
+ const side=$('#sidebar'),scrim=$('#sidebarScrim'),btn=$('#menuBtn'),desktop=window.innerWidth>780;
+ if(desktop){
+  document.body.classList.toggle('studio-desktop-collapsed',!open);
+  side.classList.remove('is-open');scrim.hidden=true;document.body.classList.remove('studio-menu-open');
+ }else{
+  side.classList.toggle('is-open',open);scrim.hidden=!open;document.body.classList.toggle('studio-menu-open',open);
+ }
+ btn.setAttribute('aria-expanded',String(open));
+ btn.setAttribute('aria-label',open?'Hide side navigation':'Show side navigation');
+ if(open&&!desktop)$('#sidebarClose').focus();
+}
+function navigate(view){if(!names[view])view='home';$$('.view').forEach(n=>n.classList.toggle('active',n.id==='view-'+view));$$('.nav-btn').forEach(n=>{const active=n.dataset.view===view;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current')});$('#pageTitle').textContent=names[view];if(window.innerWidth<=780)closeStudioMenu();window.scrollTo({top:0,behavior:'auto'});if(view==='history')renderHistory();if(view==='chat')renderChat();try{history.replaceState({},'',view==='home'?'/studio/':'/studio/#'+view)}catch{}}
 $$('[data-view]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.view)));
 document.addEventListener('click',event=>{const button=event.target.closest('[data-go]');if(button)navigate(button.dataset.go);const suggest=event.target.closest('[data-suggest]');if(suggest){navigate('chat');$('#chatInput').value=suggest.dataset.suggest;$('#chatInput').focus();}});
-$('#menuBtn').addEventListener('click',()=>setStudioMenu(!$('#sidebar').classList.contains('is-open')));
+$('#menuBtn').addEventListener('click',()=>setStudioMenu(!isStudioMenuOpen()));
 $('#sidebarClose').addEventListener('click',closeStudioMenu);
 $('#sidebarScrim').addEventListener('click',closeStudioMenu);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeStudioMenu()});
-window.addEventListener('resize',()=>{if(window.innerWidth>780)closeStudioMenu()});
+window.addEventListener('resize',()=>{if(window.innerWidth>780){$('#sidebar').classList.remove('is-open');$('#sidebarScrim').hidden=true;document.body.classList.remove('studio-menu-open')}else{document.body.classList.remove('studio-desktop-collapsed')}});
 $('#topNew').addEventListener('click',()=>newChat(true));
 $('#chatReset').addEventListener('click',()=>newChat(true));
 // Searchable depth-first workflow browser, with a compact first batch for phone screens.
