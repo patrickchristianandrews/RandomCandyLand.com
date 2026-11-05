@@ -753,7 +753,7 @@ try{
   if(!review)throw Error('Identity Lab could not produce a partial-information report');
   await traceProfile.evaluate("document.querySelector('#profile-consent').checked=true;document.querySelector('#profile-export').click()");
   const reportExport=await traceProfile.evaluate("document.querySelector('#profile-status').textContent.includes('prepared for download')");
-  if(!reportExport)throw Error('Identity Lab could not export an explicitly authorized partial report');
+  if(!reportExport){const reportDiagnostics=await traceProfile.evaluate("({status:document.querySelector('#profile-status')?.textContent,consent:document.querySelector('#profile-consent')?.checked,step:window.TraceProfileReview?.getCurrentStep(),count:window.TraceProfileReview?.getCount(),href:location.href})");console.error('TRACE export diagnostics:',JSON.stringify(reportDiagnostics));throw Error('Identity Lab could not export an explicitly authorized partial report');}
   await traceProfile.evaluate("window.confirm=()=>true;document.querySelector('#profile-clear').click();document.querySelector('[data-profile-step=\"2\"]').click()");
   const blank=await traceProfile.evaluate("window.TraceProfileReview.getCount()===0&&document.querySelector('#profile-report').textContent.includes('blank template')&&document.querySelector('#profile-name').value===''"); 
   if(!blank)throw Error('Identity Lab must allow an entirely blank profile template');
