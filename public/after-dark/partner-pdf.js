@@ -122,6 +122,12 @@ function build(){
    if(item.evidence?.length)add(card,'p','My relevant selection: '+item.evidence[0],'partner-pdf-muted');
    if(item.profileThemes?.length)add(card,'p','Related everyday themes: '+item.profileThemes.join(', ')+'. These are reflection cues, not predictions.','partner-pdf-muted');
    bullets(card,item.uses.slice(0,2));
+   if(item.bodyUses){
+    const labels=window.UnwrappedToyLibrary?.fitLabels||{};
+    add(card,'p','Male anatomy: '+(labels[item.bodyUses.male.fit]||item.bodyUses.male.fit)+' — '+item.bodyUses.male.note,'partner-pdf-muted');
+    add(card,'p','Female anatomy: '+(labels[item.bodyUses.female.fit]||item.bodyUses.female.fit)+' — '+item.bodyUses.female.note,'partner-pdf-muted');
+    add(card,'p','Shared use: '+item.bodyUses.together,'partner-pdf-muted');
+   }
    add(card,'p','Safety considerations: '+item.safety,'partner-pdf-muted');
   }
   add(s,'p','Any new activity would need a separate, unpressured conversation and agreement. Being curious—or choosing a fantasy-only answer—does not mean I want to try it.','partner-pdf-muted');
