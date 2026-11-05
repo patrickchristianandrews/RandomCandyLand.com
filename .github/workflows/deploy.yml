@@ -213,7 +213,7 @@ jobs:
                   exit 1
                 fi
               done
-              echo "::notice::GitHub Pages serves this exact release and the three Meridian games."
+              echo "::notice::GitHub Pages serves this exact release and the independent interactive games."
               exit 0
             fi
             echo "Pages publication is still propagating (check $attempt/6)."
