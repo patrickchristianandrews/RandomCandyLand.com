@@ -270,7 +270,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       root.style.scrollBehavior = previous;
     });
   }
-  function letVisitorIn() {
+  function letVisitorIn(resetScroll) {
     try { sessionStorage.setItem('ad_18','yes'); } catch (e) {}
     if (enter) enter.blur();
     if (gate) {
@@ -279,12 +279,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       gate.style.display = 'none';
     }
     document.body.classList.add('ad-entered');
-    resetEntryScroll();
+    if (resetScroll !== false) resetEntryScroll();
   }
   if (enter) enter.addEventListener('click', letVisitorIn);
   // Re-entering without an explicit deep link should also begin at the top.
   try { if (sessionStorage.getItem('ad_18') === 'yes') {
-    letVisitorIn();
+    letVisitorIn(!location.hash || location.hash === '#home');
   } } catch (e) {}
 })();
 </script>
