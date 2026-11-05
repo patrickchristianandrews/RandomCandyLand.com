@@ -129,33 +129,21 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       <div className="candyland-starfield" aria-hidden="true">
         <span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span>
       </div>
-      <header className="candyland-navbar" aria-label="Random Candy Land and featured experiences">
-        <aside className="candyland-unwrapped-promo candyland-navbar-feature" aria-label="Explore Unwrapped: personal and partner reports, quizzes and connection for adults 18 and older">
-          <a className="candyland-unwrapped-promo-link candyland-navbar-feature-link" href="/after-dark/" aria-label="Explore Unwrapped: personal and partner reports, quizzes and connection for adults 18 and older">
-            <img src="/tool-icons/unwrapped.svg" width={48} height={48} alt="" loading="eager" />
-            <span className="candyland-navbar-feature-copy">
-              <span className="candyland-navbar-feature-kicker">✦ FEATURED · 18+</span>
-              <strong>Unwrapped</strong>
-              <small>Understand every layer. Appreciate the whole person.</small>
-              <span className="candyland-navbar-feature-detail">Two connected quizzes · personal and partner reports · meaningful conversations</span>
-            </span>
-            <span className="candyland-navbar-feature-arrow" aria-hidden="true">↗</span>
-          </a>
-        </aside>
-        <a className="candyland-identity" href="#top" aria-label="Random Candy Land — current homepage, back to top">
+      <header className="candyland-navbar candyland-navbar-ai" aria-label="Random Candy Land and featured Random AI">
+        <a className="candyland-identity" href="#top" aria-label="Random Candy Land — back to top">
           <span className="candyland-brand-icon" aria-hidden="true"><img src="/icon.svg?v=candy-logo-no-white-3" alt="" width={55} height={55} /></span>
           <span>RANDOM <strong>CANDY LAND</strong></span>
         </a>
-        <aside className="candyland-random-ai-promo candyland-navbar-feature" aria-label="Random AI: free unlimited private local AI chats with no API keys or message caps; device limits apply">
-          <a className="candyland-random-ai-promo-link candyland-navbar-feature-link" href="/studio/" aria-label="Open Random AI: free unlimited private local AI chats, no API keys or message caps. Device limits apply.">
+        <aside className="candyland-random-ai-promo candyland-navbar-feature" aria-label="Featured Random AI creative studio">
+          <a className="candyland-random-ai-promo-link candyland-navbar-feature-link" href="/studio/" aria-label="Open Random AI: free, unlimited private local AI chats on compatible devices and recommended writing and coding stacks">
             <img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" loading="eager" />
             <span className="candyland-navbar-feature-copy">
-              <span className="candyland-navbar-feature-kicker">✦ FREE · UNLIMITED · LOCAL</span>
-              <strong>Random AI</strong>
-              <small>Private AI chats. No API keys or message caps.</small>
-              <span className="candyland-navbar-feature-detail">Runs on your device · subject to hardware limits · optional hosted APIs are separate</span>
+              <span className="candyland-navbar-feature-kicker">✦ FEATURED · CREATE WITHOUT LIMITS</span>
+              <span className="candyland-navbar-feature-title"><strong>Random AI</strong><span>Free, unlimited private local AI</span></span>
+              <small>Write, code, brainstorm and solve problems with a recommended AI stack for every task.</small>
+              <span className="candyland-navbar-feature-detail">Runs on your device · No local chat message caps · Download a model once · Optional hosted Instant AI when connected</span>
             </span>
-            <span className="candyland-navbar-feature-arrow" aria-hidden="true">↗</span>
+            <span className="candyland-navbar-feature-action">Explore Random AI <span aria-hidden="true">↗</span></span>
           </a>
         </aside>
       </header>
