@@ -364,6 +364,7 @@ else {
    add(card,'h3',item.name);
    add(card,'p',item.why);
    if(item.evidence?.length)add(card,'p','Relevant selections: '+item.evidence.slice(0,2).join(' · '),'report-note');
+   if(item.profileThemes?.length)add(card,'p','Related nonsexual psychology themes: '+item.profileThemes.join(', ')+'. These only help order directly supported topics; they do not establish a preference.','report-muted');
    add(card,'p','Ways to learn about it:');
    list(card,item.uses.slice(0,3));
    add(card,'p','Safety: '+item.safety,'report-muted');
