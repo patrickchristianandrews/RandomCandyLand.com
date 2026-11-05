@@ -392,7 +392,7 @@ function connect(c){
   else if(!roomFull&&peer){
    if(!relayEnabled&&connectionDrops>=4){
     clearJoinTimers();
-    onlineStatus('⚠️ Direct WebRTC keeps dropping on these networks. The Cloudflare room relay is not activated yet; that is the durable fix. The room is still open on the host.');
+    onlineStatus('Connection keeps dropping. Try another network or create a new room.');
    }else scheduleJoin(peer,roomEpoch,'Connection dropped. Rejoining automatically.');
   }
   else if(!roomFull){onlineStatus('⚠️ Disconnected. Tap JOIN ROOM to reconnect.');}
@@ -455,10 +455,10 @@ function registerHostRoom(epoch,reclaimed=false){
   $('invite-link').value=invite.href;$('room-input').value=id;
   $('invite-panel').hidden=false;$('leave-room').hidden=false;
   onlineStatus(relayEnabled
-   ?'🟢 Cloudflare room registered. Share the invite and keep this tab open; both players will be confirmed after exchanging game messages.'
+   ?'Step 2: Share your link. Step 3: Keep this game open while your friend joins.'
    :reclaimed
-    ?'🟡 PeerJS room reclaimed, but a direct connection is NOT yet established. Ask the other player to open the invite. Cloudflare room relay is not active.'
-    :'🟡 PeerJS room registered; NO player is connected yet. Share the invite. Cloudflare room relay is not active.');
+    ?'Room opened. Ask your friend to tap the invite link.'
+    :'Step 2: Share your link. Step 3: Keep this game open while your friend joins.');
   render();
  });
  p.on('connection',c=>{
@@ -646,16 +646,17 @@ $('copy-diagnostics').onclick=async()=>{
   $('copy-diagnostics').textContent='SELECT AND COPY DETAILS';
  }
 };
+$('share-invite').onclick=async()=>{const url=$('invite-link').value;if(navigator.share){try{await navigator.share({title:'Join my game',text:'Play Candy Casino with me!',url});return}catch(e){if(e?.name==='AbortError')return}}$('copy-invite').click();};
 $('copy-invite').onclick=async()=>{try{await navigator.clipboard.writeText($('invite-link').value);$('copy-invite').textContent='✓ LINK COPIED';}catch{$('invite-link').focus();$('invite-link').select();$('copy-invite').textContent='SELECTED — COPY LINK';}};
 $('friend-name').addEventListener('change',()=>{players[me()]=sanitize($('friend-name').value);if(online)send({type:'hello',name:players[me()]});render();transmit();});
 const incoming=new URL(location.href).searchParams.get('room');
 if(incoming){mode='friend';players=['Waiting...',sanitize($('friend-name').value)];host=false;$('remote-controls').hidden=false;$('friends').hidden=false;$('room-input').value=roomCode(incoming);onlineStatus('🍬 Invitation detected! Connecting to the host...');setTimeout(()=>{if(mode==='friend'&&!peer)joinRoom();},50);}
 if($('casino-network-version'))$('casino-network-version').textContent=relayEnabled
- ?'Multiplayer v9 · dedicated Cloudflare relay ACTIVE'
- :'Multiplayer v9 · PeerJS direct connection (relay NOT ACTIVE; may disconnect)';
+ ?'Connection service ready'
+ :'Connection service limited — retry if needed';
 if($('casino-transport-note'))$('casino-transport-note').textContent=relayEnabled
- ?'Connection method: Cloudflare game relay'
- :'Connection method: direct PeerJS — Cloudflare game relay not connected';
+ ?'Ready to connect with a friend'
+ :'If connecting fails, try again or switch networks';
 render();
 window.CandyCasinoDebug=Object.freeze({state:()=>({mode,duel,round,phase:stage,scores,online,hand:hands[me()]}),connectionDetails,version:networkVersion,rules:P});
 document.body.dataset.candyCasinoReady='true';
