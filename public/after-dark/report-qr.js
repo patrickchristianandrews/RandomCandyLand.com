@@ -43,6 +43,7 @@ function create(){
  method.append(element('h3','What happens when you use the program?'));
  method.append(element('p','Two connected questionnaires — 69 Sexual Preferences questions and 32 nonsexual Psychology questions — organize the answers you choose around shared themes such as trust, sensation, affirmation, imagination and anticipation. You can take either quiz or both.'));
  method.append(element('p','Your answers are used to prepare a detailed personal report with your own selections, interest-by-interest explanations, links between the questionnaires, reflection prompts and optional topics for further discovery. Theme matches are exploratory, not diagnoses, scientific probabilities or hidden facts about you.'));
+ method.append(element('p','Unwrapped also has a free Sex Toy Guide comparing male, female and partner uses for 12 toy categories. Where direct quiz answers support a category, the personal report can explain its suitability and safer-use limits. Partner reports include such details only by separate choice.'));
  const outputs=element('div',undefined,'od-flyer-outputs');
  outputs.append(
   element('span','PRIVATE PERSONAL REPORT','od-flyer-output-pill'),
