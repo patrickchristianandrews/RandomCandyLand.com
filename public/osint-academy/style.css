@@ -477,6 +477,17 @@
  .trace-profile-found-card{padding:12px}
 }
 
+
+.trace-profile-oneclick{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:3px 0 14px}
+.trace-profile-oneclick button{min-height:43px;font-size:12px;padding:10px 16px}
+.trace-profile-oneclick small{color:#b5d9d0;font:500 11px/1.4 system-ui,sans-serif;max-width:450px}
+.trace-profile-oneclick button[hidden],#trace-profile-review [hidden]{display:none!important}
+#trace-profile-review .trace-profile-intro{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:14px 2px 18px;margin-bottom:15px;border-bottom:1px solid #75a49a75}
+#trace-profile-review .trace-profile-intro h2{font:900 clamp(22px,3.3vw,33px)/1.1 system-ui,sans-serif;letter-spacing:-.02em;color:#e9fff5;margin:6px 0}
+#trace-profile-review .trace-profile-intro p{font:500 12px/1.55 system-ui,sans-serif;color:#c5ddd8;margin:0;max-width:750px}
+.trace-profile-connection-row a{color:#c3ffe8;text-decoration:underline;font:750 11px/1.5 system-ui,sans-serif;overflow-wrap:anywhere}
+@media(max-width:600px){.trace-profile-oneclick{align-items:stretch;flex-direction:column}.trace-profile-oneclick button{width:100%}}
+
 @media print{
  body *{visibility:hidden!important}
  #view-identity,#identity-profile-pane,#trace-profile-review,#profile-report,#profile-report *{visibility:visible!important}
