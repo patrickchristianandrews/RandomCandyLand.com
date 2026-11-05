@@ -204,7 +204,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                               <span className="candyland-hero-tool-name">{portal.title}</span>
                               <span className="candyland-unwrapped-feature-body">
                                 <span className="candyland-unwrapped-feature-headline">Explore your intimate side. Understand the whole person.</span>
-                                <span className="candyland-unwrapped-feature-description">Explore your bedroom interests alongside the psychology of your emotions, personality, communication and relationships. Two complementary quizzes bring these sides together into meaningful, logically organized insights and partner-friendly reports that help others understand you without judgment.</span>
+                                <span className="candyland-unwrapped-feature-description">Explore your intimate side or broader psychology separately, or blend both for a holistic understanding of how everything connects. Choose exactly which report highlights to share with a partner, then compare your selected reports for similarities, differences, communication tips and ways to grow together.</span>
                                 <span className="candyland-unwrapped-feature-output-title">EXPLORE EVERY LAYER · TAKE HOME REAL INSIGHTS</span>
                                 <span className="candyland-unwrapped-feature-outputs" aria-label="Unwrapped topics and takeaways">
                                   <span>🧠 Psychology &amp; emotions</span>
