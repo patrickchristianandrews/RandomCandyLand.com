@@ -287,6 +287,9 @@
   insightAndAgreement(doc,data);
   groupProfiles(doc,data);
   abbreviateSuggestions(doc);
+  // Dynamic charts, factual comparison tables and export-friendly summaries.
+  // The visual layer uses the exact canonical responses and changes no scores.
+  window.AfterDarkReportVisuals?.enhancePersonal?.(doc,data);
   if(window.AfterDarkReportQR?.create)doc.append(window.AfterDarkReportQR.create());
   const guidance=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('07'));
   if(guidance){
