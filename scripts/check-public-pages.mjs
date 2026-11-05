@@ -5,7 +5,6 @@ const required = [
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
-  ['dist/music-visualizer/index.html', ['id="canvas"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','GTM-TQRDB5KL']],
   ['dist/candy-casino/index.html', ['Choose your game','id="casino-howto"','data-duel="poker"','data-duel="card"','data-duel="dice"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
@@ -212,7 +211,6 @@ for(const asset of ['dist/share-page.js','dist/share-page.css','dist/after-dark/
 for(const [file,tokens] of [
  ['dist/index.html',['share-page.js?v=sitewide-2','share-page.css?v=sitewide-2']],
  ['dist/after-dark/index.html',['share-page.js?v=sitewide-2','share-page.css?v=sitewide-2','guide-illustrations.css?v=20261031-v1']],
- ['dist/music-visualizer/index.html',['share-page.js?v=sitewide-2']],
  ['dist/candy-casino/index.html',['share-page.js?v=sitewide-2']]
 ]){
  if(!fs.existsSync(file)){failures++;continue;}
@@ -297,14 +295,26 @@ if (homeBundle.includes('PURE CANDY CHAOS!') || homeBundle.includes('sugar-unive
 }
 console.log('Checked: no celebrity crown-battle content in the production homepage.');
 
-// Keep the requested music tools and standalone games available on the homepage.
-if (!homeBundle.includes('Candy Pulse') || !homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Candy Simon Says!') || !homeBundle.includes('Candy Match!') || !homeBundle.includes('FM-1 Trumpagotchi')) {
+// Keep remaining games; Candy Pulse and the creative/music shelf are deliberately retired.
+if (!homeBundle.includes('GOO RUSH! — Candy Arcade') || !homeBundle.includes('Candy Simon Says!') || !homeBundle.includes('Candy Match!') || !homeBundle.includes('FM-1 Trumpagotchi')) {
   console.error('A current attraction is missing from the published homepage.');
   failures++;
 }
 if (/Sugar Chaos 3D|PLAY TRUMPAGOTCHI/.test(homeBundle)) {
   console.error('An unwanted outdated homepage attraction was restored.');
   failures++;
+}
+// Candy Pulse has been completely retired, including its PWA and installation flow.
+for(const path of ['dist/music-visualizer/index.html','dist/music-visualizer/tv.html','dist/music-visualizer/pulse-engine.js','dist/music-visualizer/pulse-cast.js','dist/app-manifests/candy-pulse.webmanifest','dist/tool-icons/candy-pulse.svg']){
+ if(fs.existsSync(path)){console.error('Candy Pulse must not be deployed:',path);failures++;}
+}
+if(homeInstallSource.includes('Candy Pulse')||homeInstallSource.includes('Creative & Music Tools')||
+   homeInstallSource.includes("id:'creative'")||homeInstallSource.includes("kind:'creative'")||
+   !homeInstallSource.includes('candyland-random-ai-promo')||
+   !homeInstallSource.includes('href="/studio/"')||
+   fs.readFileSync('dist/install-app.js','utf8').includes('candy-pulse')||
+   fs.readFileSync('dist/manifest.json','utf8').includes('Candy Pulse')){
+ console.error('Creative/music section or Candy Pulse remains, or the Random AI ad disappeared.');failures++;
 }
 // The discontinued prototype is retired, but the previous FM-1 address
 // must open the standalone tiny pet instead of the unrelated large game.
@@ -334,13 +344,11 @@ const toolIcons = [
   'tool-icons/casino.svg',
   'tool-icons/simon.svg',
   'tool-icons/candy-match.svg',
-  'tool-icons/candy-pulse.svg',
   'tool-icons/unwrapped.svg',
   'tool-icons/osint-academy.svg',
   'tool-icons/moodropolis.svg',
   'tool-icons/the-corridors.svg',
   'tool-icons/the-docket.svg',
-  'tool-icons/candy-studio.svg',
   'tool-icons/ai-academy.svg'
 ];
 if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
@@ -348,7 +356,7 @@ if (!homeInstallSource.includes('className="candyland-hero-tools"') ||
     !homeInstallSource.includes('src={portal.icon}') ||
     !homeInstallSource.includes("games.map(portal =>") ||
     !toolIcons.every(icon => homeInstallSource.includes(icon) && fs.existsSync('dist/'+icon))) {
-  console.error('The Candy Land homepage must display all fourteen illustrated game and tool shortcuts.');
+  console.error('The Candy Land homepage must display its twelve remaining illustrated game and learning shortcuts.');
   failures++;
 }
 // The new artwork must replace the old emoji/cartoon thumbnails in every
