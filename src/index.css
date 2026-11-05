@@ -2261,3 +2261,73 @@ body {
 @media(prefers-reduced-motion:reduce){
  .candyland-next #nonsense.nonsense-report .nonsense-report-marquee{animation:none}
 }
+
+
+/* Absurdity Report ticker layout correction: one stable row at all widths. */
+.candyland-next #nonsense.nonsense-report{
+  box-sizing:border-box;
+  overflow:hidden;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-ticker{
+  display:grid;
+  grid-template-columns:max-content max-content minmax(0,1fr) 30px;
+  align-items:center;
+  column-gap:8px;
+  min-width:0;
+  min-height:48px;
+  padding:5px 9px;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand{
+  width:auto;min-width:0;max-width:100%;
+  padding:7px 11px;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy strong{
+  font-size:12px;line-height:1.15;letter-spacing:0;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-live{
+  margin:0;padding:7px 9px;line-height:1;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-open{
+  min-width:0;width:100%;gap:9px;padding:3px 5px;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-viewport{
+  flex:1 1 0;min-width:0;border-left:0;padding:0;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-marquee{
+  display:flex;align-items:center;gap:0;
+  width:max-content;min-width:0;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-marquee>span{
+  flex:0 0 auto;white-space:nowrap;padding-right:30px;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-read{
+  flex:none;min-width:0;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-skip{
+  width:30px;min-width:30px;height:30px;min-height:30px;
+}
+@media(max-width:700px){
+  .candyland-next #nonsense.nonsense-report .nonsense-report-ticker{
+    grid-template-columns:max-content minmax(0,1fr) 28px;
+    column-gap:6px;
+  }
+  .candyland-next #nonsense.nonsense-report .nonsense-report-live{display:none}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-brand{padding:7px 9px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy strong{font-size:11px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-read{padding:6px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-skip{
+    width:28px;min-width:28px;height:28px;min-height:28px;
+  }
+}
+@media(max-width:420px){
+  .candyland-next #nonsense.nonsense-report .nonsense-report-ticker{
+    grid-template-columns:max-content minmax(0,1fr) 26px;
+    column-gap:4px;padding:4px 6px;min-height:44px;
+  }
+  .candyland-next #nonsense.nonsense-report .nonsense-report-brand{padding:6px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy strong{font-size:10px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-open{padding:2px;gap:3px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-skip{
+    width:26px;min-width:26px;height:26px;min-height:26px;
+  }
+}
