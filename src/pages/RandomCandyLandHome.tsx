@@ -227,6 +227,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                             </>
                           ) : (
                             <>
+                              <span className="candyland-hero-tool-name">{portal.title}</span>
                               <span className="candyland-hero-tool-blurb">{portal.blurb}</span>
                               <span className="candyland-hero-tool-duration">{portal.duration || (group.id === 'quick' ? '5–15 MIN' : group.id === 'ongoing' ? 'DROP IN ANYTIME' : 'EXPLORE')}</span>
                               <span className={'candyland-multiplayer-tag '+(portal.multiplayer||'single')}>{portal.multiplayer==='online'?'🌐 Online friends · relay required':portal.multiplayer==='same-screen'?'👥 Same-screen multiplayer':'👤 Single-player / solo'}</span>
