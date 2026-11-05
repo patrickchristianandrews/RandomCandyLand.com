@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <div class="howto-content">
   <p><strong>Choose a game:</strong> Poker, High Card or Dice. Play five rounds against Candybot, or connect to one friend. All chips are virtual; no money or prizes.</p>
   <p><strong>Poker:</strong> get five cards, select up to three to exchange, then compare hands. The strongest standard poker hand wins. Your friend's cards remain hidden until the showdown.</p>
-  <p><strong>Playing online:</strong> select Play a Friend, create a room, and share the link. If you receive a link, open it to join. Keep both browsers open. Cloudflare connects the two browsers through a dedicated game relay, so no direct phone-to-phone connection is required.</p>
+  <p><strong>Playing online:</strong> select Play a Friend, create a room, and share the link. If you receive a link, open it to join. Keep both games open until connected.</p>
  </div>
 </details>
 
@@ -63,23 +63,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <div class="friends-connect panel">
   <div class="friends-title">
    <h2>🌍 Play with a friend</h2>
-   <p>Create a room and share the link—or join a friend's room.</p>
+   <p>Three quick steps to play together.</p>
   </div>
   <div class="friend-entry"><label for="friend-name">Your name</label><input id="friend-name" type="text" maxlength="22" placeholder="Candy Captain" autocomplete="nickname" value="Candy Captain"></div>
   <div id="remote-controls" hidden>
-   <div class="friend-actions"><button type="button" class="primary" id="make-room">✨ Create room</button><button type="button" class="secondary" id="join-room">Join room</button></div>
+   <p class="casino-friend-steps">1. Create a room &nbsp;→&nbsp; 2. Share your link &nbsp;→&nbsp; 3. Play together</p><div class="friend-actions"><button type="button" class="primary" id="make-room">✨ Create room</button><button type="button" class="secondary" id="join-room">Join room</button></div>
    <div class="friend-entry"><label for="room-input">Room code or invite link</label><input id="room-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Paste a room link or code"></div>
    <div class="invite" id="invite-panel" hidden>
     <label for="invite-link">Share this invite</label><input id="invite-link" type="text" readonly>
-    <button type="button" id="copy-invite">📋 Copy invite link</button>
+    <div class="casino-invite-actions"><button type="button" id="share-invite">↗ Share link</button><button type="button" id="copy-invite">📋 Copy link</button></div>
    </div>
    <div id="connection-status" class="connection-status" role="status" aria-live="polite">🔌 Not connected. Create a room or join one.</div>
-   <small id="casino-transport-note" class="network-version" aria-live="polite">Connection method: connecting to Cloudflare game relay…</small>
+   <small id="casino-transport-note" class="network-version" aria-live="polite">Getting ready to connect…</small>
    <div class="friend-bottom"><button type="button" id="leave-room" class="text-button" hidden>✖ Leave room</button></div>
    <details class="connection-troubleshoot">
-    <summary>Connection help &amp; diagnostics</summary>
-    <div class="connection-help">Keep both tabs visible when connecting. Online play uses the Cloudflare game relay. If joining fails, copy the diagnostic details on both devices.</div>
-    <span id="casino-network-version" class="network-version" aria-label="Multiplayer connection version">Multiplayer v8 · connecting to game relay…</span>
+    <summary>Having trouble connecting?</summary>
+    <div class="connection-help">1. Keep both games open. 2. Check your internet connection. 3. If it still fails, create a new room and share the new link.</div>
+    <span id="casino-network-version" class="network-version" aria-label="Multiplayer connection version">Connection details</span>
     <button type="button" class="text-button" id="copy-diagnostics">📋 Copy connection details</button>
    </details>
   </div>
