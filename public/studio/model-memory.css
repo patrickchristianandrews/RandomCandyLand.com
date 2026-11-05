@@ -1,0 +1,21 @@
+/* Random AI: compact, persistent local model library. The cached files remain in browser storage. */
+.saved-model-home{display:inline-flex;align-items:center;max-width:100%;margin:14px 0 2px;padding:8px 12px;border:1px solid #a1e6cc5b;background:#194a4652;border-radius:99px;color:#d3ffe8;font:750 11px/1.35 'DM Sans',system-ui,sans-serif}
+.saved-chat-hint{display:block!important;color:#b8f6db!important;font-weight:750;margin-top:4px}
+.saved-model-library{margin:14px 0 20px;padding:clamp(14px,2.1vw,22px);border-radius:18px;border:1px solid #9aefc180;background:linear-gradient(115deg,#173442e8,#29223fe8);box-shadow:0 12px 30px #0004;color:#f8f4ff}
+.saved-model-title{display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.saved-model-title h2{font:850 clamp(20px,2.3vw,27px)/1.2 'Outfit',system-ui,sans-serif;margin:6px 0}
+.saved-model-title p{margin:4px 0;font-size:12px;color:#baf9e0}
+.saved-model-hint{font-size:11px;line-height:1.5;color:#e4d7f0;margin:8px 0 11px}
+.saved-model-list{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(265px,1fr))}
+.saved-model-item{display:flex;align-items:center;gap:8px;min-width:0;padding:10px 12px;background:#15152bce;border:1px solid #c0eade4c;border-radius:11px}
+.saved-model-item>div{display:flex;flex:1;flex-direction:column;min-width:0;gap:3px}
+.saved-model-item strong{font-size:12px;overflow-wrap:anywhere}
+.saved-model-item small{font-size:10px;color:#bafad9}
+.saved-model-item button{padding:8px 10px!important;white-space:nowrap;flex:none}
+.saved-model-item .saved-remove{font-size:10px;opacity:.82;border-color:#e4b3d366}
+.saved-model-empty{grid-column:1/-1;font-size:12px;margin:2px 0 0;color:#dfd8e8}
+.saved-storage-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:13px;border-top:1px solid #ffffff24;padding-top:12px}
+.saved-storage-controls small{flex:1;min-width:180px;font-size:10px;color:#dfd5ef;line-height:1.45}
+.finder-filters [data-group="saved"]{border-color:#a0ebc7;color:#bbffe0}
+.model-card small{white-space:normal}
+@media(max-width:570px){.saved-model-item{flex-wrap:wrap}.saved-model-item>div{flex-basis:100%}.saved-model-item button{flex:1}.saved-model-home{border-radius:12px}.saved-model-title>button{width:100%}}
