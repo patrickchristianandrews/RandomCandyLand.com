@@ -641,6 +641,19 @@ if(!homepageStyle.includes('candyland-play-shelf-discovery .candyland-hero-tool-
    !homepageStyle.includes('candyland-unwrapped-feature-description')) {
   console.error('Unwrapped first-shelf feature styling is missing.');failures++;
 }
+// Explore & Understand is the first experience section, not buried after the games.
+// Unwrapped uses its actual icon and explains the outputs rather than another generic tile.
+const shelvesSrc=homeInstallSource.slice(homeInstallSource.indexOf('const COLLECTIONS = ['),homeInstallSource.indexOf('] as const;',homeInstallSource.indexOf('const COLLECTIONS = [')));
+if(!/^const COLLECTIONS = \[\s*\{id:'discovery'/.test(shelvesSrc) ||
+   !homeInstallSource.includes("group.id === 'discovery' ? <img src=\"/tool-icons/unwrapped.svg\"") ||
+   !homeInstallSource.includes("data-count={games.length}") ||
+   !homeInstallSource.includes("candyland-unwrapped-feature-card") ||
+   !homeInstallSource.includes("candyland-unwrapped-feature-outputs") ||
+   !homeInstallSource.includes("Personal insights report") ||
+   !homeInstallSource.includes("New-partner introduction report") ||
+   !homeInstallSource.includes("Shareable, downloadable reports")){
+ console.error('The first homepage shelf must introduce Unwrapped with its brand art, balanced context and clear reports.');failures++;
+}
 // Featured Unwrapped and Random AI must remain inside the shorter, centered homepage header.
 const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="candyland-navbar"'),homeInstallSource.indexOf('</header>')+9);
 if(!featuredHeader.includes('candyland-unwrapped-promo')||
