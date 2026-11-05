@@ -46,7 +46,7 @@ bun run build
 node scripts/check-public-pages.mjs
 ```
 
-The build writes `dist/` from **root `index.html`** and the entire `public/` tree. It then inlines the React assets into the produced homepage, `dist/trump/index.html`, and `dist/404.html`. Do **not** commit these built files or a second root HTML snapshot. The development server uses `server.ts` and Vite middleware. `vercel.json` is retained as an alternative deployment configuration.
+The build writes `dist/` from **root `index.html`** and the entire `public/` tree. It then inlines the React assets into the produced homepage, `dist/trump/index.html`, and `dist/404.html`. Do **not** commit these built files or a second root HTML snapshot. The development server uses `server.ts` and Vite middleware. Only the GitHub Pages workflow is used for site publishing; the previous external-host deployment configuration has been removed.
 
 ### Live production
 
