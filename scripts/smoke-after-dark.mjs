@@ -132,16 +132,16 @@ try{
   await check('Specific psychology topics have shareable public deep links',
     "window.RandomCandyLandShare?.itemURL('origin','oral-comfort')?.includes('origin=oral-comfort') && window.RandomCandyLandShare?.itemURL('origin','oral-comfort')?.endsWith('#psych')");
   await check('After Dark opens on the introduction rather than the atlas',"document.querySelector('#home').classList.contains('visible') && !document.querySelector('#atlas').classList.contains('visible')");
-  await check('Other Drawer homepage is compact and introduces its three featured tools',"!!document.querySelector('#home .afterdark-home-hero .ad-discovery-image') && document.querySelectorAll('#home .od-compact-tool').length===3 && !!document.querySelector('#home [data-tab=psych-quiz]') && !!document.querySelector('#home [data-tab=quiz]')");
-  await check('After Dark retains illustrations throughout the site without a crowded landing',"document.querySelectorAll('#home .ad-card-visual').length===3 && document.querySelectorAll('.ad-section-art-banner>img').length>=7 && document.querySelector('#home .ad-discovery-image')?.getAttribute('src').includes('discovery-emblem.svg')");
+  await check('Unwrapped homepage shows four essential starting points',"!!document.querySelector('#home .afterdark-home-hero .ad-discovery-image') && document.querySelectorAll('#home .od-compact-tool').length===4 && !!document.querySelector('#home [data-tab=psych-quiz]') && !!document.querySelector('#home [data-tab=quiz]')");
+  await check('After Dark retains illustrations throughout the site without a crowded landing',"document.querySelectorAll('#home .ad-card-visual').length===4 && document.querySelectorAll('.ad-section-art-banner>img').length>=7 && document.querySelector('#home .ad-discovery-image')?.getAttribute('src').includes('discovery-emblem.svg')");
   await check('Unwrapped removes all decorative goo while retaining its guide illustrations',
     "document.querySelectorAll('.ad-liquid-goo,.ad-goo-coated,.ad-home-goo').length===0 && !window.AfterDarkCandyGoo && document.querySelectorAll('.ad-section-art-banner>img').length>=7 && document.querySelectorAll('.howto-guide-card').length>=16");
 
 
   await check('No internal analytics or unchanged status copy is visible',"!/site analytics are enabled|quiz \(unchanged\)|are unchanged/i.test(document.body.innerText)");
   await check('Non-explicit quiz maps answers to specific Atlas interests independently',"window.AfterDarkPsychBridge?.recommend({answered:1,answers:{0:[0]}},topics)?.some(r=>r.x.name==='Slow build-up')");
-  await check('The Other Drawer uses a short explanation and links to report samples',
-    "!!document.querySelector('#home .od-compact-tool a[href*=report-samples]') && document.querySelectorAll('#home .od-compact-tool').length===3 && !document.querySelector('#home .od-home-report-showcase')");
+  await check('Unwrapped has a clear introduction and report samples',
+    "!!document.querySelector('#home .od-compact-tool a[href*=report-samples]') && document.querySelectorAll('#home .od-compact-tool').length===4 && !document.querySelector('#home .od-home-report-showcase')");
   await check('Upgraded menu has a labelled mobile toggle and current section feedback',
     "!!document.querySelector('#od-nav-toggle[aria-controls=od-ribbon-nav]') && !!document.querySelector('.od-ribbon-nav button[data-tab=home][aria-current=page]')");
   await check('Top ribbon makes all Other Drawer sections discoverable',
@@ -150,8 +150,8 @@ try{
   await check('Ribbon dropdown opens psychology quiz and closes cleanly',
     "document.querySelector('#psych-quiz').classList.contains('visible')&&!document.querySelector('.od-ribbon-menu-quizzes').open");
   await evaluate("renderTabs('home')");
-  await check('Homepage features only Quiz, Reports and Atlas',
-    "document.querySelectorAll('#home .od-compact-tool').length===3 && document.querySelectorAll('#home .od-compact-tool h3').length===3 && !document.querySelector('#home .od-home-directory-tile')");
+  await check('Homepage features Quiz, Reports, Mira and the Toy Guide',
+    "document.querySelectorAll('#home .od-compact-tool').length===4 && document.querySelectorAll('#home .od-compact-tool h3').length===4 && !!document.querySelector('#home .od-compact-tool [data-tab=toys]') && !document.querySelector('#home .od-home-directory-tile')");
   await evaluate("document.querySelector('.enter-after-dark').click()");
   await check('Featured Quiz call to action opens the Quiz',"document.querySelector('#quiz').classList.contains('visible')");
   await evaluate("document.querySelector('#home .od-compact-tool button[data-tab=chat]').click()");
