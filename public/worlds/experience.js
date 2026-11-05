@@ -37,21 +37,21 @@ function celebrate(emoji='✨'){
 function sceneCity(day,person,mood,selected){
  const night=day%5===0||day%5===4,faces=mood>74?'🥳':mood>55?'😊':mood>37?'😐':'😢';
  const buildings=[70,118,95,141,98,169,85,132,108].map((h,i)=>'<div class="wfx-building '+(night?'is-dark':'')+'" style="--h:'+Math.max(35,Math.round(h*(.9+mood/500)))+'px;--color:'+['#d7adc4','#bfc2e9','#b4dcd4','#d6b1df','#d7c59a'][i%5]+'"></div>').join('');
- return '<div class="wfx-scene wfx-city-scene '+(night?'night':'')+'" role="img" aria-label="Animated illustrated Meridian skyline with citizens and a selected neighborhood">'+
- '<span class="wfx-scene-label">🏙️ MERIDIAN • '+(night?'EVENING LIGHTS':'CITY IN MOTION')+'</span><span class="wfx-scene-stamp">DAY '+Number(day)+'</span>'+
+ return '<div class="wfx-scene wfx-city-scene '+(night?'night':'')+'" role="img" aria-label="Animated illustrated city skyline with citizens and a selected neighborhood">'+
+ '<span class="wfx-scene-label">🏙️ MOODROPOLIS • '+(night?'EVENING LIGHTS':'CITY IN MOTION')+'</span><span class="wfx-scene-stamp">DAY '+Number(day)+'</span>'+
  '<div class="wfx-sun"></div><div class="wfx-cloud"></div><div class="wfx-cloud alt"></div><div class="wfx-skyline">'+buildings+'</div>'+
  '<div class="wfx-road"></div><div class="wfx-person" style="left:16%">🚶</div><div class="wfx-person b">🧑‍🎨</div><div class="wfx-person c">🚴</div><div class="wfx-vehicle">🚗</div>'+
  '<div class="wfx-speech">'+W.escape(person)+' wonders how you will shape '+W.escape(selected)+'.</div><div class="wfx-mood-face">'+faces+'</div></div>';
 }
 function sceneHall(chapter,choices,pending){
  const icons=['🗳️','🤝','⚖️'];
- return '<div class="wfx-scene wfx-hall-scene"><span class="wfx-scene-label">🏛️ MERIDIAN CITY HALL • THE THREE DOORS</span><span class="wfx-scene-stamp">ACT '+(Number(chapter)+1)+'</span>'+
+ return '<div class="wfx-scene wfx-hall-scene"><span class="wfx-scene-label">🏛️ CITY HALL • THE THREE DOORS</span><span class="wfx-scene-stamp">ACT '+(Number(chapter)+1)+'</span>'+
  '<div class="wfx-hall-ceiling"></div><div class="wfx-hall-floor"></div><div class="wfx-hall-grid"></div><div class="wfx-hall-door-grid">'+
  choices.map((o,i)=>'<button type="button" class="wfx-door" '+(pending?'disabled':'data-pick="'+i+'"')+' aria-label="'+W.escape(o.name)+'">'+
  '<span class="symbol">'+icons[i]+'</span><b>DOOR '+(i+1)+'<br>'+W.escape(o.name)+'</b><small>'+(pending?'Decision recorded':'OPEN THIS DOOR ↗')+'</small></button>').join('')+'</div></div>';
 }
 function sceneCourt(phase,caseTitle){
- return '<div class="wfx-scene wfx-court-scene" role="img" aria-label="Illustrated courthouse interior with judge, bench, and participants"><span class="wfx-scene-label">⚖️ MERIDIAN COURT • '+W.escape(phase.toUpperCase())+'</span>'+
+ return '<div class="wfx-scene wfx-court-scene" role="img" aria-label="Illustrated courthouse interior with judge, bench, and participants"><span class="wfx-scene-label">⚖️ THE COURT • '+W.escape(phase.toUpperCase())+'</span>'+
  '<span class="wfx-scene-stamp">THE DOCKET</span><div class="wfx-court-pillars"><i></i><i></i><i></i><i></i></div>'+
  '<div class="wfx-court-panel"><div class="wfx-seal">⚖️</div><div class="wfx-bench"></div></div>'+
  '<div class="wfx-court-side left">🧑🏽‍💼<span>COUNSEL</span></div><div class="wfx-court-side right">👩🏻‍💼<span>COUNSEL</span></div></div>';
@@ -75,7 +75,7 @@ function setup(){
  function openHelp(){
   if(document.querySelector('.wfx-info'))return;
   const modal=document.createElement('div');modal.className='wfx-info';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-label','How to play');
-  modal.innerHTML='<div class="wfx-info-inner"><span class="overline">THE MERIDIAN UNIVERSE</span><h2>How to play ✨</h2><ol>'+text.map(x=>'<li>'+W.escape(x)+'</li>').join('')+'</ol><p>All events and characters are fictional. Your progress stays on this device unless you export it. This is a simulation, not professional advice.</p><button class="button" type="button" data-close-help>Let’s play →</button></div>';
+  modal.innerHTML='<div class="wfx-info-inner"><span class="overline">THE GAME GUIDE</span><h2>How to play ✨</h2><ol>'+text.map(x=>'<li>'+W.escape(x)+'</li>').join('')+'</ol><p>All events and characters are fictional. Your progress stays on this device unless you export it. This is a simulation, not professional advice.</p><button class="button" type="button" data-close-help>Let’s play →</button></div>';
   document.body.append(modal);modal.querySelector('button').focus();
   modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('[data-close-help]'))modal.remove()});
   modal.addEventListener('keydown',e=>{if(e.key==='Escape')modal.remove()});
