@@ -311,6 +311,14 @@ exact(pathlib.Path("firmware/src/ui_input.c"),
             list_set(LM_FM1); /* instant, dedicated 128-sound factory browser */
         open_family(FAM_SAVE);
     }''')
+# One simple turn of KNOB 1 flips from the factory-only browser to ALL.
+# Turning it left from ALL returns to FM1 FACTORY; remaining categories keep
+# their original order and numeric IDs.
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      'uint32_t m = (uint32_t)clamp((int32_t)list_mode() + (steps > 0 ? 1 : -1), 0, (int32_t)LM_N - 1);',
+      '''uint32_t m = list_mode() == LM_FM1 ? LM_ALL :
+                     list_mode() == LM_ALL && steps < 0 ? LM_FM1 :
+                     (uint32_t)clamp((int32_t)list_mode() + (steps > 0 ? 1 : -1), 0, (int32_t)LM_N - 1);''')
 # Host renderer must assert exact first/last factory index and exercise the
 # actual firmware sound-selection path, not just render a fictional catalog.
 exact(pathlib.Path("tests/ui_render.c"),
