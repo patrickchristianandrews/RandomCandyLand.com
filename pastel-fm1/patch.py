@@ -271,7 +271,7 @@ exact(pathlib.Path("firmware/src/browse.c"),
 # previously stored favorite, category or list value is renumbered.
 exact(pathlib.Path("firmware/src/browse.c"),
       '#define LM_N (LM_CAT + NELEM(CAT_ORDER))',
-      '#define LM_FM1 (LM_CAT + NELEM(CAT_ORDER))\\n'
+      '#define LM_FM1 (LM_CAT + NELEM(CAT_ORDER))\n'
       '#define LM_N (LM_FM1 + 1u)')
 exact(pathlib.Path("firmware/src/browse.c"),
       'list_lcat = (uint8_t)(m >= LM_CAT && m < LM_N ? CAT_ORDER[m - LM_CAT] : 0u);',
@@ -280,7 +280,7 @@ exact(pathlib.Path("firmware/src/browse.c"),
       'm >= LM_CAT && m < LM_N ? entry_cat(src, k) == CAT_ORDER[m - LM_CAT] : 0;',
       'm >= LM_CAT && m < LM_FM1 ? entry_cat(src, k) == CAT_ORDER[m - LM_CAT] : 0;')
 exact(pathlib.Path("firmware/src/browse.c"),
-      '    if (m == LM_RECENT) {\\n        for (i = 0; i < recent_n; i++) {',
+      '    if (m == LM_RECENT) {\n        for (i = 0; i < recent_n; i++) {',
       '''    if (m == LM_FM1) {
         /* Exactly the 128 built-in, read-only factory voices; no user slots.
          * Constant-time indexing, no traversal of the other engines.
@@ -305,7 +305,7 @@ exact(pathlib.Path("firmware/src/ui.c"),
       'if (PAGES[i].graph == GR_USER) break;',
       'if (PAGES[i].graph == (ui.home && !trk_midi_slot(song.sel) ? GR_BROWSE : GR_USER)) break;')
 exact(pathlib.Path("firmware/src/ui_input.c"),
-      '    } else if (save == BT_TAP && !ui.confirm)\\n        open_family(FAM_SAVE);',
+      '    } else if (save == BT_TAP && !ui.confirm)\n        open_family(FAM_SAVE);',
       '''    } else if (save == BT_TAP && !ui.confirm) {
         if (ui.home && !trk_midi_slot(song.sel))
             list_set(LM_FM1); /* instant, dedicated 128-sound factory browser */
