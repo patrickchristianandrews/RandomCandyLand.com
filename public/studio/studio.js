@@ -172,9 +172,10 @@ function setDownloadProgress(value,label,state='loading'){
  $('#modelProgressFill').style.width=pct+'%';
  $('#modelProgressPercent').textContent=Math.round(pct)+'%';
  bar?.setAttribute('aria-valuenow',String(Math.round(pct)));
- $('#modelProgressTitle').textContent=state==='error'?'Could not load model':state==='ready'?'✓ Local model ready':state==='loading'?'Downloading local model…':'Preparing local model…';
+ const cached=Boolean(window.RandomAIModelMemory?.isSaved?.($('#modelSelect')?.value));
+ $('#modelProgressTitle').textContent=state==='error'?'Could not load model':state==='ready'?'✓ Local model ready':state==='loading'?(cached?'Loading saved local model…':'Downloading local model…'):'Preparing local model…';
  $('#modelProgressText').textContent=String(label||'Preparing local model…').slice(0,350);
- $('#modelProgressTip').textContent=state==='error'?'Try a smaller model, or use Instant AI when the hosted service is available.':state==='ready'?'You can now start chatting on this device.':'First downloads can take several minutes and several gigabytes. Keep this tab open.';
+ $('#modelProgressTip').textContent=state==='error'?'Try a smaller model, or use Instant AI when the hosted service is available.':state==='ready'?'You can now start chatting on this device.':cached?'Reusing downloaded files. The device still needs to initialize the model in GPU memory.':'First downloads can take several minutes and several gigabytes. Keep this tab open.';
  $('#modelProgressClose').hidden=state==='loading';
 }
 $('#modelProgressClose').addEventListener('click',()=>{$('#modelProgress').hidden=true;});
