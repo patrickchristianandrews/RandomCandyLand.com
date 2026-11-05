@@ -7,7 +7,7 @@ const required = [
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
-  ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Results about you','Mozilla Monitor','Have I Been Pwned']],
+  ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Wikidata','Mozilla Monitor','WhatsMyName','Codeberg','GitLab']],
   ['dist/candy-casino/index.html', ['Choose your game','id="casino-howto"','data-duel="poker"','data-duel="card"','data-duel="dice"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
@@ -753,6 +753,9 @@ for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
 }
 const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
 const standaloneHtml=fs.readFileSync('dist/identity-lab/index.html','utf8');
+if(standaloneHtml.includes('haveibeenpwned.com')||standaloneHtml.includes('lookup.icann.org')||standaloneHtml.includes('myactivity.google.com')){
+ console.error('Identity Lab includes a paid or non-open/free-only tool listing.');failures++;
+}
 if(traceHtml.includes('profile-review.js')||!traceHtml.includes('Evidence Files')||
    !standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('/identity-lab/')){
  console.error('Self-research must live outside the TRACE training game.'); failures++;
@@ -760,7 +763,7 @@ if(traceHtml.includes('profile-review.js')||!traceHtml.includes('Evidence Files'
 if(fs.existsSync('dist/osint-academy/profile-review.js')){
  const profileJs=fs.readFileSync('dist/osint-academy/profile-review.js','utf8');
  try{new vm.Script(profileJs,{filename:'Standalone Identity Lab'});}catch(e){console.error('Broken Identity Lab:',e.message);failures++}
- if(!profileJs.includes('profile-report-from-results')||!profileJs.includes('api.github.com/users/')||!profileJs.includes('dns.google/resolve')||!profileJs.includes('query.wikidata.org/sparql')){
+ if(!profileJs.includes('profile-report-from-results')||!profileJs.includes('api.github.com/users/')||!profileJs.includes('gitlab.com/api/v4/users?username=')||!profileJs.includes('codeberg.org/api/v1/users/')||!profileJs.includes('archive.org/wayback/available?url=')||!profileJs.includes('dns.google/resolve')||!profileJs.includes('query.wikidata.org/sparql')){
    console.error('Identity Lab must retain one-clue source checks and a report shortcut.');failures++;
  }
 }
