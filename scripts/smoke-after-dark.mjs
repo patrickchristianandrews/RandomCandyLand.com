@@ -155,7 +155,7 @@ try{
   await evaluate("document.querySelector('.enter-after-dark').click()");
   await check('Featured Quiz call to action opens the Quiz',"document.querySelector('#quiz').classList.contains('visible')");
   await evaluate("document.querySelector('#home .od-compact-tool button[data-tab=chat]').click()");
-  await check('Featured Ask Anything opens chat',"document.querySelector('#chat').classList.contains('visible')");
+  await check('Featured Ask Mira opens chat',"document.querySelector('#chat').classList.contains('visible')");
   await evaluate("document.querySelector('[data-tab=atlas]').click()");
   console.log('Atlas diagnostics:',await evaluate("JSON.stringify({count:document.querySelectorAll('#topicGrid .topic').length,all:document.querySelector('#allCount')?.textContent,script:typeof window.renderAtlas,errors:window.onerror?.toString().slice(0,100)||'none'})"),JSON.stringify(testErrors));
   await check('Atlas has 100+ working interest cards',"document.querySelectorAll('#topicGrid .topic').length>=100");
@@ -375,26 +375,26 @@ try{
   await check('Bold toy prompts name specific interests',"(/strap-on|penetration|oral sex|pegging|toys/i).test(document.querySelector('#ideaResult').textContent)");
 
   await evaluate("document.querySelector('[data-tab=chat]').click();document.querySelector('[data-ask]').click()");
-  await check('Ask Atlas responds to suggestions',"document.querySelectorAll('#chatWindow .bubble').length>=3");
+  await check('Ask Mira responds to suggestions',"document.querySelectorAll('#chatWindow .bubble').length>=3");
   const focusedAnswer=await evaluate("respond('I like being fucked by a strapon as a male. Why?')");
-  if(!/strap-on penetration|prostate-area stimulation/i.test(focusedAnswer)||/exhibition|voyeurism/i.test(focusedAnswer))throw Error('Ask Atlas returned irrelevant topic for the strap-on question');
-  console.log('✓ Ask Atlas explains strap-on preference without false exhibitionism matches.');
+  if(!/strap-on penetration|prostate-area stimulation/i.test(focusedAnswer)||/exhibition|voyeurism/i.test(focusedAnswer))throw Error('Ask Mira returned irrelevant topic for the strap-on question');
+  console.log('✓ Ask Mira explains strap-on preference without false exhibitionism matches.');
 
   await check('Expanded Atlas includes 190+ interests',"topics.length>=185 && !!topics.find(t=>t.name==='Aftercare planning') && !!topics.find(t=>t.name==='Edging and delayed gratification')");
   const fuzzyAnswers=await evaluate("JSON.stringify({typo:respond('why do I like peggin'),slang:respond('why am I into good girl'),context:respond('how to explain praise to my partner'),short:respond('stockings'),broad:respond('why does someone like receiving praise')})");
   const fuzzy=JSON.parse(fuzzyAnswers);
-  if(!/strap-on|pegging/i.test(fuzzy.typo)||/could not match/i.test(fuzzy.typo))throw Error('Ask Atlas failed typo-tolerant peggin search');
-  if(!/praise/i.test(fuzzy.slang)||/could not match/i.test(fuzzy.slang))throw Error('Ask Atlas failed everyday wording for praise');
-  if(!/partner|listen|permission|participat/i.test(fuzzy.context)||!/praise/i.test(fuzzy.context))throw Error('Ask Atlas failed context-aware partner guidance');
-  if(!/stockings|hosiery/i.test(fuzzy.short))throw Error('Ask Atlas failed keyword-only interest lookup');
-  if(!/praise/i.test(fuzzy.broad))throw Error('Ask Atlas failed psychology-focused why question');
-  console.log('✓ Ask Atlas tolerates typos, everyday phrases, short keywords, partner questions and expands its topic library.');
+  if(!/strap-on|pegging/i.test(fuzzy.typo)||/could not match/i.test(fuzzy.typo))throw Error('Ask Mira failed typo-tolerant peggin search');
+  if(!/praise/i.test(fuzzy.slang)||/could not match/i.test(fuzzy.slang))throw Error('Ask Mira failed everyday wording for praise');
+  if(!/partner|listen|permission|participat/i.test(fuzzy.context)||!/praise/i.test(fuzzy.context))throw Error('Ask Mira failed context-aware partner guidance');
+  if(!/stockings|hosiery/i.test(fuzzy.short))throw Error('Ask Mira failed keyword-only interest lookup');
+  if(!/praise/i.test(fuzzy.broad))throw Error('Ask Mira failed psychology-focused why question');
+  console.log('✓ Ask Mira tolerates typos, everyday phrases, short keywords, partner questions and expands its topic library.');
 
   const unmatched=await evaluate("respond('Why am I interested in velociraptor-shaped pottery?')");
-  if(!/could not match|not match|confidently|not sure|try saying it another way/i.test(unmatched)||/exhibition/i.test(unmatched))throw Error('Ask Atlas guessed an irrelevant answer rather than asking for detail');
-  console.log('✓ Ask Atlas declines irrelevant lexical matches.');
+  if(!/could not match|not match|confidently|not sure|try saying it another way/i.test(unmatched)||/exhibition/i.test(unmatched))throw Error('Ask Mira guessed an irrelevant answer rather than asking for detail');
+  console.log('✓ Ask Mira declines irrelevant lexical matches.');
   await evaluate("document.querySelector('#chatText').value='Why do I like receiving strap-on penetration?';document.querySelector('#askForm button').click()");
-  await check('Ask Atlas shows a relevant on-device answer',"document.querySelector('#chatWindow .bubble:last-child').textContent.includes('strap-on')");
+  await check('Ask Mira shows a relevant on-device answer',"document.querySelector('#chatWindow .bubble:last-child').textContent.includes('strap-on')");
 
   await evaluate("document.querySelector('[data-tab=guide]').click()");
   await check('Resources FAQ is interactive',"document.querySelectorAll('#faq details').length>=25");
@@ -415,7 +415,7 @@ try{
   await evaluate("document.querySelector('#howto-search').value='pelvic';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
   await check('Orgasm guide search filters correctly',"document.querySelectorAll('#howto-guide-grid .howto-guide-card').length>=1 && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length<18");
   await evaluate("document.querySelector('#howto-search').value='';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
-  await check('Ask Atlas answers orgasm questions with new guides',"respond('how do nipple orgasms work').includes('Nipple') && respond('how can vaginal orgasm work').includes('vaginal') && respond('how does testicular orgasm work').includes('testicular')");
+  await check('Ask Mira answers orgasm questions with new guides',"respond('how do nipple orgasms work').includes('Nipple') && respond('how can vaginal orgasm work').includes('vaginal') && respond('how does testicular orgasm work').includes('testicular')");
   await evaluate("document.querySelector('.od-ribbon-nav [data-tab=home]').click();document.querySelector('.od-ribbon-menu-more summary').click();document.querySelector('.od-ribbon-menu-more [data-tab=howto]').click();document.querySelector('#howto [data-guide-open=vaginal-orgasm]').click()");
   await check('Ribbon guides link opens internal vaginal guide',"document.querySelector('#howto').classList.contains('visible') && !document.querySelector('#howto-guide-detail').hidden && document.querySelector('#howto-guide-detail h2')?.textContent.includes('vaginal')");
   await evaluate("document.querySelector('[data-tab=toys]').click()");
@@ -423,7 +423,7 @@ try{
     "(()=>{const lib=window.UnwrappedToyLibrary,types=lib?.types||[],cards=document.querySelectorAll('#toy-grid [data-toy-open]'),detail=document.querySelector('#toy-detail'),focus=document.querySelector('#toy-body-focus');if(!document.querySelector('#toys')?.classList.contains('visible')||types.length!==12||cards.length!==12||types.some(x=>x.uses.length<4)||!focus||types.some(x=>!lib.bodyUses(x.id)?.male?.note||!lib.bodyUses(x.id)?.female?.note))return false;focus.value='male';focus.dispatchEvent(new Event('change',{bubbles:true}));const male=document.querySelector('#toy-grid .toy-card-body-note')?.textContent.includes('Male anatomy');focus.value='female';focus.dispatchEvent(new Event('change',{bubbles:true}));const female=document.querySelector('#toy-grid .toy-card-body-note')?.textContent.includes('Female anatomy');focus.value='both';focus.dispatchEvent(new Event('change',{bubbles:true}));document.querySelector('#toy-grid [data-toy-open]').click();return male&&female&&!detail.hidden&&detail.querySelectorAll('li').length>=4&&detail.querySelectorAll('.toy-body-cell').length===3&&detail.textContent.includes('Male anatomy')&&detail.textContent.includes('Female anatomy')&&detail.textContent.includes('partner')&&detail.textContent.includes('safety')})()");
   await check('Toy suggestions use direct interests and protect fantasy-only answers',
     "(()=>{const rec=window.UnwrappedToyLibrary?.recommend;if(!rec)return false;const none=rec({direct:{specificSelections:[]},interests:[{name:'Nipple interest',directSelection:0,specificSelected:false}]});const wish=rec({direct:{specificSelections:[{text:'Strap-on play',intent:'fantasy',questionNumber:1}]},interests:[{name:'Strap-on play',specificSelected:true,directSelection:0}]});const excluded=rec({direct:{specificSelections:[{text:'Anal play interests me',intent:'explore',questionNumber:1},{text:'Anal play is not for me',intent:'explore',questionNumber:2}]}});return none.length===0&&wish.some(x=>x.id==='harness')&&wish.every(x=>x.mode.includes('Fantasy-only'))&&!excluded.some(x=>x.id==='anal-plug')})()");
-  console.log('✓ After Dark offers 18 orgasm-specific articles, practical steps, anatomy, sources and Ask Atlas answers.');
+  console.log('✓ After Dark offers 18 orgasm-specific articles, practical steps, anatomy, sources and Ask Mira answers.');
 
   // All three fictional PDF downloads must reuse the actual toy anatomy guide.
   const samples=await navigate(site+'/after-dark/report-samples/');
