@@ -7,6 +7,7 @@
 const $=q=>document.querySelector(q);
 const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const WEBLLM='https://esm.run/@mlc-ai/web-llm@0.2.87';
+const memory=()=>window.RandomAIModelMemory;
 const stackKey='random-ai-stack-v1';
 const PRESETS=[
  {id:'coding',label:'💻 Build an app or website',name:'Code Architect',description:'Build working software with clear requirements, readable files, edge-case handling and practical tests.',steps:['Define features & constraints','Write working code','Audit bugs & accessibility','Deliver tests & setup'],family:/coder|qwen|phi|llama/i,temperature:.25,firstTokens:1100,secondTokens:1150,
@@ -90,6 +91,7 @@ function setupStacks(){
 function browseFilters(){
  return [
  ['all','✦ All local models'],
+ ['saved','✓ Saved on this device'], 
  ['popular','⭐ Popular / practical'],
  ['small','📱 Small (<1.5 GB)'],
  ['balanced','⚖️ Medium (1.5–4 GB)'],
@@ -102,6 +104,7 @@ function filterRecords(){
  const term=$('#modelSearch')?.value?.trim().toLowerCase()||'';
  return records.filter(m=>{
   if(term&&!(m.id+' '+m.family+' '+m.role).toLowerCase().includes(term))return false;
+  if(activeGroup==='saved')return memory()?.isSaved(m.id)===true;
   if(activeGroup==='popular')return weight(m)>45&&!m.special;
   if(activeGroup==='small')return m.vram>0&&m.vram<1536;
   if(activeGroup==='balanced')return m.vram>=1536&&m.vram<=4096;
@@ -113,30 +116,32 @@ function filterRecords(){
 }
 function renderCatalog(){
  const list=filterRecords();
- $('#modelCount').textContent=loadError?'Unable to load the runtime catalog: '+loadError:records.length+' WebLLM-supported downloadable variants · '+list.length+' shown · model support depends on device';
+ $('#modelCount').textContent=loadError?'Unable to load the runtime catalog: '+loadError:records.length+' WebLLM-supported downloadable variants · '+(memory()?.savedIds()?.length||0)+' verified saved · '+list.length+' shown · model support depends on device';
  $('#modelResults').innerHTML=loadError?'<div class="finder-guide"><p>Catalog unavailable. Check your connection and try again.</p><button type="button" id="retryModels" class="primary">Retry catalog download</button></div>':
- list.map(m=>'<button type="button" class="model-card '+(selectedRecord?.id===m.id?'chosen':'')+'" data-local-id="'+E(m.id)+'"><span class="model-kicker">'+E(m.family)+' · '+E(m.role)+'</span><strong>'+E(displayName(m.id))+'</strong><span>'+E(m.id)+'</span><small>'+E(vramLabel(m))+(m.special?' · Specialized runtime':'')+'</small></button>').join('')||'<p class="fine-print">No matching local models. Try another search.</p>';
+ list.map(m=>'<button type="button" class="model-card '+(selectedRecord?.id===m.id?'chosen':'')+'" data-local-id="'+E(m.id)+'"><span class="model-kicker">'+E(m.family)+' · '+E(m.role)+'</span><strong>'+E(displayName(m.id))+'</strong><span>'+E(m.id)+'</span><small>'+(memory()?.isSaved(m.id)?'✓ Saved on this device · ':'')+E(vramLabel(m))+(m.special?' · Specialized runtime':'')+'</small></button>').join('')||'<p class="fine-print">No matching local models. Try another search.</p>';
  $('#retryModels')?.addEventListener('click',()=>{loadError='';loadCatalog(true)});
 }
 function selectRecord(id){
  const m=records.find(x=>x.id===id);
  if(!m)return;
  selectedRecord=m;
+ memory()?.selected(id);
  const dropdown=$('#modelSelect'),top=$('#topModelSelect');
  if(dropdown&&dropdown.value!==id)dropdown.value=id;
  if(top&&[...top.options].some(o=>o.value===id))top.value=id;
  const details=$('#selectedModelDetails');
- if(details)details.textContent=m.family+' · '+m.role+' · '+vramLabel(m)+(m.special?' · specialized model; chat-only input may be insufficient':'');
+ if(details)details.textContent=(memory()?.isSaved(id)?'✓ Previously downloaded · load from this device · ':'')+m.family+' · '+m.role+' · '+vramLabel(m)+(m.special?' · specialized model; chat-only input may be insufficient':'');
  const guide=$('#modelGuide');
  if(guide)guide.innerHTML='<h3>'+E(displayName(m.id))+'</h3><p>'+E(m.id)+'</p><ol>'+
  '<li>Use an up-to-date browser with WebGPU support and enough GPU memory ('+E(vramLabel(m))+').</li>'+
- '<li>Press <b>Download &amp; load model</b>. The weights are downloaded to your browser cache.</li>'+
+ '<li>Press <b>'+(memory()?.isSaved(id)?'Load saved model':'Download &amp; load model')+'</b>. The browser reuses existing cached files when present.</li>'+ 
  '<li>Wait until the status says <b>Local model ready</b>, then open Chat and choose a task stack.</li></ol>'+
  '<p class="guide-warning">Initial download requires internet and substantial storage. This model runs locally afterward, subject to cache retention. No chat API or API key is used. Runtime catalog inclusion does not guarantee your device can run it.</p>'+
- '<div class="model-guide-actions"><button type="button" id="guideLoad" class="primary">↓ Download selected model</button><a href="/ai-academy/" class="outline">Learn prompting in AI Academy ↗</a></div>';
+ '<div class="model-guide-actions"><button type="button" id="guideLoad" class="primary">'+(memory()?.isSaved(id)?'▶ Load saved model':'↓ Download selected model')+'</button><a href="/ai-academy/" class="outline">Learn prompting in AI Academy ↗</a></div>';
  $('#guideLoad')?.addEventListener('click',()=>$('#loadModel')?.click());
  if($('#loadModel'))$('#loadModel').disabled=!navigator.gpu;
  if($('#topModelDownload'))$('#topModelDownload').disabled=false; // Keep actionable: Load explains unsupported GPU/catalog instead of silently doing nothing.
+ if($('#loadModel')&&!$('#loadModel').disabled)$('#loadModel').textContent=memory()?.isSaved(id)?'▶ Load saved model':'↓ Download & load model';
  renderCatalog();
 }
 function setupModelCatalog(){
@@ -152,7 +157,7 @@ function setupModelCatalog(){
  $('#modelSelect')?.addEventListener('change',e=>selectRecord(e.target.value));
 }
 function getName(id){return displayName(id)}
-window.RandomAILocal={getName,getModels:()=>records.slice(),select:selectRecord,refresh:()=>loadCatalog(true)};
+window.RandomAILocal={getName,getModels:()=>records.slice(),select:selectRecord,refresh:()=>loadCatalog(true),isSaved:id=>memory()?.isSaved(id)===true,savedCount:()=>memory()?.savedIds()?.length||0,preferredName:()=>displayName(memory()?.preferred()||''),refreshButtons:()=>{if(selectedRecord)selectRecord(selectedRecord.id)}};
 async function loadCatalog(force=false){
  if(force){loadError='';records=[]}
  if($('#modelCount'))$('#modelCount').textContent='Loading the complete list from the local-model runtime…';
@@ -170,8 +175,10 @@ async function loadCatalog(force=false){
   const unique=[];const fam=new Set();
   for(const m of picks){const tag=m.family+' '+(m.vram>3500?'big':'small');if(fam.has(tag))continue;fam.add(tag);unique.push(m);if(unique.length>=8)break}
   if(top){top.innerHTML='<option value="">Pick a recommended model…</option>'+unique.map(m=>'<option value="'+E(m.id)+'">'+E(displayName(m.id))+' · '+E(vramLabel(m))+'</option>').join('');$('#topModelDownload').disabled=false;}
-  selectRecord(recommendModel()?.id||records[0].id);
-  if(top)top.value=records.find(m=>m.id===selectedRecord?.id&&unique.some(u=>u.id===m.id))?.id||unique[0]?.id||'';
+  memory()?.register(library,records);
+  const preferred=memory()?.preferred();
+  selectRecord(records.some(m=>m.id===preferred)?preferred:(recommendModel()?.id||records[0].id));
+  if(top)top.value=records.some(m=>m.id===selectedRecord?.id&&[...top.options].some(o=>o.value===m.id))?selectedRecord.id:(unique[0]?.id||'');
   renderStack();
   if(!navigator.gpu){if($('#gpuCheck'))$('#gpuCheck').textContent='WebGPU unavailable on this browser/device. The top Load button can explain the problem; hosted Instant AI does not require WebGPU.';}
  }catch(error){
@@ -184,6 +191,20 @@ async function loadCatalog(force=false){
   renderCatalog();
  }
 }
+function refreshSavedPicker(){
+ const top=$('#topModelSelect'),dropdown=$('#modelSelect');if(!records.length)return;
+ const saved=new Set(memory()?.savedIds()||[]);
+ if(top)for(const id of saved){
+  if(![...top.options].some(o=>o.value===id)){const option=document.createElement('option');option.value=id;top.add(option)}
+ }
+ if(top){for(const option of top.options){const m=records.find(x=>x.id===option.value);if(m)option.textContent=(saved.has(m.id)?'✓ Saved · ':'')+displayName(m.id)+' · '+vramLabel(m)}
+  if(selectedRecord&&[...top.options].some(o=>o.value===selectedRecord.id))top.value=selectedRecord.id;
+ }
+ if(dropdown)for(const option of dropdown.options){const m=records.find(x=>x.id===option.value);if(m)option.textContent=(saved.has(m.id)?'✓ Saved · ':'')+displayName(m.id)+' — '+vramLabel(m)}
+ if(selectedRecord&&memory()?.isSaved(selectedRecord.id)&&$('#loadModel')&&!$('#loadModel').disabled)$('#loadModel').textContent='▶ Load saved model';
+ renderCatalog();
+}
+window.addEventListener('random-ai-saved-models-changed',()=>refreshSavedPicker());
 function initialize(){
  setupStacks();setupModelCatalog();setupLab();
  // The runtime JavaScript loads only; model weights download after explicit user action.
