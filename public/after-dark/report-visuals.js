@@ -114,6 +114,32 @@ function comparisonTable(parent,d){
  put(section,'p','report-visual-footnote','Shared labels are prompts for reflection; they do not establish causes, prove preferences, or override a “Not for me” response.');
  return section;
 }
+function addConnectionMap(panel,d){
+ const entries=axisItems(d).slice(0,5);
+ const wrap=put(panel,'div','report-connection-map');
+ put(wrap,'h4','','How your two sides connect');
+ put(wrap,'p','report-visual-note','Follow each line from intimate interests through a shared theme to everyday psychology. Lines indicate recurring answer categories, not causes or hidden traits.');
+ if(!entries.length){put(wrap,'p','report-visual-note','Answer either quiz to reveal your theme connections.');return}
+ const chart=put(wrap,'div','report-connection-lanes');
+ for(const item of entries){
+  const lane=put(chart,'div','report-connection-lane');
+  const left=put(lane,'span','report-connection-node is-intimate',item.direct?'Intimate quiz':'Not selected');
+  const bridge=put(lane,'span','report-connection-bridge');
+  put(bridge,'i','report-connection-line'+(item.direct&&item.psych?' is-linked':''));
+  put(bridge,'strong','',item.label);
+  const right=put(lane,'span','report-connection-node is-psych',item.psych?'Psychology quiz':'Not selected');
+  if(!item.direct)left.classList.add('is-empty');
+  if(!item.psych)right.classList.add('is-empty');
+ }
+ const notes=put(wrap,'div','report-connection-explanations');
+ for(const item of entries.slice(0,3)){
+  const c=put(notes,'article','report-connection-explanation');
+  put(c,'strong','',item.label);
+  put(c,'p','',String(d.lenses?.[item.id]?.detail||'This theme appears in your selected answers.').slice(0,440));
+  put(c,'small','',item.direct&&item.psych?'This theme appears in both quizzes. Explore how its meaning changes with context.':item.direct?'Only the intimate quiz currently shows this theme; no broader connection is established.':'Only the psychology quiz currently shows this theme; it does not establish an intimate preference.');
+ }
+ put(wrap,'p','report-visual-footnote','The detailed narrative, answer evidence and individual reflections remain part of your report.');
+}
 function enhancePersonal(root,d){
  if(!root||root.querySelector('.report-visual-dashboard'))return root;
  const overview=getSection(root,'01');if(!overview)return root;
@@ -124,6 +150,7 @@ function enhancePersonal(root,d){
  meter(progress,'Everyday Psychology Quiz',d.psych?.answered,(d.psych?.questions||[]).length);
  classificationTable(panel,d.interests||[]);
  comparisonTable(panel,d);
+ addConnectionMap(panel,d);
  const first=overview.querySelector('.report-insight,.report-glance');
  overview.insertBefore(panel,first||overview.children[2]||null);
  return root;
@@ -142,7 +169,7 @@ function enhancePartner(root,d,sections){
  }
  if(enabled.has('themes')){
   const themes=[...root.querySelectorAll(':scope > section')].find(s=>s.querySelector('h2')?.textContent==='The themes behind my answers');
-  if(themes)comparisonTable(themes,d);
+  if(themes){comparisonTable(themes,d);addConnectionMap(themes,d)}
  }
  if(enabled.has('interests')){
   const interests=[...root.querySelectorAll(':scope > section')].find(s=>s.querySelector('h2')?.textContent==='Interests I picked');
