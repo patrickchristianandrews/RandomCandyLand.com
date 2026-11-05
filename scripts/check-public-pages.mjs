@@ -737,7 +737,7 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes('Story Adventures') ||
    !homeInstallSource.includes("href:'/the-corridors/'") ||
    !homeInstallSource.includes("href:'/the-docket/'") ||
-   !homeInstallSource.includes("href:'/studio/'") ||
+   !homeInstallSource.includes('href="/studio/"') ||
    !homeInstallSource.includes("href:'/ai-academy/'") ||
    !homeBundle.includes('/osint-academy/')){
   console.error('Grouped homepage, Moodropolis or TRACE Academy portal is missing.'); failures++;
