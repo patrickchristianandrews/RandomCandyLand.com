@@ -180,6 +180,7 @@ function init(){
    const row=make('article',undefined,'toy-match');
    row.append(make('span',item.mode,'toy-match-label'),make('h4',item.name),make('p',item.why));
    if(item.evidence.length)row.append(make('p','Based on: '+item.evidence.slice(0,2).join(' · '),'toy-match-evidence'));
+   if(item.profileThemes?.length)row.append(make('p','Related psychology themes: '+item.profileThemes.join(', ')+'. These help prioritize reading, not predict enjoyment.','toy-match-evidence'));
    const b=make('button','Read uses & safety','btn alt');b.type='button';b.onclick=()=>open(item.id);row.append(b);recommend.append(row);
   }
  }
