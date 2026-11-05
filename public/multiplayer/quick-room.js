@@ -30,11 +30,11 @@ class QuickRoom {
  }
  mount(){
   this.root.innerHTML='<details class="qr-compact"><summary>🌐 Play remotely <span class="qr-status" role="status" aria-live="polite">Not connected</span></summary>'+
-  '<div class="qr-controls"><div class="qr-row"><button type="button" class="qr-create">＋ Create room</button>'+
+  '<div class="qr-controls"><p class="qr-steps">1. Create a room. &nbsp;2. Share the link. &nbsp;3. Play when your friend joins.</p><div class="qr-row"><button type="button" class="qr-create">＋ Create room</button>'+
   '<input type="text" class="qr-code" aria-label="Remote room code or invitation link" placeholder="Paste invite or code" autocomplete="off" spellcheck="false">'+
   '<button type="button" class="qr-join">Join</button></div>'+
   '<div class="qr-invite" hidden><span class="qr-invite-label">Share this link with a friend</span><input class="qr-link" type="text" aria-label="Invitation link" readonly>'+
-  '<button class="qr-copy" type="button">Copy link</button></div><div class="qr-foot"><span class="qr-help">Two people · no sign-in · share one link · both keep the page open</span><button type="button" class="qr-leave" hidden>Leave</button></div></div></details>';
+  '<button class="qr-share" type="button">↗ Share</button><button class="qr-copy" type="button">Copy link</button></div><div class="qr-foot"><span class="qr-help">Two people · no sign-in · share one link · both keep the page open</span><button type="button" class="qr-leave" hidden>Leave</button></div></div></details>';
   this.details=this.root.querySelector('details');
   this.statusEl=this.root.querySelector('.qr-status');
   this.code=this.root.querySelector('.qr-code');
@@ -46,6 +46,7 @@ class QuickRoom {
   this.createBtn.addEventListener('click',()=>this.create());
   this.joinBtn.addEventListener('click',()=>this.join(this.code.value));
   this.code.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();this.join(this.code.value)}});
+  this.root.querySelector('.qr-share').addEventListener('click',()=>this.share());
   this.root.querySelector('.qr-copy').addEventListener('click',()=>this.copy());
   this.leaveBtn.addEventListener('click',()=>this.leave());
   addEventListener('pagehide',()=>this.destroy());
@@ -80,7 +81,7 @@ class QuickRoom {
   this.bindPeer(this.peer,epoch);
   this.peer.on('open',()=>{
    if(epoch!==this.epoch)return;
-   this.status('Waiting for friend · copy invite');
+   this.status('Step 2: Share your link. Step 3: Wait for your friend.');
    this.onWaiting('host');
   });
   const url=new URL(location.href);url.searchParams.set('room',this.room);history.replaceState(null,'',url);
@@ -106,7 +107,7 @@ class QuickRoom {
    this.status(type==='peer-unavailable'?'Room not found. Ask host to reopen it.':
     type==='room-full'?'Room full · two people maximum':
     type==='unavailable-id'?'Room already exists. Create a new one.':
-    'Connection failed. Check the relay/network.');
+    'Could not connect. Check your internet and try again.');
    this.connected=false;this.onDisconnected(type||'error');
   });
   peer.on('disconnected',()=>{
@@ -146,6 +147,12 @@ class QuickRoom {
   try{this.connection.send({...msg,game:this.game});return true}catch{
    this.status('Send failed · check connection');return false;
   }
+ }
+ async share(){
+  if(!this.active)return;
+  const url=this.link.value;
+  if(navigator.share){try{await navigator.share({title:'Join my game',text:'Tap to play with me!',url});return}catch(e){if(e?.name==='AbortError')return}}
+  await this.copy();
  }
  async copy(){
   if(!this.active)return;
