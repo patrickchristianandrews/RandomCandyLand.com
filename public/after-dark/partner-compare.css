@@ -21,3 +21,21 @@
 #uc-results .uc-result h4{margin:0 0 6px;color:#ffe2b4}
 #uc-results .uc-result p{margin:0;font-size:12px;line-height:1.65}
 @media(max-width:590px){#uc-comparison .uc-upload{grid-template-columns:1fr}}
+
+/* Visual shared-landscape dashboard; descriptive, never predictive. */
+#uc-comparison .uc-dashboard{display:grid;gap:12px;padding:13px;border:1px solid #a77ab7;border-radius:13px;background:linear-gradient(135deg,#3b2454,#251a3d)}
+#uc-comparison .uc-dashboard h4{margin:0;color:#ffe6bb}
+#uc-comparison .uc-metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#uc-comparison .uc-metric{display:flex;flex-direction:column;gap:3px;min-width:0;padding:10px;border-radius:10px;background:#fff2ff12;border:1px solid #ffffff24}
+#uc-comparison .uc-metric strong{font-size:26px;line-height:1;color:#ffe3b2}
+#uc-comparison .uc-metric span{font-size:11px;font-weight:850;line-height:1.3}
+#uc-comparison .uc-metric small{font-size:9px;color:#ddcde9}
+#uc-comparison .uc-chart{display:grid;gap:11px}
+#uc-comparison .uc-chart-line{display:grid;gap:5px;font-size:11px}
+#uc-comparison .uc-chart-line small{color:#e3d0eb}
+#uc-comparison .uc-chart-track{display:flex;overflow:hidden;min-height:13px;border-radius:20px;background:#ffffff24}
+#uc-comparison .uc-segment.common{background:#a3ecd7}
+#uc-comparison .uc-segment.a{background:#f0a2d1}
+#uc-comparison .uc-segment.b{background:#eac27c}
+@media(max-width:700px){#uc-comparison .uc-metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{#uc-comparison .uc-dashboard,#uc-comparison .uc-metric,#uc-comparison .uc-result{break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
