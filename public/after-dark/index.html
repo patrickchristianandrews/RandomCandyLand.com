@@ -255,17 +255,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function () {
   var gate = document.getElementById('ageGate');
   var enter = document.getElementById('enter');
+  function resetEntryScroll() {
+    // The gate is fixed, but Chrome/Safari can restore a position deep in the
+    // page beneath it. Override smooth CSS scrolling for entry only.
+    var root = document.documentElement;
+    var previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    root.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.requestAnimationFrame(function () {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      root.scrollTop = 0;
+      root.style.scrollBehavior = previous;
+    });
+  }
   function letVisitorIn() {
     try { sessionStorage.setItem('ad_18','yes'); } catch (e) {}
+    if (enter) enter.blur();
     if (gate) {
       gate.classList.add('hidden');
       gate.setAttribute('aria-hidden','true');
       gate.style.display = 'none';
     }
     document.body.classList.add('ad-entered');
+    resetEntryScroll();
   }
   if (enter) enter.addEventListener('click', letVisitorIn);
-  try { if (sessionStorage.getItem('ad_18') === 'yes') letVisitorIn(); } catch (e) {}
+  // Re-entering without an explicit deep link should also begin at the top.
+  try { if (sessionStorage.getItem('ad_18') === 'yes') {
+    letVisitorIn();
+  } } catch (e) {}
 })();
 </script>
 <div class="wrap">
