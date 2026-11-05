@@ -87,25 +87,39 @@ const normalize=s=>String(s||'').toLowerCase();
 const negatives=/\b(not interested|not for me|no interest|none of these|do not want|don't want|never|avoid|skip|not appealing|prefer not to|no thanks)\b/i;
 function recommendations(data){
  const answers=(data?.direct?.specificSelections||[]).filter(x=>x&&x.text&&!negatives.test(x.text));
- const interestItems=(data?.interests||[]).filter(x=>(x.directSelection===1||x.directSelection===2||x.specificSelected)&&!x.warn);
+ const interestItems=(data?.interests||[]).filter(x=>(x.directSelection===1||x.directSelection===2)&&!x.warn);
  const selected=[...answers.map(x=>({text:String(x.text),intent:x.intent||'',context:'Q'+x.questionNumber+' · '+(x.intentLabel||'Not specified')})),
    ...interestItems.map(x=>({text:x.name,intent:x.directSelection===1?'curious':'',context:'Directly named interest'}))];
  const excluded=(data?.direct?.specificSelections||[]).filter(x=>x?.text&&negatives.test(x.text)).map(x=>normalize(x.text));
+ const MATCH_TERMS={
+  wand:['vibrat','clitor','vulva','external','massage','sex toy','adult toy','toys'],
+  bullet:['vibrat','clitor','vulva','external','sex toy','adult toy','toys'],
+  'air-pulse':['clitor','air pulse','suction stimulat'],
+  'insertable-vibe':['vaginal','vagin','internal stimulat','insertable'],
+  dildo:['dildo','strap-on','strap on','penetrat','vaginal'],
+  prostate:['prostat'],
+  'anal-plug':['anal','rectal','butt plug','pegging'],
+  sleeve:['penis','penile','stroker','sleeve'],
+  ring:['penis ring','cock ring','erection ring','vibrating ring'],
+  'nipple-massager':['nipple','breast','chest stimulat'],
+  harness:['strap-on','strap on','pegging','harness'],
+  remote:['remote control','remote-control','app controlled','partner control of a toy','remote vibrator']
+ };
  const matched=[];
  for(const toy of TOYS){
-  let score=0;const reasons=[];let active=false,reading=false;
+  let score=0;const reasons=[];let active=false;
+  const terms=MATCH_TERMS[toy.id]||[];
   for(const item of selected){
-   const terms=toy.tags.filter(term=>normalize(item.text).includes(term));
-   if(!terms.length)continue;
-   const strong=terms.some(term=>!['toy','sensory','partner','role','trust','pleasure','massage','vibrat'].includes(term));
+   const hits=terms.filter(term=>normalize(item.text).includes(term));
+   if(!hits.length)continue;
+   const strong=hits.some(term=>!['sex toy','adult toy','toys','vibrat','external','massage','penetrat'].includes(term));
    score+=strong?3:1;
-   if(item.intent==='fantasy'||item.intent==='curious')reading=true;
-   else active=true;
+   if(item.intent!=='fantasy'&&item.intent!=='curious')active=true;
    if(reasons.length<3)reasons.push(item.context+': '+item.text.slice(0,120));
   }
   if(!score)continue;
-  // Strong exclusions are respected before broad matches; no desire or consent is inferred.
-  const rejected=excluded.some(text=>toy.tags.some(term=>text.includes(term)));
+  // Explicitly excluded topic/region blocks a suggestion, including generalized toy matches.
+  const rejected=excluded.some(text=>terms.some(term=>text.includes(term)));
   if(rejected)continue;
   const mode=!active?'Fantasy-only / read about it':score>=3?'Based on direct interest':'Tentative topic for reading';
   matched.push({id:toy.id,name:toy.name,summary:toy.summary,why:toy.extra,mode,
