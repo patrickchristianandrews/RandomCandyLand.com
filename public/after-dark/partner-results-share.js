@@ -7,7 +7,7 @@
 const $=id=>document.getElementById(id);
 const canonical=()=>window.AfterDarkCanonicalReport?.buildData?.();
 const fmt='afterdark-partner-results-v1';
-const opt={interests:new Map(),themes:new Set(),answers:new Set(),custom:new Set(),name:'',intro:''};
+const opt={interests:new Map(),themes:new Set(),answers:new Set(),custom:new Set(),toys:new Set(),name:'',intro:''};
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(cls)n.className=cls;return n};
 const button=(text,handler,cls='btn alt')=>{const b=el('button',text,cls);b.type='button';b.onclick=handler;return b};
 const check=(text,active,handler)=>{const label=el('label',undefined,'ps-check'),input=el('input');input.type='checkbox';input.checked=Boolean(active);input.onchange=()=>handler(input.checked);label.append(input,document.createTextNode(text));return label};
@@ -56,11 +56,18 @@ function buildPack(){
  }
  const customIdeas=(d.direct.personalIdeas||[]).filter(x=>opt.custom.has(JSON.stringify([x.text,x.intent])))
   .slice(0,4).map(x=>({text:limit(x.text,180),intentLabel:limit(x.intentLabel,60)}));
+ const toyIdeas=(window.UnwrappedToyLibrary?.recommend?.(d)||[])
+  .filter(item=>opt.toys.has(item.id)).slice(0,2).map(item=>({
+   name:limit(item.name,80),mode:limit(item.mode,55),
+   male:limit(item.bodyUses?.male?.note,230),female:limit(item.bodyUses?.female?.note,230),
+   shared:limit(item.bodyUses?.together,230),safety:limit(item.safety,255)
+  }));
  if(interests.length>6||themes.length>6||answers.length>5||customIdeas.length>4)
   return{error:'Choose at most 6 interests, 6 themes, 5 answers and 4 personal ideas.'};
- if(!interests.length&&!themes.length&&!answers.length&&!customIdeas.length)
-  return{error:'Select at least one interest, psychology theme, answer or personal idea before sharing.'};
+ if(!interests.length&&!themes.length&&!answers.length&&!customIdeas.length&&!toyIdeas.length)
+  return{error:'Select at least one interest, psychology theme, answer, personal idea or toy topic before sharing.'};
  const pack={format:fmt,version:1,from:limit(opt.name,55),intro:limit(opt.intro,350),interests,themes,answers,customIdeas};
+ if(toyIdeas.length)pack.toys=toyIdeas;
  const bytes=new TextEncoder().encode(JSON.stringify(pack)).length;
  if(bytes>SHARE_MAX_BYTES)return{error:'This selection is too long for a reliable phone link. Remove some items or notes (currently '+bytes+' bytes).'};
  return{pack};
@@ -80,7 +87,8 @@ function decode(raw){
    !Array.isArray(pack.interests)||pack.interests.length>6||
    !Array.isArray(pack.themes)||pack.themes.length>6||
    !Array.isArray(pack.answers)||pack.answers.length>5||
-   (pack.customIdeas!==undefined&&(!Array.isArray(pack.customIdeas)||pack.customIdeas.length>4)))return null;
+   (pack.customIdeas!==undefined&&(!Array.isArray(pack.customIdeas)||pack.customIdeas.length>4))||
+   (pack.toys!==undefined&&(!Array.isArray(pack.toys)||pack.toys.length>2)))return null;
   const keys=['title','category','status','description','score','psychology','themes','suggestions','discussion','personalNotes'];
   if(!pack.interests.every(x=>x&&typeof x==='object'&&keys.every(k=>!Object.hasOwn(x,k)||['score','themes','suggestions','personalNotes'].includes(k)||validText(x[k],600))&&
     validText(x.title,100)&&validText(x.description,210)&&validText(x.category,80)&&validText(x.status,85)&&
@@ -89,10 +97,11 @@ function decode(raw){
     (!x.suggestions||(Array.isArray(x.suggestions)&&x.suggestions.length<=3&&x.suggestions.every(t=>validText(t,180))))&&
     (!x.personalNotes||(typeof x.personalNotes==='object'&&['meaning','boundary','request'].every(k=>!Object.hasOwn(x.personalNotes,k)||validText(x.personalNotes[k],450))))))return null;
   if(!pack.themes.every(x=>validText(x.label,90)&&validText(x.description,250)))return null;
-  if(!pack.answers.every(x=>validText(x.quiz,60)&&validText(x.question,240)&&Number.isInteger(x.number)&&x.number>=1&&x.number<=(x.quiz==='Sexual Preferences Quiz'?68:32)&&
+  if(!pack.answers.every(x=>validText(x.quiz,60)&&validText(x.question,240)&&Number.isInteger(x.number)&&x.number>=1&&x.number<=(x.quiz==='Sexual Preferences Quiz'?69:32)&&
     Array.isArray(x.selection)&&x.selection.length<=65&&x.selection.every(t=>validText(t,160))&&
     (!Object.hasOwn(x,'intentLabel')||validText(x.intentLabel,80))))return null;
   if(pack.customIdeas&&!pack.customIdeas.every(x=>x&&validText(x.text,180)&&validText(x.intentLabel,60)))return null;
+  if(pack.toys&&!pack.toys.every(x=>x&&validText(x.name,80)&&validText(x.mode,55)&&validText(x.male,230)&&validText(x.female,230)&&validText(x.shared,230)&&validText(x.safety,255)))return null;
   return pack;
  }catch{return null}
 }
@@ -133,6 +142,21 @@ function showReadable(pack,root){
   for(const x of pack.customIdeas){
    const card=el('article',undefined,'ps-preview-card');
    card.append(el('h4',x.text),el('p','Their stated intention: '+x.intentLabel,'ps-personal'));section.append(card);
+  }
+  root.append(section);
+ }
+ if(pack.toys?.length){
+  const section=el('section',undefined,'ps-reader-section');
+  section.append(el('h3','Toy guide topics this person separately chose to share'),
+    el('p','Educational categories only. Fantasy-only remains reading-only; these details do not imply consent to use a toy.','ps-muted'));
+  for(const toy of pack.toys){
+   const card=el('article',undefined,'ps-preview-card');
+   card.append(el('h4',toy.name),el('p',toy.mode,'ps-muted'),
+    el('p','Male anatomy: '+toy.male),
+    el('p','Female anatomy: '+toy.female),
+    el('p','With a partner: '+toy.shared),
+    el('p','Safety: '+toy.safety,'ps-muted'));
+   section.append(card);
   }
   root.append(section);
  }
@@ -242,6 +266,17 @@ function addCustomIdeas(root,d){
   }));
  }
 }
+function addToys(root,data){
+ root.append(el('p','These are optional educational categories based on your direct selections. Each includes male, female and partner-use notes. Nothing is selected automatically. At most two can fit in a phone-friendly link.','ps-muted'));
+ const matches=window.UnwrappedToyLibrary?.recommend?.(data)||[];
+ if(!matches.length){root.append(el('p','No directly supported toy categories. You can still share other report sections.','ps-muted'));return}
+ for(const toy of matches){
+  root.append(check(toy.name+' · '+toy.mode, opt.toys.has(toy.id),enabled=>{
+   if(enabled&&opt.toys.size>=2){status('Choose a maximum of two toy categories per link.');render();return}
+   enabled?opt.toys.add(toy.id):opt.toys.delete(toy.id);
+  }));
+ }
+}
 function render(){
  const d=shareData(),root=$('partner-share-editor');if(!root)return;
  root.replaceChildren();lastPack=null;
@@ -269,6 +304,9 @@ function render(){
  const answersBody=el('div',undefined,'ps-section-body');addAnswers(answersBody,d);answers.append(answersBody);root.append(answers);
  const own=el('details',undefined,'ps-section');own.append(el('summary','4 · Optional personal ideas you wrote yourself'));
  const ownBody=el('div',undefined,'ps-section-body');addCustomIdeas(ownBody,d);own.append(ownBody);root.append(own);
+ const toyDetails=el('details',undefined,'ps-section');
+ toyDetails.append(el('summary','5 · Optional male/female/partner sex toy explanations (OFF by default)'));
+ const toyBody=el('div',undefined,'ps-section-body');addToys(toyBody,d);toyDetails.append(toyBody);root.append(toyDetails);
  const actions=el('div',undefined,'ps-actions');
  actions.append(button('👁 Preview exactly what they will see',()=>{
   const built=buildPack();if(built.error){status(built.error);return}lastPack=built.pack;renderViewer(built.pack,true);
@@ -276,7 +314,7 @@ function render(){
  actions.append(button('🔗 Create selected-results link',makeLink,'btn alt'));
  actions.append(button('📋 Copy just this shared text',copySelected,'btn alt'));
  actions.append(button('Clear all selections',()=>{
-  opt.interests.clear();opt.themes.clear();opt.answers.clear();opt.custom.clear();opt.intro='';opt.name='';render();status('Nothing selected for sharing.');
+  opt.interests.clear();opt.themes.clear();opt.answers.clear();opt.custom.clear();opt.toys.clear();opt.intro='';opt.name='';render();status('Nothing selected for sharing.');
  },'btn alt'));
  root.append(actions);
  const output=el('div',undefined,'ps-link-output');output.id='partner-share-link';output.hidden=true;root.append(output);
