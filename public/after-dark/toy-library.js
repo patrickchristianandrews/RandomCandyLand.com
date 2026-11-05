@@ -121,9 +121,20 @@ function recommendations(data){
   // Explicitly excluded topic/region blocks a suggestion, including generalized toy matches.
   const rejected=excluded.some(text=>terms.some(term=>text.includes(term)));
   if(rejected)continue;
+  const PROFILE_THEMES={
+   wand:['sensation'],bullet:['sensation'], 'air-pulse':['sensation','novelty'],
+   'insertable-vibe':['sensation'],dildo:['novelty','sensation'],
+   prostate:['sensation','trust'], 'anal-plug':['sensation','trust'],
+   sleeve:['sensation'],ring:['sensation'], 'nipple-massager':['sensation'],
+   harness:['control','trust'],remote:['control','trust','novelty']
+  };
+  // Psychology themes may reorder an already directly supported match; they never create one.
+  const profileThemes=(PROFILE_THEMES[toy.id]||[]).filter(key=>Number(data?.axes?.psych?.[key]||0)>0);
+  score+=profileThemes.length*.15;
   const mode=!active?'Fantasy-only / read about it':score>=3?'Based on direct interest':'Tentative topic for reading';
   matched.push({id:toy.id,name:toy.name,summary:toy.summary,why:toy.extra,mode,
-   safety:toy.safety,uses:toy.uses.slice(),evidence:reasons,score});
+   safety:toy.safety,uses:toy.uses.slice(),evidence:reasons,
+   profileThemes:profileThemes.map(key=>data?.lenses?.[key]?.label||key),score});
  }
  return matched.sort((a,b)=>b.score-a.score||TOYS.findIndex(t=>t.id===a.id)-TOYS.findIndex(t=>t.id===b.id)).slice(0,4);
 }
