@@ -363,6 +363,25 @@ function init(){
  root.querySelector('#toy-refresh-matches').addEventListener('click',renderMatches);
  render();renderMatches();
 }
-window.UnwrappedToyLibrary=Object.freeze({types:TOYS,bodyUses:id=>BODY_GUIDE[id]||null,fitLabels:FIT_LABELS,find:id=>TOYS.find(x=>x.id===id)||null,recommend:recommendations,sources:SOURCES});
+// Use the same guide for Ask Atlas answers, the standalone explorer, and report exports.
+function answer(question){
+ const raw=normalize(question);
+ if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|harness|pegging toy|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw))return '';
+ const patterns=[
+  ['wand',/\bwand\b/],['bullet',/\bbullet\b/],['air-pulse',/air.?pulse|clitoral suction|air pressure/],
+  ['insertable-vibe',/insertable vibrator|internal vibrator|vaginal vibrator/],
+  ['dildo',/\bdildo\b/],['prostate',/prostate massager/],
+  ['anal-plug',/anal plug|butt plug/],['sleeve',/sleeve|stroker/],
+  ['ring',/cock ring|penis ring|vibrating ring/],
+  ['nipple-massager',/nipple massager|chest massager|breast massager/],
+  ['harness',/\bharness\b|strap.?on toy|pegging toy/],
+  ['remote',/remote.controlled|remote vibrator/]
+ ];
+ const id=patterns.find(([,regex])=>regex.test(raw))?.[0];
+ if(!id)return 'The Unwrapped Sex Toy Guide compares 12 types by male anatomy, female anatomy, and shared/partner use. Each type has multiple uses, fit restrictions, and safety guidance. Explore the Sex Toy Guide section. An idea found through a quiz is not a requirement to try anything.';
+ const item=TOYS.find(x=>x.id===id),body=BODY_GUIDE[id];
+ return item.name+' — '+item.summary+'\n\nMale anatomy: '+FIT_LABELS[body.male.fit]+'. '+body.male.note+'\n\nFemale anatomy: '+FIT_LABELS[body.female.fit]+'. '+body.female.note+'\n\nPartner use: '+body.together+'\n\nSafety: '+item.safety+'\n\nRead the full Sex Toy Guide for additional uses. No assumptions about gender, orientation or consent.';
+}
+window.UnwrappedToyLibrary=Object.freeze({types:TOYS,bodyUses:id=>BODY_GUIDE[id]||null,fitLabels:FIT_LABELS,find:id=>TOYS.find(x=>x.id===id)||null,recommend:recommendations,answer,sources:SOURCES});
 init();
 })();
