@@ -112,8 +112,15 @@ try{
   };
   await check('Google Tag Manager initializes on After Dark', "window.dataLayer?.some(x=>x?.event==='gtm.js' && Number.isFinite(x['gtm.start'])) && [...document.scripts].some(s=>s.src.includes('googletagmanager.com/gtm.js?id=GTM-TQRDB5KL'))");
   await check('Adult entry is present', "!!document.querySelector('#enter')");
+  // A fixed age gate can conceal a browser-restored scroll position. Verify
+  // accepting it always places the visitor at the top of the Unwrapped page.
+  await evaluate("window.scrollTo({top:780,behavior:'instant'})");
+  await check('Adult gate can be presented above a restored scroll position',
+    "window.scrollY>100");
   await evaluate("document.querySelector('#enter').click()");
   await check('Adult entry dismisses the overlay',"getComputedStyle(document.querySelector('#ageGate')).display==='none'");
+  await check('Accepting the 18+ age gate resets the Unwrapped page to the top',
+    "window.scrollY<=2 && document.documentElement.scrollTop<=2 && document.body.classList.contains('ad-entered')");
   await check('Save-your-place toolbar appears on the main page',
     "!!document.querySelector('#od-bookmark-bar .od-bookmark-save') && !!document.querySelector('#od-continue') && !!document.querySelector('#od-bookmark-menu') && typeof window.OtherDrawerBookmarks?.save==='function'");
   const saveBarMetrics="(()=>{const bar=document.querySelector('#od-bookmark-bar');const names=['.od-bookmark-save','.od-bookmark-continue','#rcl-share-page','.od-bookmark-summary'];const r=names.map(name=>{const el=bar.querySelector(name),v=el.getBoundingClientRect();return{name,top:v.top,bottom:v.bottom,left:v.left,right:v.right}});const box=bar.getBoundingClientRect();const overlap=Math.min(...r.map(v=>v.bottom))-Math.max(...r.map(v=>v.top));return{display:getComputedStyle(bar).display,barHeight:box.height,overlap,viewport:innerWidth,buttons:r,oneRow:overlap>=20&&r.every(v=>v.right<=innerWidth+4&&v.left>=-4)&&box.height<=85}})()";
