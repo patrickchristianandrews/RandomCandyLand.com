@@ -174,6 +174,8 @@ async function loadCatalog(force=false){
   const picks=records.filter(x=>!x.special).sort((a,b)=>weight(b)-weight(a));
   const unique=[];const fam=new Set();
   for(const m of picks){const tag=m.family+' '+(m.vram>3500?'big':'small');if(fam.has(tag))continue;fam.add(tag);unique.push(m);if(unique.length>=8)break}
+  const remembered=records.find(m=>m.id===memory()?.preferred());
+  if(remembered&&!unique.some(m=>m.id===remembered.id))unique.unshift(remembered);
   if(top){top.innerHTML='<option value="">Pick a recommended model…</option>'+unique.map(m=>'<option value="'+E(m.id)+'">'+E(displayName(m.id))+' · '+E(vramLabel(m))+'</option>').join('');$('#topModelDownload').disabled=false;}
   memory()?.register(library,records);
   const preferred=memory()?.preferred();
