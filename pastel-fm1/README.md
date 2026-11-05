@@ -1,6 +1,6 @@
-# Pastel FM-1 — v0.8 · Liquid Edition / Instant Factory 128 + Animal Sequencer
+# Pastel FM-1 — v0.9 · Liquid Edition / Instant Factory 128 + Animal Sequencer
 
-**Status:** Pastel v0.8 source keeps all 128 original M-VAVE DX7 voices as **read-only, built-in FM6 presets** and introduces an instant, dedicated FM1 FACTORY 128 browser. The 8-lane ANIMAL KIT and other engines remain. **Do not install the new revision until its GitHub Actions build and publish jobs succeed.** Not tested on physical FM-1 hardware.
+**Status:** Pastel v0.9 source keeps all 128 original M-VAVE DX7 voices as **read-only, built-in FM6 presets** and introduces an instant, dedicated FM1 FACTORY 128 browser. The 8-lane ANIMAL KIT and other engines remain. **Do not install the new revision until its GitHub Actions build and publish jobs succeed.** Not tested on physical FM-1 hardware.
 
 The firmware retains a full-featured multi-engine instrument rather than trying to concatenate incompatible firmware binaries:
 - Melodee active engines: FM6/DX7-style, Prophet virtual analog, native CZ-1, SID chiptune, synthesized drums, plus MIDI. Additional retired legacy engines are not enabled by default.
@@ -18,9 +18,9 @@ The firmware retains a full-featured multi-engine instrument rather than trying 
 
 ## Load the 128 original factory sounds — two controls
 
-From the **Stage/Home screen, press SAVE once**. Pastel opens **FM1 FACTORY**, a dedicated 128-sound browser with its own **1/128** through **128/128** counter; there is no need to select FM6, configure categories, import a SysEx bank, or scroll through the other instruments.
+From **any normal screen, press SAVE once**. Pastel opens **FM1 FACTORY**, a dedicated 128-sound browser with its own **1/128** through **128/128** counter; there is no need to select FM6, configure categories, import a SysEx bank, or scroll through the other instruments.
 
-**Turn the PRESETS knob** to hear the original sounds immediately; turn it again for the next sound. The first sound corresponds to built-in FM6 preset index 25, after the old FM6 factory set and INIT VOICE. The normal factory browser and other synth engines remain available via **KNOB 1 (LIST)**. **Press SAVE again** to reach the standard USER sound storage page, and again for PROJECT. On the browser **OCT+ keeps the selected sound**, **OCT- returns to Stage**. The factory filter is a UI-only shortcut, not a new user bank, and it never overwrites saved projects.
+**Turn the PRESETS knob** to hear the original sounds immediately; turn it again for the next sound. The first sound corresponds to built-in FM6 preset index 25, after the old FM6 factory set and INIT VOICE. The normal factory browser and other synth engines remain available via **KNOB 1 (LIST)**. **Press SAVE again** to reach the USER sound-storage page, and once more for PROJECT. The old path could open USER immediately and show an unrelated **Empty** slot. On the browser **OCT+ keeps the selected sound**, **OCT- returns to Stage**. The factory filter is a UI-only shortcut, not a new user bank, and it never overwrites saved projects.
 
 ## Firmware binary
 After the GitHub build succeeds, the workflow publishes both `pastel-fm1/Pastel.fwsc` and `pastel-fm1/PastelFactory128.zip` to this **pastel-fm1** branch. Use only the real *.fwsc* file for firmware flashing. The ZIP remains an optional export of the same four original SysEx banks; once v0.7 is successfully built and installed, the 128 sounds should already appear in **FM6 PRESETS**. Importing the ZIP is not necessary. It is **not a firmware file**; see [factory presets and verification](FACTORY_BANKS.md).

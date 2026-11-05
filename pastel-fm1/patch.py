@@ -38,7 +38,7 @@ exact(pathlib.Path("firmware/src/main.c"), '"MELODEE", T_THEME', '"PASTEL", T_TH
 exact(pathlib.Path("firmware/src/ui_menu.c"), '"Melodee", T_THEME', '"Pastel", T_THEME')
 exact(pathlib.Path("firmware/src/melodee.c"),
       '#define MELODEE_VERSION "v1.6.1"',
-      '#define MELODEE_VERSION "Pastel v0.8"')
+      '#define MELODEE_VERSION "Pastel v0.9"')
 # Preserve upstream palette name-order coverage while explicitly expecting Pastel.
 exact(pathlib.Path("tests/theme_test.c"),
       '!strcmp(UI_PALETTES[0].name, "NIGHT")',
@@ -303,14 +303,22 @@ exact(pathlib.Path("firmware/src/ui_browser.c"),
 # factory browser). MIDI-only tracks cannot load built-in synth sounds.
 exact(pathlib.Path("firmware/src/ui.c"),
       'if (PAGES[i].graph == GR_USER) break;',
-      'if (PAGES[i].graph == (ui.home && !trk_midi_slot(song.sel) ? GR_BROWSE : GR_USER)) break;')
+      'if (PAGES[i].graph == (trk_midi_slot(song.sel) ? GR_USER : GR_BROWSE)) break;')
+# Pastel v0.9: route SAVE from any normal screen to the actual factory
+# browser, while successive SAVE presses inside the SAVE family still reach
+# USER and PROJECT. The "Empty" label is for user storage, not factory voices.
 exact(pathlib.Path("firmware/src/ui_input.c"),
-      '    } else if (save == BT_TAP && !ui.confirm)\n        open_family(FAM_SAVE);',
-      '''    } else if (save == BT_TAP && !ui.confirm) {
-        if (ui.home && !trk_midi_slot(song.sel))
-            list_set(LM_FM1); /* instant, dedicated 128-sound factory browser */
-        open_family(FAM_SAVE);
-    }''')
+      'static void page_tap(uint32_t b)',
+      '''static void pastel_factory_save_tap(void)
+{
+    if (!trk_midi_slot(song.sel) && (ui.home || cur_page()->fam != FAM_SAVE))
+        list_set(LM_FM1);
+    open_family(FAM_SAVE);
+}
+static void page_tap(uint32_t b)''')
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      '    } else if (save == BT_TAP && !ui.confirm)\\n        open_family(FAM_SAVE);',
+      '    } else if (save == BT_TAP && !ui.confirm)\\n        pastel_factory_save_tap();')
 # One simple turn of KNOB 1 flips from the factory-only browser to ALL.
 # Turning it left from ALL returns to FM1 FACTORY; remaining categories keep
 # their original order and numeric IDs.
@@ -328,9 +336,11 @@ exact(pathlib.Path("tests/ui_render.c"),
     {
         uint32_t src, k, total;
         cur_name = "FM1 factory 128";
-        setup(S_PRESETS); pal(0);
-        list_set(LM_FM1);
-        go_page(GR_BROWSE);
+        setup(S_HOME); pal(0);
+        /* Test the same SAVE shortcut real users invoke, not just list_set.
+         * This catches the previous path landing in USER/Empty. */
+        pastel_factory_save_tap();
+        assert(!ui.home && cur_page()->graph == GR_BROWSE);
         assert(list_mode() == LM_FM1);
         list_scan(LM_FM1, 0xFFFFFFFFu, 0u, 0u, &src, &k, &total);
         assert(total == 128u && src == ENGI_FM6 && k == FM6_NFAC + 1u);
@@ -341,9 +351,19 @@ exact(pathlib.Path("tests/ui_render.c"),
         assert(TSEL->eng_req == ENGI_FM6 &&
                TSEL->preset == FM6_NFAC + 1u);
         draw(-1); lint(); write_ppm(out, "PASTEL", "factory_128_loaded");
+        pastel_factory_save_tap(); /* second SAVE -> USER, not factory */
+        assert(cur_page()->graph == GR_USER);
+        pastel_factory_save_tap(); /* third SAVE -> PROJECT */
+        assert(cur_page()->graph == GR_SLOTS);
+        /* Also test from a non-home editor page. */
+        setup(S_HOME); pal(0);
+        go_page(GR_ROLL);
+        pastel_factory_save_tap();
+        assert(cur_page()->graph == GR_BROWSE && list_mode() == LM_FM1);
+        draw(-1); lint(); write_ppm(out, "PASTEL", "factory_128_from_edit");
     }
     song_punch_sweep(out);''')
-print("Pastel v0.8 usability: SAVE from Stage -> FM1 FACTORY 128; PRESETS knob auditions; SAVE again -> USER and PROJECT. Factory indices preserved.")
+print("Pastel v0.9 usability: SAVE from any normal page -> FM1 FACTORY 128; PRESETS knob auditions; SAVE again -> USER and PROJECT. Factory indices preserved.")
 
 # Pastel v0.7: upstream main-app build promotes -Os to -O2 for LLVM IR.
 # This causes XIP overflow when the 128 built-in factory voices are present.
