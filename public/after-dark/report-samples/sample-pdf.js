@@ -10,7 +10,7 @@ personal:{
  ['01 / Reading this report',[
  'Your personal report combines your 69-question Sexual Preferences Quiz and 32-question nonsexual Psychology Quiz answers. All answers shown here are fictional examples, not your real responses. In your actual report, counts, interest profiles, explanations and appendices change to reflect the answers you save.',
  'This is not a clinical evaluation. It cannot reveal hidden desires, determine the causes of a preference or predict whether any activity would be enjoyable. Results reflect the site’s editorial theme map.']],
- ['02 / Executive overview',[
+ ['02 / Your Answers, Unwrapped',[
  'Your illustrative responses emphasize genuine appreciation, trust in shared decisions, meaningful sensory detail and anticipation. Explicit choices are more informative about specific interests than broad emotional themes.',
  'The main distinction is between what you selected, what you would only imagine, and other topics suggested for optional reading. Those categories should never be merged into a single score.']],
  ['03 / How the relative theme ranking reads',[
