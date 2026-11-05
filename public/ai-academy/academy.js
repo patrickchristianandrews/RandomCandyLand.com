@@ -105,18 +105,60 @@ function save(){state.updated=new Date().toISOString();try{localStorage.setItem(
 function announce(text){const n=$('#announce');n.textContent=text;n.hidden=false;clearTimeout(announce.timer);announce.timer=setTimeout(()=>n.hidden=true,2800)}
 function renderStats(){const n=state.done.length,p=Math.round(n/LESSONS.length*100);$('#doneCount').textContent=n;$('#masteryScore').textContent=p+'%';$('#quizScore').textContent=Object.entries(state.answers).filter(([id,n])=>LESSONS.find(l=>l.id===id)?.answer===n).length;$('#courseProgressBar').style.width=p+'%';$('#courseProgressText').textContent=n+' of '+LESSONS.length+' lessons mastered';}
 function navigation(){let track='',html='';for(let i=0;i<LESSONS.length;i++){const l=LESSONS[i];if(l.track!==track){if(track)html+='</div>';track=l.track;html+='<div class="course-group"><div class="course-group-label">'+E(track)+'</div>'}html+='<button type="button" data-lesson="'+E(l.id)+'" class="'+(active===l.id?'active ':'')+(state.done.includes(l.id)?'done':'')+'"><span class="number">'+(state.done.includes(l.id)?'✓':i+1)+'</span><span>'+E(l.title)+'<br><small style="opacity:.65">'+l.min+' min</small></span></button>';}$('#courseNav').innerHTML=html+'</div>';$('#continueCourse').textContent=state.done.length?'Continue learning →':'Start learning →'}
-function showLesson(id){const l=LESSONS.find(x=>x.id===id);if(!l)return;active=id;const idx=LESSONS.indexOf(l),answer=state.answers[l.id];let options=l.choices.map((v,i)=>'<button type="button" data-answer="'+i+'" class="'+(answer!==undefined?(i===l.answer?'correct':i===answer?'incorrect':''):'')+'">'+E(v)+'</button>').join('');
-$('#lessonZone').innerHTML='<div class="lesson-heading"><div><span class="eyebrow">'+E(l.track)+' · LESSON '+(idx+1)+' OF '+LESSONS.length+'</span><h2>'+E(l.title)+'</h2><small>⏱ '+l.min+' minutes · '+(state.done.includes(l.id)?'✓ Mastered':'Practice & quiz to complete')+'</small></div><span style="font-size:40px">'+(state.done.includes(l.id)?'🏆':'✨')+'</span></div>'+
-'<p class="lesson-lead">'+E(l.lead)+'</p><h3>The key idea</h3><p>'+E(l.idea)+'</p>'+
-'<div class="lesson-copy"><article><h3>✗ Vague prompt</h3><p>'+E(l.bad)+'</p></article><article class="after"><h3>✓ Effective prompt</h3><p>'+E(l.good)+'</p></article></div>'+
-'<div class="lesson-tips"><b>💡 Remember</b><ul>'+l.tips.map(t=>'<li>'+E(t)+'</li>').join('')+'</ul></div>'+
-'<div class="quiz"><span class="eyebrow">ONE-MINUTE SKILL CHECK</span><h3>'+E(l.question)+'</h3><div class="quiz-options">'+options+'</div><div class="quiz-response" id="quizResponse" aria-live="polite">'+(answer!==undefined?(answer===l.answer?'✓ Correct! ':'Try another answer. ')+E(l.why):'Choose the strongest answer to finish this lesson.')+'</div></div>'+
-'<div class="lesson-footer"><button type="button" class="outline" id="tryExample">✳ Try this example in Random AI</button><div class="actions"><button type="button" class="outline" data-prev '+(idx===0?'disabled':'')+'>← Previous</button><button type="button" class="primary" data-next '+(idx===LESSONS.length-1?'disabled':'')+'>Next lesson →</button></div></div>';
-navigation();
-$('#lessonZone').querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>{const choice=Number(b.dataset.answer),correct=choice===l.answer;state.answers[l.id]=choice;if(correct&&!state.done.includes(l.id)){state.done.push(l.id);announce('🏆 Lesson mastered! '+state.done.length+'/'+LESSONS.length)}save();showLesson(id);if(!correct)announce('Try the alternative that is most specific and verifiable.');}));
-$('#tryExample').addEventListener('click',()=>sendToStudio(l.practice));
-const previous=$('[data-prev]'),next=$('[data-next]');previous.addEventListener('click',()=>{if(idx>0)showLesson(LESSONS[idx-1].id)});next.addEventListener('click',()=>{if(idx<LESSONS.length-1)showLesson(LESSONS[idx+1].id)});
+let lessonPhase='learn';
+function setLessonPhase(phase){
+ if(!['learn','compare','quiz'].includes(phase))return;
+ lessonPhase=phase;
+ const root=$('#lessonZone');
+ root.dataset.phase=phase;
+ root.querySelectorAll('[data-phase-part]').forEach(el=>{el.hidden=el.dataset.phasePart!==phase});
+ root.querySelectorAll('[data-lesson-phase]').forEach(btn=>{
+  const active=btn.dataset.lessonPhase===phase;btn.setAttribute('aria-current',active?'step':'false');btn.classList.toggle('active',active);
+ });
+ const n=['learn','compare','quiz'].indexOf(phase),prev=root.querySelector('#lessonPhaseBack'),next=root.querySelector('#lessonPhaseNext');
+ if(prev)prev.disabled=n===0;
+ if(next){
+  next.textContent=n===0?'See an example →':n===1?'Check understanding →':'Continue to next lesson →';
+  next.disabled=n===2&&!state.done.includes(active);
+ }
+ const label=root.querySelector('#lessonPhaseHint');if(label)label.textContent=n===0?'Step 1 of 3 · One useful concept':n===1?'Step 2 of 3 · Compare two prompts':'Step 3 of 3 · Answer one question';
 }
+function showLesson(id,keepPhase=false){
+ const l=LESSONS.find(x=>x.id===id);if(!l)return;
+ if(!keepPhase)lessonPhase='learn';
+ active=id;
+ const idx=LESSONS.indexOf(l),answer=state.answers[l.id],passed=state.done.includes(l.id);
+ const options=l.choices.map((v,i)=>'<button type="button" data-answer="'+i+'" class="'+(answer!==undefined?(i===l.answer?'correct':i===answer?'incorrect':''):'')+'" aria-pressed="'+String(answer===i)+'">'+E(v)+'</button>').join('');
+ const root=$('#lessonZone');
+ root.innerHTML='<div class="lesson-heading"><div><span class="eyebrow">'+E(l.track)+' · LESSON '+(idx+1)+' OF '+LESSONS.length+'</span><h2>'+E(l.title)+'</h2><small>⏱ '+l.min+' minutes · '+(passed?'✓ Mastered':'A short, focused skill')+'</small></div><span class="lesson-heading-badge">'+(passed?'🏆':'✦')+'</span></div>'+
+ '<nav class="academy-lesson-phase-tabs" aria-label="This lesson in three steps"><button type="button" data-lesson-phase="learn"><span>1</span> Learn</button><button type="button" data-lesson-phase="compare"><span>2</span> See example</button><button type="button" data-lesson-phase="quiz"><span>3</span> Skill check</button></nav>'+
+ '<div class="academy-lesson-part" data-phase-part="learn"><p class="lesson-lead">'+E(l.lead)+'</p><h3>The idea</h3><p>'+E(l.idea)+'</p><p class="academy-small-nudge">Only the essentials here. Tap Continue to see how it works.</p></div>'+
+ '<div class="academy-lesson-part" data-phase-part="compare"><div class="lesson-copy"><article><h3>✗ Too vague</h3><p>'+E(l.bad)+'</p></article><article class="after"><h3>✓ Much clearer</h3><p>'+E(l.good)+'</p></article></div><details class="academy-extra-tips"><summary>💡 Why this works · practical tips</summary><ul>'+l.tips.map(t=>'<li>'+E(t)+'</li>').join('')+'</ul></details><button type="button" class="outline academy-example-btn" id="tryExample">✳ Open this prompt in Random AI ↗</button></div>'+
+ '<div class="academy-lesson-part" data-phase-part="quiz"><div class="quiz"><span class="eyebrow">ONE-QUESTION SKILL CHECK</span><h3>'+E(l.question)+'</h3><div class="quiz-options">'+options+'</div><div class="quiz-response" id="quizResponse" aria-live="polite">'+(answer!==undefined?(answer===l.answer?'✓ Correct! ':'Not quite. ')+E(l.why):'Select one answer. You can retry if needed.')+'</div></div></div>'+
+ '<div class="academy-phase-footer"><button type="button" class="outline" id="lessonPhaseBack">← Back</button><span id="lessonPhaseHint" aria-live="polite"></span><button type="button" class="primary" id="lessonPhaseNext">Continue →</button></div>'+
+ '<div class="lesson-footer"><button type="button" class="outline" data-prev '+(idx===0?'disabled':'')+'>← Previous lesson</button><button type="button" class="outline" data-next '+(idx===LESSONS.length-1?'disabled':'')+'>Next lesson →</button></div>';
+ navigation();setLessonPhase(lessonPhase);
+ root.querySelectorAll('[data-lesson-phase]').forEach(btn=>btn.addEventListener('click',()=>setLessonPhase(btn.dataset.lessonPhase)));
+ root.querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>{
+  const choice=Number(b.dataset.answer),correct=choice===l.answer;
+  state.answers[l.id]=choice;
+  if(correct&&!state.done.includes(l.id)){state.done.push(l.id);announce('🏆 Lesson mastered! '+state.done.length+'/'+LESSONS.length)}
+  save();showLesson(id,true);setLessonPhase('quiz');
+  if(!correct)announce('Try another answer. Look for the clearest, most verifiable option.');
+ }));
+ root.querySelector('#tryExample').addEventListener('click',()=>sendToStudio(l.practice));
+ root.querySelector('#lessonPhaseBack').addEventListener('click',()=>setLessonPhase(['learn','compare','quiz'][Math.max(0,['learn','compare','quiz'].indexOf(lessonPhase)-1)]));
+ root.querySelector('#lessonPhaseNext').addEventListener('click',()=>{
+  const ix=['learn','compare','quiz'].indexOf(lessonPhase);
+  if(ix<2)setLessonPhase(['learn','compare','quiz'][ix+1]);
+  else if(state.done.includes(l.id)&&idx<LESSONS.length-1){showLesson(LESSONS[idx+1].id);root.scrollIntoView({block:'start',behavior:'smooth'})}
+  else if(state.done.includes(l.id)){announce('You have completed this learning path! Choose Compare or Practice next.')}
+ });
+ root.querySelector('[data-prev]').addEventListener('click',()=>{if(idx>0){showLesson(LESSONS[idx-1].id);root.scrollIntoView({block:'start',behavior:'smooth'})}});
+ root.querySelector('[data-next]').addEventListener('click',()=>{if(idx<LESSONS.length-1){showLesson(LESSONS[idx+1].id);root.scrollIntoView({block:'start',behavior:'smooth'})}});
+ document.dispatchEvent(new CustomEvent('academy:lesson',{detail:{id,idx:idx+1,total:LESSONS.length,completed:state.done.length}}));
+}
+window.AIAcademyCourse=Object.freeze({showLesson,resume:()=>showLesson(LESSONS.find(l=>!state.done.includes(l.id))?.id||LESSONS[0].id),stats:()=>({completed:state.done.length,total:LESSONS.length,active})});
 function sendToStudio(prompt){try{localStorage.setItem(DRAFT,prompt);location.href='/studio/#chat'}catch{navigator.clipboard?.writeText(prompt).then(()=>announce('Prompt copied. Open Random AI and paste it.')).catch(()=>announce('Copy the prompt and open Random AI.'))}}
 function prompt(){const task=$('#buildTask').value.trim(),context=$('#buildContext').value.trim(),format=$('#buildFormat').value,style=$('#buildStyle').value,guard=$('#buildGuard').value.trim();if(!task)return 'Add your goal to build a better prompt.';return 'TASK\n'+task+'\n\n'+(context?'CONTEXT\n'+context+'\n\n':'')+'OUTPUT FORMAT\n'+format+'\n\nTONE\n'+style+'\n\n'+(guard?'CONSTRAINTS\n'+guard+'\n\n':'')+'QUALITY CHECK\nUse only verified or provided facts. Note assumptions. Return a concrete, usable result.'}
 function updatePrompt(){$('#builtPrompt').textContent=prompt()}
