@@ -613,9 +613,10 @@ if(homeInstallSource.includes('candyland-grouped-collections') ||
    !homeInstallSource.includes('COLLECTIONS.map(group =>') ||
    homeInstallSource.includes('candyland-hero-categories') ||
    homeInstallSource.includes('candyland-category-guide') ||
-   !homeInstallSource.includes('<details className="candyland-future-games"') ||
+   homeInstallSource.includes('candyland-future-games') ||
+   homeInstallSource.includes('Meridian Universe') ||
    !homeInstallSource.includes('<details className="candyland-install-apps"')){
-  console.error('Homepage must use categorized compact game shelves with collapsible optional sections.'); failures++;
+  console.error('Homepage must show the game shelves and install options without Meridian Universe promotion.'); failures++;
 }
 if(!homeInstallSource.includes('candyland-unwrapped-promo') ||
    !homeInstallSource.includes('personal and partner reports') ||
