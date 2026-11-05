@@ -5,7 +5,7 @@ import { ArrowRight, Copy, Newspaper } from 'lucide-react';
  * before the billions-long sequence can repeat (unless browser data is cleared).
  */
 const HEADLINES = [
-  '🚨 OFFICIAL NONSENSE BULLETIN','🍬 EMERGENCY SUGAR UPDATE',
+  '🚨 OFFICIAL ABSURDITY BULLETIN','🍬 EMERGENCY SUGAR UPDATE',
   '👀 THINGS THE CLOUDS ARE HIDING','🎪 CIRCUS BOARD MEETING',
   '📡 MESSAGE FROM PLANET WHAT','🧪 SCIENTIFICALLY IMPOSSIBLE',
   '🦄 UNICORN NEWS NETWORK','📜 VERY SERIOUS ANNOUNCEMENT',
@@ -13,7 +13,7 @@ const HEADLINES = [
   '🛸 INTERGALACTIC GOSSIP','🧁 CUPCAKE COURT TRANSCRIPT',
   '💌 LETTER FROM ANOTHER DIMENSION','🗞️ REPORT EXCLUSIVE',
   '🎺 TINY TRUMPET BREAKING NEWS','🔮 THE ORACLE HAS GIGGLED',
-  '🎡 WELCOME TO THE NONSENSE ZONE','🐙 OCTOPUS OFFICE MEMO',
+  '🎡 WELCOME TO THE UNLIKELY ZONE','🐙 OCTOPUS OFFICE MEMO',
   '🧠 THOUGHTS THAT ESCAPED','🥨 SUSPICIOUS PRETZEL REPORT',
   '🎤 UNNECESSARY PRESS CONFERENCE','🌙 MIDNIGHT MARSHMALLOW ALERT',
   '🪩 DISCO DIMENSION REPORT','🏆 NOBODY ASKED FOR THIS AWARD'
@@ -110,7 +110,7 @@ const PLACES = [
   'inside a library run by raccoons','at a haunted amusement park on Jupiter',
   'on the moon’s secret mini golf course','at the world’s most nervous petting zoo',
   'in an office staffed by tap-dancing frogs','during an unauthorized pillow rebellion',
-  'on a cruise ship made of cheese','at the International School of Nonsense',
+  'on a cruise ship made of cheese','at the International School of the Absurd',
   'in a balloon full of rubber chickens','just outside the Museum of Questionable Ideas',
   'inside the legendary Supermarket of Dreams','beneath a waterfall of pink goo',
   'on the set of a soap opera for houseplants','at a picnic organized by confused robots',
@@ -280,7 +280,7 @@ export function RandomNonsenseGenerator() {
       <div id="nonsense-story-detail" className="nonsense-report-detail" hidden={!expanded}>
         <article className="nonsense-display nonsense-news-article" key={cycle.current} aria-live="polite" aria-atomic="true">
           <div className="nonsense-story-meta">
-            <span className="nonsense-breaking">BREAKING NONSENSE</span>
+            <span className="nonsense-breaking">BREAKING SATIRE</span>
             <span className="nonsense-section-tag">{nonsense.section}</span>
           </div>
           <h3>{nonsense.headline}</h3>
