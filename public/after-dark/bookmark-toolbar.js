@@ -321,7 +321,8 @@ function build(){
  menu.append(panel);wrap.append(menu);
  const message=text('span','Your progress is saved locally','od-bookmark-notice');message.id='od-bookmark-notice';
  message.setAttribute('role','status');wrap.append(message);
- top.after(wrap);ui=wrap;notice=message;
+ document.body.append(wrap);ui=wrap;notice=message;
+ window.RandomCandyLandShare?.install?.();
  $('afterdark-resume-strip')?.setAttribute('hidden','');
  refresh();
 }
