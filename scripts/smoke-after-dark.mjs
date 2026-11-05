@@ -737,6 +737,28 @@ try{
   if(!writingStack)throw Error('Random AI stack selection did not update the active chat workflow');
   console.log('✓ Random AI no-download/hosted selection, persistent loading progress and task stacks work.');
 
+  // TRACE identity review: every data field optional; no consent gate until export.
+  const traceProfile=await navigate(site+'/osint-academy/');
+  await traceProfile.evaluate("document.querySelector('#tab-identity').click();document.querySelector('[data-identity-mode=profile]').click()");
+  const profileReady=await traceProfile.evaluate("(()=>{const p=window.TraceProfileReview;return !!p&&p.getCurrentStep()===0&&!document.querySelector('#identity-profile-pane').hidden&&document.querySelectorAll('#profileSteps [data-profile-step]').length===3&&document.querySelector('#profile-username')})()");
+  if(!profileReady)throw Error('TRACE Identity Lab optional profile editor failed to initialize');
+  await traceProfile.evaluate("document.querySelector('#profile-username').value='@sampleconsented';document.querySelector('#profile-next').click()");
+  const step2=await traceProfile.evaluate("window.TraceProfileReview.getCurrentStep()===1&&document.querySelector('#profile-username').value==='@sampleconsented'&&document.querySelector('#profile-candidates').children.length===1");
+  if(!step2)throw Error('Identity Lab lost an optional-only username or did not show evidence step');
+  await traceProfile.evaluate("document.querySelector('#candidate-notes').value='Publicly supplied clue without URL or formal source.';document.querySelector('#candidate-add').click()");
+  const partialClue=await traceProfile.evaluate("window.TraceProfileReview.getCount()===1&&document.querySelectorAll('#profile-candidates .trace-profile-evidence-card').length===1&&document.querySelector('#candidate-status').textContent.includes('Clue added')");
+  if(!partialClue)throw Error('Identity Lab must accept partial evidence without requiring a URL, platform or source');
+  await traceProfile.evaluate("document.querySelector('#profile-next').click()");
+  const review=await traceProfile.evaluate("window.TraceProfileReview.getCurrentStep()===2&&document.querySelector('#profile-report').textContent.includes('@sampleconsented')&&document.querySelector('#profile-report').textContent.includes('1')");
+  if(!review)throw Error('Identity Lab could not produce a partial-information report');
+  await traceProfile.evaluate("document.querySelector('#profile-consent').checked=true;document.querySelector('#profile-export').click()");
+  const reportExport=await traceProfile.evaluate("document.querySelector('#profile-status').textContent.includes('prepared for download')");
+  if(!reportExport)throw Error('Identity Lab could not export an explicitly authorized partial report');
+  await traceProfile.evaluate("window.confirm=()=>true;document.querySelector('#profile-clear').click();document.querySelector('[data-profile-step=\"2\"]').click()");
+  const blank=await traceProfile.evaluate("window.TraceProfileReview.getCount()===0&&document.querySelector('#profile-report').textContent.includes('blank template')&&document.querySelector('#profile-name').value===''"); 
+  if(!blank)throw Error('Identity Lab must allow an entirely blank profile template');
+  console.log('✓ TRACE Identity Lab supports optional data, incomplete clues, editable guided steps, export and blank reports.');
+
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
 } finally{
