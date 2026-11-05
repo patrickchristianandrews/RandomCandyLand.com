@@ -78,3 +78,30 @@
  body.print-unwrapped-comparison #uc-results .uc-connection-link strong{color:#382744!important;background:#fff!important}
  body.print-unwrapped-comparison #uc-results .uc-connection-link small{color:#5b4e65!important}
 }
+
+/* Turn voluntarily shared themes into practical, readable action pathways. */
+#uc-comparison .uc-action-paths,#uc-comparison .uc-answer-comparison{display:grid;gap:9px;padding:12px;border:1px solid #9471a9;border-radius:13px;background:#ffffff08}
+#uc-comparison .uc-action-paths h4,#uc-comparison .uc-answer-comparison h4{margin:0;color:#ffe5bd}
+#uc-comparison .uc-action-path{display:grid;grid-template-columns:minmax(90px,1fr) 20px minmax(0,2.6fr);gap:9px;align-items:center}
+#uc-comparison .uc-action-topic{padding:9px;border-radius:9px;background:#f4b2d229;border:1px solid #edbcdd8a;font-size:11px;font-weight:850;overflow-wrap:anywhere}
+#uc-comparison .uc-action-arrow{text-align:center;color:#baf5dc;font-weight:900}
+#uc-comparison .uc-action-prompt{padding:9px;background:#ffffff10;border:1px solid #ffffff22;border-radius:9px;font-size:11px;line-height:1.55}
+#uc-comparison .uc-answer-pair{display:grid;gap:7px;padding:11px;border:1px solid #a789b1;border-radius:12px;background:#ffffff08}
+#uc-comparison .uc-answer-pair>strong{font-size:12px}
+#uc-comparison .uc-answer-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#uc-comparison .uc-answer-side{padding:10px;border:1px solid #dcaaca65;border-radius:10px;background:#6e3c5d36}
+#uc-comparison .uc-answer-side:last-child{border-color:#abd5e16e;background:#4562724a}
+#uc-comparison .uc-answer-side b{font-size:11px;color:#ffe6be}
+#uc-comparison .uc-answer-side p{margin:5px 0;font-size:12px;line-height:1.5}
+#uc-comparison .uc-answer-side small{font-size:10px;color:#e3d5e7}
+@media(max-width:520px){#uc-comparison .uc-action-path{grid-template-columns:minmax(70px,1fr) 13px minmax(0,2.5fr);gap:5px}#uc-comparison .uc-answer-columns{grid-template-columns:1fr}}
+@media print{
+ body.print-unwrapped-comparison #uc-results .uc-action-paths,
+ body.print-unwrapped-comparison #uc-results .uc-answer-comparison{background:#fff!important;color:#392c40!important;border-color:#d7c2dc!important;break-inside:avoid-page}
+ body.print-unwrapped-comparison #uc-results .uc-action-topic,
+ body.print-unwrapped-comparison #uc-results .uc-answer-side{background:#f7eff8!important;color:#443149!important;border-color:#dec4d9!important}
+ body.print-unwrapped-comparison #uc-results .uc-action-prompt{background:#fff!important;color:#443149!important;border-color:#e7d7e8!important}
+ body.print-unwrapped-comparison #uc-results .uc-answer-side b,
+ body.print-unwrapped-comparison #uc-results .uc-answer-side small{color:#58445d!important}
+ body.print-unwrapped-comparison #uc-results .uc-action-arrow{color:#745c83!important}
+}
