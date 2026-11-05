@@ -6,7 +6,8 @@ const required = [
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
-  ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','GTM-TQRDB5KL']],
+  ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
+  ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Results about you','Mozilla Monitor','Have I Been Pwned']],
   ['dist/candy-casino/index.html', ['Choose your game','id="casino-howto"','data-duel="poker"','data-duel="card"','data-duel="dice"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
@@ -728,6 +729,8 @@ if(fs.existsSync('dist/after-dark/partner-compare.css')&&
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
+   !homeInstallSource.includes("href:'/identity-lab/'") ||
+   !homeInstallSource.includes("kind:'research'") ||
    !homeInstallSource.includes("url:'/osint-academy/'") ||
    !homeInstallSource.includes("Moodropolis") ||
    !homeInstallSource.includes('candyland-play-shelves') ||
@@ -743,10 +746,24 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
   console.error('Grouped homepage, Moodropolis or TRACE Academy portal is missing.'); failures++;
 }
 for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
+  'dist/osint-academy/profile-review.js','dist/osint-academy/identity-lab.js',
+  'dist/identity-lab/index.html','dist/app-manifests/identity-lab.webmanifest',
   'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
   if(!fs.existsSync(asset)){console.error('OSINT Academy asset missing:',asset);failures++;}
 }
 const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
+const standaloneHtml=fs.readFileSync('dist/identity-lab/index.html','utf8');
+if(traceHtml.includes('profile-review.js')||!traceHtml.includes('Evidence Files')||
+   !standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('/identity-lab/')){
+ console.error('Self-research must live outside the TRACE training game.'); failures++;
+}
+if(fs.existsSync('dist/osint-academy/profile-review.js')){
+ const profileJs=fs.readFileSync('dist/osint-academy/profile-review.js','utf8');
+ try{new vm.Script(profileJs,{filename:'Standalone Identity Lab'});}catch(e){console.error('Broken Identity Lab:',e.message);failures++}
+ if(!profileJs.includes('profile-report-from-results')||!profileJs.includes('api.github.com/users/')||!profileJs.includes('dns.google/resolve')||!profileJs.includes('query.wikidata.org/sparql')){
+   console.error('Identity Lab must retain one-clue source checks and a report shortcut.');failures++;
+ }
+}
 for(const token of ['id="continue-training"','class="trace-first-steps"','class="trace-play-steps"','id="case-directory"','class="mission-sidebar"',
   'id="command-desk"','id="command-form"','id="command-input"','id="command-output"',
   'id="setup-grid"','id="setup-progress-label"','id="atlas-search"','id="atlas-categories"']){
