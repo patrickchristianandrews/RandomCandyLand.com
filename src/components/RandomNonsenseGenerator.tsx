@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, Copy, Newspaper } from 'lucide-react';
 
 /** Full-cycle, persistent shuffle: each generated combination appears once
@@ -11,7 +11,7 @@ const HEADLINES = [
   '🦄 UNICORN NEWS NETWORK','📜 VERY SERIOUS ANNOUNCEMENT',
   '🌈 RAINBOW WEATHER ADVISORY','🧀 DEPARTMENT OF CHEESE',
   '🛸 INTERGALACTIC GOSSIP','🧁 CUPCAKE COURT TRANSCRIPT',
-  '💌 LETTER FROM ANOTHER DIMENSION','🗞️ GAZETTE EXCLUSIVE',
+  '💌 LETTER FROM ANOTHER DIMENSION','🗞️ DISPATCH EXCLUSIVE',
   '🎺 TINY TRUMPET BREAKING NEWS','🔮 THE ORACLE HAS GIGGLED',
   '🎡 WELCOME TO THE NONSENSE ZONE','🐙 OCTOPUS OFFICE MEMO',
   '🧠 THOUGHTS THAT ESCAPED','🥨 SUSPICIOUS PRETZEL REPORT',
@@ -228,46 +228,75 @@ function decode(id: number) {
 export function RandomNonsenseGenerator() {
   const [cycle, setCycle] = useState<Cycle>(load);
   const [copied, setCopied] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const nonsense = decode(cycle.current);
   const generate = () => { setCycle(advance); setCopied(false); };
+  // A living fictional-news feed, not a connection to actual breaking news.
+  // Pause automatic updates while a reader has a full story open.
+  useEffect(() => {
+    if (expanded || typeof window === 'undefined') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) { setCycle(advance); setCopied(false); }
+    }, 19000);
+    return () => window.clearInterval(timer);
+  }, [expanded]);
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText('THE CANDY LAND GAZETTE | SATIRE EDITION' + '\\n' + nonsense.headline + '\\n\\n' + nonsense.location + ' ' + nonsense.followup + '\\n\\n— Random Candy Land | Fictional story');
+      await navigator.clipboard.writeText(
+        'THE NONSENSE DISPATCH | FICTIONAL SATIRE\n' +
+        nonsense.headline + '\n\n' +
+        nonsense.location + ' ' + nonsense.followup +
+        '\n\n— Random Candy Land | Just for laughs'
+      );
       setCopied(true);
     } catch { setCopied(false); }
   };
   return (
-    <section id="nonsense" className="nonsense-lab nonsense-newsroom" aria-labelledby="nonsense-heading">
-      <header className="nonsense-news-masthead">
-        <span className="nonsense-masthead-icon" aria-hidden="true"><Newspaper size={23}/></span>
-        <div className="nonsense-news-title-wrap">
-          <span className="nonsense-edition">ALL THE NEWS THAT PROBABLY NEVER HAPPENED</span>
-          <h2 id="nonsense-heading">The Candy Land <em>Gazette</em></h2>
+    <section id="nonsense" className="nonsense-lab nonsense-newsroom nonsense-dispatch" aria-labelledby="nonsense-heading">
+      <header className="nonsense-dispatch-ticker">
+        <div className="nonsense-dispatch-brand">
+          <span className="nonsense-dispatch-icon" aria-hidden="true"><Newspaper size={22}/></span>
+          <span className="nonsense-dispatch-brand-copy">
+            <strong id="nonsense-heading">THE NONSENSE <em>DISPATCH</em></strong>
+            <small>ALL THE NEWS THAT NEVER HAPPENED</small>
+          </span>
         </div>
-        <span className="nonsense-edition-pill">SATIRE EDITION</span>
+        <span className="nonsense-dispatch-live" aria-label="Live fictional satire"><i aria-hidden="true" /> LIVE <span>SATIRE</span></span>
+        <button className="nonsense-dispatch-open" type="button"
+          onClick={() => setExpanded(value => !value)}
+          aria-expanded={expanded} aria-controls="nonsense-story-detail"
+          aria-label={(expanded ? 'Close' : 'Read') + ' full fictional news story: ' + nonsense.headline}>
+          <span className="nonsense-dispatch-viewport">
+            <span className="nonsense-dispatch-marquee" aria-hidden="true">
+              <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
+              <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
+            </span>
+          </span>
+          <span className="nonsense-dispatch-read">{expanded ? 'Close story' : 'Click to read full story'} <ArrowRight size={15}/></span>
+        </button>
+        <button className="nonsense-dispatch-skip" type="button" onClick={generate} aria-label="Next fictional headline" title="Next fictional headline">↻</button>
       </header>
-      <article className="nonsense-display nonsense-news-article" key={cycle.current} aria-live="polite" aria-atomic="true">
-        <div className="nonsense-story-meta">
-          <span className="nonsense-breaking">BREAKING NONSENSE</span>
-          <span className="nonsense-section-tag">{nonsense.section}</span>
+      <div id="nonsense-story-detail" className="nonsense-dispatch-detail" hidden={!expanded}>
+        <article className="nonsense-display nonsense-news-article" key={cycle.current} aria-live="polite" aria-atomic="true">
+          <div className="nonsense-story-meta">
+            <span className="nonsense-breaking">BREAKING NONSENSE</span>
+            <span className="nonsense-section-tag">{nonsense.section}</span>
+          </div>
+          <h3>{nonsense.headline}</h3>
+          <p className="nonsense-news-lede">{nonsense.location}</p>
+          <p className="nonsense-news-body">{nonsense.followup}</p>
+          <div className="nonsense-news-footer"><span>THE NONSENSE DISPATCH</span><span>Fictional news · Just for laughs</span></div>
+        </article>
+        <div className="nonsense-actions">
+          <button className="nonsense-generate" type="button" onClick={generate}>NEXT STORY <ArrowRight size={22}/></button>
+          <button className="nonsense-copy" type="button" onClick={copy}><Copy size={19}/> {copied ? 'COPIED!' : 'COPY STORY'}</button>
+          <button className="nonsense-dispatch-close" type="button" onClick={() => setExpanded(false)}>CLOSE STORY</button>
         </div>
-        <h3>{nonsense.headline}</h3>
-        <p className="nonsense-news-lede">{nonsense.location}</p>
-        <p className="nonsense-news-body">{nonsense.followup}</p>
-        <div className="nonsense-news-footer"><span>THE CANDY LAND GAZETTE</span><span>Fictional news · Just for laughs</span></div>
-      </article>
-      <div className="nonsense-actions">
-        <button className="nonsense-generate" type="button" onClick={generate}>
-          NEXT STORY <ArrowRight size={22}/>
-        </button>
-        <button className="nonsense-copy" type="button" onClick={copy}>
-          <Copy size={19}/> {copied ? 'COPIED!' : 'COPY STORY'}
-        </button>
-      </div>
-      <div className="nonsense-facts">
-        <span>🗞️ <strong>{TOTAL.toLocaleString('en-US')}</strong> possible stories</span>
-        <span>♻️ <strong>{cycle.shown.toLocaleString('en-US')}</strong> unique stories on this device</span>
-        <span>🍬 No exact repeats while this device retains its browser data.</span>
+        <div className="nonsense-facts">
+          <span>🗞️ <strong>{TOTAL.toLocaleString('en-US')}</strong> possible fictional stories</span>
+          <span>♻️ <strong>{cycle.shown.toLocaleString('en-US')}</strong> unique stories on this device</span>
+        </div>
       </div>
     </section>
   );
