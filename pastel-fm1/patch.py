@@ -261,6 +261,82 @@ exact(pathlib.Path("firmware/src/browse.c"),
 exact(pathlib.Path("firmware/src/browse.c"),
       '[12] = "KEBRPEGUKRBEEKGSPLUEWEBEO",',
       '[12] = "KEBRPEGUKRBEEKGSPLUEWEBEO" PASTEL_FACTORY_CATEGORIES,')
+# Pastel v0.8: Give the original factory sounds a fast, dedicated path.
+# From Stage, SAVE now opens FM1 FACTORY (128) immediately on the normal
+# PRESETS browser. Turn the existing PRESETS knob to hear sounds; tap SAVE
+# again for USER and again for PROJECT. No new storage, engine IDs or bank
+# formats are created. All previous LIST filters remain usable on KNOB 1.
+#
+# Add the new browse mode AFTER the existing persisted category ids so no
+# previously stored favorite, category or list value is renumbered.
+exact(pathlib.Path("firmware/src/browse.c"),
+      '#define LM_N (LM_CAT + NELEM(CAT_ORDER))',
+      '#define LM_FM1 (LM_CAT + NELEM(CAT_ORDER))\\n'
+      '#define LM_N (LM_FM1 + 1u)')
+exact(pathlib.Path("firmware/src/browse.c"),
+      'list_lcat = (uint8_t)(m >= LM_CAT && m < LM_N ? CAT_ORDER[m - LM_CAT] : 0u);',
+      'list_lcat = (uint8_t)(m >= LM_CAT && m < LM_FM1 ? CAT_ORDER[m - LM_CAT] : 0u);')
+exact(pathlib.Path("firmware/src/browse.c"),
+      'm >= LM_CAT && m < LM_N ? entry_cat(src, k) == CAT_ORDER[m - LM_CAT] : 0;',
+      'm >= LM_CAT && m < LM_FM1 ? entry_cat(src, k) == CAT_ORDER[m - LM_CAT] : 0;')
+exact(pathlib.Path("firmware/src/browse.c"),
+      '    if (m == LM_RECENT) {\\n        for (i = 0; i < recent_n; i++) {',
+      '''    if (m == LM_FM1) {
+        /* Exactly the 128 built-in, read-only factory voices; no user slots.
+         * Constant-time indexing, no traversal of the other engines.
+         * Keep the upstream FM6 indices 0..24 unchanged. */
+        uint32_t first = FM6_NFAC + 1u;
+        *total = PASTEL_FACTORY_COUNT;
+        if (n < PASTEL_FACTORY_COUNT) *as = ENGI_FM6, *ak = first + n;
+        return ws == ENGI_FM6 && wk >= first &&
+               wk < first + PASTEL_FACTORY_COUNT ? wk - first : PASTEL_FACTORY_COUNT;
+    }
+    if (m == LM_RECENT) {
+        for (i = 0; i < recent_n; i++) {''')
+exact(pathlib.Path("firmware/src/ui_browser.c"),
+      'return m == LM_ALL ? "All" : m == LM_FAV ? "Faves" : m == LM_RECENT ? "Recent" :',
+      'return m == LM_FM1 ? "FM1 FACTORY" : m == LM_ALL ? "All" : m == LM_FAV ? "Faves" : m == LM_RECENT ? "Recent" :')
+exact(pathlib.Path("firmware/src/ui_browser.c"),
+      'cv_text_on(12, ty_y(y + 42, lf), lf, ENGINES[eng_idx(e)]->name, out ? T_MID : hc, bg);',
+      'cv_text_on(12, ty_y(y + 42, lf), lf, m == LM_FM1 ? "ORIGINAL FM-1" : ENGINES[eng_idx(e)]->name, out ? T_MID : hc, bg);')
+# Preserve the standard SAVE -> USER -> PROJECT pages (SAVE again from the
+# factory browser). MIDI-only tracks cannot load built-in synth sounds.
+exact(pathlib.Path("firmware/src/ui.c"),
+      'if (PAGES[i].graph == GR_USER) break;',
+      'if (PAGES[i].graph == (ui.home && !trk_midi_slot(song.sel) ? GR_BROWSE : GR_USER)) break;')
+exact(pathlib.Path("firmware/src/ui_input.c"),
+      '    } else if (save == BT_TAP && !ui.confirm)\\n        open_family(FAM_SAVE);',
+      '''    } else if (save == BT_TAP && !ui.confirm) {
+        if (ui.home && !trk_midi_slot(song.sel))
+            list_set(LM_FM1); /* instant, dedicated 128-sound factory browser */
+        open_family(FAM_SAVE);
+    }''')
+# Host renderer must assert exact first/last factory index and exercise the
+# actual firmware sound-selection path, not just render a fictional catalog.
+exact(pathlib.Path("tests/ui_render.c"),
+      '    song_punch_sweep(out);',
+      '''    /* Pastel: first SAVE on Stage opens the actual 128-voice browser.
+     * Exercise the selection path and render its real LCD pixels. */
+    {
+        uint32_t src, k, total;
+        cur_name = "FM1 factory 128";
+        setup(S_PRESETS); pal(0);
+        list_set(LM_FM1);
+        go_page(GR_BROWSE);
+        assert(list_mode() == LM_FM1);
+        list_scan(LM_FM1, 0xFFFFFFFFu, 0u, 0u, &src, &k, &total);
+        assert(total == 128u && src == ENGI_FM6 && k == FM6_NFAC + 1u);
+        list_scan(LM_FM1, 0xFFFFFFFFu, 0u, 127u, &src, &k, &total);
+        assert(total == 128u && src == ENGI_FM6 && k == FM6_NFAC + 128u);
+        draw(-1); lint(); write_ppm(out, "PASTEL", "factory_128_browser");
+        browse_turn(EN_PRESET, 1);
+        assert(TSEL->eng_req == ENGI_FM6 &&
+               TSEL->preset == FM6_NFAC + 1u);
+        draw(-1); lint(); write_ppm(out, "PASTEL", "factory_128_loaded");
+    }
+    song_punch_sweep(out);''')
+print("Pastel v0.8 usability: SAVE from Stage -> FM1 FACTORY 128; PRESETS knob auditions; SAVE again -> USER and PROJECT. Factory indices preserved.")
+
 # Pastel v0.7: upstream main-app build promotes -Os to -O2 for LLVM IR.
 # This causes XIP overflow when the 128 built-in factory voices are present.
 # Restore -Os to the main app IR pass, as the sound/ISR helpers were already

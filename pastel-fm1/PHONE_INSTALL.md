@@ -1,4 +1,4 @@
-# Pastel FM-1 — Liquid Edition v0.7 — Animal Sequencer and 128 built-in FM-1 presets · Android phone installation
+# Pastel FM-1 — Liquid Edition v0.8 — Instant Factory 128 + Animal Sequencer · Android phone installation
 
 **Pastel.fwsc is the firmware file. Do not unzip or rename it.** An M-VAVE FM-1 uses USB-MIDI firmware transfer, not drag-and-drop file sync or Bluetooth.
 
@@ -18,3 +18,5 @@ For the exact limits of the SLOOP/ChoralRoot feature hybrid, see [HYBRID.md](HYB
 **v0.4 check:** The firmware download should be approximately **698 KB**, not the old ~669 KB v0.3. Remove the older imported copy from FM-1 Swap if you can't tell which is which, and IMPORT the freshly downloaded file. The updated firmware says **Pastel v0.4** in its menu. Always TRY before FLASH; device hardware is untested.
 
 **v0.7:** After a verified successful new build and firmware installation, choose **PRESETS → FM6** on the device to play the original 128 M-VAVE FM-1 factory voices directly. No ZIP or SysEx import is needed. Original FM6 indices 0–24 and user sounds are preserved; 128 new sounds begin at index 25. The firmware is not hardware-validated; always TRY and back up before FLASH. The updater's firmware version should say Pastel v0.7; do not install an older download expecting built-in presets.
+
+**Instant original presets (v0.8):** On the Stage screen, press **SAVE** once to open **FM1 FACTORY**. Turn the physical **PRESETS** encoder to preview the 128 original voices directly, shown as 1/128 through 128/128. Press **OCT+** to keep the sound and return home. Press **SAVE again** from this browser to open USER preset storage; subsequent presses reach PROJECT. These are built into the firmware: no separate SysEx import or external app setup is needed. This only works after downloading and installing a *verified published v0.8* binary. Other engines remain in LIST → ALL.
