@@ -29,7 +29,7 @@ const sexFields=[
 ];
 let draft={};try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&typeof x==='object'&&!Array.isArray(x))draft=x}catch{}
 const selectedPsych=new Set(),selectedSex=new Set();
-let showPsych=false,showSex=false,panel=null,preview=null,message=null;
+let showPsych=false,showSex=false,showToys=false,panel=null,preview=null,message=null;
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(draft))}catch{if(message)message.textContent='Local storage is full. Copy your text somewhere safe.'}}
 function summaryData(){return window.AfterDarkCanonicalReport?.buildData?.()||null;}
 function selectedQuestions(data){return(data?.psych?.questions||[]).filter(q=>q.selected?.length).map(q=>({
@@ -112,6 +112,30 @@ function content(){
    for(const x of selected){const c=make('article',undefined,'partner-report-card');
     add(c,'p',x.label,'partner-report-status');add(c,'h3',x.title);if(x.description)add(c,'p',x.description);sex.append(c);included++;}
   }
+  // A SECOND opt-in beyond the broader intimate-content switch.
+  // A general sexual disclosure cannot silently reveal toy suggestions.
+  if(showToys){
+   const toyIdeas=window.UnwrappedToyLibrary?.recommend?.(data)||[];
+   if(toyIdeas.length){
+    const toys=section('03A · Specific toy topics I elected to share',
+     'Only directly supported interests appear, with anatomy-specific and partner-use guidance. Fantasy-only remains reading-only. This is not an invitation to use anything.');
+    const fit=window.UnwrappedToyLibrary?.fitLabels||{};
+    for(const item of toyIdeas){
+     const c=make('article',undefined,'partner-report-card toy-report-rec');
+     add(c,'p',item.mode,'partner-report-status');
+     add(c,'h3',item.name);
+     add(c,'p',item.why);
+     if(item.evidence?.length)add(c,'p','Relevant quiz selection: '+item.evidence[0],'partner-pdf-muted');
+     if(item.bodyUses){
+      add(c,'p','Male anatomy: '+(fit[item.bodyUses.male.fit]||item.bodyUses.male.fit)+' — '+item.bodyUses.male.note,'partner-pdf-muted');
+      add(c,'p','Female anatomy: '+(fit[item.bodyUses.female.fit]||item.bodyUses.female.fit)+' — '+item.bodyUses.female.note,'partner-pdf-muted');
+      add(c,'p','With a partner: '+item.bodyUses.together,'partner-pdf-muted');
+     }
+     add(c,'p','Safety and comfort: '+item.safety,'partner-pdf-muted');
+     toys.append(c);included++;
+    }
+   }
+  }
  }
  const conversation=section('A conversation we could have','Suggested questions, not assumptions.');
  const prompts=[
@@ -168,13 +192,24 @@ function mount(){
  const sexual=make('details',undefined,'new-partner-options');add(sexual,'summary','Add an intimate / sexual introduction (optional)');
  const toggleSex=make('label',undefined,'new-partner-toggle');
  const sc=document.createElement('input');sc.type='checkbox';sc.checked=false;
- sc.addEventListener('change',()=>{showSex=sc.checked;if(preview)preview.hidden=true;});
+ sc.addEventListener('change',()=>{showSex=sc.checked;if(!showSex){showToys=false;if(toyChoice)toyChoice.checked=false;}if(preview)preview.hidden=true;});
  toggleSex.append(sc,make('span','Yes, include sexual details I explicitly write or select'));sexual.append(toggleSex);
  add(sexual,'p','Sexual interests are never included unless this switch is on and you choose individual interests below. Unconfirmed recommendations and Not for me topics are never shared.','new-partner-muted');
  const sexualNotes=make('div',undefined,'new-partner-fields');
  for(const [id,title,placeholder] of sexFields)draftField(sexualNotes,'sex-'+id,title,placeholder);
  sexual.append(sexualNotes);
- const st=make('div',undefined,'new-partner-choices');sexual.append(st);panel.append(sexual);
+ const st=make('div',undefined,'new-partner-choices');sexual.append(st);
+ const toyDisclosure=make('div',undefined,'new-partner-toy-choice');
+ const toyLabel=make('label',undefined,'new-partner-toggle');
+ const toyChoice=document.createElement('input');toyChoice.type='checkbox';toyChoice.checked=false;toyChoice.value='toy-guidance';toyChoice.id='new-partner-share-toys';
+ toyChoice.addEventListener('change',()=>{
+  if(toyChoice.checked&&!sc.checked){sc.checked=true;showSex=true;}
+  showToys=toyChoice.checked;if(preview)preview.hidden=true;
+ });
+ toyLabel.append(toyChoice,make('span','Separately include toy-type suggestions and male/female/partner comparisons in my introduction'));
+ toyDisclosure.append(toyLabel);
+ add(toyDisclosure,'p','OFF by default. Includes only categories linked to my directly selected interests, with source answers and relevant safety. Fantasy-only stays reading-only. Nothing is sent automatically.','new-partner-muted');
+ sexual.append(toyDisclosure);panel.append(sexual);
  const actions=make('div',undefined,'new-partner-actions');
  actions.append(btn('Preview this introduction',doPreview,'btn alt'));
  actions.append(btn('Save the introduction as PDF',print,'btn'));
