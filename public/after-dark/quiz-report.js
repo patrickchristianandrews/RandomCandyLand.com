@@ -205,7 +205,7 @@ function build(){
  const doc=el('div',undefined,'afterdark-detailed-report');
  doc.setAttribute('data-report-version','4');
  const cover=el('header',undefined,'report-cover');
- add(cover,'p','THE OTHER DRAWER · WHAT DESIRES REVEAL ABOUT US','report-kicker');
+ add(cover,'p','UNWRAPPED · WHAT MY ANSWERS REVEAL','report-kicker');
  add(cover,'h1','My Interests & Psychology Report');
  add(cover,'p','A closer look at what interests you, the themes behind your answers, and the questions worth exploring further. Your choices stay yours.','report-lead');
  add(cover,'p','Prepared '+new Date(data.created).toLocaleDateString()+' · Private / for personal reflection','report-muted');
@@ -219,7 +219,7 @@ function build(){
  cover.append(coverStats);
  const roadmap=el('div',undefined,'report-roadmap');
  add(roadmap,'strong','INSIDE YOUR REPORT');
- add(roadmap,'p','Your Answers, Unwrapped · Full psychology connection matrix · Linked subthemes and original answers · How both quizzes connect · Interest-by-interest profiles · Optional sex toy guide suggestions · Conversation guides · Original selections');
+ add(roadmap,'p','Your Answers, Unwrapped · Whole-person synthesis across everyday life and intimacy · Multiple psychological perspectives · Theme interplay and apparent contradictions · Evidence-linked connection matrix · Communication scripts and practical experiments · Interest and boundary profiles · Conversation guides · Original 101-question answer records · Explanation and limitations');
  cover.append(roadmap);
  doc.append(cover);
  const overview=section(doc,'01 · Your Answers, Unwrapped');
