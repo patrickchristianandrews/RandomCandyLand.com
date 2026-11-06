@@ -152,6 +152,10 @@ function compactReport(root){
  root.querySelectorAll('.report-cross-more').forEach(detail=>detail.remove());
  const pairs=[...root.querySelectorAll('.report-cross-pair-table tbody tr')];
  for(const row of pairs.slice(12))row.remove();
+ // Main summary needs only the most useful themes; the expanded edition
+ // includes every thread and sub-pattern with supporting evidence.
+ for(const item of [...root.querySelectorAll('.report-whole-person .report-person-thread')].slice(3))item.remove();
+ for(const item of [...root.querySelectorAll('.report-whole-person .report-person-weave')].slice(3))item.remove();
  const sections=[...root.querySelectorAll('section.report-section')];
  const activities=sections.find(el=>el.querySelector('h2')?.textContent.startsWith('Your selected activities and how they intersect'));
  if(activities){
@@ -207,6 +211,36 @@ function compactReport(root){
     add(list,'li','',title);
    }
    interests.append(summary);
+  }
+ }
+ const unconfirmed=sections.find(el=>el.querySelector('h2')?.textContent.startsWith('05'));
+ if(unconfirmed){
+  const grouped=unconfirmed.querySelector('.report-unconfirmed-collection');
+  if(grouped){
+   const detailed=[...grouped.querySelectorAll('article.report-interest')];
+   if(detailed.length){
+    const brief=make('div','report-readable-remaining');
+    add(brief,'h4','','Unconfirmed possibilities for reading');
+    add(brief,'p','report-muted','These are not declared preferences. The expanded report contains their individual analyses.');
+    const list=add(brief,'ul','');
+    for(const original of detailed){
+     add(list,'li','',(original.querySelector('h3')?.textContent||'Unconfirmed topic')+' · unconfirmed');
+     original.remove();
+    }
+    grouped.append(brief);
+   }
+  }
+  const discover=[...unconfirmed.querySelectorAll('article.report-discover-card')];
+  if(discover.length){
+   const brief=make('div','report-readable-remaining');
+   add(brief,'h4','','Other optional topics to consider');
+   const list=add(brief,'ul','');
+   for(const original of discover){
+    add(list,'li','',(original.querySelector('h5')?.textContent||'Optional topic')+' · not a declared interest');
+    original.remove();
+   }
+   const rootList=unconfirmed.querySelector('.report-discover')||unconfirmed;
+   rootList.append(brief);
   }
  }
  const note=make('p','report-muted','READABLE EDITION · Prioritizes practical insights and key supporting examples. Full questionnaire responses remain in the appendices; an expanded evidence edition is available separately.');
