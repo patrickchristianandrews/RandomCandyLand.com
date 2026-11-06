@@ -156,9 +156,9 @@ function compactReport(root){
  const activities=sections.find(el=>el.querySelector('h2')?.textContent.startsWith('Your selected activities and how they intersect'));
  if(activities){
   const answers=[...activities.querySelectorAll(':scope > article.report-answer')];
-  for(const card of answers.slice(12))card.remove();
-  if(answers.length>12){
-   const note=make('p','report-muted','Showing 12 examples here to prevent repetition. All original question responses remain in Appendices A and B.');
+  for(const card of answers.slice(5))card.remove();
+  if(answers.length>5){
+   const note=make('p','report-muted','Showing five representative selections here to prevent repetition. All original question responses remain in Appendices A and B.');
    activities.append(note);
   }
  }
@@ -166,6 +166,35 @@ function compactReport(root){
  if(interests){
   const profiles=[...interests.querySelectorAll(':scope > article.report-interest')];
   const extra=profiles.slice(8);
+  // One readable, answer-linked profile instead of repeating an entire
+  // multi-page chapter for each interest. Full evidence is still in the
+  // separately available expanded edition and original-answer appendices.
+  for(const original of profiles.slice(0,8)){
+   const card=make('article','report-interest report-interest-readable');
+   const title=original.querySelector('h3')?.textContent||'Selected interest';
+   add(card,'p','report-kicker','PERSONAL INTEREST · READABLE PROFILE');
+   add(card,'h3','',title);
+   const status=original.querySelector('.report-status')?.textContent;
+   if(status)add(card,'p','report-status',status);
+   const lead=original.querySelector('.report-lead')?.textContent;
+   if(lead)add(card,'p','',lead);
+   const sections=[...original.querySelectorAll(':scope > h4')];
+   const following=label=>sections.find(x=>x.textContent.includes(label))?.nextElementSibling?.textContent||'';
+   const reason=following('What the results actually indicate');
+   const psychology=following('The psychology tied');
+   if(reason)add(card,'p','',reason);
+   if(psychology)add(card,'p','',psychology);
+   const proof=[...original.querySelectorAll('.report-evidence li')].slice(0,2);
+   if(proof.length){
+    add(card,'strong','','Examples from my actual answers');
+    const list=add(card,'ul','report-evidence');
+    for(const item of proof)add(list,'li','',item.textContent.trim().replace(/\\s+/g,' ').slice(0,360));
+   }
+   const script=original.querySelector('.report-script')?.textContent;
+   if(script)add(card,'p','report-script',script);
+   add(card,'p','report-muted','For further evidence, original answers and personal notes, see the appendices or select the expanded report. Curiosity and fantasy are not consent.');
+   original.replaceWith(card);
+  }
   for(const item of extra)item.remove();
   if(extra.length){
    const summary=make('div','report-readable-remaining');
