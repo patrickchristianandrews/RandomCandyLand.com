@@ -92,6 +92,12 @@ function preparePrintableReport(){
  const report=window.AfterDarkDetailedReport.build();
  if(!report?.querySelector('.report-visual-dashboard')||!report?.querySelector('.report-deep-connections'))
   throw Error('Real report lacks visual dashboard or comprehensive connections');
+ const holistic=report.querySelector('.report-whole-person');
+ if(!holistic||holistic.querySelectorAll('.report-person-thread').length<3||
+    holistic.querySelectorAll('.report-person-weave').length<2||
+    holistic.querySelectorAll('.report-person-day').length!==7||
+    !/A gentle way to share my results/.test(holistic.textContent))
+  throw Error('Full report omitted the integrated psychological story, source-linked perspectives, conversation script or reflection plan');
  const connectionRows=report.querySelectorAll('.report-cross-matrix tbody tr').length;
  const subConnections=report.querySelectorAll('.report-cross-pair-table tbody tr').length;
  const topics=report.querySelectorAll('.report-cross-topic').length;
@@ -108,7 +114,11 @@ function preparePrintableReport(){
  document.body.className='print-notebook print-detailed-report ad-entered';document.body.replaceChildren(main);
  for(const detail of main.querySelectorAll('.report-deep-connections details'))detail.open=true;
  window.scrollTo(0,0);
- return{themes:connectionRows,subConnections,topics,htmlLength:report.outerHTML.length,complete:/69\s*\/\s*69/.test(report.textContent)};
+ return{themes:connectionRows,subConnections,topics,
+  synthesisThreads:holistic.querySelectorAll('.report-person-thread').length,
+  multiThemePatterns:holistic.querySelectorAll('.report-person-weave').length,
+  communicationSteps:holistic.querySelectorAll('.report-person-step').length,
+  htmlLength:report.outerHTML.length,complete:/69\s*\/\s*69/.test(report.textContent)};
 }
 
 
