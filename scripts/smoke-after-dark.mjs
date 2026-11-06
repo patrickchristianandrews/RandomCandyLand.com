@@ -350,7 +350,7 @@ try{
      "(()=>{const areas=document.querySelectorAll('#new-partner-report .new-partner-choices');return areas.length===2&&[...areas].every(x=>x.querySelector('input[type=checkbox]'))})()");
    await evaluate("(()=>{const n=document.querySelector('#new-partner-report');const fields=n.querySelectorAll('.new-partner-choice input');const toggles=n.querySelectorAll('.new-partner-toggle input');toggles[0].click();toggles[1].click();const details=n.querySelectorAll('.new-partner-choices');details.forEach(x=>x.querySelector('input')?.click());})()");
    await check('New partner report only discloses separately opted-in psych and sexual interests',
-     "(()=>{const x=window.AfterDarkNewPartnerReport.build();return x.textContent.includes('Some everyday answers I chose to show you')&&x.textContent.includes('Intimacy and what I choose to share')&&x.querySelectorAll('.partner-report-card').length===2})()");
+     "(()=>{const x=window.AfterDarkNewPartnerReport.build();return x.textContent.includes('Some everyday answers I chose to show you')&&x.textContent.includes('Intimacy and what I choose to share')&&x.querySelectorAll('.partner-report-card').length>=2&&!x.textContent.includes('Specific toy topics I elected to share')})()");
    await check('Selective partner PDF uses visual tables only for sections approved for sharing',
      "(()=>{const r=window.AfterDarkPartnerPDF.build();return !!r.querySelector('.report-visual-partner-progress')&&!!r.querySelector('.report-visual-matrix')&&!!r.querySelector('.report-visual-named .report-visual-table')&&!r.textContent.includes('My exact quiz answers')&&!r.textContent.includes('My personal notes')})()");
    await check('New-partner report adds a compact table only from the personal communication text entered',
