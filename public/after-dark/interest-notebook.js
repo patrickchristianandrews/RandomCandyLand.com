@@ -154,7 +154,7 @@
     if(!rows.length){setStatus('Save at least one interest before printing your notebook.');return;}
     putPrint('My Private Interest Notebook','Personal reflection · Not a diagnosis · Choose “Save as PDF” in your print dialog.',rows);
   }
-  function printQuiz(resultCardId='quizCard'){
+  function printQuiz(resultCardId='quizCard',mode='readable'){
     const data=window.AfterDarkCanonicalReport?.buildData?.();
     if(!data?.direct?.answered&&!data?.psych?.answered){
       setStatus('Answer at least one question before creating a PDF report.');return;
@@ -163,8 +163,9 @@
     try{report=window.AfterDarkDetailedReport?.build?.();}
     catch(error){console.error('Could not create detailed quiz report',error);}
     if(!report){
-      setStatus('Detailed report could not be prepared. Reload The Other Drawer and try again.');return;
+      setStatus('Detailed report could not be prepared. Reload Unwrapped and try again.');return;
     }
+    if(mode!=='full')window.UnwrappedReportConnections?.compactReport?.(report);
     let doc=$('print-document');
     if(!doc){doc=item('div');doc.id='print-document';document.body.append(doc);}
     doc.replaceChildren(report);
