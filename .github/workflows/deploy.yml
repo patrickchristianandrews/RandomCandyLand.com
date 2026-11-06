@@ -84,7 +84,11 @@ jobs:
         run: bun run build
 
       - name: Generate two complete fictional 101-answer Unwrapped reports from the actual browser engine
-        run: node scripts/generate-unwrapped-demo-reports.mjs
+        run: |
+          node --check scripts/generate-unwrapped-demo-reports.mjs
+          node scripts/generate-unwrapped-demo-reports.mjs
+          test -s dist/after-dark/report-samples/complete-rowan-personal-report.pdf
+          test -s dist/after-dark/report-samples/complete-ellis-personal-report.pdf
 
       - name: Validate After Dark scripts and all published pages
         run: node scripts/check-public-pages.mjs
