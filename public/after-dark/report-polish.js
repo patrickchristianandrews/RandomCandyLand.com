@@ -292,6 +292,8 @@
   window.AfterDarkReportVisuals?.enhancePersonal?.(doc,data);
   // All confirmed topics, all coded themes and evidence-backed sub-connections.
   window.UnwrappedReportConnections?.enhancePersonal?.(doc,data);
+  // Insert the grounded network view and practical next steps before PDF export.
+  window.UnwrappedReportWeb?.enhancePersonal?.(doc,data);
   // Integrative reading follows the personal overview and precedes the
   // detailed evidence matrix. Give one whole-person explanation, not a list of labels.
   try{window.UnwrappedWholePerson?.enhancePersonal?.(doc,data)}
