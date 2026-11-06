@@ -292,6 +292,10 @@
   window.AfterDarkReportVisuals?.enhancePersonal?.(doc,data);
   // All confirmed topics, all coded themes and evidence-backed sub-connections.
   window.UnwrappedReportConnections?.enhancePersonal?.(doc,data);
+  // Integrative reading follows the personal overview and precedes the
+  // detailed evidence matrix. Give one whole-person explanation, not a list of labels.
+  try{window.UnwrappedWholePerson?.enhancePersonal?.(doc,data)}
+  catch(error){console.warn('Whole-person narrative unavailable:',error)}
   if(window.AfterDarkReportQR?.create)doc.append(window.AfterDarkReportQR.create());
   const guidance=[...doc.children].find(x=>x.matches?.('section')&&x.querySelector('h2')?.textContent.startsWith('07'));
   if(guidance){
