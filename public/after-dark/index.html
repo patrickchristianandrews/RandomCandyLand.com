@@ -1177,9 +1177,12 @@ function showResults(targetId='quizCard'){
     }));
   };
   beyond.append(b,extra);box.append(beyond);
-  const pdf=elText('button','📄 Save quiz results as PDF','btn');
-  pdf.addEventListener('click',()=>window.InterestNotebook?.printQuiz(targetId));
-  box.append(pdf);
+  const pdf=elText('button','📄 Save readable report as PDF','btn');
+  pdf.addEventListener('click',()=>window.InterestNotebook?.printQuiz(targetId,'readable'));
+  const fullPdf=elText('button','Expanded evidence report (long)','btn alt');
+  fullPdf.addEventListener('click',()=>window.InterestNotebook?.printQuiz(targetId,'full'));
+  fullPdf.title='Includes every individual theme and topic deep-dive. Recommended only if you want the long evidence version.';
+  box.append(pdf,fullPdf);
   // Partner copy: choose the sections rather than sending the whole private report.
   window.AfterDarkPartnerPDF?.mount?.(box);
   const returnToQuiz=elText('button','← Review quiz answers','btn alt');
