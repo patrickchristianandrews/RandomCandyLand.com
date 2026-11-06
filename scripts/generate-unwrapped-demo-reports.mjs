@@ -249,6 +249,19 @@ async function uploadAndCompare(aText,bText){
 }
 
   const site='http://127.0.0.1:'+port;
+  // Print from a clean same-origin page, not the live quiz page: that page has
+  // print-cleanup handlers and asynchronous UI controllers that can clear the
+  // output while headless Chrome is making the PDF.
+  async function openIsolatedPrint(source,selector,bodyClass){
+    const snapshot=await source.evaluate("(()=>{const root=document.querySelector("+JSON.stringify(selector)+");return{html:root?.outerHTML||'',assets:[...document.head.querySelectorAll('link[rel=stylesheet],style')].map(x=>x.tagName==='LINK'?{type:'link',href:x.href}:{type:'style',css:x.textContent})}})()");
+    if(snapshot.html.length<5000)throw Error('Cannot isolate a completed printable report: '+selector+' / '+snapshot.html.length);
+    const printer=await navigate(site+'/after-dark/report-samples/');
+    const result=await printer.evaluate("(async()=>{const snapshot="+JSON.stringify(snapshot)+";document.head.querySelectorAll('style,link[rel=stylesheet]').forEach(x=>x.remove());const links=[];for(const asset of snapshot.assets){if(asset.type==='style'){const s=document.createElement('style');s.textContent=asset.css;document.head.append(s)}else{const link=document.createElement('link');link.rel='stylesheet';link.href=asset.href;links.push(new Promise(resolve=>{link.onload=resolve;link.onerror=resolve}));document.head.append(link)}}document.body.className="+JSON.stringify(bodyClass)+";document.body.innerHTML=snapshot.html;await Promise.all(links);await document.fonts.ready;window.scrollTo(0,0);const root=document.querySelector("+JSON.stringify(selector)+");return{length:root?.textContent?.length||0,height:root?.getBoundingClientRect()?.height||0,display:root?getComputedStyle(root).display:null}})()");
+    if(result.length<5000||result.display==='none'||result.height<100)
+      throw Error('Isolated printable report is not visible: '+JSON.stringify(result));
+    console.log('✓ Isolated printable report is visible: '+JSON.stringify(result));
+    return printer;
+  }
   const outputDir=path.join(root,'after-dark','report-samples');
   fs.mkdirSync(outputDir,{recursive:true});
   const audit=[];
@@ -269,24 +282,24 @@ async function uploadAndCompare(aText,bText){
     if(!shared.interests?.length)throw Error('No deliberately shared topics were exported');
     const prepared=await demo.evaluate('('+preparePrintableReport.toString()+')()');
     if(!prepared.complete)throw Error('Export omits full-quiz completion evidence: '+key);
-    await delay(300);
-    const printed=await demo.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,landscape:false,transferMode:'ReturnAsBase64'});
+    const printer=await openIsolatedPrint(demo,'#print-document','print-notebook print-detailed-report ad-entered');
+    const printed=await printer.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,landscape:false,transferMode:'ReturnAsBase64'});
     const bytes=Buffer.from(printed.data||'','base64');
     if(bytes.length<10000||bytes.subarray(0,5).toString()!=='%PDF-'){
-      const layout=await demo.evaluate("(()=>{const d=document.querySelector('#print-document');return{bodyHeight:document.body.scrollHeight,documentHeight:document.documentElement.scrollHeight,printElementPresent:!!d,printElementLength:d?.textContent?.length,printElementHeight:d?.getBoundingClientRect()?.height,printElementDisplay:d?getComputedStyle(d).display:null,bodyDisplay:getComputedStyle(document.body).display}})()");
+      const layout=await printer.evaluate("(()=>{const d=document.querySelector('#print-document');return{bodyHeight:document.body.scrollHeight,documentHeight:document.documentElement.scrollHeight,printElementPresent:!!d,printElementLength:d?.textContent?.length,printElementHeight:d?.getBoundingClientRect()?.height,printElementDisplay:d?getComputedStyle(d).display:null,bodyDisplay:getComputedStyle(document.body).display}})()");
       console.error('PDF diagnostics for '+key+': '+JSON.stringify({layout,prepared,printedKeys:Object.keys(printed||{}),encodedCharacters:printed.data?.length||0,pdfBytes:bytes.length,pdfPrefix:bytes.subarray(0,25).toString('latin1')}));
       if(bytes.length>0)fs.writeFileSync(path.join(outputDir,'failed-'+key+'-diagnostic.pdf'),bytes);
       throw Error('PDF blank or invalid for '+key);
     }
     const file='complete-'+key+'-personal-report.pdf';
     fs.writeFileSync(path.join(outputDir,file),bytes);
-    const coverImage=await demo.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+    const coverImage=await printer.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
     const png=Buffer.from(coverImage.data||'','base64');
     if(png.length<3500)throw Error('Complete PDF screenshot could not be captured');
     fs.writeFileSync(path.join(outputDir,'complete-'+key+'-report-preview.png'),png);
 
     // A new browser tab and cleared storage must successfully read the exported backup.
-    await demo.evaluate("localStorage.clear();sessionStorage.clear();true");
+    await printer.evaluate("localStorage.clear();sessionStorage.clear();true");
     const fresh=await navigate(site+'/after-dark/');
     await fresh.evaluate("document.querySelector('#enter')?.click();true");
     const imported=await fresh.evaluate('('+verifyRealImport.toString()+')('+JSON.stringify(exports.privateJSON)+')');
@@ -302,8 +315,8 @@ async function uploadAndCompare(aText,bText){
   const merged=await comparing.evaluate('('+uploadAndCompare.toString()+')('+JSON.stringify(selectedFiles[0])+','+JSON.stringify(selectedFiles[1])+')');
   const compareImage=await comparing.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
   fs.writeFileSync(path.join(outputDir,'rowan-ellis-comparison-preview.png'),Buffer.from(compareImage.data,'base64'));
-  await comparing.evaluate("window.addEventListener('afterprint',event=>event.stopImmediatePropagation(),{capture:true});document.body.classList.add('print-unwrapped-comparison');true");
-  const mergedPDF=await comparing.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,
+  const comparisonPrinter=await openIsolatedPrint(comparing,'#notebook','print-unwrapped-comparison ad-entered');
+  const mergedPDF=await comparisonPrinter.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,
     displayHeaderFooter:false,landscape:false,transferMode:'ReturnAsBase64'});
   const mergedBytes=Buffer.from(mergedPDF.data||'','base64');
   if(mergedBytes.length<6000||mergedBytes.subarray(0,5).toString()!=='%PDF-')
