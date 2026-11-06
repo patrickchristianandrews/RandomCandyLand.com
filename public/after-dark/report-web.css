@@ -97,3 +97,21 @@
   font-size:8.5pt!important;line-height:1.36!important
  }
 }
+
+/* Personalized next-step cards, no oversized blank gutters. */
+.unwrapped-web-practical-title{font:700 18px Georgia,serif!important;margin:13px 0 8px!important;color:#51345e}
+.unwrapped-web-interest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0}
+.unwrapped-web-interest{background:#fbf7fd;border:1px solid #dfcfdf;border-radius:12px;padding:12px 14px;break-inside:avoid}
+.unwrapped-web-interest h4{font:700 15px Georgia,serif;color:#4c2e58;margin:0 0 5px}
+.unwrapped-web-interest small{display:block;color:#87587b;font-weight:750;margin-bottom:7px}
+.unwrapped-web-interest p{font:12px/1.46 Arial,sans-serif;margin:5px 0;color:#53455d}
+@media(max-width:560px){.unwrapped-web-interest-grid{grid-template-columns:1fr}}
+@media print{
+ body.print-notebook.print-detailed-report #print-document .unwrapped-web-interest-grid{
+  grid-template-columns:1fr 1fr!important;gap:3mm!important;margin:2mm 0!important
+ }
+ body.print-notebook.print-detailed-report #print-document .unwrapped-web-interest{padding:3mm!important}
+ body.print-notebook.print-detailed-report #print-document .unwrapped-web-interest h4{font-size:10pt!important;margin:0 0 1mm!important}
+ body.print-notebook.print-detailed-report #print-document .unwrapped-web-interest p{font-size:8.3pt!important;line-height:1.36!important;margin:1mm 0!important}
+ body.print-notebook.print-detailed-report #print-document .unwrapped-web-interest small{font-size:7pt!important}
+}
