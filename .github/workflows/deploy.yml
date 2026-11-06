@@ -89,16 +89,24 @@ jobs:
           node scripts/generate-unwrapped-demo-reports.mjs
           test -s dist/after-dark/report-samples/complete-rowan-personal-report.pdf
           test -s dist/after-dark/report-samples/complete-ellis-personal-report.pdf
+          test -s dist/after-dark/report-samples/complete-rowan-ellis-comparison.pdf
+          test -s dist/after-dark/report-samples/fictional-browser-journey-evidence.json
 
-      - name: Preserve the two complete fictional Unwrapped PDFs as downloadable build artifacts
+      - name: Preserve fictional 101-question journeys, report renders and combined PDF evidence
+        if: always()
+        uses: actions/upload-artifact@v4
         uses: actions/upload-artifact@v4
         with:
           name: Unwrapped-Complete-Sample-Reports
           path: |
             dist/after-dark/report-samples/complete-rowan-personal-report.pdf
             dist/after-dark/report-samples/complete-ellis-personal-report.pdf
+            dist/after-dark/report-samples/complete-rowan-ellis-comparison.pdf
             dist/after-dark/report-samples/fictional-full-quiz-audit.json
-          if-no-files-found: error
+            dist/after-dark/report-samples/fictional-browser-journey-evidence.json
+            dist/after-dark/report-samples/*-report-preview.png
+            dist/after-dark/report-samples/rowan-ellis-comparison-preview.png
+          if-no-files-found: warn
           retention-days: 30
 
       - name: Validate After Dark scripts and all published pages
@@ -254,6 +262,12 @@ jobs:
                 -H "Cache-Control: no-cache" "$base/after-dark/report-samples/?release=$EXPECTED_RELEASE" || true)
               if [[ "$samplePage" != *"complete-rowan-personal-report.pdf"* || "$samplePage" != *"complete-ellis-personal-report.pdf"* ]]; then
                 echo "::warning::The new Unwrapped fictional report links are not live on this Pages URL."
+                exit 1
+              fi
+              comparisonUrl="$base/after-dark/report-samples/complete-rowan-ellis-comparison.pdf?release=$EXPECTED_RELEASE"
+              comparisonHeader=$(curl --fail --silent --show-error --location --range 0-4 --max-time 15 "$comparisonUrl" || true)
+              if [[ "${comparisonHeader:0:5}" != "%PDF-" ]]; then
+                echo "::warning::The merged Rowan + Ellis demonstration PDF is unavailable on the published site."
                 exit 1
               fi
               for person in rowan ellis; do
