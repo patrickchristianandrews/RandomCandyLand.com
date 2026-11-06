@@ -90,6 +90,17 @@ jobs:
           test -s dist/after-dark/report-samples/complete-rowan-personal-report.pdf
           test -s dist/after-dark/report-samples/complete-ellis-personal-report.pdf
 
+      - name: Preserve the two complete fictional Unwrapped PDFs as downloadable build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Unwrapped-Complete-Sample-Reports
+          path: |
+            dist/after-dark/report-samples/complete-rowan-personal-report.pdf
+            dist/after-dark/report-samples/complete-ellis-personal-report.pdf
+            dist/after-dark/report-samples/fictional-full-quiz-audit.json
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Validate After Dark scripts and all published pages
         run: node scripts/check-public-pages.mjs
 
@@ -194,8 +205,24 @@ jobs:
           echo "Pages source: $build_type"
           echo "Custom domain: $cname"
           if [[ "$build_type" == "legacy" ]]; then
-            echo "::error::GitHub Pages is still configured to deploy from a branch. Switch Settings > Pages > Build and deployment > Source to GitHub Actions."
-            exit 1
+            echo "GitHub Pages uses the legacy branch source; attempting to switch it to GitHub Actions."
+            # Changing Pages settings requires Pages + Administration write permission,
+            # which may not be granted to the workflow's GITHUB_TOKEN.
+            # Do not alter the repository's custom domain, CNAME or HTTPS settings.
+            status=$(curl --silent --show-error --location --max-time 25 -o /tmp/pages-update-response.json -w '%{http_code}' \
+              -X PUT \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2026-03-10" \
+              -d '{"build_type":"workflow"}' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages") || status="000"
+            if [[ "$status" != "204" ]]; then
+              echo "::error::GitHub Pages remains in branch-source mode (API status: ${status})."
+              echo "::error::GitHub Actions cannot override repository administration permissions. Repository owner: Settings → Pages → Build and deployment → Source → GitHub Actions."
+              if [[ "$status" == "403" ]]; then echo "::error::This GitHub Actions token lacks permission to change Pages source."; fi
+              exit 1
+            fi
+            echo "::notice::GitHub Pages source updated to GitHub Actions."
           fi
       - name: Publish newest site over the old version
         id: deployment
@@ -223,6 +250,21 @@ jobs:
               -H "Cache-Control: no-cache" \
               "$base/release-id.txt?release=$EXPECTED_RELEASE&attempt=$attempt" || true)
             if [[ "$current" == "$EXPECTED_RELEASE" ]]; then
+              samplePage=$(curl --fail --silent --show-error --location --max-time 12 \
+                -H "Cache-Control: no-cache" "$base/after-dark/report-samples/?release=$EXPECTED_RELEASE" || true)
+              if [[ "$samplePage" != *"complete-rowan-personal-report.pdf"* || "$samplePage" != *"complete-ellis-personal-report.pdf"* ]]; then
+                echo "::warning::The new Unwrapped fictional report links are not live on this Pages URL."
+                exit 1
+              fi
+              for person in rowan ellis; do
+                pdfUrl="$base/after-dark/report-samples/complete-${person}-personal-report.pdf?release=$EXPECTED_RELEASE"
+                header=$(curl --fail --silent --show-error --location --range 0-4 --max-time 15 "$pdfUrl" || true)
+                # Some Pages proxies serve an entire PDF even for a range request.
+                if [[ "${header:0:5}" != "%PDF-" ]]; then
+                  echo "::warning::The live ${person} PDF is missing or not a valid PDF."
+                  exit 1
+                fi
+              done
               for route in moodropolis the-corridors the-docket; do
                 page=$(curl --fail --silent --show-error --location --max-time 12 \
                   -H "Cache-Control: no-cache" "$base/$route/?release=$EXPECTED_RELEASE" || true)
