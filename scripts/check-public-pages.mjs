@@ -816,7 +816,7 @@ if(standaloneHtml.includes('haveibeenpwned.com')||standaloneHtml.includes('looku
  console.error('Identity Lab includes a paid or non-open/free-only tool listing.');failures++;
 }
 if(traceHtml.includes('profile-review.js')||!traceHtml.includes('Evidence Files')||
-   !standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('/identity-lab/')){
+   !standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('/app-manifests/identity-lab.webmanifest')){
  console.error('Self-research must live outside the TRACE training game.'); failures++;
 }
 if(fs.existsSync('dist/osint-academy/profile-review.js')){
