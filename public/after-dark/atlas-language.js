@@ -43,7 +43,7 @@ const aliases={
  'spit play':'saliva spitting','spitting':'saliva spitting','sweat fetish':'sweat body scent',
  'body odor':'body scent','bo fetish':'body scent','adult nursing':'adult nursing',
  'lactation fetish':'adult lactation','breast milk':'lactation',
- 'atlee':'atlas','ask atlee':'ask atlas'
+ 'ask mira':'help','mira':'help'
 };
 const replacements=Object.entries(aliases).sort((a,b)=>b[0].length-a[0].length);
 const stop=new Set('i me my myself am is are was were be being been we our us you your he she him her they them it its a an the do does did what why who how where when which can could should would might will for from this that those these like liking loved love enjoy enjoyed interest interested into in on to of with and or but so because about at as by someone something person people partner partners boyfriend girlfriend wife husband spouse relationship adult adults sex sexual kink fetish thing stuff things really very more certain specific kind types type some any also other just tell explain mean meaning please'.split(' '));
