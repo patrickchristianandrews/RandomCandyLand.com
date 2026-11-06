@@ -278,6 +278,12 @@ jobs:
                   exit 1
                 fi
               done
+              renderedUnwrapped=$(curl --fail --silent --show-error --location --max-time 12 \
+                -H "Cache-Control: no-cache" "$base/after-dark/?release=$EXPECTED_RELEASE" || true)
+              if [[ "$renderedUnwrapped" != *"Mira is Unwrapped"* || "$renderedUnwrapped" == *"Atlee is"* ]]; then
+                echo "::error::Pages may be serving an obsolete Unwrapped page; Mira branding is not live at this release."
+                exit 1
+              fi
               for route in moodropolis the-corridors the-docket; do
                 page=$(curl --fail --silent --show-error --location --max-time 12 \
                   -H "Cache-Control: no-cache" "$base/$route/?release=$EXPECTED_RELEASE" || true)
