@@ -12,17 +12,17 @@ const element=(tag,text,cls)=>{
 };
 function create(){
  const flyer=element('section',undefined,'afterdark-qr-section afterdark-methodology-last-page afterdark-share-flyer');
- flyer.setAttribute('aria-label','Last page: shareable flyer about The Other Drawer and QR code to the program');
+ flyer.setAttribute('aria-label','Last page: shareable flyer about Unwrapped and QR code to the program');
  const mast=element('div',undefined,'od-flyer-mast');
- mast.append(element('span','RANDOM CANDY LAND PRESENTS','od-flyer-eyebrow'));
- mast.append(element('span','THE OTHER DRAWER','od-flyer-brand'));
- mast.append(element('span','A SPACE TO EXPLORE. REFLECT. CONNECT.','od-flyer-tagline'));
+ mast.append(element('span','FROM RANDOM CANDY LAND','od-flyer-eyebrow'));
+ mast.append(element('span','UNWRAPPED','od-flyer-brand'));
+ mast.append(element('span','UNDERSTAND EVERY LAYER. APPRECIATE THE WHOLE PERSON.','od-flyer-tagline'));
  flyer.append(mast);
 
  const hero=element('div',undefined,'od-flyer-hero');
  hero.append(
   element('h2','Curious about what makes you, you?'),
-  element('p','The Other Drawer is an adults-only educational experience about attraction, interests, everyday psychology and relationships. Explore privately, understand yourself better, and find better ways to start meaningful conversations.')
+  element('p','Unwrapped is an adults-only educational experience about attraction, interests, everyday psychology and relationships. Explore privately, understand yourself better, and find better ways to start meaningful conversations.')
  );
  flyer.append(hero);
 
@@ -56,18 +56,18 @@ function create(){
  const message=element('div',undefined,'od-flyer-invite');
  message.append(element('span','PASS THE CURIOSITY ON','od-flyer-eyebrow'));
  message.append(element('h3','Know someone who might enjoy this?'));
- message.append(element('p','This page is yours to share. Hand this flyer to a friend, send them the website, or scan the QR code to explore The Other Drawer yourself.'));
+ message.append(element('p','This page is yours to share. Hand this flyer to a friend, send them the website, or scan the QR code to explore Unwrapped yourself.'));
  message.append(element('p','You choose what you answer and what you share. No partner gets your private answers automatically.','od-flyer-disclaimer'));
  const qr=element('div',undefined,'afterdark-qr-block od-flyer-qr');
  qr.append(element('strong','SCAN TO EXPLORE','od-flyer-scan'));
  const img=document.createElement('img');
  img.src='data:image/png;base64,'+png;
- img.alt='QR code linking to The Other Drawer on Random Candy Land';
+ img.alt='QR code linking to Unwrapped on Random Candy Land';
  img.width=190;img.height=190;img.decoding='sync';
  qr.append(img);
  const url=element('p',link,'afterdark-qr-url');qr.append(url);
  const anchor=document.createElement('a');anchor.href=link;anchor.rel='noopener noreferrer';
- anchor.textContent='Open The Other Drawer';qr.append(anchor);
+ anchor.textContent='Open Unwrapped';qr.append(anchor);
  end.append(message,qr);flyer.append(end);
  flyer.append(element('p','ADULT EDUCATION · SELF-REFLECTION · RESPECT · CONSENT · NO DIAGNOSES','od-flyer-footnote'));
  return flyer;
