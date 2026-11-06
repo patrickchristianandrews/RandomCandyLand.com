@@ -5,6 +5,18 @@ const append=(to,tag,cls,text)=>{const e=html(tag,cls,text);to.append(e);return 
 const svgNS='http://www.w3.org/2000/svg';
 const shape=(tag,attrs={},text)=>{const e=document.createElementNS(svgNS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));if(text!=null)e.textContent=String(text);return e};
 const norm=v=>String(v||'').trim().toLowerCase();
+const plainTheme=s=>({
+ 'chosen vulnerability':'Feeling safe opening up',
+ 'exploration & reward':'Curiosity and enjoyment',
+ 'agency & choice':'Personal choice and control',
+ 'closeness & reassurance':'Closeness and reassurance',
+ 'feeling seen':'Feeling noticed and appreciated',
+ 'sensory salience':'Sensations and comfort',
+ 'expectation and pacing':'Anticipation and timing',
+ 'visual and cultural codes':'Appearance, style and meaning',
+ 'fantasy and identity':'Imagination and self-expression'
+})[norm(s)]||String(s||'');
+
 function create({center='MY ANSWERS',themes=[],topics=[],intro='',bothLabel='Theme in both quizzes',selectedLabel='Interest you selected'}={}){
  const root=html('figure','unwrapped-web');
  append(root,'figcaption','unwrapped-web-title','The connections between your answers');
@@ -30,7 +42,7 @@ function create({center='MY ANSWERS',themes=[],topics=[],intro='',bothLabel='The
  const addNode=(n,type)=>{
   const w=type==='theme'?132:149,h=53,group=shape('g',{class:'web-node '+type});
   group.append(shape('rect',{x:n.x-w/2,y:n.y-h/2,width:w,height:h,rx:12}));
-  const words=String(n.label).split(/\s+/),lines=[''];for(const word of words){
+  const words=String(type==='theme'?plainTheme(n.label):n.label).split(/\s+/),lines=[''];for(const word of words){
    let last=lines.length-1;if(lines[last]&&lines[last].length+word.length+1>(type==='theme'?19:20))lines.push(word);
    else lines[last]+=(lines[last]?' ':'')+word;
   }
@@ -77,7 +89,7 @@ function personal(d){
  for(const key of keys.slice(0,4)){
   const [reflect,act]=prompts[key]||['Notice when this theme comes up in everyday situations.','Ask a trusted person what this theme means to them.'];
   const card=append(steps,'article','unwrapped-web-step');
-  append(card,'h4','',d.lenses[key].label||key);
+  append(card,'h4','',plainTheme(d.lenses[key].label||key));
   append(card,'p','','Understand: '+reflect);
   append(card,'p','','Try: '+act);
   const evidence=[...direct.map(q=>({...q,quiz:'Preferences'})),...psych.map(q=>({...q,quiz:'Everyday'}))].find(q=>(q.selected||[]).some(v=>(v.axes||[]).includes(key)));
@@ -92,7 +104,7 @@ function personal(d){
    append(card,'h4','',item.name);
    const state=item.directSelection===2?'Marked Interested':item.directSelection===1?'Marked Curious':'Named in an answer';
    append(card,'small','',state+' · not an obligation to act');
-   const tags=(item.themeTags||[]).map(k=>d.lenses?.[k]?.label).filter(Boolean).slice(0,3);
+   const tags=(item.themeTags||[]).map(k=>plainTheme(d.lenses?.[k]?.label)).filter(Boolean).slice(0,3);
    if(tags.length)append(card,'p','','Related themes in my answers: '+tags.join(', ')+'. These are possible connections, not known causes.');
    const activity=Array.isArray(item.activities)?item.activities.find(x=>typeof x==='string'&&x.length>15):null;
    if(item.warn)append(card,'p','','A next step: stay with education or fictional reflection, and get appropriate safety information. There is no need to try a higher-risk activity.');
