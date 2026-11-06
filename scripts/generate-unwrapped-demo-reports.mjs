@@ -268,7 +268,12 @@ async function uploadAndCompare(aText,bText){
     await delay(300);
     const printed=await demo.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,landscape:false,transferMode:'ReturnAsBase64'});
     const bytes=Buffer.from(printed.data||'','base64');
-    if(bytes.length<10000||bytes.subarray(0,5).toString()!=='%PDF-')throw Error('PDF blank or invalid for '+key);
+    if(bytes.length<10000||bytes.subarray(0,5).toString()!=='%PDF-'){
+      const layout=await demo.evaluate("(()=>{const d=document.querySelector('#print-document');return{bodyHeight:document.body.scrollHeight,documentHeight:document.documentElement.scrollHeight,printElementPresent:!!d,printElementLength:d?.textContent?.length,printElementHeight:d?.getBoundingClientRect()?.height,printElementDisplay:d?getComputedStyle(d).display:null,bodyDisplay:getComputedStyle(document.body).display}})()");
+      console.error('PDF diagnostics for '+key+': '+JSON.stringify({layout,prepared,printedKeys:Object.keys(printed||{}),encodedCharacters:printed.data?.length||0,pdfBytes:bytes.length,pdfPrefix:bytes.subarray(0,25).toString('latin1')}));
+      if(bytes.length>0)fs.writeFileSync(path.join(outputDir,'failed-'+key+'-diagnostic.pdf'),bytes);
+      throw Error('PDF blank or invalid for '+key);
+    }
     const file='complete-'+key+'-personal-report.pdf';
     fs.writeFileSync(path.join(outputDir,file),bytes);
     const coverImage=await demo.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
