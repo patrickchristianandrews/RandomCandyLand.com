@@ -30,7 +30,7 @@
  body.print-quiz,body.print-notebook{background:white!important;color:black!important}
  body.print-quiz>*:not(.shell),body.print-notebook>*:not(.shell){display:none!important}
  body.print-quiz .shell>*:not(main),body.print-notebook .shell>*:not(main){display:none!important}
- body.print-quiz main>*:not(#quiz),body.print-notebook main>*{display:none!important}
+ body.print-quiz main>*:not(#quiz),body.print-notebook main:not(#print-document)>*{display:none!important}
  body.print-quiz #quiz{display:block!important;margin:0!important;padding:0!important}
  body.print-quiz #quizCard{display:block!important;max-width:none!important}
  body.print-quiz #quizCard button,body.print-quiz .note,body.print-quiz #quizBelow{display:none!important}
