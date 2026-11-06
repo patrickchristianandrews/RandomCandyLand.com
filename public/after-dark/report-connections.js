@@ -192,7 +192,7 @@ function compactReport(root){
    if(proof.length){
     add(card,'strong','','Examples from my actual answers');
     const list=add(card,'ul','report-evidence');
-    for(const item of proof)add(list,'li','',item.textContent.trim().replace(/\s+/g,' ').slice(0,360));
+    for(const item of proof)add(list,'li','',(item.innerText||item.textContent).trim().replace(/\s+/g,' ').slice(0,360));
    }
    const script=original.querySelector('.report-script')?.textContent;
    if(script)add(card,'p','report-script',script);
