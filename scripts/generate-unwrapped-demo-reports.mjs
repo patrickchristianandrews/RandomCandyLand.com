@@ -111,10 +111,110 @@ function preparePrintableReport(){
  return{themes:connectionRows,subConnections,topics,htmlLength:report.outerHTML.length,complete:/69\s*\/\s*69/.test(report.textContent)};
 }
 
+
+/* These tests deliberately use the real browser's download Blob, upload File inputs,
+ * on-device quiz import, selective export and combined report PDF controls.
+ * Never substitute canned JSON for a completed visitor's browser export. */
+async function captureRealExports(name){
+ const blobs=[];
+ const orig=URL.createObjectURL;
+ URL.createObjectURL=function(blob){blobs.push(blob);return orig.call(URL,blob)};
+ try{
+  window.AfterDarkProgressTransfer.exportQuiz('both');
+  const backup=blobs.pop();
+  if(!backup)throw Error('Actual quiz download did not create a file');
+  const privateJSON=await backup.text();
+  const saved=JSON.parse(privateJSON);
+  if(saved.direct?.qIndex!==69||saved.psych?.position!==32||
+     Object.keys(saved.direct?.multiAnswers||{}).length!==69||
+     Object.keys(saved.psych?.answers||{}).length!==32)
+   throw Error('Downloaded full quiz JSON dropped answers');
+  const panel=document.querySelector('#uc-export');
+  if(!panel)throw Error('Selectively shared report maker missing');
+  panel.open=true;panel.dispatchEvent(new Event('toggle'));
+  const input=document.querySelector('#uc-select input[aria-label="Name for selected report"]');
+  if(!input)throw Error('Name field is missing from selective report');
+  input.value=name;input.dispatchEvent(new Event('input',{bubbles:true}));
+  const choices=[...document.querySelectorAll('#uc-select label.uc-check>input')];
+  if(choices.length<3)throw Error('No interest/psychology choices in selected report export');
+  choices[1].click();
+  choices[2].click();
+  document.querySelector('#uc-save').click();
+  const sharedBlob=blobs.pop();
+  if(!sharedBlob)throw Error('Actual selective partner download did not create a file');
+  const shareJSON=await sharedBlob.text();
+  const share=JSON.parse(shareJSON);
+  if(share.format!=='unwrapped-shared-comparison-v1'||share.from!==name||
+     !share.interests?.length||share.toys?.length||share.answers?.length||
+     shareJSON.includes('freeResponses')||shareJSON.includes('multiAnswers'))
+   throw Error('Partner export is missing consent controls or wrongly includes private quiz data');
+  return{privateJSON,shareJSON,sharedInterests:share.interests.length};
+ }finally{URL.createObjectURL=orig}
+}
+async function verifyRealImport(json){
+ const before=window.AfterDarkCanonicalReport.buildData();
+ if(before.direct.answered||before.psych.answered)throw Error('Import test must start with a clean user');
+ await window.AfterDarkProgressTransfer.importQuiz(new File([json],'full-private-backup.json',{type:'application/json'}));
+ const data=window.AfterDarkCanonicalReport.buildData();
+ if(data.direct.answered!==69||data.psych.answered!==32||
+   !data.direct.complete||!data.psych.complete)throw Error('Clean-browser backup import did not restore both full quizzes');
+ const initial=JSON.stringify(window.AfterDarkDirectQuizBridge.exportState());
+ const corrupted=JSON.parse(json);corrupted.direct.multiAnswers[0]=[99999];
+ window.confirm=()=>true;
+ await window.AfterDarkProgressTransfer.importQuiz(new File([JSON.stringify(corrupted)],'invalid-backup.json',{type:'application/json'}));
+ const after=JSON.stringify(window.AfterDarkDirectQuizBridge.exportState());
+ if(after!==initial)throw Error('Invalid backup altered saved answers');
+ const feedback=document.querySelector('#afterdark-save-status')?.textContent||'';
+ if(!feedback.includes('⚠')&&!feedback.toLowerCase().includes('invalid'))
+   throw Error('No visible rejection message for an invalid backup');
+ const partner=window.AfterDarkPartnerPDF?.build?.();
+ const intro=window.AfterDarkNewPartnerReport?.build?.();
+ if(!partner?.querySelector('.partner-report-section')||!intro?.querySelector('.partner-report-section'))
+   throw Error('Personal and new-partner report builders failed on imported answers');
+ if(/Toy ideas I want to share|My personal notes/.test(partner.textContent)||
+   /Specific toy topics I elected to share/.test(intro.textContent))
+   throw Error('A default partner PDF included unapproved confidential details');
+ return{restoredDirect:data.direct.answered,restoredPsych:data.psych.answered,
+  invalidImportRejected:true,partnerPDFSafe:true,newPartnerPDFSafe:true};
+}
+async function uploadAndCompare(aText,bText){
+ const aInput=document.querySelector('#uc-a'),bInput=document.querySelector('#uc-b');
+ if(!aInput||!bInput)throw Error('Upload controls missing');
+ for(const [input,txt,name] of [[aInput,aText,'rowan.json'],[bInput,bText,'ellis.json']]){
+  const transfer=new DataTransfer();
+  transfer.items.add(new File([txt],name,{type:'application/json'}));
+  input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true}));
+ }
+ document.querySelector('#uc-compare').click();
+ const start=Date.now();
+ return await new Promise((resolve,reject)=>{
+  const poll=()=>{
+   const status=document.querySelector('#uc-status')?.textContent||'';
+   const result=document.querySelector('#uc-results');
+   if(status.includes('Comparison ready')){
+    const text=result?.textContent||'';
+    if(!text.includes('Rowan')||!text.includes('Ellis')||
+       !text.includes('Growth plan')||!text.includes('Communication: three useful prompts')||
+       !result.querySelector('.uc-dashboard')||document.querySelector('#uc-print').hidden)
+      return reject(Error('The real combined report is incomplete'));
+    if(text.includes('freeResponses')||text.includes('multiAnswers')||text.includes('Private note:'))
+      return reject(Error('Combined report leaked full private saved answers'));
+    document.querySelector('#uc-comparison')?.scrollIntoView({block:'start'});
+    return resolve({combined:true,outputCharacters:text.length,comparedSections:result.querySelectorAll('.uc-result').length,
+      privacyReviewed:true});
+   }
+   if(status.startsWith('Could not compare:'))return reject(Error(status));
+   if(Date.now()-start>10000)return reject(Error('Comparison did not finish: '+status));
+   setTimeout(poll,70);
+  };poll();
+ });
+}
+
   const site='http://127.0.0.1:'+port;
   const outputDir=path.join(root,'after-dark','report-samples');
   fs.mkdirSync(outputDir,{recursive:true});
   const audit=[];
+  const selectedFiles=[];
   for(const key of ['rowan','ellis']){
     const demo=await navigate(site+'/after-dark/');
     const ready=await demo.evaluate("Boolean(window.AfterDarkAdultQuiz?.length===69&&window.AfterDarkPsychologyQuiz?.length===32&&window.AfterDarkDirectQuizBridge?.importState&&window.AfterDarkPsychQuizBridge?.importState&&window.AfterDarkDetailedReport?.build&&window.UnwrappedReportConnections?.build)");
@@ -124,6 +224,11 @@ function preparePrintableReport(){
     const result=await demo.evaluate('('+fictionalProfile.toString()+')('+JSON.stringify(key)+')');
     if(result.direct!==69||result.psych!==32||result.sharedThemes<2||result.chosenInterests<2)
       throw Error('Actual combined quiz engine returned incomplete result '+key+': '+JSON.stringify(result));
+    // Capture genuine download outputs before replacing the page with printable DOM.
+    const exports=await demo.evaluate('('+captureRealExports.toString()+')('+JSON.stringify(key==='rowan'?'Rowan':'Ellis')+')');
+    const shared=JSON.parse(exports.shareJSON);
+    selectedFiles.push(exports.shareJSON);
+    if(!shared.interests?.length)throw Error('No deliberately shared topics were exported');
     const prepared=await demo.evaluate('('+preparePrintableReport.toString()+')()');
     if(!prepared.complete)throw Error('Export omits full-quiz completion evidence: '+key);
     await delay(300);
@@ -132,10 +237,46 @@ function preparePrintableReport(){
     if(bytes.length<10000||bytes.subarray(0,5).toString()!=='%PDF-')throw Error('PDF blank or invalid for '+key);
     const file='complete-'+key+'-personal-report.pdf';
     fs.writeFileSync(path.join(outputDir,file),bytes);
-    audit.push({...result,...prepared,file,pdfBytes:bytes.length});
-    console.log('✓ Generated full fictional '+key+' report: '+result.direct+'+'+result.psych+' answers, '+prepared.themes+' themes, '+prepared.subConnections+' sub-connections, '+bytes.length+' bytes');
+    const coverImage=await demo.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+    const png=Buffer.from(coverImage.data||'','base64');
+    if(png.length<3500)throw Error('Complete PDF screenshot could not be captured');
+    fs.writeFileSync(path.join(outputDir,'complete-'+key+'-report-preview.png'),png);
+
+    // A new browser tab and cleared storage must successfully read the exported backup.
     await demo.evaluate("localStorage.clear();sessionStorage.clear();true");
+    const fresh=await navigate(site+'/after-dark/');
+    await fresh.evaluate("document.querySelector('#enter')?.click();true");
+    const imported=await fresh.evaluate('('+verifyRealImport.toString()+')('+JSON.stringify(exports.privateJSON)+')');
+    if(imported.restoredDirect!==69||imported.restoredPsych!==32)throw Error('Full private import verification failed');
+    audit.push({...result,...prepared,file,pdfBytes:bytes.length,privateQuizImport:imported,
+      selectivePartnerExport:{approvedInterests:exports.sharedInterests,privateAnswersIncluded:false,toysIncluded:false}});
+    console.log('✓ Generated full fictional '+key+' report: '+result.direct+'+'+result.psych+' answers, '+prepared.themes+' themes, '+prepared.subConnections+' sub-connections, '+bytes.length+' bytes');
+    await fresh.evaluate("localStorage.clear();sessionStorage.clear();true");
   }
+  if(selectedFiles.length!==2)throw Error('A selective partner JSON file was not exported for each fictional user');
+  const comparing=await navigate(site+'/after-dark/');
+  await comparing.evaluate("document.querySelector('#enter')?.click();true");
+  const merged=await comparing.evaluate('('+uploadAndCompare.toString()+')('+JSON.stringify(selectedFiles[0])+','+JSON.stringify(selectedFiles[1])+')');
+  const compareImage=await comparing.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+  fs.writeFileSync(path.join(outputDir,'rowan-ellis-comparison-preview.png'),Buffer.from(compareImage.data,'base64'));
+  await comparing.evaluate("document.body.classList.add('print-unwrapped-comparison');true");
+  const mergedPDF=await comparing.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,
+    displayHeaderFooter:false,landscape:false,transferMode:'ReturnAsBase64'});
+  const mergedBytes=Buffer.from(mergedPDF.data||'','base64');
+  if(mergedBytes.length<6000||mergedBytes.subarray(0,5).toString()!=='%PDF-')
+    throw Error('The real merged report did not produce a valid downloadable PDF');
+  fs.writeFileSync(path.join(outputDir,'complete-rowan-ellis-comparison.pdf'),mergedBytes);
+  if(testErrors.length)throw Error('Headless browser exceptions: '+testErrors.slice(-8).join(' | '));
+  fs.writeFileSync(path.join(outputDir,'fictional-browser-journey-evidence.json'),JSON.stringify({
+    generated:new Date().toISOString(),case:'Two actual 69+32 fictional quiz completions, exports/imports, selective partner upload, and combined report PDF',
+    journeys:audit.map(x=>({name:x.key,complete:[x.direct,x.psych],import:x.privateQuizImport,
+      safeSelectiveShare:x.selectivePartnerExport,pdfBytes:x.pdfBytes,reportThemes:x.themes,reportSubConnections:x.subConnections})),
+    comparison:{...merged,pdfBytes:mergedBytes.length},
+    evidenceFiles:['complete-rowan-personal-report.pdf','complete-ellis-personal-report.pdf',
+      'complete-rowan-ellis-comparison.pdf','complete-rowan-report-preview.png',
+      'complete-ellis-report-preview.png','rowan-ellis-comparison-preview.png']
+  },null,2));
+  console.log('✓ Two full 101-question journeys, actual JSON exports/imports, private partner exports, two-file upload and combined PDF passed.');
   fs.writeFileSync(path.join(outputDir,'fictional-full-quiz-audit.json'),JSON.stringify({description:'Entirely fictional people. Results calculated by the actual 101-question Unwrapped state bridges and report renderer.',reports:audit},null,2));
   if(audit.length!==2||audit.some(x=>x.direct!==69||x.psych!==32))throw Error('Full fictional journey tests failed');
 } finally {
