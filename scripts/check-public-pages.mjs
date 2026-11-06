@@ -748,7 +748,7 @@ if(fs.existsSync('dist/ai-academy/academy.js')){
 for(const path of ['dist/after-dark/report-visuals.js','dist/after-dark/report-visuals.css']){
  if(!fs.existsSync(path)){console.error('Report visual asset missing:',path);failures++;}
 }
-if(!afterDarkLanding.includes('report-visuals.js?v=1')||!afterDarkLanding.includes('report-visuals.css?v=1')){
+if(!afterDarkLanding.includes('report-visuals.js?v=')||!afterDarkLanding.includes('report-visuals.css?v=')){
  console.error('Unwrapped must load print-ready report visualizations.');failures++;
 }
 if(fs.existsSync('dist/after-dark/report-visuals.js')){
@@ -763,8 +763,8 @@ for(const path of ['dist/after-dark/partner-compare.js','dist/after-dark/partner
  if(!fs.existsSync(path)){console.error('Private partner comparison asset missing:',path);failures++;}
 }
 if(!afterDarkLanding.includes('id="uc-comparison"')||
-   !afterDarkLanding.includes('partner-compare.js?v=1')||
-   !afterDarkLanding.includes('partner-compare.css?v=1')){
+   !afterDarkLanding.includes('partner-compare.js?v=')||
+   !afterDarkLanding.includes('partner-compare.css?v=')){
  console.error('Unwrapped must offer a visible two-person report comparison with matching assets.');failures++;
 }
 if(fs.existsSync('dist/after-dark/partner-compare.js')){
