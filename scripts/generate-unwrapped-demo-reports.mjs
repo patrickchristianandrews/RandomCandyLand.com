@@ -206,9 +206,22 @@ async function verifyRealImport(json){
  if(!feedback.includes('⚠')&&!feedback.toLowerCase().includes('invalid'))
    throw Error('No visible rejection message for an invalid backup');
  const partner=window.AfterDarkPartnerPDF?.build?.();
+ // New-partner introductions correctly refuse to export a blank, unapproved
+ // disclosure. Exercise the real opt-in UI rather than bypassing privacy controls.
+ window.AfterDarkNewPartnerReport?.mount?.();
+ const panel=document.querySelector('#new-partner-report');
+ const refresh=[...panel.querySelectorAll('button')].find(b=>b.textContent.includes('Refresh quiz choices'));
+ if(!refresh)throw Error('New-partner privacy choices could not be refreshed after import');
+ refresh.click();
+ const psychOption=panel.querySelector('details.new-partner-options');
+ const optIn=psychOption?.querySelector('.new-partner-toggle input');
+ const firstAnswer=psychOption?.querySelector('.new-partner-choice input');
+ if(!optIn||!firstAnswer)throw Error('No imported nonsexual answers offered for selective new-partner sharing');
+ optIn.click();firstAnswer.click();
  const intro=window.AfterDarkNewPartnerReport?.build?.();
- if(!partner?.querySelector('.partner-report-section')||!intro?.querySelector('.partner-report-section'))
-   throw Error('Personal and new-partner report builders failed on imported answers');
+ if(!partner?.querySelector('.partner-report-section')||!intro?.querySelector('.partner-report-section')||
+   !intro.textContent.includes('Some everyday answers I chose to show you'))
+   throw Error('Personal or consent-selected new-partner report builder failed on imported answers');
  if(/Toy ideas I want to share|My personal notes/.test(partner.textContent)||
    /Specific toy topics I elected to share/.test(intro.textContent))
    throw Error('A default partner PDF included unapproved confidential details');
