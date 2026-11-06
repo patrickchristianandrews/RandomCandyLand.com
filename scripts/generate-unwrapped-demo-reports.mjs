@@ -129,6 +129,12 @@ async function captureRealExports(name){
      Object.keys(saved.direct?.multiAnswers||{}).length!==69||
      Object.keys(saved.psych?.answers||{}).length!==32)
    throw Error('Downloaded full quiz JSON dropped answers');
+  if(Object.keys(saved.library||{}).length<3)
+   throw Error('Private quiz backup omitted explicitly marked interests');
+  window.AfterDarkProgressTransfer.exportQuiz('psych');
+  const psychOnly=blobs.pop();
+  if(!psychOnly||Object.hasOwn(JSON.parse(await psychOnly.text()),'library'))
+   throw Error('Psychology-only export unexpectedly included separately marked intimate preferences');
   const panel=document.querySelector('#uc-export');
   if(!panel)throw Error('Selectively shared report maker missing');
   panel.open=true;panel.dispatchEvent(new Event('toggle'));
@@ -158,6 +164,10 @@ async function verifyRealImport(json){
  const data=window.AfterDarkCanonicalReport.buildData();
  if(data.direct.answered!==69||data.psych.answered!==32||
    !data.direct.complete||!data.psych.complete)throw Error('Clean-browser backup import did not restore both full quizzes');
+ const savedMarks=JSON.parse(json).library||{};
+ const restoredMarks=window.AfterDarkNotebookBridge?.getChoices?.()||{};
+ for(const [id,value] of Object.entries(savedMarks))
+  if(restoredMarks[id]!==value)throw Error('Marked Curiosity Library interest was not preserved on import: '+id);
  const initial=JSON.stringify(window.AfterDarkDirectQuizBridge.exportState());
  const corrupted=JSON.parse(json);corrupted.direct.multiAnswers[0]=[99999];
  window.confirm=()=>true;
@@ -175,7 +185,7 @@ async function verifyRealImport(json){
    /Specific toy topics I elected to share/.test(intro.textContent))
    throw Error('A default partner PDF included unapproved confidential details');
  return{restoredDirect:data.direct.answered,restoredPsych:data.psych.answered,
-  invalidImportRejected:true,partnerPDFSafe:true,newPartnerPDFSafe:true};
+  libraryMarksRestored:Object.keys(savedMarks).length,invalidImportRejected:true,partnerPDFSafe:true,newPartnerPDFSafe:true};
 }
 async function uploadAndCompare(aText,bText){
  const aInput=document.querySelector('#uc-a'),bInput=document.querySelector('#uc-b');
