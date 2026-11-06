@@ -155,7 +155,7 @@ function compactReport(root){
  const sections=[...root.querySelectorAll('section.report-section')];
  const activities=sections.find(el=>el.querySelector('h2')?.textContent.startsWith('Your selected activities and how they intersect'));
  if(activities){
-  const answers=[...activities.querySelectorAll(':scope > article.report-answer')];
+  const answers=[...activities.querySelectorAll('article.report-answer')];
   for(const card of answers.slice(5))card.remove();
   if(answers.length>5){
    const note=make('p','report-muted','Showing five representative selections here to prevent repetition. All original question responses remain in Appendices A and B.');
@@ -164,7 +164,7 @@ function compactReport(root){
  }
  const interests=sections.find(el=>el.querySelector('h2')?.textContent.startsWith('04 ·'));
  if(interests){
-  const profiles=[...interests.querySelectorAll(':scope > article.report-interest')];
+  const profiles=[...interests.querySelectorAll('article.report-interest')];
   const extra=profiles.slice(8);
   // One readable, answer-linked profile instead of repeating an entire
   // multi-page chapter for each interest. Full evidence is still in the
@@ -196,6 +196,7 @@ function compactReport(root){
    original.replaceWith(card);
   }
   for(const item of extra)item.remove();
+  for(const cluster of interests.querySelectorAll('.report-cluster'))if(!cluster.querySelector('article.report-interest'))cluster.remove();
   if(extra.length){
    const summary=make('div','report-readable-remaining');
    add(summary,'h3','','Other topics included in my results');
