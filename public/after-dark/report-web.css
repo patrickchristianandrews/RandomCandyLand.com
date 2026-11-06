@@ -57,3 +57,43 @@
  body.print-notebook.print-detailed-report #print-document .report-appendix .report-answer strong{font-size:8pt!important}
  body.print-notebook.print-detailed-report #print-document .report-appendix .report-answer p{font-size:7.8pt!important;line-height:1.35!important;margin:1mm 0!important}
 }
+
+/* Keep the relationship comparison's connection web together on one page,
+   and let other cards use the available page width and flow naturally. */
+@media print{
+ body.print-unwrapped-comparison #uc-results .uc-dashboard{break-inside:auto!important;page-break-inside:auto!important}
+ body.print-unwrapped-comparison #uc-results .unwrapped-web{
+  padding:3mm!important;margin:2mm 0!important;background:#fff!important;
+  border:0.7pt solid #d9cade!important;break-inside:avoid!important;
+ }
+ body.print-unwrapped-comparison #uc-results .unwrapped-web-svg{
+  display:block!important;width:100%!important;height:auto!important;max-height:138mm!important;
+ }
+ body.print-unwrapped-comparison #uc-results .unwrapped-web-title{font-size:14pt!important}
+ body.print-unwrapped-comparison #uc-results .unwrapped-web-intro,
+ body.print-unwrapped-comparison #uc-results .unwrapped-web-note{font-size:8pt!important;line-height:1.35!important}
+ body.print-unwrapped-comparison #uc-results .uc-action-paths,
+ body.print-unwrapped-comparison #uc-results .uc-answer-comparison{
+  break-inside:auto!important;page-break-inside:auto!important;
+  padding:3mm!important;margin:2mm 0!important;gap:2mm!important
+ }
+ body.print-unwrapped-comparison #uc-results .uc-action-paths{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important
+ }
+ body.print-unwrapped-comparison #uc-results .uc-action-paths>h4,
+ body.print-unwrapped-comparison #uc-results .uc-action-paths>p{grid-column:1/-1}
+ body.print-unwrapped-comparison #uc-results .uc-answer-pair,
+ body.print-unwrapped-comparison #uc-results .uc-result{
+  break-inside:avoid!important;padding:3mm!important;margin:1.5mm 0!important
+ }
+ body.print-unwrapped-comparison #uc-results .uc-answer-pair>p,
+ body.print-unwrapped-comparison #uc-results .uc-result p{
+  font-size:8.5pt!important;line-height:1.4!important;margin:1.5mm 0!important
+ }
+ body.print-unwrapped-comparison #uc-results .uc-answer-side{
+  padding:2mm!important;background:#f8f3f9!important;
+ }
+ body.print-unwrapped-comparison #uc-results .uc-answer-side p{
+  font-size:8.5pt!important;line-height:1.36!important
+ }
+}
