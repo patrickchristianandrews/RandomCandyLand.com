@@ -95,7 +95,6 @@ jobs:
       - name: Preserve fictional 101-question journeys, report renders and combined PDF evidence
         if: always()
         uses: actions/upload-artifact@v4
-        uses: actions/upload-artifact@v4
         with:
           name: Unwrapped-Complete-Sample-Reports
           path: |
