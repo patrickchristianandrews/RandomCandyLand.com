@@ -12,6 +12,7 @@ const menu=[
  ['ideas','Other possibilities','Possible interests to read about'],
  ['toys','Toy ideas I want to share','Optional toy-type suggestions and safer-use notes; off by default'],
  ['connections','How the two quizzes connect','Themes shared between both quizzes'],
+ ['synthesis','My complete psychological story','Full cross-quiz interpretation with personal answer evidence, perspectives and conversation ideas; OFF until expressly selected'],
  ['conversations','Conversation starters','Conversation ideas and friendly prompts'],
  ['boundaries','My boundaries','Stated intentions and boundaries'],
  ['answers','My exact quiz answers','Selected options, without personal notes'],
@@ -43,7 +44,7 @@ function build(){
  if(!selected.size)throw Error('Choose at least one section to share.');
  const root=make('div',undefined,'afterdark-detailed-report report-editorial partner-pdf-report');
  const cover=make('header',undefined,'partner-report-cover');
- add(cover,'p','THE OTHER DRAWER · WHAT DESIRES REVEAL ABOUT US','partner-report-eyebrow');
+ add(cover,'p','UNWRAPPED · A PERSONAL CONVERSATION','partner-report-eyebrow');
  add(cover,'h1','Something I wanted to share');
  add(cover,'p','A conversation, not a checklist.','partner-report-subtitle');
  add(cover,'h2','Before you read');
@@ -131,6 +132,14 @@ function build(){
    add(card,'p','Safety considerations: '+item.safety,'partner-pdf-muted');
   }
   add(s,'p','Any new activity would need a separate, unpressured conversation and agreement. Being curious—or choosing a fantasy-only answer—does not mean I want to try it.','partner-pdf-muted');
+ }
+ // Contains exact intimate question/answer evidence; include only if explicitly checked.
+ if(selected.has('synthesis')){
+  const full=window.UnwrappedWholePerson?.build?.(d);
+  const s=section(root,'My whole-person psychological story',
+   'I explicitly chose to share this detailed reading, including its original-answer evidence. Interpretations are reflections, not requests or diagnoses.');
+  if(full)s.append(full);
+  else add(s,'p','The detailed interpretation is unavailable in this copy.');
  }
  if(selected.has('connections')){
   const s=section(root,'How the two quizzes connect');
