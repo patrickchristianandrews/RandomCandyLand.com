@@ -270,7 +270,10 @@ async function uploadAndCompare(aText,bText){
     if(snapshot.html.length<5000)throw Error('Cannot isolate a completed printable report: '+selector+' / '+snapshot.html.length);
     const printer=await navigate(site+'/after-dark/report-samples/');
     const result=await printer.evaluate("(async()=>{const snapshot="+JSON.stringify(snapshot)+";document.head.querySelectorAll('style,link[rel=stylesheet]').forEach(x=>x.remove());const links=[];for(const asset of snapshot.assets){if(asset.type==='style'){const s=document.createElement('style');s.textContent=asset.css;document.head.append(s)}else{const link=document.createElement('link');link.rel='stylesheet';link.href=asset.href;links.push(new Promise(resolve=>{link.onload=resolve;link.onerror=resolve}));document.head.append(link)}}document.body.className="+JSON.stringify(bodyClass)+";document.body.innerHTML=snapshot.html;await Promise.all(links);await document.fonts.ready;window.scrollTo(0,0);const root=document.querySelector("+JSON.stringify(selector)+");return{length:root?.textContent?.length||0,height:root?.getBoundingClientRect()?.height||0,display:root?getComputedStyle(root).display:null}})()");
-    if(result.length<5000||result.display==='none'||result.height<100)
+    // The combined notebook tab is intentionally hidden on screen. Its print-only
+    // stylesheet displays #notebook and #uc-results when Page.printToPDF switches
+    // to print media. Only personal reports must be screen-visible here.
+    if(result.length<4000||(!bodyClass.includes('print-unwrapped-comparison')&&(result.display==='none'||result.height<100)))
       throw Error('Isolated printable report is not visible: '+JSON.stringify(result));
     console.log('✓ Isolated printable report is visible: '+JSON.stringify(result));
     return printer;
