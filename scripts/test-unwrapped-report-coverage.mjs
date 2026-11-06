@@ -60,9 +60,14 @@ for(const word of ['male','female','partner','toy']){
 assert.match(personal,/How it differs for male and female anatomy/);
 assert.match(personal,/item\.bodyUses\.together/);
 assert.match(partner,/selected\.has\('toys'\)/);
+assert.match(partner,/selected\.has\('synthesis'\)/);
+assert.match(partner,/window\.UnwrappedWholePerson\?\.build/);
+assert.ok(!/const selected=new Set\([^)]*'synthesis'/.test(partner),'Whole-person report with intimate evidence must be OFF in partner exports by default');
 assert.match(partner,/Male anatomy:/);
 assert.ok(!/const selected=new Set\([^)]*'toys'/.test(partner),'Partner PDF toy section must be OFF initially');
 assert.match(newPartner,/showToys=false/);
+assert.match(newPartner,/const permitted=selectedQuestions\(data\)\.filter\(x=>selectedPsych\.has\(x\.id\)\)/);
+assert.match(newPartner,/const tags=\[\.\.\.new Set\(permitted\.flatMap/);
 assert.match(newPartner,/showSex\s*&&?showToys|if\(showToys\)/);
 assert.match(newPartner,/id='new-partner-share-toys'/);
 assert.match(share,/toys:new Set\(\)/);
