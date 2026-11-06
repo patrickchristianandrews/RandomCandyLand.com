@@ -125,12 +125,14 @@ function preparePrintableReport(){
  // visitor cleanup removes #print-document, so suppress cleanup only for this
  // isolated fictional PDF capture. Live visitors retain normal afterprint behavior.
  window.addEventListener('afterprint',event=>event.stopImmediatePropagation(),{capture:true});
+ // The public example uses the same readable default as the visitor download.
+ window.UnwrappedReportConnections?.compactReport?.(report);
  const main=document.createElement('main');main.id='print-document';main.append(report);
  const style=document.createElement('style');
  style.textContent=`@page{size:A4;margin:13mm 12mm}html,body{background:#fff!important;color:#382643!important}body.print-notebook.print-detailed-report #print-document{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;display:block!important}#print-document .report-demo-caption{padding:13px 16px;margin:0 0 19px;border:2px solid #b384ae;border-radius:10px;color:#553361;background:#f8eff8}#print-document .report-demo-caption strong{font:850 13px system-ui,sans-serif}#print-document .report-demo-caption p{font:600 11px/1.5 system-ui,sans-serif;margin:7px 0 0}#print-document details{display:block!important}#print-document .report-section{break-inside:auto!important}#print-document .report-cross-topic-lens{break-inside:avoid!important}#print-document table{break-inside:auto!important}#print-document tr{break-inside:avoid!important}`;
  document.head.append(style);
  document.body.className='print-notebook print-detailed-report ad-entered';document.body.replaceChildren(main);
- for(const detail of main.querySelectorAll('.report-deep-connections details'))detail.open=true;
+ // In the readable edition, do not expand every duplicate evidence list for printing.
  window.scrollTo(0,0);
  return{themes:connectionRows,subConnections,topics,
   synthesisThreads:holistic.querySelectorAll('.report-person-thread').length,
