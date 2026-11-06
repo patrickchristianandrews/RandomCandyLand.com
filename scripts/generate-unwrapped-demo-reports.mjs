@@ -257,7 +257,7 @@ async function uploadAndCompare(aText,bText){
    if(status.includes('Comparison ready')){
     const text=result?.textContent||'';
     if(!text.includes('Rowan')||!text.includes('Ellis')||
-       !text.includes('Growth plan')||!text.includes('Communication: three useful prompts')||
+       !text.includes('One useful step this week')||!text.includes('Three conversations worth having')||
        !result.querySelector('.uc-dashboard')||document.querySelector('#uc-print').hidden)
       return reject(Error('The real combined report is incomplete'));
     if(text.includes('freeResponses')||text.includes('multiAnswers')||text.includes('Private note:'))
