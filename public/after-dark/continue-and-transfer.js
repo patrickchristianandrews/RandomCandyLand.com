@@ -115,15 +115,25 @@ function started(kind){
  const p=kind==='direct'?DIRECT()?.getProgress?.():PSYCH()?.getProgress?.();
  return (p?.position??-1)>=0;
 }
-function createTransfer({direct=null,psych=null}){
+function createTransfer({direct=null,psych=null,library=null}){
  return{format:FORMAT,version:VERSION,created:new Date().toISOString(),
-  note:'Contains private quiz answers and notes. It is not encrypted. Only share when intended.',
-  direct,psych};
+  note:'Private quiz answers, notes and optional marked Curiosity Library interests. Unencrypted. Use selective partner-report exports for sharing.',
+  direct,psych,...(library?{library}:{})};
+}
+function privateLibraryMarks(){
+ const shelf=window.AfterDarkNotebookBridge;
+ if(!shelf?.getTopics||!shelf?.getChoices)return null;
+ const known=new Set(shelf.getTopics().map(item=>item.id));
+ const marks=Object.fromEntries(Object.entries(shelf.getChoices())
+  .filter(([id,value])=>known.has(id)&&['yes','maybe','no'].includes(value)));
+ return Object.keys(marks).length?marks:null;
 }
 function download(kind){
  const direct=kind==='psych'?null:DIRECT()?.exportState?.();
  const psych=kind==='direct'?null:PSYCH()?.exportState?.();
- const pack=createTransfer({direct,psych});
+ // Never include private intimate-library marks in psychology-only backups.
+ const library=kind==='psych'?null:privateLibraryMarks();
+ const pack=createTransfer({direct,psych,library});
  const blob=new Blob([JSON.stringify(pack,null,2)],{type:'application/json'});
  const url=URL.createObjectURL(blob);
  const a=document.createElement('a');a.href=url;
@@ -177,7 +187,14 @@ function validatePayload(value){
  let direct,psych;
  try{direct=validQuiz(value.direct,'direct');psych=validQuiz(value.psych,'psych')}catch(e){return{error:e.message}}
  if(!direct&&!psych)return{error:'The file does not contain a quiz.'};
- return{direct,psych};
+ const library=value.library;
+ if(library!==undefined){
+  if(!library||typeof library!=='object'||Array.isArray(library)||!direct||
+      Object.keys(library).length>350||
+      Object.entries(library).some(([id,status])=>!/^[0-9]+-[0-9]+$/.test(id)||id.length>30||!['yes','maybe','no'].includes(status)))
+   return{error:'The saved interest shelf is invalid or cannot be used in a psychology-only backup.'};
+ }
+ return{direct,psych,library:library||null};
 }
 async function importFile(file){
  if(!file)return;
@@ -191,9 +208,20 @@ async function importFile(file){
   // sexual-preference answers, and vice versa.
   if(pack.direct&&!DIRECT()?.importState?.(pack.direct))throw Error('The saved sexual-preferences quiz could not be loaded.');
   if(pack.psych&&!PSYCH()?.importState?.(pack.psych))throw Error('The saved psychology quiz could not be loaded.');
+  // Restore explicitly marked interests from this PRIVATE backup only.
+  // Unmentioned choices on the receiving device remain unchanged.
+  if(pack.library){
+   const shelf=window.AfterDarkNotebookBridge;
+   if(!shelf?.getTopics||!shelf?.mark)throw Error('The Curiosity Library is unavailable. Not all personal interest marks could be restored.');
+   const known=new Set(shelf.getTopics().map(item=>item.id));
+   for(const [id,status] of Object.entries(pack.library))
+    if(known.has(id))shelf.mark(id,status);
+  }
   refreshPanels();
   const both=answered('direct')>0&&answered('psych')>0;
-  setStatus('✓ Imported '+[pack.direct?'sexual-preferences':'',pack.psych?'psychology':''].filter(Boolean).join(' and ')+' answers privately. '+(both?'Both quizzes now contribute to your full combined report.':'Your other quiz remains available to finish later.'));
+  setStatus('✓ Imported '+[pack.direct?'sexual-preferences':'',pack.psych?'psychology':''].filter(Boolean).join(' and ')+' answers privately. '+
+   (pack.library?'Your private Interested / Curious / Not for me marks were restored. ':'')+
+   (both?'Both quizzes now contribute to your full combined report.':'Your other quiz remains available to finish later.'));
   if(both)showCombined();
  }catch(e){setStatus('⚠️ '+String(e.message||'Could not read this file.'))}
 }
@@ -256,7 +284,7 @@ function makeTransferPanel(kind){
  actions.append(btn('⬇ Download both quizzes',()=>download('both'),'btn alt'));
  actions.append(btn('📊 View combined report',showCombined,'btn'));
  inner.append(actions);
- inner.append(el('p','Downloaded JSON files contain private answers and notes and are not encrypted. Importing replaces matching quiz answers only after confirmation.','ad-transfer-privacy'));
+ inner.append(el('p','Downloaded JSON files contain private answers and notes. Preference-quiz backups also retain explicitly marked interests. They are not encrypted; importing replaces matching quiz answers only after confirmation.','ad-transfer-privacy'));
  details.append(inner);card.append(details);
  const target=$(kind==='direct'?'quizCard':'psychQuizCard');
  target?.parentNode?.insertBefore(card,target);
