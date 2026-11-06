@@ -75,7 +75,7 @@ function draftField(section,id,title,placeholder){
 function content(){
  const data=summaryData(),root=make('div',undefined,'partner-pdf-report new-partner-report');
  const cover=make('header',undefined,'partner-report-cover new-partner-cover');
- add(cover,'p','THE OTHER DRAWER · A PERSONAL INTRODUCTION','partner-report-eyebrow');
+ add(cover,'p','UNWRAPPED · GETTING TO KNOW THE PERSON','partner-report-eyebrow');
  add(cover,'h1','Getting to know me.');
  add(cover,'p','The person, the little things, and what connection looks like to me.','partner-report-subtitle');
  const intro=draft.introduction?.trim();
@@ -95,9 +95,39 @@ function content(){
  if(!included)add(everyday,'p','I have not added my own everyday reflections yet.','partner-pdf-muted');
  if(showPsych&&selectedPsych.size){
   const psy=section('02 · Some everyday answers I chose to show you','Actual responses I selected in the nonsexual Psychology Quiz. These are reflections, not a personality diagnosis.');
-  for(const q of selectedQuestions(data).filter(x=>selectedPsych.has(x.id))){
+  const permitted=selectedQuestions(data).filter(x=>selectedPsych.has(x.id));
+  for(const q of permitted){
    const c=make('article',undefined,'partner-report-card');
    add(c,'h3',q.heading);add(c,'p',q.answer);psy.append(c);included++;
+  }
+  // Non-intimate suggestions use only specific psychology answers selected for sharing.
+  // Neither private intimate answers nor unselected psychology responses are read.
+  const scripts={
+   trust:'Could we make our expectations clear and allow either person to change their mind?',
+   attachment:'When one of us needs closeness or quiet time, how can we reconnect afterward?',
+   affirmation:'What kind of specific appreciation helps each of us feel noticed?',
+   anticipation:'Would we prefer planning ahead or choosing together in the moment?',
+   sensation:'Would changing the environment help us talk and relax more comfortably?',
+   control:'Do we like taking turns deciding, choosing together or delegating sometimes?',
+   novelty:'What small new experience feels fun while keeping important things familiar?',
+   narrative:'Can we share hypothetical ideas as stories without treating them as requests?',
+   aesthetics:'What kind of atmosphere or style helps us feel at home together?',
+   ritual:'Would a small repeated gesture feel meaningful without becoming obligatory?'
+  };
+  const tags=[...new Set(permitted.flatMap(q=>q.axes))].filter(k=>scripts[k]).slice(0,4);
+  if(tags.length){
+   const insight=make('article',undefined,'partner-report-card');
+   add(insight,'h3','How to talk about these everyday patterns');
+   add(insight,'p','These conversation ideas use only the individual answers I chose to share. They are not a diagnosis, or a disclosure of any unselected preferences.');
+   for(const tag of tags){
+    const witness=permitted.find(q=>q.axes.includes(tag));
+    const card=make('div',undefined,'new-partner-conversation-topic');
+    add(card,'strong',(data?.lenses?.[tag]?.label||tag)+' · psychology Q'+witness.number);
+    add(card,'p','My answer: '+witness.answer);
+    add(card,'p','Conversation starter: '+scripts[tag]);
+    insight.append(card);
+   }
+   psy.append(insight);included++;
   }
  }
  if(showSex){
