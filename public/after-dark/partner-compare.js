@@ -96,6 +96,22 @@ const questionMatches=(a,b)=>{
  const byQuestion=new Map(a.map(x=>[String(x.question).trim().toLocaleLowerCase(),x]));
  return b.flatMap(x=>{const first=byQuestion.get(String(x.question).trim().toLocaleLowerCase());return first?[{one:first,two:x}]:[]});
 };
+const readableTheme=s=>{
+ const names={
+  'chosen vulnerability':'Feeling safe opening up',
+  'exploration & reward':'Curiosity and enjoyment',
+  'agency & choice':'Personal choices and control',
+  'closeness & reassurance':'Closeness and reassurance',
+  'feeling seen':'Feeling noticed and appreciated',
+  'sensory salience':'Sensations and comfort',
+  'expectation and pacing':'Anticipation and timing',
+  'visual and cultural codes':'Appearance, style and meaning',
+  'fantasy and identity':'Imagination and self-expression',
+  'affirmation':'Feeling appreciated',
+  'control':'Personal choices and control'
+ };
+ return names[cleanLabel(s)]||String(s||'');
+};
 function topicPrompt(label){
  const t=String(label).toLocaleLowerCase();
  if(/trust|safe|boundar|privacy|consent/.test(t))return 'What helps each of us feel safe saying yes, no, or not yet—and what should stay private?';
@@ -113,7 +129,7 @@ function visualActionPaths(out,labels){
  const wrap=E('section',undefined,'uc-action-paths');
  wrap.append(E('h4','From shared themes to better conversations'),E('p','Choose a relevant question together; these are prompts for learning, not conclusions about either person.','uc-note'));
  for(const label of [...new Set(labels)].slice(0,4)){
-  const row=E('div',undefined,'uc-action-path'),topic=E('span',label,'uc-action-topic');
+  const row=E('div',undefined,'uc-action-path'),topic=E('span',readableTheme(label),'uc-action-topic');
   const arrow=E('span','→','uc-action-arrow'),prompt=E('span',topicPrompt(label),'uc-action-prompt');
   row.append(topic,arrow,prompt);wrap.append(row);
  }
@@ -166,7 +182,7 @@ function compare(a,b){
    const line=E('div',undefined,'uc-connection-row');
    line.append(E('span',a.from||'Partner A','uc-connection-person'));
    const link=E('div',undefined,'uc-connection-link');
-   link.append(E('i',undefined,'uc-connection-rule'),E('strong',item.label),E('small',item.kind+' · selected by both'));
+   link.append(E('i',undefined,'uc-connection-rule'),E('strong',readableTheme(item.label)),E('small',item.kind+' · selected by both'));
    line.append(link,E('span',b.from||'Partner B','uc-connection-person'));map.append(line);
   }
   map.append(E('p','A matching topic gives you something to discuss. It does not mean you think alike, have the same boundaries, or want the same experience.','uc-note'));
@@ -181,8 +197,9 @@ function compare(a,b){
    E('p','These are everyday themes each person chose to share. If a theme appears for just one of you, it may reflect a different answer or simply a choice to keep something private.','uc-note'));
   for(const item of both.slice(0,8)){
    const row=E('article',undefined,'uc-answer-pair');
-   row.append(E('strong',item.one.label),
-    E('p','Why this theme may matter: '+(item.one.description||'A possible shared area of reflection.')),
+   row.append(E('strong',readableTheme(item.one.label)),
+    E('p',(a.from||'Partner A')+' shared: '+(item.one.description||'A theme they chose to discuss.')),
+     E('p',(b.from||'Partner B')+' shared: '+(item.two.description||'A theme they chose to discuss.')),
     E('p','Try asking: '+topicPrompt(item.one.label)));
    lens.append(row);
   }
@@ -190,7 +207,7 @@ function compare(a,b){
    if(!items.length)continue;
    const row=E('article',undefined,'uc-answer-pair');
    row.append(E('strong',name+' · themes they chose to share'),
-    E('p',items.slice(0,6).map(x=>x.label).join(' · ')),
+    E('p',items.slice(0,6).map(x=>readableTheme(x.label)).join(' · ')),
     E('p','Only one of you shared these themes. Ask about their meaning rather than interpreting that as a personality difference.'));
    lens.append(row);
   }
@@ -199,9 +216,9 @@ function compare(a,b){
   out.append(lens);
  }
  addText(out,'What this picture really means','Shared labels are starting points for a conversation, not proof of agreement. Different answers can reveal useful needs or simply different experiences. A topic count cannot tell you whether a relationship will work.');
- if(both.length)addText(out,'Everyday themes you both shared',both.map(x=>x.one.label).join(' · ')+'. Ask when these patterns show up in daily life and what support feels helpful to each person.');
+ if(both.length)addText(out,'Everyday themes you both shared',both.map(x=>readableTheme(x.one.label)).join(' · ')+'. Ask when these patterns show up in daily life and what support feels helpful to each person.');
  if(together.length)addText(out,'Intimate topics you both chose to discuss',together.map(x=>x.one.title).join(' · ')+'. Compare what each interest means personally, including fantasy versus real-life intentions and boundaries.');
- if(aOnly.length||bOnly.length)addText(out,'What each of you emphasized differently',(a.from||'Partner A')+': '+(aOnly.map(x=>x.label).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(bOnly.map(x=>x.label).join(', ')||'none separately selected')+'. Ask each other how to offer support rather than assuming these represent opposite personalities.');
+ if(aOnly.length||bOnly.length)addText(out,'What each of you emphasized differently',(a.from||'Partner A')+': '+(aOnly.map(x=>readableTheme(x.label)).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(bOnly.map(x=>readableTheme(x.label)).join(', ')||'none separately selected')+'. Ask each other how to offer support rather than assuming these represent opposite personalities.');
  if(ia.length||ib.length)addText(out,'Intimate topics shared by only one person',(a.from||'Partner A')+': '+(ia.map(x=>x.title).join(', ')||'none separately selected')+'. '+(b.from||'Partner B')+': '+(ib.map(x=>x.title).join(', ')||'none separately selected')+'. Each person can share curiosity without pressure to participate, agree, or explain private material.');
  if(commonToys.length||aToys.length||bToys.length){
   const toySection=E('section',undefined,'uc-answer-comparison');
