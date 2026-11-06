@@ -127,7 +127,7 @@ if(!homeInstallSource.includes("title:'Unwrapped'")||
   console.error('Unwrapped homepage, tagline or installable app branding is missing.');failures++;
 }
 // The complete fictional reports are produced from real quiz state during CI, not manually written prose.
-for(const filename of ['complete-rowan-personal-report.pdf','complete-ellis-personal-report.pdf']){
+for(const filename of ['complete-rowan-personal-report.pdf','complete-ellis-personal-report.pdf','complete-rowan-ellis-comparison.pdf']){
  const pdfPath='dist/after-dark/report-samples/'+filename;
  if(!fs.existsSync(pdfPath)){
   console.error('Missing full 69+32 fictional-person PDF:',filename);failures++;continue;
@@ -135,6 +135,21 @@ for(const filename of ['complete-rowan-personal-report.pdf','complete-ellis-pers
  const contents=fs.readFileSync(pdfPath);
  if(contents.length<10000||contents.subarray(0,5).toString()!=='%PDF-'){
   console.error('Invalid complete-fictional-report PDF:',filename);failures++;
+ }
+}
+const evidenceFile='dist/after-dark/report-samples/fictional-browser-journey-evidence.json';
+if(!fs.existsSync(evidenceFile)){
+ console.error('Missing browser evidence for two quiz backups, imports, partner uploads and merged report');failures++;
+}else{
+ const evidence=JSON.parse(fs.readFileSync(evidenceFile,'utf8'));
+ if(evidence.journeys?.length!==2||evidence.journeys.some(x=>
+   x.complete?.[0]!==69||x.complete?.[1]!==32||
+   !x.import?.invalidImportRejected||!x.import?.partnerPDFSafe||
+   !x.safeSelectiveShare||x.safeSelectiveShare.privateAnswersIncluded||
+   x.safeSelectiveShare.toysIncluded)||
+  !evidence.comparison?.combined||!evidence.comparison?.privacyReviewed||
+  (evidence.comparison?.pdfBytes||0)<6000){
+   console.error('Actual browser import/compare/PDF evidence failed validation');failures++;
  }
 }
 const fictionalAuditPath='dist/after-dark/report-samples/fictional-full-quiz-audit.json';
