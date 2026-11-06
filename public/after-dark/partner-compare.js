@@ -147,6 +147,17 @@ function compare(a,b){
   line.append(segments,E('small',shared+' shared · '+first+' A only · '+second+' B only'));chart.append(line);
  }
  dashboard.append(chart);
+ // The relationship map includes only themes and interests separately approved
+ // in the two selected exports. Matching labels are descriptive, not diagnostic.
+ const webThemes=[...new Map([...a.themes,...b.themes].map(t=>[cleanLabel(t.label),t])).values()].slice(0,8)
+  .map(t=>({id:t.label,label:t.label,direct:a.themes.some(v=>cleanLabel(v.label)===cleanLabel(t.label)),
+   psych:b.themes.some(v=>cleanLabel(v.label)===cleanLabel(t.label))}));
+ const webTopics=[...new Map([...a.interests,...b.interests].map(t=>[cleanLabel(t.title),t])).values()].slice(0,11)
+  .map(t=>({label:t.title,themeLabels:t.themes||[],kind:/unconfirmed|suggest/i.test(t.status)?'possible':'selected'}));
+ const web=window.UnwrappedReportWeb?.create?.({center:'BOTH OF US',themes:webThemes,topics:webTopics,
+  bothLabel:'Theme disclosed by both of you',selectedLabel:'Topic explicitly shared',
+  intro:'Each line connects a topic one or both of you shared to a theme included in the same shared report. It does not show a hidden preference or rate your relationship.'});
+ if(web){const heading=web.querySelector('figcaption');if(heading)heading.textContent='How the topics you shared connect';dashboard.append(web)}
  const sharedConnections=[...both.map(x=>({label:x.one.label,kind:'Psychology'})),...together.map(x=>({label:x.one.title,kind:'Intimate'}))].slice(0,8);
  if(sharedConnections.length){
   const map=E('div',undefined,'uc-connection-map');
@@ -216,7 +227,7 @@ function compare(a,b){
  if(matchedAnswers.length){
   const box=E('section',undefined,'uc-answer-comparison');
   box.append(E('h4','Your answers, side by side'),E('p','These are the exact questions you both agreed to include. Compare your words, then talk about what each answer means to you. Anything you did not approve stays private.','uc-note'));
-  for(const x of matchedAnswers.slice(0,10)){
+  for(const x of matchedAnswers){
    const card=E('article',undefined,'uc-answer-pair');
    card.append(E('strong',x.one.question));
    const pair=E('div',undefined,'uc-answer-columns');
@@ -232,13 +243,13 @@ function compare(a,b){
      'You answered differently. Ask what shaped each choice and what would help both of you feel understood.','uc-note'));
    box.append(card);
   }
-  box.append(E('p','Try asking: “What did you mean by this answer, and does it refer to everyday life, imagination, or something you would actually want to discuss?”','uc-note'));
+  box.append(E('p','Try asking: “What did you mean by this answer? Is it about your daily life, something you enjoy imagining, or something you would like to talk about?” You can keep any topic private, and neither of you needs to agree.','uc-note'));
   out.append(box);
  }
  visualActionPaths(out,[...both.map(x=>x.one.label),...aOnly.map(x=>x.label),...bOnly.map(x=>x.label)]);
  if(!both.length&&!together.length)addText(out,'Start with curiosity','Your selected sections have no exact shared labels. That may simply reflect different sharing choices. Ask what you value, what you need, and where you already work well together.');
  addText(out,'Three conversations worth having','1. “When do you feel most understood by me?”  2. “When we differ, do you prefer time, reassurance, questions, or practical problem-solving?”  3. “What is one small change we can each try this week?”');
- addText(out,'One useful step this week','Choose one similarity to build on and one difference to discuss without blame. Take turns summarizing what you heard, ask whether you understood correctly, agree on one manageable action, then check in again. Respect a no, an unsure, or a preference to keep something private.');
+ addText(out,'One useful step this week','Each choose one everyday need from these answers. Explain what it looks like in real life, listen to how the other person experiences it, and agree on one small optional change. Check in later about whether it helped. Keep private topics private and respect any no or maybe.');
  addText(out,'Your choices and boundaries still matter','This is not a psychological assessment or compatibility score. Sharing an intimate interest never implies consent. Neither partner needs to disclose everything, and any activity requires specific, ongoing agreement.');
 }
 function mount(){
