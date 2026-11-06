@@ -23,16 +23,30 @@ const port=server.address().port;
 const chrome=['google-chrome','chromium','chromium-browser'].find(c=>spawnSync('which',[c]).status===0);
 if(!chrome)throw new Error('Browser smoke tests need Chrome or Chromium');
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),'rcd-chrome-'));
-const proc=spawn(chrome,['--headless=new','--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--no-first-run','--remote-debugging-port=0','--user-data-dir='+profile,'--remote-allow-origins=*','about:blank'],{stdio:'ignore'});
+const chromeLogPath=path.join(profile,'chrome-startup.log');
+const chromeLogFd=fs.openSync(chromeLogPath,'w');
+const proc=spawn(chrome,['--headless=new','--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--no-first-run','--no-default-browser-check','--disable-extensions','--disable-background-networking','--remote-debugging-port=0','--user-data-dir='+profile,'--remote-allow-origins=*','about:blank'],{stdio:['ignore','ignore',chromeLogFd]});
+fs.closeSync(chromeLogFd);
+let chromeLaunchError='';
+proc.on('error',error=>{chromeLaunchError=String(error)});
 const testErrors=[];
 let browserPort=0;
 try{
-  for(let i=0;i<60;i++){
+  // Runners can take substantially longer than nine seconds to start headless Chrome.
+  // Wait for the actual DevTools endpoint instead of treating a slow launch as a website failure.
+  for(let i=0;i<300;i++){
     const f=path.join(profile,'DevToolsActivePort');
-    if(fs.existsSync(f)){browserPort=+fs.readFileSync(f,'utf8').split('\n')[0];break;}
-    await delay(150);
+    if(fs.existsSync(f)){
+      const candidate=Number(fs.readFileSync(f,'utf8').split('\n')[0]);
+      if(Number.isInteger(candidate)&&candidate>0){browserPort=candidate;break;}
+    }
+    if(chromeLaunchError||proc.exitCode!==null)break;
+    await delay(200);
   }
-  if(!browserPort)throw Error('Chrome did not open DevTools port');
+  if(!browserPort){
+    const details=fs.existsSync(chromeLogPath)?fs.readFileSync(chromeLogPath,'utf8').slice(-3000):'';
+    throw Error('Chrome did not open DevTools port. Binary: '+chrome+'; exit: '+proc.exitCode+'; spawn: '+chromeLaunchError+'; Chrome log: '+details);
+  }
   let client;
   async function navigate(url){
     if(client)client.close();
