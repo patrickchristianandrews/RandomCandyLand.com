@@ -139,6 +139,51 @@ function build(d){
  const caution=add(sec,'p','report-cross-caution','Read this as a map of your answers, not a map of hidden desires. Explicit boundaries and fantasy-only choices take priority; they never become inferred real-world intentions. The psychology quiz is not a second independent measure of intimate preference.');
  return sec;
 }
+// The readable PDF keeps every original questionnaire answer in its appendices,
+// but does not print the same evidence dozens of times in multiple themed maps.
+// Expanded evidence remains available through the full-detail report choice.
+function compactReport(root){
+ if(!root||root.dataset.readableReport==='true')return root;
+ root.dataset.readableReport='true';
+ // The interest profiles below already contain dedicated, source-linked analysis.
+ // Reprinting the cross-map once per theme for every interest adds enormous duplication.
+ const duplicated=root.querySelector('.report-deep-connections .report-cross-topics');
+ if(duplicated)duplicated.remove();
+ root.querySelectorAll('.report-cross-more').forEach(detail=>detail.remove());
+ const pairs=[...root.querySelectorAll('.report-cross-pair-table tbody tr')];
+ for(const row of pairs.slice(12))row.remove();
+ const sections=[...root.querySelectorAll('section.report-section')];
+ const activities=sections.find(el=>el.querySelector('h2')?.textContent.startsWith('Your selected activities and how they intersect'));
+ if(activities){
+  const answers=[...activities.querySelectorAll(':scope > article.report-answer')];
+  for(const card of answers.slice(12))card.remove();
+  if(answers.length>12){
+   const note=make('p','report-muted','Showing 12 examples here to prevent repetition. All original question responses remain in Appendices A and B.');
+   activities.append(note);
+  }
+ }
+ const interests=sections.find(el=>el.querySelector('h2')?.textContent.startsWith('04 ·'));
+ if(interests){
+  const profiles=[...interests.querySelectorAll(':scope > article.report-interest')];
+  const extra=profiles.slice(8);
+  for(const item of extra)item.remove();
+  if(extra.length){
+   const summary=make('div','report-readable-remaining');
+   add(summary,'h3','','Other topics included in my results');
+   add(summary,'p','report-muted','These topics remain recorded in my selected-interest overview and original answers. The expanded report offers an individual deep-dive for every topic.');
+   const list=add(summary,'ul','');
+   for(const item of extra){
+    const title=item.querySelector('h3')?.textContent||'Selected topic';
+    add(list,'li','',title);
+   }
+   interests.append(summary);
+  }
+ }
+ const note=make('p','report-muted','READABLE EDITION · Prioritizes practical insights and key supporting examples. Full questionnaire responses remain in the appendices; an expanded evidence edition is available separately.');
+ const first=root.querySelector('.report-visual-dashboard');
+ if(first)first.prepend(note);else root.prepend(note);
+ return root;
+}
 function enhancePersonal(root,d){
  if(!root||root.querySelector('.report-deep-connections')||!d)return root;
  const child=build(d);
@@ -147,5 +192,5 @@ function enhancePersonal(root,d){
  else root.append(child);
  return root;
 }
-window.UnwrappedReportConnections=Object.freeze({build,enhancePersonal});
+window.UnwrappedReportConnections=Object.freeze({build,enhancePersonal,compactReport});
 })();
