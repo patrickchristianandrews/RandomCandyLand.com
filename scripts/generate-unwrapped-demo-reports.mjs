@@ -172,19 +172,29 @@ async function captureRealExports(name){
   if(!input)throw Error('Name field is missing from selective report');
   input.value=name;input.dispatchEvent(new Event('input',{bubbles:true}));
   const choices=[...document.querySelectorAll('#uc-select label.uc-check>input')];
-  if(choices.length<3)throw Error('No interest/psychology choices in selected report export');
-  choices[1].click();
-  choices[2].click();
+  const interestCount=window.AfterDarkCanonicalReport.buildData().interests.length;
+  if(choices.length<interestCount+6)throw Error('No interest/psychology choices in selected report export');
+  // These are explicitly fictional people: deliberately opt in to interests,
+  // underlying psychology lenses and a few nonsexual answers from each person.
+  // This makes the combined demonstration useful without leaking either private backup.
+  for(const choice of choices.slice(1,5))choice.click();
+  for(const choice of choices.slice(interestCount+1,interestCount+9))choice?.click();
+  const selectedPsych=[...document.querySelectorAll('#uc-select details .uc-answer-list label.uc-check')]
+    .filter(label=>label.textContent.includes('Psychology'));
+  if(selectedPsych.length<8)throw Error('Fictional selective share has too few psychology answers to compare');
+  for(const label of selectedPsych.slice(0,10))label.querySelector('input')?.click();
   document.querySelector('#uc-save').click();
   const sharedBlob=blobs.pop();
   if(!sharedBlob)throw Error('Actual selective partner download did not create a file');
   const shareJSON=await sharedBlob.text();
   const share=JSON.parse(shareJSON);
   if(share.format!=='unwrapped-shared-comparison-v1'||share.from!==name||
-     !share.interests?.length||share.toys?.length||share.answers?.length||
-     shareJSON.includes('freeResponses')||shareJSON.includes('multiAnswers'))
-   throw Error('Partner export is missing consent controls or wrongly includes private quiz data');
-  return{privateJSON,shareJSON,sharedInterests:share.interests.length};
+     share.interests?.length<3||share.themes?.length<4||
+     share.answers?.length<8||share.answers?.some(x=>x.quiz!=='psych')||
+     share.toys?.length||shareJSON.includes('freeResponses')||shareJSON.includes('multiAnswers'))
+   throw Error('Partner export lacks explicitly approved comparison material or leaked private quiz data');
+  return{privateJSON,shareJSON,sharedInterests:share.interests.length,
+    sharedThemes:share.themes.length,sharedPsychAnswers:share.answers.length};
  }finally{URL.createObjectURL=orig}
 }
 async function verifyRealImport(json){
@@ -254,6 +264,8 @@ async function uploadAndCompare(aText,bText){
       return reject(Error('Combined report leaked full private saved answers'));
     document.querySelector('#uc-comparison')?.scrollIntoView({block:'start'});
     return resolve({combined:true,outputCharacters:text.length,comparedSections:result.querySelectorAll('.uc-result').length,
+      matchedPsychologyAnswers:result.querySelectorAll('.uc-answer-pair').length,
+      sharedPsychologyThemes:Number(result.querySelector('.uc-metric strong')?.textContent||0),
       privacyReviewed:true});
    }
    if(status.startsWith('Could not compare:'))return reject(Error(status));
@@ -323,7 +335,7 @@ async function uploadAndCompare(aText,bText){
     const imported=await fresh.evaluate('('+verifyRealImport.toString()+')('+JSON.stringify(exports.privateJSON)+')');
     if(imported.restoredDirect!==69||imported.restoredPsych!==32)throw Error('Full private import verification failed');
     audit.push({...result,...prepared,file,pdfBytes:bytes.length,privateQuizImport:imported,
-      selectivePartnerExport:{approvedInterests:exports.sharedInterests,privateAnswersIncluded:false,toysIncluded:false}});
+      selectivePartnerExport:{approvedInterests:exports.sharedInterests,approvedPsychologyThemes:exports.sharedThemes,approvedPsychologyAnswers:exports.sharedPsychAnswers,privateAnswersIncluded:false,toysIncluded:false}});
     console.log('✓ Generated full fictional '+key+' report: '+result.direct+'+'+result.psych+' answers, '+prepared.themes+' themes, '+prepared.subConnections+' sub-connections, '+bytes.length+' bytes');
     await fresh.evaluate("localStorage.clear();sessionStorage.clear();true");
   }
@@ -331,6 +343,7 @@ async function uploadAndCompare(aText,bText){
   const comparing=await navigate(site+'/after-dark/');
   await comparing.evaluate("document.querySelector('#enter')?.click();true");
   const merged=await comparing.evaluate('('+uploadAndCompare.toString()+')('+JSON.stringify(selectedFiles[0])+','+JSON.stringify(selectedFiles[1])+')');
+  if(merged.matchedPsychologyAnswers<6||merged.sharedPsychologyThemes<1)throw Error('Combined report failed to compare consent-selected psychology answers and shared themes');
   const compareImage=await comparing.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
   fs.writeFileSync(path.join(outputDir,'rowan-ellis-comparison-preview.png'),Buffer.from(compareImage.data,'base64'));
   const comparisonPrinter=await openIsolatedPrint(comparing,'#uc-results','print-unwrapped-comparison ad-entered');
