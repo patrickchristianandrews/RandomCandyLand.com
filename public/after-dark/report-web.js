@@ -83,6 +83,23 @@ function personal(d){
   const evidence=[...direct.map(q=>({...q,quiz:'Preferences'})),...psych.map(q=>({...q,quiz:'Everyday'}))].find(q=>(q.selected||[]).some(v=>(v.axes||[]).includes(key)));
   if(evidence)append(card,'small','','Based on '+evidence.quiz+' Q'+evidence.number+': '+(evidence.selected||[]).find(v=>(v.axes||[]).includes(key)).text.slice(0,110));
  }
+ const named=(d.interests||[]).filter(chosen).slice(0,5);
+ if(named.length){
+  append(panel,'h3','unwrapped-web-practical-title','Exploring the interests I actually named');
+  const choices=append(panel,'div','unwrapped-web-interest-grid');
+  for(const item of named){
+   const card=append(choices,'article','unwrapped-web-interest');
+   append(card,'h4','',item.name);
+   const state=item.directSelection===2?'Marked Interested':item.directSelection===1?'Marked Curious':'Named in an answer';
+   append(card,'small','',state+' · not an obligation to act');
+   const tags=(item.themeTags||[]).map(k=>d.lenses?.[k]?.label).filter(Boolean).slice(0,3);
+   if(tags.length)append(card,'p','','Related themes in my answers: '+tags.join(', ')+'. These are possible connections, not known causes.');
+   const activity=Array.isArray(item.activities)?item.activities.find(x=>typeof x==='string'&&x.length>15):null;
+   if(item.warn)append(card,'p','','A next step: stay with education or fictional reflection, and get appropriate safety information. There is no need to try a higher-risk activity.');
+   else append(card,'p','','A next step: '+(activity||'Learn more about what appeals to you, or explore the idea privately as a story or conversation.') );
+   append(card,'p','','How to express it: “This interested me because … . For now, I see it as a curiosity, a fantasy, or something I might discuss. What are your thoughts and boundaries?”');
+  }
+ }
  const discover=append(panel,'div','unwrapped-web-discover');
  append(discover,'h4','','What else might be worth exploring?');
  append(discover,'p','','Your selected interests are the starting point. Related ideas that you did not select are just optional reading topics, never facts about you.');
