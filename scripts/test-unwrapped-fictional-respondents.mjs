@@ -24,7 +24,12 @@ for(const key of ['rowan','ellis']){
  for(let i=0;i<69;i++){
   assert.equal(a[i].length,1,'Every direct question has exactly one fictional response');
   assert.ok(a[i][0]>=0&&a[i][0]<direct[i].options.length,'Answer references a real direct choice');
-  assert.ok(['fantasy','explore','unsure'].includes(fixture.direct.questionIntents[i]),'Every intimate intention is explicit');
+  if(fixture.profile.noIds.includes(Number(direct[i].id))){
+   assert.equal(direct[i].options[a[i][0]].role,'none','A fictional stated boundary must select the actual decline option');
+   assert.equal(fixture.direct.questionIntents[i],undefined,'A firm No must not be labeled fantasy, exploration or undecided');
+  }else{
+   assert.ok(['fantasy','explore','unsure'].includes(fixture.direct.questionIntents[i]),'Every affirmative interest receives an explicit intention');
+  }
  }
  for(let i=0;i<32;i++){
   assert.equal(b[i].length,1,'Every everyday question has exactly one response');
