@@ -128,6 +128,9 @@ function compare(a,b){
  const both=common(a.themes,b.themes),aOnly=only(a.themes,b.themes),bOnly=only(b.themes,a.themes);
  const together=common(a.interests,b.interests),ia=only(a.interests,b.interests),ib=only(b.interests,a.interests);
  const commonToys=common(a.toys||[],b.toys||[]),aToys=only(a.toys||[],b.toys||[]),bToys=only(b.toys||[],a.toys||[]);
+ const matchedPsychQuestions=questionMatches(a.answers.filter(x=>x.quiz==='psych'),b.answers.filter(x=>x.quiz==='psych'));
+ const psychDisclosure=a.themes.length+b.themes.length+a.answers.filter(x=>x.quiz==='psych').length+b.answers.filter(x=>x.quiz==='psych').length;
+
  const dashboard=E('section',undefined,'uc-dashboard');dashboard.setAttribute('aria-label','Visual comparison of shared report selections');
  const tiles=E('div',undefined,'uc-metric-grid');
  for(const [value,label,context] of [[both.length,'Shared psychology themes','Reported by both'],[together.length,'Shared intimate topics','Selected by both'],[aOnly.length+bOnly.length,'Individual psychology themes','Not matched in shared selections'],[ia.length+ib.length,'Individual intimate topics','Not matched in shared selections']]){
@@ -159,6 +162,31 @@ function compare(a,b){
   dashboard.append(map);
  }
  out.append(dashboard);
+ if(!psychDisclosure){
+  addText(out,'Psychology comparison not included','Neither selected file includes psychology themes or answered psychology questions. This is a limited interests-only comparison, not a psychological or whole-person assessment. Each person can choose additional nonsexual topics and export a new selected report if they wish.');
+ }else{
+  const lens=E('section',undefined,'uc-action-paths');
+  lens.append(E('h4','How your everyday psychology themes relate'),
+   E('p','Themes summarize only the nonsexual reflections each person deliberately disclosed. An unshared or unmatched theme says nothing about the other person’s underlying personality.','uc-note'));
+  for(const item of both.slice(0,8)){
+   const row=E('article',undefined,'uc-answer-pair');
+   row.append(E('strong',item.one.label),
+    E('p','A useful lens: '+(item.one.description||'A possible shared area of reflection.')),
+    E('p','Discuss together: '+topicPrompt(item.one.label)));
+   lens.append(row);
+  }
+  for(const [name,items] of [[a.from||'Partner A',aOnly],[b.from||'Partner B',bOnly]]){
+   if(!items.length)continue;
+   const row=E('article',undefined,'uc-answer-pair');
+   row.append(E('strong',name+' · themes selected individually'),
+    E('p',items.slice(0,6).map(x=>x.label).join(' · ')),
+    E('p','These are disclosed by one person only. Ask what they mean before assuming an actual difference.'));
+   lens.append(row);
+  }
+  lens.append(E('p',matchedPsychQuestions.length+
+   ' nonsexual questionnaire questions were explicitly chosen by both people for side-by-side review. See the actual selected responses below.','uc-note'));
+  out.append(lens);
+ }
  addText(out,'How to read the visual overview','Matching labels are conversation starting points; individual selections can reflect different interests, different experiences, or simply what each person chose to disclose. The number of labels is not a scientific measure of how well you fit together.');
  if(both.length)addText(out,'Shared psychology themes',both.map(x=>x.one.label).join(' · ')+'. Ask when these patterns show up in daily life and what support feels helpful to each person.');
  if(together.length)addText(out,'Shared intimate interests',together.map(x=>x.one.title).join(' · ')+'. Compare what each interest means personally, including fantasy versus real-life intentions and boundaries.');
@@ -187,7 +215,7 @@ function compare(a,b){
  const matchedAnswers=questionMatches(a.answers,b.answers);
  if(matchedAnswers.length){
   const box=E('section',undefined,'uc-answer-comparison');
-  box.append(E('h4','Questions you both chose to share'),E('p','Read the answers side by side. A shared question does not mean equal enthusiasm, intent, or permission to act.','uc-note'));
+  box.append(E('h4','Questions you both chose to share'),E('p','Read the answers side by side. These are the only question-level answers each person separately approved for disclosure; they are not a hidden comparison of private questionnaire data.','uc-note'));
   for(const x of matchedAnswers.slice(0,10)){
    const card=E('article',undefined,'uc-answer-pair');
    card.append(E('strong',x.one.question));
@@ -198,7 +226,11 @@ function compare(a,b){
     if(answer.intentLabel)side.append(E('small','Stated intention: '+answer.intentLabel));
     pair.append(side);
    }
-   card.append(pair);box.append(card);
+   const same=x.one.selection.map(v=>cleanLabel(v)).join('|')===x.two.selection.map(v=>cleanLabel(v)).join('|');
+   card.append(pair,E('p',same?
+     'Both people chose the same response wording. Ask whether it means the same thing to each of you.':
+     'Your responses differ. Explore the context and preferences behind each answer; neither response is right or wrong.','uc-note'));
+   box.append(card);
   }
   box.append(E('p','Try asking: “What did you mean by this answer, and does it refer to everyday life, imagination, or something you would actually want to discuss?”','uc-note'));
   out.append(box);
@@ -211,7 +243,7 @@ function compare(a,b){
 }
 function mount(){
  const host=$('uc-comparison');if(!host)return;
- host.innerHTML='<h2>Compare two selected partner reports</h2><p>Explore intimacy, everyday psychology, or both. Each person chooses what to share; compare only the two selected files, right here in your browser.</p><details id="uc-export"><summary>Step 1 · Create my selected report</summary><div id="uc-select"></div><button class="btn" type="button" id="uc-save">Download selected report</button></details><div class="uc-upload"><label>Step 2 · Partner A report <input id="uc-a" type="file" accept=".json,application/json"></label><label>Step 3 · Partner B report <input id="uc-b" type="file" accept=".json,application/json"></label></div><button class="btn" type="button" id="uc-compare">Compare our chosen sections</button><button class="btn alt" type="button" id="uc-print" hidden>Save visual comparison as PDF</button><p id="uc-status" role="status"></p><div id="uc-results" aria-live="polite"></div><p class="uc-note">Reports stay on this device while you compare; nothing is uploaded. Use selected-report JSON exports, not full private quiz backups. Never share a report without its owner’s permission.</p>';
+ host.innerHTML='<h2>Compare two selected partner reports</h2><p>Explore intimacy, everyday psychology, or both. Each person chooses what to share. For a meaningful whole-person comparison, each person should select psychology themes and several nonsexual questionnaire answers as well as any intimate topics they voluntarily wish to include.</p><p class="uc-note">Upload the <strong>selected report JSON</strong> exported below, not a PDF or your full private quiz backup. A PDF by itself does not contain the structured, consent-selected data needed for this comparison.</p><details id="uc-export"><summary>Step 1 · Create my selected report</summary><div id="uc-select"></div><button class="btn" type="button" id="uc-save">Download selected report</button></details><div class="uc-upload"><label>Step 2 · Partner A report <input id="uc-a" type="file" accept=".json,application/json"></label><label>Step 3 · Partner B report <input id="uc-b" type="file" accept=".json,application/json"></label></div><button class="btn" type="button" id="uc-compare">Compare our chosen sections</button><button class="btn alt" type="button" id="uc-print" hidden>Save visual comparison as PDF</button><p id="uc-status" role="status"></p><div id="uc-results" aria-live="polite"></div><p class="uc-note">Reports stay on this device while you compare; nothing is uploaded. Use selected-report JSON exports, not full private quiz backups. Never share a report without its owner’s permission.</p>';
  $('uc-export').addEventListener('toggle',()=>{if($('uc-export').open)exportChoices()});
  $('uc-save').onclick=save;
  $('uc-print').onclick=()=>{if(!$('uc-results').children.length)return;document.body.classList.add('print-unwrapped-comparison');window.print()};
