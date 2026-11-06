@@ -16,6 +16,7 @@ const compare=read('partner-compare.js');
 const qr=read('report-qr.js');
 const main=read('index.html');
 const connections=read('report-connections.js');
+const holistic=read('report-whole-person.js');
 const demoFixtures=read('fictional-respondents.js');
 
 for(const [path,source] of [
@@ -76,6 +77,15 @@ assert.match(main,/id="toy-body-focus"/);
 assert.match(main,/UnwrappedToyLibrary\?\.answer/);
 assert.match(main,/report-coverage-20261105-v5/);
 assert.match(main,/report-connections\.js\?v=/);
+assert.match(main,/report-whole-person\.js\?v=integrated-perspectives/);
+assert.match(holistic,/How it all fits together/);
+assert.match(holistic,/Apparent contradictions may be context/);
+assert.match(holistic,/A practical week of experiments/);
+assert.match(holistic,/What I chose, what is only fantasy/);
+assert.match(holistic,/Intimacy & personal preference/);
+assert.match(holistic,/Everyday life/);
+assert.match(holistic,/Try saying:/);
+assert.match(holistic,/Q'\+row\.number/);
 assert.match(main,/Ask Mira/);
 assert.match(connections,/report-cross-pair-table/);
 assert.match(connections,/report-cross-topic/);
