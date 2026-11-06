@@ -36,8 +36,11 @@
   const opts=q.options||[];
   if(!opts.length)throw Error('Missing options for '+kind+' question '+q.id);
   if(kind==='direct' && profile.noIds.includes(Number(q.id))){
-   const declined=opts.findIndex(o=>negative.test(o.text));
+   // A clear "no" always beats theme similarity, even when wording uses
+   // "prefer exclusivity" or "would not involve others" instead of "not interested".
+   const declined=opts.findIndex(o=>o.role==='none');
    if(declined>=0)return declined;
+   throw Error('Fictional boundary question '+q.id+' has no explicit opt-out answer');
   }
   const ranked=opts.map((o,index)=>{
    const text=String(o.text||''),tags=tokens(o.axes);
@@ -57,7 +60,8 @@
   direct.forEach((q,i)=>{
    const option=picked(q,p,'direct');
    directAnswers[i]=[option];
-   intents[i]=p.fantasyIds.includes(Number(q.id))?'fantasy':p.noIds.includes(Number(q.id))?'unsure':'explore';
+   // No/declined is an explicit boundary; do not label it fantasy or undecided.
+   if(!p.noIds.includes(Number(q.id)))intents[i]=p.fantasyIds.includes(Number(q.id))?'fantasy':'explore';
    if(i===0)notes[i]=p.reflect;
   });
   psych.forEach((q,i)=>{
