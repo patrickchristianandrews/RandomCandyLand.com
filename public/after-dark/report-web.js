@@ -5,7 +5,7 @@ const append=(to,tag,cls,text)=>{const e=html(tag,cls,text);to.append(e);return 
 const svgNS='http://www.w3.org/2000/svg';
 const shape=(tag,attrs={},text)=>{const e=document.createElementNS(svgNS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));if(text!=null)e.textContent=String(text);return e};
 const norm=v=>String(v||'').trim().toLowerCase();
-function create({center='MY ANSWERS',themes=[],topics=[],intro='',bothLabel='Theme in both quizzes'}={}){
+function create({center='MY ANSWERS',themes=[],topics=[],intro='',bothLabel='Theme in both quizzes',selectedLabel='Interest you selected'}={}){
  const root=html('figure','unwrapped-web');
  append(root,'figcaption','unwrapped-web-title','The connections between your answers');
  append(root,'p','unwrapped-web-intro',intro||'Follow the lines from questionnaire themes to selected topics. Outlined ideas are optional, not established preferences.');
@@ -42,7 +42,7 @@ function create({center='MY ANSWERS',themes=[],topics=[],intro='',bothLabel='The
  outs.forEach(t=>addNode(t,t.kind==='possible'?'possible':'selected'));
  root.append(svg);
  const legend=append(root,'div','unwrapped-web-legend');
- for(const [cl,label] of [['both',bothLabel],['selected','Interest selected by the person'],['possible','Unconfirmed reading idea']]){
+ for(const [cl,label] of [['both',bothLabel],['selected',selectedLabel],['possible','Unconfirmed reading idea']]){
   const item=append(legend,'span','unwrapped-legend-item');append(item,'i','unwrapped-legend-dot '+cl);append(item,'span','',label);
  }
  append(root,'p','unwrapped-web-note','Lines reflect coded overlaps in answers, not causes, hidden wishes, compatibility or consent. The original answer record remains in the appendix.');
