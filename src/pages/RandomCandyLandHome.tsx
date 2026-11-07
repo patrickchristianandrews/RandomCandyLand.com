@@ -5,7 +5,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery' | 'research';
+type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery';
 
 type Portal = {
   icon: string;
@@ -80,7 +80,6 @@ const PORTALS: Portal[] = [
 
 const COLLECTIONS = [
   {id:'discovery',title:'Explore & Understand',description:'A fuller picture of who you are—psychology, personal interests, relationships and how to express what matters.',symbol:'🌙',time:'DISCOVER · CONNECT'},
-  {id:'research',title:'Research & Digital Footprint',description:'A stand-alone, guided look at your own publicly visible information. Start with one clue and take away a source-linked report—no course required.',symbol:'🔎',time:'REVIEW · REPORT'},
   {id:'multiplayer',title:'Multiplayer & Play Together',description:'Play with other people. Online rooms and same-screen modes are clearly marked.',symbol:'👥',time:'PLAY TOGETHER'},
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
