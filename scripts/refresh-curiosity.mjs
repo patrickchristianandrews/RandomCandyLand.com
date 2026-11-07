@@ -76,7 +76,7 @@ async function main(){
    for(const work of Array.isArray(result.results)?result.results:[]){
     const title=String(work.title||'').trim(),published=String(work.publication_date||''),
       doi=String(work.doi||''),loc=String(work.primary_location?.source?.display_name||'Research index');
-    const url=doi.startsWith('https://doi.org/');if(title.length<14||title.length>220||/\b(?:LLM|OpenAI|ChatGPT|Claude|Gemini|GPT-[0-9])\b/i.test(title)||!url||!/^\d{4}-\d{2}-\d{2}$/.test(published)||papers.some(x=>x.url===doi))continue;
+    const url=doi.startsWith('https://doi.org/');if(title.length<14||title.length>220||/\b(?:LLM|OpenAI|ChatGPT|Claude|Gemini|GPT-[0-9]|artificial[ -]+intelligence)\b/i.test(title+' '+loc)||!url||!/^\d{4}-\d{2}-\d{2}$/.test(published)||papers.some(x=>x.url===doi))continue;
     papers.push({title,published,source:loc.slice(0,110),url:doi});if(papers.length>=9)break;
    }
   }catch(error){console.warn('OpenAlex metadata temporarily unavailable:',String(error?.message||error))}
