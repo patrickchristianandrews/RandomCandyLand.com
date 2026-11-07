@@ -389,3 +389,11 @@ footer{margin-top:15px;padding:18px 2px;border-top:1px solid #715183;font-size:1
 .casino-invite-actions{display:flex;gap:7px;flex-wrap:wrap}
 .friends-connect .casino-invite-actions button{flex:1;min-width:110px;margin-top:7px}
 .friends-connect .network-version{display:none}
+
+
+/* Poker-only experience: no dead casino selection row. */
+.candy-casino .game-pickers{display:flex;justify-content:center;align-items:center;min-height:47px;margin:2px 0 15px;border:1px solid #c59fd177;background:#2d2045;border-radius:11px;padding:7px 12px}
+.candy-casino .game-pickers .game-pick[hidden]{display:none!important}
+.candy-casino .poker-only-label{font:850 clamp(10px,1.6vw,13px)/1.4 system-ui,sans-serif;letter-spacing:.07em;text-align:center;color:#ffe6af}
+.candy-casino .casino-header-title strong{color:#ffe6ae}
+@media(max-width:440px){.candy-casino .game-pickers{min-height:38px}.candy-casino .poker-only-label{font-size:10px;letter-spacing:0}}
