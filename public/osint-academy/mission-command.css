@@ -73,3 +73,32 @@
 }
 @media(max-width:360px){.trace-zone-list{grid-template-columns:1fr}.trace-campaign-info{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){#trace-game-feedback,.trace-evidence-clickable{transition:none}}
+
+/* Mission briefing visual. Lightweight CSS art means no game asset downloads or loading delays. */
+.trace-visual-scene{isolation:isolate;position:relative;overflow:hidden;min-height:220px;margin:8px 0 14px;border-radius:15px;
+ border:1px solid #547f92;background:radial-gradient(circle at 78% 43%,#1f7077a8,transparent 25%),linear-gradient(120deg,#101b36,#153c51 58%,#163e47);box-shadow:inset 0 0 100px #04162a7d}
+.trace-scene-zone-b{background:radial-gradient(circle at 76% 40%,#2679b5a0,transparent 28%),linear-gradient(125deg,#141d41,#183958 57%,#214656)}
+.trace-scene-zone-c{background:radial-gradient(circle at 77% 43%,#8a6b38a6,transparent 26%),linear-gradient(125deg,#121d35,#30414b 64%,#283b52)}
+.trace-scene-zone-d{background:radial-gradient(circle at 79% 37%,#2b9b89a1,transparent 28%),linear-gradient(125deg,#121a2b,#164854 66%,#194455)}
+.trace-scene-zone-e{background:radial-gradient(circle at 79% 40%,#8a5b9f99,transparent 28%),linear-gradient(125deg,#171d36,#332944 61%,#273c58)}
+.trace-scene-mesh{position:absolute;inset:0;pointer-events:none;opacity:.4;background-image:linear-gradient(#a2e8f413 1px,transparent 1px),linear-gradient(90deg,#a2e8f413 1px,transparent 1px);background-size:27px 27px;transform:perspective(260px) rotateX(13deg) scale(1.09);mask-image:linear-gradient(to top,black,transparent)}
+.trace-scene-radar{position:absolute;right:6%;top:3%;width:235px;height:235px;border:1px solid #83f4d26e;border-radius:50%;opacity:.74;box-shadow:0 0 0 24px #9ef5e90b,0 0 0 54px #9ef5e908}
+.trace-scene-radar:before,.trace-scene-radar:after{content:"";position:absolute;inset:19%;border:1px dashed #9dffdf75;border-radius:50%}
+.trace-scene-radar:after{inset:38%;border-style:solid}
+.trace-scene-radar span{position:absolute;left:50%;top:50%;width:44%;height:1px;background:#9dffe1a0;transform-origin:left center;transform:rotate(33deg)}
+.trace-scene-radar span:nth-child(2){transform:rotate(145deg)}
+.trace-scene-radar span:nth-child(3){transform:rotate(270deg)}
+.trace-scene-world{position:absolute;bottom:0;left:0;right:0;height:44%;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;opacity:.4;pointer-events:none}
+.trace-scene-world i{width:16%;height:68%;background:linear-gradient(180deg,#276c7d,#0b2039);clip-path:polygon(0 9%,20% 9%,20% 0,68% 0,68% 13%,100% 13%,100% 100%,0 100%)}
+.trace-scene-world i:nth-child(2){height:90%}.trace-scene-world i:nth-child(3){height:45%}.trace-scene-world i:nth-child(4){height:76%}.trace-scene-world i:nth-child(5){height:54%}
+.trace-scene-dossier{position:relative;z-index:1;max-width:440px;margin:25px 20px 25px clamp(16px,3vw,29px);padding:16px 19px;
+ border:1px solid #9eccc6a8;background:#101c32e8;border-radius:12px;display:grid;gap:8px;box-shadow:10px 12px 36px #05121ea6;transform:rotate(-1.5deg)}
+.trace-scene-dossier span{font:850 10px/1.4 ui-monospace,monospace;letter-spacing:.07em;color:#a5ffe1}
+.trace-scene-dossier strong{font:900 clamp(19px,2.6vw,28px)/1.16 system-ui,sans-serif;color:#fff6f0}
+.trace-scene-dossier small{font:750 10px/1.4 ui-monospace,monospace;color:#ffdbac}
+.trace-scene-chip{position:absolute;right:12px;bottom:11px;z-index:2;display:grid;gap:4px;min-width:155px;padding:9px 11px;
+ background:#0b2130d9;border:1px solid #8dd9c4;border-radius:9px}
+.trace-scene-chip b{font:850 10px/1.3 system-ui,sans-serif;color:#b0ffd9}
+.trace-scene-chip span{font:650 9px/1.3 system-ui,sans-serif;color:#d3e7f0}
+@media(max-width:760px){.trace-visual-scene{min-height:210px}.trace-scene-dossier{max-width:min(330px,calc(100% - 28px));margin:18px 14px 55px}.trace-scene-chip{left:14px;right:auto;bottom:8px}}
+@media(max-width:450px){.trace-scene-radar{right:-19%;top:0;width:190px;height:190px}.trace-visual-scene{min-height:224px}.trace-scene-dossier strong{font-size:20px}}
