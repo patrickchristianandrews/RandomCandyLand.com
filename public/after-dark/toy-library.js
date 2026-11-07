@@ -257,7 +257,7 @@ function recommendations(data){
    const hits=terms.filter(term=>normalize(item.text).includes(term));
    if(!hits.length)continue;
    const strong=hits.some(term=>!['sex toy','adult toy','toys','vibrat','external','massage','penetrat'].includes(term));
-   score+=strong?3:1;
+   score+=hits.some(term=>term.includes(' ')&&term.length>=8)?7:strong?3:1;
    if(item.intent!=='fantasy'&&item.intent!=='curious')active=true;
    if(reasons.length<3)reasons.push(item.context+': '+item.text.slice(0,120));
   }
@@ -384,7 +384,7 @@ function init(){
 // Use the same guide for Mira answers, the standalone explorer, and report exports.
 function answer(question){
  const raw=normalize(question);
- if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|harness|pegging toy|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw)&&!TOYS.some(t=>normalize(t.name).length>9&&raw.includes(normalize(t.name))))return '';
+ if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|harness|pegging toy|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw)&&!TOYS.some(t=>normalize(t.name).length>9&&raw.includes(normalize(t.name)))&&!Object.values(extension?.matchTerms||{}).some(arr=>arr.some(term=>term.length>=7&&raw.includes(normalize(term)))))return '';
  const patterns=[
   ['wand',/\bwand\b/],['bullet',/\bbullet\b/],['air-pulse',/air.?pulse|clitoral suction|air pressure/],
   ['insertable-vibe',/insertable vibrator|internal vibrator|vaginal vibrator/],
@@ -396,7 +396,7 @@ function answer(question){
   ['remote',/remote.controlled|remote vibrator/]
  ];
  const id=patterns.find(([,regex])=>regex.test(raw))?.[0];
- const expandedId=extension?.types?.find(t=>normalize(t.name).length>9&&raw.includes(normalize(t.name)))?.id;
+ const expandedId=extension?.types?.find(t=>(normalize(t.name).length>9&&raw.includes(normalize(t.name)))||(extension?.matchTerms?.[t.id]||[]).some(term=>term.length>=7&&raw.includes(normalize(term))))?.id;
  const matchId=id||expandedId;
  if(!matchId)return 'The Unwrapped Sex Toy Guide compares '+TOYS.length+' types with male, female and partner-use explanations, multiple uses, material guidance and safety notes. A quiz match is not a requirement to try anything. Browse the full guide to learn more.';
  const item=TOYS.find(x=>x.id===matchId),body=BODY_GUIDE[matchId];
