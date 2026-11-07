@@ -631,17 +631,17 @@ try{
   const traceDirectory=await trace.evaluate("document.querySelector('#case-directory').open && document.querySelectorAll('.mission-option').length===25");
   if(!traceDirectory)throw Error('TRACE optional case browser should open on demand');
   const casino=await navigate(site+'/candy-casino/');
-  const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-duel]').length===3 && document.querySelectorAll('[data-game]').length===0 && !!document.querySelector('[data-opponent=computer]') && !!document.querySelector('[data-opponent=friend]')");
-  if(!casinoReady)throw Error('Candy Casino must show ONLY three competitive games with computer and friend choices');
-  const casinoHeader=await casino.evaluate("(()=>{const h=document.querySelector('.casino-compact-header');const back=h?.querySelector('a.casino-back');return !!h&&back?.getAttribute('href')==='/'&&h.querySelector('.casino-header-title img')?.getAttribute('src')?.includes('casino.svg')&&!h.querySelector('.site-goo')&&!h.querySelector('.rcl-site-home-icon')&&document.querySelector('.casino-release-label')?.textContent.includes('Casino refresh')&&getComputedStyle(h).minHeight==='0px'})()");
+  const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-duel]').length===1 && !document.querySelector('[data-duel=card]') && !document.querySelector('[data-duel=dice]') && !!document.querySelector('[data-opponent=computer]') && !!document.querySelector('[data-opponent=friend]')");
+  if(!casinoReady)throw Error('Candy Land Poker must show just five-card draw, with computer and friend opponents');
+  const casinoHeader=await casino.evaluate("(()=>{const h=document.querySelector('.casino-compact-header');const back=h?.querySelector('a.casino-back');return !!h&&back?.getAttribute('href')==='/'&&h.querySelector('.casino-header-title img')?.getAttribute('src')?.includes('casino.svg')&&!h.querySelector('.site-goo')&&!h.querySelector('.rcl-site-home-icon')&&document.querySelector('.casino-release-label')?.textContent.includes('Poker · Nov 2026')&&getComputedStyle(h).minHeight==='0px'})()");
   if(!casinoHeader)throw Error('Casino is showing the older duplicate-logo page instead of the compact refreshed header');
   const pokerGuideReady=await casino.evaluate("(()=>{const guide=document.querySelector('#poker-hand-guide'),arena=document.querySelector('#casino-arena'),rows=[...guide.querySelectorAll('.poker-rank-row')],names=rows.map(row=>row.querySelector('.poker-rank-meaning strong')?.textContent);return !guide.hidden && !!(arena.compareDocumentPosition(guide)&Node.DOCUMENT_POSITION_FOLLOWING) && rows.length===10 && names[0]==='Royal flush' && names[9]==='High card' && rows.every(row=>row.querySelectorAll('.poker-example-card').length===5) && document.querySelector('#poker-rules-jump')?.getAttribute('href')==='#poker-hand-guide'})()");
   if(!pokerGuideReady)throw Error('Casino poker hand rankings must appear below the game, from Royal flush down to High card with five-card examples');
-  const compactCasino=await casino.evaluate("(()=>{const friends=document.querySelector('#friends'),howto=document.querySelector('#casino-howto'),scores=document.querySelector('.scorebar'),games=document.querySelector('#games');return document.querySelectorAll('.scorebar>div').length===2 && !document.querySelector('.hero') && !document.querySelector('#hero-play-friend') && howto?.compareDocumentPosition(scores)===Node.DOCUMENT_POSITION_FOLLOWING && scores?.compareDocumentPosition(games)===Node.DOCUMENT_POSITION_FOLLOWING && friends?.hidden && getComputedStyle(friends).display==='none' && document.querySelectorAll('.game-pickers .game-pick').length===3 && !!document.querySelector('.connection-troubleshoot') && !document.querySelector('.friend-arena')})()");
+  const compactCasino=await casino.evaluate("(()=>{const friends=document.querySelector('#friends'),howto=document.querySelector('#casino-howto'),scores=document.querySelector('.scorebar'),games=document.querySelector('#games');return document.querySelectorAll('.scorebar>div').length===2 && !document.querySelector('.hero') && !document.querySelector('#hero-play-friend') && howto?.compareDocumentPosition(scores)===Node.DOCUMENT_POSITION_FOLLOWING && scores?.compareDocumentPosition(games)===Node.DOCUMENT_POSITION_FOLLOWING && friends?.hidden && getComputedStyle(friends).display==='none' && document.querySelectorAll('.game-pickers .game-pick').length===1 && !!document.querySelector('.connection-troubleshoot') && !document.querySelector('.friend-arena')})()");
   if(!compactCasino)throw Error('Casino must have no giant hero banner and must keep game controls and optional friend setup');
   await casino.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
-  const narrowCasino=await casino.evaluate("document.documentElement.scrollWidth<=innerWidth+3 && document.querySelector('.game-pickers').getBoundingClientRect().width<=innerWidth && getComputedStyle(document.querySelector('.game-pickers')).gridTemplateColumns.split(' ').length===3");
-  if(!narrowCasino)throw Error('Casino mobile layout must fit a 390px viewport with all three game buttons visible');
+  const narrowCasino=await casino.evaluate("document.documentElement.scrollWidth<=innerWidth+3 && document.querySelector('.game-pickers').getBoundingClientRect().width<=innerWidth && !!document.querySelector('.poker-only-label')");
+  if(!narrowCasino)throw Error('Poker mobile layout must fit a 390px viewport without old casino game options');
   await casino.command('Emulation.clearDeviceMetricsOverride');
 
   const cpu=await casino.evaluate("document.querySelector('#opponent-name').textContent.includes('Candybot') && !document.querySelector('#duel-ready').disabled");
@@ -665,21 +665,15 @@ try{
   const nextPoker=await casino.evaluate("window.CandyCasinoDebug.state().phase==='draw' && document.querySelector('#poker-round-label').textContent.includes('2 OF 5') && document.querySelector('#poker-showdown').hidden");
   if(!nextPoker)throw Error('Poker scoreboard did not advance to round two');
 
-  await casino.evaluate("document.querySelector('[data-duel=card]').click();document.querySelector('#duel-ready').click()");
-  const guideHiddenOutsidePoker=await casino.evaluate("document.querySelector('#poker-hand-guide').hidden && getComputedStyle(document.querySelector('#poker-hand-guide')).display==='none' && document.querySelector('#poker-rules-jump').hidden");
-  if(!guideHiddenOutsidePoker)throw Error('Poker hand guide must hide when High Card is selected');
-  const high=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelector('#duel-display').textContent.includes('drew')");
-  if(!high)throw Error('High Card did not play versus computer');
-  await casino.evaluate("document.querySelector('[data-duel=dice]').click();document.querySelector('#duel-ready').click()");
-  const dice=await casino.evaluate("window.CandyCasinoDebug.state().phase==='result' && document.querySelector('#duel-display').textContent.includes('rolled')");
-  if(!dice)throw Error('Dice Duel did not play versus computer');
+  const pokerOnly=await casino.evaluate("window.CandyCasinoDebug.state().duel==='poker' && !document.querySelector('[data-duel=card]') && !document.querySelector('[data-duel=dice]') && !document.querySelector('#poker-hand-guide').hidden");
+  if(!pokerOnly)throw Error('Old casino games must be removed without affecting poker and its hand guide');
   await casino.evaluate("document.querySelector('[data-opponent=friend]').click()");
   const remote=await casino.evaluate("!document.querySelector('#remote-controls').hidden && document.querySelector('#duel-ready').disabled && !!document.querySelector('#make-room') && !!document.querySelector('#join-room')");
   if(!remote)throw Error('Remote friend mode did not expose invite controls or require a connection');
   const singleFriendPanel=await casino.evaluate("(()=>{const f=document.querySelector('#friends'),d=f?.querySelector('.connection-troubleshoot');return !!f&&!f.hidden&&getComputedStyle(f).display!=='none'&&f.compareDocumentPosition(document.querySelector('#casino-arena'))===Node.DOCUMENT_POSITION_FOLLOWING&&d&&!d.open&&document.querySelectorAll('#make-room').length===1&&document.querySelectorAll('#join-room').length===1})()");
   if(!singleFriendPanel)throw Error('Friend setup must be a single compact panel above the game with optional help collapsed');
 
-  console.log('✓ Candy Casino has poker, high card and dice, computer wins/showdowns, hidden online cards and real friend invitation controls.');
+  console.log('✓ Candy Land Poker has one five-card draw game, computer showdowns, hidden online hands and real friend invitation controls.');
 
   const arcade=await navigate(site+'/goo-rush/');
   const arcadeReady=await arcade.evaluate("!!document.querySelector('[data-mode=duel]') && !!document.querySelector('#start')");
