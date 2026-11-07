@@ -79,6 +79,7 @@
   <a class="outline portable-model-app" href="https://www.pocketpal.dev/" target="_blank" rel="noopener noreferrer">Get a GGUF player for Android / iPhone ↗</a>
  </div>
  <p class="portable-model-device" id="portableModelDevice" role="status" aria-live="polite">Checking what this phone's browser reports…</p>
+ <p class="portable-model-rating-help"><strong>Accuracy:</strong> Not independently benchmarked in an external phone app. <strong>Response time:</strong> Not measured; speed varies by hardware and app. Size-based speed guidance is an estimate only.</p>
  <div class="portable-model-grid" aria-label="Ready-to-download standalone model files">
   <article class="portable-model-card" data-portable-model="qwen-small">
    <span class="portable-model-type">SMALLER · FIRST TRY</span><h3>Qwen3 0.6B</h3><p>Compact conversational AI; lighter on storage, with limited depth compared with larger models.</p>
@@ -98,19 +99,38 @@
    <a class="primary portable-model-file" data-phone-file-info="qwen-quality" href="https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Qwen3 4B GGUF model file, about 2.5 gigabytes, to phone">↓ Download actual .gguf</a>
    <a class="portable-model-source" href="https://huggingface.co/Qwen/Qwen3-4B-GGUF" target="_blank" rel="noopener noreferrer">Model source &amp; terms ↗</a>
   </article>
+  <article class="portable-model-card" data-portable-model="qwen-coder">
+   <span class="portable-model-type">💻 SPECIALIZED · CODING</span><h3>Qwen2.5 Coder 1.5B</h3><p>Designed for explaining and generating code, debugging mistakes, writing small functions and basic unit tests. Check the code before relying on it.</p>
+   <span class="portable-model-size">0.99 GB · Q4_K_M · GGUF</span><small class="portable-model-fit">Checking device fit…</small>
+   <a class="primary portable-model-file" data-phone-file-info="qwen-coder" href="https://huggingface.co/bartowski/Qwen2.5-Coder-1.5B-Instruct-GGUF/resolve/main/Qwen2.5-Coder-1.5B-Instruct-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Qwen2.5 Coder 1.5B GGUF model file, about 0.99 gigabytes">↓ Download actual .gguf</a>
+   <a class="portable-model-source" href="https://huggingface.co/bartowski/Qwen2.5-Coder-1.5B-Instruct-GGUF" target="_blank" rel="noopener noreferrer">Model source &amp; usage details ↗</a>
+  </article>
   <article class="portable-model-card" data-portable-model="lexi-open">
    <span class="portable-model-type">UNCENSORED FINE-TUNE · HEAVY</span><h3>Lexi Uncensored V2 8B</h3><p>A community-described uncensored model for more open local conversations. Responses and actual filtering can still vary.</p>
    <span class="portable-model-size">4.92 GB · Q4_K_M · GGUF</span><small class="portable-model-fit">Checking device fit…</small>
    <a class="primary portable-model-file" data-phone-file-info="lexi-open" href="https://huggingface.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF/resolve/main/Llama-3.1-8B-Lexi-Uncensored-V2-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Lexi Uncensored V2 GGUF model file, about 4.92 gigabytes, to phone">↓ Download actual .gguf</a>
    <a class="portable-model-source" href="https://huggingface.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF" target="_blank" rel="noopener noreferrer">Model source, license &amp; terms ↗</a>
   </article>
+  <article class="portable-model-card" data-portable-model="qwen-vision">
+   <span class="portable-model-type">🖼️ VISION · UNDERSTAND PHOTOS</span><h3>Qwen3-VL 2B</h3><p>Analyzes photos, describes scenes and reads visible text. Can discuss video frames in supported multimodal runtimes, but <strong>does not generate images or videos</strong>. Requires two files: the text model and vision projector.</p>
+   <span class="portable-model-size">1.56 GB total · Q4_K_M language + Q8_0 projector</span><small class="portable-model-fit">Checking device fit…</small>
+   <a class="primary portable-model-file" data-phone-file-info="qwen-vision" href="https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct-GGUF/resolve/main/Qwen3VL-2B-Instruct-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Qwen3 VL 2B model file, 1.11 gigabytes">↓ Download model · 1.11 GB</a>
+   <a class="outline portable-model-file" data-phone-file-info="qwen-vision" href="https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct-GGUF/resolve/main/mmproj-Qwen3VL-2B-Instruct-Q8_0.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Qwen3 VL vision projector file, 0.45 gigabytes">↓ Download projector · 0.45 GB</a>
+   <small class="portable-model-compatibility">Your phone app must support Qwen3-VL and the separate mmproj file. PocketPal compatibility for this model pair is not guaranteed.</small>
+   <a class="portable-model-source" href="https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct-GGUF" target="_blank" rel="noopener noreferrer">Official model instructions ↗</a>
+  </article>
  </div>
- <p id="portableModelDownloadStatus" class="portable-model-status" aria-live="polite" role="status"></p>
+  <div id="phoneImageModels" class="phone-media-models" aria-label="Actual local photo AI and video capabilities">
+  <article><span class="eyebrow">🤳 ANDROID · PHOTO GENERATION</span><h3>Generate images with Local Dream</h3><p>Runs compatible Stable Diffusion models in an Android app. This is genuine on-device image generation, separate from text GGUFs and not integrated into Random AI chat.</p><a href="https://play.google.com/store/apps/details?id=io.github.xororz.localdream" target="_blank" rel="noopener noreferrer">Open Local Dream on Google Play ↗</a></article>
+  <article><span class="eyebrow">🍎 IPHONE / IPAD · PHOTO GENERATION</span><h3>Create images with Draw Things</h3><p>A separate app for on-device image generation on supported Apple devices. Image-generation models aren't interchangeable with local chat models.</p><a href="https://drawthings.ai/downloads/" target="_blank" rel="noopener noreferrer">See Draw Things downloads ↗</a></article>
+  <article><span class="eyebrow">🎬 VIDEO</span><h3>Storyboards, not rendered videos</h3><p>These chat models can plan shots, scripts and prompts; none of the listed GGUF language models produces finished videos in Random AI. Real video generation requires a separate video engine and device verification.</p></article>
+ </div>
+<p id="portableModelDownloadStatus" class="portable-model-status" aria-live="polite" role="status"></p>
  <div class="portable-model-help">
    <div><h3>Open a downloaded model on your phone</h3>
     <ol><li>Tap <strong>Download actual .gguf</strong> and let your browser save the complete file. Check Downloads or Files; your browser chooses the folder.</li>
     <li>Open <a href="https://www.pocketpal.dev/" target="_blank" rel="noopener noreferrer">PocketPal AI</a> or another compatible offline model app. Choose <strong>Models → + → Local storage</strong> and select the .gguf file.</li>
-    <li>Tap <strong>Load</strong> in that app, then chat offline if the model fits your phone's RAM and storage.</li></ol>
+    <li>Tap <strong>Load</strong> in that app, then chat offline if the model fits your phone's RAM and storage. To analyze photos with Qwen3-VL, use an app that supports both its language GGUF and mmproj vision projector.</li></ol>
    </div>
    <div><h3>Already saved a model?</h3>
     <label for="phoneGGUFPicker">Check a GGUF file on this phone (never uploads it)</label>
