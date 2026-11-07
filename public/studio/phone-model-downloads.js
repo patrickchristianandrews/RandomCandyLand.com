@@ -60,9 +60,13 @@ function render(){
  const note=$('#portableModelDevice');
  if(note){
   const ram=typeof navigator.deviceMemory==='number'&&navigator.deviceMemory>0?navigator.deviceMemory:null;
-  const device=/(Android|iPhone|iPad)/i.test(navigator.userAgent||'')?'Phone/tablet browser':'Browser';
+  const agent=navigator.userAgent||'';
+  const tablet=/iPad/i.test(agent)||(/Macintosh/i.test(agent)&&navigator.maxTouchPoints>1)||(/Android/i.test(agent)&&!/Mobile/i.test(agent));
+  const phone=!tablet&&(/iPhone|iPod/i.test(agent)||(/Android/i.test(agent)&&/Mobile/i.test(agent)));
+  const computer=/Windows|Macintosh|Linux/i.test(agent);
+  const device=tablet?'Tablet browser':phone?'Phone browser':computer?'Laptop/desktop browser':'Device browser';
   note.textContent=device+' · '+(ram?ram+' GB coarse reported device memory':'System RAM not available')+
-    ' · browser cannot check available Downloads storage, exact GPU capacity, or guarantee a model will run.';
+    ' · the browser cannot measure free storage, actual GPU capacity, or whether a model will run here.';
  }
 }
 const existing=$('#phoneGGUFPicker');
