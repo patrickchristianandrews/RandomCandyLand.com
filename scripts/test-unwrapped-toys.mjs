@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 const expansion=fs.readFileSync('public/after-dark/toy-library-expanded.js','utf8');
 const source=fs.readFileSync('public/after-dark/toy-library.js','utf8');
 const explorer=fs.readFileSync('public/after-dark/toy-explorer-tools.js','utf8');
+const combiner=fs.readFileSync('public/after-dark/toy-idea-combiner.js','utf8');
 const panel=fs.readFileSync('public/after-dark/index.html','utf8');
 const personal=fs.readFileSync('public/after-dark/quiz-report.js','utf8');
 const partner=fs.readFileSync('public/after-dark/partner-pdf.js','utf8');
@@ -14,7 +15,7 @@ vm.runInNewContext(expansion,context,{filename:'toy-library-expanded.js'});
 vm.runInNewContext(source,context,{filename:'toy-library.js'});
 const library=context.window.UnwrappedToyLibrary;
 assert.ok(library,'Toy library must expose a readonly browser API');
-assert.ok(library.types.length>=40,'Expanded guide must contain 40+ categories; found '+library.types.length);
+assert.ok(library.types.length>=56,'Expanded guide must contain 56 distinct categories; found '+library.types.length);
 assert.equal(new Set(library.types.map(x=>x.id)).size,library.types.length,'Every toy id must be unique');
 assert.ok(context.window.UnwrappedToyExpansion.resource.guides.length>=6,'Expanded safer-use handbook is part of guide');
 assert.ok(explorer.includes('unwrapped-private-toy-reading-shelf-v1')&&explorer.includes('toy-comparison'),'Private shelf and comparison are present');
@@ -29,6 +30,17 @@ for(const item of library.types){
   assert.ok(uses[anatomy].note.length>60,'Body-specific explanation must be substantial: '+item.id+' '+anatomy);
  }
  assert.ok(uses.together.length>60,'Shared-use guidance must be clear: '+item.id);
+}
+for(const id of ['harness','strap-starter','oring-harness','strapless','hollow-strap','thigh-harness','underwear-harness','strap-attachment','strap-vibe','suction-dildo','dual-density','grinding-pad','scrotal-vibe']){
+ assert.ok(library.find(id),'Missing visibly named toy type: '+id);
+}
+assert.ok(library.find('harness').name.toLowerCase().includes('strap-on'),'Strap-ons must be named plainly on default cards');
+assert.ok(library.types.filter(t=>t.group==='Strap-ons & harnesses').length>=8,'Strap-ons should have a discoverable dedicated category');
+assert.ok(library.types.some(t=>t.name.includes('Hollow strap-on'))&&library.types.some(t=>t.name.includes('Strap-on starter kit')),'Users should not have to infer strap-on products from generic labels');
+assert.ok(combiner.includes('UnwrappedToyIdeas')&&combiner.includes("generate('together')")&&combiner.includes('appropriate'),'Him/Her/Together generator must use the real safe catalog');
+assert.ok(panel.includes('data-toy-quick-group="Strap-ons &amp; harnesses"'),'One-click strap-on category must be visible');
+for(const token of ['id="toy-idea-studio"','id="toy-idea-him"','id="toy-idea-her"','data-toy-idea-mode="him"','data-toy-idea-mode="her"','data-toy-idea-mode="together"']){
+ assert.ok(panel.includes(token),'Idea Lab missing '+token);
 }
 assert.equal(library.bodyUses('prostate').female.fit,'not-targeted','Do not claim prostate-specific devices directly target anatomy without a prostate');
 assert.equal(library.bodyUses('air-pulse').male.fit,'not-targeted','Do not describe clitoral air-pulse device as universally penile-compatible');
@@ -66,4 +78,4 @@ assert.ok(partner.includes("selected.has('toys')"),'Partner export must not show
 assert.ok(partner.includes('Male anatomy: ')&&partner.includes('Female anatomy: ')&&partner.includes('Shared use: '),'Optional partner reports explain differences for both anatomies');
 assert.ok(!/const selected=new Set\([^)]*'toys'/.test(partner),'Toy section must be OFF by default in partner reports');
 assert.ok(styles.includes('.toy-grid')&&styles.includes('.toy-report-rec')&&styles.includes('.toy-body-rows'),'Guide and print layout must have responsive side-by-side styles');
-console.log('✓ Toy Library: '+library.types.length+' multi-use guides, cross-anatomy comparisons, private reading shelf, 3-way comparison, care notes, direct quiz answers, fantasy-only and opt-in partner sharing.');
+console.log('✓ Toy Library: '+library.types.length+' detailed types including accessible strap-ons, compatible harness options, 3-way idea comparison, anatomy checks and opt-in sharing.');
