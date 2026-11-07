@@ -775,6 +775,9 @@ try{
   if(!portableDownloads)throw Error('Phone models must have four verified standalone GGUF download links and clear incompatibility instructions');
   const portablePicker=await studio.evaluate("(()=>{const input=document.querySelector('#phoneGGUFPicker'),selection=new DataTransfer();selection.items.add(new File(['GGUF'],'my-local-model.gguf',{type:'application/octet-stream'}));input.files=selection.files;input.dispatchEvent(new Event('change',{bubbles:true}));const text=document.querySelector('#phoneGGUFStatus').textContent;return text.includes('my-local-model.gguf')&&text.includes('never uploads')===false&&input.files.length===0})()");
   if(!portablePicker)throw Error('Phone GGUF picker must inspect files locally and not retain model bytes');
+  await studio.evaluate("document.querySelector('[data-view=settings]').click();document.querySelector('[data-open-portable-files]').click()");
+  const portableShortcut=await studio.evaluate("!!document.querySelector('#view-home.active')&&!!document.querySelector('#portablePhoneModels')");
+  if(!portableShortcut)throw Error('Models & setup should open the portable model download section in one tap');
   console.log('✓ Four standalone phone GGUF downloads, uncensored option, local file picker and separate WebLLM cache are available.');
 
   const modelEvaluate=await studio.evaluate("(()=>{const api=window.RandomAITopModels;const x=api.evaluate({id:'Hermes-3-Llama-3.1-8B-q4f16_1-MLC',vram:3950});return x&&typeof x.label==='string'&&typeof x.explanation==='string'&&Array.isArray(api.listed())})()");
