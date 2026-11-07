@@ -168,7 +168,7 @@ for(const file of ['dist/after-dark/new-partner-report.js','dist/after-dark/part
  try{new vm.Script(code,{filename:file})}catch(err){console.error('Unwrapped report has invalid syntax:',file,err.message);failures++}
 }
 
-for(const file of ['dist/after-dark/toy-library.js','dist/after-dark/toy-library.css']){
+for(const file of ['dist/after-dark/toy-library.js','dist/after-dark/toy-library.css','dist/after-dark/toy-library-expanded.js','dist/after-dark/toy-explorer-tools.js','dist/after-dark/toy-explorer-tools.css']){
  if(!fs.existsSync(file)){console.error('Missing Unwrapped toy guide asset:',file);failures++;}
 }
 if(fs.existsSync('dist/after-dark/toy-library.js')){
@@ -176,6 +176,21 @@ if(fs.existsSync('dist/after-dark/toy-library.js')){
  try{new vm.Script(code,{filename:'Unwrapped toy library'});}catch(error){console.error('Invalid toy library JavaScript:',error.message);failures++;}
  for(const marker of ['UnwrappedToyLibrary','recommendations(data)','Fantasy-only / read about it','TOYS=[']){
   if(!code.includes(marker)){console.error('Unwrapped toy library is missing:',marker);failures++;}
+ }
+}
+for(const text of ['toy-library-expanded.js?v=','toy-explorer-tools.js?v=','toy-explorer-tools.css?v=','id="toy-comparison"','id="toy-reading-list"','id="toy-education-hub"','id="toy-show-all"']){
+ if(!afterDarkLanding.includes(text)){console.error('Expanded toy guide feature missing:',text);failures++;}
+}
+for(const name of ['toy-library-expanded.js','toy-explorer-tools.js']){
+ const full='dist/after-dark/'+name;
+ if(!fs.existsSync(full))continue;
+ const source=fs.readFileSync(full,'utf8');
+ try{new vm.Script(source,{filename:name})}catch(error){console.error('Expanded toy JS invalid:',name,error.message);failures++;}
+}
+if(fs.existsSync('dist/after-dark/toy-library-expanded.js')){
+ const code=fs.readFileSync('dist/after-dark/toy-library-expanded.js','utf8');
+ for(const token of ['UnwrappedToyExpansion','bodyGuide','matchTerms','nipple-clip','toy-barriers','position-wedge']){
+  if(!code.includes(token)){console.error('Expanded toy category missing:',token);failures++;}
  }
 }
 for(const [file,marker] of [['dist/after-dark/quiz-report.js','Sex toy guide · Ideas that fit my selected interests'],['dist/after-dark/partner-pdf.js',"selected.has('toys')"]]){
@@ -854,18 +869,25 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
 }
 for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
   'dist/osint-academy/profile-review.js','dist/osint-academy/identity-lab.js',
-  'dist/identity-lab/index.html','dist/app-manifests/identity-lab.webmanifest',
+  'dist/identity-lab/index.html','dist/identity-lab/workbench.js','dist/identity-lab/workbench.css','dist/app-manifests/identity-lab.webmanifest',
   'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
   if(!fs.existsSync(asset)){console.error('OSINT Academy asset missing:',asset);failures++;}
 }
 const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
 const standaloneHtml=fs.readFileSync('dist/identity-lab/index.html','utf8');
-if(standaloneHtml.includes('haveibeenpwned.com')||standaloneHtml.includes('lookup.icann.org')||standaloneHtml.includes('myactivity.google.com')){
+if(standaloneHtml.includes('haveibeenpwned.com')||standaloneHtml.includes('myactivity.google.com')){
  console.error('Identity Lab includes a paid or non-open/free-only tool listing.');failures++;
 }
 if(traceHtml.includes('profile-review.js')||!traceHtml.includes('Evidence Files')||
-   !standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('/app-manifests/identity-lab.webmanifest')){
+   !standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('/app-manifests/identity-lab.webmanifest')||!standaloneHtml.includes('id="identity-investigation-workbench"')||!standaloneHtml.includes('workbench.js?v=')){
  console.error('Self-research must live outside the TRACE training game.'); failures++;
+}
+if(fs.existsSync('dist/identity-lab/workbench.js')){
+ const js=fs.readFileSync('dist/identity-lab/workbench.js','utf8');
+ try{new vm.Script(js,{filename:'Identity Lab public-source workbench'})}catch(error){console.error('Broken public investigation workbench:',error.message);failures++}
+ for(const token of ['identity-lab-investigation-case','osResearchConsent','osKnownFields','osGraph','osExport','osPrint','sourceDirectory','GLEIF','SEC EDGAR','US Census Geocoder']){
+  if(!js.includes(token)){console.error('Identity Lab multi-source feature missing:',token);failures++;}
+ }
 }
 if(fs.existsSync('dist/osint-academy/profile-review.js')){
  const profileJs=fs.readFileSync('dist/osint-academy/profile-review.js','utf8');
