@@ -392,7 +392,7 @@ function answer(question){
   ['anal-plug',/anal plug|butt plug/],['sleeve',/sleeve|stroker/],
   ['ring',/cock ring|penis ring|vibrating ring/],
   ['nipple-massager',/nipple massager|chest massager|breast massager/],
-  ['harness',/\bharness\b|strap.?on toy|pegging toy/],
+  ['harness',/\bharness\b|strap.?on|strapon|pegging/],
   ['remote',/remote.controlled|remote vibrator/]
  ];
  const id=patterns.find(([,regex])=>regex.test(raw))?.[0];
