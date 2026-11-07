@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+// Stand-in for llama.cpp's llama-server, for tests. Same flags, same HTTP API, canned replies.
+const http = require('http');
+const args = process.argv.slice(2);
+const arg = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : null; };
+if (args.includes('--list-devices')) { console.log('Available devices:\n  Vulkan0: Fake GPU 8GB (8192 MiB, 7800 MiB free)'); process.exit(0); }
+if (args.includes('--help')) { console.log('-md,   --model-draft FNAME\n-ngld, --gpu-layers-draft N\n--spec-draft-n-max N\n--spec-draft-n-min N\n--draft, --draft-n, --draft-max N   the argument has been removed. use --spec-draft-n-max'); process.exit(0); }
+const port = Number(arg('--port'));
+const model = require('path').basename(arg('-m') || 'model');
+const vision = Boolean(arg('--mmproj'));
+const server = http.createServer((req, res) => {
+  if (req.url === '/health') { res.writeHead(200); return res.end('{"status":"ok"}'); }
+  let body = '';
+  req.on('data', (c) => (body += c));
+  req.on('end', () => {
+    const j = JSON.parse(body || '{}');
+    const msgs = j.messages || [];
+    const imgs = msgs.flatMap((m) => (Array.isArray(m.content) ? m.content.filter((p) => p.type === 'image_url') : []));
+    if (imgs.length && !vision) { res.writeHead(400, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ error: { message: 'image input is not supported by this model' } })); }
+    const last = msgs[msgs.length - 1];
+    // Tool use: "use <word>" asks for the first tool whose name contains <word>; a tool result is echoed back.
+    const want = (typeof last?.content === 'string' ? last.content : '').match(/use (\w+)/);
+    const tool = want && last.role === 'user' && (j.tools || []).find((t) => t.function.name.includes(want[1]));
+    if (tool && j.stream) {
+      res.writeHead(200, { 'Content-Type': 'text/event-stream' });
+      const args = JSON.stringify({ text: 'hello from the model' });
+      res.write(`data: ${JSON.stringify({ choices: [{ delta: { tool_calls: [{ index: 0, id: 'call_1', type: 'function', function: { name: tool.function.name, arguments: args.slice(0, 10) } }] } }] })}\n\n`);
+      res.write(`data: ${JSON.stringify({ choices: [{ delta: { tool_calls: [{ index: 0, function: { arguments: args.slice(10) } }] } }] })}\n\n`);
+      res.write(`data: ${JSON.stringify({ choices: [{ delta: {}, finish_reason: 'tool_calls' }] })}\n\n`);
+      return res.end('data: [DONE]\n\n');
+    }
+    if (last?.role === 'tool' && j.stream) {
+      res.writeHead(200, { 'Content-Type': 'text/event-stream' });
+      res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: `Tool said: ${last.content}` } }] })}\n\n`);
+      return res.end('data: [DONE]\n\n');
+    }
+    const lastText = typeof last?.content === 'string' ? last.content : (last?.content || []).filter((p) => p.type === 'text').map((p) => p.text).join(' ');
+    let reply;
+    const sys = msgs.filter((m) => m.role === 'system').map((m) => (typeof m.content === 'string' ? m.content : '')).join('\n');
+    const memo = sys.match(/remember about the user[^\n]*\n- ([^\n]+)/);
+    const proj = sys.match(/part of the user's project "([^"]+)"/);
+    const tags = `${memo ? ` [memory: ${memo[1].slice(0, 50)}]` : ''}${proj ? ` [project: ${proj[1]}]` : ''}${/open in an editor beside the chat/.test(sys) ? ' [sees the document]' : ''}${(sys.match(/Instructions for this chat \(follow them\):\n([^\n]+)/) || [])[1] ? ` [chat: ${sys.match(/Instructions for this chat \(follow them\):\n([^\n]+)/)[1].slice(0, 30)}]` : ''}`;
+    if (/most likely want to ask next/.test(sys)) reply = JSON.stringify([`Show an example of ${(lastText.match(/Their question: ([^\n]{0,24})/) || [])[1] || 'it'}`, 'Which option suits a beginner?', 'What should I do first?']);
+    else if (/You keep a short memory about a user/.test(sys)) reply = /\bmy\b/i.test(lastText) ? JSON.stringify([`The user mentioned: ${lastText.slice(0, 50)}`]) : '[]';
+    else if (/You are a careful editor/.test(sys)) reply = `Edited by ${model}: ${(lastText.split('<<<\n')[1] || '').split('\n>>>')[0].toUpperCase().slice(0, 200)}`;
+    else if (/Describe each image/.test(lastText)) reply = imgs.map((_, i) => `### Image ${i + 1}\nA chart showing sales rising, described by ${model}.`).join('\n\n');
+    else if (/<draft number/.test(lastText)) reply = `FINAL from ${model} combining ${(lastText.match(/<draft number/g) || []).length} drafts.`;
+    else reply = `Answer from ${model}: you said "${lastText.slice(0, 40)}"${msgs.some((m) => typeof m.content === 'string' && m.content.includes('[Image 1:')) ? ' (saw image description)' : ''}${imgs.length ? ' (saw real image)' : ''}.${tags}`;
+    const words = reply.split(/(?<= )/);
+    if (!j.stream) { res.writeHead(200, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ choices: [{ message: { content: reply } }] })); }
+    res.writeHead(200, { 'Content-Type': 'text/event-stream' });
+    res.write(`data: ${JSON.stringify({ choices: [{ delta: { reasoning_content: 'thinking… ' } }] })}\n\n`);
+    let i = 0;
+    const t = setInterval(() => {
+      if (i < words.length) return res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: words[i++] } }] })}\n\n`);
+      clearInterval(t);
+      res.write(`data: ${JSON.stringify({ choices: [{ delta: {}, finish_reason: 'stop' }], timings: { predicted_per_second: 42.5, predicted_n: words.length } })}\n\n`);
+      res.end('data: [DONE]\n\n');
+    }, Number(process.env.QS_FAKE_TOKEN_MS) || 5);
+  });
+});
+setTimeout(() => server.listen(port, '127.0.0.1'), 150);

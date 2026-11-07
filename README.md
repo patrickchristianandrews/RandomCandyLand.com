@@ -25,6 +25,7 @@ This is the **current source repository**, not a bundle of historic deployments.
 | Build / production validation | `scripts/build-standalone.mjs`, `scripts/check-public-pages.mjs`, `scripts/smoke-after-dark.mjs` |
 | Static site deployment | `.github/workflows/deploy.yml` |
 | Wear OS APK build | `.github/workflows/build-trumpagotchi-watch.yml` |
+| Quicksilver desktop AI app (Windows) | `quicksilver/`, built by `.github/workflows/quicksilver-windows.yml`; its download page `public/quicksilver/` is **unlisted**: never link it from the site, keep its `noindex` tag |
 
 ## Active site routes
 
