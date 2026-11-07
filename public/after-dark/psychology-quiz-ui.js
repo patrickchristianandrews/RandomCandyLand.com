@@ -18,7 +18,18 @@
    }
   }catch{}
  }
- function save(){try{localStorage.setItem(key,JSON.stringify({answers,notes,position}));}catch{}window.AfterDarkProgressTransfer?.refresh?.()}
+ function save(){
+  let ok=false,error='';
+  try{
+   const serialized=JSON.stringify({answers,notes,position});
+   localStorage.setItem(key,serialized);
+   if(localStorage.getItem(key)!==serialized)throw Error('Storage verification failed');
+   ok=true;
+  }catch(e){error=String(e?.message||'Storage is unavailable')}
+  window.dispatchEvent(new CustomEvent('unwrapped:save-status',{detail:{kind:'psych',ok,reason:error}}));
+  window.AfterDarkProgressTransfer?.refresh?.();
+  return ok;
+ }
  function state(){
   const axes={};let answered=0;
   for(let i=0;i<questions.length;i++){
