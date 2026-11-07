@@ -751,8 +751,8 @@ try{
   const rotated=await wonder.evaluate("document.querySelector('#home-feature-heading').textContent!=="+JSON.stringify(featuredBefore)+"&&document.querySelector('#home-feature-link').getAttribute('href').startsWith('/curiosity/ideas/?story=')");
   if(!rotated)throw Error('Wonder Index one-at-a-time story carousel does not rotate or open an individual article');
   await wonder.evaluate("document.querySelector('#home-feature-pause').click()");
-  const paused=await wonder.evaluate("document.querySelector('#home-feature-pause').getAttribute('aria-pressed')==='true'");
-  if(!paused)throw Error('Wonder Index rotating feature must have working Pause for reduced motion');
+  const wonderPaused=await wonder.evaluate("document.querySelector('#home-feature-pause').getAttribute('aria-pressed')==='true'");
+  if(!wonderPaused)throw Error('Wonder Index rotating feature must have working Pause for reduced motion');
   await delay(1200);
   const wonderPreview=await wonder.evaluate("(()=>{const status=document.querySelector('#home-source-status').textContent,chart=document.querySelector('#home-correlation-feed svg'),research=document.querySelector('#home-research-feed');return {status,chart:!!chart,observationText:document.querySelector('#home-correlation-feed')?.textContent.includes('r = '),research:!!research?.querySelector('a[href^=\"https://doi.org/\"]'),researchFallback:research?.textContent.includes('unavailable')||!!research?.querySelector('a[href^=\"https://openalex.org/\"]')}})()");
   if(!wonderPreview?.chart||!wonderPreview?.observationText)throw Error('Wonder Index preview must show a chart and Pearson r from refreshed official World Bank data: '+JSON.stringify(wonderPreview));
