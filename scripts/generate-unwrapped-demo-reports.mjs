@@ -168,9 +168,7 @@ async function captureRealExports(name){
   const panel=document.querySelector('#uc-export');
   if(!panel)throw Error('Selectively shared report maker missing');
   panel.open=true;panel.dispatchEvent(new Event('toggle'));
-  const input=document.querySelector('#uc-select input[aria-label="Name for selected report"]');
-  if(!input)throw Error('Name field is missing from selective report');
-  input.value=name;input.dispatchEvent(new Event('input',{bubbles:true}));
+  // The real selective export is anonymous and quiz-derived. Fictional names only appear in test fixtures.
   const choices=[...document.querySelectorAll('#uc-select label.uc-check>input')];
   const interestCount=window.AfterDarkCanonicalReport.buildData().interests.length;
   if(choices.length<interestCount+6)throw Error('No interest/psychology choices in selected report export');
@@ -188,12 +186,13 @@ async function captureRealExports(name){
   if(!sharedBlob)throw Error('Actual selective partner download did not create a file');
   const shareJSON=await sharedBlob.text();
   const share=JSON.parse(shareJSON);
-  if(share.format!=='unwrapped-shared-comparison-v1'||share.from!==name||
+  if(share.format!=='unwrapped-shared-comparison-v1'||share.from!==''||
      share.interests?.length<3||share.themes?.length<4||
      share.answers?.length<8||share.answers?.some(x=>x.quiz!=='psych')||
      share.toys?.length||shareJSON.includes('freeResponses')||shareJSON.includes('multiAnswers'))
    throw Error('Partner export lacks explicitly approved comparison material or leaked private quiz data');
-  return{privateJSON,shareJSON,sharedInterests:share.interests.length,
+  const fixtureShareJSON=JSON.stringify({...share,from:name});
+  return{privateJSON,shareJSON:fixtureShareJSON,sharedInterests:share.interests.length,
     sharedThemes:share.themes.length,sharedPsychAnswers:share.answers.length};
  }finally{URL.createObjectURL=orig}
 }
@@ -222,14 +221,15 @@ async function verifyRealImport(json){
  // disclosure. Exercise the real opt-in UI rather than bypassing privacy controls.
  window.AfterDarkNewPartnerReport?.mount?.();
  const panel=document.querySelector('#new-partner-report');
- const refresh=[...panel.querySelectorAll('button')].find(b=>b.textContent.includes('Refresh quiz choices'));
+ const refresh=[...panel.querySelectorAll('button')].find(b=>b.textContent.includes('Refresh from quiz answers'));
  if(!refresh)throw Error('New-partner privacy choices could not be refreshed after import');
  refresh.click();
  const psychOption=panel.querySelector('details.new-partner-options');
  const optIn=psychOption?.querySelector('.new-partner-toggle input');
  const firstAnswer=psychOption?.querySelector('.new-partner-choice input');
  if(!optIn||!firstAnswer)throw Error('No imported nonsexual answers offered for selective new-partner sharing');
- optIn.click();firstAnswer.click();
+ if(!optIn.checked)optIn.click();
+ if(!firstAnswer.checked)firstAnswer.click();
  const intro=window.AfterDarkNewPartnerReport?.build?.();
  if(!partner?.querySelector('.partner-report-section')||!intro?.querySelector('.partner-report-section')||
    !intro.textContent.includes('Some everyday answers I chose to show you'))
