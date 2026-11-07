@@ -129,18 +129,30 @@ function privateLibraryMarks(){
  return Object.keys(marks).length?marks:null;
 }
 function download(kind){
- const direct=kind==='psych'?null:DIRECT()?.exportState?.();
- const psych=kind==='direct'?null:PSYCH()?.exportState?.();
- // Never include private intimate-library marks in psychology-only backups.
- const library=kind==='psych'?null:privateLibraryMarks();
- const pack=createTransfer({direct,psych,library});
- const blob=new Blob([JSON.stringify(pack,null,2)],{type:'application/json'});
- const url=URL.createObjectURL(blob);
- const a=document.createElement('a');a.href=url;
- a.download='after-dark-'+(kind==='both'?'both-quizzes':kind==='direct'?'sexual-preferences-quiz':'psychology-quiz')+'-'+new Date().toISOString().slice(0,10)+'.json';
- document.body.append(a);a.click();a.remove();
- setTimeout(()=>URL.revokeObjectURL(url),1500);
- setStatus('Quiz file saved to your downloads. It includes private answers and optional notes; keep it somewhere safe.');
+ try{
+  if(!['direct','psych','both'].includes(kind))throw Error('Choose a valid quiz backup.');
+  const current=answered('direct')+answered('psych');
+  if(!current)throw Error('Answer at least one question before saving a recovery backup.');
+  const direct=kind==='psych'?null:DIRECT()?.exportState?.();
+  const psych=kind==='direct'?null:PSYCH()?.exportState?.();
+  if((kind!=='psych'&&!direct)||(kind!=='direct'&&!psych))throw Error('One quiz could not be read. Reload the page without clearing any answers.');
+  // Private backups may include notes and selected topics, never intended for a partner.
+  const library=kind==='psych'?null:privateLibraryMarks();
+  const pack=createTransfer({direct,psych,library});
+  const contents=JSON.stringify(pack,null,2);
+  if(contents.length<100)throw Error('Could not prepare a complete backup.');
+  const blob=new Blob([contents],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;
+  a.download='after-dark-'+(kind==='both'?'both-quizzes':kind==='direct'?'sexual-preferences-quiz':'psychology-quiz')+'-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.append(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),15000);
+  setStatus('✓ Private recovery backup requested. CHECK the .json file in Files/Downloads before clearing site data or changing phones; browser download confirmation is not available to this page.');
+  return true;
+ }catch(error){
+  setStatus('⚠️ Cannot prepare backup: '+String(error?.message||error)+'. Do not clear this browser’s data.');
+  return false;
+ }
 }
 function validatePayload(value){
  if(!value||typeof value!=='object'||Array.isArray(value)||value.format!==FORMAT||value.version!==VERSION)return null;
@@ -198,33 +210,66 @@ function validatePayload(value){
 }
 async function importFile(file){
  if(!file)return false;
+ let previous=null,changes=false;
  try{
-  if(file.size>125000)throw Error('This quiz file is too large (maximum 125 KB).');
+  if(file.size>500000)throw Error('This recovery file is too large (maximum 500 KB).');
   const pack=validatePayload(safeJSON(await file.text()));
-  if(!pack||pack.error)throw Error(pack?.error||'This is not an After Dark quiz JSON export.');
+  if(!pack||pack.error)throw Error(pack?.error||'Choose a valid Unwrapped private quiz backup (.json), not a partner-sharing file or PDF.');
+  if(pack.direct&&!DIRECT()?.importState||pack.psych&&!PSYCH()?.importState)throw Error('One or both quizzes could not initialize. Reload the page before importing.');
   const replacing=(pack.direct&&answered('direct')>0)||(pack.psych&&answered('psych')>0);
-  if(replacing&&!window.confirm('The imported file contains answers for a quiz you have already started. Replace only that matching quiz? Answers from the other quiz will be preserved.'))return false;
-  // The two quiz datasets remain distinct. A psychology file NEVER overwrites
-  // sexual-preference answers, and vice versa.
+  if(replacing&&!window.confirm('You have existing quiz answers on this device. Importing will replace the matching quiz. Download a backup of your current answers first if you want to keep them. Continue?')){
+   setStatus('Import cancelled; existing answers were not changed.');return false;
+  }
+  const shelf=window.AfterDarkNotebookBridge;
+  if(pack.library&&(!shelf?.getTopics||!shelf?.getChoices||!shelf?.mark))throw Error('The saved-interest library is not ready. Nothing was imported.');
+  previous={direct:DIRECT()?.exportState?.()||null,psych:PSYCH()?.exportState?.()||null};
+  const oldMarked=pack.library?shelf.getChoices():null;
+  // Apply both validated quizzes, but preserve a rollback point until the
+  // on-device storage actually contains the imported data.
+  changes=true;
   if(pack.direct&&!DIRECT()?.importState?.(pack.direct))throw Error('The saved sexual-preferences quiz could not be loaded.');
   if(pack.psych&&!PSYCH()?.importState?.(pack.psych))throw Error('The saved psychology quiz could not be loaded.');
-  // Restore explicitly marked interests from this PRIVATE backup only.
-  // Unmentioned choices on the receiving device remain unchanged.
+  const nowDirect=pack.direct?DIRECT()?.exportState?.():null;
+  const nowPsych=pack.psych?PSYCH()?.exportState?.():null;
+  if(pack.direct&&(!nowDirect||JSON.stringify(nowDirect.multiAnswers||{})==='{}'&&Object.keys(pack.direct.multiAnswers||{}).length))
+   throw Error('The restored preferences quiz was incomplete.');
+  if(pack.psych&&(!nowPsych||JSON.stringify(nowPsych.answers||{})==='{}'&&Object.keys(pack.psych.answers||{}).length))
+   throw Error('The restored psychology quiz was incomplete.');
+  const persistedDirect=pack.direct?safeJSON(local.get('afterdark_direct_quiz_v6')):null;
+  const persistedPsych=pack.psych?safeJSON(local.get('afterdark_psychology_quiz_v1')):null;
+  if((pack.direct&&(!persistedDirect||JSON.stringify(persistedDirect.multiAnswers)!==JSON.stringify(nowDirect.multiAnswers)))||
+    (pack.psych&&(!persistedPsych||JSON.stringify(persistedPsych.answers)!==JSON.stringify(nowPsych.answers))))
+   throw Error('This browser did not persist the imported answers.');
+  // Restore only voluntarily marked interests once quiz state is confirmed.
   if(pack.library){
-   const shelf=window.AfterDarkNotebookBridge;
-   if(!shelf?.getTopics||!shelf?.mark)throw Error('The Curiosity Library is unavailable. Not all personal interest marks could be restored.');
    const known=new Set(shelf.getTopics().map(item=>item.id));
    for(const [id,status] of Object.entries(pack.library))
     if(known.has(id))shelf.mark(id,status);
   }
-  refreshPanels();
+  changes=false;refreshPanels();
   const both=answered('direct')>0&&answered('psych')>0;
-  setStatus('✓ Imported '+[pack.direct?'sexual-preferences':'',pack.psych?'psychology':''].filter(Boolean).join(' and ')+' answers privately. '+
-   (pack.library?'Your private Interested / Curious / Not for me marks were restored. ':'')+
-   (both?'Both quizzes now contribute to your full combined report.':'Your other quiz remains available to finish later.'));
+  setStatus('✓ Both file validation and browser-storage verification passed. Imported '+
+   [pack.direct?'sexual-preferences':'',pack.psych?'psychology':''].filter(Boolean).join(' and ')+' data. '+
+   (pack.library?'Your selected private interest marks were restored. ':'')+
+   (both?'Both quizzes can contribute to your personal report.':'Finish or import your other quiz for a more complete report.'));
+  window.UnwrappedDeliverySafety?.refresh?.();
   if(both)showCombined();
-   return true;
-  }catch(e){setStatus('⚠️ '+String(e.message||'Could not read this file.'));return false}
+  return true;
+ }catch(error){
+  let rolledBack=false;
+  if(changes&&previous){
+   try{
+    const d=!previous.direct||DIRECT()?.importState?.(previous.direct);
+    const p=!previous.psych||PSYCH()?.importState?.(previous.psych);
+    rolledBack=Boolean(d&&p);
+   }catch{rolledBack=false}
+  }
+  refreshPanels();
+  window.UnwrappedDeliverySafety?.refresh?.();
+  setStatus('⚠️ Import failed: '+String(error?.message||'Invalid file.')+
+    (changes?(rolledBack?' Your previous quiz answers were restored.':' Could not verify rollback—do not close this tab; export any answers still visible.'):' Your existing quiz answers were not changed.'));
+  return false;
+ }
 }
 function showCombined(){
  const d=DIRECT(),p=PSYCH();
