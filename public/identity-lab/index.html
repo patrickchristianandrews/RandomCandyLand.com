@@ -19,9 +19,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>Identity Lab · Your public footprint · Random Candy Land</title>
 <link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
 <link rel="manifest" href="/app-manifests/identity-lab.webmanifest">
-<link rel="stylesheet" href="/osint-academy/style.css?v=free-open-sources-20261105"><link rel="stylesheet" href="/identity-lab/workbench.css?v=public-investigation-20261107-v1">
+<link rel="stylesheet" href="/osint-academy/style.css?v=free-open-sources-20261105"><link rel="stylesheet" href="/identity-lab/workbench.css?v=real-results-20261107-v2">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/profile-review.js?v=public-investigation-20261107-v1" defer></script><script src="/identity-lab/workbench.js?v=public-investigation-20261107-v1" defer></script>
+<script src="/identity-lab/lookup-engine.js?v=real-results-20261107-v2" defer></script><script src="/identity-lab/workbench.js?v=real-results-20261107-v2" defer></script>
 <style>
 .identity-standalone{max-width:1110px;margin:0 auto;padding:20px clamp(14px,3vw,30px) 50px}
 .identity-standalone-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 20px;flex-wrap:wrap}
@@ -58,27 +58,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager (noscript) -->
 
 <main class="identity-standalone">
-<header class="identity-standalone-header"><a href="/">← Random Candy Land</a><a href="/osint-academy/">Try the TRACE investigation game ↗</a></header>
+<header class="identity-standalone-header"><a href="/">← Random Candy Land</a><a href="#identity-investigation-workbench">Go to public-source lookup ↓</a></header>
 <section class="identity-standalone-intro" aria-labelledby="identity-title">
-<div><span class="eyebrow">STANDALONE SELF-RESEARCH · NOT A COURSE</span><h1 id="identity-title">Identity Lab</h1><p>Investigate your own or authorized public-source footprint. Enter as many known details as you need, check free public records, review evidence connections, and export a source-linked case. No paid API keys or technical setup required.</p></div>
-<div class="identity-standalone-benefits"><span>① Add all known details</span><span>② Compare reliable sources</span><span>③ Review evidence &amp; export</span></div>
+<div><span class="eyebrow">STANDALONE SELF-RESEARCH · NOT A COURSE</span><h1 id="identity-title">Identity Lab</h1><p>Search real public developer accounts, business registrations, domains, DNS, archived websites, network data and geographic address ranges. See exactly what was found—or why a check failed. Enter as many details as you know; no paid API key required.</p></div>
+<div class="identity-standalone-benefits"><span>① Enter public details</span><span>② Run actual source checks</span><span>③ Read results &amp; export</span></div>
 </section>
 <section id="identity-investigation-workbench" aria-label="Free official-source research workbench"><h2>Loading public-source investigation workbench…</h2></section>
-<details class="identity-old-guided"><summary>Prefer the guided, three-step profile report? Open the original workflow</summary><section id="trace-profile-review" aria-label="Create your own public identity report"><h2>Loading guided report…</h2></section></details>
-<details class="identity-old-sources"><summary>More about the original eight free-source services</summary><section class="identity-source-hub" aria-labelledby="source-hub-heading">
-<h2 id="source-hub-heading">Open-source tools &amp; free public APIs</h2>
-<p>No paid lookups, subscriptions, credit cards, or API keys. The quick check above can contact public GitHub, GitLab, Codeberg, Wikidata, free DNS, and Internet Archive endpoints when you press Search. Other tools below open on their own websites; their findings are not collected automatically.</p>
-<div class="identity-source-grid">
-<article><span>FREE PUBLIC API · OPEN SOURCE</span><h3>Codeberg / Forgejo</h3><p>Check a public developer profile using the free REST API backed by open-source Forgejo. Exact usernames are still only possible matches.</p><a href="https://codeberg.org/" target="_blank" rel="noopener noreferrer">Explore Codeberg ↗</a></article>
-<article><span>FREE PUBLIC API · OPEN-CORE</span><h3>GitLab</h3><p>Review public user profiles on GitLab through its free API. Never assume matching usernames represent the same individual.</p><a href="https://gitlab.com/" target="_blank" rel="noopener noreferrer">Explore GitLab ↗</a></article>
-<article><span>FREE PUBLIC API</span><h3>GitHub</h3><p>Look up public profiles on GitHub. Unauthenticated API requests are free but have usage limits.</p><a href="https://github.com/" target="_blank" rel="noopener noreferrer">Explore GitHub ↗</a></article>
-<article><span>OPEN DATA · FREE API</span><h3>Wikidata</h3><p>Review openly licensed public-entity records, including documented organizational contact details when available.</p><a href="https://www.wikidata.org/" target="_blank" rel="noopener noreferrer">Open Wikidata ↗</a></article>
-<article><span>OPEN SOURCE · FREE WEB CHECK</span><h3>Mozilla Monitor</h3><p>Check your own email for known breach exposure using Mozilla's open-source, free self-service tool. It may require verification; there is no automated email-breach API integration here.</p><a href="https://monitor.mozilla.org/" target="_blank" rel="noopener noreferrer">Check my email ↗</a></article>
-<article><span>OPEN DATA · FREE USERNAME TOOL</span><h3>WhatsMyName</h3><p>Community-maintained open username dataset with a free browser search. Review matches manually; this tool runs separately and does not import results into Identity Lab.</p><a href="https://whatsmyname.app/" target="_blank" rel="noopener noreferrer">Check my username ↗</a></article>
-<article><span>FREE PUBLIC API · PUBLIC ARCHIVES</span><h3>Internet Archive / Wayback</h3><p>View publicly archived versions of a website. Identity Lab checks for the closest available snapshot through the free availability API.</p><a href="https://web.archive.org/" target="_blank" rel="noopener noreferrer">View the archive ↗</a></article>
-<article><span>FREE PUBLIC API · DOMAIN RECORDS</span><h3>Public DNS</h3><p>Review public A or MX domain records via the free JSON DNS service. Infrastructure records cannot validate a mailbox or reveal a private subscriber.</p><a href="https://dns.google/" target="_blank" rel="noopener noreferrer">View DNS service ↗</a></article>
-</div>
-<p class="identity-hub-footnote">There are no paid APIs, bulk people searches, hidden-profile discovery services or automatic data-broker lookups. External APIs may rate-limit queries or disallow browser requests. A missing result is not proof that a person or account does not exist. Your report remains an evidence organizer until you corroborate its sources.</p>
-</section></details>
 <footer class="identity-standalone-footer"><span>Private-by-default: entries stay in this browser until you choose a public lookup or export. Public lookup providers receive the clue you submit.</span><a href="/osint-academy/">TRACE Evidence Files game</a></footer>
 </main></body></html>
