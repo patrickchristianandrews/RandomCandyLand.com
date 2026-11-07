@@ -7,7 +7,7 @@ const $=id=>document.getElementById(id),P=window.CandyPoker;
 if(!P)throw Error('Poker rules missing');
 const rand=P.random,rank=n=>({11:'J',12:'Q',13:'K',14:'A'}[n]||String(n)),face=c=>rank(c.rank)+c.suit;
 const sanitize=s=>String(s||'Candy Captain').replace(/[<>\r\n]/g,'').trim().slice(0,22)||'Candy Captain';
-const labels={poker:['WELCOME TO THE POKER PALACE','🃏 Sugar Rush Poker','Five-card draw: both players receive five cards, choose up to three to swap, then compare hands.'],card:['THE CANDY CROWN DRAW','👑 High Card Clash','Each player draws a card. Highest rank wins.'],dice:['THE GUMMY BATTLE','🎲 Gummy Dice Duel','Each player rolls two dice. Highest total wins.']};
+const labels={poker:['WELCOME TO THE POKER PALACE','🃏 Sugar Rush Poker','Five-card draw: both players receive five cards, choose up to three to swap, then compare hands.']};
 const me=()=>host?0:1,them=()=>1-me(),playing=()=>mode==='computer'||online;
 const saveKey='candyland-casino-chips-v1',winKey='candyland-casino-victories-v2';
 let chips=Number(localStorage.getItem(saveKey)),victories=Number(localStorage.getItem(winKey));
