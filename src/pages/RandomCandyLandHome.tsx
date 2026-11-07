@@ -81,7 +81,6 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[9],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[10],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[12],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
-  {icon:TOOL_MENU_ICONS[14],title:'The Wonder Index',blurb:'Short, surprising ideas that make you question everyday assumptions. Explore psychology, paradoxes, social science and a live-data spurious-correlation machine that generates real charts from official statistics.',kind:'learning',label:'FRESH IDEAS · SPURIOUS CORRELATIONS',palette:'blue',href:'/curiosity/',duration:'EXPLORE · EXPERIMENT'},
   {icon:TOOL_MENU_ICONS[13],title:'Identity Lab',blurb:'Review your own public digital footprint from one clue. Explore public accounts, domain records and trusted privacy tools, then export an evidence-linked report. Independent of the TRACE course.',kind:'research',label:'PERSONAL RESEARCH · NO COURSE REQUIRED',palette:'blue',href:'/identity-lab/',duration:'PRIVATE SELF-AUDIT'},
 ];
 
@@ -176,26 +175,13 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
       <RandomNonsenseGenerator />
 
-      <section className="candyland-curiosity-spotlight" aria-labelledby="curiosity-spotlight-title">
-        <div className="candyland-curiosity-copy">
-          <span className="candyland-curiosity-kicker">✦ FRESH IDEAS, ACTUAL DATA &amp; STRANGE CONNECTIONS</span>
-          <h2 id="curiosity-spotlight-title">The <em>Wonder Index.</em></h2>
-          <p>Curious little ideas that change how you see everything. Explore thinking traps, hidden incentives, paradoxes and real research—then use a spurious-correlation generator to watch unrelated statistics appear suspiciously connected.</p>
-          <div className="candyland-curiosity-actions">
-            <a href="/curiosity/">Explore today's ideas ↗</a>
-            <a href="/curiosity/#correlations">Generate a weird correlation ↗</a>
-          </div>
-        </div>
-        <div className="candyland-curiosity-art" aria-hidden="true">
-          <span className="curiosity-mark">?</span><span className="curiosity-label">THE STORY BEHIND<br/>THE NUMBERS</span><span className="curiosity-graph">↗ ⇢ ↗</span>
-        </div>
-      </section>
 
       <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
             {COLLECTIONS.map(group => {
               const games = PORTALS.filter(portal => portal.kind === group.id);
-              return (
+              return (<>
                 <section className={'candyland-play-shelf candyland-play-shelf-'+group.id} key={group.id} aria-labelledby={'shelf-'+group.id}>
+                  {group.id !== "discovery" && (
                   <div className="candyland-play-shelf-heading">
                     <div className="candyland-play-shelf-lead">
                       <span className="candyland-play-shelf-emoji" aria-hidden="true">{group.id === 'discovery' ? <img src="/tool-icons/unwrapped.svg" width={40} height={40} alt="" loading="lazy" /> : group.symbol}</span>
@@ -206,6 +192,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                     </div>
                     <span className="candyland-play-shelf-time">{group.time} · {games.length} {games.length===1 ? 'experience' : 'experiences'}</span>
                   </div>
+                  )}
                   <nav className="candyland-hero-tools" data-count={games.length} aria-label={group.title}>
                     {games.map(portal => {
                       const content = <>
@@ -253,7 +240,21 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                     })}
                   </nav>
                 </section>
-              );
+                  {group.id === 'discovery' && (
+                    <section className="candyland-curiosity-spotlight" aria-labelledby="curiosity-spotlight-title">
+                      <div className="candyland-curiosity-copy">
+                        <span className="candyland-curiosity-kicker">✦ DAILY IDEAS · FRESH RESEARCH · REAL DATA</span>
+                        <h2 id="curiosity-spotlight-title">The <em>Wonder Index.</em></h2>
+                        <p>One surprising idea at a time, new research headlines, and strange correlations made from real statistics.</p>
+                        <div className="candyland-curiosity-actions">
+                          <a href="/curiosity/">Explore the Wonder Index ↗</a>
+                          <a href="/curiosity/correlations/">Try the correlation generator ↗</a>
+                        </div>
+                      </div>
+                      <img className="candyland-curiosity-icon" src="/tool-icons/wonder-index.svg" width={96} height={96} alt="" loading="lazy" />
+                    </section>
+                  )}
+              </>);
             })}
           </div>
 
