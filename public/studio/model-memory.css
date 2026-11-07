@@ -104,3 +104,9 @@
 .portable-model-disclaimer{font-size:11px;line-height:1.65;color:#e3d5e9;border-top:1px solid #fff3;padding-top:12px}
 .portable-model-disclaimer code{background:#18172d;color:#c6ffee;border-radius:4px;padding:1px 4px}
 @media(max-width:600px){.portable-model-head>.portable-model-app{width:100%}.portable-model-grid{grid-template-columns:1fr}.portable-model-downloads{margin:14px 0;padding:13px}}
+
+.phone-download-settings-cta{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:14px 17px;margin:13px 0;border:1px solid #f2dba778;border-radius:14px;background:#2b2947;color:#fff}
+.phone-download-settings-cta strong{display:block;font-size:13px}
+.phone-download-settings-cta p{font-size:11px;line-height:1.55;margin:5px 0;color:#ded2eb}
+.phone-download-settings-cta button{flex:none;white-space:normal}
+@media(max-width:600px){.phone-download-settings-cta button{width:100%}}
