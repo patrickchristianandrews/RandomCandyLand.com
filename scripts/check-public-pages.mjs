@@ -710,11 +710,11 @@ for(const file of ['dist/ai-academy/index.html','dist/ai-academy/academy.js','di
  if(!fs.existsSync(file)){console.error('Standalone Academy or Random AI asset missing:',file);failures++;}
 }
 // Returning to Random AI must restore actually cached models, not discard them.
-for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css']){
+for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css','dist/studio/top-models.js']){
  if(!fs.existsSync(file)){console.error('Random AI saved-model asset missing:',file);failures++;}
 }
 const studioPage=fs.readFileSync('dist/studio/index.html','utf8');
-for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=1']){
+for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=top-20261107','top-models.js?v=phone-top-20261107','id="topAiList"','id="uncensoredChoices"']){
  if(!studioPage.includes(text)){console.error('Random AI saved-model library missing:',text);failures++;}
 }
 if(fs.existsSync('dist/studio/model-memory.js')){
@@ -722,6 +722,16 @@ if(fs.existsSync('dist/studio/model-memory.js')){
  try{new vm.Script(js,{filename:'Random AI model memory'});}catch(e){console.error('Random AI model-memory syntax:',e.message);failures++;}
  for(const name of ['hasModelInCache','markLoaded','deleteModelAllInfoInCache','random-ai-saved-models-changed','persist()']){
   if(!js.includes(name)){console.error('Random AI cache restoration behavior missing:',name);failures++;}
+ }
+}
+if(fs.existsSync('dist/studio/top-models.js')){
+ const models=fs.readFileSync('dist/studio/top-models.js','utf8');
+ try{new vm.Script(models,{filename:'Random AI phone model recommendations'});}catch(e){console.error('Invalid phone-specific model recommender:',e.message);failures++;}
+ for(const expected of ['navigator.deviceMemory','navigator.gpu','random-ai-catalog-ready','data-top-load','Hermes-3-Llama-3','random-ai-observed-performance-v1']){
+  if(!models.includes(expected)){console.error('Missing dynamic device-model behavior:',expected);failures++;}
+ }
+ if(studioPage.includes('id="stackTaskHome"')||studioPage.includes('class="stack-feature"')||studioPage.includes('class="stack-chat-controls"')){
+  console.error('Retired visible task selections reappeared in Random AI');failures++;
  }
 }
 if(fs.existsSync('dist/studio/model-explorer.js')){
