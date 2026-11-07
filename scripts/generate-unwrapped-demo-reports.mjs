@@ -254,7 +254,7 @@ async function uploadAndCompare(aText,bText){
   const poll=()=>{
    const status=document.querySelector('#uc-status')?.textContent||'';
    const result=document.querySelector('#uc-results');
-   if(status.includes('Comparison ready')){
+   if(status.includes('Comparison ready')||status.includes('Combined report ready')){
     const text=result?.textContent||'';
     if(!text.includes('Rowan')||!text.includes('Ellis')||
        !text.includes('One useful step this week')||!text.includes('Three conversations worth having')||
