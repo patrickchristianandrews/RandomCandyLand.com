@@ -22,7 +22,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/osint-academy/style.css?v=one-clue-research-20261105-v1">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/game.js?v=tools-20261105-v2" defer></script><script src="/osint-academy/identity-lab.js?v=identity-redesign-20261105" defer></script>
+<script src="/osint-academy/game.js?v=campaign-20261107-v1" defer></script><script src="/osint-academy/identity-lab.js?v=identity-redesign-20261105" defer></script>
+<link rel="stylesheet" href="/osint-academy/mission-command.css?v=campaign-20261107-v1"><script src="/osint-academy/mission-command.js?v=campaign-20261107-v1" defer></script>
 </head>
 <body class="trace-app">
 <!-- Google Tag Manager (noscript) -->
@@ -41,7 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>Master evidence-led open-source research. Learn the tools, build your workstation, verify imagery and public contact information, map complex records, and defend your conclusions in a case report.</p>
 <div class="hero-actions">
 <button type="button" class="cta" data-switch="missions">▶ Play the investigation</button>
-<button type="button" class="outline" data-switch="setup">⚙ Workstation setup (optional)</button><a href="/identity-lab/" class="outline">◎ My Identity Lab (separate tool)</a>
+<button type="button" class="outline" data-switch="setup">⚙ Workstation setup (optional)</button><a 
 </div>
 <span class="hero-disclosure">◎ 25 MISSION FILES · 75 DECISIONS · A CAPSTONE PORTFOLIO · FICTIONAL SUBJECTS ONLY</span>
 </section>
@@ -67,6 +68,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <main>
 <section id="view-missions" class="trace-view" role="tabpanel" aria-labelledby="tab-missions">
+<section class="trace-game-command" id="trace-game-command" aria-labelledby="trace-game-heading">
+  <header class="trace-game-head">
+   <div><span class="trace-overline">◉ FIELD OPERATIONS · CAMPAIGN MAP</span><h2 id="trace-game-heading">Your investigation starts here.</h2>
+    <p>Explore five operations, inspect evidence files, make decisions and unlock the next case.</p></div>
+   <button type="button" class="cta" id="trace-campaign-continue">▶ Play current mission</button>
+  </header>
+  <div class="trace-campaign-info">
+   <div><strong id="trace-current-objective">Loading your current objective…</strong><progress id="trace-campaign-progress" max="25" value="0" aria-label="Cases cleared"></progress></div>
+   <small id="trace-campaign-count">0 / 25 cleared</small>
+   <div class="trace-campaign-details"><span id="trace-campaign-rank">Trainee</span><span id="trace-campaign-xp">0 XP earned</span></div>
+  </div>
+  <div id="trace-mission-zones" class="trace-zone-list" role="group" aria-label="Five operation chapters"></div>
+  <div id="trace-sector-heading" class="trace-sector-head"></div>
+  <div id="trace-map-cases" class="trace-map-cases" aria-label="Select a mission to play"></div>
+ </section>
+ <div id="trace-game-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
 <div class="trace-desk">
   <article id="mission-stage" class="mission-stage" aria-live="polite"></article>
   <details class="mission-sidebar" id="case-directory">
@@ -81,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <span class="identity-security-mark">◈ FICTIONAL CHALLENGES</span>
 </div>
 <div class="identity-workspace-pane" id="identity-cases-pane"><div id="trace-identity-lab" aria-live="polite"><h2>Loading evidence challenges…</h2></div></div>
-<p class="trace-id-disclaimer">Looking to review your own online presence instead? <a href="/identity-lab/">Open the separate Identity Lab ↗</a>. It is a self-service tool, not part of the course.</p>
+
 </section>
 <section id="view-scope" class="trace-view" role="tabpanel" aria-labelledby="tab-scope" hidden>
 <div class="scope-desk">
