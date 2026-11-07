@@ -35,7 +35,7 @@ async function fetchJson(url,seconds=9){
  }finally{clearTimeout(timer)}
 }
 async function fetchSeries(country,ind){
- const code=ind[0],u='https://api.worldbank.org/v2/country/'+country+'/indicator/'+code+'?format=json&per_page=120&date=2000:2025';
+ const code=ind[0],u='https://api.worldbank.org/v2/country/'+country+'/indicator/'+code+'?format=json&per_page=120&date=2000:'+new Date().getUTCFullYear();
  const data=await fetchJson(u,11);
  const rows=Array.isArray(data)&&Array.isArray(data[1])?data[1]:[];
  const values=rows.filter(r=>/^(20\d{2})$/.test(String(r.date))&&typeof r.value==='number'&&Number.isFinite(r.value))
