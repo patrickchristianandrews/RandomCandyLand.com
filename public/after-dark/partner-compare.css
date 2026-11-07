@@ -131,3 +131,40 @@
  body.print-unwrapped-comparison.print-unwrapped-solo #uc-results:before{content:"UNWRAPPED · SELECTED PARTNER REPORT"}
  body.print-unwrapped-comparison #uc-results .uc-answer-pair{break-inside:avoid}
 }
+
+/* Combined partner report: constructive, answer-evidenced early check-ins. */
+#uc-results .uc-lookouts{display:grid;gap:12px;padding:17px;border:1px solid #bf94b8;border-radius:15px;background:linear-gradient(135deg,#3c2850,#242038);color:#fff0f8}
+#uc-results .uc-lookouts>h4{font:800 clamp(17px,2.4vw,23px)/1.25 system-ui,sans-serif;color:#ffe7c4;margin:0}
+#uc-results .uc-lookouts-intro{margin:0;max-width:850px;font-size:13px;line-height:1.6;color:#e9d8eb}
+#uc-results .uc-lookout-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;align-items:stretch}
+#uc-results .uc-lookout-card{display:grid;align-content:start;gap:9px;min-width:0;padding:14px;border-radius:12px;background:#ffffff0a;border:1px solid #aa87ae}
+#uc-results .uc-lookout-tag{font:800 10px/1.35 system-ui,sans-serif;letter-spacing:.03em;color:#ffddbe}
+#uc-results .uc-lookout-card h5{font:800 16px/1.35 system-ui,sans-serif;margin:0;color:#fff1f6}
+#uc-results .uc-lookout-why{font-size:12px;line-height:1.58;color:#f0deec;margin:0}
+#uc-results .uc-lookout-evidence{display:grid;gap:6px;padding:11px;border-left:3px solid #e9bdd3;background:#291d3b;border-radius:6px}
+#uc-results .uc-lookout-evidence strong{font-size:11px;line-height:1.5;color:#ffe0ba}
+#uc-results .uc-lookout-evidence p{margin:0;font:500 11px/1.55 system-ui,sans-serif;color:#f1e1f4;overflow-wrap:anywhere}
+#uc-results .uc-lookout-action{margin:0;font:500 12px/1.55 system-ui,sans-serif;color:#ffeaf5}
+#uc-results .uc-lookout-action strong{color:#ffdeb6}
+#uc-results .uc-lookout-empty{display:grid;gap:6px;border:1px solid #947a9d;border-radius:10px;background:#ffffff0a;padding:13px}
+#uc-results .uc-lookout-empty strong{font-size:13px}
+#uc-results .uc-lookout-empty p,#uc-results .uc-lookout-footer{margin:0;font-size:12px;line-height:1.6;color:#e6d6ea}
+@media(max-width:750px){#uc-results .uc-lookout-grid{grid-template-columns:1fr}#uc-results .uc-lookouts{padding:12px}}
+@media print{
+ body.print-unwrapped-comparison #uc-results .uc-lookouts{background:#fff!important;color:#322339!important;border:1px solid #c5adc8!important;padding:9pt!important;break-inside:auto}
+ body.print-unwrapped-comparison #uc-results .uc-lookouts>h4{color:#563460!important}
+ body.print-unwrapped-comparison #uc-results .uc-lookouts-intro,
+ body.print-unwrapped-comparison #uc-results .uc-lookout-why,
+ body.print-unwrapped-comparison #uc-results .uc-lookout-action,
+ body.print-unwrapped-comparison #uc-results .uc-lookout-footer,
+ body.print-unwrapped-comparison #uc-results .uc-lookout-empty p{color:#443a49!important}
+ body.print-unwrapped-comparison #uc-results .uc-lookout-card{background:#fff!important;color:#302835!important;border:1px solid #d4bdd6!important;break-inside:avoid-page}
+ body.print-unwrapped-comparison #uc-results .uc-lookout-card h5{color:#4b3452!important}
+ body.print-unwrapped-comparison #uc-results .uc-lookout-tag,
+ body.print-unwrapped-comparison #uc-results .uc-lookout-evidence strong,
+ body.print-unwrapped-comparison #uc-results .uc-lookout-action strong{color:#70446a!important}
+ body.print-unwrapped-comparison #uc-results .uc-lookout-evidence{background:#f8f4f9!important;border-left-color:#bd88b2!important}
+ body.print-unwrapped-comparison #uc-results .uc-lookout-evidence p{color:#453947!important}
+ body.print-unwrapped-comparison #uc-results .uc-lookout-grid{grid-template-columns:1fr 1fr}
+ @page{size:auto;margin:12mm}
+}
