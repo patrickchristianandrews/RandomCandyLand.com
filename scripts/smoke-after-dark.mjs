@@ -766,7 +766,7 @@ try{
   const ideasReady=await ideasPage.evaluate("(()=>{const cards=document.querySelectorAll('#ideas-grid .idea-card'),detail=document.querySelector('#idea-reading');return cards.length>=12&&detail?.textContent.includes('When a metric becomes the target')&&!!document.querySelector('#idea-search')&&!!document.querySelector('#surprise-idea')})()");
   if(!ideasReady)throw Error('Wonder Index dedicated ideas page must deep-link a rotating story to its complete original article');
   await ideasPage.evaluate("document.querySelector('#idea-search').value='Simpson';document.querySelector('#idea-search').dispatchEvent(new Event('input',{bubbles:true}))");
-  const ideaFilter=await ideasPage.evaluate("document.querySelectorAll('#ideas-grid .idea-card').length===1&&document.querySelector('#ideas-grid').textContent.includes('Simpson')");
+  const ideaFilter=await ideasPage.evaluate("document.querySelectorAll('#ideas-grid .idea-card').length===1&&document.querySelector('#ideas-grid .idea-card')?.dataset.idea==='simpson'");
   if(!ideaFilter)throw Error('Wonder Index dedicated ideas page must filter concepts by topic');
 
   const researchPage=await navigate(site+'/curiosity/research/');
