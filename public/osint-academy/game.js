@@ -185,6 +185,7 @@ function updateStats(){
  if(continueBtn)continueBtn.textContent=state.finished.length===25?'✓ Review your completed cases':'▶ '+(state.finished.length?'Resume':'Start')+' Case '+caseIndex();
  const hint=$('training-next-hint');
  if(hint)hint.textContent=state.finished.length===25?'Great work! Your complete training record is in My reports.':(state.finished.length+' of 25 cases completed · '+Object.keys(state.answers).length+' of 75 decisions made · auto-saved');
+ document.dispatchEvent(new CustomEvent('trace:progress'));
 }
 function renderList(){
  $('mission-counter').textContent=caseIndex()+' / 25';
@@ -225,6 +226,7 @@ function renderCase(){
  html+='<div class="case-progress"><div style="width:'+((step+(record?1:0))/3*100)+'%"></div></div><div class="case-footer"><span>'+(record?'✓ Decision recorded':'Awaiting your answer')+'</span><span>Automatically saved on this device</span></div>';
  if(isFinished(active))html+='<div class="case-takeaway"><strong>✓ You already cleared this case.</strong> Review the lesson above or open Browse cases to revisit a different one.</div>';
  html+='</div>';$('mission-stage').innerHTML=html;
+ document.dispatchEvent(new CustomEvent('trace:case-rendered'));
  $('mission-stage').querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{
    if(key in state.answers)return;
    const selected=Number(b.dataset.choice);
@@ -381,6 +383,17 @@ document.querySelectorAll('[data-scope-prompt]').forEach(b=>b.addEventListener('
  document.querySelectorAll('[data-scope-prompt]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
 }));
 active=unlocked();step=firstQuestion(active);updateStats();renderList();renderCase();
-window.TraceAcademyDebug=Object.freeze({missionCount:missions.length,toolCount:toolbox.length,getProgress:()=>({completed:state.finished.length,questionsAnswered:Object.keys(state.answers).length,active,step,tab:currentTab}),version:'clear-path-20261103'});
+window.TraceAcademyDebug=Object.freeze({missionCount:missions.length,toolCount:toolbox.length,getProgress:()=>({completed:state.finished.length,questionsAnswered:Object.keys(state.answers).length,active,step,tab:currentTab}),version:'mission-command-20261107'});
+// Mission-command interface uses the real lesson data and progress; no second save system.
+window.TraceAcademyGame=Object.freeze({
+ missions:missions.map((m,i)=>({id:i,title:m.title,field:m.field,brief:m.brief,clues:m.items.length})),
+ progress:()=>({completed:state.finished.slice(),answered:Object.keys(state.answers).length,
+ correct:Object.values(state.answers).filter(x=>x.correct).length,active,step,unlocked:unlocked(),rank:$('stat-rank')?.textContent||'Trainee',xp:Number($('stat-xp')?.textContent||0)}),
+ openCase:(index)=>{
+  const id=Number(index);
+  if(!Number.isInteger(id)||id<0||id>=missions.length||id>unlocked())return false;
+  active=id;step=firstQuestion(active);switchTab('missions');renderList();renderCase();updateStats();focusCase('.case-navigation');return true;
+ }
+});
 document.body.dataset.traceReady='true';
 })();
