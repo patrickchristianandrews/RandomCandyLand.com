@@ -1475,13 +1475,58 @@ window.AfterDarkDirectQuizBridge=Object.freeze({
  preview:()=>{directPreview=true;renderTabs('quiz');renderQuiz()},
  resume:()=>{if(qIndex<0){qIndex=0;persistQuiz()}directPreview=false;renderTabs('quiz');renderQuiz()}
 });
+
+/* Reports must depend on quiz answers ONLY. The independent Curiosity Cabinet
+ * and separately typed ideas remain useful for exploration, but never affect
+ * report scores, selections, recommendations, or partner disclosures. */
+function quizOnlySignals(){
+ const companion=window.AfterDarkPsychQuizBridge?.getProgress?.();
+ const combined={...axes},hasDirect=answered>0,scale=hasDirect?0.5:1;
+ if(companion?.answered){
+  if(hasDirect)for(const key of Object.keys(combined))combined[key]*=0.5;
+  for(const [key,val] of Object.entries(companion.axes||{}))
+   combined[key]=(combined[key]||0)+Number(val||0)*scale;
+ }
+ return combined;
+}
+function quizOnlyInterests(){
+ const signals=quizOnlySignals(),companion=window.AfterDarkPsychQuizBridge?.getProgress?.();
+ const namedDirect=new Map();
+ qdata.forEach((q,i)=>(multiAnswers[i]||[]).forEach(n=>{
+  const option=q.options[n];if(!option||option.role==='none')return;
+  for(const name of option.interests||[])namedDirect.set(name,(namedDirect.get(name)||0)+1);
+ }));
+ const highest=Math.max(1,...Object.values(signals)),coverage=Math.min(1,Math.max(answered,companion?.answered||0)/16);
+ const countFor=(arr,chosen,x)=>arr.reduce((total,q,i)=>total+(chosen?.[i]||[]).filter(k=>{
+  const option=q.options[k];return option&&option.role!=='none'&&option.axes.split(' ').some(t=>x.tags.includes(t));
+ }).length,0);
+ return topics.filter(x=>{
+  // Sensitive specific categories must be directly named, never guessed from psychology themes.
+  if(x.warning||x.cat==='Body Fluids & Bodily Sensations')return namedDirect.has(x.name);
+  return true;
+ }).map(x=>{
+  const similarity=x.tags.length?x.tags.reduce((total,tag)=>total+Math.min(1,(signals[tag]||0)/highest),0)/x.tags.length:0;
+  const selectedSpecifically=namedDirect.get(x.name)||0;
+  const selectedFromDirect=countFor(qdata,multiAnswers,x);
+  const selectedFromPsych=countFor(window.AfterDarkPsychologyQuiz||[],companion?.answers||{},x);
+  const selectedSignals=Math.max(selectedFromDirect,selectedFromPsych);
+  const percentage=selectedSpecifically
+   ?Math.min(88,65+Math.min(14,selectedSpecifically*7)+Math.round(similarity*9))
+   :Math.round(Math.min(85,(18+34*similarity+Math.min(4,selectedSignals)*5)*coverage));
+  const source=selectedSpecifically?'Named in selected sexual-quiz answers':
+   selectedSignals?'Related to quiz selections':'Topic theme overlap only';
+  return{x,percentage,source,direct:0,deeper:0,similarity,selectedSpecifically};
+ }).filter(r=>r.selectedSpecifically||(Math.max(answered,companion?.answered||0)>=8&&r.percentage>20))
+  .sort((a,b)=>b.selectedSpecifically-a.selectedSpecifically||b.percentage-a.percentage||a.x.name.localeCompare(b.x.name));
+}
+
 window.AfterDarkCanonicalReport=Object.freeze({
  buildData:()=>{
   const companion=window.AfterDarkPsychQuizBridge?.getProgress?.();
   const psychQuestions=window.AfterDarkPsychologyQuiz||[];
-  const signals=combinedAxes();
+  const signals=quizOnlySignals();
   const recs=(companion?.answered&&window.AfterDarkPsychBridge?.recommend?.(companion,topics)||[])
-   .filter(r=>choices[r.x.id]!=='no').slice(0,16)
+   .slice(0,16)
    .map(r=>({id:r.x.id,name:r.x.name,category:r.x.cat,
     description:r.x.description,themes:r.x.tags,
     reasons:(r.reasons||[]).slice(0,4).map(t=>({question:t.question,answer:t.answer}))}));
@@ -1495,7 +1540,7 @@ window.AfterDarkCanonicalReport=Object.freeze({
    direct:{answered,complete:qIndex===qdata.length,
     questions:summarize(qdata,multiAnswers,freeResponses).map((q,i)=>({...q,
      intent:questionIntents[i]||'',intentLabel:intentLabels[questionIntents[i]]||'Not specified'})),
-    personalIdeas:customEntries(),
+    personalIdeas:[], // separate free-form notebook entries do not become report answers
     specificSelections:qdata.flatMap((q,i)=>(multiAnswers[i]||[]).map(n=>{
      const option=q.options[n];if(!option)return null;
      return {questionNumber:i+1,question:q.q,text:option.text,role:option.role||'unspecified',
@@ -1507,8 +1552,8 @@ window.AfterDarkCanonicalReport=Object.freeze({
     questions:summarize(psychQuestions,companion?.answers,companion?.notes)},
    axes:{combined:{...signals},direct:{...axes},psych:{...(companion?.axes||{})}},
    lenses:Object.fromEntries(Object.entries(DB.lenses).map(([k,v])=>[k,{label:v[0],detail:v[1]}])),
-   selections:{...choices},psychSuggestions:recs,
-   interests:interestMatches().slice(0,24).map(r=>({
+   selections:{},psychSuggestions:recs,
+   interests:quizOnlyInterests().slice(0,24).map(r=>({
     id:r.x.id,name:r.x.name,category:r.x.cat,description:r.x.description,
     psychology:r.x.psych||'',themeTags:[...r.x.tags],warn:Boolean(r.x.warning),
     confidenceType:r.direct===2?'Marked Interested':r.direct===1?'Marked Curious':r.selectedSpecifically?'Named in sexual-quiz selections':'Suggested from theme matching',
