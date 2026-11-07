@@ -100,6 +100,11 @@ assert.match(compare,/Create combined report from 2 files/);
 assert.match(compare,/Choose a selected Unwrapped comparison report/);
 assert.match(compare,/if\(JSON\.stringify\(a\)===JSON\.stringify\(b\)\)/);
 assert.match(transfer,/return true;/);
-assert.doesNotMatch(main,/View Sample Reports/);
+// The report center now intentionally makes genuine sample reports discoverable.
+assert.match(main,/View Sample Reports/);
+assert.match(main,/id="uw-report-paths"/);
+assert.match(main,/id="uw-existing-partner-report"/);
+assert.match(main,/\/after-dark\/report-paths\.js\?v=/);
+assert.match(main,/\/after-dark\/couple-checkins\.js\?v=/);
 console.log('✓ Personal PDF, private backup, selected JSON import, one-file partner and two-file combined report workflow retain opt-in privacy controls.');
 
