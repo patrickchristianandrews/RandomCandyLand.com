@@ -482,6 +482,54 @@ const gpu=navigator.gpu;
 $('#gpuCheck').textContent=gpu?'WebGPU detected. Choose a small model to begin. The exact GPU adapter is checked when you press Load.':'This browser does not offer WebGPU. Local loading is unavailable; hosted Instant AI does not need WebGPU.';
 if(!gpu)$('#loadModel').disabled=true;
 let loadingModel=false;
+// Four small, objective checks provide an honest local mini-test—not an overall
+// model accuracy percentage. Only run on a model the user has already loaded.
+const benchKey='random-ai-mini-benchmark-v1';
+let benchBusy=false;
+const benchChecks=[
+ {question:'What is 17 plus 28? Reply with just the number.',answer:/^\s*45\s*[.!]?\s*$/},
+ {question:'In JavaScript, what does [10, 20, 30].length evaluate to? Reply with just the number.',answer:/^\s*3\s*[.!]?\s*$/},
+ {question:'What is the capital city of Canada? Reply with one word only.',answer:/^\s*Ottawa\s*[.!]?\s*$/i},
+ {question:'Two notebooks cost $12 each. One pen costs $3. What is the cost of all three items? Reply with just the number.',answer:/^\s*27\s*[.!]?\s*$/}
+];
+async function quickModelBenchmark(id){
+ if(!engine||loadedModel!==id)return {error:'First load this model in Random AI, then run the check. A GGUF in another phone app cannot be tested here.'};
+ if(isGenerating||loadingModel||benchBusy)return {error:'The AI is busy. Finish the current response or loading operation first.'};
+ benchBusy=true;
+ const started=performance.now();let correct=0,characters=0,finished=0;
+ window.dispatchEvent(new CustomEvent('random-ai-benchmark-progress',{detail:{id,running:true,finished:0,total:benchChecks.length}}));
+ try{
+  for(const check of benchChecks){
+   const result=await engine.chat.completions.create({
+    messages:[{role:'system',content:'Give the exact short answer requested. Do not explain.'},{role:'user',content:check.question}],
+    temperature:0,max_tokens:75,stream:false
+   });
+   const reply=String(result?.choices?.[0]?.message?.content||'').trim();
+   if(check.answer.test(reply))correct++;
+   characters+=reply.length;finished++;
+   window.dispatchEvent(new CustomEvent('random-ai-benchmark-progress',{detail:{id,running:true,finished,total:benchChecks.length}}));
+  }
+  const elapsedMs=Math.max(1,Math.round(performance.now()-started));
+  const result={correct,total:benchChecks.length,elapsedMs,averageMs:Math.round(elapsedMs/benchChecks.length),
+   characters,charsPerSecond:Math.round(characters/elapsedMs*10000)/10,
+   date:new Date().toISOString()};
+  try{
+   const data=JSON.parse(localStorage.getItem(benchKey)||'{}');
+   if(data&&typeof data==='object'){data[id]=result;localStorage.setItem(benchKey,JSON.stringify(data));}
+  }catch{}
+  window.dispatchEvent(new CustomEvent('random-ai-benchmark-complete',{detail:{id,result}}));
+  return result;
+ }catch(error){
+  const message='Mini-test stopped after '+finished+' of '+benchChecks.length+' questions: '+String(error?.message||error);
+  window.dispatchEvent(new CustomEvent('random-ai-benchmark-error',{detail:{id,message}}));
+  return {error:message};
+ }finally{
+  benchBusy=false;
+  window.dispatchEvent(new CustomEvent('random-ai-benchmark-progress',{detail:{id,running:false,finished,total:benchChecks.length}}));
+ }
+}
+window.RandomAIModelBenchmark=Object.freeze({run:quickModelBenchmark,active:()=>loadedModel,running:()=>benchBusy});
+// This is the one legitimate local model-loading path.
 $('#loadModel').addEventListener('click',async()=>{
  if(loadingModel)return;
  if(!gpu){setDownloadProgress(0,'WebGPU is unavailable. Use current desktop Chrome/Edge, or Instant AI after setup.','error');return;}
