@@ -65,3 +65,42 @@
 .advanced-model-catalog>.fine-print{margin:11px 0;color:#d4c6eb;font-size:12px}
 .advanced-model-catalog .model-finder{margin:14px 0 0}
 .advanced-model-catalog:not([open])>.model-finder{display:none}
+
+
+/* Download standalone GGUF model files into Android/iPhone Downloads or Files. */
+.portable-model-downloads{
+ margin:20px 0 24px;padding:clamp(15px,2.3vw,25px);border:1px solid #ffd9b19c;
+ background:linear-gradient(135deg,#2d203e,#182940 72%,#15353c);
+ border-radius:20px;color:#f8f5ff;
+}
+.portable-model-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.portable-model-head>div{flex:1;min-width:min(100%,270px)}
+.portable-model-head h2{font:850 clamp(23px,3vw,36px)/1.15 'Outfit',system-ui,sans-serif;margin:6px 0 9px}
+.portable-model-head p{max-width:770px;color:#eadff2;font-size:13px;line-height:1.65;margin:0 0 13px}
+.portable-model-head a.portable-model-app{display:inline-flex;align-items:center;text-decoration:none;min-height:42px;white-space:normal;font-size:12px;text-align:center}
+.portable-model-device{font-size:11px;line-height:1.6;background:#131b32ba;border-left:3px solid #afedd9;border-radius:8px;padding:10px 13px;color:#dafff3}
+.portable-model-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:15px 0}
+.portable-model-card{min-width:0;display:flex;flex-direction:column;gap:8px;border:1px solid #b5c9e566;border-radius:14px;background:#13182eeb;padding:15px}
+.portable-model-type{font-size:9px;font-weight:900;letter-spacing:.09em;color:#ffd7a3}
+.portable-model-card h3{font:800 17px/1.2 'Outfit',system-ui,sans-serif;color:#fff;margin:0;overflow-wrap:anywhere}
+.portable-model-card>p{font-size:11px;line-height:1.55;color:#e7d8ee;margin:0;flex:1}
+.portable-model-size{font-size:12px;font-weight:850;color:#dff7ff}
+.portable-model-fit{display:block;font-size:10px;line-height:1.5;padding:7px 8px;border-radius:8px;background:#374152;color:#ffecbb}
+.portable-model-fit.light{background:#184b42;color:#b5ffe3}
+.portable-model-fit.moderate{background:#34444c;color:#d1f3ff}
+.portable-model-fit.caution{background:#493c49;color:#ffdfa9}
+.portable-model-fit.heavy{background:#532e3a;color:#ffc3c3}
+.portable-model-card>a.portable-model-file{display:flex;align-items:center;justify-content:center;text-align:center;min-height:43px;padding:9px 11px;text-decoration:none;font-size:12px;font-weight:850;border-radius:11px}
+.portable-model-source{font-size:11px;color:#c8fce2;text-align:center;text-decoration:underline;text-underline-offset:3px}
+.portable-model-status:not(:empty){padding:10px 12px;background:#263d47;border:1px solid #b8eacc78;border-radius:9px;color:#e5ffe9;font-size:11px;line-height:1.55}
+.portable-model-help{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:17px 0}
+.portable-model-help>div{padding:16px;background:#17162cae;border-radius:13px;border:1px solid #e8daff46}
+.portable-model-help h3{font:800 17px/1.3 'Outfit',system-ui,sans-serif;margin:0 0 8px}
+.portable-model-help ol{margin:0;padding-left:19px;color:#e8d8f1;font-size:12px;line-height:1.8}
+.portable-model-help a{color:#b9ffe0;text-decoration:underline}
+.portable-model-help label{display:block;font-size:11px;color:#e7e1ff;font-weight:750;margin:0 0 8px}
+.portable-model-help input[type=file]{box-sizing:border-box;width:100%;max-width:100%;padding:9px;border:1px solid #95b9d97c;border-radius:10px;background:#191b30;color:#fff;font-size:12px}
+.portable-model-help #phoneGGUFStatus{font-size:11px;color:#e2daf1;line-height:1.55;overflow-wrap:anywhere}
+.portable-model-disclaimer{font-size:11px;line-height:1.65;color:#e3d5e9;border-top:1px solid #fff3;padding-top:12px}
+.portable-model-disclaimer code{background:#18172d;color:#c6ffee;border-radius:4px;padding:1px 4px}
+@media(max-width:600px){.portable-model-head>.portable-model-app{width:100%}.portable-model-grid{grid-template-columns:1fr}.portable-model-downloads{margin:14px 0;padding:13px}}
