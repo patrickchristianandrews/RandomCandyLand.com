@@ -155,6 +155,7 @@ function doPreview(){
 }
 function print(){
  try{
+  refreshQuizChoices();
   const report=content();
   let doc=$('print-document');if(!doc){doc=make('div');doc.id='print-document';document.body.append(doc);}
   doc.replaceChildren(report);
@@ -170,8 +171,8 @@ function mount(){
  add(panel,'span','AUTOMATIC · QUIZ-BASED REPORT','eyebrow');
  add(panel,'h2','Getting to know me.');
  add(panel,'p','Your quiz answers create the introduction and conversation ideas automatically. No profile, essays, or extra report questions. Nothing is sent or shared without your action.','new-partner-lead');
- const psy=make('details',undefined,'new-partner-options');psy.open=true;
- add(psy,'summary','Everyday personality and communication · from the psychology quiz');
+ const psy=make('details',undefined,'new-partner-options');psy.open=false;
+ add(psy,'summary','Included automatically · everyday personality and communication (tap to customize)');
  const togglePsych=make('label',undefined,'new-partner-toggle');
  const pc=document.createElement('input');pc.type='checkbox';pc.checked=true;
  pc.addEventListener('change',()=>{showPsych=pc.checked;if(preview)preview.hidden=true;});
@@ -197,7 +198,7 @@ function mount(){
  add(toyDisclosure,'p','OFF by default. Uses only directly selected quiz interests, with anatomy-specific and safety guidance.','new-partner-muted');
  sexual.append(toyDisclosure);panel.append(sexual);
  const actions=make('div',undefined,'new-partner-actions');
- actions.append(btn('Preview my automatic report',doPreview,'btn alt'),
+ actions.append(btn('Generate my introduction',doPreview,'btn'),
   btn('Save my report as PDF',print,'btn'),
   btn('Refresh from quiz answers',()=>{refreshChoices();message.textContent='Responses refreshed from the quiz. No extra writing needed.'},'btn alt'));
  panel.append(actions);
