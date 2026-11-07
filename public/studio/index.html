@@ -8,10 +8,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/studio/studio.css?v=helpers-20261105"><link rel="stylesheet" href="/studio/model-explorer.css?v=5"><link rel="stylesheet" href="/studio/model-memory.css?v=top-20261107">
+<link rel="stylesheet" href="/studio/studio.css?v=helpers-20261105"><link rel="stylesheet" href="/studio/model-explorer.css?v=5"><link rel="stylesheet" href="/studio/model-memory.css?v=portable-phone-20261107-v1">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script><script src="/analytics.js?v=ga4-20261030-v1"></script>
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&'+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
-<script src="/install-app.js" defer></script><script src="/studio/free-config.js?v=1"></script><script src="/studio/model-memory.js?v=1" defer></script><script src="/studio/deep-workflows.js?v=1" defer></script><script src="/studio/studio.js?v=phone-top-20261107" type="module"></script><script src="/studio/model-explorer.js?v=phone-top-20261107" defer></script><script src="/studio/top-models.js?v=phone-top-20261107" defer></script>
+<script src="/install-app.js" defer></script><script src="/studio/free-config.js?v=1"></script><script src="/studio/model-memory.js?v=1" defer></script><script src="/studio/deep-workflows.js?v=1" defer></script><script src="/studio/studio.js?v=phone-top-20261107" type="module"></script><script src="/studio/model-explorer.js?v=phone-top-20261107" defer></script><script src="/studio/top-models.js?v=phone-top-20261107" defer></script><script src="/studio/phone-model-downloads.js?v=portable-phone-20261107-v1" defer></script>
 </head><body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>This studio needs JavaScript enabled.</p></noscript>
 <div class="shell">
@@ -54,7 +54,56 @@
  <div class="top-ai-list" id="topAiList" aria-live="polite"><p>Finding available models…</p></div>
  <details class="uncensored-models" id="uncensoredModels" open><summary>🔓 Uncensored and more open AI models</summary><p>Hermes 3 is described by its publisher as uncensored. It is offered here only if a compatible model is available in the current browser runtime. Other community fine-tunes may still refuse some prompts.</p><div id="uncensoredChoices" class="top-ai-list"></div><p class="fine-print">WebLLM cannot directly run arbitrary downloaded GGUF files. A compatible MLC weight bundle and matching WebGPU library are required. No unverified model is shown as installed.</p></details>
  <p class="top-ai-disclaimer">These are recommendations from WebLLM-supported local models, not every AI worldwide. Estimated fit is not measured speed; actual chat use can display observed output speed for this device.</p>
-</section><div class="section-heading"><div><span class="eyebrow">GET INSPIRED</span><h2>What do you want to create?</h2></div><button class="text-action" data-go="tools">View entire library →</button></div>
+</section><section class="portable-model-downloads" id="portablePhoneModels" aria-labelledby="portablePhoneModelsHeading">
+ <div class="portable-model-head">
+  <div><span class="eyebrow">SAVE THE ACTUAL FILE · ANDROID &amp; IPHONE</span>
+   <h2 id="portablePhoneModelsHeading">Download AI models to your phone.</h2>
+   <p>These links download <strong>real, standalone .gguf model files</strong> from their Hugging Face repositories—not just a browser cache. Keep the file in Downloads or Files and open it with a GGUF-compatible offline AI app.</p></div>
+  <a class="outline portable-model-app" href="https://www.pocketpal.dev/" target="_blank" rel="noopener noreferrer">Get a GGUF player for Android / iPhone ↗</a>
+ </div>
+ <p class="portable-model-device" id="portableModelDevice" role="status" aria-live="polite">Checking what this phone's browser reports…</p>
+ <div class="portable-model-grid" aria-label="Ready-to-download standalone model files">
+  <article class="portable-model-card" data-portable-model="qwen-small">
+   <span class="portable-model-type">SMALLER · FIRST TRY</span><h3>Qwen3 0.6B</h3><p>Compact conversational AI; lighter on storage, with limited depth compared with larger models.</p>
+   <span class="portable-model-size">0.48 GB · Q4_K_M · GGUF</span><small class="portable-model-fit">Checking device fit…</small>
+   <a class="primary portable-model-file" data-phone-file-info="qwen-small" href="https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Qwen3 0.6B GGUF model file, about 0.48 gigabytes, to phone">↓ Download actual .gguf</a>
+   <a class="portable-model-source" href="https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF" target="_blank" rel="noopener noreferrer">Model source &amp; terms ↗</a>
+  </article>
+  <article class="portable-model-card" data-portable-model="qwen-balanced">
+   <span class="portable-model-type">BALANCED · EVERYDAY CHAT</span><h3>Qwen3 1.7B</h3><p>Good starting balance for mobile writing and conversation; heavier than the compact option.</p>
+   <span class="portable-model-size">1.28 GB · Q4_K_M · GGUF</span><small class="portable-model-fit">Checking device fit…</small>
+   <a class="primary portable-model-file" data-phone-file-info="qwen-balanced" href="https://huggingface.co/bartowski/Qwen_Qwen3-1.7B-GGUF/resolve/main/Qwen3-1.7B-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Qwen3 1.7B GGUF model file, about 1.28 gigabytes, to phone">↓ Download actual .gguf</a>
+   <a class="portable-model-source" href="https://huggingface.co/bartowski/Qwen_Qwen3-1.7B-GGUF" target="_blank" rel="noopener noreferrer">Model source &amp; terms ↗</a>
+  </article>
+  <article class="portable-model-card" data-portable-model="qwen-quality">
+   <span class="portable-model-type">LARGER · MORE CAPABLE</span><h3>Qwen3 4B</h3><p>More capable conversational model, but requires substantially more available memory and space.</p>
+   <span class="portable-model-size">2.50 GB · Q4_K_M · GGUF</span><small class="portable-model-fit">Checking device fit…</small>
+   <a class="primary portable-model-file" data-phone-file-info="qwen-quality" href="https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Qwen3 4B GGUF model file, about 2.5 gigabytes, to phone">↓ Download actual .gguf</a>
+   <a class="portable-model-source" href="https://huggingface.co/Qwen/Qwen3-4B-GGUF" target="_blank" rel="noopener noreferrer">Model source &amp; terms ↗</a>
+  </article>
+  <article class="portable-model-card" data-portable-model="lexi-open">
+   <span class="portable-model-type">UNCENSORED FINE-TUNE · HEAVY</span><h3>Lexi Uncensored V2 8B</h3><p>A community-described uncensored model for more open local conversations. Responses and actual filtering can still vary.</p>
+   <span class="portable-model-size">4.92 GB · Q4_K_M · GGUF</span><small class="portable-model-fit">Checking device fit…</small>
+   <a class="primary portable-model-file" data-phone-file-info="lexi-open" href="https://huggingface.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF/resolve/main/Llama-3.1-8B-Lexi-Uncensored-V2-Q4_K_M.gguf?download=true" target="_blank" rel="noopener noreferrer" aria-label="Download Lexi Uncensored V2 GGUF model file, about 4.92 gigabytes, to phone">↓ Download actual .gguf</a>
+   <a class="portable-model-source" href="https://huggingface.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF" target="_blank" rel="noopener noreferrer">Model source, license &amp; terms ↗</a>
+  </article>
+ </div>
+ <p id="portableModelDownloadStatus" class="portable-model-status" aria-live="polite" role="status"></p>
+ <div class="portable-model-help">
+   <div><h3>Open a downloaded model on your phone</h3>
+    <ol><li>Tap <strong>Download actual .gguf</strong> and let your browser save the complete file. Check Downloads or Files; your browser chooses the folder.</li>
+    <li>Open <a href="https://www.pocketpal.dev/" target="_blank" rel="noopener noreferrer">PocketPal AI</a> or another compatible offline model app. Choose <strong>Models → + → Local storage</strong> and select the .gguf file.</li>
+    <li>Tap <strong>Load</strong> in that app, then chat offline if the model fits your phone's RAM and storage.</li></ol>
+   </div>
+   <div><h3>Already saved a model?</h3>
+    <label for="phoneGGUFPicker">Check a GGUF file on this phone (never uploads it)</label>
+    <input id="phoneGGUFPicker" type="file" accept=".gguf,application/octet-stream">
+    <p id="phoneGGUFStatus" role="status" aria-live="polite">Select an existing downloaded file to see its name and size.</p>
+   </div>
+ </div>
+ <p class="portable-model-disclaimer"><strong>Two separate formats:</strong> Random AI's built-in private chat loads WebLLM model weights in browser storage. The portable <code>.gguf</code> files here are for compatible phone apps; they cannot be imported directly into Random AI's current WebLLM chat. These files are downloaded from Hugging Face, not stored by this website. Wi-Fi and adequate free storage are recommended; the website cannot force a browser's save location or confirm a completed external download.</p>
+</section>
+<div class="section-heading"><div><span class="eyebrow">GET INSPIRED</span><h2>What do you want to create?</h2></div><button class="text-action" data-go="tools">View entire library →</button></div>
    <div class="feature-grid"><button data-go="chat" class="feature-card fc-violet"><span class="feature-art">✳</span><span class="feature-kicker">THINK OUT LOUD</span><strong>Chat & brainstorm</strong><span>Explore ideas with a model running on your own device.</span><i>Explore →</i></button><button data-go="visual" class="feature-card fc-pink"><span class="feature-art">✺</span><span class="feature-kicker">COLOR INTO CREATION</span><strong>Visual lab</strong><span>Turn words into vivid abstract designs you can download.</span><i>Explore →</i></button><button data-go="voice" class="feature-card fc-blue"><span class="feature-art">♫</span><span class="feature-kicker">LET YOUR IDEAS SPEAK</span><strong>Voice studio</strong><span>Hear text aloud and dictate using supported browsers.</span><i>Explore →</i></button><button data-go="photos" class="feature-card fc-gold"><span class="feature-art">▧</span><span class="feature-kicker">EDIT & TRANSFORM</span><strong>Photo workshop</strong><span>Resize images and make color-based cutouts to PNG.</span><i>Explore →</i></button></div>
    <div class="studio-action-banners"><button data-go="settings" class="studio-action-banner"><span>🧠</span><b>Explore local models</b><small>Downloadable, API-free models, memory guidance and the full compatible catalog.</small><i>See all models →</i></button><button data-go="code" class="studio-action-banner"><span>⌘</span><b>Build something real</b><small>Edit working code, preview it and download your project.</small><i>Open Code Lab →</i></button><a class="studio-action-banner" href="/ai-academy/"><span>🎓</span><b>AI Academy</b><small>13 hands-on lessons, interactive quizzes and a Prompt Builder. Its own course.</small><i>Start learning →</i></a></div><div class="section-heading"><div><span class="eyebrow">HANDY EVERYDAY</span><h2>Popular tools</h2></div></div><div class="mini-grid" id="homePopular"></div>
    <div class="disclosure-strip"><span>✧</span><p><strong>Made to work, not just look impressive.</strong> Browser image tools, read-aloud, and formatting work immediately. Text generation requires a compatible downloaded model and WebGPU. Local models need a first download, then run on your device. Instant AI needs a connected hosted service.</p><button data-go="settings">How it works →</button></div>
