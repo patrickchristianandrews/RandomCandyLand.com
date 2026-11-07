@@ -24,7 +24,7 @@
  function syncCurrent(){
   const tab=document.querySelector('.tab.visible')?.id||'home';
   for(const button of nav.querySelectorAll('[data-tab]')){
-   const selected=button.dataset.tab===tab;
+   const selected=button.dataset.tab===tab&&!button.hasAttribute('data-report-path');
    button.classList.toggle('selected',selected);
    if(selected)button.setAttribute('aria-current','page');
    else button.removeAttribute('aria-current');
