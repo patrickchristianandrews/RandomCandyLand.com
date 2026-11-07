@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#142331">
+<meta name="description" content="The Wonder Index: surprising ideas about psychology, science and decision making. Explore a refreshed research digest and discover spurious correlations in real World Bank statistics.">
+<title>The Wonder Index · Curiosity and Spurious Correlations | Random Candy Land</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="canonical" href="https://randomcandyland.com/curiosity/">
+<link rel="stylesheet" href="/curiosity/curiosity.css?v=1">
+<script src="/install-app.js" defer></script><script src="/curiosity/curiosity.js?v=1" defer></script>
+</head><body>
+<a class="skip" href="#main">Skip to ideas</a>
+<header class="site-nav"><a class="brand" href="/"><img src="/icon.svg" width="42" height="42" alt=""><span>RANDOM CANDY LAND</span></a>
+ <nav aria-label="Sections"><a href="#ideas">The Index</a><a href="#research">Fresh Research</a><a href="#correlations">Correlation Generator</a></nav><a class="nav-action" href="/#top">Explore the site ↗</a>
+</header>
+<main id="main">
+<section class="hero" aria-labelledby="main-title">
+ <div class="hero-copy"><span class="eyebrow">THE WONDER INDEX · IDEAS WORTH QUESTIONING</span><h1 id="main-title">Think <em>again.</em><br>See <span>further.</span></h1><p class="lead">The everyday world is stranger than it looks. Discover cognitive biases, hidden incentives, scientific surprises and ideas that change how you interpret what you see.</p>
+  <div class="hero-actions"><a class="action primary" href="#ideas">Explore mind-bending ideas ↓</a><a class="action ghost" href="#correlations">Generate impossible-looking charts ↗</a></div>
+  <div class="hero-evidence"><span>✳ Original explanations</span><span>◈ Research links</span><span>↻ Refreshed twice daily</span></div>
+ </div>
+ <div class="hero-graphic" aria-hidden="true">
+  <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><span class="orbit-point op-a">WHY?</span><span class="orbit-point op-b">↗</span><span class="orbit-point op-c">?</span><span class="big-question">!</span><div class="chart-hint"><span>Correlation</span><svg viewBox="0 0 160 45"><polyline points="4,38 27,32 46,35 69,20 86,28 108,15 132,18 157,4" fill="none" stroke="#8affc7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><strong>≠ Causation</strong></div>
+ </div>
+</section>
+<section id="today" class="daily-feature" aria-labelledby="today-title">
+ <div class="daily-eyebrow"><span class="live-dot"></span> TODAY'S THINKING PROMPT <span id="today-date"></span></div>
+ <div id="today-feature"><h2 id="today-title">A daily idea that changes perspective.</h2><p>Loading today's feature…</p></div>
+</section>
+<section id="ideas" class="index-section" aria-labelledby="ideas-title">
+ <div class="section-title"><div><span class="eyebrow">YOUR SHORTCUT TO A WIDER MIND</span><h2 id="ideas-title">The curiosity index.</h2><p>Short reads, memorable examples and practical takeaways. Explore by theme, follow the source, or surprise yourself.</p></div><button type="button" class="action ghost" id="surprise-idea">✳ Surprise me</button></div>
+ <div class="filters"><label for="idea-search" class="search-field">⌕ <input type="search" id="idea-search" placeholder="Search a concept, question or everyday problem…" autocomplete="off"></label>
+ <div class="filter-group" id="idea-categories" role="group" aria-label="Idea categories"><button type="button" data-category="all" aria-pressed="true">Everything</button><button type="button" data-category="Mind" aria-pressed="false">🧠 Mind</button><button type="button" data-category="Decisions" aria-pressed="false">⚖️ Decisions</button><button type="button" data-category="Society" aria-pressed="false">🌍 Society</button><button type="button" data-category="Science" aria-pressed="false">🔬 Science</button><button type="button" data-category="Numbers" aria-pressed="false">📊 Numbers</button></div></div>
+ <p class="results-caption" id="idea-results-count" role="status"></p>
+ <div class="ideas-grid" id="ideas-grid"><p>Loading ideas…</p></div>
+ <button class="action outline" type="button" id="show-more-ideas">See more ideas ↓</button>
+</section>
+<section id="research" class="research-section" aria-labelledby="research-title">
+ <div class="section-title"><div><span class="eyebrow">PUBLIC RESEARCH · VERIFIED SOURCE LINKS</span><h2 id="research-title">Fresh from the research world.</h2><p>Recent scholarly publications indexed by OpenAlex when its public feed is available. Titles and source links lead to the original records—not invented summaries or endorsements.</p></div><div class="freshness" id="freshness" role="status">Checking latest cached update…</div></div>
+ <div id="research-grid" class="research-grid"><p>Loading published research metadata…</p></div>
+ <div class="research-footnote">Updated by a scheduled public-data refresh, not pulled from Nousimon or other publishers. An index entry is not peer-review or proof of a claim. <a href="https://openalex.org/" target="_blank" rel="noopener noreferrer">About OpenAlex ↗</a></div>
+</section>
+<section id="correlations" class="correlation-section" aria-labelledby="corr-title">
+ <div class="corr-header"><div><span class="eyebrow">THE SPURIOUS CORRELATION MACHINE</span><h2 id="corr-title">Two unrelated things. One very convincing chart.</h2><p>Find surprising statistical patterns in real World Bank time series. Choose your data—or let the generator hunt for a misleading-looking match. Every result links to the underlying indicators.</p></div><div class="corr-stamp" aria-hidden="true">r ≠ why</div></div>
+ <div class="corr-controls">
+  <label>Country <select id="corr-country"><option value="USA">United States</option><option value="CAN">Canada</option><option value="GBR">United Kingdom</option><option value="AUS">Australia</option></select></label>
+  <label>First real-world series <select id="corr-first" aria-label="First World Bank indicator"></select></label>
+  <label>Second real-world series <select id="corr-second" aria-label="Second World Bank indicator"></select></label>
+  <div class="corr-buttons"><button type="button" id="generate-corr" class="action primary">✦ Generate a suspicious match</button><button type="button" id="compare-corr" class="action outline">Compare selected series</button></div>
+ </div>
+ <p class="data-status" id="corr-data-status" role="status" aria-live="polite">Loading attributed World Bank data…</p>
+ <div id="corr-result" class="corr-result" aria-live="polite">
+  <div class="corr-empty"><span>↗ ↘ ↗</span><h3>Not every pattern tells a story.</h3><p>Choose two indicators or generate a surprising pairing from real published figures.</p></div>
+ </div>
+ <div class="corr-explain">
+  <article><span>01</span><h3>What is r?</h3><p>Pearson's correlation coefficient ranges from −1 to +1. A strong relationship in a chart is not evidence that one thing caused the other.</p></article>
+  <article><span>02</span><h3>Why does this happen?</h3><p>Unrelated series can move together because of time trends, common outside factors, chance, or because you searched across many pairs.</p></article>
+  <article><span>03</span><h3>How to challenge it</h3><p>Inspect first differences, look for confounders, examine sample size, and test a causal explanation. Even a stunning correlation may fall apart.</p></article>
+ </div>
+ <div class="corr-source-note"><strong>Real data, deliberately skeptical interpretation.</strong> World Bank World Development Indicators are updated by source agencies on different schedules; the figures here are refreshed from its public Indicators API during site builds. Some indicator years lag. Original inspiration for teaching amusing statistical coincidences: <a href="https://tylervigen.com/spurious-correlations" target="_blank" rel="noopener noreferrer">Spurious Correlations by Tyler Vigen</a>. Our generator uses its own computations and World Bank data, not copied plots.</div>
+</section>
+</main>
+<footer><span>THE WONDER INDEX · RANDOM CANDY LAND</span><p>Curiosity is a habit. Evidence matters. Correlation does not establish cause.</p><a href="/">← Return to Candy Land</a></footer>
+</body></html>
