@@ -77,7 +77,9 @@ const TOYS=[
  'Some models support remote connection, but local-only models avoid account-sharing concerns.',
  'Can be used as a conversation about trust, boundaries and technology privacy.'
  ],safety:'The wearer must retain a reliable stop control. Read app permissions and privacy terms, avoid recording intimate use and do not use in public if it involves nonconsenting bystanders.',tags:['remote','control','partner','trust','technology','vibrat','toy'],extra:'A possibility to read about if shared control or partner-led sensation was specifically selected.'},
-];
+]; 
+const extension=window.UnwrappedToyExpansion;
+if(extension?.types?.length)TOYS.push(...extension.types);
 const BODY_GUIDE=Object.freeze({
   "wand": {
     "male": {
@@ -210,7 +212,8 @@ const BODY_GUIDE=Object.freeze({
       "note": "Choose a model explicitly designed for vulvar, vaginal or other intended anatomy; the label 'remote-controlled' alone does not make it insertable or safe."
     },
     "together": "Any remote play is optional and private. The wearer must retain an immediate, dependable stop control and know what data the app collects."
-  }
+  },
+  ...(extension?.bodyGuide||{})
 });
 const FIT_LABELS=Object.freeze({
  direct:'Can be used as designed',
@@ -243,7 +246,8 @@ function recommendations(data){
   ring:['penis ring','cock ring','erection ring','vibrating ring'],
   'nipple-massager':['nipple','breast','chest stimulat'],
   harness:['strap-on','strap on','pegging','harness'],
-  remote:['remote control','remote-control','app controlled','partner control of a toy','remote vibrator']
+  remote:['remote control','remote-control','app controlled','partner control of a toy','remote vibrator'],
+  ...(extension?.matchTerms||{})
  };
  const matched=[];
  for(const toy of TOYS){
@@ -266,17 +270,18 @@ function recommendations(data){
    'insertable-vibe':['sensation'],dildo:['novelty','sensation'],
    prostate:['sensation','trust'], 'anal-plug':['sensation','trust'],
    sleeve:['sensation'],ring:['sensation'], 'nipple-massager':['sensation'],
-   harness:['control','trust'],remote:['control','trust','novelty']
+   harness:['control','trust'],remote:['control','trust','novelty'],
+   ...(extension?.profileThemes||{})
   };
   // Psychology themes may reorder an already directly supported match; they never create one.
   const profileThemes=(PROFILE_THEMES[toy.id]||[]).filter(key=>Number(data?.axes?.psych?.[key]||0)>0);
   score+=profileThemes.length*.15;
   const mode=!active?'Fantasy-only / read about it':score>=3?'Based on direct interest':'Tentative topic for reading';
   matched.push({id:toy.id,name:toy.name,summary:toy.summary,why:toy.extra,mode,
-   safety:toy.safety,uses:toy.uses.slice(),bodyUses:BODY_GUIDE[toy.id],evidence:reasons,
+   safety:toy.safety,care:toy.care||'',talk:toy.talk||'',uses:toy.uses.slice(),bodyUses:BODY_GUIDE[toy.id],evidence:reasons,
    profileThemes:profileThemes.map(key=>data?.lenses?.[key]?.label||key),score});
  }
- return matched.sort((a,b)=>b.score-a.score||TOYS.findIndex(t=>t.id===a.id)-TOYS.findIndex(t=>t.id===b.id)).slice(0,4);
+ return matched.sort((a,b)=>b.score-a.score||TOYS.findIndex(t=>t.id===a.id)-TOYS.findIndex(t=>t.id===b.id)).slice(0,6);
 }
 function init(){
  const root=document.getElementById('toy-library');if(!root)return;
