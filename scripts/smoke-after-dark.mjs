@@ -783,7 +783,7 @@ try{
   // A beginner should have an obvious, working model selection route from chat and settings.
   // Test it at mobile, tablet and desktop viewport widths.
   for(const width of [390,820,1365]){
-    await studio.setViewport({width,height:860});
+    await studio.command('Emulation.setDeviceMetricsOverride',{width,height:860,deviceScaleFactor:1,mobile:width<600});
     await studio.evaluate("document.querySelector('[data-view=chat]').click()");
     const chatChooser=await studio.evaluate("(()=>{const helper=document.querySelector('#view-chat .model-chooser-help'),button=helper?.querySelector('[data-open-top-models]');return !!helper&&!!button&&getComputedStyle(helper).display!=='none'&&button.getBoundingClientRect().width>0&&button.getBoundingClientRect().right<=window.innerWidth+2})()");
     if(!chatChooser)throw Error('Model chooser should be visible and usable across device widths '+width);
@@ -794,7 +794,7 @@ try{
     const settingsChooser=await studio.evaluate("(()=>{const helper=document.querySelector('#view-settings .model-chooser-help');return !!helper&&!!helper.querySelector('[data-open-top-models]')&&!!document.querySelector('.model-picker-help [data-open-top-models]')&&document.querySelector('.top-ai-settings h2')?.textContent.includes('your device')})()");
     if(!settingsChooser)throw Error('Settings must offer a Top Models guide rather than assuming a phone '+width);
   }
-  await studio.setViewport({width:1240,height:860});
+  await studio.command('Emulation.clearDeviceMetricsOverride');
   console.log('✓ Top Models beginner prompts work and are keyboard-focusable at phone, tablet and desktop viewports.');
 
 
