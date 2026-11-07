@@ -49,8 +49,8 @@ try{
  const unsupported=await post('/subscribe',{token,subscription:{...subscription,endpoint:'https://example.org/secret'},preferences:{}});
  assert.equal(unsupported.status,400);
  const subscribed=await post('/subscribe',{token,subscription,preferences:{
-  games:['moodropolis','trace','pet'],timezone:'America/New_York',
-  hour:18,frequency:'twice-weekly',progress:{moodropolis:'active',trace:'completed',pet:'active'}
+  games:['corridors','trace','pet'],timezone:'America/New_York',
+  hour:18,frequency:'twice-weekly',progress:{corridors:'active',trace:'completed',pet:'active'}
  }});
  assert.equal(subscribed.status,200);
  assert.equal((await subscribed.json()).activeGames,2);
