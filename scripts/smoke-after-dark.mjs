@@ -780,6 +780,24 @@ try{
   if(!portableShortcut)throw Error('Models & setup should open the portable model download section in one tap');
   console.log('✓ Six phone models for chat, coding and photo understanding with seven GGUF files; uncensored and external photo apps are available.');
 
+  // A beginner should have an obvious, working model selection route from chat and settings.
+  // Test it at mobile, tablet and desktop viewport widths.
+  for(const width of [390,820,1365]){
+    await studio.setViewport({width,height:860});
+    await studio.evaluate("document.querySelector('[data-view=chat]').click()");
+    const chatChooser=await studio.evaluate("(()=>{const helper=document.querySelector('#view-chat .model-chooser-help'),button=helper?.querySelector('[data-open-top-models]');return !!helper&&!!button&&getComputedStyle(helper).display!=='none'&&button.getBoundingClientRect().width>0&&button.getBoundingClientRect().right<=window.innerWidth+2})()");
+    if(!chatChooser)throw Error('Model chooser should be visible and usable across device widths '+width);
+    await studio.evaluate("new Promise(done=>{document.querySelector('#view-chat [data-open-top-models]').click();requestAnimationFrame(()=>requestAnimationFrame(done))})");
+    const arrived=await studio.evaluate("(()=>{const section=document.querySelector('#topAiModels');return !!document.querySelector('#view-home.active')&&!!section&&document.activeElement===section&&section.getAttribute('tabindex')==='-1'&&section.querySelector('h2')?.textContent.includes('your device')})()");
+    if(!arrived)throw Error('Help me choose button must open and focus Top Models on viewport '+width);
+    await studio.evaluate("document.querySelector('[data-view=settings]').click()");
+    const settingsChooser=await studio.evaluate("(()=>{const helper=document.querySelector('#view-settings .model-chooser-help');return !!helper&&!!helper.querySelector('[data-open-top-models]')&&!!document.querySelector('.model-picker-help [data-open-top-models]')&&document.querySelector('.top-ai-settings h2')?.textContent.includes('your device')})()");
+    if(!settingsChooser)throw Error('Settings must offer a Top Models guide rather than assuming a phone '+width);
+  }
+  await studio.setViewport({width:1240,height:860});
+  console.log('✓ Top Models beginner prompts work and are keyboard-focusable at phone, tablet and desktop viewports.');
+
+
   const capabilitiesTest=await studio.evaluate("(()=>{const area=document.querySelector('#topAiModels'),filter=area?.querySelectorAll('[data-capability-view]'),skills=area?.querySelector('.model-specialist-guide'),status=area?.querySelector('#topAiBenchmarkStatus'),code=document.querySelector('[data-portable-model=\"qwen-coder\"]'),vision=document.querySelector('[data-portable-model=\"qwen-vision\"]'),images=document.querySelector('#phoneImageModels');return !!window.RandomAIModelBenchmark?.run&&filter?.length===6&&!!skills&&!!status&&!!code?.querySelector('.portable-model-capabilities')&&!!vision?.querySelector('.portable-model-capabilities')&&!!images?.textContent.includes('Stable Diffusion')&&!!images.textContent.includes('Draw Things')&&!!document.querySelector('.model-rating-legend')})()");
   if(!capabilitiesTest)throw Error('Random AI must explain six categories, coding/image models, performance ratings and real mini-test');
   await studio.evaluate("document.querySelector('[data-capability-view=\"photos\"]').click()");
