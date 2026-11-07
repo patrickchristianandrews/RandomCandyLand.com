@@ -172,7 +172,7 @@ for(const file of ['dist/after-dark/new-partner-report.js','dist/after-dark/part
  try{new vm.Script(code,{filename:file})}catch(err){console.error('Unwrapped report has invalid syntax:',file,err.message);failures++}
 }
 
-for(const file of ['dist/after-dark/toy-library.js','dist/after-dark/toy-library.css','dist/after-dark/toy-library-expanded.js','dist/after-dark/toy-explorer-tools.js','dist/after-dark/toy-explorer-tools.css']){
+for(const file of ['dist/after-dark/toy-library.js','dist/after-dark/toy-library.css','dist/after-dark/toy-library-expanded.js','dist/after-dark/toy-explorer-tools.js','dist/after-dark/toy-explorer-tools.css','dist/after-dark/toy-idea-combiner.js','dist/after-dark/toy-idea-combiner.css','dist/after-dark/report-safety-net.js','dist/after-dark/report-safety-net.css']){
  if(!fs.existsSync(file)){console.error('Missing Unwrapped toy guide asset:',file);failures++;}
 }
 if(fs.existsSync('dist/after-dark/toy-library.js')){
@@ -182,10 +182,10 @@ if(fs.existsSync('dist/after-dark/toy-library.js')){
   if(!code.includes(marker)){console.error('Unwrapped toy library is missing:',marker);failures++;}
  }
 }
-for(const text of ['toy-library-expanded.js?v=','toy-explorer-tools.js?v=','toy-explorer-tools.css?v=','id="toy-comparison"','id="toy-reading-list"','id="toy-education-hub"','id="toy-show-all"']){
+for(const text of ['toy-library-expanded.js?v=','toy-explorer-tools.js?v=','toy-explorer-tools.css?v=','toy-idea-combiner.js?v=','toy-idea-combiner.css?v=','report-safety-net.js?v=','report-safety-net.css?v=','id="toy-comparison"','id="toy-reading-list"','id="toy-education-hub"','id="toy-show-all"','id="toy-idea-him"','id="toy-idea-her"','id="uw-personal-workflow"']){
  if(!afterDarkLanding.includes(text)){console.error('Expanded toy guide feature missing:',text);failures++;}
 }
-for(const name of ['toy-library-expanded.js','toy-explorer-tools.js']){
+for(const name of ['toy-library-expanded.js','toy-explorer-tools.js','toy-idea-combiner.js','report-safety-net.js']){
  const full='dist/after-dark/'+name;
  if(!fs.existsSync(full))continue;
  const source=fs.readFileSync(full,'utf8');
@@ -193,7 +193,7 @@ for(const name of ['toy-library-expanded.js','toy-explorer-tools.js']){
 }
 if(fs.existsSync('dist/after-dark/toy-library-expanded.js')){
  const code=fs.readFileSync('dist/after-dark/toy-library-expanded.js','utf8');
- for(const token of ['UnwrappedToyExpansion','bodyGuide','matchTerms','nipple-clip','toy-barriers','position-wedge']){
+ for(const token of ['UnwrappedToyExpansion','bodyGuide','matchTerms','nipple-clip','toy-barriers','position-wedge','Strap-on starter kit','Hollow strap-on','Strap-ons & harnesses']){
   if(!code.includes(token)){console.error('Expanded toy category missing:',token);failures++;}
  }
 }
@@ -868,6 +868,11 @@ for(const file of ['dist/curiosity/ideas-data.js','dist/curiosity/landing.js','d
 }
 for(const file of ['dist/curiosity/landing.js','dist/curiosity/curiosity.js','dist/curiosity/correlations.js']){
  if(fs.existsSync(file)){try{new vm.Script(fs.readFileSync(file,'utf8'),{filename:file})}catch(e){console.error('Broken Wonder Index script:',file,e.message);failures++;}}
+}
+if(fs.existsSync('dist/curiosity/ideas-data.js')){
+ const ideaScript=fs.readFileSync('dist/curiosity/ideas-data.js','utf8');
+ const entries=(ideaScript.match(/^\['/gm)||[]).length+(ideaScript.match(/^\["/gm)||[]).length;
+ if(entries<85){console.error('Wonder Index must include at least 85 distinct educational concepts; found '+entries);failures++;}
 }
 const wonderSource=fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 if(!wonderSource.includes('group.id !== "discovery"')||
