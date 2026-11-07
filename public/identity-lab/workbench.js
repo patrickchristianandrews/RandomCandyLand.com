@@ -46,7 +46,7 @@ const suggested=[
 const state={fields:[],leads:[],selected:'',status:'Ready. Add everything you know. No lookup starts until you choose Search.',busy:false,queryCount:0};
 const validTypes=new Set(TYPES.map(x=>x[0]));
 const makeField=(type='name',value='')=>({id:id(),type:validTypes.has(type)?type:'name',value:String(value).slice(0,350)});
-const nodeTitle=r=>String(r.headline||r.value||r.kind||'Clue').slice(0,90);
+const nodeTitle=r=>String(r.title||r.headline||r.value||r.kind||'Clue').slice(0,90);
 const statusClasses=['unverified','confirmed','contradicted','excluded'];
 const fillType=r=>r.status==='confirmed'?'#2c998a':r.status==='contradicted'?'#a95465':r.status==='excluded'?'#545b71':'#446681';
 function notice(message){state.status=message;const el=$('#labWorkbenchStatus');if(el)el.textContent=message}
@@ -211,6 +211,7 @@ async function search(){
      return;
     }
     for(const raw of result.value){
+     if(['No match','No public listing found','Source unavailable'].includes(String(raw?.kind||'')))continue;
      const record=normalizeResult(raw);
      if(!record.headline)continue;
      if(state.leads.some(r=>r.clueId===field.id&&r.record.url&&r.record.url===record.url&&r.record.headline===record.headline))continue;
