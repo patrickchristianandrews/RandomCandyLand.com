@@ -21,7 +21,7 @@ assert(panel.indexOf('toy-idea-combiner.js')<panel.indexOf('toy-discovery-quick.
 assert(panel.indexOf('toy-discovery-quick.js')<panel.indexOf('idea-lab-enhanced.js'),'Enhanced picker overrides old button handler last');
 
 class Node{
- constructor(tag='div'){this.tagName=tag;this.children=[];this.value='';this.dataset={};this.attributes={};this.hidden=false;this.text='';this.listeners={};}
+ constructor(tag='div'){this.tagName=tag;this.children=[];this.value='';this.dataset={};this.attributes={};this.hidden=false;this.text='';this.listeners={};this.classList={add(){},remove(){}};}
  set id(s){this._id=s;registry.set(s,this)}
  get id(){return this._id}
  set textContent(s){this.text=String(s);this.children=[]}
