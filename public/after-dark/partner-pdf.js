@@ -19,7 +19,7 @@ const menu=[
  ['notes','My personal notes','Private written reflections, included only if checked']
 ];
 const selected=new Set(['overview','interests','themes','conversations']);
-let panel=null,previewArea=null,noteBox=null;
+let panel=null,previewArea=null;
 function section(root,title,description){
  const s=make('section',undefined,'partner-report-section');
  add(s,'h2',title);
@@ -50,12 +50,6 @@ function build(){
  add(cover,'h2','Before you read');
  add(cover,'p','I chose these pages because they say something about what catches my attention. Some are interests I know; others are ideas I am still thinking about. I wanted you to have the context, not just the headlines.');
  add(cover,'p','No expectations attached. We can talk about whatever stands out, ask each other questions, or leave a topic right here.');
- const note=noteBox?.value?.trim();
- if(note){
-  const c=make('div',undefined,'partner-report-personal-note');
-  add(c,'strong','In my own words');
-  add(c,'p',note.slice(0,900));cover.append(c);
- }
  add(cover,'p','This copy contains only the sections I chose to share.','partner-pdf-muted');
  root.append(cover);
  const toc=make('div',undefined,'partner-report-contents');
@@ -224,6 +218,8 @@ function print(){
 }
 function mount(parent){
  if(!parent||parent.querySelector('.partner-pdf-chooser'))return;
+ // One chooser across quiz results and the report center, without duplicate state.
+ if(panel){parent.append(panel);return;}
  panel=make('section',undefined,'partner-pdf-chooser');
  add(panel,'span','A COPY FOR YOUR PARTNER','eyebrow');
  add(panel,'h3','Choose what they get to see.');
@@ -241,10 +237,6 @@ function mount(parent){
  }
  disclosure.append(options);panel.append(disclosure);
  const counter=make('p',selected.size+' sections selected','partner-pdf-count');panel.append(counter);
- add(panel,'label','Add your own note (optional)','partner-pdf-note-label');
- noteBox=make('textarea');noteBox.rows=2;noteBox.maxLength=900;
- noteBox.placeholder='Anything you want to say in your own words…';
- noteBox.setAttribute('aria-label','Optional note at the beginning of your partner report');panel.append(noteBox);
  const actions=make('div',undefined,'partner-pdf-actions');
  const preview=make('button','👀 Preview their PDF','btn alt');preview.type='button';preview.onclick=renderPreview;
  const printButton=make('button','📄 Save partner PDF','btn');printButton.type='button';printButton.onclick=print;
