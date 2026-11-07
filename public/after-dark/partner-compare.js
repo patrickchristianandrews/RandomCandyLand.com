@@ -8,12 +8,24 @@ const cleanLabel=s=>cap(s,110).trim().toLocaleLowerCase();
 const status=msg=>{const n=$('uc-status');if(n)n.textContent=msg};
 const canBuild=()=>window.AfterDarkCanonicalReport?.buildData?.();
 let selection={interest:new Set(),theme:new Set(),answers:new Set(),toys:new Set()};
+const seenQuizDefaults=new Set();
 const interesting=d=>d.interests||[];
 function exportChoices(){
  const d=canBuild(),root=$('uc-select');if(!root)return;
  root.replaceChildren();
  if(!d){root.append(E('p','Take one or both quizzes to create a selected report.'));return}
- const intro=E('p','Choose a few sections or select all available. Only checked information goes into your downloaded file.','uc-note');root.append(intro);
+ // Preselect nonsexual quiz evidence only. Intimate interests and toys always require deliberate opt-in.
+ for(const [key,value] of Object.entries(d.axes?.psych||{})){
+  if(Number(value)<=0||!d.lenses?.[key])continue;
+  const tag='theme:'+key;
+  if(!seenQuizDefaults.has(tag)){selection.theme.add(key);seenQuizDefaults.add(tag)}
+ }
+ for(const q of d.psych?.questions||[]){
+  if(!q.selected?.length)continue;
+  const key='psych:'+q.number,tag='answer:'+key;
+  if(!seenQuizDefaults.has(tag)){selection.answers.add(key);seenQuizDefaults.add(tag)}
+ }
+ const intro=E('p','Your nonsexual quiz highlights are selected automatically. Intimate interests and toys remain OFF until you choose them. Uncheck anything before downloading.','uc-note');root.append(intro);
  const all=E('label',undefined,'uc-check');const allBox=E('input');allBox.type='checkbox';
  all.append(allBox,document.createTextNode(' Include all available report highlights'));
  root.append(all); 
