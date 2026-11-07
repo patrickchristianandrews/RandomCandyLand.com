@@ -1,0 +1,12 @@
+/* The Corridors honest load state and two-player entry. */
+.corr-boot{display:grid;gap:13px;justify-items:center;text-align:center;padding:clamp(20px,5vw,44px);border:1px solid #52677e;background:linear-gradient(145deg,#1b2f4b,#14243a);border-radius:15px}
+.corr-boot h2{margin:0;font-size:clamp(19px,3vw,27px)}
+.corr-boot p{max-width:620px;color:#d0ddec;line-height:1.6;margin:0}
+.corr-boot-loader{width:66px;height:66px;border-radius:50%;border:4px solid #577390;border-top-color:#d5af6b;animation:corr-spin 1.2s linear infinite}
+.corr-boot-failed .corr-boot-loader{animation:none;border-color:#e8ba87}
+.corr-boot-note{font-size:11px;color:#a6b6d0}
+.corr-boot-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.corr-boot-actions[hidden]{display:none}
+.corr-boot-actions button{min-height:40px;padding:9px 15px;border:1px solid #e9c795;border-radius:10px;background:#a98553;color:#081b30;font-weight:850}
+@keyframes corr-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.corr-boot-loader{animation:none}}
