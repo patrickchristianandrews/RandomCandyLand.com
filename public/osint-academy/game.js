@@ -212,6 +212,12 @@ function renderCase(){
  for(let i=0;i<3;i++)html+='<span class="'+(i<step?'completed':i===step?'now':'')+'"><b>'+(i<step?'✓':i+1)+'</b><span>Decision '+(i+1)+'</span></span>';
  html+='</div>';
  html+='<header class="case-header"><div><span class="case-kicker">'+esc(m.field)+' · TRAINING SIMULATION</span><h2 tabindex="-1">'+esc(m.title)+'</h2></div><span class="case-badge">'+(isFinished(active)?'✓ REVIEWING CLEARED CASE':'▶ IN PROGRESS')+'</span></header>';
+ html+='<div class="trace-visual-scene trace-scene-zone-'+(active<6?'a':active<11?'b':active<14?'c':active<19?'d':'e')+'" role="img" aria-label="Stylized interactive investigation headquarters representing the current fictional case">'
+   +'<div class="trace-scene-mesh" aria-hidden="true"></div><div class="trace-scene-radar" aria-hidden="true"><span></span><span></span><span></span></div>'
+   +'<div class="trace-scene-world" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>'
+   +'<div class="trace-scene-dossier"><span>◉ ACTIVE CASE FILE · '+String(active+1).padStart(2,'0')+'</span>'
+   +'<strong>'+esc(m.title)+'</strong><small>FIELD UNIT: '+esc(m.field)+'</small></div>'
+   +'<div class="trace-scene-chip"><b>'+(record?'✓ ANALYSIS LOGGED':'● AWAITING DECISION')+'</b><span>THREE VERIFIED DECISIONS PER CASE</span></div></div>';
  html+='<div class="case-direction"><strong>YOUR NEXT MOVE</strong><p>'+(record?'Read why this answer works or does not, then press the green button to continue.':'Read the short case and clues below, then choose one answer. You cannot get stuck: every choice teaches you something.')+'</p></div>';
  html+='<p class="case-brief"><strong>THE SITUATION</strong><br>'+esc(m.brief)+'</p>';
  html+='<section class="case-evidence" aria-label="Available evidence"><h3>◈ Clues to consider</h3><div class="evidence-board">'+m.items.map(x=>'<div class="evidence-tile"><i aria-hidden="true">'+x[0]+'</i><strong>'+esc(x[1])+'</strong><span>'+esc(x[2])+'</span></div>').join('')+'</div></section>';
