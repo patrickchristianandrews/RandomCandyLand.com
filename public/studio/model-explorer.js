@@ -98,9 +98,7 @@ function browseFilters(){
  ['popular','⭐ Popular / practical'],
  ['small','📱 Small (<1.5 GB)'],
  ['balanced','⚖️ Medium (1.5–4 GB)'],
- ['large','💻 Large (>4 GB)'],
- ['code','⌘ Coding'],
- ['reason','🧠 Reasoning']
+ ['large','💻 Large (>4 GB)']
  ];
 }
 function filterRecords(){
