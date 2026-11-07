@@ -51,6 +51,18 @@ if(existing)existing.addEventListener('change',()=>{
  existing.value='';
 });
 document.addEventListener('click',event=>{
+ const goto=event.target.closest?.('[data-open-portable-files]');
+ if(goto){
+  event.preventDefault();
+  document.querySelector('[data-view="home"]')?.click();
+  window.requestAnimationFrame(()=>{
+   document.querySelector('#portablePhoneModels')?.scrollIntoView({
+    behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',
+    block:'start'
+   });
+  });
+  return;
+ }
  const button=event.target.closest?.('[data-phone-file-info]');
  if(button){
   const notice=$('#portableModelDownloadStatus');
