@@ -2440,3 +2440,25 @@ body {
 .candyland-next .curiosity-label{position:absolute;right:10px;top:10px;font:900 9px/1.4 system-ui;color:#e9fff1;letter-spacing:.1em}
 .candyland-next .curiosity-graph{position:absolute;left:11px;bottom:10px;font:900 19px system-ui;color:#ffe5b0}
 @media(max-width:760px){.candyland-next .candyland-curiosity-spotlight{grid-template-columns:1fr;margin:10px 12px 23px;padding:17px;border-radius:15px}.candyland-next .candyland-curiosity-art{display:none}.candyland-next .candyland-curiosity-actions a{flex:1 1 160px}}
+
+
+/* Nov 2026: remove redundant intro above the single Unwrapped feature,
+   and keep its next-sibling Wonder Index teaser immediately below it. */
+.candyland-next .candyland-play-shelf-discovery{padding:clamp(9px,1.5vw,15px)}
+.candyland-next .candyland-play-shelf-discovery>.candyland-hero-tools{margin:0}
+.candyland-next .candyland-curiosity-spotlight{width:100%;max-width:none;margin:0;padding:clamp(13px,2.4vw,22px);min-height:0;grid-template-columns:minmax(0,1fr) 94px;gap:15px}
+.candyland-next .candyland-curiosity-spotlight p{font-size:clamp(12px,1.25vw,14px);line-height:1.5;max-width:720px}
+.candyland-next .candyland-curiosity-spotlight h2{margin:4px 0 7px;font-size:clamp(22px,2.65vw,32px)}
+.candyland-next .candyland-curiosity-actions{margin-top:10px;gap:7px}
+.candyland-next .candyland-curiosity-actions a{min-height:40px;padding:8px 11px}
+.candyland-next .candyland-curiosity-icon{position:relative;z-index:1;width:90px;height:90px;object-fit:contain;border-radius:18px;box-shadow:0 7px 16px #0b2139a1}
+@media(max-width:600px){
+ .candyland-next .candyland-play-shelf-discovery{padding:8px}
+ .candyland-next .candyland-curiosity-spotlight{grid-template-columns:minmax(0,1fr) 54px;margin:0;padding:12px;gap:9px}
+ .candyland-next .candyland-curiosity-icon{width:52px;height:52px;border-radius:10px;align-self:start}
+ .candyland-next .candyland-curiosity-spotlight h2{font-size:24px}
+ .candyland-next .candyland-curiosity-spotlight p{font-size:12px}
+ .candyland-next .candyland-curiosity-kicker{font-size:9px;letter-spacing:.065em}
+ .candyland-next .candyland-curiosity-actions{grid-column:1/-1}
+ .candyland-next .candyland-curiosity-actions a{flex:1 1 135px;font-size:11px;padding:7px 9px}
+}
