@@ -289,7 +289,7 @@ async function sendMessage(){
  try{
   if(chatMode==='instant'){
    const preset=window.RandomAIStacks?.current?.()||null;
-   const prompt=(preset?'TASK STACK: '+preset.name+'\n'+preset.instructions+'\n\n':'')+full;
+   const prompt=(preset?preset.instructions+'\n\n':'')+full;
    const prior=messages.slice(1,-1).filter(m=>m.role==='user'||m.role==='assistant').slice(-7)
      .map(m=>({role:m.role,content:String(m.content).slice(0,2100)}));
    const out=[...prior,{role:'user',content:prompt.slice(0,2400)}];
@@ -303,12 +303,26 @@ async function sendMessage(){
    target.content=answer;updateLastMessage(answer);writeStore();
   }else{
   const active=window.RandomAIStacks?.current?.() || null;
-  const system=SYSTEM+(active?'\n\nACTIVE TASK STACK: '+active.name+'\n'+active.instructions:'');
+  const system=SYSTEM+(active?'\n\n'+active.instructions:'');
   const localMessages=[{role:'system',content:system},...messages.slice(1)];
+  const localGenerationStarted=performance.now();
   const first=await engine.chat.completions.create({messages:localMessages,temperature:active?.temperature??.65,max_tokens:active?.firstTokens??800,stream:true});
   for await(const chunk of first){if(controller.signal.aborted)break;const delta=chunk.choices?.[0]?.delta?.content||'';if(delta){target.content+=delta;updateLastMessage(target.content)}}
   if(!target.content)target.content='No text was produced. Try a shorter request.';
   const draft=target.content;
+  const elapsed=performance.now()-localGenerationStarted;
+  if(loadedModel&&!controller.signal.aborted&&draft.length>=30&&elapsed>=250){
+    // Measured output characters/second on this device, not guessed tokens per second.
+    try{
+      const key='random-ai-observed-performance-v1';
+      const stats=JSON.parse(localStorage.getItem(key)||'{}');
+      if(stats&&typeof stats==='object'){
+        stats[loadedModel]={chars:draft.length,ms:Math.round(elapsed),date:new Date().toISOString()};
+        localStorage.setItem(key,JSON.stringify(stats));
+        window.dispatchEvent(new CustomEvent('random-ai-performance-measured',{detail:{id:loadedModel}}));
+      }
+    }catch{}
+  }
   if(active?.refined&&!controller.signal.aborted&&draft&&!draft.startsWith('No text was produced')){
     target.content='✦ First pass complete. Reviewing and improving locally…\n\n'+draft;
     updateLastMessage(target.content);
@@ -390,8 +404,8 @@ function updateChatBeginnerUI(){
  }else{
   status.textContent=engine?'✓ Private AI ready on your device':saved.length?'◉ '+saved.length+' saved model'+(saved.length===1?'':'s')+' · load one to chat':'Private AI · choose a model to get started';
   $('#chatSetupTitle').textContent=saved.length?'Your saved model is available':'Get started in one step';
-  $('#chatSetupText').textContent=saved.length?'You already downloaded a model. Open Models & setup and tap Load saved. Then return to chat.':'Choose a free local model in Models & setup. Your browser downloads it to this device once; later visits can reuse it while it remains cached.';
-  $('#chatSetupAction').textContent=saved.length?'Load a saved model →':'Choose a free model →';
+  $('#chatSetupText').textContent=saved.length?'You already have a downloaded model. Tap its Load button above and begin chatting.':'Open Top Models to choose a local AI that suits this device, then tap Download & load once.';
+  $('#chatSetupAction').textContent=saved.length?'Load saved model →':'See top models →';
  }
  help.hidden=ready;
 }
