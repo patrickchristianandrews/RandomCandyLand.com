@@ -2,35 +2,8 @@
  * Locally drafted and printed. Nothing is uploaded or shared automatically.
  * Psychology evidence and sexual topics require separate item-by-item opt-in. */
 (()=>{'use strict';
-const KEY='otherdrawer_new_partner_profile_v1';
-const $=id=>document.getElementById(id);
-const make=(tag,str,cls)=>{const x=document.createElement(tag);if(str!==undefined)x.textContent=String(str);if(cls)x.className=cls;return x;};
-const add=(node,tag,str,cls)=>{const x=make(tag,str,cls);node.append(x);return x};
-const btn=(label,cb,cls='btn')=>{const b=make('button',label,cls);b.type='button';b.addEventListener('click',cb);return b;};
-const fields=[
- ['introduction','Who I am beyond first impressions','What would you like a new partner to understand about your personality, your world, or what matters most to you?'],
- ['everyday','A good ordinary day together','How do you like to spend time, socialize, recharge, and share a quiet evening?'],
- ['communication','How I like to communicate','What helps you feel heard? How direct is best? What do you prefer when something is unclear?'],
- ['care','What makes me feel appreciated','Kind gestures, time together, helpful actions, reassurance, affection, humor, or something specific.'],
- ['stress','When life gets overwhelming','What helps? Space, reassurance, a practical solution, a slower conversation?'],
- ['boundaries','My everyday boundaries and needs','Personal space, schedules, privacy, pacing, limits, accessibility or sensory preferences.'],
- ['relationship','What I hope for in a relationship','What does a mutually supportive and enjoyable relationship look like to you?'],
- ['fun','My quirks, favorite things, and little joys','Music, food, hobbies, unexpected habits, favorite experiences or a story that sums you up.'],
- ['values','My values and priorities','What do you care about? What principles guide how you treat other people?'],
- ['conflict','How I repair disagreements','What does accountability, an apology, listening and reconnecting look like for you?'],
- ['pace','My preferred relationship pace','How quickly do you like to build closeness and share personal details?'],
- ['support','What support looks like to me','When should someone offer reassurance, practical help, conversation or space?']
-];
-const sexFields=[
- ['intimacy','What connection and intimacy mean to me','In your own words: the emotional qualities of intimacy you enjoy.'],
- ['fantasy','Things I prefer to keep as fantasy','Optional. You control whether to include this.'],
- ['comfort','My intimate boundaries and pace','How would you like to discuss comfort, consent, or what is off limits?'],
- ['talk','How I like to talk about intimacy','What is a good way for a new partner to ask a question or check in?']
-];
-let draft={};try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&typeof x==='object'&&!Array.isArray(x))draft=x}catch{}
-const selectedPsych=new Set(),selectedSex=new Set();
-let showPsych=false,showSex=false,showToys=false,panel=null,preview=null,message=null;
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(draft))}catch{if(message)message.textContent='Local storage is full. Copy your text somewhere safe.'}}
+const selectedPsych=new Set(),selectedSex=new Set(),knownPsych=new Set();
+let showPsych=true,showSex=false,showToys=false,panel=null,preview=null,message=null;
 function summaryData(){return window.AfterDarkCanonicalReport?.buildData?.()||null;}
 function selectedQuestions(data){return(data?.psych?.questions||[]).filter(q=>q.selected?.length).map(q=>({
  id:'p'+q.number,heading:q.question,answer:q.selected.map(x=>x.text).join(' / ').slice(0,320),axes:[...new Set(q.selected.flatMap(x=>x.axes))],number:q.number
@@ -64,22 +37,17 @@ function choiceList(parent,items,which){
   line.append(input,label);parent.append(line);
  }
 }
-function draftField(section,id,title,placeholder){
- const label=make('label',undefined,'new-partner-field');label.setAttribute('for','new-partner-'+id);
- add(label,'span',title);
- const area=document.createElement('textarea');area.id='new-partner-'+id;area.maxLength=900;
- area.rows=3;area.placeholder=placeholder;area.value=String(draft[id]||'').slice(0,900);
- area.addEventListener('input',()=>{draft[id]=area.value;persist();if(preview)preview.hidden=true;});
- label.append(area);section.append(label);
-}
 function content(){
  const data=summaryData(),root=make('div',undefined,'partner-pdf-report new-partner-report');
  const cover=make('header',undefined,'partner-report-cover new-partner-cover');
  add(cover,'p','UNWRAPPED · GETTING TO KNOW THE PERSON','partner-report-eyebrow');
  add(cover,'h1','Getting to know me.');
  add(cover,'p','The person, the little things, and what connection looks like to me.','partner-report-subtitle');
- const intro=draft.introduction?.trim();
- add(cover,'p',intro||'A few things I chose to share about myself, in my own words.');
+ const answered=selectedQuestions(data).filter(x=>showPsych&&selectedPsych.has(x.id));
+ const intro=answered.length
+  ? 'My psychology quiz responses suggest some starting points for understanding how I think, connect and communicate.'
+  : 'This introduction is generated entirely from the quiz answers I chose to share.';
+ add(cover,'p',intro);
  add(cover,'p','This is an invitation to get to know me, not a test or a request for agreement.','partner-pdf-muted');
  root.append(cover);
  let included=0;
@@ -87,12 +55,17 @@ function content(){
   const s=make('section',undefined,'partner-report-section');add(s,'h2',title);
   if(subtitle)add(s,'p',subtitle,'partner-pdf-muted');root.append(s);return s;
  };
- const everyday=section('01 · The person you are getting to know','Everyday life, communication, connection, and the details I want to share.');
- for(const [id,title] of fields.filter(x=>x[0]!=='introduction')){
-  const v=String(draft[id]||'').trim().slice(0,900);if(!v)continue;
-  const c=make('article',undefined,'partner-report-card');add(c,'h3',title);add(c,'p',v);everyday.append(c);included++;
+ const everyday=section('01 · My answers at a glance','A brief introduction based on actual nonsexual quiz answers, not an additional profile or a personality diagnosis.');
+ const highlights=selectedQuestions(data).filter(x=>selectedPsych.has(x.id)).slice(0,5);
+ for(const q of highlights){
+  const card=make('article',undefined,'partner-report-card');
+  add(card,'h3',q.heading);
+  add(card,'p','My answer: '+q.answer);
+  const themes=q.axes.filter(x=>data?.lenses?.[x]?.label).slice(0,2).map(x=>data.lenses[x].label);
+  if(themes.length)add(card,'p','A possible conversation connection: '+themes.join(' and ')+'. These themes are exploratory, not certain descriptions of me.','partner-pdf-muted');
+  everyday.append(card);included++;
  }
- if(!included)add(everyday,'p','I have not added my own everyday reflections yet.','partner-pdf-muted');
+ if(!highlights.length)add(everyday,'p','I have not chosen a psychology answer to include in this copy.','partner-pdf-muted');
  if(showPsych&&selectedPsych.size){
   const psy=section('02 · Some everyday answers I chose to show you','Actual responses I selected in the nonsexual Psychology Quiz. These are reflections, not a personality diagnosis.');
   const permitted=selectedQuestions(data).filter(x=>selectedPsych.has(x.id));
@@ -132,13 +105,8 @@ function content(){
  }
  if(showSex){
   const selected=sexualInterests(data).filter(x=>selectedSex.has(x.id));
-  const anyWritten=sexFields.some(([id])=>String(draft['sex-'+id]||'').trim());
-  if(selected.length||anyWritten){
-   const sex=section('03 · Intimacy and what I choose to share','Only interests I specifically selected for this copy, plus my own words. Curiosity and fantasy are not consent or plans.');
-   for(const [id,title] of sexFields){
-    const v=String(draft['sex-'+id]||'').trim().slice(0,900);if(!v)continue;
-    const c=make('article',undefined,'partner-report-card');add(c,'h3',title);add(c,'p',v);sex.append(c);included++;
-   }
+  if(selected.length){
+   const sex=section('03 · Intimacy and what I choose to share','Only interests I specifically selected from the quiz. Curiosity and fantasy are not consent or plans.');
    for(const x of selected){const c=make('article',undefined,'partner-report-card');
     add(c,'p',x.label,'partner-report-status');add(c,'h3',x.title);if(x.description)add(c,'p',x.description);sex.append(c);included++;}
   }
@@ -178,14 +146,12 @@ function content(){
    'How do we each balance personal space with closeness?',
    'What is a small habit or sensory preference you would like me to know?',
  ];
- if(showSex&&(selectedSex.size||sexFields.some(([id])=>String(draft['sex-'+id]||'').trim())))
+ if(showSex&&selectedSex.size)
   prompts.push('Is there anything about intimacy you would like to discuss, leave as fantasy, or keep private?');
  const ul=make('ul',undefined,'partner-report-list');for(const q of prompts)add(ul,'li',q);conversation.append(ul);
- // Visual introduction uses only words explicitly typed into everyday fields.
- window.AfterDarkReportVisuals?.enhanceIntroduction?.(root,draft);
- add(root,'footer','Prepared locally on this device. No questionnaire notes or sexual answers were automatically included. Review the finished copy before sharing.','report-footer');
+ add(root,'footer','Created from selected quiz responses. Intimate topics and toy suggestions require separate permission. Review the finished report before sharing.','report-footer');
  if(window.AfterDarkReportQR?.create)root.append(window.AfterDarkReportQR.create());
- if(!included&&!intro)throw Error('Write something about yourself or explicitly choose a quiz answer before creating the partner report.');
+ if(!included)throw Error('Complete a quiz and select at least one response to include. No separate writing is needed.');
  return root;
 }
 function doPreview(){
@@ -206,54 +172,49 @@ function mount(){
  const host=$('new-partner-report');if(!host||host.dataset.ready)return;
  host.dataset.ready='yes';
  panel=make('div',undefined,'new-partner-editor');
- add(panel,'span','INTRODUCTIONS · BUILD YOUR OWN','eyebrow');
+ add(panel,'span','AUTOMATIC · QUIZ-BASED REPORT','eyebrow');
  add(panel,'h2','Getting to know me.');
- add(panel,'p','Create a private introduction for a new partner that covers who you are outside the bedroom first. Add intimate details only if you want to. Nothing is sent or shared automatically.','new-partner-lead');
- const about=make('div',undefined,'new-partner-fields');
- for(const [id,title,placeholder] of fields)draftField(about,id,title,placeholder);panel.append(about);
- const psy=make('details',undefined,'new-partner-options');add(psy,'summary','Include selected nonsexual quiz answers (optional)');
+ add(panel,'p','Your quiz answers create the introduction and conversation ideas automatically. No profile, essays, or extra report questions. Nothing is sent or shared without your action.','new-partner-lead');
+ const psy=make('details',undefined,'new-partner-options');psy.open=true;
+ add(psy,'summary','Everyday personality and communication · from the psychology quiz');
  const togglePsych=make('label',undefined,'new-partner-toggle');
- const pc=document.createElement('input');pc.type='checkbox';pc.checked=false;
+ const pc=document.createElement('input');pc.type='checkbox';pc.checked=true;
  pc.addEventListener('change',()=>{showPsych=pc.checked;if(preview)preview.hidden=true;});
- togglePsych.append(pc,make('span','Yes, I want to include the individual answers I check below'));psy.append(togglePsych);
- add(psy,'p','Uncheck anything you prefer not to disclose. No quiz answer or private note is included by default.','new-partner-muted');
- const ps=make('div',undefined,'new-partner-choices');psy.append(ps);
- panel.append(psy);
- const sexual=make('details',undefined,'new-partner-options');add(sexual,'summary','Add an intimate / sexual introduction (optional)');
+ togglePsych.append(pc,make('span','Include the nonsexual quiz answers I select below'));psy.append(togglePsych);
+ add(psy,'p','Answers are preselected so the report is ready automatically. Uncheck anything you prefer not to share.','new-partner-muted');
+ const ps=make('div',undefined,'new-partner-choices');psy.append(ps);panel.append(psy);
+ const sexual=make('details',undefined,'new-partner-options');
+ add(sexual,'summary','Optional · Include specific intimate quiz results');
  const toggleSex=make('label',undefined,'new-partner-toggle');
  const sc=document.createElement('input');sc.type='checkbox';sc.checked=false;
- sc.addEventListener('change',()=>{showSex=sc.checked;if(!showSex){showToys=false;if(toyChoice)toyChoice.checked=false;}if(preview)preview.hidden=true;});
- toggleSex.append(sc,make('span','Yes, include sexual details I explicitly write or select'));sexual.append(toggleSex);
- add(sexual,'p','Sexual interests are never included unless this switch is on and you choose individual interests below. Unconfirmed recommendations and Not for me topics are never shared.','new-partner-muted');
- const sexualNotes=make('div',undefined,'new-partner-fields');
- for(const [id,title,placeholder] of sexFields)draftField(sexualNotes,'sex-'+id,title,placeholder);
- sexual.append(sexualNotes);
+ sc.addEventListener('change',()=>{showSex=sc.checked;if(!showSex){showToys=false;toyChoice.checked=false}if(preview)preview.hidden=true;});
+ toggleSex.append(sc,make('span','Include only intimate quiz interests I explicitly select below'));sexual.append(toggleSex);
+ add(sexual,'p','OFF by default. Select specific interests to share; fantasy-only is never permission to act.','new-partner-muted');
  const st=make('div',undefined,'new-partner-choices');sexual.append(st);
- const toyDisclosure=make('div',undefined,'new-partner-toy-choice');
- const toyLabel=make('label',undefined,'new-partner-toggle');
- const toyChoice=document.createElement('input');toyChoice.type='checkbox';toyChoice.checked=false;toyChoice.value='toy-guidance';toyChoice.id='new-partner-share-toys';
+ const toyDisclosure=make('div',undefined,'new-partner-toy-choice'),toyLabel=make('label',undefined,'new-partner-toggle');
+ const toyChoice=document.createElement('input');toyChoice.type='checkbox';toyChoice.checked=false;toyChoice.id='new-partner-share-toys';
  toyChoice.addEventListener('change',()=>{
-  if(toyChoice.checked&&!sc.checked){sc.checked=true;showSex=true;}
+  if(toyChoice.checked&&!sc.checked){sc.checked=true;showSex=true}
   showToys=toyChoice.checked;if(preview)preview.hidden=true;
  });
- toyLabel.append(toyChoice,make('span','Separately include toy-type suggestions and male/female/partner comparisons in my introduction'));
+ toyLabel.append(toyChoice,make('span','Separately include toy suggestions supported by directly selected quiz interests'));
  toyDisclosure.append(toyLabel);
- add(toyDisclosure,'p','OFF by default. Includes only categories linked to my directly selected interests, with source answers and relevant safety. Fantasy-only stays reading-only. Nothing is sent automatically.','new-partner-muted');
+ add(toyDisclosure,'p','OFF by default. Uses only directly selected quiz interests, with anatomy-specific and safety guidance.','new-partner-muted');
  sexual.append(toyDisclosure);panel.append(sexual);
  const actions=make('div',undefined,'new-partner-actions');
- actions.append(btn('Preview this introduction',doPreview,'btn alt'));
- actions.append(btn('Save the introduction as PDF',print,'btn'));
- actions.append(btn('Refresh quiz choices',()=>{choiceList(ps,selectedQuestions(summaryData()),selectedPsych);
- choiceList(st,sexualInterests(summaryData()),selectedSex);message.textContent='Available quiz choices refreshed.'},'btn alt'));
+ actions.append(btn('Preview my automatic report',doPreview,'btn alt'),
+  btn('Save my report as PDF',print,'btn'),
+  btn('Refresh from quiz answers',()=>{refreshChoices();message.textContent='Responses refreshed from the quiz. No extra writing needed.'},'btn alt'));
  panel.append(actions);
- message=make('p','Your writing autosaves on this device. Quiz disclosures start turned off every time.','new-partner-status');
+ message=make('p','No manual report writing. Nonsexual responses preselected; intimate topics and toys off by default.','new-partner-status');
  message.setAttribute('role','status');panel.append(message);
- preview=make('div',undefined,'new-partner-preview');preview.hidden=true;panel.append(preview);
- host.append(panel);
- const refreshChoices=()=>{
-  choiceList(ps,selectedQuestions(summaryData()),selectedPsych);
-  choiceList(st,sexualInterests(summaryData()),selectedSex);
- };
+ preview=make('div',undefined,'new-partner-preview');preview.hidden=true;panel.append(preview);host.append(panel);
+ function refreshChoices(){
+  const data=summaryData(),available=selectedQuestions(data);
+  for(const q of available){if(!knownPsych.has(q.id)){selectedPsych.add(q.id);knownPsych.add(q.id)}}
+  choiceList(ps,available,selectedPsych);
+  choiceList(st,sexualInterests(data),selectedSex);
+ }
  refreshChoices();
  document.addEventListener('click',event=>{
   if(event.target.closest('[data-tab="notebook"],[data-new-partner]'))setTimeout(refreshChoices,70);
