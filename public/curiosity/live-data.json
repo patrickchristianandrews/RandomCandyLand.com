@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "updatedAt": null,
+  "source": "World Bank World Development Indicators",
+  "sourceUrl": "https://data.worldbank.org/",
+  "countries": {
+    "USA": "United States",
+    "CAN": "Canada",
+    "GBR": "United Kingdom",
+    "AUS": "Australia"
+  },
+  "indicators": [],
+  "series": {},
+  "research": [],
+  "researchUpdatedAt": null,
+  "refreshNote": "The scheduled source refresh has not completed yet. No figures are shown without official data."
+}
