@@ -5,7 +5,6 @@
 (()=>{'use strict';
 const KEY='rcl-game-push-settings-v1',LAST='rcl-game-push-sync-v1',LAST_PROGRESS='rcl-game-push-progress-v1';
 const GAMES=[
- {id:'moodropolis',name:'Moodropolis',icon:'🏙️'},
  {id:'corridors',name:'The Corridors',icon:'🚪'},
  {id:'docket',name:'The Docket',icon:'⚖️'},
  {id:'trace',name:'TRACE OSINT',icon:'🔎'},
@@ -22,9 +21,8 @@ const installed=()=>window.matchMedia?.('(display-mode: standalone)').matches||n
 const isMobile=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 function readState(key){try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):null}catch{return null}}
 function progress(){
- const mood=readState('moodropolis-save-v1'),corr=readState('corridors-save-v1'),docket=readState('docket-save-v1'),trace=readState('trace-osint-professional-v1'),pet=readState('random-candy-land-trumpagotchi-original-fm1-adaptation-v1'),orig=readState('trumpagotchi_save_v2');
+ const corr=readState('corridors-save-v1'),docket=readState('docket-save-v1'),trace=readState('trace-osint-professional-v1'),pet=readState('random-candy-land-trumpagotchi-original-fm1-adaptation-v1'),orig=readState('trumpagotchi_save_v2');
  const out={
-  moodropolis:mood?'active':'not-started',
   corridors:corr?(corr.finished?'completed':'active'):'not-started',
   docket:docket?(docket.finished?'completed':'active'):'not-started',
   trace:trace?(Array.isArray(trace.finished)&&trace.finished.length>=25?'completed':'active'):'not-started',
