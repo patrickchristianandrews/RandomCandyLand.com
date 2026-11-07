@@ -276,7 +276,7 @@ host.addEventListener('click',e=>{
  }
  if(b.dataset.deleteLead){state.leads=state.leads.filter(x=>x.id!==b.dataset.deleteLead);redraw()}
 });
-host.addEventListener('input',e=>{if(e.target.matches('[data-edit-value]'))syncFields()});
+host.addEventListener('input',e=>{if(e.target.matches('[data-edit-value]')){syncFields();graph();feedback();sourcePanel()}});
 host.addEventListener('change',e=>{
  if(e.target.matches('[data-edit-type]')){syncFields();feedback();sourcePanel()}
  if(e.target.matches('[data-review]')){const lead=state.leads.find(l=>l.id===e.target.dataset.review);if(lead&&statusClasses.includes(e.target.value)){lead.status=e.target.value;graph();evidence();notice('Review status updated. Only the analyst can corroborate claims against the original dated source.')}}
