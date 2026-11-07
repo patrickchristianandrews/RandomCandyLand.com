@@ -40,8 +40,6 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/simon.svg',name:'Candy Simon Says',url:'/candy-simon/'},
   {icon:'/tool-icons/candy-match.svg',name:'Candy Match',url:'/candy-match/'},
   {icon:'/tool-icons/osint-academy.svg',name:'TRACE OSINT Academy',url:'/osint-academy/'},
-  {icon:'/tool-icons/osint-academy.svg',name:'Identity Lab',url:'/identity-lab/'},
-  {icon:'/tool-icons/moodropolis.svg',name:'Moodropolis',url:'/moodropolis/'},
   {icon:'/tool-icons/the-corridors.svg',name:'The Corridors',url:'/the-corridors/'},
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
   {icon:'/tool-icons/candy-studio.svg',name:'Random AI',url:'/studio/'},
@@ -49,7 +47,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/wonder-index.svg',name:'The Wonder Index',url:'/curiosity/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Poker','Simon Says','Candy Match','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI','AI Academy','Identity Lab','The Wonder Index'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Poker','Simon Says','Candy Match','TRACE OSINT','The Corridors','The Docket','Random AI','AI Academy','The Wonder Index'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
@@ -59,12 +57,10 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/simon.svg',
   '/tool-icons/candy-match.svg',
   '/tool-icons/osint-academy.svg',
-  '/tool-icons/moodropolis.svg',
   '/tool-icons/the-corridors.svg',
   '/tool-icons/the-docket.svg',
   '/tool-icons/candy-studio.svg',
   '/tool-icons/ai-academy.svg',
-  '/tool-icons/osint-academy.svg',
   '/tool-icons/wonder-index.svg'
 ] as const;
 
@@ -77,11 +73,9 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'quick',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
   {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'multiplayer',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/',multiplayer:'same-screen',duration:'5–15 MIN'},
   {icon:TOOL_MENU_ICONS[7],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/',duration:'LONG COURSE'},
-  {icon:TOOL_MENU_ICONS[8],title:'Moodropolis',blurb:"Build a city that feels alive. Meet citizens, solve neighborhood problems, respond to events, and shape your city\'s future.",kind:'ongoing',label:'CITY SIMULATION · OPEN-ENDED',palette:'pink',href:'/moodropolis/',duration:'ONGOING WORLD'},
-  {icon:TOOL_MENU_ICONS[9],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
-  {icon:TOOL_MENU_ICONS[10],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
-  {icon:TOOL_MENU_ICONS[12],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
-  {icon:TOOL_MENU_ICONS[13],title:'Identity Lab',blurb:'Review your own public digital footprint from one clue. Explore public accounts, domain records and trusted privacy tools, then export an evidence-linked report. Independent of the TRACE course.',kind:'research',label:'PERSONAL RESEARCH · NO COURSE REQUIRED',palette:'blue',href:'/identity-lab/',duration:'PRIVATE SELF-AUDIT'},
+  {icon:TOOL_MENU_ICONS[8],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
+  {icon:TOOL_MENU_ICONS[9],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
+  {icon:TOOL_MENU_ICONS[11],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
 ];
 
 const COLLECTIONS = [
