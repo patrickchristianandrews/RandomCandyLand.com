@@ -30,7 +30,7 @@ const PRESETS=[
  instructions:'Follow the custom process defined by the user; otherwise provide a helpful structured answer with assumptions and an actionable deliverable.',review:'Check the draft against the custom instructions and the original question. Correct unsupported claims and improve completeness.'}
 ];
 let currentId='general',records=[],activeGroup='all',selectedRecord=null,loadError='';
-try{const state=JSON.parse(localStorage.getItem(stackKey)||'null');if(PRESETS.some(p=>p.id===state?.id))currentId=state.id}catch{}
+// Old task selections no longer take over a new chat visit.
 const currentPreset=()=>PRESETS.find(p=>p.id===currentId)||PRESETS[0];
 function current(){
  const p=currentPreset();
@@ -138,7 +138,7 @@ function selectRecord(id){
  if(guide)guide.innerHTML='<h3>'+E(displayName(m.id))+'</h3><p>'+E(m.id)+'</p><ol>'+
  '<li>Use an up-to-date browser with WebGPU support and enough GPU memory ('+E(vramLabel(m))+').</li>'+
  '<li>Press <b>'+(memory()?.isSaved(id)?'Load saved model':'Download &amp; load model')+'</b>. The browser reuses existing cached files when present.</li>'+ 
- '<li>Wait until the status says <b>Local model ready</b>, then open Chat and choose a task stack.</li></ol>'+
+ '<li>Wait until the status says <b>Local model ready</b>, then open Chat and type naturally.</li></ol>'+
  '<p class="guide-warning">Initial download requires internet and substantial storage. This model runs locally afterward, subject to cache retention. No chat API or API key is used. Runtime catalog inclusion does not guarantee your device can run it.</p>'+
  '<div class="model-guide-actions"><button type="button" id="guideLoad" class="primary">'+(memory()?.isSaved(id)?'▶ Load saved model':'↓ Download selected model')+'</button><a href="/ai-academy/" class="outline">Learn prompting in AI Academy ↗</a></div>';
  $('#guideLoad')?.addEventListener('click',()=>$('#loadModel')?.click());
@@ -185,6 +185,7 @@ async function loadCatalog(force=false){
   selectRecord(records.some(m=>m.id===preferred)?preferred:(recommendModel()?.id||records[0].id));
   if(top)top.value=records.some(m=>m.id===selectedRecord?.id&&[...top.options].some(o=>o.value===m.id))?selectedRecord.id:(unique[0]?.id||'');
   renderStack();
+  window.dispatchEvent(new CustomEvent('random-ai-catalog-ready',{detail:{count:records.length}}));
   if(!navigator.gpu){if($('#gpuCheck'))$('#gpuCheck').textContent='WebGPU unavailable on this browser/device. The top Load button can explain the problem; hosted Instant AI does not require WebGPU.';}
  }catch(error){
   loadError=String(error?.message||error).slice(0,190);
