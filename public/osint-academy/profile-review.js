@@ -394,5 +394,5 @@ $('profile-clear').addEventListener('click',()=>{
  state.candidates=[];state.researchResults=[];$('profile-research-results').replaceChildren();$('profile-report-from-results').hidden=true;$('profile-quick-input').value='';$('profile-quick-kind').value='auto';$('profile-research-consent').checked=false;clearCandidateFields();renderCandidates();$('profile-consent').checked=false;setStatus('New blank review ready.');openStep(0);
 });
 renderCandidates();openStep(0);
-window.TraceProfileReview=Object.freeze({getCount:()=>state.candidates.length,getSummary:()=>({details:report().provided.length,connections:state.candidates.length}),step:openStep,exportData:()=>JSON.stringify(payload()),getCurrentStep:()=>state.step,getLiveResultCount:()=>state.researchResults.length});
+window.TraceProfileReview=Object.freeze({getCount:()=>state.candidates.length,getSummary:()=>({details:report().provided.length,connections:state.candidates.length}),step:openStep,exportData:()=>JSON.stringify(payload()),getCurrentStep:()=>state.step,getLiveResultCount:()=>state.researchResults.length,lookupPublic:async(kind,raw)=>lookupClue(kind,raw),sourceLabels:publicSources});
 })();
