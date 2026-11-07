@@ -99,6 +99,13 @@ function makeDiscussionText(){
 }
 host.addEventListener('click',e=>{
  const button=e.target.closest('button');if(!button)return;
+ const quick=button.closest('[data-toy-quick-group]');
+ if(quick){
+  const group=quick.dataset.toyQuickGroup,filter=$('toy-filter');
+  if(filter){filter.value=group;filter.dispatchEvent(new Event('change',{bubbles:true}));}
+  $('.toy-goal-shortcuts button').forEach(b=>b.setAttribute('aria-pressed',String(b===quick)));
+  $('toy-grid')?.scrollIntoView({behavior:'smooth',block:'start'});return;
+ }
  const add=button.dataset.toySave;
  if(add&&permitted.has(add)){stored[add]=stored[add]||'read';save();shelf();status('Added to private reading shelf. No partner sharing is enabled.');return}
  const remove=button.dataset.toyRemove;
