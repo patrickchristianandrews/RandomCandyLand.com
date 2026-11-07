@@ -4,11 +4,10 @@
  */
 (() => {
   'use strict';
-  const apps = [{"id":"tiny-pet","path":"/trumpagotchi-fm1/","title":"Trumpagotchi Tiny Pet","short":"Tiny Pet"},{"id":"pocket-pet","path":"/trump/","title":"Donald’s Pocket Pet","short":"Pocket Pet"},{"id":"goo-rush","path":"/goo-rush/","title":"Goo Rush Candy Arcade","short":"Goo Rush"},{"id":"candy-casino","path":"/candy-casino/","title":"Candy Land Casino","short":"Candy Casino"},{"id":"candy-simon","path":"/candy-simon/","title":"Candy Simon Says","short":"Candy Simon"},{"id":"candy-match","path":"/candy-match/","title":"Candy Match","short":"Candy Match"},{"id":"after-dark","path":"/after-dark/","title":"Unwrapped","short":"Unwrapped"},{"id":"osint-academy","path":"/osint-academy/","title":"TRACE OSINT Academy","short":"TRACE OSINT"},{"id":"identity-lab","path":"/identity-lab/","title":"Identity Lab","short":"Identity Lab"},{"id":"ai-academy","path":"/ai-academy/","title":"AI Academy","short":"AI Academy"},{"id":"candy-studio","path":"/studio/","title":"Random AI Creative Studio","short":"Random AI"}];
+  const apps = [{"id":"tiny-pet","path":"/trumpagotchi-fm1/","title":"Trumpagotchi Tiny Pet","short":"Tiny Pet"},{"id":"pocket-pet","path":"/trump/","title":"Donald’s Pocket Pet","short":"Pocket Pet"},{"id":"goo-rush","path":"/goo-rush/","title":"Goo Rush Candy Arcade","short":"Goo Rush"},{"id":"candy-casino","path":"/candy-casino/","title":"Candy Land Casino","short":"Candy Casino"},{"id":"candy-simon","path":"/candy-simon/","title":"Candy Simon Says","short":"Candy Simon"},{"id":"candy-match","path":"/candy-match/","title":"Candy Match","short":"Candy Match"},{"id":"after-dark","path":"/after-dark/","title":"Unwrapped","short":"Unwrapped"},{"id":"osint-academy","path":"/osint-academy/","title":"TRACE OSINT Academy","short":"TRACE OSINT"},{"id":"ai-academy","path":"/ai-academy/","title":"AI Academy","short":"AI Academy"},{"id":"candy-studio","path":"/studio/","title":"Random AI Creative Studio","short":"Random AI"}];
   // Each ongoing game owns its own, collapsed, opt-in reminder control.
   // The homepage never renders a global notification signup section.
   const gameReminderPages=[
-    {path:'/moodropolis/',id:'moodropolis',title:'Remind me about unfinished city decisions'},
     {path:'/the-corridors/',id:'corridors',title:'Remind me to continue my political story'},
     {path:'/the-docket/',id:'docket',title:'Remind me to continue a case'},
     {path:'/osint-academy/',id:'trace',title:'Remind me about unfinished investigations'},
