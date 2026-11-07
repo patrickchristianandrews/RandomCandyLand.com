@@ -166,5 +166,4 @@
  body.print-unwrapped-comparison #uc-results .uc-lookout-evidence{background:#f8f4f9!important;border-left-color:#bd88b2!important}
  body.print-unwrapped-comparison #uc-results .uc-lookout-evidence p{color:#453947!important}
  body.print-unwrapped-comparison #uc-results .uc-lookout-grid{grid-template-columns:1fr 1fr}
- @page{size:auto;margin:12mm}
 }
