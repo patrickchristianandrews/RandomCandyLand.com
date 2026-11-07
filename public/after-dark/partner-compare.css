@@ -105,3 +105,29 @@
  body.print-unwrapped-comparison #uc-results .uc-answer-side small{color:#58445d!important}
  body.print-unwrapped-comparison #uc-results .uc-action-arrow{color:#745c83!important}
 }
+
+
+/* Report center: high-visibility actions on phones and desktops. */
+#uw-personal-workflow{margin:17px 0 16px;padding:clamp(16px,2.5vw,26px);border-color:#b58ac0}
+#uw-personal-workflow h3{font-size:clamp(21px,2.7vw,29px);margin:6px 0 10px}
+#uw-personal-workflow p{font-size:13px;line-height:1.65}
+.uw-report-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:12px 0}
+.uw-report-actions .btn{max-width:100%;font-size:13px}
+.uw-private-file{display:grid;gap:8px;max-width:550px;font-size:13px;font-weight:850;margin-top:16px;color:#ffe9bb}
+.uw-private-file input{width:100%;padding:11px;border-radius:12px;border:1px solid #8f6c9f;background:#1b1228;color:#fff;min-width:0}
+.uw-workflow-status:not(:empty){padding:10px 12px;margin-top:12px;border:1px solid #90749f;border-radius:10px;background:#352644;color:#ffe8fa}
+#uc-comparison .uc-upload-head{padding-top:17px;border-top:1px solid #735981}
+#uc-comparison .uc-upload-head h3{font-size:clamp(20px,2.5vw,26px);margin:5px 0}
+#uc-comparison .uc-upload-head p{font-size:13px;line-height:1.55}
+#uc-comparison .uw-report-actions{margin:11px 0}
+#uc-comparison #uc-save{margin:11px 0}
+#uc-comparison #uc-print:not([hidden]){margin:7px 0}
+#uc-comparison #uc-status:not(:empty){padding:11px 13px;border-radius:10px;border:1px solid #9873a0}
+.uw-notebook-extra{margin:24px 0;border:1px solid #745383;border-radius:14px;padding:14px;background:#21152f}
+.uw-notebook-extra>summary{cursor:pointer;font-weight:850;color:#ffe4b7}
+.uw-notebook-extra #notebook-card{margin-top:15px}
+@media(max-width:590px){.uw-report-actions{display:grid;grid-template-columns:1fr}.uw-report-actions .btn{width:100%}#uc-comparison .uc-upload label{font-size:13px}}
+@media print{
+ body.print-unwrapped-comparison.print-unwrapped-solo #uc-results:before{content:"UNWRAPPED · SELECTED PARTNER REPORT"}
+ body.print-unwrapped-comparison #uc-results .uc-answer-pair{break-inside:avoid}
+}
