@@ -5,7 +5,7 @@ const required = [
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn', 'id="toys"', 'id="toy-grid"', 'toy-library.js?v=']],
-  ['dist/after-dark/report-samples/index.html', ['data-sample-download="personal"', 'data-sample-download="selected"', 'data-sample-download="new"', 'id="toys-explained"', 'toy-library.js?v=', 'report-samples/sample-pdf.js?v=']],
+  ['dist/after-dark/report-samples/index.html', ['Create or upload a report', 'Selected report', 'private backup', 'id="methodology"', 'id="privacy"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
   ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Wikidata','Mozilla Monitor','WhatsMyName','Codeberg','GitLab']],
@@ -162,10 +162,10 @@ if(!fs.existsSync(fictionalAuditPath)){
  }
 }
 const afterDarkLanding=fs.readFileSync('dist/after-dark/index.html','utf8');
-for(const file of ['dist/after-dark/report-samples/sample-pdf.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-results-share.js','dist/after-dark/partner-compare.js']){
- if(!fs.existsSync(file)){console.error('Missing Unwrapped report or sample asset:',file);failures++;continue}
+for(const file of ['dist/after-dark/new-partner-report.js','dist/after-dark/partner-results-share.js','dist/after-dark/partner-compare.js']){
+ if(!fs.existsSync(file)){console.error('Missing Unwrapped report asset:',file);failures++;continue}
  const code=fs.readFileSync(file,'utf8');
- try{new vm.Script(code,{filename:file})}catch(err){console.error('Unwrapped report or sample has invalid syntax:',file,err.message);failures++}
+ try{new vm.Script(code,{filename:file})}catch(err){console.error('Unwrapped report has invalid syntax:',file,err.message);failures++}
 }
 
 for(const file of ['dist/after-dark/toy-library.js','dist/after-dark/toy-library.css']){
@@ -200,41 +200,33 @@ if(!afterDarkLanding.includes('<h1>There\'s more to you.') ||
   console.error('The Other Drawer landing must be brief, with Quiz, Reports, Mira and a complete navigation ribbon.');failures++;
 }
 
-// Report samples are direct PDF downloads, not visible previews on the sample page.
-const samplePage='dist/after-dark/report-samples/index.html';
-const sampleGenerator='dist/after-dark/report-samples/sample-pdf.js';
-if(!fs.existsSync(samplePage)||!fs.existsSync(sampleGenerator)){
- console.error('Missing report sample downloads page or PDF generator');failures++;
-}else{
- const gallery=fs.readFileSync(samplePage,'utf8');
- const generator=fs.readFileSync(sampleGenerator,'utf8');
- for(const kind of ['personal','selected','new']){
-  if(!gallery.includes('data-sample-download="'+kind+'"') ||
-     !generator.includes(kind+':{')){
-   console.error('Missing downloadable PDF sample:',kind);failures++;
-  }
+// The retired sample gallery must never offer unavailable PDF downloads.
+const reportGuide='dist/after-dark/report-samples/index.html';
+if(!fs.existsSync(reportGuide)){console.error('Missing current report file guide');failures++;}
+else{
+ const guide=fs.readFileSync(reportGuide,'utf8');
+ if(!guide.includes('Create or upload a report')||
+    !guide.includes('Selected report')||
+    !guide.includes('private backup')||
+    /data-sample-download|complete-rowan-personal-report\.pdf|complete-ellis-personal-report\.pdf|sample-pdf\.js/i.test(guide)){
+   console.error('Report guide is missing correct import steps or still links to obsolete samples');failures++;
  }
- if(gallery.includes('class="paper"')||gallery.includes('window.print()')){
-  console.error('Sample page should download PDFs without displaying sample reports inline');failures++;
- }
- if(!gallery.includes('sample-pdf.js?v=') ||
-    !generator.includes('function buildPdf(report)') ||
-    !generator.includes('function download(kind)') ||
-    !generator.includes('const QR_ROWS=') ||
-    !generator.includes('PASS THE CURIOSITY ON')){
-  console.error('Sample PDF download generator or last-page flyer is incomplete');failures++;
- }
- try {new vm.Script(generator,{filename:sampleGenerator});}
- catch(error){console.error('Broken report sample PDF script:',error.message);failures++;}
 }
-// Detailed report explanations belong on the dedicated samples page, not the simple homepage.
+if(!afterDarkLanding.includes('id="uw-personal-workflow"')||
+   !afterDarkLanding.includes('id="uw-import-private"')||
+   !afterDarkLanding.includes('id="uw-save-private"')||
+   !afterDarkLanding.includes('data-tab="notebook">📄 Reports &amp; Uploads</button>')){
+ console.error('Report upload and private-backup controls must be directly discoverable from the menu');failures++;
+}
+
+// Detailed report file explanations belong on the dedicated guide, not the concise homepage.
 if(!afterDarkLanding.includes('href="/after-dark/report-samples/"') ||
    !afterDarkLanding.includes('data-tab="quiz"') ||
    !afterDarkLanding.includes('data-tab="psych-quiz"') ||
    !afterDarkLanding.includes('data-tab="chat"') ||
    !afterDarkLanding.includes('data-tab="notebook"') ||
    !fs.existsSync('dist/after-dark/home-report-showcase.css')){
- console.error('The Other Drawer homepage is missing quiz, sample-report or Mira destinations');failures++;
+ console.error('Unwrapped homepage is missing quiz, report guide or Mira destinations');failures++;
 }
 // Category recommendations and opt-in partner introductions are mandatory export features.
 for(const file of ['dist/after-dark/discover-interests.js','dist/after-dark/new-partner-report.js','dist/after-dark/partner-discovery.css']){
