@@ -8,7 +8,7 @@ const required = [
   ['dist/after-dark/report-samples/index.html', ['Create or upload a report', 'Selected report', 'private backup', 'id="methodology"', 'id="privacy"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
-  ['dist/identity-lab/index.html', ['Identity Lab','id="identity-investigation-workbench"','lookup-engine.js?v=','workbench.js?v=','id="identity-title"','GTM-TQRDB5KL']],
+  ['dist/identity-lab/index.html', ['Feature retired','url=/osint-academy/']],
   ['dist/curiosity/index.html', ['id="home-feature-heading"','id="home-feature-next"','id="home-research-feed"','id="home-correlation-feed"','href="/curiosity/ideas/"','href="/curiosity/research/"','href="/curiosity/correlations/"','GTM-TQRDB5KL']],
   ['dist/curiosity/ideas/index.html', ['id="ideas-grid"','id="idea-search"','id="idea-categories"','curiosity.js?v=','GTM-TQRDB5KL']],
   ['dist/curiosity/research/index.html', ['id="research-grid"','id="freshness"','curiosity.js?v=','GTM-TQRDB5KL']],
@@ -417,7 +417,6 @@ const toolIcons = [
   'tool-icons/candy-match.svg',
   'tool-icons/unwrapped.svg',
   'tool-icons/osint-academy.svg',
-  'tool-icons/moodropolis.svg',
   'tool-icons/the-corridors.svg',
   'tool-icons/the-docket.svg',
   'tool-icons/ai-academy.svg'
@@ -897,10 +896,7 @@ if(fs.existsSync('dist/curiosity/live-data.json')){
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
-   !homeInstallSource.includes("href:'/identity-lab/'") ||
-   !homeInstallSource.includes("kind:'research'") ||
    !homeInstallSource.includes("url:'/osint-academy/'") ||
-   !homeInstallSource.includes("Moodropolis") ||
    !homeInstallSource.includes('candyland-play-shelves') ||
    !homeInstallSource.includes('Ongoing Worlds & Pets') ||
    !homeInstallSource.includes('Courses & Training') ||
@@ -911,43 +907,19 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes('href="/studio/"') ||
    !homeInstallSource.includes("href:'/ai-academy/'") ||
    !homeBundle.includes('/osint-academy/')){
-  console.error('Grouped homepage, Moodropolis or TRACE Academy portal is missing.'); failures++;
+  console.error('Grouped homepage or TRACE Academy portal is missing.'); failures++;
 }
 for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
-  'dist/osint-academy/profile-review.js','dist/osint-academy/identity-lab.js',
-  'dist/identity-lab/index.html','dist/identity-lab/lookup-engine.js','dist/identity-lab/workbench.js','dist/identity-lab/workbench.css','dist/app-manifests/identity-lab.webmanifest',
+  'dist/osint-academy/identity-lab.js','dist/osint-academy/mission-command.js',
+  'dist/osint-academy/mission-command.css','dist/identity-lab/index.html',
   'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
-  if(!fs.existsSync(asset)){console.error('OSINT Academy asset missing:',asset);failures++;}
+  if(!fs.existsSync(asset)){console.error('TRACE asset missing:',asset);failures++;}
 }
 const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
-const standaloneHtml=fs.readFileSync('dist/identity-lab/index.html','utf8');
-if(standaloneHtml.includes('haveibeenpwned.com')||standaloneHtml.includes('myactivity.google.com')){
- console.error('Identity Lab includes a paid or non-open/free-only tool listing.');failures++;
-}
-if(traceHtml.includes('profile-review.js')||!traceHtml.includes('Evidence Files')||
-   standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('lookup-engine.js?v=')||!standaloneHtml.includes('/app-manifests/identity-lab.webmanifest')||!standaloneHtml.includes('id="identity-investigation-workbench"')||!standaloneHtml.includes('workbench.js?v=')){
- console.error('Self-research must live outside the TRACE training game.'); failures++;
-}
-if(fs.existsSync('dist/identity-lab/lookup-engine.js')){
- const logic=fs.readFileSync('dist/identity-lab/lookup-engine.js','utf8');
- try{new vm.Script(logic,{filename:'Identity Lab actual public source lookup engine'});}catch(error){console.error('Broken Identity Lab lookups:',error.message);failures++;}
- for(const token of ['IdentityLabLookup','api.github.com/users/','gitlab.com/api/v4/users?username=','codeberg.org/api/v1/users/','api.gleif.org/api/v1/lei-records','geocoding.geo.census.gov','dns.google/resolve','archive.org/wayback/available','stat.ripe.net/data/network-info']){
-  if(!logic.includes(token)){console.error('Identity Lab missing actual direct free-source coverage:',token);failures++;}
- }
-}
-if(fs.existsSync('dist/identity-lab/workbench.js')){
- const js=fs.readFileSync('dist/identity-lab/workbench.js','utf8');
- try{new vm.Script(js,{filename:'Identity Lab public-source workbench'})}catch(error){console.error('Broken public investigation workbench:',error.message);failures++}
- for(const token of ['identity-lab-investigation-case','osResearchConsent','osKnownFields','osGraph','osExport','osPrint','sourceDirectory','osSourceChecks','osOverview','osTryExample','sourceResults','overview','updatePlan']){
-  if(!js.includes(token)){console.error('Identity Lab multi-source feature missing:',token);failures++;}
- }
-}
-if(fs.existsSync('dist/osint-academy/profile-review.js')){
- const profileJs=fs.readFileSync('dist/osint-academy/profile-review.js','utf8');
- try{new vm.Script(profileJs,{filename:'Standalone Identity Lab'});}catch(e){console.error('Broken Identity Lab:',e.message);failures++}
- if(!profileJs.includes('profile-report-from-results')||!profileJs.includes('api.github.com/users/')||!profileJs.includes('gitlab.com/api/v4/users?username=')||!profileJs.includes('codeberg.org/api/v1/users/')||!profileJs.includes('archive.org/wayback/available?url=')||!profileJs.includes('dns.google/resolve')||!profileJs.includes('query.wikidata.org/sparql')){
-   console.error('Identity Lab must retain one-clue source checks and a report shortcut.');failures++;
- }
+const retiredLab=fs.readFileSync('dist/identity-lab/index.html','utf8');
+if(!retiredLab.includes('Feature retired')||traceHtml.includes('href="/identity-lab/"')||
+   !traceHtml.includes('id="trace-game-command"')||!traceHtml.includes('mission-command.js?v=')){
+ console.error('TRACE must have the new game hub and standalone Identity Lab must remain retired.');failures++;
 }
 for(const token of ['id="continue-training"','class="trace-first-steps"','class="trace-play-steps"','id="case-directory"','class="mission-sidebar"',
   'id="command-desk"','id="command-form"','id="command-input"','id="command-output"',
@@ -993,7 +965,6 @@ if (!homeBundle.includes('/trumpagotchi-fm1/')) {
 
 /* Meridian universe regression checks: never ship blank or unlinked new worlds. */
 for (const [slug, title, needed] of [
- ['moodropolis','Moodropolis',['district-grid','data-act','data-next','data-event','moodropolis-save-v1']],
  ['the-corridors','The Corridors',['data-pick','data-next','Relationship web','corridors-save-v1']],
  ['the-docket','The Docket',['data-role','data-evidence','data-motion','data-appeal','docket-save-v1']],
 ]) {
@@ -1016,7 +987,6 @@ if(fs.existsSync('dist/worlds/core.js')){
 
 
 for (const [slug,markers] of [
- ['moodropolis',['residentChallenge','sceneCity','citizenReply','badges']],
  ['the-corridors',['sceneHall','consult','powerWeb','stakeholderDesk']],
  ['the-docket',['caseBoard','linkPanel','witnessPanel','witness']],
 ]) {
