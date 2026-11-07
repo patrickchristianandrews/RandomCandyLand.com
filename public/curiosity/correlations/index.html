@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head>
+<!-- GA4: sanitized page visits; never include quiz answers or private invitation URLs. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script>
+<script src="/analytics.js?v=ga4-20261030-v1"></script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#142331"><title>Spurious Correlation Generator · The Wonder Index | Random Candy Land</title><meta name="description" content="Create real World Bank spurious correlation charts and download the raw figures."><link rel="canonical" href="https://randomcandyland.com/curiosity/correlations/"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="/curiosity/curiosity.css?v=2"><script src="/install-app.js" defer></script><script src="/curiosity/curiosity.js?v=2" defer></script><script src="/curiosity/correlations.js?v=2" defer></script></head><body><!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Skip to content</a><header class="site-nav"><a class="brand" href="/"><img src="/icon.svg" width="42" height="42" alt=""><span>RANDOM CANDY LAND</span></a><nav aria-label="Wonder Index pages"><a href="/curiosity/">Wonder Index</a><a href="/curiosity/ideas/">Ideas</a><a href="/curiosity/research/">Fresh research</a><a href="/curiosity/correlations/">Correlations</a></nav><a class="nav-action" href="/">All tools ↗</a></header><main id="main" class="wonder-subpage"><section class="wonder-subhero"><span class="eyebrow">REAL DATA · STRANGE PATTERNS · NO MADE-UP NUMBERS</span><h1>When two things move together…</h1><p>Generate an eye-catching match from public World Bank indicators, compare real years, inspect first differences and challenge whether the connection means anything.</p><a href="/curiosity/" class="wonder-back">← Wonder Index overview</a></section><section id="correlations" class="correlation-section" aria-labelledby="corr-title">
+ <div class="corr-header"><div><span class="eyebrow">THE SPURIOUS CORRELATION MACHINE</span><h2 id="corr-title">Two unrelated things. One very convincing chart.</h2><p>Find surprising statistical patterns in real World Bank time series. Choose your data—or let the generator hunt for a misleading-looking match. Every result links to the underlying indicators.</p></div><div class="corr-stamp" aria-hidden="true">r ≠ why</div></div>
+ <div class="corr-controls">
+  <label>Country <select id="corr-country"><option value="USA">United States</option><option value="CAN">Canada</option><option value="GBR">United Kingdom</option><option value="AUS">Australia</option></select></label>
+  <label>First real-world series <select id="corr-first" aria-label="First World Bank indicator"></select></label>
+  <label>Second real-world series <select id="corr-second" aria-label="Second World Bank indicator"></select></label>
+  <div class="corr-buttons"><button type="button" id="generate-corr" class="action primary">✦ Generate a suspicious match</button><button type="button" id="compare-corr" class="action outline">Compare selected series</button></div>
+ </div>
+ <p class="data-status" id="corr-data-status" role="status" aria-live="polite">Loading attributed World Bank data…</p>
+ <div id="corr-result" class="corr-result" aria-live="polite">
+  <div class="corr-empty"><span>↗ ↘ ↗</span><h3>Not every pattern tells a story.</h3><p>Choose two indicators or generate a surprising pairing from real published figures.</p></div>
+ </div>
+ <div class="corr-explain">
+  <article><span>01</span><h3>What is r?</h3><p>Pearson's correlation coefficient ranges from −1 to +1. A strong relationship in a chart is not evidence that one thing caused the other.</p></article>
+  <article><span>02</span><h3>Why does this happen?</h3><p>Unrelated series can move together because of time trends, common outside factors, chance, or because you searched across many pairs.</p></article>
+  <article><span>03</span><h3>How to challenge it</h3><p>Inspect first differences, look for confounders, examine sample size, and test a causal explanation. Even a stunning correlation may fall apart.</p></article>
+ </div>
+ <div class="corr-source-note"><strong>Real data, deliberately skeptical interpretation.</strong> World Bank World Development Indicators are updated by source agencies on different schedules; the figures here are refreshed from its public Indicators API during site builds. Some indicator years lag. Original inspiration for teaching amusing statistical coincidences: <a href="https://tylervigen.com/spurious-correlations" target="_blank" rel="noopener noreferrer">Spurious Correlations by Tyler Vigen</a>. Our generator uses its own computations and World Bank data, not copied plots.</div>
+</section>
+</main><footer><span>THE WONDER INDEX · RANDOM CANDY LAND</span><p>Curiosity is a habit. Evidence matters. Correlation does not establish cause.</p><a href="/">← Return to Candy Land</a></footer>
+</body></html>
