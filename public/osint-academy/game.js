@@ -261,7 +261,7 @@ function switchTab(tab){
  for(const id of ['missions','identity','terminal','scope','setup','tools','report']){const panel=$('view-'+id);if(panel)panel.hidden=id!==tab;}
  if(tab==='missions'){renderList();renderCase();}
  if(tab==='scope')refreshScope();
- if(tab==='missions')focusCase('.case-navigation'); else document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
+ if(tab==='missions')($('trace-game-command')||$('mission-stage'))?.scrollIntoView({block:'start',behavior:'smooth'}); else document.querySelector('.trace-tabs').scrollIntoView({block:'start',behavior:'auto'});
 }
 document.querySelectorAll('[data-switch]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.switch)));
 // On the landing page, this is the single obvious path into the current lesson.
