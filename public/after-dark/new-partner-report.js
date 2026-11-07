@@ -1,7 +1,9 @@
-/* The Other Drawer — getting to know me, for a new partner.
- * Locally drafted and printed. Nothing is uploaded or shared automatically.
- * Psychology evidence and sexual topics require separate item-by-item opt-in. */
+/* Unwrapped — quiz-derived new-partner introduction.\n * No additional profile fields; only disclosure choices are editable.\n * Nothing is uploaded or shared automatically. */
 (()=>{'use strict';
+const $=id=>document.getElementById(id);
+const make=(tag,str,cls)=>{const x=document.createElement(tag);if(str!==undefined)x.textContent=String(str);if(cls)x.className=cls;return x};
+const add=(node,tag,str,cls)=>{const x=make(tag,str,cls);node.append(x);return x};
+const btn=(label,cb,cls='btn')=>{const b=make('button',label,cls);b.type='button';b.addEventListener('click',cb);return b};
 const selectedPsych=new Set(),selectedSex=new Set(),knownPsych=new Set();
 let showPsych=true,showSex=false,showToys=false,panel=null,preview=null,message=null;
 function summaryData(){return window.AfterDarkCanonicalReport?.buildData?.()||null;}
