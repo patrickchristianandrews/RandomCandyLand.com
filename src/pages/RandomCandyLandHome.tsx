@@ -239,6 +239,13 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             })}
           </div>
 
+      <section id="absurder-report-destination" className="candyland-report-destination" tabIndex={-1} aria-label="The Absurdity Report full news story">
+        <div className="candyland-report-destination-head">
+          <span className="candyland-report-destination-kicker">ARN NEWS · FICTIONAL SATIRE</span>
+          <h2>THE ABSURDITY REPORT</h2>
+          <p>All the news that never happened. Select a headline in the scroller above to read its full story here.</p>
+        </div>
+      </section>
 
       <details className="candyland-install-apps" id="install-apps" aria-label="Install individual Candy Land apps on Android or iPhone">
         <summary>📲 Install your favorites <span>Optional</span></summary>
