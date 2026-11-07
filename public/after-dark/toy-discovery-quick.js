@@ -55,7 +55,7 @@ function initStudio(){
  search.append(status,results);
  const heading=studio.querySelector('.unwrapped-toy-idea-heading');
  if(heading)heading.insertAdjacentElement('afterend',search);else studio.prepend(search);
- const candidates=()=>library.types.filter(t=>(!activeGroup||t.group===activeGroup)&&(!input.value.trim()||includes(t,input.value)));
+ const candidates=()=>library.types.filter(t=>(!activeGroup||t.group===activeGroup||(activeGroup==='Anal & pelvic'&&t.group==='Strap-ons & harnesses'))&&(!input.value.trim()||includes(t,input.value)));
  function selectToy(toy){
   const him=$('toy-idea-him'),her=$('toy-idea-her');
   if(him)him.value=fit(toy,'male')?toy.id:'';
