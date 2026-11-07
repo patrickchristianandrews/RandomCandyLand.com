@@ -7,14 +7,13 @@ const cap=(s,n=180)=>String(s||'').slice(0,n);
 const cleanLabel=s=>cap(s,110).trim().toLocaleLowerCase();
 const status=msg=>{const n=$('uc-status');if(n)n.textContent=msg};
 const canBuild=()=>window.AfterDarkCanonicalReport?.buildData?.();
-let selection={interest:new Set(),theme:new Set(),answers:new Set(),toys:new Set(),name:''};
+let selection={interest:new Set(),theme:new Set(),answers:new Set(),toys:new Set()};
 const interesting=d=>d.interests||[];
 function exportChoices(){
  const d=canBuild(),root=$('uc-select');if(!root)return;
  root.replaceChildren();
  if(!d){root.append(E('p','Take one or both quizzes to create a selected report.'));return}
  const intro=E('p','Choose a few sections or select all available. Only checked information goes into your downloaded file.','uc-note');root.append(intro);
- const name=E('input');name.placeholder='Your name or nickname (optional)';name.maxLength=55;name.value=selection.name;name.setAttribute('aria-label','Name for selected report');name.oninput=()=>selection.name=name.value;root.append(name);
  const all=E('label',undefined,'uc-check');const allBox=E('input');allBox.type='checkbox';
  all.append(allBox,document.createTextNode(' Include all available report highlights'));
  root.append(all); 
@@ -63,7 +62,7 @@ function build(){
    male:cap(x.bodyUses?.male?.note,260),female:cap(x.bodyUses?.female?.note,260),
    shared:cap(x.bodyUses?.together,260),safety:cap(x.safety,300)}));
  if(!interests.length&&!themes.length&&!answers.length&&!toys.length)return null;
- const pack={format:FORMAT,version:1,from:cap(selection.name,55),interests,themes,answers,created:new Date().toISOString()};
+ const pack={format:FORMAT,version:1,from:'',interests,themes,answers,created:new Date().toISOString()};
  if(toys.length)pack.toys=toys;
  return pack;
 }
