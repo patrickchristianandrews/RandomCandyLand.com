@@ -200,6 +200,8 @@ function compare(a,b){
   dashboard.append(map);
  }
  out.append(dashboard);
+ // Evidence-based, constructive early check-ins from BOTH consent-selected files.
+ window.UnwrappedCoupleCheckins?.render?.(out,a,b);
  if(!psychDisclosure){
   addText(out,'Psychology comparison not included','Neither selected file includes psychology themes or answered psychology questions. This is a limited interests-only comparison, not a psychological or whole-person assessment. Each person can choose additional nonsexual topics and export a new selected report if they wish.');
  }else{
