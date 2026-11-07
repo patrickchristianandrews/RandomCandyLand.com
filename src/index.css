@@ -2422,3 +2422,21 @@ body {
   .candyland-report-destination{margin:17px auto;padding:12px;scroll-margin-top:65px}
   .candyland-report-destination .nonsense-actions button{flex:1}
 }
+
+
+/* Compact, editorial Wonder Index discovery spotlight. No extra scrolling wall. */
+.candyland-next .candyland-curiosity-spotlight{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:22px;align-items:center;max-width:1180px;margin:16px auto 32px;padding:clamp(19px,3vw,30px);border:1px solid #92e2b7b0;border-radius:19px;background:linear-gradient(115deg,#10263b 8%,#1f304e 69%,#2a3257);color:#f8fff9;overflow:hidden;box-shadow:0 11px 25px #0a152a55}
+.candyland-next .candyland-curiosity-spotlight:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 98% 45%,#93f6d32e,transparent 35%);pointer-events:none}
+.candyland-next .candyland-curiosity-copy{position:relative;z-index:1}
+.candyland-next .candyland-curiosity-kicker{font:900 10px/1.6 system-ui;letter-spacing:.13em;color:#abffe2}
+.candyland-next .candyland-curiosity-spotlight h2{font:900 clamp(24px,3vw,38px)/1.1 system-ui;letter-spacing:-.045em;margin:7px 0 9px;color:#fff}
+.candyland-next .candyland-curiosity-spotlight h2 em{font-style:normal;color:#a5ffe3}
+.candyland-next .candyland-curiosity-spotlight p{font:500 13px/1.65 system-ui;color:#e3eef5;margin:0;max-width:710px}
+.candyland-next .candyland-curiosity-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:15px}
+.candyland-next .candyland-curiosity-actions a{display:inline-flex;min-height:38px;align-items:center;justify-content:center;border:1px solid #adfbd6;border-radius:9px;padding:8px 14px;background:#a9fbd8;color:#18303b;font:850 12px/1.3 system-ui;text-align:center;text-decoration:none}
+.candyland-next .candyland-curiosity-actions a:last-child{background:#243c54;color:#d9fff0}
+.candyland-next .candyland-curiosity-art{position:relative;z-index:1;display:grid;place-items:center;min-height:164px;border:1px solid #a4f2d982;border-radius:17px;background:radial-gradient(circle at 50% 40%,#4c6380,#143048 72%);text-align:center;isolation:isolate;box-shadow:inset 0 0 45px #194451}
+.candyland-next .curiosity-mark{display:block;font:900 114px/.85 system-ui;color:#a6ffe3;text-shadow:8px 8px #071e34;transform:rotate(-14deg)}
+.candyland-next .curiosity-label{position:absolute;right:10px;top:10px;font:900 9px/1.4 system-ui;color:#e9fff1;letter-spacing:.1em}
+.candyland-next .curiosity-graph{position:absolute;left:11px;bottom:10px;font:900 19px system-ui;color:#ffe5b0}
+@media(max-width:760px){.candyland-next .candyland-curiosity-spotlight{grid-template-columns:1fr;margin:10px 12px 23px;padding:17px;border-radius:15px}.candyland-next .candyland-curiosity-art{display:none}.candyland-next .candyland-curiosity-actions a{flex:1 1 160px}}
