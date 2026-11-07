@@ -77,6 +77,9 @@ jobs:
 
       - name: Verify Unwrapped toy library and personalized report privacy
         run: node scripts/test-unwrapped-toys.mjs
+      - name: Verify Freak Level choices, rich idea combinations and 68-category toy guide
+        run: node scripts/test-unwrapped-freak-picker.mjs
+
       - name: Verify all Unwrapped report types and downloadable sample PDFs
         run: node scripts/test-unwrapped-report-coverage.mjs
 
