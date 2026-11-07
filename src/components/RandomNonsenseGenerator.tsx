@@ -237,11 +237,8 @@ export function RandomNonsenseGenerator() {
   useEffect(() => {
     if (!expanded || !storyDestination) return;
     const frame = window.requestAnimationFrame(() => {
-      storyDestination.scrollIntoView({
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-        block: 'start'
-      });
       storyDestination.focus({ preventScroll: true });
+      storyDestination.scrollIntoView({ behavior: 'instant', block: 'start' });
     });
     return () => window.cancelAnimationFrame(frame);
   }, [expanded, storyDestination]);
@@ -252,10 +249,10 @@ export function RandomNonsenseGenerator() {
     // they already opened it and then scrolled back to the top.
     window.requestAnimationFrame(() => {
       const target = document.getElementById('absurder-report-destination');
-      target?.scrollIntoView({
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-        block: 'start'
-      });
+      // Jump to the full story without relying on a long smooth-scroll
+      // animation that can be interrupted by browser layout or focus changes.
+      target?.focus({ preventScroll: true });
+      target?.scrollIntoView({ behavior: 'instant', block: 'start' });
     });
   };
   const generate = () => { setCycle(advance); setCopied(false); };
