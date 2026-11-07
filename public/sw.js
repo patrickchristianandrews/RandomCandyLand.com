@@ -37,7 +37,7 @@ self.addEventListener('fetch',event=>{
 /* iOS and Android installed app Web Push. A visible notification is always
  * displayed; Apple disables silent web pushes. No arbitrary external links.
  */
-const GAME_PUSH_PATHS=new Set(['/','/moodropolis/','/the-corridors/','/the-docket/','/osint-academy/','/trumpagotchi-fm1/','/trump/']);
+const GAME_PUSH_PATHS=new Set(['/','/the-corridors/','/the-docket/','/osint-academy/','/trumpagotchi-fm1/','/trump/']);
 self.addEventListener('push',event=>{
  let data={title:'Random Candy Land',body:'Your next adventure is waiting.',url:'/',tag:'rcl-game-reminder'};
  try{const incoming=event.data?.json();if(incoming&&typeof incoming==='object')data={...data,...incoming}}catch{}
