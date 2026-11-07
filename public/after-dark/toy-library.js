@@ -312,17 +312,27 @@ function init(){
   shared.append(make('h5','With a partner · any gender'),make('span','Shared use and communication','toy-body-fit'),make('p',guide.together));rows.append(shared);
   comparison.append(rows);detail.append(comparison);
   const caution=make('div',undefined,'toy-safety');caution.append(make('strong','Important safety notes'),make('p',toy.safety));detail.append(caution);
+  if(toy.care||toy.talk){
+   const next=make('div',undefined,'toy-considerations');
+   if(toy.care){const part=make('article');part.append(make('h4','Care and cleaning'),make('p',toy.care));next.append(part)}
+   if(toy.talk){const part=make('article');part.append(make('h4','A conversation starter'),make('p',toy.talk));next.append(part)}
+   detail.append(next);
+  }
   detail.append(make('p','These are educational possibilities, not a checklist. Suitability depends on the device model, anatomy, individual comfort and informed consent.','toy-disclaimer'));
   const bar=make('div',undefined,'toy-actions');
   const close=make('button','Close details','btn alt');close.type='button';close.onclick=()=>{detail.hidden=true;grid.querySelectorAll('[data-toy-open]').forEach(b=>b.setAttribute('aria-pressed','false'))};
-  bar.append(close);detail.append(bar);detail.scrollIntoView({block:'nearest',behavior:'smooth'});
+  const compare=make('button','＋ Compare this type','btn alt');compare.type='button';compare.dataset.toyAddCompare=id;
+  const save=make('button','♡ Save to my reading shelf','btn alt');save.type='button';save.dataset.toySave=id;
+  const idea=make('button','Discuss this in Idea Lab →','btn alt');idea.type='button';idea.onclick=()=>{document.querySelector('[data-tab="ideas"]')?.click();const select=document.getElementById('mood');if(select)select.value=toy.group.includes('Sensory')?'sensory':'toys';};
+  bar.append(compare,save,idea,close);detail.append(bar);detail.scrollIntoView({block:'nearest',behavior:'smooth'});
  }
  function render(){
   const q=normalize(search.value.trim()),category=filter.value;
   const focus=bodyFocus?.value||'both';
   const items=TOYS.filter(x=>(!category||category===x.group)&&(!q||normalize([x.name,x.summary,x.group,...x.uses,...x.tags,BODY_GUIDE[x.id].male.note,BODY_GUIDE[x.id].female.note].join(' ')).includes(q)));
   grid.replaceChildren();count.textContent=items.length+' of '+TOYS.length+' toy categories';
-  for(const t of items){
+  const limit=(!q&&!category&&!window.UnwrappedToyExplorer?.showAll?.())?12:items.length;
+  for(const t of items.slice(0,limit)){
    const card=make('article',undefined,'toy-card'),b=make('button',undefined,'toy-open');b.type='button';b.dataset.toyOpen=t.id;b.setAttribute('aria-pressed',String(detail.dataset.toyId===t.id&&!detail.hidden));
    b.append(make('span',t.icon,'toy-card-icon'),make('small',t.group),make('strong',t.name),make('span',t.summary,'toy-card-desc'));
    const fit=BODY_GUIDE[t.id];
@@ -342,6 +352,7 @@ function init(){
    b.append(make('em','Compare male, female and partner uses →'));b.onclick=()=>open(t.id);card.append(b);grid.append(card);
   }
   if(!items.length)grid.append(make('p','No toy types matched. Try a different keyword or choose All categories.','toy-empty'));
+  const more=root.querySelector('#toy-show-all');if(more){more.hidden=Boolean(q||category||items.length<=12);more.textContent=window.UnwrappedToyExplorer?.showAll?.()?'Show fewer types ↑':'See all '+TOYS.length+' toy categories ↓'}
  }
  function renderMatches(){
   recommend.replaceChildren();
@@ -366,12 +377,14 @@ function init(){
  search.addEventListener('input',render);filter.addEventListener('change',render);
  bodyFocus?.addEventListener('change',render);
  root.querySelector('#toy-refresh-matches').addEventListener('click',renderMatches);
+ root.addEventListener('unwrapped-toy-list-changed',render);
+ root.querySelector('#toy-show-all')?.addEventListener('click',()=>{window.UnwrappedToyExplorer?.toggleAll?.();render()});
  render();renderMatches();
 }
 // Use the same guide for Mira answers, the standalone explorer, and report exports.
 function answer(question){
  const raw=normalize(question);
- if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|harness|pegging toy|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw))return '';
+ if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|harness|pegging toy|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw)&&!TOYS.some(t=>normalize(t.name).length>9&&raw.includes(normalize(t.name))))return '';
  const patterns=[
   ['wand',/\bwand\b/],['bullet',/\bbullet\b/],['air-pulse',/air.?pulse|clitoral suction|air pressure/],
   ['insertable-vibe',/insertable vibrator|internal vibrator|vaginal vibrator/],
@@ -383,9 +396,11 @@ function answer(question){
   ['remote',/remote.controlled|remote vibrator/]
  ];
  const id=patterns.find(([,regex])=>regex.test(raw))?.[0];
- if(!id)return 'The Unwrapped Sex Toy Guide compares 12 types by male anatomy, female anatomy, and shared/partner use. Each type has multiple uses, fit restrictions, and safety guidance. Explore the Sex Toy Guide section. An idea found through a quiz is not a requirement to try anything.';
- const item=TOYS.find(x=>x.id===id),body=BODY_GUIDE[id];
- return item.name+' — '+item.summary+'\n\nMale anatomy: '+FIT_LABELS[body.male.fit]+'. '+body.male.note+'\n\nFemale anatomy: '+FIT_LABELS[body.female.fit]+'. '+body.female.note+'\n\nPartner use: '+body.together+'\n\nSafety: '+item.safety+'\n\nRead the full Sex Toy Guide for additional uses. No assumptions about gender, orientation or consent.';
+ const expandedId=extension?.types?.find(t=>normalize(t.name).length>9&&raw.includes(normalize(t.name)))?.id;
+ const matchId=id||expandedId;
+ if(!matchId)return 'The Unwrapped Sex Toy Guide compares '+TOYS.length+' types with male, female and partner-use explanations, multiple uses, material guidance and safety notes. A quiz match is not a requirement to try anything. Browse the full guide to learn more.';
+ const item=TOYS.find(x=>x.id===matchId),body=BODY_GUIDE[matchId];
+ return item.name+' — '+item.summary+'\n\nMale anatomy: '+FIT_LABELS[body.male.fit]+'. '+body.male.note+'\n\nFemale anatomy: '+FIT_LABELS[body.female.fit]+'. '+body.female.note+'\n\nPartner use: '+body.together+'\n\nSafety: '+item.safety+(item.care?'\n\nCare: '+item.care:'')+(item.talk?'\n\nConversation: '+item.talk:'')+'\n\nRead the full Sex Toy Guide for additional uses. No assumptions about gender, orientation or consent.';
 }
 window.UnwrappedToyLibrary=Object.freeze({types:TOYS,bodyUses:id=>BODY_GUIDE[id]||null,fitLabels:FIT_LABELS,find:id=>TOYS.find(x=>x.id===id)||null,recommend:recommendations,answer,sources:SOURCES});
 init();
