@@ -58,7 +58,8 @@ function analyze(a,b){
   const key=(y.quiz||'')+'|'+clean(y.question),x=byQ.get(key);
   if(!x||seen.has(key))continue;seen.add(key);
   const difference=hasDistinctAnswers(x,y);
-  const differingIntent=x.quiz==='direct'&&clean(x.intentLabel)!==clean(y.intentLabel)&&Boolean(x.intentLabel||y.intentLabel);
+  const hasStatedIntent=value=>Boolean(value)&&!/(^|\b)(?:not specified|unsure|not sure|unknown|not stated|undecided)(?:\b|$)/i.test(String(value));
+  const differingIntent=x.quiz==='direct'&&hasStatedIntent(x.intentLabel)&&hasStatedIntent(y.intentLabel)&&clean(x.intentLabel)!==clean(y.intentLabel);
   if(!difference&&!differingIntent)continue;
   const r=rubric(x.question);
   const intentLine=differingIntent?' Stated intentions also differ; these are not consent.':'';
