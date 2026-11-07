@@ -1,0 +1,29 @@
+/* Report Center: four clear choices; mobile-first and concise. */
+#uw-report-paths{margin:8px 0 19px;scroll-margin-top:110px}
+.uw-report-paths-intro{margin-bottom:11px}
+.uw-report-paths-intro h3{margin:6px 0;font:800 clamp(21px,2.6vw,29px)/1.2 system-ui,sans-serif;color:#fff4f8}
+.uw-report-paths-intro p{margin:0;font:500 13px/1.55 system-ui,sans-serif;color:#e8daed}
+.uw-report-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.uw-report-path-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;
+ background:linear-gradient(150deg,#372340,#211b34);border:1px solid #ab8cae;border-radius:15px;padding:16px}
+.uw-report-path-card.uw-report-path-featured{border:1.5px solid #f0bcda;background:linear-gradient(140deg,#493049,#261e3c)}
+.uw-report-path-icon{font:900 28px/1.1 system-ui,sans-serif;color:#ffe0ac}
+.uw-report-path-card h4{margin:0;font:800 clamp(17px,2.1vw,21px)/1.25 system-ui,sans-serif;color:#fff4f9}
+.uw-report-path-card p{margin:0 0 8px;font:500 12px/1.55 system-ui,sans-serif;color:#efdeec;flex:1}
+.uw-report-path-card button{width:100%;min-height:43px;font:800 12px/1.25 system-ui,sans-serif}
+.uw-report-path-steps{margin:11px 0;font-size:12px;line-height:1.6;color:#e2d5e6}
+.uw-report-path-steps strong{color:#ffe4bd}
+.uw-report-path-status:not(:empty){margin:11px 0;padding:12px 13px;border:1px solid #b998b9;
+ border-radius:10px;background:#382844;color:#fff0f9;font:600 12px/1.55 system-ui,sans-serif}
+.uw-report-direct:not(:empty){scroll-margin-top:140px;margin:12px 0}
+#new-partner-report,#uc-comparison,#uw-personal-workflow{scroll-margin-top:140px}
+#new-partner-report .new-partner-editor{margin-top:15px}
+@media(max-width:690px){
+ .uw-report-path-grid{grid-template-columns:1fr;gap:8px}
+ .uw-report-path-card{padding:12px 13px;display:grid;grid-template-columns:30px minmax(0,1fr);gap:6px 9px;align-items:start}
+ .uw-report-path-icon{grid-column:1;grid-row:1/3;font-size:23px}
+ .uw-report-path-card h4{grid-column:2;grid-row:1;font-size:17px}
+ .uw-report-path-card p{grid-column:2;grid-row:2;font-size:12px;margin:0}
+ .uw-report-path-card button{grid-column:1/-1;grid-row:3;min-height:40px;margin-top:4px}
+}
+@media print{#uw-report-paths,#uw-report-path-status{display:none!important}}
