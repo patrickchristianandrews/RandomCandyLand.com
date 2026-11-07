@@ -9,6 +9,10 @@ const categories=[
  {tab:'psych-quiz',title:'Psychology Quiz',group:'Quizzes',description:'Explore everyday patterns and combine your results.',terms:'psychology questionnaire personality relationships emotional 32 questions nonsexual'},
  {tab:'notebook',title:'My Reports & Uploads',group:'Reports',description:'Create, save, import or compare reports and restore your answers.',terms:'export pdf report download upload import json backup recover restore partner combined compare share results'},
  {tab:'samples',title:'Sample Reports',group:'Reports',description:'See fictional example reports before taking the quizzes.',terms:'preview examples samples pdf fictional reports'},
+ {tab:'notebook',reportPath:'personal',title:'Personal Report',group:'Reports',description:'Your quiz-derived insights and recommended ideas.',terms:'my personal report download profile results findings psychology preferences'},
+ {tab:'notebook',reportPath:'partner',title:'Current Partner Report',group:'Reports',description:'A selected report for someone you are already with.',terms:'share pdf relationship boyfriend girlfriend spouse existing partner'},
+ {tab:'notebook',reportPath:'prospective',title:'Prospective Partner Report',group:'Reports',description:'Quiz-derived introduction for someone you might date; no extra writing.',terms:'new partner getting to know me introduction prospective dating'},
+ {tab:'notebook',reportPath:'combined',title:'Combined Partner Report',group:'Reports',description:'Compare two approved exports and find useful conversations.',terms:'combined comparison upload two people dynamics differences heads up'},
  {tab:'atlas',title:'Browse Interests & Curiosities',group:'Explore',description:'Look up topics, mark curiosity and see related ideas.',terms:'explore categories shelf library interest kink fetish curiosity body sensation taboo anal pegging'},
  {tab:'ideas',title:'Idea Lab',group:'Explore',description:'Draw ideas, set Freak Level and combine toys and themes.',terms:'idea generator random suggestions freak level sex ideas couples toys combine together him her scenario fantasy'},
  {tab:'toys',title:'Sex Toy Guide',group:'Explore',description:'Search toy types, strap-ons, anal-safe designs, fit and care.',terms:'sex toys sex toy dildo strap-on strap on pegging harness anal prostate vibrators accessories toy guide'},
@@ -70,6 +74,7 @@ function rank(item,q){
 function select(item){
  if(item.kind==='toy')goto('toys',{search:'toy-search',value:item.title,toyId:item.id});
  else if(item.kind==='topic')goto('atlas',{search:'search',value:item.title});
+ else if(item.reportPath&&window.UnwrappedReportPaths?.open)window.UnwrappedReportPaths.open(item.reportPath);
  else goto(item.tab);
 }
 function addSearch(){
@@ -82,7 +87,7 @@ function addSearch(){
  head.append(title,here);
  const label=el('label','uw-explore-search-label');label.htmlFor='uw-find';
  const input=el('input','uw-explore-input');input.type='search';input.id='uw-find';input.autocomplete='off';
- input.placeholder='Search: strap-on, anal, reports, fantasies, toys…';input.setAttribute('aria-label','Search Unwrapped sections, interests and sex toy types');
+ input.placeholder='Search anything: reports, ideas, quizzes, guides, topics…';input.setAttribute('aria-label','Search Unwrapped sections, interests and sex toy types');
  label.append(input);
  const quick=el('div','uw-explore-shortcuts');
  const links=[['quiz','Quizzes'],['notebook','My reports'],['atlas','Interests'],['ideas','Idea Lab'],['toys','Sex toys']];
@@ -101,7 +106,7 @@ function addSearch(){
    categories.filter(x=>x.group===group).forEach(item=>{
      const b=el('button','uw-directory-item');
      b.type='button';b.append(el('strong','',item.title),el('small','',item.description));
-     b.addEventListener('click',()=>{directory.hidden=true;directoryButton.setAttribute('aria-expanded','false');goto(item.tab)});
+     b.addEventListener('click',()=>{directory.hidden=true;directoryButton.setAttribute('aria-expanded','false');select(item)});
      grid.append(b);
    });
    section.append(grid);directory.append(section);
