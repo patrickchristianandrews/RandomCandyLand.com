@@ -180,7 +180,51 @@ function feedback(){
  if(set.has('source'))hints.push('Known public URLs can be added to the evidence notebook after verifying source provenance.');
  el.textContent=fields.length+' known detail'+(fields.length===1?'':'s')+' entered. '+hints.join(' ');
 }
-function redraw(){fieldsPanel();sourcePanel();graph();evidence();feedback()}
+
+function sourceResults(){
+ const root=$('#osSourceChecks');if(!root)return;root.replaceChildren();
+ if(!state.lookups.length){
+  root.append(document.createTextNode('Search results will show each exact source checked, whether it returned a record, and why a source could not be reached.'));
+  return;
+ }
+ for(const check of state.lookups){
+  const article=document.createElement('article');article.className='os-check os-check-'+check.status;
+  const status=document.createElement('strong');status.textContent=(check.status==='found'?'✓ Found':check.status==='no_match'?'○ No public match':'! Unavailable')+' · '+check.source;
+  const descriptor=document.createElement('small');descriptor.textContent=check.message+' · '+(check.elapsedMs/1000).toFixed(1)+' seconds';
+  article.append(status,descriptor);root.append(article);
+ }
+}
+function overview(){
+ const root=$('#osOverview');if(!root)return;root.replaceChildren();
+ const all=state.lookups,found=all.filter(x=>x.status==='found').length,
+ empty=all.filter(x=>x.status==='no_match').length,unavailable=all.filter(x=>x.status==='unavailable').length;
+ const headline=document.createElement('strong');
+ if(!all.length)headline.textContent='No search has run yet';
+ else headline.textContent=state.leads.length+' source-linked record'+(state.leads.length===1?'':'s')+' found';
+ root.append(headline);
+ const paragraph=document.createElement('p');
+ if(!all.length)paragraph.textContent='Start with a public username, company, domain, or other supported clue. You will get real, clickable records and a list of exactly which services answered.';
+ else paragraph.textContent=found+' source checks returned records · '+empty+' returned no match · '+unavailable+' were unavailable. These are public-source observations, not identity verification.';
+ root.append(paragraph);
+ if(all.length&&!state.leads.length){
+  const tip=document.createElement('p');tip.className='os-next-action';tip.textContent=unavailable===all.length?
+   'The public sources could not be reached from this browser. Try again later or open a matching provider in the optional directory; an unavailable result does not mean the record is absent.':
+   'No public matches came back from the responding services. Try a more exact public username, known organization registration, or domain; see each source check below.';
+  root.append(tip);
+ }
+}
+function updatePlan(){
+ const label=$('#osPlannedSources'),button=$('#osSearch'),engine=window.IdentityLabLookup;
+ if(!label||!button)return;
+ const entries=state.fields.filter(x=>x.value.trim());
+ const jobs=engine?.plan(entries)||[],seen=new Set(state.lookups.map(x=>x.key));
+ const remaining=jobs.filter(x=>!seen.has(x.key));
+ const count=jobs.length,covered=new Set(jobs.map(x=>x.sourceName)).size;
+ label.textContent=count?count+' real public API checks are available across '+covered+' source types for these details. '+(remaining.length===0&&state.lookups.length?'All were checked; run again to refresh.':remaining.length>30?remaining.length+' remaining · checks run in batches of 30.':''):'These details cannot be automatically searched. Add a public username, website, organization, LEI, business address or IP, or use the optional source directory.';
+ button.textContent=count&&remaining.length&&remaining.length<count?'⌕ Check '+Math.min(remaining.length,30)+' remaining sources':'⌕ '+(count?'Check '+Math.min(count,30)+' public sources':'Check available sources');
+}
+function redraw(){fieldsPanel();sourcePanel();graph();evidence();sourceResults();overview();feedback();updatePlan()}
+
 function syncFields(){
  state.fields.forEach(f=>{
   const row=$('[data-field-id="'+f.id+'"]');if(!row)return;
@@ -191,58 +235,58 @@ function syncFields(){
  $('#osCountFields').textContent=String(state.fields.filter(f=>f.value).length);
 }
 function addField(type='name',text=''){syncFields();if(state.fields.length>=60){notice('Maximum 60 details in one case. Export the current case before creating another.');return}state.fields.push(makeField(type,text));redraw();}
-async function publicLookup(type,raw){
- if(type==='ip'){
-  const value=raw.trim();
-  if(!/^(?:[a-f\d:.]{2,45}|\d{1,3}(?:\.\d{1,3}){3}|AS\d{1,10})$/i.test(value))throw Error('Enter a public IP address or ASN.');
-  return [];
- }
- if(type==='organization')type='name';
- if(type==='registration'||type==='businessAddress'||type==='city'||type==='keyword'||type==='source')return [];
- if(!['name','username','website','email','phone'].includes(type))return [];
- const api=window.TraceProfileReview?.lookupPublic;
- if(typeof api!=='function')throw Error('Free public API helpers are unavailable on this page.');
- return await api(type,raw);
-}
 async function search(){
  syncFields();
  if(state.busy)return;
- const fields=state.fields.filter(f=>f.value).slice(0,60);
- if(!fields.length){notice('Add one or more known details before starting a public-source check.');return}
- if(!$('#osResearchConsent').checked){notice('Please confirm that you own or are authorized to research the submitted information.');$('#osResearchConsent').focus();return}
- const searchable=fields.filter(f=>['name','organization','username','website','email','phone'].includes(f.type));
- if(!searchable.length){notice('These details are useful context, but none supports a live automatic public check. See the source directory below for relevant free lookup tools.');redraw();return}
- state.busy=true;$('#osSearch').disabled=true;$('#osSearch').textContent='Searching available public APIs…';
- notice('Running '+searchable.length+' explicit public-source check'+(searchable.length===1?'':'s')+'. Free APIs may rate-limit or deny browser access. No private-person database is queried.');
- const batches=[];for(let n=0;n<searchable.length;n+=4)batches.push(searchable.slice(n,n+4));
- let checks=0,newCount=0,failed=0;
+ const fields=state.fields.filter(f=>f.value);
+ if(!fields.length){notice('Enter at least one public username, company, domain or other clue.');return}
+ if(!$('#osResearchConsent').checked){notice('Please confirm that you are authorized to check these public details before sending them to external sources.');$('#osResearchConsent').focus();return}
+ const engine=window.IdentityLabLookup;
+ if(!engine){notice('The public lookup engine could not load. No requests were made. Reload this page and try again.');return}
+ const candidates=engine.plan(fields);
+ if(!candidates.length){notice('These are contextual clues, but none can be automatically checked. Add a public username, organization, website, email domain, business address, LEI or network identifier.');updatePlan();return}
+ const seen=new Set(state.lookups.map(x=>x.key));
+ let available=candidates.filter(x=>!seen.has(x.key));
+ if(!available.length){
+  state.lookups=[];
+  available=candidates.slice();
+ }
+ const toCheck=available.slice(0,30),button=$('#osSearch');
+ state.busy=true;button.disabled=true;button.textContent='Checking real sources…';
+ notice('Checking '+toCheck.length+' public services. Each result will show its source and whether it answered; no private-person or paywalled lookup is being attempted.');
+ let completed=0,found=0,miss=0,errors=0;
  try{
-  for(const batch of batches){
-   const results=await Promise.allSettled(batch.map(f=>publicLookup(f.type,f.value)));
-   results.forEach((result,index)=>{
-    const field=batch[index];checks++;
-    if(result.status!=='fulfilled'){
-     failed++;
-     state.leads.push({id:id(),clueId:field.id,status:'unverified',created:date(),record:{kind:'Source unavailable',headline:'Free source check unavailable',detail:String(result.reason?.message||'Network or browser error').slice(0,300),url:'',notes:'Do not interpret an unavailable provider as an absent profile.',source:labels[field.type]}});
-     return;
+  for(let at=0;at<toCheck.length;at+=4){
+   const batch=toCheck.slice(at,at+4);
+   const outcomes=await Promise.all(batch.map(job=>engine.runTask(job)));
+   for(const check of outcomes){
+    state.lookups=state.lookups.filter(old=>old.key!==check.key);
+    state.lookups.push({key:check.key,fieldId:check.fieldId,source:check.source,sourceId:check.sourceId,status:check.status,
+      message:check.message,elapsedMs:check.elapsedMs,checkedAt:date()});
+    if(check.status==='found')found+=check.records.length;
+    else if(check.status==='no_match')miss++;
+    else errors++;
+    for(const candidate of check.records||[]){
+     const record=normalizeResult(candidate);
+     if(!record.url)continue;
+     if(!state.leads.some(l=>l.clueId===check.fieldId&&l.record.url===record.url)){
+      state.leads.push({id:id(),clueId:check.fieldId,status:'unverified',created:date(),record});
+     }
     }
-    for(const raw of result.value){
-     if(['No match','No public listing found','Source unavailable'].includes(String(raw?.kind||'')))continue;
-     const record=normalizeResult(raw);
-     if(!record.headline)continue;
-     if(state.leads.some(r=>r.clueId===field.id&&r.record.url&&r.record.url===record.url&&r.record.headline===record.headline))continue;
-     state.leads.push({id:id(),clueId:field.id,status:'unverified',created:date(),record});
-     newCount++;
-    }
-   });
-   notice('Checked '+checks+'/'+searchable.length+' submitted clues. '+newCount+' source result(s) collected; '+failed+' unavailable request(s).');
-   await new Promise(resolve=>setTimeout(resolve,80));
+    completed++;
+   }
+   evidence();overview();sourceResults();
+   notice('Checked '+completed+'/'+toCheck.length+' services: '+found+' linked public records, '+miss+' with no match, '+errors+' unavailable.');
+   await new Promise(resolve=>setTimeout(resolve,20));
   }
-  state.queryCount+=checks;
-  notice('Complete: '+checks+' public-source checks, '+newCount+' new results, '+failed+' unavailable. Other entered information remains contextual unless manually verified. Inspect original records before marking any connection supported.');
-  redraw();
- }finally{state.busy=false;$('#osSearch').disabled=false;$('#osSearch').textContent='⌕ Search free public sources'}
+  state.queryCount+=completed;
+  const left=candidates.filter(x=>!state.lookups.some(y=>y.key===x.key)).length;
+  notice('Complete: '+state.leads.length+' source-linked records across '+state.lookups.length+' checks. '+(left?left+' other checks remain; use Check remaining sources.':'All applicable sources checked.')+' Review the originals; an exact username match does not establish a person’s identity.');
+  graph();feedback();
+ }catch(error){notice('Search was interrupted: '+String(error?.message||error).slice(0,160)+'. Completed checks remain visible.')}
+ finally{state.busy=false;button.disabled=false;updatePlan()}
 }
+
 function caseData(){
  syncFields();
  return {type:'identity-lab-investigation-case',version:1,created:date(),notice:'Public leads are not proof of a shared owner or identity.',fields:state.fields.map(f=>({id:f.id,type:f.type,value:f.value})),leads:state.leads.map(x=>({id:x.id,clueId:x.clueId,created:x.created,status:x.status,record:x.record})),checks:state.queryCount};
