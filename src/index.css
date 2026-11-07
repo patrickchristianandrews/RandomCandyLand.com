@@ -2371,3 +2371,54 @@ body {
     max-width:104px;white-space:normal;font-size:10px;
   }
 }
+
+/* The top headline strip stays compact. Full ARN stories live in the lower news section. */
+.candyland-next #nonsense.nonsense-report:has(.nonsense-report-detail:not([hidden])){border-radius:99px;overflow:hidden}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand{
+  min-width:0;padding-inline:12px;
+}
+.candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy strong{
+  font-size:clamp(13px,1.35vw,16px);letter-spacing:.065em
+}
+.candyland-report-destination{
+  width:min(calc(100% - 20px),1100px);
+  margin:28px auto 25px;
+  scroll-margin-top:80px;
+  padding:clamp(15px,2.4vw,27px);
+  border:1px solid #f3c9afbd;
+  border-radius:19px;
+  background:linear-gradient(135deg,#342047,#1d1738);
+  color:#fff4f4;
+  box-shadow:0 12px 38px #10082070;
+}
+.candyland-report-destination:focus{outline:none}
+.candyland-report-destination:focus-visible{outline:3px solid #ffdda8;outline-offset:4px}
+.candyland-report-destination-head{margin:0 0 14px}
+.candyland-report-destination-kicker{
+  display:block;font:900 10px/1.5 system-ui,sans-serif;letter-spacing:.13em;
+  color:#ffe0a7;margin-bottom:7px
+}
+.candyland-report-destination-head h2{
+  margin:0 0 6px;
+  font:850 clamp(23px,4vw,38px)/1.1 Georgia,serif;
+  letter-spacing:-.02em;color:#ffebd7;
+}
+.candyland-report-destination-head p{
+  margin:4px 0 12px;max-width:760px;color:#edd5ef;font:500 13px/1.55 system-ui,sans-serif
+}
+.candyland-report-destination .nonsense-report-detail[hidden]{display:none!important}
+.candyland-report-destination .nonsense-report-detail{display:block}
+.candyland-report-destination .nonsense-news-article{margin:0 0 12px}
+.candyland-report-destination .nonsense-actions{display:flex;gap:9px;flex-wrap:wrap}
+.candyland-report-destination .nonsense-actions button{min-height:41px;padding:8px 13px;border-radius:10px}
+.candyland-report-destination .nonsense-report-close{
+  border:1px solid #ffe9cf;background:#3e275d;color:#fff;
+}
+.candyland-report-destination .nonsense-facts{margin-top:13px}
+@media(max-width:520px){
+  .candyland-next #nonsense.nonsense-report .nonsense-report-ticker{grid-template-columns:56px minmax(0,1fr) 26px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-brand{padding:6px 8px}
+  .candyland-next #nonsense.nonsense-report .nonsense-report-brand-copy strong{font-size:13px}
+  .candyland-report-destination{margin:17px auto;padding:12px;scroll-margin-top:65px}
+  .candyland-report-destination .nonsense-actions button{flex:1}
+}
