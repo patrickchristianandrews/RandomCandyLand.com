@@ -718,18 +718,18 @@ try{
     "document.querySelectorAll('.candyland-play-shelf').length===7 && !document.querySelector('.candyland-hero-categories') && !document.querySelector('.candyland-category-guide') && !!document.querySelector('.candyland-play-shelf-ongoing a[href=\"/moodropolis/\"]')");
   await checkHomepage('All thirteen games and learning tools return in categorized sections',
     "document.querySelectorAll('.candyland-play-shelves .candyland-hero-tool-link').length===13 && document.querySelectorAll('.candyland-play-shelf').length===7");
-  await checkHomepage('The Absurdity Report is a slim scrolling fictional news ticker with full-story action',
-    "(()=>{const bar=document.querySelector('#nonsense.nonsense-report'),ticker=bar?.querySelector('.nonsense-report-ticker'),title=bar?.querySelector('#nonsense-heading'),story=bar?.querySelector('#nonsense-story-detail'),open=bar?.querySelector('.nonsense-report-open'),scroll=bar?.querySelector('.nonsense-report-marquee');return !!bar&&!!ticker&&!!title?.textContent.includes('ABSURDITY')&&!!scroll&&!!open?.textContent.includes('Click to read full story')&&story?.hidden===true&&ticker.getBoundingClientRect().height<=70})()");
+  await checkHomepage('ARN news ticker links to a lower full Absurdity Report article',
+    "(()=>{const bar=document.querySelector('#nonsense.nonsense-report'),ticker=bar?.querySelector('.nonsense-report-ticker'),brand=bar?.querySelector('#nonsense-heading'),open=bar?.querySelector('.nonsense-report-open'),destination=document.querySelector('#absurder-report-destination'),detail=destination?.querySelector('#nonsense-story-detail');return !!bar&&!!ticker&&brand?.textContent.includes('ARN NEWS')&&!brand?.textContent.includes('ABSURDITY')&&!!open?.textContent.includes('Read full story')&&!!destination?.textContent.includes('THE ABSURDITY REPORT')&&detail?.hidden===true&&ticker.getBoundingClientRect().height<=70})()");
   await home.evaluate("document.querySelector('#nonsense .nonsense-report-open').click()");
-  const storyOpen=await home.evaluate("(()=>{const panel=document.querySelector('#nonsense-story-detail');return panel?.hidden===false&&!!panel.querySelector('h3')&&!!panel.querySelector('.nonsense-generate')&&!!panel.textContent.includes('THE ABSURDITY REPORT')})()");
-  if(!storyOpen)throw Error('Click to read full story must expand the Absurdity Report article');
-  const beforeStory=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
-  await home.evaluate("document.querySelector('#nonsense .nonsense-generate').click()");
-  const afterStory=await home.evaluate("document.querySelector('#nonsense .nonsense-news-article').textContent");
-  if(beforeStory===afterStory)throw Error('Next Story must change the article');
-  await home.evaluate("document.querySelector('#nonsense .nonsense-report-close').click()");
-  const storyClosed=await home.evaluate("document.querySelector('#nonsense-story-detail')?.hidden===true");
-  if(!storyClosed)throw Error('Close Story must collapse the article');
+  const storyOpen=await home.evaluate("(()=>{const destination=document.querySelector('#absurder-report-destination'),panel=destination?.querySelector('#nonsense-story-detail');return panel?.hidden===false&&!!panel.querySelector('h3')&&!!panel.querySelector('.nonsense-generate')&&destination.textContent.includes('THE ABSURDITY REPORT')})()");
+  if(!storyOpen)throw Error('Ticker click must open the full article inside the lower Absurdity Report section');
+  const beforeStory=await home.evaluate("document.querySelector('#absurder-report-destination .nonsense-news-article').textContent");
+  await home.evaluate("document.querySelector('#absurder-report-destination .nonsense-generate').click()");
+  const afterStory=await home.evaluate("document.querySelector('#absurder-report-destination .nonsense-news-article').textContent");
+  if(beforeStory===afterStory)throw Error('Next Story must change the lower report article');
+  await home.evaluate("document.querySelector('#absurder-report-destination .nonsense-report-close').click()");
+  const storyClosed=await home.evaluate("document.querySelector('#absurder-report-destination #nonsense-story-detail')?.hidden===true");
+  if(!storyClosed)throw Error('Close Story must collapse the lower article');
   await checkHomepage('Unwrapped stays in first shelf with six topic bubbles and a clear CTA',
     "(()=>{const first=document.querySelector('.candyland-play-shelves')?.firstElementChild,card=first?.querySelector('.candyland-unwrapped-feature-card'),desc=card?.querySelector('.candyland-unwrapped-feature-description');return !!first?.classList.contains('candyland-play-shelf-discovery')&&card?.getAttribute('href')==='/after-dark/'&&!!desc?.textContent.includes('psychology')&&!!card.querySelector('.candyland-unwrapped-feature-cta')&&card.querySelectorAll('.candyland-unwrapped-feature-outputs>span').length===6&&!document.querySelector('header .candyland-unwrapped-promo')})()");
   console.log('✓ The Absurdity Report live ticker opens and closes full articles; all Unwrapped and game shelves remain intact.');
@@ -765,13 +765,12 @@ try{
   await studio.evaluate("document.querySelector('#chatTransport').value='instant';document.querySelector('#chatTransport').dispatchEvent(new Event('change',{bubbles:true}))");
   const instantModeControl=await studio.evaluate("!document.querySelector('#hostedChoice')?.hidden && !!document.querySelector('#instantStatus')?.textContent && !!document.querySelector('#instantModel').value");
   if(!instantModeControl)throw Error('Instant AI no-download selection or status is unavailable');
-  await studio.evaluate("document.querySelector('[data-view=home]').click();document.querySelector('#stackTaskHome').value='coding';document.querySelector('#stackTaskHome').dispatchEvent(new Event('change',{bubbles:true}))");
-  const featuredStack=await studio.evaluate("window.RandomAIStacks?.current?.().id==='coding' && document.querySelector('#stackSpotlightName')?.textContent==='Code Architect' && document.querySelector('#stackSpotlightSteps')?.children.length===4");
-  if(!featuredStack)throw Error('Random AI featured coding stack did not recommend and configure an actual workflow');
-  await studio.evaluate("document.querySelector('#stackTaskHome').value='writing';document.querySelector('#stackTaskHome').dispatchEvent(new Event('change',{bubbles:true}))");
-  const writingStack=await studio.evaluate("window.RandomAIStacks?.current?.().id==='writing' && document.querySelector('#stackSpotlightName')?.textContent==='Precision Writer' && document.querySelector('#stackTaskChat').value==='writing'");
-  if(!writingStack)throw Error('Random AI stack selection did not update the active chat workflow');
-  console.log('✓ Random AI no-download/hosted selection, persistent loading progress and task stacks work.');
+  await studio.evaluate("document.querySelector('[data-view=home]').click()");
+  const modelFirst=await studio.evaluate("(()=>{const home=document.querySelector('#view-home'),list=home?.querySelector('#topAiList'),uncensored=home?.querySelector('#uncensoredChoices'),picker=document.querySelector('#stackTaskChat');return !!window.RandomAITopModels&&!!list&&!!uncensored&&!!document.querySelector('#topAiRefresh')&&!!document.querySelector('#topAiDeviceSummary')&&!document.querySelector('#stackTaskHome')&&!document.querySelector('.stack-feature')&&!document.querySelector('.stack-chat-controls')&&!!picker?.closest('[hidden]')&&!!document.querySelector('#chatQuickSavedModels')})()");
+  if(!modelFirst)throw Error('Random AI must replace task selectors with phone-aware top models and a distinct open-model section');
+  const modelEvaluate=await studio.evaluate("(()=>{const api=window.RandomAITopModels;const x=api.evaluate({id:'Hermes-3-Llama-3.1-8B-q4f16_1-MLC',vram:3950});return x&&typeof x.label==='string'&&typeof x.explanation==='string'&&Array.isArray(api.listed())})()");
+  if(!modelEvaluate)throw Error('Random AI device assessment should be explicit and conservative');
+  console.log('✓ Random AI top models, uncensored-compatible section, hidden task controls, and local/hosted modes work.');
 
   // TRACE Evidence Files stays in the course; the profile tool is on an independent route.
   const traceEvidence=await navigate(site+'/osint-academy/');
