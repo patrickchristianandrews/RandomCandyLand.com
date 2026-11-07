@@ -37,7 +37,7 @@ function goto(tab,opts={}){
    requestAnimationFrame(()=>field.scrollIntoView({behavior:'auto',block:'center'}));
  }
 }
-function normalized(t){return String(t||'').toLocaleLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[-_/]+/g,' ').replace(/\s+/g,' ').trim()}
+function normalized(t){return String(t||'').toLocaleLowerCase().replace(/\bstrapon\b/g,'strap on').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[-_/]+/g,' ').replace(/\s+/g,' ').trim()}
 function index(){
  const all=categories.map(x=>({...x,kind:'section',key:x.tab,hay:normalized([x.title,x.description,x.terms,x.group].join(' '))}));
  const toys=window.UnwrappedToyLibrary?.types||[];
@@ -55,7 +55,9 @@ function index(){
 }
 function rank(item,q){
  if(!q)return item.kind==='section'?1:0;
- const toks=q.split(/\s+/).filter(Boolean);
+ const filler=new Set(['what','where','how','do','i','find','the','a','an','to','about','under','with','for','me','and','is','can','want','know','more','on','my','of','in','all','please','help','show','play','are','there','some']);
+ const toks=q.split(/\s+/).filter(x=>x&&!filler.has(x));
+ if(!toks.length)return 0;
  if(!toks.every(tok=>item.hay.includes(tok)))return 0;
  const title=normalized(item.title);
  let n=5;
