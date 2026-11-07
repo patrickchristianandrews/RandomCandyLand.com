@@ -46,9 +46,10 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
   {icon:'/tool-icons/candy-studio.svg',name:'Random AI',url:'/studio/'},
   {icon:'/tool-icons/ai-academy.svg',name:'AI Academy',url:'/ai-academy/'},
+  {icon:'/tool-icons/wonder-index.svg',name:'The Wonder Index',url:'/curiosity/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Poker','Simon Says','Candy Match','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI','AI Academy','Identity Lab'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Poker','Simon Says','Candy Match','TRACE OSINT','Moodropolis','The Corridors','The Docket','Random AI','AI Academy','Identity Lab','The Wonder Index'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
@@ -63,7 +64,8 @@ const TOOL_MENU_ICONS = [
   '/tool-icons/the-docket.svg',
   '/tool-icons/candy-studio.svg',
   '/tool-icons/ai-academy.svg',
-  '/tool-icons/osint-academy.svg'
+  '/tool-icons/osint-academy.svg',
+  '/tool-icons/wonder-index.svg'
 ] as const;
 
 const PORTALS: Portal[] = [
@@ -79,6 +81,7 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[9],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[10],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[12],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
+  {icon:TOOL_MENU_ICONS[14],title:'The Wonder Index',blurb:'Short, surprising ideas that make you question everyday assumptions. Explore psychology, paradoxes, social science and a live-data spurious-correlation machine that generates real charts from official statistics.',kind:'learning',label:'FRESH IDEAS · SPURIOUS CORRELATIONS',palette:'blue',href:'/curiosity/',duration:'EXPLORE · EXPERIMENT'},
   {icon:TOOL_MENU_ICONS[13],title:'Identity Lab',blurb:'Review your own public digital footprint from one clue. Explore public accounts, domain records and trusted privacy tools, then export an evidence-linked report. Independent of the TRACE course.',kind:'research',label:'PERSONAL RESEARCH · NO COURSE REQUIRED',palette:'blue',href:'/identity-lab/',duration:'PRIVATE SELF-AUDIT'},
 ];
 
@@ -172,6 +175,21 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
 
       {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
       <RandomNonsenseGenerator />
+
+      <section className="candyland-curiosity-spotlight" aria-labelledby="curiosity-spotlight-title">
+        <div className="candyland-curiosity-copy">
+          <span className="candyland-curiosity-kicker">✦ FRESH IDEAS, ACTUAL DATA &amp; STRANGE CONNECTIONS</span>
+          <h2 id="curiosity-spotlight-title">The <em>Wonder Index.</em></h2>
+          <p>Curious little ideas that change how you see everything. Explore thinking traps, hidden incentives, paradoxes and real research—then use a spurious-correlation generator to watch unrelated statistics appear suspiciously connected.</p>
+          <div className="candyland-curiosity-actions">
+            <a href="/curiosity/">Explore today's ideas ↗</a>
+            <a href="/curiosity/#correlations">Generate a weird correlation ↗</a>
+          </div>
+        </div>
+        <div className="candyland-curiosity-art" aria-hidden="true">
+          <span className="curiosity-mark">?</span><span className="curiosity-label">THE STORY BEHIND<br/>THE NUMBERS</span><span className="curiosity-graph">↗ ⇢ ↗</span>
+        </div>
+      </section>
 
       <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
             {COLLECTIONS.map(group => {
