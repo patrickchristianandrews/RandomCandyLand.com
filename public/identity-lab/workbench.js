@@ -289,7 +289,13 @@ async function search(){
 
 function caseData(){
  syncFields();
- return {type:'identity-lab-investigation-case',version:1,created:date(),notice:'Public leads are not proof of a shared owner or identity.',fields:state.fields.map(f=>({id:f.id,type:f.type,value:f.value})),leads:state.leads.map(x=>({id:x.id,clueId:x.clueId,created:x.created,status:x.status,record:x.record})),checks:state.queryCount};
+ return {type:'identity-lab-investigation-case',version:1,created:date(),
+  notice:'A public record is not proof of identity or ownership. Failed source requests are unknown, not negative evidence.',
+  fields:state.fields.map(f=>({id:f.id,type:f.type,value:f.value})),
+  leads:state.leads.map(x=>({id:x.id,clueId:x.clueId,created:x.created,status:x.status,record:x.record})),
+  lookups:state.lookups.map(x=>({key:x.key,fieldId:x.fieldId,source:x.source,sourceId:x.sourceId,status:x.status,message:x.message,elapsedMs:x.elapsedMs,checkedAt:x.checkedAt})),
+  checks:state.queryCount
+ };
 }
 function download(name,blob){
  const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
@@ -307,6 +313,10 @@ async function importCase(file){
   const validIds=new Set(fields.map(f=>f.id));
   const leads=raw.leads.slice(0,150).filter(x=>x&&validIds.has(x.clueId)&&x.record&&typeof x.record==='object').map(x=>({id:id(),clueId:x.clueId,created:/^\d{4}-/.test(String(x.created))?x.created:date(),status:statusClasses.includes(x.status)?x.status:'unverified',record:normalizeResult(x.record)}));
   state.fields=fields;state.leads=leads;state.queryCount=Math.max(0,Number(raw.checks)||0);
+  state.lookups=Array.isArray(raw.lookups)?raw.lookups.slice(0,180).filter(x=>x&&validIds.has(x.fieldId)&&['found','no_match','unavailable'].includes(x.status)).map(x=>({
+   key:String(x.key||'').slice(0,160),fieldId:x.fieldId,source:String(x.source||'Public source').slice(0,100),sourceId:String(x.sourceId||'').slice(0,80),
+   status:x.status,message:String(x.message||'').slice(0,240),elapsedMs:Math.max(0,Number(x.elapsedMs)||0),checkedAt:String(x.checkedAt||date()).slice(0,40)
+  })):[];
   $('#osResearchConsent').checked=false;notice('Case imported in this browser. Public searches still require a new authorization and button press.');redraw();
  }catch{notice('Import failed. Select a JSON case created by this Identity Lab workbench.')}
 }
@@ -316,12 +326,22 @@ function printCase(){
  const header=document.createElement('h2');header.textContent='Identity Lab · evidence review';content.append(header);
  const note=document.createElement('p');note.textContent='Generated '+new Date().toLocaleString()+' · Entries are user provided or public source leads. A shared name, handle, email domain or similar record is not proof of identity.';content.append(note);
  for(const f of state.fields){if(!f.value)continue;const p=document.createElement('p');p.textContent='Known '+labels[f.type]+': '+f.value;content.append(p)}
- for(const lead of state.leads){const div=document.createElement('article');const h=document.createElement('h3');h.textContent=lead.record.headline+' · '+lead.status;const p=document.createElement('p');p.textContent=lead.record.kind+' / '+lead.record.source+' — '+lead.record.detail;div.append(h,p);if(lead.record.url){const a=document.createElement('a');a.href=lead.record.url;a.textContent=lead.record.url;div.append(a)}content.append(div)}
+ const totals=document.createElement('p');totals.textContent=state.lookups.filter(x=>x.status==='found').length+' sources returned records; '+state.lookups.filter(x=>x.status==='no_match').length+' no matches; '+state.lookups.filter(x=>x.status==='unavailable').length+' unavailable.';content.append(totals);
+ for(const lead of state.leads){
+  const div=document.createElement('article'),h=document.createElement('h3');h.textContent=lead.record.headline+' · analyst status: '+lead.status;
+  const p=document.createElement('p');p.textContent=lead.record.kind+' / '+lead.record.source+' — '+lead.record.detail+' '+lead.record.notes;div.append(h,p);
+  if(lead.record.url){const a=document.createElement('a');a.href=lead.record.url;a.textContent='Original: '+lead.record.url;div.append(a)}
+  content.append(div);
+ }
+ const checksHeading=document.createElement('h2');checksHeading.textContent='Source-by-source verification log';content.append(checksHeading);
+ for(const check of state.lookups){const p=document.createElement('p');p.textContent=check.source+': '+check.status+' — '+check.message;content.append(p)}
  $('#osPrintOutput')?.remove();content.id='osPrintOutput';document.body.append(content);window.print();
 }
 host.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
  if(b.id==='osAddKnown'){addField($('#osAddType').value,'');return}
+ if(b.id==='osTryExample'){state.fields=[makeField('username','octocat')];state.leads=[];state.lookups=[];state.queryCount=0;
+  $('#osResearchConsent').checked=false;notice('Example loaded: “octocat” is a public GitHub test account. Check authorization, then click Check public sources to see actual records and source availability.');redraw();return}
  if(b.dataset.removeField){syncFields();state.fields=state.fields.filter(f=>f.id!==b.dataset.removeField);redraw();return}
  if(b.dataset.sourceGroup){
   $$('#osSourceFilters button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
@@ -333,17 +353,17 @@ host.addEventListener('click',e=>{
  if(b.id==='osImport'){$('#osFile').click();return}
  if(b.id==='osReset'){
   if(!window.confirm('Clear all clues and evidence from this case? Export first if needed.'))return;
-  state.fields=[makeField('name')];state.leads=[];state.queryCount=0;$('#osResearchConsent').checked=false;notice('New blank case ready.');redraw();return;
+  state.fields=[makeField('username')];state.leads=[];state.lookups=[];state.queryCount=0;$('#osResearchConsent').checked=false;notice('New blank case ready.');redraw();return;
  }
  if(b.dataset.deleteLead){state.leads=state.leads.filter(x=>x.id!==b.dataset.deleteLead);redraw()}
 });
-host.addEventListener('input',e=>{if(e.target.matches('[data-edit-value]')){syncFields();graph();feedback();sourcePanel()}});
+host.addEventListener('input',e=>{if(e.target.matches('[data-edit-value]')){syncFields();graph();feedback();sourcePanel();updatePlan()}});
 host.addEventListener('change',e=>{
- if(e.target.matches('[data-edit-type]')){syncFields();feedback();sourcePanel()}
+ if(e.target.matches('[data-edit-type]')){syncFields();feedback();sourcePanel();updatePlan()}
  if(e.target.matches('[data-review]')){const lead=state.leads.find(l=>l.id===e.target.dataset.review);if(lead&&statusClasses.includes(e.target.value)){lead.status=e.target.value;graph();evidence();notice('Review status updated. Only the analyst can corroborate claims against the original dated source.')}}
  if(e.target.id==='osFile'){void importCase(e.target.files?.[0]);e.target.value=''}
 });
-state.fields=[makeField('name')];
+state.fields=[makeField('username')];
 view();
 window.IdentityLabWorkbench=Object.freeze({
  getSummary:()=>({details:state.fields.filter(f=>f.value).length,findings:state.leads.length,verified:state.leads.filter(l=>l.status==='confirmed').length,sources:suggested.length}),
