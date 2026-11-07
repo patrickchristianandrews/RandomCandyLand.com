@@ -169,6 +169,18 @@ document.addEventListener('click',e=>{
  const category=e.target.closest?.('[data-capability-view]');
  if(category){
   capabilityView=category.dataset.capabilityView;
+  const caption=$('#topAiCapabilityNote');
+  if(caption){
+   const notes={
+    all:'Compare general text models. Labels describe intended strengths; only a local test can measure short-answer correctness and response time.',
+    code:'Coding-specialized WebLLM models are shown here. If the browser catalog has none, the portable Qwen2.5 Coder phone download is below.',
+    reason:'Reasoning-specialized WebLLM models are shown here. They can still make mathematical and factual mistakes.',
+    writing:'Language models are useful for writing, editing, summarizing and emails. Larger models may follow complex instructions better but use more memory.',
+    photos:'These chat models can write photography prompts only; they cannot generate or interpret photo pixels in this text-chat interface. See Qwen3-VL and real photo-generation apps below.',
+    videos:'These chat models can make storyboards and scripts but cannot render video files. No verified local video model is integrated yet.'
+   };
+   caption.textContent=notes[capabilityView]||notes.all;
+  }
   document.querySelectorAll('[data-capability-view]').forEach(button=>button.setAttribute('aria-pressed',String(button===category)));
   render();return;
  }
