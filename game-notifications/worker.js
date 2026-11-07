@@ -6,7 +6,6 @@
  */
 const ORIGINS=new Set(['https://randomcandyland.com','https://www.randomcandyland.com','http://localhost:5173','http://127.0.0.1:5173']);
 const GAME_INFO={
- moodropolis:{title:'🏙️ Moodropolis',body:'Your city has another decision waiting.',url:'/moodropolis/'},
  corridors:{title:'🚪 The Corridors',body:'The next chapter is ready whenever you are.',url:'/the-corridors/'},
  docket:{title:'⚖️ The Docket',body:'Step back into the courtroom and continue your case.',url:'/the-docket/'},
  trace:{title:'🔎 TRACE Academy',body:'Your next investigation lesson is waiting.',url:'/osint-academy/'},
