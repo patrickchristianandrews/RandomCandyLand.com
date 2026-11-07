@@ -1,0 +1,51 @@
+/* Compact, keyboard-friendly Idea Lab upgrades. */
+.freak-meter{margin:12px 0;padding:17px 19px 13px;border:1px solid #9a70a3;background:linear-gradient(135deg,#422148,#251a34);border-radius:18px}
+.freak-meter-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.freak-meter-label{font-weight:800;color:#ffe5f5;font-size:17px}
+.freak-meter-output{font-weight:750;color:#ffd4e7;font-size:15px}
+#freak-level{width:100%;min-height:35px;accent-color:#ed9dd8;cursor:pointer}
+.freak-meter-ticks{display:flex;justify-content:space-between;color:#e5cee5;font-size:11px;gap:5px}
+.freak-description,.freak-picker-help{font:500 13px/1.55 system-ui,sans-serif;color:#e7d4e8;margin:8px 0 0}
+.freak-boundaries{margin:12px 0;border:1px solid #82648b;border-radius:12px;background:#281831;padding:10px 14px}
+.freak-boundaries summary{font-weight:700;cursor:pointer;color:#fce4f1}
+.freak-boundaries-options{display:flex;gap:12px 20px;flex-wrap:wrap;padding-top:12px}
+.freak-boundaries-options label{display:inline-flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#fff}
+.freak-boundaries-options input{width:18px;height:18px;accent-color:#d39fd2}
+.freak-picker-actions{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}
+.freak-picker-actions button{flex:1 1 165px;min-height:47px}
+.freak-idea-premise{font-size:16px;line-height:1.65;color:#f2dbec}
+.freak-idea-steps{padding-left:25px;line-height:1.7;display:grid;gap:10px}
+.freak-idea-steps li{padding-left:4px}
+.freak-idea-section,.freak-idea-toys{margin:14px 0;padding:14px;border:1px solid #866b91;border-radius:14px;background:#2b1b35}
+.freak-idea-section h4,.freak-idea-toys h4{margin:0 0 7px;color:#ffe1f7}
+.freak-idea-section p{margin:0;line-height:1.65}
+.freak-toy-pair{border-top:1px solid #72577e;margin-top:12px;padding-top:13px}
+.freak-toy-label{color:#efbcea;font-weight:700;font-size:11px;text-transform:uppercase}
+.freak-toy-pair h5{color:#fff;font-size:18px;margin:5px 0}
+.freak-toy-pair p{line-height:1.6;margin:7px 0}
+.freak-toy-safety{color:#f1d6e8}
+.freak-idea-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+.freak-idea-actions button{min-height:45px}
+.toy-quick-discovery{margin:16px 0 18px;padding:clamp(14px,2.5vw,20px);border:1px solid #8d6c99;border-radius:18px;background:linear-gradient(120deg,#321c3d,#25162e)}
+.toy-quick-search-top{display:flex;align-items:end;flex-wrap:wrap;gap:10px}
+.toy-quick-search-top label{flex:1 1 230px;min-width:0;display:grid;gap:7px;color:#f3dcf3;font-size:13px;font-weight:750}
+.toy-quick-search-top input{min-width:0;width:100%;height:47px;padding:10px 13px;border:1px solid #b288b9;border-radius:12px;background:#19101f;color:#fff;font:500 15px system-ui,sans-serif}
+.toy-quick-search-top input:focus-visible,.toy-quick-result:focus-visible,.toy-chip:focus-visible,.toy-guide-actions button:focus-visible{outline:3px solid #ffdeee;outline-offset:2px}
+.toy-surprise{min-height:46px}
+.toy-quick-chips{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 8px}
+.toy-chip{border:1px solid #886e9b;border-radius:99px;background:#2c1b37;color:#fae9fa;padding:8px 11px;cursor:pointer;font-size:12px}
+.toy-chip[aria-pressed=true]{background:#b580b9;color:#190f20;border-color:#ffd8f3}
+.toy-quick-help{font-size:12px;line-height:1.5;color:#ead2e8}
+.toy-quick-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:8px}
+.toy-quick-result{display:grid;text-align:left;gap:5px;border:1px solid #81628e;border-radius:11px;padding:11px 12px;background:#211529;color:#fff;cursor:pointer}
+.toy-quick-result strong{font-size:14px}
+.toy-quick-result small{color:#e6bfe5;font-size:11px}
+.toy-quick-result span{font-size:12px;line-height:1.4;color:#e7d8e8}
+.toy-quick-result:hover{border-color:#f3b6e0}
+.toy-idea-advanced{margin:8px 0 14px}
+.toy-idea-advanced summary{color:#ffe2f2;font-weight:750;cursor:pointer;padding:10px}
+.toy-guide-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0}
+.toy-guide-action-status{font-size:12px;color:#e6c6e5}
+.toy-quick-random-actions{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:620px){.freak-picker-actions{display:grid;grid-template-columns:1fr 1fr}.freak-picker-actions .btn{width:100%}.freak-meter-ticks{font-size:10px}.toy-quick-search-top{display:grid}.toy-guide-actions button{flex:1 1 150px}}
+@media(prefers-reduced-motion:reduce){.toy-quick-result,.toy-chip,.freak-meter *{scroll-behavior:auto}}
