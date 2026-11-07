@@ -9,6 +9,10 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
   ['dist/identity-lab/index.html', ['Identity Lab','id="identity-investigation-workbench"','lookup-engine.js?v=','workbench.js?v=','id="identity-title"','GTM-TQRDB5KL']],
+  ['dist/curiosity/index.html', ['id="home-feature-heading"','id="home-feature-next"','id="home-research-feed"','id="home-correlation-feed"','href="/curiosity/ideas/"','href="/curiosity/research/"','href="/curiosity/correlations/"','GTM-TQRDB5KL']],
+  ['dist/curiosity/ideas/index.html', ['id="ideas-grid"','id="idea-search"','id="idea-categories"','curiosity.js?v=','GTM-TQRDB5KL']],
+  ['dist/curiosity/research/index.html', ['id="research-grid"','id="freshness"','curiosity.js?v=','GTM-TQRDB5KL']],
+  ['dist/curiosity/correlations/index.html', ['id="corr-first"','id="corr-second"','id="generate-corr"','id="corr-result"','correlations.js?v=','GTM-TQRDB5KL']],
   ['dist/candy-casino/index.html', ['Five-Card Draw Poker','id="casino-howto"','data-duel="poker"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
@@ -856,6 +860,35 @@ if(fs.existsSync('dist/after-dark/partner-compare.css')&&
  console.error('Partner visual comparison cannot be printed as a complete report.');failures++;
 }
 
+
+// The Wonder Index is no longer a 40-article scrolling landing page. Three
+// independent pages must load, link back, and use source-attributed statistics.
+for(const file of ['dist/curiosity/ideas-data.js','dist/curiosity/landing.js','dist/curiosity/curiosity.js','dist/curiosity/correlations.js','dist/curiosity/curiosity.css','dist/curiosity/live-data.json']){
+ if(!fs.existsSync(file)){console.error('Wonder Index asset missing:',file);failures++;}
+}
+for(const file of ['dist/curiosity/landing.js','dist/curiosity/curiosity.js','dist/curiosity/correlations.js']){
+ if(fs.existsSync(file)){try{new vm.Script(fs.readFileSync(file,'utf8'),{filename:file})}catch(e){console.error('Broken Wonder Index script:',file,e.message);failures++;}}
+}
+const wonderSource=fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
+if(!wonderSource.includes('group.id !== "discovery"')||
+ !wonderSource.includes("group.id === 'discovery' && (")||
+ !wonderSource.includes('candyland-curiosity-spotlight')||
+ !wonderSource.includes('href="/curiosity/correlations/"')){
+ console.error('Unwrapped must have no duplicate category heading, and Wonder Index must appear immediately afterward.');failures++;
+}
+const refreshWorkflow=fs.readFileSync('.github/workflows/deploy.yml','utf8');
+if(!refreshWorkflow.includes("cron: '17 */6 * * *'")||!refreshWorkflow.includes('node scripts/refresh-curiosity.mjs')){
+ console.error('Wonder Index should refresh official research and World Bank records automatically every six hours.');failures++;
+}
+if(fs.existsSync('dist/curiosity/live-data.json')){
+ try{
+  const data=JSON.parse(fs.readFileSync('dist/curiosity/live-data.json','utf8'));
+  if(data.version!==1||!Array.isArray(data.indicators)||!Array.isArray(data.research)||!data.series||typeof data.series!=='object')throw Error('Unexpected data schema');
+  const actual=Object.values(data.series).filter(x=>Array.isArray(x)&&x.length>=8).length;
+  if(!actual)console.warn('Wonder Index World Bank source refresh unavailable: data placeholders will be shown, not fictional correlations.');
+  else console.log('✓ Wonder Index verified official-source time series: '+actual);
+ }catch(e){console.error('Wonder Index source cache invalid:',e.message);failures++;}
+}
 // TRACE is a distinct educational game with graded simulated missions and a
 // complete workstation, resource atlas and case-reporting interface.
 if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
