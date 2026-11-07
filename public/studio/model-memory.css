@@ -19,3 +19,43 @@
 .finder-filters [data-group="saved"]{border-color:#a0ebc7;color:#bbffe0}
 .model-card small{white-space:normal}
 @media(max-width:570px){.saved-model-item{flex-wrap:wrap}.saved-model-item>div{flex-basis:100%}.saved-model-item button{flex:1}.saved-model-home{border-radius:12px}.saved-model-title>button{width:100%}}
+
+/* Current local-model recommendations with device-specific, explicitly estimated fit. */
+.top-ai-models,.top-ai-settings{margin:18px 0 23px;padding:clamp(16px,2.5vw,27px);border:1px solid #96e6d2aa;border-radius:20px;background:linear-gradient(130deg,#153443,#221b3a 68%,#342148);box-shadow:0 11px 32px #0a0a2259;color:#f7f8ff}
+.top-ai-heading{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}
+.top-ai-heading>div{max-width:740px}
+.top-ai-heading h2,.top-ai-settings h2{font:850 clamp(24px,3.2vw,39px)/1.12 'Outfit',system-ui,sans-serif;margin:7px 0 10px;color:#fff7ff}
+.top-ai-heading p{font-size:13px;color:#d3e8ed;line-height:1.65;margin:0 0 12px}
+.top-ai-heading button{min-height:39px;white-space:normal}
+.top-ai-device{border-left:3px solid #95ffe1;background:#081c2999;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.55;color:#d3fff4}
+.top-ai-updated{font-size:11px;color:#ded4ed;margin:10px 0}
+.top-ai-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:12px;margin:14px 0}
+.top-model-card{display:flex;flex-direction:column;min-width:0;padding:16px 14px;border:1px solid #a8ddce69;border-radius:15px;background:#10152ecb;box-shadow:0 7px 18px #060a1552;overflow:hidden}
+.top-model-card-top{display:flex;gap:6px;align-items:start;flex-wrap:wrap}
+.model-candidate-family{font:850 10px/1.3 'DM Sans',sans-serif;letter-spacing:.03em;color:#b6ffe7}
+.model-candidate-tag{border:1px solid #ffcfad7a;padding:4px 7px;border-radius:99px;background:#64365a6e;color:#ffe6bd;font:750 9px/1.25 'DM Sans',system-ui,sans-serif}
+.top-model-card h3{font:750 16px/1.32 'Outfit',system-ui,sans-serif;overflow-wrap:anywhere;margin:9px 0;color:#fff}
+.top-model-requirement{font-size:11px;margin:0 0 8px;color:#ded0eb;overflow-wrap:anywhere}
+.top-model-prediction{padding:7px 9px;border-radius:9px;font:850 11px/1.35 system-ui,sans-serif;margin:2px 0 8px}
+.top-model-prediction.good{background:#153e41;color:#abffe1}
+.top-model-prediction.mid{background:#343b49;color:#f2edca}
+.top-model-prediction.warn{background:#4b3546;color:#ffe5b6}
+.top-model-prediction.no{background:#452837;color:#ffc4c4}
+.top-model-caveat{display:block;font-size:10px;line-height:1.5;color:#c8bad9;margin:3px 0 9px}
+.top-model-observed{display:block;font-size:11px;color:#b6ffe5;margin:0 0 10px}
+.top-model-card .top-model-action{margin-top:auto;min-height:39px;font-size:12px;white-space:normal;text-align:center}
+.top-model-card .top-model-action:disabled{opacity:.48;cursor:not-allowed}
+.uncensored-models{margin-top:15px;border:1px solid #d2adff85;background:#211a3c;border-radius:14px;padding:13px}
+.uncensored-models summary{cursor:pointer;list-style:revert;font-weight:850;color:#ffe7ba}
+.uncensored-models>p{font-size:12px;line-height:1.6;color:#d9c9ea;margin:10px 0}
+.top-ai-disclaimer{border-top:1px solid #b0c4d43c;padding-top:12px;font-size:11px;line-height:1.55;color:#d4cada}
+.top-ai-settings{padding:18px}
+.top-ai-settings .saved-model-title p{max-width:760px;font-size:11px}
+.chat-quick-saved{margin:9px 0;padding:10px 12px;border-radius:13px;border:1px solid #87edc27a;background:#153b3dbf;color:#f0fffa}
+.chat-quick-saved[hidden]{display:none}
+.chat-quick-saved>strong{display:block;font-size:11px;margin-bottom:9px}
+.chat-quick-model-buttons{display:flex;flex-wrap:wrap;gap:7px}
+.chat-quick-model-buttons button{border:1px solid #a8e6d4;border-radius:9px;background:#264c59;color:#fff;padding:7px 9px;font-size:11px;font-weight:750;cursor:pointer}
+.chat-quick-model-buttons button:disabled{opacity:.5;cursor:not-allowed}
+.legacy-stack-state[hidden],.chat-stack-picker[hidden]{display:none!important}
+@media(max-width:650px){.top-ai-heading>button{width:100%}.top-ai-list{grid-template-columns:1fr}.top-model-card{padding:14px}.top-ai-settings{padding:14px}}
