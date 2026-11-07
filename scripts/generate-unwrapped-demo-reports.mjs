@@ -175,12 +175,17 @@ async function captureRealExports(name){
   // These are explicitly fictional people: deliberately opt in to interests,
   // underlying psychology lenses and a few nonsexual answers from each person.
   // This makes the combined demonstration useful without leaking either private backup.
-  for(const choice of choices.slice(1,5))choice.click();
-  for(const choice of choices.slice(interestCount+1,interestCount+9))choice?.click();
+  // The newer report editor preselects nonsexual themes and psychology answers.
+  // Never click already-selected choices OFF while constructing these fictional samples.
+  for(const choice of choices.slice(1,5))if(!choice.checked)choice.click();
+  const broaderThemeChoices=[...document.querySelectorAll('#uc-select > label.uc-check > input')].slice(interestCount+1);
+  for(const choice of broaderThemeChoices.slice(0,8))if(!choice.checked)choice.click();
   const selectedPsych=[...document.querySelectorAll('#uc-select details .uc-answer-list label.uc-check')]
     .filter(label=>label.textContent.includes('Psychology'));
   if(selectedPsych.length<8)throw Error('Fictional selective share has too few psychology answers to compare');
-  for(const label of selectedPsych.slice(0,10))label.querySelector('input')?.click();
+  for(const label of selectedPsych.slice(0,10)){
+   const box=label.querySelector('input');if(box&&!box.checked)box.click();
+  }
   document.querySelector('#uc-save').click();
   const sharedBlob=blobs.pop();
   if(!sharedBlob)throw Error('Actual selective partner download did not create a file');
