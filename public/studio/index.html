@@ -8,10 +8,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/studio/studio.css?v=helpers-20261105"><link rel="stylesheet" href="/studio/model-explorer.css?v=5"><link rel="stylesheet" href="/studio/model-memory.css?v=portable-phone-20261107-v1">
+<link rel="stylesheet" href="/studio/studio.css?v=helpers-20261105"><link rel="stylesheet" href="/studio/model-explorer.css?v=5"><link rel="stylesheet" href="/studio/model-memory.css?v=capability-20261107-v2">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script><script src="/analytics.js?v=ga4-20261030-v1"></script>
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&'+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
-<script src="/install-app.js" defer></script><script src="/studio/free-config.js?v=1"></script><script src="/studio/model-memory.js?v=1" defer></script><script src="/studio/deep-workflows.js?v=1" defer></script><script src="/studio/studio.js?v=phone-top-20261107" type="module"></script><script src="/studio/model-explorer.js?v=phone-top-20261107" defer></script><script src="/studio/top-models.js?v=phone-top-20261107" defer></script><script src="/studio/phone-model-downloads.js?v=portable-phone-20261107-v1" defer></script>
+<script src="/install-app.js" defer></script><script src="/studio/free-config.js?v=1"></script><script src="/studio/model-memory.js?v=1" defer></script><script src="/studio/deep-workflows.js?v=1" defer></script><script src="/studio/studio.js?v=capability-20261107-v2" type="module"></script><script src="/studio/model-explorer.js?v=phone-top-20261107" defer></script><script src="/studio/top-models.js?v=capability-20261107-v2" defer></script><script src="/studio/phone-model-downloads.js?v=capability-20261107-v2" defer></script>
 </head><body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>This studio needs JavaScript enabled.</p></noscript>
 <div class="shell">
@@ -51,9 +51,26 @@
  <div class="top-ai-heading"><div><span class="eyebrow">CURRENT LOCAL MODELS · CHOSEN FOR YOUR DEVICE</span><h2 id="topAiHeading">Top AI models for this phone.</h2><p>Pick a model, not a task. Random AI checks its supported catalog and assesses memory demand against capabilities your browser exposes.</p></div><button id="topAiRefresh" class="outline compact" type="button">↻ Check newest supported models</button></div>
  <p class="top-ai-device" id="topAiDeviceSummary" role="status" aria-live="polite">Checking this device's graphics support…</p>
  <p class="top-ai-updated" id="topAiUpdated">Loading models…</p>
+ <div class="model-capability-filter" role="group" aria-label="Browse models by capability">
+ <button type="button" data-capability-view="all" aria-pressed="true">✦ All</button>
+ <button type="button" data-capability-view="code" aria-pressed="false">💻 Coding</button>
+ <button type="button" data-capability-view="reason" aria-pressed="false">🧠 Reasoning</button>
+ <button type="button" data-capability-view="writing" aria-pressed="false">✍️ Writing</button>
+ <button type="button" data-capability-view="photos" aria-pressed="false">🖼️ Photos</button>
+ <button type="button" data-capability-view="videos" aria-pressed="false">🎬 Videos</button>
+ </div>
+ <p class="model-capability-current" id="topAiCapabilityNote">These local language models can write, explain code, reason, and draft prompts. Photos and videos require different AI engines.</p>
+ <p class="model-rating-legend">Load a model and tap <strong>Test accuracy &amp; speed</strong> to answer four objective questions locally, then see its score and average response time. Four checks are not an overall accuracy percentage.</p>
+ <p id="topAiBenchmarkStatus" role="status" aria-live="polite"></p>
  <div class="top-ai-list" id="topAiList" aria-live="polite"><p>Finding available models…</p></div>
  <details class="uncensored-models" id="uncensoredModels" open><summary>🔓 Uncensored and more open AI models</summary><p>Hermes 3 is described by its publisher as uncensored. It is offered here only if a compatible model is available in the current browser runtime. Other community fine-tunes may still refuse some prompts.</p><div id="uncensoredChoices" class="top-ai-list"></div><p class="fine-print">WebLLM cannot directly run arbitrary downloaded GGUF files. A compatible MLC weight bundle and matching WebGPU library are required. No unverified model is shown as installed.</p></details>
- <p class="top-ai-disclaimer">These are recommendations from WebLLM-supported local models, not every AI worldwide. Estimated fit is not measured speed; actual chat use can display observed output speed for this device.</p>
+ 
+ <div class="model-specialist-guide" aria-label="AI capabilities and limitations">
+ <article><span class="eyebrow">💻 CODING</span><h3>Code &amp; debugging</h3><p>Coding specialists help with functions, errors, tests and explanations. Verify generated code before using it.</p><a href="#portablePhoneModels">See coding model download ↓</a></article>
+ <article><span class="eyebrow">🖼️ PHOTOS</span><h3>Edit vs. generate</h3><p>Photo workshop edits images locally. AI photo generation needs a separate diffusion model; a normal GGUF text model cannot create an image.</p><button type="button" data-go="photos">Open Photo workshop →</button><a href="#phoneImageModels">See image AI options ↓</a></article>
+ <article><span class="eyebrow">🎬 VIDEO</span><h3>Video creation</h3><p>Chat models can write scripts, prompts and storyboards, <strong>not render video</strong>. Random AI does not yet include a local video-generation engine for phones.</p></article>
+ </div>
+ <p class="top-ai-disclaimer">Strengths are descriptive, not verified benchmark scores. Accuracy and speed measurements only appear after a model actually runs a device check.</p>
 </section><section class="portable-model-downloads" id="portablePhoneModels" aria-labelledby="portablePhoneModelsHeading">
  <div class="portable-model-head">
   <div><span class="eyebrow">SAVE THE ACTUAL FILE · ANDROID &amp; IPHONE</span>
