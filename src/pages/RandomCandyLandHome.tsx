@@ -239,7 +239,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             })}
           </div>
 
-      <section id="absurder-report-destination" className="candyland-report-destination" tabIndex={-1} aria-label="The Absurdity Report full news story">
+      <section id="absurder-report-destination" className="candyland-report-destination nonsense-newsroom" tabIndex={-1} aria-label="The Absurdity Report full news story">
         <div className="candyland-report-destination-head">
           <span className="candyland-report-destination-kicker">ARN NEWS · FICTIONAL SATIRE</span>
           <h2>THE ABSURDITY REPORT</h2>
