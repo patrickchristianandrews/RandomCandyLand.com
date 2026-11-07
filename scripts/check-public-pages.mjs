@@ -9,7 +9,7 @@ const required = [
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
   ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Wikidata','Mozilla Monitor','WhatsMyName','Codeberg','GitLab']],
-  ['dist/candy-casino/index.html', ['Choose your game','id="casino-howto"','data-duel="poker"','data-duel="card"','data-duel="dice"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
+  ['dist/candy-casino/index.html', ['Five-Card Draw Poker','id="casino-howto"','data-duel="poker"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
   ['dist/trumpagotchi-fm1/index.html', ['id="feed"', 'id="praise"', 'id="clean"', 'id="rest"', 'id="gameover"', 'game.js', 'game.css', 'HOW TO PLAY', 'id="remix-studio"']],
@@ -610,6 +610,14 @@ if (!casinoGuideHtml.includes('id="poker-hand-guide"') ||
     (casinoGuideHtml.match(/class="poker-rank-row/g)||[]).length!==10) {
   console.error('Casino needs the full ten-hand visual poker ranking below the game.');
   failures++;
+}
+if(casinoGuideHtml.includes('data-duel="card"')||casinoGuideHtml.includes('data-duel="dice"')||
+  casinoGuideHtml.includes('Choose your game')||casinoGuideHtml.includes('CANDY LAND <strong>CASINO</strong>')){
+ console.error('Retired casino games/branding must not appear in the poker-only experience.');failures++;
+}
+if(!homeInstallSource.includes("title:'Candy Land Poker'")||
+   !homeInstallSource.includes("name:'Candy Land Poker'")){
+ console.error('Home navigation and PWA must label the retained game as Poker.');failures++;
 }
 const originalGuideSource=fs.readFileSync('src/pages/TrumpGotchaPage.tsx','utf8');
 if (!(originalGuideSource.indexOf('id="how-to-play"') < originalGuideSource.indexOf('candyland-game-main') &&
