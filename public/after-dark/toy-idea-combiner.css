@@ -1,0 +1,29 @@
+/* One focused, consent-first toy idea workbench for him / her / together. */
+.unwrapped-toy-idea-studio{margin:20px 0;border:1px solid #b183b4;border-radius:17px;padding:clamp(15px,3vw,25px);background:linear-gradient(125deg,#332440,#241931);scroll-margin-top:90px}
+.unwrapped-toy-idea-heading h3{font:850 clamp(21px,3vw,29px)/1.17 system-ui;margin:8px 0 7px;color:#fff0fc;letter-spacing:-.03em}
+.unwrapped-toy-idea-heading>p{font-size:12px;line-height:1.65;color:#e8d2ec;margin:0 0 17px;max-width:800px}
+.unwrapped-toy-idea-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.unwrapped-toy-idea-choices label{display:grid;gap:7px;font-weight:800;font-size:12px;color:#ffe3ef}
+.unwrapped-toy-idea-choices select{background:#191326;color:#fff;border:1px solid #a984b8;padding:11px;border-radius:10px;min-width:0;width:100%;min-height:44px;font-size:13px}
+.unwrapped-toy-idea-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.unwrapped-toy-idea-actions .btn{font-size:12px;min-height:43px;white-space:normal}
+.unwrapped-toy-idea-output{border:1px solid #9a80a0;border-radius:14px;background:#21192c;padding:clamp(12px,2vw,20px);margin-top:13px}
+.unwrapped-toy-idea-output h4{font:850 clamp(18px,2.8vw,25px)/1.2 system-ui;color:#fff0fa;margin:8px 0}
+.unwrapped-toy-idea-output>p{font-size:12px;color:#eeddec;line-height:1.6}
+.unwrapped-toy-idea-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.unwrapped-toy-idea-recommendation{min-width:0;border:1px solid #a985ad;background:#342541;padding:13px;border-radius:12px}
+.unwrapped-toy-idea-recommendation strong{display:block;font-size:15px;color:#fff6fd;margin-bottom:5px}
+.unwrapped-toy-idea-recommendation small{display:inline-block;color:#d3f9de;font-weight:800;font-size:10px;line-height:1.4;margin-bottom:8px}
+.unwrapped-toy-idea-recommendation p{font-size:12px;line-height:1.6;color:#f1dff2;margin:8px 0}
+.unwrapped-toy-idea-caution,.unwrapped-toy-idea-combine{border-left:3px solid #e8b2db;padding:8px 13px;background:#281c35;border-radius:6px}
+.unwrapped-toy-idea-combine{margin:12px 0}
+.unwrapped-toy-idea-combine h5{font-size:15px;color:#ffe0ef;margin:3px 0 8px}
+.unwrapped-toy-idea-combine p{font-size:12px;line-height:1.6;color:#f3e3f3}
+.unwrapped-toy-idea-safety{border:1px solid #866d8d;border-radius:11px;padding:10px 12px;margin:12px 0}
+.unwrapped-toy-idea-safety summary{font-size:12px;font-weight:800;color:#ffe5ae;cursor:pointer}
+.unwrapped-toy-idea-safety p{font-size:11px;line-height:1.6;color:#e9dbeb}
+.unwrapped-toy-idea-output>.btn{margin:8px 7px 0 0;font-size:11px;white-space:normal;min-height:38px}
+.unwrapped-toy-idea-studio .tiny{margin:12px 0 7px;line-height:1.6}
+.unwrapped-toy-idea-guide{color:#ffe5c7;font-size:12px;font-weight:800;text-decoration:underline}
+@media(max-width:680px){.unwrapped-toy-idea-choices,.unwrapped-toy-idea-pair{grid-template-columns:1fr}.unwrapped-toy-idea-actions{grid-template-columns:1fr}.unwrapped-toy-idea-actions .btn{min-height:42px}.unwrapped-toy-idea-studio{padding:12px}.unwrapped-toy-idea-output{padding:12px}}
+@media print{.unwrapped-toy-idea-actions,.unwrapped-toy-idea-guide{display:none}}
