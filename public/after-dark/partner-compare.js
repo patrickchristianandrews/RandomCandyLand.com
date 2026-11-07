@@ -269,22 +269,86 @@ function compare(a,b){
  addText(out,'One useful step this week','Each choose one everyday need from these answers. Explain what it looks like in real life, listen to how the other person experiences it, and agree on one small optional change. Check in later about whether it helped. Keep private topics private and respect any no or maybe.');
  addText(out,'Your choices and boundaries still matter','This is not a psychological assessment or compatibility score. Sharing an intimate interest never implies consent. Neither partner needs to disclose everything, and any activity requires specific, ongoing agreement.');
 }
+function renderPartner(pack){
+ const out=$('uc-results');out.replaceChildren();$('uc-print').hidden=false;
+ document.body.classList.add('print-unwrapped-solo');
+ const displayName=pack.from||'Me';
+ out.append(E('h3','A little more about '+displayName),E('p','This partner-friendly report includes only the information deliberately chosen in the exported file. It is an invitation to understand one another, not an expectation, assessment or consent to any activity.','uc-note'));
+ const section=(heading,description)=>{
+  const root=E('section',undefined,'uc-result');root.append(E('h4',heading));
+  if(description)root.append(E('p',description,'uc-note'));
+  out.append(root);return root;
+ };
+ if(pack.themes.length){
+  const root=section('How I experience the world','These everyday themes are starting points for conversation, not diagnoses.');
+  for(const t of pack.themes){const item=E('article',undefined,'uc-answer-pair');item.append(E('strong',readableTheme(t.label)),E('p',t.description));root.append(item)}
+ }
+ if(pack.interests.length){
+  const root=section('Interests I chose to share','Some entries may be ideas suggested by the questionnaire, not confirmed interests. The status is shown with each item.');
+  for(const item of pack.interests){const entry=E('article',undefined,'uc-answer-pair');entry.append(E('strong',item.title),E('p',item.status+(item.category?' · '+item.category:'')),E('p',item.description));if(item.themes.length)entry.append(E('small','Themes to discuss: '+item.themes.join(' · ')));root.append(entry)}
+ }
+ if(pack.answers.length){
+  const root=section('Questions and answers I am comfortable sharing','These are my selected responses, not an invitation to act on them.');
+  for(const answer of pack.answers){const item=E('article',undefined,'uc-answer-pair');item.append(E('strong',answer.question),E('p',answer.selection.join(' · ')));if(answer.intentLabel)item.append(E('small','Stated intent: '+answer.intentLabel));root.append(item)}
+ }
+ if((pack.toys||[]).length){
+  const root=section('Optional toy guidance I explicitly included','These categories are optional. Suitability and safety depend on the device, individual anatomy, and freely given agreement.');
+  for(const toy of pack.toys){const item=E('article',undefined,'uc-answer-pair');item.append(E('strong',toy.title+' · '+toy.mode),E('p','Male anatomy: '+toy.male),E('p','Female anatomy: '+toy.female),E('p','With a partner: '+toy.shared),E('p','Safety: '+toy.safety));root.append(item)}
+ }
+ visualActionPaths(out,pack.themes.map(t=>t.label));
+ addText(out,'A good place to begin','Ask: What feels accurate about this report? What do we interpret differently? What helps each of us feel listened to? We can discuss or skip any topic without pressure.');
+ addText(out,'A thoughtful next step','Choose one everyday need or curiosity we both feel comfortable discussing. Take time to listen, agree on any boundaries, and revisit the conversation when it suits us.');
+ addText(out,'My boundaries still matter','An unanswered or unshared question must not be interpreted as an answer. Interests, fantasies and suggestions are not consent or a compatibility score.');
+}
+function hasPersonalAnswers(){
+ const p=window.AfterDarkProgressTransfer?.progress?.();
+ return Boolean((p?.direct?.answered||0)+(p?.psych?.answered||0));
+}
 function mount(){
  const host=$('uc-comparison');if(!host)return;
- host.innerHTML='<h2>Compare two selected partner reports</h2><p>Explore intimacy, everyday psychology, or both. Each person chooses what to share. For a meaningful whole-person comparison, each person should select psychology themes and several nonsexual questionnaire answers as well as any intimate topics they voluntarily wish to include.</p><p class="uc-note">Upload the <strong>selected report JSON</strong> exported below, not a PDF or your full private quiz backup. A PDF by itself does not contain the structured, consent-selected data needed for this comparison.</p><details id="uc-export"><summary>Step 1 · Create my selected report</summary><div id="uc-select"></div><button class="btn" type="button" id="uc-save">Download selected report</button></details><div class="uc-upload"><label>Step 2 · Partner A report <input id="uc-a" type="file" accept=".json,application/json"></label><label>Step 3 · Partner B report <input id="uc-b" type="file" accept=".json,application/json"></label></div><button class="btn" type="button" id="uc-compare">Compare our chosen sections</button><button class="btn alt" type="button" id="uc-print" hidden>Save visual comparison as PDF</button><p id="uc-status" role="status"></p><div id="uc-results" aria-live="polite"></div><p class="uc-note">Reports stay on this device while you compare; nothing is uploaded. Use selected-report JSON exports, not full private quiz backups. Never share a report without its owner’s permission.</p>';
- $('uc-export').addEventListener('toggle',()=>{if($('uc-export').open)exportChoices()});
+ host.innerHTML="<span class=\"eyebrow\">STEP 2 · CHOOSE WHAT TO SHARE</span><h2>Create an uploadable report</h2><p>Use your completed quiz results to create a <strong>selected report (.json)</strong>. This is the file Unwrapped accepts to make a partner-friendly or combined report. Review exactly what goes into it before downloading; none of your private notes or unselected answers is included.</p><details id=\"uc-export\"><summary>Choose sections &amp; download my uploadable report file</summary><div id=\"uc-select\"></div><button class=\"btn\" type=\"button\" id=\"uc-save\">Download selected report (.json)</button><p class=\"uc-note\">Choose at least one section. Sharing your private backup is not required. Toy guidance stays OFF unless you explicitly select it.</p></details><div class=\"uc-upload-head\"><span class=\"eyebrow\">STEP 3 · IMPORT FILES</span><h3>One report or two? You decide.</h3><p>Import a selected report file from yourself for a partner-friendly summary, or import one from each person to create a combined comparison. The files are read locally; no report is transmitted to the site.</p></div><div class=\"uc-upload\"><label>Your selected report (.json)<input id=\"uc-a\" type=\"file\" accept=\".json,application/json\"></label><label>Second person's selected report (.json) — optional<input id=\"uc-b\" type=\"file\" accept=\".json,application/json\"></label></div><div class=\"uw-report-actions\"><button class=\"btn\" type=\"button\" id=\"uc-partner\">Create partner report from 1 file</button><button class=\"btn alt\" type=\"button\" id=\"uc-compare\">Create combined report from 2 files</button></div><button class=\"btn alt\" type=\"button\" id=\"uc-print\" hidden>Download report as PDF (Print / Save as PDF)</button><p id=\"uc-status\" role=\"status\" aria-live=\"polite\"></p><div id=\"uc-results\" aria-live=\"polite\"></div><p class=\"uc-note\">PDF files are readable copies, not upload files. For uploading use a selected-report .json created here. A private full quiz backup is for restoring only your own quiz data in Step 1.</p>";
+ const refresh=()=>{if($('uc-export')?.open)exportChoices()};
+ $('uc-export').addEventListener('toggle',refresh);
  $('uc-save').onclick=save;
  $('uc-print').onclick=()=>{if(!$('uc-results').children.length)return;document.body.classList.add('print-unwrapped-comparison');window.print()};
  window.addEventListener('afterprint',()=>document.body.classList.remove('print-unwrapped-comparison'));
- $('uc-compare').onclick=async()=>{
-  try{if(!$('uc-a').files[0]||!$('uc-b').files[0])throw Error('Choose both partners’ selected reports first.');
+ const solo=$('uc-partner'),dual=$('uc-compare');
+ solo.onclick=async()=>{
+  try{
+   if(!$('uc-a').files[0])throw Error('Choose your selected report .json file first.');
+   const file=await readFile($('uc-a').files[0]);
+   renderPartner(file);status('Partner report ready. Select Download report as PDF to save a readable copy.');
+  }catch(e){$('uc-results').replaceChildren();$('uc-print').hidden=true;document.body.classList.remove('print-unwrapped-solo');status('Could not create partner report: '+(e.message||'Invalid file.'))}
+ };
+ dual.onclick=async()=>{
+  try{
+   if(!$('uc-a').files[0]||!$('uc-b').files[0])throw Error('Choose one selected report .json file for each person first.');
    const [a,b]=await Promise.all([readFile($('uc-a').files[0]),readFile($('uc-b').files[0])]);
-   if(JSON.stringify(a)===JSON.stringify(b))throw Error('These are identical reports. Choose one selected report from each person.');
-   compare(a,b);status('Comparison ready · only shared selections were considered.');
+   if(JSON.stringify(a)===JSON.stringify(b))throw Error('These are identical reports. Choose a distinct selected report from each person.');
+   document.body.classList.remove('print-unwrapped-solo');
+   compare(a,b);status('Combined report ready. Only the chosen sections in each file were compared. Select Download report as PDF to save it.');
   }catch(e){$('uc-results').replaceChildren();$('uc-print').hidden=true;status('Could not compare: '+(e.message||'Invalid file.'))}
  };
- const button=E('button','Compare partner reports','btn alt');button.type='button';button.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('visible',t.id==='notebook'));document.querySelectorAll('[data-tab]').forEach(t=>t.classList.toggle('selected',t.dataset.tab==='notebook'));host.scrollIntoView({behavior:'smooth',block:'start'})};
- const card=document.querySelector('#home .od-compact-tools-grid .od-compact-tool:nth-child(2) .od-compact-actions');if(card)card.append(button);
+ const view=$('uw-view-personal'),backup=$('uw-save-private'),importInput=$('uw-import-private'),workflowStatus=$('uw-workflow-status');
+ if(view)view.onclick=()=>{
+  if(!hasPersonalAnswers()){workflowStatus.textContent='Complete or import at least one quiz first. Use the quizzes in the top menu to get started.';return}
+  window.AfterDarkProgressTransfer?.report?.();
+ };
+ if(backup)backup.onclick=()=>{
+  if(!hasPersonalAnswers()){workflowStatus.textContent='No saved quiz answers on this device yet. Complete or import a quiz first.';return}
+  window.AfterDarkProgressTransfer?.exportQuiz?.('both');
+  workflowStatus.textContent='Private data file requested. Keep it safe: this backup includes your original answers and may include notes. It is not the file to send to a partner.';
+ };
+ if(importInput)importInput.onchange=async()=>{
+  const file=importInput.files?.[0];if(!file)return;
+  workflowStatus.textContent='Checking your private saved data file…';
+  try{
+   const result=await window.AfterDarkProgressTransfer?.importQuiz?.(file);
+   workflowStatus.textContent=result===true?'Your saved quiz data was restored. You can now view your personal report and choose sections for partner sharing.':'Import did not complete. Check that this is a private Unwrapped quiz backup (.json), and review any confirmation prompt.';
+   if(result===true&&$('uc-export').open)exportChoices();
+  }catch(e){workflowStatus.textContent='Could not import: '+(e.message||'Unsupported or damaged backup.')}
+  importInput.value='';
+ };
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();
