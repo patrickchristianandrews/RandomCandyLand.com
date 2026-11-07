@@ -197,13 +197,13 @@ function validatePayload(value){
  return{direct,psych,library:library||null};
 }
 async function importFile(file){
- if(!file)return;
+ if(!file)return false;
  try{
   if(file.size>125000)throw Error('This quiz file is too large (maximum 125 KB).');
   const pack=validatePayload(safeJSON(await file.text()));
   if(!pack||pack.error)throw Error(pack?.error||'This is not an After Dark quiz JSON export.');
   const replacing=(pack.direct&&answered('direct')>0)||(pack.psych&&answered('psych')>0);
-  if(replacing&&!window.confirm('The imported file contains answers for a quiz you have already started. Replace only that matching quiz? Answers from the other quiz will be preserved.'))return;
+  if(replacing&&!window.confirm('The imported file contains answers for a quiz you have already started. Replace only that matching quiz? Answers from the other quiz will be preserved.'))return false;
   // The two quiz datasets remain distinct. A psychology file NEVER overwrites
   // sexual-preference answers, and vice versa.
   if(pack.direct&&!DIRECT()?.importState?.(pack.direct))throw Error('The saved sexual-preferences quiz could not be loaded.');
@@ -223,7 +223,8 @@ async function importFile(file){
    (pack.library?'Your private Interested / Curious / Not for me marks were restored. ':'')+
    (both?'Both quizzes now contribute to your full combined report.':'Your other quiz remains available to finish later.'));
   if(both)showCombined();
- }catch(e){setStatus('⚠️ '+String(e.message||'Could not read this file.'))}
+   return true;
+  }catch(e){setStatus('⚠️ '+String(e.message||'Could not read this file.'));return false}
 }
 function showCombined(){
  const d=DIRECT(),p=PSYCH();
