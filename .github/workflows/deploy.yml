@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Refresh source-linked research and official statistics four times per day.
+    - cron: '17 */6 * * *'
 
 permissions:
   contents: read
@@ -79,6 +82,12 @@ jobs:
 
       - name: Check two fictional adults completed all 69 plus 32 genuine questionnaire answers
         run: node scripts/test-unwrapped-fictional-respondents.mjs
+
+      - name: Refresh Wonder Index public research and World Bank indicator series
+        run: |
+          node --check scripts/refresh-curiosity.mjs
+          node scripts/refresh-curiosity.mjs
+          test -s public/curiosity/live-data.json
 
       - name: Build the entire website
         run: bun run build
