@@ -1,5 +1,5 @@
 # RandomCandyLand.com — Project decisions, requested features & outstanding verification
-**Updated:** 2026-11-05  
+**Updated:** 2026-11-07  
 **Repository:** `patrickchristianandrews/RandomCandyLand.com`  
 **Purpose:** The persistent handoff/checklist for implementation, deployment and real-device proof. Preserve established decisions across future changes. Do **not** mark a feature "live" based only on a GitHub commit or code-level test.
 
@@ -10,6 +10,13 @@
 - **CANCELED / SUPERSEDED:** Do not reintroduce without a new request.
 
 **Current release truth:** Direct GitHub repository reads and commits have succeeded. Deployment has not been proven end-to-end for the full-report release. GitHub Pages workflow in `.github/workflows/deploy.yml` is set to build, generate fictional PDF examples and deploy; it may be blocked by Pages source configuration, workflow permissions or other build errors. Vercel also reported build-limit failures. **Do not equate these with verified live changes.** Publishing must be assessed using actual workflow logs, site response, release ID and downloadable PDF signatures.
+
+
+## Progress log — 2026-11-07 (report center code committed; production still unverified)
+- **Old samples retired:** Removed the scripted sample-PDF generator and removed links to the three nonexistent completed PDF assets from the public report guide. The guide now explains actual personal PDF, private backup JSON, selectively shared report JSON, one-file partner PDF, and two-file comparison flows.
+- **Report access:** The top Reports & Uploads menu and the Unwrapped home report card lead directly to the report center. Personal results include a shortcut to prepare a selectively shareable upload file. One-file partner and two-file combined reports have separate upload actions.
+- **Private backup import:** Import now returns an explicit success/failure result so the report center does not falsely claim that an invalid or canceled import succeeded. PDF files are for reading/printing; structured selected-report JSON is required for partner/comparison uploads.
+- **Verification pending:** GitHub files/commits confirmed, but no completed push-triggered Pages workflow, actual production render, mobile print/download test or end-to-end imported-person result was obtained. Verify these before describing the feature as live.
 
 ## Progress log — 2026-11-05 (source changes, NOT production verification)
 - **Committed code:** The release browser generator now completes two fictional 69+32 questionnaires and attempts the actual in-browser private quiz JSON download, clean-browser import, invalid-file rejection, separately selected partner JSON exports, two-file upload, merged comparison and printable PDF. Evidence screenshots and a journey audit are also wired to the GitHub Pages build. **Browser execution and public PDFs remain unverified until the workflow completes.**
@@ -53,7 +60,7 @@
 
 ### Required fictional demonstrators (OPEN until PDF confirmed)
 - [ ] **Rowan** and **Ellis** are fictional, deterministic completed respondents defined at `public/after-dark/fictional-respondents.js`; both are intended to answer **all 69 + 32 real questions**, then pass through the **actual canonical app engine** and its live report renderer. Their differing answers, explicit boundaries and fantasy-only status must be preserved.
-- [ ] Generate both genuine full-length PDFs with complete evidence charts and appendices, **publish the PDF bytes**, verify download and include links from `/after-dark/report-samples/`. A link alone or generic hand-authored PDF is not completion.
+- [ ] Generate genuine full-length test PDFs with complete evidence charts and appendices, **publish the actual PDF bytes**, verify the downloads, and reintroduce example links ONLY once the files pass real production/download checks. The retired legacy gallery must not return.
 - [ ] Produce additional fictional cross-person tests: own-quiz import, psychology import, report export, selective partner PDF, new-partner PDF, file upload, partner compare, combined report, saving/reloading and privacy. Confirm each output contains correct source evidence and not another person's unapproved notes. Provide reproducible test artifacts and screenshots/renders.
 - [ ] Check real sample, real participant, and merged result schemas produce consistent presentation with no missing features.
 - [ ] Note: previous source-level fixture/test assertions passed, but **the actual browser-to-PDF-to-public-download chain was not verified**. Do not state those samples are live without independent proof.
@@ -63,7 +70,7 @@
 - [ ] Curiosity Library should explain themes and interests; personal shelf/save/bookmark; related psychology; partner-friendly plain-language Q&A. Expand guides for specific anatomy, pleasure techniques, wellness, origins pathways and practical education with illustrations, appropriate limitations and consent.
 - [ ] **Mira** should understand typos, slang, short keyword searches and questions about results, privacy, relationships, individual topics and how to discuss them; no fabricated access to nonexistent results.
 - [ ] Idea Lab should deliver concrete, personalized, safely framed suggestions with boundaries/preferences respected.
-- [ ] Keep sample reports downloadable and linked prominently from Unwrapped. Ensure homepage explanations, sample PDFs, live PDFs and metadata all reflect the same schema and contents.
+- [ ] Do not restore outdated or dead sample report links. If current fictional examples are eventually published, link only verified, current outputs generated from the same live reporting engine and keep the report upload workflow more prominent than demonstrations.
 - [ ] Book/manuscript about the whole-person psychological background of preferences: direct, sophisticated conversational writing, illustrative material, nuanced possible origins (not deterministic), discreet/cute title, sale-ready formatting and no unnecessary AI branding. Separately verify completeness; do not treat a draft as final.
 
 ## P1 — RandomCandyLand.com homepage, navigation, publishing, PWA (OPEN or UNVERIFIED)
