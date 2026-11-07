@@ -8,7 +8,7 @@ const required = [
   ['dist/after-dark/report-samples/index.html', ['Create or upload a report', 'Selected report', 'private backup', 'id="methodology"', 'id="privacy"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
   ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
-  ['dist/identity-lab/index.html', ['Identity Lab','id="trace-profile-review"','profile-review.js','Wikidata','Mozilla Monitor','WhatsMyName','Codeberg','GitLab']],
+  ['dist/identity-lab/index.html', ['Identity Lab','id="identity-investigation-workbench"','lookup-engine.js?v=','workbench.js?v=','id="identity-title"','GTM-TQRDB5KL']],
   ['dist/candy-casino/index.html', ['Five-Card Draw Poker','id="casino-howto"','data-duel="poker"','data-opponent="computer"','data-opponent="friend"','id="poker-table"','id="poker-hand-guide"','id="make-room"','id="join-room"','GTM-TQRDB5KL']],
   ['dist/candy-simon/index.html', ['id="board"', 'id="start"', 'data-pad="0"', 'id="replay"']],
   ['dist/candy-match/index.html', ['id="board"', 'id="newgame"', 'id="hint"', 'id="difficulty"']],
