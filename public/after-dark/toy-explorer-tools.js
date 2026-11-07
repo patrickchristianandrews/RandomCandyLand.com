@@ -103,7 +103,7 @@ host.addEventListener('click',e=>{
  if(quick){
   const group=quick.dataset.toyQuickGroup,filter=$('toy-filter');
   if(filter){filter.value=group;filter.dispatchEvent(new Event('change',{bubbles:true}));}
-  $('.toy-goal-shortcuts button').forEach(b=>b.setAttribute('aria-pressed',String(b===quick)));
+  host.querySelectorAll('.toy-goal-shortcuts button').forEach(b=>b.setAttribute('aria-pressed',String(b===quick)));
   $('toy-grid')?.scrollIntoView({behavior:'smooth',block:'start'});return;
  }
  const add=button.dataset.toySave;
