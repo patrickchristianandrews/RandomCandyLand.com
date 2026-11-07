@@ -5,6 +5,9 @@
 const $=q=>document.querySelector(q);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const perfKey='random-ai-observed-performance-v1';
+const benchKey='random-ai-mini-benchmark-v1';
+const benchmarkResults=()=>{try{const x=JSON.parse(localStorage.getItem(benchKey)||'{}');return x&&typeof x==='object'?x:{}}catch{return {}}};
+let capabilityView='all',benchmarkState=null;
 let records=[],device={gpu:false,ram:null,adapter:false,reason:'Checking your browser…'},lastRefresh=0,probing=false;
 const readPerf=()=>{try{const x=JSON.parse(localStorage.getItem(perfKey)||'{}');return x&&typeof x==='object'?x:{}}catch{return {}}};
 const remembered=()=>window.RandomAIModelMemory;
@@ -50,27 +53,62 @@ function uniqueVariants(input){
 function latest(){
  return uniqueVariants(records.filter(m=>!m.special).sort((a,b)=>score(b)-score(a)||a.vram-b.vram)).slice(0,7);
 }
-function card(m,extra=''){
- const evaluationResult=evaluation(m);
- const obs=readPerf()[m.id];
- const saved=remembered()?.isSaved(m.id);
- const action=saved?'▶ Load saved':'↓ Download & load';
- const real=obs&&obs.chars>=30&&obs.ms>=250?'<small class="top-model-observed">Measured here: '+Number(obs.chars/obs.ms*1000).toFixed(1)+' output characters/sec during a previous local chat.</small>':'';
+
+// These fit descriptors are editorial, model-family heuristics, NOT independent
+// accuracy rankings, and make no claims about model-specific benchmark scores.
+function capabilities(m){
+ const s=m.id.toLowerCase(),coder=/coder|code/i.test(s),reason=/reason|r1|qwq|think/i.test(s);
+ const small=memoryMB(m)>0&&memoryMB(m)<1350,large=memoryMB(m)>=3200;
+ const summary=coder
+  ?'Built for explaining source code, producing small functions, debugging errors and suggesting tests. Still review every generated change.'
+  :reason?'Better suited to step-by-step logic, math explanations and structured problem solving, but can still make factual errors.'
+  :large?'Useful for everyday explanations, drafting, brainstorming and multi-step questions. It can help write and review code, too.'
+  :small?'Lightweight local assistant for short questions, quick drafts and simple code examples; less dependable on complex requests.'
+  :'General-purpose local assistant for writing, explanations, basic programming and planning.';
+ const tasks=[
+  ['✍️ Writing',coder?'Good':'Core'],
+  ['💻 Coding',coder?'Specialized':large?'Good':small?'Basic':'Available'],
+  ['🧠 Reasoning',reason?'Focused':large?'Good':small?'Basic':'Available'],
+  ['🖼️ Photos','Prompts only'],
+  ['🎬 Videos','Storyboards only']
+ ];
+ const why='Photo generation and video rendering are not performed by this local text-chat engine. These models can describe creative directions and write prompts, but cannot create photos/videos or inspect their pixels.';
+ return {summary,tasks,why,coder,reason};
+}
+function benchSummary(id){
+ const value=benchmarkResults()[id];
+ const result=value&&value.total===4&&Number.isFinite(value.averageMs)&&Number.isFinite(value.correct)?value:null;
+ if(!result)return '<div class="model-rating-row"><span><b>Answer accuracy</b><small>Not tested on this device</small></span><span><b>Response time</b><small>Not yet measured</small></span></div>';
+ return '<div class="model-rating-row model-rating-measured"><span><b>Mini-test accuracy</b><small>'+result.correct+'/4 correct · short factual/code checks</small></span><span><b>Avg response time</b><small>'+(result.averageMs/1000).toFixed(1)+' seconds · measured here</small></span></div>'+
+ '<small class="model-rating-warning">Four tiny questions, not an overall accuracy percentage or guaranteed future response time.</small>';
+}
+
+function card(m){
+ const fit=evaluation(m),details=capabilities(m),saved=remembered()?.isSaved(m.id);
+ const observed=readPerf()[m.id],loaded=window.RandomAIActiveModel===m.id;
  const origin=isUncensored(m)?'<span class="model-candidate-tag">Publisher-described uncensored</span>':isLessFiltered(m)?'<span class="model-candidate-tag">Community fine-tune · filtering varies</span>':'';
+ const measured=observed&&observed.chars>=30&&observed.ms>=250?'<small class="top-model-observed">Previous real chat: '+Number(observed.chars/observed.ms*1000).toFixed(1)+' output characters/sec (not tokens/sec).</small>':'';
+ const tags=details.tasks.map(([label,value])=>'<span class="model-skill-tag"><b>'+esc(label)+'</b><small>'+esc(value)+'</small></span>').join('');
  return '<article class="top-model-card" data-rank-id="'+esc(m.id)+'">'+
  '<div class="top-model-card-top"><span class="model-candidate-family">'+esc(m.family+' · '+m.role)+'</span>'+origin+'</div>'+
  '<h3>'+esc(name(m))+'</h3>'+
- '<p class="top-model-requirement">'+esc(memoryText(m))+(saved?' · ✓ Downloaded on this browser':'')+'</p>'+
- '<p class="top-model-prediction '+esc(evaluationResult.kind)+'">'+esc(evaluationResult.label)+'</p>'+
- '<small class="top-model-caveat">'+esc(evaluationResult.explanation)+'</small>'+real+
- '<button type="button" class="primary top-model-action" data-top-load="'+esc(m.id)+'"'+(device.gpu?'':' disabled title="WebGPU unavailable"')+'>'+action+'</button>'+
+ '<p class="model-capability-description">'+esc(details.summary)+'</p>'+
+ '<div class="model-skill-tags" aria-label="What this model is useful for">'+tags+'</div>'+
+ '<small class="model-modality-disclosure">'+esc(details.why)+'</small>'+
+ '<p class="top-model-requirement">'+esc(memoryText(m))+(saved?' · ✓ Cached in this browser':'')+'</p>'+
+ '<p class="top-model-prediction '+esc(fit.kind)+'">'+esc(fit.label)+'</p>'+
+ '<small class="top-model-caveat">'+esc(fit.explanation)+'</small>'+
+ benchSummary(m.id)+measured+
+ '<div class="model-card-actions"><button type="button" class="primary top-model-action" data-top-load="'+esc(m.id)+'"'+(device.gpu?'':' disabled title="WebGPU unavailable"')+'>'+(saved?'▶ Load saved':'↓ Download & load')+'</button>'+
+ '<button type="button" class="outline model-benchmark-action" data-benchmark-id="'+esc(m.id)+'"'+(loaded?'':' disabled title="Load this model first to test it"')+'>Test accuracy & speed</button></div>'+
  '</article>';
 }
 function render(){
- const found=latest();
+ const selected=latest();
+ const found=capabilityView==='all'?selected:selected.filter(m=>capabilityView==='code'?capabilities(m).coder:capabilityView==='reason'?capabilities(m).reason:true);
  for(const [container,count] of [['#topAiList',7],['#topAiSettingsList',4]]){
   const el=$(container);if(!el)continue;
-  el.innerHTML=found.length?found.slice(0,count).map(m=>card(m)).join(''):'<p class="fine-print">Checking current browser-compatible model choices… Models appear after the local model catalog loads.</p>';
+  el.innerHTML=found.length?found.slice(0,count).map(m=>card(m)).join(''):'<p class="fine-print">No matching supported local model in this category. For photos and video, use the separate tools below; the WebLLM text engine does not render media.</p>';
  }
  const matches=uniqueVariants(records.filter(isUncensored).sort((a,b)=>score(b)-score(a))).slice(0,3);
  const relaxed=uniqueVariants(records.filter(isLessFiltered).sort((a,b)=>score(b)-score(a))).slice(0,3);
@@ -128,6 +166,26 @@ function load(id){
  else document.querySelector('[data-go="settings"]')?.click();
 }
 document.addEventListener('click',e=>{
+ const category=e.target.closest?.('[data-capability-view]');
+ if(category){
+  capabilityView=category.dataset.capabilityView;
+  document.querySelectorAll('[data-capability-view]').forEach(button=>button.setAttribute('aria-pressed',String(button===category)));
+  render();return;
+ }
+ const test=e.target.closest?.('[data-benchmark-id]');
+ if(test){
+  e.preventDefault();
+  const id=test.dataset.benchmarkId;
+  if(!window.RandomAIModelBenchmark?.run)return;
+  if(window.RandomAIActiveModel!==id)return;
+  const stat=$('#topAiBenchmarkStatus');
+  if(stat)stat.textContent='Testing '+name(records.find(m=>m.id===id)||{id})+' using four short questions. Your model runs entirely on this device; results are not uploaded.';
+  document.querySelectorAll('[data-benchmark-id]').forEach(x=>x.disabled=true);
+  void window.RandomAIModelBenchmark.run(id).then(result=>{
+   if(stat)stat.textContent=result.error?result.error:'Mini-test complete · '+result.correct+'/'+result.total+' correct · average '+(result.averageMs/1000).toFixed(1)+' sec/question on this device. Not a general model-accuracy rating.';
+  }).finally(render);
+  return;
+ }
  const b=e.target.closest?.('[data-top-load]');
  if(b){e.preventDefault();load(b.dataset.topLoad)}
  const refresh=e.target.closest?.('#topAiRefresh');
@@ -136,6 +194,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('random-ai-catalog-ready',updateCatalog);
 window.addEventListener('random-ai-saved-models-changed',render);
 window.addEventListener('random-ai-performance-measured',render);
+window.addEventListener('random-ai-benchmark-complete',render);
+window.addEventListener('random-ai-benchmark-error',render);
 document.addEventListener('visibilitychange',()=>{
  if(document.hidden)return;
  if(Date.now()-lastRefresh>6*60*60*1000){
