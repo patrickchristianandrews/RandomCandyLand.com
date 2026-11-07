@@ -714,7 +714,7 @@ for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css',
  if(!fs.existsSync(file)){console.error('Random AI saved-model asset missing:',file);failures++;}
 }
 const studioPage=fs.readFileSync('dist/studio/index.html','utf8');
-for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=capability-20261107-v2','top-models.js?v=phone-top-20261107','id="topAiList"','id="uncensoredChoices"']){
+for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=capability-20261107-v2','top-models.js?v=capability-20261107-v2','id="topAiList"','id="uncensoredChoices"']){
  if(!studioPage.includes(text)){console.error('Random AI saved-model library missing:',text);failures++;}
 }
 if(fs.existsSync('dist/studio/model-memory.js')){
