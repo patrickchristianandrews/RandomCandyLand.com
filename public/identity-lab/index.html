@@ -19,9 +19,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>Identity Lab · Your public footprint · Random Candy Land</title>
 <link rel="icon" type="image/svg+xml" href="/tool-icons/osint-academy.svg">
 <link rel="manifest" href="/app-manifests/identity-lab.webmanifest">
-<link rel="stylesheet" href="/osint-academy/style.css?v=free-open-sources-20261105">
+<link rel="stylesheet" href="/osint-academy/style.css?v=free-open-sources-20261105"><link rel="stylesheet" href="/identity-lab/workbench.css?v=public-investigation-20261107-v1">
 <script src="/install-app.js" defer></script>
-<script src="/osint-academy/profile-review.js?v=free-open-sources-20261105" defer></script>
+<script src="/osint-academy/profile-review.js?v=public-investigation-20261107-v1" defer></script><script src="/identity-lab/workbench.js?v=public-investigation-20261107-v1" defer></script>
 <style>
 .identity-standalone{max-width:1110px;margin:0 auto;padding:20px clamp(14px,3vw,30px) 50px}
 .identity-standalone-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 20px;flex-wrap:wrap}
@@ -48,6 +48,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 @media(max-width:800px){.identity-standalone-intro{grid-template-columns:1fr}.identity-standalone-benefits{grid-template-columns:repeat(3,minmax(0,1fr))}.identity-source-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.identity-standalone-benefits,.identity-source-grid{grid-template-columns:1fr}.identity-standalone-intro{padding:18px}.identity-source-hub{padding:13px}}
 @media print{.identity-standalone-intro,.identity-standalone-header,.identity-source-hub,.identity-standalone-footer{display:none!important}}
+.identity-old-guided,.identity-old-sources{margin:18px 0;border:1px solid #63948b;border-radius:12px;background:#112b37;padding:12px}
+.identity-old-guided>summary,.identity-old-sources>summary{font:800 13px/1.5 system-ui;color:#d2ffec;cursor:pointer;padding:7px}
 </style>
 </head>
 <body class="trace-app">
@@ -58,11 +60,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <main class="identity-standalone">
 <header class="identity-standalone-header"><a href="/">← Random Candy Land</a><a href="/osint-academy/">Try the TRACE investigation game ↗</a></header>
 <section class="identity-standalone-intro" aria-labelledby="identity-title">
-<div><span class="eyebrow">STANDALONE SELF-RESEARCH · NOT A COURSE</span><h1 id="identity-title">Identity Lab</h1><p>See what your own public digital footprint reveals. Start with one detail, check open-data sources and free public APIs, and build a source-linked report you control. No paid tools, technical setup, or course required.</p></div>
-<div class="identity-standalone-benefits"><span>① Start with one clue</span><span>② Review original sources</span><span>③ Save your private report</span></div>
+<div><span class="eyebrow">STANDALONE SELF-RESEARCH · NOT A COURSE</span><h1 id="identity-title">Identity Lab</h1><p>Investigate your own or authorized public-source footprint. Enter as many known details as you need, check free public records, review evidence connections, and export a source-linked case. No paid API keys or technical setup required.</p></div>
+<div class="identity-standalone-benefits"><span>① Add all known details</span><span>② Compare reliable sources</span><span>③ Review evidence &amp; export</span></div>
 </section>
-<section id="trace-profile-review" aria-label="Create your own public identity report"><h2>Loading Identity Lab…</h2></section>
-<section class="identity-source-hub" aria-labelledby="source-hub-heading">
+<section id="identity-investigation-workbench" aria-label="Free official-source research workbench"><h2>Loading public-source investigation workbench…</h2></section>
+<details class="identity-old-guided"><summary>Prefer the guided, three-step profile report? Open the original workflow</summary><section id="trace-profile-review" aria-label="Create your own public identity report"><h2>Loading guided report…</h2></section></details>
+<details class="identity-old-sources"><summary>More about the original eight free-source services</summary><section class="identity-source-hub" aria-labelledby="source-hub-heading">
 <h2 id="source-hub-heading">Open-source tools &amp; free public APIs</h2>
 <p>No paid lookups, subscriptions, credit cards, or API keys. The quick check above can contact public GitHub, GitLab, Codeberg, Wikidata, free DNS, and Internet Archive endpoints when you press Search. Other tools below open on their own websites; their findings are not collected automatically.</p>
 <div class="identity-source-grid">
@@ -76,6 +79,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <article><span>FREE PUBLIC API · DOMAIN RECORDS</span><h3>Public DNS</h3><p>Review public A or MX domain records via the free JSON DNS service. Infrastructure records cannot validate a mailbox or reveal a private subscriber.</p><a href="https://dns.google/" target="_blank" rel="noopener noreferrer">View DNS service ↗</a></article>
 </div>
 <p class="identity-hub-footnote">There are no paid APIs, bulk people searches, hidden-profile discovery services or automatic data-broker lookups. External APIs may rate-limit queries or disallow browser requests. A missing result is not proof that a person or account does not exist. Your report remains an evidence organizer until you corroborate its sources.</p>
-</section>
+</section></details>
 <footer class="identity-standalone-footer"><span>Private-by-default: entries stay in this browser until you choose a public lookup or export. Public lookup providers receive the clue you submit.</span><a href="/osint-academy/">TRACE Evidence Files game</a></footer>
 </main></body></html>
