@@ -329,7 +329,7 @@ function init(){
  function render(){
   const q=normalize(search.value.trim()),category=filter.value;
   const focus=bodyFocus?.value||'both';
-  const items=TOYS.filter(x=>(!category||category===x.group)&&(!q||normalize([x.name,x.summary,x.group,...x.uses,...x.tags,BODY_GUIDE[x.id].male.note,BODY_GUIDE[x.id].female.note].join(' ')).includes(q)));
+  const items=TOYS.filter(x=>(!category||category===x.group||(category==='Anal & pelvic'&&x.group==='Strap-ons & harnesses'))&&(!q||normalize([x.name,x.summary,x.group,...x.uses,...x.tags,BODY_GUIDE[x.id].male.note,BODY_GUIDE[x.id].female.note].join(' ')).includes(q)));
   grid.replaceChildren();count.textContent=items.length+' of '+TOYS.length+' toy categories';
   const limit=(!q&&!category&&!window.UnwrappedToyExplorer?.showAll?.())?12:items.length;
   for(const t of items.slice(0,limit)){
