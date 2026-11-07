@@ -259,8 +259,13 @@ jobs:
             if [[ "$current" == "$EXPECTED_RELEASE" ]]; then
               samplePage=$(curl --fail --silent --show-error --location --max-time 12 \
                 -H "Cache-Control: no-cache" "$base/after-dark/report-samples/?release=$EXPECTED_RELEASE" || true)
-              if [[ "$samplePage" != *"complete-rowan-personal-report.pdf"* || "$samplePage" != *"complete-ellis-personal-report.pdf"* ]]; then
-                echo "::warning::The new Unwrapped fictional report links are not live on this Pages URL."
+              # The obsolete sample download gallery was deliberately retired.
+              # Verify that visitors see the real report/import guide instead.
+              if [[ "$samplePage" != *"Create or upload a report"* ||
+                    "$samplePage" != *"Selected report"* ||
+                    "$samplePage" == *'data-sample-download'* ||
+                    "$samplePage" == *'href="/after-dark/report-samples/complete-rowan'* ]]; then
+                echo "::warning::The new Unwrapped report and upload guide is missing or an obsolete sample link returned."
                 exit 1
               fi
               comparisonUrl="$base/after-dark/report-samples/complete-rowan-ellis-comparison.pdf?release=$EXPECTED_RELEASE"
@@ -280,8 +285,12 @@ jobs:
               done
               renderedUnwrapped=$(curl --fail --silent --show-error --location --max-time 12 \
                 -H "Cache-Control: no-cache" "$base/after-dark/?release=$EXPECTED_RELEASE" || true)
-              if [[ "$renderedUnwrapped" != *"Mira is Unwrapped"* || "$renderedUnwrapped" == *"Atlee is"* ]]; then
-                echo "::error::Pages may be serving an obsolete Unwrapped page; Mira branding is not live at this release."
+              if [[ "$renderedUnwrapped" != *"Mira is Unwrapped"* ||
+                    "$renderedUnwrapped" == *"Atlee is"* ||
+                    "$renderedUnwrapped" != *'id="uw-personal-workflow"'* ||
+                    "$renderedUnwrapped" != *'id="uw-import-private"'* ||
+                    "$renderedUnwrapped" != *'Reports &amp; Uploads'* ]]; then
+                echo "::error::Pages may be serving an obsolete Unwrapped page; the report download/import center is not live."
                 exit 1
               fi
               for route in moodropolis the-corridors the-docket; do
@@ -292,7 +301,7 @@ jobs:
                   exit 1
                 fi
               done
-              echo "::notice::GitHub Pages serves this exact release and the independent interactive games."
+              echo "::notice::GitHub Pages serves this exact release with the report download/import center, verified PDF bytes, and independent interactive games."
               exit 0
             fi
             echo "Pages publication is still propagating (check $attempt/6)."
