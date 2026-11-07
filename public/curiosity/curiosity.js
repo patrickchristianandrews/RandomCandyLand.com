@@ -14,7 +14,7 @@ function detail(item){
 }
 function render(){
  const match=ideas.filter(x=>(category==='all'||x.category===category)&&(!search||[x.title,x.hook,x.depth,x.example].join(' ').toLowerCase().includes(search))),list=expanded||search||category!=='all'?match:match.slice(0,12);
- const root=$('ideas-grid');root.replaceChildren();
+ const root=$('ideas-grid');if(!root)return;root.replaceChildren();
  for(const item of list){
   const card=make('article',undefined,'idea-card');card.dataset.idea=item.id;card.setAttribute('aria-expanded',String(active===item.id));
   card.append(make('span',item.category.toUpperCase()+' · SHORT READ','idea-tag'),make('h3',item.title),make('p',item.hook));
@@ -28,7 +28,7 @@ function render(){
 function read(id,scroll=true){if(!ideas.some(x=>x.id===id))return;active=active===id?null:id;render();if(active&&scroll){const p=$('idea-reading');p?.focus({preventScroll:true});p?.scrollIntoView({behavior:'smooth',block:'center'})}}
 function reset(){category='all';search='';expanded=true;active=null;$('idea-search').value='';$('idea-categories').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.category==='all')))}
 function research(data){
- const root=$('research-grid');root.replaceChildren();const list=Array.isArray(data?.research)?data.research:[];
+ const root=$('research-grid');if(!root)return;root.replaceChildren();const list=Array.isArray(data?.research)?data.research:[];
  if(!list.length){
   const empty=make('article',undefined,'research-card');empty.append(make('span','FEED STATUS','idea-tag'),make('h3','The public research feed is temporarily unavailable'),make('p','The original articles above remain available. The scheduled update retries the free academic index. No research headlines are invented.'));
   const link=make('a','Browse OpenAlex publications ↗');link.href='https://openalex.org/works';link.target='_blank';link.rel='noopener noreferrer';empty.append(link);root.append(empty);return;
@@ -47,28 +47,38 @@ async function loadData(){
   const data=await res.json();if(data.version!==1||!data.series||typeof data.series!=='object')throw Error('Invalid source catalog');
   research(data);
   const when=data.researchUpdatedAt||data.updatedAt;
-  $('freshness').textContent=when?'Source last checked '+new Date(when).toLocaleString():'New source update not yet available';
+  if($('freshness'))$('freshness').textContent=when?'Source last checked '+new Date(when).toLocaleString():'Source update not yet available';
   window.WonderData=data;window.dispatchEvent(new CustomEvent('wonder-data-ready',{detail:{data}}));
  }catch(error){
-  research(null);$('freshness').textContent='Public feed unavailable; retry on next update';
+  research(null);if($('freshness'))$('freshness').textContent='Public feed unavailable; retry on next update';
   window.dispatchEvent(new CustomEvent('wonder-data-error',{detail:{error:String(error)}}));
  }
 }
 function start(){
- const today=ideas[dateIndex()];
- if(today){
-  $('today-date').textContent=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric'});
-  const daily=$('today-feature');daily.replaceChildren();daily.append(make('h2',today.title),make('p',today.hook+' '+today.try));
-  const btn=make('button','Read the full idea ↗','feature-link');btn.type='button';btn.onclick=()=>{reset();render();read(today.id,false);$('ideas').scrollIntoView({behavior:'smooth'})};daily.append(btn);
+ const daily=$('today-feature'),today=ideas[dateIndex()];
+ if(daily&&today){
+  if($('today-date'))$('today-date').textContent=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric'});
+  daily.replaceChildren();daily.append(make('h2',today.title),make('p',today.hook+' '+today.try));
+  const btn=make('button','Read the full idea ↗','feature-link');btn.type='button';btn.onclick=()=>{reset();render();read(today.id,false);$('ideas')?.scrollIntoView({behavior:'smooth'})};daily.append(btn);
  }
- render();
- $('idea-categories').addEventListener('click',e=>{const b=e.target.closest('[data-category]');if(!b)return;category=b.dataset.category;active=null;$('idea-categories').querySelectorAll('button').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));render()});
- $('idea-search').addEventListener('input',e=>{search=e.target.value.trim().toLowerCase();active=null;render()});
- $('ideas-grid').addEventListener('click',e=>{const b=e.target.closest('[data-read-idea]');if(b)read(b.dataset.readIdea)});
- $('surprise-idea').onclick=()=>{reset();render();const pick=ideas[Math.floor(Math.random()*ideas.length)];if(pick)read(pick.id)};
- $('show-more-ideas').onclick=()=>{expanded=!expanded;render()};
- void loadData();
- document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastFetch>4*3600000)void loadData()});
+ if($('ideas-grid')){
+  const params=new URLSearchParams(location.search),story=params.get('story');
+  if(story&&ideas.some(x=>x.id===story)){expanded=true;active=story}
+  render();
+  $('idea-categories')?.addEventListener('click',e=>{
+   const b=e.target.closest('[data-category]');if(!b)return;
+   category=b.dataset.category;active=null;$('idea-categories').querySelectorAll('button').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));render();
+  });
+  $('idea-search')?.addEventListener('input',e=>{search=e.target.value.trim().toLowerCase();active=null;render()});
+  $('ideas-grid').addEventListener('click',e=>{const b=e.target.closest('[data-read-idea]');if(b)read(b.dataset.readIdea)});
+  if($('surprise-idea'))$('surprise-idea').onclick=()=>{reset();render();const pick=ideas[Math.floor(Math.random()*ideas.length)];if(pick)read(pick.id)};
+  if($('show-more-ideas'))$('show-more-ideas').onclick=()=>{expanded=!expanded;render()};
+  if(active)requestAnimationFrame(()=>document.querySelector('#idea-reading')?.scrollIntoView({block:'start'}));
+ }
+ if($('research-grid')||$('corr-country')){
+  void loadData();
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastFetch>30*60000)void loadData()});
+ }
 }
 window.WonderIndexIdeasAPI=Object.freeze({all:()=>ideas.slice(),today:()=>ideas[dateIndex()],reload:loadData});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
