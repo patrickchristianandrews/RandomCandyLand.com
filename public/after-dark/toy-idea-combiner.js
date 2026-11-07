@@ -81,7 +81,7 @@ function generate(mode){
   const him=selected('him'),her=selected('her');
   if(!him||!her){root.append(el('p','Select two individually compatible topics or use Choose for me on both menus.'));return}
   last={him:him.id,her:her.id};
-  addHeader(root,'An idea to understand together','Two independently chosen interests. Combining them means comparing preferences, not putting two devices into use at the same time.');
+  addHeader(root,'An idea to understand together','Two independently chosen interests. Combining choices does not mean consent or that two devices should be used at the same time.');
   const two=el('div',undefined,'unwrapped-toy-idea-pair');two.append(lead(him,'him'),lead(her,'her'));root.append(two);
   const overlap=him.id===her.id?'You selected the same device for both people. That can be a shared topic, with separate anatomy and safety considerations.':
    'These are two different interests. One person may prefer one option, both may like either, or neither may want to act on them. Do not assume they work together physically.';
