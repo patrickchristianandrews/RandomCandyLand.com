@@ -1,4 +1,4 @@
-/* Candy Land Casino: all games are head-to-head, with Candybot or one invited
+/* Candy Land Poker: five-card draw against Candybot or one invited
  * remote player. Poker is genuine five-card draw, with hidden hands until
  * showdown. Free fictional chips only; no bets, prizes, payments or deposits.
  */
@@ -179,7 +179,7 @@ function draw(){
 }
 function newMatch(){if(mode==='friend'&&!host&&online){send({type:'reset'});status('Requesting a new match from the host.');return;}reset();render();transmit();}
 function chooseGame(next){
- if(!labels[next]||next===duel)return;
+ if(next!=='poker'||next===duel)return;
  if(mode==='friend'&&!host&&online){status('The host must choose the game for this online room.');return;}
  duel=next;newMatch();
 }
@@ -204,7 +204,7 @@ const peerOptions={debug:1};
 const connectionDetails=()=>{
  const pc=connection?.peerConnection;
  const details=[
-  'Candy Land Casino multiplayer '+networkVersion,
+  'Candy Land Poker multiplayer '+networkVersion,
   'Status: '+lastConnectionDetail,
   'Transport: '+transportName,
   'Relay endpoint: '+(relayEnabled?window.CandyCasinoRelay.endpoint:'not configured'),
@@ -366,7 +366,7 @@ function connect(c){
   if(msg.type==='draw'&&host){commitDraw(1,msg.indices);return;}
   if(msg.type==='reset'&&host){newMatch();return;}
   if(msg.type==='state'&&!host){
-   if(!labels[msg.duel]||!Array.isArray(msg.scores)||msg.scores.length!==2||!Array.isArray(msg.readies)||msg.readies.length!==2||!['ready','draw','result'].includes(msg.stage))return;
+   if(msg.duel!=='poker'||!Array.isArray(msg.scores)||msg.scores.length!==2||!Array.isArray(msg.readies)||msg.readies.length!==2||!['ready','draw','result'].includes(msg.stage))return;
    if(match!==msg.match||stage!==msg.stage)selected.clear();
    match=String(msg.match||'').slice(0,70);duel=msg.duel;
    players=Array.isArray(msg.players)&&msg.players.length===2?msg.players.map(sanitize):players;
@@ -541,7 +541,7 @@ async function createRoom(){
 async function joinRoom(preserveClaimCount=false){
  const claims=roomClaimCount;
  const id=roomCode($('room-input').value);
- if(!/^rcl-casino-[a-f0-9]{20}$/i.test(id)){onlineStatus('⚠️ Paste a valid Candy Land Casino invitation link or room code.');return;}
+ if(!/^rcl-casino-[a-f0-9]{20}$/i.test(id)){onlineStatus('⚠️ Paste a valid Candy Land Poker invitation link or room code.');return;}
  setMode('friend');
  if(preserveClaimCount)roomClaimCount=claims;
  $('room-input').value=id;mode='friend';host=false;
@@ -646,7 +646,7 @@ $('copy-diagnostics').onclick=async()=>{
   $('copy-diagnostics').textContent='SELECT AND COPY DETAILS';
  }
 };
-$('share-invite').onclick=async()=>{const url=$('invite-link').value;if(navigator.share){try{await navigator.share({title:'Join my game',text:'Play Candy Casino with me!',url});return}catch(e){if(e?.name==='AbortError')return}}$('copy-invite').click();};
+$('share-invite').onclick=async()=>{const url=$('invite-link').value;if(navigator.share){try{await navigator.share({title:'Join my game',text:'Play Candy Land Poker with me!',url});return}catch(e){if(e?.name==='AbortError')return}}$('copy-invite').click();};
 $('copy-invite').onclick=async()=>{try{await navigator.clipboard.writeText($('invite-link').value);$('copy-invite').textContent='✓ LINK COPIED';}catch{$('invite-link').focus();$('invite-link').select();$('copy-invite').textContent='SELECTED — COPY LINK';}};
 $('friend-name').addEventListener('change',()=>{players[me()]=sanitize($('friend-name').value);if(online)send({type:'hello',name:players[me()]});render();transmit();});
 const incoming=new URL(location.href).searchParams.get('room');
