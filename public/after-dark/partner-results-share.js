@@ -7,7 +7,7 @@
 const $=id=>document.getElementById(id);
 const canonical=()=>window.AfterDarkCanonicalReport?.buildData?.();
 const fmt='afterdark-partner-results-v1';
-const opt={interests:new Map(),themes:new Set(),answers:new Set(),custom:new Set(),toys:new Set(),name:'',intro:''};
+const opt={interests:new Map(),themes:new Set(),answers:new Set(),custom:new Set(),toys:new Set()};
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(cls)n.className=cls;return n};
 const button=(text,handler,cls='btn alt')=>{const b=el('button',text,cls);b.type='button';b.onclick=handler;return b};
 const check=(text,active,handler)=>{const label=el('label',undefined,'ps-check'),input=el('input');input.type='checkbox';input.checked=Boolean(active);input.onchange=()=>handler(input.checked);label.append(input,document.createTextNode(text));return label};
@@ -66,7 +66,7 @@ function buildPack(){
   return{error:'Choose at most 6 interests, 6 themes, 5 answers and 4 personal ideas.'};
  if(!interests.length&&!themes.length&&!answers.length&&!customIdeas.length&&!toyIdeas.length)
   return{error:'Select at least one interest, psychology theme, answer, personal idea or toy topic before sharing.'};
- const pack={format:fmt,version:1,from:limit(opt.name,55),intro:limit(opt.intro,350),interests,themes,answers,customIdeas};
+ const pack={format:fmt,version:1,from:'',intro:'',interests,themes,answers,customIdeas};
  if(toyIdeas.length)pack.toys=toyIdeas;
  const bytes=new TextEncoder().encode(JSON.stringify(pack)).length;
  if(bytes>SHARE_MAX_BYTES)return{error:'This selection is too long for a reliable phone link. Remove some items or notes (currently '+bytes+' bytes).'};
@@ -285,14 +285,6 @@ function render(){
  header.append(el('span','PRIVATE · YOU DECIDE WHAT TO SHARE','eyebrow'),el('h2','Share exactly what you choose'),
   el('p','Make a custom view for a partner. Choose individual interests, psychological themes, and selected answers. Everything starts private.'));
  root.append(header);
- const ident=el('div',undefined,'ps-identity');
- for(const [key,label,placeholder,max] of [['name','Your name or nickname (optional)','Your nickname',55],
-  ['intro','Message to your partner (optional)','I’d like to share a few things from my results and talk about them when we’re both comfortable.',350]]){
-  const wrap=el('label',undefined,'ps-text-field');wrap.append(el('strong',label));
-  const input=key==='intro'?el('textarea'):el('input');input.value=opt[key];input.maxLength=max;input.placeholder=placeholder;
-  input.oninput=()=>{opt[key]=input.value};wrap.append(input);ident.append(wrap);
- }
- root.append(ident);
  const interests=el('details',undefined,'ps-section');interests.open=true;
  interests.append(el('summary','1 · Choose specific interests'));
  const interestBody=el('div',undefined,'ps-section-body');addInterests(interestBody,d);interests.append(interestBody);root.append(interests);
@@ -314,7 +306,7 @@ function render(){
  actions.append(button('🔗 Create selected-results link',makeLink,'btn alt'));
  actions.append(button('📋 Copy just this shared text',copySelected,'btn alt'));
  actions.append(button('Clear all selections',()=>{
-  opt.interests.clear();opt.themes.clear();opt.answers.clear();opt.custom.clear();opt.toys.clear();opt.intro='';opt.name='';render();status('Nothing selected for sharing.');
+  opt.interests.clear();opt.themes.clear();opt.answers.clear();opt.custom.clear();opt.toys.clear();render();status('Nothing selected for sharing.');
  },'btn alt'));
  root.append(actions);
  const output=el('div',undefined,'ps-link-output');output.id='partner-share-link';output.hidden=true;root.append(output);
