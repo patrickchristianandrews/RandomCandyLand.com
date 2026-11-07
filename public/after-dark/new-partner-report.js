@@ -6,6 +6,7 @@ const add=(node,tag,str,cls)=>{const x=make(tag,str,cls);node.append(x);return x
 const btn=(label,cb,cls='btn')=>{const b=make('button',label,cls);b.type='button';b.addEventListener('click',cb);return b};
 const selectedPsych=new Set(),selectedSex=new Set(),knownPsych=new Set();
 let showPsych=true,showSex=false,showToys=false,panel=null,preview=null,message=null;
+let refreshQuizChoices=()=>{};
 function summaryData(){return window.AfterDarkCanonicalReport?.buildData?.()||null;}
 function selectedQuestions(data){return(data?.psych?.questions||[]).filter(q=>q.selected?.length).map(q=>({
  id:'p'+q.number,heading:q.question,answer:q.selected.map(x=>x.text).join(' / ').slice(0,320),axes:[...new Set(q.selected.flatMap(x=>x.axes))],number:q.number
@@ -149,7 +150,7 @@ function content(){
  return root;
 }
 function doPreview(){
- try{preview.replaceChildren(content());preview.hidden=false;message.textContent='Preview ready. Review everything before sharing.'}
+ try{refreshQuizChoices();preview.replaceChildren(content());preview.hidden=false;message.textContent='Preview ready. Review everything before sharing.'}
  catch(e){message.textContent=e.message;preview.hidden=true}
 }
 function print(){
@@ -209,6 +210,7 @@ function mount(){
   choiceList(ps,available,selectedPsych);
   choiceList(st,sexualInterests(data),selectedSex);
  }
+ refreshQuizChoices=refreshChoices;
  refreshChoices();
  document.addEventListener('click',event=>{
   if(event.target.closest('[data-tab="notebook"],[data-new-partner]'))setTimeout(refreshChoices,70);
@@ -218,5 +220,5 @@ function mount(){
  }));
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
-window.AfterDarkNewPartnerReport=Object.freeze({mount,build:content,preview:doPreview,exportPDF:print,sexualChoices:()=>sexualInterests(summaryData()).map(x=>x.title)});
+window.AfterDarkNewPartnerReport=Object.freeze({mount,build:content,preview:doPreview,exportPDF:print,refreshFromQuiz:()=>{mount();refreshQuizChoices()},sexualChoices:()=>sexualInterests(summaryData()).map(x=>x.title)});
 })();
