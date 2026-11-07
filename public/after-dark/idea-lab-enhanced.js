@@ -74,7 +74,7 @@ function filtered(theme){
  return DATA.filter(s=>s.tier===band&&(theme==='any'||theme===s.theme)
  &&(!settings.anal||!s.tags.includes('anal'))
  &&(!settings.power||!s.tags.includes('power'))
- &&(!settings.penetration||!s.tags.includes('anal'))
+ &&(!settings.penetration||!/(penetrat|strap.on|\banal\b|insertab|vaginal|dildo)/i.test([s.title,s.premise,...s.parts].join(' ')))
  );
 }
 const fit=(toy,kind)=>['direct','conditional'].includes(window.UnwrappedToyLibrary?.bodyUses(toy.id)?.[kind]?.fit);
@@ -184,8 +184,8 @@ function init(){
  main.onclick=()=>render('idea');
  const withToy=E('button','✦ Idea + Toy','btn alt');withToy.type='button';withToy.onclick=()=>render('toy');
  const allIn=E('button','🔥 Full Combination','btn');allIn.type='button';allIn.onclick=()=>render('full');
- modebar.append(withToy,allIn);
- controls.insertAdjacentElement('afterend',modebar);
+ modebar.append(main,withToy,allIn);
+ boundaries.insertAdjacentElement('afterend',modebar);
  const helper=E('p','Random Idea gives a complete scenario. Idea + Toy adds a device with safety and anatomy notes. Full Combination builds a more elaborate two-act idea with two different optional toys. Your Freak Level controls all three.','freak-picker-help');
  modebar.insertAdjacentElement('afterend',helper);
  update();
