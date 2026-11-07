@@ -877,7 +877,7 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
 }
 for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
   'dist/osint-academy/profile-review.js','dist/osint-academy/identity-lab.js',
-  'dist/identity-lab/index.html','dist/identity-lab/workbench.js','dist/identity-lab/workbench.css','dist/app-manifests/identity-lab.webmanifest',
+  'dist/identity-lab/index.html','dist/identity-lab/lookup-engine.js','dist/identity-lab/workbench.js','dist/identity-lab/workbench.css','dist/app-manifests/identity-lab.webmanifest',
   'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
   if(!fs.existsSync(asset)){console.error('OSINT Academy asset missing:',asset);failures++;}
 }
@@ -887,13 +887,20 @@ if(standaloneHtml.includes('haveibeenpwned.com')||standaloneHtml.includes('myact
  console.error('Identity Lab includes a paid or non-open/free-only tool listing.');failures++;
 }
 if(traceHtml.includes('profile-review.js')||!traceHtml.includes('Evidence Files')||
-   !standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('/app-manifests/identity-lab.webmanifest')||!standaloneHtml.includes('id="identity-investigation-workbench"')||!standaloneHtml.includes('workbench.js?v=')){
+   standaloneHtml.includes('profile-review.js')||!standaloneHtml.includes('lookup-engine.js?v=')||!standaloneHtml.includes('/app-manifests/identity-lab.webmanifest')||!standaloneHtml.includes('id="identity-investigation-workbench"')||!standaloneHtml.includes('workbench.js?v=')){
  console.error('Self-research must live outside the TRACE training game.'); failures++;
+}
+if(fs.existsSync('dist/identity-lab/lookup-engine.js')){
+ const logic=fs.readFileSync('dist/identity-lab/lookup-engine.js','utf8');
+ try{new vm.Script(logic,{filename:'Identity Lab actual public source lookup engine'});}catch(error){console.error('Broken Identity Lab lookups:',error.message);failures++;}
+ for(const token of ['IdentityLabLookup','api.github.com/users/','gitlab.com/api/v4/users?username=','codeberg.org/api/v1/users/','api.gleif.org/api/v1/lei-records','geocoding.geo.census.gov','dns.google/resolve','archive.org/wayback/available','stat.ripe.net/data/network-info']){
+  if(!logic.includes(token)){console.error('Identity Lab missing actual direct free-source coverage:',token);failures++;}
+ }
 }
 if(fs.existsSync('dist/identity-lab/workbench.js')){
  const js=fs.readFileSync('dist/identity-lab/workbench.js','utf8');
  try{new vm.Script(js,{filename:'Identity Lab public-source workbench'})}catch(error){console.error('Broken public investigation workbench:',error.message);failures++}
- for(const token of ['identity-lab-investigation-case','osResearchConsent','osKnownFields','osGraph','osExport','osPrint','sourceDirectory','GLEIF','SEC EDGAR','US Census Geocoder']){
+ for(const token of ['identity-lab-investigation-case','osResearchConsent','osKnownFields','osGraph','osExport','osPrint','sourceDirectory','osSourceChecks','osOverview','osTryExample','sourceResults','overview','updatePlan']){
   if(!js.includes(token)){console.error('Identity Lab multi-source feature missing:',token);failures++;}
  }
 }
