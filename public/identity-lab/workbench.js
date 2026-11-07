@@ -46,6 +46,21 @@ const suggested=[
 const state={fields:[],leads:[],selected:'',status:'Ready. Add everything you know. No lookup starts until you choose Search.',busy:false,queryCount:0};
 const validTypes=new Set(TYPES.map(x=>x[0]));
 const makeField=(type='name',value='')=>({id:id(),type:validTypes.has(type)?type:'name',value:String(value).slice(0,350)});
+// Normalize untrusted public-API and imported case records; avoid crashes and unsafe links.
+function normalizeResult(input){
+ const raw=input&&typeof input==='object'?input:{};
+ const trim=(value,max)=>String(value??'').trim().slice(0,max);
+ const url=safeUrl(raw.url);
+ const headline=trim(raw.headline,180);
+ return {
+  kind:trim(raw.kind||'Public-source lead',80),
+  headline:headline||'Untitled public-source record',
+  detail:trim(raw.detail||'Original source record; assess its meaning independently.',500),
+  url,
+  source:trim(raw.source||'Public source',160),
+  notes:trim(raw.notes||'Potential lead only; verify against the original dated source.',600)
+ };
+}
 const nodeTitle=r=>String(r.title||r.headline||r.value||r.kind||'Clue').slice(0,90);
 const statusClasses=['unverified','confirmed','contradicted','excluded'];
 const fillType=r=>r.status==='confirmed'?'#2c998a':r.status==='contradicted'?'#a95465':r.status==='excluded'?'#545b71':'#446681';
