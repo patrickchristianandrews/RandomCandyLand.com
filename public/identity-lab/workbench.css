@@ -69,3 +69,39 @@
  #osPrintOutput a{color:#153b70;overflow-wrap:anywhere}
  #osPrintOutput article{margin:12px 0;border-top:1px solid #ddd;break-inside:avoid}
 }
+
+
+/* Identity Lab 2: essential results first; advanced methods only on demand. */
+.os-starter-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 12px}
+.os-starter-actions button{font:850 11px/1.4 system-ui;padding:9px 12px}
+.os-starter-actions small{font-size:10px;line-height:1.4;color:#b9d6d2}
+.os-overview{border:1px solid #a5e9cd;background:#183d46;border-radius:13px;padding:15px;margin:0 0 12px}
+.os-overview strong{font-size:18px;color:#caffeb;line-height:1.4}
+.os-overview p{font-size:12px;line-height:1.65;color:#dcf6f0;margin:8px 0 0}
+.os-overview .os-next-action{color:#ffe8bc}
+.os-methods,.os-source-directory{margin:13px 0;border:1px solid #507f85;border-radius:11px;background:#0b2530;padding:11px 12px}
+.os-methods summary,.os-source-directory>summary{cursor:pointer;font:800 12px/1.5 system-ui;color:#bffff0;list-style:revert}
+.os-methods[open] summary,.os-source-directory[open]>summary{margin-bottom:14px}
+.os-source-directory{margin-top:16px;padding:12px 14px}
+.os-source-directory>.os-source-hub{margin-top:12px}
+.os-source-checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));gap:9px;margin-top:14px}
+.os-check{display:flex;flex-direction:column;gap:6px;border-radius:10px;border:1px solid #4d8084;background:#092533;padding:11px}
+.os-check strong{font:800 12px/1.4 system-ui;color:#f6fffc}
+.os-check small{font:500 10px/1.5 system-ui;color:#d0e5e3;overflow-wrap:anywhere}
+.os-check-found{border-color:#6eceba;background:#153f3c}
+.os-check-no_match{border-color:#98a0aa}
+.os-check-unavailable{border-color:#dbad78;background:#423325}
+.os-graph-disclaimer{font-size:11px;color:#d4e3e6;line-height:1.65}
+.os-evidence-list{max-height:none;overflow:visible}
+.os-workbench-heading h2{letter-spacing:-.035em}
+.os-intake-actions small#osPlannedSources{font-size:12px;font-weight:750;color:#ddffe7}
+.os-source-directory[open] .os-source-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr))}
+@media(max-width:550px){
+ .os-workbench-grid{grid-template-columns:minmax(0,1fr)}
+ .os-check{padding:11px}
+ .os-starter-actions button{min-height:43px;width:100%}
+ .os-workbench-heading h2{font-size:27px}
+}
+@media print{
+ .os-source-directory,.os-starter-actions,.os-methods{display:none!important}
+}
