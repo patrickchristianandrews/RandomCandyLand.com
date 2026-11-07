@@ -741,6 +741,52 @@ try{
     "(()=>{const first=document.querySelector('.candyland-play-shelves')?.firstElementChild,card=first?.querySelector('.candyland-unwrapped-feature-card'),desc=card?.querySelector('.candyland-unwrapped-feature-description');return !!first?.classList.contains('candyland-play-shelf-discovery')&&card?.getAttribute('href')==='/after-dark/'&&!!desc?.textContent.includes('psychology')&&!!card.querySelector('.candyland-unwrapped-feature-cta')&&card.querySelectorAll('.candyland-unwrapped-feature-outputs>span').length===6&&!document.querySelector('header .candyland-unwrapped-promo')})()");
   console.log('✓ The Absurdity Report live ticker opens and closes full articles; all Unwrapped and game shelves remain intact.');
 
+  // Wonder Index is deliberately brief on its landing page; ideas,
+  // live research and real-data correlations each have a separate destination.
+  const wonder=await navigate(site+'/curiosity/');
+  const wonderReady=await wonder.evaluate("(()=>{const root=document.querySelector('main.wonder-landing'),doors=root?.querySelectorAll('.wonder-doorway'),links=[...doors||[]].map(x=>x.getAttribute('href'));return !!window.WonderIndexLanding&&!!root&&doors?.length===3&&links.includes('/curiosity/ideas/')&&links.includes('/curiosity/research/')&&links.includes('/curiosity/correlations/')&&root.querySelectorAll('.wonder-featured-story').length===1&&!root.querySelector('#ideas-grid')&&!root.querySelector('#corr-first')})()");
+  if(!wonderReady)throw Error('Wonder Index landing must show one featured story and links to three independent pages, not a scroll wall');
+  const featuredBefore=await wonder.evaluate("document.querySelector('#home-feature-heading').textContent");
+  await wonder.evaluate("document.querySelector('#home-feature-next').click()");
+  const rotated=await wonder.evaluate("document.querySelector('#home-feature-heading').textContent!=="+JSON.stringify(featuredBefore)+"&&document.querySelector('#home-feature-link').getAttribute('href').startsWith('/curiosity/ideas/?story=')");
+  if(!rotated)throw Error('Wonder Index one-at-a-time story carousel does not rotate or open an individual article');
+  await wonder.evaluate("document.querySelector('#home-feature-pause').click()");
+  const paused=await wonder.evaluate("document.querySelector('#home-feature-pause').getAttribute('aria-pressed')==='true'");
+  if(!paused)throw Error('Wonder Index rotating feature must have working Pause for reduced motion');
+  await delay(1200);
+  const wonderPreview=await wonder.evaluate("(()=>{const status=document.querySelector('#home-source-status').textContent,chart=document.querySelector('#home-correlation-feed svg'),research=document.querySelector('#home-research-feed');return {status,chart:!!chart,observationText:document.querySelector('#home-correlation-feed')?.textContent.includes('r = '),research:!!research?.querySelector('a[href^=\"https://doi.org/\"]'),researchFallback:research?.textContent.includes('unavailable')||!!research?.querySelector('a[href^=\"https://openalex.org/\"]')}})()");
+  if(!wonderPreview?.chart||!wonderPreview?.observationText)throw Error('Wonder Index preview must show a chart and Pearson r from refreshed official World Bank data: '+JSON.stringify(wonderPreview));
+  if(!wonderPreview.research&&!wonderPreview.researchFallback)throw Error('Wonder Index must show source-linked research or a specific upstream-unavailable fallback');
+  await wonder.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  const wonderMobile=await wonder.evaluate("document.documentElement.scrollWidth<=innerWidth+4&&!!document.querySelector('.wonder-featured-story')&&document.querySelectorAll('.wonder-doorway').length===3");
+  if(!wonderMobile)throw Error('Wonder Index landing overflows a 390px phone');
+  await wonder.command('Emulation.clearDeviceMetricsOverride');
+
+  const ideasPage=await navigate(site+'/curiosity/ideas/?story=goodhart');
+  const ideasReady=await ideasPage.evaluate("(()=>{const cards=document.querySelectorAll('#ideas-grid .idea-card'),detail=document.querySelector('#idea-reading');return cards.length>=12&&detail?.textContent.includes('When a metric becomes the target')&&!!document.querySelector('#idea-search')&&!!document.querySelector('#surprise-idea')})()");
+  if(!ideasReady)throw Error('Wonder Index dedicated ideas page must deep-link a rotating story to its complete original article');
+  await ideasPage.evaluate("document.querySelector('#idea-search').value='Simpson';document.querySelector('#idea-search').dispatchEvent(new Event('input',{bubbles:true}))");
+  const ideaFilter=await ideasPage.evaluate("document.querySelectorAll('#ideas-grid .idea-card').length===1&&document.querySelector('#ideas-grid').textContent.includes('Simpson')");
+  if(!ideaFilter)throw Error('Wonder Index dedicated ideas page must filter concepts by topic');
+
+  const researchPage=await navigate(site+'/curiosity/research/');
+  await delay(900);
+  const researchReady=await researchPage.evaluate("(()=>{const grid=document.querySelector('#research-grid'),when=document.querySelector('#freshness');return !!grid?.querySelector('.research-card')&&!!when&&!when.textContent.includes('Checking latest cached update')&&!document.querySelector('#corr-first')})()");
+  if(!researchReady)throw Error('Wonder Index research-only page failed to display source links/status');
+
+  const correlationsPage=await navigate(site+'/curiosity/correlations/');
+  await delay(900);
+  const dataReady=await correlationsPage.evaluate("(()=>{const btn=document.querySelector('#generate-corr');return !!window.SpuriousCorrelationStudio&&!btn.disabled&&document.querySelector('#corr-first').options.length>=4})()");
+  if(!dataReady)throw Error('Wonder Index correlation page is missing real indicator series');
+  await correlationsPage.evaluate("document.querySelector('#generate-corr').click()");
+  const generated=await correlationsPage.evaluate("(()=>{const res=window.SpuriousCorrelationStudio.getResult(),area=document.querySelector('#corr-result');return !!res&&Number.isFinite(res.r)&&res.pairs.length>=10&&!!area.querySelector('.corr-chart svg')&&!!area.querySelector('.corr-insight')&&!!area.querySelector('.corr-links a[href^=\"https://data.worldbank.org/\"]')})()");
+  if(!generated)throw Error('Wonder Index spurious correlation generator must plot observed World Bank years and show source-backed caution, not fictional values');
+  await correlationsPage.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  const correlationMobile=await correlationsPage.evaluate("document.documentElement.scrollWidth<=innerWidth+4&&document.querySelector('.corr-chart').getBoundingClientRect().width<=innerWidth");
+  if(!correlationMobile)throw Error('Wonder Index interactive correlation charts overflow 390px phone viewport');
+  await correlationsPage.command('Emulation.clearDeviceMetricsOverride');
+  console.log('✓ Wonder Index compact landing, rotating featured stories, published research sources, real World Bank correlations and mobile pages passed.');
+  
   // Candy Studio is an additional /studio/ section, never the new homepage.
   // Test actual browser controls without a paid model or customer credentials.
   const studio=await navigate(site+'/studio/');
