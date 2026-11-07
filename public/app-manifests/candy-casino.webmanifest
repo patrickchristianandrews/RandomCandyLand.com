@@ -1,8 +1,8 @@
 {
   "id": "/candy-casino/",
-  "name": "Candy Land Casino | Random Candy Land",
-  "short_name": "Candy Casino",
-  "description": "Five candy-themed free-play casino games, plus online two-player friend duels. No money, no prizes.",
+  "name": "Candy Land Poker | Random Candy Land",
+  "short_name": "Candy Poker",
+  "description": "Five-card draw poker against Candybot or one invited friend online. Virtual chips only; no money or prizes.",
   "start_url": "/candy-casino/",
   "scope": "/candy-casino/",
   "display": "standalone",
