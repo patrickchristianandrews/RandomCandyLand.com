@@ -86,4 +86,17 @@ picker.generate('full');
 assert.ok(root.textContent.includes('FANTASY ONLY'),'Fantasy-only must be explicitly shown');
 assert.ok(!root.textContent.includes('Anal & pelvic'),'Excluded anal categories must not be suggested');
 assert.ok(!root.textContent.includes('Nothing fits'),'Exclusions should leave an available alternative');
+const wonderContext={window:{}};
+vm.createContext(wonderContext);
+vm.runInContext(read('public/curiosity/ideas-data.js'),wonderContext);
+vm.runInContext(read('public/curiosity/ideas-extra.js'),wonderContext);
+const wonderIdeas=wonderContext.window.WonderIndexIdeas;
+assert.equal(wonderIdeas.length,116,'Wonder Index must have 116 original searchable entries');
+assert.equal(new Set(wonderIdeas.map(x=>x[0])).size,116,'Wonder Index ideas must be unique');
+for(const path of ['public/curiosity/index.html','public/curiosity/ideas/index.html']){
+ const page=read(path);
+ assert.ok(page.includes('ideas-extra.js'),'Wonder Index page must load the additional ideas: '+path);
+ assert.ok(page.indexOf('ideas-data.js')<page.indexOf('ideas-extra.js'),'Wonder Index extension must load after base ideas: '+path);
+}
+console.log('✓ Wonder Index: 116 unique original ideas across the existing searchable topic pages.');
 console.log('✓ Unwrapped: 68 catalog categories, 48 rich scenario templates, all four Freak Level bands, solo and combo pickers, exclusions, fantasy-only, and source parsing.');
