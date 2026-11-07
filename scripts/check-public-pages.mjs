@@ -710,11 +710,11 @@ for(const file of ['dist/ai-academy/index.html','dist/ai-academy/academy.js','di
  if(!fs.existsSync(file)){console.error('Standalone Academy or Random AI asset missing:',file);failures++;}
 }
 // Returning to Random AI must restore actually cached models, not discard them.
-for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css','dist/studio/top-models.js']){
+for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css','dist/studio/top-models.js','dist/studio/phone-model-downloads.js']){
  if(!fs.existsSync(file)){console.error('Random AI saved-model asset missing:',file);failures++;}
 }
 const studioPage=fs.readFileSync('dist/studio/index.html','utf8');
-for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=top-20261107','top-models.js?v=phone-top-20261107','id="topAiList"','id="uncensoredChoices"']){
+for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=portable-phone-20261107-v1','top-models.js?v=phone-top-20261107','id="topAiList"','id="uncensoredChoices"']){
  if(!studioPage.includes(text)){console.error('Random AI saved-model library missing:',text);failures++;}
 }
 if(fs.existsSync('dist/studio/model-memory.js')){
@@ -722,6 +722,29 @@ if(fs.existsSync('dist/studio/model-memory.js')){
  try{new vm.Script(js,{filename:'Random AI model memory'});}catch(e){console.error('Random AI model-memory syntax:',e.message);failures++;}
  for(const name of ['hasModelInCache','markLoaded','deleteModelAllInfoInCache','random-ai-saved-models-changed','persist()']){
   if(!js.includes(name)){console.error('Random AI cache restoration behavior missing:',name);failures++;}
+ }
+}
+// Users must be able to save actual compatible GGUF files to phone storage.
+// A browser cache copy is not a portable file or direct GGUF import for WebLLM.
+for(const token of ['id="portablePhoneModels"','id="portableModelDevice"','id="phoneGGUFPicker"','phone-model-downloads.js?v=portable-phone-20261107-v1']){
+ if(!studioPage.includes(token)){console.error('Phone model download workflow missing:',token);failures++;}
+}
+const portableFiles=[
+ ['bartowski/Qwen_Qwen3-0.6B-GGUF','Qwen3-0.6B-Q4_K_M.gguf'],
+ ['bartowski/Qwen_Qwen3-1.7B-GGUF','Qwen3-1.7B-Q4_K_M.gguf'],
+ ['Qwen/Qwen3-4B-GGUF','Qwen3-4B-Q4_K_M.gguf'],
+ ['bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF','Llama-3.1-8B-Lexi-Uncensored-V2-Q4_K_M.gguf']
+];
+for(const [repo,file] of portableFiles){
+ const url='https://huggingface.co/'+repo+'/resolve/main/'+file+'?download=true';
+ if(!studioPage.includes('href="'+url+'"')){console.error('Verified portable GGUF link missing:',file);failures++;}
+}
+if((studioPage.match(/class="primary portable-model-file"/g)||[]).length!==4){console.error('Expected four portable phone download links');failures++;}
+if(fs.existsSync('dist/studio/phone-model-downloads.js')){
+ const js=fs.readFileSync('dist/studio/phone-model-downloads.js','utf8');
+ try{new vm.Script(js,{filename:'Phone GGUF downloads'})}catch(e){console.error('Phone model download script syntax:',e.message);failures++;}
+ for(const token of ['navigator.deviceMemory','data-portable-model','\\.gguf','RandomAIPhoneFiles','file.size']){
+  if(!js.includes(token)){console.error('Phone GGUF model status or privacy check missing:',token);failures++;}
  }
 }
 if(fs.existsSync('dist/studio/top-models.js')){
