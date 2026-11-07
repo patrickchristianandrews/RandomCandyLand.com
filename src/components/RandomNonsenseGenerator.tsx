@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ArrowRight, Copy, Newspaper } from 'lucide-react';
 
 /** Full-cycle, persistent shuffle: each generated combination appears once
@@ -229,6 +230,21 @@ export function RandomNonsenseGenerator() {
   const [cycle, setCycle] = useState<Cycle>(load);
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [storyDestination, setStoryDestination] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setStoryDestination(document.getElementById('absurder-report-destination'));
+  }, []);
+  useEffect(() => {
+    if (!expanded || !storyDestination) return;
+    const frame = window.requestAnimationFrame(() => {
+      storyDestination.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start'
+      });
+      storyDestination.focus({ preventScroll: true });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [expanded, storyDestination]);
   const nonsense = decode(cycle.current);
   const generate = () => { setCycle(advance); setCopied(false); };
   // A living fictional-news feed, not a connection to actual breaking news.
@@ -253,30 +269,33 @@ export function RandomNonsenseGenerator() {
     } catch { setCopied(false); }
   };
   return (
+    <>
     <section id="nonsense" className="nonsense-lab nonsense-newsroom nonsense-report" aria-labelledby="nonsense-heading">
       <header className="nonsense-report-ticker">
         <div className="nonsense-report-brand">
           <span className="nonsense-report-icon" aria-hidden="true"><Newspaper size={22}/></span>
           <span className="nonsense-report-brand-copy">
-            <strong id="nonsense-heading">THE ABSURDITY <em>REPORT</em></strong>
+            <strong id="nonsense-heading">ARN <em>NEWS</em></strong>
             <small>ALL THE NEWS THAT NEVER HAPPENED</small>
           </span>
         </div>
         <span className="nonsense-report-live" aria-label="Live fictional satire"><i aria-hidden="true" /> LIVE <span>SATIRE</span></span>
         <button className="nonsense-report-open" type="button"
-          onClick={() => setExpanded(value => !value)}
+          onClick={() => setExpanded(true)}
           aria-expanded={expanded} aria-controls="nonsense-story-detail"
-          aria-label={(expanded ? 'Close' : 'Read') + ' full fictional news story: ' + nonsense.headline}>
+          aria-label={'Read this fictional story in The Absurdity Report section below: ' + nonsense.headline}>
           <span className="nonsense-report-viewport">
             <span className="nonsense-report-marquee" aria-hidden="true">
               <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
               <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
             </span>
           </span>
-          <span className="nonsense-report-read">{expanded ? 'Close story' : 'Click to read full story'} <ArrowRight size={15}/></span>
+          <span className="nonsense-report-read">Read full story <ArrowRight size={15}/></span>
         </button>
         <button className="nonsense-report-skip" type="button" onClick={generate} aria-label="Next fictional headline" title="Next fictional headline">↻</button>
       </header>
+    </section>
+    {storyDestination && createPortal(
       <div id="nonsense-story-detail" className="nonsense-report-detail" hidden={!expanded}>
         <article className="nonsense-display nonsense-news-article" key={cycle.current} aria-live="polite" aria-atomic="true">
           <div className="nonsense-story-meta">
@@ -297,7 +316,9 @@ export function RandomNonsenseGenerator() {
           <span>🗞️ <strong>{TOTAL.toLocaleString('en-US')}</strong> possible fictional stories</span>
           <span>♻️ <strong>{cycle.shown.toLocaleString('en-US')}</strong> unique stories on this device</span>
         </div>
-      </div>
-    </section>
+      </div>,
+      storyDestination
+    )}
+    </>
   );
 }
