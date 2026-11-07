@@ -246,6 +246,18 @@ export function RandomNonsenseGenerator() {
     return () => window.cancelAnimationFrame(frame);
   }, [expanded, storyDestination]);
   const nonsense = decode(cycle.current);
+  const openStory = () => {
+    setExpanded(true);
+    // Clicking the ticker always returns the reader to the article, even if
+    // they already opened it and then scrolled back to the top.
+    window.requestAnimationFrame(() => {
+      const target = document.getElementById('absurder-report-destination');
+      target?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start'
+      });
+    });
+  };
   const generate = () => { setCycle(advance); setCopied(false); };
   // A living fictional-news feed, not a connection to actual breaking news.
   // Pause automatic updates while a reader has a full story open.
@@ -281,7 +293,7 @@ export function RandomNonsenseGenerator() {
         </div>
         <span className="nonsense-report-live" aria-label="Live fictional satire"><i aria-hidden="true" /> LIVE <span>SATIRE</span></span>
         <button className="nonsense-report-open" type="button"
-          onClick={() => setExpanded(true)}
+          onClick={openStory}
           aria-expanded={expanded} aria-controls="nonsense-story-detail"
           aria-label={'Read this fictional story in The Absurdity Report section below: ' + nonsense.headline}>
           <span className="nonsense-report-viewport">
