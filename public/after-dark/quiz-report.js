@@ -375,9 +375,19 @@ else {
     add(card,'p','With a partner — '+item.bodyUses.together,'report-muted');
    }
    add(card,'p','Safety: '+item.safety,'report-muted');
+   if(item.care)add(card,'p','Care: '+item.care,'report-muted');
+   if(item.talk)add(card,'p','A question to consider: '+item.talk,'report-note');
    const link=el('a','Open the full sex toy guide and additional uses →');
    link.href='/after-dark/#toys';card.append(link);toys.append(card);
   }
+ }
+ const selfSelected=window.UnwrappedToyExplorer?.saved?.()||[];
+ if(selfSelected.length){
+  add(toys,'h3','Topics I separately saved for reading');
+  add(toys,'p','These are deliberate reading bookmarks, not conclusions from my quiz. They are not shared with a partner automatically.','report-muted');
+  const stances={read:'Learning only',fantasy:'Fantasy only',discuss:'Open to discussing',no:'Not for me'};
+  for(const item of selfSelected.slice(0,6))add(toys,'p',item.name+' — '+(stances[item.stance]||'Learning only')+'.'+(item.talk?' A conversation to consider: '+item.talk:''),'report-note');
+  if(selfSelected.length>6)add(toys,'p',(selfSelected.length-6)+' additional saved topics are available in my private Toy Guide shelf.','report-muted');
  }
  const sources=toyGuide.sources||[];
  if(sources.length){
