@@ -357,9 +357,23 @@ host.addEventListener('click',e=>{
  }
  if(b.dataset.deleteLead){state.leads=state.leads.filter(x=>x.id!==b.dataset.deleteLead);redraw()}
 });
-host.addEventListener('input',e=>{if(e.target.matches('[data-edit-value]')){syncFields();graph();feedback();sourcePanel();updatePlan()}});
+function invalidateClue(fieldId){
+ if(!fieldId)return;
+ state.leads=state.leads.filter(x=>x.clueId!==fieldId);
+ state.lookups=state.lookups.filter(x=>x.fieldId!==fieldId);
+}
+host.addEventListener('input',e=>{
+ if(!e.target.matches('[data-edit-value]'))return;
+ const field=state.fields.find(x=>x.id===e.target.dataset.editValue);
+ if(field&&field.value!==e.target.value.trim()){invalidateClue(field.id)}
+ syncFields();graph();evidence();sourceResults();overview();feedback();sourcePanel();updatePlan();
+});
 host.addEventListener('change',e=>{
- if(e.target.matches('[data-edit-type]')){syncFields();feedback();sourcePanel();updatePlan()}
+ if(e.target.matches('[data-edit-type]')){
+  const field=state.fields.find(x=>x.id===e.target.dataset.editType);
+  if(field&&field.type!==e.target.value)invalidateClue(field.id);
+  syncFields();graph();evidence();sourceResults();overview();feedback();sourcePanel();updatePlan();
+ }
  if(e.target.matches('[data-review]')){const lead=state.leads.find(l=>l.id===e.target.dataset.review);if(lead&&statusClasses.includes(e.target.value)){lead.status=e.target.value;graph();evidence();notice('Review status updated. Only the analyst can corroborate claims against the original dated source.')}}
  if(e.target.id==='osFile'){void importCase(e.target.files?.[0]);e.target.value=''}
 });
