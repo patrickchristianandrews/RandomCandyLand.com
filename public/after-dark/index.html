@@ -365,7 +365,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <p class="lead">Download your own results, import saved answers, make a report for a partner, or compare two people's selected reports. Nothing is sent to a server by these file tools.</p></div><img src="/after-dark/visuals/report.svg" width="600" height="400" alt="" loading="lazy" decoding="async"></div>
  <section class="card uw-personal-workflow" id="uw-personal-workflow" aria-label="Personal report download and import">
   <span class="eyebrow">STEP 1 · YOUR OWN RESULTS</span><h3>Save or restore your personal report</h3>
-  <p>After taking either quiz, open your results to download the <strong>readable PDF</strong>. Also save a <strong>private data file (.json)</strong> so Unwrapped can restore your answers later. A PDF is for reading; the JSON file is for importing. Your private backup includes your original answers and notes—do not send it to a partner.</p>
+  <p>After either quiz, you can create a personal report. <strong>To save it as PDF, use Save as PDF in your browser's Print screen.</strong> Download your <strong>private recovery backup (.json)</strong> too: it restores your original answers after a device change or lost browser storage. The backup contains private notes—never share it with a partner.</p>
   <div class="uw-report-actions"><button type="button" class="btn" id="uw-view-personal">View my personal report / PDF</button><button type="button" class="btn alt" id="uw-save-private">Download my private report data (.json)</button></div>
   <label class="uw-private-file">Import my private saved quiz data (.json) <input type="file" id="uw-import-private" accept=".json,application/json"></label>
   <p class="tiny">Importing a private backup restores the matching quiz and may replace that quiz's current answers after you confirm. Your other quiz is preserved.</p>
@@ -670,7 +670,16 @@ function rebuildQuizSignals(){
  }
 }
 function persistQuiz(){
- try{localStorage.setItem(quizSaveKey,JSON.stringify({questionVersion:directQuestionVersion,qIndex,multiAnswers,freeResponses,questionIntents,customThings,customIntent}));}catch{}
+ try{
+  const payload=JSON.stringify({questionVersion:directQuestionVersion,qIndex,multiAnswers,freeResponses,questionIntents,customThings,customIntent});
+  localStorage.setItem(quizSaveKey,payload);
+  if(localStorage.getItem(quizSaveKey)!==payload)throw Error('Storage verification failed');
+  window.dispatchEvent(new CustomEvent('unwrapped:save-status',{detail:{kind:'direct',ok:true}}));
+  return true;
+ }catch(error){
+  window.dispatchEvent(new CustomEvent('unwrapped:save-status',{detail:{kind:'direct',ok:false,reason:String(error?.message||'Storage blocked')}}));
+  return false;
+ }
 }
 function restoreQuiz(){
  try{
@@ -1188,9 +1197,9 @@ function showResults(targetId='quizCard'){
     }));
   };
   beyond.append(b,extra);box.append(beyond);
-  const pdf=elText('button','📄 Save readable report as PDF','btn');
+  const pdf=elText('button','📄 Open Print / Save as PDF','btn');
   pdf.addEventListener('click',()=>window.InterestNotebook?.printQuiz(targetId,'readable'));
-  const fullPdf=elText('button','Expanded evidence report (long)','btn alt');
+  const fullPdf=elText('button','Open expanded report / Save as PDF','btn alt');
   fullPdf.addEventListener('click',()=>window.InterestNotebook?.printQuiz(targetId,'full'));
   fullPdf.title='Includes every individual theme and topic deep-dive. Recommended only if you want the long evidence version.';
   const prepareUpload=elText('button','Prepare upload file for partner or combined report →','btn alt');
@@ -1472,4 +1481,4 @@ window.AfterDarkNotebookBridge={
   getQuizReady:()=>qIndex>=qdata.length||Boolean(window.AfterDarkPsychQuizBridge?.getProgress?.()?.complete),
   quizText:()=>document.getElementById('quizCard')?.innerText||''
 };
-</script><link rel="stylesheet" href="/after-dark/partner-results-share.css?v=20261030-v1"><script src="/after-dark/toy-library-expanded.js?v=expanded-toys-20261107-v1"></script><script src="/after-dark/toy-library.js?v=expanded-toys-20261107-v1"></script><script src="/after-dark/toy-explorer-tools.js?v=expanded-toys-20261107-v1"></script><script src="/after-dark/quiz-report.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/report-qr.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/report-polish.js?v=fictional-demo-20261105-v1"></script><script src="/after-dark/discover-interests.js?v=20261031-categories-v1"></script><script src="/after-dark/partner-pdf.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/new-partner-report.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/report-connections.js?v=fictional-demo-20261105-v1"></script><script src="/after-dark/report-whole-person.js?v=integrated-perspectives-20261105-v1"></script><script src="/after-dark/report-web.js?v=insight-web-20261106-v1"></script><script src="/after-dark/report-visuals.js?v=fictional-demo-20261105-v1"></script><script src="/after-dark/interest-notebook.js?v=report-20261030-v2"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/continue-and-transfer.js?v=reports-center-import-20261107-v2" defer></script><script src="/after-dark/partner-results-share.js?v=report-coverage-20261105-v5" defer></script><script src="/after-dark/bookmark-toolbar.js?v=20261101-onerow-v2" defer></script><script src="/after-dark/origins-pathways.js?v=20261031-v1" defer></script><script src="/after-dark/navigation-upgrade.js?v=20261101-nav3" defer></script><link rel="stylesheet" href="/after-dark/partner-compare.css?v=reports-hub-20261107-v1"><script src="/after-dark/partner-compare.js?v=reports-hub-20261107-v1" defer></script></body></html>
+</script><link rel="stylesheet" href="/after-dark/partner-results-share.css?v=20261030-v1"><script src="/after-dark/toy-library-expanded.js?v=expanded-toys-20261107-v1"></script><script src="/after-dark/toy-library.js?v=expanded-toys-20261107-v1"></script><script src="/after-dark/toy-explorer-tools.js?v=expanded-toys-20261107-v1"></script><script src="/after-dark/quiz-report.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/report-qr.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/report-polish.js?v=fictional-demo-20261105-v1"></script><script src="/after-dark/discover-interests.js?v=20261031-categories-v1"></script><script src="/after-dark/partner-pdf.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/new-partner-report.js?v=report-coverage-20261105-v5"></script><script src="/after-dark/report-connections.js?v=fictional-demo-20261105-v1"></script><script src="/after-dark/report-whole-person.js?v=integrated-perspectives-20261105-v1"></script><script src="/after-dark/report-web.js?v=insight-web-20261106-v1"></script><script src="/after-dark/report-visuals.js?v=fictional-demo-20261105-v1"></script><script src="/after-dark/interest-notebook.js?v=report-20261030-v2"></script><script src="/after-dark/psychology-quiz-ui.js?v=1"></script><script src="/after-dark/intimacy-guides.js?v=orgasm-practical-20261030-v2"></script><script src="/after-dark/continue-and-transfer.js?v=reports-safe-delivery-20261107-v3" defer></script><script src="/after-dark/report-safety-net.js?v=verified-recovery-20261107-v1" defer></script><script src="/after-dark/partner-results-share.js?v=report-coverage-20261105-v5" defer></script><script src="/after-dark/bookmark-toolbar.js?v=20261101-onerow-v2" defer></script><script src="/after-dark/origins-pathways.js?v=20261031-v1" defer></script><script src="/after-dark/navigation-upgrade.js?v=20261101-nav3" defer></script><link rel="stylesheet" href="/after-dark/partner-compare.css?v=reports-hub-20261107-v1"><script src="/after-dark/partner-compare.js?v=reports-hub-20261107-v1" defer></script></body></html>
