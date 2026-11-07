@@ -165,7 +165,20 @@ function load(id){
  if(button&&!button.disabled)button.click();
  else document.querySelector('[data-go="settings"]')?.click();
 }
+function openTopModels(){
+ const home=document.querySelector('[data-view="home"]');
+ home?.click();
+ window.requestAnimationFrame(()=>{
+  const target=$('#topAiModels');
+  if(!target)return;
+  target.setAttribute('tabindex','-1');
+  target.scrollIntoView({behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches?'auto':'smooth',block:'start'});
+  target.focus({preventScroll:true});
+ });
+}
 document.addEventListener('click',e=>{
+ const help=e.target.closest?.('[data-open-top-models]');
+ if(help){e.preventDefault();openTopModels();return;}
  const category=e.target.closest?.('[data-capability-view]');
  if(category){
   capabilityView=category.dataset.capabilityView;
@@ -173,7 +186,7 @@ document.addEventListener('click',e=>{
   if(caption){
    const notes={
     all:'Compare general text models. Labels describe intended strengths; only a local test can measure short-answer correctness and response time.',
-    code:'Coding-specialized WebLLM models are shown here. If the browser catalog has none, the portable Qwen2.5 Coder phone download is below.',
+    code:'Coding-specialized WebLLM models are shown here. If the browser catalog has none, the portable Qwen2.5 Coder download is below.',
     reason:'Reasoning-specialized WebLLM models are shown here. They can still make mathematical and factual mistakes.',
     writing:'Language models are useful for writing, editing, summarizing and emails. Larger models may follow complex instructions better but use more memory.',
     photos:'These chat models can write photography prompts only; they cannot generate or interpret photo pixels in this text-chat interface. See Qwen3-VL and real photo-generation apps below.',
@@ -214,7 +227,7 @@ document.addEventListener('visibilitychange',()=>{
   void Promise.resolve(window.RandomAILocal?.refresh?.()).finally(updateCatalog);
  }
 });
-window.RandomAITopModels=Object.freeze({updateCatalog,evaluate:evaluation,listed:()=>latest().slice(),probe});
+window.RandomAITopModels=Object.freeze({updateCatalog,evaluate:evaluation,listed:()=>latest().slice(),probe,openTopModels});
 const init=()=>{updateCatalog();void probe()};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
