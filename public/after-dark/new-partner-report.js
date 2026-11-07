@@ -11,21 +11,13 @@ function selectedQuestions(data){return(data?.psych?.questions||[]).filter(q=>q.
  id:'p'+q.number,heading:q.question,answer:q.selected.map(x=>x.text).join(' / ').slice(0,320),axes:[...new Set(q.selected.flatMap(x=>x.axes))],number:q.number
  }));}
 function sexualInterests(data){
- const chosen=new Map();
- const topics=window.AfterDarkNotebookBridge?.getTopics?.()||[];
- const marks=window.AfterDarkNotebookBridge?.getChoices?.()||{};
- for(const t of topics){if(marks[t.id]==='yes'||marks[t.id]==='maybe')chosen.set(String(t.id),{
- id:'s'+t.id,title:t.name,label:marks[t.id]==='yes'?'I marked Interested':'I marked Curious',description:t.description||''
- });}
- for(const t of data?.interests||[]){
-  if(!t.directSelection&&!t.specificSelected)continue;
-  const id='s'+t.id;
-  if(chosen.has(id.slice(1)))continue;
-  chosen.set(id.slice(1),{id,title:t.name,
-   label:t.directSelection===2?'I marked Interested':t.directSelection===1?'I marked Curious':'I chose this in my direct quiz',
-   description:t.description||''});
- }
- return[...chosen.values()].sort((a,b)=>a.title.localeCompare(b.title));
+ // Only preferences explicitly named by the direct quiz may appear as optional partner disclosures.
+ // A separate Curiosity Cabinet mark is never treated as a quiz answer.
+ return(data?.interests||[]).filter(t=>t.specificSelected&&!t.warn).map(t=>({
+  id:'s'+t.id,title:t.name,
+  label:'Named in my sexual preferences quiz',
+  description:t.description||''
+ })).sort((a,b)=>a.title.localeCompare(b.title));
 }
 function choiceList(parent,items,which){
  parent.replaceChildren();
