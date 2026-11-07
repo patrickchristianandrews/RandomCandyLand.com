@@ -65,12 +65,12 @@ const TOYS=[
  'Learning which settings are comfortable without concentrating on intensity.',
  'A partner may help with a gentle external massage if invited.'
  ],safety:'Avoid suction or pressure that causes bruising, numbness, skin damage or pain. Do not use on irritated or broken skin; persistent new breast or nipple symptoms need clinical assessment.',tags:['nipple','breast','chest','sensory','massage','toy'],extra:'A reading option when chest or nipple sensation is specifically selected.'},
- {id:'harness',icon:'▤',group:'Partner options',name:'Harness and compatible toy',summary:'An adjustable harness designed to hold a compatible, body-safe attachment.',uses:[
+ {id:'harness',icon:'▤',group:'Partner options',name:'Strap-on harness & compatible dildo',summary:'An adjustable strap-on harness for wearing a compatible body-safe dildo or insertable attachment.',uses:[
  'Learn about giver and receiver roles without assuming gender or orientation.',
  'Use with a compatible attachment in a mutually agreed adult setting.',
  'Choose fit, accessibility, easy removal and cleaning as practical criteria.',
  'Can also be a topic for discussion or fantasy without any physical trial.'
- ],safety:'Follow both the harness and attachment instructions. If any attachment is used anally it must be explicitly anal-safe with a flared base, and lubricant, comfort and consent are essential.',tags:['strap','pegg','harness','role','giving','receiving','toy','penetrat'],extra:'Relevant when strap-on or role-switching was explicitly selected, without predicting desire.'},
+ ],safety:'Follow both the harness and attachment instructions. If any attachment is used anally it must be explicitly anal-safe with a flared base, and lubricant, comfort and consent are essential.',tags:['strap-on','strap on','strapon','pegging','harness','role','giving','receiving','toy','penetrat'],extra:'Relevant when strap-on or role-switching was explicitly selected, without predicting desire.'},
  {id:'remote',icon:'⌁',group:'Partner options',name:'Remote-controlled wearable vibrator',summary:'A user-operated device whose intensity may be controlled locally or through an app.',uses:[
  'The wearer can choose to adjust settings privately.',
  'A consenting partner may control settings for a limited, agreed period.',
@@ -245,7 +245,7 @@ function recommendations(data){
   sleeve:['penis','penile','stroker','sleeve'],
   ring:['penis ring','cock ring','erection ring','vibrating ring'],
   'nipple-massager':['nipple','breast','chest stimulat'],
-  harness:['strap-on','strap on','pegging','harness'],
+  harness:['strap-on','strap on','strapon','pegging','harness'],
   remote:['remote control','remote-control','app controlled','partner control of a toy','remote vibrator'],
   ...(extension?.matchTerms||{})
  };
@@ -384,7 +384,7 @@ function init(){
 // Use the same guide for Mira answers, the standalone explorer, and report exports.
 function answer(question){
  const raw=normalize(question);
- if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|harness|pegging toy|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw)&&!TOYS.some(t=>normalize(t.name).length>9&&raw.includes(normalize(t.name)))&&!Object.values(extension?.matchTerms||{}).some(arr=>arr.some(term=>term.length>=7&&raw.includes(normalize(term)))))return '';
+ if(!/\b(sex toys?|adult toys?|vibrat\w*|wand|bullet|air.?pulse|dildo|prostate massager|anal plug|butt plug|sleeve|stroker|strap.?on|strapon|harness|pegging|remote.controlled toy|toy guide|cock ring|penis ring)\b/i.test(raw)&&!TOYS.some(t=>normalize(t.name).length>9&&raw.includes(normalize(t.name)))&&!Object.values(extension?.matchTerms||{}).some(arr=>arr.some(term=>term.length>=7&&raw.includes(normalize(term)))))return '';
  const patterns=[
   ['wand',/\bwand\b/],['bullet',/\bbullet\b/],['air-pulse',/air.?pulse|clitoral suction|air pressure/],
   ['insertable-vibe',/insertable vibrator|internal vibrator|vaginal vibrator/],
@@ -397,7 +397,7 @@ function answer(question){
  ];
  const id=patterns.find(([,regex])=>regex.test(raw))?.[0];
  const expandedId=extension?.types?.find(t=>(normalize(t.name).length>9&&raw.includes(normalize(t.name)))||(extension?.matchTerms?.[t.id]||[]).some(term=>term.length>=7&&raw.includes(normalize(term))))?.id;
- const matchId=id||expandedId;
+ const matchId=expandedId||id;
  if(!matchId)return 'The Unwrapped Sex Toy Guide compares '+TOYS.length+' types with male, female and partner-use explanations, multiple uses, material guidance and safety notes. A quiz match is not a requirement to try anything. Browse the full guide to learn more.';
  const item=TOYS.find(x=>x.id===matchId),body=BODY_GUIDE[matchId];
  return item.name+' — '+item.summary+'\n\nMale anatomy: '+FIT_LABELS[body.male.fit]+'. '+body.male.note+'\n\nFemale anatomy: '+FIT_LABELS[body.female.fit]+'. '+body.female.note+'\n\nPartner use: '+body.together+'\n\nSafety: '+item.safety+(item.care?'\n\nCare: '+item.care:'')+(item.talk?'\n\nConversation: '+item.talk:'')+'\n\nRead the full Sex Toy Guide for additional uses. No assumptions about gender, orientation or consent.';
