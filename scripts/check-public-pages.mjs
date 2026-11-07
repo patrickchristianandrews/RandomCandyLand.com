@@ -714,7 +714,7 @@ for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css',
  if(!fs.existsSync(file)){console.error('Random AI saved-model asset missing:',file);failures++;}
 }
 const studioPage=fs.readFileSync('dist/studio/index.html','utf8');
-for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=capability-20261107-v2','top-models.js?v=capability-20261107-v2','id="topAiList"','id="uncensoredChoices"']){
+for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=device-chooser-20261107-v3','top-models.js?v=device-chooser-20261107-v3','id="topAiList"','id="uncensoredChoices"']){
  if(!studioPage.includes(text)){console.error('Random AI saved-model library missing:',text);failures++;}
 }
 if(fs.existsSync('dist/studio/model-memory.js')){
@@ -726,7 +726,7 @@ if(fs.existsSync('dist/studio/model-memory.js')){
 }
 // Users must be able to save actual compatible GGUF files to phone storage.
 // A browser cache copy is not a portable file or direct GGUF import for WebLLM.
-for(const token of ['id="portablePhoneModels"','id="portableModelDevice"','id="phoneGGUFPicker"','phone-model-downloads.js?v=capability-20261107-v2']){
+for(const token of ['id="portablePhoneModels"','id="portableModelDevice"','id="phoneGGUFPicker"','phone-model-downloads.js?v=device-chooser-20261107-v3']){
  if(!studioPage.includes(token)){console.error('Phone model download workflow missing:',token);failures++;}
 }
 const portableFiles=[
@@ -752,6 +752,19 @@ if(fs.existsSync('dist/studio/phone-model-downloads.js')){
 }
 for(const needle of ['id="topAiBenchmarkStatus"','data-capability-view="code"','data-capability-view="reason"','data-capability-view="photos"','data-capability-view="videos"','data-portable-model="qwen-coder"','data-portable-model="qwen-vision"','id="phoneImageModels"']){
  if(!studioPage.includes(needle)){console.error('Missing expanded model capabilities:',needle);failures++;}
+}
+// Help unsure visitors choose an appropriate AI across phone, tablet, laptop, desktop.
+for(const text of ['Not sure which AI model to choose?','data-open-top-models','Top AI models for your device','Recommended models for your device','PHONES · TABLETS · LAPTOPS · DESKTOPS','lmstudio.ai']){
+ if(!studioPage.includes(text)){console.error('Multi-device Top Models guidance missing:',text);failures++;}
+}
+if((studioPage.match(/class="model-chooser-help"/g)||[]).length!==2){console.error('Expected model-choice prompt in chat and model settings');failures++;}
+const recommenderJS=fs.readFileSync('dist/studio/top-models.js','utf8');
+for(const token of ['openTopModels','data-open-top-models','scrollIntoView','focus({preventScroll:true})']){
+ if(!recommenderJS.includes(token)){console.error('Top Models chooser navigation missing:',token);failures++;}
+}
+const modelStyles=fs.readFileSync('dist/studio/model-memory.css','utf8');
+for(const token of ['.model-chooser-help','.model-picker-help','@media(max-width:640px)']){
+ if(!modelStyles.includes(token)){console.error('Responsive model choice styles missing:',token);failures++;}
 }
 const studioLogic=fs.readFileSync('dist/studio/studio.js','utf8');
 for(const needle of ['random-ai-mini-benchmark-v1','benchChecks','random-ai-benchmark-complete','averageMs','RandomAIModelBenchmark']){
