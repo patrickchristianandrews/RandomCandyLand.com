@@ -6,7 +6,6 @@ import vm from 'node:vm';
 
 const read=file=>fs.readFileSync('public/after-dark/'+file,'utf8');
 const toy=read('toy-library.js');
-const sample=read('report-samples/sample-pdf.js');
 const samplePage=read('report-samples/index.html');
 const personal=read('quiz-report.js');
 const partner=read('partner-pdf.js');
@@ -20,43 +19,31 @@ const holistic=read('report-whole-person.js');
 const demoFixtures=read('fictional-respondents.js');
 
 for(const [path,source] of [
- ['toy-library.js',toy],['report-samples/sample-pdf.js',sample],['quiz-report.js',personal],
+ ['toy-library.js',toy],['quiz-report.js',personal],
  ['partner-pdf.js',partner],['new-partner-report.js',newPartner],['partner-results-share.js',share],
  ['partner-compare.js',compare],['report-qr.js',qr]]){
  assert.doesNotThrow(()=>new vm.Script(source,{filename:path}),path+' must remain parseable');
 }
 const context={window:{},document:{getElementById:()=>null,addEventListener:()=>{}}};
 vm.runInNewContext(toy,context,{filename:'toy-library.js'});
-vm.runInNewContext(sample,context,{filename:'sample-pdf.js'});
 const lib=context.window.UnwrappedToyLibrary;
-const samplePDF=context.window.AfterDarkSamplePDF;
 const answer=lib.answer('How do I use a wand with male and female anatomy?');
 assert.match(answer,/Male anatomy:/);
 assert.match(answer,/Female anatomy:/);
 assert.match(answer,/Partner use:/);
 assert.ok(!lib.answer('How can I get to know my partner?'),'Non-toy questions must be left for other educational content.');
 assert.equal(lib.types.length,12);
-assert.deepEqual(Array.from(samplePDF.keys).sort(),['new','personal','selected']);
 for(const item of lib.types){
  const spec=lib.bodyUses(item.id);
  assert.ok(spec?.male?.note&&spec?.female?.note&&spec?.together,'Every category must compare male/female/shared uses: '+item.id);
 }
-const fullText=kind=>samplePDF.sampleSections(kind).map(([h,b])=>h+' '+b.join(' ')).join(' ');
-const a=fullText('personal'),b=fullText('selected'),c=fullText('new');
-for(const name of ['Male anatomy','Female anatomy','Shared / partner use','Safety and design']){
- assert.ok(a.includes(name),'Personal sample PDF must explain '+name);
- assert.ok(b.includes(name),'Opted-in selective partner sample PDF must explain '+name);
-}
-assert.match(a,/FANTASY ONLY/);
-assert.match(b,/separate.*section|real partner PDF leaves this section OFF|real partner PDF/i);
-assert.ok(!c.includes('Male anatomy ('),'Nonsexual new-partner sample must not disclose real toy suggestions');
-assert.match(c,/NO sex toy suggestions/);
-const pages=samplePage.indexOf('toy-library.js?v=');
-const pdf=samplePage.indexOf('report-samples\/sample-pdf.js?v=');
-assert.ok(pages>0&&pdf>pages,'Sample page must load central data before building downloadable PDFs');
-for(const word of ['male','female','partner','toy']){
- assert.ok(samplePage.toLowerCase().includes(word),'Sample explanatory page is missing '+word);
-}
+// A report guide must not advertise sample files that were never published.
+assert.match(samplePage,/Create or upload a report/);
+assert.match(samplePage,/Private backup/);
+assert.match(samplePage,/Selected report/);
+assert.match(samplePage,/combined report/i);
+assert.doesNotMatch(samplePage,/data-sample-download|complete-rowan-personal-report\.pdf|complete-ellis-personal-report\.pdf|sample-pdf\.js/i);
+
 assert.match(personal,/How it differs for male and female anatomy/);
 assert.match(personal,/item\.bodyUses\.together/);
 assert.match(partner,/selected\.has\('toys'\)/);
@@ -103,7 +90,16 @@ assert.match(transfer,/function privateLibraryMarks/);
 assert.match(transfer,/const library=kind==='psych'\?null:privateLibraryMarks\(\)/);
 assert.match(transfer,/saved interest shelf is invalid/i);
 assert.match(transfer,/shelf\.mark\(id,status\)/);
-assert.match(samplePage,/complete-rowan-personal-report\.pdf/);
-assert.match(samplePage,/complete-ellis-personal-report\.pdf/);
-assert.ok(samplePage.includes('101 / 101 ANSWERED'),'Full simulated results must be described explicitly');
-console.log('✓ Personal, partner, new-partner, selected links, comparison JSON, downloadable samples and QR all use opt-in toy/anatomy guidance.');
+assert.match(main,/id="uw-personal-workflow"/);
+assert.match(main,/id="uw-import-private"/);
+assert.match(main,/id="uw-save-private"/);
+assert.match(main,/Reports &amp; Uploads/);
+assert.match(compare,/function renderPartner\(pack\)/);
+assert.match(compare,/Create partner report from 1 file/);
+assert.match(compare,/Create combined report from 2 files/);
+assert.match(compare,/Choose a selected Unwrapped comparison report/);
+assert.match(compare,/if\(JSON\.stringify\(a\)===JSON\.stringify\(b\)\)/);
+assert.match(transfer,/return true;/);
+assert.doesNotMatch(main,/View Sample Reports/);
+console.log('✓ Personal PDF, private backup, selected JSON import, one-file partner and two-file combined report workflow retain opt-in privacy controls.');
+
