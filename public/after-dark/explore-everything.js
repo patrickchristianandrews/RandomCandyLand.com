@@ -169,7 +169,9 @@ function homeExtras(){
  block.append(links);foot.replaceWith(block);
 }
 function sectionShortcuts(){
- const section=$('ideas'),target=$('toy-idea-studio');
+ const section=$('ideas'),target=$('toy-idea-studio'),output=$('ideaResult');
+ // The generated result belongs next to the generator, not below the long toy workbench.
+ if(section&&target&&output&&output.parentElement===target.parentElement)target.before(output);
  if(section&&target&&!$('uw-idea-shortcuts')){
    const nav=el('nav','uw-section-shortcuts');nav.id='uw-idea-shortcuts';nav.setAttribute('aria-label','Idea Lab jump links');
    for(const [label,id] of [['Generate an idea','freak-level'],['Mix ideas and toys','toy-idea-studio'],['See generated idea','ideaResult']]){
