@@ -1429,6 +1429,11 @@ function respond(question){
    if(contextual)return contextual;
    return `Try: “There's something I'd like to talk about. No pressure to do anything—would you be open to hearing it?”\n\nExplain what interests you, then ask how they feel. Give them room to say no or think it over.`;
  }
+ // When a person asks WHY an explicitly named activity appeals to them,
+ // answer that question before a generic matching toy-guide entry takes over.
+ const focused=specificAnswers.find(topic=>topic.re.test(lower));
+ const reflective=/\b(why|cause|reason|appeal|attract|enjoy|like|love|meaning|psycholog)\b/i.test(lower);
+ if(focused&&reflective)return answerSubject(focused,lower);
  const toyAnswer=window.UnwrappedToyLibrary?.answer?.(str);
  if(toyAnswer)return toyAnswer;
  const originAnswer=window.AfterDarkOrigins?.answer(str);
@@ -1437,7 +1442,6 @@ function respond(question){
  if(faq)return faq[1];
  const practical=window.AfterDarkIntimacyGuides?.answer(str);
  if(practical)return practical;
- const focused=specificAnswers.find(topic=>topic.re.test(lower));
  if(focused)return answerSubject(focused,lower);
  const flexible=window.AtlasFlexibleSearch?.answer(str,{topics,faqs:DB.faqs});
  if(flexible)return flexible;
