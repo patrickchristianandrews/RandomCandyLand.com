@@ -71,10 +71,12 @@ function tier(level){return level<=3?2:level<=6?5:level<=8?8:10}
 function exclusions(){return {penetration:Boolean($('freak-no-penetration')?.checked),anal:Boolean($('freak-no-anal')?.checked),power:Boolean($('freak-no-power')?.checked),fantasy:Boolean($('freak-fantasy-only')?.checked)}}
 function filtered(theme){
  const settings=exclusions(),band=tier(currentLevel());
- return DATA.filter(s=>s.tier===band&&(theme==='any'||theme===s.theme)
+ const bank=window.UnwrappedSpecificIdeaBank||DATA;
+ return bank.filter(s=>s.tier===band&&(theme==='any'||theme===s.theme)
  &&(!settings.anal||!s.tags.includes('anal'))
  &&(!settings.power||!s.tags.includes('power'))
- &&(!settings.penetration||!/(penetrat|strap.on|\banal\b|insertab|vaginal|dildo)/i.test([s.title,s.premise,...s.parts].join(' ')))
+ &&(!settings.penetration||!s.tags.includes('penetration'))
+ &&(!settings.penetration||!/(penetrat|strap.on|\banal\b|insertab|vaginal|dildo)/i.test([s.title,s.setup||'',s.premise,...s.parts].join(' ')))
  );
 }
 const fit=(toy,kind)=>['direct','conditional'].includes(window.UnwrappedToyLibrary?.bodyUses(toy.id)?.[kind]?.fit);
@@ -85,72 +87,119 @@ function chooseToy(group,kind,skipIds){
  if(select?.value){const explicit=lib.find(select.value);if(explicit&&fit(explicit,kind)&&safeToy(explicit,settings)&&!skipIds.has(explicit.id))return explicit}
  let candidates=lib.types.filter(t=>fit(t,kind)&&safeToy(t,settings)&&!skipIds.has(t.id)&&!['Care, materials & barriers','Comfort & accessibility'].includes(t.group));
  const matching=candidates.filter(t=>t.group===group);
+ const external=candidates.filter(t=>t.group==='External stimulation');
+ const sensory=candidates.filter(t=>t.group==='Sensory & boundaries');
  if(matching.length)candidates=matching;
+ else if(external.length)candidates=external;
+ else if(sensory.length)candidates=sensory;
  if(!candidates.length)return null;
  return candidates[Math.floor(Math.random()*candidates.length)];
 }
 function line(name,body){const d=E('div',undefined,'freak-idea-section');d.append(E('h4',name),E('p',body));return d}
-function scenarioText(s){return [s.title,s.premise,...s.parts,s.question,s.caution].join('\n')}
+function scenarioText(s){
+ return [s.title,s.time?'Time: '+s.time:'',s.setup?'Prepare: '+s.setup:'',s.premise,'Do this in order:',...s.parts,s.question,s.caution].filter(Boolean).join('\n');
+}
+function aSpecificAct(s,number,total){
+ const article=E('section',undefined,'freak-idea-act');
+ if(total>1)article.append(E('h4','ACT '+number+' · '+s.title,'freak-act-title'));
+ if(s.time)article.append(E('div','⏱ '+s.time+' · One specific activity','freak-idea-time'));
+ if(s.setup)article.append(line('Prepare this',s.setup));
+ article.append(E('h4','Exactly what to do','freak-do-heading'));
+ const steps=E('ol',undefined,'freak-idea-steps');
+ for(const part of s.parts)steps.append(E('li',part));
+ article.append(steps);
+ return article;
+}
+function specificToyStep(toy,actLabel){
+ const group=String(toy.group||'');
+ if(/strap.on|harness/i.test(group+' '+toy.name))
+  return actLabel+': Treat '+toy.name+' as the fitted costume/role-reversal prop first. Check fit and comfort over clothing; discuss any separate intimate use, compatibility and barriers before it happens.';
+ if(/anal|pelvic|prostate/i.test(group+' '+toy.name))
+  return actLabel+': Set '+toy.name+' alongside the scene props; agree on whether it is discussion-only. Any later use needs a device rated for that anatomy, appropriate lubrication and cleaning, and its own consent.';
+ if(/external|vibrat|massag|wand/i.test(group+' '+toy.name))
+  return actLabel+': Add one short, pre-agreed test of '+toy.name+' on a manufacturer-approved external area at the lowest comfortable setting. Name who controls it and turn it off before moving on.';
+ if(/sensory|blindfold|feather|tickl|temperature/i.test(group+' '+toy.name))
+  return actLabel+': Add '+toy.name+' to the prepared objects. Agree on an exact contact area, then try one brief pass; check comfort before any second pass.';
+ return actLabel+': Put '+toy.name+' with the props and choose one clearly agreed, manufacturer-approved use during this act. Check body fit and cleaning instructions; skip it if the pairing does not make sense.';
+}
 function render(mode){
  const root=$('ideaResult');if(!root)return;
  const theme=$('mood')?.value||'any';
  const options=filtered(theme),first=choose(options);
- if(!first){root.replaceChildren(E('h3','Nothing fits those limits.'),E('p','Choose another theme or adjust the optional exclusions; nothing will be generated against your limits.'));return}
+ if(!first){
+  root.replaceChildren(E('h3','No idea fits these limits.'),E('p','Try another theme or relax an optional filter. We will not override the boundaries you selected.'));
+  return;
+ }
  const level=currentLevel(),settings=exclusions(),lbl=levels.find(x=>level<=x.max);
  let second=null;
  if(mode==='full'){
-  const others=filtered('any').filter(x=>x.id!==first.id&&x.theme!==first.theme);
-  second=choose(others);
+  const all=filtered('any');
+  second=choose(all.filter(x=>x.id!==first.id&&x.theme!==first.theme))||choose(all.filter(x=>x.id!==first.id));
  }
- root.replaceChildren();
- root.append(E('span','FREAK LEVEL '+level+'/10 · '+lbl.label.toUpperCase()+(settings.fantasy?' · FANTASY ONLY':''),'eyebrow'),
-  E('h3',mode==='full'?'The full combination: '+first.title:first.title),
-  E('p',first.premise,'freak-idea-premise'));
- const acts=E('ol',undefined,'freak-idea-steps');
- for(const part of first.parts)acts.append(E('li',part));
- if(second){
-  root.append(E('h4','A second twist: '+second.title),E('p',second.premise));
-  for(const part of second.parts.slice(0,2))acts.append(E('li',part));
+ const both=mode==='full'&&!!second;
+ root.replaceChildren();root.dataset.ideaType='specific';
+ root.append(
+  E('span','ONE SPECIFIC PLAN · FREAK LEVEL '+level+'/10 · '+lbl.label.toUpperCase()+(settings.fantasy?' · FANTASY ONLY':''),'eyebrow'),
+  E('h3',both?first.title+' → '+second.title:first.title),
+  E('p',first.premise,'freak-idea-premise')
+ );
+ root.append(aSpecificAct(first,1,both?2:1));
+ if(both){
+  root.append(E('p','After act one, reset the space and check that both people still want to continue. Act two is a new choice—not an automatic escalation.','freak-idea-transition'),
+   E('p',second.premise,'freak-idea-premise'));
+  root.append(aSpecificAct(second,2,2));
  }
- root.append(acts);
- const talks=E('div',undefined,'freak-idea-notes');
- talks.append(line('What to talk about',first.question+(second?' '+second.question:'')));
- if(settings.fantasy)talks.append(line('Keep this imaginary','Treat the whole idea as storytelling or a private discussion. Do not turn the fantasy into a plan for action.'));
- let extra='';
+ const notes=E('div',undefined,'freak-idea-notes');
+ notes.append(line('Afterward, ask this',first.question+(second?' '+second.question:'')));
+ if(settings.fantasy)notes.append(line('Keep it fictional','Use the scene as a story to imagine or discuss. Do not act it out; the fantasy-only setting is respected.'));
+ let extra='',toyCopy=[];
  if(mode==='toy'||mode==='full'){
   const lib=window.UnwrappedToyLibrary;
   const selectedIds=new Set(),toys=[];
-  const male=chooseToy(first.group,'male',selectedIds);
-  if(male){toys.push({toy:male,kind:'male',label:'Option for a person with penile/prostate anatomy'});selectedIds.add(male.id)}
-  if(mode==='full'){const female=chooseToy(second?.group||first.group,'female',selectedIds);if(female){toys.push({toy:female,kind:'female',label:'Option for a person with vulvar/vaginal anatomy'});selectedIds.add(female.id)}}
-  if(toys.length){
-   const sec=E('section',undefined,'freak-idea-toys');sec.append(E('h4',mode==='full'?'Two optional device ideas':'An optional device to pair with this idea'));
-   for(const {toy,kind,label} of toys){
+  const maleChoice=Boolean($('toy-idea-him')?.value),femaleChoice=Boolean($('toy-idea-her')?.value);
+  const firstKind=femaleChoice&&!maleChoice?'female':'male';
+  const firstToy=chooseToy(first.group,firstKind,selectedIds);
+  if(firstToy){toys.push({toy:firstToy,kind:firstKind,act:'Act 1'});selectedIds.add(firstToy.id)}
+  if(both){
+   const secondKind=firstKind==='male'?'female':'male';
+   const secondToy=chooseToy(second.group,secondKind,selectedIds);
+   if(secondToy){toys.push({toy:secondToy,kind:secondKind,act:'Act 2'});selectedIds.add(secondToy.id)}
+  }
+  if(lib&&toys.length){
+   const sec=E('section',undefined,'freak-idea-toys');
+   sec.append(E('h4',both?'An exact device option for each act':'How the device fits this exact idea'));
+   for(const {toy,kind,act} of toys){
     const item=E('article',undefined,'freak-toy-pair');
-    item.append(E('span',label,'freak-toy-label'),E('h5',toy.name),E('p',toy.summary),
-      E('p','Body fit: '+lib.bodyUses(toy.id)?.[kind]?.note),
-      E('p','Safety: '+toy.safety,'freak-toy-safety'));
-    const btn=E('button','Explore this type in the Toy Guide →','btn alt');btn.type='button';btn.addEventListener('click',()=>{
-      document.querySelector('[data-tab="toys"]')?.click();const search=$('toy-search'),filter=$('toy-filter');if(filter)filter.value='';
-      if(search){search.value=toy.name;search.dispatchEvent(new Event('input',{bubbles:true}))}
-      $('toy-grid')?.querySelector('[data-toy-open="'+toy.id+'"]')?.click();
+    const instruction=specificToyStep(toy,act);
+    const anatomy=kind==='male'?'Penile / prostate anatomy context':'Vulvar / vaginal anatomy context';
+    item.append(E('span',act+' · '+anatomy,'freak-toy-label'),
+     E('h5',toy.name),E('p',instruction,'freak-toy-action'),
+     E('p',toy.summary),E('p','Body fit: '+(lib.bodyUses(toy.id)?.[kind]?.note||'Check product fit for this person.')),
+     E('p','Safety: '+toy.safety,'freak-toy-safety'));
+    const btn=E('button','Read about '+toy.name+' in the Toy Guide →','btn alt');btn.type='button';
+    btn.addEventListener('click',()=>{
+     document.querySelector('[data-tab="toys"]')?.click();
+     const search=$('toy-search'),filter=$('toy-filter');
+     if(filter)filter.value='';
+     if(search){search.value=toy.name;search.dispatchEvent(new Event('input',{bubbles:true}))}
+     $('toy-grid')?.querySelector('[data-toy-open="'+toy.id+'"]')?.click();
     });item.append(btn);sec.append(item);
-    extra+='\n'+toy.name+': '+toy.summary+'\n'+toy.safety;
+    toyCopy.push([instruction,'Body fit: '+(lib.bodyUses(toy.id)?.[kind]?.note||''),'Safety: '+toy.safety].join('\n'));
    }
    root.append(sec);
+   extra=toyCopy.join('\n\n');
   }
  }
- talks.append(line('Boundaries and safer choices',first.caution+(second?' '+second.caution:'')+' Everyone involved must be an informed, consenting adult; an immediate stop is always valid. Never add an unapproved act or toy.'));
- root.append(talks);
+ notes.append(line('Boundaries and safer choices','Use only activities that every participant expressly agrees to. Set limits first; never add an unapproved person, act or toy. Any participant can stop immediately.'));
+ root.append(notes);
  const actions=E('div',undefined,'freak-idea-actions');
- const again=E('button','🎲 Another like this','btn');again.type='button';again.addEventListener('click',()=>render(mode));
- const copy=E('button','Copy idea','btn alt');copy.type='button';copy.addEventListener('click',()=>{
-  const content=lastOutput;
-  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(content).then(()=>{copy.textContent='Copied'}).catch(()=>{copy.textContent='Copy unavailable'});
+ const again=E('button','🎲 Another specific idea','btn');again.type='button';again.addEventListener('click',()=>render(mode));
+ const copy=E('button','Copy this exact plan','btn alt');copy.type='button';copy.addEventListener('click',()=>{
+  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(lastOutput).then(()=>{copy.textContent='Copied'}).catch(()=>{copy.textContent='Copy unavailable'});
   else copy.textContent='Copy unavailable';
  });
  actions.append(again,copy);root.append(actions);
- lastOutput=scenarioText(first)+(second?'\n\nSECOND TWIST\n'+scenarioText(second):'')+extra+'\n\nAdults only. Fantasy-only settings and boundaries are essential; stop on request.';
+ lastOutput=scenarioText(first)+(second?'\n\nSECOND ACT\n'+scenarioText(second):'')+(extra?'\n\nOPTIONAL DEVICES\n'+extra:'')+'\n\nConsent is specific and can be withdrawn at any time.'+(settings.fantasy?'\nFantasy-only: imagine or discuss, do not enact.':'');
  root.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
 function init(){
@@ -186,10 +235,10 @@ function init(){
  const allIn=E('button','🔥 Full Combination','btn');allIn.type='button';allIn.onclick=()=>render('full');
  modebar.append(main,withToy,allIn);
  boundaries.insertAdjacentElement('afterend',modebar);
- const helper=E('p','Random Idea gives a complete scenario. Idea + Toy adds a device with safety and anatomy notes. Full Combination builds a more elaborate two-act idea with two different optional toys. Your Freak Level controls all three.','freak-picker-help');
+ const helper=E('p','Each result gives one named activity, exact preparation, a time limit and concrete steps. Idea + Toy shows where a specific device fits. Full Combination delivers two separate acts with a device for each. Your Freak Level and limits control the options.','freak-picker-help');
  modebar.insertAdjacentElement('afterend',helper);
  update();
- window.UnwrappedFreakPicker=Object.freeze({generate:render,ideas:DATA.length,getLevel:currentLevel});
+ window.UnwrappedFreakPicker=Object.freeze({generate:render,ideas:(window.UnwrappedSpecificIdeaBank||DATA).length,getLevel:currentLevel});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
