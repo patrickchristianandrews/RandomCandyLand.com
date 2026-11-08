@@ -49,3 +49,29 @@
 .toy-quick-random-actions{display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:620px){.freak-picker-actions{display:grid;grid-template-columns:1fr 1fr}.freak-picker-actions .btn{width:100%}.freak-meter-ticks{font-size:10px}.toy-quick-search-top{display:grid}.toy-guide-actions button{flex:1 1 150px}}
 @media(prefers-reduced-motion:reduce){.toy-quick-result,.toy-chip,.freak-meter *{scroll-behavior:auto}}
+
+
+/* Specific-action Idea Lab: one concrete plan, setup, steps and finish point. */
+#ideaResult[data-idea-type="specific"]{display:grid;gap:12px;scroll-margin-top:90px}
+#ideaResult[data-idea-type="specific"]>h3{margin:0;font-size:clamp(23px,4vw,34px);line-height:1.17;color:#fff0b7}
+#ideaResult .freak-idea-premise{margin:0;font-size:clamp(15px,1.9vw,18px);line-height:1.55;color:#f7e5f1}
+#ideaResult .freak-idea-act{padding:clamp(13px,2.5vw,20px);border:1px solid #a87da9;border-radius:16px;background:linear-gradient(120deg,#2e1b3d,#261933)}
+#ideaResult .freak-idea-time{display:inline-flex;align-items:center;gap:5px;margin-bottom:7px;padding:7px 11px;border-radius:99px;background:#4d2d61;color:#fff2c7;font:850 12px/1.3 system-ui,sans-serif}
+#ideaResult .freak-act-title{margin:2px 0 10px;color:#ffdfb3}
+#ideaResult .freak-idea-act .freak-idea-section{margin:7px 0 15px;padding:12px 13px;border-color:#775d85;background:#21152e}
+#ideaResult .freak-idea-act .freak-idea-section h4{margin:0 0 5px;font-size:13px;color:#ffdcad}
+#ideaResult .freak-do-heading{margin:13px 0 8px;color:#fff;font-size:16px}
+#ideaResult .freak-idea-steps{margin:8px 0 2px;display:grid;gap:12px;padding-left:27px;line-height:1.6;font-size:15px}
+#ideaResult .freak-idea-steps li{padding-left:7px}
+#ideaResult .freak-idea-steps li::marker{color:#fce1a9;font-weight:900}
+#ideaResult .freak-idea-transition{padding:11px 13px;border-left:3px solid #e3b9dc;margin:1px 0;color:#ffe1f5;line-height:1.5}
+#ideaResult .freak-idea-toys{margin:2px 0;background:#271a38}
+#ideaResult .freak-toy-action{margin:6px 0 11px;padding:10px 12px;border-left:3px solid #ffdea3;background:#3b2449;color:#fff4e2;font-weight:650}
+#ideaResult .freak-idea-notes{display:grid;gap:8px}
+#ideaResult .freak-idea-notes .freak-idea-section{margin:0}
+#ideaResult .freak-idea-actions{margin-top:0}
+@media(max-width:520px){
+ #ideaResult .freak-idea-act{padding:13px}
+ #ideaResult .freak-idea-steps{font-size:14px;gap:12px;padding-left:24px}
+ #ideaResult .freak-idea-actions button{flex:1 1 140px}
+}
