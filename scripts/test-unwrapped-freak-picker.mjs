@@ -9,6 +9,7 @@ const paths=[
  'public/after-dark/toy-library.js',
  'public/after-dark/toy-idea-combiner.js',
  'public/after-dark/toy-discovery-quick.js',
+ 'public/after-dark/specific-idea-bank.js',
  'public/after-dark/idea-lab-enhanced.js',
 ];
 for(const path of paths)assert.doesNotThrow(()=>new vm.Script(read(path),{filename:path}),path+' must parse');
@@ -18,7 +19,8 @@ assert(panel.includes('idea-lab-enhanced.css'),'Page must load responsive styles
 assert(panel.indexOf('toy-library-expanded.js')<panel.indexOf('toy-library-additions.js'),'Load expansion before additions');
 assert(panel.indexOf('toy-library-additions.js')<panel.indexOf('toy-library.js'),'Load all toy types before library');
 assert(panel.indexOf('toy-idea-combiner.js')<panel.indexOf('toy-discovery-quick.js'),'Load combiner before quick search');
-assert(panel.indexOf('toy-discovery-quick.js')<panel.indexOf('idea-lab-enhanced.js'),'Enhanced picker overrides old button handler last');
+assert(panel.indexOf('toy-discovery-quick.js')<panel.indexOf('specific-idea-bank.js'),'Curated bank follows toy discovery');
+assert(panel.indexOf('specific-idea-bank.js')<panel.indexOf('idea-lab-enhanced.js'),'Load the curated bank before the generator engine');
 
 class Node{
  constructor(tag='div'){this.tagName=tag;this.children=[];this.value='';this.dataset={};this.attributes={};this.hidden=false;this.text='';this.listeners={};this.classList={add(){},remove(){}};}
@@ -62,6 +64,9 @@ assert.equal(new Set(lib.types.map(t=>t.id)).size,68,'Ids must be unique');
 assert.ok(lib.types.every(t=>lib.bodyUses(t.id)?.male&&lib.bodyUses(t.id)?.female&&lib.bodyUses(t.id)?.together),'All toys need three body/partner contexts');
 assert.equal(lib.recommend({direct:{specificSelections:[]},interests:[]}).length,0,'Do not fabricate matches from missing answers');
 vm.runInContext(read(paths[5]),ctx,{filename:paths[5]});
+vm.runInContext(read(paths[6]),ctx,{filename:paths[6]});
+assert.equal(ctx.window.UnwrappedSpecificIdeaBank.length,48,'48 concrete plans must be available');
+assert.ok(ctx.window.UnwrappedSpecificIdeaBank.every(x=>x.time&&x.setup&&x.parts.length===3),'Each plan requires timing, props and three exact steps');
 const picker=ctx.window.UnwrappedFreakPicker;
 assert.ok(picker&&picker.ideas>=48,'At least 48 curated scenario foundations');
 const slider=registry.get('freak-level');
@@ -70,14 +75,14 @@ for(const value of [1,5,8,10]){
  slider.value=String(value);
  main.onclick();
  assert.ok(root.textContent.includes('FREAK LEVEL '+value+'/10'),'Selected level must be visible at '+value);
- assert.ok(root.textContent.includes('What to talk about'),'Scenario requires detailed questions');
+ assert.ok(root.textContent.includes('Prepare this')&&root.textContent.includes('Exactly what to do'),'Scenario must give exact props and usable actions');
  assert.ok(root.textContent.includes('Boundaries and safer choices'),'Scenario requires safety notes');
 }
 picker.generate('toy');
-assert.ok(root.textContent.includes('An optional device to pair with this idea'),'Single-toy scenario draws from actual catalog');
+assert.ok(root.textContent.includes('How the device fits this exact idea')&&root.textContent.includes('Safety:'),'Single-toy plan must place a safe specific device into the activity');
 picker.generate('full');
-assert.ok(root.textContent.includes('A second twist'),'Full scenario must combine separate ideas');
-assert.ok(root.textContent.includes('Two optional device ideas'),'Full scenario must combine separate devices');
+assert.ok(root.textContent.includes('ACT 2')&&root.textContent.includes('Exactly what to do'),'Full scenario must provide a complete second act');
+assert.ok(root.textContent.includes('An exact device option for each act'),'Full scenario must specify devices for both acts');
 registry.get('freak-no-anal').checked=true;
 registry.get('freak-no-penetration').checked=true;
 registry.get('freak-no-power').checked=true;
@@ -99,4 +104,4 @@ for(const path of ['public/curiosity/index.html','public/curiosity/ideas/index.h
  assert.ok(page.indexOf('ideas-data.js')<page.indexOf('ideas-extra.js'),'Wonder Index extension must load after base ideas: '+path);
 }
 console.log('✓ Wonder Index: 116 unique original ideas across the existing searchable topic pages.');
-console.log('✓ Unwrapped: 68 catalog categories, 48 rich scenario templates, all four Freak Level bands, solo and combo pickers, exclusions, fantasy-only, and source parsing.');
+console.log('✓ Unwrapped: 68 toy categories, 48 specific timed activities, all four intensity bands, exact setup and steps, toy combinations, exclusions, fantasy-only, and source parsing.');
