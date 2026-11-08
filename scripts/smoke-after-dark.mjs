@@ -873,10 +873,10 @@ try{
   if(!modelEvaluate)throw Error('Random AI device assessment should be explicit and conservative');
   console.log('✓ Random AI top models, uncensored-compatible section, hidden task controls, and local/hosted modes work.');
 
-  // TRACE Evidence Files stays in the course; the profile tool is on an independent route.
+  // The retired standalone Identity Lab and its embedded TRACE tab must both remain absent.
   const traceEvidence=await navigate(site+'/osint-academy/');
-  const evidenceReady=await traceEvidence.evaluate("(()=>{document.querySelector('#tab-identity').click();return document.querySelector('#view-identity h2')?.textContent==='Evidence Files'&&!!document.querySelector('#trace-identity-lab [data-idcase]')&&!document.querySelector('#trace-profile-review')})()");
-  if(!evidenceReady)throw Error('TRACE Evidence Files challenge or standalone separation failed');
+  const labRemoved=await traceEvidence.evaluate("!document.querySelector('#tab-identity,#view-identity,#trace-identity-lab,[href=\"/identity-lab/\"]') && !document.querySelector('script[src*=\"identity-lab.js\"]')");
+  if(!labRemoved)throw Error('Retired Identity Lab appeared inside TRACE Academy');
   const gameHub=await traceEvidence.evaluate("(()=>{document.querySelector('#tab-missions').click();const api=window.TraceAcademyGame,root=document.querySelector('#trace-game-command'),cases=document.querySelectorAll('#trace-map-cases button'),zones=document.querySelectorAll('#trace-mission-zones button'),button=document.querySelector('#trace-map-cases button:not(:disabled)');if(!api||!root||zones.length!==5||cases.length<5||!button)return {ready:false};button.click();const clue=document.querySelector('#mission-stage .evidence-tile[role=button]');if(!clue)return {ready:false};clue.click();return {ready:true,expanded:clue.getAttribute('aria-expanded'),text:document.querySelector('.trace-clue-progress')?.textContent,missions:api.missions.length}})()");
   if(!gameHub?.ready||gameHub.expanded!=='true'||!gameHub.text?.includes('1 / 3')||gameHub.missions!==25)
    throw Error('TRACE mission campaign or clue interaction failed: '+JSON.stringify(gameHub));
