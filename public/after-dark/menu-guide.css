@@ -8,6 +8,7 @@
  align-items:stretch;overflow:visible;flex-wrap:nowrap;padding-top:13px;
 }
 .top.od-simple-site-header .uw-guided-menu>.uw-nav-home,
+.top.od-simple-site-header .uw-guided-menu>.uw-nav-ideas,
 .top.od-simple-site-header .uw-guided-menu>.uw-nav-group>summary{
  display:flex;align-items:center;justify-content:flex-start;gap:10px;
  height:100%;min-height:66px;padding:12px 13px;white-space:normal;text-align:left;
@@ -15,6 +16,8 @@
  border-radius:14px;box-shadow:inset 0 1px #ffffff10;
 }
 .top.od-simple-site-header .uw-guided-menu>.uw-nav-home:hover,
+.top.od-simple-site-header .uw-guided-menu>.uw-nav-ideas:hover,
+.top.od-simple-site-header .uw-guided-menu>.uw-nav-ideas.selected,
 .top.od-simple-site-header .uw-guided-menu>.uw-nav-group>summary:hover,
 .top.od-simple-site-header .uw-guided-menu>.uw-nav-group[open]>summary,
 .top.od-simple-site-header .uw-guided-menu>.uw-nav-group.is-current>summary{
@@ -132,4 +135,13 @@
 }
 @media(prefers-reduced-motion:reduce){
  .top.od-simple-site-header .uw-guided-menu .uw-nav-chevron{transition:none}
+}
+
+/* Random Ideas is a direct action, not a nested or buried dropdown. */
+.top.od-simple-site-header .uw-guided-menu>.uw-nav-ideas{
+ background:linear-gradient(140deg,#6c4377,#4e355d);border-color:#c29ab5;
+}
+.top.od-simple-site-header .uw-guided-menu>.uw-nav-ideas:hover,
+.top.od-simple-site-header .uw-guided-menu>.uw-nav-ideas.selected{
+ background:linear-gradient(120deg,#9a5a83,#6b4173);border-color:#ffddb2;
 }
