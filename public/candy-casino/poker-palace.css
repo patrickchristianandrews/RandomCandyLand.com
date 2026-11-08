@@ -209,3 +209,7 @@
 /* Native hidden attributes must win over themed button layouts. */
 .candy-casino #game-buttons .duel-go[hidden],
 .candy-casino #game-buttons #poker-draw[hidden]{display:none!important}
+
+/* The showdown must overlay the felt and cards, never occupy ordinary grid flow.
+   This beats the generic '#poker-table > *' positioning used for table decorations. */
+.candy-casino #poker-table>.poker-showdown{position:absolute;z-index:12}
