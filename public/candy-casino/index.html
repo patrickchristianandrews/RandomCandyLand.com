@@ -22,6 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/candy-casino/casino.css?v=casino-refresh-20261101">
 <link rel="stylesheet" href="/candy-casino/casino-clean.css?v=hand-guide-20261101">
+<link rel="stylesheet" href="/candy-casino/poker-palace.css?v=20261107-v1">
 <script src="/install-app.js" defer></script>
 <script src="/candy-casino/poker-engine.js?v=casino-refresh-20261101" defer></script>
 <script src="/candy-casino/relay-config.js?v=casino-refresh-20261101" defer></script>
@@ -87,7 +88,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <button type="button" class="opponent-pick selected" data-opponent="computer" aria-pressed="true">🤖 Candybot</button>
 <button type="button" class="opponent-pick" data-opponent="friend" aria-pressed="false">🌍 Play a friend</button>
 </div></div>
-<div class="scoreboards"><div><span>🍭 YOU</span><strong id="self-name">Candy Captain</strong><b id="self-score">0</b></div><span class="versus">VS</span><div><span>🍬 OPPONENT</span><strong id="opponent-name">Candybot</strong><b id="other-score">0</b></div></div>
+<div class="scoreboards poker-match-hud" aria-label="Match scores"><div><span>🍭 YOU</span><strong id="self-name">Candy Captain</strong><b id="self-score">0</b></div><span class="versus">VS</span><div><span>🍬 OPPONENT</span><strong id="opponent-name">Candybot</strong><b id="other-score">0</b></div></div>
+<div class="poker-match-steps" id="poker-match-steps" aria-label="How this round works">
+<span data-poker-step="ready" class="active"><b>1</b> Deal cards</span>
+<span data-poker-step="draw"><b>2</b> Pick up to 3 to swap</span>
+<span data-poker-step="result"><b>3</b> Reveal winner</span>
+</div>
 <div class="duel-display" id="duel-display" role="status">🃏 Ready for a friendly five-card draw?</div>
 <div class="poker-table" id="poker-table" aria-label="Five card draw poker table" hidden>
 <div class="poker-score-strip" role="group" aria-label="Live poker match scoreboard">
@@ -95,9 +101,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="poker-score-middle"><span id="poker-round-label">ROUND 1 OF 5</span><small id="poker-ties">0 ties</small></div>
   <div class="poker-score-side"><span>🍬 OPPONENT ROUNDS</span><strong id="poker-other-score" aria-live="polite">0</strong></div>
 </div>
-<div class="cards-group"><span class="cards-label">🍬 OPPONENT'S HAND</span><div class="cards-row" id="poker-opponent-cards"></div><small id="poker-opponent-tip">Cards are hidden until the showdown.</small></div>
+<div class="cards-group poker-seat poker-seat-opponent"><span class="cards-label">🍬 OPPONENT'S HAND</span><div class="cards-row" id="poker-opponent-cards"></div><small id="poker-opponent-tip">Cards are hidden until the showdown.</small></div>
 <div class="poker-community"><span id="poker-stage-label">Five cards. One draw. Best hand wins.</span></div>
-<div class="cards-group"><span class="cards-label">🍭 YOUR HAND</span><div class="cards-row" id="poker-own-cards"></div><small id="poker-hand-tip">Tap up to three cards to exchange.</small></div>
+<div class="cards-group poker-seat poker-seat-player"><span class="cards-label">🍭 YOUR HAND</span><div class="cards-row" id="poker-own-cards"></div><small id="poker-hand-tip">Tap up to three cards to exchange.</small></div>
 <div class="poker-showdown" id="poker-showdown" hidden>
  <div class="poker-showdown-panel" role="status" aria-live="polite" aria-atomic="true">
   <span class="poker-showdown-eyebrow">🍬 SUGAR RUSH SHOWDOWN 🍬</span>
