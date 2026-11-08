@@ -230,6 +230,7 @@ export function RandomNonsenseGenerator() {
   const [cycle, setCycle] = useState<Cycle>(load);
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [tickerPaused, setTickerPaused] = useState(false);
   const [storyDestination, setStoryDestination] = useState<HTMLElement | null>(null);
   useEffect(() => {
     setStoryDestination(document.getElementById('absurder-report-destination'));
@@ -259,13 +260,13 @@ export function RandomNonsenseGenerator() {
   // A living fictional-news feed, not a connection to actual breaking news.
   // Pause automatic updates while a reader has a full story open.
   useEffect(() => {
-    if (expanded || typeof window === 'undefined') return;
+    if (expanded || tickerPaused || typeof window === 'undefined') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = window.setInterval(() => {
       if (!document.hidden) { setCycle(advance); setCopied(false); }
-    }, 19000);
+    }, 60000);
     return () => window.clearInterval(timer);
-  }, [expanded]);
+  }, [expanded, tickerPaused]);
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(
@@ -279,7 +280,7 @@ export function RandomNonsenseGenerator() {
   };
   return (
     <>
-    <section id="nonsense" className="nonsense-lab nonsense-newsroom nonsense-report" aria-labelledby="nonsense-heading">
+    <section id="nonsense" className="nonsense-lab nonsense-newsroom nonsense-report" aria-labelledby="nonsense-heading" data-ticker-paused={tickerPaused ? 'true' : 'false'}>
       <header className="nonsense-report-ticker">
         <div className="nonsense-report-brand">
           <span className="nonsense-report-icon" aria-hidden="true"><Newspaper size={22}/></span>
@@ -294,12 +295,15 @@ export function RandomNonsenseGenerator() {
           aria-expanded={expanded} aria-controls="nonsense-story-detail"
           aria-label={'Read this fictional story in The Absurdity Report section below: ' + nonsense.headline}>
           <span className="nonsense-report-viewport">
-            <span className="nonsense-report-marquee" aria-hidden="true">
+            <span className="nonsense-report-marquee" key={cycle.current} aria-hidden="true">
               <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
               <span>{nonsense.headline} <b>✦</b> {nonsense.section} <b>✦</b>&nbsp;</span>
             </span>
           </span>
           <span className="nonsense-report-read">Read full story <ArrowRight size={15}/></span>
+        </button>
+        <button className="nonsense-report-pause" type="button" onClick={() => setTickerPaused(value => !value)} aria-label={tickerPaused ? 'Resume scrolling headlines' : 'Pause scrolling headlines'} aria-pressed={tickerPaused} title={tickerPaused ? 'Resume scrolling headlines' : 'Pause scrolling headlines'}>
+          <span aria-hidden="true">{tickerPaused ? '▶' : 'Ⅱ'}</span><span className="nonsense-report-pause-label">{tickerPaused ? 'Play' : 'Pause'}</span>
         </button>
         <button className="nonsense-report-skip" type="button" onClick={generate} aria-label="Next fictional headline" title="Next fictional headline">↻</button>
       </header>
