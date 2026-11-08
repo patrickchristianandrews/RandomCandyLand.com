@@ -229,23 +229,14 @@ function decode(id: number) {
 export function RandomNonsenseGenerator() {
   const [cycle, setCycle] = useState<Cycle>(load);
   const [copied, setCopied] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const expanded = true; // The Absurdity Report reader always stays visible.
   const [tickerPaused, setTickerPaused] = useState(false);
   const [storyDestination, setStoryDestination] = useState<HTMLElement | null>(null);
   useEffect(() => {
     setStoryDestination(document.getElementById('absurder-report-destination'));
   }, []);
-  useEffect(() => {
-    if (!expanded || !storyDestination) return;
-    const frame = window.requestAnimationFrame(() => {
-      storyDestination.focus({ preventScroll: true });
-      storyDestination.scrollIntoView({ behavior: 'instant', block: 'start' });
-    });
-    return () => window.cancelAnimationFrame(frame);
-  }, [expanded, storyDestination]);
   const nonsense = decode(cycle.current);
   const openStory = () => {
-    setExpanded(true);
     // Clicking the ticker always returns the reader to the article, even if
     // they already opened it and then scrolled back to the top.
     window.requestAnimationFrame(() => {
@@ -258,7 +249,7 @@ export function RandomNonsenseGenerator() {
   };
   const generate = () => { setCycle(advance); setCopied(false); };
   // A living fictional-news feed, not a connection to actual breaking news.
-  // Pause automatic updates while a reader has a full story open.
+  // With the reader permanently open, do not auto-replace the story being read.
   useEffect(() => {
     if (expanded || tickerPaused || typeof window === 'undefined') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -309,7 +300,7 @@ export function RandomNonsenseGenerator() {
       </header>
     </section>
     {storyDestination && createPortal(
-      <div id="nonsense-story-detail" className="nonsense-report-detail" hidden={!expanded}>
+      <div id="nonsense-story-detail" className="nonsense-report-detail" >
         <article className="nonsense-display nonsense-news-article" key={cycle.current} aria-live="polite" aria-atomic="true">
           <div className="nonsense-story-meta">
             <span className="nonsense-breaking">BREAKING SATIRE</span>
@@ -323,7 +314,6 @@ export function RandomNonsenseGenerator() {
         <div className="nonsense-actions">
           <button className="nonsense-generate" type="button" onClick={generate}>NEXT STORY <ArrowRight size={22}/></button>
           <button className="nonsense-copy" type="button" onClick={copy}><Copy size={19}/> {copied ? 'COPIED!' : 'COPY STORY'}</button>
-          <button className="nonsense-report-close" type="button" onClick={() => setExpanded(false)}>CLOSE STORY</button>
         </div>
         <div className="nonsense-facts">
           <span>🗞️ <strong>{TOTAL.toLocaleString('en-US')}</strong> possible fictional stories</span>
