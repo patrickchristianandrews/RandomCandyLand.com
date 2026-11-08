@@ -34,15 +34,6 @@ function celebrate(emoji='✨'){
  burst(window.innerWidth*.6,window.innerHeight*.58,'✦');
  try{if(navigator.vibrate)navigator.vibrate(18)}catch{}
 }
-function sceneCity(day,person,mood,selected){
- const night=day%5===0||day%5===4,faces=mood>74?'🥳':mood>55?'😊':mood>37?'😐':'😢';
- const buildings=[70,118,95,141,98,169,85,132,108].map((h,i)=>'<div class="wfx-building '+(night?'is-dark':'')+'" style="--h:'+Math.max(35,Math.round(h*(.9+mood/500)))+'px;--color:'+['#d7adc4','#bfc2e9','#b4dcd4','#d6b1df','#d7c59a'][i%5]+'"></div>').join('');
- return '<div class="wfx-scene wfx-city-scene '+(night?'night':'')+'" role="img" aria-label="Animated illustrated city skyline with citizens and a selected neighborhood">'+
- '<span class="wfx-scene-label">🏙️ MOODROPOLIS • '+(night?'EVENING LIGHTS':'CITY IN MOTION')+'</span><span class="wfx-scene-stamp">DAY '+Number(day)+'</span>'+
- '<div class="wfx-sun"></div><div class="wfx-cloud"></div><div class="wfx-cloud alt"></div><div class="wfx-skyline">'+buildings+'</div>'+
- '<div class="wfx-road"></div><div class="wfx-person" style="left:16%">🚶</div><div class="wfx-person b">🧑‍🎨</div><div class="wfx-person c">🚴</div><div class="wfx-vehicle">🚗</div>'+
- '<div class="wfx-speech">'+W.escape(person)+' wonders how you will shape '+W.escape(selected)+'.</div><div class="wfx-mood-face">'+faces+'</div></div>';
-}
 function sceneHall(chapter,choices,pending){
  const icons=['🗳️','🤝','⚖️'];
  return '<div class="wfx-scene wfx-hall-scene"><span class="wfx-scene-label">🏛️ CITY HALL • THE THREE DOORS</span><span class="wfx-scene-stamp">ACT '+(Number(chapter)+1)+'</span>'+
@@ -94,5 +85,5 @@ function setup(){
  },{passive:true,capture:true});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
-window.WorldFX={tone,burst,celebrate,sceneCity,sceneHall,sceneCourt,caseBoard};
+window.WorldFX={tone,burst,celebrate,sceneHall,sceneCourt,caseBoard};
 })();
