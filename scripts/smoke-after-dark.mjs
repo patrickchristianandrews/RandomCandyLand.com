@@ -212,8 +212,8 @@ try{
   await check('Reset clears the whole direct quiz but leaves the other quiz untouched',
     "(()=>{const d=window.AfterDarkDirectQuizBridge.exportState();return d.qIndex===0&&d.customThings===''&&d.customIntent==='unsure'&&Object.values(d.multiAnswers).every(a=>Array.isArray(a)&&!a.length)})()");
   await evaluate("(()=>{const t=document.querySelector('#customInterestText');t.value='I want to try a private whispering experience\\nI would like to talk about strap-on play';t.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#customInterestIntent').value='together';document.querySelector('#customInterestIntent').dispatchEvent(new Event('change',{bubbles:true}))})()");
-  await check('Unlisted user interests stay separate from suggested results',
-    "(()=>{const x=window.AfterDarkCanonicalReport.buildData();return x.direct.personalIdeas.length===2&&x.direct.personalIdeas.every(i=>i.intent==='together')})()");
+  await check('Free-form interest notes save locally but never enter quiz-only reports',
+    "(()=>{const quiz=window.AfterDarkDirectQuizBridge.exportState(),r=window.AfterDarkCanonicalReport.buildData();return quiz.customThings.includes('private whispering')&&quiz.customIntent==='together'&&Array.isArray(r.direct.personalIdeas)&&r.direct.personalIdeas.length===0&&!JSON.stringify(r).includes('private whispering')})()");
   await evaluate("(()=>{const state=window.AfterDarkDirectQuizBridge.exportState();state.qIndex=window.AfterDarkAdultQuiz.findIndex(q=>q.dropdown);window.AfterDarkDirectQuizBridge.importState(state)})()");
   await check('Diverse adult-media dropdown is inside a normal grouped question',
     "window.AfterDarkAdultQuiz.length===69&&window.AfterDarkAdultQuiz.filter(q=>q.dropdown).length===1&&!!document.querySelector('#quizCard .quiz-group-question[open] .quiz-media-dropdown')&&document.querySelectorAll('#quizCard .quiz-media-group .quiz-multi-option').length>=55");
