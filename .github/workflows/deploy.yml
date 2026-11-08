@@ -304,7 +304,9 @@ jobs:
                     "$renderedUnwrapped" == *"Atlee is"* ||
                     "$renderedUnwrapped" != *'id="uw-personal-workflow"'* ||
                     "$renderedUnwrapped" != *'id="uw-import-private"'* ||
-                    "$renderedUnwrapped" != *'Reports &amp; Uploads'* ]]; then
+                    "$renderedUnwrapped" != *'Your reports'* ||
+                    "$renderedUnwrapped" != *'id="uw-home-random-heading"'* ||
+                    "$renderedUnwrapped" != *'data-idea-launch="idea"'* ]]; then
                 echo "::error::Pages may be serving an obsolete Unwrapped page; the report download/import center is not live."
                 exit 1
               fi
