@@ -273,13 +273,7 @@ export function RandomNonsenseGenerator() {
     <>
     <section id="nonsense" className="nonsense-lab nonsense-newsroom nonsense-report" aria-labelledby="nonsense-heading" data-ticker-paused={tickerPaused ? 'true' : 'false'}>
       <header className="nonsense-report-ticker">
-        <div className="nonsense-report-brand">
-          <span className="nonsense-report-icon" aria-hidden="true"><Newspaper size={22}/></span>
-          <span className="nonsense-report-brand-copy">
-            <strong id="nonsense-heading">ARN <em>NEWS</em></strong>
-            <small>ALL THE NEWS THAT NEVER HAPPENED</small>
-          </span>
-        </div>
+        <span id="nonsense-heading" className="sr-only">The Absurdity Report scrolling headlines</span>
         <span className="nonsense-report-live" aria-label="Live fictional satire"><i aria-hidden="true" /> LIVE <span>SATIRE</span></span>
         <button className="nonsense-report-open" type="button"
           onClick={openStory}
