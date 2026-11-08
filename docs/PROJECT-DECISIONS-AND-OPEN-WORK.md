@@ -91,7 +91,7 @@
 - [ ] **TRACE OSINT Academy**: engaging investigator workstation, integrated command-style research tools, plain-language navigation and staged cases. Use consent/public-source limits and don't imply unlawful access.
 
 ## P1 — Games, multiplayer and immersive features (OPEN or UNVERIFIED)
-- [ ] **Moodropolis:** substantially improved high-quality interactive visuals, compelling mechanics, replay value and clearer progression.
+- [x] **Moodropolis:** retired and removed from homepage, notifications and active game navigation. The legacy URL redirects home.
 - [ ] **The Corridors:** choices have immediate and long-term second-order consequences (economics, politics, ethics, trade-offs and opportunity costs); varied ambiguous decisions, non-partisan nuance and replayability; compelling visuals.
 - [ ] **The Docket:** immersive court/legal-system game, well-designed case mechanics and strong visual appeal.
 - [ ] **TRACE OSINT:** above; do not silently remove it when categories change.
