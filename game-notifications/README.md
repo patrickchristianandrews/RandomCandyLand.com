@@ -4,7 +4,7 @@
 
 ## What's in the website now
 
-- Homepage notification center: **6 selectable game subscriptions** — Moodropolis, The Corridors, The Docket, TRACE OSINT, FM-1 Trumpagotchi, Trumpagotchi OG
+- Homepage notification center: **5 selectable game subscriptions** — The Corridors, The Docket, TRACE OSINT, FM-1 Trumpagotchi, Trumpagotchi OG
 - Detects whether a game is **not started**, **in progress**, or **completed** using its existing local save (not by uploading private save files)
 - Frequency choices: **daily**, **Mon/Thu**, or **Saturday**; time choices: 9 AM, 1 PM, or 6 PM *in the subscribed phone's timezone*
 - **Maximum one scheduled game alert per device per selected day**, and never late at night
