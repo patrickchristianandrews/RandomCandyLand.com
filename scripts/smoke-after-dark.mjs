@@ -738,6 +738,18 @@ try{
     "document.querySelectorAll('.candyland-play-shelves .candyland-hero-tool-link').length===11 && document.querySelectorAll('.candyland-play-shelf').length===6");
   await checkHomepage('ARN news ticker links to a lower full Absurdity Report article',
     "(()=>{const bar=document.querySelector('#nonsense.nonsense-report'),ticker=bar?.querySelector('.nonsense-report-ticker'),brand=bar?.querySelector('#nonsense-heading'),open=bar?.querySelector('.nonsense-report-open'),destination=document.querySelector('#absurder-report-destination'),detail=destination?.querySelector('#nonsense-story-detail');return !!bar&&!!ticker&&brand?.textContent.includes('ARN NEWS')&&!brand?.textContent.includes('ABSURDITY')&&!!open?.textContent.includes('Read full story')&&!!destination?.textContent.includes('THE ABSURDITY REPORT')&&detail?.hidden===true&&ticker.getBoundingClientRect().height<=70})()");
+  await checkHomepage('ARN headline scroll is slow, legible and has an explicit pause button',
+    "(()=>{const ticker=document.querySelector('#nonsense'),marquee=ticker?.querySelector('.nonsense-report-marquee'),text=marquee?.querySelector('span'),pause=ticker?.querySelector('.nonsense-report-pause');return !!pause&&!!marquee&&!!text&&getComputedStyle(text).fontSize==='15px'&&parseFloat(getComputedStyle(marquee).animationDuration)>=40&&ticker.getAttribute('data-ticker-paused')==='false'&&pause.getAttribute('aria-pressed')==='false'})()");
+  await home.evaluate("document.querySelector('#nonsense .nonsense-report-pause').click()");
+  await delay(90);
+  await checkHomepage('ARN pause button actually freezes the moving headline',
+    "document.querySelector('#nonsense').dataset.tickerPaused==='true'&&document.querySelector('#nonsense .nonsense-report-pause').getAttribute('aria-pressed')==='true'&&getComputedStyle(document.querySelector('#nonsense .nonsense-report-marquee')).animationPlayState==='paused'");
+  await home.evaluate("document.querySelector('#nonsense .nonsense-report-pause').click()");
+  await delay(90);
+  await home.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  const tickerMobile=await home.evaluate("(()=>{const t=document.querySelector('#nonsense'),h=t?.querySelector('.nonsense-report-open'),v=t?.querySelector('.nonsense-report-viewport'),txt=t?.querySelector('.nonsense-report-marquee>span'),r=h?.getBoundingClientRect();return !!t&&!!h&&!!v&&!!txt&&r?.width>=315&&r?.height>=48&&v.getBoundingClientRect().width>=220&&parseFloat(getComputedStyle(txt).fontSize)>=15&&!!t.querySelector('.nonsense-report-pause')&&document.documentElement.scrollWidth<=innerWidth+4})()");
+  await home.command('Emulation.clearDeviceMetricsOverride');
+  if(!tickerMobile)throw Error('ARN headline strip is too cramped or clipped on a 390px phone');
   await home.evaluate("window.scrollTo(0,0);document.querySelector('#nonsense .nonsense-report-open').click()");
   await delay(220);
   const scrolledToArticle=await home.evaluate("(()=>{const target=document.querySelector('#absurder-report-destination');return !!target&&document.activeElement===target&&window.scrollY>0})()");
