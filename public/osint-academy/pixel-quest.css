@@ -1,0 +1,40 @@
+/* TRACE pixel-art guided game overlay; existing game lessons remain below. */
+.pq-hub{border:4px solid #0b132b;border-radius:14px;overflow:hidden;margin:0 0 18px;background:#151c40;color:#fff8d5;box-shadow:0 8px 0 #050d1c,0 25px 45px #0008;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.pq-hub button{font-family:inherit;font-weight:900;cursor:pointer}.pq-hub button:focus-visible{outline:3px solid #ffe66d;outline-offset:3px}
+.pq-status{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#0a122b;border-bottom:3px solid #354470;padding:12px 16px;font-size:12px;letter-spacing:.05em;color:#9fffee;font-weight:900}
+.pq-head{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:18px 22px;background:#272e67}
+.pq-head small{font-weight:900;color:#ffdb70;letter-spacing:.11em;font-size:10px}.pq-head h2{font-family:inherit;line-height:1.15;font-size:clamp(19px,3vw,29px);margin:8px 0}.pq-head p{font-size:12px;line-height:1.6;margin:0;color:#e3e7ff;max-width:590px}
+.pq-big-button{background:#ffe46c;color:#182040;border:3px solid #fff4b3;box-shadow:4px 4px 0 #080f29;padding:15px 18px;white-space:nowrap}
+.pq-big-button:hover{transform:translateY(-2px);background:#fff2a2}
+.pq-world{height:335px;position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(#172660 0%,#714f9f 55%,#f0a274 78%,#6a577c 78%);image-rendering:pixelated}
+.pq-world[data-theme=pier]{background:linear-gradient(#173369,#417ea9 63%,#8bd7d4 80%,#24658c 80%)}
+.pq-world[data-theme=arcade]{background:linear-gradient(#1c164d,#6829a6 70%,#d145a3 80%,#3a245c 80%)}
+.pq-world[data-theme=market]{background:linear-gradient(#322457,#ae5674 72%,#e9a56d 80%,#60446b 80%)}
+.pq-world[data-theme=tower]{background:linear-gradient(#090f33,#363c81 68%,#e2a9c8 80%,#3a315a 80%)}
+.pq-stars{position:absolute;inset:15px 12px auto;letter-spacing:16px;color:#fef4c9;opacity:.9;animation:pq-spark 3s infinite alternate}
+.pq-moon{position:absolute;right:13%;top:25px;background:#ffe8a3;width:52px;height:52px;box-shadow:8px 0 #f4be88,0 0 0 8px #ffdb9d23}
+.pq-buildings{position:absolute;bottom:55px;left:0;right:0;display:flex;align-items:flex-end;gap:8px;height:180px}
+.pq-buildings i{flex:1;background:repeating-linear-gradient(90deg,#1a2d5c 0 12px,#2e4a76 12px 17px);height:65%;border:4px solid #101d4c;box-shadow:inset 0 17px #39557e}
+.pq-buildings i:nth-child(2){height:95%}.pq-buildings i:nth-child(3){height:77%}.pq-buildings i:nth-child(4){height:100%}.pq-buildings i:nth-child(5){height:55%}.pq-buildings i:nth-child(6){height:85%}
+.pq-city-ground{position:absolute;bottom:0;height:59px;left:0;right:0;background:repeating-linear-gradient(90deg,#172446 0 80px,#1d3156 80px 90px);border-top:8px solid #75b6a8}
+.pq-city-label{position:absolute;left:20px;top:24px;font-size:clamp(16px,2.5vw,24px);font-weight:900;text-shadow:3px 3px #0b1336}
+.pq-avatar{position:absolute;bottom:47px;left:12%;width:68px;height:116px;z-index:2;animation:pq-bob 1.2s steps(2,end) infinite}
+.pq-hat{position:absolute;top:0;left:10px;width:47px;height:16px;background:#f7c457;box-shadow:0 12px #25325a,-9px 12px #25325a,9px 12px #25325a}
+.pq-face{position:absolute;top:28px;left:15px;width:40px;height:34px;background:#f3be93;color:#273054;font-size:15px;text-align:center;padding-top:7px;box-shadow:inset -8px 0 #d69478}
+.pq-body{position:absolute;top:62px;left:10px;width:49px;height:39px;background:#68cdb9;border:6px solid #21495a}.pq-legs{position:absolute;top:101px;left:16px;width:15px;height:13px;background:#172543;box-shadow:24px 0 #172543}
+.pq-districts{position:absolute;z-index:4;right:10px;left:35%;bottom:69px;display:flex;gap:6px;align-items:flex-end;justify-content:flex-end;flex-wrap:wrap}
+.pq-districts button{display:grid;justify-items:center;gap:4px;min-width:82px;padding:8px 6px;color:#fff;background:#141e4eea;border:2px solid #7a8fc7;box-shadow:3px 3px 0 #101834;text-shadow:1px 1px #101834}
+.pq-districts button.selected{border-color:#ffe883;background:#6b3c91}.pq-districts button.unlocked b{filter:drop-shadow(0 0 8px #ffd750)}.pq-districts b{font-size:24px}.pq-districts span{font-size:9px}
+.pq-dialog{display:flex;align-items:center;gap:12px;padding:15px;background:#171d43;border-top:4px solid #0d1733;border-bottom:3px solid #394d83}
+.pq-guide-avatar{font-size:38px;padding:8px;background:#2e3c76;border:2px solid #89b9d8}.pq-dialog-content{flex:1;min-width:0}.pq-dialog-content strong{color:#f9da72;font-size:13px}.pq-dialog-content p{font-size:12px;line-height:1.65;margin:6px 0 0;color:#fff}
+#pq-tip,.pq-control button{background:#36477d;border:2px solid #8aa6d9;color:#fff;padding:9px;font-size:11px}.pq-progress-track{height:9px;background:#070d24}.pq-progress-track div{height:100%;background:#ffd96a;transition:width .3s}
+.pq-control{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px;background:#232d60}.pq-control span{font-size:10px;text-align:center;color:#c6d7ff}
+.pq-missions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:13px;background:#171e43}
+.pq-mission{display:flex;align-items:center;text-align:left;gap:10px;border:2px solid #566d9f;background:#293668;color:#fff;padding:12px;min-height:70px}
+.pq-mission:hover:not(:disabled){border-color:#ffe36a;background:#394b83}.pq-mission.active{border-color:#ffdc68;box-shadow:inset 0 0 0 2px #b18c3b}.pq-mission.done{border-color:#83e7b3}.pq-mission.locked{opacity:.55;cursor:not-allowed}
+.pq-mission-symbol{font-size:27px}.pq-mission-text{display:grid;gap:5px}.pq-mission-text strong{font-size:12px}.pq-mission-text small{font-size:10px;color:#c2d6f8}.pq-footnote{margin:0;padding:12px 15px;background:#121832;color:#b5c6ef;font-size:10px;line-height:1.5}
+.pq-ready .trace-hero{display:none}.pq-ready .trace-first-steps{display:none}
+@keyframes pq-bob{to{transform:translateY(-4px)}}@keyframes pq-spark{to{opacity:.45}}
+@media(max-width:780px){.pq-head{flex-direction:column;align-items:stretch}.pq-world{height:340px}.pq-districts{left:25%;bottom:68px}.pq-districts button{min-width:65px}.pq-missions{grid-template-columns:1fr}}
+@media(max-width:470px){.pq-world{height:390px}.pq-districts{left:5px;right:5px;bottom:68px;justify-content:center}.pq-districts button{min-width:55px;max-width:75px}.pq-avatar{left:11%;bottom:150px;transform:scale(.8);transform-origin:bottom left}.pq-dialog{align-items:flex-start}.pq-guide-avatar{font-size:26px}.pq-control span{font-size:8px}.pq-status{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.pq-avatar,.pq-stars{animation:none!important}}
