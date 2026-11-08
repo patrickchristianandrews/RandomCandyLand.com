@@ -205,3 +205,7 @@
 @media(prefers-reduced-motion:reduce){
  .candy-casino #poker-table .poker-card{transition:none}
 }
+
+/* Native hidden attributes must win over themed button layouts. */
+.candy-casino #game-buttons .duel-go[hidden],
+.candy-casino #game-buttons #poker-draw[hidden]{display:none!important}
