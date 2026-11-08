@@ -237,8 +237,8 @@ try{
   await check('Quiz finishes and renders a personal reading shelf',"document.querySelector('#quizCard .compare')!==null&&document.querySelectorAll('#quizCard .result').length>=12");
   await check('Quiz shows specific interests with match percentages and explanation',"document.querySelectorAll('#quizCard .interest-result .interest-percentage').length>=12 && document.querySelector('.interest-disclaimer').textContent.includes('NOT scientifically validated probabilities') && [...document.querySelectorAll('#quizCard .interest-percentage')].every(el=>/%$/.test(el.textContent))");
   await check('Quiz offers private PDF and saves interests', "typeof window.InterestNotebook?.printQuiz==='function' && !![...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Open Print / Save as PDF')) && !![...document.querySelectorAll('#quizCard button')].find(b=>b.textContent.includes('Open expanded report / Save as PDF')) && !!document.querySelector('#quizCard .interest-result button')");
-  await check('Custom ideas appear in personal results and detailed PDF, never counted as inferred preferences',
-    "(()=>{const d=window.AfterDarkCanonicalReport.buildData(),p=window.AfterDarkDetailedReport.build();return d.direct.personalIdeas.length===2&&document.querySelector('#quizCard .custom-interest-results')?.textContent.includes('whispering')&&p.querySelectorAll('.report-personal-idea').length===2&&p.textContent.includes('Your stated intention')})()");
+  await check('Free-form ideas stay in the private quiz notebook, not in canonical or PDF reports',
+    "(()=>{const d=window.AfterDarkCanonicalReport.buildData(),p=window.AfterDarkDetailedReport.build();return d.direct.personalIdeas.length===0&&document.querySelector('#quizCard .custom-interest-results')?.textContent.includes('whispering')&&p.querySelectorAll('.report-personal-idea').length===0&&!p.textContent.includes('private whispering')})()");
   await check('Specific acts selected in revised 32 questions are recorded independently of psychological guesses',
     "(()=>{const d=window.AfterDarkCanonicalReport.buildData();return d.direct.specificSelections.length>=32&&d.direct.specificSelections.some(x=>x.text)&&d.interests.some(x=>x.specificSelected>0)})()");
 
@@ -302,8 +302,8 @@ try{
   }
   if(!selectiveReady)throw Error('Selective partner link did not render the exact chosen subset on a fresh page');
   await evaluate("document.querySelector('#selected-results-preview-test')?.remove();document.querySelectorAll('#share-results .ps-section')[3].open=true;document.querySelectorAll('#share-results .ps-section')[3].querySelector('.ps-check input')?.click()");
-  await check('Custom interests remain private until individually checked by the user',
-    "(()=>{const x=window.AfterDarkPartnerShare.buildPack().pack;return x?.customIdeas?.length===1&&x.customIdeas[0].text.includes('whispering')&&x.customIdeas[0].intentLabel.includes('together')})()");
+  await check('Partner selections cannot expose manual notebook ideas outside the quiz-derived report',
+    "(()=>{const x=window.AfterDarkPartnerShare.buildPack().pack;return x&&Array.isArray(x.customIdeas)&&x.customIdeas.length===0&&!JSON.stringify(x).includes('private whispering')})()");
   await evaluate("document.querySelector('[data-tab=quiz]').click()");
 
   console.log('✓ Partner sharing previews and opens only explicitly selected interests, psychological themes and individual answers.');
