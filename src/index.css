@@ -2646,7 +2646,16 @@ body {
     font-size:15px;line-height:1.5;
   }
   .candyland-next #nonsense.nonsense-report .nonsense-report-read{
-    padding:7px;
+    font-size:0;
+    gap:3px;
+    padding:7px 5px;
+  }
+  .candyland-next #nonsense.nonsense-report .nonsense-report-read::before{
+    content:"READ";
+    display:inline-block;
+    color:#392343;
+    font:900 10px/1 system-ui,sans-serif;
+    letter-spacing:.02em;
   }
 }
 @media(prefers-reduced-motion:reduce){
