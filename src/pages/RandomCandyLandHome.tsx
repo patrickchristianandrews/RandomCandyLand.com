@@ -251,14 +251,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             })}
           </div>
 
-      <section id="absurder-report-destination" className="candyland-report-destination nonsense-newsroom" tabIndex={-1} aria-label="The Absurdity Report full news story">
-        <div className="candyland-report-destination-head">
-          <span className="candyland-report-destination-kicker">ARN NEWS · FICTIONAL SATIRE</span>
-          <h2>THE ABSURDITY REPORT</h2>
-          <p>All the news that never happened. Select a headline in the scroller above to read its full story here.</p>
-        </div>
-      </section>
-
       <details className="candyland-install-apps" id="install-apps" aria-label="Install individual Candy Land apps on Android or iPhone">
         <summary>📲 Install your favorites <span>Optional</span></summary>
         <div className="candyland-section-heading">
@@ -288,6 +280,14 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <p className="candyland-install-footnote">These are individually installable web apps, not Apple App Store or Google Play downloads. Installation options vary by browser and device.</p>
       </details>
+
+      <section id="absurder-report-destination" className="candyland-report-destination nonsense-newsroom" tabIndex={-1} aria-label="The Absurdity Report full news story">
+        <div className="candyland-report-destination-head">
+          <span className="candyland-report-destination-kicker">ARN NEWS · FICTIONAL SATIRE</span>
+          <h2>THE ABSURDITY REPORT</h2>
+          <p>All the news that never happened. The latest fictional story stays open here; choose a headline above or select Next Story for another.</p>
+        </div>
+      </section>
 
       <footer className="candyland-footer">
         <span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span>
