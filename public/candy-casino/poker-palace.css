@@ -1,0 +1,207 @@
+/* Candy Poker Palace · one visual hierarchy, real five-card draw logic unchanged. */
+.candy-casino{
+ --poker-gold:#fbe5ab;--poker-rose:#ff9ac8;--poker-sea:#2a777b;
+}
+.candy-casino .shell{max-width:1070px}
+.candy-casino .games-section{margin-top:4px}
+.candy-casino .games-section .section-heading{
+ display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:10px;margin:5px 0 10px;
+}
+.candy-casino .games-section .section-heading h2{font-size:clamp(21px,3vw,29px);letter-spacing:-.025em}
+.candy-casino .games-section .section-heading p{font-size:12px;color:#f1dcea;max-width:520px}
+.candy-casino .game-pickers{display:none!important}
+.candy-casino #casino-arena{
+ max-width:1020px;margin:0 auto;padding:clamp(14px,2.2vw,25px);
+ border:1px solid #ddb6d698;border-radius:28px;
+ background:radial-gradient(circle at 96% 0%,#9e529e33,transparent 32%),linear-gradient(150deg,#372149,#221632 77%);
+ box-shadow:0 15px 50px #09051eb0,inset 0 1px #ffffff24;
+}
+.candy-casino .play-table-head{
+ display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;
+ padding:1px 1px 13px;border-bottom:1px solid #f4c8e232;
+}
+.candy-casino .play-table-head h3{
+ margin:3px 0 5px;line-height:1.1;font-size:clamp(23px,3vw,36px);letter-spacing:-.025em;
+ color:#fff3d9;
+}
+.candy-casino .play-table-head p{margin:3px 0;color:#e9d0e5;font-size:12px}
+.candy-casino .opponent-choice{
+ display:grid;grid-template-columns:1fr 1fr;gap:5px;
+ padding:4px;border:1px solid #d7aedd8a;border-radius:15px;background:#170d2d;
+}
+.candy-casino .opponent-pick{
+ min-height:43px;padding:8px 11px;border:1px solid transparent;
+ background:transparent;color:#e4cde6;border-radius:11px;font-size:12px;
+}
+.candy-casino .opponent-pick.selected{
+ background:linear-gradient(130deg,#ffe5b2,#ffc9e4);color:#41253e;
+ box-shadow:0 3px 9px #0006;
+}
+.candy-casino .poker-rules-jump{margin-top:6px;font-size:11px}
+.candy-casino .poker-match-hud{
+ display:grid;grid-template-columns:1fr 45px 1fr;gap:8px;margin:13px 0 8px;align-items:center;
+}
+.candy-casino .poker-match-hud>div{
+ display:grid;grid-template-columns:1fr auto;align-items:center;text-align:left;gap:1px 10px;
+ padding:9px 13px;background:#1b1630;border:1px solid #b8a5c968;border-radius:13px;
+}
+.candy-casino .poker-match-hud span{grid-column:1/-1;font-size:9px}
+.candy-casino .poker-match-hud strong{font-size:12px;margin:0}
+.candy-casino .poker-match-hud b{font-size:24px;line-height:1.1}
+.candy-casino #casino-arena.is-poker-active .poker-match-hud{display:none}
+.candy-casino .poker-match-steps{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:13px 0;
+}
+.candy-casino .poker-match-steps>span{
+ display:flex;align-items:center;justify-content:center;gap:7px;
+ min-width:0;min-height:39px;padding:7px 8px;text-align:center;
+ font:750 11px/1.32 system-ui,sans-serif;color:#d5c6e2;
+ border:1px solid #a482c050;border-radius:11px;background:#20162c;
+}
+.candy-casino .poker-match-steps b{
+ display:grid;place-items:center;flex:0 0 22px;height:22px;border-radius:50%;
+ color:#d8d1df;background:#473258;font-size:11px;
+}
+.candy-casino .poker-match-steps>span.active{
+ border-color:#f9dba4;background:linear-gradient(110deg,#574068,#4a2949);
+ color:#fff4d9;box-shadow:inset 0 0 0 1px #ffdfaa4d;
+}
+.candy-casino .poker-match-steps>span.active b{color:#402443;background:#ffe0a2}
+.candy-casino .poker-match-steps>span.done{color:#b4e5dc;border-color:#479d9e66}
+.candy-casino .poker-match-steps>span.done b{background:#3b8c82;color:#fff}
+.candy-casino #duel-display{
+ min-height:45px;padding:9px 14px;margin:7px 0 10px;font:750 12px/1.5 system-ui,sans-serif;
+ color:#ffefd4;border:1px solid #e6c0d55e;border-radius:12px;background:#291937;
+}
+.candy-casino #poker-table{
+ position:relative;isolation:isolate;overflow:hidden;
+ margin:8px auto 14px;max-width:none;
+ padding:clamp(10px,2vw,19px);
+ border:8px solid #825775;border-radius:clamp(26px,5vw,57px);
+ background:radial-gradient(ellipse at 50% 39%,#267873,#16474d 62%,#0f303d);
+ box-shadow:0 0 0 2px #f9d9a5,0 5px 0 5px #312039,0 19px 35px #070916b3,inset 0 0 0 2px #f9d9a584,inset 0 6px 25px #0007;
+}
+.candy-casino #poker-table::before{
+ content:"";position:absolute;pointer-events:none;inset:14px;opacity:.35;
+ border:2px solid #ecddc38c;border-radius:clamp(18px,4vw,44px);
+}
+.candy-casino #poker-table::after{
+ content:"♣  ♥  ♦  ♠";position:absolute;z-index:0;pointer-events:none;
+ top:48%;left:50%;transform:translate(-50%,-50%);
+ font:700 clamp(16px,4vw,35px)/1 Georgia,serif;letter-spacing:.45em;color:#d5efe712;
+ white-space:nowrap;
+}
+.candy-casino #poker-table>*{position:relative;z-index:1}
+.candy-casino .poker-score-strip{
+ margin:0 0 14px;padding:9px 12px;
+ border:1px solid #fce3acbd;border-radius:18px;
+ background:linear-gradient(120deg,#271b3bef,#432443ec,#271b3bef);
+ box-shadow:0 4px 18px #0004;
+}
+.candy-casino .poker-score-side strong{font-size:clamp(23px,3.6vw,38px)}
+.candy-casino .poker-score-middle{border:1px solid #c9a7bd6e;background:#100d23}
+.candy-casino .poker-table .poker-seat{
+ padding:9px 0;border-radius:19px;margin:8px auto;
+ background:linear-gradient(180deg,#ffffff0d,#ffffff04);
+}
+.candy-casino .poker-table .cards-label{
+ position:relative;display:inline-flex;align-items:center;gap:6px;
+ border-radius:999px;padding:5px 11px;font-size:10px;
+ color:#fdf2dd;letter-spacing:.08em;background:#0e2c36bd;
+}
+.candy-casino .poker-table .cards-row{
+ display:flex;flex-wrap:nowrap;align-items:center;gap:clamp(4px,1.25vw,10px);
+ min-height:clamp(91px,12vw,136px);padding:10px 6px 1px;
+}
+.candy-casino #poker-table .poker-card{
+ flex:none;width:clamp(45px,8.1vw,83px);height:clamp(77px,11.7vw,112px);
+ display:grid;place-items:center;padding:3px;line-height:1;
+ font:bold clamp(17px,3.2vw,28px)/1 Georgia,serif;
+ border:3px solid #f9f3e8;border-radius:12px;
+ background:linear-gradient(145deg,#fffefd,#f0e5da);
+ color:#29283d;box-shadow:0 4px 0 #134141,0 8px 15px #0008;
+ transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.candy-casino #poker-table .poker-card.red{color:#c8334f}
+.candy-casino #poker-table .poker-card.back{
+ border-color:#fae4b9;background:repeating-linear-gradient(45deg,#9c4b96 0 7px,#6b2877 7px 14px);
+ color:#ffeabc;box-shadow:inset 0 0 0 5px #57245a,inset 0 0 0 7px #f3c48e,0 4px 0 #134141,0 8px 15px #0008;
+}
+.candy-casino #poker-table .poker-card:not(:disabled):hover{
+ transform:translateY(-9px);box-shadow:0 12px 23px #060e1bce;border-color:#ffe4a6;
+}
+.candy-casino #poker-table .poker-card.held-for-swap{
+ transform:translateY(-14px) rotate(-2deg);
+ border-color:#ffdf9e;background:#fff0cf;
+ box-shadow:0 0 0 3px #ffe5ab,0 13px 26px #0009;
+}
+.candy-casino .poker-table .cards-group small{font-size:11px;color:#daf5e9}
+.candy-casino .poker-community{
+ width:fit-content;max-width:96%;margin:7px auto;padding:7px 18px;
+ border:1px solid #ffe8b1ab;border-radius:999px;
+ background:#102e39de;color:#ffe6b3;font:850 11px/1.35 system-ui,sans-serif;
+}
+.candy-casino .ready-flags{
+ display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;
+ margin:10px 0 6px;font-size:11px;color:#d9efea;
+}
+.candy-casino .ready-flags span{padding:7px 12px;border:1px solid #9b77b55b;border-radius:999px;background:#2a1a41}
+.candy-casino #game-buttons{
+ display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;
+ padding:12px;border:1px solid #d5b1d67d;border-radius:17px;background:#1a102ce0;
+}
+.candy-casino #game-buttons .duel-go,.candy-casino #game-buttons #poker-draw{
+ grid-column:1;grid-row:1;min-height:52px;width:100%;font-size:13px;
+ border-radius:13px;box-shadow:0 4px #382038;
+}
+.candy-casino #game-buttons #duel-reset{
+ grid-column:2;grid-row:1;min-height:48px;margin:0;
+ white-space:normal;max-width:158px;font-size:11px;
+}
+.candy-casino #duel-status{
+ padding:8px 11px;margin:8px 0 0;border:0;border-left:3px solid #d6aeae;
+ background:transparent;color:#e4d2e8;font-size:11px;
+}
+.candy-casino #friends:not([hidden]){margin:7px 0 14px}
+.candy-casino #friends[hidden]{display:none!important}
+.candy-casino #friends .friends-connect{border-radius:18px;padding:16px;box-shadow:none}
+.candy-casino #friends .friends-title{margin:0 0 10px;text-align:left}
+.candy-casino #friends .friends-title h2{margin:0;font-size:19px}
+.candy-casino #friends .friends-title p{margin:3px 0;font-size:12px}
+.candy-casino #poker-hand-guide{border-radius:21px}
+.candy-casino #poker-hand-guide .poker-rank-list{
+ display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,minmax(0,auto));
+ grid-auto-flow:column;gap:7px 10px;
+}
+.candy-casino #poker-hand-guide .poker-rank-row{grid-template-columns:31px minmax(0,1fr);gap:5px 8px}
+.candy-casino #poker-hand-guide .poker-example-cards{grid-column:2;grid-row:2;justify-content:flex-start}
+.candy-casino .poker-showdown{z-index:12}
+.candy-casino .poker-showdown-panel{
+ background:radial-gradient(circle at top,#c774b682,transparent 64%),linear-gradient(145deg,#532b68,#241b47);
+ border:2px solid #ffe5aa;box-shadow:0 16px 43px #000c,0 0 45px #ffdfa33b;
+}
+@media(max-width:720px){
+ .candy-casino .play-table-head{grid-template-columns:minmax(0,1fr);gap:9px}
+ .candy-casino .opponent-choice{width:100%}
+ .candy-casino .poker-match-steps>span{gap:4px;padding:7px 3px;font-size:10px}
+ .candy-casino .poker-match-steps b{flex-basis:19px;height:19px;font-size:10px}
+ .candy-casino #poker-hand-guide .poker-rank-list{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}
+ .candy-casino #game-buttons #duel-reset{max-width:115px}
+}
+@media(max-width:480px){
+ .candy-casino #casino-arena{padding:12px 9px;border-radius:19px}
+ .candy-casino .poker-match-steps{gap:3px}
+ .candy-casino .poker-match-steps>span{font-size:9px;min-height:40px}
+ .candy-casino #poker-table{border-width:5px;padding:9px 4px;border-radius:31px}
+ .candy-casino #poker-table::before{inset:7px;border-radius:23px}
+ .candy-casino .poker-score-strip{padding:7px 4px;gap:3px}
+ .candy-casino #poker-table .poker-card{width:clamp(43px,16vw,66px);height:clamp(72px,24vw,92px);font-size:clamp(17px,5vw,23px)}
+ .candy-casino .poker-table .cards-row{gap:clamp(2px,1vw,5px);padding-left:1px;padding-right:1px}
+ .candy-casino .poker-community{font-size:10px;padding:7px 9px}
+ .candy-casino #game-buttons{grid-template-columns:minmax(0,1fr);padding:9px;gap:7px}
+ .candy-casino #game-buttons .duel-go,.candy-casino #game-buttons #poker-draw{grid-column:1;grid-row:1;font-size:12px}
+ .candy-casino #game-buttons #duel-reset{grid-column:1;grid-row:2;max-width:none;min-height:37px}
+}
+@media(prefers-reduced-motion:reduce){
+ .candy-casino #poker-table .poker-card{transition:none}
+}
