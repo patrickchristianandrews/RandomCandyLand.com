@@ -93,6 +93,15 @@ function renderPokerOutcome(){
   $('poker-continue').disabled=round<5&&readies[me()];
 }
 function render(){
+ // Keep the on-table progress tracker synchronized with the real game engine.
+ const phases=['ready','draw','result'],activePhase=phases.includes(stage)?stage:'ready';
+ for(const node of document.querySelectorAll('[data-poker-step]')){
+  const phase=node.dataset.pokerStep,order=phases.indexOf(phase),current=phases.indexOf(activePhase);
+  node.classList.toggle('active',phase===activePhase);
+  node.classList.toggle('done',order>=0&&order<current);
+  if(phase===activePhase)node.setAttribute('aria-current','step');
+  else node.removeAttribute('aria-current');
+ }
  for(const b of document.querySelectorAll('[data-duel]')){let on=b.dataset.duel===duel;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));}
  for(const b of document.querySelectorAll('[data-opponent]')){let on=b.dataset.opponent===mode;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));}
  // Show the simple hands chart only for poker, below the complete game area.
