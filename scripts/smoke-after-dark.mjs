@@ -390,9 +390,9 @@ try{
   await check('Psychology section renders all lenses',"document.querySelectorAll('#lenses .card').length>=10");
   await evaluate("document.querySelector('[data-tab=ideas]').click();document.querySelector('#drawIdea').click()");
   await check('Idea Lab draws usable cards',"document.querySelector('#ideaResult h3')?.textContent!=='Choose a theme, then draw a card.'");
-  await check('Idea Lab now gives specific discussion and boundaries',"document.querySelector('#ideaResult').textContent.includes('What to talk about') && document.querySelector('#ideaResult').textContent.includes('Agree on boundaries first')");
-  await evaluate("document.querySelector('#mood').value='toys';document.querySelector('#ideaLevel').value='bold';document.querySelector('#drawIdea').click()");
-  await check('Bold toy prompts name specific interests',"(/strap-on|penetration|oral sex|pegging|toys/i).test(document.querySelector('#ideaResult').textContent)");
+  await check('Idea Lab now gives specific discussion and boundaries',"document.querySelector('#ideaResult').textContent.includes('What to talk about') && document.querySelector('#ideaResult').textContent.includes('Boundaries and safer choices')");
+  await evaluate("document.querySelector('#mood').value='toys';document.querySelector('#freak-level').value='8';document.querySelector('#freak-level').dispatchEvent(new Event('input',{bubbles:true}));window.UnwrappedFreakPicker.generate('toy')");
+  await check('Higher Freak Level toy prompt includes a specific device and safer-use guidance',"!!document.querySelector('#ideaResult .freak-idea-toys .freak-toy-pair') && document.querySelector('#ideaResult').textContent.includes('Safety:') && document.querySelector('#ideaResult').textContent.includes('What to talk about')");
 
   await evaluate("document.querySelector('[data-tab=chat]').click();document.querySelector('[data-ask]').click()");
   await check('Ask Mira responds to suggestions',"document.querySelectorAll('#chatWindow .bubble').length>=3");
@@ -436,7 +436,7 @@ try{
   await check('Orgasm guide search filters correctly',"document.querySelectorAll('#howto-guide-grid .howto-guide-card').length>=1 && document.querySelectorAll('#howto-guide-grid .howto-guide-card').length<18");
   await evaluate("document.querySelector('#howto-search').value='';document.querySelector('#howto-search').dispatchEvent(new Event('input',{bubbles:true}))");
   await check('Ask Mira answers orgasm questions with new guides',"respond('how do nipple orgasms work').includes('Nipple') && respond('how can vaginal orgasm work').includes('vaginal') && respond('how does testicular orgasm work').includes('testicular')");
-  await evaluate("document.querySelector('.od-ribbon-nav [data-tab=home]').click();document.querySelector('.od-ribbon-menu-more summary').click();document.querySelector('.od-ribbon-menu-more [data-tab=howto]').click();document.querySelector('#howto [data-guide-open=vaginal-orgasm]').click()");
+  await evaluate("document.querySelector('.od-ribbon-nav [data-tab=home]').click();document.querySelector('.uw-nav-group-learn summary').click();document.querySelector('.uw-nav-group-learn [data-tab=howto]').click();document.querySelector('#howto [data-guide-open=vaginal-orgasm]').click()");
   await check('Ribbon guides link opens internal vaginal guide',"document.querySelector('#howto').classList.contains('visible') && !document.querySelector('#howto-guide-detail').hidden && document.querySelector('#howto-guide-detail h2')?.textContent.includes('vaginal')");
   await evaluate("document.querySelector('[data-tab=toys]').click()");
   await check('Unwrapped 56-category toy explorer highlights strap-ons and anatomical suitability',
