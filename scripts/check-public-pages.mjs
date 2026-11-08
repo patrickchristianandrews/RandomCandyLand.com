@@ -7,7 +7,7 @@ const required = [
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn', 'id="toys"', 'id="toy-grid"', 'toy-library.js?v=']],
   ['dist/after-dark/report-samples/index.html', ['Create or upload a report', 'Selected report', 'private backup', 'id="methodology"', 'id="privacy"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
-  ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','Evidence Files','id="trace-identity-lab"','GTM-TQRDB5KL']],
+  ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','id="trace-game-command"','GTM-TQRDB5KL']],
   ['dist/identity-lab/index.html', ['Feature retired','url=/osint-academy/']],
   ['dist/curiosity/index.html', ['id="home-feature-heading"','id="home-feature-next"','id="home-research-feed"','id="home-correlation-feed"','href="/curiosity/ideas/"','href="/curiosity/research/"','href="/curiosity/correlations/"','GTM-TQRDB5KL']],
   ['dist/curiosity/ideas/index.html', ['id="ideas-grid"','id="idea-search"','id="idea-categories"','curiosity.js?v=','GTM-TQRDB5KL']],
@@ -223,7 +223,7 @@ if(!afterDarkLanding.includes('<h1>There\'s more to you.') ||
    !afterDarkLanding.includes('Appreciate the whole person.') ||
    !afterDarkLanding.includes('UNWRAPPED') ||
    !afterDarkLanding.includes('<section id="home" class="tab visible od-hub-home od-compact-home"') ||
-   !afterDarkLanding.includes('<nav class="od-ribbon-nav"') ||
+   !afterDarkLanding.includes('<nav class="od-ribbon-nav uw-guided-menu"') ||
    !afterDarkLanding.includes('class="od-compact-tools-grid"') ||
    !afterDarkLanding.includes('Take the quizzes') ||
    !afterDarkLanding.includes('Your reports') ||
@@ -252,7 +252,7 @@ else{
 if(!afterDarkLanding.includes('id="uw-personal-workflow"')||
    !afterDarkLanding.includes('id="uw-import-private"')||
    !afterDarkLanding.includes('id="uw-save-private"')||
-   !afterDarkLanding.includes('data-tab="notebook">📄 Reports &amp; Uploads</button>')){
+   !afterDarkLanding.includes('data-tab="notebook" data-report-path="personal"')){
  console.error('Report upload and private-backup controls must be directly discoverable from the menu');failures++;
 }
 
@@ -928,7 +928,7 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
   console.error('Grouped homepage or TRACE Academy portal is missing.'); failures++;
 }
 for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
-  'dist/osint-academy/identity-lab.js','dist/osint-academy/mission-command.js',
+  'dist/osint-academy/mission-command.js',
   'dist/osint-academy/mission-command.css','dist/identity-lab/index.html',
   'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
   if(!fs.existsSync(asset)){console.error('TRACE asset missing:',asset);failures++;}
@@ -936,6 +936,7 @@ for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
 const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
 const retiredLab=fs.readFileSync('dist/identity-lab/index.html','utf8');
 if(!retiredLab.includes('Feature retired')||traceHtml.includes('href="/identity-lab/"')||
+   traceHtml.includes('id="tab-identity"')||traceHtml.includes('identity-lab.js?v=')||
    !traceHtml.includes('id="trace-game-command"')||!traceHtml.includes('mission-command.js?v=')){
  console.error('TRACE must have the new game hub and standalone Identity Lab must remain retired.');failures++;
 }
