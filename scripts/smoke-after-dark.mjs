@@ -390,17 +390,19 @@ try{
   await evaluate("document.querySelector('[data-tab=psych]').click()");
   await check('Psychology section renders all lenses',"document.querySelectorAll('#lenses .card').length>=10");
   await evaluate("document.querySelector('[data-tab=ideas]').click();document.querySelector('#drawIdea').click()");
+  await check('Idea Lab has exactly one visible generate combination button',
+    "(()=>{const controls=document.querySelector('.freak-picker-actions');return controls?.querySelectorAll('button').length===1&&document.querySelector('#drawIdea')?.textContent.includes('Random Combination')&&document.querySelectorAll('[data-idea-launch]').length===1})()");
   await check('Idea Lab draws usable cards',"document.querySelector('#ideaResult h3')?.textContent!=='Choose a theme, then draw a card.'");
   await check('Idea Lab uses 48 curated scenarios with every mood and intensity represented',"(()=>{const b=window.UnwrappedSpecificIdeaBank||[];const themes=['connection','power','story','sensory','toys','trust'];return b.length===48&&new Set(b.map(x=>x.id)).size===48&&themes.every(t=>[2,5,8,10].every(n=>b.filter(x=>x.theme===t&&x.tier===n).length===2))})()");
-  await check('Idea Lab produces a named activity, specific preparation, timing and three usable steps',"(()=>{const r=document.querySelector('#ideaResult');return r.dataset.ideaType==='specific'&&!!r.querySelector('.freak-idea-time')&&!!r.querySelector('.freak-idea-act')&&r.querySelectorAll('.freak-idea-steps li').length===3&&r.textContent.includes('Prepare this')&&r.textContent.includes('Exactly what to do')&&r.textContent.includes('Boundaries and safer choices')})()");
+  await check('Idea Lab produces a named activity, specific preparation, timing and three usable steps',"(()=>{const r=document.querySelector('#ideaResult');return r.dataset.ideaType==='specific'&&!!r.querySelector('.freak-idea-time')&&!!r.querySelector('.freak-idea-act')&&r.querySelectorAll('.freak-idea-steps li').length===6&&r.textContent.includes('Prepare this')&&r.textContent.includes('Exactly what to do')&&r.textContent.includes('Boundaries and safer choices')})()");
   await evaluate("document.querySelector('#mood').value='toys';document.querySelector('#freak-level').value='8';document.querySelector('#freak-level').dispatchEvent(new Event('input',{bubbles:true}));window.UnwrappedFreakPicker.generate('toy')");
-  await check('Higher Freak Level toy prompt integrates the chosen device into a precise action',"(()=>{const r=document.querySelector('#ideaResult'),pair=r.querySelector('.freak-idea-toys .freak-toy-pair');return !!pair&&!!pair.querySelector('.freak-toy-action')&&!!pair.querySelector('h5')&&pair.querySelector('.freak-toy-action').textContent.includes(pair.querySelector('h5').textContent)&&r.textContent.includes('Safety:')&&r.querySelectorAll('.freak-idea-steps li').length===3})()");
+  await check('Higher Freak Level toy prompt integrates the chosen device into a precise action',"(()=>{const r=document.querySelector('#ideaResult'),pair=r.querySelector('.freak-idea-toys .freak-toy-pair');return !!pair&&!!pair.querySelector('.freak-toy-action')&&!!pair.querySelector('h5')&&pair.querySelector('.freak-toy-action').textContent.includes(pair.querySelector('h5').textContent)&&r.textContent.includes('Safety:')&&r.querySelectorAll('.freak-idea-steps li').length===6})()");
   await evaluate("window.UnwrappedFreakPicker.generate('full')");
   await check('Full Combination creates two complete, separate specific acts and two matching toy explanations',"(()=>{const r=document.querySelector('#ideaResult');return r.querySelectorAll('.freak-idea-act').length===2&&r.querySelectorAll('.freak-idea-steps li').length===6&&r.querySelectorAll('.freak-toy-pair').length===2&&r.textContent.includes('Act 1')&&r.textContent.includes('Act 2')})()");
   await evaluate("document.querySelector('#freak-level').value='10';document.querySelector('#freak-level').dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#mood').value='trust';window.UnwrappedFreakPicker.generate('idea')");
-  await check('Highest Freak Level gives a concrete, advanced scenario rather than a generic discussion',"(()=>{const r=document.querySelector('#ideaResult');return r.dataset.ideaType==='specific'&&r.textContent.includes('FREAK LEVEL 10/10')&&r.querySelectorAll('.freak-idea-steps li').length===3&&!!r.querySelector('.freak-idea-time')})()");
+  await check('Highest Freak Level gives a concrete, advanced scenario rather than a generic discussion',"(()=>{const r=document.querySelector('#ideaResult');return r.dataset.ideaType==='specific'&&r.textContent.includes('FREAK LEVEL 10/10')&&r.querySelectorAll('.freak-idea-steps li').length===6&&!!r.querySelector('.freak-idea-time')})()");
   await evaluate("document.querySelector('#freak-no-penetration').checked=true;document.querySelector('#mood').value='toys';window.UnwrappedFreakPicker.generate('toy')");
-  await check('No-penetration limit excludes harness scenarios and still returns an actionable idea',"(()=>{const r=document.querySelector('#ideaResult');return !!r.querySelector('.freak-idea-act')&&!/harness fitting|strap-on role-reversal/i.test(r.querySelector('h3').textContent)&&r.querySelectorAll('.freak-idea-steps li').length===3})()");
+  await check('No-penetration limit excludes harness scenarios and still returns an actionable idea',"(()=>{const r=document.querySelector('#ideaResult');return !!r.querySelector('.freak-idea-act')&&!/harness fitting|strap-on role-reversal/i.test(r.querySelector('h3').textContent)&&r.querySelectorAll('.freak-idea-steps li').length===6})()");
   await evaluate("document.querySelector('#freak-no-penetration').checked=false");
 
   await evaluate("document.querySelector('[data-tab=chat]').click();document.querySelector('[data-ask]').click()");
@@ -418,6 +420,14 @@ try{
   if(!/stockings|hosiery/i.test(fuzzy.short))throw Error('Ask Mira failed keyword-only interest lookup');
   if(!/praise/i.test(fuzzy.broad))throw Error('Ask Mira failed psychology-focused why question');
   console.log('✓ Ask Mira tolerates typos, everyday phrases, short keywords, partner questions and expands its topic library.');
+  const lightChat=await evaluate("JSON.stringify({random:respond('tell me something random'),greeting:respond('hello'),help:respond('what can you do'),joke:respond('tell me a joke'),another:respond('another')})");
+  const light=JSON.parse(lightChat);
+  if(!/random|octopus|wombat|Venus|berry|rain|tower/i.test(light.random)||!/hey|here|chat/i.test(light.greeting)||!/on-device|reference library/i.test(light.help)||!/why|calendar|elevator|spreadsheet|friend/i.test(light.joke)||!light.another||/I.m not sure|which topic/.test(light.another))
+    throw Error('Mira everyday conversation or random request returned an unrelated library match');
+  await evaluate("document.querySelector('#chatText').value='something random';document.querySelector('#askForm button').click();document.querySelector('#chatText').value='another';document.querySelector('#askForm button').click()");
+  await check('Mira handles random messages and natural follow-ups without an unrelated topic',
+    "(()=>{const bubbles=[...document.querySelectorAll('#chatWindow .bubble')];return bubbles.length>=7&&!/I'm not sure which topic|did you mean|exhibitionism/i.test(bubbles.slice(-2).map(x=>x.textContent).join(' '))})()");
+
 
   const unmatched=await evaluate("respond('Why am I interested in velociraptor-shaped pottery?')");
   if(!/could not match|not match|confidently|not sure|try saying it another way/i.test(unmatched)||/exhibition/i.test(unmatched))throw Error('Ask Mira guessed an irrelevant answer rather than asking for detail');
@@ -469,7 +479,7 @@ try{
   await evaluate("document.querySelector('[data-tab=ideas]').click()");
   await check('Idea Lab offers him/her/together selectors linked to real catalog',"(()=>{const api=window.UnwrappedToyIdeas;return !!api&&document.querySelector('#toy-idea-him').options.length>=15&&document.querySelector('#toy-idea-her').options.length>=15&&document.querySelectorAll('[data-toy-idea-mode]').length===3})()");
   await check('Standalone idea generator remains connected to the Freak Level engine',
-    "(()=>{const button=document.querySelector('#drawIdea');if(!button||!window.UnwrappedFreakPicker)return false;document.querySelector('#mood').value='toys';document.querySelector('#freak-level').value='8';button.click();const result=document.querySelector('#ideaResult');return result?.dataset.ideaType==='specific'&&result.querySelectorAll('.freak-idea-steps li').length===3&&result.textContent.includes('FREAK LEVEL 8/10')})()");
+    "(()=>{const button=document.querySelector('#drawIdea');if(!button||!window.UnwrappedFreakPicker)return false;document.querySelector('#mood').value='toys';document.querySelector('#freak-level').value='8';button.click();const result=document.querySelector('#ideaResult');return result?.dataset.ideaType==='specific'&&result.querySelectorAll('.freak-idea-steps li').length===6&&result.textContent.includes('FREAK LEVEL 8/10')})()");
   await evaluate("document.querySelector('#toy-idea-him').value='strap-starter';document.querySelector('#toy-idea-him').dispatchEvent(new Event('change',{bubbles:true}))");
   await check('Changing the Him toy selector immediately updates the result without a Generate click',
     "document.querySelector('#toy-idea-output')?.textContent.includes('Strap-on starter kit')&&document.querySelector('#toy-idea-output')?.textContent.includes('Body suitability')");
