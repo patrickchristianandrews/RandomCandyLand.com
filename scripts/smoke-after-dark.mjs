@@ -487,10 +487,10 @@ try{
 
   // Retired sample downloads must not be advertised; the guide links to real tools.
   const samples=await navigate(site+'/after-dark/report-samples/');
-  const guideCheck=await samples.evaluate("(()=>{const s=document.body.innerText,links=[...document.querySelectorAll('a[href]')].map(x=>x.getAttribute('href'));return s.includes('Create or upload a report')&&s.includes('Private backup')&&s.includes('Selected report')&&links.includes('/after-dark/#notebook')&&!document.querySelector('[data-sample-download]')&&!links.some(x=>/complete-rowan|complete-ellis|sample-pdf\.js/.test(x))})()");
-  if(!guideCheck)throw Error('Outdated example links remain or the current file guide is missing');
-  console.log('✓ Retired sample links and verified report export/import guidance.');
-  const generatedFullReports=await samples.evaluate("(async()=>{for(const name of ['rowan','ellis']){const response=await fetch('/after-dark/report-samples/complete-'+name+'-personal-report.pdf',{cache:'no-store'});if(!response.ok)return false;const file=await response.arrayBuffer();if(file.byteLength<10000||new TextDecoder().decode(file.slice(0,5))!=='%PDF-')return false;}return true})()");
+  const guideCheck=await samples.evaluate("(()=>{const s=document.body.innerText,links=[...document.querySelectorAll('a[href]')].map(x=>x.getAttribute('href'));return s.includes('Create or upload a report')&&s.includes('Private backup')&&s.includes('Selected report')&&links.includes('/after-dark/#notebook')&&!document.querySelector('[data-sample-download]')&&links.includes('/after-dark/report-samples/complete-rowan-current-partner-report.pdf')&&links.includes('/after-dark/report-samples/complete-rowan-prospective-partner-report.pdf')&&links.includes('/after-dark/report-samples/complete-rowan-ellis-comparison.pdf')&&!links.some(x=>/sample-pdf\.js/.test(x))})()");
+  if(!guideCheck)throw Error('Fictional partner samples or report file guide are missing');
+  console.log('✓ Genuine fictional partner and prospective-partner sample links alongside export/import guidance.');
+  const generatedFullReports=await samples.evaluate("(async()=>{for(const name of ['rowan','ellis','rowan-current-partner','rowan-prospective-partner']){const filename=name==='rowan'||name==='ellis'?'complete-'+name+'-personal-report.pdf':'complete-'+name+'-report.pdf';const response=await fetch('/after-dark/report-samples/'+filename,{cache:'no-store'});if(!response.ok)return false;const file=await response.arrayBuffer();if(file.byteLength<6000||new TextDecoder().decode(file.slice(0,5))!=='%PDF-')return false;}return true})()");
   if(!generatedFullReports)throw Error('Both completed fictional-person PDFs must be present in the release');
   console.log('✓ Rowan and Ellis complete 101-question fictional-person PDFs are downloadable.');
 
