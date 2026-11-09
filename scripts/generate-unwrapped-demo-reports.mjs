@@ -237,7 +237,7 @@ async function verifyRealImport(json){
  if(!firstAnswer.checked)firstAnswer.click();
  const intro=window.AfterDarkNewPartnerReport?.build?.();
  if(!partner?.querySelector('.partner-report-section')||!intro?.querySelector('.partner-report-section')||
-   !intro.textContent.includes('Some everyday answers I chose to show you'))
+   !intro.textContent.includes('The answers behind this introduction'))
    throw Error('Personal or consent-selected new-partner report builder failed on imported answers');
  if(/Toy ideas I want to share|My personal notes/.test(partner.textContent)||
    /Specific toy topics I elected to share/.test(intro.textContent))
