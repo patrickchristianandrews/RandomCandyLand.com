@@ -13,3 +13,11 @@
 .rcl-share-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
 .rcl-share-actions button{border-radius:10px;border:1px solid #b483af;background:#714a78;color:#fff;cursor:pointer;padding:9px 12px;font:700 13px/1.2 system-ui,sans-serif}
 @media print{.rcl-share-strip,.rcl-share-overlay{display:none!important}}
+
+
+/* Compact mobile share affordance: an accessible icon, not a wide pill over content. */
+@media(max-width:600px){
+ .rcl-share-strip{right:max(9px,env(safe-area-inset-right));bottom:calc(13px + env(safe-area-inset-bottom));}
+ .rcl-share-strip .rcl-share-button{width:42px;height:42px;min-height:42px;padding:0;border-radius:50%;font-size:0;box-shadow:0 4px 12px #0b071c80}
+ .rcl-share-strip .rcl-share-button::before{content:"↗";font:900 21px/1 system-ui,sans-serif}
+}
