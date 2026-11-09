@@ -10,3 +10,30 @@
 .corr-boot-actions button{min-height:40px;padding:9px 15px;border:1px solid #e9c795;border-radius:10px;background:#a98553;color:#081b30;font-weight:850}
 @keyframes corr-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.corr-boot-loader{animation:none}}
+
+
+/* Compact mobile launch + clear, action-oriented recovery state. */
+.world.corridors .hero{padding:clamp(17px,3vw,28px);border-radius:20px}
+.world.corridors .hero h1{font-size:clamp(27px,6vw,49px);line-height:1.07;letter-spacing:-.045em;margin:8px 0 10px}
+.world.corridors .hero>p{font-size:clamp(13px,1.8vw,16px);line-height:1.52;max-width:670px;margin:10px 0 13px}
+.world.corridors .hero-meta{display:flex;flex-wrap:wrap;gap:7px}
+.world.corridors .hero-meta .pill{display:inline-flex;align-items:center;margin:0;min-height:32px;padding:7px 10px;font:750 11px/1.25 system-ui,sans-serif;white-space:normal}
+.world.corridors .corr-boot{gap:12px;max-width:780px;margin-inline:auto;padding:clamp(18px,3vw,30px)}
+.world.corridors .corr-boot-failed .corr-boot-loader{display:grid;place-items:center;width:52px;height:52px;border:1px solid #e8ba87;border-radius:17px;background:#b28c5733;animation:none}
+.world.corridors .corr-boot-failed .corr-boot-loader:before{content:"!";font:900 29px/1 system-ui,sans-serif;color:#ffdaa9}
+.world.corridors .corr-boot-failed .corr-boot-note{display:none}
+.world.corridors .corr-boot-failed .corr-boot-actions{display:flex;gap:10px;margin-top:5px}
+.world.corridors .corr-boot-failed .corr-boot-actions button{min-height:46px;padding:10px 18px;background:linear-gradient(120deg,#f2d7a3,#dda96b);color:#201d2b}
+.world.corridors .corr-boot-failed .corr-boot-actions a{align-self:center;color:#f6deb8;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:600px){
+ .world.corridors .hero{margin:8px 12px 12px;padding:17px 16px;border-radius:18px}
+ .world.corridors .hero h1{font-size:clamp(29px,8vw,38px)}
+ .world.corridors .hero>p{font-size:14px;line-height:1.46}
+ .world.corridors .hero-meta .pill{font-size:10px;padding:6px 8px;min-height:29px}
+ .world.corridors .layout{margin-top:11px}
+ .world.corridors .corr-boot{margin:0 12px;padding:22px 16px;border-radius:17px}
+ .world.corridors .corr-boot h2{font-size:21px;line-height:1.2}
+ .world.corridors .corr-boot p{font-size:13px;line-height:1.5}
+ .world.corridors .corr-boot-failed .corr-boot-actions{flex-direction:column;width:100%}
+ .world.corridors .corr-boot-failed .corr-boot-actions button{width:100%}
+}
