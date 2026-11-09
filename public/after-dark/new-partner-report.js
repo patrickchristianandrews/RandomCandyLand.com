@@ -50,8 +50,8 @@ function content(){
   const s=make('section',undefined,'partner-report-section');add(s,'h2',title);
   if(subtitle)add(s,'p',subtitle,'partner-pdf-muted');root.append(s);return s;
  };
- const everyday=section('01 · My answers at a glance','A brief introduction based on actual nonsexual quiz answers, not an additional profile or a personality diagnosis.');
- const highlights=selectedQuestions(data).filter(x=>selectedPsych.has(x.id)).slice(0,5);
+ const everyday=section('01 · A few things worth knowing','A brief introduction based on actual nonsexual quiz answers, not an additional profile or a personality diagnosis.');
+ const highlights=selectedQuestions(data).filter(x=>showPsych&&selectedPsych.has(x.id)).slice(0,3);
  for(const q of highlights){
   const card=make('article',undefined,'partner-report-card');
   add(card,'h3',q.heading);
@@ -61,8 +61,45 @@ function content(){
   everyday.append(card);included++;
  }
  if(!highlights.length)add(everyday,'p','I have not chosen a psychology answer to include in this copy.','partner-pdf-muted');
+ // A short, answer-linked, practical opener before the detailed questions.
+ // Nothing in this section reads undisclosed responses.
  if(showPsych&&selectedPsych.size){
-  const psy=section('02 · Some everyday answers I chose to show you','Actual responses I selected in the nonsexual Psychology Quiz. These are reflections, not a personality diagnosis.');
+  const permitted=selectedQuestions(data).filter(x=>selectedPsych.has(x.id));
+  const byTheme={
+   trust:['Respect & trust','Make agreements explicit, and give each other permission to revisit them.','Ask me what reliability looks like in ordinary situations.'],
+   attachment:['Closeness & independence','Find a pace that leaves room for affection and personal space.','Ask when I prefer closeness, a quiet moment, or a little time to reset.'],
+   affirmation:['Feeling appreciated','Specific, sincere appreciation may make connection easier to understand.','Ask what gestures or words of appreciation feel genuine to me.'],
+   anticipation:['Planning & spontaneity','Compare how much advance notice makes an experience comfortable.','Ask whether I prefer a plan, an invitation or a spontaneous choice.'],
+   sensation:['Comfort & sensory preferences','Small environmental details can shape how enjoyable time together feels.','Ask what helps a place or activity feel comfortable.'],
+   control:['Sharing decisions','Notice how we each prefer to make everyday decisions.','Ask when I like to lead, collaborate, or let someone else choose.'],
+   novelty:['Curiosity & routine','Balance a familiar foundation with small opportunities for discovery.','Ask what new experience feels fun without making it a demand.'],
+   narrative:['Imagination & conversation','Stories and hypotheticals can be a low-pressure way to explore ideas.','Ask which imagined scenario is interesting simply to discuss.'],
+   aesthetics:['Atmosphere & preferences','Attention to surroundings may help us choose experiences we both enjoy.','Ask what kind of setting feels most inviting.'],
+   ritual:['Small meaningful habits','Simple routines can become opportunities for connection when both want them.','Ask which everyday gesture would feel worth repeating.']
+  };
+  const witnesses=new Map();
+  for(const q of permitted)for(const axis of q.axes)if(byTheme[axis]&&!witnesses.has(axis))witnesses.set(axis,q);
+  if(witnesses.size){
+   const overview=section('The quick guide to getting to know me','A few starting points drawn only from the answers I chose to share. They are possible conversation themes, not claims about my hidden personality.');
+   const grid=make('div',undefined,'new-partner-insight-grid');
+   for(const [axis,q] of [...witnesses.entries()].slice(0,4)){
+    const [title,implication,question]=byTheme[axis],card=make('article',undefined,'partner-report-card new-partner-insight');
+    add(card,'h3',title);
+    add(card,'p',implication);
+    add(card,'strong','Something we could try');
+    add(card,'p',question);
+    add(card,'small','Why it appears: psychology question '+q.number+' — '+q.answer.slice(0,140),'partner-pdf-muted');
+    grid.append(card);
+   }
+   overview.append(grid);
+   const nuance=make('article',undefined,'partner-report-card');
+   add(nuance,'h3','What these answers cannot tell you');
+   add(nuance,'p','My answers are a starting point, not a compatibility score. Asking, listening, noticing context, and respecting a different answer matter more than matching a label.');
+   overview.append(nuance);
+  }
+ }
+ if(showPsych&&selectedPsych.size){
+  const psy=section('02 · The answers behind this introduction','Actual responses I selected in the nonsexual Psychology Quiz. These are reflections, not a personality diagnosis.');
   const permitted=selectedQuestions(data).filter(x=>selectedPsych.has(x.id));
   for(const q of permitted){
    const c=make('article',undefined,'partner-report-card');
