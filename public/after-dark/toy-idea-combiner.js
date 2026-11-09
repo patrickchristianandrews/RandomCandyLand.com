@@ -105,6 +105,12 @@ function init(){
   });
   for(const item of items){const opt=el('option',item.name);opt.value=item.id;select.append(opt);}
   select.setAttribute('title',label);
+  // Changing a device must update the actual result immediately; previously
+  // the dropdown appeared inert until another action was clicked.
+  select.addEventListener('change',()=>{
+    const both=Boolean($('toy-idea-him')?.value)&&Boolean($('toy-idea-her')?.value);
+    generate(both?'together':kind);
+  });
  }
  area.querySelectorAll('[data-toy-idea-mode]').forEach(button=>button.addEventListener('click',()=>generate(button.dataset.toyIdeaMode)));
  const search=new URLSearchParams(location.search);
