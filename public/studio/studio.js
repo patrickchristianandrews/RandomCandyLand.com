@@ -575,6 +575,87 @@ async function quickModelBenchmark(id){
  }
 }
 window.RandomAIModelBenchmark=Object.freeze({run:quickModelBenchmark,active:()=>loadedModel,running:()=>benchBusy});
+
+/* Device laboratory: genuinely timed browser inference; no simulated scores.
+ * A stack is a two-pass workflow on ONE model. Infusion is sequential inference
+ * with two DISTINCT models, not merged weights or parallel execution.
+ * A secondary model is only attempted after explicit user action.
+ */
+async function benchDeviceProfile(){
+ const profile={logicalThreads:navigator.hardwareConcurrency||null,reportedMemoryGB:navigator.deviceMemory||null,
+  webgpu:!!navigator.gpu,userAgent:/(Android|iPhone|iPad|Mobile)/i.test(navigator.userAgent)?'Mobile browser':'Desktop browser'};
+ try{const adapter=await navigator.gpu?.requestAdapter();if(adapter){profile.gpuVendor=adapter.info?.vendor||null;profile.gpuArchitecture=adapter.info?.architecture||null;profile.maxBufferMB=Math.round(Number(adapter.limits?.maxBufferSize||0)/1048576)||null}}catch{}
+ return profile;
+}
+const deviceLabKey='random-ai-device-lab-v1';
+async function runDeviceLab({mode='model',secondaryId=''}={}){
+ if(!['model','stack','infusion'].includes(mode))return {error:'Unknown test mode.'};
+ if(!engine||!loadedModel)return {error:'Load a local language model first. Speed cannot be measured from device specifications alone.'};
+ if(isGenerating||loadingModel||benchBusy)return {error:'Please finish model loading, chat, or another benchmark first.'};
+ const primary=loadedModel,second=String(secondaryId||'');
+ if(mode==='infusion'&&(!second||second===primary))return {error:'Choose a different second local model for a two-model infusion test.'};
+ if(mode==='infusion'){
+  if(!window.RandomAIModelMemory?.isSaved?.(second))return {error:'Save the second compatible model to this browser before running an infusion benchmark. The test will not silently download a model.'};
+  if(![...$('#modelSelect').options].some(o=>o.value===second))return {error:'The second model is not supported by the current WebLLM runtime.'};
+ }
+ benchBusy=true;
+ const device=await benchDeviceProfile(),stack=window.RandomAIStacks?.current?.()||null;
+ let auxiliary=null,downloadMs=0;
+ const actions=[],allStarted=performance.now();
+ const call=async(instance,stage,system,prompt)=>{
+  const start=performance.now();
+  const answer=await instance.chat.completions.create({messages:[{role:'system',content:system},{role:'user',content:prompt}],
+   max_tokens:96,temperature:0,stream:false});
+  const elapsedMs=Math.max(1,Math.round(performance.now()-start));
+  const content=String(answer?.choices?.[0]?.message?.content||'').trim();
+  if(!content)throw Error(stage+' returned no text');
+  const tokens=Number(answer?.usage?.completion_tokens);
+  const row={stage,elapsedMs,characters:content.length,completionTokens:Number.isFinite(tokens)&&tokens>0?tokens:null,
+   tokensPerSecond:Number.isFinite(tokens)&&tokens>0?Math.round(tokens/elapsedMs*100000)/100:null,model:stage==='Second model'?second:primary};
+  actions.push(row);return content;
+ };
+ window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:'Running local model…'}}));
+ try{
+  const draft=await call(engine,'First model',mode==='model'?'Answer concisely.':stack?.instructions||'Be a helpful assistant.',
+   'In two short sentences, explain the difference between correlation and causation.');
+  if(mode==='stack'){
+   window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:'Checking the stack review pass…'}}));
+   await call(engine,'Stack review',stack?.review||'Check and improve accuracy.',
+    'Improve this answer for clarity in two sentences, retaining the meaning: '+draft.slice(0,380));
+  }
+  if(mode==='infusion'){
+   window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:'Loading cached second model…'}}));
+   const start=performance.now();
+   const lib=await import('https://esm.run/@mlc-ai/web-llm@0.2.87');
+   if(!lib?.prebuiltAppConfig?.model_list?.some(x=>x.model_id===second))throw Error('The second model is not in this supported runtime');
+   auxiliary=await lib.CreateMLCEngine(second,{initProgressCallback:r=>{
+    window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:r.text||'Initializing second model…'}}));
+   }});
+   downloadMs=Math.round(performance.now()-start);
+   window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:'Second model reviewing the first output…'}}));
+   await call(auxiliary,'Second model','You are a second independent model. Check facts and clarity in under 90 words.',
+    'Review this first model answer and improve any weak claims: '+draft.slice(0,380));
+  }
+  const totalMs=Math.round(performance.now()-allStarted);
+  const result={mode,primary,secondary:mode==='infusion'?second:null,workflow:mode==='stack'?stack?.name||'Current stack':null,
+   device,actions,loadSecondMs:downloadMs,totalMs,date:new Date().toISOString(),
+   note:mode==='infusion'?'Two distinct models ran sequentially. This measures the two-model review pipeline, not merged model weights.':
+   mode==='stack'?'This measures two workflow passes using one local model, not an additional model.':
+   'This is observed local inference time, not a predicted speed from hardware specifications.'};
+  try{const previous=JSON.parse(localStorage.getItem(deviceLabKey)||'[]');const list=Array.isArray(previous)?previous:[];list.unshift(result);localStorage.setItem(deviceLabKey,JSON.stringify(list.slice(0,15)))}catch{}
+  window.dispatchEvent(new CustomEvent('random-ai-device-lab-complete',{detail:result}));
+  return result;
+ }catch(error){return {error:String(error?.message||error),mode,primary,completed:actions,device}}
+ finally{
+  if(auxiliary){try{await auxiliary.unload()}catch{}}
+  benchBusy=false;
+  window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:'Done'}}));
+ }
+}
+window.RandomAIDeviceLab=Object.freeze({run:runDeviceLab,profile:benchDeviceProfile,
+ history:()=>{try{return JSON.parse(localStorage.getItem(deviceLabKey)||'[]')}catch{return []}},
+ busy:()=>benchBusy});
+
 // This is the one legitimate local model-loading path.
 $('#loadModel').addEventListener('click',async()=>{
  if(loadingModel)return;
