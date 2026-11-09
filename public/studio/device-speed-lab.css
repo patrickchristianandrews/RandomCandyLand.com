@@ -1,0 +1,6 @@
+.device-speed-lab{margin:26px 0;padding:clamp(16px,3vw,28px);border:1px solid #568aa0;border-radius:18px;background:linear-gradient(135deg,#12273c,#222145);color:#fff}
+.device-lab-heading h2{font-size:clamp(22px,3vw,30px);margin:6px 0}.device-lab-heading p{color:#d1e1ee;line-height:1.6;font-size:14px}
+.device-lab-specs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.device-lab-specs span{font-size:11px;padding:8px 11px;border:1px solid #6388a6;border-radius:9px;background:#101c35;color:#e2f3f8}
+.device-lab-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px;align-items:end}.device-lab-form label{display:grid;gap:7px;font-size:12px;font-weight:800}.device-lab-form select{background:#0a1831;color:#fff;border:1px solid #87bcd1;border-radius:9px;padding:10px;min-height:46px;width:100%;font:inherit}.device-lab-form button{min-height:46px}
+.device-speed-lab #deviceLabStatus{font-size:13px;color:#d4f6e7;margin:14px 0}.device-lab-results{display:grid;gap:10px}.device-lab-results h3{font-size:19px}.device-lab-results p{margin:0}.device-lab-row{display:grid;gap:5px;background:#101d36;padding:12px;border-radius:9px;border:1px solid #415978}.device-lab-row strong{color:#b8f9dc}.device-lab-row small{color:#b8c9de;overflow-wrap:anywhere}
+@media(max-width:600px){.device-lab-form{grid-template-columns:1fr}}
