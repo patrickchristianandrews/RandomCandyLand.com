@@ -14,10 +14,11 @@ permissions:
   pages: write
   id-token: write
 
-# Latest website release wins. Do not let two custom builds deploy out of order.
+# Serialize production releases instead of cancelling running builds on every rapid push.
+# Newer pending runs deploy after the active run, avoiding a perpetually stale site.
 concurrency:
   group: sugarverse-production-recovery-20261101
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
