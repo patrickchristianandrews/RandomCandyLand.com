@@ -149,7 +149,7 @@ if(!homeInstallSource.includes("title:'Unwrapped'")||
   console.error('Unwrapped homepage, tagline or installable app branding is missing.');failures++;
 }
 // The complete fictional reports are produced from real quiz state during CI, not manually written prose.
-for(const filename of ['complete-rowan-personal-report.pdf','complete-ellis-personal-report.pdf','complete-rowan-ellis-comparison.pdf']){
+for(const filename of ['complete-rowan-personal-report.pdf','complete-ellis-personal-report.pdf','complete-rowan-ellis-comparison.pdf','complete-rowan-current-partner-report.pdf','complete-rowan-prospective-partner-report.pdf']){
  const pdfPath='dist/after-dark/report-samples/'+filename;
  if(!fs.existsSync(pdfPath)){
   console.error('Missing full 69+32 fictional-person PDF:',filename);failures++;continue;
@@ -245,7 +245,9 @@ else{
  if(!guide.includes('Create or upload a report')||
     !guide.includes('Selected report')||
     !guide.includes('private backup')||
-    /data-sample-download|complete-rowan-personal-report\.pdf|complete-ellis-personal-report\.pdf|sample-pdf\.js/i.test(guide)){
+    /data-sample-download|sample-pdf\.js/i.test(guide)||
+    !guide.includes('complete-rowan-current-partner-report.pdf')||
+    !guide.includes('complete-rowan-prospective-partner-report.pdf')){
    console.error('Report guide is missing correct import steps or still links to obsolete samples');failures++;
  }
 }
