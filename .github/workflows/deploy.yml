@@ -308,7 +308,7 @@ jobs:
               done
               renderedUnwrapped=$(curl --fail --silent --show-error --location --max-time 12 \
                 -H "Cache-Control: no-cache" "$base/after-dark/?release=$EXPECTED_RELEASE" || true)
-              if [[ "$renderedUnwrapped" != *"Mira is Unwrapped"* ||
+              if [[ "$renderedUnwrapped" != *"Mira is an on-device"* ||
                     "$renderedUnwrapped" == *"Atlee is"* ||
                     "$renderedUnwrapped" != *'id="uw-personal-workflow"'* ||
                     "$renderedUnwrapped" != *'id="uw-import-private"'* ||
