@@ -193,7 +193,7 @@ function render(mode){
  notes.append(line('Boundaries and safer choices','Use only activities that every participant expressly agrees to. Set limits first; never add an unapproved person, act or toy. Any participant can stop immediately.'));
  root.append(notes);
  const actions=E('div',undefined,'freak-idea-actions');
- const again=E('button','🎲 Another specific idea','btn');again.type='button';again.addEventListener('click',()=>render(mode));
+ const again=E('button','🎲 Another random combination','btn');again.type='button';again.addEventListener('click',()=>render('full'));
  const copy=E('button','Copy this exact plan','btn alt');copy.type='button';copy.addEventListener('click',()=>{
   if(navigator.clipboard?.writeText)navigator.clipboard.writeText(lastOutput).then(()=>{copy.textContent='Copied'}).catch(()=>{copy.textContent='Copy unavailable'});
   else copy.textContent='Copy unavailable';
@@ -228,17 +228,15 @@ function init(){
  ]){const label=E('label'),check=E('input');check.type='checkbox';check.id=id;label.append(check,E('span',title));options.append(label)}
  boundaries.append(options);level.insertAdjacentElement('afterend',boundaries);
  const modebar=E('div',undefined,'freak-picker-actions');
- main.textContent='🎲 Random idea';
+ main.textContent='🎲 Generate Random Combination';
  main.classList.add('freak-main-random');
- main.onclick=()=>render('idea');
- const withToy=E('button','✦ Idea + Toy','btn alt');withToy.type='button';withToy.onclick=()=>render('toy');
- const allIn=E('button','🔥 Full Combination','btn');allIn.type='button';allIn.onclick=()=>render('full');
- modebar.append(main,withToy,allIn);
+ main.onclick=()=>render('full');
+ modebar.append(main);
  boundaries.insertAdjacentElement('afterend',modebar);
- const helper=E('p','Each result gives one named activity, exact preparation, a time limit and concrete steps. Idea + Toy shows where a specific device fits. Full Combination delivers two separate acts with a device for each. Your Freak Level and limits control the options.','freak-picker-help');
+ const helper=E('p','One click creates a fresh random combination of two specific ideas and optional compatible toys. Your chosen Freak Level, theme, and boundaries still apply. No quiz or profile needed.','freak-picker-help');
  modebar.insertAdjacentElement('afterend',helper);
  update();
- window.UnwrappedFreakPicker=Object.freeze({generate:render,ideas:(window.UnwrappedSpecificIdeaBank||DATA).length,getLevel:currentLevel});
+ window.UnwrappedFreakPicker=Object.freeze({generate:()=>render('full'),ideas:(window.UnwrappedSpecificIdeaBank||DATA).length,getLevel:currentLevel});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
