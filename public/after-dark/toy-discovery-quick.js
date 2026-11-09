@@ -58,8 +58,8 @@ function initStudio(){
  const candidates=()=>library.types.filter(t=>(!activeGroup||t.group===activeGroup||(activeGroup==='Anal & pelvic'&&t.group==='Strap-ons & harnesses'))&&(!input.value.trim()||includes(t,input.value)));
  function selectToy(toy){
   const him=$('toy-idea-him'),her=$('toy-idea-her');
-  if(him)him.value=fit(toy,'male')?toy.id:'';
-  if(her)her.value=fit(toy,'female')?toy.id:'';
+  if(him){him.value=fit(toy,'male')?toy.id:'';him.dispatchEvent(new Event('change',{bubbles:true}))}
+  if(her){her.value=fit(toy,'female')?toy.id:'';her.dispatchEvent(new Event('change',{bubbles:true}))}
   const mode=fit(toy,'male')&&fit(toy,'female')?'together':fit(toy,'male')?'him':'her';
   window.UnwrappedToyIdeas.generate(mode);
   $('toy-idea-output')?.scrollIntoView({block:'nearest',behavior:'smooth'});
@@ -138,17 +138,9 @@ function renderRandomToy(){
  const open=make('button','Explore this toy →','btn alt');open.type='button';open.addEventListener('click',()=>openGuide(toy));
  actions.append(next,open);card.append(actions);
 }
-function initRandomSuggestion(){
- const button=$('drawIdea'),category=$('mood');if(!button||!category||!lib())return;
- const original=button.onclick;
- if(typeof original!=='function')return;
- button.textContent='🎲 GIVE ME A RANDOM SUGGESTION';
- button.onclick=function(event){
-  const theme=category.value,level=$('ideaLevel')?.value;
-  if(theme==='toys'||(theme==='any'&&level!=='direct'&&Math.random()<.40))return renderRandomToy();
-  return original.call(this,event);
- };
-}
-function init(){initStudio();initGuide();initRandomSuggestion()}
+/* The main Idea Lab generator belongs to UnwrappedFreakPicker.
+ * Do not replace its click handler with a second, profile-linked random toy handler:
+ * this broke the advertised theme and intensity controls on the standalone picker. */
+function init(){initStudio();initGuide()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
