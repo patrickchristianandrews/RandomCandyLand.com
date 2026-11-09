@@ -42,7 +42,10 @@ assert.match(samplePage,/Create or upload a report/);
 assert.match(samplePage,/Private backup/);
 assert.match(samplePage,/Selected report/);
 assert.match(samplePage,/combined report/i);
-assert.doesNotMatch(samplePage,/data-sample-download|complete-rowan-personal-report\.pdf|complete-ellis-personal-report\.pdf|sample-pdf\.js/i);
+assert.match(samplePage,/complete-rowan-current-partner-report\.pdf/);
+assert.match(samplePage,/complete-rowan-prospective-partner-report\.pdf/);
+assert.match(samplePage,/complete-rowan-ellis-comparison\.pdf/);
+assert.doesNotMatch(samplePage,/data-sample-download|sample-pdf\.js/i);
 
 assert.match(personal,/How it differs for male and female anatomy/);
 assert.match(personal,/item\.bodyUses\.together/);
