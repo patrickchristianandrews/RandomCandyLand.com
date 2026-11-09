@@ -122,11 +122,14 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}};
 const esc=x=>W.escape(String(x??''));
 const clamp=v=>Math.max(0,Math.min(100,Math.round(v)));
 const phaseLabels={today:'Immediate effects',months:'About 6 months later',years:'About 2 years later'};
+// The UI calls the immediate stage 'today'; scenario records correctly name its data 'now'.
+// Read through one mapping so decisions, saved progress and replay agree.
+const phaseData=(option,stage)=>option?.[stage==='today'?'now':stage];
 const phaseIndex={today:0,months:1,years:2};
 const current=()=>scenarios[state.scenario];
 function effectsFor(phase){
- const o=current().options[state.choice],base=o?.[phase]?.change;
- if(!base)return [];
+ const o=current().options[state.choice],base=phaseData(o,phase)?.change;
+ if(!Array.isArray(base)||base.length!==metricDefs.length)return metricDefs.map(()=>0);
  const copy=base.slice();
  if(state.scenario===0){
   // Example conditional mechanism: when supply catches up, simulated pressure is smaller.
@@ -175,7 +178,7 @@ function choiceCards(sc){
 function consequence(sc){
  const o=sc.options[state.choice],stage=state.phase,step=phaseIndex[stage],delta=effectsFor(stage);
  return '<div class="cp-consequence"><div class="cp-outcome-journey">'+['today','months','years'].map((ph,i)=>'<div class="cp-milestone '+(i===step?'current':i<step?'complete':'waiting')+'"><span>'+(i<step?'✓':i+1)+'</span><b>'+esc(phaseLabels[ph])+'</b></div>').join('')+'</div>'+
- '<div class="cp-outcome-detail"><span class="cp-eyebrow">YOUR DECISION · '+esc(phaseLabels[stage])+'</span><h3>'+esc(o.name)+'</h3><p>'+esc(o[stage].text)+'</p><div class="cp-shifts">'+metricDefs.map((m,i)=>{const n=delta[i];const positive=m.positive?n>=0:n<=0;return '<span class="'+(positive?'up':'down')+'">'+m.icon+' '+esc(m.name)+' '+(n>=0?'+':'')+n+'</span>'}).join('')+'</div><div class="cp-ethics"><strong>⚖️ Ethics and legal reality</strong><p>'+esc(o.ethical)+'</p></div>'+
+ '<div class="cp-outcome-detail"><span class="cp-eyebrow">YOUR DECISION · '+esc(phaseLabels[stage])+'</span><h3>'+esc(o.name)+'</h3><p>'+esc(phaseData(o,stage).text)+'</p><div class="cp-shifts">'+metricDefs.map((m,i)=>{const n=delta[i];const positive=m.positive?n>=0:n<=0;return '<span class="'+(positive?'up':'down')+'">'+m.icon+' '+esc(m.name)+' '+(n>=0?'+':'')+n+'</span>'}).join('')+'</div><div class="cp-ethics"><strong>⚖️ Ethics and legal reality</strong><p>'+esc(o.ethical)+'</p></div>'+
  (state.scenario===0?'<p class="cp-assumption">Supply assumption: '+(state.supply==='constrained'?'production and freight remain constrained':'supply recovers more quickly')+'. Different conditions can change the inflation channel.</p>':'')+
  '<button type="button" class="cp-primary" data-policy-advance='+ (step<2?'phase':'case') +'>'+(step===0?'Advance 6 months →':step===1?'Advance 2 years →':'Record decision & next case →')+'</button></div></div>';
 }
