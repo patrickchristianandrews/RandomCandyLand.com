@@ -930,8 +930,8 @@ try{
   if(!corridorBoot?.ready||!corridorBoot.game||corridorBoot.buttons<2||corridorBoot.loading)
     throw Error('Corridors did not render its first playable policy scenario: '+JSON.stringify(corridorBoot));
   await corridor.evaluate("document.querySelector('#app [data-policy-choice]')?.click()");
-  const corridorChoice=await corridor.evaluate("(()=>{const root=document.querySelector('#app');return !!root?.querySelector('.cp-consequence')&&!!root.querySelector('[data-policy-advance]')})()");
-  if(!corridorChoice)throw Error('Corridors first decision did not produce a consequence screen');
+  const corridorChoice=await corridor.evaluate("(()=>{const root=document.querySelector('#app');const nodes=root?.querySelectorAll('.cp-consequence')||[];return{consequence:nodes.length,advance:!!root?.querySelector('[data-policy-advance]'),buttons:root?.querySelectorAll('[data-policy-choice]').length||0,rootText:root?.textContent?.slice(0,650)||'',progress:window.CorridorsPolicyLab?.getProgress?.(),error:document.querySelector('#corr-boot-status')?.textContent||''}})()");
+  if(!corridorChoice?.consequence||!corridorChoice.advance)throw Error('Corridors first decision did not produce a consequence screen: '+JSON.stringify(corridorChoice));
   console.log('✓ Corridors boots into a playable policy scenario and a decision reveals consequences.');
   // The retired standalone Identity Lab and its embedded TRACE tab must both remain absent.
   const traceEvidence=await navigate(site+'/osint-academy/');
