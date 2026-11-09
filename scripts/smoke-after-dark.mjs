@@ -941,6 +941,11 @@ try{
   if(!gameHub?.ready||gameHub.expanded!=='true'||!gameHub.text?.includes('1 / 3')||gameHub.missions!==25)
    throw Error('TRACE mission campaign or clue interaction failed: '+JSON.stringify(gameHub));
   console.log('✓ TRACE mission campaign: five operations, 25 cases, resume and inspectable evidence work.');
+  const fieldFiles=await traceEvidence.evaluate("(()=>{const api=window.TraceAcademyFieldFiles,root=document.querySelector('#trace-field-play');if(!api||api.cases!==5||!root)return {ready:false};api.reset();const found=()=>root.querySelectorAll('.ff-evidence-card.inspected').length;const options=()=>root.querySelectorAll('.ff-option');const locked=options().length===0;root.querySelectorAll('.ff-hotspot').forEach(b=>b.click());const inspected=found();const unlocked=options().length===3;options()[0].click();const wrong=root.querySelector('.ff-feedback:not([hidden])')?.textContent;options()[1].click();const complete=api.progress().solved.includes('station');api.open(1);const retained=api.progress().solved.includes('station');const nextScene=root.querySelector('h3')?.textContent;return {ready:true,locked,inspected,unlocked,wrong,complete,retained,nextScene}})()");
+  if(!fieldFiles.ready||!fieldFiles.locked||fieldFiles.inspected!==3||!fieldFiles.unlocked||!/not yet/i.test(fieldFiles.wrong)||!fieldFiles.complete||!fieldFiles.retained||!/storm photo/i.test(fieldFiles.nextScene))
+    throw Error('TRACE playable evidence-board investigation failed: '+JSON.stringify(fieldFiles));
+  console.log('✓ TRACE Field Files: five playable detective scenes, clue hunting, evidence reasoning, wrong-answer feedback and saved progress.');
+
 
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
