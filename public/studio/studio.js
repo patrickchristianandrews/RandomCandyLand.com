@@ -482,6 +482,52 @@ const gpu=navigator.gpu;
 $('#gpuCheck').textContent=gpu?'WebGPU detected. Choose a small model to begin. The exact GPU adapter is checked when you press Load.':'This browser does not offer WebGPU. Local loading is unavailable; hosted Instant AI does not need WebGPU.';
 if(!gpu)$('#loadModel').disabled=true;
 let loadingModel=false;
+// Run a model download in a second browser tab so this workspace stays usable.
+// A browser tab cannot guarantee work while closed or suspended by the phone OS.
+const backgroundKey='random-ai-background-download-v1';
+const backgroundButton=$('#backgroundModelDownload');
+if(backgroundButton)backgroundButton.addEventListener('click',event=>{
+ const id=$('#modelSelect')?.value||'';
+ if(!id){event.preventDefault();notice('Choose a local AI model first.');return}
+ if(!navigator.gpu){event.preventDefault();notice('This browser cannot initialize WebGPU models. Try a compatible browser or Instant AI.');return}
+ backgroundButton.href='/studio/background-model-download.html?model='+encodeURIComponent(id);
+ notice('Separate download tab opened. Keep it open while using Random Candy Land in this tab.');
+});
+let acknowledgedBackground='';
+function showBackgroundTransfer(data){
+ if(!data||typeof data!=='object'||typeof data.id!=='string'||typeof data.status!=='string'||loadingModel)return;
+ const status=data.status,stale=status==='loading'&&Date.now()-Number(data.updated||0)>180000;
+ const modelName=window.RandomAILocal?.getName?.(data.id)||data.id;
+ const prefix='Background transfer · '+modelName+': ';
+ if(status==='ready'){
+  setDownloadProgress(100,prefix+String(data.message||'Cached model is ready.'),'ready');
+  if(acknowledgedBackground!==data.id+'|ready'){
+   acknowledgedBackground=data.id+'|ready';
+   void window.RandomAIModelMemory?.scan?.();
+   window.RandomAILocal?.refreshButtons?.();
+  }
+ }else if(status==='error'||status==='paused'||stale){
+  setDownloadProgress(status==='error'?0:Number(data.percent)||0,prefix+
+    (stale?'The separate download tab may have been suspended. Return to it to check or resume.':String(data.message||'Transfer paused.')),
+    status==='error'?'error':'paused');
+ }else if(status==='loading'){
+  setDownloadProgress(Number(data.percent)||0,prefix+String(data.message||'Downloading…'),'loading');
+  $('#modelProgressTitle').textContent='↗ Downloading in another tab…';
+  $('#modelProgressTip').textContent='Continue browsing while the other tab stays open. Phone browsers may pause background tabs.';
+ }
+}
+function readBackgroundTransfer(){
+ try{showBackgroundTransfer(JSON.parse(localStorage.getItem(backgroundKey)||'null'))}catch{}
+}
+if(typeof BroadcastChannel==='function'){
+ const backgroundChannel=new BroadcastChannel(backgroundKey);
+ backgroundChannel.addEventListener('message',event=>showBackgroundTransfer(event.data));
+}
+window.addEventListener('storage',event=>{
+ if(event.key===backgroundKey)try{showBackgroundTransfer(JSON.parse(event.newValue||'null'))}catch{}
+});
+window.addEventListener('pageshow',readBackgroundTransfer);
+readBackgroundTransfer();
 // Four small, objective checks provide an honest local mini-test—not an overall
 // model accuracy percentage. Only run on a model the user has already loaded.
 const benchKey='random-ai-mini-benchmark-v1';
