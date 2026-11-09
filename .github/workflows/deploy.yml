@@ -105,6 +105,8 @@ jobs:
           test -s dist/after-dark/report-samples/complete-rowan-personal-report.pdf
           test -s dist/after-dark/report-samples/complete-ellis-personal-report.pdf
           test -s dist/after-dark/report-samples/complete-rowan-ellis-comparison.pdf
+          test -s dist/after-dark/report-samples/complete-rowan-current-partner-report.pdf
+          test -s dist/after-dark/report-samples/complete-rowan-prospective-partner-report.pdf
           test -s dist/after-dark/report-samples/fictional-browser-journey-evidence.json
 
       - name: Preserve fictional 101-question journeys, report renders and combined PDF evidence
@@ -116,6 +118,8 @@ jobs:
             dist/after-dark/report-samples/complete-rowan-personal-report.pdf
             dist/after-dark/report-samples/complete-ellis-personal-report.pdf
             dist/after-dark/report-samples/complete-rowan-ellis-comparison.pdf
+            dist/after-dark/report-samples/complete-rowan-current-partner-report.pdf
+            dist/after-dark/report-samples/complete-rowan-prospective-partner-report.pdf
             dist/after-dark/report-samples/fictional-full-quiz-audit.json
             dist/after-dark/report-samples/fictional-browser-journey-evidence.json
             dist/after-dark/report-samples/*-report-preview.png
@@ -274,13 +278,14 @@ jobs:
             if [[ "$current" == "$EXPECTED_RELEASE" ]]; then
               samplePage=$(curl --fail --silent --show-error --location --max-time 12 \
                 -H "Cache-Control: no-cache" "$base/after-dark/report-samples/?release=$EXPECTED_RELEASE" || true)
-              # The obsolete sample download gallery was deliberately retired.
-              # Verify that visitors see the real report/import guide instead.
+              # The fictional sample gallery links only to build-generated PDFs.
+              # Preserve the real report/import guide for visitors.
               if [[ "$samplePage" != *"Create or upload a report"* ||
                     "$samplePage" != *"Selected report"* ||
                     "$samplePage" == *'data-sample-download'* ||
-                    "$samplePage" == *'href="/after-dark/report-samples/complete-rowan'* ]]; then
-                echo "::warning::The new Unwrapped report and upload guide is missing or an obsolete sample link returned."
+                    "$samplePage" != *'complete-rowan-current-partner-report.pdf'* ||
+                    "$samplePage" != *'complete-rowan-prospective-partner-report.pdf'* ]]; then
+                echo "::warning::The report/upload guide or genuine partner sample links are missing."
                 exit 1
               fi
               comparisonUrl="$base/after-dark/report-samples/complete-rowan-ellis-comparison.pdf?release=$EXPECTED_RELEASE"
