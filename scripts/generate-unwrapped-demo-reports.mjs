@@ -350,6 +350,8 @@ async function uploadAndCompare(aText,bText){
         ['current','complete-rowan-current-partner-report.pdf'],
         ['prospective','complete-rowan-prospective-partner-report.pdf']
       ]){
+        const reset=await navigate(site+'/after-dark/');
+        await reset.evaluate('localStorage.clear();sessionStorage.clear();true');
         const sample=await navigate(site+'/after-dark/');
         await sample.evaluate("document.querySelector('#enter')?.click();true");
         await sample.evaluate('('+verifyRealImport.toString()+')('+JSON.stringify(exports.privateJSON)+')');
