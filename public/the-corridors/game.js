@@ -180,4 +180,5 @@ app.addEventListener('click',e=>{
  else if(b.hasAttribute('data-reset'))W.reset(KEY,'The Corridors');
 });
 save();render();
+window.CorridorsBoot?.ready?.();
 })();
