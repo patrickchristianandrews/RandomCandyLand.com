@@ -11,7 +11,7 @@ function failure(reason){
  if(ready||failed)return;
  failed=true;clearInterval(timer);
  const root=loader();if(!root)return;
- const headline=root.querySelector('h2');if(headline)headline.textContent='The Corridors could not start.';
+ const headline=root.querySelector('h2');if(headline)headline.textContent='The world needs a quick restart.';
  status(reason||'A game file did not load. Your local progress has not been reset.');
  const buttons=$('corr-boot-recovery');if(buttons)buttons.hidden=false;
  root.classList.add('corr-boot-failed');
@@ -27,7 +27,7 @@ function check(){
 }
 function init(){
  if(!loader()){stop();return}
- $('corr-boot-retry')?.addEventListener('click',()=>location.reload());
+ $('corr-boot-retry')?.addEventListener('click',()=>{status('Reloading the current game files…');const next=new URL(location.href);next.searchParams.set('fresh',Date.now().toString(36));location.replace(next.href)});
  $('corr-boot-solo')?.addEventListener('click',()=>{const app=$('app');if(app)app.innerHTML='<section class="panel"><h2>Offline recovery</h2><p>The complete scenario engine is temporarily unavailable. Use Retry to reload the original game. Your saved progress remains on this device.</p><button type="button" class="button" onclick="location.reload()">Retry game</button></section>';stop()});
  check();timer=setInterval(check,900);
 }
