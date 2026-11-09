@@ -923,6 +923,16 @@ try{
   if(!backgroundInvalid)throw Error('Random AI background download page must reject missing model IDs without downloading');
   console.log('✓ Random AI separate-tab progress, no-model error and cache-preserving page are present.');
   
+  // Corridors regression: a boot placeholder is not a playable game.
+  // Use the real browser, script order and first scenario rather than static markup.
+  const corridor=await navigate(site+'/the-corridors/');
+  const corridorBoot=await corridor.evaluate("(()=>{const root=document.querySelector('#app');return{url:location.href,ready:!!window.CorridorsPolicyLab?.scenarioCount,worldKit:!!window.WorldKit,worldFX:!!window.WorldFX,game:!!root?.querySelector('.cp-full'),buttons:root?.querySelectorAll('[data-policy-choice]').length||0,loading:!!document.querySelector('#corr-boot'),status:document.querySelector('#corr-boot-status')?.textContent||'',title:root?.querySelector('h2')?.textContent||''}})()");
+  if(!corridorBoot?.ready||!corridorBoot.game||corridorBoot.buttons<2||corridorBoot.loading)
+    throw Error('Corridors did not render its first playable policy scenario: '+JSON.stringify(corridorBoot));
+  await corridor.evaluate("document.querySelector('#app [data-policy-choice]')?.click()");
+  const corridorChoice=await corridor.evaluate("(()=>{const root=document.querySelector('#app');return !!root?.querySelector('.cp-consequence')&&!!root.querySelector('[data-policy-advance]')})()");
+  if(!corridorChoice)throw Error('Corridors first decision did not produce a consequence screen');
+  console.log('✓ Corridors boots into a playable policy scenario and a decision reveals consequences.');
   // The retired standalone Identity Lab and its embedded TRACE tab must both remain absent.
   const traceEvidence=await navigate(site+'/osint-academy/');
   const labRemoved=await traceEvidence.evaluate("!document.querySelector('#tab-identity,#view-identity,#trace-identity-lab,[href=\"/identity-lab/\"]') && !document.querySelector('script[src*=\"identity-lab.js\"]')");
