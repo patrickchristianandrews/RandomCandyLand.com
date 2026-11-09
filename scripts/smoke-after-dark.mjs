@@ -468,10 +468,18 @@ try{
   await check('Searching strap-on reveals exact named types, not vague harness-only descriptions',"document.querySelector('#toy-grid').textContent.includes('Strap-on starter kit')&&document.querySelector('#toy-grid').textContent.includes('Hollow strap-on')");
   await evaluate("document.querySelector('[data-tab=ideas]').click()");
   await check('Idea Lab offers him/her/together selectors linked to real catalog',"(()=>{const api=window.UnwrappedToyIdeas;return !!api&&document.querySelector('#toy-idea-him').options.length>=15&&document.querySelector('#toy-idea-her').options.length>=15&&document.querySelectorAll('[data-toy-idea-mode]').length===3})()");
+  await check('Standalone idea generator remains connected to the Freak Level engine',
+    "(()=>{const button=document.querySelector('#drawIdea');if(!button||!window.UnwrappedFreakPicker)return false;document.querySelector('#mood').value='toys';document.querySelector('#freak-level').value='8';button.click();const result=document.querySelector('#ideaResult');return result?.dataset.ideaType==='specific'&&result.querySelectorAll('.freak-idea-steps li').length===3&&result.textContent.includes('FREAK LEVEL 8/10')})()");
+  await evaluate("document.querySelector('#toy-idea-him').value='strap-starter';document.querySelector('#toy-idea-him').dispatchEvent(new Event('change',{bubbles:true}))");
+  await check('Changing the Him toy selector immediately updates the result without a Generate click',
+    "document.querySelector('#toy-idea-output')?.textContent.includes('Strap-on starter kit')&&document.querySelector('#toy-idea-output')?.textContent.includes('Body suitability')");
   await evaluate("document.querySelector('#toy-idea-him').value='strap-starter';document.querySelector('#toy-idea-her').value='strap-starter';document.querySelector('[data-toy-idea-mode=him]').click()");
   await check('For Him names the selected strap-on, fit and safe-use notes',"(()=>{const text=document.querySelector('#toy-idea-output').textContent;return text.includes('Strap-on starter kit')&&text.includes('Body suitability')&&text.includes('Safety, materials and compatibility')})()");
   await evaluate("document.querySelector('[data-toy-idea-mode=her]').click()");
   await check('For Her shows separately suitable strap-on guidance',"document.querySelector('#toy-idea-output').textContent.includes('Strap-on starter kit')&&document.querySelector('#toy-idea-output h4')?.textContent.includes('her')");
+  await evaluate("document.querySelector('#toy-idea-her').value='grinding-pad';document.querySelector('#toy-idea-her').dispatchEvent(new Event('change',{bubbles:true}))");
+  await check('Changing the Her toy selector updates the paired result automatically',
+    "(()=>{const root=document.querySelector('#toy-idea-output');return root?.querySelectorAll('.unwrapped-toy-idea-recommendation').length===2&&root?.textContent.includes('Strap-on starter kit')&&root?.textContent.includes('External grinding')})()");
   await evaluate("document.querySelector('#toy-idea-her').value='grinding-pad';document.querySelector('[data-toy-idea-mode=together]').click()");
   await check('Combine Both builds two different, consent-based options, without assuming the same anatomy',"(()=>{const root=document.querySelector('#toy-idea-output');return root.querySelectorAll('.unwrapped-toy-idea-recommendation').length===2&&root.textContent.includes('Strap-on starter kit')&&root.textContent.includes('External grinding')&&root.textContent.includes('does not')&&root.querySelectorAll('.unwrapped-toy-idea-safety p').length===2})()");
   console.log('✓ Unwrapped 68 categories, eight strap-on styles, him/her/together toy ideas and explicit safe-use context passed.');
