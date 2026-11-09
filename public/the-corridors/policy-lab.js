@@ -142,6 +142,36 @@ function apply(phase){
  const v=effectsFor(phase);
  metricDefs.forEach((m,i)=>{state.metrics[m.id]=clamp((Number(state.metrics[m.id])||0)+v[i])});
 }
+// Older broken builds could save null indicators after trying to apply the
+// 'today' phase. Preserve completed history and repair only the active stage.
+function restorePlayableState(){
+ let repaired=false;
+ const stages=['today','months','years'];
+ if(!Array.isArray(state.history)){state.history=[];repaired=true}
+ if(!scenarios[state.scenario]){state.scenario=0;repaired=true}
+ const choiceValid=state.choice===null||(Number.isInteger(state.choice)&&state.choice>=0&&state.choice<current().options.length);
+ if(!choiceValid||(state.choice!==null&&state.phase==='choose')){
+  state.choice=null;state.phase='choose';repaired=true;
+ }
+ if(state.choice===null&&state.phase!=='choose'){state.phase='choose';repaired=true}
+ const metricsValid=values=>values&&metricDefs.every(m=>Number.isFinite(values[m.id])&&values[m.id]>=0&&values[m.id]<=100);
+ if(!metricsValid(state.metrics)){
+  const historyRecord=[...state.history].reverse().find(h=>metricsValid(h?.metrics));
+  state.metrics={...baseMetrics(),...(historyRecord?.metrics||{})};
+  if(state.choice!==null){
+   for(const phase of stages){
+    apply(phase);
+    if(phase===state.phase)break;
+   }
+  }
+  repaired=true;
+ }
+ if(repaired){
+  try{const original=localStorage.getItem(KEY);if(original&&!localStorage.getItem(KEY+'-recovery'))localStorage.setItem(KEY+'-recovery',original)}catch{}
+  save();
+ }
+}
+restorePlayableState();
 function choose(index){
  if(state.choice!==null||!current().options[index])return;
  state.choice=index;state.phase='today';apply('today');save();render();
