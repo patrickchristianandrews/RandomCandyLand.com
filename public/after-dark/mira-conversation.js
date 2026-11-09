@@ -73,7 +73,8 @@ function reply(message){
  if(/^(?:i just |guess what|today i |my day |can we just chat|let us just chat|lets just chat)/i.test(s)){
   lastKind='chat';return 'I am listening. What happened, or what would you like to talk about next?';
  }
+ lastKind='';
  return null;
 }
-window.MiraConversation=Object.freeze({reply});
+window.MiraConversation=Object.freeze({reply,isRecent:()=>Boolean(lastKind)});
 })();
