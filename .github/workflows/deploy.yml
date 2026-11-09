@@ -311,7 +311,7 @@ jobs:
                     "$renderedUnwrapped" != *'id="uw-import-private"'* ||
                     "$renderedUnwrapped" != *'Your reports'* ||
                     "$renderedUnwrapped" != *'id="uw-home-random-heading"'* ||
-                    "$renderedUnwrapped" != *'data-idea-launch="idea"'* ]]; then
+                    "$renderedUnwrapped" != *'data-idea-launch="full"'* ]]; then
                 echo "::error::Pages may be serving an obsolete Unwrapped page; the report download/import center is not live."
                 exit 1
               fi
