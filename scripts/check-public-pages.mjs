@@ -755,12 +755,28 @@ if(!featuredHeader.includes('candyland-identity') ||
 for(const file of ['dist/ai-academy/index.html','dist/ai-academy/academy.js','dist/ai-academy/academy.css','dist/app-manifests/ai-academy.webmanifest','dist/tool-icons/ai-academy.svg','dist/studio/model-explorer.js','dist/studio/model-explorer.css']){
  if(!fs.existsSync(file)){console.error('Standalone Academy or Random AI asset missing:',file);failures++;}
 }
+// Separate-tab downloads must share WebLLM's normal cache and model IDs,
+// report progress across tabs, and avoid deleting model caches on SW upgrades.
+for(const file of ['dist/studio/background-model-download.html','dist/studio/background-model-download.js']){
+ if(!fs.existsSync(file)){console.error('Random AI separate-tab download missing:',file);failures++;}
+}
+if(fs.existsSync('dist/studio/background-model-download.js')){
+ const bg=fs.readFileSync('dist/studio/background-model-download.js','utf8');
+ try{new vm.Script(bg,{filename:'Background model download'});}catch(e){console.error('Random AI background download syntax:',e.message);failures++;}
+ for(const token of ['CreateMLCEngine','hasModelInCache','random-ai-background-download-v1','BroadcastChannel','random-ai-saved-models-v1']){
+  if(!bg.includes(token)){console.error('Background transfer missing:',token);failures++;}
+ }
+}
+if(fs.existsSync('dist/sw.js')){
+ const shell=fs.readFileSync('dist/sw.js','utf8');
+ if(!shell.includes("k.startsWith('random-candy-land-public-')")){console.error('Service worker must not delete WebLLM model caches');failures++;}
+}
 // Returning to Random AI must restore actually cached models, not discard them.
 for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css','dist/studio/top-models.js','dist/studio/phone-model-downloads.js']){
  if(!fs.existsSync(file)){console.error('Random AI saved-model asset missing:',file);failures++;}
 }
 const studioPage=fs.readFileSync('dist/studio/index.html','utf8');
-for(const text of ['id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=device-chooser-20261107-v3','top-models.js?v=device-chooser-20261107-v3','id="topAiList"','id="uncensoredChoices"']){
+for(const text of ['id="backgroundModelDownload"','background-model-download.html','id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=device-chooser-20261107-v3','top-models.js?v=device-chooser-20261107-v3','id="topAiList"','id="uncensoredChoices"']){
  if(!studioPage.includes(text)){console.error('Random AI saved-model library missing:',text);failures++;}
 }
 if(fs.existsSync('dist/studio/model-memory.js')){
