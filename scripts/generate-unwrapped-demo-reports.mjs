@@ -292,7 +292,7 @@ async function uploadAndCompare(aText,bText){
     // The combined notebook tab is intentionally hidden on screen. Its print-only
     // stylesheet displays #notebook and #uc-results when Page.printToPDF switches
     // to print media. Only personal reports must be screen-visible here.
-    if(result.length<(bodyClass.includes('print-unwrapped-comparison')?1200:5000)||(!bodyClass.includes('print-unwrapped-comparison')&&(result.display==='none'||result.height<100)))
+    if(result.length<(bodyClass.includes('print-unwrapped-comparison')||bodyClass.includes('print-partner-report')?1200:5000)||(!bodyClass.includes('print-unwrapped-comparison')&&(result.display==='none'||result.height<100)))
       throw Error('Isolated printable report is not visible: '+JSON.stringify(result));
     console.log('✓ Isolated printable report is visible: '+JSON.stringify(result));
     return printer;
@@ -342,6 +342,26 @@ async function uploadAndCompare(aText,bText){
     audit.push({...result,...prepared,file,pdfBytes:bytes.length,privateQuizImport:imported,
       selectivePartnerExport:{approvedInterests:exports.sharedInterests,approvedPsychologyThemes:exports.sharedThemes,approvedPsychologyAnswers:exports.sharedPsychAnswers,privateAnswersIncluded:false,toysIncluded:false}});
     console.log('✓ Generated full fictional '+key+' report: '+result.direct+'+'+result.psych+' answers, '+prepared.themes+' themes, '+prepared.subConnections+' sub-connections, '+bytes.length+' bytes');
+    if(key==='rowan'){
+      // These two demonstrations are generated from the same restored, fully
+      // answered fictional quiz, using the public report builders and default
+      // non-intimate disclosure settings (not hand-authored sample paragraphs).
+      for(const [kind,filename] of [
+        ['current','complete-rowan-current-partner-report.pdf'],
+        ['prospective','complete-rowan-prospective-partner-report.pdf']
+      ]){
+        const status=await fresh.evaluate("(()=>{const kind="+JSON.stringify("KIND_PLACEHOLDER")+";const api=kind==='current'?window.AfterDarkPartnerPDF:window.AfterDarkNewPartnerReport;const node=api?.build?.();if(!node||node.querySelectorAll('.partner-report-section').length<2)throw Error('Partner report is not fully populated');if(node.textContent.includes('Specific toy topics I elected to share')||node.textContent.includes('My personal notes'))throw Error('Unselected sensitive details were included');let target=document.getElementById('print-document');if(!target){target=document.createElement('div');target.id='print-document';document.body.append(target)}target.replaceChildren(node);target.hidden=false;target.style.display='block';return{chars:node.textContent.length,sections:node.querySelectorAll('.partner-report-section').length}})()".replace('KIND_PLACEHOLDER',kind));
+        if(status.chars<800)throw Error('Fictional '+kind+' partner PDF is incomplete: '+JSON.stringify(status));
+        const partnerPrinter=await openIsolatedPrint(fresh,'#print-document','print-notebook print-detailed-report print-partner-report ad-entered');
+        const rendered=await partnerPrinter.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,landscape:false,transferMode:'ReturnAsBase64'});
+        const partnerBytes=Buffer.from(rendered.data||'','base64');
+        if(partnerBytes.length<6000||partnerBytes.subarray(0,5).toString()!=='%PDF-')throw Error('Fictional '+kind+' partner PDF was empty or invalid');
+        fs.writeFileSync(path.join(outputDir,filename),partnerBytes);
+        const image=await partnerPrinter.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+        fs.writeFileSync(path.join(outputDir,'complete-rowan-'+kind+'-partner-preview.png'),Buffer.from(image.data,'base64'));
+        console.log('✓ Generated '+kind+' partner example from real fictional answers: '+status.sections+' sections, '+partnerBytes.length+' PDF bytes');
+      }
+    }
     await fresh.evaluate("localStorage.clear();sessionStorage.clear();true");
   }
   if(selectedFiles.length!==2)throw Error('A selective partner JSON file was not exported for each fictional user');
@@ -365,7 +385,8 @@ async function uploadAndCompare(aText,bText){
       safeSelectiveShare:x.selectivePartnerExport,pdfBytes:x.pdfBytes,reportThemes:x.themes,reportSubConnections:x.subConnections})),
     comparison:{...merged,pdfBytes:mergedBytes.length},
     evidenceFiles:['complete-rowan-personal-report.pdf','complete-ellis-personal-report.pdf',
-      'complete-rowan-ellis-comparison.pdf','complete-rowan-report-preview.png',
+      'complete-rowan-ellis-comparison.pdf','complete-rowan-current-partner-report.pdf',
+      'complete-rowan-prospective-partner-report.pdf','complete-rowan-report-preview.png',
       'complete-ellis-report-preview.png','rowan-ellis-comparison-preview.png']
   },null,2));
   console.log('✓ Two full 101-question journeys, actual JSON exports/imports, private partner exports, two-file upload and combined PDF passed.');
