@@ -74,7 +74,7 @@ const indicators=[
  ['IS.RRS.TOTL.KM','Rail line length','kilometers','Transport'],
  ['IS.VEH.NVEH.P3','Motor vehicles','per 1,000 people','Transport'],
  ['ST.INT.ARVL','International tourist arrivals','people','Tourism'],
- ['ST.INT.RCPT.CD','International tourism receipts','US,'Tourism'],
+ ['ST.INT.RCPT.CD','International tourism receipts','US dollars','Tourism'],
  ['BX.KLT.DINV.WD.GD.ZS','Foreign direct investment inflows','% of GDP','Economy'],
  ['SP.URB.GROW','Urban population growth','% annual','People']
 ];
