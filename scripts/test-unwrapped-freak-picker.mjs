@@ -71,6 +71,7 @@ const picker=ctx.window.UnwrappedFreakPicker;
 assert.ok(picker&&picker.ideas>=48,'At least 48 curated scenario foundations');
 const slider=registry.get('freak-level');
 assert.ok(slider,'Interactive intensity slider rendered');
+assert.match(main.textContent,/Generate Random Combination/,'Only one primary combination generator should be visible');
 for(const value of [1,5,8,10]){
  slider.value=String(value);
  main.onclick();
@@ -78,16 +79,16 @@ for(const value of [1,5,8,10]){
  assert.ok(root.textContent.includes('Prepare this')&&root.textContent.includes('Exactly what to do'),'Scenario must give exact props and usable actions');
  assert.ok(root.textContent.includes('Boundaries and safer choices'),'Scenario requires safety notes');
 }
-picker.generate('toy');
-assert.ok(root.textContent.includes('How the device fits this exact idea')&&root.textContent.includes('Safety:'),'Single-toy plan must place a safe specific device into the activity');
-picker.generate('full');
+picker.generate();
+assert.ok(root.textContent.includes('An exact device option for each act')&&root.textContent.includes('Safety:'),'Single random combination must include safe device suggestions');
+picker.generate();
 assert.ok(root.textContent.includes('ACT 2')&&root.textContent.includes('Exactly what to do'),'Full scenario must provide a complete second act');
 assert.ok(root.textContent.includes('An exact device option for each act'),'Full scenario must specify devices for both acts');
 registry.get('freak-no-anal').checked=true;
 registry.get('freak-no-penetration').checked=true;
 registry.get('freak-no-power').checked=true;
 registry.get('freak-fantasy-only').checked=true;
-picker.generate('full');
+picker.generate();
 assert.ok(root.textContent.includes('FANTASY ONLY'),'Fantasy-only must be explicitly shown');
 assert.ok(!root.textContent.includes('Anal & pelvic'),'Excluded anal categories must not be suggested');
 assert.ok(!root.textContent.includes('Nothing fits'),'Exclusions should leave an available alternative');
