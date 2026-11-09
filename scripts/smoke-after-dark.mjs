@@ -746,8 +746,8 @@ try{
     "document.querySelectorAll('.candyland-play-shelves .candyland-hero-tool-link').length===11 && document.querySelectorAll('.candyland-play-shelf').length===6");
   const arnAudit=await home.evaluate("(()=>{const bar=document.querySelector('#nonsense.nonsense-report'),ticker=bar?.querySelector('.nonsense-report-ticker'),brand=bar?.querySelector('#nonsense-heading'),open=bar?.querySelector('.nonsense-report-open'),destination=document.querySelector('#absurder-report-destination'),detail=destination?.querySelector('#nonsense-story-detail');return {bar:!!bar,ticker:!!ticker,brand:brand?.textContent,openText:open?.textContent,read:!!open?.textContent.includes('Read full story'),destination:destination?.textContent?.slice(0,110),detailHidden:detail?.hidden,height:ticker?.getBoundingClientRect().height,viewport:bar?.querySelector('.nonsense-report-viewport')?.getBoundingClientRect().width}})()");
   console.log('ARN ticker audit:',JSON.stringify(arnAudit));
-  await checkHomepage('ARN news ticker links to a lower full Absurdity Report article',
-    "(()=>{const bar=document.querySelector('#nonsense.nonsense-report'),ticker=bar?.querySelector('.nonsense-report-ticker'),brand=bar?.querySelector('#nonsense-heading'),open=bar?.querySelector('.nonsense-report-open'),destination=document.querySelector('#absurder-report-destination'),detail=destination?.querySelector('#nonsense-story-detail');return !!bar&&!!ticker&&brand?.textContent.includes('ARN NEWS')&&!brand?.textContent.includes('ABSURDITY')&&!!open?.textContent.includes('Read full story')&&!!destination?.textContent.includes('THE ABSURDITY REPORT')&&detail?.hidden===true})()");
+  await checkHomepage('Absurdity Report permanently open at the bottom; no ARN ticker branding',
+    "(()=>{const bar=document.querySelector('#nonsense.nonsense-report'),ticker=bar?.querySelector('.nonsense-report-ticker'),brand=bar?.querySelector('#nonsense-heading'),open=bar?.querySelector('.nonsense-report-open'),destination=document.querySelector('#absurder-report-destination'),detail=destination?.querySelector('#nonsense-story-detail'),footer=document.querySelector('.candyland-footer');return !!bar&&!!ticker&&!bar.querySelector('.nonsense-report-brand')&&!brand?.textContent.includes('ARN NEWS')&&!!open?.textContent.includes('Read full story')&&!!destination?.textContent.includes('THE ABSURDITY REPORT')&&detail?.hidden===false&&!!detail.querySelector('h3')&&!!footer&&Boolean(destination.compareDocumentPosition(footer)&Node.DOCUMENT_POSITION_FOLLOWING)})()");
   await checkHomepage('ARN headline scroll is slow, legible and has an explicit pause button',
     "(()=>{const ticker=document.querySelector('#nonsense'),marquee=ticker?.querySelector('.nonsense-report-marquee'),text=marquee?.querySelector('span'),pause=ticker?.querySelector('.nonsense-report-pause');return !!pause&&!!marquee&&!!text&&getComputedStyle(text).fontSize==='15px'&&parseFloat(getComputedStyle(marquee).animationDuration)>=40&&ticker.getAttribute('data-ticker-paused')==='false'&&pause.getAttribute('aria-pressed')==='false'})()");
   await home.evaluate("document.querySelector('#nonsense .nonsense-report-pause').click()");
@@ -772,12 +772,11 @@ try{
   await home.evaluate("document.querySelector('#absurder-report-destination .nonsense-generate').click()");
   const afterStory=await home.evaluate("document.querySelector('#absurder-report-destination .nonsense-news-article').textContent");
   if(beforeStory===afterStory)throw Error('Next Story must change the lower report article');
-  await home.evaluate("document.querySelector('#absurder-report-destination .nonsense-report-close').click()");
-  const storyClosed=await home.evaluate("document.querySelector('#absurder-report-destination #nonsense-story-detail')?.hidden===true");
-  if(!storyClosed)throw Error('Close Story must collapse the lower article');
+  const storyStillOpen=await home.evaluate("document.querySelector('#absurder-report-destination #nonsense-story-detail')?.hidden===false&&!document.querySelector('#absurder-report-destination .nonsense-report-close')");
+  if(!storyStillOpen)throw Error('The Absurdity Report must remain open without a Close Story control');
   await checkHomepage('Unwrapped stays in first shelf with six topic bubbles and a clear CTA',
     "(()=>{const first=document.querySelector('.candyland-play-shelves')?.firstElementChild,card=first?.querySelector('.candyland-unwrapped-feature-card'),desc=card?.querySelector('.candyland-unwrapped-feature-description');return !!first?.classList.contains('candyland-play-shelf-discovery')&&card?.getAttribute('href')==='/after-dark/'&&!!desc?.textContent.includes('psychology')&&!!card.querySelector('.candyland-unwrapped-feature-cta')&&card.querySelectorAll('.candyland-unwrapped-feature-outputs>span').length===6&&!document.querySelector('header .candyland-unwrapped-promo')})()");
-  console.log('✓ The Absurdity Report live ticker opens and closes full articles; all Unwrapped and game shelves remain intact.');
+  console.log('✓ The Absurdity Report stays open with the ticker and games intact.');
 
   // Wonder Index is deliberately brief on its landing page; ideas,
   // live research and real-data correlations each have a separate destination.
