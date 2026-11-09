@@ -32,8 +32,11 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Set up Bun through npm to avoid GitHub release asset outages
+        shell: bash
+        run: |
+          npm install --global --no-audit --no-fund bun@1.4.4
+          bun --version
 
       - name: Install locked dependencies
         run: bun install --frozen-lockfile
