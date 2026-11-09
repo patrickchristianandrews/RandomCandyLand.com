@@ -350,9 +350,12 @@ async function uploadAndCompare(aText,bText){
         ['current','complete-rowan-current-partner-report.pdf'],
         ['prospective','complete-rowan-prospective-partner-report.pdf']
       ]){
-        const status=await fresh.evaluate("(()=>{const kind="+JSON.stringify("KIND_PLACEHOLDER")+";const api=kind==='current'?window.AfterDarkPartnerPDF:window.AfterDarkNewPartnerReport;const node=api?.build?.();if(!node||node.querySelectorAll('.partner-report-section').length<2)throw Error('Partner report is not fully populated');if(node.textContent.includes('Specific toy topics I elected to share')||node.textContent.includes('My personal notes'))throw Error('Unselected sensitive details were included');let target=document.getElementById('print-document');if(!target){target=document.createElement('div');target.id='print-document';document.body.append(target)}target.replaceChildren(node);target.hidden=false;target.style.display='block';return{chars:node.textContent.length,sections:node.querySelectorAll('.partner-report-section').length}})()".replace('KIND_PLACEHOLDER',kind));
+        const sample=await navigate(site+'/after-dark/');
+        await sample.evaluate("document.querySelector('#enter')?.click();true");
+        await sample.evaluate('('+verifyRealImport.toString()+')('+JSON.stringify(exports.privateJSON)+')');
+        const status=await sample.evaluate("(()=>{const kind="+JSON.stringify("KIND_PLACEHOLDER")+";const api=kind==='current'?window.AfterDarkPartnerPDF:window.AfterDarkNewPartnerReport;const node=api?.build?.();if(!node||node.querySelectorAll('.partner-report-section').length<2)throw Error('Partner report is not fully populated');if(node.textContent.includes('Specific toy topics I elected to share')||node.textContent.includes('My personal notes'))throw Error('Unselected sensitive details were included');let target=document.getElementById('print-document');if(!target){target=document.createElement('div');target.id='print-document';document.body.append(target)}target.replaceChildren(node);target.hidden=false;target.style.display='block';return{chars:node.textContent.length,sections:node.querySelectorAll('.partner-report-section').length}})()".replace('KIND_PLACEHOLDER',kind));
         if(status.chars<800)throw Error('Fictional '+kind+' partner PDF is incomplete: '+JSON.stringify(status));
-        const partnerPrinter=await openIsolatedPrint(fresh,'#print-document','print-notebook print-detailed-report print-partner-report ad-entered');
+        const partnerPrinter=await openIsolatedPrint(sample,'#print-document','print-notebook print-detailed-report print-partner-report ad-entered');
         const rendered=await partnerPrinter.command('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,landscape:false,transferMode:'ReturnAsBase64'});
         const partnerBytes=Buffer.from(rendered.data||'','base64');
         if(partnerBytes.length<6000||partnerBytes.subarray(0,5).toString()!=='%PDF-')throw Error('Fictional '+kind+' partner PDF was empty or invalid');
@@ -360,9 +363,10 @@ async function uploadAndCompare(aText,bText){
         const image=await partnerPrinter.command('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
         fs.writeFileSync(path.join(outputDir,'complete-rowan-'+kind+'-partner-preview.png'),Buffer.from(image.data,'base64'));
         console.log('✓ Generated '+kind+' partner example from real fictional answers: '+status.sections+' sections, '+partnerBytes.length+' PDF bytes');
+        if(kind==='prospective')await partnerPrinter.evaluate('localStorage.clear();sessionStorage.clear();true');
       }
     }
-    await fresh.evaluate("localStorage.clear();sessionStorage.clear();true");
+    if(key!=='rowan')await fresh.evaluate("localStorage.clear();sessionStorage.clear();true");
   }
   if(selectedFiles.length!==2)throw Error('A selective partner JSON file was not exported for each fictional user');
   const comparing=await navigate(site+'/after-dark/');
