@@ -915,6 +915,14 @@ try{
   if(!modelEvaluate)throw Error('Random AI device assessment should be explicit and conservative');
   console.log('✓ Random AI top models, uncensored-compatible section, hidden task controls, and local/hosted modes work.');
 
+  // A separate-tab WebLLM transfer should not block using Random AI.
+  const backgroundLink=await studio.evaluate("(()=>{const a=document.querySelector('#backgroundModelDownload');return !!a&&a.target==='_blank'&&a.rel.includes('noopener')&&a.href.includes('/studio/background-model-download.html')&&!!document.querySelector('#modelProgress')})()");
+  if(!backgroundLink)throw Error('Random AI is missing its separate-tab download option');
+  const backgroundPage=await navigate(site+'/studio/background-model-download.html');
+  const backgroundInvalid=await backgroundPage.evaluate("(()=>{const label=document.querySelector('#downloadText'),retry=document.querySelector('#retryDownload');return !!document.querySelector('#downloadBar')&&!!label&&label.textContent.includes('No valid local model')&&!retry.hidden})()");
+  if(!backgroundInvalid)throw Error('Random AI background download page must reject missing model IDs without downloading');
+  console.log('✓ Random AI separate-tab progress, no-model error and cache-preserving page are present.');
+  
   // The retired standalone Identity Lab and its embedded TRACE tab must both remain absent.
   const traceEvidence=await navigate(site+'/osint-academy/');
   const labRemoved=await traceEvidence.evaluate("!document.querySelector('#tab-identity,#view-identity,#trace-identity-lab,[href=\"/identity-lab/\"]') && !document.querySelector('script[src*=\"identity-lab.js\"]')");
