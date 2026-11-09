@@ -11,8 +11,7 @@
   update();
   document.querySelectorAll('[data-idea-launch]').forEach(button=>{
    button.addEventListener('click',()=>{
-    const mode=button.dataset.ideaLaunch;
-    if(!['idea','toy','full'].includes(mode))return;
+    if(button.dataset.ideaLaunch!=='full')return;
     // Use the existing application's real section navigation.
     const toIdeas=document.querySelector('#od-ribbon-nav [data-tab="ideas"]')
       ||document.querySelector('#home [data-tab="ideas"]');
@@ -22,8 +21,8 @@
     if(level){level.value=source.value;level.dispatchEvent(new Event('input',{bubbles:true}))}
     const mood=document.getElementById('mood');
     if(mood)mood.value='any';
-    // All three controls invoke the same report-independent idea engine.
-    if(typeof window.UnwrappedFreakPicker?.generate==='function')window.UnwrappedFreakPicker.generate(mode);
+    // A single action always creates one full random combination without quiz inputs.
+    if(typeof window.UnwrappedFreakPicker?.generate==='function')window.UnwrappedFreakPicker.generate();
     else document.getElementById('drawIdea')?.click();
     requestAnimationFrame(()=>document.getElementById('ideaResult')?.scrollIntoView({block:'start',behavior:'smooth'}));
    });
