@@ -1471,7 +1471,7 @@ function ask(text){
  if(!query)return;
  addChat(query,true);
  const briefFollowUp=/^(?:and |so |ok[ay]*[,. ]*|well[,. ]*|but |also |what about |why (?:is|does|do) (?:that|it)|how (?:does|do|would|can) (?:that|it)|tell me more|go deeper|explain more|can you expand|what does that mean|is that normal|is it safe|how do i talk about it)/i.test(query);
- const focused=briefFollowUp&&lastAtlasTopic?query+' (about '+lastAtlasTopic+')':query;
+ const focused=briefFollowUp&&lastAtlasTopic&&!window.MiraConversation?.isRecent?.()?query+' (about '+lastAtlasTopic+')':query;
  addChat(respond(focused));
  const hits=window.AtlasFlexibleSearch?.rank(query,{topics,faqs:DB.faqs})?.relevant||[];
  const matched=hits.find(hit=>hit.major&&hit.score>=3.5)?.t?.name;
