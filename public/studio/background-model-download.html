@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#15162b">
+<meta name="robots" content="noindex,nofollow">
+<title>Random AI · Separate Model Download</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark;color:#f8f6ff;background:#111427}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 45% 0,#40306e 0,transparent 55%),#111427;min-height:100vh}
+main{margin:auto;max-width:620px;padding:clamp(20px,5vw,52px) 18px 48px}
+a{color:#b7ffe6}h1{font-size:clamp(29px,5vw,42px);margin:12px 0}
+p{line-height:1.6;color:#d5d3e6}
+.panel{border:1px solid #5a567c;border-radius:20px;background:#211f38;padding:clamp(18px,4vw,30px);box-shadow:0 22px 65px #08081870}
+.eyebrow{font-size:11px;letter-spacing:.16em;color:#abf3da;text-transform:uppercase;font-weight:900}
+progress{width:100%;height:22px;accent-color:#8cf4c8;margin:16px 0}
+.status{font-weight:700;color:#fff;overflow-wrap:anywhere}
+.detail{font-size:13px;color:#c2bfd8}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+a.button,button{font:800 14px system-ui;min-height:44px;border-radius:10px;padding:12px 18px;border:1px solid #8ee9d1;cursor:pointer}
+a.button{color:#142b2d;background:#8ee9d1;text-decoration:none}button{color:#fff;background:#302b50}
+.notice{border-left:4px solid #e5b572;padding:10px 14px;background:#28263c;margin-top:22px}
+</style>
+<script type="module" src="/studio/background-model-download.js?v=20261109-1"></script>
+</head>
+<body><main><a href="/studio/">← Back to Random AI</a>
+<div class="panel"><span class="eyebrow">Separate-tab model transfer</span>
+<h1>↓ Downloading your local AI model</h1>
+<p id="modelName">Checking the model…</p>
+<progress id="downloadBar" max="100" value="0" aria-label="Download and model initialization progress"></progress>
+<p class="status" role="status" aria-live="polite"><span id="downloadPercent">0%</span> · <span id="downloadText">Starting the WebLLM model download…</span></p>
+<p id="downloadDetails" class="detail">Model files are cached in this browser on your device, not sent to Random Candy Land.</p>
+<div class="actions"><a class="button" href="/studio/">Return to Random AI</a><button id="retryDownload" type="button" hidden>Retry download</button></div>
+<div class="notice"><p><strong>Browse while it downloads:</strong> Keep this download tab open, and visit Random Candy Land in your other tab. The original Random AI page can display progress as downloads arrive.</p>
+<p><strong>Phone limitation:</strong> Browsers may suspend background tabs, especially after locking the screen or closing the app. This is not an operating-system download that is guaranteed to finish after the browser closes. If interrupted, reopen the download to reuse any files the runtime cached.</p></div>
+</div></main></body>
+</html>
