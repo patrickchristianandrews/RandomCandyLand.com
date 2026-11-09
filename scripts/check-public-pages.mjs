@@ -228,7 +228,7 @@ if(!afterDarkLanding.includes('<h1>There\'s more to you.') ||
    !afterDarkLanding.includes('Take the quizzes') ||
    !afterDarkLanding.includes('Your reports') ||
    !afterDarkLanding.includes('Ask Mira') ||
-   !afterDarkLanding.includes('Mira is Unwrapped') ||
+   !afterDarkLanding.includes('Mira is an on-device') ||
    !afterDarkLanding.includes('Ask <span class="italic">Mira.') ||
    /\batlee\b/i.test(afterDarkLanding) ||
    !afterDarkLanding.includes("else renderTabs('home');") ||
