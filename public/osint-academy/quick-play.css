@@ -1,0 +1,38 @@
+/* One active game, not three full investigations stacked in a long scrolling page. */
+body.trace-app .trace-quick-mode{position:sticky;top:0;z-index:15;display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px;background:#121c3a;border:2px solid #607bac;border-radius:12px;margin-bottom:12px}
+.trace-quick-mode button{color:#fff;background:#33446f;border:1px solid #86a6cc;padding:12px 14px;min-height:44px;border-radius:8px;font-weight:850;cursor:pointer}
+.trace-quick-mode button[aria-pressed=true]{background:#a8f7d6;color:#183145;border-color:#dbfff0}
+.trace-crossgame{margin-left:auto;color:#cde8f3;font-size:12px}
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-game-command,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-field-play,
+body.trace-app:not([data-trace-quick-mode="academy"]) .trace-desk,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-game-feedback,
+body.trace-app:not([data-trace-quick-mode="academy"]) .trace-new-pixel-banner{display:none!important}
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest .pq-head,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest .pq-world,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest .pq-dialog,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest .pq-control,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest .pq-missions,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest .pq-progress-track,
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest .pq-footnote{display:none!important}
+body.trace-app:not([data-trace-quick-mode="academy"]) #trace-pixel-quest{max-width:940px;margin:0 auto;border:0;background:none;box-shadow:none}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout{margin:0!important;box-shadow:none;border-radius:12px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-head{padding:13px 16px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-head h3{font-size:clamp(19px,3vw,27px);margin:4px 0}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-head p{font-size:12px;margin:4px 0;line-height:1.4;max-width:65ch}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-map{padding:8px;gap:5px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-map button{font-size:10px;padding:7px 9px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-world{padding:8px 12px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-npc{margin:0 0 6px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-scene{min-height:122px;padding:13px 8px 8px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-hotspot{min-height:85px;padding:5px;gap:2px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-hotspot b{font-size:24px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-board{padding:12px;gap:10px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-evidence{padding:7px}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-evidence p{margin:4px 0;font-size:11px;line-height:1.4}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-answer{padding:9px;font-size:12px;line-height:1.35}
+body.trace-app:not([data-trace-quick-mode="academy"]) .pq-scout-feedback{padding:9px;margin:0 12px 9px}
+body.trace-app[data-trace-quick-mode="academy"] #pq-sidecases{display:none}
+body.trace-app[data-trace-quick-mode="academy"] .trace-new-pixel-banner{display:none}
+#trace-game-command,#pq-sidecases{scroll-margin-top:78px}
+@media(max-width:600px){.trace-crossgame{flex-basis:100%;margin:0}.trace-quick-mode button{flex:1}.pq-scout-board{grid-template-columns:1fr!important}.trace-app .pq-scout-scene{grid-template-columns:repeat(3,minmax(0,1fr))}}
