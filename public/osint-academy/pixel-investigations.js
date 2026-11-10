@@ -68,8 +68,14 @@ function init(){
  const hub=$('trace-pixel-quest');if(!hub||$('pq-sidecases'))return;
  const wrap=el('section','pq-scout');wrap.id='pq-sidecases';wrap.setAttribute('aria-label','Interactive pixel clue hunt');
  wrap.innerHTML='<div class="pq-scout-head"><span>🔍 THE CLUE HUNT</span><h3 id="pq-scout-title"></h3><p id="pq-scout-brief"></p><small id="pq-scout-score"></small></div><div class="pq-scout-map" id="pq-scout-map" role="group" aria-label="Five side mysteries"></div><div class="pq-scout-world"><div class="pq-scout-npc" id="pq-scout-npc"></div><div class="pq-scout-scene" id="pq-scout-scene"></div></div><div class="pq-scout-board"><div><h4>📎 Collected evidence</h4><div id="pq-scout-notes" class="pq-scout-notes"></div></div><div><h4>🧠 What can you conclude?</h4><p class="pq-scout-hint">Find all three clues to unlock the deduction.</p><div id="pq-scout-choices" class="pq-scout-choices"></div></div></div><p id="pq-scout-feedback" class="pq-scout-feedback" role="status" aria-live="polite">Choose a hotspot in the scene and start searching.</p><p id="pq-scout-badge" class="pq-scout-badge" hidden></p><button type="button" id="pq-scout-next" class="pq-scout-next" disabled>▶ Next mystery</button><p class="pq-scout-caution">Fictional cases teach source verification. They do not collect personal data or connect to real people. Side-case badges are separate from campaign XP.</p>';
- hub.append(wrap);
- $('pq-scout-next').addEventListener('click',()=>{if(index<cases.length-1&&solved.has(index)){index++;found=new Set();attempts=0;render();say('New scene unlocked! Tap the evidence objects to investigate.')}});
+ hub.insertBefore(wrap,hub.querySelector('.pq-world')||hub.firstChild);
+ // Expose a stable entry for the main Play button and direct #pixel-mysteries link.
+ wrap.setAttribute('tabindex','-1');
+ wrap.setAttribute('data-trace-release','20261110-scout');
+ const jump=()=>{document.querySelector('#tab-missions')?.click();wrap.scrollIntoView({behavior:'smooth',block:'start'});wrap.focus({preventScroll:true})};
+ document.querySelectorAll('[data-trace-play-scout]').forEach(button=>button.addEventListener('click',jump));
+ if(location.hash==='#pixel-mysteries')requestAnimationFrame(jump);
+  $('pq-scout-next').addEventListener('click',()=>{if(index<cases.length-1&&solved.has(index)){index++;found=new Set();attempts=0;render();say('New scene unlocked! Tap the evidence objects to investigate.')}});
  render();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
