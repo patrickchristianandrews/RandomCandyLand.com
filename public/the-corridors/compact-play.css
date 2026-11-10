@@ -1,0 +1,44 @@
+/* The Corridors: focus on one short pixel-game decision at a time. */
+.world.corridors .hero{display:none}
+.world.corridors .cp-hero{display:none}
+.world.corridors .cp-full{display:flex;flex-direction:column;gap:10px;max-width:1040px;width:100%;margin:0 auto}
+.world.corridors .cp-mode-nav{display:flex;gap:8px}
+.world.corridors .cp-mode-nav button{min-height:42px;padding:8px 13px;display:block;font-size:12px}
+.world.corridors .cp-mode-nav button small{display:none}
+.world.corridors .cp-dashboard,.world.corridors .cp-learning-footer,.world.corridors .cp-scenario-picker{border:1px solid #6d82aa;background:#172840;border-radius:10px;padding:9px 12px;display:block}
+.world.corridors .cp-dashboard:not([open])>:not(summary),.world.corridors .cp-learning-footer:not([open])>:not(summary),.world.corridors .cp-scenario-picker:not([open])>:not(summary),.world.corridors .cp-optional-details:not([open])>:not(summary){display:none!important}
+.world.corridors .cp-dashboard summary,.world.corridors .cp-learning-footer summary,.world.corridors .cp-scenario-picker summary,.world.corridors .cp-optional-details summary{cursor:pointer;font-size:12px;font-weight:850;color:#d1fae7;padding:4px}
+.world.corridors .cp-dashboard[open] .cp-metrics{margin-top:10px}
+.world.corridors .cp-case{padding:clamp(10px,2vw,17px);border:2px solid #658db1;border-radius:14px}
+.world.corridors .cp-case-head{margin-top:8px}
+.world.corridors .cp-case-head h2{font-size:clamp(19px,3vw,28px);margin:4px 0 6px;line-height:1.1}
+.world.corridors .cp-case-head p{font-size:12px;line-height:1.45;max-width:80ch}
+.world.corridors .cp-duration{display:none}
+.world.corridors .cp-optional-details{border:1px solid #445b77;border-radius:9px;margin:9px 0;padding:6px 10px}
+.world.corridors .cp-action-intro{padding:5px 0;margin:4px 0}
+.world.corridors .cp-action-intro h3{margin:3px 0;font-size:17px}
+.world.corridors .cp-action-intro p{display:none}
+.world.corridors .cp-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:8px 0}
+.world.corridors .cp-choice{padding:12px;min-height:112px;border-radius:10px}
+.world.corridors .cp-choice strong{font-size:13px;line-height:1.35}
+.world.corridors .cp-choice p{margin:5px 0;font-size:11px;line-height:1.35}
+.world.corridors .cp-choice small{font-size:10px}
+.world.corridors .cp-consequence{margin-top:10px}
+.world.corridors .cp-outcome-detail{padding:12px}
+.world.corridors .cp-outcome-detail h3{font-size:18px;margin:5px 0}
+.world.corridors .cp-outcome-detail>p{font-size:12px;line-height:1.45}
+.world.corridors .cp-shifts{margin-top:8px}
+.world.corridors .cp-ethics{margin:9px 0;padding:8px}
+.world.corridors .cp-ethics p{font-size:11px;line-height:1.45;margin:3px 0}
+.world.corridors .cp-sources{margin-top:10px}
+.world.corridors .cp-milestone{min-height:42px;padding:6px}
+.corr-pixel-city{height:146px;position:relative;overflow:hidden;border:4px solid #15233e;background:linear-gradient(#243a76 0%,#50689d 64%,#2a385b 65%,#2a385b 100%);image-rendering:pixelated;box-shadow:inset 0 -9px #192642}
+.corr-pixel-city:before{position:absolute;content:"";width:64px;height:64px;left:11%;top:11px;background:#fae58a;box-shadow:8px 0 #e1ce79,0 8px #e1ce79}
+.corr-pixel-buildings{position:absolute;right:7%;bottom:30px;letter-spacing:18px;font:bold 60px monospace;color:#1b264a;text-shadow:5px 0 #344369}
+.corr-pixel-official{position:absolute;bottom:21px;left:24%;z-index:2;font-size:41px;filter:drop-shadow(4px 5px #142340)}
+.corr-pixel-aide{position:absolute;bottom:30px;right:22%;z-index:2;font-size:39px}
+.corr-pixel-moon{position:absolute;top:12px;right:15%;font-size:26px;color:#ffe2a5}
+.corr-pixel-dialog{position:absolute;bottom:8px;left:5px;right:5px;z-index:3;background:#111c3cf1;border:2px solid #99e8ca;box-shadow:3px 3px #13203b;padding:7px 10px;font:bold 12px/1.35 monospace;color:#f6f8ff}
+.world.corridors .layout{max-width:1100px;margin:0 auto}
+@media(max-width:750px){.world.corridors .cp-choices{grid-template-columns:1fr}.world.corridors .cp-choice{min-height:70px}.corr-pixel-city{height:130px}.corr-pixel-buildings{font-size:43px;letter-spacing:6px}.world.corridors .cp-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.corr-pixel-official{animation:none}}
