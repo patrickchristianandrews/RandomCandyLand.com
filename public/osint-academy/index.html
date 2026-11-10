@@ -25,7 +25,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="/osint-academy/game.js?v=campaign-20261107-v2" defer></script>
 <link rel="stylesheet" href="/osint-academy/mission-command.css?v=campaign-20261107-v2"><script src="/osint-academy/mission-command.js?v=campaign-20261107-v1" defer></script>
 <link rel="stylesheet" href="/osint-academy/pixel-quest.css?v=20261108-v1"><script src="/osint-academy/pixel-quest.js?v=20261110-front-v2" defer></script>
-<link rel="stylesheet" href="/osint-academy/pixel-investigations.css?v=20261110-front-v2"><script src="/osint-academy/pixel-investigations.js?v=20261110-front-v2" defer></script>
+<link rel="stylesheet" href="/osint-academy/pixel-investigations.css?v=20261110-front-v2"><link rel="stylesheet" href="/osint-academy/quick-play.css?v=20261110-v1"><script src="/osint-academy/pixel-investigations.js?v=20261110-front-v2" defer></script><script src="/osint-academy/quick-play.js?v=20261110-v1" defer></script>
 <link rel="stylesheet" href="/osint-academy/field-files.css?v=20261109-v1"><script src="/osint-academy/field-files.js?v=20261109-v1" defer></script>
 </head>
 <body class="trace-app">
@@ -44,7 +44,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h1>Don't just search.<br><em>Investigate.</em></h1>
 <p>Master evidence-led open-source research. Learn the tools, build your workstation, verify imagery and public contact information, map complex records, and defend your conclusions in a case report.</p>
 <div class="hero-actions">
-<button type="button" class="cta" data-trace-play-scout>🎮 Play the New Pixel Mystery</button><button type="button" class="outline" data-switch="missions">▶ Classic Academy Cases</button>
+<button type="button" class="cta" data-trace-play-scout>🎮 Play the New Pixel Mystery</button><button type="button" class="outline" data-trace-open-academy>📚 Academy cases</button>
 <button type="button" class="outline" data-switch="setup">⚙ Workstation setup (optional)</button><a 
 </div>
 <span class="hero-disclosure">◎ NEW PIXEL CLUE HUNTS · FIVE INTERACTIVE MYSTERIES · 25 CLASSIC ACADEMY CASES · FICTIONAL SUBJECTS ONLY</span>
@@ -70,6 +70,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <main>
 <section id="view-missions" class="trace-view" role="tabpanel" aria-labelledby="tab-missions">
+<div class="trace-quick-mode" role="group" aria-label="Choose TRACE game mode">
+  <button type="button" id="trace-mode-pixel" data-trace-mode="pixel" aria-pressed="true">🎮 Play detective</button>
+  <button type="button" id="trace-mode-academy" data-trace-mode="academy" aria-pressed="false">📚 Academy &amp; all 25 cases</button>
+  <a href="/the-corridors/" class="trace-crossgame">🏛️ Corridors is a separate game</a>
+</div>
 <div class="trace-new-pixel-banner"><strong>NEW · PLAYABLE PIXEL DETECTIVE MISSIONS</strong><span>Search scenes, collect evidence, make deductions, and unlock all five side mysteries. Your 25 Academy lessons are still here.</span><button type="button" data-trace-play-scout>▶ PLAY THE PIXEL MYSTERIES</button></div>
 <section class="trace-game-command" id="trace-game-command" aria-labelledby="trace-game-heading">
   <header class="trace-game-head">
