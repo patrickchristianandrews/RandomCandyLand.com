@@ -10,7 +10,6 @@ function setMode(mode,focus=true){
   const destination=academy?$('trace-game-command'):$('pq-sidecases');
   if(destination){destination.scrollIntoView({block:'start',behavior:'smooth'});destination.focus?.({preventScroll:true})}
  }
- try{sessionStorage.setItem('trace-preferred-play-v1',mode)}catch{}
 }
 function init(){
  if(!$('trace-mode-pixel'))return;
@@ -18,8 +17,8 @@ function init(){
  $('trace-mode-academy').addEventListener('click',()=>setMode('academy'));
  document.querySelectorAll('[data-trace-open-academy]').forEach(b=>b.addEventListener('click',()=>setMode('academy')));
  document.querySelectorAll('[data-trace-play-scout]').forEach(b=>b.addEventListener('click',()=>setMode('pixel')));
- let start='pixel';try{if(sessionStorage.getItem('trace-preferred-play-v1')==='academy')start='academy'}catch{}
- setMode(start,false);
+ // The default must always be the short playable mystery, not a saved old Academy view.
+ setMode('pixel',false);
  if(location.hash==='#pixel-mysteries')setMode('pixel',true);
  window.TraceQuickPlay=Object.freeze({setMode,current:()=>document.body.dataset.traceQuickMode});
 }
