@@ -160,7 +160,7 @@ function create(config){
      // A clearly identifiable walkable lane across all chapters
      bl(0,152,W,2,p.top);
      for(let x=0;x<W;x+=32)bl(x,205,25,2,p.bright);
-     person(190,142,p.bright,(t%4===0)?1:0,true);
+     if(!scene.objects.some(x=>x.type==='npc'))person(190,142,p.bright,(t%4===0)?1:0,true);
      // NPC patrol silhouette makes the scene feel lived-in.
      const npcX=35+((Math.sin(now/1700)+1)*11);
      person(npcX,132,'#85a9d9',t%5===0?1:0,false);
@@ -174,6 +174,7 @@ function create(config){
    if(item.type==='folder'||item.type==='document'){rect(x-8,y-12,16,11,'#f9d38b');rect(x-5,y-15,9,4,'#e9b96c');rect(x-4,y-8,8,2,'#715b59')}
    else if(item.type==='screen'){rect(x-8,y-13,16,11,'#5fe0c3');rect(x-6,y-11,12,7,'#2b6b8b');rect(x-3,y-3,6,3,'#e4d8a9')}
    else if(item.type==='photo'){rect(x-8,y-12,16,12,'#f2dce4');rect(x-6,y-10,12,8,'#8cb5cb');rect(x-5,y-4,9,2,'#2e6e78')}
+   else if(item.type==='npc'){person(x,y,'#68accb',Math.sin(now/420)>0?1:0,false);}
    else if(item.type==='desk'){rect(x-13,y-8,26,6,'#dbac74');rect(x-11,y-2,3,7,'#715146');rect(x+9,y-2,3,7,'#715146');rect(x-5,y-12,9,4,color)}
    else if(item.type==='ballot'){rect(x-9,y-13,18,13,'#aab5df');rect(x-5,y-16,10,6,'#f4db96');rect(x-5,y-6,11,3,'#506285')}
    else{rect(x-9,y-13,18,14,'#f1c985');rect(x-5,y-11,9,3,'#8dbdd3')}
@@ -190,6 +191,12 @@ function create(config){
    // Character animated walk cycle, actual game avatar.
    person(avatar.x,avatar.y,'#ef9ec6',Math.floor(avatar.step/7)%2===0?0:1,true);
    text('YOU',avatar.x,avatar.y-40,'#fff9ce',8);
+   if(now-lastInteraction<420){
+     const radius=6+Math.floor((now-lastInteraction)/45);
+     ctx.lineWidth=1;ctx.strokeStyle='#a1ffe2';ctx.globalAlpha=Math.max(0,1-(now-lastInteraction)/420);
+     ctx.strokeRect(Math.round(avatar.x-radius),Math.round(avatar.y-32-radius/2),radius*2,radius);
+     ctx.globalAlpha=1;
+   }
    const nearest=nearObject();
    if(nearest&&distance(avatar,nearest)<31){
     rect(nearest.x-19,nearest.y-47,38,10,'#0f1f38');text('E  TALK',nearest.x,nearest.y-42,'#ffec9c',7);
