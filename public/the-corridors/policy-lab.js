@@ -212,6 +212,31 @@ function consequence(sc){
  (state.scenario===0?'<p class="cp-assumption">Supply assumption: '+(state.supply==='constrained'?'production and freight remain constrained':'supply recovers more quickly')+'. Different conditions can change the inflation channel.</p>':'')+
  '<button type="button" class="cp-primary" data-policy-advance='+ (step<2?'phase':'case') +'>'+(step===0?'Advance 6 months →':step===1?'Advance 2 years →':'Record decision & next case →')+'</button></div></div>';
 }
+// Pixel-art city hall is drawn locally so the game is genuinely visual and offline-capable.
+function drawCityHall(canvas,phase,chapter){
+ const ctx=canvas.getContext('2d');if(!ctx)return;
+ const W=192,H=62;canvas.width=W;canvas.height=H;
+ const block=(x,y,w,h,color)=>{ctx.fillStyle=color;ctx.fillRect(x,y,w,h)};
+ const night=phase==='years',tone=chapter%3;
+ block(0,0,W,H,night?'#242b55':tone===1?'#3c477b':'#304d82');
+ // Clouds, moon, buildings, road and civic hall in deliberate coarse pixels.
+ block(24,7,16,4,night?'#8b8bb8':'#a9dcf6');block(31,4,9,4,night?'#aaa9cf':'#d5f4f3');
+ block(146,10,13,13,night?'#f6db9a':'#f3d58b');
+ const bgs=['#182d55','#263b5c','#324363'];
+ for(let n=0;n<16;n++){const x=n*13,y=24+(n*7%14);block(x,y,13,H-y,bgs[n%3]);for(let k=0;k<4;k++)block(x+3+(k%2)*5,y+4+Math.floor(k/2)*8,2,3,night?'#f1d67b':'#c5dcee')}
+ // Distinct city hall with a dome, columns and steps.
+ block(69,21,56,29,'#d5b899');block(73,18,48,5,'#e9d2b1');
+ block(85,11,24,6,'#ead4af');block(89,7,16,4,'#fae2b6');
+ for(let x=76;x<120;x+=10){block(x,26,5,23,'#f6e7c9');block(x,25,5,2,'#b38773')}
+ block(66,49,63,3,'#a28b86');block(62,52,70,3,'#7d7c83');
+ block(0,55,W,7,'#202945');for(let x=0;x<W;x+=24)block(x+7,59,13,1,'#c0b5a4');
+ // Two small actual pixel people, not emoji placeholders.
+ for(const [x,coat] of [[38,'#83dfbb'],[147,'#f8a77a']]){
+  block(x,38,8,3,'#1a223c');block(x+2,35,5,4,'#d5deed');
+  block(x+1,41,6,6,'#e8be9c');block(x,47,8,8,coat);
+  block(x+1,55,2,4,'#151e36');block(x+6,55,2,4,'#151e36');
+ }
+}
 function render(root=document.getElementById('app')){
  const sc=current(),done=state.history.length;
  root.innerHTML='<div class="cp-full">'+modeBar()+'<section class="cp-hero"><div><span class="cp-eyebrow">PLAY THE OUTCOME · FICTIONAL PUBLIC POLICY SIMULATOR</span><h2>Your choices ripple through government.</h2><p>Take action, watch the immediate gain, then advance the clock to discover delays, second-order effects, and ethical or legal costs. There is no universally perfect option.</p></div><div class="cp-replay-stat"><strong>'+done+'</strong><small>Decisions completed</small></div></section>'+
@@ -224,6 +249,8 @@ function render(root=document.getElementById('app')){
  '<div class="cp-action-intro"><span class="cp-eyebrow">YOUR NEXT MOVE</span><h3>What will you do?</h3><p>Choose an action. You will see the result immediately, then advance through the longer-term outcomes.</p></div>'+choiceCards(sc)
  :consequence(sc))+sourceHtml(sc)+'</section>'+
  '<details class="cp-learning-footer"><summary>📖 What this game teaches (optional)</summary><strong>Learning notes</strong><p>Policy effects depend on implementation, economic conditions, institutions, lawful authority and human responses. Legal/ethical risks can create both short-term advantages and longer-term consequences. Some outcomes remain uncertain even after years.</p><button type="button" data-corridor-mode="career">Play the original political career →</button></details></div>';
+ const scene=root.querySelector('.corr-pixel-city');
+ if(scene){const canvas=document.createElement('canvas');canvas.className='corr-pixel-canvas';canvas.setAttribute('aria-hidden','true');scene.insertBefore(canvas,scene.firstChild);drawCityHall(canvas,state.phase,state.scenario)}
 }
 function report(){
  return ['THE CORRIDORS · POLICY CONSEQUENCES','Fictional training simulation. Game metrics are not real economic predictions.','Decisions: '+state.history.length,'',
