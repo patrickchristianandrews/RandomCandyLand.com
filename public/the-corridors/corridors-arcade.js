@@ -33,7 +33,7 @@ function effects(before,after){
 }
 function meter(){
  const p=progress();
- return 'TRUST '+p.metrics.trust+' · BUDGET '+p.metrics.budget+' · PRICES '+p.metrics.prices+' · RATING '+rating(p.metrics)+' / 100';
+ return 'CITY RATING '+rating(p.metrics)+'/100 · '+p.decisions+' FILES';
 }
 function advance(){
  const p=progress();
@@ -63,7 +63,8 @@ function loadWorld(title,message,preserve){
     [{id:'next',x:296,y:148,label:p.phase==='years'?'Next policy':'Advance time',short:p.phase==='years'?'NEXT FILE':'TIME GATE',type:'screen'}],
   message
  });
- world.setPrompt(notChosen?'3 POLICIES + 2 ADVISERS · TAP A CHARACTER OR DESK':'USE THE TIME GATE TO ADVANCE CONSEQUENCES');
+ world.setPrompt(notChosen?'MEET 2 ADVISERS OR CHOOSE A POLICY':'TAP TIME GATE · SEE CONSEQUENCES');
+ world.setStats([{label:'TRUST',value:p.metrics.trust,percent:p.metrics.trust},{label:'BUDGET',value:p.metrics.budget,percent:p.metrics.budget},{label:'PRICE PRESSURE',value:p.metrics.prices,percent:p.metrics.prices,warning:p.metrics.prices>60}]);
 }
 function intro(preserve=false){
  const p=progress();
