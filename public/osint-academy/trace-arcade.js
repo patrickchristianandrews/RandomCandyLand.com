@@ -42,7 +42,8 @@ function showScene(message,keep=false){
   environment:level,objects:positions(),
   preservePlayer:keep,score:solved.size+' / '+cases.length+' CASES · '+xp+' XP',
   message:message||c.brief});
- world.setPrompt(found.size===3?'ALL CLUES · SOLVE THE CASE':'TAP '+(3-found.size)+' GLOWING CLUE'+(3-found.size===1?'':'S')+' · WALK / E');
+ world.setPrompt(found.size===3?'ALL CLUES · CHECK THE SOURCE':'FIND '+(3-found.size)+' MORE CLUE'+(3-found.size===1?'':'S')+' · TAP OBJECTS');
+ world.setStats([{label:'EVIDENCE',value:found.size+'/3',percent:Math.round(found.size/3*100)},{label:'MYSTERIES',value:solved.size+'/5',percent:Math.round(solved.size/5*100)},{label:'XP',value:xp,percent:Math.min(100,xp/8)}]);
 }
 function persist(){
  try{localStorage.setItem(SAVE,JSON.stringify([...solved]));localStorage.setItem(CURRENT,String(level));localStorage.setItem(SCORE,String(xp))}catch{}
@@ -87,6 +88,7 @@ function answer(index){
  if(firstClear)xp+=100;
  persist();
  world.setScore(solved.size+' / '+cases.length+' CASES · '+xp+' XP');
+ world.setStats([{label:'EVIDENCE',value:found.size+'/3',percent:found.size/3*100},{label:'MYSTERIES',value:solved.size+'/5',percent:solved.size/5*100},{label:'XP',value:xp,percent:Math.min(100,xp/8)}]);
  world.setPrompt('CASE CLOSED · NEXT MYSTERY');
  world.tell('CASE SOLVED · +100 XP',c.why,[
   {label:level===cases.length-1?'🏆 Replay the mystery map':'▶ Next mystery',action:next}
