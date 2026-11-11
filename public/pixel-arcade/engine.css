@@ -59,3 +59,47 @@ body.pixel-arcade-active{overflow:hidden!important;overscroll-behavior:none}
 .pixel-arcade-pad button{min-width:28px;min-height:28px}
 .pixel-arcade-interact{min-height:44px}
 }
+/* Pixel Arcade 6 — one-screen campaign HUD, terrain-first presentation. */
+.pixel-arcade-header{width:min(100%,1040px);padding:7px 2px}
+.pixel-arcade-panel{width:min(100%,1040px);background:#0a1930;border:2px solid #5ed8b7;box-shadow:0 0 0 3px #132e49,0 15px 35px #0009}
+.pixel-arcade-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#09182b;border-bottom:2px solid #5a829c;padding:4px 8px}
+.pixel-stat{background:#152944;padding:5px 8px;border:1px solid #355675;border-radius:4px;min-width:0}
+.pixel-stat-caption{display:flex;justify-content:space-between;align-items:center;gap:8px;font:900 9px/1.2 ui-monospace,monospace;letter-spacing:.035em;color:#cceee7}
+.pixel-stat-caption b{font-size:12px;color:#fff1b5;flex-shrink:0}
+.pixel-stat-track{height:5px;background:#091b30;margin-top:5px;border-radius:2px;overflow:hidden;border:1px solid #35536b}
+.pixel-stat-fill{display:block;height:100%;background:linear-gradient(90deg,#408ea5,#b3ffda);transition:width .25s ease}
+.pixel-stat.danger .pixel-stat-fill{background:linear-gradient(90deg,#e7ae62,#fa6d85)}
+.pixel-arcade-stage{background:#10233e;flex:0 0 auto}
+.pixel-arcade-canvas{aspect-ratio:16/9;max-height:min(59dvh,590px);width:100%;outline:0}
+.pixel-arcade-message{background:#0c1c35;min-height:51px;padding:8px 12px;gap:3px;border-top:2px solid #79d5b4}
+.pixel-arcade-speech{font-size:clamp(11px,1.6vw,13px);line-height:1.4}
+.pixel-arcade-speaker{color:#8cf5ce}
+.pixel-arcade-actions{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:6px;padding:7px 9px;background:#10223f}
+.pixel-arcade-choice{border:1px solid #619db0;border-left:4px solid #90f1d7;min-height:42px;background:#1e3757;font-size:12px;padding:8px 11px}
+.pixel-arcade-controls{min-height:82px;padding:5px 11px;border-top:1px solid #345c77}
+.pixel-arcade-pad{grid-template-columns:repeat(3,34px);grid-template-rows:repeat(2,34px)}
+.pixel-arcade-pad button{min-width:34px;min-height:34px}
+.pixel-arcade-interact{min-height:49px;font-size:11px}
+.pixel-arcade-foot{padding:5px;font-size:8px}
+@media(max-width:650px){
+ .pixel-arcade-stats{padding:3px;gap:2px}
+ .pixel-stat{padding:4px}
+ .pixel-stat-caption{font-size:8px;letter-spacing:0;gap:3px}
+ .pixel-stat-caption b{font-size:10px}
+ .pixel-arcade-header{padding:5px 2px}
+ .pixel-arcade-canvas{max-height:min(52dvh,450px)}
+ .pixel-arcade-message{min-height:52px;padding:7px 9px}
+ .pixel-arcade-actions{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));max-height:26dvh}
+ .pixel-arcade-choice{font-size:11px;min-height:42px}
+ .pixel-arcade-controls{min-height:76px;padding:4px 9px}
+ .pixel-arcade-help{display:none}
+ .pixel-arcade-foot{display:none}
+}
+@media(max-height:620px) and (orientation:landscape){
+ .pixel-arcade-stats{padding:2px 6px}.pixel-stat{padding:2px 6px}
+ .pixel-stat-track{margin-top:2px;height:3px}
+ .pixel-arcade-canvas{max-height:52dvh}
+ .pixel-arcade-message{min-height:35px}
+ .pixel-arcade-controls{min-height:57px}
+ .pixel-arcade-choice{min-height:32px}
+}
