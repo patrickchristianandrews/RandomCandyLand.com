@@ -24,7 +24,9 @@ const cases=[
   options:['The May 14 meeting is supported; attendance and the image claim remain unverified.','All attendees in the image definitely participated.','An undated image proves the entire dossier.'],correct:0,
   why:'A strong report separates well-supported dates from unsupported identity or location claims. State uncertainty clearly and preserve provenance.'}
 ];
-// The full-screen pixel adventure uses the same fictional cases and solved progress.\nwindow.TracePixelCaseData=Object.freeze(cases.map(c=>Object.freeze(c)));\nconst STORE='trace-pixel-sidecases-v1';let index=0,found=new Set(),solved=new Set(),attempts=0;
+// The full-screen pixel adventure uses the same fictional cases and solved progress.
+window.TracePixelCaseData=Object.freeze(cases.map(c=>Object.freeze(c)));
+const STORE='trace-pixel-sidecases-v1';let index=0,found=new Set(),solved=new Set(),attempts=0;
 try{const x=JSON.parse(localStorage.getItem(STORE)||'[]');if(Array.isArray(x))solved=new Set(x.filter(n=>Number.isInteger(n)&&n>=0&&n<cases.length))}catch{}
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
 function say(text){const n=$('pq-scout-feedback');if(n)n.textContent=text}
