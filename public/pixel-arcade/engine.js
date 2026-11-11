@@ -20,6 +20,7 @@ function create(config){
  top.append(name,exit,detail);
  const panel=$('div','pixel-arcade-panel'),hud=$('div','pixel-arcade-hud');
  const level=$('strong','pixel-arcade-level','Starting world…'),score=$('span','pixel-arcade-score','0/5');
+ const stats=$('div','pixel-arcade-stats');
  hud.append(level,score);
  const stage=$('div','pixel-arcade-stage');
  const canvas=$('canvas','pixel-arcade-canvas');canvas.width=W;canvas.height=H;canvas.tabIndex=0;
@@ -40,7 +41,7 @@ function create(config){
  const actButton=$('button','pixel-arcade-interact','✦ INTERACT');actButton.type='button';
  const help=$('span','pixel-arcade-help','Arrows / WASD · E to interact · tap objects');
  controls.append(pad,actButton,help);
- panel.append(hud,stage,message,actions,controls);
+ panel.append(hud,stats,stage,message,actions,controls);
  const foot=$('div','pixel-arcade-foot');foot.textContent='FICTIONAL SIMULATION · progress stays in this browser';
  shell.append(top,panel,foot);
  const restore=$('button','pixel-arcade-restore','🎮 Return to pixel game');restore.type='button';
@@ -222,6 +223,17 @@ function create(config){
    }
    raf=requestAnimationFrame(step);
  }
+ function setStats(values){
+   stats.replaceChildren();
+   for(const item of values||[]){
+     const metric=$('div','pixel-stat'+(item.warning?' danger':''));
+     const span=$('div','pixel-stat-caption');
+     span.append($('strong','',item.label),$('b','',String(item.value)));
+     const track=$('div','pixel-stat-track'),bar=$('i','pixel-stat-fill');
+     bar.style.width=Math.max(0,Math.min(100,Number(item.value)||0))+'%';
+     track.append(bar);metric.append(span,track);stats.append(metric);
+   }
+ }
  function setWorld(obj){
    scene={title:obj.title||'',objects:obj.objects||[],environment:obj.environment||0,accent:obj.accent,genre:obj.genre||config.genre||'trace',mood:obj.mood||'choose'};
    level.textContent=obj.title||config.title;
@@ -279,6 +291,7 @@ function create(config){
   state:()=>({title:scene.title,environment:scene.environment,objects:scene.objects.map(x=>({...x})),player:{x:avatar.x,y:avatar.y},active}),
   clickObject:i=>approach(scene.objects[i]),interactIndex:i=>interactItem(scene.objects[i]),
   setScore:value=>score.textContent=value,
+  setStats,
   setPrompt:value=>prompt.textContent=value,
   canvas});
  raf=requestAnimationFrame(step);
