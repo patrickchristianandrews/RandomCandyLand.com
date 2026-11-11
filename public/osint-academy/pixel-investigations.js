@@ -28,6 +28,36 @@ const STORE='trace-pixel-sidecases-v1';let index=0,found=new Set(),solved=new Se
 try{const x=JSON.parse(localStorage.getItem(STORE)||'[]');if(Array.isArray(x))solved=new Set(x.filter(n=>Number.isInteger(n)&&n>=0&&n<cases.length))}catch{}
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
 function say(text){const n=$('pq-scout-feedback');if(n)n.textContent=text}
+// Draw actual low-resolution scenery with browser canvas, not decorative text blocks.
+function paintScene(canvas,caseIndex,clues){
+ const cx=canvas.getContext('2d');if(!cx)return;
+ const w=160,h=60;canvas.width=w;canvas.height=h;
+ const sky=['#253667','#2d416c','#222c64','#4d335b','#353561'][caseIndex]||'#253667';
+ const rect=(x,y,a,b,color)=>{cx.fillStyle=color;cx.fillRect(x,y,a,b)};
+ rect(0,0,w,h,sky);
+ for(let i=0;i<18;i++){const x=(i*37+caseIndex*13)%w,y=(i*17+7)%26;rect(x,y,1,1,'#c8e4ff')}
+ rect(111,8,12,12,caseIndex===4?'#f5e6aa':'#b8c7f3');
+ // Distant skyline and lit windows: distinct colors by district.
+ for(let i=0;i<12;i++){
+  const x=i*15-3,hh=12+((i*11+caseIndex*7)%23);
+  rect(x,42-hh,15,hh+18,i%2?'#19294a':'#24395a');
+  for(let y=44-hh;y<43;y+=6)for(let wx=x+3;wx<x+14;wx+=6)
+   if((wx+y+caseIndex)%3!==0)rect(wx,y,2,3,caseIndex===3?'#e6b0c2':'#d8c380');
+ }
+ rect(0,49,w,11,'#263752');rect(0,47,w,2,'#8192a2');
+ for(let i=0;i<12;i++)rect(i*15+2,53,7,1,'#d6cda4');
+ // Pixel detective, simple hat/head/jacket/boots silhouette.
+ const px=10+clues*5,py=26;
+ rect(px,py,10,3,'#161d35');rect(px+2,py-3,7,4,'#a9c7dc');
+ rect(px+2,py+3,7,9,'#e7b79e');rect(px+1,py+12,9,9,'#66c7ab');
+ rect(px+3,py+21,2,5,'#121d39');rect(px+8,py+21,2,5,'#121d39');
+ rect(px+7,py+6,1,1,'#263d51');
+ // Scene-specific investigation landmark.
+ const colors=['#fa9b9b','#79d5de','#ce93db','#f6c879','#e4b8ae'];
+ rect(112,35,32,2,colors[caseIndex]);rect(115,31,4,4,'#d7edf6');
+ rect(131,27,7,10,colors[caseIndex]);rect(132,28,5,7,'#293a64');
+ for(let i=0;i<3;i++){rect(84+i*11,44,7,2,clues>i?'#9dffcf':'#53678b')}
+}
 function render(){
  const c=cases[index],scene=$('pq-scout-scene'),notes=$('pq-scout-notes'),choices=$('pq-scout-choices'),map=$('pq-scout-map');if(!scene)return;
  $('pq-scout-title').textContent=(index+1)+' / '+cases.length+' · '+c.title;
@@ -35,6 +65,9 @@ function render(){
  $('pq-scout-npc').textContent=c.npc+' · '+c.place;
  $('pq-scout-score').textContent=solved.size+' / '+cases.length+' side cases solved';
  scene.replaceChildren();notes.replaceChildren();choices.replaceChildren();map.replaceChildren();
+ const canvas=el('canvas','pq-scout-pixel-canvas');canvas.setAttribute('aria-hidden','true');scene.append(canvas);paintScene(canvas,index,found.size);
+ const stage=$('pq-scout-stage');if(stage)stage.textContent=solved.has(index)?'✓ Mystery solved · choose Next':found.size===3?'✓ All clues found · make your deduction':'🔎 Find '+(3-found.size)+' more clue'+(3-found.size===1?'':'s')+' in the scene';
+ choices.hidden=found.size<3||solved.has(index);
  const landmark=el('span','pq-scout-landmark',c.scene);landmark.setAttribute('aria-hidden','true');scene.append(landmark);
  c.objects.forEach(([icon,name,detail],i)=>{
   const button=el('button','pq-scout-hotspot'+(found.has(i)?' found':''));button.type='button';button.setAttribute('aria-label','Investigate '+name);
@@ -48,9 +81,9 @@ function render(){
   b.textContent=String.fromCharCode(65+i)+'. '+answer;
   b.addEventListener('click',()=>{
    attempts++;
-   if(i!==c.correct){say('Not quite. '+c.why+' Try again using the evidence you collected.');b.classList.add('incorrect');return}
+   if(i!==c.correct){say('Not quite. Compare the source dates and reliability. Try a different conclusion.');b.classList.add('incorrect');return}
    solved.add(index);try{localStorage.setItem(STORE,JSON.stringify([...solved]))}catch{}
-   say('🏆 CASE SOLVED! '+c.why+' Badge earned. Choose the next side case to keep investigating.');
+   say('🏆 Case solved! Your evidence checked out. Tap Next mystery to continue.');
    render();
   });choices.append(b);
  });
@@ -61,17 +94,18 @@ function render(){
   map.append(b);
  });
  const next=$('pq-scout-next');next.disabled=!solved.has(index)||index===cases.length-1;
+ const lesson=$('pq-scout-lesson');if(lesson){lesson.hidden=!solved.has(index);$('pq-scout-lesson-text').textContent=c.why}
  const finish=solved.size===cases.length;const badge=$('pq-scout-badge');badge.hidden=!finish;
  if(finish)badge.textContent='🏆 Pixel Evidence Detective · five verified side mysteries solved';
 }
 function init(){
  const hub=$('trace-pixel-quest');if(!hub||$('pq-sidecases'))return;
  const wrap=el('section','pq-scout');wrap.id='pq-sidecases';wrap.setAttribute('aria-label','Interactive pixel clue hunt');
- wrap.innerHTML='<div class="pq-scout-head"><span>🔍 THE CLUE HUNT</span><h3 id="pq-scout-title"></h3><p id="pq-scout-brief"></p><small id="pq-scout-score"></small></div><div class="pq-scout-map" id="pq-scout-map" role="group" aria-label="Five side mysteries"></div><div class="pq-scout-world"><div class="pq-scout-npc" id="pq-scout-npc"></div><div class="pq-scout-scene" id="pq-scout-scene"></div></div><div class="pq-scout-board"><div><h4>📎 Collected evidence</h4><div id="pq-scout-notes" class="pq-scout-notes"></div></div><div><h4>🧠 What can you conclude?</h4><p class="pq-scout-hint">Find all three clues to unlock the deduction.</p><div id="pq-scout-choices" class="pq-scout-choices"></div></div></div><p id="pq-scout-feedback" class="pq-scout-feedback" role="status" aria-live="polite">Choose a hotspot in the scene and start searching.</p><p id="pq-scout-badge" class="pq-scout-badge" hidden></p><button type="button" id="pq-scout-next" class="pq-scout-next" disabled>▶ Next mystery</button><p class="pq-scout-caution">Fictional cases teach source verification. They do not collect personal data or connect to real people. Side-case badges are separate from campaign XP.</p>';
+ wrap.innerHTML='<div class="pq-scout-head"><span>🎮 TRACE PIXEL PLAY · ONE MYSTERY AT A TIME</span><h3 id="pq-scout-title"></h3><p id="pq-scout-brief"></p><small id="pq-scout-score"></small></div><div class="pq-scout-map" id="pq-scout-map" role="group" aria-label="Five side mysteries"></div><div class="pq-scout-world"><div class="pq-scout-npc" id="pq-scout-npc"></div><div id="pq-scout-stage" class="pq-scout-stage" role="status"></div><div class="pq-scout-scene" id="pq-scout-scene"></div></div><p id="pq-scout-feedback" class="pq-scout-feedback" role="status" aria-live="polite">Tap a glowing clue to begin.</p><div class="pq-scout-board"><details class="pq-scout-journal"><summary>📎 Evidence notebook (optional)</summary><div id="pq-scout-notes" class="pq-scout-notes"></div></details><div class="pq-scout-decision"><h4>🧠 Your deduction</h4><p class="pq-scout-hint">Find three clues to unlock your choices.</p><div id="pq-scout-choices" class="pq-scout-choices"></div></div></div><details class="pq-scout-lesson" id="pq-scout-lesson" hidden><summary>💡 Why that conclusion works</summary><p id="pq-scout-lesson-text"></p></details><p id="pq-scout-badge" class="pq-scout-badge" hidden></p><button type="button" id="pq-scout-next" class="pq-scout-next" disabled>▶ Next mystery</button><p class="pq-scout-caution">Fictional data only. Your progress saves on this device.</p>';
  hub.insertBefore(wrap,hub.querySelector('.pq-world')||hub.firstChild);
  // Expose a stable entry for the main Play button and direct #pixel-mysteries link.
  wrap.setAttribute('tabindex','-1');
- wrap.setAttribute('data-trace-release','20261110-scout');
+ wrap.setAttribute('data-trace-release','20261111-play-v3');
  const jump=()=>{document.querySelector('#tab-missions')?.click();wrap.scrollIntoView({behavior:'smooth',block:'start'});wrap.focus({preventScroll:true})};
  document.querySelectorAll('[data-trace-play-scout]').forEach(button=>button.addEventListener('click',jump));
  if(location.hash==='#pixel-mysteries')requestAnimationFrame(jump);
