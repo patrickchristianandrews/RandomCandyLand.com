@@ -191,7 +191,7 @@ function create(config){
    else if(y>=105){destination={x:clamp(x,18,W-18),y:clamp(y,111,H-12)}}
  });
  function showDetail(){
-   active=false;moving.clear();shell.hidden=true;restore.hidden=false;document.body.classList.remove('pixel-arcade-active');window.scrollTo(0,0);
+   active=false;moving.clear();shell.hidden=true;restore.hidden=false;document.body.classList.remove('pixel-arcade-active');config.onDetails?.(api);window.scrollTo(0,0);
  }
  function showGame(){
    active=true;shell.hidden=false;restore.hidden=true;document.body.classList.add('pixel-arcade-active');last=performance.now();config.onResume?.(api);
