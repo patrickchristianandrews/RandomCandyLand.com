@@ -37,9 +37,9 @@ function create(config){
    const b=$('button','pixel-arcade-pad-'+dir,label);b.type='button';b.dataset.move=dir;b.setAttribute('aria-label','Move '+dir);
    pad.append(b);
  }
- const interact=$('button','pixel-arcade-interact','✦ INTERACT');interact.type='button';
+ const actButton=$('button','pixel-arcade-interact','✦ INTERACT');actButton.type='button';
  const help=$('span','pixel-arcade-help','Arrows / WASD · E to interact · tap objects');
- controls.append(pad,interact,help);
+ controls.append(pad,actButton,help);
  panel.append(hud,stage,message,actions,controls);
  const foot=$('div','pixel-arcade-foot');foot.textContent='FICTIONAL SIMULATION · progress stays in this browser';
  shell.append(top,panel,foot);
@@ -127,7 +127,7 @@ function create(config){
  }
  const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
  function nearObject(){let best=null,d=1e9;for(const o of scene.objects||[]){const nd=distance(avatar,o);if(nd<d){d=nd;best=o}}return best}
- function interact(o){if(!o||!active)return;destination=null;lastInteraction=performance.now();config.onInteract?.(o,api)}
+ function interactItem(o){if(!o||!active)return;destination=null;lastInteraction=performance.now();config.onInteract?.(o,api)}
  function approach(o){if(!o)return;destination={x:clamp(o.x-14,24,W-24),y:clamp(o.y+18,105,H-9),object:o};prompt.textContent='Walking to '+o.label+'…'}
  function step(now){
    const dt=clamp((now-(last||now))/1000,0,.05);last=now;frame++;
@@ -137,7 +137,7 @@ function create(config){
     if(moving.has('up'))vy--;if(moving.has('down'))vy++;
     if(vx||vy)destination=null;
     else if(destination){const dx=destination.x-avatar.x,dy=destination.y-avatar.y,d=Math.hypot(dx,dy);
-      if(d<4){avatar.x=destination.x;avatar.y=destination.y;const item=destination.object;destination=null;interact(item)}
+      if(d<4){avatar.x=destination.x;avatar.y=destination.y;const item=destination.object;destination=null;interactItem(item)}
       else{vx=dx/d;vy=dy/d}
     }
     if(vx||vy){const mag=Math.hypot(vx,vy);avatar.x=clamp(avatar.x+vx/mag*115*dt,18,W-18);avatar.y=clamp(avatar.y+vy/mag*115*dt,111,H-12);avatar.step++}
@@ -163,8 +163,8 @@ function create(config){
     b.addEventListener('click',()=>choice.action?.());actions.append(b);dialogButtons.push(b);
    }
  }
- function nearestAction(){const o=nearObject();if(o){if(distance(avatar,o)<35)interact(o);else approach(o)}}
- interact.addEventListener('click',nearestAction);
+ function nearestAction(){const o=nearObject();if(o){if(distance(avatar,o)<35)interactItem(o);else approach(o)}}
+ actButton.addEventListener('click',nearestAction);
  const directions=['up','down','left','right'];
  for(const b of pad.querySelectorAll('button')){
    const d=b.dataset.move;
@@ -187,7 +187,7 @@ function create(config){
    const bb=canvas.getBoundingClientRect(),x=(e.clientX-bb.left)/bb.width*W,y=(e.clientY-bb.top)/bb.height*H;
    let best=null,d=50;
    for(const item of scene.objects||[]){const di=Math.hypot(x-item.x,y-item.y);if(di<d){d=di;best=item}}
-   if(best){if(distance(avatar,best)<30)interact(best);else approach(best)}
+   if(best){if(distance(avatar,best)<30)interactItem(best);else approach(best)}
    else if(y>=105){destination={x:clamp(x,18,W-18),y:clamp(y,111,H-12)}}
  });
  function showDetail(){
@@ -200,7 +200,7 @@ function create(config){
  restore.hidden=true;document.body.classList.add('pixel-arcade-active');
  const api=Object.freeze({setWorld,tell,showGame,showDetail,
   state:()=>({title:scene.title,environment:scene.environment,objects:scene.objects.map(x=>({...x})),player:{x:avatar.x,y:avatar.y},active}),
-  clickObject:i=>approach(scene.objects[i]),interactIndex:i=>interact(scene.objects[i]),
+  clickObject:i=>approach(scene.objects[i]),interactIndex:i=>interactItem(scene.objects[i]),
   setScore:value=>score.textContent=value,
   setPrompt:value=>prompt.textContent=value,
   canvas});
