@@ -14,3 +14,37 @@
 #pq-sidecases:focus{outline:3px solid #ffeaa0;outline-offset:4px}
 .pq-hub>.pq-scout{margin:12px 10px 18px}
 @media(max-width:600px){.trace-new-pixel-banner{display:grid}.trace-new-pixel-banner button{width:100%}}
+
+/* Pixel Play 3: scene-first game, compact choices, optional reading. */
+.pq-scout-pixel-canvas{position:absolute;inset:0;z-index:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+.pq-scout-scene{overflow:hidden;border-color:#203f72;min-height:175px;isolation:isolate;background:#22385d;align-items:end}
+.pq-scout-landmark{display:none}
+.pq-scout-hotspot{z-index:2;align-self:end;min-height:76px;max-width:170px;justify-self:center;box-shadow:3px 3px 0 #111d3d;background:#102449e8;border:2px solid #ffee8b;transition:transform .12s ease,background .12s ease}
+.pq-scout-hotspot:focus-visible{outline:3px solid #baffd5;outline-offset:2px}
+.pq-scout-hotspot.found{background:#174941e8;border-color:#9dffbd}
+.pq-scout-hotspot small{font-size:9px}
+.pq-scout-stage{font:900 11px/1.4 monospace;color:#d5ffe9;letter-spacing:.02em;padding:4px 5px 8px}
+.pq-scout-world{padding:10px 12px}
+.pq-scout-head{padding:13px 16px}.pq-scout-head h3{font-size:clamp(20px,3vw,27px);margin:4px 0}
+.pq-scout-head p{font-size:12px;line-height:1.4;margin:4px 0;max-width:68ch}
+.pq-scout-map{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding:8px}
+.pq-scout-map button{flex:0 0 auto;padding:7px 9px}
+.pq-scout-board{grid-template-columns:1fr;gap:8px;padding:4px 12px 11px}
+.pq-scout-journal{padding:6px 10px;background:#203359;border:1px solid #54719a;border-radius:8px;order:2}
+.pq-scout-journal summary,.pq-scout-lesson summary{cursor:pointer;font-weight:800;font-size:12px;color:#c2ffdc;padding:6px 2px}
+.pq-scout-journal:not([open]) .pq-scout-notes{display:none}
+.pq-scout-notes{padding-top:8px;display:grid;gap:6px}
+.pq-scout-evidence{padding:7px}.pq-scout-evidence p{margin:4px 0;line-height:1.4}
+.pq-scout-decision{order:1}
+.pq-scout-decision h4{font-size:14px;margin:7px 0 3px}
+.pq-scout-hint{font-size:11px;margin:0 0 7px}
+.pq-scout-choices{gap:7px}
+.pq-scout-choices[hidden]{display:none!important}
+.pq-scout-answer{font-size:12px;line-height:1.35;padding:10px;min-height:42px}
+.pq-scout-feedback{margin:0 12px 7px;padding:9px 11px;font-size:12px;line-height:1.4}
+.pq-scout-lesson{margin:0 12px 8px;padding:4px 9px;background:#203653;border:1px solid #54719a;border-radius:8px}
+.pq-scout-lesson[hidden]{display:none!important}
+.pq-scout-lesson p{font-size:11px;line-height:1.55;margin:5px 0 8px}
+.pq-scout-next{min-height:45px;padding:10px 20px;margin:4px 12px 12px}
+.pq-scout-caution{font-size:10px;padding:7px 12px}
+@media(max-width:620px){.pq-scout-scene{min-height:166px;gap:3px;padding:8px 4px}.pq-scout-hotspot{min-width:0;min-height:77px;padding:6px 3px}.pq-scout-hotspot b{font-size:22px}.pq-scout-hotspot span{font-size:10px}.pq-scout-map button{font-size:10px}.pq-scout-board{grid-template-columns:1fr}}
