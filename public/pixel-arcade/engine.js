@@ -175,7 +175,7 @@ function create(config){
    b.addEventListener('click',e=>{if(e.detail===0){moving.add(d);setTimeout(()=>moving.delete(d),180)}});
  }
  window.addEventListener('keydown',e=>{
-   if(!active||e.target.matches('input,textarea,select'))return;
+   if(!active||(e.target instanceof Element&&e.target.matches('input,textarea,select')))return;
    const mapping={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
    const dir=mapping[e.code];if(dir){moving.add(dir);e.preventDefault()}
    else if(e.code==='KeyE'||e.code==='Space'){nearestAction();e.preventDefault()}
