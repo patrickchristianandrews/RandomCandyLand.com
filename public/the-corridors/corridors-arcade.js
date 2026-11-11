@@ -3,10 +3,10 @@
 (()=>{'use strict';
 const engine=window.CorridorsPolicyLab;
 if(!window.PixelWorld||!engine?.currentCase||!engine.chooseAction)return;
-let world=null,lastScenario=-1,advisers=new Set(),beforeMetrics=null,lastDelta='',rank=0;
+let world=null,lastScenario=-1,advisers=new Set(),beforeMetrics=null,rank=0,insight=0;
 const SAVE='corridors-arcade-cabinet-v6';
-try{const x=JSON.parse(localStorage.getItem(SAVE)||'{}');if(x.scenario===engine.getProgress().scenario&&Array.isArray(x.advisers))advisers=new Set(x.advisers.filter(n=>n==='finance'||n==='community'));rank=Number(x.rank)||0}catch{}
-const persist=()=>{try{localStorage.setItem(SAVE,JSON.stringify({scenario:progress().scenario,advisers:[...advisers],rank}))}catch{}};
+try{const x=JSON.parse(localStorage.getItem(SAVE)||'{}');if(x.scenario===engine.getProgress().scenario&&Array.isArray(x.advisers))advisers=new Set(x.advisers.filter(n=>n==='finance'||n==='community'));rank=Math.floor(Number(x.rank)||0);insight=Math.max(0,Math.floor(Number(x.insight)||0))}catch{}
+const persist=()=>{try{localStorage.setItem(SAVE,JSON.stringify({scenario:progress().scenario,advisers:[...advisers],rank,insight}))}catch{}};
 const coords=[[74,145],[289,145],[236,180]];
 const prefix=(s,n)=>String(s||'').length>n?String(s).slice(0,n-1).trimEnd()+'…':String(s||'');
 function progress(){return engine.getProgress()}
@@ -78,7 +78,7 @@ function propose(index){
  const opt=sc.options[index];if(!opt)return;
  world.tell('CABINET PROPOSAL '+String.fromCharCode(65+index),
   prefix(opt.name+'. '+opt.label,175),[
-  {label:'✓ Approve this policy',action:()=>{beforeMetrics={...progress().metrics};engine.chooseAction(index);if(advisers.size===2){rank+=0.15}persist();outcome(true)}},
+  {label:'✓ Approve this policy',action:()=>{beforeMetrics={...progress().metrics};engine.chooseAction(index);if(advisers.size===2){insight+=10}persist();outcome(true)}},
   {label:'↩ Compare options / advisers',action:()=>intro(true)}
  ]);
 }
@@ -119,7 +119,7 @@ world=window.PixelWorld.create({
 });
 intro(false);
 window.CorridorsArcade=Object.freeze({
- state:()=>({...progress(),title:scene().title,advisers:[...advisers],rank,rating:rating(progress().metrics),screen:world.state()}),
+ state:()=>({...progress(),title:scene().title,advisers:[...advisers],rank,insight,rating:rating(progress().metrics),screen:world.state()}),
  choose:index=>{beforeMetrics={...progress().metrics};engine.chooseAction(index);outcome(true)},
  consult,
  advance,play:()=>world.showGame(),showDetails:()=>world.showDetail(),
