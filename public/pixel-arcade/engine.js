@@ -230,7 +230,7 @@ function create(config){
      const span=$('div','pixel-stat-caption');
      span.append($('strong','',item.label),$('b','',String(item.value)));
      const track=$('div','pixel-stat-track'),bar=$('i','pixel-stat-fill');
-     bar.style.width=Math.max(0,Math.min(100,Number(item.value)||0))+'%';
+     bar.style.width=Math.max(0,Math.min(100,Number(item.percent??item.value)||0))+'%';
      track.append(bar);metric.append(span,track);stats.append(metric);
    }
  }
