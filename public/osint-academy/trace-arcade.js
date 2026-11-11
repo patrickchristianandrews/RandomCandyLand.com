@@ -74,7 +74,8 @@ function inspect(obj){
 }
 world=window.PixelWorld.create({
  id:'trace',title:'TRACE // PIXEL DETECTIVE',tagline:'FIND THE CLUES · TEST THE CLAIM · SOLVE THE MYSTERY',
- onInteract:inspect,onResume:()=>showScene(undefined,true)
+ onInteract:inspect,onResume:()=>showScene(undefined,true),
+ onDetails:()=>window.TraceQuickPlay?.setMode('academy',false)
 });
 persist();showScene(cases[level].brief);
 window.TraceArcade=Object.freeze({
