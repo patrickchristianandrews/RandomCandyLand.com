@@ -6,6 +6,9 @@ const start={mode:'policy',chapter:0,influence:36,knowledge:32,relationships:53,
 let state=W.load(KEY,start);
 if(!Array.isArray(state.actors)||state.actors.length!==6)state=W.copy(start);
 if(!['policy','career'].includes(state.mode))state.mode='policy';
+// Show the redesigned pixel policy game once for visitors with a saved old career view.
+// Their career chapter, alliances and journal remain saved and available from Career mode.
+try{if(!localStorage.getItem('corridors-pixel-default-v3')){state.mode='policy';localStorage.setItem('corridors-pixel-default-v3','1')}}catch{state.mode='policy'}
 const factions=[
  ['Residents','🏘️','Daily life and services'],['Business council','🏦','Investment and contracts'],['Labor coalition','🛠️','Workers and protections'],['Press','📰','Information and accountability'],['Civic watchdog','🔎','Oversight and integrity'],['City leadership','🏛️','Coalitions and political power']
 ];
