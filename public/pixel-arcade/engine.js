@@ -149,7 +149,7 @@ function create(config){
    scene={title:obj.title||'',objects:obj.objects||[],environment:obj.environment||0,accent:obj.accent};
    level.textContent=obj.title||config.title;
    score.textContent=obj.score||'';
-   avatar={x:188,y:190,face:0,step:0};destination=null;
+   if(!obj.preservePlayer)avatar={x:188,y:190,face:0,step:0};destination=null;
    prompt.textContent='Tap a glowing object or move with the controls';
    if(obj.message)tell('GUIDE',obj.message);
    canvas.focus({preventScroll:true});
