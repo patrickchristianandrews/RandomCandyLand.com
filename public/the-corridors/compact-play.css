@@ -42,3 +42,26 @@
 .world.corridors .layout{max-width:1100px;margin:0 auto}
 @media(max-width:750px){.world.corridors .cp-choices{grid-template-columns:1fr}.world.corridors .cp-choice{min-height:70px}.corr-pixel-city{height:130px}.corr-pixel-buildings{font-size:43px;letter-spacing:6px}.world.corridors .cp-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.corr-pixel-official{animation:none}}
+
+/* Pixel Politics 3: scene first; collapse secondary dashboards below the action. */
+.world.corridors .cp-full>.cp-case{order:-2}
+.world.corridors .cp-full>.cp-mode-nav{order:-1}
+.world.corridors .cp-full>.cp-dashboard{order:2}
+.world.corridors .cp-full>.cp-scenario-picker{order:3}
+.world.corridors .cp-full>.cp-learning-footer{order:4}
+.world.corridors .corr-pixel-city{height:clamp(146px,20vw,190px);position:relative;border-color:#122948;image-rendering:pixelated;isolation:isolate;overflow:hidden}
+.world.corridors .corr-pixel-city::before{display:none}
+.world.corridors .corr-pixel-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;image-rendering:pixelated;pointer-events:none}
+.world.corridors .corr-pixel-buildings,.world.corridors .corr-pixel-official,.world.corridors .corr-pixel-aide,.world.corridors .corr-pixel-moon{display:none}
+.world.corridors .corr-pixel-dialog{z-index:2;font:900 clamp(11px,1.8vw,15px)/1.4 monospace;max-width:620px;margin:0 auto;left:12px;right:12px;bottom:8px;background:#122548ee}
+.world.corridors .cp-case-head p{max-width:75ch}
+.world.corridors .cp-conditions{padding:8px;margin:5px 0}
+.world.corridors .cp-conditions p{font-size:11px;line-height:1.4;margin:5px 0}
+.world.corridors .cp-action-intro{margin:5px 0}
+.world.corridors .cp-mode-nav{margin:0}
+.world.corridors .cp-case{scroll-margin-top:10px}
+.world.corridors .cp-choice:focus-visible,.world.corridors [data-policy-advance]:focus-visible{outline:3px solid #b9ffe4;outline-offset:3px}
+.world.corridors .cp-choices button{min-height:88px}
+.world.corridors .cp-choices button p{font-size:11px}
+.world.corridors .cp-sources{font-size:11px}
+@media(max-width:700px){.world.corridors .corr-pixel-city{height:148px}.world.corridors .cp-choices button{min-height:64px}.world.corridors .cp-choice p{display:none}.world.corridors .cp-mode-nav button{flex:1}.world.corridors .cp-case-head p{font-size:11px}}
