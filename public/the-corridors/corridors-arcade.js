@@ -3,55 +3,83 @@
 (()=>{'use strict';
 const engine=window.CorridorsPolicyLab;
 if(!window.PixelWorld||!engine?.currentCase||!engine.chooseAction)return;
-let world=null,lastScenario=-1;
-const coords=[[88,145],[288,145],[236,180]];
+let world=null,lastScenario=-1,advisers=new Set(),beforeMetrics=null,lastDelta='',rank=0;
+const SAVE='corridors-arcade-cabinet-v6';
+try{const x=JSON.parse(localStorage.getItem(SAVE)||'{}');if(x.scenario===engine.getProgress().scenario&&Array.isArray(x.advisers))advisers=new Set(x.advisers.filter(n=>n==='finance'||n==='community'));rank=Number(x.rank)||0}catch{}
+const persist=()=>{try{localStorage.setItem(SAVE,JSON.stringify({scenario:progress().scenario,advisers:[...advisers],rank}))}catch{}};
+const coords=[[74,145],[289,145],[236,180]];
 const prefix=(s,n)=>String(s||'').length>n?String(s).slice(0,n-1).trimEnd()+'…':String(s||'');
 function progress(){return engine.getProgress()}
 function scene(){return engine.currentCase()}
 function options(){
  const sc=scene();
- return sc.options.map((o,i)=>({
+ const desks=sc.options.map((o,i)=>({
    id:i,x:coords[i][0],y:coords[i][1],label:o.name,
-   short:['POLICY A','POLICY B','POLICY C'][i],type:['desk','ballot','folder'][i]
+   short:['PLAN A','PLAN B','PLAN C'][i],type:['desk','ballot','folder'][i]
  }));
+ desks.push({id:'finance',x:147,y:143,label:'Budget adviser',short:advisers.has('finance')?'✓ FINANCE':'FINANCE',type:'npc',done:advisers.has('finance')});
+ desks.push({id:'community',x:345,y:183,label:'Community adviser',short:advisers.has('community')?'✓ PEOPLE':'PEOPLE',type:'npc',done:advisers.has('community')});
+ return desks;
+}
+function rating(m){
+ return Math.round(Math.max(0,Math.min(100,(m.trust*0.3)+(m.budget*0.2)+(m.stability*0.2)+(m.services*0.15)+((100-m.prices)*0.15))));
+}
+const deltaNames=[['trust','Trust'],['budget','Budget'],['prices','Prices'],['services','Services'],['stability','Households']];
+function effects(before,after){
+ if(!before||!after)return '';
+ return deltaNames.map(([k,name])=>({name,diff:(Number(after[k])||0)-(Number(before[k])||0)}))
+ .filter(x=>x.diff).sort((a,b)=>Math.abs(b.diff)-Math.abs(a.diff)).slice(0,2)
+ .map(x=>x.name+' '+(x.diff>0?'+':'')+x.diff).join(' · ');
 }
 function meter(){
  const p=progress();
- return 'TRUST '+p.metrics.trust+' · PRICES '+p.metrics.prices+' · '+p.decisions+' DECISIONS';
+ return 'TRUST '+p.metrics.trust+' · BUDGET '+p.metrics.budget+' · PRICES '+p.metrics.prices+' · RATING '+rating(p.metrics)+' / 100';
 }
 function advance(){
  const p=progress();
  if(p.choice===null){intro(true);return}
- if(p.phase==='years'){engine.completeCase();intro(false)}
- else{engine.advancePhase();outcome(true)}
+ beforeMetrics={...p.metrics};
+ if(p.phase==='years'){
+   engine.completeCase();advisers.clear();beforeMetrics=null;rank++;persist();
+   intro(false);
+   if(rank>0&&rank%5===0){
+    const p2=progress(),score=rating(p2.metrics);
+    world.tell('🏆 END OF TERM · CITY RATING '+score,
+     'You completed five policy files. Your decisions left a mixed legacy. Keep exploring, or examine the detailed report.',[
+      {label:'▶ Continue in office',action:()=>intro(true)},
+      {label:'📊 Review your record',action:()=>world.showDetail()}
+     ]);
+   }
+ }else{engine.advancePhase();outcome(true)}
 }
 function phaseLabel(s){return s==='today'?'TODAY':s==='months'?'SIX MONTHS LATER':s==='years'?'TWO YEARS LATER':'CITY HALL'}
 function loadWorld(title,message,preserve){
  const p=progress(),sc=scene(),notChosen=p.choice===null;
  world.setWorld({
   title:'FILE '+(p.scenario+1)+' · '+prefix(sc.title,32),
+  genre:'civic',mood:p.phase,
   environment:(p.scenario+(p.phase==='years'?2:p.phase==='months'?1:0))%5,
   score:meter(),preservePlayer:preserve,objects:notChosen?options():
     [{id:'next',x:296,y:148,label:p.phase==='years'?'Next policy':'Advance time',short:p.phase==='years'?'NEXT FILE':'TIME GATE',type:'screen'}],
   message
  });
- world.setPrompt(notChosen?'WALK TO A GLOWING POLICY DESK · E / TAP':'TAP THE TIME GATE · E / TAP');
+ world.setPrompt(notChosen?'3 POLICIES + 2 ADVISERS · TAP A CHARACTER OR DESK':'USE THE TIME GATE TO ADVANCE CONSEQUENCES');
 }
 function intro(preserve=false){
  const p=progress();
  if(p.choice!==null){outcome(preserve);return}
  const sc=scene();
  loadWorld(sc.title,prefix(sc.lead,185),preserve);
- world.tell('MAYOR · YOUR CALL',prefix(sc.lead,185)+' Choose one of three desks, then approve your decision.');
+ world.tell('MAYOR · YOUR CALL',prefix(sc.lead,155)+' Meet your advisers if you want context, then choose a policy desk.');
 }
 function propose(index){
  const p=progress(),sc=scene();
  if(p.choice!==null){outcome(true);return}
  const opt=sc.options[index];if(!opt)return;
  world.tell('CABINET PROPOSAL '+String.fromCharCode(65+index),
-  prefix(opt.name+'. '+opt.label,230),[
-  {label:'✓ Approve this policy',action:()=>{engine.chooseAction(index);outcome(true)}},
-  {label:'↩ Compare other options',action:()=>intro(true)}
+  prefix(opt.name+'. '+opt.label,175),[
+  {label:'✓ Approve this policy',action:()=>{beforeMetrics={...progress().metrics};engine.chooseAction(index);if(advisers.size===2){rank+=0.15}persist();outcome(true)}},
+  {label:'↩ Compare options / advisers',action:()=>intro(true)}
  ]);
 }
 function outcome(preserve=false){
@@ -59,16 +87,30 @@ function outcome(preserve=false){
  if(p.choice===null){intro(preserve);return}
  const opt=sc.options[p.choice],info=opt[p.phase]||opt.now,phase=phaseLabel(p.phase);
  loadWorld(sc.title,prefix(info.text,200),preserve);
- const line=prefix(info.text,240);
+ const delta=effects(beforeMetrics,p.metrics);
+ const line=prefix(info.text,145);
  const nextLabel=p.phase==='today'?'⏩ Advance 6 months':p.phase==='months'?'⏩ Advance 2 years':'▶ Record result & next policy';
- world.tell(phase+' · '+prefix(opt.name,38),line,[
+ world.tell(phase+' · '+(delta||'EFFECTS PLAY OUT'),line,[
   {label:nextLabel,action:advance},
-  {label:'📊 Open detailed analysis',action:()=>world.showDetail()}
+  {label:'📊 How did this happen?',action:()=>world.showDetail()}
+ ]);
+}
+function consult(type){
+ if(!['finance','community'].includes(type))return;
+ const fresh=!advisers.has(type);advisers.add(type);persist();
+ const p=progress();
+ const line=type==='finance'?
+  'Budget capacity '+p.metrics.budget+'/100. Fast relief can limit later choices. Review who pays and when.':
+  'Public trust '+p.metrics.trust+'/100. People notice access, fairness and transparency—not just promises.';
+ loadWorld(scene().title,'Cabinet briefing',true);
+ world.tell(type==='finance'?'BUDGET DIRECTOR':'COMMUNITY ORGANIZER',line,[
+  {label:'✓ Back to policy desks',action:()=>intro(true)}
  ]);
 }
 function selectObject(obj){
  if(typeof obj.id==='number')propose(obj.id);
  else if(obj.id==='next')advance();
+ else if(obj.id==='finance'||obj.id==='community')consult(obj.id);
 }
 world=window.PixelWorld.create({
  id:'corridors',title:'THE CORRIDORS // PIXEL POLITICS',
@@ -77,8 +119,9 @@ world=window.PixelWorld.create({
 });
 intro(false);
 window.CorridorsArcade=Object.freeze({
- state:()=>({...progress(),title:scene().title,screen:world.state()}),
- choose:index=>{engine.chooseAction(index);outcome(true)},
+ state:()=>({...progress(),title:scene().title,advisers:[...advisers],rank,rating:rating(progress().metrics),screen:world.state()}),
+ choose:index=>{beforeMetrics={...progress().metrics};engine.chooseAction(index);outcome(true)},
+ consult,
  advance,play:()=>world.showGame(),showDetails:()=>world.showDetail(),
  walkTo:index=>world.clickObject(index)
 });
