@@ -1,0 +1,61 @@
+/* Full-screen playable pixel arcade. CSS scales a low-resolution canvas, not a static hero graphic. */
+body.pixel-arcade-active{overflow:hidden!important;overscroll-behavior:none}
+.pixel-arcade-screen[hidden],.pixel-arcade-restore[hidden]{display:none!important}
+.pixel-arcade-screen{position:fixed;inset:0;z-index:2147483000;overflow-y:auto;overscroll-behavior:contain;background:#0b1431;color:#eaf5ff;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:env(safe-area-inset-top) max(9px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(9px,env(safe-area-inset-left));box-sizing:border-box}
+.pixel-arcade-screen *{box-sizing:border-box}
+.pixel-arcade-header{width:min(100%,970px);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 2px;flex-wrap:wrap}
+.pixel-arcade-brand{display:grid;gap:2px;flex:1;min-width:125px}
+.pixel-arcade-brand strong{font:900 clamp(16px,2.8vw,25px)/1.1 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.015em;color:#fff}
+.pixel-arcade-brand small{font-size:9px;font-weight:900;letter-spacing:.17em;color:#91ffe1}
+.pixel-arcade-exit,.pixel-arcade-details{min-height:38px;padding:8px 12px;background:#223759;color:#d7edff;border:1px solid #7197b8;border-radius:6px;font:800 11px system-ui,sans-serif;text-decoration:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pixel-arcade-exit:hover,.pixel-arcade-details:hover{background:#3b5c79}
+.pixel-arcade-panel{width:min(100%,970px);display:flex;flex-direction:column;border:3px solid #82c9dc;box-shadow:5px 5px 0 #030b1e;background:#132447;border-radius:4px;overflow:hidden}
+.pixel-arcade-hud{background:#142a49;color:#fff;display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 11px;min-height:35px}
+.pixel-arcade-level{font:900 clamp(11px,2vw,15px)/1.25 ui-monospace,monospace;color:#f5e2aa}
+.pixel-arcade-score{font:800 11px ui-monospace,monospace;color:#95f9d9;text-align:right;flex:0 0 auto}
+.pixel-arcade-stage{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#111c3c;min-height:130px}
+.pixel-arcade-canvas{width:100%;max-height:min(48dvh,540px);aspect-ratio:16/9;object-fit:contain;display:block;background:#182a50;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none;cursor:crosshair}
+.pixel-arcade-prompt{position:absolute;top:7px;left:50%;transform:translateX(-50%);pointer-events:none;padding:4px 8px;background:#091e3bdf;border:1px solid #618da8;border-radius:4px;white-space:nowrap;max-width:95%;overflow:hidden;text-overflow:ellipsis;color:#e7f6ff;font:800 10px ui-monospace,monospace}
+.pixel-arcade-message{min-height:59px;background:#07172f;border-top:3px solid #4c89a4;display:grid;align-content:center;gap:4px;padding:9px 13px}
+.pixel-arcade-speaker{font:900 10px ui-monospace,monospace;color:#c3ffdb;letter-spacing:.14em}
+.pixel-arcade-speech{margin:0;font:600 clamp(11px,1.6vw,14px)/1.35 system-ui,sans-serif;color:#f1f4ff;max-width:100%;overflow-wrap:anywhere}
+.pixel-arcade-actions{background:#132747;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;padding:8px 11px}
+.pixel-arcade-actions:empty{display:none}
+.pixel-arcade-choice{min-height:44px;background:#203e65;border:2px solid #74b2ca;border-radius:5px;text-align:left;color:#e8f5ff;font:800 clamp(11px,1.7vw,14px)/1.3 system-ui,sans-serif;padding:9px 12px;cursor:pointer}
+.pixel-arcade-choice:disabled{opacity:.4;cursor:not-allowed}
+.pixel-arcade-choice:not(:disabled):hover,.pixel-arcade-choice:not(:disabled):focus-visible{background:#34677c;border-color:#a3ffe4;color:#fff;outline:none}
+.pixel-arcade-controls{min-height:102px;display:flex;align-items:center;gap:18px;padding:7px 15px;border-top:1px solid #294967;background:#0e1d38}
+.pixel-arcade-pad{display:grid;grid-template-columns:repeat(3,37px);grid-template-rows:repeat(2,37px);gap:3px;touch-action:none}
+.pixel-arcade-pad button{border:2px solid #7297b3;border-bottom-width:4px;border-radius:5px;background:#28466b;color:#fff;font:900 15px ui-monospace,monospace;min-width:37px;min-height:37px;padding:0;user-select:none;touch-action:none;cursor:pointer}
+.pixel-arcade-pad button:active{background:#6ba7bc}
+.pixel-arcade-pad-up{grid-column:2;grid-row:1}
+.pixel-arcade-pad-left{grid-column:1;grid-row:2}
+.pixel-arcade-pad-down{grid-column:2;grid-row:2}
+.pixel-arcade-pad-right{grid-column:3;grid-row:2}
+.pixel-arcade-interact{background:#ffd58b;color:#2f2740;border:2px solid #f8ecbd;border-bottom:5px solid #be9b5e;border-radius:10px;padding:12px 16px;font:900 12px ui-monospace,monospace;cursor:pointer;min-height:56px}
+.pixel-arcade-interact:active{border-bottom-width:2px;transform:translateY(2px)}
+.pixel-arcade-help{margin-left:auto;color:#a7bacb;font-size:11px;max-width:230px}
+.pixel-arcade-foot{width:min(100%,970px);padding:9px 0;text-align:center;font:700 9px system-ui,sans-serif;letter-spacing:.06em;color:#96b0c4}
+.pixel-arcade-restore{position:fixed;bottom:20px;right:15px;z-index:2147482999;background:#a6ffe0;color:#132947;border:2px solid #183b50;padding:13px 18px;font-weight:900;border-radius:10px;box-shadow:0 4px 12px #0008;cursor:pointer}
+@media(max-width:650px){
+.pixel-arcade-header{gap:6px;padding:7px 0}
+.pixel-arcade-brand strong{font-size:16px}
+.pixel-arcade-exit,.pixel-arcade-details{font-size:10px;min-height:34px;padding:6px 8px}
+.pixel-arcade-panel{border-width:2px}
+.pixel-arcade-message{padding:8px 10px;min-height:48px}
+.pixel-arcade-actions{grid-template-columns:1fr;max-height:27dvh;overflow:auto;padding:6px 9px}
+.pixel-arcade-choice{min-height:40px;padding:8px 10px;font-size:12px}
+.pixel-arcade-controls{min-height:87px;padding:6px 10px;gap:14px}
+.pixel-arcade-help{display:none}
+.pixel-arcade-prompt{font-size:9px}
+.pixel-arcade-foot{font-size:8px}
+}
+@media(max-height:650px) and (orientation:landscape){
+.pixel-arcade-header{min-height:30px;padding:4px}
+.pixel-arcade-brand small,.pixel-arcade-foot{display:none}
+.pixel-arcade-canvas{max-height:49dvh}
+.pixel-arcade-controls{min-height:67px;padding:3px 10px}
+.pixel-arcade-pad{grid-template-columns:repeat(3,28px);grid-template-rows:repeat(2,28px);gap:2px}
+.pixel-arcade-pad button{min-width:28px;min-height:28px}
+.pixel-arcade-interact{min-height:44px}
+}
