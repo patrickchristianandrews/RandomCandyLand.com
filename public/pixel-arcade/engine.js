@@ -17,7 +17,9 @@ function create(config){
  const name=$('div','pixel-arcade-brand');name.append($('strong','',config.title),$('small','',config.tagline||'PIXEL ADVENTURE'));
  const exit=$('a','pixel-arcade-exit','← Candy Land');exit.href='/';
  const detail=$('button','pixel-arcade-details','📖 More / Academy');detail.type='button';
- top.append(name,exit,detail);
+ const soundButton=$('button','pixel-arcade-sound','♫ Sound off');soundButton.type='button';
+ soundButton.setAttribute('aria-pressed','false');
+ top.append(name,soundButton,exit,detail);
  const panel=$('div','pixel-arcade-panel'),hud=$('div','pixel-arcade-hud');
  const level=$('strong','pixel-arcade-level','Starting world…'),score=$('span','pixel-arcade-score','0/5');
  const stats=$('div','pixel-arcade-stats');
@@ -48,6 +50,27 @@ function create(config){
  document.body.append(shell,restore);
  let scene={title:'',objects:[],environment:0},avatar={x:185,y:172,face:0,step:0},destination=null;
  let last=0,active=true,dialogButtons=[],lastInteraction=0,frame=0,moving=new Set(),raf=0;
+ let soundsOn=false,ac=null;
+ try{soundsOn=localStorage.getItem('rcl-pixel-arcade-sfx')==='on'}catch{}
+ function reflectSound(){soundButton.textContent=soundsOn?'♪ Sound on':'♫ Sound off';soundButton.setAttribute('aria-pressed',String(soundsOn))}
+ reflectSound();
+ function beep(kind='tap'){
+  if(!soundsOn)return;
+  try{
+   const AudioContext=window.AudioContext||window.webkitAudioContext;
+   if(!AudioContext)return;
+   ac=ac||new AudioContext();
+   if(ac.state==='suspended')ac.resume().catch(()=>{});
+   const start=ac.currentTime,frequency=kind==='success'?640:kind==='scene'?320:kind==='error'?175:490;
+   const oscillator=ac.createOscillator(),gain=ac.createGain();
+   oscillator.type=kind==='error'?'triangle':'sine';oscillator.frequency.setValueAtTime(frequency,start);
+   oscillator.frequency.exponentialRampToValueAtTime(frequency*(kind==='success'?1.28:.86),start+.10);
+   gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(.035,start+.016);
+   gain.gain.exponentialRampToValueAtTime(.0001,start+.15);
+   oscillator.connect(gain);gain.connect(ac.destination);oscillator.start(start);oscillator.stop(start+.16);
+  }catch{}
+ }
+ soundButton.addEventListener('click',()=>{soundsOn=!soundsOn;reflectSound();try{localStorage.setItem('rcl-pixel-arcade-sfx',soundsOn?'on':'off')}catch{}if(soundsOn)beep('success')});
  const ctx=canvas.getContext('2d',{alpha:false});
  const rect=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h))};
  const text=(label,x,y,c='#fff',size=8,align='center')=>{
@@ -205,7 +228,7 @@ function create(config){
  }
  const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
  function nearObject(){let best=null,d=1e9;for(const o of scene.objects||[]){const nd=distance(avatar,o);if(nd<d){d=nd;best=o}}return best}
- function interactItem(o){if(!o||!active)return;destination=null;lastInteraction=performance.now();config.onInteract?.(o,api)}
+ function interactItem(o){if(!o||!active)return;destination=null;lastInteraction=performance.now();beep('tap');config.onInteract?.(o,api)}
  function approach(o){if(!o)return;destination={x:clamp(o.x-14,24,W-24),y:clamp(o.y+18,105,H-9),object:o};prompt.textContent='Walking to '+o.label+'…'}
  function step(now){
    const dt=clamp((now-(last||now))/1000,0,.05);last=now;frame++;
@@ -245,11 +268,13 @@ function create(config){
  }
  function tell(who,message,choices=[]){
    speaker.textContent=String(who||'GUIDE').toUpperCase();
+   if(/SOLVED|WIN|PASS|VICTORY|VERIFIED|APPROVED/i.test(String(who)))beep('success');
+   else if(/WRONG|NOT VERIFIED|ERROR/i.test(String(who)))beep('error');
    speech.textContent=String(message||'');
    actions.replaceChildren();dialogButtons=[];
    for(const choice of choices){
     const b=$('button','pixel-arcade-choice',choice.label);b.type='button';b.disabled=Boolean(choice.disabled);
-    b.addEventListener('click',()=>choice.action?.());actions.append(b);dialogButtons.push(b);
+    b.addEventListener('click',()=>{beep('tap');choice.action?.()});actions.append(b);dialogButtons.push(b);
    }
  }
  function nearestAction(){const o=nearObject();if(o){if(distance(avatar,o)<35)interactItem(o);else approach(o)}}
