@@ -171,6 +171,12 @@ jobs:
           done
           echo "::warning::Headless Chrome was unavailable on this runner. Static release tests passed; browser interactions could not be verified here."
 
+      - name: Add the Liquid Wave FM-1 installer from the newest GitHub release (never blocks the site)
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/install-liquid-wave.py
+
       - name: Identify this exact release in the published files
         run: printf '%s\n' "$GITHUB_SHA" > dist/release-id.txt
 
