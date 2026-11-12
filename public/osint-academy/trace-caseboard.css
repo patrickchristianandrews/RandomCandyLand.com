@@ -1,0 +1,30 @@
+/* TRACE Detective Board · evidence pin wall instead of text-heavy quiz screens. */
+.trace-board-modal[hidden]{display:none!important}
+.trace-board-modal{position:fixed;inset:0;z-index:2147483400;display:grid;place-items:center;overflow:auto;padding:clamp(8px,2vw,22px);background:#050e1ce8;backdrop-filter:blur(7px);font-family:ui-monospace,monospace;color:#eefafa}
+.trace-board-screen{position:relative;width:min(870px,100%);max-height:94dvh;overflow:auto;padding:clamp(12px,2vw,23px);border:3px solid #79f5d5;border-radius:12px;box-shadow:0 0 0 6px #172944,0 22px 80px #000b;background:radial-gradient(ellipse at 12% 0%,#28385d 0%,transparent 48%),linear-gradient(135deg,#121f37,#26304f 72%,#1f2442)}
+.trace-board-screen:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 5px,#d6edff07 6px);opacity:.7}
+.trace-board-top{display:flex;justify-content:space-between;align-items:start;gap:12px;position:relative}
+.trace-board-heading small{font:900 10px ui-monospace,monospace;letter-spacing:.15em;color:#8cebd4}
+.trace-board-heading h2{margin:5px 0;font:900 clamp(21px,4vw,38px)/1.1 ui-monospace,monospace;color:#fff4d4;text-shadow:3px 3px #0e2338}
+.trace-board-close{background:#172d43;border:1px solid #9bbac4;color:#dceefa;border-radius:6px;padding:9px 11px;min-height:42px;font-weight:850;cursor:pointer}
+.trace-board-hint{font:700 13px/1.5 system-ui,sans-serif;color:#c3e5e7;max-width:70ch;margin:10px 0 18px}
+.trace-board-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(9px,2vw,17px);padding:14px 6px;background:radial-gradient(circle at center,#39506a88,transparent 70%)}
+.trace-board-grid:before{position:absolute;content:"";left:10%;right:10%;top:50%;border-top:2px dashed #7ea5a477;transform:rotate(-6deg);pointer-events:none}
+.trace-evidence-node{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:7px;min-height:165px;padding:16px 13px 13px;border:3px solid #a2b6b5;background:linear-gradient(#f6edd5,#e0ddcc);color:#21314b;text-align:left;cursor:pointer;box-shadow:5px 6px #050d1b6b;transform:rotate(-1.8deg);transition:transform .15s ease,box-shadow .15s ease}
+.trace-evidence-node:nth-child(2){transform:rotate(2deg)}.trace-evidence-node:nth-child(3){transform:rotate(-1deg)}
+.trace-evidence-node:hover,.trace-evidence-node:focus-visible{transform:rotate(0) translateY(-5px);outline:2px solid #c5ffe8;outline-offset:2px}
+.trace-evidence-node.selected{border-color:#45b5b3;background:linear-gradient(#f5f2d0,#bceee4);box-shadow:0 0 0 4px #7ef8dc99,6px 7px #0006}
+.trace-evidence-node.linked{border-color:#42b990;background:linear-gradient(#daffe3,#b1efd8)}
+.trace-evidence-pin{position:absolute;right:6px;top:4px;color:#be536a;font-size:24px}
+.trace-evidence-visual{font-size:27px;line-height:1.1}
+.trace-evidence-node strong{font:900 clamp(12px,1.7vw,15px)/1.3 system-ui,sans-serif}
+.trace-evidence-node small{font:600 11px/1.5 system-ui,sans-serif;color:#35465b;overflow-wrap:anywhere}
+.trace-board-status{position:relative;background:#101c30;border-left:4px solid #86edc6;border-radius:3px;padding:12px 14px;min-height:45px;font:800 12px/1.5 system-ui,sans-serif}
+.trace-board-footer{position:relative;display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:13px}
+.trace-board-footer button{font:900 12px system-ui,sans-serif;min-height:44px;border-radius:7px;padding:10px 13px;cursor:pointer}
+.trace-board-guide{background:#29465d;color:#e5f5f0;border:1px solid #79a9aa}
+.trace-board-verify{background:#a5ffe0;color:#133047;border:1px solid #c2ffe9}
+.trace-board-verify:disabled{opacity:.45;cursor:not-allowed}
+.trace-board-badge{margin-left:auto;font:900 11px ui-monospace,monospace;color:#f8df98}
+.trace-board-note{font-size:10px;line-height:1.4;color:#9fbdc9;margin:13px 0 0}
+@media(max-width:600px){.trace-board-screen{padding:12px;max-height:96dvh}.trace-board-grid{gap:6px;padding:12px 0}.trace-evidence-node{min-height:132px;padding:9px 6px 7px;gap:4px}.trace-evidence-node small{font-size:9px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}.trace-evidence-node strong{font-size:11px}.trace-evidence-visual{font-size:22px}.trace-evidence-pin{font-size:17px}.trace-board-footer{gap:7px}.trace-board-footer button{font-size:11px}.trace-board-badge{margin-left:0}.trace-board-hint{font-size:11px;margin:8px 0}.trace-board-heading h2{font-size:22px}}
