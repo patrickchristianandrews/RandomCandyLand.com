@@ -2,8 +2,8 @@ const pages = {finder:['✧','Stack Finder'],models:['▤','Top Models'],benchma
 const models = {
   smol: {name:'SmolLM2 360M', type:'Local', caps:['Writing','Summarizing'], id:'SmolLM2-360M-Instruct-q4f32_1-MLC', description:'Compact text model for short drafts and summaries.'},
   qwen: {name:'Qwen2.5 Coder 0.5B', type:'Local', caps:['Writing','Coding','Reasoning'], id:'Qwen2.5-Coder-0.5B-Instruct-q4f32_1-MLC', description:'Small general-purpose model for simple text and code.'},
-  mini: {name:'GPT-4.1 mini', type:'API', caps:['Writing','Coding','Reasoning','Summarizing'], id:'gpt-4.1-mini', description:'Cloud text model for everyday work and coding.'},
-  full: {name:'GPT-4.1', type:'API', caps:['Writing','Coding','Reasoning','Summarizing'], id:'gpt-4.1', description:'Cloud text model for more involved instructions and coding.'},
+  mini: {name:'Cloud Mini', type:'API', caps:['Writing','Coding','Reasoning','Summarizing'], id:'gpt-4.1-mini', description:'Cloud text model for everyday work and coding.'},
+  full: {name:'Cloud Standard', type:'API', caps:['Writing','Coding','Reasoning','Summarizing'], id:'gpt-4.1', description:'Cloud text model for more involved instructions and coding.'},
   image: {name:'GPT Image', type:'API', caps:['Images'], description:'Image generation and editing. Requires a provider image workflow.'},
   video: {name:'Veo', type:'API', caps:['Video'], description:'Video generation. Requires a provider video workflow.'}
 };
