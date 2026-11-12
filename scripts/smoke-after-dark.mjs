@@ -942,6 +942,12 @@ try{
     throw Error('Corridors cabinet advisers must be playable without advancing the policy state: '+JSON.stringify(corridorCabinet));
   console.log('✓ Corridors cabinet: two adviser NPCs, three policy desks, stable metrics and a meaningful approval rating.');
 
+  const newCouncil=await corridor.evaluate("(()=>{const c=window.CorridorsCouncil,root=document.querySelector('#corridors-council'),a=window.CorridorsArcade;if(!c||!root||!a)return{ready:false};const before=a.state(),cards=root.querySelectorAll('.council-bill');if(cards.length!==3)return{ready:false,cards:cards.length};cards[1].click();const chosen=c.state(),vote=root.querySelector('.council-vote'),forecast=root.querySelectorAll('.council-selected-effects .council-pill').length;return {ready:true,hasMandate:root.querySelectorAll('.council-mandate').length===3,selected:chosen.selected,canVote:!!vote&&!vote.disabled,forecast,unchanged:a.state().choice===before.choice,distinct:!!root.closest('#corridors-arcade')}})()");
+  if(!newCouncil.ready||!newCouncil.hasMandate||newCouncil.selected!==1||!newCouncil.canVote||newCouncil.forecast<1||!newCouncil.unchanged||!newCouncil.distinct)
+    throw Error('Corridors needs an accessible playable council, three campaign goals, policy forecast and vote action: '+JSON.stringify(newCouncil));
+  console.log('✓ Corridors strategy board: mandate objective, modeled trade-offs, 3 bills and playable vote choice.');
+
+
 
   const corridorPixels=await corridor.evaluate("(()=>{const c=document.querySelector('.corr-pixel-canvas'),ctx=c?.getContext('2d'),pixel=ctx?.getImageData(4,4,1,1).data,game=document.querySelector('.cp-case');return !!c&&c.width===192&&c.height===62&&pixel?.[3]>0&&getComputedStyle(game).order==='-2'&&!!document.querySelector('[data-policy-choice]')})()");
   if(!corridorPixels)throw Error('Corridors should show the pixel-rendered city and immediate policy choices above details');
@@ -983,6 +989,12 @@ try{
   if(!playableTrace.ready||!playableTrace.moved||playableTrace.ui!==4||!playableTrace.drawn||playableTrace.objects!==4)
     throw Error('TRACE must be an actual visible pixel detective adventure with movement and 3 in-world clues: '+JSON.stringify(playableTrace));
   console.log('✓ TRACE arcade is the visible screen: pixel world, moving detective, three interactive clues and saved missions.');
+
+  const detectiveBoard=await traceEvidence.evaluate("(()=>{const a=window.TraceArcade,b=window.TraceCaseBoard;if(!a||!b)return{ready:false};[0,1,2].forEach(i=>a.inspect(i));const opened=b.open();const nodes=document.querySelectorAll('#trace-evidence-board .trace-evidence-node');if(!opened||nodes.length!==3)return{ready:false,opened,nodes:nodes.length};nodes[0].click();nodes[1].click();const after=b.state(),enabled=!document.querySelector('.trace-board-verify')?.disabled;const visible=!document.querySelector('#trace-evidence-board')?.hidden;b.close();return {ready:true,linked:after.linked,enabled,visible,returned:document.querySelector('#trace-evidence-board')?.hidden}})()");
+  if(!detectiveBoard.ready||!detectiveBoard.linked||!detectiveBoard.enabled||!detectiveBoard.visible||!detectiveBoard.returned)
+    throw Error('TRACE needs a playable 3-source evidence connection board before its source-verification step: '+JSON.stringify(detectiveBoard));
+  console.log('✓ TRACE Detective Board: collected clues become connected evidence with a real two-source puzzle.');
+
   const traceInvestigation=await traceEvidence.evaluate("(()=>{const a=window.TraceArcade,initial=a?.state();if(!initial)return{ready:false};a.inspect(0);a.inspect(1);a.inspect(2);const collected=a.state();a.verifySource(0);const flagged=a.state();a.verifySource(1);const verified=a.state();a.answer(1);const closed=a.state();return{ready:true,clues:collected.found.length,wrong:flagged.wrong>0,verified:verified.verified,solved:closed.solved.includes(0),xp:closed.xp,objects:closed.screen.objects.length}})()");
   if(!traceInvestigation.ready||traceInvestigation.clues!==3||!traceInvestigation.wrong||!traceInvestigation.verified||!traceInvestigation.solved||traceInvestigation.xp<100||traceInvestigation.objects!==4)
     throw Error('TRACE must score a real source credibility puzzle and resolve evidence into a playable case: '+JSON.stringify(traceInvestigation));
