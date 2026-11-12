@@ -1,0 +1,90 @@
+/* CORRIDORS: The Council. Gold/institutional ink rather than TRACE's teal detective board. */
+#corridors-arcade.pixel-arcade-screen{background:radial-gradient(ellipse at 20% 0%,#492d4a 0%,#111a2d 64%,#0d1224 100%);}
+#corridors-arcade .pixel-arcade-panel{width:min(1260px,100%);display:grid;grid-template-columns:minmax(0,1.75fr) minmax(310px,1fr);grid-template-rows:auto auto auto auto 1fr auto;background:#151b2d;border-color:#dbaf70;box-shadow:0 0 0 3px #51405b,0 22px 50px #000b}
+#corridors-arcade .pixel-arcade-header{width:min(1260px,100%);}
+#corridors-arcade .pixel-arcade-brand strong{color:#ffe4bb}
+#corridors-arcade .pixel-arcade-hud{grid-column:1/-1;grid-row:1;background:#24243d;border-bottom:1px solid #81676c}
+#corridors-arcade .pixel-arcade-stats{grid-column:1/-1;grid-row:2;background:#15172b;border-bottom-color:#93715a}
+#corridors-arcade .pixel-arcade-stage{grid-column:1;grid-row:3;background:#14192b;min-width:0}
+#corridors-arcade .pixel-arcade-canvas{max-height:min(48dvh,480px)}
+#corridors-arcade .pixel-arcade-message{grid-column:1;grid-row:4;min-width:0;border-top-color:#dbaf70;background:#22243c}
+#corridors-arcade .pixel-arcade-speaker{color:#ffdcac}
+#corridors-arcade .pixel-arcade-actions{grid-column:1;grid-row:5;min-width:0;background:#202238}
+#corridors-arcade .pixel-arcade-controls{grid-column:1;grid-row:6;background:#1a1d34;min-height:68px}
+#corridors-arcade .pixel-arcade-interact{background:#ffd4a4;color:#372847;border-color:#fbe5c6;border-bottom-color:#b78254}
+#corridors-arcade .pixel-arcade-choice{border-left-color:#e9b474}
+#corridors-arcade .pixel-arcade-foot{width:min(1260px,100%)}
+#corridors-arcade .council-desk{grid-column:2;grid-row:3/7;position:relative;min-width:0;overflow:auto;max-height:clamp(420px,67dvh,670px);padding:15px;display:flex;flex-direction:column;gap:9px;background:linear-gradient(170deg,#f2e8d0,#e3d4b7 76%,#e8d9be);color:#23243f;border-left:4px solid #bd9667;box-shadow:inset 8px 0 15px #76543833}
+.council-overline{font:900 10px ui-monospace,monospace;letter-spacing:.13em;color:#7c4c4c}
+.council-top h2{margin:4px 0 2px;font:900 clamp(20px,2.6vw,29px)/1.1 Georgia,serif;color:#382839}
+.council-progress-main{display:flex;justify-content:space-between;align-items:center;gap:5px}
+.council-pill{display:inline-flex;align-items:center;min-height:22px;border:1px solid #99866f;background:#ebe2cb;color:#4b4653;border-radius:4px;padding:4px 7px;font:850 10px/1.2 ui-monospace,monospace;white-space:normal}
+.council-pill.rating{background:#39354c;color:#fce8c1}
+.council-pill.positive{color:#246651;border-color:#7aae8e;background:#d8eddd}
+.council-pill.negative{color:#8a3943;border-color:#c6969b;background:#f5dedc}
+.council-seasons{display:flex;gap:3px;margin-top:7px}
+.council-season{flex:1;padding:6px 2px;background:#d7c8ac;border-bottom:3px solid #a49885;text-align:center;font:850 9px ui-monospace,monospace;color:#777071}
+.council-season.current{background:#bda16f;color:#312735;border-bottom-color:#795b46}
+.council-section-title{font:900 11px ui-monospace,monospace;letter-spacing:.075em;color:#604952}
+.council-brief{font:650 12px/1.5 system-ui,sans-serif;margin:0;color:#454253}
+.council-mandates{display:grid;gap:6px;padding-top:5px;border-top:1px solid #c1ad99}
+.council-mandate-choices{display:flex;flex-wrap:wrap;gap:5px}
+.council-mandate{background:#f8edd8;color:#594c52;border:1px solid #a79580;border-radius:5px;padding:7px;min-height:36px;font:850 10px system-ui,sans-serif;cursor:pointer}
+.council-mandate.active{background:#3b3b57;color:#fff1cc;border-color:#3b3b57}
+.council-mandate:disabled{opacity:.7;cursor:default}
+.council-bills{display:grid;grid-template-columns:1fr;gap:6px}
+.council-bills>.council-section-title{padding-bottom:2px}
+.council-bill{position:relative;display:grid;gap:4px;padding:9px 10px;border:2px solid #afa08d;background:#fbf6e9;color:#353149;text-align:left;border-radius:6px;cursor:pointer;box-shadow:2px 2px 0 #b6a690}
+.council-bill:hover,.council-bill:focus-visible{border-color:#77516d;background:#fffdf3;outline:2px solid #ae92ad;outline-offset:1px}
+.council-bill.selected{background:#e5efea;border-color:#38705e;box-shadow:0 0 0 2px #b2d9bd}
+.council-bill-index{font:900 9px ui-monospace,monospace;letter-spacing:.1em;color:#846b6b}
+.council-bill-name{font:850 12px/1.32 system-ui,sans-serif}
+.council-bill-effects,.council-selected-effects,.council-impact-now{display:flex;gap:5px;flex-wrap:wrap}
+.council-bill-effects .council-pill{font-size:9px;padding:2px 6px}
+.council-advisers{padding:5px 0}
+.council-adviser-row{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
+.council-adviser-row .council-section-title{width:100%}
+.council-adviser{flex:1;min-width:120px;min-height:39px;border:1px solid #6d6572;border-radius:5px;background:#454255;color:#f1e7da;font:850 11px system-ui,sans-serif;cursor:pointer}
+.council-adviser.consulted{background:#d4e7db;color:#355849;border-color:#668c77}
+.council-selected{display:grid;gap:7px;background:#fff8e5;border:2px solid #916b6b;border-radius:6px;padding:10px}
+.council-selected-title{font-size:12px;color:#3b344c}
+.council-selected p{font:600 11px/1.45 system-ui,sans-serif;margin:0}
+.council-selected small{font:900 9px ui-monospace,monospace;color:#8b6670}
+.council-vote,.council-next{width:100%;background:#403b57;border:2px solid #38293b;border-bottom:4px solid #221c36;border-radius:5px;color:#f8e4ba;font:900 12px system-ui,sans-serif;min-height:46px;padding:10px 12px;cursor:pointer}
+.council-vote:hover,.council-next:hover{background:#5c4c68}
+.council-result{display:grid;gap:10px;border:2px solid #a5957a;background:#fff7e6;border-radius:5px;padding:11px}
+.council-news-label{font:900 10px ui-monospace,monospace;letter-spacing:.12em;color:#8d3b4d}
+.council-news-text{margin:0;font:700 13px/1.5 Georgia,serif}
+.council-status{font:700 10px/1.5 system-ui,sans-serif;margin:0;color:#625064}
+.council-footer{margin-top:auto;border-top:1px solid #b7a290;padding-top:10px}
+.council-grade{display:grid;gap:4px}
+.council-grade strong{font:900 9px ui-monospace,monospace;color:#785e66}
+.council-grade span{font:900 13px system-ui,sans-serif;color:#31293f}
+.council-grade-track{height:7px;border:1px solid #978e7c;background:#d4c8ad;border-radius:4px;overflow:hidden}
+.council-grade-track i{display:block;height:100%;background:linear-gradient(90deg,#74687d,#5c8c77);transition:width .2s ease}
+.council-rule{color:#777075;font-size:9px;line-height:1.4}
+@media(max-width:850px){
+ #corridors-arcade .pixel-arcade-panel{grid-template-columns:1fr;grid-template-rows:auto auto auto auto auto auto auto}
+ #corridors-arcade .pixel-arcade-hud{grid-row:1}
+ #corridors-arcade .pixel-arcade-stats{grid-row:2}
+ #corridors-arcade .pixel-arcade-stage{grid-column:1;grid-row:3}
+ #corridors-arcade .pixel-arcade-canvas{max-height:min(33dvh,330px)}
+ #corridors-arcade .council-desk{grid-column:1;grid-row:4;max-height:none;padding:10px;border-left:0;border-top:3px solid #bd9667;gap:7px}
+ #corridors-arcade .pixel-arcade-message{grid-column:1;grid-row:5}
+ #corridors-arcade .pixel-arcade-actions{grid-column:1;grid-row:6}
+ #corridors-arcade .pixel-arcade-controls{grid-column:1;grid-row:7;min-height:65px}
+ .council-mandate-choices{gap:4px}.council-mandate{padding:6px;font-size:9px}
+ .council-bills{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+ .council-bills>.council-section-title{grid-column:1/-1}
+ .council-bill{padding:7px 5px;min-height:90px}
+ .council-bill-name{font-size:10px}
+ .council-bill-effects .council-pill{font-size:8px}
+ .council-adviser-row .council-section-title{margin-top:2px}
+ .council-brief{font-size:11px;line-height:1.35}
+}
+@media(max-width:520px){#corridors-arcade .pixel-arcade-canvas{max-height:29dvh}
+ .council-bill-effects{display:none}
+ .council-bill-name{font-size:10px}
+ .council-season{font-size:8px}
+ .council-footer{padding-top:7px}
+}
