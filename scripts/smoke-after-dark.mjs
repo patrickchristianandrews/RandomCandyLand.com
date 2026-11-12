@@ -1004,10 +1004,10 @@ try{
   console.log('✓ TRACE Detective Board: collected clues become connected evidence with a real two-source puzzle.');
 
   await traceEvidence.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
-  const tracePhone=await traceEvidence.evaluate("(()=>{const b=window.TraceCaseBoard;if(!b?.open())return{ready:false};const root=document.querySelector('#trace-evidence-board .trace-board-screen'),nodes=root?.querySelectorAll('.trace-evidence-node'),r=root?.getBoundingClientRect();const c=document.querySelector('#trace-arcade canvas');const data={ready:!!root,within:!!r&&r.left>=-2&&r.right<=innerWidth+2,nodes:nodes?.length||0,canvas:!!c&&c.getBoundingClientRect().width<=innerWidth+2};b.close();return data})()");
+  const traceBoardPhone=await traceEvidence.evaluate("(()=>{const b=window.TraceCaseBoard;if(!b?.open())return{ready:false};const root=document.querySelector('#trace-evidence-board .trace-board-screen'),nodes=root?.querySelectorAll('.trace-evidence-node'),r=root?.getBoundingClientRect();const c=document.querySelector('#trace-arcade canvas');const data={ready:!!root,within:!!r&&r.left>=-2&&r.right<=innerWidth+2,nodes:nodes?.length||0,canvas:!!c&&c.getBoundingClientRect().width<=innerWidth+2};b.close();return data})()");
   await traceEvidence.command('Emulation.clearDeviceMetricsOverride');
-  if(!tracePhone.ready||!tracePhone.within||tracePhone.nodes!==3||!tracePhone.canvas)
-    throw Error('TRACE 390px phone detective board must fit viewport with interactive evidence: '+JSON.stringify(tracePhone));
+  if(!traceBoardPhone.ready||!traceBoardPhone.within||traceBoardPhone.nodes!==3||!traceBoardPhone.canvas)
+    throw Error('TRACE 390px phone detective board must fit viewport with interactive evidence: '+JSON.stringify(traceBoardPhone));
   console.log('✓ TRACE mobile evidence board fits 390px viewport with playable clue cards.');
 
 
