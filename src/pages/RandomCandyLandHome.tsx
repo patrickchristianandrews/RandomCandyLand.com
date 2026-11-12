@@ -247,6 +247,33 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                       <img className="candyland-curiosity-icon" src="/tool-icons/wonder-index.svg" width={96} height={96} alt="" loading="lazy" />
                     </section>
                   )}
+                  {group.id === 'quick' && (
+                    <section className="candyland-liquid-spotlight" aria-labelledby="liquid-wave-title">
+                      <style>{`
+.candyland-next .candyland-liquid-spotlight{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 140px;gap:22px;align-items:center;max-width:1180px;margin:16px auto 32px;padding:clamp(19px,3vw,30px);border:2px solid #ffc2e2;border-radius:22px;background:linear-gradient(120deg,#4c166e 5%,#a3246f 60%,#d9542c);color:#fff;overflow:hidden;box-shadow:0 11px 25px #4c166e55}
+.candyland-next .candyland-liquid-kicker{display:block;font:900 10px/1.6 system-ui;letter-spacing:.13em;color:#ffe9a8}
+.candyland-next .candyland-liquid-spotlight h2{margin:4px 0 6px}
+.candyland-next .candyland-liquid-spotlight em{font-style:normal;color:#ffe9a8}
+.candyland-next .candyland-liquid-spotlight p{margin:0 0 8px}
+.candyland-next .candyland-liquid-note{font-size:13px;opacity:.92}
+.candyland-next .candyland-liquid-spotlight a{display:inline-block;margin:4px 8px 4px 0;padding:10px 16px;border-radius:999px;background:#fff;color:#7a1c52;font-weight:800;text-decoration:none}
+.candyland-next .candyland-liquid-spotlight a:hover{background:#ffe9a8}
+.candyland-next .candyland-liquid-spotlight img{justify-self:center}
+@media (max-width:640px){.candyland-next .candyland-liquid-spotlight{grid-template-columns:1fr}.candyland-next .candyland-liquid-spotlight img{order:-1;width:96px;height:96px}}
+                      `}</style>
+                      <div>
+                        <span className="candyland-liquid-kicker">✦ NEW · MUSIC TOY · FM-1 INSTALLER</span>
+                        <h2 id="liquid-wave-title">Liquid <em>Wave.</em></h2>
+                        <p>Press Generate and eight cute band members float around, overlap and perform a freshly written song. Own an M-VAVE FM-1? Install the experimental firmware right from here.</p>
+                        <p className="candyland-liquid-note">The FM-1 firmware is experimental and has not been tested on a real device. Back up first.</p>
+                        <div>
+                          <a href="/liquid-wave/">Play Liquid Wave ↗</a>
+                          <a href="/liquid-wave/install/">Install on an FM-1 ↗</a>
+                        </div>
+                      </div>
+                      <img src="/tool-icons/liquid-wave.svg" width={120} height={120} alt="" loading="lazy" />
+                    </section>
+                  )}
               </>);
             })}
           </div>
