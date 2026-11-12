@@ -88,3 +88,30 @@
  .council-season{font-size:8px}
  .council-footer{padding-top:7px}
 }
+
+/* The council is the sole policy-choice controller: no duplicate button walls. */
+#corridors-arcade .pixel-arcade-panel{grid-template-rows:auto auto auto auto auto}
+#corridors-arcade .pixel-arcade-actions{display:none!important}
+#corridors-arcade .pixel-arcade-controls{grid-row:5}
+#corridors-arcade .council-desk{grid-row:3/6}
+#corridors-arcade .pixel-arcade-canvas{max-height:min(52dvh,540px)}
+#corridors-arcade .council-desk{max-height:clamp(410px,65dvh,640px)}
+@media(max-width:850px){
+ #corridors-arcade .pixel-arcade-panel{grid-template-rows:auto auto auto auto auto auto}
+ #corridors-arcade .pixel-arcade-hud{grid-row:1}
+ #corridors-arcade .pixel-arcade-stats{grid-row:2}
+ #corridors-arcade .pixel-arcade-stage{grid-row:3}
+ #corridors-arcade .council-desk{grid-row:4;max-height:min(41dvh,390px);overflow:auto}
+ #corridors-arcade .pixel-arcade-message{grid-row:5}
+ #corridors-arcade .pixel-arcade-controls{grid-row:6}
+ #corridors-arcade .pixel-arcade-canvas{max-height:30dvh}
+}
+@media(max-width:520px){
+ #corridors-arcade .council-desk{max-height:min(42dvh,360px)}
+ #corridors-arcade .pixel-arcade-canvas{max-height:28dvh}
+ .council-mandates{gap:3px;padding-top:3px}
+ .council-mandate{min-height:32px}
+ .council-bill{min-height:66px}
+ .council-selected{gap:5px}
+ .council-rule{display:none}
+}
