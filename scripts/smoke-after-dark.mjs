@@ -947,6 +947,14 @@ try{
     throw Error('Corridors needs an accessible playable council, three campaign goals, policy forecast and vote action: '+JSON.stringify(newCouncil));
   console.log('✓ Corridors strategy board: mandate objective, modeled trade-offs, 3 bills and playable vote choice.');
 
+  await corridor.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  const councilPhone=await corridor.evaluate("(()=>{const root=document.querySelector('#corridors-arcade'),pane=root?.querySelector('#corridors-council'),stage=root?.querySelector('.pixel-arcade-canvas'),bill=root?.querySelector('.council-bill'),vote=root?.querySelector('.council-vote');const r=pane?.getBoundingClientRect();return{visible:!!r&&r.width>280&&r.left>=-2&&r.right<=innerWidth+3,canvas:!!stage&&stage.getBoundingClientRect().width<=innerWidth+2,choices:root?.querySelectorAll('.council-bill').length,button:vote?.getBoundingClientRect().height||0,reading:bill?.getBoundingClientRect().height||0}})()");
+  await corridor.command('Emulation.clearDeviceMetricsOverride');
+  if(!councilPhone.visible||!councilPhone.canvas||councilPhone.choices!==3||councilPhone.button<42||councilPhone.reading<42)
+    throw Error('Corridors 390px phone layout must fit the screen with readable council choices: '+JSON.stringify(councilPhone));
+  console.log('✓ Corridors mobile council layout fits 390px viewport with visible touch-size voting controls.');
+
+
 
 
   const corridorPixels=await corridor.evaluate("(()=>{const c=document.querySelector('.corr-pixel-canvas'),ctx=c?.getContext('2d'),pixel=ctx?.getImageData(4,4,1,1).data,game=document.querySelector('.cp-case');return !!c&&c.width===192&&c.height===62&&pixel?.[3]>0&&getComputedStyle(game).order==='-2'&&!!document.querySelector('[data-policy-choice]')})()");
@@ -994,6 +1002,14 @@ try{
   if(!detectiveBoard.ready||!detectiveBoard.linked||!detectiveBoard.enabled||!detectiveBoard.visible||!detectiveBoard.returned)
     throw Error('TRACE needs a playable 3-source evidence connection board before its source-verification step: '+JSON.stringify(detectiveBoard));
   console.log('✓ TRACE Detective Board: collected clues become connected evidence with a real two-source puzzle.');
+
+  await traceEvidence.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  const tracePhone=await traceEvidence.evaluate("(()=>{const b=window.TraceCaseBoard;if(!b?.open())return{ready:false};const root=document.querySelector('#trace-evidence-board .trace-board-screen'),nodes=root?.querySelectorAll('.trace-evidence-node'),r=root?.getBoundingClientRect();const c=document.querySelector('#trace-arcade canvas');const data={ready:!!root,within:!!r&&r.left>=-2&&r.right<=innerWidth+2,nodes:nodes?.length||0,canvas:!!c&&c.getBoundingClientRect().width<=innerWidth+2};b.close();return data})()");
+  await traceEvidence.command('Emulation.clearDeviceMetricsOverride');
+  if(!tracePhone.ready||!tracePhone.within||tracePhone.nodes!==3||!tracePhone.canvas)
+    throw Error('TRACE 390px phone detective board must fit viewport with interactive evidence: '+JSON.stringify(tracePhone));
+  console.log('✓ TRACE mobile evidence board fits 390px viewport with playable clue cards.');
+
 
   const traceInvestigation=await traceEvidence.evaluate("(()=>{const a=window.TraceArcade,initial=a?.state();if(!initial)return{ready:false};a.inspect(0);a.inspect(1);a.inspect(2);const collected=a.state();a.verifySource(0);const flagged=a.state();a.verifySource(1);const verified=a.state();a.answer(1);const closed=a.state();return{ready:true,clues:collected.found.length,wrong:flagged.wrong>0,verified:verified.verified,solved:closed.solved.includes(0),xp:closed.xp,objects:closed.screen.objects.length}})()");
   if(!traceInvestigation.ready||traceInvestigation.clues!==3||!traceInvestigation.wrong||!traceInvestigation.verified||!traceInvestigation.solved||traceInvestigation.xp<100||traceInvestigation.objects!==4)
