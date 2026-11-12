@@ -95,7 +95,7 @@ function answer(index){
  ]);
 }
 function next(){
- level=(level+1)%cases.length;found=new Set();verified=false;wrong=0;persist();
+ level=(level+1)%cases.length;found=new Set();verified=false;wrong=0;persist();window.TraceCaseBoard?.reset?.();
  showScene(cases[level].brief);
 }
 function inspect(obj){
@@ -111,7 +111,7 @@ function inspect(obj){
  showScene(undefined,true);persist();
  const detail=c.objects[i][2];
  world.tell(c.objects[i][1]+' · CLUE '+found.size+'/3',detail,
-  found.size>=3?[{label:'📎 Compare your sources',action:()=>verified?solutions():sourceChallenge()}]:[]);
+  found.size>=3?[{label:'🧩 Open detective evidence board',action:()=>verified?solutions():(window.TraceCaseBoard?.open?.()||sourceChallenge())}]:[]);
  world.setScore(solved.size+' / '+cases.length+' CASES · '+xp+' XP');
  if(found.size===3)world.setPrompt('ALL CLUES FOUND · CHECK YOUR SOURCES');
 }
@@ -123,6 +123,7 @@ world=window.PixelWorld.create({
 persist();showScene(cases[level].brief);
 window.TraceArcade=Object.freeze({
  state:()=>({caseIndex:level,found:[...found],solved:[...solved],verified,xp,wrong,screen:world.state()}),
+ cases:()=>cases.map(c=>({title:c.title,brief:c.brief,objects:c.objects,correct:c.correct})),
  inspect:index=>inspect({id:index}),verifySource,sourceChallenge,answer,
  next,play:()=>world.showGame(),showAcademy:()=>world.showDetail(),
  walkTo:index=>world.clickObject(index)
