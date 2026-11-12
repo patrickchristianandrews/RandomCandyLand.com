@@ -28,3 +28,32 @@
 .trace-board-badge{margin-left:auto;font:900 11px ui-monospace,monospace;color:#f8df98}
 .trace-board-note{font-size:10px;line-height:1.4;color:#9fbdc9;margin:13px 0 0}
 @media(max-width:600px){.trace-board-screen{padding:12px;max-height:96dvh}.trace-board-grid{gap:6px;padding:12px 0}.trace-evidence-node{min-height:132px;padding:9px 6px 7px;gap:4px}.trace-evidence-node small{font-size:9px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}.trace-evidence-node strong{font-size:11px}.trace-evidence-visual{font-size:22px}.trace-evidence-pin{font-size:17px}.trace-board-footer{gap:7px}.trace-board-footer button{font-size:11px}.trace-board-badge{margin-left:0}.trace-board-hint{font-size:11px;margin:8px 0}.trace-board-heading h2{font-size:22px}}
+
+/* Distinct TRACE noir-game identity, without a full-page article or form look. */
+#trace-arcade.pixel-arcade-screen{background:radial-gradient(ellipse at 50% -12%,#1a4257 0%,#0a152b 62%,#070d1e 100%)}
+#trace-arcade .pixel-arcade-header{width:min(1120px,100%)}
+#trace-arcade .pixel-arcade-panel{width:min(1120px,100%);border-color:#5cddcc;box-shadow:0 0 0 4px #193f55,0 24px 50px #02070fbf}
+#trace-arcade .pixel-arcade-brand strong{font-weight:950;letter-spacing:.035em;color:#c5fff0}
+#trace-arcade .pixel-arcade-brand small{color:#f1b4ba}
+#trace-arcade .pixel-arcade-hud{background:#102b3e;border-bottom:1px solid #589f9c}
+#trace-arcade .pixel-arcade-stats{background:#0f2437;border-bottom-color:#498c8e}
+#trace-arcade .pixel-stat{background:#17364a;border-color:#396d77}
+#trace-arcade .pixel-stat-caption{color:#c8e9eb}
+#trace-arcade .pixel-stat-fill{background:linear-gradient(90deg,#4081ad,#83efc3)}
+#trace-arcade .pixel-arcade-stage{background:#09162d;position:relative}
+#trace-arcade .pixel-arcade-stage:after{position:absolute;content:"";inset:0;pointer-events:none;opacity:.22;background:repeating-linear-gradient(0deg,transparent 0px,transparent 4px,#c4e3ff18 5px);mix-blend-mode:screen}
+#trace-arcade .pixel-arcade-canvas{max-height:min(57dvh,610px)}
+#trace-arcade .pixel-arcade-prompt{border-color:#76f4d5;background:#082637e6;color:#baffdb;letter-spacing:.025em}
+#trace-arcade .pixel-arcade-message{border-top-color:#69d7cb;background:#071a2d}
+#trace-arcade .pixel-arcade-speaker{color:#f4d1a4}
+#trace-arcade .pixel-arcade-actions{background:#0e263e}
+#trace-arcade .pixel-arcade-choice{background:#20405d;border:1px solid #4c9b99;border-left:5px solid #81efd0;min-height:45px}
+#trace-arcade .pixel-arcade-choice:hover{background:#2c6572}
+#trace-arcade .pixel-arcade-controls{background:#102239}
+#trace-arcade .pixel-arcade-pad button{background:#23445f;border-color:#649caa}
+#trace-arcade .pixel-arcade-interact{background:#b8ffe1;border-color:#d7ffe8;color:#103047;border-bottom-color:#419889}
+#trace-arcade .pixel-arcade-foot{width:min(1120px,100%);color:#8ecabb}
+@media(max-width:650px){
+#trace-arcade .pixel-arcade-canvas{max-height:min(51dvh,470px)}
+#trace-arcade .pixel-arcade-actions{max-height:28dvh}
+}
