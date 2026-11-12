@@ -57,3 +57,7 @@
 #trace-arcade .pixel-arcade-canvas{max-height:min(51dvh,470px)}
 #trace-arcade .pixel-arcade-actions{max-height:28dvh}
 }
+
+/* Keep the evidence wall strictly within narrow phone screens. */
+.trace-board-modal,.trace-board-modal *{box-sizing:border-box}
+.trace-board-screen{min-width:0;max-width:100%}
