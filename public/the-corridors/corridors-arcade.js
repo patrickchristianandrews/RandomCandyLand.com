@@ -65,6 +65,7 @@ function loadWorld(title,message,preserve){
  });
  world.setPrompt(notChosen?'MEET 2 ADVISERS OR CHOOSE A POLICY':'TAP TIME GATE · SEE CONSEQUENCES');
  world.setStats([{label:'TRUST',value:p.metrics.trust,percent:p.metrics.trust},{label:'BUDGET',value:p.metrics.budget,percent:p.metrics.budget},{label:'PRICE PRESSURE',value:p.metrics.prices,percent:p.metrics.prices,warning:p.metrics.prices>60}]);
+ window.dispatchEvent(new CustomEvent('corridors-arcade-update',{detail:{scenario:p.scenario,phase:p.phase,choice:p.choice}}));
 }
 function intro(preserve=false){
  const p=progress();
