@@ -2,7 +2,7 @@
  * Do not cache API responses, media, uploads, or cross-origin resources.
  * Never delete caches belonging to WebLLM, models, or other browser runtimes.
  */
-const CACHE='random-candy-land-public-v16-gameplay-six';
+const CACHE='random-candy-land-public-v17-gameplay-eight';
 const SHELL=['/','/index.html','/manifest.json','/icon-192.png','/icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
