@@ -103,3 +103,8 @@ body.pixel-arcade-active{overflow:hidden!important;overscroll-behavior:none}
  .pixel-arcade-controls{min-height:57px}
  .pixel-arcade-choice{min-height:32px}
 }
+/* Sound is opt-in, with subtle original interaction cues and a visible mute toggle. */
+.pixel-arcade-sound{display:flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;background:#203951;color:#c9edf3;border:1px solid #688fa7;border-radius:6px;font:850 11px system-ui,sans-serif;cursor:pointer}
+.pixel-arcade-sound[aria-pressed="true"]{background:#a7ffde;color:#19394c;border-color:#caffeb}
+#corridors-arcade .pixel-arcade-sound[aria-pressed="true"]{background:#ffe1ad;color:#3c2b48}
+@media(max-width:650px){.pixel-arcade-sound{font-size:10px;min-height:34px;padding:6px 8px}}
