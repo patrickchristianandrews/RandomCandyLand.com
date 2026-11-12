@@ -78,6 +78,7 @@ function propose(index){
  const p=progress(),sc=scene();
  if(p.choice!==null){outcome(true);return}
  const opt=sc.options[index];if(!opt)return;
+ window.CorridorsCouncil?.select?.(index);
  world.tell('CABINET PROPOSAL '+String.fromCharCode(65+index),
   prefix(opt.name+'. '+opt.label,175),[
   {label:'✓ Approve this policy',action:()=>{beforeMetrics={...progress().metrics};engine.chooseAction(index);if(advisers.size===2){insight+=10}persist();outcome(true)}},
