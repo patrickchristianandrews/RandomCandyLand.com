@@ -14,12 +14,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Test matching
+      - name: Test matching and indexed search
         run: python -m unittest discover -s tests -v
       - name: Install packaging tools
         run: python -m pip install -r requirements-build.txt
-      - name: Build standalone app
-        run: python -m PyInstaller --noconfirm --clean --windowed --onedir --name CandyLandOSINT app.py
+      - name: Build indexed desktop app
+        run: python -m PyInstaller --noconfirm --clean --windowed --onedir --name CandyLandOSINT indexed.py
       - name: Build installer
         shell: pwsh
         run: |
