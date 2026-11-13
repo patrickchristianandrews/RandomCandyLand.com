@@ -7,7 +7,7 @@ const required = [
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn', 'id="toys"', 'id="toy-grid"', 'toy-library.js?v=']],
   ['dist/after-dark/report-samples/index.html', ['Create or upload a report', 'Selected report', 'private backup', 'id="methodology"', 'id="privacy"']],
   ['dist/goo-rush/index.html', ['GOO RUSH!', 'data-mode="solo"', 'data-mode="duel"', 'data-mode="daily"', 'data-mode="challenge"', 'id="stage"', 'id="timeFill"']],
-  ['dist/osint-academy/index.html', ['TRACE / OSINT','id="mission-stage"','id="setup-grid"','id="tools-grid"','id="export-brief"','id="trace-game-command"','GTM-TQRDB5KL']],
+  ['dist/osint-academy/index.html', ['Trace Public Sources Dictionary','sources.js','cameras.js','directory.js','GTM-TQRDB5KL']],
   ['dist/identity-lab/index.html', ['Feature retired','url=/osint-academy/']],
   ['dist/curiosity/index.html', ['id="home-feature-heading"','id="home-feature-next"','id="home-research-feed"','id="home-correlation-feed"','href="/curiosity/ideas/"','href="/curiosity/research/"','href="/curiosity/correlations/"','GTM-TQRDB5KL']],
   ['dist/curiosity/ideas/index.html', ['id="ideas-grid"','id="idea-search"','id="idea-categories"','curiosity.js?v=','GTM-TQRDB5KL']],
@@ -938,9 +938,7 @@ if(fs.existsSync('dist/curiosity/live-data.json')){
   else console.log('✓ Wonder Index verified official-source time series: '+actual);
  }catch(e){console.error('Wonder Index source cache invalid:',e.message);failures++;}
 }
-// TRACE is a distinct educational game with graded simulated missions and a
-// complete workstation, resource atlas and case-reporting interface.
-if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
+if(!homeInstallSource.includes('Trace Public Sources Dictionary') ||
    !homeInstallSource.includes("url:'/osint-academy/'") ||
    !homeInstallSource.includes('candyland-play-shelves') ||
    !homeInstallSource.includes('Ongoing Worlds & Pets') ||
@@ -952,46 +950,18 @@ if(!homeInstallSource.includes('TRACE: OSINT Academy') ||
    !homeInstallSource.includes('href="/studio/"') ||
    !homeInstallSource.includes("href:'/ai-academy/'") ||
    !homeBundle.includes('/osint-academy/')){
-  console.error('Grouped homepage or TRACE Academy portal is missing.'); failures++;
+  console.error('Grouped homepage or Trace Public Sources Dictionary is missing.'); failures++;
 }
-for(const asset of ['dist/osint-academy/style.css','dist/osint-academy/game.js',
-  'dist/osint-academy/mission-command.js',
-  'dist/osint-academy/mission-command.css','dist/identity-lab/index.html',
-  'dist/tool-icons/osint-academy.svg','dist/app-manifests/osint-academy.webmanifest']){
-  if(!fs.existsSync(asset)){console.error('TRACE asset missing:',asset);failures++;}
+for(const name of ['sources.js','cameras.js','directory.js','directory.css']){
+ const asset='dist/osint-academy/'+name;
+ if(!fs.existsSync(asset)){console.error('Trace asset missing:',asset);failures++;continue;}
+ if(name.endsWith('.js')){
+  try{new vm.Script(fs.readFileSync(asset,'utf8'),{filename:asset});}
+  catch(error){console.error(error.message);failures++;}
+ }
 }
-const traceHtml=fs.readFileSync('dist/osint-academy/index.html','utf8');
-const retiredLab=fs.readFileSync('dist/identity-lab/index.html','utf8');
-if(!retiredLab.includes('Feature retired')||traceHtml.includes('href="/identity-lab/"')||
-   traceHtml.includes('id="tab-identity"')||traceHtml.includes('identity-lab.js?v=')||
-   !traceHtml.includes('id="trace-game-command"')||!traceHtml.includes('mission-command.js?v=')){
- console.error('TRACE must have the new game hub and standalone Identity Lab must remain retired.');failures++;
-}
-for(const token of ['id="continue-training"','class="trace-first-steps"','class="trace-play-steps"','id="case-directory"','class="mission-sidebar"',
-  'id="command-desk"','id="command-form"','id="command-input"','id="command-output"',
-  'id="setup-grid"','id="setup-progress-label"','id="atlas-search"','id="atlas-categories"']){
-  if(!traceHtml.includes(token)){console.error('Missing TRACE workstation/console control:',token);failures++;}
-}
-if(fs.existsSync('dist/osint-academy/game.js')){
-  const js=fs.readFileSync('dist/osint-academy/game.js','utf8');
-  try{new vm.Script(js,{filename:'TRACE OSINT Academy'});}
-  catch(e){console.error('Broken TRACE Academy game JavaScript:',e.message);failures++;}
-  if((js.match(/caseFile\('/g)||[]).length!==25 ||
-     !js.includes('Faces, identity and false matches') ||
-     !js.includes('Public phone number analysis') ||
-     !js.includes('Trace an email claim') ||
-     !js.includes('Capstone: Amber Point dossier') ||
-     !js.includes('window.TraceAcademyDebug') ||
-     !js.includes("function renderAtlas()") ||
-     !js.includes("async function runCommand(raw)") ||
-     !js.includes("const setupGroups=[") ||
-     !js.includes("const toolAliases=") ||
-     !js.includes("updateSetupProgress()") ||
-     !js.includes("case-navigation") ||
-     !js.includes("Complete case & start next") ||
-     !js.includes("const focusCase=")){
-    console.error('TRACE Academy must include all 25 professional training cases and the interactive case engine.');failures++;
-  }
+if(fs.readFileSync('dist/osint-academy/index.html','utf8').includes('game.js')){
+ console.error('Trace must open the source dictionary.');failures++;
 }
 if (!homeBundle.includes('/candy-casino/')) {
   console.error('Candy Land Casino is missing from the homepage.'); failures++;

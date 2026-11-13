@@ -1,8 +1,8 @@
 {
   "id": "/osint-academy/",
-  "name": "TRACE OSINT Academy | Random Candy Land",
-  "short_name": "TRACE OSINT",
-  "description": "Hands-on fictional OSINT investigation and professional research training.",
+  "name": "Trace Public Sources Dictionary | Random Candy Land",
+  "short_name": "Trace Public Sources",
+  "description": "Search public records, browse cameras, and document evidence.",
   "start_url": "/osint-academy/",
   "scope": "/osint-academy/",
   "display": "standalone",

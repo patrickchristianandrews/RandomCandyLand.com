@@ -39,7 +39,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/casino.svg',name:'Candy Land Poker',url:'/candy-casino/'},
   {icon:'/tool-icons/simon.svg',name:'Candy Simon Says',url:'/candy-simon/'},
   {icon:'/tool-icons/candy-match.svg',name:'Candy Match',url:'/candy-match/'},
-  {icon:'/tool-icons/osint-academy.svg',name:'TRACE OSINT Academy',url:'/osint-academy/'},
+  {icon:'/tool-icons/osint-academy.svg',name:'Trace Public Sources Dictionary',url:'/osint-academy/'},
   {icon:'/tool-icons/the-corridors.svg',name:'The Corridors',url:'/the-corridors/'},
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
   {icon:'/tool-icons/candy-studio.svg',name:'Random AI',url:'/studio/'},
@@ -47,7 +47,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/wonder-index.svg',name:'The Wonder Index',url:'/curiosity/'},
 ] as const;
 
-const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Poker','Simon Says','Candy Match','TRACE OSINT','The Corridors','The Docket','Random AI','AI Academy','The Wonder Index'] as const;
+const TOOL_MENU_NAMES = ['Unwrapped','Trumpagotchi OG','FM-1 Trumpagotchi','Goo Rush','Candy Poker','Simon Says','Candy Match','Trace Public Sources','The Corridors','The Docket','Random AI','AI Academy','The Wonder Index'] as const;
 const TOOL_MENU_ICONS = [
   '/tool-icons/unwrapped.svg',
   '/tool-icons/trumpagotchi-2.svg',
@@ -72,7 +72,7 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[4],title:'Candy Land Poker',blurb:'Play five-card draw poker against Candybot or invite a friend. Exchange up to three cards, compete across five rounds, and see exactly why each winning hand wins. Virtual chips only.',kind:'multiplayer',label:'FIVE-CARD DRAW · SOLO OR ONLINE FRIEND',palette:'purple',href:'/candy-casino/',multiplayer:'online',duration:'5–30 MIN'},
   {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'quick',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
   {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'multiplayer',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/',multiplayer:'same-screen',duration:'5–15 MIN'},
-  {icon:TOOL_MENU_ICONS[7],title:'TRACE: OSINT Academy',blurb:'Train as an open-source investigator with 25 simulated cases, research tools, workstation setup, source verification, and case reporting.',kind:'learning',label:'INTERACTIVE INVESTIGATION ACADEMY',palette:'blue',href:'/osint-academy/',duration:'LONG COURSE'},
+  {icon:TOOL_MENU_ICONS[7],title:'Trace Public Sources Dictionary',blurb:'Search public records, verify sources, find live camera networks, and organize your findings.',kind:'discovery',label:'RESEARCH REFERENCE',palette:'blue',href:'/osint-academy/'},
   {icon:TOOL_MENU_ICONS[8],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[9],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[11],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
@@ -84,7 +84,7 @@ const COLLECTIONS = [
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
   {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
-  {id:'learning',title:'Courses & Training',description:'Master prompting in AI Academy or train as an investigator in TRACE. Learn by doing at your own pace.',symbol:'🧠',time:'EXTENDED'},
+  {id:'learning',title:'Courses & Training',description:'Master prompting in AI Academy with guided practice at your own pace.',symbol:'🧠',time:'EXTENDED'},
 ] as const;
 
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
