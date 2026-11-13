@@ -83,6 +83,11 @@ details.card summary{font-weight:700;cursor:pointer}
  .seq-grid .seq-step{min-width:34px;height:34px}
  .seq-grid th:first-child button{max-width:105px;min-height:34px;white-space:normal;text-align:left;line-height:1.15}
 }
+.wave-views{margin:10px 0}.wave-views button{padding:6px 12px}.wave-views [aria-pressed=true]{background:#baf3df;border-color:#35c9a0}
+.sound-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));gap:9px}
+.sound-controls label,.mix-track{display:grid;gap:4px;font-size:13px;border:1px solid #ffd1e8;border-radius:9px;padding:7px}
+.sound-controls input{width:100%;accent-color:var(--pink)}
+.mix-track button{padding:4px;font-size:12px}
 </style>
 </head>
 <body>
@@ -99,7 +104,20 @@ details.card summary{font-weight:700;cursor:pointer}
   <button id="scatter">Scatter</button>
   <span class="info" id="info" aria-live="polite">Ready</span>
 </div>
-<section class="card sequencer" aria-labelledby="seq-heading">
+<nav class="bar wave-views" aria-label="Liquid Wave screens">
+<button type="button" data-wave-view="sequencer" aria-pressed="true">Sequencer</button>
+<button type="button" data-wave-view="sound" aria-pressed="false">Sound Lab</button>
+<button type="button" data-wave-view="mixer" aria-pressed="false">Mixer</button>
+</nav>
+<section id="wave-sound" class="card" hidden aria-labelledby="sound-heading">
+<h2 id="sound-heading">Sound Lab</h2>
+<div class="bar"><label>Track <select id="sound-track"></select></label><button id="sound-preview">Preview sound</button><button id="sound-reset">Reset sound</button></div>
+<div id="sound-controls" class="sound-controls"></div>
+</section>
+<section id="wave-mixer" class="card" hidden aria-labelledby="mixer-heading">
+<h2 id="mixer-heading">Mixer</h2><div id="mixer-controls" class="sound-controls"></div>
+</section>
+<section id="wave-sequencer" class="card sequencer" aria-labelledby="seq-heading">
 <h2 id="seq-heading">Animal sequencer</h2>
 <p class="info">Tap steps to edit. Tap a track name to preview. Tap an animal to hear and mute its track, or drag it to move it.</p>
 <div class="bar seq-controls">
@@ -148,6 +166,9 @@ var ST={Synthwave:{bpm:[98,114],sc:"min",progs:[[0,5,2,6],[0,5,3,6]],k:[0,4,8,12
  House:{bpm:[120,128],sc:"min",progs:[[0,0,5,6],[0,3,0,4]],k:[0,4,8,12],s:[4,12],h:[2,6,10,14],b:[2,6,10,14],c:[2,6,10,14]}};
 var SECN=["Intro","Verse","Chorus","Bridge","Outro"],ARR=[0,1,2,1,2,3,2,4];
 var SND=[null,{r:1,i:1.2,d:.25,l:.35,o:-2},{r:2,i:1.4,d:.22,l:.18,o:-1,ch:1},{r:2,i:2,d:.35,l:.3,o:0},{r:1,i:.7,d:1.4,l:.12,o:-1,ch:1,a:.2},{r:3,i:2.4,d:.18,l:.16,o:1},{r:4,i:1.6,d:.3,l:.18,o:0},{r:1,i:1,d:.4,l:.2,o:0}];
+var soundDefaults=SND.map(function(voice){return voice?{pitch:0,ratio:voice.r,depth:voice.i,attack:voice.a||.005,decay:voice.d}:{pitch:0,decay:.3}});
+var sounds=soundDefaults.map(function(voice){return {...voice}});
+var levels=Array(8).fill(1),pan=Array(8).fill(0),buses=[];
 var S={bpm:108,minor:true,playing:false,pos:0,prog:[],pat:[],mute:[0,0,0,0,0,0,0,0]};
 var ac=null,master=null,noise=null,timer=null,nextT=0,act=[0,0,0,0,0,0,0,0],look=[.5,.5,.5,.5,.5,.5,.5,.5],uiStep=0,uiSec=0;
 function rng(seed){var a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -224,14 +245,21 @@ function sem(k){var sc=SC[S.minor?"min":"maj"];return sc[k%7]+12*Math.floor(k/7)
 function boot(){if(ac){if(ac.state==="suspended")ac.resume();return}
  ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.45;
  var cmp=ac.createDynamicsCompressor();master.connect(cmp);cmp.connect(ac.destination);
+ buses=levels.map(function(level,i){
+ var gain=ac.createGain(),position=ac.createStereoPanner?.();
+ gain.gain.value=level;
+ if(position){position.pan.value=pan[i];gain.connect(position);position.connect(master)}
+ else gain.connect(master);
+ return {gain:gain,position:position};
+ });
  noise=ac.createBuffer(1,ac.sampleRate,ac.sampleRate);var d=noise.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1}
-function tone(c,midi,t,dur){var s=SND[c],f=440*Math.pow(2,(midi-69)/12),o=ac.createOscillator(),m=ac.createOscillator(),mg=ac.createGain(),g=ac.createGain();
- o.frequency.value=f;m.frequency.value=f*s.r;mg.gain.setValueAtTime(f*s.i,t);mg.gain.exponentialRampToValueAtTime(Math.max(1,f*s.i*.08),t+s.d+.1);
- m.connect(mg);mg.connect(o.frequency);var a=s.a||.005;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(s.l,t+a);g.gain.exponentialRampToValueAtTime(.0008,t+Math.max(dur,s.d)+.25);
- o.connect(g);g.connect(master);o.start(t);m.start(t);o.stop(t+Math.max(dur,s.d)+.3);m.stop(t+Math.max(dur,s.d)+.3)}
-function nz(t,dur,type,fr,v){var s=ac.createBufferSource();s.buffer=noise;var f=ac.createBiquadFilter();f.type=type;f.frequency.value=fr;var g=ac.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(f);f.connect(g);g.connect(master);s.start(t);s.stop(t+dur+.02)}
-function drum(b,t){if(b&1){var o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(42,t+.13);g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(g);g.connect(master);o.start(t);o.stop(t+.32)}
- if(b&2)nz(t,.18,"bandpass",1900,.55);if(b&4)nz(t,.05,"highpass",7500,.25)}
+function tone(c,midi,t,dur){var voice=sounds[c],s=SND[c],f=440*Math.pow(2,(midi+voice.pitch-69)/12),o=ac.createOscillator(),m=ac.createOscillator(),mg=ac.createGain(),g=ac.createGain();
+ o.frequency.value=f;m.frequency.value=f*voice.ratio;mg.gain.setValueAtTime(f*voice.depth,t);mg.gain.exponentialRampToValueAtTime(Math.max(1,f*voice.depth*.08),t+voice.decay+.1);
+ m.connect(mg);mg.connect(o.frequency);var a=voice.attack;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(s.l,t+a);g.gain.exponentialRampToValueAtTime(.0008,t+Math.max(dur,voice.decay,voice.attack)+.25);
+ o.connect(g);g.connect(buses[c].gain);o.start(t);m.start(t);o.stop(t+Math.max(dur,voice.decay,voice.attack)+.3);m.stop(t+Math.max(dur,voice.decay,voice.attack)+.3)}
+function nz(t,dur,type,fr,v){var s=ac.createBufferSource();s.buffer=noise;var f=ac.createBiquadFilter();f.type=type;f.frequency.value=fr*Math.pow(2,sounds[0].pitch/12);var g=ac.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(f);f.connect(g);g.connect(buses[0].gain);s.start(t);s.stop(t+dur+.02)}
+function drum(b,t){if(b&1){var o=ac.createOscillator(),g=ac.createGain();var pitch=Math.pow(2,sounds[0].pitch/12),decay=sounds[0].decay;o.frequency.setValueAtTime(150*pitch,t);o.frequency.exponentialRampToValueAtTime(42*pitch,t+Math.min(.13,decay));g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+decay);o.connect(g);g.connect(buses[0].gain);o.start(t);o.stop(t+decay+.02)}
+ if(b&2)nz(t,sounds[0].decay*.6,"bandpass",1900,.55);if(b&4)nz(t,sounds[0].decay/6,"highpass",7500,.25)}
 function sched(){var sd=60/S.bpm/4;
  while(nextT<ac.currentTime+.15){var bars=S.pos>>4,ai=Math.floor(bars/4)%ARR.length,sec=seqMode.value==="loop"?seqSection.selectedIndex:ARR[ai],bar=bars%4,step=S.pos&15,cd=S.prog[sec][bar],t=nextT;
   for(var c=0;c<8;c++){if(S.mute[c])continue;var v=S.pat[sec][c][step];if(v<0)continue;
@@ -245,6 +273,50 @@ function play(){boot();if(!S.pat.length)gen();if(S.playing){clearInterval(timer)
  S.pos=0;nextT=ac.currentTime+.1;S.playing=true;timer=setInterval(sched,25);$("play").textContent="■ Stop";$("play").classList.add("on")}
 function refreshSong(){gen();seqTempo.value=S.bpm;paintGrid()}
 makeGrid();refreshSong();
+var selectedSound=$("sound-track"),mutes=[];
+function control(parent,label,min,max,step,value,onChange){
+ var group=document.createElement("label"),title=document.createElement("span"),input=document.createElement("input");
+ input.type="range";input.min=min;input.max=max;input.step=step;input.value=value;
+ title.textContent=label+" · "+value;
+ input.oninput=function(){title.textContent=label+" · "+input.value;onChange(Number(input.value))};
+ group.append(title,input);parent.append(group);
+}
+function soundPanel(){
+ var track=Number(selectedSound.value),voice=sounds[track],root=$("sound-controls");
+ root.replaceChildren();
+ control(root,"Pitch (semitones)",-12,12,1,voice.pitch,function(value){voice.pitch=value});
+ control(root,"Decay (seconds)",.05,2,.01,voice.decay,function(value){voice.decay=value});
+ if(track){
+  control(root,"FM ratio",.5,8,.1,voice.ratio,function(value){voice.ratio=value});
+  control(root,"FM depth",0,5,.1,voice.depth,function(value){voice.depth=value});
+  control(root,"Attack (seconds)",.005,.5,.005,voice.attack,function(value){voice.attack=value});
+ }
+}
+function toggleMute(track){
+ S.mute[track]^=1;
+ mutes[track].textContent=S.mute[track]?"Unmute":"Mute";
+ mutes[track].setAttribute("aria-pressed",Boolean(S.mute[track]));
+}
+NAMES.forEach(function(name,track){
+ selectedSound.add(new Option(animals[track]+" "+name,track));
+ var group=document.createElement("div"),title=document.createElement("strong"),mute=document.createElement("button");
+ group.className="mix-track";title.textContent=animals[track]+" "+name;
+ mute.type="button";mute.textContent="Mute";mute.setAttribute("aria-pressed","false");mute.setAttribute("aria-label","Mute "+name);
+ mute.onclick=function(){toggleMute(track)};mutes.push(mute);
+ group.append(title,mute);
+ control(group,"Volume",0,1,.05,levels[track],function(value){levels[track]=value;if(buses[track])buses[track].gain.gain.value=value});
+ control(group,"Pan",-1,1,.05,pan[track],function(value){pan[track]=value;if(buses[track]?.position)buses[track].position.pan.value=value});
+ $("mixer-controls").append(group);
+});
+selectedSound.onchange=soundPanel;
+$("sound-preview").onclick=function(){var track=Number(selectedSound.value);previewTrack(track,track===0?7:0)};
+$("sound-reset").onclick=function(){var track=Number(selectedSound.value);sounds[track]={...soundDefaults[track]};soundPanel()};
+soundPanel();
+var views=Array.from(document.querySelectorAll("[data-wave-view]"));
+views.forEach(function(tab){tab.onclick=function(){
+ views.forEach(function(button){var selected=button===tab;button.setAttribute("aria-pressed",selected);$("wave-"+button.dataset.waveView).hidden=!selected});
+}});
+
 seqSection.onchange=paintGrid;
 seqTempo.onchange=function(){S.bpm=Math.max(45,Math.min(200,Math.round(Number(seqTempo.value)||108)));seqTempo.value=S.bpm};
 $("seq-clear").onclick=function(){S.pat[seqSection.selectedIndex]=NAMES.map(mk);paintGrid()};
@@ -258,7 +330,7 @@ function pos(e){var r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.wi
 cv.addEventListener("pointerdown",function(e){var p=pos(e),b=-1,bd=1e9;FP.forEach(function(f,i){var d=Math.hypot(p[0]-f.x,p[1]-f.y);if(d<bd){bd=d;b=i}});
  if(b>=0&&bd<R0*1.6){drag=b;FP[b].d=true;off=[FP[b].x-p[0],FP[b].y-p[1]];downAt=performance.now();moved=0;cv.setPointerCapture(e.pointerId)}});
 cv.addEventListener("pointermove",function(e){if(drag<0)return;var p=pos(e),f=FP[drag];f.x=p[0]+off[0];f.y=p[1]+off[1];f.vx=f.vy=0;moved++});
-function up(){if(drag>=0){FP[drag].d=false;if(moved<4&&performance.now()-downAt<350){previewTrack(drag,drag===0?1:0);S.mute[drag]^=1}drag=-1}}
+function up(){if(drag>=0){FP[drag].d=false;if(moved<4&&performance.now()-downAt<350){previewTrack(drag,drag===0?1:0);toggleMute(drag)}drag=-1}}
 cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
 
 /* ---- eight different cute characters ---- */
