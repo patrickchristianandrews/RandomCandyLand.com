@@ -1,11 +1,20 @@
 name: Build OSINT Windows Installer
 on:
   workflow_dispatch:
+  push:
+    branches: [osint-windows-app]
+    paths:
+      - 'osint-desktop/**'
+      - '.github/workflows/osint-windows.yml'
 permissions:
   contents: read
+concurrency:
+  group: osint-windows-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   windows:
     runs-on: windows-latest
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: osint-desktop
@@ -14,6 +23,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Compile Python sources
+        run: python -m compileall -q .
       - name: Test matching and indexed search
         run: python -m unittest discover -s tests -v
       - name: Install packaging tools
@@ -27,8 +38,54 @@ jobs:
           if (-not (Test-Path $iscc)) { throw "Inno Setup 6 is required on the runner." }
           & $iscc installer.iss
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - uses: actions/upload-artifact@v4
+      - name: Install, launch and uninstall smoke test
+        shell: pwsh
+        run: |
+          $setup = Join-Path $PWD 'installer\CandyLand-OSINT-Setup.exe'
+          if (-not (Test-Path $setup)) { throw 'Installer was not produced.' }
+          $target = Join-Path $env:RUNNER_TEMP 'CandyLandOSINT-Smoke'
+          $log = Join-Path $PWD 'installer\install-smoke.log'
+          $arguments = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-', ('/DIR="' + $target + '"'), ('/LOG="' + $log + '"'))
+          $installation = Start-Process -FilePath $setup -ArgumentList $arguments -Wait -PassThru
+          if ($installation.ExitCode -ne 0) { throw "Installation failed: $($installation.ExitCode)" }
+          $exe = Join-Path $target 'CandyLandOSINT.exe'
+          if (-not (Test-Path $exe)) { throw 'Installed application is missing.' }
+          $app = $null
+          try {
+            $app = Start-Process -FilePath $exe -PassThru
+            Start-Sleep -Seconds 12
+            $app.Refresh()
+            if ($app.HasExited) { throw 'Desktop application exited during startup.' }
+            if ($app.MainWindowHandle -eq 0) { throw 'Desktop application did not expose a main window.' }
+          } finally {
+            if ($app) {
+              $app.Refresh()
+              if (-not $app.HasExited) {
+                $null = $app.CloseMainWindow()
+                if (-not $app.WaitForExit(5000)) { Stop-Process -Id $app.Id -Force }
+              }
+            }
+          }
+          $uninstaller = Join-Path $target 'unins000.exe'
+          if (-not (Test-Path $uninstaller)) { throw 'Uninstaller is missing.' }
+          $uninstall = Start-Process -FilePath $uninstaller -ArgumentList '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART' -Wait -PassThru
+          if ($uninstall.ExitCode -ne 0) { throw "Uninstall failed: $($uninstall.ExitCode)" }
+          Start-Sleep -Seconds 3
+          if (Test-Path $exe) { throw 'Application remained after uninstall.' }
+      - name: Upload installer after successful smoke test
+        uses: actions/upload-artifact@v4
         with:
           name: CandyLand-OSINT-Windows
           path: osint-desktop/installer/*.exe
           if-no-files-found: error
+          retention-days: 7
+      - name: Upload build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CandyLand-OSINT-Build-Diagnostics
+          path: |
+            osint-desktop/installer/*.log
+            osint-desktop/build/CandyLandOSINT/warn-*.txt
+          if-no-files-found: ignore
+          retention-days: 7
