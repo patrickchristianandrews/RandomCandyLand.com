@@ -111,7 +111,7 @@ details.card summary{font-weight:700;cursor:pointer}
 </nav>
 <section id="wave-sound" class="card" hidden aria-labelledby="sound-heading">
 <h2 id="sound-heading">Sound Lab</h2>
-<div class="bar"><label>Track <select id="sound-track"></select></label><button id="sound-preview">Preview sound</button><button id="sound-reset">Reset sound</button></div>
+<div class="bar"><label>Track <select id="sound-track"></select></label><label>Instrument <select id="sound-instrument"></select></label><button id="sound-preview">Preview sound</button><button id="sound-reset">Reset sound</button></div>
 <div id="sound-controls" class="sound-controls"></div>
 </section>
 <section id="wave-mixer" class="card" hidden aria-labelledby="mixer-heading">
@@ -146,7 +146,7 @@ details.card summary{font-weight:700;cursor:pointer}
 </ol>
 <div class="bar"><a class="cta" href="/liquid-wave/install/">Open the FM-1 installer &amp; emulator</a>
 <a class="cta" href="/liquid-wave/install/firmware.fwsc" download="Liquid-Wave-FM1.fwsc">Download emulator firmware (.fwsc)</a></div>
-<p><a href="/liquid-wave/install/CONTROLS.txt">FM-1 button and knob guide</a> · <a href="https://github.com/patrickchristianandrews/foma/releases/tag/pocket-wave-6">Firmware release notes</a></p>
+<p><a href="/liquid-wave/install/CONTROLS.txt">FM-1 button and knob guide</a> · <a href="https://github.com/patrickchristianandrews/foma/releases">Firmware release notes</a></p>
 <p>Open the .fwsc file in an FM-1 emulator that supports firmware packages, or use the Emulator tab in the installer. The download contains the experimental hardware build. The animal sequencer above runs in this browser.</p>
 <p>If the FM-1 ever won't start, hold <strong>OCT&minus;</strong> while switching it on for the USB rescue. The package also has 26 companion DX7 bank files (<a href="/liquid-wave/install/dx7-banks/">browse them</a>); the firmware itself cannot play them. The browser toy above does not need an FM-1.</p>
 <p><a href="https://github.com/patrickchristianandrews/foma/releases" target="_blank" rel="noopener">All releases on GitHub</a> · <a href="https://github.com/patrickchristianandrews/foma" target="_blank" rel="noopener">Source on GitHub</a></p>
@@ -169,6 +169,9 @@ var SECN=["Intro","Verse","Chorus","Bridge","Outro"],ARR=[0,1,2,1,2,3,2,4];
 var SND=[null,{r:1,i:1.2,d:.25,l:.35,o:-2},{r:2,i:1.4,d:.22,l:.18,o:-1,ch:1},{r:2,i:2,d:.35,l:.3,o:0},{r:1,i:.7,d:1.4,l:.12,o:-1,ch:1,a:.2},{r:3,i:2.4,d:.18,l:.16,o:1},{r:4,i:1.6,d:.3,l:.18,o:0},{r:1,i:1,d:.4,l:.2,o:0}];
 var soundDefaults=SND.map(function(voice){return voice?{pitch:0,ratio:voice.r,depth:voice.i,attack:voice.a||.005,decay:voice.d}:{pitch:0,decay:.3}});
 var sounds=soundDefaults.map(function(voice){return {...voice}});
+var instrumentCatalog=[["Round bass", 1, 18, 12, 82, -12], ["Rubber bass", 2, 49, 11, 83, -12], ["Sub sine", 1, 0, 15, 78, -12], ["Acid bass", 3, 69, 12, 78, -12], ["Octave bass", 2, 35, 13, 75, -24], ["Reed bass", 4, 24, 13, 76, -12], ["Velvet keys", 2, 13, 14, 78, 0], ["Stage keys", 3, 34, 13, 76, 0], ["Wurlie", 1, 49, 12, 73, 0], ["Toy piano", 6, 31, 11, 72, 12], ["Clav", 5, 62, 10, 68, 0], ["Harpsichord", 7, 39, 11, 70, 0], ["Glass bell", 6, 30, 16, 65, 12], ["Tiny chime", 8, 21, 14, 62, 12], ["Gong", 5, 68, 17, 62, -12], ["Vibraphone", 3, 17, 15, 69, 0], ["Marimba", 4, 45, 10, 73, 0], ["Kalimba", 7, 22, 12, 67, 0], ["Air pad", 1, 7, 17, 65, 0], ["Cloud pad", 2, 10, 16, 67, 12], ["Halo pad", 3, 16, 17, 63, 0], ["Dark pad", 1, 26, 17, 62, -12], ["Soft strings", 2, 41, 16, 64, 0], ["Space choir", 4, 12, 16, 62, 0], ["Square lead", 3, 58, 13, 69, 0], ["Bright lead", 5, 40, 14, 70, 0], ["Flute", 1, 7, 13, 74, 12], ["Reed lead", 4, 50, 13, 70, 0], ["Hollow lead", 2, 29, 14, 72, 0], ["Chip pulse", 6, 56, 12, 65, 12], ["Bubble pluck", 2, 59, 10, 72, 0], ["Laser pluck", 7, 67, 10, 67, 12], ["Wood pluck", 3, 33, 10, 70, 0], ["Dust spark", 8, 72, 11, 60, 12], ["Alien call", 5, 57, 16, 63, 0], ["Metal hit", 7, 72, 12, 66, -12]];
+var drumCatalog=[["Pocket kit", 1, 0, 11, 85, 0], ["Deep club", 1, 5, 12, 94, -9], ["Tight electro", 1, 18, 9, 80, 7], ["Dusty breaks", 1, 11, 10, 83, -4], ["Soft clicks", 1, 0, 7, 62, 12], ["Big room", 1, 26, 13, 88, -2], ["Tin machine", 1, 40, 8, 78, 15], ["Slow thunder", 1, 8, 14, 84, -17]];
+var instrumentChoices=Array(8).fill(-1);
 var levels=Array(8).fill(1),pan=Array(8).fill(0),buses=[];
 var S={bpm:108,minor:true,playing:false,pos:0,prog:[],pat:[],mute:[0,0,0,0,0,0,0,0]};
 var ac=null,master=null,noise=null,timer=null,nextT=0,playback=0,act=[0,0,0,0,0,0,0,0],look=[.5,.5,.5,.5,.5,.5,.5,.5],uiStep=0,uiSec=0;
@@ -295,7 +298,7 @@ function play(){boot();if(!S.pat.length)gen();if(S.playing){clearInterval(timer)
  playback++;S.pos=0;nextT=ac.currentTime+.04;S.playing=true;timer=setInterval(sched,25);$("play").textContent="■ Stop";$("play").classList.add("on")}
 function refreshSong(){gen();seqTempo.value=S.bpm;paintGrid()}
 makeGrid();refreshSong();
-var selectedSound=$("sound-track"),mutes=[];
+var selectedSound=$("sound-track"),instrumentPicker=$("sound-instrument"),mutes=[];
 function control(parent,label,min,max,step,value,onChange){
  var group=document.createElement("label"),title=document.createElement("span"),input=document.createElement("input");
  input.type="range";input.min=min;input.max=max;input.step=step;input.value=value;
@@ -306,7 +309,10 @@ function control(parent,label,min,max,step,value,onChange){
 function soundPanel(){
  var track=Number(selectedSound.value),voice=sounds[track],root=$("sound-controls");
  root.replaceChildren();
- control(root,"Pitch (semitones)",-12,12,1,voice.pitch,function(value){voice.pitch=value});
+ var catalog=track?instrumentCatalog:drumCatalog;
+ instrumentPicker.replaceChildren(new Option("Original track sound",-1),...catalog.map(function(patch,i){return new Option(patch[0],i)}));
+ instrumentPicker.value=instrumentChoices[track];
+ control(root,"Pitch (semitones)",-24,24,1,voice.pitch,function(value){voice.pitch=value});
  control(root,"Decay (seconds)",.05,2,.01,voice.decay,function(value){voice.decay=value});
  if(track){
   control(root,"FM ratio",.5,8,.1,voice.ratio,function(value){voice.ratio=value});
@@ -331,8 +337,16 @@ NAMES.forEach(function(name,track){
  $("mixer-controls").append(group);
 });
 selectedSound.onchange=soundPanel;
+instrumentPicker.onchange=function(){
+ var track=Number(selectedSound.value),id=Number(instrumentPicker.value);
+ var patch=(track?instrumentCatalog:drumCatalog)[id];
+ instrumentChoices[track]=id;
+ sounds[track]=patch?{pitch:patch[5],ratio:patch[1],depth:patch[2]/16,attack:.005,decay:Math.min(2,Math.max(.05,Math.pow(2,patch[3]-11)*.052))}:{...soundDefaults[track]};
+ soundPanel();
+ if(!S.playing)previewTrack(track,track?0:7);
+};
 $("sound-preview").onclick=function(){var track=Number(selectedSound.value);previewTrack(track,track===0?7:0)};
-$("sound-reset").onclick=function(){var track=Number(selectedSound.value);sounds[track]={...soundDefaults[track]};soundPanel()};
+$("sound-reset").onclick=function(){var track=Number(selectedSound.value);instrumentChoices[track]=-1;sounds[track]={...soundDefaults[track]};soundPanel()};
 soundPanel();
 var views=Array.from(document.querySelectorAll("[data-wave-view]"));
 views.forEach(function(tab){tab.onclick=function(){
