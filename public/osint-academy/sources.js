@@ -1,5 +1,205 @@
 const SOURCES = [
   [
+    "Elections and political money",
+    "Check your voter registration by state",
+    "https://www.eac.gov/voters/register-and-vote-in-your-state",
+    "Find your state’s official voter registration status check and local election office.",
+    "A self-service status check is different from access to a voter list. Check the state’s instructions before submitting personal details.",
+    "Choose your state, then use its official registration status link to check your own record."
+  ],
+  [
+    "Elections and political money",
+    "Virginia voter registration and voting history",
+    "https://vote.elections.virginia.gov/VoterInformation",
+    "Check your Virginia voter registration, polling place, districts, absentee ballot status, and participation history.",
+    "Participation history can show elections you voted in. It does not show who you voted for.",
+    "Open the Citizen Portal and follow the instructions to look up your own voter record."
+  ],
+  [
+    "Elections and political money",
+    "Voter registration lists by state",
+    "https://www.ncsl.org/elections-and-campaigns/access-to-and-use-of-voter-registration-lists",
+    "Compare state rules for access to voter rolls, available fields, and permitted uses.",
+    "Eligibility, access, and permitted use vary. The guide explains the rules and does not supply voter records.",
+    "Find the state in the table, then check the linked law and contact the state or local election office for its current process."
+  ],
+  [
+    "Elections and political money",
+    "Virginia voter list requests",
+    "https://law.lis.virginia.gov/vacode/title24.2/chapter4/section24.2-405/",
+    "See which applicants and purposes qualify for Virginia registered voter lists.",
+    "Access to voter lists is restricted. A public records request is a separate process.",
+    "Read the eligibility and purpose rules, then contact the Virginia Department of Elections for its current request form and fees."
+  ],
+  [
+    "Elections and political money",
+    "Virginia election participation lists",
+    "https://law.lis.virginia.gov/vacode/title24.2/chapter4/section24.2-406/",
+    "See the rules for requesting Virginia lists of people who participated in specified elections.",
+    "An appearance on a participation list cannot reveal anyone’s ballot choices.",
+    "Identify the election and read the applicant and purpose rules before contacting the Department of Elections."
+  ],
+  [
+    "Elections and political money",
+    "Virginia voter registration statistics",
+    "https://www.elections.virginia.gov/resultsreports/registration-statistics/",
+    "Find aggregate voter registration counts for Virginia.",
+    "These are counts. Use the report’s definitions before comparing active and inactive registrations.",
+    "Choose a report date or year. Compare matching geography and reporting periods when measuring change."
+  ],
+  [
+    "Elections and political money",
+    "Virginia election results",
+    "https://www.elections.virginia.gov/resultsreports/election-results/",
+    "Find Virginia election returns by contest and locality.",
+    "Election-night totals can change. Look for certified results when citing a final count.",
+    "Choose the election date and office. Open locality or precinct detail when available."
+  ],
+  [
+    "Elections and political money",
+    "Federal individual campaign donations",
+    "https://www.fec.gov/data/receipts/individual-contributions/",
+    "Find disclosed individual donations to federal political committees, with amounts, dates, and recipient committees.",
+    "Same-name matches and amended reports need checking. Disclosure rules affect which donations appear. FEC contributor data has solicitation and commercial-use restrictions.",
+    "Search the donor name, then narrow by state, employer, recipient committee, and election cycle."
+  ],
+  [
+    "Elections and political money",
+    "Federal campaign and PAC filings",
+    "https://www.fec.gov/data/",
+    "Find candidate committees, political action committees, receipts, disbursements, and reports filed with the FEC.",
+    "Totals and transaction lines answer different questions. Check filing dates, amendments, refunds, and transfers before adding amounts.",
+    "Find the committee by name or ID. Open the latest filing or amendment and look at the schedules for individual transactions."
+  ],
+  [
+    "Elections and political money",
+    "Federal independent expenditures",
+    "https://www.fec.gov/data/independent-expenditures/",
+    "Find disclosed outside spending that supports or opposes federal candidates.",
+    "Independent spending is reported separately from donations to the candidate’s campaign.",
+    "Filter by candidate, spender, election cycle, and support or opposition. Open the original filing for context."
+  ],
+  [
+    "Elections and political money",
+    "Virginia campaign donations and filings",
+    "https://www.elections.virginia.gov/candidatepac-info/campaign-finance/",
+    "Find the state’s disclosure resources for Virginia campaign and political committee reports.",
+    "For a local race, confirm which office holds the filing. Federal races use FEC records.",
+    "Follow the campaign finance disclosure link, then search by candidate or committee. Check the contribution schedule and latest amendment."
+  ],
+  [
+    "Elections and political money",
+    "Virginia Public Access Project donor research",
+    "https://www.vpap.org/",
+    "Find Virginia political donation summaries and donor profiles compiled from disclosure records.",
+    "VPAP is a research index. Verify identity, amounts, and amendments against the filed report.",
+    "Open Money, then Donor Search. Narrow by locality or recipient and compare the original report for important findings."
+  ],
+  [
+    "Elections and political money",
+    "IRS Section 527 political organization filings",
+    "https://www.irs.gov/charities-non-profits/political-organizations/political-organization-filing-and-disclosure",
+    "Find public forms filed by covered political organizations, including certain contribution and spending disclosures.",
+    "Coverage depends on the organization and its filing obligations. Check FEC and state sources separately.",
+    "Use the IRS political organization disclosure search and look up the organization. Start with Form 8872 for periodic contribution and spending reports where available."
+  ],
+  [
+    "Elections and political money",
+    "Federal candidates’ financial disclosures",
+    "https://www.fec.gov/help-candidates-and-committees/filing-reports/financial-disclosure/",
+    "Find guidance on where federal candidates file personal financial disclosures.",
+    "These disclosures describe reportable financial interests. Campaign receipts are filed separately.",
+    "Identify the office sought and follow the filing office listed for that office. Compare report years and amendments."
+  ],
+  [
+    "Elections and political money",
+    "Political advertising files",
+    "https://publicfiles.fcc.gov/",
+    "Find political ad documents filed in public inspection files by covered broadcasters and other regulated outlets.",
+    "An order or request can differ from what aired. Compare invoices or later records when available.",
+    "Search by station call sign, open the political file, and choose the year and race or issue."
+  ],
+  [
+    "Public oversight and safety",
+    "OFAC sanctions list search",
+    "https://sanctionssearch.ofac.treas.gov/",
+    "Find possible matches on U.S. Treasury sanctions lists.",
+    "A similar name alone cannot establish a match. Record the list and search date.",
+    "Search the name, then compare aliases, entity type, and other identifiers in the official listing."
+  ],
+  [
+    "Public oversight and safety",
+    "FDA warning letters",
+    "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters",
+    "Find published FDA warning letters about regulatory concerns.",
+    "A warning letter reflects concerns at the time it was issued. Check subsequent actions.",
+    "Search by company name or product and open the letter. Look for follow-up correspondence or closeout information."
+  ],
+  [
+    "Public oversight and safety",
+    "Federal rulemaking comments and dockets",
+    "https://www.regulations.gov/",
+    "Find proposed rules, supporting documents, and public comments for participating agencies.",
+    "Public comments are submissions. Check the final rule or agency response to see what the agency adopted.",
+    "Search the docket ID or agency and topic. Open the docket and filter by document type."
+  ],
+  [
+    "Public oversight and safety",
+    "FCC Electronic Comment Filing System",
+    "https://www.fcc.gov/ecfs/",
+    "Find filings in FCC proceedings, including comments, petitions, and correspondence.",
+    "A filer’s position is distinct from an FCC decision. Find the final order separately.",
+    "Use the proceeding number or filer name, then open the dated filing in the relevant docket."
+  ],
+  [
+    "Public oversight and safety",
+    "HHS health care exclusions",
+    "https://exclusions.oig.hhs.gov/",
+    "Search the federal list of people and entities excluded from certain health care programs.",
+    "Similar names can produce false matches. Verify identity and current status with the official system.",
+    "Search the individual or organization and use the official verification process when a possible match appears."
+  ],
+  [
+    "Public oversight and safety",
+    "CMS provider data",
+    "https://data.cms.gov/provider-data/",
+    "Find public datasets on hospitals, nursing homes, and other providers, including quality or inspection data by provider type.",
+    "Measures and update dates vary by dataset. Compare the same metric and period.",
+    "Choose the provider category and search by facility name or identifier. Read the dataset description and reporting period."
+  ],
+  [
+    "Public oversight and safety",
+    "FEMA disaster declarations",
+    "https://www.fema.gov/disaster/declarations",
+    "Find federal disaster declarations, affected areas, dates, and assistance designations.",
+    "A declaration’s geography and programs can change. Verify against the latest designation.",
+    "Filter by state, incident type, or date. Open the declaration and check designated areas and amendments."
+  ],
+  [
+    "Public oversight and safety",
+    "NOAA Storm Events Database",
+    "https://www.ncei.noaa.gov/stormevents/",
+    "Find documented U.S. severe weather events, including event narratives where available.",
+    "Reporting coverage varies over time and by event type. Compare nearby observations for a specific location.",
+    "Filter by state or county, date range, and event type. Open the record and read the description."
+  ],
+  [
+    "Public oversight and safety",
+    "Public company insider transactions",
+    "https://www.sec.gov/edgar/search/",
+    "Find SEC Form 4 reports of certain transactions by public-company insiders.",
+    "Grants, option exercises, gifts, and open-market purchases have different meanings.",
+    "Search by company ticker or name, filter for Form 4, then read the transaction codes and footnotes."
+  ],
+  [
+    "Elections and political money",
+    "State and local campaign donations",
+    "State election agency or local filing office",
+    "Find disclosed donations to candidates and committees in state or local races.",
+    "Coverage, filing offices, and disclosure rules vary. Verify totals against the latest filed report.",
+    "Identify the office and election year. Open the state election agency’s campaign finance page or contact the local clerk."
+  ],
+  [
     "Identity and provenance",
     "Official biographies",
     "Employer, university, or agency staff pages",
@@ -189,22 +389,6 @@ const SOURCES = [
     "https://lda.senate.gov/",
     "Lobbying registrations and periodic reports",
     "A listed issue or client does not show a meeting occurred.",
-    "Use the registered name or an ID if available. Check the filing period and compare amended reports with the original."
-  ],
-  [
-    "Businesses and money",
-    "FEC campaign finance",
-    "https://www.fec.gov/data/",
-    "Federal committee filings and campaign finance records",
-    "Review amendments; protect unnecessary personal details.",
-    "Find the committee by name or ID. Choose a reporting period and open the filing to see the underlying reported transactions."
-  ],
-  [
-    "Businesses and money",
-    "State campaign finance",
-    "State election or ethics agency",
-    "State candidate and committee filings",
-    "Reporting thresholds and coverage vary.",
     "Use the registered name or an ID if available. Check the filing period and compare amended reports with the original."
   ],
   [

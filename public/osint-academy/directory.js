@@ -56,13 +56,14 @@ function sourceCard([category,name,where,coverage,check,start]){
 function sourcesPage(){
  const categories=['All',...new Set(SOURCES.map(x=>x[0]))];
  return `<section class="hero"><span class="eyebrow">PUBLIC RECORDS & OPEN-SOURCE RESEARCH</span><h1>Trace <em>Public Sources.</em></h1><p>Search by what you want to learn. Open any card for a short walkthrough and tips on interpreting the result.</p></section>
- <section class="card source-head"><form id="source-search"><label>Search ${SOURCES.length} source types<input name="search" value="${attr(sourceSearch)}" placeholder="e.g. professional license, court filing, archived page"></label><button class="primary">Find sources</button> <button type="button" data-source-category="Overlooked records">Browse overlooked records</button></form>
+ <section class="card source-head"><form id="source-search"><label>Search ${SOURCES.length} source types<input name="search" value="${attr(sourceSearch)}" placeholder="e.g. voter registration, political donations, court filing"></label><button class="primary">Find sources</button> <button type="button" data-source-category="Overlooked records">Browse overlooked records</button></form>
  <div class="chips">${categories.map(c=>`<button class="chip" data-source-category="${attr(c)}" aria-pressed="${sourceCategory===c}">${esc(c)}</button>`).join('')}</div></section>
  <p id="source-count" class="section" role="status"></p><div class="tiles section" id="source-results"></div>`;
 }
 function renderSources(){
  const out=document.querySelector('#source-results');if(!out)return;
- const terms=sourceSearch.toLowerCase().trim().split(/\s+/).filter(Boolean);
+ const query=sourceSearch.toLowerCase().replace(/\bvoter donations?\b/g,'donations').replace(/\bpolitical donations?\b/g,'donations').replace(/\bdonors?\b/g,'donations');
+ const terms=query.trim().split(/\s+/).filter(Boolean);
  const rows=SOURCES.filter(row=>(sourceCategory==='All'||row[0]===sourceCategory)&&terms.every(term=>row.join(' ').toLowerCase().includes(term)));
  const count=document.querySelector('#source-count');if(count)count.textContent=rows.length+' matching sources';
  out.innerHTML=rows.map(sourceCard).join('')||'<p>No matching sources. Try a record type or a broader term.</p>';
