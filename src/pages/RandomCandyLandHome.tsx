@@ -205,14 +205,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                                 <span className="candyland-unwrapped-feature-headline">Explore your intimate side. Understand the whole person.</span>
                                 <span className="candyland-unwrapped-feature-description">Explore your intimate side or broader psychology separately, or blend both for a holistic understanding of how everything connects. Explore practical toy-use guides for male and female anatomy, plus tailored reading suggestions in your private report. Choose exactly which highlights to share, then compare selected partner reports for communication and understanding.</span>
                                 <span className="candyland-unwrapped-feature-output-title">EXPLORE EVERY LAYER · TAKE HOME REAL INSIGHTS</span>
-                                <span className="candyland-unwrapped-feature-outputs" aria-label="Unwrapped topics and takeaways">
-                                  <span>🧠 Psychology &amp; emotions</span>
-                                  <span>💫 Attraction &amp; interests</span>
-                                  <span>🤝 Relationship dynamics</span>
-                                  <span>💬 Communication insights</span>
-                                  <span>🪞 Personalized profiles</span>
-                                  <span>📄 Reports &amp; toy guides</span>
-                                </span>
                                 <span className="candyland-unwrapped-feature-footer">
                                   <span className="candyland-unwrapped-feature-help">Private, self-paced reflection · Adults 18+ · Not a clinical assessment</span>
                                   <span className="candyland-unwrapped-feature-cta">Explore Unwrapped <span aria-hidden="true">↗</span></span>
