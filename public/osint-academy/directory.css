@@ -3,3 +3,5 @@
 @media(max-width:740px){aside{position:static;width:auto;padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}nav{display:flex;overflow:auto;margin-top:8px;gap:2px}nav button{font-size:12px;padding:7px 8px}.side-foot{display:none}.frame{margin:0}header,main{padding-left:12px;padding-right:12px}.grid{grid-template-columns:1fr}.hero{padding:20px 14px}.hero:after{right:-160px;opacity:.5}.heading h1{font-size:34px}.card{padding:13px}}
 
 .source-card{display:flex;flex-direction:column;gap:8px}.source-card p{margin:0}.source-card .row{margin-top:auto}.source-card b{color:var(--text)}.source-head{margin-bottom:13px}.searchbox input{font-size:16px}.section .heading{margin-bottom:8px}.glossary dt{font-weight:700;margin-top:12px}.glossary dd{margin:3px 0 0;color:var(--muted)}.source-card small{display:block}
+
+.source-card details{margin:0;padding:7px 0;border-top:1px solid var(--line)}.source-card details p{margin-top:7px;font-size:13px}.source-card b{display:block;font-size:12px;margin-bottom:3px}.source-card summary{font-size:13px}

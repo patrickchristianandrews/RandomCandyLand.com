@@ -5,7 +5,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery';
+type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery' | 'research';
 
 type Portal = {
   icon: string;
@@ -72,7 +72,7 @@ const PORTALS: Portal[] = [
   {icon:TOOL_MENU_ICONS[4],title:'Candy Land Poker',blurb:'Play five-card draw poker against Candybot or invite a friend. Exchange up to three cards, compete across five rounds, and see exactly why each winning hand wins. Virtual chips only.',kind:'multiplayer',label:'FIVE-CARD DRAW · SOLO OR ONLINE FRIEND',palette:'purple',href:'/candy-casino/',multiplayer:'online',duration:'5–30 MIN'},
   {icon:TOOL_MENU_ICONS[5],title:'Candy Simon Says!',blurb:"Watch four adorable musical gummies light up, then repeat the candy pattern to win stars and reach the next level.",kind:'quick',label:'NEW · MUSIC MEMORY',palette:'peach',href:'/candy-simon/'},
   {icon:TOOL_MENU_ICONS[6],title:'Candy Match!',blurb:"Flip colorful mystery cards, find two of the same candy, build your memory and beat your best score.",kind:'multiplayer',label:'NEW · MATCHING PAIRS',palette:'purple',href:'/candy-match/',multiplayer:'same-screen',duration:'5–15 MIN'},
-  {icon:TOOL_MENU_ICONS[7],title:'Trace Public Sources Dictionary',blurb:'Search public records, verify sources, find live camera networks, and organize your findings.',kind:'discovery',label:'RESEARCH REFERENCE',palette:'blue',href:'/osint-academy/'},
+  {icon:TOOL_MENU_ICONS[7],title:'Trace Public Sources Dictionary',blurb:'Search public records, verify sources, find live camera networks, and organize your findings.',kind:'research',label:'RESEARCH REFERENCE',palette:'blue',href:'/osint-academy/'},
   {icon:TOOL_MENU_ICONS[8],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[9],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[11],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
@@ -80,6 +80,7 @@ const PORTALS: Portal[] = [
 
 const COLLECTIONS = [
   {id:'discovery',title:'Explore & Understand',description:'A fuller picture of who you are—psychology, personal interests, relationships and how to express what matters.',symbol:'🌙',time:'DISCOVER · CONNECT'},
+  {id:'research',title:'Public Research',description:'Find public records and learn how to check them.',symbol:'🔎',time:'REFERENCE'},
   {id:'multiplayer',title:'Multiplayer & Play Together',description:'Play with other people. Online rooms and same-screen modes are clearly marked.',symbol:'👥',time:'PLAY TOGETHER'},
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
@@ -221,8 +222,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                             <>
                               <span className="candyland-hero-tool-name">{portal.title}</span>
                               <span className="candyland-hero-tool-blurb">{portal.blurb}</span>
-                              <span className="candyland-hero-tool-duration">{portal.duration || (group.id === 'quick' ? '5–15 MIN' : group.id === 'ongoing' ? 'DROP IN ANYTIME' : 'EXPLORE')}</span>
-                              <span className={'candyland-multiplayer-tag '+(portal.multiplayer||'single')}>{portal.multiplayer==='online'?'🌐 Online friends · relay required':portal.multiplayer==='same-screen'?'👥 Same-screen multiplayer':'👤 Single-player / solo'}</span>
+                              <span className="candyland-hero-tool-duration">{portal.kind === 'research' ? 'OPEN DICTIONARY ↗' : portal.duration || (group.id === 'quick' ? '5–15 MIN' : group.id === 'ongoing' ? 'DROP IN ANYTIME' : 'EXPLORE')}</span>
+                              {portal.kind !== 'research' && <span className={'candyland-multiplayer-tag '+(portal.multiplayer||'single')}>{portal.multiplayer==='online'?'🌐 Online friends · relay required':portal.multiplayer==='same-screen'?'👥 Same-screen multiplayer':'👤 Single-player / solo'}</span>}
                             </>
                           )}
                         </span>

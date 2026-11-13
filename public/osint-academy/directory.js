@@ -47,23 +47,24 @@ const field=(name,label,placeholder,type='text')=>`<label>${label}<input name="$
 const status=message=>{state.notice=message;const node=document.querySelector('#status');if(node)node.textContent=message;};
 const statusHTML=()=>`<div class="status" id="status" role="status">${esc(state.notice)}</div>`;
 const webURL=value=>{try{const u=new URL(value);return ['http:','https:'].includes(u.protocol)&&!u.username&&!u.password?u:null;}catch{return null;}};
-function sourceCard([category,name,where,coverage,check]){
+function sourceCard([category,name,where,coverage,check,start]){
  const url=webURL(where);
  return `<article class="card source-card"><span class="tag">${esc(category)}</span><h3>${esc(name)}</h3>
- <p><b>Find:</b> ${esc(coverage)}</p><p><b>Verify:</b> ${esc(check)}</p>
+ <p><b>What you’ll find</b> ${esc(coverage)}</p><details><summary>How to search and verify</summary><p><b>Start here</b> ${esc(start)}</p><p><b>What to double-check</b> ${esc(check)}</p></details>
  <div class="row">${url?button('Open source',url.href):`<small>${esc(where)}</small>`}</div></article>`;
 }
 function sourcesPage(){
  const categories=['All',...new Set(SOURCES.map(x=>x[0]))];
- return `<section class="hero"><span class="eyebrow">PUBLIC RECORDS & OPEN-SOURCE RESEARCH</span><h1>Trace <em>Public Sources.</em></h1><p>Find the record that answers your question. Check what it can establish, where it comes from, and what to verify next.</p></section>
- <section class="card source-head"><form id="source-search"><label>Search ${SOURCES.length} source types<input name="search" value="${attr(sourceSearch)}" placeholder="e.g. professional license, court filing, archived page"></label><button class="primary">Find sources</button></form>
+ return `<section class="hero"><span class="eyebrow">PUBLIC RECORDS & OPEN-SOURCE RESEARCH</span><h1>Trace <em>Public Sources.</em></h1><p>Search by what you want to learn. Open any card for a short walkthrough and tips on interpreting the result.</p></section>
+ <section class="card source-head"><form id="source-search"><label>Search ${SOURCES.length} source types<input name="search" value="${attr(sourceSearch)}" placeholder="e.g. professional license, court filing, archived page"></label><button class="primary">Find sources</button> <button type="button" data-source-category="Overlooked records">Browse overlooked records</button></form>
  <div class="chips">${categories.map(c=>`<button class="chip" data-source-category="${attr(c)}" aria-pressed="${sourceCategory===c}">${esc(c)}</button>`).join('')}</div></section>
- <div class="tiles" id="source-results"></div>`;
+ <p id="source-count" class="section" role="status"></p><div class="tiles section" id="source-results"></div>`;
 }
 function renderSources(){
  const out=document.querySelector('#source-results');if(!out)return;
  const terms=sourceSearch.toLowerCase().trim().split(/\s+/).filter(Boolean);
  const rows=SOURCES.filter(row=>(sourceCategory==='All'||row[0]===sourceCategory)&&terms.every(term=>row.join(' ').toLowerCase().includes(term)));
+ const count=document.querySelector('#source-count');if(count)count.textContent=rows.length+' matching sources';
  out.innerHTML=rows.map(sourceCard).join('')||'<p>No matching sources. Try a record type or a broader term.</p>';
 }
 function guidePage(){
