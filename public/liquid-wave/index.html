@@ -58,6 +58,31 @@ input[type=number]{width:5em;font:inherit;padding:6px;border:1px solid #e8a1c5;b
 .seq-grid .seq-step[aria-pressed=true]{background:#baf3df;color:#0a3b2c;border-color:#35c9a0}
 .seq-grid .seq-step.current{outline:2px solid #a51861;outline-offset:-2px}
 .seq-grid td:nth-child(4n + 2){border-left:2px solid #efabd0}
+.page-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.page-title h1{margin:0;line-height:1.1}
+.page-title a{font-size:13px;white-space:nowrap}
+#stage{height:clamp(230px,36vw,355px);min-height:0}
+.transport #info{font-variant-numeric:tabular-nums}
+details.card summary{font-weight:700;cursor:pointer}
+@media(max-width:640px){
+ main{padding:10px 10px 24px}
+ .page-title h1{font-size:32px}
+ #stage{height:clamp(172px,48vw,225px);border-radius:16px;border-width:2px}
+ .bar{gap:6px;margin:7px 0}
+ .transport button,.transport select,.seq-controls button,.seq-controls select,.seq-controls input{font-size:13px;padding:5px 8px;min-height:36px}
+ .transport #info{flex-basis:100%;font-size:12px}
+ .card{padding:10px;margin:9px 0;border-radius:13px}
+ .card h2{font-size:18px}
+ .sequencer p{margin:4px 0;font-size:12px}
+ .seq-controls{display:grid;grid-template-columns:1fr 1fr}
+ .seq-controls label{font-size:12px;gap:4px;min-width:0}
+ .seq-controls select{max-width:100%;min-width:0}
+ .seq-controls input{width:4.1em}
+ .seq-controls button{justify-self:start}
+ .seq-grid{min-width:690px}
+ .seq-grid .seq-step{min-width:34px;height:34px}
+ .seq-grid th:first-child button{max-width:105px;min-height:34px;white-space:normal;text-align:left;line-height:1.15}
+}
 </style>
 </head>
 <body>
@@ -65,20 +90,19 @@ input[type=number]{width:5em;font:inherit;padding:6px;border:1px solid #e8a1c5;b
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <main>
-<p><a href="/">🍭 Back to Random Candy Land</a></p>
-<h1>Liquid <em>Wave</em></h1>
-<p class="lead">Build a beat with eight animated band members, or generate a song and edit it step by step.</p>
-<div class="bar">
+<header class="page-title"><h1>Liquid <em>Wave</em></h1><a href="/">← Candy Land</a></header>
+<div id="stage"><canvas id="cv" aria-label="Eight cartoon band members floating on a pastel sky"></canvas></div>
+<div class="bar transport">
   <label class="info">Style <select id="style"><option>Synthwave</option><option>Funk</option><option>Ballad</option><option>House</option></select></label>
-  <button class="hot" id="gen">Generate song</button>
+  <button class="hot" id="gen">Generate</button>
   <button id="play">▶ Play</button>
   <button id="scatter">Scatter</button>
   <span class="info" id="info" aria-live="polite">Ready</span>
 </div>
 <section class="card sequencer" aria-labelledby="seq-heading">
 <h2 id="seq-heading">Animal sequencer</h2>
-<p class="info">Tap a step to turn it on or off. Change the note to set the pitch for new steps. Tap an animal’s name to hear its sound.</p>
-<div class="bar">
+<p class="info">Tap steps to edit. Tap a track name to preview. Tap an animal to hear and mute its track, or drag it to move it.</p>
+<div class="bar seq-controls">
 <label class="info">Section <select id="seq-section"><option>Intro</option><option>Verse</option><option selected>Chorus</option><option>Bridge</option><option>Outro</option></select></label>
 <label class="info">Playback <select id="seq-mode"><option value="loop">Loop section</option><option value="song">Full song</option></select></label>
 <label class="info">Tempo <input id="seq-tempo" type="number" value="108" min="45" max="200" step="1"> BPM</label>
@@ -87,12 +111,12 @@ input[type=number]{width:5em;font:inherit;padding:6px;border:1px solid #e8a1c5;b
 </div>
 <div class="seq-scroll" tabindex="0" aria-label="Scrollable step grid"><table id="seq-grid" class="seq-grid" aria-label="Eight tracks by sixteen steps"></table></div>
 </section>
-<div id="stage"><canvas id="cv" aria-label="Eight cartoon band members floating on a pastel sky"></canvas></div>
-<p class="info">Drag a face to move it. Tap a face to hear its sound and mute or unmute that channel. The band: Beat Bear = drums, Bass Cat = bass, Chord Bunny = chords, Lead Chick = lead, Pad Cloud = pad, Arp Alien = arpeggio, Extra Ghost = extras, Tidbit = the spare. Browsers need a tap before they play sound.</p>
-<div class="card">
-<h2>What this is</h2>
+
+
+<details class="card">
+<summary>About Liquid Wave</summary>
 <p>A free browser toy that writes a short song every time: drums, bass, chords, lead, pad, arpeggio and extras. Each character plays one channel. Sounds are simple FM synthesis made in your browser, with no samples and nothing uploaded.</p>
-</div>
+</details>
 <div class="card warn">
 <h2>Install Liquid Wave on your FM-1 (experimental)</h2>
 <p>Put the early Liquid Wave firmware on an M-VAVE FM-1 straight from this site. It has <strong>not been tested on a real FM-1</strong>, so go in carefully:</p>
@@ -316,8 +340,8 @@ function sky(now){var g=cx.createLinearGradient(0,0,0,H);g.addColorStop(0,"#bfe3
 window.__faces={face:face,cx:cx,act:act,S:S};
 var last=performance.now();
 function draw(){DPR=window.devicePixelRatio||1;var bw=cv.clientWidth*DPR,bh=cv.clientHeight*DPR;if(cv.width!==bw||cv.height!==bh){cv.width=bw;cv.height=bh}
- W=cv.width;H=cv.height;R0=Math.min(W/15,H*.12);var tn=performance.now(),dt=Math.min(.05,(tn-last)/1000);last=tn;
- FP.forEach(function(f,i){if(f.x===null){f.x=W*(i+.5)/8;f.y=H*(.35+.12*(i%3))}act[i]*=.9;if(f.d)return;f.ph+=dt*(.3+.04*i);
+ W=cv.width;H=cv.height;var compact=cv.clientWidth<=640;R0=Math.min(W/(compact?15:18),H*(compact?.115:.12));var tn=performance.now(),dt=Math.min(.05,(tn-last)/1000);last=tn;
+ FP.forEach(function(f,i){if(f.x===null){f.x=W*(compact?(i%4+.5)/4:(i+.5)/8);f.y=H*(compact?(i<4?.27:.66):(.35+.12*(i%3)))}act[i]*=.9;if(f.d)return;f.ph+=dt*(.3+.04*i);
   var sp=R0*.9*(1+act[i]*2.2);f.vx+=(Math.cos(f.ph+i)*sp-f.vx)*Math.min(1,dt*1.2);f.vy+=(Math.sin(f.ph*1.2+i*2)*sp*.8-f.vy)*Math.min(1,dt*1.2);
   f.x+=f.vx*dt;f.y+=f.vy*dt;var lo=R0*1.4,hi=W-R0*1.4,tp=R0*1.9,bt=H-R0*3.3;
   if(f.x<lo){f.x=lo;f.vx=Math.abs(f.vx)}if(f.x>hi){f.x=hi;f.vx=-Math.abs(f.vx)}if(f.y<tp){f.y=tp;f.vy=Math.abs(f.vy)}if(f.y>bt){f.y=bt;f.vy=-Math.abs(f.vy)}});
