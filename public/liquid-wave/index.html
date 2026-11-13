@@ -48,6 +48,16 @@ canvas{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
 .card ol{margin:8px 0 12px;padding-left:22px}
 .warn{background:#fff8dc;border-color:#ffd23f}
 footer{color:var(--soft);font-size:12px;margin-top:22px}
+input[type=number]{width:5em;font:inherit;padding:6px;border:1px solid #e8a1c5;border-radius:8px}
+.seq-scroll{overflow-x:auto;padding:3px}
+.seq-grid{border-collapse:separate;border-spacing:3px;min-width:770px;width:100%}
+.seq-grid th{font-size:12px;white-space:nowrap}
+.seq-grid th:first-child{text-align:left;position:sticky;left:0;background:#fff7fb;z-index:1}
+.seq-grid button{padding:3px 7px;box-shadow:none;border-width:1px;font-size:12px}
+.seq-grid .seq-step{width:100%;min-width:30px;height:31px;border-radius:6px;background:#fff6fb;color:#694859}
+.seq-grid .seq-step[aria-pressed=true]{background:#baf3df;color:#0a3b2c;border-color:#35c9a0}
+.seq-grid .seq-step.current{outline:2px solid #a51861;outline-offset:-2px}
+.seq-grid td:nth-child(4n + 2){border-left:2px solid #efabd0}
 </style>
 </head>
 <body>
@@ -57,7 +67,7 @@ footer{color:var(--soft);font-size:12px;margin-top:22px}
 <main>
 <p><a href="/">🍭 Back to Random Candy Land</a></p>
 <h1>Liquid <em>Wave</em></h1>
-<p class="lead">Press Generate, press Play, and watch eight little band members float around, overlap and react to their own parts of the song.</p>
+<p class="lead">Build a beat with eight animated band members, or generate a song and edit it step by step.</p>
 <div class="bar">
   <label class="info">Style <select id="style"><option>Synthwave</option><option>Funk</option><option>Ballad</option><option>House</option></select></label>
   <button class="hot" id="gen">Generate song</button>
@@ -65,8 +75,20 @@ footer{color:var(--soft);font-size:12px;margin-top:22px}
   <button id="scatter">Scatter</button>
   <span class="info" id="info" aria-live="polite">Ready</span>
 </div>
+<section class="card sequencer" aria-labelledby="seq-heading">
+<h2 id="seq-heading">Animal sequencer</h2>
+<p class="info">Tap a step to turn it on or off. Change the note to set the pitch for new steps. Tap an animal’s name to hear its sound.</p>
+<div class="bar">
+<label class="info">Section <select id="seq-section"><option>Intro</option><option>Verse</option><option selected>Chorus</option><option>Bridge</option><option>Outro</option></select></label>
+<label class="info">Playback <select id="seq-mode"><option value="loop">Loop section</option><option value="song">Full song</option></select></label>
+<label class="info">Tempo <input id="seq-tempo" type="number" value="108" min="45" max="200" step="1"> BPM</label>
+<label class="info">New step <select id="seq-note"><option value="0">Root / Kick</option><option value="2">Third / Snare</option><option value="4">Fifth / Hi-hat</option><option value="7">Octave / Full beat</option></select></label>
+<button type="button" id="seq-clear">Clear section</button>
+</div>
+<div class="seq-scroll" tabindex="0" aria-label="Scrollable step grid"><table id="seq-grid" class="seq-grid" aria-label="Eight tracks by sixteen steps"></table></div>
+</section>
 <div id="stage"><canvas id="cv" aria-label="Eight cartoon band members floating on a pastel sky"></canvas></div>
-<p class="info">Drag a face to move it. Tap a face to mute or unmute that channel. The band: Beat Bear = drums, Bass Cat = bass, Chord Bunny = chords, Lead Chick = lead, Pad Cloud = pad, Arp Alien = arpeggio, Extra Ghost = extras, Tidbit = the spare. Browsers need a tap before they play sound.</p>
+<p class="info">Drag a face to move it. Tap a face to hear its sound and mute or unmute that channel. The band: Beat Bear = drums, Bass Cat = bass, Chord Bunny = chords, Lead Chick = lead, Pad Cloud = pad, Arp Alien = arpeggio, Extra Ghost = extras, Tidbit = the spare. Browsers need a tap before they play sound.</p>
 <div class="card">
 <h2>What this is</h2>
 <p>A free browser toy that writes a short song every time: drums, bass, chords, lead, pad, arpeggio and extras. Each character plays one channel. Sounds are simple FM synthesis made in your browser, with no samples and nothing uploaded.</p>
@@ -80,7 +102,9 @@ footer{color:var(--soft);font-size:12px;margin-top:22px}
 <li>Open the installer, try the <strong>Emulator</strong> tab, and read the <strong>Rescue</strong> tab.</li>
 <li>Press Install and allow MIDI access. Nothing is installed until you press it. Don't unplug while it writes.</li>
 </ol>
-<p><a class="cta" href="/liquid-wave/install/">Open the FM-1 installer</a></p>
+<div class="bar"><a class="cta" href="/liquid-wave/install/">Open the FM-1 installer &amp; emulator</a>
+<a class="cta" href="/liquid-wave/install/firmware.fwsc" download="Liquid-Wave-FM1.fwsc">Download emulator firmware (.fwsc)</a></div>
+<p>Open the .fwsc file in an FM-1 emulator that supports firmware packages, or use the Emulator tab in the installer. The download contains the experimental hardware build. The animal sequencer above runs in this browser.</p>
 <p>If the FM-1 ever won't start, hold <strong>OCT&minus;</strong> while switching it on for the USB rescue. The package also has 26 companion DX7 bank files (<a href="/liquid-wave/install/dx7-banks/">browse them</a>); the firmware itself cannot play them. The browser toy above does not need an FM-1.</p>
 <p><a href="https://github.com/patrickchristianandrews/foma/releases" target="_blank" rel="noopener">All releases on GitHub</a> · <a href="https://github.com/patrickchristianandrews/foma" target="_blank" rel="noopener">Source on GitHub</a></p>
 </div>
@@ -126,6 +150,52 @@ function gen(){
   return P});
  $("info").textContent=$("style").value+" · "+S.bpm+" bpm · 32 bars";
 }
+var seqSection=$("seq-section"),seqMode=$("seq-mode"),seqTempo=$("seq-tempo"),seqGrid=$("seq-grid");
+var animals=["🐻","🐱","🐰","🐤","☁️","👽","👻","🐶"];
+var drumHits={0:1,2:2,4:4,7:7};
+var gridButtons=[];
+function paintGrid(){
+ var pattern=S.pat[seqSection.selectedIndex];
+ gridButtons.forEach(function(row,track){row.forEach(function(button,step){
+  var value=pattern[track][step],on=value>=0;
+  button.setAttribute("aria-pressed",on);
+  button.textContent=on?track===0?["","K","S","KS","H","KH","SH","All"][value]:value+1:"·";
+  button.classList.toggle("current",S.playing&&uiSec===seqSection.selectedIndex&&uiStep===step);
+ })});
+}
+function previewTrack(track,value){
+ boot();
+ if(track===0)drum(value,ac.currentTime+.025);
+ else tone(track,60+12*SND[track].o+sem(value),ac.currentTime+.025,.2);
+ act[track]=1;
+}
+function makeGrid(){
+ var header=seqGrid.createTHead().insertRow();
+ for(var col=0;col<=16;col++){
+  var th=document.createElement("th");th.scope="col";th.textContent=col||"Track / step";header.append(th);
+ }
+ var body=seqGrid.createTBody();
+ NAMES.forEach(function(name,track){
+  var row=body.insertRow(),label=document.createElement("th"),preview=document.createElement("button");
+  label.scope="row";preview.type="button";preview.textContent=animals[track]+" "+name;
+  preview.setAttribute("aria-label","Preview "+name);
+  preview.onclick=function(){previewTrack(track,track===0?drumHits[$("seq-note").value]:Number($("seq-note").value))};
+  label.append(preview);row.append(label);
+  gridButtons.push(Array.from({length:16},function(_,step){
+   var cell=row.insertCell(),button=document.createElement("button");
+   button.type="button";button.className="seq-step";
+   button.setAttribute("aria-label",name+" step "+(step+1));
+   button.onclick=function(){
+    var pattern=S.pat[seqSection.selectedIndex][track];
+    var value=track===0?drumHits[$("seq-note").value]:Number($("seq-note").value);
+    pattern[step]=pattern[step]>=0?-1:value;
+    if(pattern[step]>=0&&!S.playing)previewTrack(track,value);
+    paintGrid();
+   };
+   cell.append(button);return button;
+  }));
+ });
+}
 function sem(k){var sc=SC[S.minor?"min":"maj"];return sc[k%7]+12*Math.floor(k/7)}
 function boot(){if(ac){if(ac.state==="suspended")ac.resume();return}
  ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.45;
@@ -139,17 +209,22 @@ function nz(t,dur,type,fr,v){var s=ac.createBufferSource();s.buffer=noise;var f=
 function drum(b,t){if(b&1){var o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(42,t+.13);g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(g);g.connect(master);o.start(t);o.stop(t+.32)}
  if(b&2)nz(t,.18,"bandpass",1900,.55);if(b&4)nz(t,.05,"highpass",7500,.25)}
 function sched(){var sd=60/S.bpm/4;
- while(nextT<ac.currentTime+.15){var bars=S.pos>>4,ai=Math.floor(bars/4)%ARR.length,sec=ARR[ai],bar=bars%4,step=S.pos&15,cd=S.prog[sec][bar],t=nextT;
+ while(nextT<ac.currentTime+.15){var bars=S.pos>>4,ai=Math.floor(bars/4)%ARR.length,sec=seqMode.value==="loop"?seqSection.selectedIndex:ARR[ai],bar=bars%4,step=S.pos&15,cd=S.prog[sec][bar],t=nextT;
   for(var c=0;c<8;c++){if(S.mute[c])continue;var v=S.pat[sec][c][step];if(v<0)continue;
    if(c===0){drum(v,t);(function(c,t){setTimeout(function(){act[c]=1},Math.max(0,(t-ac.currentTime)*1000))})(c,t)}
    else if(SND[c]){var ks=SND[c].ch?[cd+v,cd+v+2,cd+v+4]:[cd+v],base=60+12*SND[c].o;
     ks.forEach(function(k){tone(c,base+sem(k),t,sd*(c===4?12:1.5))});
     (function(c,m,t){setTimeout(function(){act[c]=1;look[c]=Math.max(0,Math.min(1,(m-40)/50))},Math.max(0,(t-ac.currentTime)*1000))})(c,base+sem(ks[0]),t)}}
-  (function(st,sc,t,bar){setTimeout(function(){uiStep=st;uiSec=sc;$("info").textContent=$("style").value+" · "+SECN[sc]+" · bar "+(bar+1)+"/4 · "+S.bpm+" bpm"},Math.max(0,(t-ac.currentTime)*1000))})(step,sec,t,bar);
+  (function(st,sc,t,bar){setTimeout(function(){if(!S.playing)return;uiStep=st;uiSec=sc;paintGrid();$("info").textContent=$("style").value+" · "+SECN[sc]+" · bar "+(bar+1)+"/4 · "+S.bpm+" bpm"},Math.max(0,(t-ac.currentTime)*1000))})(step,sec,t,bar);
   nextT+=sd;S.pos++}}
-function play(){boot();if(!S.pat.length)gen();if(S.playing){clearInterval(timer);S.playing=false;$("play").textContent="▶ Play";$("play").classList.remove("on");return}
+function play(){boot();if(!S.pat.length)gen();if(S.playing){clearInterval(timer);S.playing=false;$("play").textContent="▶ Play";$("play").classList.remove("on");paintGrid();return}
  S.pos=0;nextT=ac.currentTime+.1;S.playing=true;timer=setInterval(sched,25);$("play").textContent="■ Stop";$("play").classList.add("on")}
-$("gen").onclick=function(){gen();if(!S.playing)play();else S.pos=0};
+function refreshSong(){gen();seqTempo.value=S.bpm;paintGrid()}
+makeGrid();refreshSong();
+seqSection.onchange=paintGrid;
+seqTempo.onchange=function(){S.bpm=Math.max(45,Math.min(200,Math.round(Number(seqTempo.value)||108)));seqTempo.value=S.bpm};
+$("seq-clear").onclick=function(){S.pat[seqSection.selectedIndex]=NAMES.map(mk);paintGrid()};
+$("gen").onclick=function(){refreshSong();if(!S.playing)play();else S.pos=0};
 $("play").onclick=play;
 var cv=$("cv"),cx=cv.getContext("2d"),FP=[],W=1,H=1,R0=30,DPR=1,drag=-1,off=[0,0],downAt=0,moved=0;
 for(var i=0;i<8;i++)FP.push({x:null,y:null,vx:(Math.random()-.5)*40,vy:(Math.random()-.5)*40,ph:Math.random()*6.28,d:false});
@@ -159,7 +234,7 @@ function pos(e){var r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.wi
 cv.addEventListener("pointerdown",function(e){var p=pos(e),b=-1,bd=1e9;FP.forEach(function(f,i){var d=Math.hypot(p[0]-f.x,p[1]-f.y);if(d<bd){bd=d;b=i}});
  if(b>=0&&bd<R0*1.6){drag=b;FP[b].d=true;off=[FP[b].x-p[0],FP[b].y-p[1]];downAt=performance.now();moved=0;cv.setPointerCapture(e.pointerId)}});
 cv.addEventListener("pointermove",function(e){if(drag<0)return;var p=pos(e),f=FP[drag];f.x=p[0]+off[0];f.y=p[1]+off[1];f.vx=f.vy=0;moved++});
-function up(){if(drag>=0){FP[drag].d=false;if(moved<4&&performance.now()-downAt<350){S.mute[drag]^=1}drag=-1}}
+function up(){if(drag>=0){FP[drag].d=false;if(moved<4&&performance.now()-downAt<350){previewTrack(drag,drag===0?1:0);S.mute[drag]^=1}drag=-1}}
 cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
 
 /* ---- eight different cute characters ---- */
