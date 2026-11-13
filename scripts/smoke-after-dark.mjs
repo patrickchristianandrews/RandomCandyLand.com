@@ -609,67 +609,6 @@ try{
 
   // The new arcade must be fully interactive, not just a styled landing page.
   // Candy Casino must offer 5 functioning solo games even without online signaling.
-  // TRACE must be a playable 25-case academy, not a static tool directory.
-  const trace=await navigate(site+'/osint-academy/');
-  const traceReady=await trace.evaluate("document.body.dataset.traceReady==='true' && window.TraceAcademyDebug?.missionCount===25 && window.TraceAcademyDebug?.toolCount>=15 && document.querySelectorAll('.mission-option').length===25 && document.querySelector('#mission-stage').textContent.includes('Define the mandate')");
-  if(!traceReady)throw Error('TRACE OSINT Academy failed to load the 25-case interactive mission desk');
-  const traceOnboarding=await trace.evaluate("(()=>{const guide=document.querySelector('.trace-first-steps');const buttons=[...document.querySelectorAll('.trace-play-steps li')];const directory=document.querySelector('#case-directory');return !!guide&&buttons.length===3&&guide.textContent.includes('You do not need to set up any tools first')&&!directory.open&&document.querySelector('#mission-stage .case-navigation')?.textContent.includes('CASE')&&!!document.querySelector('#continue-training')})()");
-  if(!traceOnboarding)throw Error('TRACE must start with a 3-step guided learning path and a collapsed mission browser');
-  await trace.evaluate("document.querySelector('#continue-training').click()");
-  const startedCase=await trace.evaluate("!document.querySelector('#view-missions').hidden && document.querySelector('#current-decision').textContent.includes('What should come first?')");
-  if(!startedCase)throw Error('TRACE primary start button must lead directly into the first question');
-  await trace.evaluate("document.querySelector('.question-choices button:nth-child(2)').click()");
-  const traceAnswered=await trace.evaluate("document.querySelector('.question-feedback')?.textContent.includes('Correct decision') && window.TraceAcademyDebug.getProgress().questionsAnswered===1");
-  if(!traceAnswered)throw Error('TRACE OSINT mission choice must receive feedback and save grading');
-  const traceNextCue=await trace.evaluate("document.querySelector('#next-decision')?.textContent.includes('Continue to question 2') && document.querySelector('.case-direction')?.textContent.includes('press the green button')");
-  if(!traceNextCue)throw Error('TRACE answered question must visibly explain how to move forward');
-  await trace.evaluate("document.querySelector('#next-decision').click()");
-  const traceStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===1 && !!document.querySelector('.question-choices button:nth-child(1)')");
-  if(!traceStep)throw Error('TRACE next-decision control did not advance the case');
-  const traceNavigation=await trace.evaluate("document.querySelector('#case-directory')?.open===false && document.querySelector('#mission-stage .case-navigation-progress')?.textContent.includes('2 / 3')");
-  if(!traceNavigation)throw Error('TRACE must show current question count while keeping other missions out of the way');
-  await trace.evaluate("document.querySelector('#tab-scope').click();document.querySelector('[data-scope-prompt=plan]').click()");
-  const scopeGuide=await trace.evaluate("!document.querySelector('#view-scope').hidden && document.querySelector('#scope-case-label').textContent.includes('DEFINE THE MANDATE') && document.querySelector('#scope-answer').textContent.includes('mandate')");
-  if(!scopeGuide)throw Error('SCOPE research coach must open and explain current mission with its own identity');
-  await trace.evaluate("document.querySelector('#tab-tools').click()");
-  const traceTools=await trace.evaluate("!document.querySelector('#view-tools').hidden && !!document.querySelector('#atlas-search') && document.querySelectorAll('.tool-card').length===4 && document.querySelectorAll('[data-atlas]').length===6");
-  if(!traceTools)throw Error('TRACE Tool Atlas should open with a compact essentials view and six categories');
-  await trace.evaluate("document.querySelector('[data-atlas=all]').click()");
-  const traceAllTools=await trace.evaluate("document.querySelectorAll('.tool-card').length>=16 && document.querySelector('#tools-grid').textContent.includes('libphonenumber')");
-  if(!traceAllTools)throw Error('TRACE all-tools filter must reveal the complete official tool catalog');
-  await trace.evaluate("(()=>{const input=document.querySelector('#atlas-search');input.value='email';input.dispatchEvent(new Event('input',{bubbles:true}))})()");
-  const traceSearch=await trace.evaluate("document.querySelectorAll('.tool-card').length>=1 && document.querySelector('#tools-grid').textContent.includes('Google Admin Toolbox')");
-  if(!traceSearch)throw Error('TRACE Tool Atlas search must find email-header tools');
-  await trace.evaluate("document.querySelector('#tab-setup').click()");
-  const traceSetup=await trace.evaluate("!document.querySelector('#view-setup').hidden && document.querySelectorAll('[data-setup]').length===12 && document.querySelectorAll('.workstation-stage').length===4 && !!document.querySelector('#command-form') && !!document.querySelector('#command-input')");
-  if(!traceSetup)throw Error('TRACE guided four-stage workstation and browser command desk missing');
-  await trace.evaluate("document.querySelector('.command-samples button:nth-child(4)').click()");
-  const tracePhone=await trace.evaluate("document.querySelector('#command-output').textContent.includes('Phone-number FORMAT only')");
-  if(!tracePhone)throw Error('TRACE phone command must provide local format guidance');
-  await trace.evaluate("(()=>{document.querySelector('#command-input').value='tools email';document.querySelector('#command-form').requestSubmit()})()");
-  const traceCommandTools=await trace.evaluate("document.querySelector('#command-output').textContent.includes('headers') && !!document.querySelector('#command-links a')");
-  if(!traceCommandTools)throw Error('TRACE command desk must return a linked official tool from search');
-  await trace.evaluate("document.querySelector('[data-setup]').click()");
-  const traceChecklist=await trace.evaluate("document.querySelector('#setup-progress-label').textContent.includes('1 of 12')");
-  if(!traceChecklist)throw Error('TRACE workstation step tracking did not update');
-  await trace.evaluate("document.querySelector('#tab-report').click()");
-  const traceReport=await trace.evaluate("!document.querySelector('#view-report').hidden && !!document.querySelector('#export-brief') && !!document.querySelector('#export-transcript')");
-  if(!traceReport)throw Error('TRACE capstone portfolio and export controls missing');
-  // Finish the original case and confirm the next case unlocks without revisiting a list.
-  await trace.evaluate("document.querySelector('#tab-missions').click()");
-  await trace.evaluate("document.querySelector('.question-choices button:nth-child(1)').click()");
-  await trace.evaluate("document.querySelector('#next-decision').click()");
-  const traceLastStep=await trace.evaluate("window.TraceAcademyDebug.getProgress().step===2 && document.querySelector('#mission-stage .case-navigation-progress')?.textContent.includes('3 / 3')");
-  if(!traceLastStep)throw Error('TRACE should advance visibly to the last decision');
-  await trace.evaluate("document.querySelector('.question-choices button:nth-child(3)').click()");
-  const traceFinishCue=await trace.evaluate("document.querySelector('#next-decision')?.textContent.includes('Complete case & start next')");
-  if(!traceFinishCue)throw Error('TRACE must show an explicit finish-and-continue action');
-  await trace.evaluate("document.querySelector('#next-decision').click()");
-  const traceAdvanced=await trace.evaluate("window.TraceAcademyDebug.getProgress().completed===1 && window.TraceAcademyDebug.getProgress().active===1 && document.querySelector('#mission-stage h2')?.textContent.includes('Build a secure workstation') && document.querySelectorAll('.mission-option')[1]?.disabled===false && document.querySelector('#continue-training')?.textContent.includes('Resume Case 02')");
-  if(!traceAdvanced)throw Error('TRACE must unlock and automatically open the next case and update its resume button');
-  await trace.evaluate("document.querySelector('#case-directory > summary').click()");
-  const traceDirectory=await trace.evaluate("document.querySelector('#case-directory').open && document.querySelectorAll('.mission-option').length===25");
-  if(!traceDirectory)throw Error('TRACE optional case browser should open on demand');
   const casino=await navigate(site+'/candy-casino/');
   const casinoReady=await casino.evaluate("document.body.dataset.candyCasinoReady==='true' && document.querySelectorAll('[data-duel]').length===1 && !document.querySelector('[data-duel=card]') && !document.querySelector('[data-duel=dice]') && !!document.querySelector('[data-opponent=computer]') && !!document.querySelector('[data-opponent=friend]')");
   if(!casinoReady)throw Error('Candy Land Poker must show just five-card draw, with computer and friend opponents');
@@ -970,58 +909,26 @@ try{
     throw Error('Corridors must be an actual default walkable pixel game: '+JSON.stringify(playableCorridors));
   console.log('✓ Corridors arcade is the visible screen: animated pixel world, keyboard player movement, policy objects and dialogue.');
 
-  // The retired standalone Identity Lab and its embedded TRACE tab must both remain absent.
-  const traceEvidence=await navigate(site+'/osint-academy/');
-  const labRemoved=await traceEvidence.evaluate("!document.querySelector('#tab-identity,#view-identity,#trace-identity-lab,[href=\"/identity-lab/\"]') && !document.querySelector('script[src*=\"identity-lab.js\"]')");
-  if(!labRemoved)throw Error('Retired Identity Lab appeared inside TRACE Academy');
-  const focusedTrace=await traceEvidence.evaluate("(()=>{const api=window.TraceQuickPlay,game=document.querySelector('#pq-sidecases'),classic=document.querySelector('#trace-game-command'),pixel=document.querySelector('#trace-mode-pixel'),academy=document.querySelector('#trace-mode-academy');if(!api||!game||!classic||!pixel||!academy||api.current()!=='pixel')return false;academy.click();const switched=api.current()==='academy'&&academy.getAttribute('aria-pressed')==='true';pixel.click();return switched&&api.current()==='pixel'&&pixel.getAttribute('aria-pressed')==='true'&&!document.querySelector('.trace-crossgame')&&!!document.querySelector('a.trace-back[href=\"/\"]')})()");
-  if(!focusedTrace)throw Error('TRACE must provide separate, streamlined detective mode and original 25-case Academy');
-  const gameHub=await traceEvidence.evaluate("(()=>{document.querySelector('#tab-missions').click();const api=window.TraceAcademyGame,root=document.querySelector('#trace-game-command'),cases=document.querySelectorAll('#trace-map-cases button'),zones=document.querySelectorAll('#trace-mission-zones button'),button=document.querySelector('#trace-map-cases button:not(:disabled)');if(!api||!root||zones.length!==5||cases.length<5||!button)return {ready:false};button.click();const clue=document.querySelector('#mission-stage .evidence-tile[role=button]');if(!clue)return {ready:false};clue.click();return {ready:true,expanded:clue.getAttribute('aria-expanded'),text:document.querySelector('.trace-clue-progress')?.textContent,missions:api.missions.length}})()");
-  if(!gameHub?.ready||gameHub.expanded!=='true'||!gameHub.text?.includes('1 / 3')||gameHub.missions!==25)
-   throw Error('TRACE mission campaign or clue interaction failed: '+JSON.stringify(gameHub));
-  console.log('✓ TRACE mission campaign: five operations, 25 cases, resume and inspectable evidence work.');
-
-  const discoverablePixelGame=await traceEvidence.evaluate("(()=>{const banner=document.querySelector('.trace-new-pixel-banner'),game=document.querySelector('#pq-sidecases'),map=document.querySelector('#pq-world'),launcher=banner?.querySelector('[data-trace-play-scout]');if(!banner||!game||!map||!launcher)return false;launcher.click();return game.compareDocumentPosition(map)&Node.DOCUMENT_POSITION_FOLLOWING&&document.activeElement===game&&game.dataset.traceRelease==='20261111-play-v3'&&banner.textContent.includes('PLAYABLE PIXEL DETECTIVE')})()");
-  if(!discoverablePixelGame)throw Error('TRACE Pixel Mysteries must be visible before the old mission map and have a working entry button');
-  console.log('✓ TRACE latest pixel game: prominently discoverable, first in adventure, jump button works.');
-
-  const traceGameIsFocused=await traceEvidence.evaluate("(()=>{const canvas=document.querySelector('#pq-scout-scene canvas'),classic=document.querySelector('#trace-game-command'),game=document.querySelector('#pq-sidecases'),mode=document.body.dataset.traceQuickMode;const sc=canvas?.getContext('2d');const pixel=sc?.getImageData(4,4,1,1).data;return mode==='pixel'&&!!game&&!!canvas&&canvas.width===160&&pixel?.[3]>0&&getComputedStyle(classic).display==='none'&&getComputedStyle(game).display!=='none'&&!document.querySelector('.trace-crossgame')})()");
-  if(!traceGameIsFocused)throw Error('TRACE must render a real pixel canvas, hide the old campaign by default and not embed Corridors');
-
-  const pixelClues=await traceEvidence.evaluate("(()=>{const area=document.querySelector('#pq-sidecases');if(!area)return {ready:false};const hotspots=area.querySelectorAll('.pq-scout-hotspot');const locked=[...area.querySelectorAll('.pq-scout-answer')].every(b=>b.disabled);hotspots.forEach(b=>b.click());const inspected=area.querySelectorAll('.pq-scout-evidence').length;const unlocked=[...area.querySelectorAll('.pq-scout-answer')].every(b=>!b.disabled);const wrong=area.querySelectorAll('.pq-scout-answer')[0];wrong.click();const error=area.querySelector('#pq-scout-feedback').textContent;area.querySelectorAll('.pq-scout-answer')[1].click();const saved=JSON.parse(localStorage.getItem('trace-pixel-sidecases-v1')||'[]');const next=area.querySelector('#pq-scout-next');return {ready:true,hotspots:hotspots.length,locked,inspected,unlocked,wrong:/not quite/i.test(error),saved:saved.includes(0),next:!next.disabled}})()");
-  if(!pixelClues.ready||pixelClues.hotspots!==3||!pixelClues.locked||pixelClues.inspected!==3||!pixelClues.unlocked||!pixelClues.wrong||!pixelClues.saved||!pixelClues.next)
-    throw Error('TRACE pixel clue hunt must inspect three clues, reject unsupported conclusion and unlock next mystery: '+JSON.stringify(pixelClues));
-  console.log('✓ TRACE pixel investigations: clickable scene, evidence journal, incorrect-answer feedback and saved solved badge.');
-
-  const playableTrace=await traceEvidence.evaluate("(async()=>{const a=window.TraceArcade,root=document.querySelector('#trace-arcade'),canvas=root?.querySelector('canvas');if(!a||!root||!canvas||root.hidden||canvas.width!==384||canvas.height!==216||!document.body.classList.contains('pixel-arcade-active'))return {ready:false};const p=a.state().screen.player.x;window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowLeft',bubbles:true}));await new Promise(r=>setTimeout(r,180));window.dispatchEvent(new KeyboardEvent('keyup',{code:'ArrowLeft',bubbles:true}));const pixel=canvas.getContext('2d')?.getImageData(3,3,1,1)?.data;return{ready:true,moved:a.state().screen.player.x<p-8,objects:a.state().screen.objects.length,ui:root.querySelectorAll('[data-move]').length,drawn:pixel?.[3]>0}})()");
-  if(!playableTrace.ready||!playableTrace.moved||playableTrace.ui!==4||!playableTrace.drawn||playableTrace.objects!==4)
-    throw Error('TRACE must be an actual visible pixel detective adventure with movement and 3 in-world clues: '+JSON.stringify(playableTrace));
-  console.log('✓ TRACE arcade is the visible screen: pixel world, moving detective, three interactive clues and saved missions.');
-
-  const detectiveBoard=await traceEvidence.evaluate("(()=>{const a=window.TraceArcade,b=window.TraceCaseBoard;if(!a||!b)return{ready:false};[0,1,2].forEach(i=>a.inspect(i));const opened=b.open();const nodes=document.querySelectorAll('#trace-evidence-board .trace-evidence-node');if(!opened||nodes.length!==3)return{ready:false,opened,nodes:nodes.length};nodes[0].click();nodes[1].click();const after=b.state(),enabled=!document.querySelector('.trace-board-verify')?.disabled;const visible=!document.querySelector('#trace-evidence-board')?.hidden;b.close();return {ready:true,linked:after.linked,enabled,visible,returned:document.querySelector('#trace-evidence-board')?.hidden}})()");
-  if(!detectiveBoard.ready||!detectiveBoard.linked||!detectiveBoard.enabled||!detectiveBoard.visible||!detectiveBoard.returned)
-    throw Error('TRACE needs a playable 3-source evidence connection board before its source-verification step: '+JSON.stringify(detectiveBoard));
-  console.log('✓ TRACE Detective Board: collected clues become connected evidence with a real two-source puzzle.');
-
-  await traceEvidence.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
-  const traceBoardPhone=await traceEvidence.evaluate("(()=>{const b=window.TraceCaseBoard;if(!b?.open())return{ready:false};const root=document.querySelector('#trace-evidence-board .trace-board-screen'),nodes=root?.querySelectorAll('.trace-evidence-node'),r=root?.getBoundingClientRect();const c=document.querySelector('#trace-arcade canvas');const data={ready:!!root,within:!!r&&r.left>=-2&&r.right<=innerWidth+2,nodes:nodes?.length||0,canvas:!!c&&c.getBoundingClientRect().width<=innerWidth+2};b.close();return data})()");
-  await traceEvidence.command('Emulation.clearDeviceMetricsOverride');
-  if(!traceBoardPhone.ready||!traceBoardPhone.within||traceBoardPhone.nodes!==3||!traceBoardPhone.canvas)
-    throw Error('TRACE 390px phone detective board must fit viewport with interactive evidence: '+JSON.stringify(traceBoardPhone));
-  console.log('✓ TRACE mobile evidence board fits 390px viewport with playable clue cards.');
-
-
-  const traceInvestigation=await traceEvidence.evaluate("(()=>{const a=window.TraceArcade,initial=a?.state();if(!initial)return{ready:false};a.inspect(0);a.inspect(1);a.inspect(2);const collected=a.state();a.verifySource(0);const flagged=a.state();a.verifySource(1);const verified=a.state();a.answer(1);const closed=a.state();return{ready:true,clues:collected.found.length,wrong:flagged.wrong>0,verified:verified.verified,solved:closed.solved.includes(0),xp:closed.xp,objects:closed.screen.objects.length}})()");
-  if(!traceInvestigation.ready||traceInvestigation.clues!==3||!traceInvestigation.wrong||!traceInvestigation.verified||!traceInvestigation.solved||traceInvestigation.xp<100||traceInvestigation.objects!==4)
-    throw Error('TRACE must score a real source credibility puzzle and resolve evidence into a playable case: '+JSON.stringify(traceInvestigation));
-  console.log('✓ TRACE source puzzle: three clues, unreliable-source feedback, verified evidence, XP and a solved case.');
-
-
-  const fieldFiles=await traceEvidence.evaluate("(()=>{const api=window.TraceAcademyFieldFiles,root=document.querySelector('#trace-field-play');if(!api||api.cases!==5||!root)return {ready:false};api.reset();const found=()=>root.querySelectorAll('.ff-evidence-card.inspected').length;const options=()=>root.querySelectorAll('.ff-option');const locked=options().length===0;root.querySelectorAll('.ff-hotspot').forEach(b=>b.click());const inspected=found();const unlocked=options().length===3;options()[0].click();const wrong=root.querySelector('.ff-feedback:not([hidden])')?.textContent;options()[1].click();const complete=api.progress().solved.includes('station');api.open(1);const retained=api.progress().solved.includes('station');const nextScene=root.querySelector('h3')?.textContent;return {ready:true,locked,inspected,unlocked,wrong,complete,retained,nextScene}})()");
-  if(!fieldFiles.ready||!fieldFiles.locked||fieldFiles.inspected!==3||!fieldFiles.unlocked||!/not yet/i.test(fieldFiles.wrong)||!fieldFiles.complete||!fieldFiles.retained||!/storm photo/i.test(fieldFiles.nextScene))
-    throw Error('TRACE playable evidence-board investigation failed: '+JSON.stringify(fieldFiles));
-  console.log('✓ TRACE Field Files: five playable detective scenes, clue hunting, evidence reasoning, wrong-answer feedback and saved progress.');
-
+  const traceDictionary = await navigate(site+'/osint-academy/');
+  const traceSources = await traceDictionary.evaluate(`(() => {
+    const form = document.querySelector('#source-search');
+    if (!form || document.querySelector('#mission-stage,#tab-identity')) return false;
+    form.elements.search.value = 'NPI Registry';
+    form.requestSubmit();
+    const cards = document.querySelectorAll('#source-results .source-card');
+    return cards.length === 1 && cards[0].textContent.includes('NPI Registry');
+  })()`);
+  if (!traceSources) throw Error('Trace public source search failed.');
+  const traceCameras = await navigate(site+'/osint-academy/#cameras');
+  const cameraSearch = await traceCameras.evaluate(`(() => {
+    const form = document.querySelector('#camera-search');
+    if (!form) return false;
+    form.elements.search.value = 'Santa Monica';
+    form.requestSubmit();
+    return [...document.querySelectorAll('.source-card h3')].some(heading => /santa monica/i.test(heading.textContent));
+  })()`);
+  if (!cameraSearch) throw Error('Trace camera index search failed.');
+  console.log('✓ Trace source dictionary and camera search work.');
 
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
