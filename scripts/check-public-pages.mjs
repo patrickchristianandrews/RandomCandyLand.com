@@ -50,7 +50,7 @@ function isValidRetiredRedirect(full,markup){
  return true; // Broken retired redirects are still failures above.
 }
 // Stack Lab accepts provider credentials and private prompts in this document.
-const credentialPage = 'dist/studio/stack-lab/index.html';
+const privateInputPages = new Set(['dist/studio/stack-lab/index.html','dist/executive-directory/index.html']);
 const analyticsId = 'GTM-TQRDB5KL';
 function verifyAnalytics(dir) {
   if (!fs.existsSync(dir)) return;
@@ -60,9 +60,9 @@ function verifyAnalytics(dir) {
     if (!entry.isFile() || !entry.name.endsWith('.html')) continue;
     const markup = fs.readFileSync(full,'utf8');
     if(isValidRetiredRedirect(full,markup))continue;
-    if(full===credentialPage){
+    if(privateInputPages.has(full)){
       if(/googletagmanager\.com|\/analytics\.js/i.test(markup)){
-        console.error('Analytics scripts must stay off the provider credential page:',full);
+        console.error('Analytics scripts must stay off the page with private inputs:',full);
         failures++;
       }
       continue;
@@ -97,7 +97,7 @@ function verifyGA4(dir) {
     if(entry.isDirectory()){verifyGA4(full);continue;}
     if(!entry.isFile()||!entry.name.endsWith('.html'))continue;
     const html=fs.readFileSync(full,'utf8');
-    if(full===credentialPage||isValidRetiredRedirect(full,html))continue;
+    if(privateInputPages.has(full)||isValidRetiredRedirect(full,html))continue;
     if(html.split(ga4loader).length!==2||
        html.split(ga4asset).length!==2||
        html.indexOf(ga4loader)>html.toLowerCase().indexOf('</head>')||
