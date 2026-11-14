@@ -109,3 +109,7 @@ html[data-candyland-edition="liquid-wave"] button.on { background:var(--candy-mi
 html[data-candyland-edition="liquid-wave"] .seq-grid th:first-child { background:var(--candy-panel); }
 html[data-candyland-edition="liquid-wave"] .seq-grid .seq-step { background:#332645; color:#fff5fc; }
 html[data-candyland-edition="liquid-wave"] .seq-grid .seq-step[aria-pressed="true"] { background:#a7f1dc; color:#102e29; }
+
+.candyland-next .candyland-black-friday {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;width:min(1180px,calc(100% - 24px));margin:16px auto;padding:18px 22px;border:1px solid #f4bfda80;border-radius:16px;color:#fff4fc;background:linear-gradient(110deg,#492242,#22162d)}
+.candyland-black-friday strong {font-size:1.35rem}
+html[data-candyland-edition="black-friday"] body {background:var(--candy-ambient)}
