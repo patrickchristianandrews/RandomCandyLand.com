@@ -232,7 +232,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
 
       {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
       <RandomNonsenseGenerator />
-      <a className="candyland-black-friday" href="/black-friday/"><strong>Black Friday Deals</strong><span>Hot picks, retailer ads and price checks →</span></a>
       <section className="candyland-curiosity-spotlight" aria-labelledby="curiosity-spotlight-title">
         <div className="candyland-curiosity-copy">
           <span className="candyland-curiosity-kicker">✦ DAILY IDEAS · FRESH RESEARCH · REAL DATA</span>
@@ -245,6 +244,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <img className="candyland-curiosity-icon" src="/tool-icons/wonder-index.svg" width={96} height={96} alt="" loading="lazy" />
       </section>
+      <a className="candyland-black-friday" href="/black-friday/"><strong>Black Friday Deals</strong><span>Hot picks, retailer ads and price checks →</span></a>
 
 
       <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
