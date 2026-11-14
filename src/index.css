@@ -2818,3 +2818,138 @@ body {
  .candyland-next #nonsense.nonsense-report .nonsense-report-open{padding:9px 7px}
  .candyland-next #nonsense.nonsense-report .nonsense-report-marquee>span{font-size:14px}
 }
+
+
+/* Homepage arrival and destination map */
+.candyland-next .candyland-opening.candyland-opening {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 23% 48%, #884ac3 0%, transparent 57%),
+    radial-gradient(ellipse at 78% 20%, #542078 0%, transparent 51%),
+    linear-gradient(153deg, #351858, #160b30 80%);
+}
+.candyland-next .candyland-opening::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #ffd7fa 1px, transparent 2px),
+    radial-gradient(circle, #b7a1ff 1px, transparent 2px);
+  background-position: 5px 7px, 31px 43px;
+  background-size: 97px 79px, 127px 103px;
+  opacity: .44;
+}
+.candyland-arrival-description {
+  max-width: 37ch;
+  margin: 18px 0;
+  color: #f5e5ff;
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: 1.55;
+}
+.candyland-arrival-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.candyland-arrival-actions :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 9px 18px;
+  border: 1px solid #edb8ee;
+  border-radius: 99px;
+  background: #ffd5f4;
+  color: #351343;
+  font: 800 14px/1.3 system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+.candyland-arrival-actions button { background: #3c2059; color: #fff0fc; }
+.candyland-arrival-actions :is(a, button):hover { background: #fff0fb; color: #351343; }
+.candyland-surprise a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 440px;
+  padding: 12px;
+  margin-top: 14px;
+  border: 1px solid #e8b2ee80;
+  border-radius: 16px;
+  background: #28143e;
+  color: #fff1fc;
+  text-decoration: none;
+}
+.candyland-surprise img { flex: none; object-fit: contain; }
+.candyland-surprise small, .candyland-map small { display: block; color: #eee0f8; line-height: 1.45; margin-top: 4px; }
+.candyland-map {
+  width: min(1340px, calc(100% - 24px));
+  margin: 24px auto;
+  padding: clamp(14px, 3vw, 30px);
+  border: 1px solid #d99bea75;
+  border-radius: clamp(18px, 3vw, 34px);
+  background: radial-gradient(ellipse at 50% 0, #4b255f, #211336 76%);
+  box-shadow: 0 14px 40px #18092866;
+  color: #fff0fc;
+}
+.candyland-map h2 { margin: 0 0 14px; font-size: clamp(22px, 3vw, 35px); }
+.candyland-map ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.candyland-map a {
+  --stop-color: #e9a6ff;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  min-height: 70px;
+  padding: 10px;
+  border: 1px solid color-mix(in srgb, var(--stop-color) 50%, transparent);
+  border-radius: 15px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--stop-color) 21%, #261738), #261738 75%);
+  color: #fff0fc;
+  text-decoration: none;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.candyland-map a[data-color="rose"] { --stop-color: #ff91c1; }
+.candyland-map a[data-color="mint"] { --stop-color: #8eeac7; }
+.candyland-map a[data-color="blue"] { --stop-color: #9bc3ff; }
+.candyland-map a:hover { transform: translateY(-2px); border-color: var(--stop-color); }
+.candyland-map-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--stop-color) 25%, #2e1b41);
+  font-size: 19px;
+}
+.candyland-map-arrow { color: var(--stop-color); }
+.candyland-next :is(.candyland-map, .candyland-arrival-actions, .candyland-surprise) :focus-visible {
+  outline: 3px solid #fff0a9;
+  outline-offset: 3px;
+}
+.candyland-next :is(#candyland-map, .candyland-play-shelf h2, #curiosity-spotlight-title) { scroll-margin-top: 24px; }
+@media (max-width: 860px) {
+  .candyland-arrival-description { margin-inline: auto; }
+  .candyland-arrival-actions { justify-content: center; }
+  .candyland-surprise a { margin-inline: auto; text-align: left; }
+  .candyland-map ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .candyland-map ul { grid-template-columns: 1fr; }
+  .candyland-map a { min-height: 56px; padding: 7px 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .candyland-next .candyland-opening *,
+  .candyland-next .candyland-map a { animation: none; transition: none; }
+  .candyland-map a:hover { transform: none; }
+}

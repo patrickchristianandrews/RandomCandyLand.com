@@ -89,8 +89,24 @@ const COLLECTIONS = [
   {id:'learning',title:'Courses & Training',description:'Master prompting in AI Academy with guided practice at your own pace.',symbol:'🧠',time:'EXTENDED'},
 ] as const;
 
+const MAP_STOPS = [
+  {name: 'Candy Arcade', detail: 'Play solo or with friends', icon: '🎮', target: '#shelf-multiplayer', color: 'rose'},
+  {name: 'Story District', detail: 'Make choices that shape the story', icon: '🎭', target: '#shelf-story', color: 'violet'},
+  {name: 'Pet Park', detail: 'Check in on a tiny companion', icon: '🐾', target: '#shelf-ongoing', color: 'mint'},
+  {name: 'Wonder Index', detail: 'Follow a surprising idea', icon: '🔭', target: '#curiosity-spotlight-title', color: 'blue'},
+  {name: 'Unwrapped', detail: 'Explore yourself and your relationships · 18+', icon: '🌙', target: '/after-dark/', color: 'violet'},
+  {name: 'Research Library', detail: 'Find and verify public information', icon: '🔎', target: '#shelf-research', color: 'blue'},
+] as const;
+
+const SURPRISE_PORTALS = PORTALS.filter(portal => portal.href && portal.kind !== 'discovery' && portal.kind !== 'research');
+
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
   const [copiedUrl,setCopiedUrl] = useState('');
+  const [surprise, setSurprise] = useState<Portal>();
+  const revealSurprise = () => {
+    const choices = SURPRISE_PORTALS.filter(portal => portal !== surprise);
+    setSurprise(choices[Math.floor(Math.random() * choices.length)]);
+  };
   const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
   // Hide the full-site install CTA when the current PWA is installed, and
   // immediately after an Android/desktop install completes in this tab.
@@ -164,8 +180,36 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <div className="candyland-opening-copy">
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
+          <p className="candyland-arrival-description">Play a round at the arcade, lose yourself in a story, or follow a strange idea down the rabbit hole.</p>
+          <div className="candyland-arrival-actions">
+            <a href="#candyland-map">Explore the map <span aria-hidden="true">↓</span></a>
+            <button type="button" onClick={revealSurprise}>{surprise ? 'Try another surprise' : 'Surprise me'}</button>
+          </div>
+          <div className="candyland-surprise" aria-live="polite">
+            {surprise && (
+              <a href={surprise.href}>
+                <img src={surprise.icon} alt="" width={42} height={42} />
+                <span><strong>{surprise.title} ↗</strong><small>{surprise.blurb}</small></span>
+              </a>
+            )}
+          </div>
         </div>
       </section>
+
+      <nav className="candyland-map" aria-labelledby="candyland-map">
+        <h2 id="candyland-map">Where to?</h2>
+        <ul>
+          {MAP_STOPS.map(stop => (
+            <li key={stop.name}>
+              <a href={stop.target} data-color={stop.color}>
+                <span className="candyland-map-icon" aria-hidden="true">{stop.icon}</span>
+                <span><strong>{stop.name}</strong><small>{stop.detail}</small></span>
+                <span className="candyland-map-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
       <RandomNonsenseGenerator />
