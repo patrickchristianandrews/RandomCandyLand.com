@@ -145,7 +145,8 @@ const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanife
 if(!homeInstallSource.includes('className="candyland-navbar candyland-navbar-ai"') ||
    !homeInstallSource.includes('candyland-navbar-feature-title') ||
    !homeInstallSource.includes('Free, unlimited private local AI') ||
-   !homeInstallSource.includes('Optional hosted Instant AI when connected') ||
+   !homeInstallSource.includes('Download a model once') ||
+   homeInstallSource.includes('Optional hosted Instant AI when connected') ||
    !homeInstallSource.includes('href="/studio/"') ||
    homeInstallSource.includes('candyland-unwrapped-promo')){
   console.error('Compact homepage header must show left brand + full-width Random AI, with Unwrapped only in its first shelf.');failures++;
