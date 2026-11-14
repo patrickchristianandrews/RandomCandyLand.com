@@ -90,22 +90,20 @@ const COLLECTIONS = [
 ] as const;
 
 const MAP_STOPS = [
-  {name: 'Candy Arcade', detail: 'Play solo or with friends', icon: '🎮', target: '#shelf-multiplayer', color: 'rose'},
-  {name: 'Story District', detail: 'Make choices that shape the story', icon: '🎭', target: '#shelf-story', color: 'violet'},
-  {name: 'Pet Park', detail: 'Check in on a tiny companion', icon: '🐾', target: '#shelf-ongoing', color: 'mint'},
-  {name: 'Wonder Index', detail: 'Follow a surprising idea', icon: '🔭', target: '#curiosity-spotlight-title', color: 'blue'},
-  {name: 'Unwrapped', detail: 'Explore yourself and your relationships · 18+', icon: '🌙', target: '/after-dark/', color: 'violet'},
-  {name: 'Research Library', detail: 'Find and verify public information', icon: '🔎', target: '#shelf-research', color: 'blue'},
+  {name: 'Candy Arcade', detail: 'Play a quick round or challenge a friend.', art: '/tool-icons/candy-match.svg', target: '#shelf-multiplayer', action: 'Find a game', color: 'rose'},
+  {name: 'Story District', detail: 'Navigate political alliances or build a case in court.', art: '/tool-icons/the-corridors.svg', target: '#shelf-story', action: 'Browse stories', color: 'violet'},
+  {name: 'Pet Park', detail: 'Feed, play with, and check in on your tiny companions.', art: '/tool-icons/trumpagotchi-2.svg', target: '#shelf-ongoing', action: 'Meet the pets', color: 'mint'},
+  {name: 'Wonder Index', detail: 'Follow curious ideas, new research, and strange correlations.', art: '/tool-icons/wonder-index.svg', target: '#curiosity-spotlight-title', action: 'Explore the index', color: 'blue'},
+  {name: 'Unwrapped', detail: 'Explore your personality, interests, and relationships. Ages 18+.', art: '/tool-icons/unwrapped.svg', target: '/after-dark/', action: 'Open Unwrapped', color: 'violet'},
+  {name: 'Research Library', detail: 'Find public records, verify sources, or look up a customer escalation contact.', art: '/tool-icons/osint-academy.svg', target: '#shelf-research', action: 'Browse research tools', color: 'blue'},
 ] as const;
 
+const wrapStop = (index: number) => (index + MAP_STOPS.length) % MAP_STOPS.length;
+
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
-  const worldRail = useRef<HTMLUListElement>(null);
-  const moveWorldRail = (direction: number) => {
-    const rail = worldRail.current;
-    if (!rail) return;
-    const step = rail.children[1] ? (rail.children[1] as HTMLElement).offsetLeft - (rail.children[0] as HTMLElement).offsetLeft : rail.clientWidth;
-    rail.scrollBy({left: direction * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
-  };
+  const [activeStop, setActiveStop] = useState(0);
+  const swipeStart = useRef<{x: number; y: number} | null>(null);
+  const moveWorld = (direction: number) => setActiveStop(index => wrapStop(index + direction));
   const [copiedUrl,setCopiedUrl] = useState('');
   const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
   // Hide the full-site install CTA when the current PWA is installed, and
@@ -153,7 +151,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
               <span className="candyland-navbar-feature-kicker">✦ FEATURED · CREATE WITHOUT LIMITS</span>
               <span className="candyland-navbar-feature-title"><strong>Random AI</strong><span>Free, unlimited private local AI</span></span>
               <small>Write, code, brainstorm and solve problems with a recommended AI stack for every task.</small>
-              <span className="candyland-navbar-feature-detail">Runs on your device · No local chat message caps · Download a model once · Optional hosted Instant AI when connected</span>
+              <span className="candyland-navbar-feature-detail">Runs on your device · No local chat message caps · Download a model once</span>
             </span>
             <span className="candyland-navbar-feature-action">Explore Random AI <span aria-hidden="true">↗</span></span>
           </a>
@@ -183,26 +181,54 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
-      <nav className="candyland-map" aria-labelledby="candyland-map">
-        <div className="candyland-world-heading">
+      <section className="candyland-world" aria-labelledby="candyland-map">
+        <div className="candyland-world-header">
           <h2 id="candyland-map">Explore Candy Land</h2>
           <div className="candyland-world-controls">
-            <button type="button" aria-label="Scroll destinations left" aria-controls="candyland-world-rail" onClick={() => moveWorldRail(-1)}>←</button>
-            <button type="button" aria-label="Scroll destinations right" aria-controls="candyland-world-rail" onClick={() => moveWorldRail(1)}>→</button>
+            <button type="button" aria-label="Previous destination" aria-controls="candyland-world-rail" onClick={() => moveWorld(-1)}>←</button>
+            <button type="button" aria-label="Next destination" aria-controls="candyland-world-rail" onClick={() => moveWorld(1)}>→</button>
           </div>
         </div>
-        <ul id="candyland-world-rail" ref={worldRail}>
-          {MAP_STOPS.map(stop => (
-            <li key={stop.name}>
-              <a href={stop.target} data-color={stop.color}>
-                <span className="candyland-map-icon" aria-hidden="true">{stop.icon}</span>
-                <span className="candyland-world-label"><strong>{stop.name}</strong><small>{stop.detail}</small></span>
-                <span className="candyland-map-arrow" aria-hidden="true">↗</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        <div id="candyland-world-rail" className="candyland-world-stage"
+          onKeyDown={event => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+            event.preventDefault();
+            moveWorld(event.key === 'ArrowLeft' ? -1 : 1);
+          }}
+          onTouchStart={event => {
+            const touch = event.touches[0];
+            swipeStart.current = event.touches.length === 1 ? {x: touch.clientX, y: touch.clientY} : null;
+          }}
+          onTouchCancel={() => { swipeStart.current = null; }}
+          onTouchEnd={event => {
+            const start = swipeStart.current;
+            swipeStart.current = null;
+            if (!start) return;
+            const touch = event.changedTouches[0];
+            const dx = touch.clientX - start.x;
+            const dy = touch.clientY - start.y;
+            if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.4) moveWorld(dx < 0 ? 1 : -1);
+          }}>
+          {MAP_STOPS.map((stop, index) => {
+            const active = index === activeStop;
+            const side = active ? 'center' : index === wrapStop(activeStop - 1) ? 'left' : index === wrapStop(activeStop + 1) ? 'right' : 'away';
+            return (
+              <article key={stop.name} className="candyland-world-card" data-side={side} data-color={stop.color} hidden={side === 'away'}>
+                <div className="candyland-world-art"><img src={stop.art} width={176} height={176} alt="" draggable={false} /></div>
+                <div className="candyland-world-copy">
+                  <h3>{stop.name}</h3>
+                  {active && <><p>{stop.detail}</p><a href={stop.target}>{stop.action} <span aria-hidden="true">↗</span></a></>}
+                </div>
+                {!active && side !== 'away' && <button className="candyland-world-peek" type="button" tabIndex={-1} aria-label={'Preview '+stop.name} onClick={() => setActiveStop(index)} />}
+              </article>
+            );
+          })}
+        </div>
+        <div className="candyland-world-dots" aria-label="Choose a destination">
+          {MAP_STOPS.map((stop, index) => <button key={stop.name} type="button" aria-label={stop.name} aria-pressed={activeStop === index} onClick={() => setActiveStop(index)} />)}
+        </div>
+        <div className="sr-only" role="status">{MAP_STOPS[activeStop].name}, {activeStop + 1} of {MAP_STOPS.length}</div>
+      </section>
 
       {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
       <RandomNonsenseGenerator />

@@ -2820,119 +2820,55 @@ body {
 }
 
 
-/* Homepage arrival and destination map */
-.candyland-next .candyland-opening.candyland-opening {
-  isolation: isolate;
-  background:
-    radial-gradient(ellipse at 23% 48%, #884ac3 0%, transparent 57%),
-    radial-gradient(ellipse at 78% 20%, #542078 0%, transparent 51%),
-    linear-gradient(153deg, #351858, #160b30 80%);
+/* Featured destinations */
+.candyland-world {
+  max-width:1180px; width:calc(100% - 24px); margin:20px auto 24px;
+  padding:clamp(14px,3vw,30px); border-radius:26px; color:#fff6fb;
+  background:radial-gradient(ellipse at 50% 42%,#39264e,#181225 76%);
+  border:1px solid #aa86bf65; box-shadow:0 16px 45px #15091d55;
 }
-.candyland-next .candyland-opening::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(circle, #ffd7fa 1px, transparent 2px),
-    radial-gradient(circle, #b7a1ff 1px, transparent 2px);
-  background-position: 5px 7px, 31px 43px;
-  background-size: 97px 79px, 127px 103px;
-  opacity: .44;
-}
-.candyland-map small { display: block; color: #eee0f8; line-height: 1.45; margin-top: 4px; }
-.candyland-map {
-  width: min(1340px, calc(100% - 24px));
-  margin: 24px auto;
-  padding: clamp(14px, 3vw, 30px);
-  border: 1px solid #d99bea75;
-  border-radius: clamp(18px, 3vw, 34px);
-  background: radial-gradient(ellipse at 50% 0, #4b255f, #211336 76%);
-  box-shadow: 0 14px 40px #18092866;
-  color: #fff0fc;
-}
-.candyland-map h2 { margin: 0 0 14px; font-size: clamp(22px, 3vw, 35px); }
-.candyland-map ul {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.candyland-map a {
-  --stop-color: #e9a6ff;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 10px;
-  height: 100%;
-  min-height: 70px;
-  padding: 10px;
-  border: 1px solid color-mix(in srgb, var(--stop-color) 50%, transparent);
-  border-radius: 15px;
-  background: linear-gradient(120deg, color-mix(in srgb, var(--stop-color) 21%, #261738), #261738 75%);
-  color: #fff0fc;
-  text-decoration: none;
-  transition: transform .18s ease, border-color .18s ease;
-}
-.candyland-map a[data-color="rose"] { --stop-color: #ff91c1; }
-.candyland-map a[data-color="mint"] { --stop-color: #8eeac7; }
-.candyland-map a[data-color="blue"] { --stop-color: #9bc3ff; }
-.candyland-map a:hover { transform: translateY(-2px); border-color: var(--stop-color); }
-.candyland-map-icon {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--stop-color) 25%, #2e1b41);
-  font-size: 19px;
-}
-.candyland-map-arrow { color: var(--stop-color); }
-.candyland-next :is(.candyland-map, .candyland-next :is(#candyland-map, .candyland-play-shelf h2, #curiosity-spotlight-title) { scroll-margin-top: 24px; }
-@media (max-width: 860px) {
-        .candyland-map ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 480px) {
-  .candyland-map ul { grid-template-columns: 1fr; }
-  .candyland-map a { min-height: 56px; padding: 7px 10px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .candyland-next .candyland-opening *,
-  .candyland-next .candyland-map a { animation: none; transition: none; }
-  .candyland-map a:hover { transform: none; }
-}
-
-/* Side-scrolling destination cards */
-.candyland-world-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
-.candyland-world-heading h2 { margin:0; }
+.candyland-world-header { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.candyland-world-header h2 { margin:0; font:800 clamp(22px,4vw,35px)/1.15 system-ui,sans-serif; }
 .candyland-world-controls { display:flex; gap:8px; }
-.candyland-world-controls button {
-  width:44px; height:44px; border:1px solid #dda5ed; border-radius:50%;
-  background:#402257; color:#fff4ff; font-size:21px; cursor:pointer;
+.candyland-world-controls button,.candyland-world-dots button {
+  color:#fff; background:#332643; border:1px solid #b69acb; cursor:pointer;
 }
-.candyland-world-controls button:hover { background:#654080; }
-.candyland-map #candyland-world-rail {
-  position:relative; display:grid; grid-auto-flow:column; grid-auto-columns:clamp(195px, 27vw, 310px);
-  grid-template-columns:none; gap:15px; overflow-x:auto; overscroll-behavior-inline:contain;
-  padding:10px 8px 19px; scroll-padding-inline:8px; scroll-snap-type:x mandatory;
-  scrollbar-color:#af78c6 #25163a;
+.candyland-world-controls button { width:44px; height:44px; border-radius:50%; font-size:22px; }
+.candyland-world-stage { position:relative; height:300px; overflow:hidden; perspective:950px; touch-action:pan-y pinch-zoom; }
+.candyland-world-card {
+  --accent:#d9b6ff; position:absolute; top:20px; bottom:20px; left:50%; width:min(72%,590px);
+  display:grid; grid-template-columns:38% 1fr; align-items:center; gap:clamp(12px,3vw,32px);
+  padding:clamp(14px,3vw,36px); border-radius:22px; border:1px solid color-mix(in srgb,var(--accent) 65%,transparent);
+  background:radial-gradient(ellipse at 22% 40%,color-mix(in srgb,var(--accent) 25%,#271b38),#21172e 72%);
+  box-shadow:0 16px 32px #0e081b75; transform:translateX(-50%);
+  transition:transform .32s ease,opacity .32s ease; isolation:isolate;
 }
-.candyland-map #candyland-world-rail li { perspective:700px; scroll-snap-align:start; }
-.candyland-map #candyland-world-rail a {
-  position:relative; isolation:isolate; min-height:176px; padding:16px; align-content:end;
-  grid-template-columns:1fr auto; gap:9px; box-shadow:0 7px 0 #140d24, inset 0 1px #ffffff50;
-  background:radial-gradient(ellipse at 23% 0, color-mix(in srgb,var(--stop-color) 58%,#281537),transparent 72%), #281537;
-  transform:rotateY(-5deg); transform-origin:left center;
+.candyland-world-card[hidden] { display:none; }
+.candyland-world-card[data-color="rose"] { --accent:#ffa4cd; }
+.candyland-world-card[data-color="mint"] { --accent:#9debd0; }
+.candyland-world-card[data-color="blue"] { --accent:#a9caff; }
+.candyland-world-card[data-side="center"] { z-index:2; }
+.candyland-world-card[data-side="left"] { transform:translateX(-105%) translateZ(-185px) rotateY(25deg); opacity:.62; }
+.candyland-world-card[data-side="right"] { transform:translateX(5%) translateZ(-185px) rotateY(-25deg); opacity:.62; }
+.candyland-world-art { display:grid; place-items:center; min-width:0; }
+.candyland-world-art img { width:100%; max-width:176px; height:auto; filter:drop-shadow(0 12px 16px #08051280); }
+.candyland-world-copy { min-width:0; }
+.candyland-world-copy h3 { font:850 clamp(22px,4vw,43px)/1.06 system-ui,sans-serif; margin:0; }
+.candyland-world-copy p { font:500 15px/1.5 system-ui,sans-serif; color:#f3e6fa; margin:10px 0 14px; }
+.candyland-world-copy a { display:inline-flex; align-items:center; min-height:44px; border-radius:10px; gap:8px; padding:8px 14px; text-decoration:none; background:var(--accent); color:#21162d; font:800 14px system-ui,sans-serif; }
+.candyland-world-peek { position:absolute; inset:0; border:0; background:transparent; cursor:pointer; }
+.candyland-world-dots { display:flex; justify-content:center; }
+.candyland-world-dots button { width:36px; height:36px; border:0; background:transparent; display:grid; place-items:center; }
+.candyland-world-dots button::before { content:""; width:8px; height:8px; border-radius:99px; background:#a18bad; }
+.candyland-world-dots button[aria-pressed="true"]::before { width:19px; background:#ffb8df; }
+.candyland-world :focus-visible { outline:3px solid #fff0a9; outline-offset:3px; }
+#candyland-map,.candyland-play-shelf h2,#curiosity-spotlight-title { scroll-margin-top:24px; }
+@media(max-width:630px) {
+  .candyland-world-stage { height:330px; }
+  .candyland-world-card { grid-template-columns:1fr; grid-template-rows:105px auto; text-align:center; width:81%; padding:14px 12px; gap:10px; }
+  .candyland-world-art img { width:100px; }
+  .candyland-world-card[data-side="left"] { transform:translateX(-88%) translateZ(-180px) rotateY(24deg); }
+  .candyland-world-card[data-side="right"] { transform:translateX(-12%) translateZ(-180px) rotateY(-24deg); }
+  .candyland-world-copy p { font-size:14px; margin:8px 0 10px; }
 }
-.candyland-map #candyland-world-rail a:is(:hover,:focus-visible) { transform:rotateY(0) translateY(-3px); }
-.candyland-map #candyland-world-rail .candyland-map-icon {
-  grid-column:1/-1; width:56px; font-size:29px;
-  box-shadow:0 6px 16px #170d35a0, inset 0 2px #ffffff64;
-}
-.candyland-world-label strong { font-size:clamp(17px,2vw,23px); }
-@media (prefers-reduced-motion: reduce) {
-  .candyland-map #candyland-world-rail a,
-  .candyland-map #candyland-world-rail a:is(:hover,:focus-visible) { transform:none; transition:none; }
-}
+@media(prefers-reduced-motion:reduce) { .candyland-world-card { transition:none; } }
