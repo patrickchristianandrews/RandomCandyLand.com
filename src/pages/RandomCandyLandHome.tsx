@@ -90,12 +90,12 @@ const COLLECTIONS = [
 ] as const;
 
 const MAP_STOPS = [
-  {name: 'Candy Arcade', detail: 'Play a quick round or challenge a friend.', art: '/tool-icons/candy-match.svg', target: '#shelf-multiplayer', action: 'Find a game', color: 'rose'},
-  {name: 'Story District', detail: 'Navigate political alliances or build a case in court.', art: '/tool-icons/the-corridors.svg', target: '#shelf-story', action: 'Browse stories', color: 'violet'},
-  {name: 'Pet Park', detail: 'Feed, play with, and check in on your tiny companions.', art: '/tool-icons/trumpagotchi-2.svg', target: '#shelf-ongoing', action: 'Meet the pets', color: 'mint'},
-  {name: 'Wonder Index', detail: 'Follow curious ideas, new research, and strange correlations.', art: '/tool-icons/wonder-index.svg', target: '#curiosity-spotlight-title', action: 'Explore the index', color: 'blue'},
-  {name: 'Unwrapped', detail: 'Explore your personality, interests, and relationships. Ages 18+.', art: '/tool-icons/unwrapped.svg', target: '/after-dark/', action: 'Open Unwrapped', color: 'violet'},
-  {name: 'Research Library', detail: 'Find public records, verify sources, or look up a customer escalation contact.', art: '/tool-icons/osint-academy.svg', target: '#shelf-research', action: 'Browse research tools', color: 'blue'},
+  {name: 'Candy Arcade', detail: 'Play a quick round or challenge a friend.', art: '/world-scenes/arcade.webp', target: '#shelf-multiplayer', action: 'Find a game', color: 'rose'},
+  {name: 'Story District', detail: 'Navigate political alliances or build a case in court.', art: '/world-scenes/stories.webp', target: '#shelf-story', action: 'Browse stories', color: 'violet'},
+  {name: 'Pet Park', detail: 'Feed, play with, and check in on your tiny companions.', art: '/world-scenes/pets.webp', target: '#shelf-ongoing', action: 'Meet the pets', color: 'mint'},
+  {name: 'Wonder Index', detail: 'Follow curious ideas, new research, and strange correlations.', art: '/world-scenes/wonder.webp', target: '#curiosity-spotlight-title', action: 'Explore the index', color: 'blue'},
+  {name: 'Unwrapped', detail: 'Explore your personality, interests, and relationships. Ages 18+.', art: '/world-scenes/unwrapped.webp', target: '/after-dark/', action: 'Open Unwrapped', color: 'violet'},
+  {name: 'Research Library', detail: 'Find public records, verify sources, or look up a customer escalation contact.', art: '/world-scenes/research.webp', target: '#shelf-research', action: 'Browse research tools', color: 'blue'},
 ] as const;
 
 const wrapStop = (index: number) => (index + MAP_STOPS.length) % MAP_STOPS.length;
@@ -214,7 +214,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             const side = active ? 'center' : index === wrapStop(activeStop - 1) ? 'left' : index === wrapStop(activeStop + 1) ? 'right' : 'away';
             return (
               <article key={stop.name} className="candyland-world-card" data-side={side} data-color={stop.color} hidden={side === 'away'}>
-                <div className="candyland-world-art"><img src={stop.art} width={176} height={176} alt="" draggable={false} /></div>
+                <div className="candyland-world-art" aria-hidden="true"><img src={stop.art} width={508} height={508} alt="" draggable={false} loading={side === 'away' ? 'lazy' : 'eager'} /></div>
                 <div className="candyland-world-copy">
                   <h3>{stop.name}</h3>
                   {active && <><p>{stop.detail}</p><a href={stop.target}>{stop.action} <span aria-hidden="true">↗</span></a></>}
