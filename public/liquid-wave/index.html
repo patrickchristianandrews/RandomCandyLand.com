@@ -88,6 +88,11 @@ details.card summary{font-weight:700;cursor:pointer}
 .sound-controls label,.mix-track{display:grid;gap:4px;font-size:13px;border:1px solid #ffd1e8;border-radius:9px;padding:7px}
 .sound-controls input{width:100%;accent-color:var(--pink)}
 .mix-track button{padding:4px;font-size:12px}
+.sound-track-picker{position:relative}.sound-track-picker summary{cursor:pointer;padding:8px 12px;border:1px solid #e0aec7;border-radius:12px;background:#fff}
+.sound-track-picker summary canvas,.sound-track-picker button canvas{width:32px;height:32px;vertical-align:middle;margin-right:8px}
+#sound-track-options{display:grid;gap:4px;margin-top:6px;padding:6px;background:#fff;border-radius:12px;border:1px solid #e0aec7}
+#sound-track-options button{text-align:left;min-height:44px}
+#sound-track-options button[aria-pressed="true"]{outline:2px solid var(--pink);outline-offset:-2px}
 </style>
 </head>
 <body>
@@ -111,7 +116,7 @@ details.card summary{font-weight:700;cursor:pointer}
 </nav>
 <section id="wave-sound" class="card" hidden aria-labelledby="sound-heading">
 <h2 id="sound-heading">Sound Lab</h2>
-<div class="bar"><label>Track <select id="sound-track"></select></label><label>Instrument <select id="sound-instrument"></select></label><button id="sound-preview">Preview sound</button><button id="sound-reset">Reset sound</button></div>
+<div class="bar"><details id="sound-track-picker" class="sound-track-picker"><summary id="sound-track-summary">Track</summary><div id="sound-track-options" role="group" aria-label="Sound tracks"></div></details><select id="sound-track" hidden aria-label="Selected sound track"></select><label>Instrument <select id="sound-instrument"></select></label><button id="sound-preview">Preview sound</button><button id="sound-reset">Reset sound</button></div>
 <div id="sound-controls" class="sound-controls"></div>
 </section>
 <section id="wave-mixer" class="card" hidden aria-labelledby="mixer-heading">
@@ -220,7 +225,7 @@ function gen(){
  $("info").textContent="Song "+generation+" · "+$("style").value+" · "+S.bpm+" BPM";
 }
 var seqSection=$("seq-section"),seqMode=$("seq-mode"),seqTempo=$("seq-tempo"),seqGrid=$("seq-grid");
-var animals=["🐻","🐱","🐰","🐤","☁️","👽","👻","🐶"];
+var animals=["🐻","🐱","🐰","🐤","☁️","👽","👻",""];
 var drumHits={0:1,2:2,4:4,7:7};
 var gridButtons=[];
 function paintGrid(){
@@ -246,7 +251,7 @@ function makeGrid(){
  var body=seqGrid.createTBody();
  NAMES.forEach(function(name,track){
   var row=body.insertRow(),label=document.createElement("th"),preview=document.createElement("button");
-  label.scope="row";preview.type="button";preview.textContent=animals[track]+" "+name;
+  label.scope="row";preview.type="button";preview.textContent=[animals[track],name].filter(Boolean).join(" ");
   preview.setAttribute("aria-label","Preview "+name);
   preview.onclick=function(){previewTrack(track,track===0?drumHits[$("seq-note").value]:Number($("seq-note").value))};
   label.append(preview);row.append(label);
@@ -326,9 +331,9 @@ function toggleMute(track){
  mutes[track].setAttribute("aria-pressed",Boolean(S.mute[track]));
 }
 NAMES.forEach(function(name,track){
- selectedSound.add(new Option(animals[track]+" "+name,track));
+ selectedSound.add(new Option(name,track));
  var group=document.createElement("div"),title=document.createElement("strong"),mute=document.createElement("button");
- group.className="mix-track";title.textContent=animals[track]+" "+name;
+ group.className="mix-track";title.textContent=[animals[track],name].filter(Boolean).join(" ");
  mute.type="button";mute.textContent="Mute";mute.setAttribute("aria-pressed","false");mute.setAttribute("aria-label","Mute "+name);
  mute.onclick=function(){toggleMute(track)};mutes.push(mute);
  group.append(title,mute);
@@ -456,6 +461,32 @@ function draw(){DPR=window.devicePixelRatio||1;var bw=cv.clientWidth*DPR,bh=cv.c
  sky(tn/1000);
  var order=FP.map(function(f,i){return i}).sort(function(a,b){return FP[a].y-FP[b].y});order.forEach(function(i){face(i,FP[i].x,FP[i].y,R0,tn/1000)});
  requestAnimationFrame(draw)}
+function trackPortrait(track){
+ var icon=document.createElement("canvas"),stageContext=cx;
+ icon.width=icon.height=80;icon.setAttribute("aria-hidden","true");
+ cx=icon.getContext("2d");
+ try{body(track,40,43,23,PAL[track][0],PAL[track][1],false);eyes(track,40,43,23,false,false,.5);mouth(track,40,43,23,0,false)}
+ finally{cx=stageContext}
+ return icon;
+}
+var picker=$("sound-track-picker"),summary=$("sound-track-summary"),options=$("sound-track-options");
+var trackButtons=NAMES.map(function(name,track){
+ var button=document.createElement("button");button.type="button";button.append(trackPortrait(track),name);
+ button.onclick=function(){
+  selectedSound.value=track;selectedSound.dispatchEvent(new Event("change"));
+  updateTrackPicker();picker.open=false;summary.focus();
+ };
+ options.append(button);return button;
+});
+function updateTrackPicker(){
+ var track=Number(selectedSound.value);
+ summary.replaceChildren(trackPortrait(track),"Track: "+NAMES[track]);
+ trackButtons.forEach(function(button,index){button.setAttribute("aria-pressed",String(track===index))});
+}
+picker.addEventListener("keydown",function(event){
+ if(event.key==="Escape"&&picker.open){picker.open=false;summary.focus()}
+});
+updateTrackPicker();
 draw();
 })();
 </script>
