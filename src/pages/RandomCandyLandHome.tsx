@@ -181,6 +181,14 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
+      <section aria-labelledby="home-holiday-deals" style={{width:'min(1180px, calc(100% - 24px))',margin:'20px auto',border:'1px solid #a878a9',borderRadius:24,overflow:'hidden',background:'#171023',color:'#fff5fc'}}>
+        <div style={{padding:'20px 20px 12px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
+          <div><span style={{color:'#ffbde1',fontSize:12,letterSpacing:2}}>BLACK FRIDAY + CYBER MONDAY</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(24px,4vw,36px)',margin:'4px 0'}}>Holiday Deal Radar</h2><p style={{margin:0,fontSize:14,color:'#d4bedb'}}>More finds. Less scrolling. Search, filter and save below.</p></div>
+          <a href="/black-friday/" style={{padding:'12px 16px',borderRadius:12,background:'#ffc1df',color:'#251127',fontWeight:800,textDecoration:'none'}}>Full guide, ads & cashback ↗</a>
+        </div>
+        <iframe src="/black-friday/?embed=compact" title="Holiday deals: searchable compact catalog" style={{display:'block',width:'100%',height:650,border:0}} />
+      </section>
+
       <section className="candyland-world" aria-labelledby="candyland-map">
         <div className="candyland-world-header">
           <h2 id="candyland-map">Explore Candy Land</h2>
@@ -244,7 +252,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <img className="candyland-curiosity-icon" src="/tool-icons/wonder-index.svg" width={96} height={96} alt="" loading="lazy" />
       </section>
-      <a className="candyland-black-friday" href="/black-friday/"><strong>Black Friday Deals</strong><span>Hot picks, retailer ads and price checks →</span></a>
+      
 
 
       <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
