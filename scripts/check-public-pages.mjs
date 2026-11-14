@@ -838,10 +838,16 @@ const studioLogic=fs.readFileSync('dist/studio/studio.js','utf8');
 for(const needle of ['random-ai-mini-benchmark-v1','benchChecks','random-ai-benchmark-complete','averageMs','RandomAIModelBenchmark']){
  if(!studioLogic.includes(needle)){console.error('Missing actual on-device model mini benchmark:',needle);failures++;}
 }
+const approvedCatalog = {};
+vm.runInNewContext(fs.readFileSync('dist/studio/approved-models.js','utf8'), {window:approvedCatalog});
+if(!approvedCatalog.RandomAIApprovedModels?.allows('Hermes-3-Llama-3.1-8B-q4f32_1-MLC') ||
+   approvedCatalog.RandomAIApprovedModels?.allows('Llama-3.2-1B-Instruct-q4f32_1-MLC')){
+ console.error('Random AI must allow the approved Hermes model and reject the stock Llama model');failures++;
+}
 if(fs.existsSync('dist/studio/top-models.js')){
  const models=fs.readFileSync('dist/studio/top-models.js','utf8');
  try{new vm.Script(models,{filename:'Random AI phone model recommendations'});}catch(e){console.error('Invalid phone-specific model recommender:',e.message);failures++;}
- for(const expected of ['navigator.deviceMemory','navigator.gpu','random-ai-catalog-ready','data-top-load','Hermes-3-Llama-3','random-ai-observed-performance-v1']){
+ for(const expected of ['navigator.deviceMemory','navigator.gpu','random-ai-catalog-ready','data-top-load','RandomAIApprovedModels','random-ai-observed-performance-v1']){
   if(!models.includes(expected)){console.error('Missing dynamic device-model behavior:',expected);failures++;}
  }
  if(studioPage.includes('id="stackTaskHome"')||studioPage.includes('class="stack-feature"')||studioPage.includes('class="stack-chat-controls"')){
