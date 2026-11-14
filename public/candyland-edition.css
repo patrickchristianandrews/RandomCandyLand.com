@@ -1,0 +1,111 @@
+/* Shared Candy Land presentation. Keep interactive game and report surfaces scoped. */
+:root {
+  --candy-night:#120d21;
+  --candy-panel:#211630;
+  --candy-edge:#bd98d455;
+  --candy-white:#fff5fc;
+  --candy-rose:#ffc2df;
+  --candy-mint:#a7f1dc;
+  --candy-blue:#badbff;
+  --candy-ambient:radial-gradient(ellipse at 90% 0%,#482052 0%,transparent 47rem),radial-gradient(ellipse at 0% 26rem,#263058 0%,transparent 40rem),#120d21;
+}
+html[data-candyland-edition] { scrollbar-color:#ad8bbf #211630; }
+html[data-candyland-edition] :focus-visible { outline-color:#ffdaee; }
+html[data-candyland-edition] #rcl-share-page {
+  background:#2b1e3d; color:var(--candy-white); border:1px solid #d7b2eb83;
+  box-shadow:0 6px 24px #10081988;
+}
+.candyland-next.candyland-next { background:var(--candy-ambient); color:var(--candy-white); }
+.candyland-next .candyland-navbar.candyland-navbar-ai {
+  background:linear-gradient(135deg,#231631,#181126); border-color:var(--candy-edge);
+  box-shadow:0 15px 38px #0c071d66;
+}
+.candyland-next .candyland-navbar .candyland-navbar-feature-link {
+  background:linear-gradient(115deg,#49305d,#21162f); border-color:#d8b2ec70;
+}
+.candyland-next .candyland-opening.candyland-opening {
+  max-width:1180px; width:calc(100% - 24px); margin-inline:auto;
+  min-height:0; padding:clamp(14px,3vw,34px); border:1px solid var(--candy-edge);
+  border-radius:24px; background:radial-gradient(ellipse at 22% 52%,#64336c,transparent 57%),linear-gradient(150deg,#302044,#171024);
+  box-shadow:0 24px 65px #0906148a;
+}
+.candyland-next .candyland-opening.candyland-opening::before { display:none; }
+.candyland-next .candyland-opening .candyland-opening-art { width:min(100%,360px); animation:none; filter:drop-shadow(0 15px 24px #130a20a8); }
+.candyland-next .candyland-opening .candyland-opening-copy h1 {
+  color:var(--candy-white); font:900 clamp(38px,6vw,84px)/.98 system-ui,sans-serif; letter-spacing:-.06em;
+  text-shadow:0 6px 24px #160b2c80;
+}
+.candyland-next .candyland-opening .candyland-opening-copy h1 span {
+  color:var(--candy-rose); background:none; -webkit-text-fill-color:currentColor;
+}
+.candyland-next .candyland-curiosity-spotlight {
+  width:min(1180px,calc(100% - 24px)); margin:18px auto 24px; border-color:#a7f1dc55;
+  background:linear-gradient(90deg,#101827 28%,#101827a8 65%,#10182710),url('/world-scenes/wonder.webp') right 52% / min(60%,460px) auto no-repeat,#101827;
+}
+.candyland-next .candyland-liquid-spotlight.candyland-liquid-spotlight {
+  border-color:#a7f1dc55; background:linear-gradient(120deg,#241932,#392a52 58%,#214950);
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-link:not(.candyland-unwrapped-feature-card) {
+  border-color:var(--candy-edge); background:linear-gradient(150deg,#3c2652,#21162f 72%); color:var(--candy-white);
+  box-shadow:0 9px 22px #0d081b55;
+}
+.candyland-next .candyland-play-shelf .candyland-hero-tool-link:hover { border-color:#ffc2dfad; }
+.candyland-next .candyland-footer { color:#d9c8e4; border-top:1px solid var(--candy-edge); }
+.candyland-next .candyland-footer a { color:var(--candy-rose); }
+@media(max-width:640px) {
+ .candyland-next .candyland-opening .candyland-opening-art { width:min(55vw,215px); }
+ .candyland-next .candyland-opening .candyland-opening-copy h1 { font-size:clamp(32px,8vw,48px); }
+ .candyland-next .candyland-curiosity-spotlight {
+  background:linear-gradient(90deg,#101827 15%,#101827cf 65%,#10182775),url('/world-scenes/wonder.webp') right center / auto 110% no-repeat,#101827;
+ }
+}
+/* Keep app-specific layouts and controls, and connect their surrounding palette. */
+html[data-candyland-edition="studio"]:root {
+ --bg:#120d21; --surface:#1b132a; --panel:#251936; --panel2:#302041; --line:#bd98d43d;
+ --purple:#dfb9ff; --pink:#ffc2df; --mint:#a7f1dc; --blue:#badbff; background:var(--candy-ambient);
+}
+html[data-candyland-edition="after-dark"]:root {
+ --base:#120d21; --panel:#211630; --panel2:#302041; --pink:#ffc2df;
+ --lilac:#dfb9ff; --border:#775886;
+}
+html:is([data-candyland-edition="curiosity"],[data-candyland-edition="candy-match"],[data-candyland-edition="candy-simon"],[data-candyland-edition="candy-casino"],[data-candyland-edition="goo-rush"]) body { background:var(--candy-ambient); }
+body.world.corridors .hero {
+ background:linear-gradient(90deg,#181124 25%,#181124b0 65%,#18112430),url('/world-scenes/stories.webp') right 44% / min(62%,520px) auto no-repeat,#181124;
+ border-color:var(--candy-edge);
+}
+html[data-candyland-edition="executive-directory"] .hero {
+ background:linear-gradient(90deg,#161222 25%,#161222c9 68%,#16122273),url('/world-scenes/research.webp') right center / min(60%,480px) auto no-repeat,#161222;
+ color:var(--candy-white); border-color:var(--candy-edge);
+}
+html[data-candyland-edition="executive-directory"] .hero p { color:#f4dfee; }
+html[data-candyland-edition="executive-directory"] .hero .art { visibility:hidden; }
+
+html[data-candyland-edition="curiosity"]:root {
+ --bg:#120d21; --panel:#211630; --border:#8f75a7; --mint:#a7f1dc;
+}
+html[data-candyland-edition="curiosity"] .hero {
+ background:linear-gradient(90deg,#171122 28%,#171122bd 68%,#17112255),url('/world-scenes/wonder.webp') right 46% / min(65%,560px) auto no-repeat,#171122;
+ border-color:var(--candy-edge);
+}
+html[data-candyland-edition="ai-academy"]:root {
+ --bg:#120d21; --panel:#211630; --line:#bd98d455; --pink:#ffc2df;
+}
+html[data-candyland-edition="osint-academy"]:root {
+ --bg:#120d21; --side:#1a1329; --card:#231832; --field:#181024;
+ --line:#715b83; --muted:#d3c4df; --accent:#a7f1dc;
+}
+html[data-candyland-edition="liquid-wave"] body {
+ background:var(--candy-ambient); --ink:#fff5fc; --soft:#e2cfe7; --card:#211630;
+ --pink:#ffc2df; --mint:#a7f1dc; color:var(--ink);
+}
+html[data-candyland-edition="liquid-wave"] :is(.card,#stage) { border-color:var(--candy-edge); box-shadow:0 10px 28px #0d081c88; }
+html[data-candyland-edition="liquid-wave"] .warn { background:#372b37; border-color:#e0b684; }
+html[data-candyland-edition="liquid-wave"] :is(a,h1 em) { color:#ffc2df; }
+html[data-candyland-edition="liquid-wave"] :is(button,select,.sound-track-picker summary,#sound-track-options) {
+ background:#39284a; color:var(--candy-white); border-color:#9a76ac; box-shadow:none;
+}
+html[data-candyland-edition="liquid-wave"] :is(button.hot,a.cta) { background:var(--candy-rose); color:#28162e; border-color:#ffc2df; box-shadow:none; }
+html[data-candyland-edition="liquid-wave"] button.on { background:var(--candy-mint); color:#102e29; }
+html[data-candyland-edition="liquid-wave"] .seq-grid th:first-child { background:var(--candy-panel); }
+html[data-candyland-edition="liquid-wave"] .seq-grid .seq-step { background:#332645; color:#fff5fc; }
+html[data-candyland-edition="liquid-wave"] .seq-grid .seq-step[aria-pressed="true"] { background:#a7f1dc; color:#102e29; }

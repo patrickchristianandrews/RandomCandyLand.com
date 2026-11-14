@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
 <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Random Candy Land | A World of Play & Discovery</title>
     <meta name="description" content="Explore Random Candy Land: games, interactive stories, learning, discovery and a featured Random AI experience." />
     <meta property="og:title" content="Random Candy Land | A World of Play & Discovery" />
@@ -48,7 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <!-- PWA & Mobile Home Screen Links -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#ff5fb8" />
+    <meta name="theme-color" content="#17102a" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -93,14 +93,19 @@ for (const stale of ['standalone.html']) {
   const oldPath = path.join(distDir, stale);
   if (fs.existsSync(oldPath)) fs.rmSync(oldPath);
 }
-// Inject the same privacy-safe share control on every published HTML page.
+// Apply shared presentation and the privacy-safe share control to published HTML.
 // Run after generating standalone homepage/404 so those files are covered too.
-function installSiteSharing(dir) {
+function installSitePresentation(dir) {
  for (const entry of fs.readdirSync(dir,{withFileTypes:true})) {
   const file=path.join(dir,entry.name);
-  if(entry.isDirectory()){installSiteSharing(file);continue;}
+  if(entry.isDirectory()){installSitePresentation(file);continue;}
   if(!entry.isFile()||!entry.name.toLowerCase().endsWith('.html'))continue;
   let html=fs.readFileSync(file,'utf8');
+  const route = path.relative(distDir,file).split(path.sep)[0].replace(/\.html$/i,'');
+  html=html.replace(/<html\b/i,'<html data-candyland-edition="'+route+'"');
+  const headEnd=html.search(/<\/head\s*>/i);
+  if(headEnd<0)throw Error('Cannot add Candy Land theme to HTML without head: '+file);
+  html=html.slice(0,headEnd)+'<link rel="stylesheet" href="/candyland-edition.css?v=1">'+html.slice(headEnd);
   if(!html.includes('/share-page.css?v=sitewide-2')) {
    const position=html.search(/<\/head\s*>/i);
    if(position<0)throw Error('Cannot add sharing to HTML without head: '+file);
@@ -114,7 +119,7 @@ function installSiteSharing(dir) {
   fs.writeFileSync(file,html,'utf8');
  }
 }
-installSiteSharing(distDir);
+installSitePresentation(distDir);
 console.log('Installed Share Page on every published Candy Land HTML page.');
 
 console.log('Built current Candy Land homepage and valid /trump/ + 404 fallbacks (no stale source copies).');
