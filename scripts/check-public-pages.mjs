@@ -785,7 +785,7 @@ for(const file of ['dist/studio/model-memory.js','dist/studio/model-memory.css',
  if(!fs.existsSync(file)){console.error('Random AI saved-model asset missing:',file);failures++;}
 }
 const studioPage=fs.readFileSync('dist/studio/index.html','utf8');
-for(const text of ['id="backgroundModelDownload"','background-model-download.html','id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=device-chooser-20261107-v3','top-models.js?v=device-chooser-20261107-v3','id="topAiList"','id="uncensoredChoices"']){
+for(const text of ['id="backgroundModelDownload"','background-model-download.html','id="savedModels"','id="savedModelList"','id="savedModelHome"','id="savedModelKeep"','model-memory.js?v=1','model-memory.css?v=device-chooser-20261107-v3','top-models.js?v=approved-v1','id="topAiList"','id="uncensoredChoices"']){
  if(!studioPage.includes(text)){console.error('Random AI saved-model library missing:',text);failures++;}
 }
 if(fs.existsSync('dist/studio/model-memory.js')){
@@ -797,23 +797,20 @@ if(fs.existsSync('dist/studio/model-memory.js')){
 }
 // Users must be able to save actual compatible GGUF files to phone storage.
 // A browser cache copy is not a portable file or direct GGUF import for WebLLM.
-for(const token of ['id="portablePhoneModels"','id="portableModelDevice"','id="phoneGGUFPicker"','phone-model-downloads.js?v=device-chooser-20261107-v3']){
+for(const token of ['id="portablePhoneModels"','id="portableModelDevice"','id="phoneGGUFPicker"','phone-model-downloads.js?v=abliterated-v1']){
  if(!studioPage.includes(token)){console.error('Phone model download workflow missing:',token);failures++;}
 }
 const portableFiles=[
- ['bartowski/Qwen_Qwen3-0.6B-GGUF','Qwen3-0.6B-Q4_K_M.gguf'],
- ['bartowski/Qwen_Qwen3-1.7B-GGUF','Qwen3-1.7B-Q4_K_M.gguf'],
- ['Qwen/Qwen3-4B-GGUF','Qwen3-4B-Q4_K_M.gguf'],
+ ['mradermacher/Qwen3-0.6B-abliterated-GGUF','Qwen3-0.6B-abliterated.Q4_K_M.gguf'],
+ ['mradermacher/Qwen3-1.7B-abliterated-GGUF','Qwen3-1.7B-abliterated.Q4_K_M.gguf'],
+ ['mradermacher/Qwen3-4B-abliterated-GGUF','Qwen3-4B-abliterated.Q4_K_M.gguf'],
  ['bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF','Llama-3.1-8B-Lexi-Uncensored-V2-Q4_K_M.gguf'],
- ['bartowski/Qwen2.5-Coder-1.5B-Instruct-GGUF','Qwen2.5-Coder-1.5B-Instruct-Q4_K_M.gguf'],
- ['Qwen/Qwen3-VL-2B-Instruct-GGUF','Qwen3VL-2B-Instruct-Q4_K_M.gguf'],
- ['Qwen/Qwen3-VL-2B-Instruct-GGUF','mmproj-Qwen3VL-2B-Instruct-Q8_0.gguf']
 ];
 for(const [repo,file] of portableFiles){
  const url='https://huggingface.co/'+repo+'/resolve/main/'+file+'?download=true';
  if(!studioPage.includes('href="'+url+'"')){console.error('Verified portable GGUF link missing:',file);failures++;}
 }
-if((studioPage.match(/data-phone-file-info=/g)||[]).length!==7){console.error('Expected seven real phone file links across six model choices');failures++;}
+if((studioPage.match(/data-phone-file-info=/g)||[]).length!==4){console.error('Expected four approved portable model links');failures++;}
 if(fs.existsSync('dist/studio/phone-model-downloads.js')){
  const js=fs.readFileSync('dist/studio/phone-model-downloads.js','utf8');
  try{new vm.Script(js,{filename:'Phone GGUF downloads'})}catch(e){console.error('Phone model download script syntax:',e.message);failures++;}
@@ -821,7 +818,7 @@ if(fs.existsSync('dist/studio/phone-model-downloads.js')){
   if(!js.includes(token)){console.error('Phone GGUF model status or privacy check missing:',token);failures++;}
  }
 }
-for(const needle of ['id="topAiBenchmarkStatus"','data-capability-view="code"','data-capability-view="reason"','data-capability-view="photos"','data-capability-view="videos"','data-portable-model="qwen-coder"','data-portable-model="qwen-vision"','id="phoneImageModels"']){
+for(const needle of ['id="topAiBenchmarkStatus"','data-capability-view="code"','data-capability-view="reason"','data-capability-view="photos"','data-capability-view="videos"','data-portable-model="qwen-quality"','data-portable-model="qwen-balanced"','id="phoneImageModels"']){
  if(!studioPage.includes(needle)){console.error('Missing expanded model capabilities:',needle);failures++;}
 }
 // Help unsure visitors choose an appropriate AI across phone, tablet, laptop, desktop.
@@ -920,10 +917,10 @@ if(fs.existsSync('dist/curiosity/ideas-data.js')){
 }
 const wonderSource=fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
 if(!wonderSource.includes('group.id !== "discovery"')||
- !wonderSource.includes("group.id === 'discovery' && (")||
+ !/\<RandomNonsenseGenerator \/>\s*<section className="candyland-curiosity-spotlight"/.test(wonderSource)||
  !wonderSource.includes('candyland-curiosity-spotlight')||
  !wonderSource.includes('href="/curiosity/correlations/"')){
- console.error('Unwrapped must have no duplicate category heading, and Wonder Index must appear immediately afterward.');failures++;
+ console.error('Unwrapped must have no duplicate category heading, and Wonder Index must appear after the Absurdity Report preview.');failures++;
 }
 const refreshWorkflow=fs.readFileSync('.github/workflows/deploy.yml','utf8');
 if(!refreshWorkflow.includes("cron: '17 */6 * * *'")||!refreshWorkflow.includes('node scripts/refresh-curiosity.mjs')){

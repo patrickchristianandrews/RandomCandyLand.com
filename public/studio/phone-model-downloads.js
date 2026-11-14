@@ -7,12 +7,10 @@
 (()=>{'use strict';
 const $=q=>document.querySelector(q);
 const specs=Object.freeze({
- 'qwen-small':{sizeGB:.484,name:'Qwen3 0.6B'},
- 'qwen-balanced':{sizeGB:1.282,name:'Qwen3 1.7B'},
- 'qwen-quality':{sizeGB:2.50,name:'Qwen3 4B'},
+ 'qwen-small':{sizeGB:0.4,name:'Qwen3 0.6B Abliterated'},
+ 'qwen-balanced':{sizeGB:1.11,name:'Qwen3 1.7B Abliterated'},
+ 'qwen-quality':{sizeGB:2.5,name:'Qwen3 4B Abliterated'},
  'lexi-open':{sizeGB:4.92,name:'Lexi Uncensored V2 8B'},
- 'qwen-coder':{sizeGB:.99,name:'Qwen2.5 Coder 1.5B'},
- 'qwen-vision':{sizeGB:1.56,name:'Qwen3-VL 2B language + projector'}
 });
 
 const strengths={
@@ -20,8 +18,6 @@ const strengths={
  'qwen-balanced':{fit:'General writing · everyday questions · basic coding',detail:'An accessible middle ground for questions, emails, simple reasoning and code explanations. Photos/video: prompts and storyboards only.'},
  'qwen-quality':{fit:'More detailed writing · programming help · multi-step reasoning',detail:'Better suited to longer instructions, explaining code and planning than smaller chat models, at higher memory cost. Photos/video: prompts only.'},
  'lexi-open':{fit:'Open-ended conversation · creative writing · roleplay',detail:'Community-described uncensored model intended for creative and less-restricted text replies. Not a specialist coding, image or video engine.'},
- 'qwen-coder':{fit:'Coding · debugging · tests · code explanation',detail:'Specialized coding model for Python/JavaScript examples, finding simple bugs and explaining code. It cannot execute the code or guarantee correctness. Photos/video: not supported.'},
- 'qwen-vision':{fit:'Describe photos · extract text · visual questions',detail:'Multimodal image-understanding model, not an image/video generator. The mobile app must load BOTH GGUF files (language and mmproj vision projector).'}
 };
 const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const pace=gb=>{

@@ -40,7 +40,7 @@ async function start(){
  try{
   const lib=await import(CDN);
   const spec=lib.prebuiltAppConfig?.model_list?.find(m=>m.model_id===model);
-  if(!lib.CreateMLCEngine||!spec)throw Error('That model is not offered by this WebLLM runtime. Choose a different model in Random AI.');
+  if(!window.RandomAIApprovedModels?.allows(model)||!lib.CreateMLCEngine||!spec)throw Error('That model is not offered by this WebLLM runtime. Choose a different model in Random AI.');
   $('modelName').textContent=spec.model_id;
   try{await navigator.storage?.persist?.()}catch{}
   // Avoid a new weight download when the actual model artifacts are already present.

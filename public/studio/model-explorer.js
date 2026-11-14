@@ -167,8 +167,8 @@ async function loadCatalog(force=false){
   const original=library?.prebuiltAppConfig?.model_list;
   if(!Array.isArray(original)||!original.length)throw Error('The runtime returned no downloadable models.');
   const ids=new Set();
-  records=original.filter(x=>x?.model_id&&x?.model&&x?.model_lib&&!ids.has(x.model_id)&&(ids.add(x.model_id),true)).map(normalize);
-  if(!records.length)throw Error('No complete downloadable model records were found.');
+  records=original.filter(x=>window.RandomAIApprovedModels?.allows(x?.model_id)&&x?.model&&x?.model_lib&&!ids.has(x.model_id)&&(ids.add(x.model_id),true)).map(normalize);
+  if(!records.length)throw Error('No approved browser models are available from this runtime.');
   records.sort((a,b)=>a.family.localeCompare(b.family)||a.vram-b.vram);
   const dropdown=$('#modelSelect'),top=$('#topModelSelect');
   if(dropdown)dropdown.innerHTML=records.map(m=>'<option value="'+E(m.id)+'">'+E(displayName(m.id))+' — '+E(vramLabel(m))+'</option>').join('');

@@ -2840,50 +2840,7 @@ body {
   background-size: 97px 79px, 127px 103px;
   opacity: .44;
 }
-.candyland-arrival-description {
-  max-width: 37ch;
-  margin: 18px 0;
-  color: #f5e5ff;
-  font-size: clamp(15px, 2vw, 19px);
-  line-height: 1.55;
-}
-.candyland-arrival-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.candyland-arrival-actions :is(a, button) {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 46px;
-  padding: 9px 18px;
-  border: 1px solid #edb8ee;
-  border-radius: 99px;
-  background: #ffd5f4;
-  color: #351343;
-  font: 800 14px/1.3 system-ui, sans-serif;
-  text-decoration: none;
-  cursor: pointer;
-}
-.candyland-arrival-actions button { background: #3c2059; color: #fff0fc; }
-.candyland-arrival-actions :is(a, button):hover { background: #fff0fb; color: #351343; }
-.candyland-surprise a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  max-width: 440px;
-  padding: 12px;
-  margin-top: 14px;
-  border: 1px solid #e8b2ee80;
-  border-radius: 16px;
-  background: #28143e;
-  color: #fff1fc;
-  text-decoration: none;
-}
-.candyland-surprise img { flex: none; object-fit: contain; }
-.candyland-surprise small, .candyland-map small { display: block; color: #eee0f8; line-height: 1.45; margin-top: 4px; }
+.candyland-map small { display: block; color: #eee0f8; line-height: 1.45; margin-top: 4px; }
 .candyland-map {
   width: min(1340px, calc(100% - 24px));
   margin: 24px auto;
@@ -2933,16 +2890,9 @@ body {
   font-size: 19px;
 }
 .candyland-map-arrow { color: var(--stop-color); }
-.candyland-next :is(.candyland-map, .candyland-arrival-actions, .candyland-surprise) :focus-visible {
-  outline: 3px solid #fff0a9;
-  outline-offset: 3px;
-}
-.candyland-next :is(#candyland-map, .candyland-play-shelf h2, #curiosity-spotlight-title) { scroll-margin-top: 24px; }
+.candyland-next :is(.candyland-map, .candyland-next :is(#candyland-map, .candyland-play-shelf h2, #curiosity-spotlight-title) { scroll-margin-top: 24px; }
 @media (max-width: 860px) {
-  .candyland-arrival-description { margin-inline: auto; }
-  .candyland-arrival-actions { justify-content: center; }
-  .candyland-surprise a { margin-inline: auto; text-align: left; }
-  .candyland-map ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .candyland-map ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 480px) {
   .candyland-map ul { grid-template-columns: 1fr; }
@@ -2952,4 +2902,37 @@ body {
   .candyland-next .candyland-opening *,
   .candyland-next .candyland-map a { animation: none; transition: none; }
   .candyland-map a:hover { transform: none; }
+}
+
+/* Side-scrolling destination cards */
+.candyland-world-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+.candyland-world-heading h2 { margin:0; }
+.candyland-world-controls { display:flex; gap:8px; }
+.candyland-world-controls button {
+  width:44px; height:44px; border:1px solid #dda5ed; border-radius:50%;
+  background:#402257; color:#fff4ff; font-size:21px; cursor:pointer;
+}
+.candyland-world-controls button:hover { background:#654080; }
+.candyland-map #candyland-world-rail {
+  position:relative; display:grid; grid-auto-flow:column; grid-auto-columns:clamp(195px, 27vw, 310px);
+  grid-template-columns:none; gap:15px; overflow-x:auto; overscroll-behavior-inline:contain;
+  padding:10px 8px 19px; scroll-padding-inline:8px; scroll-snap-type:x mandatory;
+  scrollbar-color:#af78c6 #25163a;
+}
+.candyland-map #candyland-world-rail li { perspective:700px; scroll-snap-align:start; }
+.candyland-map #candyland-world-rail a {
+  position:relative; isolation:isolate; min-height:176px; padding:16px; align-content:end;
+  grid-template-columns:1fr auto; gap:9px; box-shadow:0 7px 0 #140d24, inset 0 1px #ffffff50;
+  background:radial-gradient(ellipse at 23% 0, color-mix(in srgb,var(--stop-color) 58%,#281537),transparent 72%), #281537;
+  transform:rotateY(-5deg); transform-origin:left center;
+}
+.candyland-map #candyland-world-rail a:is(:hover,:focus-visible) { transform:rotateY(0) translateY(-3px); }
+.candyland-map #candyland-world-rail .candyland-map-icon {
+  grid-column:1/-1; width:56px; font-size:29px;
+  box-shadow:0 6px 16px #170d35a0, inset 0 2px #ffffff64;
+}
+.candyland-world-label strong { font-size:clamp(17px,2vw,23px); }
+@media (prefers-reduced-motion: reduce) {
+  .candyland-map #candyland-world-rail a,
+  .candyland-map #candyland-world-rail a:is(:hover,:focus-visible) { transform:none; transition:none; }
 }

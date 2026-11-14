@@ -14,8 +14,7 @@ const remembered=()=>window.RandomAIModelMemory;
 const name=m=>window.RandomAILocal?.getName?.(m.id)||m.id;
 const memoryMB=m=>Number(m.vram)||0;
 const memoryText=m=>memoryMB(m)?(memoryMB(m)/1024).toFixed(1)+' GB GPU estimate':'GPU estimate unknown';
-const isUncensored=m=>/Hermes-3-Llama-3\.1|uncensored|abliterated|dolphin/i.test(m.id);
-const isLessFiltered=m=>/openhermes|neuralhermes|hermes-2|hermes-3|uncensored|abliterated|dolphin/i.test(m.id);
+const isUncensored=m=>window.RandomAIApprovedModels?.allows(m.id)===true;
 const recentScore=id=>{
  const s=id.toLowerCase();
  if(/qwen3\.5|gemma-4/.test(s))return 95;
@@ -26,7 +25,7 @@ const recentScore=id=>{
 };
 function evaluation(m){
  const v=memoryMB(m),r=device.ram;
- if(!device.gpu)return {label:'Cannot run locally in this browser',kind:'no',explanation:'WebGPU is unavailable. Try supported Chrome/Edge or hosted Instant AI.',score:-300};
+ if(!device.gpu)return {label:'Cannot run locally in this browser',kind:'no',explanation:'WebGPU is unavailable. Try a WebGPU-compatible browser.',score:-300};
  if(!device.adapter)return {label:'GPU compatibility not confirmed',kind:'warn',explanation:device.reason,score:-100};
  if(!v)return {label:'Unknown GPU memory requirement',kind:'warn',explanation:'The runtime did not publish a memory estimate for this model.',score:-15};
  // System RAM is a coarse, privacy-limited hint, NOT reported GPU capacity.
@@ -86,7 +85,7 @@ function benchSummary(id){
 function card(m){
  const fit=evaluation(m),details=capabilities(m),saved=remembered()?.isSaved(m.id);
  const observed=readPerf()[m.id],loaded=window.RandomAIActiveModel===m.id;
- const origin=isUncensored(m)?'<span class="model-candidate-tag">Publisher-described uncensored</span>':isLessFiltered(m)?'<span class="model-candidate-tag">Community fine-tune · filtering varies</span>':'';
+ const origin=isUncensored(m)?'<span class="model-candidate-tag">Publisher-described uncensored</span>':'';
  const measured=observed&&observed.chars>=30&&observed.ms>=250?'<small class="top-model-observed">Previous real chat: '+Number(observed.chars/observed.ms*1000).toFixed(1)+' output characters/sec (not tokens/sec).</small>':'';
  const tags=details.tasks.map(([label,value])=>'<span class="model-skill-tag"><b>'+esc(label)+'</b><small>'+esc(value)+'</small></span>').join('');
  return '<article class="top-model-card" data-rank-id="'+esc(m.id)+'">'+
@@ -111,12 +110,10 @@ function render(){
   el.innerHTML=found.length?found.slice(0,count).map(m=>card(m)).join(''):'<p class="fine-print">No matching supported local model in this category. For photos and video, use the separate tools below; the WebLLM text engine does not render media.</p>';
  }
  const matches=uniqueVariants(records.filter(isUncensored).sort((a,b)=>score(b)-score(a))).slice(0,3);
- const relaxed=uniqueVariants(records.filter(isLessFiltered).sort((a,b)=>score(b)-score(a))).slice(0,3);
  const group=$('#uncensoredChoices');
  if(group){
   group.innerHTML=matches.length?
    matches.map(m=>card(m)).join(''):
-   relaxed.length?'<p class="fine-print">No explicitly uncensored model verified in this WebLLM runtime. These more open community fine-tunes are available, but may still refuse requests.</p>'+relaxed.map(m=>card(m)).join(''):
    '<p class="fine-print">No explicitly uncensored, locally loadable model was found in this runtime. An arbitrary GGUF download cannot be loaded directly by the WebLLM browser engine. A compatible MLC weight bundle and WebGPU library would be needed.</p>';
  }
  const s=device.ram?device.ram+' GB coarse memory estimate':'Memory not exposed';

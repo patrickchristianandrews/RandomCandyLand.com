@@ -17,13 +17,10 @@ let noticeTimer=0,toolFilter='All';
 let selectedMode='local';
 // Instant AI is an optional hosted Worker with an owner-controlled public URL.
 // Neither visitor API keys nor private account credentials are used in the browser.
-const instantRaw=typeof window.CANDY_FREE_AI_ENDPOINT==='string'?window.CANDY_FREE_AI_ENDPOINT.trim():'';
-let instantEndpoint='';
-try{const u=new URL(instantRaw);if(u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash)instantEndpoint=u.href.replace(/\/$/,'');}catch{}
+const instantEndpoint='';
 let instantReady=false,instantCheckPromise=null;
 const chatModeKey='random-ai-transport-v1';
-let chatMode=instantEndpoint?'instant':'local';
-try{const choice=localStorage.getItem(chatModeKey);if(choice==='instant'||choice==='local')chatMode=choice}catch{}
+let chatMode='local';
 
 const CATEGORY_INFO=window.RandomAIDeepWorkflows?.categories||[];
 const CATEGORIES=['All',...CATEGORY_INFO.map(c=>c.name)];
@@ -363,7 +360,7 @@ function setDownloadProgress(value,label,state='loading'){
  const cached=Boolean(window.RandomAIModelMemory?.isSaved?.($('#modelSelect')?.value));
  $('#modelProgressTitle').textContent=state==='error'?'Could not load model':state==='ready'?'✓ Local model ready':state==='loading'?(cached?'Loading saved local model…':'Downloading local model…'):'Preparing local model…';
  $('#modelProgressText').textContent=String(label||'Preparing local model…').slice(0,350);
- $('#modelProgressTip').textContent=state==='error'?'Try a smaller model, or use Instant AI when the hosted service is available.':state==='ready'?'You can now start chatting on this device.':cached?'Reusing downloaded files. The device still needs to initialize the model in GPU memory.':'First downloads can take several minutes and several gigabytes. Keep this tab open.';
+ $('#modelProgressTip').textContent=state==='error'?'Check device compatibility or download a portable model for a separate GGUF app.':state==='ready'?'You can now start chatting on this device.':cached?'Reusing downloaded files. The device still needs to initialize the model in GPU memory.':'First downloads can take several minutes and several gigabytes. Keep this tab open.';
  $('#modelProgressClose').hidden=state==='loading';
 }
 $('#modelProgressClose').addEventListener('click',()=>{$('#modelProgress').hidden=true;});
@@ -403,16 +400,20 @@ function updateChatBeginnerUI(){
   $('#chatSetupAction').textContent='Set up private chat →';
  }else{
   status.textContent=engine?'✓ Private AI ready on your device':saved.length?'◉ '+saved.length+' saved model'+(saved.length===1?'':'s')+' · load one to chat':'Private AI · choose a model to get started';
-  $('#chatSetupTitle').textContent=saved.length?'Your saved model is available':'Get started in one step';
-  $('#chatSetupText').textContent=saved.length?'You already have a downloaded model. Tap its Load button above and begin chatting.':'Open Top Models to choose a local AI that suits this device, then tap Download & load once.';
-  $('#chatSetupAction').textContent=saved.length?'Load saved model →':'See top models →';
+  $('#chatSetupTitle').textContent='Load a model before you can chat';
+  $('#chatSetupText').textContent=saved.length?'Open your saved models and select Load. You can send your message when the model is ready.':'Choose a model, then select Download & load. When it’s ready, you can send your message.';
+  $('#chatSetupAction').textContent=saved.length?'Open saved models →':'Choose a model →';
  }
  help.hidden=ready;
+ $('#chatSend').disabled=!ready||isGenerating;
 }
 $$('.chat-beginner-modes [data-chat-simple-mode]').forEach(btn=>btn.addEventListener('click',()=>{
  $('#chatTransport').value=btn.dataset.chatSimpleMode;$('#chatTransport').dispatchEvent(new Event('change',{bubbles:true}));
 }));
-$('#chatSetupAction').addEventListener('click',()=>{chatMode='local';try{localStorage.setItem(chatModeKey,chatMode)}catch{}updateChatMode();navigate('settings');});
+$('#chatSetupAction').addEventListener('click',()=>{chatMode='local';try{localStorage.setItem(chatModeKey,chatMode)}catch{}updateChatMode();navigate('settings');
+ const target=$((window.RandomAIModelMemory?.savedIds?.()||[]).length?'#savedModels':'.top-ai-settings');
+ target.tabIndex=-1;target.focus();
+});
 $('#chatModelOptions').addEventListener('click',()=>{
  const d=$('#chatAdvanced');d.open=!d.open;$('#chatModelOptions').setAttribute('aria-expanded',String(d.open));if(d.open)d.scrollIntoView({behavior:'smooth',block:'nearest'});
 });
@@ -463,11 +464,10 @@ $('#instantModel').addEventListener('change',updateComposerModelIdentity);
 $('#stackTaskChat').addEventListener('change',updateComposerModelIdentity);
 $('#stackDepth').addEventListener('change',updateComposerModelIdentity);
 $('#chatTransport').addEventListener('change',e=>{
- chatMode=e.target.value==='local'?'local':'instant';
+ chatMode='local';
  try{localStorage.setItem(chatModeKey,chatMode)}catch{}
  updateChatMode();
 });
-$('#instantStart').addEventListener('click',()=>{chatMode='instant';try{localStorage.setItem(chatModeKey,chatMode)}catch{}updateChatMode();navigate('chat');if(!instantReady)notice('Instant AI needs the site owner’s hosted service. See Models & setup.');});
 $('#instantCheck').addEventListener('click',checkInstant);
 $('#instantSetupCheck').addEventListener('click',checkInstant);
 void checkInstant();
@@ -479,7 +479,7 @@ function updateModelLabel(){
 updateModelLabel();
 window.addEventListener('random-ai-saved-models-changed',()=>{updateModelLabel();updateChatMode()});
 const gpu=navigator.gpu;
-$('#gpuCheck').textContent=gpu?'WebGPU detected. Choose a small model to begin. The exact GPU adapter is checked when you press Load.':'This browser does not offer WebGPU. Local loading is unavailable; hosted Instant AI does not need WebGPU.';
+$('#gpuCheck').textContent=gpu?'WebGPU detected. Choose a small model to begin. The exact GPU adapter is checked when you press Load.':'This browser lacks WebGPU. Open Discover for portable downloads you can run in a compatible model app.';
 if(!gpu)$('#loadModel').disabled=true;
 let loadingModel=false;
 // Run a model download in a second browser tab so this workspace stays usable.
@@ -488,8 +488,8 @@ const backgroundKey='random-ai-background-download-v1';
 const backgroundButton=$('#backgroundModelDownload');
 if(backgroundButton)backgroundButton.addEventListener('click',event=>{
  const id=$('#modelSelect')?.value||'';
- if(!id){event.preventDefault();notice('Choose a local AI model first.');return}
- if(!navigator.gpu){event.preventDefault();notice('This browser cannot initialize WebGPU models. Try a compatible browser or Instant AI.');return}
+ if(!window.RandomAIApprovedModels?.allows(id)){event.preventDefault();notice('Choose an approved local AI model first.');return}
+ if(!navigator.gpu){event.preventDefault();notice('This browser cannot initialize WebGPU models. Try a compatible WebGPU browser or a portable GGUF app.');return}
  backgroundButton.href='/studio/background-model-download.html?model='+encodeURIComponent(id);
  notice('Separate download tab opened. Keep it open while using Random Candy Land in this tab.');
 });
@@ -627,7 +627,7 @@ async function runDeviceLab({mode='model',secondaryId=''}={}){
    window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:'Loading cached second model…'}}));
    const start=performance.now();
    const lib=await import('https://esm.run/@mlc-ai/web-llm@0.2.87');
-   if(!lib?.prebuiltAppConfig?.model_list?.some(x=>x.model_id===second))throw Error('The second model is not in this supported runtime');
+   if(!window.RandomAIApprovedModels?.allows(second)||!lib?.prebuiltAppConfig?.model_list?.some(x=>x.model_id===second))throw Error('The second model is not in this supported runtime');
    auxiliary=await lib.CreateMLCEngine(second,{initProgressCallback:r=>{
     window.dispatchEvent(new CustomEvent('random-ai-device-lab-progress',{detail:{mode,stage:r.text||'Initializing second model…'}}));
    }});
@@ -659,9 +659,10 @@ window.RandomAIDeviceLab=Object.freeze({run:runDeviceLab,profile:benchDeviceProf
 // This is the one legitimate local model-loading path.
 $('#loadModel').addEventListener('click',async()=>{
  if(loadingModel)return;
- if(!gpu){setDownloadProgress(0,'WebGPU is unavailable. Use current desktop Chrome/Edge, or Instant AI after setup.','error');return;}
+ if(!gpu){setDownloadProgress(0,'WebGPU is unavailable. Try a current WebGPU-capable browser or use a portable GGUF download in a compatible app.','error');return;}
  if(isGenerating){setDownloadProgress(0,'Stop the current chat generation before switching models.','error');return;}
  const id=$('#modelSelect').value;
+ if(id&&!window.RandomAIApprovedModels?.allows(id)){setDownloadProgress(0,'Choose a model from the approved catalog.','error');return;}
  if(!id){setDownloadProgress(0,'Choose a supported local model from the full catalog. If the list is empty, retry the model catalog.','error');return;}
  const btn=$('#loadModel');
  loadingModel=true;btn.disabled=true;$('#topModelDownload').disabled=true;

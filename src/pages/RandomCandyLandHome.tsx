@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
 
 interface RandomCandyLandHomeProps {
@@ -98,15 +98,15 @@ const MAP_STOPS = [
   {name: 'Research Library', detail: 'Find and verify public information', icon: '🔎', target: '#shelf-research', color: 'blue'},
 ] as const;
 
-const SURPRISE_PORTALS = PORTALS.filter(portal => portal.href && portal.kind !== 'discovery' && portal.kind !== 'research');
-
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
-  const [copiedUrl,setCopiedUrl] = useState('');
-  const [surprise, setSurprise] = useState<Portal>();
-  const revealSurprise = () => {
-    const choices = SURPRISE_PORTALS.filter(portal => portal !== surprise);
-    setSurprise(choices[Math.floor(Math.random() * choices.length)]);
+  const worldRail = useRef<HTMLUListElement>(null);
+  const moveWorldRail = (direction: number) => {
+    const rail = worldRail.current;
+    if (!rail) return;
+    const step = rail.children[1] ? (rail.children[1] as HTMLElement).offsetLeft - (rail.children[0] as HTMLElement).offsetLeft : rail.clientWidth;
+    rail.scrollBy({left: direction * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
   };
+  const [copiedUrl,setCopiedUrl] = useState('');
   const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
   // Hide the full-site install CTA when the current PWA is installed, and
   // immediately after an Android/desktop install completes in this tab.
@@ -180,30 +180,23 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
         <div className="candyland-opening-copy">
           <h1>Stay sweet.<br/><span>Get weird.</span></h1>
-          <p className="candyland-arrival-description">Play a round at the arcade, lose yourself in a story, or follow a strange idea down the rabbit hole.</p>
-          <div className="candyland-arrival-actions">
-            <a href="#candyland-map">Explore the map <span aria-hidden="true">↓</span></a>
-            <button type="button" onClick={revealSurprise}>{surprise ? 'Try another surprise' : 'Surprise me'}</button>
-          </div>
-          <div className="candyland-surprise" aria-live="polite">
-            {surprise && (
-              <a href={surprise.href}>
-                <img src={surprise.icon} alt="" width={42} height={42} />
-                <span><strong>{surprise.title} ↗</strong><small>{surprise.blurb}</small></span>
-              </a>
-            )}
-          </div>
         </div>
       </section>
 
       <nav className="candyland-map" aria-labelledby="candyland-map">
-        <h2 id="candyland-map">Where to?</h2>
-        <ul>
+        <div className="candyland-world-heading">
+          <h2 id="candyland-map">Explore Candy Land</h2>
+          <div className="candyland-world-controls">
+            <button type="button" aria-label="Scroll destinations left" aria-controls="candyland-world-rail" onClick={() => moveWorldRail(-1)}>←</button>
+            <button type="button" aria-label="Scroll destinations right" aria-controls="candyland-world-rail" onClick={() => moveWorldRail(1)}>→</button>
+          </div>
+        </div>
+        <ul id="candyland-world-rail" ref={worldRail}>
           {MAP_STOPS.map(stop => (
             <li key={stop.name}>
               <a href={stop.target} data-color={stop.color}>
                 <span className="candyland-map-icon" aria-hidden="true">{stop.icon}</span>
-                <span><strong>{stop.name}</strong><small>{stop.detail}</small></span>
+                <span className="candyland-world-label"><strong>{stop.name}</strong><small>{stop.detail}</small></span>
                 <span className="candyland-map-arrow" aria-hidden="true">↗</span>
               </a>
             </li>
@@ -213,6 +206,18 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
 
       {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
       <RandomNonsenseGenerator />
+      <section className="candyland-curiosity-spotlight" aria-labelledby="curiosity-spotlight-title">
+        <div className="candyland-curiosity-copy">
+          <span className="candyland-curiosity-kicker">✦ DAILY IDEAS · FRESH RESEARCH · REAL DATA</span>
+          <h2 id="curiosity-spotlight-title">The <em>Wonder Index.</em></h2>
+          <p>One surprising idea at a time, new research headlines, and strange correlations made from real statistics.</p>
+          <div className="candyland-curiosity-actions">
+            <a href="/curiosity/">Explore the Wonder Index ↗</a>
+            <a href="/curiosity/correlations/">Try the correlation generator ↗</a>
+          </div>
+        </div>
+        <img className="candyland-curiosity-icon" src="/tool-icons/wonder-index.svg" width={96} height={96} alt="" loading="lazy" />
+      </section>
 
 
       <div className="candyland-play-shelves" aria-label="Games and tools organized by experience">
@@ -271,20 +276,6 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
                     })}
                   </nav>
                 </section>
-                  {group.id === 'discovery' && (
-                    <section className="candyland-curiosity-spotlight" aria-labelledby="curiosity-spotlight-title">
-                      <div className="candyland-curiosity-copy">
-                        <span className="candyland-curiosity-kicker">✦ DAILY IDEAS · FRESH RESEARCH · REAL DATA</span>
-                        <h2 id="curiosity-spotlight-title">The <em>Wonder Index.</em></h2>
-                        <p>One surprising idea at a time, new research headlines, and strange correlations made from real statistics.</p>
-                        <div className="candyland-curiosity-actions">
-                          <a href="/curiosity/">Explore the Wonder Index ↗</a>
-                          <a href="/curiosity/correlations/">Try the correlation generator ↗</a>
-                        </div>
-                      </div>
-                      <img className="candyland-curiosity-icon" src="/tool-icons/wonder-index.svg" width={96} height={96} alt="" loading="lazy" />
-                    </section>
-                  )}
                   {group.id === 'quick' && (
                     <section className="candyland-liquid-spotlight" aria-labelledby="liquid-wave-title">
                       <style>{`
