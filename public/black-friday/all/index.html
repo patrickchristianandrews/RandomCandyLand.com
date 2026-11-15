@@ -137,6 +137,12 @@ html[data-deals-hot] .feed-main{min-width:0}
 .home-hot-card{min-height:116px}
 @media(max-width:580px){.deal-row .deal-pricing .live-date{font-size:.61rem}.home-hot-card{min-height:111px}}
 .card-actions{display:flex;gap:2px;align-items:center}.share-deal{border:0!important;background:none!important;font-size:1rem!important;color:#ffdaef!important;min-width:25px!important;min-height:25px!important;padding:1px 4px!important}.share-deal:hover{color:#fff!important}
+
+.source-health{font-size:.72rem;border:1px solid #695177;border-radius:9px;padding:5px 9px;margin-bottom:8px;background:#23182f}
+.source-health summary{cursor:pointer;font-weight:750;color:#e9cde7}
+.source-results{display:flex;flex-wrap:wrap;gap:5px;padding:8px 0}
+.source-results span{font-size:.67rem;background:#38253f;border:1px solid #665172;border-radius:7px;padding:4px 7px}
+.source-results .source-error{border-color:#a05b64;color:#ffd0ca}
 </style><script>const dealsQuery=new URLSearchParams(location.search);if(dealsQuery.has("embed"))document.documentElement.dataset.dealsEmbed="true";if(dealsQuery.get("embed")==="featured")document.documentElement.dataset.dealsHot="true";</script></head><body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>Enable JavaScript to search the catalog. <a href="https://hip2save.com/sales-deals/black-friday/">Browse deal reports</a> or <a href="https://blackfriday.ltd/ads/">open ad scans</a>.</p></noscript>
 <main><header><a href="/"><img src="/icon.svg" width="40" height="40" alt="" style="vertical-align:middle"> Random Candy Land</a></header>
@@ -148,7 +154,7 @@ html[data-deals-hot] .feed-main{min-width:0}
 <div class="feed-tabs" aria-label="Deal views"><button data-feed="all" aria-pressed="true">All</button><button data-feed="featured" aria-pressed="false">✦ Picks</button><button data-feed="popular" aria-pressed="false">🔥 Popular</button><button data-feed="new" aria-pressed="false">New</button><button data-feed="saved" aria-pressed="false">♥ Saved</button><button data-feed="upcoming" aria-pressed="false">◷ Upcoming</button><button data-feed="black" aria-pressed="false">Black Friday</button><button data-feed="cyber" aria-pressed="false">Cyber Monday</button></div>
 <div id="category-chips" class="category-chips" aria-label="Category shortcuts"></div>
 <div class="feed-layout"><details class="feed-filters" id="feed-filters"><summary>Additional filters <span>Category · store · maximum price</span></summary><div class="filter-fields"><label>Category<select id="category"><option value="">All</option></select></label><label>Retailer<select id="store"><option value="">All</option></select></label><label>Price limit ($)<input id="budget" type="number" min="0" placeholder="Any"></label><button id="reset" type="button">Clear filters</button></div></details>
-<div class="feed-main"><div class="feed-toolbar"><p id="count" role="status">Loading deals…</p><label><span class="sr-only">Sort deals</span><select id="sort"><option value="featured">Top picks</option><option value="popular">Popularity signals</option><option value="new">Newest</option><option value="price">Lowest price</option><option value="sweet">Sweet Score</option></select></label></div><p id="feed-status" class="catalog-note">Checking published deal reports…</p><div id="catalog-list"></div><div class="catalog-more"><button id="show-more" type="button" hidden>Show more deals</button><a class="embedded-full" href="/black-friday/all/" target="_top">Open full catalog ↗</a></div><p class="catalog-note">LIVE means a deal was recently reported, not that inventory is guaranteed. A historical average and Sweet Score appear only with enough recorded price history. Retailer reference prices are not historical averages.</p></div></div>
+<div class="feed-main"><div class="feed-toolbar"><p id="count" role="status">Loading deals…</p><label><span class="sr-only">Sort deals</span><select id="sort"><option value="featured">Top picks</option><option value="popular">Popularity signals</option><option value="new">Newest</option><option value="price">Lowest price</option><option value="sweet">Sweet Score</option></select></label></div><p id="feed-status" class="catalog-note">Checking published deal reports…</p><details id="source-health" class="source-health"><summary id="source-summary">Source health · checking…</summary><div id="source-results" class="source-results"></div></details><div id="catalog-list"></div><div class="catalog-more"><button id="show-more" type="button" hidden>Show more deals</button><a class="embedded-full" href="/black-friday/all/" target="_top">Open full catalog ↗</a></div><p class="catalog-note">LIVE means a deal was recently reported, not that inventory is guaranteed. A historical average and Sweet Score appear only with enough recorded price history. Retailer reference prices are not historical averages.</p></div></div>
 </section>
 <section id="gifts" class="gift-section"><div class="gift-heading"><div><span class="eyebrow">THE GIFT LIST</span><h2>Ridiculously good gift ideas</h2><p>Useful, surprising, and worth giving—chosen from products in the catalog.</p></div></div><div class="gift-filters"><label><span class="sr-only">Gift recipient</span><select id="gift-person"><option value="">Everyone</option><option value="tech">Tech fans</option><option value="kids">Kids & games</option><option value="home">Home & kitchen</option><option value="beauty">Style & beauty</option></select></label><label><span class="sr-only">Maximum gift price</span><select id="gift-budget"><option value="">Any budget</option><option value="25">Under $25</option><option value="50">Under $50</option><option value="100">Under $100</option><option value="200">Under $200</option></select></label></div><div id="gift-list" class="gift-strip"></div></section>
 <details class="extra-section" id="ads"><summary>▤ Ad scans and holiday sale previews <span class="muted">Search any retailer</span></summary><div class="extra-body"><div class="ad-controls"><label>Retailer<input id="ad-search" type="search" placeholder="Walmart, Target, Costco…"></label><label>Type<select id="ad-type"><option value="all">All sources</option><option value="scan">Scans & previews</option><option value="weekly">Weekly ads</option><option value="sale">Retailer sale pages</option></select></label></div><p id="ad-count" class="catalog-note"></p><div class="ad-compact" id="ad-list"></div></div></details>
@@ -419,6 +425,31 @@ document.addEventListener('click',e=>{
  const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;shown=60;if(mode==='new'){$('sort').value='new';}render();}
 });
 rebuildOptions();const params=new URLSearchParams(location.search),presetCategory=params.get("category"),presetView=params.get("view"),presetSort=params.get("sort");if(presetCategory&&[...$("category").options].some(x=>x.value===presetCategory))$("category").value=presetCategory;if(['popular','upcoming','featured','new','all','saved','black','cyber'].includes(presetView))mode=presetView;if(['popular','featured','new','price','sweet'].includes(presetSort))$("sort").value=presetSort;else if(mode==='popular')$("sort").value='popular';renderAds();render();
+function renderSourceHealth(payload){
+ const list=Array.isArray(payload.sourceStatus)?payload.sourceStatus:[];
+ const good=list.filter(x=>x.ok).length;
+ $('source-summary').textContent=list.length?'Deal feeds: '+good+'/'+list.length+' checked successfully · '+payload.mergedDuplicates+' duplicate reports combined':'Source health unavailable';
+ $('source-results').innerHTML=list.map(x=>'<span class="'+(x.ok?'':'source-error')+'" title="'+esc(x.ok?'Reported entries: '+x.accepted:(x.error||'Feed unavailable'))+'">'+esc(x.name)+' '+(x.ok?'✓ '+x.accepted:'Unavailable')+'</span>').join('');
+}
+async function refreshAdIndex(){
+ try{
+  const res=await fetch('/black-friday/ad-scans.json?t='+Date.now(),{cache:'no-store'});
+  if(!res.ok)throw Error('No ad index');
+  const payload=await res.json();
+  if(!Array.isArray(payload.ads))throw Error('Invalid ad index');
+  const seen=new Set(ads.map(x=>{try{return new URL(x[2]).pathname.replace(/\/+$/,'').toLowerCase()}catch{return x[2]}}));
+  for(const entry of payload.ads){
+   if(!entry||entry.year!==2026||!/^https:\/\/blackfriday\.ltd\/ads\//.test(entry.url||''))continue;
+   const slug=new URL(entry.url).pathname.replace(/\/+$/,'').toLowerCase();
+   if(seen.has(slug))continue;
+   seen.add(slug);ads.push([entry.name||'2026 ad scan','2026 · discovered ad / preview · check current dates',entry.url,'Ad scans · publisher index']);
+  }
+  renderAds();
+  if(!payload.checked){$('ad-count').textContent+=' · source check failed; previous ad links shown';}
+ }catch{
+  renderAds();$('ad-count').textContent+=' · automatic ad-index feed unavailable';
+ }
+}
 async function refreshFeed(){
  try{
   const res=await fetch('/black-friday/live-feed.json?t='+Date.now(),{cache:'no-store'});
@@ -427,11 +458,12 @@ async function refreshFeed(){
   if(!Array.isArray(payload.deals))throw Error('Invalid');
   const ids=new Set(deals.map(d=>d.id));
   for(const item of payload.deals){if(!item||typeof item.id!=='string'||typeof item.name!=='string'||!/^https:\/\//.test(item.source||'')||ids.has(item.id))continue;deals.push(item);ids.add(item.id);}
+  renderSourceHealth(payload);
   $('feed-status').textContent='Source feed: '+(Number.isFinite(Date.parse(payload.generatedAt))?new Date(payload.generatedAt).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'}):'date unavailable')+' · '+(payload.sourcesSucceeded?'Refreshed source reports; price and stock require checkout confirmation.':'Last source check failed; entries may be stale.');
   rebuildOptions();render();
  }catch{
   $('feed-status').textContent='Showing '+curated.length+' individually sourced deals; expanded feed unavailable. See source links and ad scans below.';
  }
 }
-refreshFeed();
+refreshFeed();refreshAdIndex();
 </script></body></html>
