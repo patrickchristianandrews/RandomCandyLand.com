@@ -53,11 +53,29 @@ body{background:#130e21}main{max-width:1430px;padding:12px 16px}
 @media(max-width:1120px){.deal-rows{grid-template-columns:repeat(4,minmax(0,1fr))}.gift-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:800px){.deal-rows{grid-template-columns:repeat(3,minmax(0,1fr))}.filter-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.gift-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){main{padding:8px}.hero{padding:10px 13px}.deal-rows{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.deal-row{min-height:127px;padding:7px}.deal-row .deal-name{font-size:.77rem}.deal-row .price{font-size:1.02rem}.gift-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.gift-pick{padding:7px}.feed-tabs{gap:10px}.feed-tabs button{font-size:.69rem}.event-list,.ad-controls{grid-template-columns:1fr}.feed-heading p{display:none}}
+
+/* Retailer prices are shown inside the item expansion, not in a separate page section. */
+.merchant-prices{margin:8px 0 12px;padding:8px;border-radius:8px;background:#1b1127;border:1px solid #4d3b5b}
+.merchant-prices h4{margin:0 0 3px;font-size:.77rem}
+.merchant-prices .catalog-note{margin:3px 0 7px;font-size:.64rem;line-height:1.3}
+.merchant-grid{display:grid;grid-template-columns:1fr;gap:3px}
+.merchant-row{display:flex;align-items:center;justify-content:space-between;gap:5px;padding:5px 6px;background:#2b1c36;border-radius:5px;line-height:1.2;font-size:.7rem;min-width:0}
+.merchant-name{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.merchant-row a{white-space:nowrap;margin-left:auto;font-size:.69rem;text-align:right}
+.merchant-row.priced a{margin-left:2px}
+.merchant-value{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:2px;min-width:0}
+.merchant-value strong{font-size:.76rem;color:#beffda}
+.merchant-value small{font-size:.6rem;white-space:nowrap}
+.similar-models{margin-top:10px!important;border-top:1px solid #584065;padding-top:5px}
+.similar-models>summary{font-weight:700}
+.comparison-list h4{font-size:.73rem;margin:7px 0 0}
+.comparison-list .comparison-item{margin:7px 0;padding:5px;background:#342640;border-radius:5px;font-size:.7rem}
+.comparison-list .comparison-item p{margin:4px 0}
 </style><script>if(new URLSearchParams(location.search).has("embed"))document.documentElement.dataset.dealsEmbed="true";</script></head><body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>Enable JavaScript to search the catalog. <a href="https://hip2save.com/sales-deals/black-friday/">Browse deal reports</a> or <a href="https://blackfriday.ltd/ads/">open ad scans</a>.</p></noscript>
 <main><header><a href="/"><img src="/icon.svg" width="40" height="40" alt="" style="vertical-align:middle"> Random Candy Land</a></header>
 <div class="hero"><span class="eyebrow">BLACK FRIDAY · CYBER MONDAY · HOLIDAY DEALS</span><h1>Holiday Deal Radar</h1><p>Find better gifts and better prices without the clutter.</p></div>
-<nav class="nav" aria-label="Holiday savings sections"><a href="#catalog">All deals</a><a href="#gifts">Gift ideas</a><a href="#ads">Ad scans</a><a href="#cyber">Sale dates</a><a href="#price-hunt">Price search</a><a href="#cashback">Cashback</a></nav>
+<nav class="nav" aria-label="Holiday savings sections"><a href="#catalog">All deals</a><a href="#gifts">Gift ideas</a><a href="#ads">Ad scans</a><a href="#cyber">Sale dates</a><a href="#cashback">Cashback</a></nav>
 <section id="catalog">
 <div class="feed-heading"><div><h2>Find your sweet deal</h2><p class="muted">One quick view of the bargains. Details are optional.</p></div><a href="#ads">View ad scans</a></div>
 <label class="feed-search"><span class="sr-only">Search products or retailers</span><input id="query" type="search" placeholder="Search products, brands, categories or stores…" autocomplete="off"></label>
@@ -68,10 +86,9 @@ body{background:#130e21}main{max-width:1430px;padding:12px 16px}
 </section>
 <section id="gifts" class="gift-section"><div class="gift-heading"><div><span class="eyebrow">THE GIFT LIST</span><h2>Ridiculously good gift ideas</h2><p>Useful, surprising, and worth giving—chosen from products in the catalog.</p></div></div><div class="gift-filters"><label><span class="sr-only">Gift recipient</span><select id="gift-person"><option value="">Everyone</option><option value="tech">Tech fans</option><option value="kids">Kids & games</option><option value="home">Home & kitchen</option><option value="beauty">Style & beauty</option></select></label><label><span class="sr-only">Maximum gift price</span><select id="gift-budget"><option value="">Any budget</option><option value="25">Under $25</option><option value="50">Under $50</option><option value="100">Under $100</option><option value="200">Under $200</option></select></label></div><div id="gift-list" class="gift-strip"></div></section>
 <details class="extra-section" id="ads"><summary>▤ Ad scans and holiday sale previews <span class="muted">Search any retailer</span></summary><div class="extra-body"><div class="ad-controls"><label>Retailer<input id="ad-search" type="search" placeholder="Walmart, Target, Costco…"></label><label>Type<select id="ad-type"><option value="all">All sources</option><option value="scan">Scans & previews</option><option value="weekly">Weekly ads</option><option value="sale">Retailer sale pages</option></select></label></div><p id="ad-count" class="catalog-note"></p><div class="ad-compact" id="ad-list"></div></div></details>
-<details class="extra-section" id="price-hunt"><summary>⌕ Find competing prices for any product</summary><div class="extra-body"><p class="catalog-note">Compare the exact model at other stores. These links open product searches, not independently verified competing offers.</p><form id="hunt-form" class="hunt-inline"><input id="hunt-product" type="search" required placeholder="Product name or model number"><button class="primary" type="submit">Find prices</button></form><div id="hunt-results" aria-live="polite"></div></div></details>
 <details class="extra-section" id="cashback"><summary>◇ Cashback and extra savings</summary><div class="extra-body"><p class="catalog-note">Compare portal rates for the specific product and verify coupon compatibility and rewards eligibility.</p><div class="actions"><a class="button" href="https://www.cashbackmonitor.com/cashback-comparison/" target="_blank" rel="noopener">Compare rates ↗</a><a class="button" href="https://www.rakuten.com/" target="_blank" rel="noopener">Rakuten ↗</a><a class="button" href="https://www.topcashback.com/" target="_blank" rel="noopener">TopCashback ↗</a><a class="button" href="https://www.befrugal.com/" target="_blank" rel="noopener">BeFrugal ↗</a></div></div></details>
 <details class="extra-section" id="cyber"><summary>◷ Upcoming sale dates and Cyber Monday</summary><div class="extra-body"><div class="event-list"><article><strong>Nov 27 · Black Friday</strong><span>Product start times vary by retailer.</span></article><article><strong>Nov 30 · Cyber Monday</strong><span>Check new online releases and your saved items.</span></article><article><strong>Nov 30–Dec 2 · Walmart Cyber Monday</strong><span><a target="_blank" rel="noopener" href="https://corporate.walmart.com/news/2026/10/walmart-unwraps-three-major-holiday-shopping-events">Official event details ↗</a></span></article></div><p class="catalog-note">A product launch date/time appears only if published by a source. Otherwise the exact time is not announced.</p></div></details>
-<footer class="muted">Deal reports update as sources allow; prices and availability may change · <a href="https://www.dealnews.com/pages/rss.html" target="_blank" rel="noopener">DealNews attribution and feed terms</a> · This catalog cannot guarantee every retail promotion.</footer></footer></main>
+<footer class="muted">Retailer observations are dated, not guaranteed live quotes; prices and availability may change · <a href="https://www.dealnews.com/pages/rss.html" target="_blank" rel="noopener">DealNews attribution and feed terms</a> · This catalog cannot guarantee every retail promotion.</footer></main>
 <script>
 const deals=[["oled","HP OmniBook 3 OLED","Laptops","Best Buy",499.99,699.99,"14-hz0188dx · Snapdragon X · 16 GB RAM / 256 GB SSD","https://www.bestbuy.com/product/hp-omnibook-3-14-2k-oled-laptop-snapdragon-x-16gb-memory-256gb-ssd-copilot-pc-starlit-blue/6679355","Retailer listing","2026-11-14","An OLED display and 16 GB RAM for $499.99 on the product listing.","SKU 6679355. Check Windows on ARM app compatibility. Shipping and pickup depend on location; promotional bundles and financing are not included in this price.",false],["samsung","Samsung Galaxy Book4 Edge","Laptops","Best Buy",449.99,799.99,"15.6-inch · Snapdragon X · 8 GB RAM · 256 GB SSD","https://www.bestbuy.com/site/searchpage.jsp?browsedCategory=pcmcat1720704669400&id=pcat17071&qp=brand_facet%3DBrand~Samsung%5Ecategory_facet%3DComputers+%26+Tablets~abcat0500000&st=pcmcat1720704669400_categoryid%24cat00000","Retailer listing","2026-11-14","A lower-cost Windows option in this catalog.","Retailer category listing, not an exact product checkout. Match the 15.6-inch 8 GB / 256 GB model; the 16-inch X Elite model is different. Check ARM app compatibility and local availability.",false],["ninja","Ninja Crispi","Kitchen","Walmart",89,140,"FN090RD Red · 4-quart · 3-in-1","https://www.walmart.com/ip/20127973280?classType=VARIANT","Retailer listing","2026-11-14","A $89 glass air fryer with free shipping on the retailer listing.","Sold and shipped by Walmart. This is the red FN090RD; the blue variant was marked out of stock. Reference prices differ by color. Stock may vary by location.",true],["grogu","Star Wars Action Buddy Grogu","Toys","Amazon",15,49.97,"10-inch animatronic interactive plush · ages 4+","https://hip2save.com/deals/star-wars-grogu-toy/","Hip2Save report","2026-11-13","A reported $15 character gift; the source also lists Walmart at the same price.","Third-party report dated Nov. 13; retailer price not independently reconfirmed. Three AA batteries reportedly included. Check seller and delivery fees.",true],["towels","True Hue 10-piece towel set","Home","Walmart",10,16,"4 bath towels + 6 washcloths","https://hip2save.com/deals/walmart-bath-towel/","Hip2Save report","2026-11-12","A budget household bundle.","Third-party report dated Nov. 12; retailer price not independently reconfirmed. This is not ten full-size bath towels. Check fabric, sizes and shipping.",false],["vizio","VIZIO 50-inch QLED TV","TVs","Walmart",128,null,"50-inch QLED smart television","https://hip2save.com/deals/vizio-4k-smart-tv/","Hip2Save report","2026-11-14","A reported $128 price for a 50-inch QLED television.","Third-party report updated Nov. 14; retailer checkout not independently verified. Exact model number is not supplied in the report. Confirm the 50-inch version, shipping, seller and local availability.",true],["nespresso-pop","Nespresso Vertuo Pop","Kitchen","Walmart",69,119,"ENV90B · De’Longhi · Liquorice Black · 12-capsule welcome set","https://www.walmart.com/ip/2258193826","Retailer listing","2026-11-15","A $69 coffee machine with a starter capsule set and free shipping listed.","Sold and shipped by Walmart. Uses Vertuo capsules; ongoing capsule costs are extra. Check included accessories and your delivery options.",true],["lego-advent","LEGO Star Wars Advent Calendar 2026","Toys","Target",31.49,44.99,"Set 75456","https://www.target.com/p/lego-star-wars-advent-calendar-2026-75456/-/A-95046358","Retailer listing","2026-11-14","A $13.50 reduction on a seasonal gift, with the retailer listing it in stock.","Stock and shipping depend on location. Target Circle Card savings are conditional and not included; delivery before December 1 matters for an advent calendar.",true],["airpods-pro3","Apple AirPods Pro 3","Audio","Target",179.99,249.99,"Wireless earbuds · active noise cancellation","https://www.target.com/p/ap2022-true-wireless-bluetooth-headphones/-/A-85978609","Retailer listing","2026-11-15","Target lists $179.99, down $20 from this catalog’s previous observation and $70 below its stated reference.","Product page shows in stock; local fulfillment and shipping cost require checkout confirmation. No coupon, membership, Circle Card or cashback savings are included. Optional protection costs extra. Sale deadline and stock risk are unverified.",true],["hp540","HP Chromebook 14 · Kompanio 540","Laptops","Best Buy",179,349,"MediaTek Kompanio 540 · 4 GB RAM · 64 GB eMMC","https://www.bestbuy.com/site/all-computers-tablets-on-sale/laptops-on-sale/pcmcat1720704669400.c","Retailer listing","2026-11-14","A $179 Chromebook in the retailer’s current laptop sale catalog.","Different model from the earlier Celeron N4500 offer. Basic ChromeOS use; limited memory and storage. Match the processor and check shipping or pickup.",false],["ryobi-impact","RYOBI ONE+ high-torque impact wrench kit","Home","Home Depot",149,269,"PBLIW01K1 · 18V brushless 1/2-inch · 4.0 Ah battery + charger","https://www.homedepot.com/b/Black-Friday-Deals/N-5yc1vZ1z1zdoh","Retailer listing","2026-11-14","The retailer sale catalog lists this battery-and-charger kit for $149, a $120 reduction from its stated reference.","Price verified on the retailer sale catalog, not product checkout. Match PBLIW01K1. Limit 5 per order is not a stock forecast. Shipping, pickup and local availability need checking; no coupon, membership or cashback savings assumed.",true],["ring-starter","Ring 2K doorbell + indoor camera starter set","Home","Home Depot",59.99,139.99,"B0GH93D3SL · Battery Doorbell 2K + Indoor Cam Plus 2K","https://www.homedepot.com/p/Ring-Starter-Set-with-Battery-Doorbell-2K-and-Indoor-Cam-Plus-2K-B0GH93D3SL/341022343","Retailer listing","2026-11-14","Two-camera starter set listed at $59.99 against a $139.99 retailer reference.","Limit 3 per order; this does not establish low stock. Verify shipping, local pickup and any paid recording-plan costs. New-credit-card discount is excluded. Retailer lists 90-day in-store returns; check full terms.",true],["lego-disney-2026","LEGO Disney Princess Advent Calendar 2026","Toys","Walmart",30.99,44.99,"43298 · ages 5+ · Cinderella, Moana, Ariel and Mulan microdolls","https://www.walmart.com/c/kp/lego-disney-advent-calendar","Retailer listing","2026-11-15","Holiday countdown gift listed at $30.99; Target lists the same set at $30.99.","Category listing. Confirm seller, condition, shipping, arrival and eligibility at checkout. No coupon or membership discount included. Stock, deadline and price-history low are unverified.",true],["shark-flexstyle","Shark FlexStyle Ruby Red","Beauty","Walmart",199,399.99,"HD442JR · air styler and dryer · auto-wrap curlers","https://www.walmart.com/ip/20109514490","Retailer listing","2026-11-15","A holiday beauty gift listed at $199 with free shipping, against the retailer’s $399.99 reference.","Sold and shipped by Walmart; 90-day returns listed. Match HD442JR and included attachments; other FlexStyle kits differ. No coupon or membership discount included. Confirm delivery and eligibility at checkout. Stock risk, sale deadline and historical low are unverified.",true]].map(r=>Object.fromEntries(['id','name','category','store','price','reference','spec','source','sourceType','checked','why','catch','featured'].map((k,i)=>[k,r[i]])));
 const ads=[
@@ -142,8 +159,81 @@ function alternatives(d){
  const same=deals.filter(x=>x.id!==d.id&&Number.isFinite(x.price)&&productFamily(x)===productFamily(d)&&x.category===d.category);
  const lower=same.filter(x=>x.price<d.price).sort((a,b)=>b.price-a.price)[0];
  const higher=same.filter(x=>x.price>d.price).sort((a,b)=>a.price-b.price)[0];
- const match=(x,kind)=>x?'<div class="comparison-item"><strong>'+(kind==='low'?'↓ Less expensive':'↑ More expensive')+'</strong> · <a href="'+esc(x.source)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a> · '+money(x.price)+'<p>'+money(Math.abs(d.price-x.price))+(kind==='low'?' less':' more')+'. '+esc(tradeoffs(d,x))+'</p></div>':'<p class="catalog-note">No '+(kind==='low'?'lower':'higher')+'-priced comparable '+esc(productFamily(d))+' tracked yet. <a href="#price-hunt">Find more options ↗</a></p>';
+ const match=(x,kind)=>x?'<div class="comparison-item"><strong>'+(kind==='low'?'↓ Less expensive':'↑ More expensive')+'</strong> · <a href="'+esc(x.source)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a> · '+money(x.price)+'<p>'+money(Math.abs(d.price-x.price))+(kind==='low'?' less':' more')+'. '+esc(tradeoffs(d,x))+'</p></div>':'<p class="catalog-note">No '+(kind==='low'?'lower':'higher')+'-priced comparable '+esc(productFamily(d))+' tracked yet.</p>';
  return '<div class="comparison-list"><h4>One below · one above</h4><p class="catalog-note">Comparable product type, not necessarily identical features. Price differences are based on reported item prices.</p>'+match(lower,'low')+match(higher,'high')+'</div>';
+}
+
+/* Item-specific retailer price rows. Only source-reported, dated observations
+ * are assigned a number. Other retailers open a search for the exact item;
+ * a search link is never presented as a verified price quote. */
+const retailStores=[
+ {name:'Amazon',domain:'amazon.com',search:q=>'https://www.amazon.com/s?k='+q},
+ {name:'Walmart',domain:'walmart.com',search:q=>'https://www.walmart.com/search?q='+q},
+ {name:'Target',domain:'target.com',search:q=>'https://www.target.com/s?searchTerm='+q},
+ {name:'Best Buy',domain:'bestbuy.com',search:q=>'https://www.bestbuy.com/site/searchpage.jsp?st='+q},
+ {name:'Home Depot',domain:'homedepot.com',search:q=>'https://www.homedepot.com/s/'+q},
+ {name:'Costco',domain:'costco.com',search:q=>'https://www.costco.com/CatalogSearch?keyword='+q},
+ {name:"Sam's Club",domain:'samsclub.com',search:q=>'https://www.samsclub.com/s/'+q},
+ {name:"Kohl's",domain:'kohls.com',search:q=>'https://www.kohls.com/search.jsp?search='+q}
+];
+function canonicalRetailer(s){
+ const n=String(s||'').trim().toLowerCase().replace(/[’']/g,"'");
+ const item=retailStores.find(x=>x.name.toLowerCase().replace(/[’']/g,"'")===n);
+ return item?.name||null;
+}
+function matchingRetailerDomain(url,domain){
+ try{const h=new URL(url).hostname.toLowerCase();return h===domain||h.endsWith('.'+domain);}catch{return false;}
+}
+function exactModelSearch(d){
+ // Use a recognizable model code to distinguish variants if one was supplied.
+ const spec=String(d.spec||'');
+ const code=spec.match(/\b(?:[A-Z]{2,}\d[A-Z0-9]{2,}|\d{5,}[A-Z]?|[A-Z]{1,4}\d{3,}[A-Z0-9]+)\b/i);
+ return encodeURIComponent((d.name+' '+(code?.[0]||'')).trim());
+}
+function priceObservations(d){
+ const offers=[];
+ const merchant=canonicalRetailer(d.store);
+ if(merchant&&Number.isFinite(d.price)&&d.price>0&&d.source){
+  const retailer=retailStores.find(s=>s.name===merchant);
+  const primary=matchingRetailerDomain(d.source,retailer.domain);
+  const timestamp=d.publishedAt||d.checked||'';
+  offers.push({store:merchant,price:d.price,url:d.source,checked:timestamp,
+   provenance:primary&&d.sourceType==='Retailer listing'?'Retailer listing':'Third-party or catalog report'});
+ }
+ // Optionally accept future multi-store reports from an approved feed, but
+ // require exact-model matches in source data and a URL from that retailer.
+ for(const o of Array.isArray(d.offers)?d.offers:[]){
+  if(!o||!o.exactModelVerified||!Number.isFinite(o.price)||o.price<=0)continue;
+  const store=canonicalRetailer(o.store);
+  const known=retailStores.find(s=>s.name===store);
+  if(!known||!matchingRetailerDomain(o.url,known.domain)||!o.checked)continue;
+  offers.push({store,price:o.price,url:o.url,checked:o.checked,provenance:'Retailer listing'});
+ }
+ // Show the most recent quote for each store only, with its evidence date.
+ const byStore=new Map();
+ for(const offer of offers){
+  const old=byStore.get(offer.store);
+  if(!old||String(offer.checked)>String(old.checked))byStore.set(offer.store,offer);
+ }
+ return byStore;
+}
+function dateLabel(input){
+ const dt=new Date(String(input||'').length===10?input+'T12:00:00Z':input);
+ return Number.isFinite(dt.getTime())?dt.toLocaleDateString('en-US',{month:'short',day:'numeric'}):'date unknown';
+}
+function retailerPrices(d){
+ const quotes=priceObservations(d),query=exactModelSearch(d);
+ const rows=retailStores.map(store=>{
+  const quote=quotes.get(store.name),searchUrl=store.search(query);
+  if(!quote)return '<div class="merchant-row"><span class="merchant-name">'+esc(store.name)+'</span><a href="'+esc(searchUrl)+'" target="_blank" rel="noopener" aria-label="Check '+esc(store.name)+' for '+esc(d.name)+'">Check price ↗</a></div>';
+  const aged=Date.now()-Date.parse(String(quote.checked).slice(0,10)+'T12:00:00Z');
+  const old=Number.isFinite(aged)&&aged>3*86400000;
+  const label=(old?'Older quote · ':'Reported ')+dateLabel(quote.checked);
+  return '<div class="merchant-row priced"><span class="merchant-name">'+esc(store.name)+'</span><span class="merchant-value"><strong>'+money(quote.price)+'</strong><small title="'+esc(quote.provenance)+'">'+esc(label)+'</small></span><a href="'+esc(quote.url)+'" target="_blank" rel="noopener">View ↗</a></div>';
+ }).join('');
+ const hasAny=quotes.size>0;
+ return '<div class="merchant-prices"><h4>Prices at top retailers</h4><p class="catalog-note">'+(hasAny?'Dated price reports appear below; unpriced stores link to live product searches.':'No retailer price quote is verified for this exact product yet; open a store to check.')+' Match model, seller and shipping before buying.</p><div class="merchant-grid">'+rows+'</div>'+
+ (d.source&&(!canonicalRetailer(d.store)||!quotes.size)?'<p class="catalog-note">Original offer report: <a href="'+esc(d.source)+'" target="_blank" rel="noopener">'+esc(d.sourceType||'View source')+' ↗</a></p>':'')+'</div>';
 }
 function card(d){
  const h=history(d),score=h.score===null?'Score pending':'Sweet '+h.score+'/100';
@@ -155,7 +245,7 @@ function card(d){
  '<div class="deal-pricing"><span class="price">'+money(d.price)+'</span><span class="deal-typical">'+esc(typical)+'</span></div>'+
  '<div class="deal-facts"><span class="sweet '+(h.score===null?'pending':'')+'" title="'+esc(details)+'">'+esc(score)+'</span><span>'+esc(status(d))+'</span></div>'+
  '<div class="deal-foot"><small>'+esc(d.sourceType||'Source')+' · '+esc(d.checked||'')+'</small><button type="button" class="bookmark" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Remove saved deal':'Save deal')+': '+name+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div>'+
- '<details><summary>Compare & details</summary><p>'+esc(d.spec||'')+'</p><p>'+esc(d.why||'')+'</p><p>'+esc(d.catch||'Confirm the full conditions, price, seller and delivery at source.')+'</p><p><strong>Price history:</strong> '+esc(details)+'</p>'+alternatives(d)+'</details></article>';
+ '<details><summary>Retailer prices & details</summary>'+retailerPrices(d)+'<p>'+esc(d.spec||'')+'</p><p>'+esc(d.why||'')+'</p><p>'+esc(d.catch||'Confirm the full conditions, price, seller and delivery at source.')+'</p><p><strong>Price history:</strong> '+esc(details)+'</p><details class="similar-models"><summary>Similar products · one cheaper, one pricier</summary>'+alternatives(d)+'</details></details></article>';
 }
 function filtered(){
  const q=$('query').value.trim().toLowerCase().split(/\s+/).filter(Boolean),cat=$('category').value,store=$('store').value,b=$('budget').value;
@@ -213,7 +303,6 @@ function renderAds(){
  $('ad-count').textContent=a.length+' ad sources';
  $('ad-list').innerHTML=a.map(x=>'<div class="ad-item"><div><strong>'+esc(x[0])+'</strong><small>'+esc(x[1])+'</small></div><a target="_blank" rel="noopener" href="'+esc(x[2])+'">Open ↗</a></div>').join('')||'<p>No matching retailer.</p>';
 }
-$('hunt-form').onsubmit=e=>{e.preventDefault();const q=encodeURIComponent($('hunt-product').value.trim());$('hunt-results').innerHTML='<div class="actions" style="margin-top:9px"><a target="_blank" rel="noopener" href="https://www.google.com/search?tbm=shop&q='+q+'">Google Shopping ↗</a><a target="_blank" rel="noopener" href="https://www.amazon.com/s?k='+q+'">Amazon ↗</a><a target="_blank" rel="noopener" href="https://www.walmart.com/search?q='+q+'">Walmart ↗</a><a target="_blank" rel="noopener" href="https://www.bestbuy.com/site/searchpage.jsp?st='+q+'">Best Buy ↗</a></div>';};
 for(const id of ['query','category','store','budget','sort'])$(id).addEventListener('input',()=>{shown=60;render();});
 for(const id of ['gift-person','gift-budget'])$(id).addEventListener('input',renderGifts);
 for(const id of ['ad-search','ad-type'])$(id).addEventListener('input',renderAds);
