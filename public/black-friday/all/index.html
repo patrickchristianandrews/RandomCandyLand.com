@@ -305,6 +305,13 @@ function retailerPrices(d){
  return '<div class="merchant-prices"><div class="merchant-prices-title">Retailer prices <small>Verified in stock, exact model</small></div>'+reported+
  (available?'<div class="merchant-grid">'+available+'</div>':'<p class="catalog-note">No additional verified in-stock retailer prices yet.</p>')+'</div>';
 }
+function reportsFor(d){
+ const reports=Array.isArray(d.reportedBy)?d.reportedBy:[];
+ if(reports.length<=1)return '';
+ const unique=[...new Map(reports.filter(x=>x&&x.publisher&&/^https:\/\//.test(x.url||'')).map(x=>[x.publisher,x])).values()];
+ if(unique.length<=1)return '';
+ return '<p class="deal-details-one">Also reported by: '+unique.slice(0,5).map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.publisher)+'</a>').join(' · ')+'</p>';
+}
 function card(d){
  const h=history(d),score=h.score===null?'History —':'Sweet '+h.score+'/100';
  const typical=h.annual?'12-mo avg '+money(h.avg):h.count>=4?'Observed avg '+money(h.avg):typeof d.reference==='number'?'Retailer ref. '+money(d.reference):'';
@@ -315,7 +322,7 @@ function card(d){
  '<div class="deal-pricing"><span class="price">'+money(d.price)+'</span><span class="live-date" title="'+esc(status(d))+'">'+esc(status(d))+'</span></div><small class="deal-typical">'+esc(typical)+'</small>'+
  '<div class="deal-facts"><span class="sweet '+(h.score===null?'pending':'')+'" title="'+esc(details)+'">'+esc(score)+'</span></div>'+
  '<div class="deal-foot"><small>'+esc(d.sourceType||'Source')+' · '+esc(d.checked||'')+'</small><div class="card-actions"><button type="button" data-share="'+esc(d.id)+'" class="share-deal" aria-label="Share deal: '+name+'" title="Share deal">↗</button><button type="button" class="bookmark" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Remove saved deal':'Save deal')+': '+name+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div></div>'+
-  '<details><summary>Prices & info</summary>'+retailerPrices(d)+(d.spec?'<p class="deal-details-one">'+esc(d.spec)+'</p>':'')+(d.why?'<p class="deal-details-one">'+esc(d.why)+'</p>':'')+'<details class="similar-models"><summary>More info · history & alternatives</summary><p>'+esc(d.catch||'Confirm terms and stock at the retailer.')+'</p><p>'+esc(details)+'</p>'+alternatives(d)+'</details></details></article>';
+  '<details><summary>Prices & info</summary>'+retailerPrices(d)+reportsFor(d)+(d.spec?'<p class="deal-details-one">'+esc(d.spec)+'</p>':'')+(d.why?'<p class="deal-details-one">'+esc(d.why)+'</p>':'')+'<details class="similar-models"><summary>More info · history & alternatives</summary><p>'+esc(d.catch||'Confirm terms and stock at the retailer.')+'</p><p>'+esc(details)+'</p>'+alternatives(d)+'</details></details></article>';
 }
 
 function hotCard(d){
