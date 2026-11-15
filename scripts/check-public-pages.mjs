@@ -930,8 +930,11 @@ if(!wonderSource.includes('group.id !== "discovery"')||
  console.error('Unwrapped must have no duplicate category heading, and Wonder Index must appear after the Absurdity Report preview.');failures++;
 }
 const refreshWorkflow=fs.readFileSync('.github/workflows/deploy.yml','utf8');
-if(!refreshWorkflow.includes("cron: '17 */6 * * *'")||!refreshWorkflow.includes('node scripts/refresh-curiosity.mjs')){
- console.error('Wonder Index should refresh official research and World Bank records automatically every six hours.');failures++;
+if(!refreshWorkflow.includes("cron: '17 * * * *'")||!refreshWorkflow.includes('node scripts/refresh-curiosity.mjs')){
+ console.error('Wonder Index should refresh official research during the hourly source check.');failures++;
+}
+if(!refreshWorkflow.includes('node scripts/refresh-holiday-deals.mjs')){
+ console.error('Holiday Deal Radar source feeds should refresh during hourly deployment checks.');failures++;
 }
 if(fs.existsSync('dist/curiosity/live-data.json')){
  try{
