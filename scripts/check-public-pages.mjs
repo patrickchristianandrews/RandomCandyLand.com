@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const required = [
-  ['dist/black-friday/index.html', ['The Holiday Deal Madness','id="hot-list"','/black-friday/all/?view=upcoming','mascot-name','Tidbit','Sugarfight']],
+  ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','deal-runner','Tidbit','Sugarfoot']],
   ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"']],
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
