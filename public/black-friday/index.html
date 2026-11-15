@@ -131,9 +131,9 @@ function specFacts(s){const t=String(s||'');const ram=t.match(/(\d+)\s*GB RAM/i)
  return {ram:ram?Number(ram[1]):null,storage:storage?Number(storage[1])*(storage[2].toLowerCase()==='tb'?1024:1):null,inch:inch?Number(inch[1]):null};}
 function tradeoffs(base,alt){
  const a=specFacts(base.spec),b=specFacts(alt.spec),results=[];
- if(a.ram!==null&&b.ram!==null&&a.ram!==b.ram)results.push(b.ram>a.ram?'More RAM ('+b.ram+' GB vs '+a.ram+' GB)':'Less RAM ('+b.ram+' GB vs '+a.ram+' GB)');
- if(a.storage!==null&&b.storage!==null&&a.storage!==b.storage)results.push(b.storage>a.storage?'More storage ('+b.storage+' GB vs '+a.storage+' GB)':'Less storage ('+b.storage+' GB vs '+a.storage+' GB)');
- if(a.inch!==null&&b.inch!==null&&a.inch!==b.inch)results.push((b.inch>a.inch?'Larger':'Smaller')+' display ('+b.inch+'″ vs '+a.inch+'″)');
+ if(a.ram!==null&&b.ram!==null&&a.ram!==b.ram)results.push(b.ram>a.ram?'More RAM for multitasking ('+b.ram+' GB vs '+a.ram+' GB)':'Less RAM limits heavy multitasking ('+b.ram+' GB vs '+a.ram+' GB)');
+ if(a.storage!==null&&b.storage!==null&&a.storage!==b.storage)results.push(b.storage>a.storage?'More room for apps/files ('+b.storage+' GB vs '+a.storage+' GB)':'Less room for apps/files ('+b.storage+' GB vs '+a.storage+' GB)');
+ if(a.inch!==null&&b.inch!==null&&a.inch!==b.inch)results.push((b.inch>a.inch?'Larger screen gives more workspace':'Smaller screen is easier to carry')+' ('+b.inch+'″ vs '+a.inch+'″)');
  if(results.length)return results.slice(0,2).join(' · ')+'.';
  return 'Different model/features. Check compatibility, included accessories, and specs before choosing; the higher price alone does not prove better quality.';
 }
@@ -222,7 +222,7 @@ $('show-more').onclick=()=>{shown+=60;render();};
 document.addEventListener('click',e=>{
  const b=e.target.closest('[data-save]');if(b){const id=b.dataset.save;saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];try{localStorage.setItem(savedKey,JSON.stringify(saved));}catch{}render();return;}
  const c=e.target.closest('[data-category]');if(c){$('category').value=c.dataset.category;shown=60;render();return;}
- const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;shown=60;if(mode==='new'){$('sort').value='new';mode='all';}render();}
+ const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;shown=60;if(mode==='new'){$('sort').value='new';}render();}
 });
 rebuildOptions();renderAds();render();
 async function refreshFeed(){
