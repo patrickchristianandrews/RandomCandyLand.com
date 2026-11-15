@@ -98,8 +98,8 @@ if(!okFeeds){
  console.warn('No source fetches succeeded: preserving recent entries with stale-data notice');
 }
 all.sort((a,b)=>(b.publishedAt||'').localeCompare(a.publishedAt||''));
-all=all.slice(0,360);
-const result={generatedAt:now.toISOString(),sourcesSucceeded:okFeeds,sourceNotice:okFeeds?'Attributed deal reports. Prices, stock and sale timing are not independently verified.':'Feed retrieval failed; older reports may no longer be available.',deals:all};
+// Keep every distinct recent source entry; never silently cap the full catalog.
+const result={generatedAt:now.toISOString(),sourcesSucceeded:okFeeds,feedItems:all.length,sourceNotice:okFeeds?'Attributed deal reports. Prices, stock and sale timing are not independently verified.':'Feed retrieval failed; older reports may no longer be available.',deals:all};
 await mkdir('public/black-friday',{recursive:true});
 await writeFile(OUT,JSON.stringify(result));
 console.log('Holiday Radar feed written:',all.length,'deals; feeds:',okFeeds);
