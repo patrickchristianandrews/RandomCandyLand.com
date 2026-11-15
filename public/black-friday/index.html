@@ -193,6 +193,11 @@ async function refreshAds(){
   const tiles=result.ads.filter(a=>a&&a.year===2026&&/^https:\/\//.test(a.url||''));
   if(!tiles.length)throw Error('No 2026 scans');
   const pictograms=['📰','🛍️','🎁','📚','🎯','🧾','💻','✨'];
+  const official=[
+   {name:'Walmart',url:'https://www.walmart.com/shop/deals/black-friday',label:'Official Black Friday sale'},
+   {name:'Target',url:'https://www.target.com/c/weekly-ad/-/N-5xt0a',label:'Official weekly ad'},
+   {name:'Best Buy',url:'https://www.bestbuy.com/black-friday',label:'Official Black Friday catalog'}
+  ];
   $('scan-list').innerHTML=tiles.map((a,i)=>{
    const name=String(a.name||'2026 ad preview');
    return '<a class="scan-tile" href="'+esc(a.url)+'" target="_blank" rel="noopener">'+
@@ -201,7 +206,9 @@ async function refreshAds(){
     '<strong>'+esc(name.length>60?name.slice(0,57)+'…':name)+'</strong>'+
     '<small>'+esc(a.source||'Publisher ad directory')+'</small>'+
     '<span class="scan-action">See preview ↗</span></a>';
-  }).join('');
+  }).join('')+official.map((o,i)=>'<a class="scan-tile" href="'+esc(o.url)+'" target="_blank" rel="noopener">'+
+   '<span class="scan-sticker official">RETAILER LINK</span><span class="scan-art">'+['🛒','🎯','💻'][i]+'</span>'+
+   '<strong>'+esc(o.name)+'</strong><small>'+esc(o.label)+' · not a scan</small><span class="scan-action">Shop official page ↗</span></a>').join('');
   const when=Number.isFinite(Date.parse(result.generatedAt))?new Date(result.generatedAt).toLocaleString('en-US',{dateStyle:'short',timeStyle:'short'}):'unknown';
   $('scan-status').textContent=tiles.length+' discovered 2026 previews · last source check '+when+(result.checked?'':' · directory check failed; last indexed links retained')+'. Third-party scans are not official retailer releases.';
  }catch{
