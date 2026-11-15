@@ -363,6 +363,9 @@ public final class MainActivity extends Activity {
         Button save=action(favorites.contains(d.id)?"♥ Saved":"♡ Save");
         save.setOnClickListener(v->{if(!favorites.add(d.id))favorites.remove(d.id);saveFavorites();draw();});
         LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(0,dp(39),1);bp.setMargins(dp(6),0,0,0);buttons.addView(save,bp);
+        Button share=action("↗");share.setContentDescription("Share deal "+d.name);
+        share.setOnClickListener(v->share(d));
+        LinearLayout.LayoutParams sh=new LinearLayout.LayoutParams(dp(49),dp(39));sh.setMargins(dp(6),0,0,0);buttons.addView(share,sh);
         Button more=action("•••");more.setContentDescription("More actions for "+d.name);
         more.setOnClickListener(v->showDetails(d));LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(dp(54),dp(39));ap.setMargins(dp(6),0,0,0);buttons.addView(more,ap);
         card.addView(buttons);
