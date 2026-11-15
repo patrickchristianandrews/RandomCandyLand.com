@@ -180,7 +180,7 @@ const ads=[
 ['Amazon','Official deal listings','https://www.amazon.com/gp/goldbox','Sale page · not a scan']
 ];
 
-const money=n=>typeof n==='number'&&Number.isFinite(n)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n):'View offer';
+const money=n=>typeof n==='number'&&Number.isFinite(n)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n):'Price TBA';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
 const curated=deals.slice(), savedKey='rcl-deals-saved';
