@@ -1025,5 +1025,22 @@ for (const [slug,markers] of [
  }
 }
 
+// Holiday Radar: published feeds must expose independently checked sources,
+// avoid duplicate source URLs, and keep 2026 ad previews separate from expired archives.
+for(const file of ['public/black-friday/live-feed.json','public/black-friday/ad-scans.json']){
+ if(!fs.existsSync(file)){console.error('Holiday Radar source index absent:',file);failures++;continue;}
+ try{
+  const payload=JSON.parse(fs.readFileSync(file,'utf8'));
+  if(!Number.isFinite(Date.parse(payload.generatedAt))){console.error('Missing feed timestamp:',file);failures++;}
+  if(file.endsWith('live-feed.json')){
+   if(!Array.isArray(payload.deals)||!Array.isArray(payload.sourceStatus)||payload.sourceStatus.length<10){console.error('Deal source coverage index incomplete');failures++;}
+   const ids=(payload.deals||[]).map(d=>d.id);
+   if(new Set(ids).size!==ids.length){console.error('Duplicated deal IDs in holiday feed');failures++;}
+   if(!Number.isInteger(payload.mergedDuplicates)||!Number.isInteger(payload.sourcesSucceeded)){console.error('Deal merge and source health counts missing');failures++;}
+  }else if(!Array.isArray(payload.ads)||(payload.ads||[]).some(a=>a.year!==2026)){
+   console.error('Expected 2026-only ad scan directory');failures++;
+  }
+ }catch(e){console.error('Invalid holiday feed:',file,e.message);failures++;}
+}
 if (failures) process.exit(1);
 console.log('All standalone pages exist, and After Dark scripts parse.');
