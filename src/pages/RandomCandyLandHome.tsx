@@ -183,7 +183,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
 
       <section aria-labelledby="home-holiday-deals" style={{width:'min(1180px, calc(100% - 24px))',margin:'14px auto',border:'1px solid #805d8d',borderRadius:14,overflow:'hidden',background:'#171023',color:'#fff5fc'}}>
         <div style={{padding:'11px 13px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap'}}>
-          <div><span style={{color:'#ffbde1',fontSize:10,letterSpacing:1.4}}>BLACK FRIDAY · CYBER MONDAY</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(19px,3vw,26px)',margin:'1px 0'}}>Holiday Deal Radar</h2><p style={{margin:0,fontSize:12,color:'#d4bedb'}}>Search hundreds of sourced offers as available. Save favorites and compare gift ideas.</p></div>
+          <div><span style={{color:'#ffbde1',fontSize:10,letterSpacing:1.4}}>BLACK FRIDAY · CYBER MONDAY</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(19px,3vw,26px)',margin:'1px 0'}}>Holiday Deal Radar</h2><p style={{margin:0,fontSize:12,color:'#d4bedb'}}>Explore refreshed deals, save favorites, and discover gift ideas.</p></div>
           <a href="/black-friday/#gifts" style={{padding:'8px 11px',borderRadius:9,background:'#ffc1df',color:'#251127',fontSize:12,fontWeight:800,textDecoration:'none'}}>All deals & gift ideas ↗</a>
         </div>
         <iframe src="/black-friday/?embed=compact" title="Holiday deals: searchable compact catalog" loading="lazy" style={{display:'block',width:'100%',height:490,border:0}} />
