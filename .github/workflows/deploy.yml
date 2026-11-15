@@ -5,8 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # Refresh source-linked research and official statistics four times per day.
-    - cron: '17 */6 * * *'
+    # Refresh holiday deals on an hourly cadence (other public-data checks run in the same build).
+    - cron: '17 * * * *'
 
 permissions:
   contents: read
@@ -98,6 +98,12 @@ jobs:
           node --check scripts/refresh-curiosity.mjs
           node scripts/refresh-curiosity.mjs
           test -s public/curiosity/live-data.json
+
+      - name: Refresh hourly Black Friday, Cyber Monday, and gift-deal source feed
+        run: |
+          node --check scripts/refresh-holiday-deals.mjs
+          node scripts/refresh-holiday-deals.mjs
+          test -s public/black-friday/live-feed.json
 
       - name: Build the entire website
         run: bun run build
