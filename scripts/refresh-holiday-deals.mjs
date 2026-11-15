@@ -27,7 +27,10 @@ const FEEDS=[
  {name:'Hip2Save',group:'Hip2Save',url:'https://hip2save.com/feed/',domains:['hip2save.com']},
  {name:'All Things Target',group:'All Things Target',url:'https://allthingstarget.com/feed/',domains:['allthingstarget.com']},
  {name:'Southern Savers',group:'Southern Savers',url:'https://www.southernsavers.com/feed/',domains:['southernsavers.com']},
- {name:'RetailMeNot · blog',group:'RetailMeNot',url:'https://www.retailmenot.com/blog/feed/',domains:['retailmenot.com']}
+ {name:'RetailMeNot · blog',group:'RetailMeNot',url:'https://www.retailmenot.com/blog/feed/',domains:['retailmenot.com']},
+ {name:'Money Saving Mom',group:'Money Saving Mom',url:'https://moneysavingmom.com/feed/',domains:['moneysavingmom.com']},
+ {name:'Totally Target',group:'Totally Target',url:'https://www.totallytarget.com/feed/',domains:['totallytarget.com']},
+ {name:'Common Sense With Money',group:'Common Sense With Money',url:'https://www.commonsensewithmoney.com/feed/',domains:['commonsensewithmoney.com']}
 ];
 const decode=(s='')=>String(s).replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g,'$1').replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp|ndash|mdash);/gi,(_,c)=>{
  if(c[0]==='#'){const n=c[1]?.toLowerCase()==='x'?parseInt(c.slice(2),16):parseInt(c.slice(1),10);return Number.isFinite(n)&&n>0&&n<=0x10ffff?String.fromCodePoint(n):'';}
