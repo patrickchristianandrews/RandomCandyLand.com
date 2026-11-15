@@ -17,12 +17,11 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Install API 36 SDK using runner's existing Android tools
-        shell: bash
-        run: |
-          echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
-          sdkmanager --sdk_root="$ANDROID_SDK_ROOT" 'platforms;android-36' 'build-tools;36.0.0'
-          test -d "$ANDROID_SDK_ROOT/platforms/android-36"
+      - uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+      - name: Install API 36 SDK
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
