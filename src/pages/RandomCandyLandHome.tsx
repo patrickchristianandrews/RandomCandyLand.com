@@ -181,12 +181,12 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
-      <section aria-labelledby="home-holiday-deals" style={{width:'min(1180px, calc(100% - 24px))',margin:'20px auto',border:'1px solid #a878a9',borderRadius:24,overflow:'hidden',background:'#171023',color:'#fff5fc'}}>
-        <div style={{padding:'20px 20px 12px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
-          <div><span style={{color:'#ffbde1',fontSize:12,letterSpacing:2}}>BLACK FRIDAY + CYBER MONDAY</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(24px,4vw,36px)',margin:'4px 0'}}>Holiday Deal Radar</h2><p style={{margin:0,fontSize:14,color:'#d4bedb'}}>More finds. Less scrolling. Search, filter and save below.</p></div>
-          <a href="/black-friday/" style={{padding:'12px 16px',borderRadius:12,background:'#ffc1df',color:'#251127',fontWeight:800,textDecoration:'none'}}>Full guide, ads & cashback ↗</a>
+      <section aria-labelledby="home-holiday-deals" style={{width:'min(1180px, calc(100% - 24px))',margin:'14px auto',border:'1px solid #805d8d',borderRadius:14,overflow:'hidden',background:'#171023',color:'#fff5fc'}}>
+        <div style={{padding:'11px 13px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap'}}>
+          <div><span style={{color:'#ffbde1',fontSize:10,letterSpacing:1.4}}>BLACK FRIDAY · CYBER MONDAY</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(19px,3vw,26px)',margin:'1px 0'}}>Holiday Deal Radar</h2><p style={{margin:0,fontSize:12,color:'#d4bedb'}}>Search hundreds of sourced offers as available. Save favorites and compare gift ideas.</p></div>
+          <a href="/black-friday/#gifts" style={{padding:'8px 11px',borderRadius:9,background:'#ffc1df',color:'#251127',fontSize:12,fontWeight:800,textDecoration:'none'}}>All deals & gift ideas ↗</a>
         </div>
-        <iframe src="/black-friday/?embed=compact" title="Holiday deals: searchable compact catalog" style={{display:'block',width:'100%',height:650,border:0}} />
+        <iframe src="/black-friday/?embed=compact" title="Holiday deals: searchable compact catalog" loading="lazy" style={{display:'block',width:'100%',height:490,border:0}} />
       </section>
 
       <section className="candyland-world" aria-labelledby="candyland-map">
