@@ -87,6 +87,30 @@ html[data-embed] body{background:transparent}html[data-embed] main{width:100%;ma
 .source-chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
 .source-chip{padding:5px 7px;border-radius:7px;background:#2c2239;border:1px solid #725c80;font-size:.65rem;color:#f7e1ef}
 .source-chip.offline{color:#f3b9b3;border-color:#9a6060}
+
+/* Homepage-only preview: four compact desktop tiles, two readable columns on mobile. */
+html[data-embed] body{overflow:hidden;background:transparent}
+html[data-embed] main{padding:0 5px;width:100%;max-width:none}
+html[data-embed] .hot-section{margin:0!important;padding:0!important}
+html[data-embed] .hot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+html[data-embed] .hot-card{min-height:116px;padding:9px;gap:3px;border-radius:11px;justify-content:space-between}
+html[data-embed] .hot-type{font-size:.67rem!important;line-height:1.2;min-height:0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+html[data-embed] .hot-title{font-size:.8rem;line-height:1.3;min-height:0;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;overflow-wrap:anywhere}
+html[data-embed] .hot-card>small:not(.hot-type){font-size:.64rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-embed] .hot-bottom{align-items:center;gap:6px}
+html[data-embed] .hot-price{font-size:1.01rem;line-height:1.15;white-space:nowrap}
+html[data-embed] .hot-when{font-size:.64rem;line-height:1.2;white-space:nowrap}
+html[data-embed] .hot-buttons{gap:2px;flex-shrink:0}
+html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;justify-content:center;width:25px;height:30px;padding:3px;font-size:1rem}
+@media(max-width:700px){
+ html[data-embed] .hot-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ html[data-embed] .hot-card{min-height:126px;padding:9px}
+}
+@media(max-width:360px){
+ html[data-embed] .hot-price{font-size:.94rem}
+ html[data-embed] .hot-title{font-size:.76rem}
+ html[data-embed] .hot-buttons button{width:22px;font-size:.93rem}
+}
 </style>
 <script>if(new URLSearchParams(location.search).get('embed')==='featured')document.documentElement.dataset.embed='featured'</script>
 </head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -151,14 +175,15 @@ function picks(){
  return eligible.slice(0,document.documentElement.dataset.embed?4:12);
 }
 function hotCard(d){
- const label=d.popular?'🔥 Popular feed':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured deal':'✦ Fresh report';
+ const label=d.popular?(document.documentElement.dataset.embed?'🔥 Popular':'🔥 Popular feed'):d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured deal':'✦ Fresh report';
  const safeUrl=/^https:\/\//.test(d.source||'')?d.source:'/black-friday/all/';
- return '<article class="hot-card" data-deal-id="'+esc(d.id)+'"><small class="hot-type">'+esc(label)+'</small><a class="hot-title" href="'+esc(safeUrl)+'" target="_blank" rel="noopener">'+esc(d.name)+'</a><small>'+esc(d.store||'See source')+'</small><div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div><div class="hot-when">LIVE · recently reported</div></div><div class="hot-buttons"><button type="button" class="deal-share" data-share="'+esc(d.id)+'" aria-label="Share '+esc(d.name)+'" title="Share deal">↗</button><button type="button" class="save" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Unsave':'Save')+' '+esc(d.name)+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div></div></article>';
+ const embedLive=document.documentElement.dataset.embed?('LIVE · '+(/^\d{4}-\d{2}-\d{2}$/.test(d.checked||'')?new Date(d.checked+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric'}):'reported')):'LIVE · recently reported';
+ return '<article class="hot-card" data-deal-id="'+esc(d.id)+'"><small class="hot-type">'+esc(label)+'</small><a class="hot-title" href="'+esc(safeUrl)+'" target="_blank" rel="noopener">'+esc(d.name)+'</a><small>'+esc(d.store||'See source')+'</small><div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div><div class="hot-when">'+esc(embedLive)+'</div></div><div class="hot-buttons"><button type="button" class="deal-share" data-share="'+esc(d.id)+'" aria-label="Share '+esc(d.name)+'" title="Share deal">↗</button><button type="button" class="save" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Unsave':'Save')+' '+esc(d.name)+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div></div></article>';
 }
 function render(){
  const hot=picks();
  $('hot-list').innerHTML=hot.length?hot.map(hotCard).join(''):'<p class="disclaimer">No recent, already-started hot deals meet the source checks right now. <a href="/black-friday/all/">Browse the full catalog ↗</a></p>';
- if(document.documentElement.dataset.embed)return;
+ if(document.documentElement.dataset.embed){requestAnimationFrame(reportEmbeddedHeight);return;}
  const grouped=new Map();
  for(const d of items){const cat=d.category||'Other';grouped.set(cat,(grouped.get(cat)||0)+1);}
  $('categories').innerHTML='<a href="/black-friday/all/">All deals ('+items.length+')</a>'+[...grouped.entries()].filter(([c])=>c!=='Upcoming sales').sort((a,b)=>b[1]-a[1]).slice(0,12).map(([cat,count])=>'<a href="/black-friday/all/?category='+encodeURIComponent(cat)+'#catalog">'+esc(cat)+' · '+count+'</a>').join('')+'<a href="/black-friday/all/?view=upcoming#catalog">◷ Upcoming ↗</a>';
@@ -275,6 +300,19 @@ function startMascot(){
  mascotReady=true;
  setTimeout(runMascot,12500);
  setInterval(runMascot,85000);
+}
+function reportEmbeddedHeight(){
+ if(!document.documentElement.dataset.embed||window.parent===window)return;
+ const section=document.querySelector('.hot-section');
+ if(!section)return;
+ const size=Math.ceil(section.getBoundingClientRect().bottom+8);
+ if(size>=65&&size<=850)window.parent.postMessage({type:'rcl-holiday-embed-height',height:size},location.origin);
+}
+if(document.documentElement.dataset.embed){
+ if('ResizeObserver' in window)new ResizeObserver(reportEmbeddedHeight).observe($('hot-list'));
+ window.addEventListener('resize',reportEmbeddedHeight);
+ window.addEventListener('load',reportEmbeddedHeight);
+ if(document.fonts?.ready)document.fonts.ready.then(reportEmbeddedHeight);
 }
 render();updateFeed();refreshAds();
 </script></body></html>
