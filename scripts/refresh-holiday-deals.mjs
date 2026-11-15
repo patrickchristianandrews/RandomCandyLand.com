@@ -42,6 +42,21 @@ function priceFrom(title){
   const match=title.match(/\b(?:for|at|now)\s+\$([\d,]+(?:\.\d{1,2})?)/i);
   return match?Number(match[1].replace(/,/g,'')):null;
 }
+function retailerFromDealTitle(title){
+  // Recognize explicit seller attribution. Do not infer a merchant from the
+  // product brand or from a headline that merely mentions a retailer.
+  const sellers=[
+    ['Amazon',/\b(?:at|from|via)\s+(?:the\s+)?Amazon\b/i],
+    ['Walmart',/\b(?:at|from|via)\s+(?:the\s+)?Walmart\b/i],
+    ['Target',/\b(?:at|from|via)\s+(?:the\s+)?Target\b/i],
+    ['Best Buy',/\b(?:at|from|via)\s+(?:the\s+)?Best\s+Buy\b/i],
+    ['Home Depot',/\b(?:at|from|via)\s+(?:the\s+)?(?:The\s+)?Home\s+Depot\b/i],
+    ['Costco',/\b(?:at|from|via)\s+(?:the\s+)?Costco\b/i],
+    ["Sam's Club",/\b(?:at|from|via)\s+(?:the\s+)?Sam['’]s\s+Club\b/i],
+    ["Kohl's",/\b(?:at|from|via)\s+(?:the\s+)?Kohl['’]s\b/i]
+  ];
+  return sellers.find(([,pattern])=>pattern.test(title))?.[0]||'See source';
+}
 async function request(url, timeout=12000){
   const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),timeout);
   try {const res=await fetch(url,{signal:ctrl.signal,headers:{'User-Agent':'RandomCandyLand-HolidayRadar/1.0 (+https://randomcandyland.com/)','Accept':'application/rss+xml,application/xml,text/xml,application/json;q=0.8'}});if(!res.ok)throw Error('HTTP '+res.status);return await res.text();}finally{clearTimeout(timer);}
@@ -66,7 +81,7 @@ for(const feed of FEEDS){
       const history=Array.isArray(old?.history)?old.history.filter(h=>Number.isFinite(Date.parse(h.date))&&(now.getTime()-Date.parse(h.date))<365*86400000):[];
       const today=now.toISOString().slice(0,10);
       if(Number.isFinite(price) && price>0 && !history.some(h=>h.date===today))history.push({date:today,price});
-      const entry={id,name:title,category:category(title),store:'See source',price,reference:null,spec:'',source:link,sourceType:feed.source,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):today,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Check the linked deal report for retailer, exact model, delivery, exclusions and current availability.',featured:feed.source==='DealNews editors',history:history.slice(-365)};
+      const entry={id,name:title,category:category(title),store:retailerFromDealTitle(title),price,reference:null,spec:'',source:link,sourceType:feed.source,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):today,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Check the linked deal report for retailer, exact model, delivery, exclusions and current availability.',featured:feed.source==='DealNews editors',history:history.slice(-365)};
       const existing=byLink.get(id);
       if(!existing || feed.source==='DealNews editors' || (entry.publishedAt||'')>(existing.publishedAt||''))byLink.set(id,entry);
     }
