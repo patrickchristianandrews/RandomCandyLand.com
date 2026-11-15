@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const required = [
+  ['dist/black-friday/index.html', ['The Holiday Deal Madness','id="hot-list"','/black-friday/all/?view=upcoming','mascot-name','Tidbit','Sugarfight']],
+  ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"']],
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn', 'id="toys"', 'id="toy-grid"', 'toy-library.js?v=']],
