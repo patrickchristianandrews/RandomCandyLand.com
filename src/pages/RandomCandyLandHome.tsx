@@ -103,6 +103,20 @@ const wrapStop = (index: number) => (index + MAP_STOPS.length) % MAP_STOPS.lengt
 export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomeProps) {
   const [activeStop, setActiveStop] = useState(0);
   const swipeStart = useRef<{x: number; y: number} | null>(null);
+  const holidayFrameRef = useRef<HTMLIFrameElement | null>(null);
+  // Trust only height reports from our own holiday preview iframe.
+  useEffect(() => {
+    const handleHolidayHeight = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin || event.source !== holidayFrameRef.current?.contentWindow) return;
+      const message = event.data as {type?: string; height?: number} | null;
+      if (message?.type !== 'rcl-holiday-embed-height' || typeof message.height !== 'number' || !Number.isFinite(message.height)) return;
+      const frame = holidayFrameRef.current;
+      if (frame) frame.style.height = Math.max(65, Math.min(850, Math.ceil(message.height))) + 'px';
+    };
+    window.addEventListener('message', handleHolidayHeight);
+    return () => window.removeEventListener('message', handleHolidayHeight);
+  }, []);
+
   const moveWorld = (direction: number) => setActiveStop(index => wrapStop(index + direction));
   const [copiedUrl,setCopiedUrl] = useState('');
   const [candyLandInstalled, setCandyLandInstalled] = useState(isRunningInstalledCandyLand);
@@ -181,12 +195,31 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
-      <section aria-labelledby="home-holiday-deals" style={{width:'min(1180px, calc(100% - 24px))',margin:'12px auto',border:'1px solid #805d8d',borderRadius:12,overflow:'hidden',background:'#171023',color:'#fff5fc'}}>
-        <div style={{padding:'10px 12px 7px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap'}}>
-          <div><span style={{color:'#ffbde1',fontSize:10,letterSpacing:1.4}}>BLACK FRIDAY · CYBER MONDAY 2026</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(19px,3vw,25px)',margin:'1px 0'}}>🔥 Super Hot 2026 Holiday Deals</h2><p style={{margin:0,fontSize:12,color:'#d4bedb'}}>Four recently reported live hot picks · full catalog on the deal page.</p></div>
-          <a href="/black-friday/" style={{padding:'8px 12px',borderRadius:9,background:'#ffc1df',color:'#251127',fontSize:12,fontWeight:800,textDecoration:'none'}}>2026 Black Friday & Cyber Monday ↗</a>
+      <section className="candy-home-holiday" aria-labelledby="home-holiday-deals">
+        <div className="candy-home-holiday-heading">
+          <div className="candy-home-holiday-copy">
+            <span className="candy-home-holiday-kicker">BLACK FRIDAY · CYBER MONDAY 2026</span>
+            <h2 id="home-holiday-deals">🔥 2026 Super Hot Deals</h2>
+            <p>4 popular picks · Updated deal reports</p>
+          </div>
+          <a className="candy-home-holiday-link" href="/black-friday/">Browse all 2026 deals ↗</a>
         </div>
-        <iframe className="candy-home-hot-deals-frame" src="/black-friday/?embed=featured" title="Four standout holiday deals with prices and sale dates" loading="lazy" scrolling="no" style={{display:'block',width:'100%',border:0}} />
+        <iframe
+          ref={holidayFrameRef}
+          className="candy-home-hot-deals-frame"
+          src="/black-friday/?embed=featured"
+          title="Four top holiday offers with reported prices and live dates"
+          loading="lazy"
+          scrolling="no"
+          onLoad={() => {
+            const frame=holidayFrameRef.current;
+            try {
+              const section=frame?.contentDocument?.querySelector('.hot-section');
+              const h=section?Math.ceil(section.getBoundingClientRect().bottom+8):0;
+              if(frame&&h>=65&&h<=850)frame.style.height=h+'px';
+            } catch { /* Same-origin frame is expected; leave CSS fallback if unavailable. */ }
+          }}
+        />
       </section>
 
       <section className="candyland-world" aria-labelledby="candyland-map">
