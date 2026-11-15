@@ -186,7 +186,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           <div><span style={{color:'#ffbde1',fontSize:10,letterSpacing:1.4}}>BLACK FRIDAY · CYBER MONDAY</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(19px,3vw,25px)',margin:'1px 0'}}>🔥 Super Hot Holiday Deals</h2><p style={{margin:0,fontSize:12,color:'#d4bedb'}}>Four standout picks from published popular and editor-selected deals.</p></div>
           <a href="/black-friday/#catalog" style={{padding:'8px 12px',borderRadius:9,background:'#ffc1df',color:'#251127',fontSize:12,fontWeight:800,textDecoration:'none'}}>Browse all deals by category ↗</a>
         </div>
-        <iframe src="/black-friday/?embed=featured" title="Four standout holiday deals with prices and sale dates" loading="lazy" scrolling="no" style={{display:'block',width:'100%',height:270,border:0}} />
+        <iframe className="candy-home-hot-deals-frame" src="/black-friday/?embed=featured" title="Four standout holiday deals with prices and sale dates" loading="lazy" scrolling="no" style={{display:'block',width:'100%',border:0}} />
       </section>
 
       <section className="candyland-world" aria-labelledby="candyland-map">
