@@ -78,13 +78,48 @@ body{background:#130e21}main{max-width:1430px;padding:12px 16px}
 .deal-rows>.deal-row:has(>details[open])>.deal-name{min-height:auto}
 @media(min-width:750px){.deal-rows>.deal-row:has(>details[open]) .merchant-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.deal-rows>.deal-row:has(>details[open]){grid-column:1/-1}.merchant-grid{grid-template-columns:1fr}}
-</style><script>if(new URLSearchParams(location.search).has("embed"))document.documentElement.dataset.dealsEmbed="true";</script></head><body>
+
+/* The full catalog is categorized; the homepage embed is deliberately short. */
+.category-deal-group{margin:13px 0 24px}
+.category-deal-heading{display:flex;align-items:baseline;gap:10px;margin:0 0 6px;border-bottom:1px solid #654d76;padding:3px 0 6px}
+.category-deal-heading h3{margin:0;font-size:.97rem;color:#ffdcf2}
+.category-deal-heading small{font-size:.7rem;color:#c9b2d3}
+html[data-deals-hot] body{background:transparent!important}
+html[data-deals-hot] main{padding:1px 5px!important}
+html[data-deals-hot] #catalog{margin:0!important}
+html[data-deals-hot] #catalog .feed-heading,
+html[data-deals-hot] #catalog .feed-search,
+html[data-deals-hot] #catalog .feed-tabs,
+html[data-deals-hot] #catalog .category-chips,
+html[data-deals-hot] #catalog .feed-filters,
+html[data-deals-hot] #catalog .feed-toolbar,
+html[data-deals-hot] #catalog .catalog-more,
+html[data-deals-hot] #catalog .catalog-note{display:none!important}
+html[data-deals-hot] .feed-layout{display:block;gap:0}
+html[data-deals-hot] .feed-main{min-width:0}
+.home-hot-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0}
+.home-hot-card{border:1px solid #60486d;background:linear-gradient(155deg,#36233f,#211629);padding:9px 10px;border-radius:9px;min-height:111px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.home-hot-label{font-size:.65rem;color:#ffd39e;font-weight:750;white-space:nowrap}
+.home-hot-name{font-size:.78rem;line-height:1.22;font-weight:750;text-decoration:none;color:#fff5fc;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.4em}
+.home-hot-name:hover{text-decoration:underline}
+.home-hot-bottom{display:flex;align-items:end;justify-content:space-between;gap:4px;margin-top:auto}
+.home-hot-bottom>span{min-width:0;display:flex;flex-direction:column;gap:1px}
+.home-hot-bottom strong{color:#bdf9d6;font-size:1.03rem}
+.home-hot-bottom small{font-size:.64rem;color:#c9b5d1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.home-hot-bottom .bookmark{min-width:24px;min-height:25px;padding:0;border:0;background:none;font-size:1.05rem;color:#ffbfe1}
+@media(max-width:580px){
+ .home-hot-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+ .home-hot-card{min-height:96px;padding:7px}
+ .home-hot-name{font-size:.74rem}
+ .home-hot-bottom strong{font-size:.92rem}
+}
+</style><script>const dealsQuery=new URLSearchParams(location.search);if(dealsQuery.has("embed"))document.documentElement.dataset.dealsEmbed="true";if(dealsQuery.get("embed")==="featured")document.documentElement.dataset.dealsHot="true";</script></head><body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>Enable JavaScript to search the catalog. <a href="https://hip2save.com/sales-deals/black-friday/">Browse deal reports</a> or <a href="https://blackfriday.ltd/ads/">open ad scans</a>.</p></noscript>
 <main><header><a href="/"><img src="/icon.svg" width="40" height="40" alt="" style="vertical-align:middle"> Random Candy Land</a></header>
 <div class="hero"><span class="eyebrow">BLACK FRIDAY · CYBER MONDAY · HOLIDAY DEALS</span><h1>Holiday Deal Radar</h1><p>Find better gifts and better prices without the clutter.</p></div>
 <nav class="nav" aria-label="Holiday savings sections"><a href="#catalog">All deals</a><a href="#gifts">Gift ideas</a><a href="#ads">Ad scans</a><a href="#cyber">Sale dates</a><a href="#cashback">Cashback</a></nav>
 <section id="catalog">
-<div class="feed-heading"><div><h2>Find your sweet deal</h2><p class="muted">One quick view of the bargains. Details are optional.</p></div><a href="#ads">View ad scans</a></div>
+<div class="feed-heading"><div><h2>All Black Friday & Cyber Monday deals</h2><p class="muted">Browse every cataloged offer grouped by category. Search, filter, or save a favorite.</p></div><a href="#ads">View ad scans</a></div>
 <label class="feed-search"><span class="sr-only">Search products or retailers</span><input id="query" type="search" placeholder="Search products, brands, categories or stores…" autocomplete="off"></label>
 <div class="feed-tabs" aria-label="Deal views"><button data-feed="all" aria-pressed="true">All</button><button data-feed="featured" aria-pressed="false">✦ Picks</button><button data-feed="new" aria-pressed="false">New</button><button data-feed="saved" aria-pressed="false">♥ Saved</button><button data-feed="black" aria-pressed="false">Black Friday</button><button data-feed="cyber" aria-pressed="false">Cyber Monday</button></div>
 <div id="category-chips" class="category-chips" aria-label="Category shortcuts"></div>
@@ -116,7 +151,8 @@ const money=n=>typeof n==='number'&&Number.isFinite(n)?new Intl.NumberFormat('en
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
 const curated=deals.slice(), savedKey='rcl-deals-saved';
-let saved=[],mode='all',shown=60,feedTimestamp=null;
+let saved=[],mode='all',shown=9999,feedTimestamp=null;
+const hotEmbed=document.documentElement.dataset.dealsHot==='true';
 try{const a=JSON.parse(localStorage.getItem(savedKey)||'[]');if(Array.isArray(a))saved=a.filter(x=>typeof x==='string');}catch{}
 function history(d){
  const a=(Array.isArray(d.history)?d.history:[]).filter(h=>h&&h.date&&Number.isFinite(Number(h.price))&&Number(h.price)>0&&Number.isFinite(Date.parse(h.date))).map(h=>({date:h.date,price:Number(h.price)})).sort((x,y)=>x.date.localeCompare(y.date));
@@ -254,6 +290,32 @@ function card(d){
  '<div class="deal-foot"><small>'+esc(d.sourceType||'Source')+' · '+esc(d.checked||'')+'</small><button type="button" class="bookmark" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Remove saved deal':'Save deal')+': '+name+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div>'+
  '<details><summary>Retailer prices & details</summary>'+retailerPrices(d)+'<p>'+esc(d.spec||'')+'</p><p>'+esc(d.why||'')+'</p><p>'+esc(d.catch||'Confirm the full conditions, price, seller and delivery at source.')+'</p><p><strong>Price history:</strong> '+esc(details)+'</p><details class="similar-models"><summary>Similar products · one cheaper, one pricier</summary>'+alternatives(d)+'</details></details></article>';
 }
+
+function hotCard(d){
+ const label=d.popular?'🔥 Popular feed':d.sourceType==='DealNews editors'?'✦ Editors’ pick':'✦ Featured pick';
+ const date=d.checked?'<span>'+esc(d.checked)+'</span>':'';
+ return '<article class="home-hot-card"><span class="home-hot-label">'+esc(label)+'</span>'+
+ '<a class="home-hot-name" href="'+esc(d.source)+'" target="_top" rel="noopener" title="'+esc(d.name)+'">'+esc(d.name)+'</a>'+
+ '<div class="home-hot-bottom"><span><strong>'+money(d.price)+'</strong><small>'+esc(d.store||'See source')+'</small></span>'+
+ '<button type="button" data-save="'+esc(d.id)+'" class="bookmark" aria-pressed="'+saved.includes(d.id)+'" aria-label="'+(saved.includes(d.id)?'Remove from saved: ':'Save: ')+esc(d.name)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div></article>';
+}
+function hotPicks(){
+ // The DealNews popular feed is a publisher ranking, not verified sales volume.
+ // Avoid inventing "sold out soon" or percentage-based popularity claims.
+ const rank=d=>d.popular?3:d.sourceType==='DealNews editors'?2:d.featured?1:0;
+ const candidates=deals.filter(d=>rank(d)>0&&/^https:\/\//.test(d.source||''));
+ candidates.sort((a,b)=>rank(b)-rank(a)||
+   Number(Number.isFinite(b.price))-Number(Number.isFinite(a.price))||
+   (b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
+ return candidates.slice(0,4);
+}
+function categoryGroups(items){
+ const groups=new Map();
+ for(const d of items){const cat=d.category||'Other deals';if(!groups.has(cat))groups.set(cat,[]);groups.get(cat).push(d);}
+ return [...groups.entries()].sort(([a],[b])=>a.localeCompare(b)).map(([cat,entries])=>
+  '<section class="category-deal-group" aria-label="'+esc(cat)+' deals"><div class="category-deal-heading"><h3>'+esc(cat)+'</h3><small>'+entries.length+' deals</small></div><div class="deal-rows">'+entries.map(card).join('')+'</div></section>'
+ ).join('');
+}
 function filtered(){
  const q=$('query').value.trim().toLowerCase().split(/\s+/).filter(Boolean),cat=$('category').value,store=$('store').value,b=$('budget').value;
  let a=deals.filter(d=>q.every(w=>(d.name+' '+d.category+' '+d.store+' '+(d.spec||'')).toLowerCase().includes(w))&&(!cat||cat===d.category)&&(!store||store===d.store)&&(b===''||(Number.isFinite(d.price)&&d.price<=Number(b))));
@@ -266,12 +328,16 @@ function filtered(){
  return a;
 }
 function render(){
- const a=filtered(),visible=a.slice(0,shown);
+ if(hotEmbed){
+  const picks=hotPicks();
+  $('catalog-list').innerHTML=picks.length?'<div class="home-hot-strip">'+picks.map(hotCard).join('')+'</div>':'<p class="catalog-note">New featured deals are being checked. <a href="/black-friday/" target="_top">Browse all deals</a>.</p>';
+  return;
+ }
+ const a=filtered();
  $('count').textContent=a.length+' matching · '+deals.length+' indexed deals';
- $('catalog-list').innerHTML=visible.length?'<div class="deal-rows">'+visible.map(card).join('')+'</div>':'<p class="empty">No matches. Clear filters or search for something else.</p>';
- $('show-more').hidden=visible.length>=a.length;
- $('show-more').textContent='Show '+Math.min(60,a.length-visible.length)+' more ('+(a.length-visible.length)+' left)';
- $('category-chips').innerHTML=['',...new Set(deals.map(d=>d.category))].map(c=>'<button type="button" data-category="'+esc(c)+'" aria-pressed="'+(c===$('category').value)+'">'+esc(c||'All categories')+'</button>').join('');
+ $('catalog-list').innerHTML=a.length?categoryGroups(a):'<p class="empty">No matches. Clear filters or search for something else.</p>';
+ $('show-more').hidden=true;
+ $('category-chips').innerHTML=['',...new Set(deals.map(d=>d.category))].sort().map(c=>'<button type="button" data-category="'+esc(c)+'" aria-pressed="'+(c===$('category').value)+'">'+esc(c||'All categories')+'</button>').join('');
  document.querySelectorAll('[data-feed]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.feed===mode)));
  renderGifts();
 }
