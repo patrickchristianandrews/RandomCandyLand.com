@@ -81,9 +81,12 @@ for(const feed of FEEDS){
       const history=Array.isArray(old?.history)?old.history.filter(h=>Number.isFinite(Date.parse(h.date))&&(now.getTime()-Date.parse(h.date))<365*86400000):[];
       const today=now.toISOString().slice(0,10);
       if(Number.isFinite(price) && price>0 && !history.some(h=>h.date===today))history.push({date:today,price});
-      const entry={id,name:title,category:category(title),store:retailerFromDealTitle(title),price,reference:null,spec:'',source:link,sourceType:feed.source,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):today,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Check the linked deal report for retailer, exact model, delivery, exclusions and current availability.',featured:feed.source==='DealNews editors',history:history.slice(-365)};
       const existing=byLink.get(id);
-      if(!existing || feed.source==='DealNews editors' || (entry.publishedAt||'')>(existing.publishedAt||''))byLink.set(id,entry);
+      const popular=feed.source==='DealNews popular'||Boolean(existing?.popular);
+      const featured=feed.source==='DealNews editors'||Boolean(existing?.featured);
+      const entry={id,name:title,category:category(title),store:retailerFromDealTitle(title),price,reference:null,spec:'',source:link,sourceType:feed.source,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):today,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Check the linked deal report for retailer, exact model, delivery, exclusions and current availability.',popular,featured,history:history.slice(-365)};
+      if(!existing||feed.source==='DealNews editors'||(entry.publishedAt||'')>(existing.publishedAt||''))byLink.set(id,entry);
+      else {existing.popular=popular;existing.featured=featured;}
     }
     okFeeds++;
     console.log(feed.source,'RSS entries',items.length);
