@@ -1,0 +1,23 @@
+plugins {
+    id 'com.android.application'
+}
+android {
+    namespace 'com.randomcandyland.holidaydeals'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.randomcandyland.holidaydeals'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '2026.1'
+        resValue 'string', 'season_year', '2026'
+    }
+    buildTypes {
+        release { minifyEnabled false }
+        debug { applicationIdSuffix '.debug' }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
