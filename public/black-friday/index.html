@@ -71,6 +71,13 @@ body{background:#130e21}main{max-width:1430px;padding:12px 16px}
 .comparison-list h4{font-size:.73rem;margin:7px 0 0}
 .comparison-list .comparison-item{margin:7px 0;padding:5px;background:#342640;border-radius:5px;font-size:.7rem}
 .comparison-list .comparison-item p{margin:4px 0}
+
+/* Expand the selected product across columns so its retailer prices can be read
+   without compromising the compact resting state of the deal catalog. */
+.deal-rows>.deal-row:has(>details[open]){grid-column:span 2;background:#2d1d3a;border-color:#b98bbd}
+.deal-rows>.deal-row:has(>details[open])>.deal-name{min-height:auto}
+@media(min-width:750px){.deal-rows>.deal-row:has(>details[open]) .merchant-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.deal-rows>.deal-row:has(>details[open]){grid-column:1/-1}.merchant-grid{grid-template-columns:1fr}}
 </style><script>if(new URLSearchParams(location.search).has("embed"))document.documentElement.dataset.dealsEmbed="true";</script></head><body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>Enable JavaScript to search the catalog. <a href="https://hip2save.com/sales-deals/black-friday/">Browse deal reports</a> or <a href="https://blackfriday.ltd/ads/">open ad scans</a>.</p></noscript>
 <main><header><a href="/"><img src="/icon.svg" width="40" height="40" alt="" style="vertical-align:middle"> Random Candy Land</a></header>
