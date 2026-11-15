@@ -5,8 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # Refresh holiday deals on an hourly cadence (other public-data checks run in the same build).
-    - cron: '17 * * * *'
+    # Check 2026 holiday deal RSS and newly published ad previews twice hourly.
+    # GitHub-hosted scheduled jobs may run late; these are polling checks, not a live feed.
+    - cron: '17,47 * * * *'
 
 permissions:
   contents: read
