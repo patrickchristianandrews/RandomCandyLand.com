@@ -190,15 +190,26 @@ public final class MainActivity extends Activity {
         }catch(Exception ignored){}
         LinearLayout.LayoutParams ip=new LinearLayout.LayoutParams(dp(55),dp(55));ip.setMargins(0,0,dp(8),0);mascotPopup.addView(pic,ip);
         LinearLayout message=new LinearLayout(this);message.setOrientation(LinearLayout.VERTICAL);
-        message.addView(text(tidbit?"Tidbit says…":"Sugarfight says…",11,BG,true));
-        message.addView(text(tidbit?"Wow! Mega Mania find!":"Super-duper deal alert!",13,BG,true));
+        message.addView(text(tidbit?"Tidbit says…":"Sugarfoot says…",11,BG,true));
+        message.addView(text(tidbit?"🏷️ WOW! Mega Mania deal!":"👍 Super-duper deal approved!",13,BG,true));
         TextView jump=text("See deal ↗",11,Color.rgb(115,39,95),true);
         jump.setOnClickListener(v->open(pick.source));message.addView(jump);
         mascotPopup.addView(message,new LinearLayout.LayoutParams(0,-2,1));
         TextView close=text("×",24,BG,true);close.setPadding(dp(6),0,0,0);
-        close.setOnClickListener(v->{mascotPopup.setVisibility(View.GONE);mascotShowing=false;});
-        mascotPopup.addView(close);mascotPopup.setVisibility(View.VISIBLE);mascotShowing=true;
-        ui.postDelayed(()->{mascotPopup.setVisibility(View.GONE);mascotShowing=false;},6000);
+        close.setOnClickListener(v->{mascotPopup.animate().cancel();mascotPopup.setVisibility(View.GONE);mascotPopup.setTranslationX(0f);mascotShowing=false;});
+        mascotPopup.addView(close);
+        mascotPopup.setVisibility(View.VISIBLE);mascotShowing=true;
+        // Dash on from the left, approve the deal, then run out to the right.
+        mascotPopup.setTranslationX(-getResources().getDisplayMetrics().widthPixels);
+        mascotPopup.animate().translationX(0f).setDuration(1300).withEndAction(()->{
+            if(!mascotShowing)return;
+            ui.postDelayed(()->{
+                if(!mascotShowing)return;
+                mascotPopup.animate().translationX(dp(310)).setDuration(1200).withEndAction(()->{
+                    mascotPopup.setVisibility(View.GONE);mascotPopup.setTranslationX(0f);mascotShowing=false;
+                }).start();
+            },2800);
+        }).start();
         ui.postDelayed(this::maybeShowMascot,90000);
     }
 
@@ -285,7 +296,7 @@ public final class MainActivity extends Activity {
         long checked=dateMillis(d.publishedAt==null||d.publishedAt.isEmpty()?d.checked:d.publishedAt);
         return checked>0&&System.currentTimeMillis()-checked<=72L*3600000L&&System.currentTimeMillis()-checked>=-86400_000L;
     }
-    private boolean hot(Deal d){return d.rank()>0&&Double.isFinite(d.price)&&d.price>0&&!upcoming(d)&&!ended(d)&&recent(d);}
+    private boolean hot(Deal d){return Double.isFinite(d.price)&&d.price>0&&!upcoming(d)&&!ended(d)&&recent(d);}
     private String timing(Deal d){
         if(upcoming(d))return "STARTS "+fmtDate(dateMillis(d.startsAt));
         if(ended(d))return "ENDED";
@@ -311,7 +322,7 @@ public final class MainActivity extends Activity {
         if(sortMode==1)list.sort(ranking.thenComparing((a,b)->b.publishedAt.compareTo(a.publishedAt)));
         else if(sortMode==2)list.sort(Comparator.comparingDouble(d->Double.isFinite(d.price)?d.price:Double.MAX_VALUE));
         else list.sort(ranking.thenComparing((a,b)->b.publishedAt.compareTo(a.publishedAt)));
-        if(tab==0&&list.size()>4)return new ArrayList<>(list.subList(0,4));
+        if(tab==0&&list.size()>12)return new ArrayList<>(list.subList(0,12));
         return list;
     }
     private void draw(){
@@ -319,7 +330,7 @@ public final class MainActivity extends Activity {
         List<Deal> list=filtered();results.removeAllViews();
         String sub=tab==0?"Most popular recently reported deals":"Browse 2026 Black Friday & Cyber Monday";
         TextView heading=text(sub,15,TEXT,true);heading.setPadding(dp(2),dp(2),0,dp(3));results.addView(heading);
-        TextView description=text(tab==0?"Popular/editor-selected source picks, not verified inventory. Only four shown.":"Publisher listings and announced events · verify at retailer",11,MUTED,false);
+        TextView description=text(tab==0?"Up to 12 recent popular, editor-selected and freshly reported deals; confirm inventory.":"Publisher listings and announced events · verify at retailer",11,MUTED,false);
         results.addView(description);
         if(dataReady)status.setText(deals.size()+" deals indexed · 2026 · last source sync "+lastSync.replace('T',' ').replace('Z',' ') );
         if(list.isEmpty()){
