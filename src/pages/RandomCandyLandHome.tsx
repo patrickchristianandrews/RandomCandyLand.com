@@ -183,8 +183,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
 
       <section aria-labelledby="home-holiday-deals" style={{width:'min(1180px, calc(100% - 24px))',margin:'12px auto',border:'1px solid #805d8d',borderRadius:12,overflow:'hidden',background:'#171023',color:'#fff5fc'}}>
         <div style={{padding:'10px 12px 7px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap'}}>
-          <div><span style={{color:'#ffbde1',fontSize:10,letterSpacing:1.4}}>BLACK FRIDAY · CYBER MONDAY</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(19px,3vw,25px)',margin:'1px 0'}}>🔥 Super Hot Holiday Deals</h2><p style={{margin:0,fontSize:12,color:'#d4bedb'}}>Four recently reported live hot picks · full catalog on the deal page.</p></div>
-          <a href="/black-friday/" style={{padding:'8px 12px',borderRadius:9,background:'#ffc1df',color:'#251127',fontSize:12,fontWeight:800,textDecoration:'none'}}>Black Friday & Cyber Monday ↗</a>
+          <div><span style={{color:'#ffbde1',fontSize:10,letterSpacing:1.4}}>BLACK FRIDAY · CYBER MONDAY 2026</span><h2 id="home-holiday-deals" style={{fontSize:'clamp(19px,3vw,25px)',margin:'1px 0'}}>🔥 Super Hot 2026 Holiday Deals</h2><p style={{margin:0,fontSize:12,color:'#d4bedb'}}>Four recently reported live hot picks · full catalog on the deal page.</p></div>
+          <a href="/black-friday/" style={{padding:'8px 12px',borderRadius:9,background:'#ffc1df',color:'#251127',fontSize:12,fontWeight:800,textDecoration:'none'}}>2026 Black Friday & Cyber Monday ↗</a>
         </div>
         <iframe className="candy-home-hot-deals-frame" src="/black-friday/?embed=featured" title="Four standout holiday deals with prices and sale dates" loading="lazy" scrolling="no" style={{display:'block',width:'100%',border:0}} />
       </section>
