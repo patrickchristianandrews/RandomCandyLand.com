@@ -538,14 +538,16 @@ async function refreshFeed(){
   if(!res.ok)throw Error('Unavailable');
   const payload=await res.json();
   if(!Array.isArray(payload.deals))throw Error('Invalid');
+  deals.splice(0,deals.length,...curated);
   const ids=new Set(deals.map(d=>d.id));
   for(const item of payload.deals){if(!item||typeof item.id!=='string'||typeof item.name!=='string'||!/^https:\/\//.test(item.source||'')||ids.has(item.id))continue;deals.push(item);ids.add(item.id);}
   renderSourceHealth(payload);
   $('feed-status').textContent='Source feed: '+(Number.isFinite(Date.parse(payload.generatedAt))?new Date(payload.generatedAt).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'}):'date unavailable')+' · '+(payload.sourcesSucceeded?'Refreshed source reports; price and stock require checkout confirmation.':'Last source check failed; entries may be stale.');
   rebuildOptions();render();
  }catch{
-  $('feed-status').textContent='Showing '+curated.length+' individually sourced deals; expanded feed unavailable. See source links and ad scans below.';
+  $('feed-status').textContent='Showing '+deals.length+' indexed deals from the last available snapshot. The latest source feed could not be loaded.';
  }
 }
 refreshFeed();refreshAdIndex();
+setInterval(()=>{if(!document.hidden)refreshFeed();},300000);
 </script></body></html>
