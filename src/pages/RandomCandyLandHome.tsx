@@ -222,6 +222,23 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         />
       </section>
 
+      <section className="candy-home-amazon" aria-labelledby="home-amazon-title">
+        <div className="candy-home-amazon-icon" aria-hidden="true">🛒</div>
+        <div className="candy-home-amazon-copy">
+          <span className="candy-home-amazon-kicker">✦ SHOPPING TOOLS · FREE · YEAR-ROUND</span>
+          <h2 id="home-amazon-title">Amazon <em>Deal Hunter</em></h2>
+          <p>Hunt for Amazon discounts by product, category, price and markdown percentage. Search live listings without scrolling through unrelated deals.</p>
+        </div>
+        <form className="candy-home-amazon-search" action="/amazon-deal-hunter/" method="get" role="search" aria-label="Search with Amazon Deal Hunter">
+          <label htmlFor="home-amazon-query">Find a product</label>
+          <div className="candy-home-amazon-search-row">
+            <input id="home-amazon-query" name="q" type="search" minLength={2} maxLength={140} required placeholder="Headphones, LEGO, laptops…" />
+            <button type="submit">Find discounts ↗</button>
+          </div>
+          <a href="/amazon-deal-hunter/">Explore all Amazon Deal Hunter filters ↗</a>
+        </form>
+      </section>
+
       <section className="candyland-world" aria-labelledby="candyland-map">
         <div className="candyland-world-header">
           <h2 id="candyland-map">Explore Candy Land</h2>
