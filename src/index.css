@@ -2926,32 +2926,73 @@ body {
 }
 
 
-/* Standalone Amazon Deal Hunter spotlight; distinct from Black Friday offers. */
+/* Standalone Amazon Deal Hunter: the entire compact card is one accessible link.
+   No third-column button that can collapse into vertical text on mobile. */
 .candy-home-amazon{
-  width:min(1180px,calc(100% - 24px));margin:11px auto 19px;
-  border:1px solid #8f6b9b;border-radius:13px;
+  width:min(1180px,calc(100% - 24px));
+  margin:10px auto 17px;
+  border:1px solid #8f6b9b;
+  border-radius:13px;
   background:linear-gradient(112deg,#29203d 0%,#3c264b 54%,#302138 100%);
-  display:grid;grid-template-columns:50px minmax(0,1fr) auto;
-  align-items:center;gap:14px;padding:14px 17px;color:#fff4fc;
+  color:#fff4fc;
   box-shadow:0 3px 18px #140b2455;
+  overflow:hidden;
 }
-.candy-home-amazon-icon{display:grid;place-items:center;background:#ffdeee;box-shadow:0 2px 13px #0002;width:48px;height:48px;border-radius:13px;font-size:25px}
+.candy-home-amazon-link{
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr) 25px;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  min-width:0;
+  padding:13px 16px;
+  color:#fff4fc!important;
+  text-decoration:none!important;
+  border-radius:12px;
+}
+.candy-home-amazon-link:is(:hover,:focus-visible){background:#ffffff12;text-decoration:none!important;}
+.candy-home-amazon-link:focus-visible{outline:3px solid #ffe7a4;outline-offset:-4px;}
+.candy-home-amazon-icon{
+  display:grid;place-items:center;
+  background:#ffdeee;color:#372034;
+  width:48px;height:48px;border-radius:13px;
+  font-size:25px;
+}
 .candy-home-amazon-copy{min-width:0}
-.candy-home-amazon-kicker{font-size:.61rem;font-weight:850;letter-spacing:.095em;color:#ffbde0}
-.candy-home-amazon h2{font-size:clamp(18px,2.5vw,25px);letter-spacing:-.025em;line-height:1.15;margin:3px 0 5px}
+.candy-home-amazon-kicker{
+  display:block;color:#ffbde0;
+  font-size:10px;font-weight:850;
+  letter-spacing:.065em;line-height:1.3;
+}
+.candy-home-amazon h2{
+  margin:3px 0 4px;
+  font-size:clamp(17px,2.5vw,24px);
+  line-height:1.16;letter-spacing:-.025em;
+  color:#fff4fc;
+}
 .candy-home-amazon h2 em{color:#ffd6ad;font-style:normal}
-.candy-home-amazon-copy p{margin:0;color:#e2cfe4;font-size:12px;line-height:1.42;max-width:650px}
-.candy-home-amazon-cta{
-  display:inline-flex;align-items:center;justify-content:center;text-align:center;
-  min-height:40px;padding:10px 15px;border-radius:9px;
-  background:#ffd0e7;color:#321736;font-weight:850;font-size:12px;
-  text-decoration:none;white-space:nowrap;transition:background .15s ease;
+.candy-home-amazon-copy p{
+  margin:0;color:#e2cfe4;
+  font-size:12px;line-height:1.38;
+  max-width:760px;
 }
-.candy-home-amazon-cta:hover,.candy-home-amazon-cta:focus-visible{background:#ffe6f1;color:#321736;text-decoration:none}
-@media(max-width:780px){
- .candy-home-amazon{grid-template-columns:43px minmax(0,1fr);gap:9px 11px;padding:12px}
- .candy-home-amazon-icon{width:42px;height:42px}
- .candy-home-amazon-cta{grid-column:1/-1;justify-self:stretch;min-height:39px}
- .candy-home-amazon-copy p{font-size:11px}
+.candy-home-amazon-arrow{
+  display:grid;place-items:center;
+  width:26px;height:26px;
+  font-size:19px;font-weight:750;
+  color:#ffc5e5;
 }
-
+@media(max-width:660px){
+  .candy-home-amazon-link{grid-template-columns:42px minmax(0,1fr) 17px;gap:9px;padding:11px 12px}
+  .candy-home-amazon-icon{width:42px;height:42px;font-size:23px}
+  .candy-home-amazon-kicker{font-size:9px;letter-spacing:.045em}
+  .candy-home-amazon h2{font-size:18px}
+  .candy-home-amazon-copy p{font-size:11px;line-height:1.38}
+  .candy-home-amazon-arrow{width:17px;height:23px;font-size:17px}
+}
+@media(max-width:365px){
+  .candy-home-amazon-link{grid-template-columns:35px minmax(0,1fr) 15px;gap:7px;padding:10px}
+  .candy-home-amazon-icon{width:35px;height:35px;font-size:19px}
+  .candy-home-amazon-kicker{font-size:8px}
+  .candy-home-amazon h2{font-size:16px}
+}
