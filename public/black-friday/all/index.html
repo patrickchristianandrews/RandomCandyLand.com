@@ -394,7 +394,7 @@ function card(d){
  const href=esc(d.source),name=esc(d.name);
  return '<article class="deal-row"><small class="deal-meta">'+esc(d.store||'See source')+' · '+esc(d.category||'Other')+(d.featured?' · ✦ Pick':'')+'</small>'+
  '<a class="deal-name" target="_blank" rel="noopener" href="'+href+'" title="'+name+'">'+name+'</a>'+
- '<div class="deal-pricing"><span class="price">'+money(d.price)+'</span><span class="live-date" title="'+esc(status(d))+'">'+esc(status(d))+'</span></div><small class="deal-typical">'+esc(typical)+'</small>'+
+ '<div class="deal-pricing"><span class="price">'+(Number.isFinite(d.price)||d.announced?money(d.price):'See source for price')+'</span><span class="live-date" title="'+esc(status(d))+'">'+esc(status(d))+'</span></div><small class="deal-typical">'+esc(typical)+'</small>'+
  '<div class="deal-facts"><span class="sweet '+(h.score===null?'pending':'')+'" title="'+esc(details)+'">'+esc(score)+'</span></div>'+
  '<div class="deal-foot"><small>'+esc(d.sourceType||'Source')+' · '+esc(d.checked||'')+'</small><div class="card-actions"><button type="button" data-share="'+esc(d.id)+'" class="share-deal" aria-label="Share deal: '+name+'" title="Share deal">↗</button><button type="button" class="bookmark" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Remove saved deal':'Save deal')+': '+name+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div></div>'+
   '<details><summary>Prices & info</summary>'+retailerPrices(d)+reportsFor(d)+(d.spec?'<p class="deal-details-one">'+esc(d.spec)+'</p>':'')+(d.why?'<p class="deal-details-one">'+esc(d.why)+'</p>':'')+'<details class="similar-models"><summary>More info · history & alternatives</summary><p>'+esc(d.catch||'Confirm terms and stock at the retailer.')+'</p><p>'+esc(details)+'</p>'+alternatives(d)+'</details></details></article>';
@@ -540,7 +540,14 @@ async function refreshFeed(){
   if(!Array.isArray(payload.deals))throw Error('Invalid');
   deals.splice(0,deals.length,...curated);
   const ids=new Set(deals.map(d=>d.id));
-  for(const item of payload.deals){if(!item||typeof item.id!=='string'||typeof item.name!=='string'||!/^https:\/\//.test(item.source||'')||ids.has(item.id))continue;deals.push(item);ids.add(item.id);}
+  const airPods=curated.find(deal=>deal.id==='airpods-pro3'&&Number.isFinite(deal.price));
+  for(const item of payload.deals){
+   if(!item||typeof item.id!=='string'||typeof item.name!=='string'||!/^https:\/\//.test(item.source||'')||ids.has(item.id))continue;
+   // Keep the priced retailer entry when a publisher repeats the product without a price.
+   if(airPods&&!Number.isFinite(item.price)&&/\bAirPods\s+Pro\s+3\b/i.test(item.name))continue;
+   deals.push(item);
+   ids.add(item.id);
+  }
   renderSourceHealth(payload);
   $('feed-status').textContent='Source feed: '+(Number.isFinite(Date.parse(payload.generatedAt))?new Date(payload.generatedAt).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'}):'date unavailable')+' · '+(payload.sourcesSucceeded?'Refreshed source reports; price and stock require checkout confirmation.':'Last source check failed; entries may be stale.');
   rebuildOptions();render();
