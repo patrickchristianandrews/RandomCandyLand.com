@@ -87,47 +87,16 @@ html[data-embed] body{background:transparent}html[data-embed] main{width:100%;ma
 .hot-card .deal-tag{position:absolute;right:5px;top:28px;padding:3px 6px;border-radius:7px;background:#fff0be;color:#50304a;border:1px solid #f3bb61;font-size:.62rem;font-weight:850;transform:rotate(-6deg);pointer-events:none;z-index:2;box-shadow:0 3px 12px #0006;animation:tag-pop .35s both}
 .hot-card.deal-approved{border-color:#ffe7a4;box-shadow:0 0 0 2px #ffe7a444}
 @keyframes tag-pop{from{transform:scale(.3) rotate(-16deg);opacity:0}to{transform:scale(1) rotate(-6deg);opacity:1}}
-/* Tidbit and Sugarfoot now have independently moving legs, paws, tails and bodies.
-   The outer frame travels across the viewport; the animated dog faces its route. */
-.deal-runner{position:fixed;top:10px;left:0;width:120px;height:128px;z-index:38;pointer-events:none;will-change:transform}
-.deal-runner[hidden],html[data-embed] .deal-runner{display:none!important}
-.runner-dog{position:absolute;left:0;top:4px;width:116px;height:100px;transform:scaleX(var(--face-x,-1));transform-origin:center center}
-.runner-shadow{position:absolute;left:29px;top:88px;width:73px;height:10px;background:#120b1d77;filter:blur(4px);border-radius:50%;z-index:0}
-.runner-body{position:absolute;left:39px;top:40px;width:64px;height:42px;border-radius:45% 53% 38% 42%;z-index:2;background:linear-gradient(145deg,var(--fur-light,#ffdab0),var(--fur,#c98959));border:2px solid var(--fur-edge,#9d623d);box-shadow:inset -8px -7px 0 #77462924}
-.runner-neck{position:absolute;left:34px;top:43px;width:23px;height:31px;border-radius:48%;background:var(--fur-light,#ffdab0);z-index:2;transform:rotate(-13deg)}
-.runner-tail{position:absolute;left:94px;top:36px;width:35px;height:13px;background:var(--fur,#c98959);border:2px solid var(--fur-edge,#9d623d);border-radius:80% 80% 90% 0;transform-origin:2px 12px;z-index:1;animation:runner-wag .18s ease-in-out infinite alternate}
-.runner-head{position:absolute;left:-3px;top:4px;width:71px;height:63px;object-fit:contain;z-index:5;filter:drop-shadow(0 3px 3px #0005);animation:runner-nod var(--stride,.22s) ease-in-out infinite alternate}
-.runner-leg{position:absolute;top:67px;width:13px;height:29px;transform-origin:50% 4px;background:var(--fur,#c98959);border:1.5px solid var(--fur-edge,#9d623d);border-radius:9px 9px 7px 6px;z-index:4;animation:runner-step var(--stride,.22s) ease-in-out infinite alternate}
-.runner-leg::after{content:'';position:absolute;bottom:-2px;left:-3px;width:17px;height:9px;border-radius:12px 7px 6px 6px;background:var(--fur-light,#ffdab0);border:1px solid var(--fur-edge,#9d623d)}
-.runner-leg.far{z-index:1;top:65px;filter:brightness(.8);animation-name:runner-step-opposite}
-.runner-leg.front{left:53px}.runner-leg.rear{left:90px}
-.runner-leg.front.far{left:60px}.runner-leg.rear.far{left:83px}
-.runner-dust{position:absolute;left:103px;top:82px;width:18px;height:14px;z-index:0;opacity:.75;animation:runner-dust .34s ease-out infinite}
-.runner-dust::before,.runner-dust::after{content:'';position:absolute;background:#f4d1aaab;border-radius:50%}
-.runner-dust::before{width:8px;height:8px;left:0;bottom:0}.runner-dust::after{width:5px;height:5px;left:10px;bottom:3px}
-.deal-runner.tidbit{--fur:#c58a54;--fur-light:#f8d5a3;--fur-edge:#955f36;--stride:.24s}
-.deal-runner.sugarfoot{--fur:#bfa3a3;--fur-light:#f9e0d2;--fur-edge:#7f666f;--stride:.18s}
-.deal-runner.scurrying .runner-body,.deal-runner.scurrying .runner-neck{animation:runner-hustle var(--stride,.22s) ease-in-out infinite alternate}
-.deal-runner.paused .runner-dog{animation:runner-sniff .4s ease-out both}
-.deal-runner.paused .runner-head{animation:runner-approve .75s ease-in-out 1}
-.deal-runner.paused .runner-tail{animation-duration:.12s}
-.deal-runner.paused .runner-leg{animation:none;transform:rotate(0) translateY(0)}
-.deal-runner.paused .runner-leg.front:not(.far){animation:runner-paw .52s ease-in-out 2}
-.deal-runner.paused .runner-dust{opacity:0;animation:none}
-.runner-name{position:absolute;top:102px;left:5px;padding:2px 7px;border-radius:9px;background:#fff3e7;color:#43263e;font-size:.63rem;font-weight:850;border:1px solid #ffce9d;white-space:nowrap}
-.runner-bubble{position:absolute;top:-24px;left:18px;width:max-content;max-width:180px;padding:6px 9px;border-radius:12px;background:#ffe2a6;color:#482d36;border:2px solid #fbbd70;box-shadow:0 4px 10px #0005;font-size:.72rem;font-weight:850;opacity:0;transform:scale(.65);transition:opacity .22s ease,transform .22s ease}
+@keyframes tag-pop{from{transform:scale(.3) rotate(-16deg);opacity:0}to{transform:scale(1) rotate(-6deg);opacity:1}}
+.deal-runner{position:fixed;top:10px;left:0;width:106px;height:113px;z-index:38;pointer-events:none;will-change:transform}
+.deal-runner[hidden]{display:none}
+.deal-runner img{width:83px;height:83px;display:block;object-fit:contain;filter:drop-shadow(0 4px 5px #0008);animation:runner-bounce .18s infinite alternate ease-in-out}
+.deal-runner.paused img{animation:runner-paw .48s ease-in-out 2}
+.runner-name{position:absolute;top:73px;left:5px;padding:2px 6px;border-radius:9px;background:#fff3e7;color:#43263e;font-size:.61rem;font-weight:850;border:1px solid #ffce9d}
+.runner-bubble{position:absolute;top:-20px;left:21px;max-width:180px;width:max-content;border-radius:10px;padding:5px 8px;background:#ffe2a6;color:#482d36;border:2px solid #fbbd70;box-shadow:0 4px 10px #0005;font-size:.72rem;font-weight:850;opacity:0;transform:scale(.65);transition:opacity .22s ease,transform .22s ease}
 .deal-runner.paused .runner-bubble{opacity:1;transform:scale(1)}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@keyframes runner-step{from{transform:rotate(28deg) translateY(-4px)}to{transform:rotate(-30deg) translateY(3px)}}
-@keyframes runner-step-opposite{from{transform:rotate(-27deg) translateY(2px)}to{transform:rotate(27deg) translateY(-4px)}}
-@keyframes runner-hustle{from{translate:0 0}to{translate:0 -4px}}
-@keyframes runner-nod{from{transform:rotate(-3deg) translateY(1px)}to{transform:rotate(4deg) translateY(-3px)}}
-@keyframes runner-wag{from{transform:rotate(-32deg)}to{transform:rotate(27deg)}}
-@keyframes runner-dust{from{opacity:.7;transform:translate(0,0) scale(.7)}to{opacity:0;transform:translate(20px,-10px) scale(1.4)}}
-@keyframes runner-sniff{from{translate:0 -2px}to{translate:0 0}}
-@keyframes runner-approve{0%,100%{transform:rotate(0)}30%{transform:rotate(-9deg) translateY(3px)}60%{transform:rotate(9deg) translateY(-3px)}}
-@keyframes runner-paw{0%,100%{transform:rotate(0) translateY(0)}45%{transform:rotate(-35deg) translateY(-10px)}}
-
+@keyframes runner-bounce{from{transform:translateY(1px) rotate(-2deg)}to{transform:translateY(-7px) rotate(4deg)}}
+@keyframes runner-paw{0%,100%{transform:rotate(0deg)}45%{transform:rotate(-15deg) translateY(-4px)}}
 @media(max-width:700px){.quick-nav a{font-size:.68rem;padding:6px 9px}.deal-runner{scale:.83;transform-origin:top left}}
 
 @media(prefers-reduced-motion:reduce){.deal-runner{display:none!important}.deal-tag{animation:none!important}}
@@ -191,21 +160,7 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
 <p class="disclaimer" id="feed-status">LIVE means recently reported, not verified stock. Confirm the price, seller and shipping at checkout.</p>
 <details class="feed-sources" id="feed-sources"><summary id="sources-heading">Deal source coverage · checking…</summary><div class="source-chips" id="source-chips"></div><p class="scan-note">Public RSS headlines link to their originating publishers. The index is not every online promotion, and reported prices are not verified retailer quotes.</p></details>
 </main>
-<div class="deal-runner" id="deal-runner" hidden aria-hidden="true">
-  <div class="runner-dog">
-    <span class="runner-shadow"></span>
-    <span class="runner-tail"></span>
-    <span class="runner-leg front far"></span>
-    <span class="runner-leg rear far"></span>
-    <span class="runner-neck"></span>
-    <span class="runner-body"></span>
-    <span class="runner-leg front"></span>
-    <span class="runner-leg rear"></span>
-    <img class="runner-head" id="runner-image" alt="">
-    <span class="runner-dust"></span>
-  </div>
-  <div class="runner-bubble" id="runner-bubble">👍 Wow!</div><span class="runner-name" id="runner-name"></span>
-</div><div class="sr-only" id="deal-announcement" aria-live="polite"></div><div class="share-feedback" id="share-feedback" hidden role="status"></div>
+<div class="deal-runner" id="deal-runner" hidden aria-hidden="true"><img id="runner-image" alt=""><div class="runner-bubble" id="runner-bubble">👍 Wow!</div><span class="runner-name" id="runner-name"></span></div><div class="sr-only" id="deal-announcement" aria-live="polite"></div><div class="share-feedback" id="share-feedback" hidden role="status"></div>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -324,7 +279,6 @@ async function runMascot(){
   let sticker=null;
   runner.classList.remove('tidbit','sugarfoot','paused','scurrying');
   runner.classList.add(sugar?'sugarfoot':'tidbit','scurrying');
-  runner.style.setProperty('--face-x',fromLeft?'-1':'1');
   runner.style.top=Math.round(runTop)+'px';
   runner.style.transform='translate3d('+fromX+'px,0,0)';
   $('runner-image').src=sugar?mascotImages.sugarfoot:mascotImages.tidbit;
