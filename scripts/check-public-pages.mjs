@@ -2,8 +2,9 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const required = [
-  ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','deal-runner','Tidbit','Sugarfoot','data-amazon-finder','amazon-finder.js']],
-  ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"','data-amazon-finder']],
+  ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','deal-runner','Tidbit','Sugarfoot','runner-leg front far','runner-leg rear far','@keyframes runner-step','@keyframes runner-wag','scurryTo(runner,fromX,stopX']],
+  ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"']],
+  ['dist/amazon-deal-hunter/index.html', ['Amazon Deal Hunter','data-amazon-finder','data-mode="full"','GTM-TQRDB5KL']],
   ['dist/black-friday/amazon-discount-finder/index.html', ['Amazon Deal Hunter 2026','data-amazon-finder','data-mode="full"','id="af-recent"','GTM-TQRDB5KL']],
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
@@ -23,6 +24,13 @@ const required = [
 ];
 
 let failures = 0;
+for(const path of ['dist/black-friday/index.html','dist/black-friday/all/index.html']){
+  if(fs.existsSync(path) && fs.readFileSync(path,'utf8').includes('data-amazon-finder')){
+    console.error('Amazon Deal Hunter must remain separate from the Black Friday deal pages:',path);
+    failures++;
+  }
+}
+
 
 /* Original Amazon Deal Hunter: validate safe URL construction, bounds and
    fallback without depending on a live Amazon scraper. */
