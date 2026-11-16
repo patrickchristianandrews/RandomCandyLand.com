@@ -2924,3 +2924,38 @@ body {
  .candy-home-holiday h2{font-size:17px}
  .candy-home-holiday-link{white-space:nowrap}
 }
+
+
+/* Standalone Amazon Deal Hunter spotlight; distinct from Black Friday offers. */
+.candy-home-amazon{
+  width:min(1180px,calc(100% - 24px));margin:11px auto 19px;
+  border:1px solid #8f6b9b;border-radius:13px;
+  background:linear-gradient(112deg,#29203d 0%,#3c264b 54%,#302138 100%);
+  display:grid;grid-template-columns:50px minmax(210px,1fr) minmax(250px,.75fr);
+  align-items:center;gap:14px;padding:14px 17px;color:#fff4fc;
+  box-shadow:0 3px 18px #140b2455;
+}
+.candy-home-amazon-icon{display:grid;place-items:center;background:#ffdeee;box-shadow:0 2px 13px #0002;width:48px;height:48px;border-radius:13px;font-size:25px}
+.candy-home-amazon-copy{min-width:0}
+.candy-home-amazon-kicker{font-size:.61rem;font-weight:850;letter-spacing:.095em;color:#ffbde0}
+.candy-home-amazon h2{font-size:clamp(18px,2.5vw,25px);letter-spacing:-.025em;line-height:1.15;margin:3px 0 5px}
+.candy-home-amazon h2 em{color:#ffd6ad;font-style:normal}
+.candy-home-amazon-copy p{margin:0;color:#e2cfe4;font-size:12px;line-height:1.38}
+.candy-home-amazon-search{min-width:0}
+.candy-home-amazon-search>label{display:block;color:#ffe4ef;font-size:11px;font-weight:750;margin-bottom:5px}
+.candy-home-amazon-search-row{display:flex;gap:6px}
+.candy-home-amazon-search input{flex:1;min-width:0;border:1px solid #9b83a4;border-radius:8px;background:#160e24;color:#fff;padding:9px 10px;font:500 12px system-ui}
+.candy-home-amazon-search input::placeholder{color:#c0aecb}
+.candy-home-amazon-search button{flex-shrink:0;background:#ffd0e7;border:0;border-radius:8px;color:#321736;padding:8px 11px;font-weight:850;font-size:11px;cursor:pointer}
+.candy-home-amazon-search button:hover{background:#ffe6f1}
+.candy-home-amazon-search>a{display:inline-block;font-size:11px;margin-top:5px;color:#ffe0ee;text-decoration:underline}
+@media(max-width:780px){
+ .candy-home-amazon{grid-template-columns:43px minmax(0,1fr);gap:9px 11px;padding:12px}
+ .candy-home-amazon-icon{width:42px;height:42px}
+ .candy-home-amazon-search{grid-column:1/-1}
+ .candy-home-amazon-copy p{font-size:11px}
+}
+@media(max-width:380px){
+ .candy-home-amazon-search-row{flex-wrap:wrap}
+ .candy-home-amazon-search button{width:100%;min-height:33px}
+}
