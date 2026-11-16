@@ -178,6 +178,18 @@ for(const path of ['dist/trumpagotchi-fm1/index.html','dist/candy-match/index.ht
   }
 }
 const homeInstallSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
+const amazonHomeSource = fs.readFileSync('src/pages/RandomCandyLandHome.tsx','utf8');
+const amazonHomeCss = fs.readFileSync('src/index.css','utf8');
+if(!amazonHomeSource.includes('candy-home-amazon-link') ||
+   !amazonHomeSource.includes('href="/amazon-deal-hunter/"') ||
+   !amazonHomeCss.includes('grid-template-columns:48px minmax(0,1fr) 25px') ||
+   amazonHomeSource.includes('Find deep discounts') ||
+   amazonHomeSource.includes('candy-home-amazon-cta') ||
+   amazonHomeCss.includes('.candy-home-amazon-cta')){
+  console.error('Amazon Deal Hunter homepage feature must be one compact full-card link, without the broken vertically wrapping discount CTA.');
+  failures++;
+}
+
 const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
 if(!homeInstallSource.includes('className="candyland-navbar candyland-navbar-ai"') ||
    !homeInstallSource.includes('candyland-navbar-feature-title') ||
