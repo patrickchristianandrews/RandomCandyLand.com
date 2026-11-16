@@ -71,6 +71,20 @@ body{background:#130e21}main{max-width:1430px;padding:12px 16px}
 .comparison-list h4{font-size:.73rem;margin:7px 0 0}
 .comparison-list .comparison-item{margin:7px 0;padding:5px;background:#342640;border-radius:5px;font-size:.7rem}
 .comparison-list .comparison-item p{margin:4px 0}
+.comparison-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.comparison-heading>b{font-size:.83rem;color:#bdf9d6}
+.comparison-list .comparison-item{padding:9px 10px;overflow-wrap:anywhere}
+.comparison-item>a{display:inline-block;margin-top:5px;font-weight:700;line-height:1.35}
+.comparison-item .comparison-savings{color:#e8caeb;font-weight:650}
+.comparison-specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:8px 0}
+.comparison-specs>div{background:#23172f;border:1px solid #594568;padding:7px;border-radius:6px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.comparison-specs b{font-size:.67rem;color:#edc9e5;overflow-wrap:anywhere}
+.comparison-specs span{font-size:.7rem;line-height:1.38;color:#f6ebf7;overflow-wrap:anywhere}
+.comparison-differences{margin-top:8px}.comparison-differences>strong{font-size:.72rem;color:#bdf9d6}
+.comparison-differences ul{margin:4px 0;padding-left:18px}.comparison-differences li{margin:4px 0;line-height:1.38}
+.comparison-unknown,.comparison-warning,.comparison-foot{font-size:.67rem!important;line-height:1.4;color:#dccbdf}
+@media(max-width:460px){.comparison-specs{grid-template-columns:1fr}}
+
 
 /* Expand the selected product across columns so its retailer prices can be read
    without compromising the compact resting state of the deal catalog. */
@@ -237,23 +251,83 @@ function productFamily(d){
  ['home textiles',/towel|blanket|sheet/]])if(re.test(s))return name;
  return (d.category||'More deals').toLowerCase();
 }
-function specFacts(s){const t=String(s||'');const ram=t.match(/(\d+)\s*GB RAM/i);const storage=t.match(/(\d+)\s*(TB|GB)\s*(?:SSD|eMMC|storage)/i);const inch=t.match(/(\d+(?:\.\d+)?)\s*(?:(?:-|\s)?inch|["″])/i);
- return {ram:ram?Number(ram[1]):null,storage:storage?Number(storage[1])*(storage[2].toLowerCase()==='tb'?1024:1):null,inch:inch?Number(inch[1]):null};}
-function tradeoffs(base,alt){
- const a=specFacts(base.spec),b=specFacts(alt.spec),results=[];
- if(a.ram!==null&&b.ram!==null&&a.ram!==b.ram)results.push(b.ram>a.ram?'More RAM for multitasking ('+b.ram+' GB vs '+a.ram+' GB)':'Less RAM limits heavy multitasking ('+b.ram+' GB vs '+a.ram+' GB)');
- if(a.storage!==null&&b.storage!==null&&a.storage!==b.storage)results.push(b.storage>a.storage?'More room for apps/files ('+b.storage+' GB vs '+a.storage+' GB)':'Less room for apps/files ('+b.storage+' GB vs '+a.storage+' GB)');
- if(a.inch!==null&&b.inch!==null&&a.inch!==b.inch)results.push((b.inch>a.inch?'Larger screen gives more workspace':'Smaller screen is easier to carry')+' ('+b.inch+'″ vs '+a.inch+'″)');
- if(results.length)return results.slice(0,2).join(' · ')+'.';
- return 'Different model/features. Check compatibility, included accessories, and specs before choosing; the higher price alone does not prove better quality.';
+function specFacts(d){
+ // Extract only facts actually present in a product name/specification.
+ const title=String(d.name||''),spec=String(d.spec||''),t=title+' · '+spec;
+ const ram=t.match(/\b(\d{1,3})\s*GB\s*(?:RAM|memory)\b/i);
+ const storage=t.match(/\b(\d+(?:\.\d+)?)\s*(TB|GB)\s*(?:SSD|eMMC|storage)\b/i);
+ const screen=t.match(/\b(\d+(?:\.\d+)?)\s*[- ]?\s*(?:inch|inches|["″])\b/i)||t.match(/\b(\d+(?:\.\d+)?)\s*[- ]?inch\b/i);
+ const capacity=t.match(/\b(\d+(?:\.\d+)?)\s*[- ]?\s*(quarts?|qt|liters?|litres?|fl\.?\s*oz|ounces?)\b/i);
+ const count=t.match(/\b(\d{1,3})\s*[- ]?\s*(?:piece|pieces|pc|pack|count|ct)\b/i);
+ const model=spec.match(/^(?:model\s*[:#]?\s*|sku\s*[:#]?\s*|set\s*)(\d{4,}|[a-z]{1,6}\d[a-z\d-]{2,})\b/i)||spec.match(/^(\d{1,3}-[a-z]+\d{3,}[a-z]*|[a-z]{1,6}\d[a-z\d-]{2,}|\d{5,})\b/i);
+ const processor=t.match(/\b(Snapdragon X(?:\s+(?:Elite|Plus))?|Intel Core(?:\s+Ultra)?\s*[3579](?:\s*[- ]?\d{3,5}[A-Z]*)?|AMD Ryzen\s*[3579](?:\s*[- ]?\d{3,5}[A-Z]*)?|Apple M[1-9](?:\s+(?:Pro|Max|Ultra))?)\b/i);
+ const panel=t.match(/\b(OLED|QLED|Mini[- ]LED|LCD)\b/i);
+ const resolution=t.match(/\b(8K|4K|2K|1080p|1440p)\b/i);
+ const condition=t.match(/\b(open[- ]box|refurbished|renewed|pre-owned|used|new in box)\b/i);
+ const generation=t.match(/\b(?:Pro|Series|Gen(?:eration)?)\s*(\d{1,2})\b/i);
+ const normalize=(x)=>x?String(x).replace(/\s+/g,' ').trim():null;
+ return {
+  model:normalize(model?.[1]),ram:ram?ram[1]+' GB':null,
+  storage:storage?(Number(storage[1])*(storage[2].toUpperCase()==='TB'?1024:1))+' GB':null,
+  screen:screen?screen[1]+' inches':null,
+  capacity:capacity?capacity[1]+' '+normalize(capacity[2]).toLowerCase():null,
+  count:count?count[1]+' pieces/items':null,
+  processor:normalize(processor?.[1]),panel:normalize(panel?.[1]),
+  resolution:normalize(resolution?.[1]),condition:normalize(condition?.[1]),
+  generation:normalize(generation?.[1])
+ };
+}
+function productBrand(d){
+ const n=String(d.name||'');
+ const brands=['Apple','Samsung','HP','Lenovo','Dell','Acer','ASUS','LG','Sony','Bose','Shark','Ninja','Nespresso','LEGO','VIZIO','Dyson','TCL','Hisense','JBL','Anker','Ring','Beats','Nintendo','Microsoft','Roku','Walmart','Target','KitchenAid'];
+ return brands.find(b=>n.toLowerCase().startsWith(b.toLowerCase()+' ')||n.toLowerCase()===b.toLowerCase())||null;
+}
+function comparisonDifferences(base,other){
+ const a=specFacts(base),b=specFacts(other);
+ const fields=[['Model / set number','model'],['Memory','ram'],['Storage','storage'],['Screen size','screen'],['Display panel','panel'],['Resolution','resolution'],['Processor','processor'],['Capacity','capacity'],['Pack / piece count','count'],['Condition','condition'],['Generation','generation']];
+ const differences=[];
+ for(const [label,key] of fields){
+  if(a[key]&&b[key]&&String(a[key]).toLowerCase()!==String(b[key]).toLowerCase())differences.push({label,base:a[key],other:b[key]});
+ }
+ const unknown=fields.filter(([,key])=>(a[key]&&!b[key])||(!a[key]&&b[key])).map(([label])=>label);
+ return {differences:differences.slice(0,6),unknown:unknown.slice(0,4)};
+}
+function comparisonSimilarity(base,other){
+ const brandA=productBrand(base),brandB=productBrand(other);
+ const words=s=>new Set(String(s||'').toLowerCase().match(/[a-z]{4,}/g)?.filter(w=>!['with','black','sale','deal','holiday','2026','wireless','smart','inch','edition'].includes(w))||[]);
+ const a=words(base.name),b=words(other.name);
+ let overlap=0;for(const word of a)if(b.has(word))overlap++;
+ return (brandA&&brandA===brandB?50:0)+overlap*12+comparisonDifferences(base,other).differences.length*2-
+   Math.min(15,Math.abs(base.price-other.price)/Math.max(base.price,1)*5);
 }
 function alternatives(d){
  if(!Number.isFinite(d.price))return '<p>Comparable pricing is unavailable for this item.</p>';
- const same=deals.filter(x=>x.id!==d.id&&Number.isFinite(x.price)&&productFamily(x)===productFamily(d)&&x.category===d.category);
- const lower=same.filter(x=>x.price<d.price).sort((a,b)=>b.price-a.price)[0];
- const higher=same.filter(x=>x.price>d.price).sort((a,b)=>a.price-b.price)[0];
- const match=(x,kind)=>x?'<div class="comparison-item"><strong>'+(kind==='low'?'↓ Less expensive':'↑ More expensive')+'</strong> · <a href="'+esc(x.source)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a> · '+money(x.price)+'<p>'+money(Math.abs(d.price-x.price))+(kind==='low'?' less':' more')+'. '+esc(tradeoffs(d,x))+'</p></div>':'<p class="catalog-note">No '+(kind==='low'?'lower':'higher')+'-priced comparable '+esc(productFamily(d))+' tracked yet.</p>';
- return '<div class="comparison-list"><h4>One below · one above</h4><p class="catalog-note">Comparable product type, not necessarily identical features. Price differences are based on reported item prices.</p>'+match(lower,'low')+match(higher,'high')+'</div>';
+ const family=productFamily(d);
+ // Only compare clearly identified product families; a generic catalog category is not a product match.
+ const known=['laptop','headphones','tv','coffee','air fryer','lego','camera','hair styling','power tools','tablet','console','speaker','home textiles'];
+ const same=known.includes(family)?deals.filter(x=>x.id!==d.id&&Number.isFinite(x.price)&&x.price>0&&
+  productFamily(x)===family&&x.category===d.category&&/^https:\/\//.test(x.source||'')):[];
+ const pick=kind=>same.filter(x=>kind==='low'?x.price<d.price:x.price>d.price).sort((a,b)=>
+  comparisonSimilarity(d,b)-comparisonSimilarity(d,a)||
+  Math.abs(a.price-d.price)-Math.abs(b.price-d.price))[0];
+ const low=pick('low'),high=pick('high');
+ const show=(x,kind)=>{
+  if(!x)return '<p class="catalog-note">No '+(kind==='low'?'lower':'higher')+'-priced '+esc(family)+' alternative with a reported price is currently tracked.</p>';
+  const facts=comparisonDifferences(d,x);
+  const pairs=facts.differences.length?'<div class="comparison-differences"><strong>Documented differences</strong><ul>'+
+   facts.differences.map(f=>'<li><b>'+esc(f.label)+':</b> deal '+esc(f.base)+' · alternative '+esc(f.other)+'</li>').join('')+'</ul></div>':
+   '<p class="comparison-warning">Specific feature differences cannot be confirmed from these two listings. A different price does not establish better or worse performance.</p>';
+  return '<div class="comparison-item"><div class="comparison-heading"><strong>'+(kind==='low'?'↓ Lower-priced alternative':'↑ Higher-priced alternative')+'</strong><b>'+money(x.price)+'</b></div>'+
+    '<a href="'+esc(x.source)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a> <small>· '+esc(x.store||'Source')+'</small>'+
+    '<p class="comparison-savings">'+money(Math.abs(d.price-x.price))+(kind==='low'?' less':' more')+' than the '+money(d.price)+' deal. Reported '+esc(x.checked||x.publishedAt||'date unavailable')+'.</p>'+
+    '<div class="comparison-specs"><div><b>This deal · '+esc(d.name)+'</b><span>'+esc(d.spec||'Specifications not provided')+'</span></div>'+
+    '<div><b>Alternative · '+esc(x.name)+'</b><span>'+esc(x.spec||'Specifications not provided')+'</span></div></div>'+
+    pairs+(facts.unknown.length?'<p class="comparison-unknown">Not comparable from available listings: '+esc(facts.unknown.join(', '))+'. Missing details are not proof of missing features.</p>':'')+
+    '<p class="comparison-foot">Compare model numbers, condition, accessories, shipping and seller terms before choosing; offers are not confirmed live.</p></div>';
+ };
+ return '<div class="comparison-list"><h4>Compare lower and higher prices</h4>'+
+  '<p class="catalog-note">These are related products, not guaranteed identical models. Only source-listed specifications are treated as confirmed differences.</p>'+
+  show(low,'low')+show(high,'high')+'</div>';
 }
 
 /* Item-specific retailer price rows. Only source-reported, dated observations
