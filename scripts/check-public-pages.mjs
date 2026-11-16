@@ -40,7 +40,9 @@ try{
  }
  if(us.hostname!=='www.amazon.com')throw Error('Incorrect Amazon marketplace');
  const uk=new URL(api.buildUrl({...standard,country:'UK',min:'70',max:'100',low:'',high:'',prime:true}));
- if(uk.hostname!=='www.amazon.co.uk'||uk.searchParams.get('pct-off')!=='70-'||uk.searchParams.get('rh')!=='p_85:2470955011')throw Error('Marketplace or 70%+ / Prime filters broken');
+ if(uk.hostname!=='www.amazon.co.uk'||uk.searchParams.get('pct-off')!=='70-'||uk.searchParams.has('rh'))throw Error('Marketplace or 70%+ international filters broken');
+ const usPrime=new URL(api.buildUrl({...standard,prime:true}));
+ if(usPrime.searchParams.get('rh')!=='p_85:2470955011')throw Error('US-only Prime filter missing');
  if(!api.validate({...standard,min:'90',max:'30'}))throw Error('Reversed discount range accepted');
  if(!api.validate({...standard,term:''}))throw Error('Empty query accepted');
  if(!api.validate({...standard,low:'900',high:'50'}))throw Error('Inverted price range accepted');
