@@ -422,7 +422,9 @@ async function playScoutMeet() {
           const edge = dog===0 ? -size : width+size;
           const center = width/2-direction*size*.43;
           const arrival = ease((time-dog*.14)/1.7);
-          const leaveTime = 5.8+dog*.17;
+          const turnTime = 5.3+dog*.17;
+          const leaveTime = turnTime+.5;
+          const exitFacing = -direction;
           const leave = ease((time-leaveTime)/1.65);
           let x = edge+(center-edge)*arrival+(edge-center)*leave;
           let angle = dog===0 ? 2 : 6;
@@ -433,10 +435,14 @@ async function playScoutMeet() {
           let tilt = 0;
           let blink = 0;
 
-          if (arrival<1 || time>=leaveTime) {
+          if (arrival<1) {
             sheet = walk;
-            flip = time>=leaveTime ? -direction : direction;
-            angle = Math.floor((arrival<1 ? arrival*24 : leave*24))%4;
+            flip = direction;
+            angle = Math.floor(arrival*24)%4;
+          } else if (time>=leaveTime) {
+            sheet = walk;
+            flip = exitFacing;
+            angle = Math.floor(leave*24)%4;
           } else if (time<3.35) {
             const sniff = pulse(time,2.15+dog*.21,.16)+.7*pulse(time,2.65+dog*.14,.15);
             x += direction*size*.035*sniff;
@@ -447,7 +453,9 @@ async function playScoutMeet() {
             if (angle===0) blink = pulse(time,3.82+dog*.19,.065)+pulse(time,4.38+dog*.13,.06);
             offset = size*.10*pulse(time,4.72+dog*.15,.14);
           } else {
-            angle = time<5.49 ? 0 : (dog===0 ? 7 : 1);
+            const turn = time-turnTime;
+            // Finish the outward turn in profile before the dog starts moving.
+            angle = turn<0 ? 0 : turn<.22 ? (exitFacing<0 ? 7 : 1) : (exitFacing<0 ? 6 : 2);
           }
 
           const frameWidth = sheet.naturalWidth/4;
