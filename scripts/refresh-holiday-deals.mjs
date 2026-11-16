@@ -186,6 +186,23 @@ await mkdir('public/black-friday',{recursive:true});
 await writeFile(OUT,JSON.stringify(result));
 console.log('Holiday Radar:',deduped.length,'unique offers,',mergedDuplicates,'duplicates merged;',result.sourcesSucceeded+'/'+FEEDS.length,'RSS feeds succeeded');
 
+// Publisher directory cards sometimes concatenate "12 pages2026 · StoreStore Ad".
+// Keep the page total as typed metadata, not part of the ad's name.
+function parseAdListing(raw){
+ const original=String(raw||'').replace(/\s+/g,' ').trim();
+ const match=original.match(/^(\d{1,3})\s*pages?/i);
+ const pageCount=match?Number(match[1]):null;
+ let name=original.replace(/^\d{1,3}\s*pages?\s*/i,'').replace(/^2026\s*[·:|–—-]\s*/i,'').trim();
+ name=name.replace(/^(?:The\s+)?Home Depot\s*Home Depot\b/i,'Home Depot')
+  .replace(/^Walmart\s*Walmart\b/i,'Walmart')
+  .replace(/^Target\s*Target\b/i,'Target')
+  .replace(/^Costco\s*Costco\b/i,'Costco')
+  .replace(/^Kohl['’]s\s*Kohl['’]s\b/i,"Kohl’s")
+  .replace(/^Sam['’]s Club\s*Sam['’]s Club\b/i,'Sam’s Club')
+  .replace(/^BJ['’]s Wholesale Club\s*BJ['’]s\b/i,'BJ’s');
+ return {name:name||original,pageCount};
+}
+
 // Discover and refresh the publisher's 2026 ad-scan directory once per build.
 // No pretending a retailer sale landing page is a complete photographed scan.
 const adSource='https://blackfriday.ltd/ads/';
@@ -201,9 +218,10 @@ try{
   if(!/^https:\/\/blackfriday\.ltd\/ads\/[^/?#]+\/?/i.test(link)||link===adSource)continue;
   if(!/2026|black friday|holiday|weekly|preview|sale|savings/i.test(title+' '+link))continue;
   const key=new URL(link).pathname.toLowerCase().replace(/\/+$/,'');
-  const name=title.length>=5&&title.length<=170?title:key.split('/').pop().replace(/-2026.*$/,'').replace(/-/g,' ');
+  const listing=parseAdListing(title.length>=5&&title.length<=170?title:key.split('/').pop().replace(/-2026.*$/,'').replace(/-/g,' '));
+  const {name,pageCount}=listing;
   if(/2025|2024|2023/.test(name)||/2025|2024|2023/.test(link))continue;
-  if(!found.has(key))found.set(key,{name,url:link,source:'BlackFriday.LTD ad directory',sourceType:/ad|circular|scan|pages|book/i.test(name)?'Ad scan / preview':'Sale preview',year:2026,discoveredAt:day});
+  if(!found.has(key))found.set(key,{name,pageCount,url:link,source:'BlackFriday.LTD ad directory',sourceType:/ad|circular|scan|pages|book/i.test(name)?'Ad scan / preview':'Sale preview',year:2026,discoveredAt:day});
  }
  if(!found.size)throw Error('No current 2026 ad scans found');
  ads=[...found.values()].sort((a,b)=>a.name.localeCompare(b.name));
