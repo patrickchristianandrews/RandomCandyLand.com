@@ -58,7 +58,7 @@ function searchUrl(d){
  if(d.low!=='')url.searchParams.set('low-price',String(Number(d.low)));
  if(d.high!=='')url.searchParams.set('high-price',String(Number(d.high)));
  if(d.sort!=='relevanceblender')url.searchParams.set('s',d.sort);
- if(d.prime)url.searchParams.set('rh','p_85:2470955011');
+ if(d.prime&&d.country==='US')url.searchParams.set('rh','p_85:2470955011');
  return url.href;
 }
 function regionOptions(){return options(Object.entries(REGIONS).map(([key,val])=>[key,val.label]),'US');}
@@ -72,12 +72,12 @@ function structure(full){
  '<label>Marketplace<select name="country">'+regionOptions()+'</select></label>'+
  '<label>Department<select name="category">'+options(CATEGORY,'aps')+'</select></label>'+
  '<label>Discount from<select name="min">'+options([[0,'Any'],[10,'10%'],[20,'20%'],[25,'25%'],[30,'30%'],[40,'40%'],[50,'50%'],[60,'60%'],[70,'70%'],[80,'80%'],[90,'90%']].map(([v,t])=>[String(v),t]),'50')+'</select></label>'+
- '<label>To<select name="max">'+options([[100,'100%+'],[25,'25%'],[40,'40%'],[50,'50%'],[60,'60%'],[70,'70%'],[75,'75%'],[80,'80%'],[90,'90%'],[95,'95%']].map(([v,t])=>[String(v),t]),'100')+'</select></label>'+
+ '<label>To<select name="max">'+options([[100,'No max'],[25,'25%'],[40,'40%'],[50,'50%'],[60,'60%'],[70,'70%'],[75,'75%'],[80,'80%'],[90,'90%'],[95,'95%']].map(([v,t])=>[String(v),t]),'100')+'</select></label>'+
  '<details class="af-advanced" '+(full?'open':'')+'><summary>More filters · price, sort & Prime</summary><div class="af-advanced-grid">'+
  '<label>Minimum price <span data-af-currency>$</span><input type="number" name="low" min="0" step=".01" placeholder="No minimum"></label>'+
  '<label>Maximum price <span data-af-currency>$</span><input type="number" name="high" min="0" step=".01" placeholder="Any price"></label>'+
  '<label>Sort by<select name="sort">'+options(SORT,'relevanceblender')+'</select></label>'+
- '<label class="af-prime"><input type="checkbox" name="prime"> Prime-eligible items <small>(US filter may change)</small></label>'+
+ '<label class="af-prime"><input type="checkbox" name="prime"> Prime-eligible (US only) <small>(experimental Amazon filter)</small></label>'+
  '</div></details>'+
  '<div class="af-actions"><button type="submit" class="af-submit">Find discounts on Amazon ↗</button>'+
  '<a class="af-preview" data-af-preview href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Open Amazon search ↗</a>'+
@@ -101,12 +101,14 @@ function install(node){
  const update=()=>{
   const d=read(form);
   const region=REGIONS[d.country];
+  const prime=form.elements.namedItem('prime');
+  if(prime){prime.disabled=d.country!=='US';if(prime.disabled)prime.checked=false;}
   node.querySelectorAll('[data-af-currency]').forEach(el=>el.textContent=region?.symbol||'$');
   const issue=validate(d);
   if(issue){result.textContent=issue;result.classList.add('af-warning');preview.href='https://'+(region?.domain||'www.amazon.com')+'/';preview.setAttribute('aria-disabled','true');return null;}
   const url=searchUrl(d);preview.href=url;preview.removeAttribute('aria-disabled');
   result.classList.remove('af-warning');
-  result.textContent='Ready · '+d.min+'–'+(d.max==='100'?'100+':d.max)+'% requested · '+region.label+'. Amazon shows the actual matching results.';
+  result.textContent='Ready · '+(d.min==='0'&&d.max==='100'?'no discount threshold':d.max==='100'?(d.min+'% off or more'):(d.min+'–'+d.max+'% off'))+' requested · '+region.label+'. Amazon shows the actual matching results.';
   return url;
  };
  form.addEventListener('input',update);form.addEventListener('change',update);
