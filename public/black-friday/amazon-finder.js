@@ -127,6 +127,8 @@ function install(node){
  if(full&&current.has('q'))form.elements.namedItem('term').value=(current.get('q')||'').slice(0,140);
  update();
 }
+// Public pure helpers also support build-time regression checks.
+window.RandomCandyAmazonFinder=Object.freeze({buildUrl:searchUrl,validate});
 document.querySelectorAll('[data-amazon-finder]').forEach(install);
 if(document.querySelector('#af-recent'))loadRecent();
 async function loadRecent(){
