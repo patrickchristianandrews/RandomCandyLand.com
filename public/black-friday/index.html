@@ -185,7 +185,7 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
 <div class="event"><small>EXTENDED SALES</small><strong>Dec 1, 2026 &amp; beyond</strong><span>As retailers announce them</span></div>
 </div>
 
-<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 12 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="watch-scouts" aria-label="Watch Tidbit or Sugarfoot scurry to a deal">🐾 Watch a scurry</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
+<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="watch-scouts" aria-label="Watch Tidbit or Sugarfoot scurry to a deal">🐾 Watch a scurry</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
 <section class="cat-panel"><h2>Shop all 2026 holiday deals by category</h2><p>Open the full catalog to search, filter, save favorites, see upcoming offers and sort by popularity.</p><nav class="category-list" id="categories" aria-label="Deal categories"><a href="/black-friday/all/">All categories ↗</a></nav></section>
 <nav class="footer-links"><a href="/black-friday/all/?view=upcoming">Upcoming deals & sale times ↗</a><a href="/black-friday/all/?view=popular&amp;sort=popular">Popular and editor-selected deals ↗</a><a href="/black-friday/ad-scans/">Ad scans ↗</a><a href="/black-friday/all/#gifts">Gift ideas ↗</a></nav>
 <p class="disclaimer" id="feed-status">LIVE means recently reported, not verified stock. Confirm the price, seller and shipping at checkout.</p>
@@ -232,7 +232,7 @@ function rank(d){return d.popular?3:d.sourceType==='DealNews editors'?2:d.featur
 function picks(){
  const eligible=items.filter(isReportedLive);
  eligible.sort((a,b)=>rank(b)-rank(a)||(b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
- return eligible.slice(0,document.documentElement.dataset.embed?4:12);
+ return eligible.slice(0,document.documentElement.dataset.embed?4:24);
 }
 function hotCard(d){
  const label=d.popular?(document.documentElement.dataset.embed?'🔥 Popular':'🔥 Popular feed'):d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured deal':'✦ Fresh report';
@@ -310,14 +310,13 @@ async function runMascot(){
     const rect=el.getBoundingClientRect();
     return rect.top<innerHeight-135&&rect.bottom>135&&rect.width>95;
   });
-  if(!visible.length)return;
   const target=visible[Math.floor(Math.random()*visible.length)];
-  const deal=items.find(d=>d.id===target.dataset.dealId);
-  if(!deal||!isReportedLive(deal))return;
+  const deal=target && items.find(d=>d.id===target.dataset.dealId);
+  const canTag=deal && isReportedLive(deal);
   mascotBusy=true;
   const sugar=(mascotTurn++%2===1),who=sugar?'Sugarfoot':'Tidbit',runner=$('deal-runner');
   const fromLeft=Math.random()>=.5,width=innerWidth,fromX=fromLeft?-160:width+160,exitX=fromLeft?width+160:-160;
-  const rect=target.getBoundingClientRect();
+  const rect=canTag ? target.getBoundingClientRect() : {left:innerWidth/3,width:120,top:innerHeight-185,height:90};
   const stopX=Math.max(8,Math.min(width-132,rect.left+rect.width*.24));
   const runTop=Math.max(58,Math.min(innerHeight-160,rect.top+rect.height/2-47));
   let sticker=null;
@@ -329,7 +328,7 @@ async function runMascot(){
   $('runner-image').src=sugar?mascotImages.sugarfoot:mascotImages.tidbit;
   $('runner-image').alt='';
   $('runner-name').textContent=who;
-  $('runner-bubble').textContent=sugar?'👍 SUPER DUPER DEAL!':'🏷️ WOW! MEGA MANIA!';
+  $('runner-bubble').textContent=canTag ? (sugar?'👍 SUPER DUPER DEAL!':'🏷️ WOW! MEGA MANIA!') : '🐾 Scouting for deals!';
   runner.hidden=false;
   try{
     const distance=Math.abs(stopX-fromX);
@@ -338,13 +337,15 @@ async function runMascot(){
     runner.classList.remove('scurrying');
     runner.classList.add('paused');
     // The tag only appears AFTER the paws reach the deal card.
-    target.querySelectorAll('.deal-tag').forEach(el=>el.remove());
-    sticker=document.createElement('span');
-    sticker.className='deal-tag';
-    sticker.textContent=(sugar?'👍 ':'🏷️ ')+who+' approves!';
-    target.appendChild(sticker);
-    target.classList.add('deal-approved');
-    $('deal-announcement').textContent=who+' approves '+deal.name+'. Reported price '+money(deal.price)+'.';
+    if(canTag){
+      target.querySelectorAll('.deal-tag').forEach(el=>el.remove());
+      sticker=document.createElement('span');
+      sticker.className='deal-tag';
+      sticker.textContent=(sugar?'👍 ':'🏷️ ')+who+' approves!';
+      target.appendChild(sticker);
+      target.classList.add('deal-approved');
+      $('deal-announcement').textContent=who+' approves '+deal.name+'. Reported price '+money(deal.price)+'.';
+    }
     await delay(1850);
     runner.classList.remove('paused');
     runner.classList.add('scurrying');
@@ -362,21 +363,12 @@ async function runMascot(){
     mascotBusy=false;
   }
 }
-$('watch-scouts')?.addEventListener('click',()=>{
-  if(mascotBusy||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const cards=$('hot-list');
-  if(!cards)return;
-  const visible=[...cards.querySelectorAll('.hot-card')].some(el=>{
-    const r=el.getBoundingClientRect();return r.top<innerHeight-135&&r.bottom>135;
-  });
-  if(!visible){cards.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(runMascot,750);}
-  else runMascot();
-});
+$('watch-scouts')?.addEventListener('click',runMascot);
 function startMascot(){
   if(mascotReady||document.documentElement.dataset.embed||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   mascotReady=true;
-  mascotTimeout=setTimeout(runMascot,12500);
-  setInterval(runMascot,85000);
+  mascotTimeout=setTimeout(runMascot,3500);
+  setInterval(runMascot,25000);
 }
 function reportEmbeddedHeight(){
  if(!document.documentElement.dataset.embed||window.parent===window)return;
@@ -391,5 +383,5 @@ if(document.documentElement.dataset.embed){
  window.addEventListener('load',reportEmbeddedHeight);
  if(document.fonts?.ready)document.fonts.ready.then(reportEmbeddedHeight);
 }
-render();updateFeed();refreshAds();
+render();startMascot();updateFeed();refreshAds();
 </script></body></html>
