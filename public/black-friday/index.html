@@ -440,9 +440,9 @@ async function playScoutMeet() {
             flip = direction;
             angle = Math.floor(arrival*24)%4;
           } else if (time>=leaveTime) {
-            sheet = walk;
-            flip = exitFacing;
-            angle = Math.floor(leave*24)%4;
+            angle = exitFacing<0 ? 6 : 2;
+            const step = leave*24*Math.PI/2;
+            offset = size*.014*Math.abs(Math.sin(step));
           } else if (time<3.35) {
             const sniff = pulse(time,2.15+dog*.21,.16)+.7*pulse(time,2.65+dog*.14,.15);
             x += direction*size*.035*sniff;
@@ -465,7 +465,19 @@ async function playScoutMeet() {
           context.save();
           context.translate(x,118-size-offset);
           context.scale(flip,1);
-          if (nod || tilt || blink>.025) {
+          if (time>=leaveTime) {
+            // Keep the profile head fixed while the front and rear legs step.
+            const step = leave*24*Math.PI/2;
+            for (let line=0; line<frameHeight; line++) {
+              const y = line/frameHeight;
+              const stride = size*.045*ease((y-.61)/.31)*Math.sin(step);
+              for (let half=0; half<2; half++) {
+                const motion = half===0 ? stride : -stride;
+                context.drawImage(sheet,sx+half*frameWidth/2,sy+line,frameWidth/2,1,
+                  (half-1)*size/2+motion,y*size,size/2,size/frameHeight+.5);
+              }
+            }
+          } else if (nod || tilt || blink>.025) {
             // Shift thin horizontal strips near the face and taper toward the paws.
             for (let line=0; line<frameHeight; line++) {
               const y = line/frameHeight;
