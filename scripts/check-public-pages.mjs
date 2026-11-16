@@ -3,7 +3,7 @@ import vm from 'node:vm';
 
 const required = [
   ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','class="ad-scan-promo"','/black-friday/ad-scans/','deal-runner','Tidbit','Sugarfoot','runner-leg front far','runner-leg rear far','@keyframes runner-step','@keyframes runner-wag','scurryTo(runner,fromX,stopX']],
-  ['dist/black-friday/ad-scans/index.html', ['Holiday Ad Scan Library','id="scan-grid"','id="search"','id="kind"','id="sort"','/black-friday/ad-scans.json','GTM-TQRDB5KL']],
+  ['dist/black-friday/ad-scans/index.html', ['Ad Scan Library','id="scan-grid"','id="search"','id="kind"','id="sort"','/black-friday/ad-scans.json','GTM-TQRDB5KL']],
   ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"']],
   ['dist/amazon-deal-hunter/index.html', ['Amazon Deal Hunter','data-amazon-finder','data-mode="full"','GTM-TQRDB5KL']],
   ['dist/black-friday/amazon-discount-finder/index.html', ['Amazon Deal Hunter 2026','data-amazon-finder','data-mode="full"','id="af-recent"','GTM-TQRDB5KL']],
