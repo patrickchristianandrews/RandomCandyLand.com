@@ -48,24 +48,39 @@ html[data-embed] body{background:transparent}html[data-embed] main{width:100%;ma
 .quick-nav{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:3px 0 12px}
 .quick-nav a{display:inline-flex;align-items:center;min-height:35px;padding:7px 12px;background:#2d1d39;border:1px solid #665078;border-radius:999px;font-size:.73rem;font-weight:760}
 .quick-nav a:hover{background:#453052;text-decoration:none}
-.scan-section{margin:15px 0 6px;padding:12px;border:1px solid #a66d87;border-radius:14px;background:linear-gradient(118deg,#331a39,#21142f)}
-.scan-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
-.scan-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-width:0;border-radius:11px;padding:10px;background:#fff0ec;color:#36233c;text-decoration:none;border:2px solid #f3bdd2;min-height:133px;transition:transform .18s ease,box-shadow .18s ease}
-.scan-tile:nth-child(2n){background:#e5f8ed;border-color:#c5e7d6}
-.scan-tile:nth-child(3n){background:#fff5ce;border-color:#f4d98e}
-.scan-tile:hover{text-decoration:none;transform:translateY(-3px);box-shadow:0 8px 18px #0005}
-.scan-sticker{align-self:flex-end;font-size:.52rem;letter-spacing:.04em;font-weight:850;color:#75426e;border:1px dashed #bb8eb4;padding:2px 4px;border-radius:4px}
-.scan-sticker.official{color:#296346;border-color:#68ac88}
-.scan-art{font-size:1.5rem;line-height:1;margin:3px 0}
-.scan-tile strong{color:#291e30;font-size:.79rem}
-.scan-tile small{color:#675765;font-size:.63rem;line-height:1.2;margin:2px 0}
-.scan-action{margin-top:auto;color:#894878;font-size:.66rem;font-weight:800}
+
+/* One small ad-scan advertisement linking to its own searchable page. */
+.ad-scan-promo{
+ display:grid;grid-template-columns:44px minmax(0,1fr) auto;
+ align-items:center;gap:12px;
+ margin:10px 0 9px;padding:10px 13px;
+ min-height:73px;border-radius:12px;
+ border:1px solid #a7789b;
+ background:linear-gradient(110deg,#39233e,#2a1a3a);
+ color:#fff4fb!important;text-decoration:none!important;
+ box-shadow:0 3px 12px #0002;
+ scroll-margin-top:12px;
+}
+.ad-scan-promo:hover{border-color:#ffcbeb;background:linear-gradient(110deg,#492c50,#332045)}
+.ad-scan-promo:focus-visible{outline:3px solid #ffcae7;outline-offset:3px}
+.ad-scan-promo-icon{font-size:24px;width:44px;height:44px;display:grid;place-items:center;background:#ffcee8;color:#35213d;border-radius:10px}
+.ad-scan-promo-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ad-scan-promo-copy strong{font-size:.89rem;line-height:1.16;font-weight:870}
+.ad-scan-promo-copy small{font-size:.68rem;color:#e0c8df;line-height:1.3}
+.ad-scan-promo-action{border:1px solid #b88cad;background:#4a3055;color:#ffe8f6;border-radius:8px;padding:8px 12px;font-size:.73rem;font-weight:800;white-space:nowrap;text-align:center}
+.ad-scan-promo:hover .ad-scan-promo-action{background:#5a3964}
 .scan-note{font-size:.64rem;color:#d4bfd4;margin:7px 0 0}
- /* Page totals are metadata, never part of an ad's retailer/title line. */
- .scan-tile strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;overflow-wrap:anywhere;line-height:1.25;max-width:100%}
- .scan-tile .scan-pages{display:inline-flex;align-items:center;margin:5px 0 2px;padding:2px 6px;border-radius:5px;background:#ffffffb8;border:1px solid #9e78944d;color:#603853;font-size:.67rem;font-weight:800;white-space:nowrap}
- .scan-tile small{overflow-wrap:anywhere}
- .scan-sticker{max-width:100%;overflow-wrap:anywhere;text-align:right}
+@media(max-width:600px){
+ .ad-scan-promo{grid-template-columns:39px minmax(0,1fr) auto;gap:9px;padding:9px;min-height:67px}
+ .ad-scan-promo-icon{width:39px;height:39px;font-size:21px}
+ .ad-scan-promo-copy strong{font-size:.79rem}
+ .ad-scan-promo-copy small{font-size:.63rem}
+ .ad-scan-promo-action{padding:6px 8px;font-size:.66rem}
+}
+@media(max-width:370px){
+ .ad-scan-promo-action{font-size:0}
+ .ad-scan-promo-action::after{content:'View ↗';font-size:.69rem}
+}
 
 .hot-section{scroll-margin-top:12px}.hot-card{position:relative}
 .hot-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -112,10 +127,10 @@ html[data-embed] body{background:transparent}html[data-embed] main{width:100%;ma
 @keyframes runner-sniff{from{translate:0 -2px}to{translate:0 0}}
 @keyframes runner-approve{0%,100%{transform:rotate(0)}30%{transform:rotate(-9deg) translateY(3px)}60%{transform:rotate(9deg) translateY(-3px)}}
 @keyframes runner-paw{0%,100%{transform:rotate(0) translateY(0)}45%{transform:rotate(-35deg) translateY(-10px)}}
-@media(max-width:1050px){.scan-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:700px){.scan-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.scan-tile{min-height:150px;padding:9px}.scan-section{padding:8px}.quick-nav a{font-size:.68rem;padding:6px 9px}.deal-runner{scale:.83;transform-origin:top left}}
-@media(max-width:370px){.scan-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(prefers-reduced-motion:reduce){.deal-runner{display:none!important}.deal-tag{animation:none!important}.scan-tile{transition:none!important;transform:none!important}}
+
+@media(max-width:700px){.quick-nav a{font-size:.68rem;padding:6px 9px}.deal-runner{scale:.83;transform-origin:top left}}
+
+@media(prefers-reduced-motion:reduce){.deal-runner{display:none!important}.deal-tag{animation:none!important}}
 
 .feed-sources{margin-top:9px;background:#21152c;border:1px solid #604776;border-radius:9px;padding:9px 12px}
 .feed-sources summary{cursor:pointer;font-size:.73rem;font-weight:770;color:#efcce9}
@@ -153,11 +168,16 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
 <main>
 <header><a href="/"><img src="/icon.svg" alt="">Random Candy Land</a><a href="/black-friday/all/">Browse every 2026 deal ↗</a></header>
 <nav class="quick-nav" aria-label="2026 holiday deal sections">
-<a href="#hot-deals">🔥 Popular deals</a><a href="#ad-scans">📰 Ad scans</a><a href="/black-friday/all/">▦ All categories</a><a href="/black-friday/all/?view=upcoming">◷ Upcoming</a>
+<a href="#hot-deals">🔥 Popular deals</a><a href="/black-friday/ad-scans/">📰 Ad scans</a><a href="/black-friday/all/">▦ All categories</a><a href="/black-friday/all/?view=upcoming">◷ Upcoming</a>
 </nav>
 <section class="hero"><span class="kicker">2026 HOLIDAY DEAL MADNESS</span><h1>Black Friday &amp; Cyber Monday 2026</h1>
 <p>The best recently reported Black Friday and Cyber Monday bargains in one quick view. Explore early sales, the big shopping days and the deals that follow—without endless scrolling.</p>
 <div class="hero-actions"><a class="cta" href="/black-friday/all/">Explore all 2026 deals ↗</a><a class="cta secondary" href="/black-friday/all/?view=upcoming">See upcoming deal drops ↗</a></div></section>
+<a id="ad-scans" class="ad-scan-promo" href="/black-friday/ad-scans/" aria-label="Explore the dedicated searchable 2026 Black Friday and Cyber Monday ad scan library">
+<span class="ad-scan-promo-icon" aria-hidden="true">📰</span>
+<span class="ad-scan-promo-copy"><strong>2026 Holiday Ad Scans &amp; Previews</strong><small id="ad-scan-count">Browse store flyers, circulars and sale previews · refreshed as available</small></span>
+<span class="ad-scan-promo-action" aria-hidden="true">Explore ad scans ↗</span>
+</a>
 <div class="event-strip" aria-label="Holiday sale timeline">
 <div class="event"><small>EARLY DEALS</small><strong>Now–Nov 26, 2026</strong><span>New offers appear as reported</span></div>
 <div class="event"><small>BLACK FRIDAY</small><strong>Nov 27, 2026</strong><span>Store and online events</span></div>
@@ -165,20 +185,9 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
 <div class="event"><small>EXTENDED SALES</small><strong>Dec 1, 2026 &amp; beyond</strong><span>As retailers announce them</span></div>
 </div>
 
-<section class="scan-section" id="ad-scans" aria-labelledby="scan-title">
-<div class="section-head"><div><h2 id="scan-title">📰 Ad Scan Arcade · 2026</h2><p>Flip through holiday flyers, store circulars and official previews without digging through menus.</p></div><a href="/black-friday/all/#ads">See all available ads ↗</a></div>
-<div class="scan-strip" id="scan-list">
-<a class="scan-tile" href="https://blackfriday.ltd/ads/walmart-black-friday-ad/" target="_blank" rel="noopener"><span class="scan-sticker">PREVIEW</span><span class="scan-art">🛍️</span><strong>Walmart</strong><small>Holiday sale captures</small><span class="scan-action">Browse preview ↗</span></a>
-<a class="scan-tile" href="https://blackfriday.ltd/ads/costco-black-friday-ad/" target="_blank" rel="noopener"><span class="scan-sticker">SAVINGS BOOK</span><span class="scan-art">📚</span><strong>Costco</strong><small>Holiday savings pages</small><span class="scan-action">Flip through ↗</span></a>
-<a class="scan-tile" href="https://blackfriday.ltd/ads/sams-club-black-friday-ad/" target="_blank" rel="noopener"><span class="scan-sticker">AD SCAN</span><span class="scan-art">🧾</span><strong>Sam’s Club</strong><small>Black Friday preview</small><span class="scan-action">View pages ↗</span></a>
-<a class="scan-tile" href="https://www.target.com/c/weekly-ad/-/N-5xt0a" target="_blank" rel="noopener"><span class="scan-sticker official">OFFICIAL</span><span class="scan-art">🎯</span><strong>Target</strong><small>Current weekly ad</small><span class="scan-action">See ad ↗</span></a>
-<a class="scan-tile" href="https://blackfriday.ltd/ads/kohls-black-friday-week-ad-2026/" target="_blank" rel="noopener"><span class="scan-sticker">PREVIEW</span><span class="scan-art">🎁</span><strong>Kohl’s</strong><small>2026 sale week pages</small><span class="scan-action">View scan ↗</span></a>
-<a class="scan-tile" href="https://www.bestbuy.com/black-friday" target="_blank" rel="noopener"><span class="scan-sticker official">OFFICIAL</span><span class="scan-art">💻</span><strong>Best Buy</strong><small>Live sale catalog</small><span class="scan-action">See offers ↗</span></a>
-</div><p class="scan-note" id="scan-status">2026 ad index checks run with the scheduled feed refresh. Scans and previews may be third-party captures; official retailer pages are marked.</p>
-</section>
 <section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 12 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="watch-scouts" aria-label="Watch Tidbit or Sugarfoot scurry to a deal">🐾 Watch a scurry</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
 <section class="cat-panel"><h2>Shop all 2026 holiday deals by category</h2><p>Open the full catalog to search, filter, save favorites, see upcoming offers and sort by popularity.</p><nav class="category-list" id="categories" aria-label="Deal categories"><a href="/black-friday/all/">All categories ↗</a></nav></section>
-<nav class="footer-links"><a href="/black-friday/all/?view=upcoming">Upcoming deals & sale times ↗</a><a href="/black-friday/all/?view=popular&amp;sort=popular">Popular and editor-selected deals ↗</a><a href="#ad-scans">Ad scans ↗</a><a href="/black-friday/all/#gifts">Gift ideas ↗</a></nav>
+<nav class="footer-links"><a href="/black-friday/all/?view=upcoming">Upcoming deals & sale times ↗</a><a href="/black-friday/all/?view=popular&amp;sort=popular">Popular and editor-selected deals ↗</a><a href="/black-friday/ad-scans/">Ad scans ↗</a><a href="/black-friday/all/#gifts">Gift ideas ↗</a></nav>
 <p class="disclaimer" id="feed-status">LIVE means recently reported, not verified stock. Confirm the price, seller and shipping at checkout.</p>
 <details class="feed-sources" id="feed-sources"><summary id="sources-heading">Deal source coverage · checking…</summary><div class="source-chips" id="source-chips"></div><p class="scan-note">Public RSS headlines link to their originating publishers. The index is not every online promotion, and reported prices are not verified retailer quotes.</p></details>
 </main>
@@ -260,51 +269,18 @@ function renderSourceStatus(feed){
  $('sources-heading').textContent=list.length?('Source coverage: '+working+'/'+list.length+' feeds checked · '+(feed.feedItems||0)+' unique reported deals · '+(feed.mergedDuplicates||0)+' duplicates merged'):'Source coverage: data not available';
  $('source-chips').innerHTML=list.map(x=>'<span class="source-chip '+(x.ok?'':'offline')+'" title="'+esc(x.ok?(x.accepted+' accepted feed entries'):(x.error||'Unavailable'))+'">'+esc(x.name)+' · '+(x.ok?'✓ '+x.accepted:'not available')+'</span>').join('');
 }
-function adScanDisplay(a){
- const raw=String(a.name||'2026 ad preview').replace(/\s+/g,' ').trim();
- const match=raw.match(/^(\d{1,3})\s*pages?/i);
- const reported=Number(a.pageCount);
- const pages=Number.isSafeInteger(reported)&&reported>0&&reported<1000?reported:match?Number(match[1]):null;
- let title=raw.replace(/^\d{1,3}\s*pages?\s*/i,'').replace(/^2026\s*[·:|–—-]\s*/i,'').trim();
- title=title.replace(/^(?:The\s+)?Home Depot\s*Home Depot\b/i,'Home Depot')
-   .replace(/^Walmart\s*Walmart\b/i,'Walmart')
-   .replace(/^Target\s*Target\b/i,'Target')
-   .replace(/^Costco\s*Costco\b/i,'Costco')
-   .replace(/^Kohl['’]s\s*Kohl['’]s\b/i,"Kohl’s")
-   .replace(/^Sam['’]s Club\s*Sam['’]s Club\b/i,'Sam’s Club')
-   .replace(/^BJ['’]s Wholesale Club\s*BJ['’]s\b/i,'BJ’s');
- return {title:title||raw,pages};
-}
 async function refreshAds(){
+ const count=$('ad-scan-count');
+ if(!count)return;
  try{
-  const response=await fetch('/black-friday/ad-scans.json?t='+Date.now(),{cache:'no-store'});
-  if(!response.ok)throw Error('Ad index missing');
-  const result=await response.json();
-  if(!Array.isArray(result.ads)||!result.ads.length)throw Error('No ad scans indexed');
-  const tiles=result.ads.filter(a=>a&&a.year===2026&&/^https:\/\//.test(a.url||''));
-  if(!tiles.length)throw Error('No 2026 scans');
-  const pictograms=['📰','🛍️','🎁','📚','🎯','🧾','💻','✨'];
-  const official=[
-   {name:'Walmart',url:'https://www.walmart.com/shop/deals/black-friday',label:'Official Black Friday sale'},
-   {name:'Target',url:'https://www.target.com/c/weekly-ad/-/N-5xt0a',label:'Official weekly ad'},
-   {name:'Best Buy',url:'https://www.bestbuy.com/black-friday',label:'Official Black Friday catalog'}
-  ];
-  $('scan-list').innerHTML=tiles.map((a,i)=>{
-   const {title,pages}=adScanDisplay(a);
-   return '<a class="scan-tile" href="'+esc(a.url)+'" target="_blank" rel="noopener">'+
-    '<span class="scan-sticker">2026 AD PREVIEW</span>'+
-    '<span class="scan-art">'+pictograms[i%pictograms.length]+'</span>'+
-    '<strong title="'+esc(title)+'">'+esc(title)+'</strong>'+
-    (pages?'<span class="scan-pages" aria-label="'+pages+' pages">'+pages+' pages</span>':'')+
-    '<small>'+esc(a.source||'Publisher ad directory')+'</small>'+
-    '<span class="scan-action">See preview ↗</span></a>';
-  }).join('')+official.map((o,i)=>'<a class="scan-tile" href="'+esc(o.url)+'" target="_blank" rel="noopener">'+
-   '<span class="scan-sticker official">RETAILER LINK</span><span class="scan-art">'+['🛒','🎯','💻'][i]+'</span>'+
-   '<strong>'+esc(o.name)+'</strong><small>'+esc(o.label)+' · not a scan</small><span class="scan-action">Shop official page ↗</span></a>').join('');
-  const when=Number.isFinite(Date.parse(result.generatedAt))?new Date(result.generatedAt).toLocaleString('en-US',{dateStyle:'short',timeStyle:'short'}):'unknown';
-  $('scan-status').textContent=tiles.length+' discovered 2026 previews · last source check '+when+(result.checked?'':' · directory check failed; last indexed links retained')+'. Third-party scans are not official retailer releases.';
+  const response=await fetch('/black-friday/ad-scans.json?v='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('Ad index not available');
+  const data=await response.json();
+  const countOfScans=Array.isArray(data.ads)?data.ads.filter(a=>a&&a.year===2026&&/^https:\/\//.test(a.url||'')).length:0;
+  if(!countOfScans)throw Error('No current ad previews indexed');
+  count.textContent=countOfScans+' publisher ad previews indexed · browse scans, circulars and retailer sale links';
  }catch{
-  $('scan-status').textContent='Showing linked 2026 scan sources and retailer sale pages. The automatic ad index is currently unavailable.';
+  count.textContent='Find store flyers, circulars and 2026 sale previews · browse the ad library';
  }
 }
 async function updateFeed(){
