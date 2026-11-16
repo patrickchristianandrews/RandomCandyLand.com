@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const required = [
-  ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','deal-runner','Tidbit','Sugarfoot','runner-leg front far','runner-leg rear far','@keyframes runner-step','@keyframes runner-wag','scurryTo(runner,fromX,stopX']],
+  ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','class="ad-scan-promo"','/black-friday/ad-scans/','deal-runner','Tidbit','Sugarfoot','runner-leg front far','runner-leg rear far','@keyframes runner-step','@keyframes runner-wag','scurryTo(runner,fromX,stopX']],
+  ['dist/black-friday/ad-scans/index.html', ['Holiday Ad Scan Library','id="scan-grid"','id="search"','id="kind"','id="sort"','/black-friday/ad-scans.json','GTM-TQRDB5KL']],
   ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"']],
   ['dist/amazon-deal-hunter/index.html', ['Amazon Deal Hunter','data-amazon-finder','data-mode="full"','GTM-TQRDB5KL']],
   ['dist/black-friday/amazon-discount-finder/index.html', ['Amazon Deal Hunter 2026','data-amazon-finder','data-mode="full"','id="af-recent"','GTM-TQRDB5KL']],
@@ -24,6 +25,23 @@ const required = [
 ];
 
 let failures = 0;
+
+/* The Black Friday landing page carries one slim ad-scan promotion BETWEEN
+   the hero and sale dates. The detailed ad cards belong on the dedicated page. */
+try {
+ const landing=fs.readFileSync('dist/black-friday/index.html','utf8');
+ const adPage=fs.readFileSync('dist/black-friday/ad-scans/index.html','utf8');
+ const hero=landing.indexOf('<section class="hero">');
+ const promo=landing.indexOf('class="ad-scan-promo"');
+ const timeline=landing.indexOf('class="event-strip"');
+ if(hero<0||promo<hero||timeline<promo||landing.includes('class="scan-strip"')||landing.includes('id="scan-list"'))throw Error('Ad scans did not move to one small banner between hero and timeline');
+ if(!landing.includes('href="/black-friday/ad-scans/"'))throw Error('Banner missing dedicated library link');
+ const inline=[...adPage.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
+ for(let n=0;n<inline.length;n++)new vm.Script(inline[n][1],{filename:'ad scan library script '+(n+1)});
+ if(!adPage.includes("addEventListener('click'")||!adPage.includes('refresh();')||!adPage.includes('id="clear"'))throw Error('Search/filter controls are missing');
+ console.log('✓ Ad-scan library search code parses; the main ad promotion sits between hero and date cards.');
+} catch(e){console.error('Holiday ad scan layout regression:',e.message);failures++;}
+
 for(const path of ['dist/black-friday/index.html','dist/black-friday/all/index.html']){
   if(fs.existsSync(path) && fs.readFileSync(path,'utf8').includes('data-amazon-finder')){
     console.error('Amazon Deal Hunter must remain separate from the Black Friday deal pages:',path);
