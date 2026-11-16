@@ -231,7 +231,7 @@ function isReportedLive(d){
 function rank(d){return d.popular?3:d.sourceType==='DealNews editors'?2:d.featured?1:0;}
 function picks(){
  const eligible=items.filter(isReportedLive);
- eligible.sort((a,b)=>rank(b)-rank(a)||(b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
+ eligible.sort((a,b)=>rank(b)-rank(a)||(b.reportedBy?.length||0)-(a.reportedBy?.length||0)||(b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
  return eligible.slice(0,document.documentElement.dataset.embed?4:24);
 }
 function hotCard(d){
@@ -288,6 +288,7 @@ async function updateFeed(){
   const response=await fetch('/black-friday/live-feed.json',{cache:'no-store'});
   if(!response.ok)throw Error('Feed unavailable');
   const feed=await response.json();if(!Array.isArray(feed.deals))throw Error('Invalid feed');
+  items=[...curated];
   const ids=new Set(items.map(x=>x.id));
   for(const d of feed.deals){if(d&&typeof d.id==='string'&&typeof d.name==='string'&&/^https:\/\//.test(d.source||'')&&!ids.has(d.id)){items.push(d);ids.add(d.id);}}
   renderSourceStatus(feed);
@@ -384,4 +385,5 @@ if(document.documentElement.dataset.embed){
  if(document.fonts?.ready)document.fonts.ready.then(reportEmbeddedHeight);
 }
 render();startMascot();updateFeed();refreshAds();
+setInterval(()=>{if(!document.hidden&&!mascotBusy)updateFeed();},300000);
 </script></body></html>
