@@ -2,8 +2,9 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const required = [
-  ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','deal-runner','Tidbit','Sugarfoot']],
-  ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"']],
+  ['dist/black-friday/index.html', ['Black Friday &amp; Cyber Monday 2026','id="hot-list"','/black-friday/all/?view=upcoming','id="ad-scans"','deal-runner','Tidbit','Sugarfoot','data-amazon-finder','amazon-finder.js']],
+  ['dist/black-friday/all/index.html', ['categoryGroups(items)','data-feed="popular"','data-feed="upcoming"','id="catalog-list"','data-amazon-finder']],
+  ['dist/black-friday/amazon-discount-finder/index.html', ['Amazon Deal Hunter 2026','data-amazon-finder','data-mode="full"','id="af-recent"','GTM-TQRDB5KL']],
   ['dist/index.html', ['id="root"', 'Random Candy Land']],
   ['dist/trump/index.html', ['id="root"']],
   ['dist/after-dark/index.html', ['id="ageGate"', 'id="enter"', 'letVisitorIn', 'id="toys"', 'id="toy-grid"', 'toy-library.js?v=']],
@@ -22,6 +23,30 @@ const required = [
 ];
 
 let failures = 0;
+
+/* Original Amazon Deal Hunter: validate safe URL construction, bounds and
+   fallback without depending on a live Amazon scraper. */
+try{
+ const script=fs.readFileSync('dist/black-friday/amazon-finder.js','utf8');
+ const context={window:{},document:{querySelectorAll:()=>[],querySelector:()=>null},URL,URLSearchParams};
+ vm.runInNewContext(script,context,{filename:'Amazon Deal Hunter 2026'});
+ const api=context.window.RandomCandyAmazonFinder;
+ if(!api||typeof api.buildUrl!=='function'||typeof api.validate!=='function')throw Error('Search builder not available');
+ const standard={term:'Sony headphones',country:'US',category:'electronics',min:'50',max:'90',low:'25',high:'250',sort:'price-asc-rank',prime:false};
+ if(api.validate(standard))throw Error('Valid search was incorrectly rejected');
+ const us=new URL(api.buildUrl(standard));
+ for(const [key,value] of [['k','Sony headphones'],['i','electronics'],['pct-off','50-90'],['low-price','25'],['high-price','250'],['s','price-asc-rank']]){
+  if(us.searchParams.get(key)!==value)throw Error(key+' search filter was not preserved');
+ }
+ if(us.hostname!=='www.amazon.com')throw Error('Incorrect Amazon marketplace');
+ const uk=new URL(api.buildUrl({...standard,country:'UK',min:'70',max:'100',low:'',high:'',prime:true}));
+ if(uk.hostname!=='www.amazon.co.uk'||uk.searchParams.get('pct-off')!=='70-'||uk.searchParams.get('rh')!=='p_85:2470955011')throw Error('Marketplace or 70%+ / Prime filters broken');
+ if(!api.validate({...standard,min:'90',max:'30'}))throw Error('Reversed discount range accepted');
+ if(!api.validate({...standard,term:''}))throw Error('Empty query accepted');
+ if(!api.validate({...standard,low:'900',high:'50'}))throw Error('Inverted price range accepted');
+ console.log('✓ Amazon Deal Hunter creates validated search URLs and preserves country, discount, price, sort and Prime options.');
+}catch(error){console.error('Amazon Deal Hunter regression:',error.message);failures++;}
+
 // A share action should never reserve a full-width strip at the top of a page.
 const shareScript=fs.readFileSync('dist/share-page.js','utf8');
 const shareStyles=fs.readFileSync('dist/share-page.css','utf8');
