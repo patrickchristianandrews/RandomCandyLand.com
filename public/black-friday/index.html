@@ -242,6 +242,7 @@ function hotCard(d){
 }
 function render(){
  const hot=picks();
+ $('live-hot-title').textContent='🔥 '+hot.length+' Hot Deal '+(hot.length===1?'Pick':'Picks')+' · 2026';
  $('hot-list').innerHTML=hot.length?hot.map(hotCard).join(''):'<p class="disclaimer">No recent, already-started hot deals meet the source checks right now. <a href="/black-friday/all/">Browse the full catalog ↗</a></p>';
  if(document.documentElement.dataset.embed){requestAnimationFrame(reportEmbeddedHeight);return;}
  const grouped=new Map();
