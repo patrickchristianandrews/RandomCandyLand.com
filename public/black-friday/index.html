@@ -158,7 +158,7 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
 <div class="event"><small>EXTENDED SALES</small><strong>Dec 1, 2026 &amp; beyond</strong><span>As retailers announce them</span></div>
 </div>
 
-<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="watch-scouts" aria-label="Watch Tidbit or Sugarfoot scurry to a deal">🐾 Watch a scurry</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
+<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="watch-scouts" aria-label="Watch Tidbit and Sugarfoot meet">🐾 Watch the scouts</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
 <section class="cat-panel"><h2>Shop all 2026 holiday deals by category</h2><p>Open the full catalog to search, filter, save favorites, see upcoming offers and sort by popularity.</p><nav class="category-list" id="categories" aria-label="Deal categories"><a href="/black-friday/all/">All categories ↗</a></nav></section>
 <nav class="footer-links"><a href="/black-friday/all/?view=upcoming">Upcoming deals & sale times ↗</a><a href="/black-friday/all/?view=popular&amp;sort=popular">Popular and editor-selected deals ↗</a><a href="/black-friday/ad-scans/">Ad scans ↗</a><a href="/black-friday/all/#gifts">Gift ideas ↗</a></nav>
 <p class="disclaimer" id="feed-status">LIVE means recently reported, not verified stock. Confirm the price, seller and shipping at checkout.</p>
@@ -350,7 +350,141 @@ async function runMascot(){
     mascotBusy=false;
   }
 }
-$('watch-scouts')?.addEventListener('click',runMascot);
+// Play both scouts using the walk and eight-direction sheets already on the page.
+async function playScoutMeet() {
+  const button = $('watch-scouts');
+  if (mascotBusy || document.hidden || document.documentElement.dataset.embed ||
+      matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const runner = $('deal-runner');
+  const sprite = $('runner-image');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  if (!context) return;
+  const finish = new AbortController();
+  mascotBusy = true;
+  button.disabled = true;
+
+  try {
+    function loadSheet() {
+      const url = getComputedStyle(sprite).backgroundImage.replace(/^url\(["']?|["']?\)$/g, '');
+      const sheet = new Image();
+      sheet.src = url;
+      return sheet;
+    }
+
+    const walk = loadSheet();
+    runner.classList.add('posed');
+    const poses = loadSheet();
+    runner.classList.remove('posed');
+    await Promise.all([walk.decode(), poses.decode()]);
+    if (document.hidden) return;
+
+    canvas.setAttribute('aria-hidden', 'true');
+    canvas.style.cssText = 'position:fixed;inset:auto 0 max(12px,env(safe-area-inset-bottom));width:100%;height:122px;pointer-events:none;z-index:38';
+    document.body.append(canvas);
+
+    const ease = value => {
+      const n = Math.max(0, Math.min(1, value));
+      return n*n*(3-2*n);
+    };
+    const pulse = (time, center, width) => Math.exp(-Math.pow((time-center)/width, 2));
+
+    await new Promise(resolve => {
+      let frame;
+      let start;
+      function stop() {
+        cancelAnimationFrame(frame);
+        resolve();
+      }
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+      }, {signal:finish.signal});
+
+      function draw(now) {
+        start ??= now;
+        const time = (now-start)/1000;
+        if (time >= 7.8) return stop();
+
+        const width = canvas.clientWidth;
+        const ratio = Math.min(devicePixelRatio || 1, 2);
+        const pixels = Math.round(width*ratio);
+        if (canvas.width !== pixels || canvas.height !== Math.round(122*ratio)) {
+          canvas.width = pixels;
+          canvas.height = Math.round(122*ratio);
+        }
+        context.setTransform(ratio,0,0,ratio,0,0);
+        context.clearRect(0,0,width,122);
+        const size = Math.min(108, width*.31);
+
+        for (let dog=0; dog<2; dog++) {
+          const direction = dog===0 ? 1 : -1;
+          const edge = dog===0 ? -size : width+size;
+          const center = width/2-direction*size*.43;
+          const arrival = ease((time-dog*.14)/1.7);
+          const leaveTime = 5.8+dog*.17;
+          const leave = ease((time-leaveTime)/1.65);
+          let x = edge+(center-edge)*arrival+(edge-center)*leave;
+          let angle = dog===0 ? 2 : 6;
+          let sheet = poses;
+          let flip = 1;
+          let offset = 0;
+          let nod = 0;
+          let tilt = 0;
+          let blink = 0;
+
+          if (arrival<1 || time>=leaveTime) {
+            sheet = walk;
+            flip = time>=leaveTime ? -direction : direction;
+            angle = Math.floor((arrival<1 ? arrival*24 : leave*24))%4;
+          } else if (time<3.35) {
+            const sniff = pulse(time,2.15+dog*.21,.16)+.7*pulse(time,2.65+dog*.14,.15);
+            x += direction*size*.035*sniff;
+            nod = size*.042*sniff-size*.025*pulse(time,3+dog*.13,.19);
+          } else if (time<5.3) {
+            angle = time<3.54 || time>5.09 ? (dog===0 ? 1 : 7) : 0;
+            tilt = direction*size*.038*pulse(time,4+dog*.22,.35);
+            if (angle===0) blink = pulse(time,3.82+dog*.19,.065)+pulse(time,4.38+dog*.13,.06);
+            offset = size*.10*pulse(time,4.72+dog*.15,.14);
+          } else {
+            angle = time<5.49 ? 0 : (dog===0 ? 7 : 1);
+          }
+
+          const frameWidth = sheet.naturalWidth/4;
+          const frameHeight = sheet.naturalHeight/(sheet===walk ? 2 : 4);
+          const sx = angle%4*frameWidth;
+          const sy = (sheet===walk ? dog : dog*2+Math.floor(angle/4))*frameHeight;
+          context.save();
+          context.translate(x,118-size-offset);
+          context.scale(flip,1);
+          if (nod || tilt || blink>.025) {
+            // Shift thin horizontal strips near the face and taper toward the paws.
+            for (let line=0; line<frameHeight; line++) {
+              const y = line/frameHeight;
+              const weight = 1-ease((y-.16)/.5);
+              context.drawImage(sheet,sx,sy+line,frameWidth,1,
+                -size/2+tilt*weight,y*size+nod*weight+size*(.265-y)*blink*Math.exp(-Math.pow((y-.265)/.035,2)),size,size/frameHeight+.9);
+            }
+          } else {
+            context.drawImage(sheet,sx,sy,frameWidth,frameHeight,-size/2,0,size,size);
+          }
+          context.restore();
+        }
+        frame = requestAnimationFrame(draw);
+      }
+      frame = requestAnimationFrame(draw);
+    });
+  } catch {
+    $('deal-announcement').textContent = 'The scout animation could not load. Try again in a moment.';
+  } finally {
+    finish.abort();
+    canvas.remove();
+    button.disabled = false;
+    mascotBusy = false;
+  }
+}
+$('watch-scouts')?.addEventListener('click',playScoutMeet);
+
 function startMascot(){
   if(mascotReady||document.documentElement.dataset.embed||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   mascotReady=true;
