@@ -223,13 +223,15 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       </section>
 
       <section className="candy-home-amazon" aria-labelledby="home-amazon-title">
-        <div className="candy-home-amazon-icon" aria-hidden="true">🏷️</div>
-        <div className="candy-home-amazon-copy">
-          <span className="candy-home-amazon-kicker">✦ SHOPPING TOOLS · FREE · YEAR-ROUND</span>
-          <h2 id="home-amazon-title">Amazon <em>Deal Hunter</em></h2>
-          <p>Find deeply discounted Amazon products by discount percentage. Look for 30%, 50%, 70% off or more, then verify the actual savings and final price on Amazon.</p>
-        </div>
-        <a className="candy-home-amazon-cta" href="/amazon-deal-hunter/">Find deep discounts ↗</a>
+        <a className="candy-home-amazon-link" href="/amazon-deal-hunter/" aria-labelledby="home-amazon-title">
+          <span className="candy-home-amazon-icon" aria-hidden="true">🏷️</span>
+          <div className="candy-home-amazon-copy">
+            <span className="candy-home-amazon-kicker">✦ SHOPPING TOOLS · FREE · YEAR-ROUND</span>
+            <h2 id="home-amazon-title">Amazon <em>Deal Hunter</em></h2>
+            <p>Find Amazon discounts by product, price, category and markdown percentage. Check actual savings and final prices before purchasing.</p>
+          </div>
+          <span className="candy-home-amazon-arrow" aria-hidden="true">↗</span>
+        </a>
       </section>
 
       <section className="candyland-world" aria-labelledby="candyland-map">
