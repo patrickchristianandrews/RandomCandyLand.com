@@ -61,6 +61,12 @@ html[data-embed] body{background:transparent}html[data-embed] main{width:100%;ma
 .scan-tile small{color:#675765;font-size:.63rem;line-height:1.2;margin:2px 0}
 .scan-action{margin-top:auto;color:#894878;font-size:.66rem;font-weight:800}
 .scan-note{font-size:.64rem;color:#d4bfd4;margin:7px 0 0}
+ /* Page totals are metadata, never part of an ad's retailer/title line. */
+ .scan-tile strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;overflow-wrap:anywhere;line-height:1.25;max-width:100%}
+ .scan-tile .scan-pages{display:inline-flex;align-items:center;margin:5px 0 2px;padding:2px 6px;border-radius:5px;background:#ffffffb8;border:1px solid #9e78944d;color:#603853;font-size:.67rem;font-weight:800;white-space:nowrap}
+ .scan-tile small{overflow-wrap:anywhere}
+ .scan-sticker{max-width:100%;overflow-wrap:anywhere;text-align:right}
+
 .hot-section{scroll-margin-top:12px}.hot-card{position:relative}
 .hot-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 .hot-card .deal-tag{position:absolute;right:5px;top:28px;padding:3px 6px;border-radius:7px;background:#fff0be;color:#50304a;border:1px solid #f3bb61;font-size:.62rem;font-weight:850;transform:rotate(-6deg);pointer-events:none;z-index:2;box-shadow:0 3px 12px #0006;animation:tag-pop .35s both}
@@ -78,7 +84,7 @@ html[data-embed] body{background:transparent}html[data-embed] main{width:100%;ma
 @keyframes runner-bounce{from{transform:translateY(1px) rotate(-2deg)}to{transform:translateY(-7px) rotate(4deg)}}
 @keyframes runner-paw{0%,100%{transform:rotate(0deg)}45%{transform:rotate(-15deg) translateY(-4px)}}
 @media(max-width:1050px){.scan-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:700px){.scan-strip{grid-template-columns:repeat(3,minmax(0,1fr))}.scan-tile{min-height:118px;padding:8px}.scan-section{padding:8px}.quick-nav a{font-size:.68rem;padding:6px 9px}.deal-runner{width:88px}.deal-runner img{height:74px;width:74px}}
+@media(max-width:700px){.scan-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.scan-tile{min-height:150px;padding:9px}.scan-section{padding:8px}.quick-nav a{font-size:.68rem;padding:6px 9px}.deal-runner{width:88px}.deal-runner img{height:74px;width:74px}}
 @media(max-width:370px){.scan-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.deal-runner,.deal-tag{animation:none!important}.scan-tile{transition:none!important;transform:none!important}}
 
@@ -210,6 +216,21 @@ function renderSourceStatus(feed){
  $('sources-heading').textContent=list.length?('Source coverage: '+working+'/'+list.length+' feeds checked · '+(feed.feedItems||0)+' unique reported deals · '+(feed.mergedDuplicates||0)+' duplicates merged'):'Source coverage: data not available';
  $('source-chips').innerHTML=list.map(x=>'<span class="source-chip '+(x.ok?'':'offline')+'" title="'+esc(x.ok?(x.accepted+' accepted feed entries'):(x.error||'Unavailable'))+'">'+esc(x.name)+' · '+(x.ok?'✓ '+x.accepted:'not available')+'</span>').join('');
 }
+function adScanDisplay(a){
+ const raw=String(a.name||'2026 ad preview').replace(/\s+/g,' ').trim();
+ const match=raw.match(/^(\d{1,3})\s*pages?/i);
+ const reported=Number(a.pageCount);
+ const pages=Number.isSafeInteger(reported)&&reported>0&&reported<1000?reported:match?Number(match[1]):null;
+ let title=raw.replace(/^\d{1,3}\s*pages?\s*/i,'').replace(/^2026\s*[·:|–—-]\s*/i,'').trim();
+ title=title.replace(/^(?:The\s+)?Home Depot\s*Home Depot\b/i,'Home Depot')
+   .replace(/^Walmart\s*Walmart\b/i,'Walmart')
+   .replace(/^Target\s*Target\b/i,'Target')
+   .replace(/^Costco\s*Costco\b/i,'Costco')
+   .replace(/^Kohl['’]s\s*Kohl['’]s\b/i,"Kohl’s")
+   .replace(/^Sam['’]s Club\s*Sam['’]s Club\b/i,'Sam’s Club')
+   .replace(/^BJ['’]s Wholesale Club\s*BJ['’]s\b/i,'BJ’s');
+ return {title:title||raw,pages};
+}
 async function refreshAds(){
  try{
   const response=await fetch('/black-friday/ad-scans.json?t='+Date.now(),{cache:'no-store'});
@@ -225,11 +246,12 @@ async function refreshAds(){
    {name:'Best Buy',url:'https://www.bestbuy.com/black-friday',label:'Official Black Friday catalog'}
   ];
   $('scan-list').innerHTML=tiles.map((a,i)=>{
-   const name=String(a.name||'2026 ad preview');
+   const {title,pages}=adScanDisplay(a);
    return '<a class="scan-tile" href="'+esc(a.url)+'" target="_blank" rel="noopener">'+
     '<span class="scan-sticker">2026 AD PREVIEW</span>'+
     '<span class="scan-art">'+pictograms[i%pictograms.length]+'</span>'+
-    '<strong>'+esc(name.length>60?name.slice(0,57)+'…':name)+'</strong>'+
+    '<strong title="'+esc(title)+'">'+esc(title)+'</strong>'+
+    (pages?'<span class="scan-pages" aria-label="'+pages+' pages">'+pages+' pages</span>':'')+
     '<small>'+esc(a.source||'Publisher ad directory')+'</small>'+
     '<span class="scan-action">See preview ↗</span></a>';
   }).join('')+official.map((o,i)=>'<a class="scan-tile" href="'+esc(o.url)+'" target="_blank" rel="noopener">'+
