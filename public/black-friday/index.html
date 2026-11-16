@@ -146,6 +146,7 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
  html[data-embed] .hot-title{font-size:.76rem}
  html[data-embed] .hot-buttons button{width:22px;font-size:.93rem}
 }
+.scout-actions{display:flex;align-items:center;flex-wrap:wrap;gap:9px}.scout-actions button{border:1px solid #aa759a;border-radius:8px;color:#ffe0f2;background:#3a2447;padding:6px 10px;font-size:.71rem;font-weight:800;cursor:pointer}.scout-actions button:hover{background:#503256}.scout-actions a{font-size:.74rem;font-weight:750}@media(prefers-reduced-motion:reduce){#watch-scouts{display:none}}
 </style>
 <script>if(new URLSearchParams(location.search).get('embed')==='featured')document.documentElement.dataset.embed='featured'</script>
 </head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -175,7 +176,7 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
 <a class="scan-tile" href="https://www.bestbuy.com/black-friday" target="_blank" rel="noopener"><span class="scan-sticker official">OFFICIAL</span><span class="scan-art">💻</span><strong>Best Buy</strong><small>Live sale catalog</small><span class="scan-action">See offers ↗</span></a>
 </div><p class="scan-note" id="scan-status">2026 ad index checks run with the scheduled feed refresh. Scans and previews may be third-party captures; official retailer pages are marked.</p>
 </section>
-<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 12 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
+<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 12 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="watch-scouts" aria-label="Watch Tidbit or Sugarfoot scurry to a deal">🐾 Watch a scurry</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
 <section class="cat-panel"><h2>Shop all 2026 holiday deals by category</h2><p>Open the full catalog to search, filter, save favorites, see upcoming offers and sort by popularity.</p><nav class="category-list" id="categories" aria-label="Deal categories"><a href="/black-friday/all/">All categories ↗</a></nav></section>
 <nav class="footer-links"><a href="/black-friday/all/?view=upcoming">Upcoming deals & sale times ↗</a><a href="/black-friday/all/?view=popular&amp;sort=popular">Popular and editor-selected deals ↗</a><a href="#ad-scans">Ad scans ↗</a><a href="/black-friday/all/#gifts">Gift ideas ↗</a></nav>
 <p class="disclaimer" id="feed-status">LIVE means recently reported, not verified stock. Confirm the price, seller and shipping at checkout.</p>
@@ -318,7 +319,7 @@ async function updateFeed(){
  }catch{$('feed-status').textContent='Showing recent individually sourced offers; the expanded feed could not be loaded. Confirm price and stock before purchase.';}
  render();startMascot();
 }
-let mascotReady=false,mascotBusy=false,mascotTimeout=0;
+let mascotReady=false,mascotBusy=false,mascotTimeout=0,mascotTurn=0;
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function scurryTo(runner,from,to,milliseconds){
   const a='translate3d('+Math.round(from)+'px,0,0)',b='translate3d('+Math.round(to)+'px,0,0)';
@@ -338,7 +339,7 @@ async function runMascot(){
   const deal=items.find(d=>d.id===target.dataset.dealId);
   if(!deal||!isReportedLive(deal))return;
   mascotBusy=true;
-  const sugar=Math.random()>=.5,who=sugar?'Sugarfoot':'Tidbit',runner=$('deal-runner');
+  const sugar=(mascotTurn++%2===1),who=sugar?'Sugarfoot':'Tidbit',runner=$('deal-runner');
   const fromLeft=Math.random()>=.5,width=innerWidth,fromX=fromLeft?-160:width+160,exitX=fromLeft?width+160:-160;
   const rect=target.getBoundingClientRect();
   const stopX=Math.max(8,Math.min(width-132,rect.left+rect.width*.24));
@@ -385,6 +386,16 @@ async function runMascot(){
     mascotBusy=false;
   }
 }
+$('watch-scouts')?.addEventListener('click',()=>{
+  if(mascotBusy||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const cards=$('hot-list');
+  if(!cards)return;
+  const visible=[...cards.querySelectorAll('.hot-card')].some(el=>{
+    const r=el.getBoundingClientRect();return r.top<innerHeight-135&&r.bottom>135;
+  });
+  if(!visible){cards.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(runMascot,750);}
+  else runMascot();
+});
 function startMascot(){
   if(mascotReady||document.documentElement.dataset.embed||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   mascotReady=true;
