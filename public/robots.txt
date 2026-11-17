@@ -1,0 +1,6 @@
+# Random Candy Land search discovery
+User-agent: *
+Allow: /
+
+# Indexable, canonical attraction pages are listed here.
+Sitemap: https://randomcandyland.com/sitemap.xml
