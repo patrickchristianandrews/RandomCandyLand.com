@@ -203,7 +203,7 @@ const esc = value => value.replaceAll('&','&amp;').replaceAll('"','&quot;').repl
 export function pageHtml(html, page) {
  const [route,title,description,heading,copy] = page;
  html = html.replace(/<title>[\s\S]*?<\/title>/gi,'')
- .replace(/<meta\b(?=[^>]*(?:name|property)=["'](?:description|og:title|og:description|og:url|twitter:title|twitter:description)["'])[^>]*>/gi,'')
+ .replace(/<meta\b(?=[^>]*(?:name|property)=["'](?:description|og:title|og:description|og:url|og:type|twitter:title|twitter:description)["'])[^>]*>/gi,'')
  .replace(/<link\b(?=[^>]*rel=["']canonical["'])[^>]*>/gi,'');
  const metadata = '<title>'+esc(title)+'</title>\n<meta name="description" content="'+esc(description)+'">\n<link rel="canonical" href="'+origin+route+'">\n'
  + ['og:title','twitter:title'].map(key=>'<meta '+(key.startsWith('og:')?'property':'name')+'="'+key+'" content="'+esc(title)+'">').join('\n')
