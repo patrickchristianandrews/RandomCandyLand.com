@@ -138,7 +138,7 @@ export const pages = [
     "/osint-academy/",
     "TRACE | Public Records & OSINT Sources Directory",
     "Find public records, research sources and public camera networks with TRACE. Compare source coverage and keep research notes in your browser.",
-    "Find and evaluate public research sources",
+    "Trace Public Sources Dictionary: find and evaluate records",
     "Browse source categories, check what each source can establish and follow links to the original records. Use the case notebook to organize findings and record the limits of your evidence."
   ],
   [
