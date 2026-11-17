@@ -79,6 +79,13 @@ export const pages = [
     "Choose a model that fits your device, download it and try a writing, coding or brainstorming prompt. Local chat runs on compatible hardware; other tools may use external services."
   ],
   [
+    "/image-studio/",
+    "Image Studio | AI Image Generator & Art Maker",
+    "Create AI-generated images in Random Candy Land Image Studio. Describe your idea, choose an image model and aspect ratio, and download or save your artwork.",
+    "Create AI images in Image Studio",
+    "Turn a written idea into AI-made artwork. Pick an image shape, choose a model, and generate designs using supported third-party services. Download finished creations or save favorites in this browser."
+  ],
+  [
     "/ai-academy/",
     "AI Academy | Hands-On Prompt Writing Lessons",
     "Learn to write useful AI prompts through short lessons, quizzes and hands-on challenges. Practice with Prompt Coach, Prompt Showdown and a live Prompt Builder.",
@@ -201,7 +208,7 @@ export function pageHtml(html, page) {
  const metadata = '<title>'+esc(title)+'</title>\n<meta name="description" content="'+esc(description)+'">\n<link rel="canonical" href="'+origin+route+'">\n'
  + ['og:title','twitter:title'].map(key=>'<meta '+(key.startsWith('og:')?'property':'name')+'="'+key+'" content="'+esc(title)+'">').join('\n')
  + ['og:description','twitter:description'].map(key=>'<meta '+(key.startsWith('og:')?'property':'name')+'="'+key+'" content="'+esc(description)+'">').join('\n')
- + '<meta property="og:url" content="'+origin+route+'">';
+ + '<meta property="og:url" content="'+origin+route+'">\n<meta property="og:type" content="website">';
  html=html.replace(/<\/head>/i,metadata+'\n</head>');
  const intro='<section class="page-purpose" aria-label="About this activity" style="max-width:70rem;margin:1.5rem auto;padding:1rem 1.25rem;font:inherit;line-height:1.6"><h2>'+esc(heading)+'</h2><p>'+esc(copy)+'</p></section>';
  if(route==='/' || route==='/trump/') {
