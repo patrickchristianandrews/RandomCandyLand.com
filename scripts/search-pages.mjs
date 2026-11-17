@@ -211,7 +211,7 @@ export function pageHtml(html, page) {
   html=html.replace(/<\/body>/i,intro+'\n</body>');
  }
  if(route==='/') {
-  html=html.replace('</head>','<meta name="google-site-verification" content="qHbBNcHhZjhCwu48qwoyqCFukbdb_pRQ5XKlPSaUk88">\n</head>');
+  html=html.replace('</head>','<meta name="google-site-verification" content="qHbBNcHhZjhCwu48qwoyqCFukbdb_pRQ5XKlPSaUk88"><meta name="msvalidate.01" content="DD983114301F86880BC7C58B5FB9357A">\n</head>');
   const graph={'@context':'https://schema.org','@graph':[
    {'@type':'WebSite','@id':origin+'/#website',url:origin+'/',name:'Random Candy Land',description,inLanguage:'en'},
    {'@type':'CollectionPage','@id':origin+'/#webpage',url:origin+'/',name:title,description,isPartOf:{'@id':origin+'/#website'},mainEntity:{'@id':origin+'/#features'}},
