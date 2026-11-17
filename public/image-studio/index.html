@@ -1,225 +1,399 @@
 <!doctype html>
-<html lang="en" data-candyland-edition="image-studio">
+<html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#1b1034"><meta name="description" content="Make images with AI in Random Candy Land's colorful Image Studio. Choose your engine, model, shape, and seed. Save your own creations.">
-<link rel="canonical" href="https://randomcandyland.com/image-studio/">
-<link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="manifest" href="/app-manifests/image-studio.webmanifest">
-<title>Image Studio | Random Candy Land</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-66LXYNEMLJ"></script><script src="/analytics.js?v=ga4-20261030-v1"></script>
-<!-- Google Tag Manager (sitewide, analytics page views only) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TQRDB5KL');</script>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Studio</title>
 <style>
-:root{color-scheme:dark;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff6fd;background:#140b28;--edge:#b68bdb85;--muted:#ddc9e8;--panel:#26183ed9;--pink:#ffb8e9}*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 18% 4%,#56306c 0,transparent 38%),radial-gradient(ellipse at 90% 28%,#4b2269 0,transparent 41%),radial-gradient(ellipse at 20% 90%,#302e69 0,transparent 47%),#140b28}
-body:before{content:"✦       ✧             ✦          ✧      ✨";position:absolute;left:0;right:0;top:85px;text-align:center;letter-spacing:2vw;color:#ffdb8c96;pointer-events:none}
-a{color:#ffd5f0}button,textarea,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:wait}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #ffe5aa;outline-offset:3px}
-header{max-width:1120px;margin:auto;padding:16px;display:flex;gap:12px;justify-content:space-between;align-items:center;position:relative;z-index:1}
-.brand{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none;font-weight:900;letter-spacing:.035em}.brand img{width:46px;height:46px}.nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:end}
-.nav a{padding:9px 12px;border-radius:999px;background:#34204bc9;border:1px solid var(--edge);font-size:13px;font-weight:800;text-decoration:none;color:#fff}
-main{max-width:1050px;margin:auto;padding:0 15px 55px;position:relative}
-.hero{text-align:center;padding:19px 10px 24px;position:relative}
-.hero:before{content:"🍭";font-size:42px;position:absolute;left:max(1%,calc(50% - 270px));top:15px;transform:rotate(-21deg);filter:drop-shadow(0 7px 18px #d0369b)}
-.hero:after{content:"🍬";font-size:37px;position:absolute;right:max(1%,calc(50% - 270px));top:50px;transform:rotate(23deg)}
-.kicker{font-size:11px;font-weight:900;letter-spacing:.18em;color:#fbc7ea}
-h1{font-size:clamp(38px,8vw,74px);line-height:1.06;letter-spacing:-.045em;margin:9px auto 12px;text-shadow:0 6px 22px #e93e9a77}
-h1 span{background:linear-gradient(120deg,#ffe3a7,#ffabd9 45%,#d8b1ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{margin:0 auto;max-width:590px;color:#eaddf3;font-size:15px}
-.panel{border:1px solid var(--edge);border-radius:26px;background:linear-gradient(155deg,#34224be8,#21142fdc 70%);box-shadow:0 20px 45px #09051088, inset 0 1px #ffffff23;padding:clamp(17px,3vw,31px);margin:16px 0}
-h2{font-size:clamp(20px,3vw,27px);margin:0 0 8px;letter-spacing:-.02em}h3{font-size:16px;margin:0 0 8px}.sub{color:var(--muted);font-size:13px;margin:0 0 15px}
-label,.label{display:block;font-weight:850;font-size:12px;letter-spacing:.075em;color:#f8d8f9;margin-bottom:7px;text-transform:uppercase}
-textarea,select,input[type="text"],input[type="number"],input[type="password"]{width:100%;border:1px solid #b690df80;border-radius:15px;background:#170f2baa;color:#fff4fd;padding:12px 13px;min-height:49px;outline:none}
-textarea:focus,select:focus,input:focus{border-color:#ffaee9;box-shadow:0 0 0 2px #ff83d633}textarea{resize:vertical;min-height:118px}
-::placeholder{color:#ae9dbb}button,.ghost{min-height:43px;border-radius:15px;border:1px solid #c79bed7c;background:#4a2d66;color:#fff;text-decoration:none;font-weight:800;padding:9px 14px}
-button:hover:not(:disabled),.ghost:hover{filter:brightness(1.12)}
-.chips,.shape-row,.toggle-row,.actions,.results-actions{display:flex;flex-wrap:wrap;gap:9px}
-.chips{margin-top:11px}.chips button{min-height:32px;padding:5px 11px;font-size:12px;border-radius:999px;background:#443056}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{min-width:0}.spaced{margin-top:17px}
-.shape-row{margin-top:6px}.shape-row button{flex:1;min-width:105px}.shape-row button[aria-pressed="true"]{background:linear-gradient(125deg,#f052b6,#9652ed);border-color:#ffd1f9;box-shadow:0 0 19px #f750d777}
-.toggle-row{gap:14px 30px;margin:18px 0 8px}.check{display:flex;gap:9px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px;color:#fff;cursor:pointer;margin:0}.check input{width:20px;height:20px;accent-color:#d65add}
-.details{margin-top:16px;border-top:1px solid #a97cbc58;padding-top:13px}.details summary{cursor:pointer;color:#ffc9f4;font-weight:800}.details .grid{margin-top:13px}.help{font-size:12px;color:#cab9d8;margin:8px 0 0}
-.generate{display:block;width:min(100%,560px);margin:22px auto 9px;border:1px solid #ffc7ed;border-radius:24px;background:linear-gradient(110deg,#fa6db6,#c252e9 60%,#7260ff);box-shadow:0 10px 31px #c546d277,inset 0 2px #ffffff61;padding:16px 22px;font-size:23px;font-weight:950;color:white;letter-spacing:.01em}
-.center{text-align:center}.status{padding:13px 15px;border-radius:14px;border:1px solid #a78bfa72;background:#2e2044;color:#f6e9fe;font-size:14px;white-space:pre-wrap;margin-top:15px}
-.status.error{background:#521c3d;border-color:#ef6797;color:#ffcfdd}.status.ok{background:#1b4946;border-color:#7bc9b1;color:#d8fff4}.status[hidden],.hidden{display:none!important}
-.progress{height:8px;background:#4a365e;border-radius:999px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:linear-gradient(90deg,#ff97cb,#ad7cfa);width:0;transition:width .3s}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:13px}
-.tile{min-width:0;overflow:hidden;border:1px solid #c399df8a;background:#1c1230;border-radius:18px}.tile img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#1b1225}.tile .info{padding:11px}.tile p{font-size:12px;color:#e2cce5;margin:0 0 7px;overflow-wrap:anywhere}
-.results-actions a,.results-actions button{font-size:12px;padding:7px 10px;min-height:35px;border-radius:10px}.results-actions a{display:inline-flex;align-items:center;background:#61357b;color:#fff;text-decoration:none;font-weight:800}
-.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.panel-head button{min-height:34px;font-size:12px}
-.empty{color:#e6cde9;font-size:14px;background:#281a3d;border:1px dashed #b690df70;border-radius:16px;padding:23px;text-align:center}
-.smallprint{font-size:12px;color:#d6c4e2}.footer{text-align:center;color:#dbcae5;font-size:13px;padding:20px}
-.sprinkles{height:20px;margin-top:14px;background:radial-gradient(circle at 10% 50%,#ff99d9 0 3px,transparent 4px),radial-gradient(circle at 24% 30%,#ffdda8 0 4px,transparent 5px),radial-gradient(circle at 51% 40%,#d3b3ff 0 3px,transparent 4px),radial-gradient(circle at 78% 55%,#81e0db 0 3px,transparent 4px),radial-gradient(circle at 94% 22%,#ff99d9 0 3px,transparent 4px)}
-@media(max-width:630px){header{align-items:flex-start}.brand{font-size:12px}.brand img{width:37px;height:37px}.nav a{font-size:11px;padding:7px 9px}.hero:before,.hero:after{opacity:.35;filter:none}.grid{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.panel{border-radius:21px}.tile .info{padding:9px}.tile img{aspect-ratio:3/4}.shape-row button{min-width:calc(50% - 5px)}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  :root{
+    --bg:#0b0d12; --panel:#141821; --panel2:#1b2029; --line:#262c38;
+    --fg:#e8ecf3; --muted:#8b93a3; --accent:#6c7bff; --accent2:#a46bff;
+    --good:#3fd18b; --bad:#ff6b6b; --radius:14px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:var(--accent)}
+  .wrap{max-width:1100px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-left,0px)) 56px}
+  header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));flex:none}
+  h1{font-size:20px;margin:0;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:13px;margin:2px 0 0}
+  .tabs{display:flex;gap:6px;margin-left:auto;background:var(--panel);padding:5px;border-radius:12px;border:1px solid var(--line)}
+  .tab{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:600;font-size:13px;padding:8px 16px;border-radius:9px;cursor:pointer}
+  .tab.on{background:var(--panel2);color:var(--fg)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:0 0 6px}
+  textarea,select,input[type=text]{width:100%;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:14px;resize:vertical}
+  textarea{min-height:88px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row > .col{flex:1;min-width:140px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{appearance:none;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:9px;cursor:pointer}
+  .chip.on{border-color:var(--accent);color:var(--fg);background:#1d2340}
+  .opts{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .check{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer}
+  .btn{appearance:none;border:0;border-radius:11px;font:inherit;font-weight:700;font-size:15px;padding:12px 22px;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+  .btn:disabled{opacity:.55;cursor:default}
+  .btn.ghost{background:var(--panel2);color:var(--fg);border:1px solid var(--line);font-size:13px;padding:8px 14px;font-weight:600}
+  .bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}
+  .spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .hint{color:var(--muted);font-size:12px}
+  .lib-head{display:flex;align-items:center;gap:12px;margin:24px 0 10px}
+  .lib-head h2{font-size:15px;margin:0}
+  .lib-head .count{color:var(--muted);font-size:13px}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+  figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+  figure .imgwrap{position:relative;aspect-ratio:var(--ar,1);background:var(--panel2)}
+  figure img{display:block;width:100%;height:100%;object-fit:cover}
+  figure .imgwrap .spin{position:absolute;top:50%;left:50%;margin:-8px 0 0 -8px}
+  figcaption{padding:10px 12px;font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:8px;flex:1}
+  figcaption .p{color:var(--fg);max-height:3em;overflow:hidden}
+  .fig-acts{display:flex;gap:8px;margin-top:auto}
+  .fig-acts a,.fig-acts button{flex:1;text-align:center;text-decoration:none;font-weight:600;font-size:12px;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);cursor:pointer;font-family:inherit}
+  .empty{color:var(--muted);font-size:13px;border:1px dashed var(--line);border-radius:var(--radius);padding:26px;text-align:center}
+  .out{white-space:pre-wrap;word-break:break-word;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:14px;min-height:80px;font-size:14px}
+  .err{color:var(--bad);font-size:13px;margin-top:10px}
+  .foot{color:var(--muted);font-size:12px;margin-top:28px;line-height:1.7}
+  .foot b{color:var(--fg)}
+  [hidden]{display:none!important}
+  @media (max-width:560px){ .tabs{margin-left:0;width:100%} .tab{flex:1} h1{font-size:18px} }
 </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<header>
-<a class="brand" href="/"><img src="/icon.svg" alt="">RANDOM <span>CANDY LAND</span></a>
-<nav class="nav" aria-label="Main links"><a href="/">⌂ Home</a><a href="/studio/">✧ Random AI</a></nav>
-</header>
-<main>
-<section class="hero"><div class="kicker">✨ A LITTLE MAGIC. A LOT OF IMAGINATION.</div><h1>🍬 <span>Image Studio</span></h1><p>Turn your wildest ideas into AI-made art. Dream it, shape it, and save your favorite creations.</p></section>
-<form id="generator" class="panel">
-<h2>🪄 Let's make something magical</h2><p class="sub">Start with an idea, then choose how you'd like it brought to life.</p>
-<div class="field"><label for="prompt">Describe your image</label><textarea id="prompt" required maxlength="4000" placeholder="A tiny gummy dragon flying over a neon candy castle at sunset…"></textarea>
-<div class="chips" aria-label="Idea starters"><button type="button" data-idea="A magical candy castle with colorful rainbow clouds, whimsical fantasy illustration">🏰 Candy castle</button><button type="button" data-idea="A cute fluffy astronaut cat drifting through a sparkling galaxy, cinematic illustration">🐱 Space cat</button><button type="button" data-idea="A dreamy glowing forest with pastel mushrooms and floating fireflies, detailed fantasy art">🍄 Dream forest</button></div></div>
-<div class="grid spaced">
-<div class="field"><label for="engine">🍬 Engine</label><select id="engine"><option value="horde">AI Horde · community workers</option><option value="pollinations">Pollinations · API key optional</option></select></div>
-<div class="field"><label for="model">🧁 Model</label><select id="model"><option value="">Any available (AI Horde)</option></select></div>
+<div class="wrap">
+  <header>
+    <div class="logo"></div>
+    <div>
+      <h1>Open Studio</h1>
+      <p class="sub">Free image &amp; text generation — no account, no key, no limits.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="image" role="tab">Image</button>
+      <button class="tab" data-tab="text" role="tab">Text</button>
+    </div>
+  </header>
+
+  <div class="card" style="margin-bottom:16px;padding:12px 16px">
+    <div class="row" style="align-items:flex-end">
+      <div class="col" style="min-width:220px">
+        <label for="token">Pollinations token <span style="text-transform:none;font-weight:400;color:var(--muted)">— optional, removes the wait</span></label>
+        <input type="text" id="token" placeholder="Paste a free token to skip the ~45s limit">
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;padding-bottom:2px">
+        <a class="chip" href="https://auth.pollinations.ai" target="_blank" rel="noopener" style="text-decoration:none">Get a free token ↗</a>
+      </div>
+    </div>
+    <p class="hint" style="margin:8px 0 0">Without a token the free network allows about one image every 45 seconds. A token (free, no card) lifts that, so batches come at once. Stored only in this browser.</p>
+  </div>
+
+  <!-- IMAGE -->
+  <section id="panel-image" class="card">
+    <label for="iprompt">Describe the image</label>
+    <textarea id="iprompt" placeholder="A red fox in fresh snow at sunrise, soft light, close-up, highly detailed"></textarea>
+    <div style="margin-top:12px">
+      <label>Style</label>
+      <div class="chips" id="istyle">
+        <button class="chip on" data-style="">None</button>
+        <button class="chip" data-style="photorealistic, 50mm photo, natural light, highly detailed">Photoreal</button>
+        <button class="chip" data-style="cinematic film still, dramatic lighting, shallow depth of field, 35mm">Cinematic</button>
+        <button class="chip" data-style="anime key visual, studio quality, vibrant, clean lineart">Anime</button>
+        <button class="chip" data-style="digital painting, concept art, trending, intricate detail">Art</button>
+        <button class="chip" data-style="3D render, octane, soft studio lighting, product shot">3D</button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="col" style="max-width:210px">
+        <label for="iengine">Engine</label>
+        <select id="iengine">
+          <option value="pollinations">Pollinations — fast, simple</option>
+          <option value="aihorde">AI Horde — more models, free</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="imodel">Model</label>
+        <select id="imodel">
+          <option value="flux">Flux — highest quality</option>
+          <option value="turbo">Turbo — fast</option>
+        </select>
+        <select id="ihordemodel" hidden><option value="">Any (fastest free worker)</option></select>
+      </div>
+      <div class="col">
+        <label>Shape</label>
+        <div class="chips" id="ishape">
+          <button class="chip on" data-w="1024" data-h="1024">Square</button>
+          <button class="chip" data-w="1280" data-h="720">Landscape</button>
+          <button class="chip" data-w="720" data-h="1280">Portrait</button>
+          <button class="chip" data-w="1280" data-h="960">4:3</button>
+        </div>
+      </div>
+      <div class="col" style="max-width:150px">
+        <label for="ibatch">How many</label>
+        <select id="ibatch"><option value="1">1 image</option><option value="2">2 images</option><option value="4">4 images</option></select>
+      </div>
+    </div>
+    <div class="opts">
+      <label class="check"><input type="checkbox" id="ienhance" checked> Enhance prompt</label>
+      <label class="check"><input type="checkbox" id="inologo" checked> No watermark</label>
+      <label class="check"><input type="checkbox" id="iseedlock"> Lock seed</label>
+      <input type="text" id="iseed" style="width:120px" placeholder="seed (auto)" inputmode="numeric">
+    </div>
+    <div class="bar">
+      <button class="btn" id="igen">Generate</button>
+      <span class="hint" id="ihint">Made by the open Pollinations network. First image can take ~10–20s.</span>
+    </div>
+    <div class="err" id="ierr" hidden></div>
+
+    <div class="lib-head">
+      <h2>Your library</h2><span class="count" id="libcount"></span>
+      <button class="btn ghost" id="libclear" style="margin-left:auto" hidden>Clear</button>
+    </div>
+    <div class="gallery" id="gallery"></div>
+    <div class="empty" id="libempty">Nothing yet. Generate an image and it is saved here — your library stays after you close the page.</div>
+  </section>
+
+  <!-- TEXT -->
+  <section id="panel-text" class="card" hidden>
+    <label for="tprompt">Ask or write a prompt</label>
+    <textarea id="tprompt" placeholder="Explain black holes to a 10-year-old in one paragraph."></textarea>
+    <div class="row" style="margin-top:12px">
+      <div class="col">
+        <label for="tmodel">Model</label>
+        <select id="tmodel">
+          <option value="openai">OpenAI (general)</option>
+          <option value="mistral">Mistral</option>
+          <option value="llama">Llama</option>
+          <option value="searchgpt">Web-aware</option>
+        </select>
+      </div>
+      <div class="col" style="display:flex;align-items:flex-end;gap:10px">
+        <button class="btn" id="tgen" style="flex:1">Generate text</button>
+        <span class="spin" id="tspin" hidden></span>
+      </div>
+    </div>
+    <div class="err" id="terr" hidden></div>
+    <div class="out" id="tout" aria-live="polite">The answer appears here.</div>
+    <div class="bar"><button class="btn ghost" id="tcopy" hidden>Copy</button></div>
+  </section>
+
+  <p class="foot">
+    <b>Open Studio</b> runs entirely in your browser and talks straight to the open-source
+    <b>Pollinations</b> network — free, no sign-up, no API key. Your library is saved on this device only; nothing you type is sent anywhere else.
+    Images open a direct link you can right-click → Save, or use <b>Download</b>.<br>
+    This is a free, in-browser studio: it makes <b>images and text</b>. Video, photo editing and upscaling need a paid service or a desktop app.
+  </p>
 </div>
-<div class="grid spaced">
-<div class="field"><div class="label">🖼️ Shape</div><div class="shape-row" role="group" aria-label="Image shape"><button type="button" data-shape="square" aria-pressed="true">□ Square</button><button type="button" data-shape="landscape" aria-pressed="false">▭ Landscape</button><button type="button" data-shape="portrait" aria-pressed="false">▯ Portrait</button><button type="button" data-shape="classic" aria-pressed="false">▤ 4:3</button></div></div>
-<div class="field"><label for="count">🗂️ How many</label><select id="count"><option value="1">1 image</option><option value="2">2 images</option><option value="3">3 images</option><option value="4">4 images</option></select></div>
-</div>
-<div class="toggle-row"><label class="check"><input id="enhance" type="checkbox" checked> ✨ Enhance prompt</label><label class="check"><input id="noWatermark" type="checkbox" checked> 👑 Request no watermark</label><label class="check"><input id="lockSeed" type="checkbox"> 🎲 Lock seed</label></div>
-<div class="grid spaced"><div class="field"><label for="seed">Seed</label><input type="number" id="seed" min="0" max="2147483647" value="188261614" disabled><p class="help">Lock seed to repeat a setup when supported by your model.</p></div><div class="field"><label for="apiKey" id="keyLabel">AI Horde key (optional)</label><input type="password" id="apiKey" autocomplete="off" placeholder="Anonymous generation is available"><p class="help" id="keyHelp">Optional AI Horde key. Not stored on this site.</p></div></div>
-<details class="details"><summary>⚙️ About engines, privacy and image quality</summary><p class="help">AI Horde uses community-operated image workers, and requests may queue. Anonymous jobs use its public anonymous access. Pollinations uses its image URL without a key by default. You can optionally add a provider API key for authenticated requests; the key is never required by this form. Your prompt and generation settings are sent to whichever provider you choose. Keys remain only in the current page session; use a publishable/browser-safe key, never a secret server key.</p><p class="help">Prompt enhancement adds descriptive keywords locally. Watermark behavior depends on the provider and model. Free results, availability, speed and file access depend on third-party services.</p></details>
-<button type="submit" class="generate" id="generate">✨ Generate images</button><p class="smallprint center">No Random Candy Land account required · The selected provider processes your prompt</p>
-<div id="status" class="status hidden" role="status" aria-live="polite"></div><div id="progress" class="progress hidden" aria-hidden="true"><div id="progressBar"></div></div>
-</form>
-<section class="panel" aria-labelledby="resultsTitle"><h2 id="resultsTitle">✨ Freshly made</h2><p class="sub">Your latest creations appear here first.</p><div id="results" class="gallery"><p class="empty" style="grid-column:1/-1">Your next masterpiece is just a prompt away 🍭</p></div></section>
-<section class="panel" aria-labelledby="libraryTitle"><div class="panel-head"><h2 id="libraryTitle">🖼️ Your library</h2><button type="button" id="clearLibrary">Clear library</button></div><p class="sub">Stored in this browser when storage is available. Clearing browser data removes saved images.</p><div id="library" class="gallery"><p class="empty" style="grid-column:1/-1">No saved art yet. Make something sweet!</p></div></section>
-<section class="panel"><h2>🍭 Art, made your way</h2><p class="sub">Create images from your ideas, explore different models and shapes, and download what you love. Models are provided by independent services, so performance and availability may vary.</p><div class="sprinkles" aria-hidden="true"></div></section>
-<div class="footer">RANDOM CANDY LAND · <a href="/">Explore more of Candy Land</a></div>
-</main>
+
 <script>
 (function(){
-"use strict";
-const $=id=>document.getElementById(id);
-const form=$("generator"), engine=$("engine"), model=$("model"), key=$("apiKey"), prompt=$("prompt");
-let shape="square",running=false,abortController=null,latest=[];
-const sizes={square:[512,512],landscape:[768,512],portrait:[512,768],classic:[768,576]};
-const DB="rcl-image-studio-v1",STORE="creations";
-function status(message,type){const el=$("status");el.textContent=message;el.className="status "+(type||"");el.hidden=false;}
-function progress(n){$("progress").classList.remove("hidden");$("progressBar").style.width=Math.max(0,Math.min(100,n))+"%";}
-function strError(err){return err&&err.message?err.message:String(err);}
-function setRunning(b){running=b;$("generate").disabled=b;$("generate").textContent=b?"🍭 Generating…":"✨ Generate images";if(!b)$("progress").classList.add("hidden");}
-async function readJson(resp){const raw=await resp.text();let data;try{data=JSON.parse(raw);}catch{throw Error("The provider returned an unexpected response ("+resp.status+").");}if(!resp.ok){const detail=(data.message||data.error||data.errors||raw.slice(0,300));throw Error(typeof detail==="string"?detail:JSON.stringify(detail));}return data;}
-async function refreshModels(){
- if(engine.value==="pollinations"){model.innerHTML='<option value="flux">Flux</option><option value="turbo">Turbo</option>';key.placeholder="Optional — leave blank for no-key mode";$("keyLabel").textContent="Pollinations API key (optional)";$("keyHelp").textContent="No API key required to try generating. Add a key only if you choose. Key not saved.";return;}
- model.innerHTML='<option value="">Any available worker (fastest)</option>';key.placeholder="Optional API key";$("keyLabel").textContent="AI Horde API key (optional)";$("keyHelp").textContent="Leave blank for anonymous community access. Key not saved.";
- try{const r=await fetch("https://aihorde.net/api/v2/status/models?type=image",{signal:AbortSignal.timeout(11000)});const data=await readJson(r);if(engine.value!=="horde"||!Array.isArray(data))return;
- const list=data.filter(m=>m&&m.name&&m.count>0).sort((a,b)=>(b.count||0)-(a.count||0)).slice(0,45);
- list.forEach(m=>{const opt=document.createElement("option");opt.value=m.name;opt.textContent=m.name+" · "+m.count+" workers";model.append(opt);});}
- catch(err){status("Model list unavailable. You can still select 'Any available worker' and generate.","");}
-}
-engine.addEventListener("change",()=>{key.value="";refreshModels();});
-document.querySelectorAll("[data-shape]").forEach(btn=>btn.addEventListener("click",()=>{shape=btn.dataset.shape;document.querySelectorAll("[data-shape]").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));}));
-document.querySelectorAll("[data-idea]").forEach(btn=>btn.addEventListener("click",()=>{prompt.value=btn.dataset.idea;prompt.focus();}));
-$("lockSeed").addEventListener("change",()=>{$("seed").disabled=!$("lockSeed").checked;});
-function seedValue(){return $("lockSeed").checked?Math.max(0,Math.min(2147483647,Number($("seed").value)||0)):Math.floor(Math.random()*2147483647);}
-function enhanced(text){return $("enhance").checked?text+", detailed composition, beautiful lighting, vibrant color, high quality":text;}
-function openDB(){return new Promise((resolve,reject)=>{if(!("indexedDB" in window))return reject(Error("Browser storage is unavailable"));const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:"id"});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
-async function dbOp(mode,action){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode);let result;const req=action(tx.objectStore(STORE));req.onsuccess=()=>{result=req.result;};tx.oncomplete=()=>{db.close();resolve(result);};tx.onerror=()=>{db.close();reject(tx.error);};});}
-function makeRecord(image,description,seed){return {id:Date.now()+"-"+Math.random().toString(36).slice(2,9),image:image,created:Date.now(),prompt:description,seed:seed};}
-function tile(item,isSaved){
- const wrap=document.createElement("article");wrap.className="tile";
- const im=document.createElement("img");im.src=item.image;im.loading="lazy";im.alt="AI-generated artwork based on: "+item.prompt.slice(0,130);wrap.append(im);
- const info=document.createElement("div");info.className="info";
- const line=document.createElement("p");line.textContent=item.prompt.slice(0,95)+(item.prompt.length>95?"…":"");
- info.append(line);
- const actions=document.createElement("div");actions.className="results-actions";
- const download=document.createElement("a");download.href=item.image;download.target="_blank";download.rel="noopener noreferrer";download.download="random-candyland-art-"+item.id+".png";download.textContent="↓ Download";actions.append(download);
- if(!isSaved){const save=document.createElement("button");save.type="button";save.textContent="♡ Save";save.onclick=async()=>{try{await dbOp("readwrite",s=>s.put(item));save.textContent="✓ Saved";save.disabled=true;await refreshLibrary();}catch(e){status("Could not save to this device: "+strError(e),"error");}};actions.append(save);}
- else{const del=document.createElement("button");del.type="button";del.textContent="Remove";del.onclick=async()=>{await dbOp("readwrite",s=>s.delete(item.id));refreshLibrary();};actions.append(del);}
- info.append(actions);wrap.append(info);return wrap;
-}
-function render(target,items,isSaved){const el=$(target);el.replaceChildren();if(!items.length){const p=document.createElement("p");p.className="empty";p.textContent=isSaved?"No saved art yet. Make something sweet!":"Your next masterpiece is just a prompt away 🍭";p.style.gridColumn="1/-1";el.append(p);return;}items.forEach(x=>el.append(tile(x,isSaved)));}
-async function refreshLibrary(){try{const saved=await dbOp("readonly",s=>s.getAll());saved.sort((a,b)=>b.created-a.created);render("library",saved,true);}catch(e){$("library").textContent="Local image library isn't available in this browser.";}}
-async function toDataUrl(url,headers,signal){const r=await fetch(url,{headers:headers||{},signal});if(!r.ok)throw Error("Image download failed ("+r.status+").");const blob=await r.blob();if(!blob.type.startsWith("image/"))throw Error("Provider did not return an image.");return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error("Could not read image."));reader.readAsDataURL(blob);});}
-const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-async function generateHorde(text,count,seed,signal){
- const [width,height]=sizes[shape];
- const headers={"Content-Type":"application/json","apikey":key.value.trim()||"0000000000","Client-Agent":"RandomCandyLand:1.0:website"};
- const body={prompt:text,params:{width,height,n:count,steps:24,seed:String(seed),cfg_scale:7,sampler_name:"k_euler_a"},nsfw:false,censor_nsfw:true,r2:true,shared:false};
- if(model.value)body.models=[model.value];
- status("🍭 Sending your image request to AI Horde…");progress(8);
- const created=await readJson(await fetch("https://aihorde.net/api/v2/generate/async",{method:"POST",headers,body:JSON.stringify(body),signal}));
- if(!created.id)throw Error(created.message||"AI Horde did not return a job ID.");
- const jobId=encodeURIComponent(created.id);let done=false;
- for(let i=0;i<120;i++){
-   if(signal.aborted)throw Error("Generation cancelled.");
-   await delay(3000);
-   const check=await readJson(await fetch("https://aihorde.net/api/v2/generate/check/"+jobId,{signal}));
-   if(check.faulted)throw Error("AI Horde reported that the job failed. Try another model.");
-   if(check.done){done=true;break;}
-   progress(Math.min(90,10+(i*0.6)));
-   status("🍬 Waiting for community image workers…"+(check.wait_time?" About "+check.wait_time+" seconds estimated.":"")+(check.queue_position?" Queue position "+check.queue_position+".":""));
- }
- if(!done)throw Error("Community generation timed out. Please try again.");
- progress(94);status("✨ Collecting your finished artwork…");
- const finished=await readJson(await fetch("https://aihorde.net/api/v2/generate/status/"+jobId,{signal}));
- const entries=(finished.generations||[]).filter(g=>g.img);
- if(!entries.length)throw Error("The provider completed without returning an image.");
- const images=[];
- for(const g of entries){
-   let url=g.img;
-   try{if(!url.startsWith("data:image/"))url=await toDataUrl(url,{},signal);}catch{ /* Keep the provider image URL when its CDN prevents direct browser download. */ }
-   images.push(makeRecord(url,prompt.value,g.seed||seed));
- }
- return images;
-}
-// The anonymous public image endpoint is separate from the authenticated Gen API.
-async function anonymousPollinationsImage(url,signal){
- try { return await toDataUrl(url,{},signal); }
- catch(fetchError){
-  // The legacy public host may serve images to <img> while refusing cross-origin fetch.
-  return await new Promise((resolve,reject)=>{
-   const image=new Image();
-   let settled=false;
-   const done=(error)=>{
-    if(settled)return;
-    settled=true;
-    clearTimeout(timer);
-    signal.removeEventListener("abort",onAbort);
-    image.onload=null;image.onerror=null;
-    if(error)reject(error);else resolve(url);
-   };
-   const onAbort=()=>{image.src="";done(Error("Image request cancelled."));};
-   const timer=setTimeout(()=>done(Error("Anonymous Pollinations did not respond. Try again later or provide an optional API key.")),90000);
-   signal.addEventListener("abort",onAbort,{once:true});
-   if(signal.aborted){onAbort();return;}
-   image.onload=()=>done();
-   image.onerror=()=>done(Error("The anonymous Pollinations image endpoint is unavailable. You can retry or optionally provide an API key."));
-   image.src=url;
+  var $=function(s){return document.querySelector(s)};
+  var store={get:function(k,d){try{var v=localStorage.getItem('ostudio_'+k);return v===null?d:v}catch(e){return d}},
+             set:function(k,v){try{localStorage.setItem('ostudio_'+k,v)}catch(e){}}};
+
+  // Tabs
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x===t)});
+      var tab=t.dataset.tab;
+      $('#panel-image').hidden = tab!=='image';
+      $('#panel-text').hidden = tab!=='text';
+      store.set('tab',tab);
+    });
   });
- }
-}
-async function generatePollinations(text,count,seed,signal){
- const [width,height]=sizes[shape];const images=[];
- const apiKey=key.value.trim();
- for(let i=0;i<count;i++){
-   status("🍬 Pollinations "+(apiKey?"API-key":"no-key")+" image "+(i+1)+" of "+count+"…");progress(10+80*i/count);
-   const thisSeed=$("lockSeed").checked?seed:seed+i;
-   const base="https://gen.pollinations.ai/image/";
-   const url=new URL(base+encodeURIComponent(text));
-   url.searchParams.set("model",model.value||"flux");
-   url.searchParams.set("width",String(width));
-   url.searchParams.set("height",String(height));
-   url.searchParams.set("seed",String(thisSeed));
-   url.searchParams.set("nologo",$("noWatermark").checked?"true":"false");
-   // Send Authorization only when a key was explicitly supplied.
-   const imageUrl=apiKey
-     ?await toDataUrl(url.href,{"Authorization":"Bearer "+apiKey},signal)
-     :await anonymousPollinationsImage(url.href,signal);
-   images.push(makeRecord(imageUrl,prompt.value,thisSeed));
- }
- return images;
-}
-form.addEventListener("submit",async event=>{
- event.preventDefault();if(running)return;
- const text=prompt.value.trim();if(!text){prompt.focus();return;}
- const count=Number($("count").value);const seed=seedValue();abortController=new AbortController();setRunning(true);
- latest=[];render("results",latest,false);
- try{const images=engine.value==="horde"?await generateHorde(enhanced(text),count,seed,abortController.signal):await generatePollinations(enhanced(text),count,seed,abortController.signal);
- latest=images;render("results",latest,false);progress(100);status("🎉 Your "+images.length+" image"+(images.length===1?" is":"s are")+" ready! Download them or save them to your library.","ok");}
- catch(err){status("Couldn't generate images: "+strError(err)+". Check your connection, selected model and API key, or try AI Horde's 'Any available worker'.","error");}
- finally{setRunning(false);}
-});
-$("clearLibrary").addEventListener("click",async()=>{if(!confirm("Clear all saved Image Studio creations from this browser?"))return;try{await dbOp("readwrite",s=>s.clear());await refreshLibrary();}catch(e){status("Unable to clear library: "+strError(e),"error");}});
-refreshModels();refreshLibrary();
+  if(store.get('tab')==='text'){ document.querySelector('.tab[data-tab="text"]').click(); }
+
+  // Token
+  $('#token').value=store.get('token','');
+  $('#token').addEventListener('input',function(){store.set('token',this.value.trim())});
+  function token(){ return ($('#token').value||'').trim(); }
+  function withToken(url){ return token()?url+'&token='+encodeURIComponent(token()):url; }
+
+  // Style + shape chips
+  var style=store.get('style','');
+  function selStyle(){ $('#istyle').querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x.dataset.style===style)}); }
+  $('#istyle').addEventListener('click',function(e){ var b=e.target.closest('.chip'); if(!b)return; style=b.dataset.style; store.set('style',style); selStyle(); });
+  selStyle();
+  var shape={w:1024,h:1024};
+  $('#ishape').addEventListener('click',function(e){ var b=e.target.closest('.chip'); if(!b)return;
+    $('#ishape').querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x===b)}); shape={w:+b.dataset.w,h:+b.dataset.h}; });
+
+  // Restore fields
+  $('#iprompt').value=store.get('iprompt','');
+  $('#tprompt').value=store.get('tprompt','');
+  $('#iprompt').addEventListener('input',function(){store.set('iprompt',this.value)});
+  $('#tprompt').addEventListener('input',function(){store.set('tprompt',this.value)});
+  $('#imodel').value=store.get('imodel','flux'); $('#imodel').addEventListener('change',function(){store.set('imodel',this.value)});
+  $('#tmodel').value=store.get('tmodel','openai'); $('#tmodel').addEventListener('change',function(){store.set('tmodel',this.value)});
+  $('#ibatch').value=store.get('batch','1'); $('#ibatch').addEventListener('change',function(){store.set('batch',this.value)});
+
+  // Engine: Pollinations (simple) or AI Horde (free crowd network, more models, no 45s limit)
+  var HORDE_AGENT='OpenStudio:1.0:open-studio';
+  function engine(){ return $('#iengine').value; }
+  var hordeLoaded=false;
+  function applyEngine(){
+    var h=engine()==='aihorde';
+    $('#imodel').hidden=h; $('#ihordemodel').hidden=!h;
+    $('#ihint').textContent=h ? 'AI Horde: free, no account, dozens of models. A free job can queue 10–60s.' : 'Made by the open Pollinations network. First image can take ~10–20s.';
+    if(h && !hordeLoaded){ hordeLoaded=true; loadHordeModels(); }
+  }
+  function loadHordeModels(){
+    fetch('https://aihorde.net/api/v2/status/models?type=image',{headers:{'Client-Agent':HORDE_AGENT}})
+      .then(function(r){return r.json();})
+      .then(function(list){
+        if(!Array.isArray(list)) return;
+        var top=list.filter(function(m){return (m.count||0)>0;}).sort(function(a,b){return (b.count||0)-(a.count||0);}).slice(0,35);
+        var sel=$('#ihordemodel'), cur=sel.value;
+        sel.innerHTML='<option value="">Any (fastest free worker)</option>'+top.map(function(m){return '<option value="'+esc(m.name)+'">'+esc(m.name)+' ('+m.count+')</option>';}).join('');
+        sel.value=cur;
+      }).catch(function(){});
+  }
+  $('#iengine').value=store.get('engine','pollinations');
+  $('#iengine').addEventListener('change',function(){ store.set('engine',this.value); applyEngine(); });
+  $('#ihordemodel').addEventListener('change',function(){ store.set('hordemodel',this.value); });
+  applyEngine();
+  var HORDE_AGENT='OpenStudio:1.0:open-studio';
+
+  // ---- Library (persists in this browser) ----
+  function loadLib(){ try{ return JSON.parse(store.get('lib','[]'))||[] }catch(e){ return [] } }
+  function saveLib(a){ try{ store.set('lib', JSON.stringify(a.slice(0,60))) }catch(e){} }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]}) }
+  function tile(item){
+    var fig=document.createElement('figure'); fig.style.setProperty('--ar',(item.w/item.h).toFixed(4));
+    fig.innerHTML='<div class="imgwrap"><span class="spin"></span><img alt=""></div>'+
+      '<figcaption><span class="p">'+esc(item.prompt)+'</span>'+
+      '<div class="fig-acts"><a target="_blank" rel="noopener">Open</a>'+
+      '<a download="open-studio.png">Save</a>'+
+      '<button data-vary>More like this</button></div></figcaption>';
+    var a=fig.querySelectorAll('a'); a[0].href=item.url; a[1].href=item.url;
+    var img=fig.querySelector('img'), sp=fig.querySelector('.spin');
+    img.onload=function(){ sp.hidden=true; }; img.onerror=function(){ sp.hidden=true; };
+    img.src=item.url;
+    fig.querySelector('[data-vary]').addEventListener('click',function(){
+      $('#iprompt').value=item.base||item.prompt; shape={w:item.w,h:item.h};
+      $('#imodel').value=item.model; runBatch(1,true);
+    });
+    return fig;
+  }
+  function renderLib(){
+    var a=loadLib(), g=$('#gallery'); g.innerHTML='';
+    a.forEach(function(it){ g.appendChild(tile(it)); });
+    $('#libempty').hidden=a.length>0; $('#libclear').hidden=a.length===0;
+    $('#libcount').textContent=a.length?('· '+a.length+' saved'):'';
+  }
+  $('#libclear').addEventListener('click',function(){ saveLib([]); renderLib(); });
+  renderLib();
+
+  // ---- Image generation ----
+  var COOLDOWN=45, coolTimer=null;
+  function cool(){
+    if(token()) return;
+    var left=COOLDOWN, btn=$('#igen'); btn.disabled=true; clearInterval(coolTimer); btn.textContent='Ready in '+left+'s';
+    coolTimer=setInterval(function(){ left--; if(left<=0){clearInterval(coolTimer);btn.disabled=false;btn.textContent='Generate';} else btn.textContent='Ready in '+left+'s'; },1000);
+  }
+  function showErr(m){ var e=$('#ierr'); e.textContent=m; e.hidden=false; }
+  function newTile(item){
+    var fig=document.createElement('figure'); fig.style.setProperty('--ar',(item.w/item.h).toFixed(4));
+    fig.innerHTML='<div class="imgwrap"><span class="spin"></span><span class="hstat" style="position:absolute;bottom:6px;left:8px;font-size:11px;background:rgba(0,0,0,.5);padding:2px 6px;border-radius:6px;color:#fff"></span><img alt=""></div>'+
+      '<figcaption><span class="p">'+esc(item.prompt)+'</span><div class="fig-acts"><a target="_blank" rel="noopener">Open</a><a download="open-studio.png">Save</a><button data-vary>More like this</button></div></figcaption>';
+    fig.querySelector('[data-vary]').addEventListener('click',function(){ $('#iprompt').value=item.base||item.prompt; shape={w:item.w,h:item.h}; runBatch(1,true); });
+    var g=$('#gallery'); g.insertBefore(fig,g.firstChild); $('#libempty').hidden=true;
+    return fig;
+  }
+  function savedToLib(item){ var a=loadLib(); a.unshift(item); saveLib(a); $('#libclear').hidden=false; $('#libcount').textContent='· '+loadLib().length+' saved'; }
+
+  // AI Horde: submit a job, poll the queue, show the result. Free, no key (anonymous), more models.
+  function hordeImage(base, seed){
+    var full=base+(style?(', '+style):'');
+    var model=$('#ihordemodel').value;
+    var W=Math.max(64,Math.min(1024,Math.round(shape.w/64)*64)), H=Math.max(64,Math.min(1024,Math.round(shape.h/64)*64));
+    var item={url:'', prompt:full, base:base, w:W, h:H, model:model||'AI Horde', ts:Date.now()};
+    var fig=newTile(item), stat=fig.querySelector('.hstat'), sp=fig.querySelector('.spin'), img=fig.querySelector('img');
+    stat.textContent='submitting…';
+    var steps=/flux/i.test(model)?8:25;
+    var body={ prompt:full, nsfw:true, censor_nsfw:false, trusted_workers:false, r2:true,
+      params:{ width:W, height:H, steps:steps, sampler_name:'k_euler_a', cfg_scale:7, n:1, seed:String(seed) } };
+    if(model) body.models=[model];
+    var H1={'Content-Type':'application/json', apikey: token()||'0000000000', 'Client-Agent':HORDE_AGENT};
+    var deadline=Date.now()+300000;
+    fetch('https://aihorde.net/api/v2/generate/async',{method:'POST',headers:H1,body:JSON.stringify(body)})
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.message||('HTTP '+r.status)); return j; }); })
+      .then(function(j){ if(!j.id) throw new Error('no job id'); poll(j.id); })
+      .catch(function(e){ fig.remove(); showErr('AI Horde: '+e.message); });
+    function poll(id){
+      if(Date.now()>deadline){ fig.remove(); showErr('AI Horde took too long; try again, or choose "Any" for the fastest worker.'); return; }
+      fetch('https://aihorde.net/api/v2/generate/check/'+id,{headers:{'Client-Agent':HORDE_AGENT}})
+        .then(function(r){ return r.json(); })
+        .then(function(s){
+          if(s.faulted){ fig.remove(); showErr('A worker failed on that image; try again.'); return; }
+          if(!s.done){ stat.textContent=(s.queue_position>0?('#'+s.queue_position+' in queue'):'generating…')+(s.wait_time?(' ~'+s.wait_time+'s'):''); setTimeout(function(){ poll(id); },2500); return; }
+          fetch('https://aihorde.net/api/v2/generate/status/'+id,{headers:{'Client-Agent':HORDE_AGENT}})
+            .then(function(r){ return r.json(); })
+            .then(function(st){
+              var gen=(st.generations&&st.generations[0])||{}; var url=gen.img;
+              if(!url){ fig.remove(); showErr('No image came back; try again.'); return; }
+              item.url=url; var a=fig.querySelectorAll('a'); a[0].href=url; a[1].href=url;
+              img.onload=function(){ sp.hidden=true; stat.textContent=''; }; img.onerror=function(){ sp.hidden=true; stat.textContent='link expired — use Save next time'; };
+              img.src=url; savedToLib(item);
+            }).catch(function(e){ fig.remove(); showErr('AI Horde: '+e.message); });
+        }).catch(function(e){ fig.remove(); showErr('AI Horde: '+e.message); });
+    }
+  }
+
+  function oneImage(base, seed){
+    if(engine()==='aihorde') return hordeImage(base, seed);
+    var full=base+(style?(', '+style):'');
+    var nologo=$('#inologo').checked, enhance=$('#ienhance').checked;
+    var url=withToken('https://image.pollinations.ai/prompt/'+encodeURIComponent(full)
+      +'?width='+shape.w+'&height='+shape.h+'&model='+encodeURIComponent($('#imodel').value)
+      +'&seed='+seed+(nologo?'&nologo=true':'')+(enhance?'&enhance=true':'')+'&referrer=open-studio');
+    var item={url:url, prompt:full, base:base, w:shape.w, h:shape.h, model:$('#imodel').value, ts:Date.now()};
+    var fig=tile(item), g=$('#gallery'); g.insertBefore(fig,g.firstChild);
+    $('#libempty').hidden=true;
+    var probe=new Image();
+    probe.onload=function(){ var a=loadLib(); a.unshift(item); saveLib(a); $('#libclear').hidden=false; $('#libcount').textContent='· '+loadLib().length+' saved'; };
+    probe.onerror=function(){ fig.remove(); var e=$('#ierr'); e.textContent='An image could not be generated (busy, or the ~45s limit is cooling down). Add a token above to skip the wait.'; e.hidden=false; };
+    probe.src=url;
+  }
+  function runBatch(n, fromVary){
+    var base=$('#iprompt').value.trim(), err=$('#ierr'); err.hidden=true;
+    if(!base){ err.textContent='Type a description first.'; err.hidden=false; return; }
+    var lock=$('#iseedlock').checked;
+    for(var i=0;i<n;i++){
+      var seed;
+      if(lock && !fromVary && $('#iseed').value.trim()!=='') seed=parseInt($('#iseed').value,10)||0;
+      else seed=Math.floor(Math.random()*1e9);
+      if(!lock && n===1 && !fromVary) $('#iseed').value=seed;
+      oneImage(base, seed);
+    }
+    if(engine()==='pollinations') cool();
+  }
+  $('#igen').addEventListener('click',function(){ runBatch(parseInt($('#ibatch').value,10)||1,false); });
+
+  // ---- Text generation ----
+  function genText(){
+    var prompt=$('#tprompt').value.trim(), err=$('#terr'); err.hidden=true;
+    if(!prompt){ err.textContent='Type a prompt first.'; err.hidden=false; return; }
+    var out=$('#tout'); out.textContent='…'; $('#tcopy').hidden=true;
+    var spin=$('#tspin'); spin.hidden=false; $('#tgen').disabled=true;
+    var url=withToken('https://text.pollinations.ai/'+encodeURIComponent(prompt)+'?model='+encodeURIComponent($('#tmodel').value)+'&referrer=open-studio');
+    var opts=token()?{headers:{Authorization:'Bearer '+token()}}:{};
+    fetch(url,opts).then(function(r){ if(!r.ok) throw new Error(r.status===429?'the free limit is cooling down — add a token to skip it':'HTTP '+r.status); return r.text(); })
+      .then(function(txt){ out.textContent=txt.trim()||'(empty answer)'; $('#tcopy').hidden=false; })
+      .catch(function(e){ out.textContent='The answer appears here.'; err.textContent='Could not generate text ('+e.message+'). Try again or switch the model.'; err.hidden=false; })
+      .then(function(){ spin.hidden=true; $('#tgen').disabled=false; });
+  }
+  $('#tgen').addEventListener('click',genText);
+  $('#tcopy').addEventListener('click',function(){
+    var t=$('#tout').textContent;
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){var b=$('#tcopy');b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)}).catch(sel); } else sel();
+    function sel(){ var r=document.createRange(); r.selectNodeContents($('#tout')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+
+  $('#iprompt').addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&e.key==='Enter') $('#igen').click(); });
+  $('#tprompt').addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&e.key==='Enter') genText(); });
 })();
 </script>
-</body></html>
+</body>
+</html>
