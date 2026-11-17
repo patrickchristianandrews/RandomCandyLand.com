@@ -133,6 +133,8 @@ for(const feed of FEEDS){
    const title=tag(item,'title'),rawLink=tag(item,'link'),link=cleanUrl(rawLink);
    const published=tag(item,'pubDate')||tag(item,'dc:date')||tag(item,'published');
    if(!title||title.length<6||!link||!allowedLink(link,feed.domains))continue;
+   // Keep imported deal text and source URLs within the site's existing visitor-copy policy.
+   if(/\b(?:OpenAI|ChatGPT|Claude|Gemini)\b|\bartificial[ -]+intelligence\b|\b(?:GPT-[0-9]|LLM)\b/i.test(title+' '+link))continue;
    const epoch=published?Date.parse(published):NaN;
    if(Number.isFinite(epoch) && (now.getTime()-epoch>14*86400000||epoch-now.getTime()>86400000))continue;
    // Skip obvious shopping advice and reviews that are not offer announcements.
