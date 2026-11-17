@@ -234,7 +234,7 @@ export function publishSearchPages(distDir) {
   if(!fs.existsSync(file)) throw new Error('Missing indexable page: '+file);
   fs.writeFileSync(file,pageHtml(fs.readFileSync(file,'utf8'),page));
  }
- const aliases={'fm1-emu/index.html':'/trumpagotchi-fm1/','studio/stack-lab/index.html':'/studio/','black-friday/amazon-discount-finder/index.html':'/amazon-deal-hunter/'};
+ const aliases={'fm1-emu/index.html':'/trumpagotchi-fm1/','studio/stack-lab/index.html':'/studio/','studio/classic.html':'/studio/','black-friday/amazon-discount-finder/index.html':'/amazon-deal-hunter/'};
  for(const [file,route] of Object.entries(aliases)){
   const target=path.join(distDir,file);
   let html=fs.readFileSync(target,'utf8').replace(/<link\b(?=[^>]*rel=["']canonical["'])[^>]*>/gi,'').replace(/<meta\b(?=[^>]*name=["']robots["'])[^>]*>/gi,'');
