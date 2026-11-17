@@ -70,7 +70,8 @@ try{
  const usPrime=new URL(api.buildUrl({...standard,prime:true}));
  if(usPrime.searchParams.get('rh')!=='p_85:2470955011')throw Error('US-only Prime filter missing');
  if(!api.validate({...standard,min:'90',max:'30'}))throw Error('Reversed discount range accepted');
- if(!api.validate({...standard,term:''}))throw Error('Empty query accepted');
+ if(api.validate({...standard,term:''}))throw Error('Optional blank query should permit browsing reported deals');
+ if(!api.validate({...standard,term:'x'}))throw Error('One-character query incorrectly accepted');
  if(!api.validate({...standard,low:'900',high:'50'}))throw Error('Inverted price range accepted');
  console.log('✓ Amazon Deal Hunter creates validated search URLs and preserves country, discount, price, sort and Prime options.');
 }catch(error){console.error('Amazon Deal Hunter regression:',error.message);failures++;}
