@@ -5,7 +5,7 @@ interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
 
-type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery' | 'research';
+type Category = 'all' | 'multiplayer' | 'quick' | 'ongoing' | 'story' | 'learning' | 'discovery' | 'research' | 'creative';
 
 type Portal = {
   icon: string;
@@ -43,6 +43,7 @@ const INSTALL_CHOICES = [
   {icon:'/tool-icons/the-corridors.svg',name:'The Corridors',url:'/the-corridors/'},
   {icon:'/tool-icons/the-docket.svg',name:'The Docket',url:'/the-docket/'},
   {icon:'/tool-icons/candy-studio.svg',name:'Random AI',url:'/studio/'},
+  {icon:'/tool-icons/image-studio.svg',name:'Image Studio',url:'/image-studio/'},
   {icon:'/tool-icons/ai-academy.svg',name:'AI Academy',url:'/ai-academy/'},
   {icon:'/tool-icons/wonder-index.svg',name:'The Wonder Index',url:'/curiosity/'},
 ] as const;
@@ -76,6 +77,7 @@ const PORTALS: Portal[] = [
   {icon:'/tool-icons/osint-academy.svg',title:'Executive Directory',blurb:'Find customer escalation teams, executive business emails, and support numbers.',kind:'research',label:'CUSTOMER ESCALATIONS',palette:'blue',href:'/executive-directory/',duration:'FIND A CONTACT ↗'},
   {icon:TOOL_MENU_ICONS[8],title:'The Corridors: Rise to Power',blurb:'Enter seven chapters of shifting political alliances. Negotiate with factions and uncover the decisions behind closed doors.',kind:'story',label:'INTERACTIVE POLITICAL STORY',palette:'blue',href:'/the-corridors/',duration:'30–60 MIN'},
   {icon:TOOL_MENU_ICONS[9],title:'The Docket',blurb:'Enter the courtroom. Review evidence, question witnesses, build a case and navigate five investigations, verdicts, and appeals.',kind:'story',label:'LEGAL INVESTIGATION SIMULATION',palette:'peach',href:'/the-docket/',duration:'30–60 MIN'},
+  {icon:'/tool-icons/image-studio.svg',title:'Image Studio',blurb:'Create AI images from an idea, choose a shape and model, then download or save your art.',kind:'creative',label:'AI IMAGE MAKER',palette:'pink',href:'/image-studio/'},
   {icon:TOOL_MENU_ICONS[11],title:'AI Academy',blurb:'Stop guessing what to type. Master prompting with 13 illustrated lessons, hands-on challenges, interactive quizzes and a live Prompt Builder.',kind:'learning',label:'FREE LEARNING LAB · 13 LESSONS',palette:'blue',href:'/ai-academy/',duration:'SELF-PACED COURSE'},
 ];
 
@@ -86,6 +88,7 @@ const COLLECTIONS = [
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
   {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
+  {id:'creative',title:'Creative AI Tools',description:'Turn an idea into original artwork, then download it to keep.',symbol:'🎨',time:'CREATE'},
   {id:'learning',title:'Courses & Training',description:'Master prompting in AI Academy with guided practice at your own pace.',symbol:'🧠',time:'EXTENDED'},
 ] as const;
 
@@ -95,6 +98,7 @@ const MAP_STOPS = [
   {name: 'Pet Park', detail: 'Feed, play with, and check in on your tiny companions.', art: '/world-scenes/pets.webp', target: '#shelf-ongoing', action: 'Meet the pets', color: 'mint'},
   {name: 'Wonder Index', detail: 'Follow curious ideas, new research, and strange correlations.', art: '/world-scenes/wonder.webp', target: '#curiosity-spotlight-title', action: 'Explore the index', color: 'blue'},
   {name: 'Unwrapped', detail: 'Explore your personality, interests, and relationships. Ages 18+.', art: '/world-scenes/unwrapped.webp', target: '/after-dark/', action: 'Open Unwrapped', color: 'violet'},
+  {name: 'Image Studio', detail: 'Create AI images from your own prompts, styles, shapes and models.', art: '/world-scenes/wonder.webp', target: '/image-studio/', action: 'Make an image', color: 'violet'},
   {name: 'Research Library', detail: 'Find public records, verify sources, or look up a customer escalation contact.', art: '/world-scenes/research.webp', target: '#shelf-research', action: 'Browse research tools', color: 'blue'},
 ] as const;
 
