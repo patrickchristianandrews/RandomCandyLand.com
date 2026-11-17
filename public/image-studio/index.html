@@ -66,7 +66,7 @@ button:hover:not(:disabled),.ghost:hover{filter:brightness(1.12)}
 <div class="field"><label for="prompt">Describe your image</label><textarea id="prompt" required maxlength="4000" placeholder="A tiny gummy dragon flying over a neon candy castle at sunset…"></textarea>
 <div class="chips" aria-label="Idea starters"><button type="button" data-idea="A magical candy castle with colorful rainbow clouds, whimsical fantasy illustration">🏰 Candy castle</button><button type="button" data-idea="A cute fluffy astronaut cat drifting through a sparkling galaxy, cinematic illustration">🐱 Space cat</button><button type="button" data-idea="A dreamy glowing forest with pastel mushrooms and floating fireflies, detailed fantasy art">🍄 Dream forest</button></div></div>
 <div class="grid spaced">
-<div class="field"><label for="engine">🍬 Engine</label><select id="engine"><option value="horde">AI Horde · community workers</option><option value="pollinations">Pollinations · API key</option></select></div>
+<div class="field"><label for="engine">🍬 Engine</label><select id="engine"><option value="horde">AI Horde · community workers</option><option value="pollinations">Pollinations · API key optional</option></select></div>
 <div class="field"><label for="model">🧁 Model</label><select id="model"><option value="">Any available (AI Horde)</option></select></div>
 </div>
 <div class="grid spaced">
@@ -75,7 +75,7 @@ button:hover:not(:disabled),.ghost:hover{filter:brightness(1.12)}
 </div>
 <div class="toggle-row"><label class="check"><input id="enhance" type="checkbox" checked> ✨ Enhance prompt</label><label class="check"><input id="noWatermark" type="checkbox" checked> 👑 Request no watermark</label><label class="check"><input id="lockSeed" type="checkbox"> 🎲 Lock seed</label></div>
 <div class="grid spaced"><div class="field"><label for="seed">Seed</label><input type="number" id="seed" min="0" max="2147483647" value="188261614" disabled><p class="help">Lock seed to repeat a setup when supported by your model.</p></div><div class="field"><label for="apiKey" id="keyLabel">AI Horde key (optional)</label><input type="password" id="apiKey" autocomplete="off" placeholder="Anonymous generation is available"><p class="help" id="keyHelp">Optional AI Horde key. Not stored on this site.</p></div></div>
-<details class="details"><summary>⚙️ About engines, privacy and image quality</summary><p class="help">AI Horde uses community-operated image workers, and requests may queue. Anonymous jobs use its public anonymous access. Pollinations requires a suitable client-side API key here. Your prompt and generation settings are sent to whichever provider you choose. Keys remain only in the current page session; use a publishable/browser-safe key, never a secret server key.</p><p class="help">Prompt enhancement adds descriptive keywords locally. Watermark behavior depends on the provider and model. Free results, availability, speed and file access depend on third-party services.</p></details>
+<details class="details"><summary>⚙️ About engines, privacy and image quality</summary><p class="help">AI Horde uses community-operated image workers, and requests may queue. Anonymous jobs use its public anonymous access. Pollinations first uses its anonymous image endpoint when the API key field is blank. Adding a provider API key is optional and enables its authenticated endpoint. Your prompt and generation settings are sent to whichever provider you choose. Keys remain only in the current page session; use a publishable/browser-safe key, never a secret server key.</p><p class="help">Prompt enhancement adds descriptive keywords locally. Watermark behavior depends on the provider and model. Free results, availability, speed and file access depend on third-party services.</p></details>
 <button type="submit" class="generate" id="generate">✨ Generate images</button><p class="smallprint center">No Random Candy Land account required · The selected provider processes your prompt</p>
 <div id="status" class="status hidden" role="status" aria-live="polite"></div><div id="progress" class="progress hidden" aria-hidden="true"><div id="progressBar"></div></div>
 </form>
@@ -98,7 +98,7 @@ function strError(err){return err&&err.message?err.message:String(err);}
 function setRunning(b){running=b;$("generate").disabled=b;$("generate").textContent=b?"🍭 Generating…":"✨ Generate images";if(!b)$("progress").classList.add("hidden");}
 async function readJson(resp){const raw=await resp.text();let data;try{data=JSON.parse(raw);}catch{throw Error("The provider returned an unexpected response ("+resp.status+").");}if(!resp.ok){const detail=(data.message||data.error||data.errors||raw.slice(0,300));throw Error(typeof detail==="string"?detail:JSON.stringify(detail));}return data;}
 async function refreshModels(){
- if(engine.value==="pollinations"){model.innerHTML='<option value="flux">Flux</option><option value="turbo">Turbo</option>';key.placeholder="Publishable API key";$("keyLabel").textContent="Pollinations API key";$("keyHelp").textContent="Use a browser-safe provider key. It is not saved.";return;}
+ if(engine.value==="pollinations"){model.innerHTML='<option value="flux">Flux</option><option value="turbo">Turbo</option>';key.placeholder="Optional — leave blank for no-key mode";$("keyLabel").textContent="Pollinations API key (optional)";$("keyHelp").textContent="Leave blank to try anonymous generation. An API key is optional and is not saved.";return;}
  model.innerHTML='<option value="">Any available worker (fastest)</option>';key.placeholder="Optional API key";$("keyLabel").textContent="AI Horde API key (optional)";$("keyHelp").textContent="Leave blank for anonymous community access. Key not saved.";
  try{const r=await fetch("https://aihorde.net/api/v2/status/models?type=image",{signal:AbortSignal.timeout(11000)});const data=await readJson(r);if(engine.value!=="horde"||!Array.isArray(data))return;
  const list=data.filter(m=>m&&m.name&&m.count>0).sort((a,b)=>(b.count||0)-(a.count||0)).slice(0,45);
@@ -161,15 +161,50 @@ async function generateHorde(text,count,seed,signal){
  }
  return images;
 }
+// The anonymous public image endpoint is separate from the authenticated Gen API.
+async function anonymousPollinationsImage(url,signal){
+ try { return await toDataUrl(url,{},signal); }
+ catch(fetchError){
+  // The legacy public host may serve images to <img> while refusing cross-origin fetch.
+  return await new Promise((resolve,reject)=>{
+   const image=new Image();
+   let settled=false;
+   const done=(error)=>{
+    if(settled)return;
+    settled=true;
+    clearTimeout(timer);
+    signal.removeEventListener("abort",onAbort);
+    image.onload=null;image.onerror=null;
+    if(error)reject(error);else resolve(url);
+   };
+   const onAbort=()=>{image.src="";done(Error("Image request cancelled."));};
+   const timer=setTimeout(()=>done(Error("Anonymous Pollinations did not respond. Try again later or provide an optional API key.")),90000);
+   signal.addEventListener("abort",onAbort,{once:true});
+   if(signal.aborted){onAbort();return;}
+   image.onload=()=>done();
+   image.onerror=()=>done(Error("The anonymous Pollinations image endpoint is unavailable. You can retry or optionally provide an API key."));
+   image.src=url;
+  });
+ }
+}
 async function generatePollinations(text,count,seed,signal){
- if(!key.value.trim())throw Error("Enter your Pollinations API key or switch to AI Horde for anonymous access.");
  const [width,height]=sizes[shape];const images=[];
+ const apiKey=key.value.trim();
  for(let i=0;i<count;i++){
-   status("🍬 Pollinations image "+(i+1)+" of "+count+"…");progress(10+80*i/count);
+   status("🍬 Pollinations "+(apiKey?"API-key":"no-key")+" image "+(i+1)+" of "+count+"…");progress(10+80*i/count);
    const thisSeed=$("lockSeed").checked?seed:seed+i;
-   const url="https://gen.pollinations.ai/image/"+encodeURIComponent(text)+"?model="+encodeURIComponent(model.value||"flux")+"&width="+width+"&height="+height+"&seed="+thisSeed+"&nologo="+($("noWatermark").checked?"true":"false");
-   const dataUrl=await toDataUrl(url,{"Authorization":"Bearer "+key.value.trim()},signal);
-   images.push(makeRecord(dataUrl,prompt.value,thisSeed));
+   const base=apiKey?"https://gen.pollinations.ai/image/":"https://image.pollinations.ai/prompt/";
+   const url=new URL(base+encodeURIComponent(text));
+   url.searchParams.set("model",model.value||"flux");
+   url.searchParams.set("width",String(width));
+   url.searchParams.set("height",String(height));
+   url.searchParams.set("seed",String(thisSeed));
+   url.searchParams.set("nologo",$("noWatermark").checked?"true":"false");
+   // Send Authorization only when a key was explicitly supplied.
+   const imageUrl=apiKey
+     ?await toDataUrl(url.href,{"Authorization":"Bearer "+apiKey},signal)
+     :await anonymousPollinationsImage(url.href,signal);
+   images.push(makeRecord(imageUrl,prompt.value,thisSeed));
  }
  return images;
 }
