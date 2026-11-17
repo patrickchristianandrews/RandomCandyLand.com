@@ -199,6 +199,30 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
+      <section className="candyland-image-maker-spotlight" aria-label="New AI picture maker">
+        <style>{`
+          .candyland-next .candyland-image-maker-spotlight{width:min(1180px,calc(100% - 24px));margin:14px auto 22px}
+          .candyland-next .candyland-image-maker-spotlight a{display:flex;align-items:center;gap:16px;min-height:100px;padding:17px 20px;border:2px solid #ffb4e8;border-radius:22px;background:linear-gradient(115deg,#3d224f 0%,#71346d 60%,#4b2873 100%);color:#fff;text-decoration:none;box-shadow:0 11px 32px #ec5fb53a}
+          .candyland-next .candyland-image-maker-spotlight a:hover,.candyland-next .candyland-image-maker-spotlight a:focus-visible{border-color:#ffe2a6;background:linear-gradient(115deg,#54275f,#914481,#613495)}
+          .candyland-image-maker-spotlight img{width:68px;height:68px;flex-shrink:0;filter:drop-shadow(0 3px 10px #f5a5df55)}
+          .candyland-image-maker-spotlight .image-maker-copy{display:grid;gap:3px;flex:1;min-width:0}
+          .candyland-image-maker-spotlight .image-maker-tag{color:#ffe7a1;font-size:11px;letter-spacing:.13em;font-weight:900}
+          .candyland-image-maker-spotlight strong{font-size:clamp(20px,3.5vw,30px);line-height:1.15}
+          .candyland-image-maker-spotlight .image-maker-description{color:#ffe8f6;font-size:13px}
+          .candyland-image-maker-spotlight .image-maker-action{border-radius:999px;background:#ffd0ec;color:#321536;padding:10px 16px;font-size:13px;font-weight:850;white-space:nowrap}
+          @media(max-width:640px){.candyland-next .candyland-image-maker-spotlight a{gap:11px;padding:12px}.candyland-image-maker-spotlight img{width:50px;height:50px}.candyland-image-maker-spotlight .image-maker-action{font-size:12px;padding:8px}.candyland-image-maker-spotlight .image-maker-description{font-size:12px}}
+        `}</style>
+        <a href="/image-studio/" aria-label="Open Image Studio, the AI picture maker">
+          <img src="/tool-icons/image-studio.svg" alt="" loading="eager" />
+          <span className="image-maker-copy">
+            <span className="image-maker-tag">✦ NEW · AI PICTURE MAKER</span>
+            <strong>Image Studio 🎨</strong>
+            <span className="image-maker-description">Describe a picture, choose your model, then make and save your art.</span>
+          </span>
+          <span className="image-maker-action">Make art ↗</span>
+        </a>
+      </section>
+
       <section className="candy-home-holiday" aria-labelledby="home-holiday-deals">
         <div className="candy-home-holiday-heading">
           <div className="candy-home-holiday-copy">
