@@ -24,8 +24,8 @@ const CATEGORY=[
  ['automotive','Automotive'],['office-products','Office supplies'],['video-games','Video games']
 ];
 const SORT=[
- ['relevanceblender','Featured'],['price-asc-rank','Lowest price'],
- ['price-desc-rank','Highest price'],['review-rank','Customer reviews'],['date-desc-rank','Newest arrivals']
+ ['relevanceblender','Highest reported discount'],['price-asc-rank','Lowest price'],
+ ['price-desc-rank','Highest price'],['date-desc-rank','Newest arrivals']
 ];
 const $=(root,query)=>root.querySelector(query);
 const options=(items,selected)=>items.map(([value,label])=>'<option value="'+value+'"'+(value===selected?' selected':'')+'>'+label+'</option>').join('');
@@ -65,7 +65,7 @@ function regionOptions(){return options(Object.entries(REGIONS).map(([key,val])=
 function structure(full){
  return '<section class="af-panel '+(full?'af-expanded':'af-mini')+'" aria-label="Amazon discounted product search">'+
  '<div class="af-panel-top"><div><span class="af-eyebrow">2026 DEAL DISCOVERY · AMAZON</span><h2>🛒 Amazon Deal Hunter</h2>'+
- '<p>Search for markdowns on Amazon with custom filters. Open live Amazon results in one click.</p></div>'+
+ '<p>Filter recent Amazon deal reports here by percentage off.</p></div>'+
  (!full?'<a class="af-open-full" href="/black-friday/amazon-discount-finder/">Advanced search ↗</a>':'')+'</div>'+
  '<form class="af-form" novalidate>'+
  '<label class="af-term">Product or brand<input type="search" name="term" required minlength="2" maxlength="140" placeholder="e.g. Sony headphones, LEGO, Dyson" autocomplete="off"></label>'+
@@ -79,9 +79,9 @@ function structure(full){
  '<label>Sort by<select name="sort">'+options(SORT,'relevanceblender')+'</select></label>'+
  '<label class="af-prime"><input type="checkbox" name="prime"> Prime-eligible (US only) <small>(experimental Amazon filter)</small></label>'+
  '</div></details>'+
- '<div class="af-actions"><button type="submit" class="af-submit">Find discounts on Amazon ↗</button>'+
- '<a class="af-preview" data-af-preview href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Open Amazon search ↗</a>'+
- '</div><p class="af-status" role="status" aria-live="polite" data-af-status>Enter a search term and set your desired discount.</p></form>'+
+ '<div class="af-actions"><button type="submit" class="af-submit">Find matching discounts</button>'+
+ '<a class="af-preview" data-af-preview href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Browse Amazon separately ↗</a>'+
+ '</div><p class="af-status" role="status" aria-live="polite" data-af-status>Enter a search term and set your desired discount.</p></form><div class="af-recent-grid" data-af-matches></div>'+
  '<div class="af-quick"><span>Try:</span>'+
  [['wireless headphones','Headphones'],['lego sets','LEGO'],['coffee maker','Coffee makers'],['robot vacuum','Robot vacuums'],['smart tv','TVs'],['running shoes','Shoes']].map(([q,label])=>'<button type="button" data-af-preset="'+esc(q)+'">'+esc(label)+'</button>').join('')+'</div>'+
  '<div class="af-shortcuts">'+
@@ -89,7 +89,7 @@ function structure(full){
  '<a href="https://www.amazon.com/coupons" target="_blank" rel="noopener noreferrer">✂ Coupons</a>'+
  '<a href="https://www.amazon.com/outlet" target="_blank" rel="noopener noreferrer">📦 Outlet</a>'+
  '<a href="https://www.amazon.com/amazon-resale" target="_blank" rel="noopener noreferrer">♻ Resale</a>'+
- '</div><p class="af-disclaimer">Amazon’s percent-off search is <strong>unofficial</strong> and can be ignored or changed. Percentages compare against Amazon’s displayed reference prices—not verified historical lows. Check model, coupons, shipping and final price at checkout. No purchase or price data is collected by this tool.</p>'+
+ '</div><p class="af-disclaimer">Matches are recent US reports. The optional Amazon link may lose its filters when the app opens. Percentages compare against Amazon’s displayed reference prices—not verified historical lows. Check model, coupons, shipping and final price at checkout. No purchase or price data is collected by this tool.</p>'+
  '</section>';
 }
 function install(node){
@@ -108,29 +108,84 @@ function install(node){
   if(issue){result.textContent=issue;result.classList.add('af-warning');preview.href='https://'+(region?.domain||'www.amazon.com')+'/';preview.setAttribute('aria-disabled','true');return null;}
   const url=searchUrl(d);preview.href=url;preview.removeAttribute('aria-disabled');
   result.classList.remove('af-warning');
-  result.textContent='Ready · '+(d.min==='0'&&d.max==='100'?'no discount threshold':d.max==='100'?(d.min+'% off or more'):(d.min+'–'+d.max+'% off'))+' requested · '+region.label+'. Amazon shows the actual matching results.';
+  result.textContent='Ready · '+(d.min==='0'&&d.max==='100'?'no discount threshold':d.max==='100'?(d.min+'% off or more'):(d.min+'–'+d.max+'% off'))+' requested · '+region.label+'. Use Find matching discounts to see sourced reports here.';
   return url;
  };
  form.addEventListener('input',update);form.addEventListener('change',update);
- form.addEventListener('submit',event=>{
+ const matches=$(node,'[data-af-matches]');
+ let request=0;
+ function clear(){request++;matches.replaceChildren();}
+ form.addEventListener('input',clear);
+ form.addEventListener('change',clear);
+ form.addEventListener('submit',async event=>{
   event.preventDefault();
-  const url=update();if(!url){form.querySelector('[name=term]').focus();return;}
-  // Synchronous navigation from a genuine click / Enter press.
-  const anchor=document.createElement('a');anchor.href=url;anchor.target='_blank';anchor.rel='noopener noreferrer';
-  anchor.click();
+  clear();
+  if(!update())return;
+  const d=read(form), id=request;
+  if(d.country!=='US'||d.prime){
+   result.textContent='Reported matches cover the US. Prime eligibility is unverified. Change those filters to search reports.';
+   return;
+  }
+  result.textContent='Checking recent reports…';
+  try{
+   const response=await fetch('/black-friday/live-feed.json',{cache:'no-store'});
+   if(!response.ok)throw Error('Feed unavailable');
+   const {deals}=await response.json();
+   if(!Array.isArray(deals))throw Error('Invalid feed');
+   if(request!==id)return;
+   const found=filterMatches(deals,d,Date.now());
+   result.textContent=found.length?'Showing '+Math.min(30,found.length)+' of '+found.length+' matching reports. Confirm current prices and terms at the source.':'No recent reports match. Try a broader keyword or lower minimum discount.';
+   matches.innerHTML=found.slice(0,30).map(({deal,pct})=>'<article class="af-reported-card"><small>'+esc(deal.sourceType||'Deal report')+' · '+esc(deal.checked||'')+'</small><strong>'+esc(deal.name)+'</strong><div><b>'+Math.floor(pct*10+1e-8)/10+'% off reported · $'+deal.price.toFixed(2)+'</b><a href="'+esc(deal.source)+'" target="_blank" rel="noopener noreferrer">Check source ↗</a></div></article>').join('');
+  }catch{if(request===id)result.textContent='Deal reports could not load. Try again.';}
  });
  node.addEventListener('click',event=>{
   const btn=event.target.closest('[data-af-preset]');if(!btn)return;
   form.elements.namedItem('term').value=btn.dataset.afPreset;
-  update();
+  clear();update();
   const go=$(node,'.af-submit');go.focus();
  });
  const current=new URLSearchParams(location.search);
  if(full&&current.has('q'))form.elements.namedItem('term').value=(current.get('q')||'').slice(0,140);
  update();
 }
+const departments={
+ electronics:['audio','tvs','electronics','phones & tablets','wearables'],
+ computers:['laptops','computers','pc & accessories'],fashion:['fashion','clothing'],beauty:['beauty'],
+ 'home-garden':['home','garden'],kitchen:['kitchen'],'toys-and-games':['toys','toys & games'],
+ sporting:['sports & outdoors'],tools:['tools','home improvement'],'pet-supplies':['pets'],
+ grocery:['grocery'],automotive:['automotive'],'office-products':['office supplies'],'video-games':['gaming','video games']
+};
+function discount(deal){
+ const title=String(deal.name||'');
+ if(/\b(?:up to|select (?:items|products)|various|roundup|sitewide|starting at|as low as)\b/i.test(title))return null;
+ const refs=[...title.matchAll(/\b(?:regularly|reg\.?|was|list price)\s*[: ]*\$([\d,]+(?:\.\d{2})?)/gi)];
+ const stated=[...title.matchAll(/(?:^|[^\d.])(\d{1,2}(?:\.\d+)?)\s*%\s*off\b/gi)];
+ const reference=deal.reference??(refs.length===1?Number(refs[0][1].replaceAll(',','')):null);
+ if(Number.isFinite(reference)&&reference>deal.price)return (reference-deal.price)*100/reference;
+ return stated.length===1?Number(stated[0][1]):null;
+}
+function filterMatches(deals,d,now){
+ const words=value=>String(value||'').toLowerCase().match(/[\p{L}\p{N}]+/gu)||[];
+ const terms=words(d.term);
+ if(!terms.length||d.country!=='US'||d.prime)return [];
+ const found=[];
+ for(const deal of deals){
+  if(!deal||!/^amazon(?:\.com)?$/i.test(String(deal.store||'').trim())||!/^https:\/\//.test(deal.source||'')||!Number.isFinite(deal.price)||deal.price<=0||deal.expired||deal.soldOut)continue;
+  const checked=Date.parse(deal.publishedAt||deal.checked||'');
+  if(!Number.isFinite(checked)||checked>now+3600000||now-checked>48*3600000)continue;
+  if(deal.startsAt&&Date.parse(deal.startsAt)>now||deal.endsAt&&Date.parse(deal.endsAt)<now)continue;
+  if(d.category!=='aps'&&!departments[d.category]?.includes(String(deal.category||'').toLowerCase()))continue;
+  if(d.low!==''&&deal.price<+d.low||d.high!==''&&deal.price>+d.high)continue;
+  const name=words(deal.name+' '+(deal.spec||''));
+  if(!terms.every(t=>name.some(w=>w===t||w===t+'s'||t===w+'s')))continue;
+  const pct=discount(deal);
+  if(pct===null||pct<+d.min||pct>+d.max)continue;
+  found.push({deal,pct,checked});
+ }
+ return found.sort((a,b)=>d.sort==='price-asc-rank'?a.deal.price-b.deal.price:d.sort==='price-desc-rank'?b.deal.price-a.deal.price:d.sort==='date-desc-rank'?b.checked-a.checked:b.pct-a.pct||b.checked-a.checked);
+}
 // Public pure helpers also support build-time regression checks.
-window.RandomCandyAmazonFinder=Object.freeze({buildUrl:searchUrl,validate});
+window.RandomCandyAmazonFinder=Object.freeze({buildUrl:searchUrl,validate,filterMatches});
 document.querySelectorAll('[data-amazon-finder]').forEach(install);
 if(document.querySelector('#af-recent'))loadRecent();
 async function loadRecent(){
