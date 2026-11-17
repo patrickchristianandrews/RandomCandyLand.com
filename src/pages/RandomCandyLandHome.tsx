@@ -88,7 +88,7 @@ const COLLECTIONS = [
   {id:'quick',title:'Quick Games',description:'Jump in for a round, puzzle or friendly challenge. No long commitment.',symbol:'⚡',time:'2–15 MIN'},
   {id:'ongoing',title:'Ongoing Worlds & Pets',description:'Build, nurture and return. Your evolving worlds and pets wait for you.',symbol:'🌱',time:'PLAY ANYTIME'},
   {id:'story',title:'Story Adventures',description:'Deeper narratives, decisions and case missions that reward a longer session.',symbol:'🎭',time:'30–60 MIN'},
-  {id:'learning',title:'AI Tools & Learning',description:'Create AI artwork and practice useful prompts with simple guided tools.',symbol:'🎨',time:'CREATE · LEARN'},
+  {id:'learning',title:'Courses & Training',description:'Create AI artwork or learn practical prompting through guided tools and lessons.',symbol:'🎨',time:'CREATE · LEARN'},
 ] as const;
 
 const MAP_STOPS = [
