@@ -191,7 +191,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           />
         </div>
         <div className="candyland-opening-copy">
-          <h1>Stay sweet.<br/><span>Get weird.</span></h1>
+          <h1>Free browser games.<br/><span>Find your next adventure.</span></h1>
+          <p>Play a quick challenge, invite a friend, care for a virtual pet or explore an interactive story. Try AI tools and learning activities between games.</p>
         </div>
       </section>
 

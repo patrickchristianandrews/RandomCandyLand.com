@@ -1,3 +1,4 @@
+import { publishSearchPages } from './search-pages.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -123,3 +124,7 @@ installSitePresentation(distDir);
 console.log('Installed Share Page on every published Candy Land HTML page.');
 
 console.log('Built current Candy Land homepage and valid /trump/ + 404 fallbacks (no stale source copies).');
+
+publishSearchPages(distDir);
+
+await import('./check-search-pages.mjs');

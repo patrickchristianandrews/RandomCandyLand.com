@@ -20,7 +20,8 @@ export default function App() {
 
   const navigateToHome = useCallback(() => {
     if (window.location.pathname !== '/' || window.location.hash !== '') {
-      window.history.pushState(null, '', '/');
+      window.location.assign('/');
+      return;
     }
     setCurrentRoute('home');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -28,7 +29,8 @@ export default function App() {
 
   const navigateToTrump = useCallback(() => {
     if (!window.location.pathname.startsWith('/trump')) {
-      window.history.pushState(null, '', '/trump');
+      window.location.assign('/trump/');
+      return;
     }
     setCurrentRoute('trump');
     window.scrollTo({ top: 0, behavior: 'smooth' });
