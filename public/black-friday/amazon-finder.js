@@ -39,7 +39,7 @@ function read(form){
 function validate(d){
  if(!/^[A-Z]{2}$/.test(d.country)||!REGIONS[d.country])return 'Select a supported Amazon marketplace.';
  if(d.term.length>140)return 'Use fewer than 140 characters in your search.';
- if(d.term.length<2)return 'Enter a product, brand, or category to search Amazon.';
+ if(d.term.length===1)return 'Use at least two characters or leave the keyword blank.';
  if(!CATEGORY.some(([id])=>id===d.category))return 'Select a department.';
  if(!SORT.some(([id])=>id===d.sort))return 'Choose a sorting option.';
  const min=Number(d.min),max=Number(d.max);
@@ -68,10 +68,10 @@ function structure(full){
  '<p>Filter recent Amazon deal reports here by percentage off.</p></div>'+
  (!full?'<a class="af-open-full" href="/black-friday/amazon-discount-finder/">Advanced search ↗</a>':'')+'</div>'+
  '<form class="af-form" novalidate>'+
- '<label class="af-term">Product or brand<input type="search" name="term" required minlength="2" maxlength="140" placeholder="e.g. Sony headphones, LEGO, Dyson" autocomplete="off"></label>'+
+ '<label class="af-term">Product or brand (optional)<input type="search" name="term" minlength="2" maxlength="140" placeholder="e.g. Sony headphones, LEGO, Dyson" autocomplete="off"></label>'+
  '<label>Marketplace<select name="country">'+regionOptions()+'</select></label>'+
  '<label>Department<select name="category">'+options(CATEGORY,'aps')+'</select></label>'+
- '<label>Discount from<select name="min">'+options([[0,'Any'],[10,'10%'],[20,'20%'],[25,'25%'],[30,'30%'],[40,'40%'],[50,'50%'],[60,'60%'],[70,'70%'],[80,'80%'],[90,'90%']].map(([v,t])=>[String(v),t]),'50')+'</select></label>'+
+ '<label>Discount from<select name="min">'+options([[0,'Any'],[10,'10%'],[20,'20%'],[25,'25%'],[30,'30%'],[40,'40%'],[50,'50%'],[60,'60%'],[70,'70%'],[80,'80%'],[90,'90%']].map(([v,t])=>[String(v),t]),'0')+'</select></label>'+
  '<label>To<select name="max">'+options([[100,'No max'],[25,'25%'],[40,'40%'],[50,'50%'],[60,'60%'],[70,'70%'],[75,'75%'],[80,'80%'],[90,'90%'],[95,'95%']].map(([v,t])=>[String(v),t]),'100')+'</select></label>'+
  '<details class="af-advanced" '+(full?'open':'')+'><summary>More filters · price, sort & Prime</summary><div class="af-advanced-grid">'+
  '<label>Minimum price <span data-af-currency>$</span><input type="number" name="low" min="0" step=".01" placeholder="No minimum"></label>'+
@@ -81,7 +81,7 @@ function structure(full){
  '</div></details>'+
  '<div class="af-actions"><button type="submit" class="af-submit">Find matching discounts</button>'+
  '<a class="af-preview" data-af-preview href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Browse Amazon separately ↗</a>'+
- '</div><p class="af-status" role="status" aria-live="polite" data-af-status>Enter a search term and set your desired discount.</p></form><div class="af-recent-grid" data-af-matches></div>'+
+ '</div><p class="af-status" role="status" aria-live="polite" data-af-status>Choose a discount, or leave the keyword blank to browse all reported offers.</p></form><div class="af-recent-grid" data-af-matches></div>'+
  '<div class="af-quick"><span>Try:</span>'+
  [['wireless headphones','Headphones'],['lego sets','LEGO'],['coffee maker','Coffee makers'],['robot vacuum','Robot vacuums'],['smart tv','TVs'],['running shoes','Shoes']].map(([q,label])=>'<button type="button" data-af-preset="'+esc(q)+'">'+esc(label)+'</button>').join('')+'</div>'+
  '<div class="af-shortcuts">'+
@@ -133,9 +133,27 @@ function install(node){
    const {deals}=await response.json();
    if(!Array.isArray(deals))throw Error('Invalid feed');
    if(request!==id)return;
-   const found=filterMatches(deals,d,Date.now());
-   result.textContent=found.length?'Showing '+Math.min(30,found.length)+' of '+found.length+' matching reports. Confirm current prices and terms at the source.':'No recent reports match. Try a broader keyword or lower minimum discount.';
-   matches.innerHTML=found.slice(0,30).map(({deal,pct})=>'<article class="af-reported-card"><small>'+esc(deal.sourceType||'Deal report')+' · '+esc(deal.checked||'')+'</small><strong>'+esc(deal.name)+'</strong><div><b>'+Math.floor(pct*10+1e-8)/10+'% off reported · $'+deal.price.toFixed(2)+'</b><a href="'+esc(deal.source)+'" target="_blank" rel="noopener noreferrer">Check source ↗</a></div></article>').join('');
+   const now=Date.now();
+   const found=filterMatches(deals,d,now);
+   const cards=(items,limit)=>items.slice(0,limit).map(({deal,pct})=>{
+    const discountLabel=pct===null?'Discount unconfirmed':Math.floor(pct*10+1e-8)/10+'% off reported';
+    return '<article class="af-reported-card"><small>'+esc(deal.sourceType||'Deal report')+' · '+esc(deal.checked||'')+'</small><strong>'+esc(deal.name)+'</strong><div><b>'+discountLabel+' · $'+deal.price.toFixed(2)+'</b><a href="'+esc(deal.source)+'" target="_blank" rel="noopener noreferrer">Check source ↗</a></div></article>';
+   }).join('');
+   if(found.length){
+    result.textContent='Showing '+Math.min(30,found.length)+' of '+found.length+' matching reports. Confirm current prices and terms at the source.';
+    matches.innerHTML=cards(found,30);
+    return;
+   }
+   const nearby=d.term?filterMatches(deals,d,now,{ignoreDiscount:true}):[];
+   const other=d.term&&nearby.length===0?filterMatches(deals,{...d,term:''},now):[];
+   const fallback=nearby.length?nearby:other;
+   result.textContent='No exact matches in the recent US deal feed. It covers a selection of offers from publishers.';
+   if(fallback.length){
+    const heading=nearby.length?'Same keywords · outside your discount range or discount unconfirmed':'Other products · within your selected filters';
+    matches.innerHTML='<h3 style="grid-column:1/-1">'+heading+'</h3>'+cards(fallback,8);
+   }else{
+    matches.innerHTML='<p>Try clearing a filter or browse Amazon separately to see more listings.</p>';
+   }
   }catch{if(request===id)result.textContent='Deal reports could not load. Try again.';}
  });
  node.addEventListener('click',event=>{
@@ -164,10 +182,10 @@ function discount(deal){
  if(Number.isFinite(reference)&&reference>deal.price)return (reference-deal.price)*100/reference;
  return stated.length===1?Number(stated[0][1]):null;
 }
-function filterMatches(deals,d,now){
+function filterMatches(deals,d,now,options={}){
  const words=value=>String(value||'').toLowerCase().match(/[\p{L}\p{N}]+/gu)||[];
  const terms=words(d.term);
- if(!terms.length||d.country!=='US'||d.prime)return [];
+ if(d.country!=='US'||d.prime)return [];
  const found=[];
  for(const deal of deals){
   if(!deal||!/^amazon(?:\.com)?$/i.test(String(deal.store||'').trim())||!/^https:\/\//.test(deal.source||'')||!Number.isFinite(deal.price)||deal.price<=0||deal.expired||deal.soldOut)continue;
@@ -179,10 +197,10 @@ function filterMatches(deals,d,now){
   const name=words(deal.name+' '+(deal.spec||''));
   if(!terms.every(t=>name.some(w=>w===t||w===t+'s'||t===w+'s')))continue;
   const pct=discount(deal);
-  if(pct===null||pct<+d.min||pct>+d.max)continue;
+  if(!options.ignoreDiscount&&(pct===null?+d.min!==0||+d.max!==100:pct<+d.min||pct>+d.max))continue;
   found.push({deal,pct,checked});
  }
- return found.sort((a,b)=>d.sort==='price-asc-rank'?a.deal.price-b.deal.price:d.sort==='price-desc-rank'?b.deal.price-a.deal.price:d.sort==='date-desc-rank'?b.checked-a.checked:b.pct-a.pct||b.checked-a.checked);
+ return found.sort((a,b)=>d.sort==='price-asc-rank'?a.deal.price-b.deal.price:d.sort==='price-desc-rank'?b.deal.price-a.deal.price:d.sort==='date-desc-rank'?b.checked-a.checked:(b.pct??-1)-(a.pct??-1)||b.checked-a.checked);
 }
 // Public pure helpers also support build-time regression checks.
 window.RandomCandyAmazonFinder=Object.freeze({buildUrl:searchUrl,validate,filterMatches});
