@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
+import '../workshop.css';
 
 interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
@@ -152,83 +153,63 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
   };
 
   return (
-    <main id="top" className="candyland-next">
-      <div className="candyland-starfield" aria-hidden="true">
-        <span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span>
-      </div>
-      <header className="candyland-navbar candyland-navbar-ai" aria-label="Random Candy Land and featured Random AI">
-        <a className="candyland-identity" href="#top" aria-label="Random Candy Land — back to top">
-          <span className="candyland-brand-icon" aria-hidden="true"><img src="/icon.svg?v=candy-logo-no-white-3" alt="" width={55} height={55} /></span>
-          <span>RANDOM <strong>CANDY LAND</strong></span>
+    <main id="top" className="candyland-next rcl-workshop">
+      <header className="rcl-workshop-header" aria-label="Random Candy Land site navigation">
+        <nav className="rcl-workshop-nav" aria-label="Main navigation">
+          <a href="#top" className="rcl-nav-home">Home</a>
+          <a href="#rcl-explore">Tools</a>
+          <a href="#shelf-quick">Play</a>
+          <a href="/image-studio/">Create</a>
+          <a href="/curiosity/">Discover</a>
+          <a href="#rcl-whats-new">What's New</a>
+          <a href="#rcl-about">About</a>
+        </nav>
+        <a className="rcl-workshop-wordmark" href="#top" aria-label="Random Candy Land — top of homepage">
+          <span>Random <strong>Candy Land</strong></span>
+          <img src="/icon.svg" width={50} height={50} alt="Original Random Candy Land logo" />
         </a>
-        <aside className="candyland-random-ai-promo candyland-navbar-feature" aria-label="Featured Random AI creative studio">
-          <a className="candyland-random-ai-promo-link candyland-navbar-feature-link" href="/studio/" aria-label="Open Random AI: free, unlimited private local AI chats on compatible devices and recommended writing and coding stacks">
-            <img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" loading="eager" />
-            <span className="candyland-navbar-feature-copy">
-              <span className="candyland-navbar-feature-kicker">✦ FEATURED · CREATE WITHOUT LIMITS</span>
-              <span className="candyland-navbar-feature-title"><strong>Random AI</strong><span>Free, unlimited private local AI</span></span>
-              <small>Write, code, brainstorm and solve problems with a recommended AI stack for every task.</small>
-              <span className="candyland-navbar-feature-detail">Runs on your device · No local chat message caps · Download a model once</span>
-            </span>
-            <span className="candyland-navbar-feature-action">Explore Random AI <span aria-hidden="true">↗</span></span>
-          </a>
-        </aside>
       </header>
 
-      <section className="candyland-opening" aria-label="Welcome to Random Candy Land">
-        <div className="candyland-orbit candyland-orbit-one" aria-hidden="true">
-          <span className="planet-ring" /><span className="planet-eye eye-left" />
-          <span className="planet-eye eye-right" /><span className="planet-smile" /><span className="planet-star">✦</span>
+      <section className="rcl-workshop-hero" aria-labelledby="rcl-welcome-title">
+        <div className="rcl-hero-confetti" aria-hidden="true">✦　✧　✦　✧　✦</div>
+        <div className="rcl-mascot rcl-mascot-tidbit" aria-label="Tidbit, one of the Random Candy Land mascots">
+          <img src="/mascots/tidbit-original.svg" alt="Tidbit, the original black-and-tan dog mascot" width={220} height={220} />
+          <span className="rcl-mascot-name">Tidbit ♡</span>
         </div>
-        <span className="candyland-confetti confetti-one" aria-hidden="true">🍬</span>
-        <span className="candyland-confetti confetti-two" aria-hidden="true">🍭</span>
-        <span className="candyland-confetti confetti-three" aria-hidden="true">✨</span>
-        <div className="candyland-opening-art">
-          <img
-            src="/random-candy-land-art.webp"
-            alt="A rainbow candy castle, a smiling peppermint and a gummy bear, surrounded by colorful dripping candy letters spelling Random Candy Land"
-            width={768}
-            height={768}
-            decoding="async"
-            fetchPriority="high"
-          />
+        <div className="rcl-hero-center">
+          <span className="rcl-hero-eyebrow">A PLACE FOR THE FUN, USEFUL &amp; UNEXPECTED</span>
+          <h1 id="rcl-welcome-title">Welcome to <em>Random Candy Land</em></h1>
+          <p>Games to play. Things to make. Curiosities to chase.<br className="rcl-wide-only" /> And a few very good deals along the way.</p>
+          <div className="rcl-hero-actions">
+            <a className="rcl-hero-cta" href="#rcl-explore">Start exploring <span aria-hidden="true">→</span></a>
+            <a className="rcl-hero-outline" href="#rcl-holiday">See hot deals</a>
+          </div>
         </div>
-        <div className="candyland-opening-copy">
-          <h1>Free browser games.<br/><span>Find your next adventure.</span></h1>
-          <p><strong>Stay sweet. Get weird.</strong> Play a quick challenge, invite a friend, care for a virtual pet or explore an interactive story. Try AI tools and learning activities between games.</p>
+        <div className="rcl-mascot rcl-mascot-sugarfoot" aria-label="Sugarfoot, one of the Random Candy Land mascots">
+          <img src="/mascots/sugarfoot-original.svg" alt="Sugarfoot, the original black-and-tan dog mascot" width={220} height={220} />
+          <span className="rcl-mascot-name">Sugarfoot ♡</span>
+        </div>
+        <div className="rcl-candy-ribbon" aria-hidden="true"></div>
+      </section>
+
+      <section className="rcl-site-highlights" id="rcl-explore" aria-labelledby="rcl-explore-title">
+        <div className="rcl-section-heading"><h2 id="rcl-explore-title">Choose your next adventure</h2><span>Six ways to get started</span></div>
+        <div className="rcl-highlight-grid">
+          <a className="rcl-highlight-card rcl-tone-lilac" href="/studio/"><img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" /><strong>Random AI</strong><span>Explore local AI models and tools.</span><b aria-hidden="true">↗</b></a>
+          <a className="rcl-highlight-card rcl-tone-mint" href="/image-studio/"><img src="/tool-icons/image-studio.svg" width={48} height={48} alt="" /><strong>Image Studio</strong><span>Make pictures your way.</span><b aria-hidden="true">↗</b></a>
+          <a className="rcl-highlight-card rcl-tone-blush" href="/after-dark/"><img src="/tool-icons/unwrapped.svg" width={48} height={48} alt="" /><strong>Unwrapped</strong><span>Explore yourself and connect.</span><b aria-hidden="true">↗</b></a>
+          <a className="rcl-highlight-card rcl-tone-butter" href="#shelf-quick"><img src="/tool-icons/simon.svg" width={48} height={48} alt="" /><strong>Games</strong><span>Take a playful break.</span><b aria-hidden="true">↗</b></a>
+          <a className="rcl-highlight-card rcl-tone-sky" href="/curiosity/"><img src="/tool-icons/wonder-index.svg" width={48} height={48} alt="" /><strong>Wonder Index</strong><span>Follow a strange idea.</span><b aria-hidden="true">↗</b></a>
+          <a className="rcl-highlight-card rcl-tone-peach" href="/black-friday/"><img src="/tool-icons/candy-match.svg" width={48} height={48} alt="" /><strong>Deals Hub</strong><span>Shop smarter and save more.</span><b aria-hidden="true">↗</b></a>
         </div>
       </section>
 
-      <section className="candyland-image-maker-spotlight" aria-label="New AI picture maker">
-        <style>{`
-          .candyland-next .candyland-image-maker-spotlight{width:min(1180px,calc(100% - 24px));margin:14px auto 22px}
-          .candyland-next .candyland-image-maker-spotlight a{display:flex;align-items:center;gap:16px;min-height:100px;padding:17px 20px;border:2px solid #ffb4e8;border-radius:22px;background:linear-gradient(115deg,#3d224f 0%,#71346d 60%,#4b2873 100%);color:#fff;text-decoration:none;box-shadow:0 11px 32px #ec5fb53a}
-          .candyland-next .candyland-image-maker-spotlight a:hover,.candyland-next .candyland-image-maker-spotlight a:focus-visible{border-color:#ffe2a6;background:linear-gradient(115deg,#54275f,#914481,#613495)}
-          .candyland-image-maker-spotlight img{width:68px;height:68px;flex-shrink:0;filter:drop-shadow(0 3px 10px #f5a5df55)}
-          .candyland-image-maker-spotlight .image-maker-copy{display:grid;gap:3px;flex:1;min-width:0}
-          .candyland-image-maker-spotlight .image-maker-tag{color:#ffe7a1;font-size:11px;letter-spacing:.13em;font-weight:900}
-          .candyland-image-maker-spotlight strong{font-size:clamp(20px,3.5vw,30px);line-height:1.15}
-          .candyland-image-maker-spotlight .image-maker-description{color:#ffe8f6;font-size:13px}
-          .candyland-image-maker-spotlight .image-maker-action{border-radius:999px;background:#ffd0ec;color:#321536;padding:10px 16px;font-size:13px;font-weight:850;white-space:nowrap}
-          @media(max-width:640px){.candyland-next .candyland-image-maker-spotlight a{gap:11px;padding:12px}.candyland-image-maker-spotlight img{width:50px;height:50px}.candyland-image-maker-spotlight .image-maker-action{font-size:12px;padding:8px}.candyland-image-maker-spotlight .image-maker-description{font-size:12px}}
-        `}</style>
-        <a href="/image-studio/" aria-label="Open Image Studio, the AI picture maker">
-          <img src="/tool-icons/image-studio.svg" alt="" loading="eager" />
-          <span className="image-maker-copy">
-            <span className="image-maker-tag">✦ NEW · AI PICTURE MAKER</span>
-            <strong>Image Studio 🎨</strong>
-            <span className="image-maker-description">Describe a picture, choose your model, then make and save your art.</span>
-          </span>
-          <span className="image-maker-action">Make art ↗</span>
-        </a>
-      </section>
-
-      <section className="candy-home-holiday" aria-labelledby="home-holiday-deals">
+      <section className="candy-home-holiday" id="rcl-holiday" aria-labelledby="home-holiday-deals">
         <div className="candy-home-holiday-heading">
           <div className="candy-home-holiday-copy">
             <span className="candy-home-holiday-kicker">BLACK FRIDAY · CYBER MONDAY 2026</span>
-            <h2 id="home-holiday-deals">🔥 2026 Super Hot Deals</h2>
-            <p>4 popular picks · Updated deal reports</p>
+            <h2 id="home-holiday-deals">🔥 24 Hot Deals</h2>
+            <p>Clear item details · Tap ♡ to save your favorites · Recent deal reports</p>
           </div>
           <a className="candy-home-holiday-link" href="/black-friday/">Browse all 2026 deals ↗</a>
         </div>
@@ -236,7 +217,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           ref={holidayFrameRef}
           className="candy-home-hot-deals-frame"
           src="/black-friday/?embed=featured"
-          title="Four top holiday offers with reported prices and live dates"
+          title="Six recently reported holiday deal picks with product details and save buttons"
           loading="lazy"
           scrolling="no"
           onLoad={() => {
@@ -250,6 +231,15 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         />
       </section>
 
+
+      <section className="rcl-home-whats-new" id="rcl-whats-new" aria-labelledby="rcl-whats-new-title">
+        <h2 id="rcl-whats-new-title">What's New <span aria-hidden="true">✦</span></h2>
+        <div className="rcl-update-list">
+          <a href="/black-friday/"><span aria-hidden="true">♥</span><strong>24 Hot Deals</strong><small>Readable deal cards and hearts for saving favorites.</small></a>
+          <a href="/black-friday/all/?view=upcoming"><span aria-hidden="true">◷</span><strong>Holiday sale previews</strong><small>Black Friday, Cyber Monday and upcoming deals.</small></a>
+          <a href="/image-studio/"><span aria-hidden="true">✎</span><strong>Make something</strong><small>Open Image Studio and explore creative tools.</small></a>
+        </div>
+      </section>
       <section className="candy-home-amazon" aria-labelledby="home-amazon-title">
         <a className="candy-home-amazon-link" href="/amazon-deal-hunter/" aria-labelledby="home-amazon-title">
           <span className="candy-home-amazon-icon" aria-hidden="true">🏷️</span>
@@ -453,6 +443,12 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </div>
       </section>
 
+
+      <section className="rcl-about-note" id="rcl-about" aria-labelledby="rcl-about-title">
+        <h2 id="rcl-about-title">Made for curious minds.</h2>
+        <p>Random Candy Land brings together free browser games, useful tools, creative projects and unexpected discoveries. Tidbit and Sugarfoot are here for the whole adventure.</p>
+        <a href="#rcl-explore">Find something fun ↗</a>
+      </section>
       <footer className="candyland-footer">
         <span>© RANDOM CANDY LAND · MADE OF A LITTLE MAGIC AND A LOT OF SUGAR</span>
         <a href="#top">Back to the candy castle ↑</a>

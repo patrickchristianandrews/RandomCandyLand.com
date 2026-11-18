@@ -1,0 +1,85 @@
+/* Random Candy Land handmade workshop homepage, 2026. Deliberately scoped to the homepage. */
+.rcl-workshop.candyland-next{--rcl-ink:#512d3b;--rcl-rose:#df517b;--rcl-coral:#f16d5f;--rcl-paper:#fff5e8;min-height:100vh;background:radial-gradient(circle at 4% 8%,#f8b3d87a,transparent 20rem),radial-gradient(circle at 96% 14%,#d7a6e870,transparent 23rem),repeating-linear-gradient(0deg,#fff7ea,#fff7ea 27px,#ffeedb 28px);color:var(--rcl-ink);font-family:Fredoka,'Trebuchet MS',sans-serif}
+.rcl-workshop.candyland-next :is(a,button):focus-visible{outline:3px solid #b34fc8;outline-offset:3px}
+.rcl-workshop .rcl-workshop-header{position:relative;z-index:30;display:flex;align-items:center;justify-content:space-between;width:min(1320px,calc(100% - 24px));min-height:75px;margin:12px auto 10px;padding:9px 13px 9px 20px;gap:20px;border:2px solid #efb3a5;border-radius:24px;background:#fff9ef;box-shadow:0 4px 0 #f9c6bd,0 15px 30px #ae718334}
+.rcl-workshop .rcl-workshop-nav{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:2px 6px;min-width:0}
+.rcl-workshop .rcl-workshop-nav a{display:inline-flex;align-items:center;justify-content:center;padding:9px 11px;border-radius:11px;font-size:clamp(12px,1.1vw,15px);line-height:1.1;font-weight:800;white-space:nowrap;color:#563846;transition:background .17s,transform .17s}
+.rcl-workshop .rcl-workshop-nav a:hover{background:#ffe1ee;transform:translateY(-2px)}
+.rcl-workshop .rcl-workshop-nav .rcl-nav-home{background:#ffd0e4;color:#71354f}
+.rcl-workshop .rcl-workshop-wordmark{display:flex;flex:0 0 auto;align-items:center;justify-content:flex-end;gap:10px;min-width:0;color:#722e46;font-family:Georgia,serif;font-size:clamp(15px,1.6vw,24px);font-weight:900;line-height:.99;text-align:right;letter-spacing:-.035em}
+.rcl-workshop .rcl-workshop-wordmark span{display:block;max-width:184px}
+.rcl-workshop .rcl-workshop-wordmark strong{display:block;color:#d92f6d}
+.rcl-workshop .rcl-workshop-wordmark img{width:49px;height:49px;flex:none;object-fit:contain;filter:drop-shadow(0 3px 2px #b27c817c);transition:transform .3s ease}
+.rcl-workshop .rcl-workshop-wordmark:hover img{transform:rotate(8deg) scale(1.07)}
+.rcl-workshop .rcl-workshop-hero{isolation:isolate;position:relative;display:flex;align-items:center;justify-content:center;width:min(1310px,calc(100% - 32px));min-height:330px;margin:20px auto 16px;padding:40px 260px 40px;border:3px solid #efb9bd;border-radius:34px;background:radial-gradient(ellipse at 45% 100%,#ffe0e894,transparent 65%),linear-gradient(152deg,#fff5e5,#fffaf1 42%,#ffe3ed);box-shadow:inset 0 0 0 7px #fffdf6,0 12px 0 #fbd1d0,0 22px 35px #b4718347}
+.rcl-workshop .rcl-workshop-hero:before{content:"";position:absolute;pointer-events:none;inset:10px;border:2px dashed #e9a4bd91;border-radius:26px}
+.rcl-workshop .rcl-workshop-hero:after{content:"";position:absolute;pointer-events:none;top:-22px;left:5%;right:5%;height:37px;background:repeating-linear-gradient(90deg,#cc58ab 0 30px,#f4a9d1 30px 60px,#f5cc68 60px 90px,#85d5ca 90px 120px);clip-path:polygon(0 0,100% 0,100% 29%,98% 96%,94% 29%,90% 96%,86% 29%,82% 96%,78% 29%,74% 96%,70% 29%,66% 96%,62% 29%,58% 96%,54% 29%,50% 96%,46% 29%,42% 96%,38% 29%,34% 96%,30% 29%,26% 96%,22% 29%,18% 96%,14% 29%,10% 96%,6% 29%,2% 96%);filter:drop-shadow(0 3px 2px #9d738a44)}
+.rcl-workshop .rcl-hero-center{position:relative;z-index:5;text-align:center;max-width:680px}
+.rcl-workshop .rcl-hero-eyebrow{display:inline-block;color:#b04561;font-size:12px;font-weight:900;letter-spacing:.12em;margin-bottom:6px}
+.rcl-workshop .rcl-hero-center h1{font-family:Georgia,serif;color:#622c48;font-size:clamp(31px,3.6vw,57px);line-height:1.04;letter-spacing:-.055em;text-shadow:0 2px #ffe1e8;margin:6px 0 13px}
+.rcl-workshop .rcl-hero-center h1 em{font-style:normal;display:block;color:#b63268}
+.rcl-workshop .rcl-hero-center p{font:600 clamp(13px,1.5vw,18px)/1.45 Fredoka,'Trebuchet MS',sans-serif;color:#693f4b;margin:0 auto 17px}
+.rcl-workshop .rcl-hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rcl-workshop .rcl-hero-cta,.rcl-workshop .rcl-hero-outline{display:inline-flex;align-items:center;justify-content:center;min-height:43px;border-radius:99px;padding:10px 20px;font-size:15px;font-weight:900;box-shadow:0 5px 0 #a9456880;transition:transform .16s,box-shadow .16s}
+.rcl-workshop .rcl-hero-cta{color:#fff!important;background:linear-gradient(#fa748d,#dc386e);border:2px solid #ef5c84}
+.rcl-workshop .rcl-hero-outline{color:#9b3767!important;background:#fff8ee;border:2px solid #ec9abb}
+.rcl-workshop :is(.rcl-hero-cta,.rcl-hero-outline):hover{transform:translateY(-3px);box-shadow:0 8px 0 #a9456880}
+.rcl-workshop .rcl-hero-confetti{position:absolute;top:29px;left:10%;right:10%;color:#c56fb1;letter-spacing:clamp(12px,3vw,40px);text-align:center;font-size:18px;opacity:.55;pointer-events:none}
+.rcl-workshop .rcl-mascot{position:absolute;bottom:-9px;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:255px;transform-origin:50% 80%;transition:transform .28s ease}
+.rcl-workshop .rcl-mascot:before{content:"";position:absolute;inset:42px -2px 34px;border-radius:50%;background:radial-gradient(ellipse,#dfadf8c0,transparent 67%);filter:blur(5px);z-index:-1}
+.rcl-workshop .rcl-mascot-tidbit{left:0;--mascot-accent:#8752c9}
+.rcl-workshop .rcl-mascot-sugarfoot{right:0;--mascot-accent:#e6589e}
+.rcl-workshop .rcl-mascot-sugarfoot:before{background:radial-gradient(ellipse,#ffadd8d6,transparent 67%)}
+.rcl-workshop .rcl-mascot img{position:relative;display:block;width:235px;height:235px;object-fit:contain;filter:drop-shadow(0 6px 0 #fffaf3) drop-shadow(0 13px 10px #66324d6e) drop-shadow(0 22px 14px #66324d3b);animation:rcl-mascot-peek 4.4s ease-in-out infinite}
+.rcl-workshop .rcl-mascot-sugarfoot img{animation-delay:-2.1s}
+.rcl-workshop .rcl-mascot:hover{transform:translateY(-8px) rotate(-2deg)}
+.rcl-workshop .rcl-mascot-name{position:relative;z-index:2;transform:translateY(-30px);border:2px solid #fff8ee;background:var(--mascot-accent);color:#fff;box-shadow:0 5px 0 #86395355,0 6px 14px #6d426858;border-radius:99px;padding:6px 21px;font:900 18px Georgia,serif;white-space:nowrap}
+@keyframes rcl-mascot-peek{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-7px) rotate(1deg)}}
+.rcl-workshop .rcl-candy-ribbon{position:absolute;bottom:-6px;left:20px;right:20px;height:17px;border-radius:15px;background:repeating-linear-gradient(100deg,#f5a1b8 0 35px,#ffd4e0 35px 70px,#f3b3dc 70px 105px);border:3px solid #fff9f5;z-index:3}
+.rcl-workshop .rcl-site-highlights,.rcl-workshop .rcl-home-whats-new{width:min(1260px,calc(100% - 42px));margin:23px auto}
+.rcl-workshop .rcl-section-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;padding:0 4px}
+.rcl-workshop .rcl-section-heading h2{font:900 clamp(20px,2.2vw,29px)/1.1 Georgia,serif;color:#6f354d;margin:0}
+.rcl-workshop .rcl-section-heading>span{font-size:12px;font-weight:800;color:#995467}
+.rcl-workshop .rcl-highlight-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px}
+.rcl-workshop .rcl-highlight-card{position:relative;display:flex;min-width:0;min-height:153px;flex-direction:column;align-items:flex-start;gap:6px;padding:13px;border-radius:19px;border:2px solid #fff7f0;box-shadow:0 6px 0 #cba2ad91,0 10px 18px #834f6a25;transition:transform .18s ease,box-shadow .18s ease}
+.rcl-workshop .rcl-highlight-card:hover{transform:translateY(-5px) rotate(-.4deg);box-shadow:0 10px 0 #cba2ad91,0 15px 24px #834f6a33}
+.rcl-workshop .rcl-highlight-card img{width:41px;height:41px;object-fit:contain;filter:drop-shadow(0 3px 2px #77395532)}
+.rcl-workshop .rcl-highlight-card strong{font:900 clamp(16px,1.5vw,21px)/1.02 Georgia,serif;color:#65364d;letter-spacing:-.035em}
+.rcl-workshop .rcl-highlight-card>span{font-size:clamp(11px,.95vw,13px);line-height:1.22;color:#715164;max-width:150px}
+.rcl-workshop .rcl-highlight-card b{position:absolute;right:11px;bottom:10px;display:grid;place-items:center;background:#fff8eea8;color:#7d3e60;border-radius:50%;height:24px;width:24px}
+.rcl-workshop .rcl-tone-lilac{background:#efe1ff}.rcl-workshop .rcl-tone-mint{background:#dcf8e9}.rcl-workshop .rcl-tone-blush{background:#ffe0ec}.rcl-workshop .rcl-tone-butter{background:#fff0c8}.rcl-workshop .rcl-tone-sky{background:#dceffc}.rcl-workshop .rcl-tone-peach{background:#ffdfd4}
+.rcl-workshop.candyland-next .candy-home-holiday{width:min(1260px,calc(100% - 42px));margin:22px auto 0;padding:16px;border:3px solid #f2c0bf;border-radius:25px;background:linear-gradient(135deg,#fff9f0,#fff1e9);color:#633849;box-shadow:0 7px 0 #f5c3c8,0 15px 26px #b779852b}
+.rcl-workshop.candyland-next .candy-home-holiday-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:11px;margin-bottom:8px}
+.rcl-workshop.candyland-next .candy-home-holiday-heading h2{color:#b93168;font:900 clamp(23px,2.6vw,34px)/1.1 Georgia,serif;margin:0}
+.rcl-workshop.candyland-next .candy-home-holiday-copy p{color:#68445d;font-size:13px;margin:4px 0}
+.rcl-workshop.candyland-next .candy-home-holiday-kicker{color:#b14873;font-size:11px;font-weight:900}
+.rcl-workshop.candyland-next .candy-home-holiday-link{display:inline-flex;align-items:center;min-height:38px;padding:8px 15px;background:#df5084;color:#fff;border-radius:99px;font-weight:900;border:2px solid #f8b7c9}
+.rcl-workshop.candyland-next .candy-home-hot-deals-frame{width:100%;min-height:168px;border:0;border-radius:12px;background:#fff8ef;overflow:hidden}
+.rcl-workshop .rcl-home-whats-new{display:flex;align-items:center;gap:15px;background:#fffaf1;border:2px solid #f3c5be;border-radius:23px;padding:16px 19px;box-shadow:0 5px 0 #f8d1cf}
+.rcl-workshop .rcl-home-whats-new h2{flex:none;font:900 clamp(19px,2vw,27px) Georgia,serif;color:#a73665;margin:0}
+.rcl-workshop .rcl-home-whats-new h2 span{color:#dc9c3c}
+.rcl-workshop .rcl-update-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:1}
+.rcl-workshop .rcl-update-list a{display:grid;grid-template-columns:22px 1fr;gap:0 8px;align-items:center;border-left:1px solid #ebcabc;padding:6px 11px;color:#5c3b4e;min-width:0;transition:background .18s}
+.rcl-workshop .rcl-update-list a:hover{background:#ffebef;border-radius:9px}
+.rcl-workshop .rcl-update-list a>span{grid-row:1/span 2;font-size:24px;color:#e45b90}
+.rcl-workshop .rcl-update-list strong{font-size:14px;font-weight:900}
+.rcl-workshop .rcl-update-list small{font-size:11px;color:#856172;line-height:1.25}
+.rcl-workshop.candyland-next .candy-home-amazon{margin:23px auto;max-width:1260px}
+.rcl-workshop.candyland-next .candy-home-amazon-link{border-color:#f4c4b0;background:#fff1df;color:#653247;box-shadow:0 5px 0 #f0c2ad}
+.rcl-workshop.candyland-next .candy-home-amazon :is(h2,p,.candy-home-amazon-kicker){color:#653247}
+.rcl-workshop.candyland-next .candyland-world{background:#fff8ec;border:2px solid #efc1be;color:#6a3850;box-shadow:0 10px 24px #a16c7d39}
+.rcl-workshop.candyland-next .candyland-world-header h2{color:#7e3453}
+.rcl-workshop.candyland-next .candyland-world-controls button{background:#fde0e3;border:1px solid #dc8caa;color:#612c4b}
+.rcl-workshop.candyland-next .candyland-play-shelf{background:#fff7eb;border:2px solid #e6c7bc;box-shadow:0 8px 20px #976e712e}
+.rcl-workshop.candyland-next .candyland-play-shelf :is(h2,p){color:#70435a}
+.rcl-workshop.candyland-next .candyland-play-shelf .candyland-hero-tool-link:not(.candyland-unwrapped-feature-card){background:#fff3e6;border-color:#eabfb8;color:#6a394b}
+.rcl-workshop.candyland-next .candyland-play-shelf .candyland-hero-tool-link:not(.candyland-unwrapped-feature-card) :is(.candyland-hero-tool-name,.candyland-hero-tool-blurb){color:#66364c}
+.rcl-workshop .rcl-about-note{width:min(1200px,calc(100% - 48px));margin:35px auto 18px;padding:24px 28px;border:2px dashed #d9a0ab;border-radius:22px;background:#fff9ee;text-align:center}
+.rcl-workshop .rcl-about-note h2{font:900 25px Georgia,serif;color:#a33866;margin:0 0 7px}
+.rcl-workshop .rcl-about-note p{font-size:14px;max-width:750px;margin:0 auto 12px;line-height:1.5;color:#684455}
+.rcl-workshop .rcl-about-note a{font-weight:900;color:#bd4173}
+.rcl-workshop.candyland-next .candyland-footer{color:#894c62}
+.rcl-workshop.candyland-next .candyland-footer a{color:#ae366d}
+@media(max-width:1120px){.rcl-workshop .rcl-workshop-header{flex-direction:column-reverse;gap:6px}.rcl-workshop .rcl-workshop-wordmark{align-self:flex-end}.rcl-workshop .rcl-workshop-nav{align-self:stretch;justify-content:center}.rcl-workshop .rcl-workshop-hero{padding-inline:185px}.rcl-workshop .rcl-mascot{width:185px}.rcl-workshop .rcl-mascot img{width:180px;height:180px}.rcl-workshop .rcl-highlight-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){.rcl-workshop .rcl-workshop-header{width:calc(100% - 14px);margin-top:5px;padding:9px;gap:6px;border-radius:15px}.rcl-workshop .rcl-workshop-wordmark{font-size:17px}.rcl-workshop .rcl-workshop-wordmark img{width:38px;height:38px}.rcl-workshop .rcl-workshop-nav{gap:0;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;width:100%;padding-bottom:3px;scrollbar-width:thin}.rcl-workshop .rcl-workshop-nav a{padding:8px;font-size:12px}.rcl-workshop .rcl-workshop-hero{width:calc(100% - 20px);padding:125px 13px 27px;min-height:325px;border-radius:22px;margin-top:25px}.rcl-workshop .rcl-mascot{top:-31px;bottom:auto;width:130px}.rcl-workshop .rcl-mascot img{width:128px;height:128px}.rcl-workshop .rcl-mascot-name{font-size:12px;padding:4px 10px;transform:translateY(-16px)}.rcl-workshop .rcl-hero-eyebrow{font-size:9px}.rcl-workshop .rcl-hero-center h1{font-size:clamp(27px,7vw,39px)}.rcl-workshop .rcl-hero-center p{font-size:12px}.rcl-workshop .rcl-hero-confetti{display:none}.rcl-workshop .rcl-wide-only{display:none}.rcl-workshop .rcl-hero-cta,.rcl-workshop .rcl-hero-outline{font-size:12px;padding:8px 12px;min-height:36px}.rcl-workshop .rcl-site-highlights,.rcl-workshop .rcl-home-whats-new{width:calc(100% - 24px)}.rcl-workshop .rcl-highlight-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.rcl-workshop .rcl-highlight-card{min-height:122px;padding:9px}.rcl-workshop .rcl-highlight-card img{height:35px;width:35px}.rcl-workshop .rcl-highlight-card strong{font-size:15px}.rcl-workshop .rcl-highlight-card>span{font-size:11px}.rcl-workshop.candyland-next .candy-home-holiday{width:calc(100% - 24px);padding:10px}.rcl-workshop .rcl-home-whats-new{display:block;padding:14px}.rcl-workshop .rcl-update-list{grid-template-columns:1fr;margin-top:8px}.rcl-workshop .rcl-update-list a{padding:7px 0;border-left:0;border-top:1px solid #ebcabc}.rcl-workshop .rcl-section-heading>span{display:none}}
+@media(prefers-reduced-motion:reduce){.rcl-workshop .rcl-mascot img,.rcl-workshop .rcl-workshop-wordmark img{animation:none!important;transition:none!important}.rcl-workshop .rcl-highlight-card,.rcl-workshop .rcl-workshop-nav a,.rcl-workshop .rcl-hero-cta,.rcl-workshop .rcl-hero-outline{transition:none!important}}

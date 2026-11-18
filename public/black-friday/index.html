@@ -115,7 +115,7 @@ html[data-embed] body{background:transparent}html[data-embed] main{width:100%;ma
 html[data-embed] body{overflow:hidden;background:transparent}
 html[data-embed] main{padding:0 5px;width:100%;max-width:none}
 html[data-embed] .hot-section{margin:0!important;padding:0!important}
-html[data-embed] .hot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+html[data-embed] .hot-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
 html[data-embed] .hot-card{min-height:116px;padding:9px;gap:3px;border-radius:11px;justify-content:space-between}
 html[data-embed] .hot-type{font-size:.67rem!important;line-height:1.2;min-height:0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 html[data-embed] .hot-title{font-size:.8rem;line-height:1.3;min-height:0;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;overflow-wrap:anywhere}
@@ -174,6 +174,23 @@ html[data-embed] .hot-view{font-size:.67rem;padding:3px 5px}
 .deal-runner.scurrying #runner-image{animation:runner-bounce var(--stride-duration,.56s) steps(1,end) infinite,runner-sway var(--stride-duration,.56s) ease-in-out infinite;transform-origin:50% 80%}
 @keyframes runner-sway{0%,100%{transform:scaleX(var(--walk-direction,1)) translateY(0) rotate(-1deg)}25%{transform:scaleX(var(--walk-direction,1)) translateY(-3px) rotate(1deg)}50%{transform:scaleX(var(--walk-direction,1)) translateY(-5px) rotate(0deg)}75%{transform:scaleX(var(--walk-direction,1)) translateY(-2px) rotate(1deg)}}
 @media(prefers-reduced-motion:reduce){.deal-runner.scurrying #runner-image{animation:none}}
+
+/* Picture-first compact hot deals; real RSS photos when supplied, transparent category illustration otherwise. */
+.hot-art{height:87px;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #eed2cf;border-radius:9px;background:linear-gradient(145deg,#fffef9,#ffeef0);margin:1px 0 4px}
+.hot-art img{display:block;max-width:100%;width:100%;height:100%;object-fit:contain;position:absolute;inset:0;background:#fff9f5}
+.hot-art .hot-art-fallback{font-size:52px;line-height:1;filter:drop-shadow(0 5px 3px #d29ab09c)}
+html[data-embed] body{background:#fff7ed;color:#623a4e}
+html[data-embed] .hot-card{background:#fffaf3;border:1px solid #efd1bf;color:#533747;box-shadow:0 3px 8px #bd8f9920;min-height:171px}
+html[data-embed] .hot-art{height:76px;margin-bottom:2px}
+html[data-embed] .hot-title,html[data-embed] .hot-store{color:#533747}
+html[data-embed] .hot-type{color:#a6507c!important}
+html[data-embed] .hot-price{color:#c62f67}
+html[data-embed] .hot-when{color:#835a6f}
+html[data-embed] .hot-card .hot-heart{background:#fff5f9;color:#bd4979;border-color:#eab4cc}
+html[data-embed] .hot-card .hot-heart[aria-pressed="true"]{background:#ffd3e6}
+html[data-embed] .hot-view{background:#ffe2ed;color:#78334c;border-color:#efbfd0}
+html[data-embed] .hot-card .deal-share{background:#fff7eb;color:#75465b;border-color:#eccabb!important}
+@media(max-width:700px){html[data-embed] .hot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-embed] .hot-card{min-height:161px}html[data-embed] .hot-art{height:74px}}
 </style>
 <script>if(new URLSearchParams(location.search).get('embed')==='featured')document.documentElement.dataset.embed='featured'</script>
 </head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -229,12 +246,27 @@ function rank(d){return d.popular?3:d.sourceType==='DealNews editors'?2:d.featur
 function picks(){
  const eligible=savedOnlyHot&&!document.documentElement.dataset.embed?items.filter(d=>saved.includes(d.id)&&/^https:\/\//.test(d.source||'')):items.filter(isReportedLive);
  eligible.sort((a,b)=>rank(b)-rank(a)||(b.reportedBy?.length||0)-(a.reportedBy?.length||0)||(b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
- return eligible.slice(0,document.documentElement.dataset.embed?4:24);
+ return eligible.slice(0,document.documentElement.dataset.embed?6:24);
+}
+function hotEmoji(d){
+ const t=String(d.name||'')+' '+String(d.category||'');
+ if(/headphone|earbud|speaker|audio/i.test(t))return '🎧';
+ if(/laptop|computer|ssd|macbook|tablet/i.test(t))return '💻';
+ if(/monitor|tv|television|projector/i.test(t))return '🖥️';
+ if(/coffee|kitchen|air fryer|blender|espresso|cookware/i.test(t))return '🍳';
+ if(/watch|smartwatch|fitness/i.test(t))return '⌚';
+ if(/toy|lego|game|puzzle/i.test(t))return '🧸';
+ if(/fashion|shirt|shoe|boot|sweater/i.test(t))return '👟';
+ if(/tool|drill|home|vacuum|furniture/i.test(t))return '🏠';
+ if(/phone|galaxy|pixel|iphone/i.test(t))return '📱';
+ return '🎁';
 }
 function hotCard(d){
  const tag=d.popular?'🔥 Popular report':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured':'✦ Fresh report';
  const href=/^https:\/\/\//.test(d.source||'')?d.source:'/black-friday/all/';
  const name=esc(d.name),url=esc(href),spec=String(d.spec||'').trim(),why=String(d.why||'').trim();
+ const imageUrl=typeof d.image==='string'&&/^https:\/\//.test(d.image)?d.image:null;
+ const art='<div class="hot-art"><span class="hot-art-fallback" aria-hidden="true">'+hotEmoji(d)+'</span>'+(imageUrl?'<img src="'+esc(imageUrl)+'" alt="Product image supplied by linked deal publisher" loading="lazy" referrerpolicy="no-referrer">':'')+'</div>';
  const hint=spec||why||'Check the source for exact model, included items and condition.';
  const date=String(d.checked||d.publishedAt||'').slice(0,10),savedNow=saved.includes(d.id);
  const ref=Number.isFinite(d.price)&&Number.isFinite(d.reference)&&d.reference>d.price?'<small class="hot-reference">Retailer ref. '+money(d.reference)+'</small>':'';
@@ -244,7 +276,7 @@ function hotCard(d){
  '<p>Publisher: '+esc(d.sourceType||'Deal source')+' · Reported: '+esc(date||'date unavailable')+'</p><a href="'+url+'" target="_blank" rel="noopener">Open complete source report ↗</a></div>';
  return '<article class="hot-card" data-deal-id="'+esc(d.id)+'"><div class="hot-heading"><small class="hot-type">'+esc(tag)+'</small>'+
  '<button type="button" class="save hot-heart" data-save="'+esc(d.id)+'" aria-label="'+(savedNow?'Remove saved deal: ':'Save deal: ')+name+'" aria-pressed="'+savedNow+'" title="'+(savedNow?'Remove from saved':'Save this deal')+'">'+(savedNow?'♥':'♡')+'<span class="hot-save-label">'+(savedNow?' Saved':' Save')+'</span></button></div>'+
- '<a class="hot-title" title="'+name+'" target="_blank" rel="noopener" href="'+url+'">'+name+'</a>'+
+ art+'<a class="hot-title" title="'+name+'" target="_blank" rel="noopener" href="'+url+'">'+name+'</a>'+
  '<div class="hot-identify" title="'+esc(hint)+'">'+esc(hint)+'</div><small class="hot-store">'+esc(d.store||'See source')+' · '+esc(d.category||'Other')+'</small>'+
  '<div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div>'+ref+'</div><small class="hot-when">Reported '+esc(date||'recently')+'</small></div>'+
  '<div class="hot-actions-row"><details class="hot-details"><summary>Full details</summary>'+details+'</details><a class="hot-view" href="'+url+'" target="_blank" rel="noopener" aria-label="View deal for '+name+'">View deal ↗</a>'+
@@ -255,6 +287,7 @@ function render(){
  $('live-hot-title').textContent=savedOnlyHot&&!document.documentElement.dataset.embed?'♥ '+hot.length+' Saved Hot Deals':'🔥 '+hot.length+' Hot Deal '+(hot.length===1?'Pick':'Picks')+' · 2026';
  const toggle=$('show-saved-hot');if(toggle){toggle.setAttribute('aria-pressed',String(savedOnlyHot));toggle.textContent=(savedOnlyHot?'♥ Showing saved (':'♡ Saved (')+saved.length+')';}
  $('hot-list').innerHTML=hot.length?hot.map(hotCard).join(''):(savedOnlyHot?'<p class="disclaimer">No saved deals are in the currently loaded catalog. Switch back to Hot Deals and heart any item.</p>':'<p class="disclaimer">No recent, already-started hot deals meet the source checks right now. <a href="/black-friday/all/">Browse the full catalog ↗</a></p>');
+ $('hot-list').querySelectorAll('.hot-art img').forEach(img=>img.addEventListener('error',()=>img.remove(),{once:true}));
  if(document.documentElement.dataset.embed){requestAnimationFrame(reportEmbeddedHeight);return;}
  const grouped=new Map();
  for(const d of items){const cat=d.category||'Other';grouped.set(cat,(grouped.get(cat)||0)+1);}

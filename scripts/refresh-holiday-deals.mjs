@@ -46,6 +46,19 @@ const cleanUrl=(url)=>{
 function allowedLink(url,domains){
  try{const h=new URL(url).hostname.toLowerCase();return domains.some(d=>h===d||h.endsWith('.'+d));}catch{return false;}
 }
+
+function imageFromItem(xml){
+ // Only publisher-supplied photographs are used; never invent product imagery.
+ const match=xml.match(/<(?:media:thumbnail|media:content|enclosure)\b[^>]*\burl=["']([^"']+)["']/i)
+   ||xml.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i);
+ if(!match)return null;
+ try{
+  const url=new URL(match[1].replace(/&amp;/g,'&'));
+  if(url.protocol!=='https:'||/\.svg(?:\?|$)/i.test(url.pathname)||/pixel|tracker|tracking/i.test(url.pathname))return null;
+  return url.href;
+ }catch{return null;}
+}
+
 function category(title){
  const s=title.toLowerCase();
  if(/laptop|chromebook|macbook|computer|monitor|ipad|tablet|ssd|graphic card|processor/.test(s))return 'Computers';
@@ -145,11 +158,12 @@ for(const feed of FEEDS){
    const old=oldByLink.get(link),id='rss-'+createHash('sha1').update(link).digest('hex').slice(0,13);
    const hist=Array.isArray(old?.history)?old.history.filter(h=>h&&h.date&&Number.isFinite(Number(h.price))&&Date.parse(h.date)>now.getTime()-365*86400000):[];
    if(Number.isFinite(price)&&price>0&&!hist.some(h=>h.date===day))hist.push({date:day,price});
-   const incoming={id,name:title,category:category(title),store:retailer(title),price,reference:null,spec:'',source:link,sourceType:feed.group,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):day,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Deal reported by linked publisher. Check retailer, exact model, stock, final price, coupon terms and shipping at source.',popular:Boolean(feed.popular),featured:Boolean(feed.featured),reportedBy:[{publisher:feed.group,url:link}],history:hist.slice(-365)};
+   const incoming={id,name:title,category:category(title),store:retailer(title),image:imageFromItem(item)||old?.image||null,price,reference:null,spec:'',source:link,sourceType:feed.group,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):day,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Deal reported by linked publisher. Check retailer, exact model, stock, final price, coupon terms and shipping at source.',popular:Boolean(feed.popular),featured:Boolean(feed.featured),reportedBy:[{publisher:feed.group,url:link}],history:hist.slice(-365)};
    const existing=byLink.get(link);
    if(existing){
     existing.popular ||= incoming.popular;existing.featured ||= incoming.featured;
     if(!Number.isFinite(existing.price)&&Number.isFinite(incoming.price))existing.price=incoming.price;
+    if(!existing.image&&incoming.image)existing.image=incoming.image;
    }else byLink.set(link,incoming);
    status.accepted++;
   }
@@ -173,6 +187,7 @@ for(const d of candidates){
  const matching=bucketList.find(ex=>ex.source===d.source||sameDeal(ex,d));
  if(matching){
   matching.popular ||= d.popular;matching.featured ||= d.featured;
+   if(!matching.image&&d.image)matching.image=d.image;
   const links=[...(matching.reportedBy||[]),...(d.reportedBy||[])];
   matching.reportedBy=[...new Map(links.map(x=>[x.publisher+'|'+x.url,x])).values()].slice(0,12);
   if(!matching.publishedAt||(d.publishedAt||'')>matching.publishedAt)matching.publishedAt=d.publishedAt;
