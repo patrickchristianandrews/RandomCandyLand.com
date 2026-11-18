@@ -43,15 +43,15 @@
     if (matches(name, /\b(?:smartphones?|cell phones?|mobile phones?|iphones?|pixel (?:[6-9]|10|11)(?:\s|$)|galaxy s\d{2}|galaxy z (?:fold|flip)|oneplus \d{1,2}|moto g(?:\s|$)|nothing phone)\b/)) return 'Phones';
     if (matches(name, /\b(?:smartwatches?|fitness trackers?|apple watch|galaxy watch|garmin (?:fenix|venu|forerunner)|fitbit)\b/)) return 'Electronics';
 
+    if (matches(name, /\b(?:makeup|skincare|skin care|cosmetics?|perfumes?|fragrances?|lipsticks?|mascaras?|shampoos?|conditioners?|hair dryers?|hair stylers?|curling irons?|straighteners?|beauty|shark flexstyle|shark speedstyle|dyson airwrap|dyson supersonic)\b/)) return 'Beauty';
+    if (matches(name, /\b(?:gift cards?|e[- ]?gift cards?|store credit)\b/)) return 'Gift Cards';
     if (matches(name, /\b(?:playstation|ps5|ps4|xbox|nintendo|switch 2|nintendo switch|steam deck|rog ally|game console|video game|gaming controller|board game|puzzle|lego|hot wheels|barbie|action figure|plush toy|tonies|toy(?:s)?|pokemon cards?|trading cards?)\b/)) return 'Toys & Games';
     if (matches(name, /\b(?:refrigerators?|fridges?|dishwashers?|washing machines?|washers?|dryers?|microwaves?|ranges?|ovens?|freezers?|air conditioners?)\b/)) return 'Appliances';
     if (matches(name, /\b(?:coffee makers?|espresso|nespresso|keurig|air fryers?|blenders?|mixers?|cookware|bakeware|crockpots?|slow cookers?|instant pots?|kitchen knives|toasters?|kitchen|food processors?|dinnerware|silverware)\b/)) return 'Kitchen';
     if (matches(name, /\b(?:vacuums?|carpet cleaners?|bedding|bed sheets?|sheet sets?|towels?|blankets?|comforters?|pillows?|mattresses?|furniture|sofas?|couches?|sectionals?|recliners?|desk chairs?|lighting|lamps?|doorbells?|security cameras?|smart home|thermostats?|power tools?|drills?|impact wrenches?|sanders?|leaf blowers?|lawn mowers?|dewalt|ryobi|milwaukee m18|makita)\b/)) return 'Home';
 
-    if (matches(name, /\b(?:makeup|skincare|skin care|cosmetics?|perfumes?|fragrances?|lipsticks?|mascaras?|shampoos?|conditioners?|hair dryers?|hair stylers?|curling irons?|straighteners?|beauty|shark flexstyle|shark speedstyle|dyson airwrap|dyson supersonic)\b/)) return 'Beauty';
     if (matches(name, /\b(?:shirts?|sweaters?|hoodies?|jeans|pants?|jackets?|dresses?|shoes?|boots?|sneakers?|coats?|handbags?|jewelry|jewellery|necklaces?|earrings?|watches|sunglasses?|clothing|apparel)\b/)) return 'Fashion';
     if (matches(name, /\b(?:groceries|grocery|snacks?|cereals?|coffee beans|sodas?|candy|chocolates?|protein bars?|laundry detergent|dish soap|paper towels?|toilet paper|toothpaste)\b/)) return 'Groceries';
-    if (matches(name, /\b(?:gift cards?|e[- ]?gift cards?|store credit)\b/)) return 'Gift Cards';
     if (matches(name, /\b(?:pet food|dog food|cat food|pet toys?|litter boxes?|cat litter|dog beds?|pet supplies)\b/)) return 'Pet Supplies';
     if (matches(name, /\b(?:car tires?|dash cams?|car seats?|auto parts?|car batteries|car jump starters?|motor oil)\b/)) return 'Automotive';
     if (matches(name, /\b(?:bikes?|bicycles?|treadmills?|exercise bikes?|dumbbells?|weight sets?|camping|tents?|kayaks?|hiking|sports equipment)\b/)) return 'Sports & Outdoors';
