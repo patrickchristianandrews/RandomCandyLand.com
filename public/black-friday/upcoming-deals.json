@@ -1,0 +1,896 @@
+{
+  "generatedAt": "2026-11-18T15:46:00Z",
+  "timeZone": "America/New_York",
+  "note": "Confirmed announcements and previews only; missing prices remain null. Not a guarantee of all future offers.",
+  "deals": [
+    {
+      "id": "preview-amazon-bf-midnight",
+      "name": "Amazon Black Friday Today’s Big Deals — first drop",
+      "category": "Upcoming sales",
+      "store": "Amazon",
+      "price": null,
+      "reference": null,
+      "spec": "Up to 60% off selected items; exact eligible products and prices revealed at launch",
+      "source": "https://www.aboutamazon.com/news/retail/amazon-black-friday-cyber-monday-deals-2026",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27T03:00:00-05:00",
+      "endsAt": "2026-11-27",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-amazon-bf-morning",
+      "name": "Amazon Black Friday Today’s Big Deals — second drop",
+      "category": "Upcoming sales",
+      "store": "Amazon",
+      "price": null,
+      "reference": null,
+      "spec": "Second confirmed drop at 8 a.m. PST / 11 a.m. EST; items and final prices pending",
+      "source": "https://www.aboutamazon.com/news/retail/amazon-black-friday-cyber-monday-deals-2026",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27T11:00:00-05:00",
+      "endsAt": "2026-11-27",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-amazon-cyber-midnight",
+      "name": "Amazon Cyber Monday Today’s Big Deals — first drop",
+      "category": "Upcoming sales",
+      "store": "Amazon",
+      "price": null,
+      "reference": null,
+      "spec": "Up to 60% on select items, announced drop at midnight PST / 3 a.m. EST; exact items pending",
+      "source": "https://www.aboutamazon.com/news/retail/amazon-black-friday-cyber-monday-deals-2026",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30T03:00:00-05:00",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-amazon-cyber-morning",
+      "name": "Amazon Cyber Monday Today’s Big Deals — second drop",
+      "category": "Upcoming sales",
+      "store": "Amazon",
+      "price": null,
+      "reference": null,
+      "spec": "Second confirmed drop at 8 a.m. PST / 11 a.m. EST; exact items and prices pending",
+      "source": "https://www.aboutamazon.com/news/retail/amazon-black-friday-cyber-monday-deals-2026",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30T11:00:00-05:00",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-bf-event",
+      "name": "Best Buy 10-day Black Friday doorbusters",
+      "category": "Upcoming sales",
+      "store": "Best Buy",
+      "price": null,
+      "reference": null,
+      "spec": "Sale begins Nov 19; additional limited-time doorbusters through Nov 28; individual stock varies",
+      "source": "https://corporate.bestbuy.com/2026/black-friday-sale-deals/",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-macbook-m5",
+      "name": "MacBook Air 13-inch M5 16GB/512GB — Best Buy announced offer",
+      "category": "Laptops",
+      "store": "Best Buy",
+      "price": 1049,
+      "reference": null,
+      "spec": "M5, 16GB RAM, 512GB SSD; announced $250 off; price may differ before Nov 19",
+      "source": "https://www.bestbuy.com/product/apple-macbook-air-13-inch-laptop-m5-chip-with-10-core-cpu-and-8-core-gpu-16gb-memory-512gb-ssd-midnight/JJGCQLKXL7",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-tcl-65s4cf",
+      "name": "TCL 65-inch S4CF 4K Fire TV — Best Buy announced offer",
+      "category": "TVs",
+      "store": "Best Buy",
+      "price": 229.99,
+      "reference": null,
+      "spec": "65S4CF / SKU 6687112; advertised $240 off",
+      "source": "https://www.bestbuy.com/product/tcl-65-s4cf-series-4k-uhd-hdr-smart-tv-with-fire-tv-2026/J36QYTHZVP",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-hp-omnibook5",
+      "name": "HP OmniBook 5 14-inch OLED touchscreen — announced offer",
+      "category": "Laptops",
+      "store": "Best Buy",
+      "price": 449.99,
+      "reference": null,
+      "spec": "Intel Core 5 Series 3, 8GB RAM, 256GB SSD; advertised $350 off",
+      "source": "https://www.bestbuy.com/product/hp-omnibook-5-14-2k-oled-touchscreen-laptop-intel-core-5-series-3-2026-8gb-memory-256gb-ssd-starlit-blue/J3KSW748W6",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-sony-xm5",
+      "name": "Sony WH-1000XM5 headphones — Best Buy announced offer",
+      "category": "Audio",
+      "store": "Best Buy",
+      "price": 169,
+      "reference": null,
+      "spec": "WH-1000XM5 over-ear; advertised $229 off; not XM6",
+      "source": "https://www.bestbuy.com/product/sony-wh-1000xm5-wireless-noise-cancelling-over-the-ear-headphones-black/J7XSRH5CXG",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-samsung-s26fe",
+      "name": "Samsung Galaxy S26 FE 128GB unlocked — announced offer",
+      "category": "Phones",
+      "store": "Best Buy",
+      "price": 499.99,
+      "reference": null,
+      "spec": "Graphite unlocked 128GB; advertised $200 off",
+      "source": "https://www.bestbuy.com/product/samsung-galaxy-s26-fe-128gb-unlocked-graphite/JJGRF3V6G5",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-shark-vac",
+      "name": "Shark PowerDetect Speed cordless vacuum — announced offer",
+      "category": "Home",
+      "store": "Best Buy",
+      "price": 199.99,
+      "reference": null,
+      "spec": "IA1121 Ivory stick vacuum; advertised $300 off",
+      "source": "https://www.bestbuy.com/product/shark-powerdetect-speed-cordless-stick-vacuum-cleaner-hepa-filtration-60-min-runtime-ia1121-ivory/JXJVXL847Y",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-insignia-tv",
+      "name": "Insignia 40-inch F40 Fire TV — announced offer",
+      "category": "TVs",
+      "store": "Best Buy",
+      "price": 89.99,
+      "reference": null,
+      "spec": "40-inch 1080p LED smart Fire TV; announced $60 off",
+      "source": "https://www.bestbuy.com/product/insignia-40-class-f40-series-led-full-hd-1080p-smart-fire-tv/J2FPJKSFFJ",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-bf-giftcard",
+      "name": "Best Buy $100 gift card for $60 — in-store only",
+      "category": "Gift Cards",
+      "store": "Best Buy",
+      "price": 60,
+      "reference": null,
+      "spec": "Black Friday Nov 27 only; free My Best Buy account eligible; one per person; at least 50 per store; $100 card for a future qualifying purchase",
+      "source": "https://corporate.bestbuy.com/2026/black-friday-sale-deals/",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-27",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-thanks-flash",
+      "name": "Best Buy Thanksgiving 24-hour online flash sale",
+      "category": "Upcoming sales",
+      "store": "Best Buy",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 26 website and app; stores closed; specific products and prices pending",
+      "source": "https://corporate.bestbuy.com/2026/black-friday-sale-deals/",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-26",
+      "endsAt": "2026-11-26",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-cyber-sale",
+      "name": "Best Buy Cyber Sunday & Cyber Monday savings",
+      "category": "Upcoming sales",
+      "store": "Best Buy",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 29–30; up to 50% on selected items and a separate limited-time Cyber Monday flash sale",
+      "source": "https://corporate.bestbuy.com/2026/black-friday-sale-deals/",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-29",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-bestbuy-cyber-flash",
+      "name": "Best Buy Cyber Monday flash sale",
+      "category": "Upcoming sales",
+      "store": "Best Buy",
+      "price": null,
+      "reference": null,
+      "spec": "Limited-time flash sale on Nov 30; exact start time and item details not yet announced",
+      "source": "https://corporate.bestbuy.com/2026/black-friday-sale-deals/",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-target-bf-event",
+      "name": "Target Black Friday sale — up to 50% on selected gifts",
+      "category": "Upcoming sales",
+      "store": "Target",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 22–29; advertised brands include Beats, Bose, Dyson, Barbie and Cuisinart; exact product prices vary",
+      "source": "https://corporate.target.com/press/release/2026/11/target-announces-black-friday-deals-and-giveaways-to-help-families-save-big-on-gifts-they-ll-love-to",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-22",
+      "endsAt": "2026-11-29",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-target-circle-360-early",
+      "name": "Target Circle 360 paid-member early access",
+      "category": "Upcoming sales",
+      "store": "Target",
+      "price": null,
+      "reference": null,
+      "spec": "Select deals early access starts Wed Nov 25 at 2 a.m. CT / 3 a.m. ET; paid Circle 360 only",
+      "source": "https://corporate.target.com/press/release/2026/11/target-announces-black-friday-deals-and-giveaways-to-help-families-save-big-on-gifts-they-ll-love-to",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-25T03:00:00-05:00",
+      "endsAt": "2026-11-26",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-target-bf-newdrops",
+      "name": "Target Thanksgiving–Black Friday weekend new drops",
+      "category": "Upcoming sales",
+      "store": "Target",
+      "price": null,
+      "reference": null,
+      "spec": "New weekend deals announced Nov 26–29; product-level launch times not yet published",
+      "source": "https://corporate.target.com/press/release/2026/11/target-announces-black-friday-deals-and-giveaways-to-help-families-save-big-on-gifts-they-ll-love-to",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-26",
+      "endsAt": "2026-11-29",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-target-bf-exclusives",
+      "name": "Target Black Friday POP MART, BTS and Topps drops",
+      "category": "Toys & Games",
+      "store": "Target",
+      "price": null,
+      "reference": null,
+      "spec": "Exclusive gifting launches including POP MART, a BTS book and Topps NBA trading cards; specific prices pending",
+      "source": "https://corporate.target.com/press/release/2026/11/target-announces-black-friday-deals-and-giveaways-to-help-families-save-big-on-gifts-they-ll-love-to",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-27",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-kohls-bf-week",
+      "name": "Kohl's Black Friday Week 20% qualifying coupon",
+      "category": "Upcoming sales",
+      "store": "Kohl's",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 22–28; 20% qualifying coupon and $15 Kohl's Cash per $50 subject to exclusions",
+      "source": "https://corporate.kohls.com/kohls-holiday-news/now-arriving-at-the-north-kohls-november-holiday-savings-events-3e6pr",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-22",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-kohls-doorbusters",
+      "name": "Kohl's online Thanksgiving doorbusters",
+      "category": "Upcoming sales",
+      "store": "Kohl's",
+      "price": null,
+      "reference": null,
+      "spec": "Online start Nov 26 at 12:01 a.m. CT / 1:01 a.m. ET; stores Nov 27–28",
+      "source": "https://corporate.kohls.com/kohls-holiday-news/now-arriving-at-the-north-kohls-november-holiday-savings-events-3e6pr",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-26T01:01:00-05:00",
+      "endsAt": "2026-11-28",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-kohls-cyber-deals",
+      "name": "Kohl's Cyber Deals 40% coupon and up to 50% select offers",
+      "category": "Upcoming sales",
+      "store": "Kohl's",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 29–30; 40% qualifying-purchase coupon, up to 50% select deals and conditional Kohl's Cash",
+      "source": "https://corporate.kohls.com/kohls-holiday-news/now-arriving-at-the-north-kohls-november-holiday-savings-events-3e6pr",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-29",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-lowes-bf-member",
+      "name": "Lowe's Rewards early online doorbuster access",
+      "category": "Upcoming sales",
+      "store": "Lowe's",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 26 members-only early access; public release Nov 27; prices depend on item",
+      "source": "https://corporate.lowes.com/newsroom/press-releases/lowes-unveils-holiday-2026-lineup-new-gifts-and-decor-mylowes-rewards-perks-and-weeks-of-black-friday-savings",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-26",
+      "endsAt": "2026-11-26",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-lowes-bf-public",
+      "name": "Lowe's public Black Friday doorbuster release",
+      "category": "Upcoming sales",
+      "store": "Lowe's",
+      "price": null,
+      "reference": null,
+      "spec": "Public Nov 27 Black Friday release following Nov 26 member preview",
+      "source": "https://corporate.lowes.com/newsroom/press-releases/lowes-unveils-holiday-2026-lineup-new-gifts-and-decor-mylowes-rewards-perks-and-weeks-of-black-friday-savings",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-27",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-lowes-cyber",
+      "name": "Lowe's Cyber Deals",
+      "category": "Upcoming sales",
+      "store": "Lowe's",
+      "price": null,
+      "reference": null,
+      "spec": "Cyber Monday Nov 30; specific eligible items and final prices vary",
+      "source": "https://www.lowes.com/l/savings/cyber-deals",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-xbox-bf-gaming",
+      "name": "Xbox Black Friday digital games and accessories sale",
+      "category": "Gaming",
+      "store": "Xbox",
+      "price": null,
+      "reference": null,
+      "spec": "Official US sale starts Nov 19 and continues to Dec 2; individual game prices depend on edition",
+      "source": "https://news.xbox.com/en-us/2026/11/16/xbox-black-friday-sale-2026/",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-12-02",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-xbox-nov23-additions",
+      "name": "Xbox additional Black Friday offers",
+      "category": "Gaming",
+      "store": "Xbox",
+      "price": null,
+      "reference": null,
+      "spec": "Additional Xbox deals scheduled Nov 23; individual products and prices pending",
+      "source": "https://news.xbox.com/en-us/2026/11/16/xbox-black-friday-sale-2026/",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-23",
+      "endsAt": "2026-12-02",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-anker-holiday-sale",
+      "name": "Anker Black Friday & Cyber Monday sale",
+      "category": "Electronics",
+      "store": "Anker",
+      "price": null,
+      "reference": null,
+      "spec": "Public Nov 19–30; verify exact Anker model and signed-in eligibility",
+      "source": "https://www.anker.com/story/power-banks/cyber-monday-vs-black-friday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-lego-insiders-weekend",
+      "name": "LEGO Insiders Weekend member offers",
+      "category": "Toys & Games",
+      "store": "LEGO",
+      "price": null,
+      "reference": null,
+      "spec": "Member offers Nov 21–22; gifts with purchase and product terms vary",
+      "source": "https://www.lego.com/en-us/insiders-weekend-deals",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-21",
+      "endsAt": "2026-11-22",
+      "saleDays": [],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-lego-cyber-monday",
+      "name": "LEGO Cyber Monday deals",
+      "category": "Toys & Games",
+      "store": "LEGO",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 30 official Cyber Monday deals; prices and eligible sets vary",
+      "source": "https://www.lego.com/en-us/cyber-monday-deals",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-bf-event",
+      "name": "Costco Nov 27–30 Black Friday savings flyer",
+      "category": "Upcoming sales",
+      "store": "Costco",
+      "price": null,
+      "reference": null,
+      "spec": "Official member-only flyer with item-level dates; online and warehouse prices may differ",
+      "source": "https://www.costco.com/o/-/black-friday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-tcl-qm6k",
+      "name": "Costco TCL QM6K Pro 65-inch Mini LED TV",
+      "category": "TVs",
+      "store": "Costco",
+      "price": 499.99,
+      "reference": null,
+      "spec": "Model / item 9565676; advertised for Nov 27–30, membership required",
+      "source": "https://www.costco.com/o/-/black-friday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-hisense-100",
+      "name": "Costco Hisense 100-inch QD7 Hi-QLED TV",
+      "category": "TVs",
+      "store": "Costco",
+      "price": 999.99,
+      "reference": null,
+      "spec": "Item 9610750; Nov 27–30; member and fulfillment terms apply",
+      "source": "https://www.costco.com/o/-/black-friday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-tcl-q77l",
+      "name": "Costco TCL Q77L QLED TVs 50–65 inch",
+      "category": "TVs",
+      "store": "Costco",
+      "price": null,
+      "reference": null,
+      "spec": "Published prices vary from $259.99 to $379.99 by size; Nov 27–30; item numbers 9650677 and 9665677",
+      "source": "https://www.costco.com/o/-/black-friday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-coddle",
+      "name": "Costco Coddle Cameron Sleeper Sectional",
+      "category": "Home",
+      "store": "Costco",
+      "price": 1499.99,
+      "reference": null,
+      "spec": "Reversible chaise and storage, item 1987863; after $500 discount Nov 27–30",
+      "source": "https://www.costco.com/o/-/black-friday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-lg-fridge",
+      "name": "Costco LG refrigerator Black Friday offers",
+      "category": "Appliances",
+      "store": "Costco",
+      "price": null,
+      "reference": null,
+      "spec": "Select LG refrigerators advertised $1,400–$1,500 off Nov 27–30; eligible models and checkout price vary",
+      "source": "https://www.costco.com/o/-/black-friday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-cyber-event",
+      "name": "Costco Nov 30 online-only Cyber Monday flyer",
+      "category": "Upcoming sales",
+      "store": "Costco",
+      "price": null,
+      "reference": null,
+      "spec": "Member Cyber Monday Nov 30; specific prices apply to listed exact products only",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-cyber-hisensec3",
+      "name": "Costco Hisense C3 Pro laser projector + 120-inch screen",
+      "category": "Electronics",
+      "store": "Costco",
+      "price": 1499.99,
+      "reference": null,
+      "spec": "Bundle item 4201046518; online-only Nov 30; five-year manufacturer warranty",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-cyber-hisense-s7",
+      "name": "Costco Hisense S7 CanvasTV 65/75 inch",
+      "category": "TVs",
+      "store": "Costco",
+      "price": null,
+      "reference": null,
+      "spec": "Online-only Nov 30; advertised $899.99 to $1,199.99 depending on size; items 9665750 and 9675750",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-cyber-whirlpool",
+      "name": "Costco Whirlpool 24-inch dishwasher Nov 30 savings",
+      "category": "Appliances",
+      "store": "Costco",
+      "price": null,
+      "reference": null,
+      "spec": "Item 1975463; advertised $500 off; final exact price not published in flyer",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-cyber-pcs",
+      "name": "Costco Cyber Monday laptops and desktops",
+      "category": "Computers",
+      "store": "Costco",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 30 online-only event; advertised savings $100–$600 across eligible systems",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-costco-cyber-ring",
+      "name": "Costco 2.00 ctw diamond platinum ring",
+      "category": "Fashion",
+      "store": "Costco",
+      "price": 3999.99,
+      "reference": null,
+      "spec": "Item 4201003414; after $1,000 discount Nov 30 online only",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true
+    },
+    {
+      "id": "preview-newegg-daily-doorbuster",
+      "name": "Newegg Black November daily doorbuster drops",
+      "category": "Electronics",
+      "store": "Newegg",
+      "price": null,
+      "reference": null,
+      "spec": "A new doorbuster is scheduled daily at 9 a.m. PT / noon ET through Nov 30; the daily product is not always announced in advance",
+      "source": "https://www.businesswire.com/news/home/20261030380021/en/Newegg-Brings-Shoppers-New-Doorbuster-Deals-Every-Day-This-Black-November",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-18",
+      "startsAt": "2026-11-19T12:00:00-05:00",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
+      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "announced": true,
+      "dailyDropET": "12:00"
+    }
+  ]
+}
