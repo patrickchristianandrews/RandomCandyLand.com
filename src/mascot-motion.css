@@ -21,13 +21,11 @@
 }
 .rcl-workshop .rcl-mascot-tidbit .rcl-mascot-pose{
   background-position:0% 0%;
-  animation:rcl-tidbit-views 18s steps(1,end) infinite,
-            rcl-tidbit-tricks 18s ease-in-out infinite;
+  animation:rcl-grounded-breath 5.8s ease-in-out infinite;
 }
 .rcl-workshop .rcl-mascot-sugarfoot .rcl-mascot-pose{
   background-position:0% 66.66667%;
-  animation:rcl-sugarfoot-views 21s steps(1,end) infinite,
-            rcl-sugarfoot-tricks 21s ease-in-out infinite;
+  animation:rcl-grounded-breath 6.7s ease-in-out -2.4s infinite;
 }
 @keyframes rcl-tidbit-views{0%,18%,38%,65%,100%{background-position:0% 0%}22%,32%{background-position:33.33333% 0%}70%,79%{background-position:33.33333% 0%}}
 
@@ -50,3 +48,7 @@
 .rcl-workshop .rcl-mascot-pose{filter:drop-shadow(0 10px 12px #66324d38)}
 
 .rcl-workshop .rcl-mascot:hover{transform:none}
+
+/* Feet stay anchored; no whole-image rocking or abrupt pose swaps. */
+.rcl-workshop .rcl-mascot-pose{transform-origin:50% 94%}
+@keyframes rcl-grounded-breath{0%,100%{transform:scaleY(1)}45%{transform:scaleY(1.006)}65%{transform:scaleY(1.004)}}
