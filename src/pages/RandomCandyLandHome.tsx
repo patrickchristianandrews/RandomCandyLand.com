@@ -195,7 +195,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       <section className="rcl-site-highlights" id="rcl-explore" aria-labelledby="rcl-explore-title">
         <div className="rcl-section-heading"><h2 id="rcl-explore-title">Choose your next adventure</h2><span>Six ways to get started</span></div>
         <div className="rcl-highlight-grid">
-          <a className="rcl-highlight-card rcl-tone-lilac" href="/studio/"><img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" /><strong>Random AI</strong><span>Explore local AI models and tools.</span><b aria-hidden="true">↗</b></a>
+          <a className="rcl-highlight-card rcl-tone-lilac candyland-random-ai-promo" href="/studio/"><img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" /><strong>Random AI</strong><span>Explore local AI models and tools.</span><b aria-hidden="true">↗</b></a>
           <a className="rcl-highlight-card rcl-tone-mint" href="/image-studio/"><img src="/tool-icons/image-studio.svg" width={48} height={48} alt="" /><strong>Image Studio</strong><span>Make pictures your way.</span><b aria-hidden="true">↗</b></a>
           <a className="rcl-highlight-card rcl-tone-blush" href="/after-dark/"><img src="/tool-icons/unwrapped.svg" width={48} height={48} alt="" /><strong>Unwrapped</strong><span>Explore yourself and connect.</span><b aria-hidden="true">↗</b></a>
           <a className="rcl-highlight-card rcl-tone-butter" href="#shelf-quick"><img src="/tool-icons/simon.svg" width={48} height={48} alt="" /><strong>Games</strong><span>Take a playful break.</span><b aria-hidden="true">↗</b></a>

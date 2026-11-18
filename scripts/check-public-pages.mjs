@@ -452,8 +452,9 @@ if (!installSource.includes("app.id==='site' && isInstalled()")) {
   failures++;
 }
 if (!homeBundle.includes('candyland-next') ||
-    !homeBundle.includes('Stay sweet.') ||
-    !homeBundle.includes('Get weird.') ||
+    !homeBundle.includes('rcl-workshop-hero') ||
+    !homeBundle.includes('rcl-workshop-wordmark') ||
+    !homeBundle.includes('rcl-site-highlights') ||
     !homeBundle.includes('candyland-play-shelves')) {
   console.error('The replacement Candy Land homepage is missing from the published bundle.');
   failures++;
