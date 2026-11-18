@@ -16,6 +16,14 @@ function scan(file){
  files++;
  for(const match of matches){
   if(exceptions.includes(file))continue;
+  // Image Studio's explicitly selected provider option is legitimate UI copy.
+  // Allow only this exact option, not general provider branding elsewhere.
+  if(file.split(path.sep).join('/')==='public/image-studio/index.html' && match[0]==='OpenAI'){
+   const start=content.lastIndexOf('\n',match.index-1)+1;
+   const end=content.indexOf('\n',match.index);
+   const lineText=content.slice(start,end===-1?undefined:end);
+   if(/^\s*<option value="openai">OpenAI \(general\)<\/option>\s*$/.test(lineText))continue;
+  }
   const line=content.slice(0,match.index).split('\n').length;
   found.push(file+':'+line+' — '+match[0]);
  }
