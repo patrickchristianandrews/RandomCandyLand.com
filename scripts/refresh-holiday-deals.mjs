@@ -7,6 +7,7 @@
  */
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import '../public/black-friday/deal-category.js';
 
 const OUT='public/black-friday/live-feed.json';
 const ADS_OUT='public/black-friday/ad-scans.json';
@@ -59,20 +60,7 @@ function imageFromItem(xml){
  }catch{return null;}
 }
 
-function category(title){
- const s=title.toLowerCase();
- if(/laptop|chromebook|macbook|computer|monitor|ipad|tablet|ssd|graphic card|processor/.test(s))return 'Computers';
- if(/television|\btv\b|projector|streaming|roku/.test(s))return 'TVs';
- if(/headphone|speaker|earbud|airpod|soundbar|earphone/.test(s))return 'Audio';
- if(/toy|lego|game|switch|playstation|xbox|puzzle|nintendo/.test(s))return 'Toys & Games';
- if(/kitchen|coffee|air fryer|blender|cookware|espresso|baking/.test(s))return 'Kitchen';
- if(/beauty|makeup|shampoo|skincare|fragrance|lipstick/.test(s))return 'Beauty';
- if(/fashion|shirt|sweater|shoe|boot|jacket|dress|apparel|sneaker/.test(s))return 'Fashion';
- if(/tool|drill|saw|garage|lawn|vacuum|furniture|home|lighting/.test(s))return 'Home';
- if(/phone|iphone|galaxy|pixel|smartwatch|watch/.test(s))return 'Phones';
- if(/food|snack|grocery|detergent|soda|pasta/.test(s))return 'Groceries';
- return 'More deals';
-}
+function category(title){return globalThis.RCLDealCategory.resolve({name:title});}
 function priceFrom(title){
  // Extract quoted checkout-like prices only; "$70 off", "reg $149",
  // "$1,000 value", "up to $50" etc. are NOT deal prices.
@@ -178,6 +166,7 @@ if(!sourceStatus.some(x=>x.ok)){
  candidates=previous.filter(x=>x&&x.id&&x.source&&x.name&&Date.parse(x.checked)>now.getTime()-4*86400000);
  usedFallback=true;
 }
+candidates=candidates.map(d=>globalThis.RCLDealCategory.assign(d));
 candidates.sort((a,b)=>Number(Boolean(b.popular))-Number(Boolean(a.popular))||Number(Boolean(b.featured))-Number(Boolean(a.featured))||(b.publishedAt||'').localeCompare(a.publishedAt||''));
 const deduped=[],bucket=new Map();
 let mergedDuplicates=0;
