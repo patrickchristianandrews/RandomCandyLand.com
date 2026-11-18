@@ -1,3 +1,6 @@
+/* Keep the original image assets in the document for loading/fallback while the atlas animates. */
+.rcl-workshop .rcl-mascot img.rcl-mascot-original{position:absolute;inset:0;opacity:0;pointer-events:none;animation:none!important;}
+
 /* Homepage mascots: animate their ORIGINAL 4x4 dog sprite atlas.
    The mascot anchors stay in place; only the picture inside them performs tricks.
    The same atlas is embedded in the two original /mascots/*.svg assets. */
