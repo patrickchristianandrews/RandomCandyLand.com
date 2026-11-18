@@ -135,6 +135,45 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
  html[data-embed] .hot-buttons button{width:22px;font-size:.93rem}
 }
 .scout-actions{display:flex;align-items:center;flex-wrap:wrap;gap:9px}.scout-actions button{border:1px solid #aa759a;border-radius:8px;color:#ffe0f2;background:#3a2447;padding:6px 10px;font-size:.71rem;font-weight:800;cursor:pointer}.scout-actions button:hover{background:#503256}.scout-actions a{font-size:.74rem;font-weight:750}@media(prefers-reduced-motion:reduce){#watch-scouts{display:none}}
+
+/* Compact Hot Deal cards: exact name and source, prominent save, expandable details. */
+.hot-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:start}
+.hot-card{padding:10px;gap:5px;min-height:171px;overflow:visible}
+.hot-card:has(.hot-details[open]){z-index:20}
+.hot-heading{padding-right:68px;display:flex;align-items:center;min-height:27px}
+.hot-heading .hot-type{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hot-card .hot-heart{position:absolute;right:7px;top:7px;min-width:64px;min-height:29px;border-radius:7px;border:1px solid #987290;background:#472c52;color:#ffe4f0;font-size:.71rem;font-weight:850;padding:4px 6px;display:flex;align-items:center;justify-content:center;gap:3px;cursor:pointer}
+.hot-card .hot-heart[aria-pressed="true"]{color:#512439;background:#ffd0e4;border-color:#ffd0e4}
+.hot-card .hot-title{font-size:.85rem;line-height:1.24;min-height:0;-webkit-line-clamp:3;line-clamp:3;overflow-wrap:anywhere}
+.hot-card .hot-identify{font-size:.68rem;color:#ebdaee;line-height:1.28;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.hot-store{font-size:.67rem;color:#d7bedb}
+.hot-card .hot-price{font-size:1.13rem}.hot-card .hot-when{font-size:.63rem}.hot-reference{color:#d8c5da;font-size:.63rem}
+.hot-card .hot-bottom{margin-top:auto;align-items:center;gap:7px}
+.hot-actions-row{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.hot-details{position:static;min-width:0}.hot-details summary{list-style:none;font-weight:800;font-size:.71rem;cursor:pointer;color:#fbe0f1;white-space:nowrap;padding:3px 0}
+.hot-details summary::-webkit-details-marker{display:none}.hot-details summary::before{content:'ⓘ '}
+.hot-detail-panel{position:absolute;left:3px;right:3px;top:calc(100% - 2px);padding:11px;border-radius:9px;border:1px solid #ab81ae;background:#382544;z-index:25;box-shadow:0 14px 25px #000b;max-height:300px;overflow:auto;overflow-wrap:anywhere}
+.hot-detail-panel strong{font-size:.8rem;color:#fff7fd}.hot-detail-panel p{font-size:.72rem;line-height:1.38;margin:6px 0;color:#efdeee}
+.hot-detail-panel a{font-size:.72rem;font-weight:800;text-decoration:underline}
+.hot-view{font-size:.71rem;font-weight:850;border:1px solid #8e718b;border-radius:6px;background:#492f50;color:#ffedae;padding:4px 6px;white-space:nowrap}
+.hot-card .deal-share{font-size:.69rem!important;font-weight:800;min-height:26px;padding:3px 4px!important;border:1px solid #826185!important;border-radius:6px}
+.hot-saved-toggle{font-size:.73rem;cursor:pointer;font-weight:800;background:#432b4d;border:1px solid #a6829b;color:#ffe3f2;padding:6px 9px;border-radius:8px}
+.hot-saved-toggle[aria-pressed="true"]{background:#ffd0e6;color:#432539}
+.hot-heart:focus-visible,.hot-details summary:focus-visible,.hot-view:focus-visible{outline:2px solid #ffefac;outline-offset:2px}
+html[data-embed] .hot-card{min-height:132px;padding:8px;gap:3px}
+html[data-embed] .hot-heading{padding-right:32px;min-height:25px}
+html[data-embed] .hot-heart{min-width:28px;min-height:28px;font-size:1rem;padding:3px}
+html[data-embed] .hot-save-label,html[data-embed] .hot-identify,html[data-embed] .hot-reference,html[data-embed] .hot-details{display:none}
+html[data-embed] .hot-card .hot-title{font-size:.79rem;-webkit-line-clamp:2;line-clamp:2}
+html[data-embed] .hot-card .hot-price{font-size:1rem}
+html[data-embed] .hot-actions-row{justify-content:flex-end}
+html[data-embed] .hot-view{font-size:.67rem;padding:3px 5px}
+@media(max-width:750px){.hot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hot-card{padding:8px;min-height:162px}.hot-card .hot-title{font-size:.8rem}.hot-actions-row{gap:4px}}
+@media(max-width:370px){.hot-heading{padding-right:53px}.hot-card .hot-heart{min-width:50px;font-size:.65rem}.hot-card .hot-title{font-size:.77rem}.hot-card .hot-price{font-size:1rem}}
+/* Walk animation: sprite frames stay intact; subtle body sway flows between steps. */
+.deal-runner.scurrying #runner-image{animation:runner-bounce var(--stride-duration,.56s) steps(1,end) infinite,runner-sway var(--stride-duration,.56s) ease-in-out infinite;transform-origin:50% 80%}
+@keyframes runner-sway{0%,100%{transform:scaleX(var(--walk-direction,1)) translateY(0) rotate(-1deg)}25%{transform:scaleX(var(--walk-direction,1)) translateY(-3px) rotate(1deg)}50%{transform:scaleX(var(--walk-direction,1)) translateY(-5px) rotate(0deg)}75%{transform:scaleX(var(--walk-direction,1)) translateY(-2px) rotate(1deg)}}
+@media(prefers-reduced-motion:reduce){.deal-runner.scurrying #runner-image{animation:none}}
 </style>
 <script>if(new URLSearchParams(location.search).get('embed')==='featured')document.documentElement.dataset.embed='featured'</script>
 </head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -158,7 +197,7 @@ html[data-embed] .hot-buttons button{display:inline-flex;align-items:center;just
 <div class="event"><small>EXTENDED SALES</small><strong>Dec 1, 2026 &amp; beyond</strong><span>As retailers announce them</span></div>
 </div>
 
-<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="watch-scouts" aria-label="Watch Tidbit and Sugarfoot meet">🐾 Watch the scouts</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
+<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="show-saved-hot" class="hot-saved-toggle" aria-pressed="false">♡ Saved (0)</button><button type="button" id="watch-scouts" aria-label="Watch Tidbit and Sugarfoot meet">🐾 Watch the scouts</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
 <section class="cat-panel"><h2>Shop all 2026 holiday deals by category</h2><p>Open the full catalog to search, filter, save favorites, see upcoming offers and sort by popularity.</p><nav class="category-list" id="categories" aria-label="Deal categories"><a href="/black-friday/all/">All categories ↗</a></nav></section>
 <nav class="footer-links"><a href="/black-friday/all/?view=upcoming">Upcoming deals & sale times ↗</a><a href="/black-friday/all/?view=popular&amp;sort=popular">Popular and editor-selected deals ↗</a><a href="/black-friday/ad-scans/">Ad scans ↗</a><a href="/black-friday/all/#gifts">Gift ideas ↗</a></nav>
 <p class="disclaimer" id="feed-status">LIVE means recently reported, not verified stock. Confirm the price, seller and shipping at checkout.</p>
@@ -171,7 +210,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const money=n=>Number.isFinite(n)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n):'Price TBA';
 const curated=[["oled","HP OmniBook 3 OLED","Laptops","Best Buy",499.99,699.99,"14-hz0188dx · Snapdragon X · 16 GB RAM / 256 GB SSD","https://www.bestbuy.com/product/hp-omnibook-3-14-2k-oled-laptop-snapdragon-x-16gb-memory-256gb-ssd-copilot-pc-starlit-blue/6679355","Retailer listing","2026-11-14","An OLED display and 16 GB RAM for $499.99 on the product listing.","SKU 6679355. Check Windows on ARM app compatibility. Shipping and pickup depend on location; promotional bundles and financing are not included in this price.",false],["samsung","Samsung Galaxy Book4 Edge","Laptops","Best Buy",449.99,799.99,"NP750XQB-KA5US · Best Buy SKU 6687195 · 15.6-inch FHD IPS · Snapdragon X · 8 GB RAM · 256 GB storage","https://www.bestbuy.com/product/samsung-galaxy-book4-edge-15-6-fhd-ips-laptop-qualcomm-snapdragon-x-8gb-memory-256gb-storage-sapphire-blue/JJGRF3VFTJ","Retailer listing","2026-11-16","Best Buy’s exact-model page displays $449.99 and lists free shipping for the location shown.","Confirm price, stock and shipping at checkout. No coupon, membership discount, trade-in, financing or cashback included. Check Windows on ARM app compatibility. Sale deadline and stock risk are unverified.",false],["ninja","Ninja Crispi","Kitchen","Walmart",89,140,"FN090RD Red · 4-quart · 3-in-1","https://www.walmart.com/ip/20127973280?classType=VARIANT","Retailer listing","2026-11-14","A $89 glass air fryer with free shipping on the retailer listing.","Sold and shipped by Walmart. This is the red FN090RD; the blue variant was marked out of stock. Reference prices differ by color. Stock may vary by location.",true],["grogu","Star Wars Action Buddy Grogu","Toys","Walmart",15,null,"10-inch animatronic interactive plush · ages 4+","https://www.walmart.com/shop/toy-shop/character/starwars","Retailer category listing","2026-11-16","Walmart’s Star Wars category lists the 10-inch Action Buddy Grogu at $15.","Category price checked Nov. 16 UTC; exact product checkout was not reconfirmed. Match the 10-inch Action Buddy, not the 6.5-inch Huggin’ or Snackin’ versions. Confirm new condition, seller, shipping fees and local stock. No coupon, membership or cashback savings included; deadline and stock risk remain unknown.",true],["towels","True Hue 10-piece towel set","Home","Walmart",10,16,"Gray · Walmart item 20043124761 · four 27 × 50-inch bath towels and six 11 × 11-inch washcloths","https://www.walmart.com/ip/20043124761","Retailer listing","2026-11-16","Walmart lists the gray 10-piece bundle for $10 against its $16 reference.","The product page lists Walmart as seller. Confirm shipping fees, pickup and stock for your ZIP code. No coupon, membership discount or cashback included. Sale deadline and stock risk are unverified.",false],["vizio","VIZIO 50-inch QLED TV","TVs","Walmart",128,null,"VQD50X-10 · 50-inch Quantum 4K QLED HDR · 2026 Limited Edition","https://www.walmart.com/browse/electronics/vizio-tvs/3944_4131277_2035783?cat_id=3944_4131277_2035783_6531082&prg=mWeb&ps=20&sort=best_match&stores=1378","Retailer category listing","2026-11-16","Walmart lists the exact VQD50X-10 model at $128 in its TV catalog.","Confirm the $128 configuration, seller, shipping fees and local availability at checkout. The product listing (Walmart item 20255253279) says a Walmart account is required for smart TV features and updates. Coupon, membership and cashback savings are excluded. Sale deadline, stock risk and historical low are unverified.",true],["nespresso-pop","Nespresso Vertuo Pop","Kitchen","Walmart",69,119,"ENV90B · De’Longhi · Liquorice Black · 12-capsule welcome set","https://www.walmart.com/ip/2258193826","Retailer listing","2026-11-15","A $69 coffee machine with a starter capsule set and free shipping listed.","Sold and shipped by Walmart. Uses Vertuo capsules; ongoing capsule costs are extra. Check included accessories and your delivery options.",true],["lego-advent","LEGO Star Wars Advent Calendar 2026","Toys","Target",31.49,44.99,"Set 75456","https://www.target.com/p/lego-star-wars-advent-calendar-2026-75456/-/A-95046358","Retailer listing","2026-11-14","A $13.50 reduction on a seasonal gift, with the retailer listing it in stock.","Stock and shipping depend on location. Target Circle Card savings are conditional and not included; delivery before December 1 matters for an advent calendar.",true],["airpods-pro3","Apple AirPods Pro 3","Audio","Target",179.99,249.99,"Wireless earbuds · active noise cancellation","https://www.target.com/p/-/A-85978609","Retailer weekly ad","2026-11-16","Target’s weekly ad lists AirPods Pro 3 at $179.99.","Weekly-ad price checked Nov 16; confirm the new third-generation model, seller, stock and ZIP-level shipping on the product page. Circle Card, coupons and cashback are excluded. Sale deadline and stock risk are unverified.",true],["ryobi-impact","RYOBI ONE+ high-torque impact wrench kit","Home","Home Depot",149,269,"PBLIW01K1 · 18V brushless 1/2-inch · 4.0 Ah battery + charger","https://www.homedepot.com/b/Black-Friday-Deals/N-5yc1vZ1z1zdoh","Retailer listing","2026-11-14","The retailer sale catalog lists this battery-and-charger kit for $149, a $120 reduction from its stated reference.","Price verified on the retailer sale catalog, not product checkout. Match PBLIW01K1. Limit 5 per order is not a stock forecast. Shipping, pickup and local availability need checking; no coupon, membership or cashback savings assumed.",true],["ring-starter","Ring 2K doorbell + indoor camera starter set","Home","Home Depot",59.99,139.99,"B0GH93D3SL · Battery Doorbell 2K + Indoor Cam Plus 2K","https://www.homedepot.com/p/Ring-Starter-Set-with-Battery-Doorbell-2K-and-Indoor-Cam-Plus-2K-B0GH93D3SL/341022343","Retailer listing","2026-11-14","Two-camera starter set listed at $59.99 against a $139.99 retailer reference.","Limit 3 per order; this does not establish low stock. Verify shipping, local pickup and any paid recording-plan costs. New-credit-card discount is excluded. Retailer lists 90-day in-store returns; check full terms.",true],["lego-disney-2026","LEGO Disney Princess Advent Calendar 2026","Toys","Walmart",30.99,44.99,"43298 · ages 5+ · Cinderella, Moana, Ariel and Mulan microdolls","https://www.walmart.com/c/kp/lego-disney-advent-calendar","Retailer listing","2026-11-15","Holiday countdown gift listed at $30.99; Target lists the same set at $30.99.","Category listing. Confirm seller, condition, shipping, arrival and eligibility at checkout. No coupon or membership discount included. Stock, deadline and price-history low are unverified.",true],["shark-flexstyle","Shark FlexStyle Ruby Red","Beauty","Walmart",199,399.99,"HD442JR · air styler and dryer · auto-wrap curlers","https://www.walmart.com/ip/20109514490","Retailer listing","2026-11-15","A holiday beauty gift listed at $199 with free shipping, against the retailer’s $399.99 reference.","Sold and shipped by Walmart; 90-day returns listed. Match HD442JR and included attachments; other FlexStyle kits differ. No coupon or membership discount included. Confirm delivery and eligibility at checkout. Stock risk, sale deadline and historical low are unverified.",true],["shark-speedstyle-hd301bk","Shark SpeedStyle Essential Hair Dryer","Beauty","Walmart",99,199.99,"HD301BK · Black/Rose Gold · concentrator attachment","https://www.walmart.com/ip/20259269834","Retailer listing","2026-11-16","Walmart’s current hair-care deals list this dryer at $99 against its $199.99 reference. It costs $100 less than the listed FlexStyle and suits shoppers who primarily want a hair dryer with a concentrator.","The product page lists Walmart as seller and shows free shipping. Confirm fulfillment, seller and shipping for your ZIP code. The FlexStyle HD442JR comes with auto-wrap curlers. No coupon, membership discount or cashback is included. Sale deadline and stock risk are unverified.",true],["sony-wh1000xm6-black","Sony WH-1000XM6 wireless headphones","Audio","Best Buy",378,458,"WH1000XM6/B · Black · Best Buy SKU 6620467 · over-ear noise cancellation","https://www.bestbuy.com/product/sony-wh-1000xm6-best-noise-cancelling-headphones-black/J7XSRH5RCF","Retailer listing","2026-11-16","Best Buy lists $378 for the new black over-ear headphones, $80 below its stated comparable value.","Verify local stock and shipping at checkout. Coupon, membership rewards, financing and cashback are excluded. The retailer product page does not specify a sale deadline. Match WH1000XM6/B; Sony’s similarly named WF model is an earbud.",true],["lg-c6-65-oled","LG C6 65-inch OLED TV (2026)","TVs","Best Buy",1399.99,2699.99,"OLED65C6PUA · Best Buy SKU 6673112 · 65-inch 4K OLED","https://www.bestbuy.com/product/lg-65-class-c6-oled-evo-ai-4k-smart-webos-tv-with-perfect-black-perfect-color-and-brightness-booster-2026/6673112","Retailer listing","2026-11-16","Best Buy lists the standalone 65-inch C6 for $1,399.99, $1,300 below its stated comparable value.","Check seller, stock and delivery fees by ZIP code. Mounting, service plans, accessory offers, financing, member rewards and cashback are excluded. Sale deadline and historical low are unverified.",true],["hot-wheels-mega-loop-jhl97","Hot Wheels City Mega Loop Car Wash","Toys","Target",23.99,39.99,"Mattel JHL97 · UPC 194735334971 · includes one 1:64 Color Shifters car","https://www.target.com/p/hot-wheels-city-mega-loop-car-wash-playset-38-1-hot-wheels-color-shifters-in-1-64-scaletoy-vehicle-playsets/-/A-95007342","Retailer listing","2026-11-16","Target shows $23.99 and in stock, $16 below its listed regular price.","Confirm pickup, stock and shipping by ZIP. No coupon or membership discount is included. Sale deadline, scarcity and price history are unverified.",true],["dyson-nural-costco-493383","Dyson Supersonic Nural hair dryer and serum","Beauty","Costco",329.99,429.99,"493383-01 · Costco item 2749064 · includes Chitosan post-style serum","https://www.costco.com/o/-/pre-thanksgiving-day","Retailer ad","2026-11-16","Costco advertises $100 off this exact bundle through Nov 30.","Warehouse price; Costco membership required for warehouse shopping. Check signed-in online pricing, delivery fees and ZIP-level stock. No separately entered coupon or cashback assumed. Stock risk and price-history low are unknown.",true],["jbl-charge6-black","JBL Charge 6 portable speaker","Audio","JBL",139.95,199.95,"JBLCHARGE6BLKAM · black · IP68 portable Bluetooth speaker","https://www.jbl.com/JBLCHARGE6BLKAM.html","Retailer listing","2026-11-16","JBL shows $139.95 and in stock, $60 below its listed reference.","Free shipping has exclusions; confirm eligibility and arrival by ZIP. No coupon, membership, third-party protection plan or cashback included. Offer deadline, stock risk and price history are unknown.",true],["hot-wheels-mutant-loop-95007325","Hot Wheels Mutant Chaos Loop Challenge","Toys","Target",19.49,32.49,"TCIN 95007325 · UPC 194735379439 · Wreckin’ Wolf truck and slime","https://www.target.com/p/hot-wheels-monster-trucks-mutant-chaos-loop-challenge-playset-with-wreckin-8217-wolf-toy-truck-38-slime-toy-vehicle-playsets/-/A-95007325","Retailer listing","2026-11-16","Target shows $19.49 and in stock, $13 below the listed regular price.","Check local stock, pickup and shipping by ZIP. Circle Card savings and cashback are excluded; no separate coupon assumed. Offer deadline and price history are unknown.",true],["dewalt-dcs356m1","DeWalt 20V MAX oscillating multi-tool kit","Home","Home Depot",99,199,"DCS356M1 · brushless 3-speed tool, 4.0 Ah battery and charger","https://www.homedepot.com/p/341367667","Retailer listing","2026-11-16","Home Depot lists the battery-and-charger kit at $99, $100 below its displayed reference.","Select a store to confirm pickup, shipping and availability. Limit five per order. The new-card discount is excluded; no coupon, paid membership or cashback assumed. Item-specific deadline, price history and stock risk are unknown.",true],["milwaukee-3601-21p","Milwaukee M18 compact drill/driver kit","Home","Home Depot",99,199,"3601-21P · 1/2-inch brushless drill/driver · 2.0 Ah battery, charger and bag","https://www.homedepot.com/p/325479354","Retailer listing","2026-11-16","Home Depot’s Black Friday tool catalog lists the complete kit at $99 against its $199 reference.","Confirm the exact kit, delivery charges, pickup and stock by ZIP. Limit five per order. No coupon, card offer, membership discount or cashback included. Item-specific deadline and stock risk are unknown.",true],["kitchenaid-classic-k45ssob","KitchenAid Classic 4.5-quart stand mixer","Kitchen","Target",279.99,399.99,"K45SSOB · Onyx Black · 10-speed tilt-head mixer","https://www.target.com/p/kitchenaid-classic-series-4-5qt-tilt-head-stand-mixer-k45ssob-onyx-black/-/A-78685120","Retailer listing","2026-11-16","Target shows $279.99 for the onyx black Classic, $120 below its displayed reference.","Select Onyx Black and confirm stock, pickup and shipping by ZIP. Price excludes Circle Card savings, coupons and cashback. Sale deadline and price history are unverified.",true],["sonic-forces-switch-77004s","Sonic Forces for Nintendo Switch","Toys","Walmart",10,19.99,"SEGA 77004S · Nintendo Switch physical edition · ESRB E10+","https://www.walmart.com/ip/367665426","Retailer listing","2026-11-16","Walmart’s catalog and Walmart Business show the new physical copy at $10.","Check the new condition, Walmart seller, local pickup and shipping at checkout. No coupon, Walmart+ savings or cashback assumed. Availability varies by ZIP; sale deadline and price history are unverified.",true],["asus-vivobook-f1504ma-ss51","ASUS Vivobook 15 laptop","Laptops","Staples",399.99,749.99,"F1504MA-SS51 · Staples 24692274 · 15.6-inch FHD, 8 GB RAM, 256 GB SSD","https://www.staples.com/asus-vivobook-15-fhd-15-6-laptop-intel-core-5-320-processor-8gb-ram-256gb-ssd-backlit-keyboard-windows-11/product_24692274","Retailer listing","2026-11-16","Staples lists $399.99 for a basic Windows 11 laptop with a full-HD screen.","Staples shows free delivery for the location checked. Verify shipping, pickup and stock by ZIP. No coupons, rewards membership or cashback assumed. Sale deadline and price history are unknown.",true],["epson-ecotank-et2900-white","Epson EcoTank ET-2900 refillable ink printer","Electronics","Epson",199.99,239.99,"C11CL63202 · white · wireless color print, copy and scan","https://epson.com/For-Home/Printers/Inkjet/EcoTank-ET-2900-Wireless-All-in-One-Color-Supertank-Printer-%E2%80%93-White/p/C11CL63202","Retailer listing","2026-11-17","Epson shows $199.99, $40 below its displayed regular price.","Check stock, shipping and delivery dates for your ZIP. No coupon, membership discount, financing or cashback assumed. No item-specific deadline or scarcity claim.",true],["garmin-venu4-0100301400","Garmin Venu 4 45mm GPS smartwatch","Electronics","Abt",449.99,549.99,"010-03014-00 · 45 mm slate bezel and black silicone band","https://www.abt.com/Garmin-Venu-4-45mm-Watch-Slate-Stainless-Steel-Bezel-With-Black-Silicone-Band-0100301400/p/231700.html","Retailer listing","2026-11-17","Abt lists $449.99 with free shipping and an advertised Dec 28 offer end.","Check stock and shipping by ZIP. No coupon, membership, financing or cashback savings assumed. No item scarcity or historical-low claim.",true],["bambu-a1-mini-standalone","Bambu Lab A1 mini 3D printer","Electronics","Target",199.99,219.99,"A1 mini standalone · Target TCIN 1010019390","https://www.target.com/p/-/A-1010019390","Retailer listing","2026-11-17","Compact starter printer with automatic calibration. Target and Best Buy advertise the same item price.","The standalone printer excludes AMS lite. Target lists it in stock and shows the price without a code or membership. Eligible orders of $35 or more ship free; confirm by ZIP. Timing confidence is low; no end date confirmed.",false],["tonies-bluey-94989799","Bluey, Bingo & Muffin Tonies 3-pack","Toys","Target",49.99,59.99,"Bluey, Bingo and Muffin figurines · Target TCIN 94989799","https://www.target.com/p/-/A-94989799","Retailer listing","2026-11-17","Three figures with 20 Bluey episodes, $10 off Target’s regular price.","Requires a Toniebox 1 or 2, sold separately. Target lists the set in stock without a code or membership. Eligible orders of $35 or more ship free; confirm by ZIP. Timing confidence is low; no end date confirmed.",false],["hexclad-level-up-bundle","HexClad Level Up Bundle","Kitchen","HexClad",399,null,"Level Up Bundle · wok, griddle, 7-qt sauté pan with lid, mixing bowls and chef’s knife","https://hexclad.com/collections/prime-time-sale-2026-sets/products/level-up-bundle","Retailer listing","2026-11-17","HexClad lists $399 for the bundle against a $775 combined individual-item value.","Free ground shipping advertised for eligible addresses. HexClad lists Nov 20 as its ground-shipping cutoff for Thanksgiving arrival. Confirm by ZIP. No coupon or membership shown. Timing confidence is low for the price, with no sale end date confirmed.",false],["dxo-filmpack8-new-license","DxO FilmPack 8 new license","Electronics","DxO",74.99,149.99,"FilmPack 8 · new digital software license","https://www.dxo.com/en/news/introducing-black-friday/","Official retailer offer","2026-11-17","DxO’s U.S. price is $74.99 versus its $149.99 regular price.","Digital delivery; check operating-system and editing-app compatibility. No coupon required; cannot combine with other offers. Existing FilmPack 7 owners must sign in for separate upgrade pricing. Offer ends Nov 29 at 23:59; timezone unspecified. Tax and cashback excluded; stock risk unknown.",false]].map(r=>Object.fromEntries(['id','name','category','store','price','reference','spec','source','sourceType','checked','why','catch','featured'].map((k,i)=>[k,r[i]])));
 const savedKey='rcl-deals-saved';
-let items=[...curated],saved=[];
+let items=[...curated],saved=[],savedOnlyHot=false;
 try{const v=JSON.parse(localStorage.getItem(savedKey)||'[]');if(Array.isArray(v))saved=v;}catch{}
 function startTime(d){
  if(!d.startsAt)return 0;
@@ -188,20 +227,34 @@ function isReportedLive(d){
 }
 function rank(d){return d.popular?3:d.sourceType==='DealNews editors'?2:d.featured?1:0;}
 function picks(){
- const eligible=items.filter(isReportedLive);
+ const eligible=savedOnlyHot&&!document.documentElement.dataset.embed?items.filter(d=>saved.includes(d.id)&&/^https:\/\//.test(d.source||'')):items.filter(isReportedLive);
  eligible.sort((a,b)=>rank(b)-rank(a)||(b.reportedBy?.length||0)-(a.reportedBy?.length||0)||(b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
  return eligible.slice(0,document.documentElement.dataset.embed?4:24);
 }
 function hotCard(d){
- const label=d.popular?(document.documentElement.dataset.embed?'🔥 Popular':'🔥 Popular feed'):d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured deal':'✦ Fresh report';
- const safeUrl=/^https:\/\//.test(d.source||'')?d.source:'/black-friday/all/';
- const embedLive=document.documentElement.dataset.embed?('LIVE · '+(/^\d{4}-\d{2}-\d{2}$/.test(d.checked||'')?new Date(d.checked+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric'}):'reported')):'LIVE · recently reported';
- return '<article class="hot-card" data-deal-id="'+esc(d.id)+'"><small class="hot-type">'+esc(label)+'</small><a class="hot-title" href="'+esc(safeUrl)+'" target="_blank" rel="noopener">'+esc(d.name)+'</a><small>'+esc(d.store||'See source')+'</small><div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div><div class="hot-when">'+esc(embedLive)+'</div></div><div class="hot-buttons"><button type="button" class="deal-share" data-share="'+esc(d.id)+'" aria-label="Share '+esc(d.name)+'" title="Share deal">↗</button><button type="button" class="save" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Unsave':'Save')+' '+esc(d.name)+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div></div></article>';
+ const tag=d.popular?'🔥 Popular report':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured':'✦ Fresh report';
+ const href=/^https:\/\/\//.test(d.source||'')?d.source:'/black-friday/all/';
+ const name=esc(d.name),url=esc(href),spec=String(d.spec||'').trim(),why=String(d.why||'').trim();
+ const hint=spec||why||'Check the source for exact model, included items and condition.';
+ const date=String(d.checked||d.publishedAt||'').slice(0,10),savedNow=saved.includes(d.id);
+ const ref=Number.isFinite(d.price)&&Number.isFinite(d.reference)&&d.reference>d.price?'<small class="hot-reference">Retailer ref. '+money(d.reference)+'</small>':'';
+ const details='<div class="hot-detail-panel"><strong>'+name+'</strong><p>Retailer: '+esc(d.store||'See source')+' · Category: '+esc(d.category||'Other')+'</p>'+
+ (spec?'<p>'+esc(spec)+'</p>':'')+(why?'<p>'+esc(why)+'</p>':'')+
+ '<p>'+esc(d.catch||'Model, accessories, conditions, current stock and checkout total should be confirmed at the source.')+'</p>'+
+ '<p>Publisher: '+esc(d.sourceType||'Deal source')+' · Reported: '+esc(date||'date unavailable')+'</p><a href="'+url+'" target="_blank" rel="noopener">Open complete source report ↗</a></div>';
+ return '<article class="hot-card" data-deal-id="'+esc(d.id)+'"><div class="hot-heading"><small class="hot-type">'+esc(tag)+'</small>'+
+ '<button type="button" class="save hot-heart" data-save="'+esc(d.id)+'" aria-label="'+(savedNow?'Remove saved deal: ':'Save deal: ')+name+'" aria-pressed="'+savedNow+'" title="'+(savedNow?'Remove from saved':'Save this deal')+'">'+(savedNow?'♥':'♡')+'<span class="hot-save-label">'+(savedNow?' Saved':' Save')+'</span></button></div>'+
+ '<a class="hot-title" title="'+name+'" target="_blank" rel="noopener" href="'+url+'">'+name+'</a>'+
+ '<div class="hot-identify" title="'+esc(hint)+'">'+esc(hint)+'</div><small class="hot-store">'+esc(d.store||'See source')+' · '+esc(d.category||'Other')+'</small>'+
+ '<div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div>'+ref+'</div><small class="hot-when">Reported '+esc(date||'recently')+'</small></div>'+
+ '<div class="hot-actions-row"><details class="hot-details"><summary>Full details</summary>'+details+'</details><a class="hot-view" href="'+url+'" target="_blank" rel="noopener" aria-label="View deal for '+name+'">View deal ↗</a>'+
+ '<button type="button" class="deal-share" data-share="'+esc(d.id)+'" aria-label="Share '+name+'">↗ Share</button></div></article>';
 }
 function render(){
  const hot=picks();
- $('live-hot-title').textContent='🔥 '+hot.length+' Hot Deal '+(hot.length===1?'Pick':'Picks')+' · 2026';
- $('hot-list').innerHTML=hot.length?hot.map(hotCard).join(''):'<p class="disclaimer">No recent, already-started hot deals meet the source checks right now. <a href="/black-friday/all/">Browse the full catalog ↗</a></p>';
+ $('live-hot-title').textContent=savedOnlyHot&&!document.documentElement.dataset.embed?'♥ '+hot.length+' Saved Hot Deals':'🔥 '+hot.length+' Hot Deal '+(hot.length===1?'Pick':'Picks')+' · 2026';
+ const toggle=$('show-saved-hot');if(toggle){toggle.setAttribute('aria-pressed',String(savedOnlyHot));toggle.textContent=(savedOnlyHot?'♥ Showing saved (':'♡ Saved (')+saved.length+')';}
+ $('hot-list').innerHTML=hot.length?hot.map(hotCard).join(''):(savedOnlyHot?'<p class="disclaimer">No saved deals are in the currently loaded catalog. Switch back to Hot Deals and heart any item.</p>':'<p class="disclaimer">No recent, already-started hot deals meet the source checks right now. <a href="/black-friday/all/">Browse the full catalog ↗</a></p>');
  if(document.documentElement.dataset.embed){requestAnimationFrame(reportEmbeddedHeight);return;}
  const grouped=new Map();
  for(const d of items){const cat=d.category||'Other';grouped.set(cat,(grouped.get(cat)||0)+1);}
@@ -220,8 +273,9 @@ document.addEventListener('click',event=>{
  const share=event.target.closest('[data-share]');if(share){shareDeal(items.find(d=>d.id===share.dataset.share));return;}
  const button=event.target.closest('[data-save]');if(!button)return;
  const id=button.dataset.save;saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
- try{localStorage.setItem(savedKey,JSON.stringify(saved));}catch{}render();
+ try{localStorage.setItem(savedKey,JSON.stringify(saved));}catch{}$('deal-announcement').textContent=(saved.includes(id)?'Saved ':'Removed saved deal: ')+(items.find(d=>d.id===id)?.name||'deal');render();requestAnimationFrame(()=>[...document.querySelectorAll('[data-save]')].find(el=>el.dataset.save===id)?.focus());
 });
+$('show-saved-hot')?.addEventListener('click',()=>{savedOnlyHot=!savedOnlyHot;render();$('show-saved-hot')?.focus();});
 function renderSourceStatus(feed){
  const list=Array.isArray(feed.sourceStatus)?feed.sourceStatus:[];
  const working=list.filter(x=>x.ok).length;
@@ -264,16 +318,19 @@ function showDogPose(runner,angle){
   runner.classList.add('posed');
 }
 async function turnDog(runner,angles){
-  for(const angle of angles){
-    if(document.hidden)return;
-    showDogPose(runner,angle);
-    await delay(105);
-  }
+ const sprite=$('runner-image');
+ for(const angle of angles){
+  if(document.hidden)return;
+  showDogPose(runner,angle);
+  const tween=sprite.animate([{transform:'translateY(1px) rotate(-2deg)'},{transform:'translateY(-2px) rotate(1deg)'},{transform:'translateY(0px) rotate(0deg)'}],{duration:135,easing:'ease-in-out'});
+  try{await tween.finished;}catch{/* Hidden or interrupted. */}
+ }
 }
 async function scurryTo(runner,from,to,milliseconds){
-  const a='translate3d('+Math.round(from)+'px,0,0)',b='translate3d('+Math.round(to)+'px,0,0)';
+  const x=p=>'translate3d('+(from+(to-from)*p).toFixed(2)+'px,0,0)',a=x(0),b=x(1);
   runner.style.transform=a;
-  const motion=runner.animate([{transform:a},{transform:b}],{duration:milliseconds,easing:'linear',fill:'forwards'});
+  const motion=runner.animate([{transform:a,offset:0},{transform:x(.09),offset:.13},{transform:x(.91),offset:.87},{transform:b,offset:1}],
+   {duration:Math.max(420,milliseconds),easing:'cubic-bezier(.38,.02,.3,.98)',fill:'forwards'});
   try{await motion.finished;}
   finally{runner.style.transform=b;motion.cancel();}
 }
@@ -305,7 +362,7 @@ async function runMascot(){
   runner.style.top=Math.round(runTop)+'px';
   runner.style.transform='translate3d('+fromX+'px,0,0)';
   runner.style.setProperty('--walk-direction',fromLeft?'1':'-1');
-  runner.style.setProperty('--stride-duration',turnsBack?'870ms':'630ms');
+  runner.style.setProperty('--stride-duration',turnsBack?'650ms':'490ms');
   $('runner-name').textContent=who;
   $('runner-bubble').textContent=canTag ? (sugar?'👍 SUPER DUPER DEAL!':'🏷️ WOW! MEGA MANIA!') : '🐾 Scouting for deals!';
   runner.hidden=false;
@@ -333,7 +390,7 @@ async function runMascot(){
     await turnDog(runner,[...turn,...(exitAngle===2?[1,2]:[7,6])]);
     if(document.hidden)return;
     runner.style.setProperty('--walk-direction',exitAngle===2?'1':'-1');
-    runner.style.setProperty('--stride-duration',turnsBack?'560ms':'730ms');
+    runner.style.setProperty('--stride-duration',turnsBack?'450ms':'555ms');
     runner.classList.remove('posed');
     runner.classList.add('scurrying');
     await scurryTo(runner,stopX,exitX,Math.abs(exitX-stopX)/exitSpeed);
@@ -438,11 +495,15 @@ async function playScoutMeet() {
           if (arrival<1) {
             sheet = walk;
             flip = direction;
-            angle = Math.floor(arrival*24)%4;
+            const gaitTime=Math.max(0,time-dog*.14);
+            angle=Math.floor(gaitTime*10.5)%4;
+            offset=size*.018*Math.pow(Math.sin(gaitTime*Math.PI*10.5),2);
           } else if (time>=leaveTime) {
-            angle = exitFacing<0 ? 6 : 2;
-            const step = leave*24*Math.PI/2;
-            offset = size*.014*Math.abs(Math.sin(step));
+            sheet = walk;
+            flip = exitFacing;
+            const gaitTime=Math.max(0,time-leaveTime);
+            angle=Math.floor(gaitTime*11)%4;
+            offset=size*.018*Math.pow(Math.sin(gaitTime*Math.PI*11),2);
           } else if (time<3.35) {
             const sniff = pulse(time,2.15+dog*.21,.16)+.7*pulse(time,2.65+dog*.14,.15);
             x += direction*size*.035*sniff;
@@ -465,18 +526,11 @@ async function playScoutMeet() {
           context.save();
           context.translate(x,118-size-offset);
           context.scale(flip,1);
-          if (time>=leaveTime) {
-            // Keep the profile head fixed while the front and rear legs step.
-            const step = leave*24*Math.PI/2;
-            for (let line=0; line<frameHeight; line++) {
-              const y = line/frameHeight;
-              const stride = size*.045*ease((y-.61)/.31)*Math.sin(step);
-              for (let half=0; half<2; half++) {
-                const motion = half===0 ? stride : -stride;
-                context.drawImage(sheet,sx+half*frameWidth/2,sy+line,frameWidth/2,1,
-                  (half-1)*size/2+motion,y*size,size/2,size/frameHeight+.5);
-              }
-            }
+          if (time>=leaveTime || arrival<1) {
+            // Use the real walk frames in both directions, with continuous weight shift.
+            const gaitTime=time>=leaveTime?Math.max(0,time-leaveTime):Math.max(0,time-dog*.14);
+            context.rotate(Math.sin(gaitTime*Math.PI*10)*.018);
+            context.drawImage(sheet,sx,sy,frameWidth,frameHeight,-size/2,0,size,size);
           } else if (nod || tilt || blink>.025) {
             // Shift thin horizontal strips near the face and taper toward the paws.
             for (let line=0; line<frameHeight; line++) {
