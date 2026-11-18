@@ -210,14 +210,14 @@ if(!amazonHomeSource.includes('candy-home-amazon-link') ||
 }
 
 const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
-if(!homeInstallSource.includes('className="candyland-navbar candyland-navbar-ai"') ||
-   !homeInstallSource.includes('candyland-navbar-feature-title') ||
-   !homeInstallSource.includes('Free, unlimited private local AI') ||
-   !homeInstallSource.includes('Download a model once') ||
-   homeInstallSource.includes('Optional hosted Instant AI when connected') ||
-   !homeInstallSource.includes('href="/studio/"') ||
-   homeInstallSource.includes('candyland-unwrapped-promo')){
-  console.error('Compact homepage header must show left brand + full-width Random AI, with Unwrapped only in its first shelf.');failures++;
+if(!homeInstallSource.includes('className="rcl-workshop-header"') ||
+    !homeInstallSource.includes('candyland-random-ai-promo') ||
+    !homeInstallSource.includes('href="/studio/"') ||
+    !homeInstallSource.includes('rcl-site-highlights') ||
+    !homeInstallSource.includes('src="/icon.svg"') ||
+    homeInstallSource.includes('Optional hosted Instant AI when connected') ||
+    homeInstallSource.includes('candyland-unwrapped-promo')){
+   console.error('Workshop homepage must keep featured Random AI, original brand icon and a distinct Unwrapped destination.');failures++;
 }
 if(!homeInstallSource.includes("title:'Unwrapped'")||
    !homeInstallSource.includes("name:'Unwrapped'")||
@@ -654,7 +654,7 @@ if (fs.existsSync('dist/standalone-index.html')) {
 for (const path of ['dist/index.html','dist/404.html','dist/trump/index.html']) {
   if (!fs.existsSync(path)) continue;
   const content=fs.readFileSync(path,'utf8');
-  if (!content.includes('candyland-next') || !content.includes('Stay sweet.')) {
+  if (!content.includes('candyland-next') || !content.includes('rcl-workshop-hero')) {
     console.error('A published entrypoint no longer includes the current Candy Land homepage:',path);
     failures++;
   }
@@ -820,15 +820,18 @@ if(!/^const COLLECTIONS = \[\s*\{id:'discovery'/.test(categoryBlock) ||
    !homepageStyle.includes('candyland-unwrapped-feature-description')) {
   console.error('Explore & Understand must lead with the compact Unwrapped logo, useful explanation and one CTA.');failures++;
 }
-// The compact top bar has only the left-aligned Candy Land logo and the wide Random AI promotion.
-const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="candyland-navbar candyland-navbar-ai"'),homeInstallSource.indexOf('</header>')+9);
-if(!featuredHeader.includes('candyland-identity') ||
-   !featuredHeader.includes('candyland-random-ai-promo') ||
-   !featuredHeader.includes('candyland-navbar-feature-action') ||
-   !featuredHeader.includes('href="/studio/"') ||
-   featuredHeader.includes('candyland-unwrapped-promo') ||
-   featuredHeader.indexOf('candyland-identity')>featuredHeader.indexOf('candyland-random-ai-promo')){
-  console.error('Top homepage bar must place the logo at left and fill the remaining space with Random AI only.');failures++;
+// The approved workshop layout puts the ORIGINAL app logo immediately to the right
+// of the "Random Candy Land" wordmark at the right end of the navigation bar.
+const featuredHeader=homeInstallSource.slice(homeInstallSource.indexOf('<header className="rcl-workshop-header"'),homeInstallSource.indexOf('</header>')+9);
+if(!featuredHeader.includes('rcl-workshop-nav') ||
+   !featuredHeader.includes('rcl-workshop-wordmark') ||
+   !featuredHeader.includes('Random <strong>Candy Land</strong>') ||
+   !featuredHeader.includes('src="/icon.svg"') ||
+   featuredHeader.indexOf('Random <strong>Candy Land</strong>')>featuredHeader.indexOf('src="/icon.svg"') ||
+   !homeInstallSource.includes('candyland-random-ai-promo') ||
+   !homeInstallSource.includes('href="/studio/"') ||
+   featuredHeader.includes('candyland-unwrapped-promo')){
+   console.error('Workshop header must keep original logo right of name and link Random AI as a featured tile.');failures++;
 }
 // AI Academy is a standalone learning destination, with its own course and manifest.
 for(const file of ['dist/ai-academy/index.html','dist/ai-academy/academy.js','dist/ai-academy/academy.css','dist/app-manifests/ai-academy.webmanifest','dist/tool-icons/ai-academy.svg','dist/studio/model-explorer.js','dist/studio/model-explorer.css']){
