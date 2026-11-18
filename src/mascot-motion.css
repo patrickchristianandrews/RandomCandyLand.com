@@ -160,3 +160,6 @@
 @media(prefers-reduced-motion:reduce){
   .rcl-workshop .rcl-mascot-pose{animation:none!important;will-change:auto}
 }
+
+/* Full-color mascots without paper-cutout edging. */
+.rcl-workshop .rcl-mascot-pose{filter:drop-shadow(0 10px 12px #66324d38)}
