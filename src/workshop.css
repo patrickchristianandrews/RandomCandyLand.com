@@ -30,7 +30,7 @@
 .rcl-workshop .rcl-mascot-tidbit{left:0;--mascot-accent:#8752c9}
 .rcl-workshop .rcl-mascot-sugarfoot{right:0;--mascot-accent:#e6589e}
 .rcl-workshop .rcl-mascot-sugarfoot:before{background:radial-gradient(ellipse,#ffadd8d6,transparent 67%)}
-.rcl-workshop .rcl-mascot img{position:relative;display:block;width:235px;height:235px;object-fit:contain;filter:drop-shadow(0 6px 0 #fffaf3) drop-shadow(0 13px 10px #66324d6e) drop-shadow(0 22px 14px #66324d3b);animation:rcl-mascot-peek 4.4s ease-in-out infinite}
+.rcl-workshop .rcl-mascot img{position:relative;display:block;width:235px;height:235px;object-fit:contain;filter:drop-shadow(0 10px 12px #66324d38);animation:rcl-mascot-peek 4.4s ease-in-out infinite}
 .rcl-workshop .rcl-mascot-sugarfoot img{animation-delay:-2.1s}
 .rcl-workshop .rcl-mascot:hover{transform:translateY(-8px) rotate(-2deg)}
 .rcl-workshop .rcl-mascot-name{position:relative;z-index:2;transform:translateY(-30px);border:2px solid #fff8ee;background:var(--mascot-accent);color:#fff;box-shadow:0 5px 0 #86395355,0 6px 14px #6d426858;border-radius:99px;padding:6px 21px;font:900 18px Georgia,serif;white-space:nowrap}
