@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
 import '../workshop.css';
+import '../mascot-motion.css';
 
 interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
@@ -173,7 +174,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       <section className="rcl-workshop-hero" aria-labelledby="rcl-welcome-title">
         <div className="rcl-hero-confetti" aria-hidden="true">✦　✧　✦　✧　✦</div>
         <div className="rcl-mascot rcl-mascot-tidbit" aria-label="Tidbit, one of the Random Candy Land mascots">
-          <img src="/mascots/tidbit-original.svg" alt="Tidbit, the original black-and-tan dog mascot" width={220} height={220} />
+          <span className="rcl-mascot-pose rcl-mascot-pose-tidbit" aria-hidden="true" />
           <span className="rcl-mascot-name">Tidbit ♡</span>
         </div>
         <div className="rcl-hero-center">
@@ -186,7 +187,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
           </div>
         </div>
         <div className="rcl-mascot rcl-mascot-sugarfoot" aria-label="Sugarfoot, one of the Random Candy Land mascots">
-          <img src="/mascots/sugarfoot-original.svg" alt="Sugarfoot, the original black-and-tan dog mascot" width={220} height={220} />
+          <span className="rcl-mascot-pose rcl-mascot-pose-sugarfoot" aria-hidden="true" />
           <span className="rcl-mascot-name">Sugarfoot ♡</span>
         </div>
         <div className="rcl-candy-ribbon" aria-hidden="true"></div>
