@@ -483,7 +483,7 @@ const uniqueGiftDiscoveries=[
  {id:'unusual-mushroom-house',name:'Chenille Mushroom House DIY Kit',category:'Toys & Games',store:'Uncommon Goods',price:null,source:'https://www.uncommongoods.com/product/chenille-mushroom-house-diy-kit',giftDiscovery:true,why:'Make a fuzzy tiny mushroom home by hand, for somebody who loves miniature worlds.'}
 ];
 const rareGiftPattern=/\b(?:3d print(?:er|ing)?|3-d print(?:er|ing)?|miniature|diorama|micro[- ]?robot|robot(?:ic)? pets?|animatronic|mystery box|blind box|fossil|geode|terrarium|kinetic (?:art|sculpture|toy)|levitat(?:ing|ion)|holograph(?:ic|y)|personalized (?:art|figure|figurine)|custom (?:portrait|sculpture|figure|figurine)|secret compartment|puzzle box|star projector|planetarium|microscope|telescope|grow your own|crystal growing|mechanical model|science experiment|synthesizer|mushroom lamp|interactive plush|lunar lamp|unusual gift|quirky gift|novelty gadget)\b/i;
-let giftShuffle=false,giftOffset=0,lastGiftIds=[];
+let giftShuffle=false,lastGiftIds=[],giftSeenIds=new Set(),giftFilterKey='',giftCurrentIds=[];
 function giftReason(d){
  if(d.giftDiscovery)return d.why;
  if($('gift-person').value==='unique'&&uniqueGiftReasons[d.id])return uniqueGiftReasons[d.id];
@@ -509,7 +509,7 @@ function giftSegment(d){
 }
 function renderGifts(){
  const person=$('gift-person').value,budget=$('gift-budget').value,unique=person==='unique';
- const source=unique?[...deals,...uniqueGiftDiscoveries]:deals.filter(d=>d.featured);
+ const source=unique?[...deals,...uniqueGiftDiscoveries]:deals.filter(d=>d.category!=='Upcoming sales');
  const ids=new Set();
  const eligible=source.filter(d=>{
    if(!d||!d.id||ids.has(d.id)||!/^https:\/\//.test(d.source||''))return false;
@@ -526,14 +526,29 @@ function renderGifts(){
    const score=d=>history(d).score??0;return score(b)-score(a)||(a.price??Infinity)-(b.price??Infinity);
  });
  const pageSize=8;
- if(giftShuffle&&eligible.length>1)giftOffset=(giftOffset+Math.max(1,Math.ceil(pageSize/2)))%eligible.length;
- else if(!giftShuffle)giftOffset=0;
- const picks=eligible.slice(giftOffset,giftOffset+pageSize);
- if(picks.length<Math.min(pageSize,eligible.length))picks.push(...eligible.slice(0,Math.min(pageSize,eligible.length)-picks.length));
- lastGiftIds=picks.map(d=>d.id);
- $('gift-refresh-status').textContent=(unique?'Rare, playful and unusual gift ideas · ': '')+
-   (giftShuffle?(eligible.length>pageSize?'Showing a different selection of '+eligible.length+' sourced ideas. ':'Showing the '+eligible.length+' matching gift ideas. '):'')+
-   (unique?'Some are gift discoveries, not advertised deals. Confirm prices and stock at the retailer.':'');
+ const filterKey=person+'|'+budget;
+ if(giftFilterKey!==filterKey){
+   giftFilterKey=filterKey;giftSeenIds=new Set();giftCurrentIds=[];giftShuffle=false;
+ }
+ const byId=new Map(eligible.map(d=>[d.id,d]));
+ let picks=[];
+ // Background updates preserve current picks; Refresh never repeats an already seen gift.
+ if(!giftShuffle&&giftCurrentIds.length)picks=giftCurrentIds.map(id=>byId.get(id)).filter(Boolean);
+ if(giftShuffle||!picks.length){
+   picks=eligible.filter(d=>!giftSeenIds.has(d.id)).slice(0,pageSize);
+   picks.forEach(d=>giftSeenIds.add(d.id));
+   giftCurrentIds=picks.map(d=>d.id);
+ }
+ lastGiftIds=giftCurrentIds;
+ const unseen=eligible.filter(d=>!giftSeenIds.has(d.id)).length;
+ const wasRefreshed=giftShuffle;
+ giftShuffle=false;
+ $('refresh-gifts').disabled=unseen===0;
+ $('refresh-gifts').title=unseen===0?'All matching gift suggestions shown':'Show unseen gift suggestions';
+ $('gift-refresh-status').textContent=(unique?'Unusual gifts and rare finds · ':'')+
+   (wasRefreshed?(picks.length?'Every suggestion in this batch is new. ':'No new matching gifts remain. '):'')+
+   (unseen?unseen+' more unseen suggestions available.':'All matching ideas have been shown; additional sourced offers may arrive with the next feed update.')+
+   (unique?' Some are gift discoveries, not reported deals. Confirm the price and availability.':'');
  $('gift-list').innerHTML=eligible.length?picks.map(d=>'<article class="gift-pick"><small>'+esc(d.giftDiscovery?'Unusual gift idea · not a reported deal':d.category+' · '+d.store)+'</small><strong>'+esc(d.name)+'</strong><span class="gift-why">'+esc(giftReason(d))+'</span><div class="gift-bottom"><span class="price">'+(Number.isFinite(d.price)?money(d.price):'Price at retailer')+'</span><a target="_blank" rel="noopener" href="'+esc(d.source)+'">'+(d.giftDiscovery?'Explore gift ↗':'View gift ↗')+'</a></div></article>').join(''):'<p class="catalog-note">No matching sourced gifts at this budget. Try a higher budget or choose Any budget.</p>';
 }
 function renderAds(){
