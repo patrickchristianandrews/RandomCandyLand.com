@@ -111,4 +111,5 @@ async function refresh(){
 for(const id of ['search','kind','sort'])$(id).addEventListener(id==='search'?'input':'change',render);
 $('clear').addEventListener('click',()=>{$('search').value='';$('kind').value='all';$('sort').value='retailer';render();$('search').focus()});
 render();refresh();
+setInterval(()=>{if(!document.hidden)refresh();},300000);
 </script></body></html>
