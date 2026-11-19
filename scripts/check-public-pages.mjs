@@ -26,21 +26,21 @@ const required = [
 
 let failures = 0;
 
-/* The 24 Hot Deals must appear before the intro banner, with the slim
-   ad-scan promotion after that and before category navigation. */
+/* The 24 Hot Deals lead, then the All 2026 Deals tab, ad scans and categories.
+   The retired oversized intro banner must not be restored. */
 try {
  const landing=fs.readFileSync('dist/black-friday/index.html','utf8');
  const adPage=fs.readFileSync('dist/black-friday/ad-scans/index.html','utf8');
- const hero=landing.indexOf('<section class="hero">');
- const promo=landing.indexOf('class="ad-scan-promo"');
  const hot=landing.indexOf('<section class="hot-section"');
+ const allDeals=landing.indexOf('id="all-deals-jump"');
+ const promo=landing.indexOf('class="ad-scan-promo"');
  const categories=landing.indexOf('<section class="cat-panel"');
- if(hot<0||hero<0||hot>hero||promo<hero||categories<promo||landing.includes('class="scan-strip"')||landing.includes('id="scan-list"'))throw Error('The 24 hot deals must lead; the ad-scan link follows the banner before category navigation');
- if(!landing.includes('href="/black-friday/ad-scans/"'))throw Error('Banner missing dedicated library link');
+ if(hot<0||allDeals<hot||promo<allDeals||categories<promo||landing.includes('<section class="hero">')||landing.includes('class="scan-strip"')||landing.includes('id="scan-list"'))throw Error('24 hot deals must lead, followed by All 2026 Deals, ad scans and categories; no large banner');
+ if(!landing.includes('href="/black-friday/ad-scans/"'))throw Error('Ad scan promotion missing dedicated library link');
  const inline=[...adPage.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
  for(let n=0;n<inline.length;n++)new vm.Script(inline[n][1],{filename:'ad scan library script '+(n+1)});
  if(!adPage.includes("addEventListener('click'")||!adPage.includes('refresh();')||!adPage.includes('id="clear"'))throw Error('Search/filter controls are missing');
- console.log('✓ Ad-scan library search code parses; the main ad promotion sits between hero and date cards.');
+ console.log('✓ Ad-scan library search code parses; the ad promotion follows the 24 picks and All 2026 Deals tab.');
 } catch(e){console.error('Holiday ad scan layout regression:',e.message);failures++;}
 
 for(const path of ['dist/black-friday/index.html','dist/black-friday/all/index.html']){
