@@ -211,16 +211,16 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <div className="candy-home-holiday-heading">
           <div className="candy-home-holiday-copy">
             <span className="candy-home-holiday-kicker">BLACK FRIDAY · CYBER MONDAY 2026</span>
-            <h2 id="home-holiday-deals">🔥 24 Hot Deals</h2>
+            <h2 id="home-holiday-deals">🔥 4 Hot Deals</h2>
             <p>Clear item details · Tap ♡ to save your favorites · Recent deal reports</p>
           </div>
-          <a className="candy-home-holiday-link" href="/black-friday/">Browse all 2026 deals ↗</a>
+          <a className="candy-home-holiday-link" href="/black-friday/#hot-deals">See all 24 Hot Deals ↗</a>
         </div>
         <iframe
           ref={holidayFrameRef}
           className="candy-home-hot-deals-frame"
           src="/black-friday/?embed=featured"
-          title="Six recently reported holiday deal picks with product details and save buttons"
+          title="Four hot deal previews; click any deal to open all 24 hot deals"
           loading="lazy"
           scrolling="no"
           onLoad={() => {
@@ -238,7 +238,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       <section className="rcl-home-whats-new" id="rcl-whats-new" aria-labelledby="rcl-whats-new-title">
         <h2 id="rcl-whats-new-title">What's New <span aria-hidden="true">✦</span></h2>
         <div className="rcl-update-list">
-          <a href="/black-friday/"><span aria-hidden="true">♥</span><strong>24 Hot Deals</strong><small>Readable deal cards and hearts for saving favorites.</small></a>
+          <a href="/black-friday/#hot-deals"><span aria-hidden="true">♥</span><strong>24 Hot Deals</strong><small>Readable deal cards and hearts for saving favorites.</small></a>
           <a href="/black-friday/all/?view=upcoming"><span aria-hidden="true">◷</span><strong>Holiday sale previews</strong><small>Black Friday, Cyber Monday and upcoming deals.</small></a>
           <a href="/image-studio/"><span aria-hidden="true">✎</span><strong>Make something</strong><small>Open Image Studio and explore creative tools.</small></a>
         </div>
