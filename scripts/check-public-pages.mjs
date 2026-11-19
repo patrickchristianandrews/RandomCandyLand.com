@@ -26,8 +26,8 @@ const required = [
 
 let failures = 0;
 
-/* The Black Friday landing page carries one slim ad-scan promotion BETWEEN
-   hot deals and category navigation. The detailed ad cards belong on the dedicated page. */
+/* The 24 Hot Deals must appear before the intro banner, with the slim
+   ad-scan promotion after that and before category navigation. */
 try {
  const landing=fs.readFileSync('dist/black-friday/index.html','utf8');
  const adPage=fs.readFileSync('dist/black-friday/ad-scans/index.html','utf8');
@@ -35,7 +35,7 @@ try {
  const promo=landing.indexOf('class="ad-scan-promo"');
  const hot=landing.indexOf('<section class="hot-section"');
  const categories=landing.indexOf('<section class="cat-panel"');
- if(hero<0||hot<hero||promo<hot||categories<promo||landing.includes('class="scan-strip"')||landing.includes('id="scan-list"'))throw Error('Ad scans must appear once between hot deals and categories');
+ if(hot<0||hero<0||hot>hero||promo<hero||categories<promo||landing.includes('class="scan-strip"')||landing.includes('id="scan-list"'))throw Error('The 24 hot deals must lead; the ad-scan link follows the banner before category navigation');
  if(!landing.includes('href="/black-friday/ad-scans/"'))throw Error('Banner missing dedicated library link');
  const inline=[...adPage.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
  for(let n=0;n<inline.length;n++)new vm.Script(inline[n][1],{filename:'ad scan library script '+(n+1)});
