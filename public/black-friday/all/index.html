@@ -581,14 +581,15 @@ setInterval(()=>{if(!document.hidden)refreshFeed();},300000);
 </script><script src="/black-friday/upcoming-radar.js"></script>
 <script id="deal-section-navigation">
 (function(){
- const sections=['catalog','gifts','ads','cyber','cashback'];
+ const sections=['catalog','gifts','ads','cyber','cashback','coming-soon'];
  function route(){
-  const target=sections.includes(location.hash.slice(1))?location.hash.slice(1):'catalog';
+  const requested=location.hash.slice(1);
+  const target=sections.includes(requested)?requested:'catalog';
   document.documentElement.dataset.dealSection=target;
   for(const id of sections){const el=document.getElementById(id);if(el){el.hidden=id!==target;if(id===target&&el.tagName==='DETAILS')el.open=true;}}
   document.querySelectorAll('.nav a[href^="#"]').forEach(a=>{if(a.hash==='#'+target)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   if(location.hash)requestAnimationFrame(()=>document.getElementById(target)?.scrollIntoView({block:'start'}));
  }
- window.addEventListener('hashchange',route);route();
+ window.addEventListener('hashchange',route);window.addEventListener('rcl-upcoming-ready',route);route();
 })();
 </script></body></html>
