@@ -193,7 +193,7 @@ html[data-embed] .hot-card .deal-share{background:#fff7eb;color:#75465b;border-c
 @media(max-width:700px){html[data-embed] .hot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-embed] .hot-card{min-height:161px}html[data-embed] .hot-art{height:74px}}
 </style>
 <script>if(new URLSearchParams(location.search).get('embed')==='featured')document.documentElement.dataset.embed='featured'</script>
-<style>html[data-embed] .deal-runner,html[data-embed] #watch-scouts,html[data-embed] canvas{display:none!important}</style><style>.black-friday-sticker{display:inline-flex!important;align-items:center;justify-content:center;padding:14px 20px!important;border:2px solid #ffe996!important;border-radius:16px!important;background:linear-gradient(125deg,#ffb0dd 0%,#be91ed 52%,#ffce63 100%)!important;color:#291039!important;font-size:1rem!important;font-weight:900!important;line-height:1.4!important;text-align:center;box-shadow:0 5px 0 #713551,0 10px 25px #ff80c333;text-decoration:none!important;max-width:100%}.black-friday-sticker:hover{filter:brightness(1.08);transform:translateY(-2px)}.black-friday-sticker:focus-visible{outline:3px solid white;outline-offset:4px}@media(max-width:600px){header{flex-wrap:wrap}.black-friday-sticker{width:100%}}</style><style id="black-friday-sticker-depth">
+<style>html[data-embed] .hot-card{cursor:pointer}html[data-embed] .hot-card:hover,html[data-embed] .hot-card:focus-visible{outline:2px solid #d064ad;outline-offset:2px}html[data-embed] .deal-runner,html[data-embed] #watch-scouts,html[data-embed] canvas{display:none!important}</style><style>.black-friday-sticker{display:inline-flex!important;align-items:center;justify-content:center;padding:14px 20px!important;border:2px solid #ffe996!important;border-radius:16px!important;background:linear-gradient(125deg,#ffb0dd 0%,#be91ed 52%,#ffce63 100%)!important;color:#291039!important;font-size:1rem!important;font-weight:900!important;line-height:1.4!important;text-align:center;box-shadow:0 5px 0 #713551,0 10px 25px #ff80c333;text-decoration:none!important;max-width:100%}.black-friday-sticker:hover{filter:brightness(1.08);transform:translateY(-2px)}.black-friday-sticker:focus-visible{outline:3px solid white;outline-offset:4px}@media(max-width:600px){header{flex-wrap:wrap}.black-friday-sticker{width:100%}}</style><style id="black-friday-sticker-depth">
 .black-friday-sticker{position:relative;isolation:isolate;border:2px solid #ffdc83!important;border-bottom-color:#a97128!important;background:linear-gradient(145deg,#ffb8e3 0%,#c898f0 38%,#9560c5 66%,#f6cc70 100%)!important;color:#140b1c!important;text-shadow:0 1px 0 #ffffff66;box-shadow:inset 0 2px 0 #ffffff99,inset 0 -3px 0 #0003,0 7px 0 #150c1e,0 9px 0 #c18a39,0 15px 22px #0008!important;transform:perspective(800px) rotateX(4deg);transition:transform .18s ease,box-shadow .18s ease}
 .black-friday-sticker:hover{transform:perspective(800px) translateY(-3px) rotateX(0deg);box-shadow:inset 0 2px 0 #ffffff99,inset 0 -3px 0 #0003,0 10px 0 #150c1e,0 12px 0 #c18a39,0 19px 26px #0009!important}
 .black-friday-sticker:active{transform:translateY(5px);box-shadow:inset 0 2px 4px #0003,0 2px 0 #150c1e,0 4px 0 #c18a39,0 7px 12px #0006!important}
@@ -204,13 +204,14 @@ html[data-embed] .hot-card .deal-share{background:#fff7eb;color:#75465b;border-c
 <nav class="quick-nav" aria-label="2026 holiday deal sections">
 <a href="#hot-deals">🔥 Popular deals</a><a href="/black-friday/ad-scans/">📰 Ad scans</a><a href="/black-friday/all/">▦ All categories</a><a href="/black-friday/all/?view=upcoming">◷ Upcoming</a>
 </nav>
+<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="show-saved-hot" class="hot-saved-toggle" aria-pressed="false">♡ Saved (0)</button><button type="button" id="watch-scouts" aria-label="Watch Tidbit and Sugarfoot meet">🐾 Watch the scouts</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
 <section class="hero"><span class="kicker">2026 HOLIDAY DEAL MADNESS</span><h1>Black Friday &amp; Cyber Monday 2026</h1>
 <p>The best recently reported Black Friday and Cyber Monday bargains in one quick view. Explore early sales, the big shopping days and the deals that follow—without endless scrolling.</p>
 </section>
 
 
 
-<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="show-saved-hot" class="hot-saved-toggle" aria-pressed="false">♡ Saved (0)</button><button type="button" id="watch-scouts" aria-label="Watch Tidbit and Sugarfoot meet">🐾 Watch the scouts</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
+
 <a id="ad-scans" class="ad-scan-promo" href="/black-friday/ad-scans/" aria-label="Explore the dedicated searchable 2026 Black Friday and Cyber Monday ad scan library">
 <span class="ad-scan-promo-icon" aria-hidden="true">📰</span>
 <span class="ad-scan-promo-copy"><strong>2026 Holiday Ad Scans &amp; Previews</strong><small id="ad-scan-count">Browse store flyers, circulars and sale previews · refreshed as available</small></span>
@@ -237,18 +238,17 @@ function startTime(d){
  return Number.isFinite(n)?n:0;
 }
 function isReportedLive(d){
- if(!d||!Number.isFinite(d.price)||d.price<=0||!/^https:\/\//.test(d.source||''))return false;
- const start=startTime(d);if(start&&start>Date.now())return false;
- if(d.endsAt&&Date.now()>Date.parse(String(d.endsAt).slice(0,10)+'T23:59:59-05:00'))return false;
- const checked=Date.parse(String(d.publishedAt||d.checked||'').slice(0,10)+'T12:00:00Z');
- if(!Number.isFinite(checked))return false;
- return Date.now()-checked>=-86400000&&Date.now()-checked<=72*3600000;
+  // RSS absence and age are not confirmed offer expiry. Keep priced listings
+  // until an explicit ended status or known end date. Older reports are marked.
+  if(!d||!Number.isFinite(d.price)||d.price<=0||!/^https:\/\//.test(d.source||''))return false;
+  const start=startTime(d);if(start&&start>Date.now())return false;
+  return !RCLDealCategory.isKnownEnded(d);
 }
 function rank(d){return d.popular?3:d.sourceType==='DealNews editors'?2:d.featured?1:0;}
 function picks(){
  const eligible=savedOnlyHot&&!document.documentElement.dataset.embed?items.filter(d=>saved.includes(d.id)&&/^https:\/\//.test(d.source||'')):items.filter(isReportedLive);
  eligible.sort((a,b)=>rank(b)-rank(a)||(b.reportedBy?.length||0)-(a.reportedBy?.length||0)||(b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
- return eligible.slice(0,document.documentElement.dataset.embed?6:24);
+ return eligible.slice(0,document.documentElement.dataset.embed?4:24);
 }
 function hotEmoji(d){
  const t=String(d.name||'')+' '+String(d.category||'');
@@ -264,7 +264,9 @@ function hotEmoji(d){
  return '🎁';
 }
 function hotCard(d){
- const tag=d.popular?'🔥 Popular report':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured':'✦ Fresh report';
+ const reportedAt=Date.parse(String(d.lastSeenAt||d.publishedAt||d.checked||'').slice(0,10)+'T12:00:00Z');
+  const older=d.feedStatus==='not_recently_reported'||!Number.isFinite(reportedAt)||Date.now()-reportedAt>72*3600000;
+  const tag=older?'◷ Older report · check offer':d.popular?'🔥 Popular report':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured':'✦ Fresh report';
  const href=/^https:\/\/\//.test(d.source||'')?d.source:'/black-friday/all/';
  const name=esc(d.name),url=esc(href),spec=String(d.spec||'').trim(),why=String(d.why||'').trim();
  const imageUrl=typeof d.image==='string'&&/^https:\/\//.test(d.image)?d.image:null;
@@ -276,11 +278,11 @@ function hotCard(d){
  (spec?'<p>'+esc(spec)+'</p>':'')+(why?'<p>'+esc(why)+'</p>':'')+
  '<p>'+esc(d.catch||'Model, accessories, conditions, current stock and checkout total should be confirmed at the source.')+'</p>'+
  '<p>Publisher: '+esc(d.sourceType||'Deal source')+' · Reported: '+esc(date||'date unavailable')+'</p><a href="'+url+'" target="_blank" rel="noopener">Open complete source report ↗</a></div>';
- return '<article class="hot-card" data-deal-id="'+esc(d.id)+'"><div class="hot-heading"><small class="hot-type">'+esc(tag)+'</small>'+
+ return '<article class="hot-card" '+(document.documentElement.dataset.embed?'tabindex="0" ':'')+'data-deal-id="'+esc(d.id)+'"><div class="hot-heading"><small class="hot-type">'+esc(tag)+'</small>'+
  '<button type="button" class="save hot-heart" data-save="'+esc(d.id)+'" aria-label="'+(savedNow?'Remove saved deal: ':'Save deal: ')+name+'" aria-pressed="'+savedNow+'" title="'+(savedNow?'Remove from saved':'Save this deal')+'">'+(savedNow?'♥':'♡')+'<span class="hot-save-label">'+(savedNow?' Saved':' Save')+'</span></button></div>'+
  art+'<a class="hot-title" title="'+name+'" target="_blank" rel="noopener" href="'+url+'">'+name+'</a>'+
  '<div class="hot-identify" title="'+esc(hint)+'">'+esc(hint)+'</div><small class="hot-store">'+esc(d.store||'See source')+' · '+esc(d.category||'Other')+'</small>'+
- '<div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div>'+ref+'</div><small class="hot-when">Reported '+esc(date||'recently')+'</small></div>'+
+ '<div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div>'+ref+'</div><small class="hot-when">'+(older?'Last reported ':'Reported ')+esc(date||'recently')+'</small></div>'+
  '<div class="hot-actions-row"><details class="hot-details"><summary>Full details</summary>'+details+'</details><a class="hot-view" href="'+url+'" target="_blank" rel="noopener" aria-label="View deal for '+name+'">View deal ↗</a>'+
  '<button type="button" class="deal-share" data-share="'+esc(d.id)+'" aria-label="Share '+name+'">↗ Share</button></div></article>';
 }
@@ -612,6 +614,22 @@ if(document.documentElement.dataset.embed){
  window.addEventListener('resize',reportEmbeddedHeight);
  window.addEventListener('load',reportEmbeddedHeight);
  if(document.fonts?.ready)document.fonts.ready.then(reportEmbeddedHeight);
+}
+// Four homepage preview cards are entry points to this 24-deal collection.
+if(document.documentElement.dataset.embed){
+  const hotGrid=$('hot-list');
+  hotGrid.addEventListener('click',event=>{
+    const card=event.target.closest('.hot-card');
+    if(!card||event.target.closest('[data-save]'))return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.top.location.assign('/black-friday/#hot-deals');
+  },true);
+  hotGrid.addEventListener('keydown',event=>{
+    if((event.key==='Enter'||event.key===' ')&&event.target.classList.contains('hot-card')){
+      event.preventDefault();window.top.location.assign('/black-friday/#hot-deals');
+    }
+  });
 }
 render();startMascot();updateFeed();refreshAds();
 setInterval(()=>{if(!document.hidden&&!mascotBusy)updateFeed();},300000);
