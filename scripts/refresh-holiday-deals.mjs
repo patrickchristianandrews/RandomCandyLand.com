@@ -8,6 +8,7 @@
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import '../public/black-friday/deal-category.js';
+import {retainDeals,hasConfirmedEnded} from './holiday-deal-retention.mjs';
 
 const OUT='public/black-friday/live-feed.json';
 const ADS_OUT='public/black-friday/ad-scans.json';
@@ -160,14 +161,14 @@ for(const feed of FEEDS){
  }catch(e){status.error=String(e.message||e).slice(0,150);console.warn(feed.name,'unavailable:',status.error);}
  sourceStatus.push(status);
 }
-let candidates=[...byLink.values()];
-let usedFallback=false;
-if(!sourceStatus.some(x=>x.ok)){
- candidates=previous.filter(x=>x&&x.id&&x.source&&x.name&&Date.parse(x.checked)>now.getTime()-4*86400000);
- usedFallback=true;
-}
-candidates=candidates.map(d=>globalThis.RCLDealCategory.assign(d));
-candidates.sort((a,b)=>Number(Boolean(b.popular))-Number(Boolean(a.popular))||Number(Boolean(b.featured))-Number(Boolean(a.featured))||(b.publishedAt||'').localeCompare(a.publishedAt||''));
+// Missing from an RSS refresh does not mean a deal ended.
+const usedFallback=!sourceStatus.some(x=>x.ok);
+const retained=retainDeals([...byLink.values()],previous,now.toISOString(),cleanUrl);
+let candidates=retained.deals.map(d=>globalThis.RCLDealCategory.assign(d));
+candidates=candidates.filter(d=>!hasConfirmedEnded(d,now.getTime()));
+candidates.sort((a,b)=>Number(b.feedStatus==='recently_reported')-Number(a.feedStatus==='recently_reported')||
+  Number(Boolean(b.popular))-Number(Boolean(a.popular))||Number(Boolean(b.featured))-Number(Boolean(a.featured))||
+  (b.lastSeenAt||b.publishedAt||'').localeCompare(a.lastSeenAt||a.publishedAt||''));
 const deduped=[],bucket=new Map();
 let mergedDuplicates=0;
 for(const d of candidates){
@@ -176,6 +177,8 @@ for(const d of candidates){
  const matching=bucketList.find(ex=>ex.source===d.source||sameDeal(ex,d));
  if(matching){
   matching.popular ||= d.popular;matching.featured ||= d.featured;
+  if(d.feedStatus==='recently_reported')matching.feedStatus='recently_reported';
+  if((d.lastSeenAt||'')>(matching.lastSeenAt||''))matching.lastSeenAt=d.lastSeenAt;
    if(!matching.image&&d.image)matching.image=d.image;
   const links=[...(matching.reportedBy||[]),...(d.reportedBy||[])];
   matching.reportedBy=[...new Map(links.map(x=>[x.publisher+'|'+x.url,x])).values()].slice(0,12);
@@ -187,7 +190,7 @@ for(const d of candidates){
 deduped.sort((a,b)=>(b.publishedAt||'').localeCompare(a.publishedAt||''));
 const counts={};
 for(const d of deduped)for(const r of d.reportedBy||[{publisher:d.sourceType}])counts[r.publisher]=(counts[r.publisher]||0)+1;
-const result={generatedAt:now.toISOString(),sourcesSucceeded:sourceStatus.filter(x=>x.ok).length,sourcesConfigured:FEEDS.length,sourceStatus,feedItems:deduped.length,rawItems:candidates.length,mergedDuplicates,sourceCounts:counts,sourceNotice:usedFallback?'All source feeds failed; previous snapshot shown with stale-data warning.':'Attributed deal leads from multiple independent publishers. Prices, live stock, expiry and merchant listing are not independently verified.',deals:deduped};
+const result={generatedAt:now.toISOString(),sourcesSucceeded:sourceStatus.filter(x=>x.ok).length,sourcesConfigured:FEEDS.length,sourceStatus,feedItems:deduped.length,rawItems:candidates.length,mergedDuplicates,retainedFromEarlier:retained.retainedCount,refreshedOffers:retained.refreshedCount,sourceCounts:counts,sourceNotice:usedFallback?'All publisher feeds failed; indexed leads are retained with unverified availability.':'Deals stay indexed until a known end date or ended status. Previously reported leads are not verified in stock; confirm final price and availability with the retailer.',deals:deduped};
 await mkdir('public/black-friday',{recursive:true});
 await writeFile(OUT,JSON.stringify(result));
 console.log('Holiday Radar:',deduped.length,'unique offers,',mergedDuplicates,'duplicates merged;',result.sourcesSucceeded+'/'+FEEDS.length,'RSS feeds succeeded');
