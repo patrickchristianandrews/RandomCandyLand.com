@@ -628,7 +628,7 @@ async function refreshFeed(){
  }
 }
 refreshFeed();refreshAdIndex();
-setInterval(()=>{if(!document.hidden)refreshFeed();},300000);
+setInterval(()=>{if(!document.hidden){refreshFeed();refreshAdIndex();}},300000);
 </script><script src="/black-friday/upcoming-radar.js"></script>
 <script id="deal-section-navigation">
 (function(){
