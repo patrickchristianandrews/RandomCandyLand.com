@@ -61,8 +61,17 @@
     // Keep legitimate specific classifications for items the title alone cannot identify.
     return prior || 'More deals';
   }
+  function isKnownEnded(deal, now=Date.now()) {
+    if(!deal||typeof deal!=='object')return true;
+    if(/^(ended|expired|inactive|removed|withdrawn|sold.out|out.of.stock)$/i.test(String(deal.status||'')))return true;
+    const value=deal.endsAt ?? deal.expiresAt ?? deal.expirationDate;
+    if(!value)return false;
+    const str=String(value).trim();
+    const end=Date.parse(/^\d{4}-\d{2}-\d{2}$/.test(str)?str+'T23:59:59-05:00':str);
+    return Number.isFinite(end)&&now>end;
+  }
   function assign(deal) {
     return { ...deal, category: resolve(deal) };
   }
-  root.RCLDealCategory = Object.freeze({ resolve, assign });
+  root.RCLDealCategory = Object.freeze({ resolve, assign, isKnownEnded });
 })(typeof window !== 'undefined' ? window : globalThis);
