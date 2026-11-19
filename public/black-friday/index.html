@@ -282,7 +282,7 @@ function hotCard(d){
  (spec?'<p>'+esc(spec)+'</p>':'')+(why?'<p>'+esc(why)+'</p>':'')+
  '<p>'+esc(d.catch||'Model, accessories, conditions, current stock and checkout total should be confirmed at the source.')+'</p>'+
  '<p>Publisher: '+esc(d.sourceType||'Deal source')+' · Reported: '+esc(date||'date unavailable')+'</p><a href="'+url+'" target="_blank" rel="noopener">Open complete source report ↗</a></div>';
- return '<article class="hot-card" tabindex="0" role="link" aria-label="'+(document.documentElement.dataset.embed?'See all 24 hot deals':'Open deal for '+name)+'" data-deal-id="'+esc(d.id)+'"><div class="hot-heading"><div class="hot-heading"><small class="hot-type">'+esc(tag)+'</small>'+
+ return '<article class="hot-card" tabindex="0" role="link" aria-label="Open deal for '+name+'" data-deal-id="'+esc(d.id)+'"><div class="hot-heading"><small class="hot-type">'+esc(tag)+'</small>'+
  '<button type="button" class="save hot-heart" data-save="'+esc(d.id)+'" aria-label="'+(savedNow?'Remove saved deal: ':'Save deal: ')+name+'" aria-pressed="'+savedNow+'" title="'+(savedNow?'Remove from saved':'Save this deal')+'">'+(savedNow?'♥':'♡')+'<span class="hot-save-label">'+(savedNow?' Saved':' Save')+'</span></button></div>'+
  art+'<a class="hot-title" title="'+name+'" target="_blank" rel="noopener" href="'+url+'">'+name+'</a>'+
  '<div class="hot-identify" title="'+esc(hint)+'">'+esc(hint)+'</div><small class="hot-store">'+esc(d.store||'See source')+' · '+esc(d.category||'Other')+'</small>'+
@@ -619,24 +619,19 @@ if(document.documentElement.dataset.embed){
  window.addEventListener('load',reportEmbeddedHeight);
  if(document.fonts?.ready)document.fonts.ready.then(reportEmbeddedHeight);
 }
-// Homepage preview cards open this collection. Full-page hot cards open
-// their own original product/deal source. Hearts, share and details stay usable.
+// Both homepage previews and full-page hot deal cards open their own deal source.
+// Preserve native links and leave hearts, share and details independently usable.
 {
-  const hotGrid=$('hot-list'),preview=Boolean(document.documentElement.dataset.embed);
+  const hotGrid=$('hot-list');
   function openCard(card){
-    if(preview){window.top.location.assign('/black-friday/#hot-deals');return;}
     const deal=items.find(item=>item.id===card?.dataset.dealId);
     if(deal&&/^https:\/\//.test(deal.source||''))window.open(deal.source,'_blank','noopener');
   }
   hotGrid.addEventListener('click',event=>{
     const card=event.target.closest('.hot-card');
-    if(!card||event.target.closest('button,details,summary'))return;
-    if(preview){
-      event.preventDefault();event.stopImmediatePropagation();openCard(card);
-    }else if(!event.target.closest('a')){
-      openCard(card);
-    }
-  },true);
+    if(!card||event.target.closest('a,button,details,summary'))return;
+    openCard(card);
+  });
   hotGrid.addEventListener('keydown',event=>{
     if((event.key==='Enter'||event.key===' ')&&event.target.classList.contains('hot-card')){
       event.preventDefault();openCard(event.target);
