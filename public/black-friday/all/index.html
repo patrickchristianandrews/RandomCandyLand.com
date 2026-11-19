@@ -215,7 +215,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const $=id=>document.getElementById(id);
 for(const deal of deals)deal.category=RCLDealCategory.resolve(deal);
 const curated=deals.slice(), savedKey='rcl-deals-saved';
-let saved=[],mode='all',shown=9999,feedTimestamp=null;
+let saved=[],mode='all',shown=24,feedTimestamp=null;
 const hotEmbed=document.documentElement.dataset.dealsHot==='true';
 try{const a=JSON.parse(localStorage.getItem(savedKey)||'[]');if(Array.isArray(a))saved=a.filter(x=>typeof x==='string');}catch{}
 function history(d){
@@ -456,8 +456,12 @@ function render(){
  }
  const a=filtered();
  $('count').textContent=a.length+' matching · '+deals.length+' indexed, including '+deals.filter(d=>{const t=startTime(d);return t&&t.date.getTime()>Date.now();}).length+' upcoming';
- $('catalog-list').innerHTML=a.length?categoryGroups(a):'<p class="empty">No matches. Clear filters or search for something else.</p>';
- $('show-more').hidden=true;
+ // Render a compact batch and retain global sort order for filtered views.
+ const visible=a.slice(0,shown);
+ const browseCategories=mode==='all'&&!$('query').value.trim()&&!$('category').value&&$('sort').value==='featured';
+ $('catalog-list').innerHTML=a.length?(browseCategories?categoryGroups(visible):'<div class="deal-rows">'+visible.map(card).join('')+'</div>'):'<p class="empty">No matches. Clear filters or search for something else.</p>';
+ $('show-more').hidden=shown>=a.length;
+ $('show-more').textContent='Show more deals ('+Math.min(24,Math.max(0,a.length-shown))+' next)';
  $('category-chips').innerHTML=['',...new Set(deals.map(d=>d.category))].sort().map(c=>'<button type="button" data-category="'+esc(c)+'" aria-pressed="'+(c===$('category').value)+'">'+esc(c||'All categories')+'</button>').join('');
  document.querySelectorAll('[data-feed]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.feed===mode)));
  renderGifts();
@@ -557,12 +561,12 @@ function renderAds(){
  $('ad-count').textContent=a.length+' ad sources';
  $('ad-list').innerHTML=a.map(x=>'<div class="ad-item"><div><strong>'+esc(x[0])+'</strong><small>'+esc(x[1])+'</small></div><a target="_blank" rel="noopener" href="'+esc(x[2])+'">Open ↗</a></div>').join('')||'<p>No matching retailer.</p>';
 }
-for(const id of ['query','category','store','budget','sort'])$(id).addEventListener('input',()=>{shown=60;render();});
+for(const id of ['query','category','store','budget','sort'])$(id).addEventListener('input',()=>{shown=24;render();});
 for(const id of ['gift-person','gift-budget'])$(id).addEventListener('input',()=>{giftShuffle=false;renderGifts();});
 $('refresh-gifts').addEventListener('click',()=>{giftShuffle=true;renderGifts();});
 for(const id of ['ad-search','ad-type'])$(id).addEventListener('input',renderAds);
-$('reset').onclick=()=>{for(const id of ['query','category','store','budget'])$(id).value='';mode='all';shown=60;render();};
-$('show-more').onclick=()=>{shown+=60;render();};
+$('reset').onclick=()=>{for(const id of ['query','category','store','budget'])$(id).value='';mode='all';shown=24;render();};
+$('show-more').onclick=()=>{shown+=24;render();};
 function shareMessage(d){return 'Black Friday & Cyber Monday 2026 deal: '+d.name+' — '+money(d.price)+' (reported; confirm price and availability at checkout).\n'+d.source;}
 async function shareDeal(d){
  if(!d||!/^https:\/\//.test(d.source||''))return;
@@ -574,8 +578,8 @@ async function shareDeal(d){
 document.addEventListener('click',e=>{
  const share=e.target.closest('[data-share]');if(share){shareDeal(deals.find(d=>d.id===share.dataset.share));return;}
  const b=e.target.closest('[data-save]');if(b){const id=b.dataset.save;saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];try{localStorage.setItem(savedKey,JSON.stringify(saved));}catch{}render();return;}
- const c=e.target.closest('[data-category]');if(c){$('category').value=c.dataset.category;shown=60;render();return;}
- const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;shown=60;if(mode==='new'){$('sort').value='new';}render();}
+ const c=e.target.closest('[data-category]');if(c){$('category').value=c.dataset.category;shown=24;render();return;}
+ const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;shown=24;if(mode==='new'){$('sort').value='new';}render();}
 });
 rebuildOptions();const params=new URLSearchParams(location.search),presetCategory=params.get("category"),presetView=params.get("view"),presetSort=params.get("sort");if(presetCategory&&[...$("category").options].some(x=>x.value===presetCategory))$("category").value=presetCategory;if(['popular','upcoming','featured','new','all','saved','black','cyber'].includes(presetView))mode=presetView;if(['popular','featured','new','price','sweet'].includes(presetSort))$("sort").value=presetSort;else if(mode==='popular')$("sort").value='popular';renderAds();render();
 function renderSourceHealth(payload){
