@@ -240,6 +240,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <div className="rcl-update-list">
           <a href="/black-friday/#hot-deals"><span aria-hidden="true">♥</span><strong>24 Hot Deals</strong><small>Readable deal cards and hearts for saving favorites.</small></a>
           <a href="/black-friday/all/?view=upcoming"><span aria-hidden="true">◷</span><strong>Holiday sale previews</strong><small>Black Friday, Cyber Monday and upcoming deals.</small></a>
+          <a href="/bonuses/"><span aria-hidden="true">★</span><strong>Bonuses &amp; Savings</strong><small>Credit card rewards, bank bonuses, APYs and churning tips.</small></a>
           <a href="/image-studio/"><span aria-hidden="true">✎</span><strong>Make something</strong><small>Open Image Studio and explore creative tools.</small></a>
         </div>
       </section>
