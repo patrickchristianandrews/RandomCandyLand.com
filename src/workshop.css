@@ -58,7 +58,7 @@
 .rcl-workshop .rcl-home-whats-new{display:flex;align-items:center;gap:15px;background:#fffaf1;border:2px solid #f3c5be;border-radius:23px;padding:16px 19px;box-shadow:0 5px 0 #f8d1cf}
 .rcl-workshop .rcl-home-whats-new h2{flex:none;font:900 clamp(19px,2vw,27px) Georgia,serif;color:#a73665;margin:0}
 .rcl-workshop .rcl-home-whats-new h2 span{color:#dc9c3c}
-.rcl-workshop .rcl-update-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:1}
+.rcl-workshop .rcl-update-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;flex:1}
 .rcl-workshop .rcl-update-list a{display:grid;grid-template-columns:22px 1fr;gap:0 8px;align-items:center;border-left:1px solid #ebcabc;padding:6px 11px;color:#5c3b4e;min-width:0;transition:background .18s}
 .rcl-workshop .rcl-update-list a:hover{background:#ffebef;border-radius:9px}
 .rcl-workshop .rcl-update-list a>span{grid-row:1/span 2;font-size:24px;color:#e45b90}
