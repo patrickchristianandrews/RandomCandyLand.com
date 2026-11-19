@@ -891,6 +891,27 @@
       "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
       "announced": true,
       "dailyDropET": "12:00"
+    },
+    {
+      "id": "preview-apple-bf-giftcards",
+      "name": "Apple Black Friday event — eligible purchases earn gift cards",
+      "category": "Electronics",
+      "store": "Apple",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 27–30, 2026 · eligible products only · reward amount varies by model",
+      "source": "https://www.apple.com/shop/gifts/black-friday-event",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-19",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "black",
+        "cyber"
+      ],
+      "why": "Apple confirms gift cards up to $300 on eligible Macs, $125 on iPads, $100 on iPhones or Watches, $75 on AirPods or Beats, $50 on HomePod and $25 on accessories. These are category maximums, not rewards for every model.",
+      "catch": "Upcoming conditional Apple Gift Card reward, not an upfront discount or cash rebate. Exact qualifying models, exclusions and reward terms must be checked before purchase. Model prices and delivered totals are unverified, so this event is not ranked against retailer product offers. Apple advertises free next-day delivery; address, stock and product eligibility need confirmation. No coupon, membership, trade-in, card reward or portal cashback assumed. Exact event start time and stock risk are unknown.",
+      "announced": true
     }
   ]
 }
