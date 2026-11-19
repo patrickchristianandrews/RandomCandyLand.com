@@ -16,6 +16,7 @@ group('radar-cyber','💻 Cyber Monday · Nov 30','Announced online drops and co
 '</div><p class="radar-disclaimer">Each item links to its source. Time TBA does not confirm a specific launch hour. Preview prices do not guarantee checkout price or stock. New announcements are added when published.</p>'+
 (isCatalog?'':'<a class="radar-more" href="/black-friday/all/?view=upcoming#coming-soon">See all upcoming deals ↗</a>');
 anchor.parentNode.insertBefore(sec,anchor);
+if(isCatalog)window.dispatchEvent(new Event('rcl-upcoming-ready'));
 let previews=[],readTime=0;
 const keyDay=date=>{const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);const g=k=>p.find(x=>x.type===k)?.value||'';return g('year')+'-'+g('month')+'-'+g('day');};
 const startOf=d=>{if(!d.startsAt)return null;const raw=String(d.startsAt),dayOnly=/^\d{4}-\d{2}-\d{2}$/.test(raw),ms=Date.parse(dayOnly?raw+'T00:00:00-05:00':raw);return Number.isFinite(ms)?{when:new Date(ms),dayOnly}:null;};
