@@ -245,7 +245,8 @@ function status(d){
   return 'Starts '+date+(start.dayOnly?' · time TBA':' · '+start.date.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET');
  }
  if(d.endsAt&&Date.now()>Date.parse(String(d.endsAt).slice(0,10)+'T23:59:59-05:00'))return 'Ended';
- if(d.announced&&start)return 'LIVE · event';
+ if(d.announced&&start)return 'Announced event · confirm offer';
+  if(d.feedStatus==='not_recently_reported')return 'Previously reported · check offer';
  const reported=Date.parse(String(d.publishedAt||d.checked||'').slice(0,10)+'T12:00:00Z');
  return Number.isFinite(reported)&&Date.now()-reported<4*86400000?'LIVE · reported':'Check offer';
 }
@@ -435,7 +436,7 @@ function categoryGroups(items){
 }
 function filtered(){
  const q=$('query').value.trim().toLowerCase().split(/\s+/).filter(Boolean),cat=$('category').value,store=$('store').value,b=$('budget').value;
- let a=deals.filter(d=>q.every(w=>(d.name+' '+d.category+' '+d.store+' '+(d.spec||'')).toLowerCase().includes(w))&&(!cat||cat===d.category)&&(!store||store===d.store)&&(b===''||(Number.isFinite(d.price)&&d.price<=Number(b))));
+ let a=deals.filter(d=>!RCLDealCategory.isKnownEnded(d)&&q.every(w=>(d.name+' '+d.category+' '+d.store+' '+(d.spec||'')).toLowerCase().includes(w))&&(!cat||cat===d.category)&&(!store||store===d.store)&&(b===''||(Number.isFinite(d.price)&&d.price<=Number(b))));
  if(mode==='saved')a=a.filter(d=>saved.includes(d.id));
  if(mode==='upcoming')a=a.filter(d=>{const start=window.__rclUpcomingNextStart?.(d)||startTime(d);return start&&start.date.getTime()>Date.now();});
  if(mode==='featured')a=a.filter(d=>d.featured);
@@ -524,7 +525,7 @@ function renderGifts(){
        (b.lastSeenAt||b.checked||'').localeCompare(a.lastSeenAt||a.checked||'');
    const score=d=>history(d).score??0;return score(b)-score(a)||(a.price??Infinity)-(b.price??Infinity);
  });
- const pageSize=unique?8:8;
+ const pageSize=8;
  if(giftShuffle&&eligible.length>1)giftOffset=(giftOffset+Math.max(1,Math.ceil(pageSize/2)))%eligible.length;
  else if(!giftShuffle)giftOffset=0;
  const picks=eligible.slice(giftOffset,giftOffset+pageSize);
