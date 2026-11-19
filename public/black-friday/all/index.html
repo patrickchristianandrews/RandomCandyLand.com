@@ -617,7 +617,7 @@ setInterval(()=>{if(!document.hidden)refreshFeed();},300000);
 </script><script src="/black-friday/upcoming-radar.js"></script>
 <script id="deal-section-navigation">
 (function(){
- const sections=['catalog','gifts','ads','cyber','cashback','coming-soon'];
+ const sections=['catalog','gifts','ads','cyber','cashback'];
  function route(){
   const requested=location.hash.slice(1);
   const target=sections.includes(requested)?requested:'catalog';
