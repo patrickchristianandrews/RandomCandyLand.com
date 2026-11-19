@@ -32,7 +32,11 @@ const FEEDS=[
  {name:'RetailMeNot · blog',group:'RetailMeNot',url:'https://www.retailmenot.com/blog/feed/',domains:['retailmenot.com']},
  {name:'Money Saving Mom',group:'Money Saving Mom',url:'https://moneysavingmom.com/feed/',domains:['moneysavingmom.com']},
  {name:'Totally Target',group:'Totally Target',url:'https://www.totallytarget.com/feed/',domains:['totallytarget.com']},
- {name:'Common Sense With Money',group:'Common Sense With Money',url:'https://www.commonsensewithmoney.com/feed/',domains:['commonsensewithmoney.com']}
+ {name:'Common Sense With Money',group:'Common Sense With Money',url:'https://www.commonsensewithmoney.com/feed/',domains:['commonsensewithmoney.com']},
+ {name:'Free Stuff Finder · latest',group:'Free Stuff Finder',url:'https://www.freestufffinder.com/feed/',domains:['freestufffinder.com']},
+ {name:'The Krazy Coupon Lady · latest',group:'The Krazy Coupon Lady',url:'https://thekrazycouponlady.com/feed/',domains:['thekrazycouponlady.com']},
+ {name:'Passion For Savings · latest',group:'Passion For Savings',url:'https://www.passionforsavings.com/feed/',domains:['passionforsavings.com']},
+ {name:'The Freebie Guy · latest',group:'The Freebie Guy',url:'https://thefreebieguy.com/feed/',domains:['thefreebieguy.com']}
 ];
 const decode=(s='')=>String(s).replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g,'$1').replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp|ndash|mdash);/gi,(_,c)=>{
  if(c[0]==='#'){const n=c[1]?.toLowerCase()==='x'?parseInt(c.slice(2),16):parseInt(c.slice(1),10);return Number.isFinite(n)&&n>0&&n<=0x10ffff?String.fromCodePoint(n):'';}
@@ -129,16 +133,17 @@ for(const feed of FEEDS){
  try{
   const xml=await request(feed.url);
   const items=[...xml.matchAll(/<item(?:\s[^>]*)?>([\s\S]*?)<\/item>/gi)].map(x=>x[1]);
-  if(!items.length)throw Error('No RSS items');
+  if(!items.length)for(const entry of xml.matchAll(/<entry(?:\s[^>]*)?>([\s\S]*?)<\/entry>/gi))items.push(entry[1]);
+   if(!items.length)throw Error('No RSS items');
   status.items=items.length;
   for(const item of items){
-   const title=tag(item,'title'),rawLink=tag(item,'link'),link=cleanUrl(rawLink);
-   const published=tag(item,'pubDate')||tag(item,'dc:date')||tag(item,'published');
+   const title=tag(item,'title'),rawLink=tag(item,'link')||item.match(/<link\b[^>]*\bhref=["']([^"']+)["']/i)?.[1]||'',link=cleanUrl(rawLink);
+   const published=tag(item,'pubDate')||tag(item,'dc:date')||tag(item,'published')||tag(item,'updated');
    if(!title||title.length<6||!link||!allowedLink(link,feed.domains))continue;
    // Keep imported deal text and source URLs within the site's existing visitor-copy policy.
    if(/\b(?:OpenAI|ChatGPT|Claude|Gemini)\b|\bartificial[ -]+intelligence\b|\b(?:GPT-[0-9]|LLM)\b/i.test(title+' '+link))continue;
    const epoch=published?Date.parse(published):NaN;
-   if(Number.isFinite(epoch) && (now.getTime()-epoch>14*86400000||epoch-now.getTime()>86400000))continue;
+   if(Number.isFinite(epoch) && (now.getTime()-epoch>30*86400000||epoch-now.getTime()>86400000))continue;
    // Skip obvious shopping advice and reviews that are not offer announcements.
    if(/^(how to|review:|best gifts to|gift guide|weekly recap|podcast|our favorite|buyer'?s guide|what to buy)/i.test(title))continue;
    const price=priceFrom(title);
