@@ -487,7 +487,7 @@ function hotCard(d){
  const reportedAt=Date.parse(String(d.lastSeenAt||d.publishedAt||d.checked||'').slice(0,10)+'T12:00:00Z');
   const older=d.feedStatus==='not_recently_reported'||!Number.isFinite(reportedAt)||Date.now()-reportedAt>72*3600000;
   const tag=older?'◷ Older report · check offer':d.popular?'🔥 Popular report':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured':'✦ Fresh report';
- const href=/^https:\/\/\//.test(d.source||'')?d.source:'/black-friday/all/';
+ const href=document.documentElement.dataset.embed?'/black-friday/#hot-deals':d.source;
  const name=esc(d.name),url=esc(href),spec=String(d.spec||'').trim(),why=String(d.why||'').trim();
  const imageUrl=typeof d.image==='string'&&/^https:\/\//.test(d.image)?d.image:null;
  const art='<div class="hot-art"><span class="hot-art-fallback" aria-hidden="true">'+hotEmoji(d)+'</span>'+(imageUrl?'<img src="'+esc(imageUrl)+'" alt="Product image supplied by linked deal publisher" loading="lazy" referrerpolicy="no-referrer">':'')+'</div>';
