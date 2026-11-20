@@ -517,6 +517,7 @@ function render(){
  if(document.documentElement.dataset.embed){requestAnimationFrame(reportEmbeddedHeight);return;}
  const grouped=new Map();
  for(const d of items){const cat=d.category||'Other';grouped.set(cat,(grouped.get(cat)||0)+1);}
+ if(grouped.has('Laptops'))grouped.set('Computers',(grouped.get('Computers')||0)+grouped.get('Laptops'));
  $('categories').innerHTML='<a href="/black-friday/all/">All deals ('+items.length+')</a>'+[...grouped.entries()].filter(([c])=>c!=='Upcoming sales').sort((a,b)=>b[1]-a[1]).slice(0,12).map(([cat,count])=>'<a href="/black-friday/all/?category='+encodeURIComponent(cat)+'#catalog">'+esc(cat)+' · '+count+'</a>').join('')+'<a href="/black-friday/all/?view=upcoming#catalog">◷ Upcoming ↗</a>';
 }
 function shareMessage(d){return 'Black Friday & Cyber Monday 2026: '+d.name+' — '+money(d.price)+' (reported price; verify stock and checkout price).\n'+d.source;}
