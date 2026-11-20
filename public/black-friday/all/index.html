@@ -469,8 +469,9 @@ function card(d){
  const typical=h.annual?'12-mo avg '+money(h.avg):h.count>=4?'Observed avg '+money(h.avg):typeof d.reference==='number'?'Retailer ref. '+money(d.reference):'';
  const details=h.annual?'12-month observed average across '+h.count+' dated observations.':h.count>=4?'Limited observed average across '+h.count+' dates spanning '+h.span+' days; not a full-year average.':'Sweet Score requires at least 4 recorded prices spanning 14 days. Recorded observations: '+h.count+'. A retailer reference price is not verified price history.';
  const href=esc(d.source),name=esc(d.name);
- const productPhoto=window.RCLProductPhotos?.photoURL(d)||null;
- const image=productPhoto?'<img src="'+esc(productPhoto)+'" alt="'+name+' product photo" loading="lazy" referrerpolicy="no-referrer">':'<span>Product photo unavailable</span>';
+ const photoSources=window.RCLProductPhotos?.photoURLs(d)||[];
+ const productPhoto=photoSources[0]||null;
+ const image=productPhoto?'<img src="'+esc(productPhoto)+'" data-photo-sources="'+esc(JSON.stringify(photoSources))+'" alt="'+name+' product photo" loading="lazy" referrerpolicy="no-referrer">':'<span>Product photo unavailable</span>';
  return '<article class="deal-row"><a class="market-product-art" target="_blank" rel="noopener" href="'+href+'" aria-label="View '+name+'">'+image+'</a><small class="deal-meta">'+esc(d.category||'Other')+(d.featured?' · ✦ Pick':'')+'</small>'+
  '<a class="deal-name" target="_blank" rel="noopener" href="'+href+'" title="'+name+'">'+name+'</a>'+
  '<div class="deal-pricing"><span class="price">'+(Number.isFinite(d.price)||d.announced?money(d.price):'See source for price')+'</span><small class="price-retailer">'+esc(d.store&&d.store!=='See source'?d.store:'Retailer unlisted')+'</small><span class="live-date" title="'+esc(status(d))+'">'+esc(status(d))+'</span></div><small class="deal-typical">'+esc(typical)+(Number.isFinite(d.price)&&d.reference>d.price?' · Save '+money(d.reference-d.price):'')+'</small>'+
