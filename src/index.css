@@ -2926,6 +2926,13 @@ body {
 }
 
 
+/* Mobile featured-deals heading: keep the destination prominent without squeezing the description. */
+@media(max-width:650px){
+ .candy-home-holiday-heading{flex-direction:column;align-items:stretch;gap:9px;padding:12px}
+ .candy-home-holiday-copy{flex:0 1 auto;width:100%;min-width:0}
+ .candy-home-holiday-link{align-self:stretch;width:100%;min-height:40px;white-space:normal;text-align:center;font-size:12px}
+}
+
 /* Standalone Amazon Deal Hunter: the entire compact card is one accessible link.
    No third-column button that can collapse into vertical text on mobile. */
 .candy-home-amazon{
