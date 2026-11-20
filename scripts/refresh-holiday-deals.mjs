@@ -74,10 +74,15 @@ function imageFromItem(xml,title){
   const raw=tag.match(/\b(?:url|src)=["']([^"']+)["']/i)?.[1];
   if(!raw)continue;
   const label=tag.match(/\b(?:alt|title)=["']([^"']+)["']/i)?.[1]||(/media:/.test(hit[1])?mediaTitle:'');
-  if(!matchesProduct(label))continue;
   try{
    const url=new URL(raw.replace(/&amp;/g,'&'));
-   if(url.protocol!=='https:'||/\.(?:svg|gif)(?:$|\?)/i.test(url.pathname)||/(?:logo|banner|pixel|tracker|tracking|advert)/i.test(url.pathname))continue;
+   if(url.protocol!=='https:'||/\.(?:svg|gif)$/i.test(url.pathname)||/(?:logo|banner|pixel|tracker|tracking|advert)/i.test(url.pathname))continue;
+   // Untitled RSS images qualify only if their filename contains an exact
+   // product-model token present in the headline; never use a generic banner.
+   const filename=(()=>{try{return decodeURIComponent(url.pathname)}catch{return url.pathname}})();
+   const pathWords=new Set(words(filename));
+   const modelInFilename=modelTokens.some(model=>pathWords.has(model));
+   if(!matchesProduct(label)&&!modelInFilename)continue;
    return url.href;
   }catch{/* malformed publisher image URL */}
  }
