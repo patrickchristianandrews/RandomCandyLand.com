@@ -472,7 +472,7 @@ function hotPicks(){
 }
 function filtered(){
  const q=$('query').value.trim().toLowerCase().split(/\s+/).filter(Boolean),cat=$('category').value,store=$('store').value,b=$('budget').value;
- let a=deals.filter(d=>!RCLDealCategory.isKnownEnded(d)&&q.every(w=>(d.name+' '+d.category+' '+d.store+' '+(d.spec||'')).toLowerCase().includes(w))&&(!cat||cat===d.category)&&(!store||store===d.store)&&(b===''||(Number.isFinite(d.price)&&d.price<=Number(b))));
+ let a=deals.filter(d=>!RCLDealCategory.isKnownEnded(d)&&q.every(w=>(d.name+' '+d.category+' '+d.store+' '+(d.spec||'')).toLowerCase().includes(w))&&(!cat||cat===d.category||(cat==='Computers'&&d.category==='Laptops'))&&(!store||store===d.store)&&(b===''||(Number.isFinite(d.price)&&d.price<=Number(b))));
  if(mode==='saved')a=a.filter(d=>saved.includes(d.id));
  if(mode==='upcoming')a=a.filter(d=>{const start=window.__rclUpcomingNextStart?.(d)||startTime(d);return start&&start.date.getTime()>Date.now();});
  if(mode==='featured')a=a.filter(d=>d.featured);
@@ -520,14 +520,14 @@ function render(){
  catalogResults=a;
  const visible=a.slice(0,shown);
  const filteredView=mode!=='all'||['query','category','store','budget'].some(id=>$(id).value.trim());
- $('catalog-heading').textContent=filteredView?'Filtered deals':'All Deals';
+ $('catalog-heading').textContent=filteredView?($('category').value||'Filtered deals'):'All Deals';
  $('catalog-list').innerHTML=a.length?'<div class="deal-rows">'+visible.map(card).join('')+'</div>':'<p class="empty">No matching deals. <a href="/black-friday/all/#catalog">Browse all deals</a></p>';
  updateCatalogCount();
  document.querySelectorAll('[data-feed]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.feed===mode)));
  renderGifts();
 }
 function rebuildOptions(){
- for(const key of ['category','store']){const select=$(key),value=select.value;select.innerHTML='<option value="">All</option>'+[...new Set(deals.map(d=>d[key]))].sort().map(x=>'<option>'+esc(x)+'</option>').join('');if([...select.options].some(x=>x.value===value))select.value=value;}
+ for(const key of ['category','store']){const select=$(key),value=select.value;select.innerHTML='<option value="">All</option>'+[...new Set(deals.map(d=>d[key]).concat(key==='category'&&deals.some(d=>d.category==='Laptops')?['Computers']:[]))].sort().map(x=>'<option>'+esc(x)+'</option>').join('');if([...select.options].some(x=>x.value===value))select.value=value;}
 }
 const uniqueGiftReasons={
  'bambu-a1-mini-standalone':'A compact 3D printer for inventing miniature objects, customized keepsakes and tiny mechanical parts. Requires filament and setup.',
