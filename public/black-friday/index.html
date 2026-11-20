@@ -638,12 +638,14 @@ if(document.documentElement.dataset.embed){
  window.addEventListener('load',reportEmbeddedHeight);
  if(document.fonts?.ready)document.fonts.ready.then(reportEmbeddedHeight);
 }
-// Both homepage previews and full-page hot deal cards open their own deal source.
+// Homepage previews open the 24-deal page; full-page cards open their deal source.
 // Preserve native links and leave hearts, share and details independently usable.
 {
   const hotGrid=$('hot-list');
+  if(document.documentElement.dataset.embed)hotGrid.addEventListener('click',event=>{const link=event.target.closest('a');if(link&&event.target.closest('.hot-card')){event.preventDefault();window.top.location.href='/black-friday/#hot-deals';}},true);
   function openCard(card){
     const deal=items.find(item=>item.id===card?.dataset.dealId);
+    if(document.documentElement.dataset.embed){window.top.location.href='/black-friday/#hot-deals';return;}
     if(deal&&/^https:\/\//.test(deal.source||''))window.open(deal.source,'_blank','noopener');
   }
   hotGrid.addEventListener('click',event=>{
