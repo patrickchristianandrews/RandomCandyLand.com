@@ -221,15 +221,32 @@ html[data-embed] .hot-card .deal-share{background:#fff7eb;color:#75465b;border-c
 #catalog .deal-row details{color:#352441}.category-deal-heading{margin:24px 0 12px}
 @media(min-width:1300px){#hot-list,.deal-rows{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
 @media(max-width:600px){#hot-list,.deal-rows{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.hot-card,#catalog .deal-row{padding:11px!important}.hot-art,.market-product-art{height:135px!important}.hot-title,#catalog .deal-name{font-size:14px!important}.hot-price,#catalog .deal-row .price{font-size:24px!important}.hot-actions-row{flex-wrap:wrap}}
+
+#hot-list,.deal-rows{gap:8px!important;align-items:start}
+.hot-card,#catalog .deal-row{padding:9px!important;gap:4px;min-height:0;border-radius:8px!important;box-shadow:none!important;overflow:visible}
+.hot-art,.market-product-art{height:84px!important;margin:0 0 3px!important}
+.hot-art-fallback{font-size:32px!important}
+.hot-title,#catalog .deal-name{min-height:0;font-size:14px!important;line-height:1.25!important}
+.hot-price,#catalog .deal-row .price{font-size:20px!important}
+#catalog .deal-pricing,#catalog .deal-foot{margin:0;padding:0}
+.hot-actions-row{flex-wrap:wrap}
+.hot-details[open]{order:3;flex-basis:100%;width:100%}
+.hot-card .hot-detail-panel{position:static;max-height:none;overflow:visible;padding:6px;box-shadow:none}
+.hot-detail-panel :is(p,strong,small,span,b,h4){color:#34253b}
+.hot-detail-panel a{color:#643582}
+.hot-detail-panel ul{padding-left:15px}
+.hot-detail-panel .comparison-specs span,.hot-detail-panel .comparison-heading b{display:block}
+.hot-reference{display:block}
+.quick-nav a[aria-current]{font-weight:800;text-decoration:underline}
+html[data-embed] .quick-nav{display:none!important}
+@media(max-width:600px){.hot-art,.market-product-art{height:68px!important}.hot-view{padding:5px 8px!important}}
 </style></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
 <header><a href="/"><img src="/icon.svg" alt="">Random Candy Land</a></header>
 
-<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Recent, already-started offers. Publisher-popular and editor-selected deals are prioritized, then fresh reported deals.</p></div><div class="scout-actions"><button type="button" id="show-saved-hot" class="hot-saved-toggle" aria-pressed="false">♡ Saved (0)</button><button type="button" id="watch-scouts" aria-label="Watch Tidbit and Sugarfoot meet">🐾 Watch the scouts</button><a href="/black-friday/all/?view=popular&amp;sort=popular">All popular deals ↗</a></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
+<section class="hot-section" id="hot-deals" aria-labelledby="live-hot-title"><nav class="quick-nav" aria-label="Holiday shopping"><a href="#hot-deals" aria-current="page">Hot Deals</a><a href="/black-friday/all/#catalog">All Deals</a><a href="/black-friday/ad-scans/">Ad Scans</a><a href="/black-friday/all/#gifts">Gift Finder</a><a href="/black-friday/all/?view=upcoming#catalog">Upcoming</a></nav><div class="section-head"><div><h2 id="live-hot-title">🔥 The 24 Hot Deal Picks · 2026</h2><p>Select a product to shop at the retailer. Open Prices &amp; details to compare.</p></div><div class="scout-actions"><button type="button" id="show-saved-hot" class="hot-saved-toggle" aria-pressed="false">♡ Saved (0)</button><button type="button" id="watch-scouts" aria-label="Watch Tidbit and Sugarfoot meet">🐾 Watch the scouts</button></div></div><div class="hot-grid" id="hot-list"><p>Loading the latest reported deals…</p></div></section>
 <a id="all-deals-jump" class="black-friday-sticker all-deals-jump" href="/black-friday/all/#catalog">All 2026 Deals <span aria-hidden="true">↗</span></a>
-<nav class="quick-nav" aria-label="2026 holiday deal sections">
-<a href="#hot-deals">🔥 Popular deals</a><a href="/black-friday/ad-scans/">📰 Ad scans</a><a href="/black-friday/all/">▦ All categories</a><a href="/black-friday/all/?view=upcoming">◷ Upcoming</a>
-</nav>
+
 
 
 
@@ -268,8 +285,27 @@ function isReportedLive(d){
   return !RCLDealCategory.isKnownEnded(d);
 }
 function rank(d){return d.popular?3:d.sourceType==='DealNews editors'?2:d.featured?1:0;}
+function productLink(d){
+ try{
+  const u=new URL(d.source);
+  if(u.protocol!=='https:')return false;
+  const routes={
+   'bestbuy.com':/^\/(?:product|site)\/.+\/[\w-]+(?:\.p)?\/?$/i,
+   'walmart.com':/^\/ip\/(?:[^/]+\/)?\d+\/?$/i,
+   'target.com':/^\/p\/(?:[^/]+\/)?-\/A-\d+\/?$/i,
+   'homedepot.com':/^\/p\/(?:[^/]+\/)?\d+\/?$/i,
+   'abt.com':/\/p\/\d+\.html$/i,
+   'staples.com':/\/product_\d+\/?$/i,
+   'epson.com':/\/p\/[\w-]+\/?$/i,
+   'jbl.com':/^\/[\w-]*\d[\w-]*\.html$/i,
+   'hexclad.com':/\/products\/[^/]+\/?$/i,
+   'amazon.com':/\/(?:dp|gp\/product)\/[A-Z0-9]{10}(?:\/|$)/i
+  };
+  return routes[u.hostname.replace(/^www\./,'')]?.test(u.pathname)===true;
+ }catch{return false;}
+}
 function picks(){
- const eligible=savedOnlyHot&&!document.documentElement.dataset.embed?items.filter(d=>saved.includes(d.id)&&/^https:\/\//.test(d.source||'')):items.filter(isReportedLive);
+ const eligible=savedOnlyHot&&!document.documentElement.dataset.embed?items.filter(d=>saved.includes(d.id)&&/^https:\/\//.test(d.source||'')):items.filter(d=>isReportedLive(d)&&productLink(d)&&!(/previously recorded .*sale is no longer displayed/i.test(d.why||''))&&!(Number.isFinite(d.reference)&&d.price>=d.reference));
  eligible.sort((a,b)=>rank(b)-rank(a)||(b.reportedBy?.length||0)-(a.reportedBy?.length||0)||(b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
  return eligible.slice(0,document.documentElement.dataset.embed?4:24);
 }
@@ -286,6 +322,167 @@ function hotEmoji(d){
  if(/phone|galaxy|pixel|iphone/i.test(t))return '📱';
  return '🎁';
 }
+function history(d){
+ const a=(Array.isArray(d.history)?d.history:[]).filter(h=>h&&h.date&&Number.isFinite(Number(h.price))&&Number(h.price)>0&&Number.isFinite(Date.parse(h.date))).map(h=>({date:h.date,price:Number(h.price)})).sort((x,y)=>x.date.localeCompare(y.date));
+ const samples=[...new Map(a.map(x=>[x.date,x])).values()].filter(x=>Date.now()-Date.parse(x.date+'T12:00:00Z')<366*86400000);
+ const span=samples.length?(Date.parse(samples[samples.length-1].date)-Date.parse(samples[0].date))/86400000:0;
+ const avg=samples.length?samples.reduce((sum,s)=>sum+s.price,0)/samples.length:null;
+ const annual=samples.length>=24&&span>=300;
+ const eligible=samples.length>=4&&span>=14&&Number.isFinite(d.price);
+ let score=null;
+ if(eligible){
+  const relative=samples.filter(s=>s.price>=d.price).length/samples.length,delta=avg>0?Math.max(-0.5,Math.min(.6,(avg-d.price)/avg)):0;
+  score=Math.max(1,Math.min(100,Math.round(45+30*relative+40*delta)));
+ }
+ return {avg,annual,score,count:samples.length,span:Math.round(span)};
+}
+function productFamily(d){
+ const s=(d.name+' '+(d.spec||'')).toLowerCase();
+ for(const [name,re] of [
+ ['laptop',/laptop|chromebook|macbook|omnibook|galaxy book/],['headphones',/earbuds?|airpods|headphones?|headset/],
+ ['tv',/\btv\b|television|qled|oled tv/],['coffee',/coffee|nespresso|espresso/],
+ ['air fryer',/air fryer|crispi/],['lego',/lego/],['camera',/camera|doorbell|ring starter/],
+ ['hair styling',/hair styler|flexstyle|hair dryer/],['power tools',/drill|impact wrench|power tool/],
+ ['tablet',/tablet|ipad/],['console',/playstation|switch|xbox/],['speaker',/speaker|soundbar/],
+ ['home textiles',/towel|blanket|sheet/]])if(re.test(s))return name;
+ return (d.category||'More deals').toLowerCase();
+}
+function specFacts(d){
+ // Extract only facts actually present in a product name/specification.
+ const title=String(d.name||''),spec=String(d.spec||''),t=title+' · '+spec;
+ const ram=t.match(/\b(\d{1,3})\s*GB\s*(?:RAM|memory)\b/i);
+ const storage=t.match(/\b(\d+(?:\.\d+)?)\s*(TB|GB)\s*(?:SSD|eMMC|storage)\b/i);
+ const screen=t.match(/\b(\d+(?:\.\d+)?)\s*[- ]?\s*(?:inch|inches|["″])\b/i)||t.match(/\b(\d+(?:\.\d+)?)\s*[- ]?inch\b/i);
+ const capacity=t.match(/\b(\d+(?:\.\d+)?)\s*[- ]?\s*(quarts?|qt|liters?|litres?|fl\.?\s*oz|ounces?)\b/i);
+ const count=t.match(/\b(\d{1,3})\s*[- ]?\s*(?:piece|pieces|pc|pack|count|ct)\b/i);
+ const model=spec.match(/^(?:model\s*[:#]?\s*|sku\s*[:#]?\s*|set\s*)(\d{4,}|[a-z]{1,6}\d[a-z\d-]{2,})\b/i)||spec.match(/^(\d{1,3}-[a-z]+\d{3,}[a-z]*|[a-z]{1,6}\d[a-z\d-]{2,}|\d{5,})\b/i);
+ const processor=t.match(/\b(Snapdragon X(?:\s+(?:Elite|Plus))?|Intel Core(?:\s+Ultra)?\s*[3579](?:\s*[- ]?\d{3,5}[A-Z]*)?|AMD Ryzen\s*[3579](?:\s*[- ]?\d{3,5}[A-Z]*)?|Apple M[1-9](?:\s+(?:Pro|Max|Ultra))?)\b/i);
+ const panel=t.match(/\b(OLED|QLED|Mini[- ]LED|LCD)\b/i);
+ const resolution=t.match(/\b(8K|4K|2K|1080p|1440p)\b/i);
+ const condition=t.match(/\b(open[- ]box|refurbished|renewed|pre-owned|used|new in box)\b/i);
+ const generation=t.match(/\b(?:Pro|Series|Gen(?:eration)?)\s*(\d{1,2})\b/i);
+ const normalize=(x)=>x?String(x).replace(/\s+/g,' ').trim():null;
+ return {
+  model:normalize(model?.[1]),ram:ram?ram[1]+' GB':null,
+  storage:storage?(Number(storage[1])*(storage[2].toUpperCase()==='TB'?1024:1))+' GB':null,
+  screen:screen?screen[1]+' inches':null,
+  capacity:capacity?capacity[1]+' '+normalize(capacity[2]).toLowerCase():null,
+  count:count?count[1]+' pieces/items':null,
+  processor:normalize(processor?.[1]),panel:normalize(panel?.[1]),
+  resolution:normalize(resolution?.[1]),condition:normalize(condition?.[1]),
+  generation:normalize(generation?.[1])
+ };
+}
+function productBrand(d){
+ const n=String(d.name||'');
+ const brands=['Apple','Samsung','HP','Lenovo','Dell','Acer','ASUS','LG','Sony','Bose','Shark','Ninja','Nespresso','LEGO','VIZIO','Dyson','TCL','Hisense','JBL','Anker','Ring','Beats','Nintendo','Microsoft','Roku','Walmart','Target','KitchenAid'];
+ return brands.find(b=>n.toLowerCase().startsWith(b.toLowerCase()+' ')||n.toLowerCase()===b.toLowerCase())||null;
+}
+function comparisonDifferences(base,other){
+ const a=specFacts(base),b=specFacts(other);
+ const fields=[['Model / set number','model'],['Memory','ram'],['Storage','storage'],['Screen size','screen'],['Display panel','panel'],['Resolution','resolution'],['Processor','processor'],['Capacity','capacity'],['Pack / piece count','count'],['Condition','condition'],['Generation','generation']];
+ const differences=[];
+ for(const [label,key] of fields){
+  if(a[key]&&b[key]&&String(a[key]).toLowerCase()!==String(b[key]).toLowerCase())differences.push({label,base:a[key],other:b[key]});
+ }
+ const unknown=fields.filter(([,key])=>(a[key]&&!b[key])||(!a[key]&&b[key])).map(([label])=>label);
+ return {differences:differences.slice(0,6),unknown:unknown.slice(0,4)};
+}
+function comparisonSimilarity(base,other){
+ const brandA=productBrand(base),brandB=productBrand(other);
+ const words=s=>new Set(String(s||'').toLowerCase().match(/[a-z]{4,}/g)?.filter(w=>!['with','black','sale','deal','holiday','2026','wireless','smart','inch','edition'].includes(w))||[]);
+ const a=words(base.name),b=words(other.name);
+ let overlap=0;for(const word of a)if(b.has(word))overlap++;
+ return (brandA&&brandA===brandB?50:0)+overlap*12+comparisonDifferences(base,other).differences.length*2-
+   Math.min(15,Math.abs(base.price-other.price)/Math.max(base.price,1)*5);
+}
+function alternatives(d){
+ if(!Number.isFinite(d.price))return '<p>Comparable pricing is unavailable for this item.</p>';
+ const family=productFamily(d);
+ // Only compare clearly identified product families; a generic catalog category is not a product match.
+ const known=['laptop','headphones','tv','coffee','air fryer','lego','camera','hair styling','power tools','tablet','console','speaker','home textiles'];
+ const same=known.includes(family)?items.filter(x=>x.id!==d.id&&Number.isFinite(x.price)&&x.price>0&&
+  productFamily(x)===family&&x.category===d.category&&/^https:\/\//.test(x.source||'')):[];
+ const pick=kind=>same.filter(x=>kind==='low'?x.price<d.price:x.price>d.price).sort((a,b)=>
+  comparisonSimilarity(d,b)-comparisonSimilarity(d,a)||
+  Math.abs(a.price-d.price)-Math.abs(b.price-d.price))[0];
+ const low=pick('low'),high=pick('high');
+ const show=(x,kind)=>{
+  if(!x)return '<p class="catalog-note">No '+(kind==='low'?'lower':'higher')+'-priced '+esc(family)+' alternative with a reported price is currently tracked.</p>';
+  const facts=comparisonDifferences(d,x);
+  const pairs=facts.differences.length?'<div class="comparison-differences"><strong>Documented differences</strong><ul>'+
+   facts.differences.map(f=>'<li><b>'+esc(f.label)+':</b> deal '+esc(f.base)+' · alternative '+esc(f.other)+'</li>').join('')+'</ul></div>':
+   '<p class="comparison-warning">Specific feature differences cannot be confirmed from these two listings. A different price does not establish better or worse performance.</p>';
+  return '<div class="comparison-item"><div class="comparison-heading"><strong>'+(kind==='low'?'↓ Lower-priced alternative':'↑ Higher-priced alternative')+'</strong><b>'+money(x.price)+'</b></div>'+
+    '<a href="'+esc(x.source)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a> <small>· '+esc(x.store||'Source')+'</small>'+
+    '<p class="comparison-savings">'+money(Math.abs(d.price-x.price))+(kind==='low'?' less':' more')+' than the '+money(d.price)+' deal. Reported '+esc(x.checked||x.publishedAt||'date unavailable')+'.</p>'+
+    '<div class="comparison-specs"><div><b>This deal · '+esc(d.name)+'</b><span>'+esc(d.spec||'Specifications not provided')+'</span></div>'+
+    '<div><b>Alternative · '+esc(x.name)+'</b><span>'+esc(x.spec||'Specifications not provided')+'</span></div></div>'+
+    pairs+(facts.unknown.length?'<p class="comparison-unknown">Not comparable from available listings: '+esc(facts.unknown.join(', '))+'. Missing details are not proof of missing features.</p>':'')+
+    '<p class="comparison-foot">Compare model numbers, condition, accessories, shipping and seller terms before choosing; offers are not confirmed live.</p></div>';
+ };
+ return '<div class="comparison-list"><h4>Compare lower and higher prices</h4>'+
+  '<p class="catalog-note">These are related products, not guaranteed identical models. Only source-listed specifications are treated as confirmed differences.</p>'+
+  show(low,'low')+show(high,'high')+'</div>';
+}
+
+/* Item-specific retailer price rows. Only source-reported, dated observations
+ * are assigned a number. Other retailers open a search for the exact item;
+ * a search link is never presented as a verified price quote. */
+const retailStores=[
+ {name:'Amazon',domain:'amazon.com',search:q=>'https://www.amazon.com/s?k='+q},
+ {name:'Walmart',domain:'walmart.com',search:q=>'https://www.walmart.com/search?q='+q},
+ {name:'Target',domain:'target.com',search:q=>'https://www.target.com/s?searchTerm='+q},
+ {name:'Best Buy',domain:'bestbuy.com',search:q=>'https://www.bestbuy.com/site/searchpage.jsp?st='+q},
+ {name:'Home Depot',domain:'homedepot.com',search:q=>'https://www.homedepot.com/s/'+q},
+ {name:'Costco',domain:'costco.com',search:q=>'https://www.costco.com/CatalogSearch?keyword='+q},
+ {name:"Sam's Club",domain:'samsclub.com',search:q=>'https://www.samsclub.com/s/'+q},
+ {name:"Kohl's",domain:'kohls.com',search:q=>'https://www.kohls.com/search.jsp?search='+q}
+];
+function canonicalRetailer(s){
+ const n=String(s||'').trim().toLowerCase().replace(/[’']/g,"'");
+ const item=retailStores.find(x=>x.name.toLowerCase().replace(/[’']/g,"'")===n);
+ return item?.name||null;
+}
+function matchingRetailerDomain(url,domain){
+ try{const h=new URL(url).hostname.toLowerCase();return h===domain||h.endsWith('.'+domain);}catch{return false;}
+}
+function exactModelSearch(d){
+ // Use a recognizable model code to distinguish variants if one was supplied.
+ const spec=String(d.spec||'');
+ const code=spec.match(/\b(?:[A-Z]{2,}\d[A-Z0-9]{2,}|\d{5,}[A-Z]?|[A-Z]{1,4}\d{3,}[A-Z0-9]+)\b/i);
+ return encodeURIComponent((d.name+' '+(code?.[0]||'')).trim());
+}
+
+function priceObservations(d){
+ const verified=[];
+ for(const offer of Array.isArray(d.offers)?d.offers:[]){
+  if(!offer||offer.availability!=='in_stock'||offer.exactModelVerified!==true||!Number.isFinite(offer.price)||offer.price<=0)continue;
+  const merchant=canonicalRetailer(offer.store);
+  const store=retailStores.find(x=>x.name===merchant);
+  const checked=Date.parse(String(offer.checked||'').slice(0,10)+'T12:00:00Z');
+  if(!store||!matchingRetailerDomain(offer.url,store.domain)||!Number.isFinite(checked)||Date.now()-checked>48*3600000||Date.now()<checked)continue;
+  verified.push({...offer,store:merchant});
+ }
+ const latestByStore=new Map();
+ for(const q of verified){if(!latestByStore.has(q.store)||String(latestByStore.get(q.store).checked)<String(q.checked))latestByStore.set(q.store,q);}
+ return [...latestByStore.values()].sort((x,y)=>x.price-y.price);
+}
+function retailerPrices(d){
+ const quotes=priceObservations(d),itemPrice=Number.isFinite(d.price)?money(d.price):'Price TBA';
+ const source=d.source?'<a href="'+esc(d.source)+'" target="_blank" rel="noopener">Source ↗</a>':'';
+ const reported='<div class="offer-source-line"><span>Reported offer</span><strong>'+itemPrice+'</strong>'+source+'</div>';
+ const available=quotes.map(q=>'<a class="merchant-offer" href="'+esc(q.url)+'" target="_blank" rel="noopener">'+esc(q.store)+' <strong>'+money(q.price)+'</strong> <small>In stock · checked '+esc(String(q.checked).slice(0,10))+'</small> ↗</a>').join('');
+ return '<div class="merchant-prices"><div class="merchant-prices-title">Retailer prices <small>Verified in stock, exact model</small></div>'+reported+
+ (available?'<div class="merchant-grid">'+available+'</div>':'<p class="catalog-note">No additional verified in-stock retailer prices yet.</p>')+'</div>';
+}
+function reportsFor(d){
+ const reports=Array.isArray(d.reportedBy)?d.reportedBy:[];
+ if(reports.length<=1)return '';
+ const unique=[...new Map(reports.filter(x=>x&&x.publisher&&/^https:\/\//.test(x.url||'')).map(x=>[x.publisher,x])).values()];
+ if(unique.length<=1)return '';
+ return '<p class="deal-details-one">Also reported by: '+unique.slice(0,5).map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.publisher)+'</a>').join(' · ')+'</p>';
+}
 function hotCard(d){
  const reportedAt=Date.parse(String(d.lastSeenAt||d.publishedAt||d.checked||'').slice(0,10)+'T12:00:00Z');
   const older=d.feedStatus==='not_recently_reported'||!Number.isFinite(reportedAt)||Date.now()-reportedAt>72*3600000;
@@ -296,17 +493,19 @@ function hotCard(d){
  const art='<div class="hot-art"><span class="hot-art-fallback" aria-hidden="true">'+hotEmoji(d)+'</span>'+(imageUrl?'<img src="'+esc(imageUrl)+'" alt="Product image supplied by linked deal publisher" loading="lazy" referrerpolicy="no-referrer">':'')+'</div>';
  const hint=spec||why||'Check the source for exact model, included items and condition.';
  const date=String(d.checked||d.publishedAt||'').slice(0,10),savedNow=saved.includes(d.id);
- const ref=Number.isFinite(d.price)&&Number.isFinite(d.reference)&&d.reference>d.price?'<small class="hot-reference">Retailer ref. '+money(d.reference)+'</small>':'';
+ const ref=Number.isFinite(d.price)&&Number.isFinite(d.reference)&&d.reference>d.price?'<small class="hot-reference">Retailer ref. '+money(d.reference)+' · Save '+money(d.reference-d.price)+'</small>':'';
+ const h=history(d);
+ const comparison=document.documentElement.dataset.embed?'':retailerPrices(d)+reportsFor(d)+'<p>'+esc(h.count?'Price history: '+h.count+' dated observations · average '+money(h.avg):'Price history unavailable')+'</p>'+alternatives(d);
  const details='<div class="hot-detail-panel"><strong>'+name+'</strong><p>Retailer: '+esc(d.store||'See source')+' · Category: '+esc(d.category||'Other')+'</p>'+
- (spec?'<p>'+esc(spec)+'</p>':'')+(why?'<p>'+esc(why)+'</p>':'')+
+ comparison+(spec?'<p>'+esc(spec)+'</p>':'')+(why?'<p>'+esc(why)+'</p>':'')+
  '<p>'+esc(d.catch||'Model, accessories, conditions, current stock and checkout total should be confirmed at the source.')+'</p>'+
  '<p>Publisher: '+esc(d.sourceType||'Deal source')+' · Reported: '+esc(date||'date unavailable')+'</p><a href="'+url+'" target="_blank" rel="noopener">Open complete source report ↗</a></div>';
  return '<article class="hot-card" tabindex="0" role="link" aria-label="Open deal for '+name+'" data-deal-id="'+esc(d.id)+'"><div class="hot-heading"><small class="hot-type">'+esc(tag)+'</small>'+
  '<button type="button" class="save hot-heart" data-save="'+esc(d.id)+'" aria-label="'+(savedNow?'Remove saved deal: ':'Save deal: ')+name+'" aria-pressed="'+savedNow+'" title="'+(savedNow?'Remove from saved':'Save this deal')+'">'+(savedNow?'♥':'♡')+'<span class="hot-save-label">'+(savedNow?' Saved':' Save')+'</span></button></div>'+
- art+'<a class="hot-title" title="'+name+'" target="_blank" rel="noopener" href="'+url+'">'+name+'</a>'+
+ art+'<a class="hot-title" title="'+name+'" target="_top" rel="noopener" href="'+url+'">'+name+'</a>'+
  '<div class="hot-identify" title="'+esc(hint)+'">'+esc(hint)+'</div><small class="hot-store">'+esc(d.store||'See source')+' · '+esc(d.category||'Other')+'</small>'+
  '<div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+'</div>'+ref+'</div><small class="hot-when">'+(older?'Last reported ':'Reported ')+esc(date||'recently')+'</small></div>'+
- '<div class="hot-actions-row"><details class="hot-details"><summary>Full details</summary>'+details+'</details><a class="hot-view" href="'+url+'" target="_blank" rel="noopener" aria-label="View deal for '+name+'">View deal ↗</a>'+
+ '<div class="hot-actions-row"><details class="hot-details"><summary>Prices &amp; details</summary>'+details+'</details><a class="hot-view" href="'+url+'" target="_top" rel="noopener" aria-label="View deal for '+name+'">View deal ↗</a>'+
  '<button type="button" class="deal-share" data-share="'+esc(d.id)+'" aria-label="Share '+name+'">↗ Share</button></div></article>';
 }
 function render(){
@@ -646,7 +845,7 @@ if(document.documentElement.dataset.embed){
   function openCard(card){
     const deal=items.find(item=>item.id===card?.dataset.dealId);
     if(document.documentElement.dataset.embed){window.top.location.href='/black-friday/#hot-deals';return;}
-    if(deal&&/^https:\/\//.test(deal.source||''))window.open(deal.source,'_blank','noopener');
+    if(deal&&/^https:\/\//.test(deal.source||''))window.location.assign(deal.source);
   }
   hotGrid.addEventListener('click',event=>{
     const card=event.target.closest('.hot-card');
