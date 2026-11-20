@@ -279,6 +279,85 @@ html[data-embed] #hot-list .hot-art-fallback{font-size:.62rem!important;padding:
  html:not([data-embed]) #hot-list{grid-template-columns:1fr!important}
  html:not([data-embed]) #hot-list .hot-art{height:150px!important}
 }
+</style>
+<style id="rcl-featured-mobile-overflow-fix">
+/* Homepage iframe only: never let two-column deal details overlap adjacent cards. */
+html[data-embed] .rcl-share-strip,
+html[data-embed] #rcl-share-page { display:none!important; }
+html[data-embed] #hot-list>.hot-card {
+  min-width:0;
+  overflow:hidden;
+}
+html[data-embed] #hot-list .hot-bottom {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:3px;
+  width:100%;
+  min-width:0;
+}
+html[data-embed] #hot-list .hot-pricing { width:100%;min-width:0; }
+html[data-embed] #hot-list .hot-price {
+  max-width:100%;
+  font-size:clamp(1.12rem,5.4vw,1.35rem)!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere;
+}
+html[data-embed] #hot-list .hot-retailer {
+  display:block;
+  color:#57405c!important;
+  font-size:.68rem!important;
+  line-height:1.3;
+  font-weight:750;
+  overflow-wrap:anywhere;
+}
+html[data-embed] #hot-list .hot-when {
+  display:block;
+  width:100%;
+  max-width:100%;
+  white-space:normal!important;
+  overflow-wrap:anywhere;
+  line-height:1.3!important;
+  font-size:.66rem!important;
+}
+html[data-embed] #hot-list .hot-actions-row {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:4px;
+  width:100%;
+  min-width:0;
+  margin-top:auto;
+  padding-top:5px;
+}
+html[data-embed] #hot-list .hot-view {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+  width:100%;
+  min-height:31px;
+  padding:5px 6px!important;
+  font-size:.68rem!important;
+  line-height:1.2;
+  white-space:nowrap;
+}
+html[data-embed] #hot-list .deal-share {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:31px!important;
+  padding:5px!important;
+  font-size:.66rem!important;
+  line-height:1.2;
+  white-space:nowrap;
+}
+@media(max-width:420px) {
+  html[data-embed] #hot-list { gap:7px!important; }
+  html[data-embed] #hot-list>.hot-card { padding:8px!important; gap:5px; }
+  html[data-embed] #hot-list .hot-title { font-size:.79rem!important; }
+}
 </style></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
 <header><a href="/"><img src="/icon.svg" alt="">Random Candy Land</a></header>
