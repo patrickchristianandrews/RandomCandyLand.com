@@ -202,15 +202,15 @@ html[data-embed] .quick-nav{display:none!important}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe><p>Enable JavaScript to search the catalog. <a href="https://hip2save.com/sales-deals/black-friday/">Browse deal reports</a> or <a href="https://blackfriday.ltd/ads/">open ad scans</a>.</p></noscript>
 <main><header><a href="/"><img src="/icon.svg" width="40" height="40" alt="" style="vertical-align:middle"> Random Candy Land</a></header>
 <div class="hero"><h1>Holiday Deal Catalog</h1></div>
-<nav class="nav" aria-label="Holiday savings sections"><a href="/black-friday/">Hot Deals</a><a href="#catalog">All Deals</a><a href="?view=popular&amp;sort=popular#catalog">Popular</a><a href="?view=upcoming#catalog">Upcoming</a><a href="#gifts">Gift ideas</a><a href="/black-friday/ad-scans/">Ad Scans</a><a href="#cyber">Sale dates</a><a href="#cashback">Cashback</a><a href="/bonuses/">Bonuses &amp; savings APYs</a></nav>
+<nav class="nav" aria-label="Holiday savings sections"><a href="/black-friday/">Hot Deals</a><a href="/black-friday/all/#catalog" id="browse-all-deals">All Deals</a><a href="?view=popular&amp;sort=popular#catalog">Popular</a><a href="?view=upcoming#catalog">Upcoming</a><a href="#gifts">Gift ideas</a><a href="/black-friday/ad-scans/">Ad Scans</a><a href="#cyber">Sale dates</a><a href="#cashback">Cashback</a><a href="/bonuses/">Bonuses &amp; savings APYs</a></nav>
 
 <section id="catalog">
-<div class="feed-heading"><div><h2>Browse deals</h2></div><a href="#ads">View ad scans</a></div>
+<div class="feed-heading"><div><h2 id="catalog-heading">All Deals</h2></div><a href="/black-friday/ad-scans/">View ad scans</a></div>
 <label class="feed-search"><span class="sr-only">Search products or retailers</span><input id="query" type="search" placeholder="Search products, brands, categories or stores…" autocomplete="off"></label>
 <div class="feed-tabs" aria-label="Deal views"><button data-feed="all" aria-pressed="true">All</button><button data-feed="featured" aria-pressed="false">✦ Picks</button><button data-feed="popular" aria-pressed="false">🔥 Popular</button><button data-feed="new" aria-pressed="false">New</button><button data-feed="saved" aria-pressed="false">♥ Saved</button><button data-feed="upcoming" aria-pressed="false">◷ Upcoming</button><button data-feed="black" aria-pressed="false">Black Friday</button><button data-feed="cyber" aria-pressed="false">Cyber Monday</button></div>
-<div id="category-chips" class="category-chips" aria-label="Category shortcuts"></div>
-<div class="feed-layout"><details class="feed-filters" id="feed-filters"><summary>Additional filters <span>Category · store · maximum price</span></summary><div class="filter-fields"><label>Category<select id="category"><option value="">All</option></select></label><label>Retailer<select id="store"><option value="">All</option></select></label><label>Price limit ($)<input id="budget" type="number" min="0" placeholder="Any"></label><button id="reset" type="button">Clear filters</button></div></details>
-<div class="feed-main"><div class="feed-toolbar"><p id="count" role="status">Loading deals…</p><label><span class="sr-only">Sort deals</span><select id="sort"><option value="featured">Top picks</option><option value="popular">Popularity signals</option><option value="new">Newest</option><option value="price">Lowest price</option><option value="sweet">Sweet Score</option></select></label></div><p id="feed-status" class="catalog-note">Checking published deal reports…</p><div id="catalog-list"></div><details id="source-health" class="source-health"><summary id="source-summary">Source health · checking…</summary><div id="source-results" class="source-results"></div></details><div class="catalog-more"><button id="show-more" type="button" hidden>Show more deals</button><a class="embedded-full" href="/black-friday/all/" target="_top">Open full catalog ↗</a></div><p class="catalog-note">LIVE means a deal was recently reported, not that inventory is guaranteed. A historical average and Sweet Score appear only with enough recorded price history. Retailer reference prices are not historical averages.</p></div></div>
+
+<div class="feed-layout"><details class="feed-filters" id="feed-filters"><summary>Filters <span>Category, store, price</span></summary><div class="filter-fields"><label>Category<select id="category"><option value="">All</option></select></label><label>Retailer<select id="store"><option value="">All</option></select></label><label>Price limit ($)<input id="budget" type="number" min="0" placeholder="Any"></label><button id="reset" type="button">Clear filters</button></div></details>
+<div class="feed-main"><div class="feed-toolbar"><p id="count" role="status">Loading deals…</p><label><span class="sr-only">Sort deals</span><select id="sort"><option value="featured">Top picks</option><option value="popular">Popularity signals</option><option value="new" selected>Newest</option><option value="price">Lowest price</option><option value="sweet">Sweet Score</option></select></label></div><div id="catalog-list"></div><details id="source-health" class="source-health"><summary id="source-summary">Source health · checking…</summary><p id="feed-status" class="catalog-note">Checking published deal reports…</p><div id="source-results" class="source-results"></div></details><div class="catalog-more"><button id="show-more" type="button" hidden>Show more deals</button><a class="embedded-full" href="/black-friday/all/" target="_top">Open full catalog ↗</a></div><p class="catalog-note">LIVE means a deal was recently reported, not that inventory is guaranteed. A historical average and Sweet Score appear only with enough recorded price history. Retailer reference prices are not historical averages.</p></div></div>
 </section>
 <section id="gifts" class="gift-section"><div class="gift-heading"><div><span class="eyebrow">THE GIFT LIST</span><h2>Ridiculously good gift ideas</h2><p>Useful, surprising, and worth giving—chosen from products in the catalog.</p></div></div><div class="gift-filters"><label><span class="sr-only">Gift recipient</span><select id="gift-person"><option value="">Everyone</option><option value="tech">Tech fans</option><option value="kids">Kids & games</option><option value="home">Home & kitchen</option><option value="beauty">Style & beauty</option><option value="unique">Very unique gifts</option></select></label><label><span class="sr-only">Maximum gift price</span><select id="gift-budget"><option value="">Any budget</option><option value="25">Under $25</option><option value="50">Under $50</option><option value="100">Under $100</option><option value="200">Under $200</option></select></label><button type="button" id="refresh-gifts" class="button" aria-label="Refresh gift suggestions">Refresh</button></div><p id="gift-refresh-status" class="catalog-note" role="status" aria-live="polite"></p><div id="gift-list" class="gift-strip"></div></section>
 <details class="extra-section" id="ads"><summary>▤ Ad scans and holiday sale previews <span class="muted">Search any retailer</span></summary><div class="extra-body"><div class="ad-controls"><label>Retailer<input id="ad-search" type="search" placeholder="Walmart, Target, Costco…"></label><label>Type<select id="ad-type"><option value="all">All sources</option><option value="scan">Scans & previews</option><option value="weekly">Weekly ads</option><option value="sale">Retailer sale pages</option></select></label></div><p id="ad-count" class="catalog-note"></p><div class="ad-compact" id="ad-list"></div></div></details>
@@ -446,7 +446,7 @@ function card(d){
  '<div class="deal-pricing"><span class="price">'+(Number.isFinite(d.price)||d.announced?money(d.price):'See source for price')+'</span><span class="live-date" title="'+esc(status(d))+'">'+esc(status(d))+'</span></div><small class="deal-typical">'+esc(typical)+(Number.isFinite(d.price)&&d.reference>d.price?' · Save '+money(d.reference-d.price):'')+'</small>'+
  '<div class="deal-facts"><span class="sweet '+(h.score===null?'pending':'')+'" title="'+esc(details)+'">'+esc(score)+'</span></div>'+
  '<div class="deal-foot"><small>'+esc(d.sourceType||'Source')+' · '+esc(d.checked||'')+'</small><div class="card-actions"><button type="button" data-share="'+esc(d.id)+'" class="share-deal" aria-label="Share deal: '+name+'" title="Share deal">↗</button><button type="button" class="bookmark" data-save="'+esc(d.id)+'" aria-label="'+(saved.includes(d.id)?'Remove saved deal':'Save deal')+': '+name+'" aria-pressed="'+saved.includes(d.id)+'">'+(saved.includes(d.id)?'♥':'♡')+'</button></div></div>'+
-  '<details><summary>Prices & info</summary>'+retailerPrices(d)+reportsFor(d)+(d.spec?'<p class="deal-details-one">'+esc(d.spec)+'</p>':'')+(d.why?'<p class="deal-details-one">'+esc(d.why)+'</p>':'')+'<details class="similar-models"><summary>More info · history & alternatives</summary><p>'+esc(d.catch||'Confirm terms and stock at the retailer.')+'</p><p>'+esc(details)+'</p>'+alternatives(d)+'</details></details></article>';
+  '<details><summary>Prices & info</summary>'+retailerPrices(d)+reportsFor(d)+(d.spec?'<p class="deal-details-one">'+esc(d.spec)+'</p>':'')+(d.why?'<p class="deal-details-one">'+esc(d.why)+'</p>':'')+'<details class="similar-models"><summary>More info · history & alternatives</summary><p>'+esc(d.catch||'Confirm terms and stock at the retailer.')+'</p><p>'+esc(details)+'</p>'+'<div data-alternatives="'+esc(d.id)+'"></div></details></details></article>';
 }
 
 function hotCard(d){
@@ -466,13 +466,6 @@ function hotPicks(){
    (b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
  return candidates.slice(0,4);
 }
-function categoryGroups(items){
- const groups=new Map();
- for(const d of items){const cat=d.category||'Other deals';if(!groups.has(cat))groups.set(cat,[]);groups.get(cat).push(d);}
- return [...groups.entries()].sort(([a],[b])=>a.localeCompare(b)).map(([cat,entries])=>
-  '<section class="category-deal-group" aria-label="'+esc(cat)+' deals"><div class="category-deal-heading"><h3>'+esc(cat)+'</h3><small>'+entries.length+' deals</small></div><div class="deal-rows">'+entries.map(card).join('')+'</div></section>'
- ).join('');
-}
 function filtered(){
  const q=$('query').value.trim().toLowerCase().split(/\s+/).filter(Boolean),cat=$('category').value,store=$('store').value,b=$('budget').value;
  let a=deals.filter(d=>!RCLDealCategory.isKnownEnded(d)&&q.every(w=>(d.name+' '+d.category+' '+d.store+' '+(d.spec||'')).toLowerCase().includes(w))&&(!cat||cat===d.category)&&(!store||store===d.store)&&(b===''||(Number.isFinite(d.price)&&d.price<=Number(b))));
@@ -487,6 +480,28 @@ function filtered(){
  a.sort((x,y)=>sort==='popular'?popularity(y)-popularity(x)||(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''):sort==='price'?(x.price??Infinity)-(y.price??Infinity):sort==='sweet'?(history(y).score??-1)-(history(x).score??-1):sort==='new'?(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''):Number(y.featured)-Number(x.featured)||(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''));
  return a;
 }
+let catalogResults=[];
+function updateCatalogCount(){
+ const total=catalogResults.length;
+ const count=Math.min(total,shown);
+ $('count').textContent='Showing '+count.toLocaleString()+' of '+total.toLocaleString()+' deals';
+ $('show-more').hidden=count>=total;
+ $('show-more').textContent='Show next '+Math.min(24,total-count)+' deals';
+}
+$('catalog-list').addEventListener('toggle',event=>{
+ if(!event.target.open)return;
+ const panel=event.target.querySelector(':scope > [data-alternatives]');
+ if(!panel||panel.hasChildNodes())return;
+ const deal=deals.find(item=>item.id===panel.dataset.alternatives);
+ if(deal)panel.innerHTML=alternatives(deal);
+},true);
+function appendDeals(){
+ if(shown>=catalogResults.length)return;
+ const next=catalogResults.slice(shown,shown+24);
+ $('catalog-list').querySelector('.deal-rows').insertAdjacentHTML('beforeend',next.map(card).join(''));
+ shown+=next.length;
+ updateCatalogCount();
+}
 function render(){
  if(hotEmbed){
   const picks=hotPicks();
@@ -494,14 +509,12 @@ function render(){
   return;
  }
  const a=filtered();
- $('count').textContent=a.length+' matching · '+deals.length+' indexed, including '+deals.filter(d=>{const t=startTime(d);return t&&t.date.getTime()>Date.now();}).length+' upcoming';
- // Render a compact batch and retain global sort order for filtered views.
+ catalogResults=a;
  const visible=a.slice(0,shown);
- const browseCategories=mode==='all'&&!$('query').value.trim()&&!$('category').value&&$('sort').value==='featured';
- $('catalog-list').innerHTML=a.length?(browseCategories?categoryGroups(visible):'<div class="deal-rows">'+visible.map(card).join('')+'</div>'):'<p class="empty">No matches. Clear filters or search for something else.</p>';
- $('show-more').hidden=shown>=a.length;
- $('show-more').textContent='Show more deals ('+Math.min(24,Math.max(0,a.length-shown))+' next)';
- $('category-chips').innerHTML=['',...new Set(deals.map(d=>d.category))].sort().map(c=>'<button type="button" data-category="'+esc(c)+'" aria-pressed="'+(c===$('category').value)+'">'+esc(c||'All categories')+'</button>').join('');
+ const filteredView=mode!=='all'||['query','category','store','budget'].some(id=>$(id).value.trim());
+ $('catalog-heading').textContent=filteredView?'Filtered deals':'All Deals';
+ $('catalog-list').innerHTML=a.length?'<div class="deal-rows">'+visible.map(card).join('')+'</div>':'<p class="empty">No matching deals. <a href="/black-friday/all/#catalog">Browse all deals</a></p>';
+ updateCatalogCount();
  document.querySelectorAll('[data-feed]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.feed===mode)));
  renderGifts();
 }
@@ -604,8 +617,14 @@ for(const id of ['query','category','store','budget','sort'])$(id).addEventListe
 for(const id of ['gift-person','gift-budget'])$(id).addEventListener('input',()=>{giftShuffle=false;renderGifts();});
 $('refresh-gifts').addEventListener('click',()=>{giftShuffle=true;renderGifts();});
 for(const id of ['ad-search','ad-type'])$(id).addEventListener('input',renderAds);
-$('reset').onclick=()=>{for(const id of ['query','category','store','budget'])$(id).value='';mode='all';shown=24;render();};
-$('show-more').onclick=()=>{shown+=24;render();};
+$('reset').onclick=()=>{for(const id of ['query','category','store','budget'])$(id).value='';mode='all';$('sort').value='new';shown=24;render();};
+$('show-more').onclick=appendDeals;
+if(!hotEmbed && 'IntersectionObserver' in window){
+ const observer=new IntersectionObserver(entries=>{
+  if(entries.some(entry=>entry.isIntersecting))appendDeals();
+ },{rootMargin:'180px'});
+ observer.observe($('show-more'));
+}
 function shareMessage(d){return 'Black Friday & Cyber Monday 2026 deal: '+d.name+' — '+money(d.price)+' (reported; confirm price and availability at checkout).\n'+d.source;}
 async function shareDeal(d){
  if(!d||!/^https:\/\//.test(d.source||''))return;
@@ -618,7 +637,7 @@ document.addEventListener('click',e=>{
  const share=e.target.closest('[data-share]');if(share){shareDeal(deals.find(d=>d.id===share.dataset.share));return;}
  const b=e.target.closest('[data-save]');if(b){const id=b.dataset.save;saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];try{localStorage.setItem(savedKey,JSON.stringify(saved));}catch{}render();return;}
  const c=e.target.closest('[data-category]');if(c){$('category').value=c.dataset.category;shown=24;render();return;}
- const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;shown=24;if(mode==='new'){$('sort').value='new';}render();}
+ const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;if(mode==='all'){for(const id of ['query','category','store','budget'])$(id).value='';$('sort').value='new';}shown=24;if(mode==='new'){$('sort').value='new';}render();}
 });
 rebuildOptions();const params=new URLSearchParams(location.search),presetCategory=params.get("category"),presetView=params.get("view"),presetSort=params.get("sort");if(presetCategory&&[...$("category").options].some(x=>x.value===presetCategory))$("category").value=presetCategory;if(['popular','upcoming','featured','new','all','saved','black','cyber'].includes(presetView))mode=presetView;if(['popular','featured','new','price','sweet'].includes(presetSort))$("sort").value=presetSort;else if(mode==='popular')$("sort").value='popular';renderAds();render();
 function renderSourceHealth(payload){
@@ -681,7 +700,7 @@ setInterval(()=>{if(!document.hidden){refreshFeed();refreshAdIndex();}},300000);
   const target=sections.includes(requested)?requested:'catalog';
   document.documentElement.dataset.dealSection=target;
   for(const id of sections){const el=document.getElementById(id);if(el){el.hidden=id!==target;if(id===target&&el.tagName==='DETAILS')el.open=true;}}
-  document.querySelectorAll('.nav a[href^="#"]').forEach(a=>{if(a.hash==='#'+target)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  document.querySelectorAll('.nav a[href^="#"],#browse-all-deals').forEach(a=>{if(a.hash==='#'+target&&(a.id!=='browse-all-deals'||mode==='all'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   if(location.hash)requestAnimationFrame(()=>document.getElementById(target)?.scrollIntoView({block:'start'}));
  }
  window.addEventListener('hashchange',route);window.addEventListener('rcl-upcoming-ready',route);route();
