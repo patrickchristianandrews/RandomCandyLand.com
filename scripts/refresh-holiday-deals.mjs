@@ -53,16 +53,35 @@ function allowedLink(url,domains){
  try{const h=new URL(url).hostname.toLowerCase();return domains.some(d=>h===d||h.endsWith('.'+d));}catch{return false;}
 }
 
-function imageFromItem(xml){
- // Only publisher-supplied photographs are used; never invent product imagery.
- const match=xml.match(/<(?:media:thumbnail|media:content|enclosure)\b[^>]*\burl=["']([^"']+)["']/i)
-   ||xml.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i);
- if(!match)return null;
- try{
-  const url=new URL(match[1].replace(/&amp;/g,'&'));
-  if(url.protocol!=='https:'||/\.svg(?:\?|$)/i.test(url.pathname)||/pixel|tracker|tracking/i.test(url.pathname))return null;
-  return url.href;
- }catch{return null;}
+function imageFromItem(xml,title){
+ // A publisher image is usable only when its own label identifies the reported product.
+ // Untagged thumbnail, banner, site logo, generic category photo or ad is not a product photo.
+ const words=text=>String(text||'').toLowerCase().replace(/&amp;/g,'&').match(/[a-z0-9]+/g)||[];
+ const ignored=new Set(['free','deal','sale','black','friday','cyber','monday','save','coupon','discount','off','at','the','for','with','from','and','new','2026','2025','best','price','review','image','photo','picture','product']);
+ const target=words(title).filter(w=>w.length>=3&&!ignored.has(w));
+ if(target.length<2)return null;
+ const modelTokens=target.filter(w=>/[a-z]/.test(w)&&/\d/.test(w));
+ const matchesProduct=label=>{
+  const labelWords=new Set(words(label));
+  if(modelTokens.length&&!modelTokens.some(w=>labelWords.has(w)))return false;
+  const hits=target.filter(w=>labelWords.has(w)).length;
+  return hits>=2&&hits/Math.min(target.length,6)>=.34;
+ };
+ const mediaTitle=xml.match(/<media:title(?:\s[^>]*)?>([\s\S]*?)<\/media:title>/i)?.[1]||'';
+ for(const hit of xml.matchAll(/<(media:thumbnail|media:content|enclosure|img)\b[^>]*>/gi)){
+  const tag=hit[0];
+  if(/\btype=["'](?:video|audio)/i.test(tag))continue;
+  const raw=tag.match(/\b(?:url|src)=["']([^"']+)["']/i)?.[1];
+  if(!raw)continue;
+  const label=tag.match(/\b(?:alt|title)=["']([^"']+)["']/i)?.[1]||(/media:/.test(hit[1])?mediaTitle:'');
+  if(!matchesProduct(label))continue;
+  try{
+   const url=new URL(raw.replace(/&amp;/g,'&'));
+   if(url.protocol!=='https:'||/\.(?:svg|gif)(?:$|\?)/i.test(url.pathname)||/(?:logo|banner|pixel|tracker|tracking|advert)/i.test(url.pathname))continue;
+   return url.href;
+  }catch{/* malformed publisher image URL */}
+ }
+ return null;
 }
 
 function category(title){return globalThis.RCLDealCategory.resolve({name:title});}
@@ -181,12 +200,13 @@ for(const feed of FEEDS){
    const old=oldByLink.get(link),id='rss-'+createHash('sha1').update(link).digest('hex').slice(0,13);
    const hist=Array.isArray(old?.history)?old.history.filter(h=>h&&h.date&&Number.isFinite(Number(h.price))&&Date.parse(h.date)>now.getTime()-365*86400000):[];
    if(Number.isFinite(price)&&price>0&&!hist.some(h=>h.date===day&&Number(h.price)===price))hist.push({date:day,price});
-   const incoming={id,name:title,category:category(title),store:retailer(title),image:imageFromItem(item)||old?.image||null,price,reference:null,spec:'',source:link,sourceType:feed.group,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):day,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Deal reported by linked publisher. Check retailer, exact model, stock, final price, coupon terms and shipping at source.',popular:Boolean(feed.popular),featured:Boolean(feed.featured),reportedBy:[{publisher:feed.group,url:link}],history:mergePrices(hist)};
+   const itemPhoto=imageFromItem(item,title);
+   const incoming={id,name:title,category:category(title),store:retailer(title),image:itemPhoto||(old?.imageVerified===true?old.image:null)||null,imageVerified:Boolean(itemPhoto||(old?.imageVerified===true&&old.image)),price,reference:null,spec:'',source:link,sourceType:feed.group,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):day,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Deal reported by linked publisher. Check retailer, exact model, stock, final price, coupon terms and shipping at source.',popular:Boolean(feed.popular),featured:Boolean(feed.featured),reportedBy:[{publisher:feed.group,url:link}],history:mergePrices(hist)};
    const existing=byLink.get(link);
    if(existing){
     existing.popular ||= incoming.popular;existing.featured ||= incoming.featured;
     if(!Number.isFinite(existing.price)&&Number.isFinite(incoming.price))existing.price=incoming.price;
-    if(!existing.image&&incoming.image)existing.image=incoming.image;
+    if(incoming.imageVerified&&!existing.imageVerified){existing.image=incoming.image;existing.imageVerified=true;}
    }else byLink.set(link,incoming);
    status.accepted++;
   }
@@ -217,7 +237,7 @@ for(const d of candidates){
   matching.popular ||= d.popular;matching.featured ||= d.featured;
   if(d.feedStatus==='recently_reported')matching.feedStatus='recently_reported';
   if((d.lastSeenAt||'')>(matching.lastSeenAt||''))matching.lastSeenAt=d.lastSeenAt;
-   if(!matching.image&&d.image)matching.image=d.image;
+   if(d.imageVerified&&!matching.imageVerified){matching.image=d.image;matching.imageVerified=true;}
   const links=[...(matching.reportedBy||[]),...(d.reportedBy||[])];
   matching.reportedBy=[...new Map(links.map(x=>[x.publisher+'|'+x.url,x])).values()].slice(0,12);
   if(!matching.publishedAt||(d.publishedAt||'')>matching.publishedAt)matching.publishedAt=d.publishedAt;
