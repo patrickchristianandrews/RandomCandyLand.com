@@ -528,8 +528,9 @@ function hotCard(d){
   const tag=older?'◷ Older report':d.popular?'🔥 Popular report':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured':'✦ Fresh report';
  const href=document.documentElement.dataset.embed?'/black-friday/#hot-deals':d.source;
  const name=esc(d.name),url=esc(href),spec=String(d.spec||'').trim(),why=String(d.why||'').trim();
- const imageUrl=window.RCLProductPhotos?.photoURL(d)||null;
- const art='<div class="hot-art"><span class="hot-art-fallback">Product photo unavailable</span>'+(imageUrl?'<img src="'+esc(imageUrl)+'" alt="'+name+' product photo" loading="lazy" referrerpolicy="no-referrer">':'')+'</div>';
+ const photoSources=window.RCLProductPhotos?.photoURLs(d)||[];
+ const imageUrl=photoSources[0]||null;
+ const art='<div class="hot-art"><span class="hot-art-fallback">Product photo unavailable</span>'+(imageUrl?'<img src="'+esc(imageUrl)+'" data-photo-sources="'+esc(JSON.stringify(photoSources))+'" alt="'+name+' product photo" loading="lazy" referrerpolicy="no-referrer">':'')+'</div>';
  const hint=spec||why||'Check the source for exact model, included items and condition.';
  const date=String(d.checked||d.publishedAt||'').slice(0,10),savedNow=saved.includes(d.id);
  const ref=Number.isFinite(d.price)&&Number.isFinite(d.reference)&&d.reference>d.price?'<small class="hot-reference">Retailer ref. '+money(d.reference)+' · Save '+money(d.reference-d.price)+'</small>':'';
