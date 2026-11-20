@@ -301,7 +301,7 @@ html[data-embed] #hot-list .hot-art-fallback{font-size:.62rem!important;padding:
 <details class="feed-sources" id="feed-sources"><summary id="sources-heading">Deal source coverage · checking…</summary><div class="source-chips" id="source-chips"></div><p class="scan-note">Public RSS headlines link to their originating publishers. The index is not every online promotion, and reported prices are not verified retailer quotes.</p></details>
 </main>
 <div class="deal-runner" id="deal-runner" hidden aria-hidden="true"><span id="runner-image" style="display:block"></span><div class="runner-bubble" id="runner-bubble">👍 Wow!</div><span class="runner-name" id="runner-name"></span></div><div class="sr-only" id="deal-announcement" aria-live="polite"></div><div class="share-feedback" id="share-feedback" hidden role="status"></div>
-<script src="/black-friday/price-range.js"></script><script src="/black-friday/deal-category.js"></script><script src="/black-friday/product-photos.js?v=20261120-photo-fix"></script>
+<script src="/black-friday/deal-category.js"></script><script src="/black-friday/product-photos.js?v=20261120-photo-fix"></script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -360,20 +360,6 @@ function hotEmoji(d){
  if(/tool|drill|home|vacuum|furniture/i.test(t))return '🏠';
  if(/phone|galaxy|pixel|iphone/i.test(t))return '📱';
  return '🎁';
-}
-function history(d){
- const a=(Array.isArray(d.history)?d.history:[]).filter(h=>h&&h.date&&Number.isFinite(Number(h.price))&&Number(h.price)>0&&Number.isFinite(Date.parse(h.date))).map(h=>({date:h.date,price:Number(h.price)})).sort((x,y)=>x.date.localeCompare(y.date));
- const samples=[...new Map(a.map(x=>[x.date,x])).values()].filter(x=>Date.now()-Date.parse(x.date+'T12:00:00Z')<366*86400000);
- const span=samples.length?(Date.parse(samples[samples.length-1].date)-Date.parse(samples[0].date))/86400000:0;
- const avg=samples.length?samples.reduce((sum,s)=>sum+s.price,0)/samples.length:null;
- const annual=samples.length>=24&&span>=300;
- const eligible=samples.length>=4&&span>=14&&Number.isFinite(d.price);
- let score=null;
- if(eligible){
-  const relative=samples.filter(s=>s.price>=d.price).length/samples.length,delta=avg>0?Math.max(-0.5,Math.min(.6,(avg-d.price)/avg)):0;
-  score=Math.max(1,Math.min(100,Math.round(45+30*relative+40*delta)));
- }
- return {avg,annual,score,count:samples.length,span:Math.round(span)};
 }
 function productFamily(d){
  const s=(d.name+' '+(d.spec||'')).toLowerCase();
@@ -534,9 +520,7 @@ function hotCard(d){
  const hint=spec||why||'Check the source for exact model, included items and condition.';
  const date=String(d.checked||d.publishedAt||'').slice(0,10),savedNow=saved.includes(d.id);
  const ref=Number.isFinite(d.price)&&Number.isFinite(d.reference)&&d.reference>d.price?'<small class="hot-reference">Retailer ref. '+money(d.reference)+' · Save '+money(d.reference-d.price)+'</small>':'';
- const h=history(d);
- const range=RCLPriceRange.range(d);
- const comparison=document.documentElement.dataset.embed?'':retailerPrices(d)+reportsFor(d)+'<p>'+esc(RCLPriceRange.summary(range,money))+'</p>'+alternatives(d);
+ const comparison=document.documentElement.dataset.embed?'':retailerPrices(d)+reportsFor(d)+alternatives(d);
  const details='<div class="hot-detail-panel"><strong>'+name+'</strong><p>Retailer: '+esc(d.store||'See source')+' · Category: '+esc(d.category||'Other')+'</p>'+
  comparison+(spec?'<p>'+esc(spec)+'</p>':'')+(why?'<p>'+esc(why)+'</p>':'')+
  '<p>'+esc(d.catch||'Model, accessories, conditions, current stock and checkout total should be confirmed at the source.')+'</p>'+
@@ -602,7 +586,6 @@ async function updateFeed(){
   const response=await fetch('/black-friday/live-feed.json',{cache:'no-store'});
   if(!response.ok)throw Error('Feed unavailable');
   const feed=await response.json();if(!Array.isArray(feed.deals))throw Error('Invalid feed');
-  RCLPriceRange.load(feed.curatedHistory);
   items=[...curated];
   const ids=new Set(items.map(x=>x.id));
   for(const d of feed.deals){if(d&&typeof d.id==='string'&&typeof d.name==='string'&&/^https:\/\//.test(d.source||'')&&!ids.has(d.id)){items.push(RCLDealCategory.assign(d));ids.add(d.id);}}
