@@ -256,7 +256,7 @@ const curated=deals.slice(), savedKey='rcl-deals-saved';
 let saved=[],mode='all',shown=24,feedTimestamp=null;
 const hotEmbed=document.documentElement.dataset.dealsHot==='true';
 try{const a=JSON.parse(localStorage.getItem(savedKey)||'[]');if(Array.isArray(a))saved=a.filter(x=>typeof x==='string');}catch{}
-function history(d){
+function priceHistory(d){
  const a=(Array.isArray(d.history)?d.history:[]).filter(h=>h&&h.date&&Number.isFinite(Number(h.price))&&Number(h.price)>0&&Number.isFinite(Date.parse(h.date))).map(h=>({date:h.date,price:Number(h.price)})).sort((x,y)=>x.date.localeCompare(y.date));
  const samples=[...new Map(a.map(x=>[x.date,x])).values()].filter(x=>Date.now()-Date.parse(x.date+'T12:00:00Z')<366*86400000);
  const span=samples.length?(Date.parse(samples[samples.length-1].date)-Date.parse(samples[0].date))/86400000:0;
@@ -436,7 +436,7 @@ function reportsFor(d){
  return '<p class="deal-details-one">Also reported by: '+unique.slice(0,5).map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.publisher)+'</a>').join(' · ')+'</p>';
 }
 function card(d){
- const h=history(d),score=h.score===null?'History —':'Sweet '+h.score+'/100';
+ const h=priceHistory(d),score=h.score===null?'History —':'Sweet '+h.score+'/100';
  const typical=h.annual?'12-mo avg '+money(h.avg):h.count>=4?'Observed avg '+money(h.avg):typeof d.reference==='number'?'Retailer ref. '+money(d.reference):'';
  const details=h.annual?'12-month observed average across '+h.count+' dated observations.':h.count>=4?'Limited observed average across '+h.count+' dates spanning '+h.span+' days; not a full-year average.':'Sweet Score requires at least 4 recorded prices spanning 14 days. Recorded observations: '+h.count+'. A retailer reference price is not verified price history.';
  const href=esc(d.source),name=esc(d.name);
@@ -477,7 +477,7 @@ function filtered(){
  if(mode==='cyber')a=a.filter(d=>d.saleDays?.includes('cyber')||(d.startsAt&&String(d.startsAt).slice(0,10)<='2026-11-30'&&String(d.endsAt||d.startsAt).slice(0,10)>='2026-11-30')||/cyber monday/i.test(d.name+' '+(d.why||'')));
  const sort=$('sort').value;
  const popularity=d=>d.popular?3:(d.sourceType==='DealNews editors'?2:(d.featured?1:0));
- a.sort((x,y)=>sort==='popular'?popularity(y)-popularity(x)||(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''):sort==='price'?(x.price??Infinity)-(y.price??Infinity):sort==='sweet'?(history(y).score??-1)-(history(x).score??-1):sort==='new'?(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''):Number(y.featured)-Number(x.featured)||(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''));
+ a.sort((x,y)=>sort==='popular'?popularity(y)-popularity(x)||(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''):sort==='price'?(x.price??Infinity)-(y.price??Infinity):sort==='sweet'?(priceHistory(y).score??-1)-(priceHistory(x).score??-1):sort==='new'?(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''):Number(y.featured)-Number(x.featured)||(y.publishedAt||y.checked||'').localeCompare(x.publishedAt||x.checked||''));
  return a;
 }
 let catalogResults=[];
@@ -579,7 +579,7 @@ function renderGifts(){
    if(unique)return Number(Boolean(b.giftDiscovery))-Number(Boolean(a.giftDiscovery))||
        Number(Boolean(uniqueGiftReasons[b.id]))-Number(Boolean(uniqueGiftReasons[a.id]))||
        (b.lastSeenAt||b.checked||'').localeCompare(a.lastSeenAt||a.checked||'');
-   const score=d=>history(d).score??0;return score(b)-score(a)||(a.price??Infinity)-(b.price??Infinity);
+   const score=d=>priceHistory(d).score??0;return score(b)-score(a)||(a.price??Infinity)-(b.price??Infinity);
  });
  const pageSize=8;
  const filterKey=person+'|'+budget;
