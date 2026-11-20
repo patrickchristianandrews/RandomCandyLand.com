@@ -912,6 +912,26 @@
       "why": "Apple confirms gift cards up to $300 on eligible Macs, $125 on iPads, $100 on iPhones or Watches, $75 on AirPods or Beats, $50 on HomePod and $25 on accessories. These are category maximums, not rewards for every model.",
       "catch": "Upcoming conditional Apple Gift Card reward, not an upfront discount or cash rebate. Exact qualifying models, exclusions and reward terms must be checked before purchase. Model prices and delivered totals are unverified, so this event is not ranked against retailer product offers. Apple advertises free next-day delivery; address, stock and product eligibility need confirmation. No coupon, membership, trade-in, card reward or portal cashback assumed. Exact event start time and stock risk are unknown.",
       "announced": true
+    },
+    {
+      "id": "preview-tractor-supply-bf-2026",
+      "name": "Tractor Supply Black Friday — pet gifts, outdoor gear and holiday finds",
+      "category": "Upcoming sales",
+      "store": "Tractor Supply",
+      "price": null,
+      "reference": null,
+      "spec": "Nov 23–29: up to 30% off selected dog food, treats and toys; up to 25% off selected Christmas decor and toys. Exact eligible models and prices pending.",
+      "source": "https://corporate.tractorsupply.com/newsroom/news-releases/news-releases-details/2026/Black-Friday-Goes-Out-Here/default.aspx",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-19",
+      "startsAt": "2026-11-23",
+      "endsAt": "2026-11-29",
+      "saleDays": [
+        "black"
+      ],
+      "why": "Retailer confirms a seven-day sale; separate Friday-only in-store doorbusters begin Nov 27 at 6 a.m. local time.",
+      "catch": "Not a verified product-price comparison. Doorbuster selections vary by location; purchase limits and restrictions apply. Shipping, coupons, membership eligibility and any cashback must be checked for the selected item. No Cyber Monday extension confirmed.",
+      "announced": true
     }
   ]
 }
