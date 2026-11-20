@@ -16,6 +16,7 @@
     'sonic-forces-switch-77004s':'https://www.tradergames.fr/322719-home_default/sonic-forces-switch-usa-new-enfrdeesit.jpg',
     'ring-starter':'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/f6701a8a-514d-4a27-a567-0e76d189dc18.jpg',
     'lg-c6-65-oled':'https://sonxplus.com/cdn/shop/files/OLED65C6PUA_03_2037x2037.jpg?v=1773326136',
+    'grogu':'https://i5.walmartimages.com/seo/SW-PEACEFUL_0905bd14-9cc5-405b-b38b-1d9fe93094d7.f3cf701ae866fe83aa7a564b1ebf0212.jpeg',
     'ninja':'https://i.ebayimg.com/00/s/MTYwMFgxNjAw/z/cRAAAeSwWNdod6E9/%24_57.JPG?set_id=880000500F',
     'dyson-nural-costco-493383':'https://api-runner.a-ok.app/static/images/p/hero-desktop/aokh8AW4O4dFOMniHntjbdyx372WiYN8DGc8W-hgjdo5i-6mEkuUcUEvcIyCjrBNSzc2mGloj8uj2kfFo-90PWJBOomPb4o48OC-zRs394NIUJ9qhJw_aGfJOhMscm3P1V9drHY-36q2rkIH3BftPSfzL7UeMZRUvdjh0ilnD-ez25az89YwMBuOsu0iIA3ZYoG7p8%3D',
     'lego-advent':'https://lego.bricksmegastore.com/cdn/shop/files/75456-Front_a74d0f7e-0413-44c8-a25a-94fd62ef3135.png?v=1779920478',
