@@ -240,7 +240,46 @@ html[data-embed] .hot-card .deal-share{background:#fff7eb;color:#75465b;border-c
 .quick-nav a[aria-current]{font-weight:800;text-decoration:underline}
 html[data-embed] .quick-nav{display:none!important}
 @media(max-width:600px){.hot-art,.market-product-art{height:68px!important}.hot-view{padding:5px 8px!important}}
-</style><style>.price-retailer{display:inline-block;color:#604b68!important;font:650 .78rem/1.3 system-ui;vertical-align:middle}</style></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+</style><style>.price-retailer{display:inline-block;color:#604b68!important;font:650 .78rem/1.3 system-ui;vertical-align:middle}</style>
+<style id="rcl-hot-deal-card-format-fix">
+/* November 2026: keep the two-column phone grid readable and keep real photos distinct from fallbacks. */
+html:not([data-embed]) #hot-list{align-items:stretch!important;gap:10px!important}
+html:not([data-embed]) #hot-list>.hot-card{height:100%;padding:11px!important;gap:6px;justify-content:flex-start;min-width:0;overflow-wrap:anywhere}
+html:not([data-embed]) #hot-list .hot-heading{position:relative;display:flex;align-items:center;min-height:34px;padding-right:83px}
+html:not([data-embed]) #hot-list .hot-type{color:#875036!important;font-size:.69rem!important;line-height:1.25;white-space:normal;text-overflow:clip;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+html:not([data-embed]) #hot-list .hot-heart{top:8px;right:9px;min-width:67px;min-height:31px;padding:5px 7px!important}
+html:not([data-embed]) #hot-list .hot-art{height:118px!important;min-width:0;margin:3px 0 5px!important;border:1px solid #eadcea;border-radius:11px;background:#fff!important}
+#hot-list .hot-art img{display:block;width:100%;height:100%;object-fit:contain!important;background:white;position:relative;z-index:1}
+#hot-list .hot-art-fallback{display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:10px;color:#776681!important;font-size:.74rem!important;font-weight:650;text-align:center;line-height:1.35}
+html:not([data-embed]) #hot-list .hot-title{-webkit-line-clamp:2;line-clamp:2;min-height:2.6em;font-size:clamp(.85rem,2.2vw,.98rem)!important;line-height:1.32!important;font-weight:750!important}
+html:not([data-embed]) #hot-list .hot-identify{-webkit-line-clamp:1;line-clamp:1;min-height:1.2em;font-size:.72rem;line-height:1.25;color:#76657c!important}
+html:not([data-embed]) #hot-list .hot-store{display:none}
+html:not([data-embed]) #hot-list .hot-bottom{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:3px;margin:3px 0 0!important;min-width:0}
+html:not([data-embed]) #hot-list .hot-pricing{width:100%;min-width:0}
+html:not([data-embed]) #hot-list .hot-price{font-size:clamp(1.16rem,3.5vw,1.65rem)!important;line-height:1.12!important;white-space:normal;overflow-wrap:normal;font-weight:850}
+html:not([data-embed]) #hot-list .hot-retailer{display:block;margin-top:4px;color:#604c6a!important;font-size:.72rem;line-height:1.25;font-weight:750}
+html:not([data-embed]) #hot-list .hot-reference{display:block;margin-top:4px;color:#67556d!important;font-size:.69rem!important;line-height:1.3}
+html:not([data-embed]) #hot-list .hot-when{display:block;max-width:100%;font-size:.68rem!important;line-height:1.3;color:#776681!important;font-weight:600}
+html:not([data-embed]) #hot-list .hot-actions-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;margin-top:auto;padding-top:5px;min-width:0}
+html:not([data-embed]) #hot-list .hot-details{grid-column:1/-1;min-width:0}
+html:not([data-embed]) #hot-list .hot-details summary{white-space:normal;line-height:1.2;font-size:.76rem;padding:6px 0}
+html:not([data-embed]) #hot-list .hot-view{grid-column:1;display:inline-flex;align-items:center;justify-content:center;width:fit-content;min-height:34px;padding:6px 12px!important;font-size:.75rem;white-space:nowrap}
+html:not([data-embed]) #hot-list .deal-share{grid-column:2;min-height:33px;padding:5px!important;white-space:nowrap;color:#673b71!important}
+html:not([data-embed]) #hot-list .hot-details[open]{grid-column:1/-1;grid-row:1}
+html:not([data-embed]) #hot-list .deal-tag{max-width:calc(100% - 22px);overflow-wrap:normal;pointer-events:none}
+html[data-embed] #hot-list .hot-art-fallback{font-size:.62rem!important;padding:4px}
+@media(max-width:600px){
+ html:not([data-embed]) #hot-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ html:not([data-embed]) #hot-list .hot-art{height:112px!important}
+ html:not([data-embed]) #hot-list .hot-title{font-size:.88rem!important}
+ html:not([data-embed]) #hot-list .hot-price{font-size:1.35rem!important}
+ html:not([data-embed]) #hot-list .hot-view{padding:6px 10px!important}
+}
+@media(max-width:350px){
+ html:not([data-embed]) #hot-list{grid-template-columns:1fr!important}
+ html:not([data-embed]) #hot-list .hot-art{height:150px!important}
+}
+</style></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
 <header><a href="/"><img src="/icon.svg" alt="">Random Candy Land</a></header>
 
@@ -262,7 +301,7 @@ html[data-embed] .quick-nav{display:none!important}
 <details class="feed-sources" id="feed-sources"><summary id="sources-heading">Deal source coverage · checking…</summary><div class="source-chips" id="source-chips"></div><p class="scan-note">Public RSS headlines link to their originating publishers. The index is not every online promotion, and reported prices are not verified retailer quotes.</p></details>
 </main>
 <div class="deal-runner" id="deal-runner" hidden aria-hidden="true"><span id="runner-image" style="display:block"></span><div class="runner-bubble" id="runner-bubble">👍 Wow!</div><span class="runner-name" id="runner-name"></span></div><div class="sr-only" id="deal-announcement" aria-live="polite"></div><div class="share-feedback" id="share-feedback" hidden role="status"></div>
-<script src="/black-friday/price-range.js"></script><script src="/black-friday/deal-category.js"></script>
+<script src="/black-friday/price-range.js"></script><script src="/black-friday/deal-category.js"></script><script src="/black-friday/product-photos.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -489,8 +528,8 @@ function hotCard(d){
   const tag=older?'◷ Older report · check offer':d.popular?'🔥 Popular report':d.sourceType==='DealNews editors'?'✦ Editors’ pick':d.featured?'✦ Featured':'✦ Fresh report';
  const href=document.documentElement.dataset.embed?'/black-friday/#hot-deals':d.source;
  const name=esc(d.name),url=esc(href),spec=String(d.spec||'').trim(),why=String(d.why||'').trim();
- const imageUrl=typeof d.image==='string'&&/^https:\/\//.test(d.image)?d.image:null;
- const art='<div class="hot-art"><span class="hot-art-fallback" aria-hidden="true">'+hotEmoji(d)+'</span>'+(imageUrl?'<img src="'+esc(imageUrl)+'" alt="Product image supplied by linked deal publisher" loading="lazy" referrerpolicy="no-referrer">':'')+'</div>';
+ const imageUrl=window.RCLProductPhotos?.photoURL(d)||null;
+ const art='<div class="hot-art"><span class="hot-art-fallback">Product photo unavailable</span>'+(imageUrl?'<img src="'+esc(imageUrl)+'" alt="'+name+' product photo" loading="lazy" referrerpolicy="no-referrer">':'')+'</div>';
  const hint=spec||why||'Check the source for exact model, included items and condition.';
  const date=String(d.checked||d.publishedAt||'').slice(0,10),savedNow=saved.includes(d.id);
  const ref=Number.isFinite(d.price)&&Number.isFinite(d.reference)&&d.reference>d.price?'<small class="hot-reference">Retailer ref. '+money(d.reference)+' · Save '+money(d.reference-d.price)+'</small>':'';
@@ -505,7 +544,7 @@ function hotCard(d){
  '<button type="button" class="save hot-heart" data-save="'+esc(d.id)+'" aria-label="'+(savedNow?'Remove saved deal: ':'Save deal: ')+name+'" aria-pressed="'+savedNow+'" title="'+(savedNow?'Remove from saved':'Save this deal')+'">'+(savedNow?'♥':'♡')+'<span class="hot-save-label">'+(savedNow?' Saved':' Save')+'</span></button></div>'+
  art+'<a class="hot-title" title="'+name+'" target="_top" rel="noopener" href="'+url+'">'+name+'</a>'+
  '<div class="hot-identify" title="'+esc(hint)+'">'+esc(hint)+'</div><small class="hot-store">'+esc(d.category||'Other')+'</small>'+
- '<div class="hot-bottom"><div><div class="hot-price">'+money(d.price)+' <small class="price-retailer">'+esc(d.store&&d.store!=='See source'?d.store:'Retailer unlisted')+'</small></div>'+ref+'</div><small class="hot-when">'+(older?'Last reported ':'Reported ')+esc(date||'recently')+'</small></div>'+
+ '<div class="hot-bottom"><div class="hot-pricing"><div class="hot-price">'+money(d.price)+'</div><small class="hot-retailer">'+esc(d.store&&d.store!=='See source'?d.store:'Retailer unlisted')+'</small>'+ref+'</div><small class="hot-when">'+(older?'Last reported ':'Reported ')+esc(date||'recently')+'</small></div>'+
  '<div class="hot-actions-row"><details class="hot-details"><summary>Prices &amp; details</summary>'+details+'</details><a class="hot-view" href="'+url+'" target="_top" rel="noopener" aria-label="View deal for '+name+'">View deal ↗</a>'+
  '<button type="button" class="deal-share" data-share="'+esc(d.id)+'" aria-label="Share '+name+'">↗ Share</button></div></article>';
 }
