@@ -106,9 +106,28 @@ const overlap=(a,b)=>{
  const aa=new Set(a),bb=new Set(b),same=a.filter(t=>bb.has(t)).length;
  return {same,sim:same/(aa.size+bb.size-same||1)};
 };
+function listingKey(source){
+ const url=new URL(source),host=url.hostname.toLowerCase().replace(/^www\./,'');
+ if(host==='dealnews.com'){
+  const id=url.pathname.match(/\/(\d+)\.html\/?$/);
+  if(id)return host+(url.pathname.startsWith('/products/')?'/product/':'/deal/')+id[1];
+ }
+ if(host==='slickdeals.net'){
+  const id=url.pathname.match(/^\/f\/(\d+)(?:-|\/|$)/)||url.searchParams.get('t')?.match(/^(\d+)$/);
+  if(id)return host+'/thread/'+id[1];
+ }
+ for(const key of [...url.searchParams.keys()])if(/^(iref|src_rss|utm_.+|fbclid|gclid)$/i.test(key))url.searchParams.delete(key);
+ url.searchParams.sort();
+ return url.href;
+}
+function titleKey(d){
+ return d.name.normalize('NFKC').toLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim();
+}
 function sameDeal(a,b){
- if(a.price!==b.price || !Number.isFinite(a.price)||a.price<=0)return false;
+ if(a.price!==b.price)return false;
  if(a.store!=='See source'&&b.store!=='See source'&&a.store!==b.store)return false;
+ if(titleKey(a)===titleKey(b))return true;
+ if(!Number.isFinite(a.price)||a.price<=0)return false;
  const ta=signature(a.name),tb=signature(b.name);
  // Product packs, dimensions, model codes, color etc. remain distinct unless
  // almost every characteristic matches. Conservative, not arbitrary fuzzy.
@@ -172,15 +191,18 @@ const retained=retainDeals([...byLink.values()],previous,now.toISOString(),clean
 let candidates=retained.deals.map(d=>globalThis.RCLDealCategory.assign(d));
 candidates=candidates.filter(d=>!hasConfirmedEnded(d,now.getTime()));
 candidates.sort((a,b)=>Number(b.feedStatus==='recently_reported')-Number(a.feedStatus==='recently_reported')||
+  (b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||'')||
   Number(Boolean(b.popular))-Number(Boolean(a.popular))||Number(Boolean(b.featured))-Number(Boolean(a.featured))||
   (b.lastSeenAt||b.publishedAt||'').localeCompare(a.lastSeenAt||a.publishedAt||''));
-const deduped=[],bucket=new Map();
+const deduped=[],bucket=new Map(),listings=new Map();
 let mergedDuplicates=0;
 for(const d of candidates){
  const key=Number.isFinite(d.price)?String(Math.round(d.price*100)):'?';
  const bucketList=bucket.get(key)||[];
- const matching=bucketList.find(ex=>ex.source===d.source||sameDeal(ex,d));
+ const identity=listingKey(d.source);
+ const matching=listings.get(identity)||bucketList.find(ex=>sameDeal(ex,d));
  if(matching){
+  listings.set(identity,matching);
   matching.popular ||= d.popular;matching.featured ||= d.featured;
   if(d.feedStatus==='recently_reported')matching.feedStatus='recently_reported';
   if((d.lastSeenAt||'')>(matching.lastSeenAt||''))matching.lastSeenAt=d.lastSeenAt;
@@ -190,6 +212,7 @@ for(const d of candidates){
   if(!matching.publishedAt||(d.publishedAt||'')>matching.publishedAt)matching.publishedAt=d.publishedAt;
   mergedDuplicates++;continue;
  }
+ listings.set(identity,d);
  deduped.push(d);bucketList.push(d);bucket.set(key,bucketList);
 }
 deduped.sort((a,b)=>(b.publishedAt||'').localeCompare(a.publishedAt||''));
