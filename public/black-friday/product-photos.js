@@ -14,6 +14,8 @@
     'lego-darth-vader-75461':'https://lego.bricksmegastore.com/cdn/shop/files/Front_2df69221-1d43-4c26-8f7a-5a490aeb9595.png?v=1777934484',
     'hot-wheels-mutant-loop-95007325':'https://images.mattel.net/image/upload/w_650%2Cf_auto%2Cc_scale/shop-us-prod/files/c736a06923396cdef6ddf27d709113c9b601aebe.jpg',
     'sonic-forces-switch-77004s':'https://www.tradergames.fr/322719-home_default/sonic-forces-switch-usa-new-enfrdeesit.jpg',
+    'ring-starter':'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/f6701a8a-514d-4a27-a567-0e76d189dc18.jpg',
+    'lg-c6-65-oled':'https://sonxplus.com/cdn/shop/files/OLED65C6PUA_03_2037x2037.jpg?v=1773326136',
     'lego-advent':'https://lego.bricksmegastore.com/cdn/shop/files/75456-Front_a74d0f7e-0413-44c8-a25a-94fd62ef3135.png?v=1779920478',
     'lego-disney-2026':'https://www.lego.com/cdn/cs/set/assets/blt4281afc1183d702f/43298_boxprod_v29.png?dpr=1&fit=crop&height=800&quality=80&width=800',
     'jbl-charge6-black':'https://www.connoisseur.co.za/cdn/shop/files/JBL_CHARGE_6_BLACK_FRONT_023_x1_resized.png?v=1742810270&width=900',
