@@ -617,7 +617,24 @@ for(const id of ['query','category','store','budget','sort'])$(id).addEventListe
 for(const id of ['gift-person','gift-budget'])$(id).addEventListener('input',()=>{giftShuffle=false;renderGifts();});
 $('refresh-gifts').addEventListener('click',()=>{giftShuffle=true;renderGifts();});
 for(const id of ['ad-search','ad-type'])$(id).addEventListener('input',renderAds);
-$('reset').onclick=()=>{for(const id of ['query','category','store','budget'])$(id).value='';mode='all';$('sort').value='new';shown=24;render();};
+function showAllDeals(){
+ for(const id of ['query','category','store','budget'])$(id).value='';
+ mode='all';
+ $('sort').value='new';
+ shown=24;
+ const url=new URL(location.href);
+ for(const key of ['category','view','sort'])url.searchParams.delete(key);
+ window.history.replaceState(null,'',url);
+ render();
+}
+$('reset').onclick=showAllDeals;
+$('browse-all-deals').addEventListener('click',event=>{
+ if(event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;
+ event.preventDefault();
+ showAllDeals();
+ location.hash='catalog';
+ $('catalog').scrollIntoView({block:'start'});
+});
 $('show-more').onclick=appendDeals;
 if(!hotEmbed && 'IntersectionObserver' in window){
  const observer=new IntersectionObserver(entries=>{
@@ -637,7 +654,7 @@ document.addEventListener('click',e=>{
  const share=e.target.closest('[data-share]');if(share){shareDeal(deals.find(d=>d.id===share.dataset.share));return;}
  const b=e.target.closest('[data-save]');if(b){const id=b.dataset.save;saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];try{localStorage.setItem(savedKey,JSON.stringify(saved));}catch{}render();return;}
  const c=e.target.closest('[data-category]');if(c){$('category').value=c.dataset.category;shown=24;render();return;}
- const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;if(mode==='all'){for(const id of ['query','category','store','budget'])$(id).value='';$('sort').value='new';}shown=24;if(mode==='new'){$('sort').value='new';}render();}
+ const t=e.target.closest('[data-feed]');if(t){mode=t.dataset.feed;if(mode==='all'){showAllDeals();return;}shown=24;if(mode==='new'){$('sort').value='new';}render();}
 });
 rebuildOptions();const params=new URLSearchParams(location.search),presetCategory=params.get("category"),presetView=params.get("view"),presetSort=params.get("sort");if(presetCategory&&[...$("category").options].some(x=>x.value===presetCategory))$("category").value=presetCategory;if(['popular','upcoming','featured','new','all','saved','black','cyber'].includes(presetView))mode=presetView;if(['popular','featured','new','price','sweet'].includes(presetSort))$("sort").value=presetSort;else if(mode==='popular')$("sort").value='popular';renderAds();render();
 function renderSourceHealth(payload){
