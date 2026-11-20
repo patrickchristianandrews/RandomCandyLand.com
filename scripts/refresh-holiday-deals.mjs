@@ -5,7 +5,7 @@
  * live stock, expiry or an exhaustive listing of all online promotions.
  * RSS titles and original source links only; no copied publisher articles.
  */
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import '../public/black-friday/deal-category.js';
 import {retainDeals,hasConfirmedEnded} from './holiday-deal-retention.mjs';
@@ -106,6 +106,16 @@ const overlap=(a,b)=>{
  const aa=new Set(a),bb=new Set(b),same=a.filter(t=>bb.has(t)).length;
  return {same,sim:same/(aa.size+bb.size-same||1)};
 };
+function mergePrices(...groups){
+ const unique=new Map();
+ const cutoff=now.toISOString().slice(0,10);
+ const firstDay=new Date(Date.parse(cutoff)-(364*86400000)).toISOString().slice(0,10);
+ for(const sample of groups.flat()){
+  if(!sample||!Number.isFinite(sample.price)||sample.price<=0||!/^\d{4}-\d{2}-\d{2}$/.test(sample.date)||sample.date<firstDay||sample.date>cutoff)continue;
+  unique.set(sample.date+'|'+sample.price,{date:sample.date,price:sample.price});
+ }
+ return [...unique.values()].sort((a,b)=>a.date.localeCompare(b.date));
+}
 function listingKey(source){
  const url=new URL(source),host=url.hostname.toLowerCase().replace(/^www\./,'');
  if(host==='dealnews.com'){
@@ -170,8 +180,8 @@ for(const feed of FEEDS){
    if(price===null&&!words)continue;
    const old=oldByLink.get(link),id='rss-'+createHash('sha1').update(link).digest('hex').slice(0,13);
    const hist=Array.isArray(old?.history)?old.history.filter(h=>h&&h.date&&Number.isFinite(Number(h.price))&&Date.parse(h.date)>now.getTime()-365*86400000):[];
-   if(Number.isFinite(price)&&price>0&&!hist.some(h=>h.date===day))hist.push({date:day,price});
-   const incoming={id,name:title,category:category(title),store:retailer(title),image:imageFromItem(item)||old?.image||null,price,reference:null,spec:'',source:link,sourceType:feed.group,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):day,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Deal reported by linked publisher. Check retailer, exact model, stock, final price, coupon terms and shipping at source.',popular:Boolean(feed.popular),featured:Boolean(feed.featured),reportedBy:[{publisher:feed.group,url:link}],history:hist.slice(-365)};
+   if(Number.isFinite(price)&&price>0&&!hist.some(h=>h.date===day&&Number(h.price)===price))hist.push({date:day,price});
+   const incoming={id,name:title,category:category(title),store:retailer(title),image:imageFromItem(item)||old?.image||null,price,reference:null,spec:'',source:link,sourceType:feed.group,checked:Number.isFinite(epoch)?new Date(epoch).toISOString().slice(0,10):day,publishedAt:Number.isFinite(epoch)?new Date(epoch).toISOString():null,why:'',catch:'Deal reported by linked publisher. Check retailer, exact model, stock, final price, coupon terms and shipping at source.',popular:Boolean(feed.popular),featured:Boolean(feed.featured),reportedBy:[{publisher:feed.group,url:link}],history:mergePrices(hist)};
    const existing=byLink.get(link);
    if(existing){
     existing.popular ||= incoming.popular;existing.featured ||= incoming.featured;
@@ -202,6 +212,7 @@ for(const d of candidates){
  const identity=listingKey(d.source);
  const matching=listings.get(identity)||bucketList.find(ex=>sameDeal(ex,d));
  if(matching){
+  if(listings.has(identity))matching.history=mergePrices(matching.history||[],d.history||[]);
   listings.set(identity,matching);
   matching.popular ||= d.popular;matching.featured ||= d.featured;
   if(d.feedStatus==='recently_reported')matching.feedStatus='recently_reported';
@@ -218,7 +229,15 @@ for(const d of candidates){
 deduped.sort((a,b)=>(b.publishedAt||'').localeCompare(a.publishedAt||''));
 const counts={};
 for(const d of deduped)for(const r of d.reportedBy||[{publisher:d.sourceType}])counts[r.publisher]=(counts[r.publisher]||0)+1;
-const result={generatedAt:now.toISOString(),sourcesSucceeded:sourceStatus.filter(x=>x.ok).length,sourcesConfigured:FEEDS.length,sourceStatus,feedItems:deduped.length,rawItems:candidates.length,mergedDuplicates,retainedFromEarlier:retained.retainedCount,refreshedOffers:retained.refreshedCount,sourceCounts:counts,sourceNotice:usedFallback?'All publisher feeds failed; indexed leads are retained with unverified availability.':'Deals stay indexed until a known end date or ended status. Previously reported leads are not verified in stock; confirm final price and availability with the retailer.',deals:deduped};
+const curatedHistory={};
+const curatedPage=await readFile('public/black-friday/index.html','utf8');
+const curatedRows=curatedPage.match(/const curated=(\[\[.*?\]\])\.map\(/s);
+if(curatedRows)for(const row of JSON.parse(curatedRows[1])){
+ const key=row[0]+'|'+row[7];
+ const previous=previousFeed?.curatedHistory?.[key]||[];
+ curatedHistory[key]=mergePrices(previous,[{date:row[9],price:row[4]}]);
+}
+const result={curatedHistory,generatedAt:now.toISOString(),sourcesSucceeded:sourceStatus.filter(x=>x.ok).length,sourcesConfigured:FEEDS.length,sourceStatus,feedItems:deduped.length,rawItems:candidates.length,mergedDuplicates,retainedFromEarlier:retained.retainedCount,refreshedOffers:retained.refreshedCount,sourceCounts:counts,sourceNotice:usedFallback?'All publisher feeds failed; indexed leads are retained with unverified availability.':'Deals stay indexed until a known end date or ended status. Previously reported leads are not verified in stock; confirm final price and availability with the retailer.',deals:deduped};
 await mkdir('public/black-friday',{recursive:true});
 await writeFile(OUT,JSON.stringify(result));
 console.log('Holiday Radar:',deduped.length,'unique offers,',mergedDuplicates,'duplicates merged;',result.sourcesSucceeded+'/'+FEEDS.length,'RSS feeds succeeded');
