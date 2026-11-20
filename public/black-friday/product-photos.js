@@ -16,6 +16,8 @@
     'sonic-forces-switch-77004s':'https://www.tradergames.fr/322719-home_default/sonic-forces-switch-usa-new-enfrdeesit.jpg',
     'ring-starter':'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/f6701a8a-514d-4a27-a567-0e76d189dc18.jpg',
     'lg-c6-65-oled':'https://sonxplus.com/cdn/shop/files/OLED65C6PUA_03_2037x2037.jpg?v=1773326136',
+    'ninja':'https://i.ebayimg.com/00/s/MTYwMFgxNjAw/z/cRAAAeSwWNdod6E9/%24_57.JPG?set_id=880000500F',
+    'dyson-nural-costco-493383':'https://api-runner.a-ok.app/static/images/p/hero-desktop/aokh8AW4O4dFOMniHntjbdyx372WiYN8DGc8W-hgjdo5i-6mEkuUcUEvcIyCjrBNSzc2mGloj8uj2kfFo-90PWJBOomPb4o48OC-zRs394NIUJ9qhJw_aGfJOhMscm3P1V9drHY-36q2rkIH3BftPSfzL7UeMZRUvdjh0ilnD-ez25az89YwMBuOsu0iIA3ZYoG7p8%3D',
     'lego-advent':'https://lego.bricksmegastore.com/cdn/shop/files/75456-Front_a74d0f7e-0413-44c8-a25a-94fd62ef3135.png?v=1779920478',
     'lego-disney-2026':'https://www.lego.com/cdn/cs/set/assets/blt4281afc1183d702f/43298_boxprod_v29.png?dpr=1&fit=crop&height=800&quality=80&width=800',
     'jbl-charge6-black':'https://www.connoisseur.co.za/cdn/shop/files/JBL_CHARGE_6_BLACK_FRONT_023_x1_resized.png?v=1742810270&width=900',
@@ -30,6 +32,7 @@
   });
   const safeURL=candidate=>{
     if(typeof candidate!=='string')return null;
+    if(/^\/black-friday\/product-images\/[a-z0-9_-]+\.(?:jpg|png|webp)$/i.test(candidate))return candidate;
     try{
       const url=new URL(candidate);
       if(url.protocol!=='https:'||/\.(?:svg|gif)$/i.test(url.pathname)||/\b(?:logo|banner|pixel|tracker|tracking|advert)\b/i.test(url.pathname))return null;
@@ -38,7 +41,8 @@
   };
   const photoURLs=d=>{
     if(!d||typeof d!=='object')return [];
-    const set=exact[d.id],candidates=[...(Array.isArray(set)?set:set?[set]:[]),...(d.imageVerified===true?[d.image]:[])];
+    const set=exact[d.id],local=window.RCLCachedDealPhotos?.[d.id];
+    const candidates=[...(local?[local]:[]),...(Array.isArray(set)?set:set?[set]:[]),...(d.imageVerified===true?[d.image]:[])];
     return [...new Set(candidates.map(safeURL).filter(Boolean))];
   };
   const photoURL=d=>photoURLs(d)[0]||null;
