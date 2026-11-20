@@ -64,10 +64,18 @@ async function imageBytes(url){
  const reader=res.body?.getReader();if(!reader)return null;
  const chunks=[];let total=0;
  while(true){
-  const {value,done}=await reader.read();
+  let chunk,timer;
+  try{
+   chunk=await Promise.race([
+    reader.read(),
+    new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Image download timed out')),4200);})
+   ]);
+  }catch{void reader.cancel().catch(()=>{});return null;}
+  finally{clearTimeout(timer);}
+  const {value,done}=chunk;
   if(done)break;
   total+=value.byteLength;
-  if(total>maxBytes){await reader.cancel();return null;}
+  if(total>maxBytes){void reader.cancel().catch(()=>{});return null;}
   chunks.push(value);
  }
  if(total<3000)return null;
