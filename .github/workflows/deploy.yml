@@ -106,6 +106,13 @@ jobs:
           node scripts/refresh-holiday-deals.mjs
           test -s public/black-friday/live-feed.json
 
+      - name: Cache approved product photographs locally for holiday deals
+        continue-on-error: true
+        run: |
+          node --check scripts/cache-holiday-deal-images.mjs
+          node scripts/cache-holiday-deal-images.mjs
+          test -s public/black-friday/product-photos-cache.js
+
       - name: Build the entire website
         run: bun run build
 
