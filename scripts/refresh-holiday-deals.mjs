@@ -67,11 +67,12 @@ function imageFromItem(xml,title){
   const hits=target.filter(w=>labelWords.has(w)).length;
   return hits>=2&&hits/Math.min(target.length,6)>=.34;
  };
- const mediaTitle=xml.match(/<media:title(?:\s[^>]*)?>([\s\S]*?)<\/media:title>/i)?.[1]||'';
+ const mediaTitle=xml.match(/<media:title(?:\s[^>]*)?>([\s\S]*?)<\/media:title>/i)?.[1]||
+                  xml.match(/<media:description(?:\s[^>]*)?>([\s\S]*?)<\/media:description>/i)?.[1]||'';
  for(const hit of xml.matchAll(/<(media:thumbnail|media:content|enclosure|img)\b[^>]*>/gi)){
   const tag=hit[0];
   if(/\btype=["'](?:video|audio)/i.test(tag))continue;
-  const raw=tag.match(/\b(?:url|src)=["']([^"']+)["']/i)?.[1];
+  const raw=tag.match(/\b(?:url|data-src|data-lazy-src|src)=["']([^"']+)["']/i)?.[1];
   if(!raw)continue;
   const label=tag.match(/\b(?:alt|title)=["']([^"']+)["']/i)?.[1]||(/media:/.test(hit[1])?mediaTitle:'');
   try{
@@ -82,7 +83,11 @@ function imageFromItem(xml,title){
    const filename=(()=>{try{return decodeURIComponent(url.pathname)}catch{return url.pathname}})();
    const pathWords=new Set(words(filename));
    const modelInFilename=modelTokens.some(model=>pathWords.has(model));
-   if(!matchesProduct(label)&&!modelInFilename)continue;
+   const distinctive=target.filter(w=>w.length>=4&&!ignored.has(w));
+   const namedMatches=distinctive.filter(w=>pathWords.has(w)).length;
+   const filenameNamesProduct=namedMatches>=2&&namedMatches>=Math.ceil(Math.min(distinctive.length,6)/2)&&
+       (!modelTokens.length||modelInFilename);
+   if(!matchesProduct(label)&&!modelInFilename&&!filenameNamesProduct)continue;
    return url.href;
   }catch{/* malformed publisher image URL */}
  }
