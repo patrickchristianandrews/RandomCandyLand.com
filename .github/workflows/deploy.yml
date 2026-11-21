@@ -125,6 +125,11 @@ jobs:
           node scripts/cache-holiday-deal-images.mjs
           test -s public/black-friday/product-photos-cache.js
 
+      - name: Verify site-hosted photo files and broken-image recovery
+        run: |
+          node --check scripts/test-holiday-product-photos.mjs
+          node scripts/test-holiday-product-photos.mjs
+
       - name: Save validated holiday product photos for future builds
         uses: actions/cache/save@v4
         with:
