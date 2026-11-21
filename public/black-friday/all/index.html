@@ -699,12 +699,12 @@ async function refreshAdIndex(){
    fetch('/black-friday/ad-sources.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Source catalog unavailable'))),
    fetch('/black-friday/ad-scans.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Ad feed unavailable')))
   ]);
-  const known=new Map(ads.map((x,i)=>{try{const u=new URL(x[2]);return [u.hostname+u.pathname.replace(/\\/+$/,'').toLowerCase()+u.search,i]}catch{return [x[2],i]}}));
+  const known=new Map(ads.map((x,i)=>{try{const u=new URL(x[2]);return [u.hostname+u.pathname.replace(/\/+$/,'').toLowerCase()+u.search,i]}catch{return [x[2],i]}}));
   const add=entries=>{
    for(const entry of Array.isArray(entries)?entries:[]){
     if(!entry||Number(entry.year)!==2026||!/^https:\/\//.test(entry.url||''))continue;
     let uri;try{uri=new URL(entry.url)}catch{continue}
-    const key=uri.hostname+uri.pathname.replace(/\\/+$/,'').toLowerCase()+uri.search;
+    const key=uri.hostname+uri.pathname.replace(/\/+$/,'').toLowerCase()+uri.search;
     const type=entry.type==='scan'?'scan':entry.type==='weekly'?'weekly':entry.type==='directory'?'directory':'sale';
     const label=type==='scan'?'Ad scans · publisher':type==='weekly'?'Retailer weekly ad':type==='directory'?'More ad sources':'Sale page · not a scan';
     const item=[String(entry.name||'2026 ad preview'),String(entry.notes||'Confirm ad dates and retailer terms'),entry.url,label,type];
