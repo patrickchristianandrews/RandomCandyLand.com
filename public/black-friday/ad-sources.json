@@ -1,0 +1,270 @@
+{
+  "updatedAt": "2026-11-20",
+  "description": "Verified 2026 circular references, separate official retailer offers, and clearly labeled external directories.",
+  "ads": [
+    {
+      "name": "Target Black Friday 2026 – 77-page circular (Nov 22–29)",
+      "url": "https://cataloguethisweek.com/us/flyer/target-black-friday-deals-from-sunday-11-22-2026-6264381/",
+      "notes": "77-page Nov 22–29 retailer weekly circular from an ad publisher; confirm offers with Target",
+      "type": "scan",
+      "pageCount": 77,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Kohl's Black Friday Week (Nov 22–28)",
+      "url": "https://blackfriday.ltd/ads/kohls-black-friday-week-ad-2026/",
+      "notes": "6-page Black Friday Week preview, Nov 22–28",
+      "type": "scan",
+      "pageCount": 6,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Kohl's Early Access (ended Nov 8)",
+      "url": "https://blackfriday.ltd/ads/kohls-black-friday-ad/",
+      "notes": "5-page earlier circular; Nov 6–8 sale has ended",
+      "type": "scan",
+      "pageCount": 5,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Costco Holiday Savings Book",
+      "url": "https://blackfriday.ltd/ads/costco-black-friday-ad/",
+      "notes": "29-page holiday savings book, Oct 30–Nov 30; check page-specific dates",
+      "type": "scan",
+      "pageCount": 29,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Home Depot Black Friday Ad",
+      "url": "https://blackfriday.ltd/ads/home-depot-black-friday-ad/",
+      "notes": "12-page early Black Friday promotion, Nov 5–25",
+      "type": "scan",
+      "pageCount": 12,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Walmart Early Black Friday Ad (ended Nov 15)",
+      "url": "https://blackfriday.ltd/ads/walmart-black-friday-ad/",
+      "notes": "Two landing-page captures from the Nov 12–15 early sale, not the full upcoming ad",
+      "type": "scan",
+      "pageCount": 2,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Sam's Club November Savings and Black Friday",
+      "url": "https://blackfriday.ltd/ads/sams-club-black-friday-ad/",
+      "notes": "November Instant Savings book plus Black Friday Nov 26–29 page",
+      "type": "scan",
+      "pageCount": 49,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "BJ's Wholesale Club Holiday Book (early sale)",
+      "url": "https://blackfriday.ltd/ads/bjs-black-friday-ad/",
+      "notes": "40-page early sale preview valid through Nov 15; check new offers",
+      "type": "scan",
+      "pageCount": 40,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Ace Hardware California regional circular",
+      "url": "https://blackfriday.ltd/ads/ace-hardware-black-friday-ad/",
+      "notes": "6-page California regional flyer, Nov 1–30; availability differs by store",
+      "type": "scan",
+      "pageCount": 6,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Target Holiday Kids' Catalog – sample pages",
+      "url": "https://blackfriday.ltd/ads/target-holiday-kids-catalog-2026-selected-lego-preview-pages/",
+      "notes": "Two selected LEGO pages, not the complete toy catalog",
+      "type": "scan",
+      "pageCount": 2,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Target Early November Ad (ended Nov 7)",
+      "url": "https://blackfriday.ltd/ads/target-black-friday-ad/",
+      "notes": "37-page earlier Target weekly ad, Nov 1–7; promotion has ended",
+      "type": "scan",
+      "pageCount": 37,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Menards Rebate Weekly Flyer (ended Nov 8)",
+      "url": "https://blackfriday.ltd/ads/menards-black-friday-ad/",
+      "notes": "Oct 25–Nov 8 weekly rebate ad; NOT the Menards Black Friday circular",
+      "type": "weekly",
+      "pageCount": 25,
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Published ad publisher"
+    },
+    {
+      "name": "Target – Official Weekly Ad",
+      "url": "https://www.target.com/c/weekly-ad/-/N-5xt0a",
+      "notes": "Official weekly ad; local prices and offer dates can vary",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Target – Black Friday Nov 22–29 Announcement",
+      "url": "https://corporate.target.com/press/release/2026/11/target-announces-black-friday-deals-and-giveaways-to-help-families-save-big-on-gifts-they-ll-love-to",
+      "notes": "Official November 17 announcement and sale schedule, not a scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Walmart – Black Friday Deals",
+      "url": "https://www.walmart.com/shop/deals/black-friday",
+      "notes": "Official 2026 Black Friday deal listings, not a printed circular",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Best Buy – Black Friday Deals",
+      "url": "https://www.bestbuy.com/black-friday",
+      "notes": "Official electronics deal catalog; not a printed circular",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Best Buy – Holiday Event Schedule",
+      "url": "https://corporate.bestbuy.com/2026/black-friday-sale-deals/",
+      "notes": "Official Black Friday and Cyber Week schedule, not a scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Amazon – Holiday Deals",
+      "url": "https://www.amazon.com/gp/goldbox",
+      "notes": "Official online deals and timed drops; not a printed ad scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Home Depot – Black Friday Deals",
+      "url": "https://www.homedepot.com/b/Black-Friday-Deals/N-5yc1vZ1z1zdoh",
+      "notes": "Official Black Friday sale catalog, separate from a flyer scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Lowe's – Black Friday Deals",
+      "url": "https://www.lowes.com/l/savings/black-friday-deals",
+      "notes": "Official 2026 tool, appliance and seasonal offers; not an ad scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Ulta Beauty – Black Friday Offers",
+      "url": "https://www.ulta.com/promotion/black-friday",
+      "notes": "Official 2026 Black Friday beauty offers, beginning online Nov 21",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "DICK'S Sporting Goods – Black Friday Deals",
+      "url": "https://www.dickssportinggoods.com/f/sale",
+      "notes": "Official sports and apparel sale page, not a flyer scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "GameStop – Current Deals",
+      "url": "https://www.gamestop.com/deals",
+      "notes": "Official gaming deal catalog, not a verified 2026 flyer",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "JCPenney – November Holiday Sale Dates",
+      "url": "https://corporate.jcpenney.com/2026/11/02/everyone-deserves-a-better-deal-at-jcpenney-they-get-one-period/",
+      "notes": "Official 2026 sale announcement, not a photographed ad",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Xbox – Holiday Game Sale Announcement",
+      "url": "https://news.xbox.com/en-us/2026/11/16/xbox-black-friday-sale-2026/",
+      "notes": "Official 2026 gaming sale announcement, not an ad scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Nintendo – Black Friday Offers",
+      "url": "https://www.nintendo.com/us/whatsnew/nintendo-announces-black-friday-offers-to-help-spread-joy-this-holiday-season/",
+      "notes": "Official bundle and game promotion schedule, not an ad scan",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Browse More 2026 Retailer Ad Listings",
+      "url": "https://www.earlyblackfriday.com/stores",
+      "notes": "External store directory; Coming Soon listings are not yet released ads",
+      "type": "directory",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "External ad directory"
+    },
+    {
+      "name": "2026 Community Ad Scan Tracker",
+      "url": "https://slickdeals.net/f/20195757-black-friday-2026-ad-scans",
+      "notes": "Community-maintained list of extra ad sources; verify each ad date",
+      "type": "directory",
+      "year": 2026,
+      "discoveredAt": "2026-11-20",
+      "source": "External ad directory"
+    }
+  ]
+}
