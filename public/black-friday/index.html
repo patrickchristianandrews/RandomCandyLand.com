@@ -284,8 +284,10 @@ html[data-embed] #hot-list .hot-art-fallback{font-size:.62rem!important;padding:
 /* Homepage iframe only: never let two-column deal details overlap adjacent cards. */
 html[data-embed] .rcl-share-strip,
 html[data-embed] #rcl-share-page { display:none!important; }
+html[data-embed] #hot-list { align-items:stretch!important; }
 html[data-embed] #hot-list>.hot-card {
   min-width:0;
+  height:100%;
   overflow:hidden;
 }
 html[data-embed] #hot-list .hot-bottom {
@@ -933,7 +935,7 @@ function reportEmbeddedHeight(){
  if(!document.documentElement.dataset.embed||window.parent===window)return;
  const section=document.querySelector('.hot-section');
  if(!section)return;
- const size=Math.ceil(section.getBoundingClientRect().bottom+8);
+ const size=Math.ceil(section.getBoundingClientRect().bottom+3);
  if(size>=65&&size<=1600)window.parent.postMessage({type:'rcl-holiday-embed-height',height:size},location.origin);
 }
 if(document.documentElement.dataset.embed){
