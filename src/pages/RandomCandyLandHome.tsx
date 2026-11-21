@@ -116,7 +116,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
       const message = event.data as {type?: string; height?: number} | null;
       if (message?.type !== 'rcl-holiday-embed-height' || typeof message.height !== 'number' || !Number.isFinite(message.height)) return;
       const frame = holidayFrameRef.current;
-      if (frame) frame.style.height = Math.max(65, Math.min(850, Math.ceil(message.height))) + 'px';
+      if (frame) frame.style.height = Math.max(65, Math.min(1600, Math.ceil(message.height))) + 'px';
     };
     window.addEventListener('message', handleHolidayHeight);
     return () => window.removeEventListener('message', handleHolidayHeight);
@@ -228,7 +228,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
             try {
               const section=frame?.contentDocument?.querySelector('.hot-section');
               const h=section?Math.ceil(section.getBoundingClientRect().bottom+8):0;
-              if(frame&&h>=65&&h<=850)frame.style.height=h+'px';
+              if(frame&&h>=65&&h<=1600)frame.style.height=h+'px';
             } catch { /* Same-origin frame is expected; leave CSS fallback if unavailable. */ }
           }}
         />
