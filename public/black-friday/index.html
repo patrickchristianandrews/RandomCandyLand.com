@@ -284,10 +284,17 @@ html[data-embed] #hot-list .hot-art-fallback{font-size:.62rem!important;padding:
 /* Homepage iframe only: never let two-column deal details overlap adjacent cards. */
 html[data-embed] .rcl-share-strip,
 html[data-embed] #rcl-share-page { display:none!important; }
-html[data-embed] #hot-list { align-items:stretch!important; }
+/* Four homepage deals: stretch every card across its grid row, including deal #4.
+   Text wrapping must not leave an exposed purple gap beneath a shorter card. */
+html[data-embed] #hot-list {
+  align-items:stretch!important;
+  grid-auto-rows:minmax(0,1fr);
+}
 html[data-embed] #hot-list>.hot-card {
   min-width:0;
+  min-height:0;
   height:100%;
+  align-self:stretch!important;
   overflow:hidden;
 }
 html[data-embed] #hot-list .hot-bottom {
