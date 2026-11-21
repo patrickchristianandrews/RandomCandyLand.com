@@ -106,12 +106,32 @@ jobs:
           node scripts/refresh-holiday-deals.mjs
           test -s public/black-friday/live-feed.json
 
+      # Preserve checked product photos across scheduled builds. Without this,
+      # every hourly run deletes all photos and must re-download from sites that
+      # frequently reject third-party/hotlinked images.
+      - name: Restore verified holiday product photo cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            public/black-friday/product-images
+            public/black-friday/product-photos-cache.js
+          key: holiday-verified-product-photos-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            holiday-verified-product-photos-
+
       - name: Cache approved product photographs locally for holiday deals
-        continue-on-error: true
         run: |
           node --check scripts/cache-holiday-deal-images.mjs
           node scripts/cache-holiday-deal-images.mjs
           test -s public/black-friday/product-photos-cache.js
+
+      - name: Save validated holiday product photos for future builds
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            public/black-friday/product-images
+            public/black-friday/product-photos-cache.js
+          key: holiday-verified-product-photos-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Build the entire website
         run: bun run build
