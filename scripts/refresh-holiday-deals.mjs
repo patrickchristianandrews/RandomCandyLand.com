@@ -307,13 +307,13 @@ const retainAd=entry=>{
  if(!entry||Number(entry.year)!==2026||!entry.name)return;
  const key=adKey(entry);if(!key)return;
  const type=['scan','weekly','official','directory'].includes(entry.type)?entry.type:'scan';
- const current=adEntries.get(key);
  const normalized={...entry,type,year:2026};
- if(!current||String(normalized.source||'').includes('Published')||String(normalized.source||'').includes('Official'))
-  adEntries.set(key,normalized);
+ if(!adEntries.has(key))adEntries.set(key,normalized);
 };
-for(const x of Array.isArray(priorAds?.ads)?priorAds.ads:[])retainAd(x);
+// Keep curated and dated entries authoritative; previous runs and newly scraped
+// links add coverage but cannot overwrite better-labeled sources with generic text.
 for(const x of adCatalog.ads)retainAd(x);
+for(const x of Array.isArray(priorAds?.ads)?priorAds.ads:[])retainAd(x);
 let adsChecked=false,adsError=null,discovered=0;
 try{
  const html=await request(adSource,14000);
