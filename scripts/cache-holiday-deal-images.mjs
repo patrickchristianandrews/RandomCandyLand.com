@@ -155,12 +155,15 @@ async function validLocalPhoto(raw){
   return (match[2]==='jpg'&&jpeg)||(match[2]==='png'&&png)||(match[2]==='webp'&&webp);
  }catch{return false;}
 }
+// Restore every valid image before the timed network pass, including entries
+// that sit beyond the download budget. An hourly refresh must never erase them.
+for(const deal of tasks){
+ const local=priorPhotos[deal.id];
+ if(await validLocalPhoto(local)){cached[deal.id]=local;reused++;}
+}
+const pending=tasks.filter(deal=>!cached[deal.id]);
 async function processDeal(deal){
  if(Date.now()>=budgetEnds)return;
- const previouslySaved=priorPhotos[deal.id];
- if(await validLocalPhoto(previouslySaved)){
-  cached[deal.id]=previouslySaved;reused++;return;
- }
  let candidates=(photos?.photoURLs(deal)||[]).filter(x=>/^https:\/\//i.test(x));
  // Only try a retailer-provided photo for a product-specific listing.
  if(!candidates.length&&curated.some(x=>x.id===deal.id)){
@@ -181,8 +184,8 @@ async function processDeal(deal){
  }
 }
 const workers=Array.from({length:8},async()=>{
- while(index<tasks.length&&Date.now()<budgetEnds){
-  const deal=tasks[index++];
+ while(index<pending.length&&Date.now()<budgetEnds){
+  const deal=pending[index++];
   try{await processDeal(deal)}catch(e){console.warn('Photo cache skip:',deal.id,String(e.message||e).slice(0,80));}
  }
 });
