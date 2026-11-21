@@ -11,23 +11,30 @@ import path from 'node:path';
 const root='public/black-friday';
 const imageDir=path.join(root,'product-images');
 const manifestPath=path.join(root,'product-photos-cache.js');
-const budgetEnds=Date.now()+55000;
+// Keep the work bounded, but allow new live-feed listings to be reached.
+const budgetEnds=Date.now()+90000;
 const maxBytes=3*1024*1024;
 const read=async name=>readFile(name,'utf8').catch(()=>null);
 const html=await read(path.join(root,'all/index.html'))||'';
 const source=await read(path.join(root,'product-photos.js'))||'';
+// A GitHub Actions cache restores this locally validated manifest and its files
+// from the last deployment. Never replace it with an empty fresh-run manifest.
+const priorManifest=await read(manifestPath)||'';
 const feed=JSON.parse(await read(path.join(root,'live-feed.json'))||'{"deals":[]}');
 const curatedMatch=html.match(/const deals=(\[\[.*?\]\])\.map\(/s);
 const fields=['id','name','category','store','price','reference','spec','source','sourceType','checked','why','catch','featured'];
 const curated=curatedMatch?JSON.parse(curatedMatch[1]).map(row=>Object.fromEntries(fields.map((key,i)=>[key,row[i]]))):[];
 const windowObj={};
-runInNewContext(source,{window:windowObj,document:{addEventListener(){}},URL});
+const context={window:windowObj,document:{addEventListener(){}},URL};
+if(priorManifest)try{runInNewContext(priorManifest,context,{timeout:1000})}catch{console.warn('Ignoring invalid prior product photo manifest');}
+const priorPhotos=windowObj.RCLCachedDealPhotos&&typeof windowObj.RCLCachedDealPhotos==='object'?windowObj.RCLCachedDealPhotos:{};
+runInNewContext(source,context,{timeout:1000});
 const photos=windowObj.RCLProductPhotos;
 const all=[...curated,...(Array.isArray(feed.deals)?feed.deals.filter(d=>d?.imageVerified===true&&d.image):[])];
 const seen=new Set();
-const tasks=all.filter(d=>d&&typeof d.id==='string'&&!seen.has(d.id)&&seen.add(d.id)).slice(0,180);
+const tasks=all.filter(d=>d&&typeof d.id==='string'&&!seen.has(d.id)&&seen.add(d.id));
 const cached={};
-let index=0,attempted=0,usedSource=0,discovered=0;
+let index=0,attempted=0,usedSource=0,discovered=0,reused=0;
 
 function safeRemote(raw){
  try{
@@ -134,9 +141,27 @@ async function fromRetailerPage(deal){
  return null;
 }
 await mkdir(imageDir,{recursive:true});
+// Only accept the exact cached file previously saved for this listing, and
+// verify its image header before publishing a URL. Never trust stale manifests.
+async function validLocalPhoto(raw){
+ const match=typeof raw==='string'&&raw.match(/^\/black-friday\/product-images\/([a-z0-9_-]+)\.(jpg|png|webp)$/i);
+ if(!match)return false;
+ try{
+  const bytes=await readFile(path.join(imageDir,match[1]+'.'+match[2]));
+  if(bytes.length<3000||bytes.length>maxBytes)return false;
+  const jpeg=bytes[0]===0xff&&bytes[1]===0xd8&&bytes[2]===0xff;
+  const png=bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]));
+  const webp=bytes.toString('ascii',0,4)==='RIFF'&&bytes.toString('ascii',8,12)==='WEBP';
+  return (match[2]==='jpg'&&jpeg)||(match[2]==='png'&&png)||(match[2]==='webp'&&webp);
+ }catch{return false;}
+}
 async function processDeal(deal){
  if(Date.now()>=budgetEnds)return;
- let candidates=photos?.photoURLs(deal)||[];
+ const previouslySaved=priorPhotos[deal.id];
+ if(await validLocalPhoto(previouslySaved)){
+  cached[deal.id]=previouslySaved;reused++;return;
+ }
+ let candidates=(photos?.photoURLs(deal)||[]).filter(x=>/^https:\/\//i.test(x));
  // Only try a retailer-provided photo for a product-specific listing.
  if(!candidates.length&&curated.some(x=>x.id===deal.id)){
   const productImage=await fromRetailerPage(deal).catch(()=>null);
@@ -163,4 +188,4 @@ const workers=Array.from({length:8},async()=>{
 });
 await Promise.all(workers);
 await writeFile(manifestPath,'/* Generated product-specific images cached on the site. */\nwindow.RCLCachedDealPhotos=Object.freeze('+JSON.stringify(cached)+');\n');
-console.log('Holiday product images:',usedSource,'cached of',tasks.length,'eligible listings;',attempted,'photo requests;',discovered,'new retailer photo candidates. Missing images retain their existing honest fallback.');
+console.log('Holiday product images:',Object.keys(cached).length,'validated local photos for',tasks.length,'eligible listings ('+reused+' reused, '+usedSource+' downloaded);',attempted,'remote requests;',discovered,'new retailer photo candidates. Missing or unverifiable product images keep the honest fallback.');
