@@ -83,3 +83,28 @@
 @media(max-width:1120px){.rcl-workshop .rcl-workshop-header{flex-direction:column-reverse;gap:6px}.rcl-workshop .rcl-workshop-wordmark{align-self:flex-end}.rcl-workshop .rcl-workshop-nav{align-self:stretch;justify-content:center}.rcl-workshop .rcl-workshop-hero{padding-inline:185px}.rcl-workshop .rcl-mascot{width:185px}.rcl-workshop .rcl-mascot img{width:180px;height:180px}.rcl-workshop .rcl-highlight-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:680px){.rcl-workshop .rcl-workshop-header{width:calc(100% - 14px);margin-top:5px;padding:9px;gap:6px;border-radius:15px}.rcl-workshop .rcl-workshop-wordmark{font-size:17px}.rcl-workshop .rcl-workshop-wordmark img{width:38px;height:38px}.rcl-workshop .rcl-workshop-nav{gap:0;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;width:100%;padding-bottom:3px;scrollbar-width:thin}.rcl-workshop .rcl-workshop-nav a{padding:8px;font-size:12px}.rcl-workshop .rcl-workshop-hero{width:calc(100% - 20px);padding:125px 13px 27px;min-height:325px;border-radius:22px;margin-top:25px}.rcl-workshop .rcl-mascot{top:-31px;bottom:auto;width:130px}.rcl-workshop .rcl-mascot img{width:128px;height:128px}.rcl-workshop .rcl-mascot-name{font-size:12px;padding:4px 10px;transform:translateY(-16px)}.rcl-workshop .rcl-hero-eyebrow{font-size:9px}.rcl-workshop .rcl-hero-center h1{font-size:clamp(27px,7vw,39px)}.rcl-workshop .rcl-hero-center p{font-size:12px}.rcl-workshop .rcl-hero-confetti{display:none}.rcl-workshop .rcl-wide-only{display:none}.rcl-workshop .rcl-hero-cta,.rcl-workshop .rcl-hero-outline{font-size:12px;padding:8px 12px;min-height:36px}.rcl-workshop .rcl-site-highlights,.rcl-workshop .rcl-home-whats-new{width:calc(100% - 24px)}.rcl-workshop .rcl-highlight-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.rcl-workshop .rcl-highlight-card{min-height:122px;padding:9px}.rcl-workshop .rcl-highlight-card img{height:35px;width:35px}.rcl-workshop .rcl-highlight-card strong{font-size:15px}.rcl-workshop .rcl-highlight-card>span{font-size:11px}.rcl-workshop.candyland-next .candy-home-holiday{width:calc(100% - 24px);padding:10px}.rcl-workshop .rcl-home-whats-new{display:block;padding:14px}.rcl-workshop .rcl-update-list{grid-template-columns:1fr;margin-top:8px}.rcl-workshop .rcl-update-list a{padding:7px 0;border-left:0;border-top:1px solid #ebcabc}.rcl-workshop .rcl-section-heading>span{display:none}}
 @media(prefers-reduced-motion:reduce){.rcl-workshop .rcl-mascot img,.rcl-workshop .rcl-workshop-wordmark img{animation:none!important;transition:none!important}.rcl-workshop .rcl-highlight-card,.rcl-workshop .rcl-workshop-nav a,.rcl-workshop .rcl-hero-cta,.rcl-workshop .rcl-hero-outline{transition:none!important}}
+
+/* Mobile homepage holiday embed: remove baseline gap and over-heavy framing.
+   Scoped to the homepage; standalone deal pages and site-wide artwork are unchanged. */
+.rcl-workshop.candyland-next .candy-home-hot-deals-frame{
+  display:block;
+  max-width:100%;
+  vertical-align:top;
+}
+@media(max-width:680px){
+  .rcl-workshop.candyland-next .candy-home-holiday{
+    padding:8px;
+    border-width:2px;
+    border-radius:19px;
+    box-shadow:0 3px 0 #f5c3c8,0 8px 14px #b7798520;
+  }
+  .rcl-workshop.candyland-next .candy-home-hot-deals-frame{
+    border-radius:9px;
+  }
+  .rcl-workshop .rcl-home-whats-new{
+    margin-top:14px;
+    margin-bottom:17px;
+    padding:12px 13px;
+    border-radius:18px;
+  }
+}
