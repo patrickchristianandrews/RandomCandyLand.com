@@ -289,11 +289,32 @@ function parseAdListing(raw){
  return {name:name||original,pageCount};
 }
 
-// Discover and refresh the publisher's 2026 ad-scan directory once per build.
-// No pretending a retailer sale landing page is a complete photographed scan.
+// Curated current circulars, official sale pages and external directories are
+// separate from the one publisher feed. This ensures ad coverage does not collapse
+// when one publisher fails and never mislabels a sale page as a photographed ad.
 const adSource='https://blackfriday.ltd/ads/';
+const adCatalog=JSON.parse(await readFile('public/black-friday/ad-sources.json','utf8'));
 const priorAds=await readJSON(PREVIOUS_ADS);
-let ads=Array.isArray(priorAds?.ads)?priorAds.ads:[],adsChecked=false,adsError=null;
+const adKey=entry=>{
+ try{
+  const u=new URL(entry?.url||'');
+  if(u.protocol!=='https:')return null;
+  return u.hostname.toLowerCase()+u.pathname.replace(/\/+$/,'').toLowerCase()+u.search;
+ }catch{return null;}
+};
+const adEntries=new Map();
+const retainAd=entry=>{
+ if(!entry||Number(entry.year)!==2026||!entry.name)return;
+ const key=adKey(entry);if(!key)return;
+ const type=['scan','weekly','official','directory'].includes(entry.type)?entry.type:'scan';
+ const current=adEntries.get(key);
+ const normalized={...entry,type,year:2026};
+ if(!current||String(normalized.source||'').includes('Published')||String(normalized.source||'').includes('Official'))
+  adEntries.set(key,normalized);
+};
+for(const x of Array.isArray(priorAds?.ads)?priorAds.ads:[])retainAd(x);
+for(const x of adCatalog.ads)retainAd(x);
+let adsChecked=false,adsError=null,discovered=0;
 try{
  const html=await request(adSource,14000);
  const links=[...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)];
@@ -303,16 +324,18 @@ try{
   let link;try{link=new URL(href,adSource).href;}catch{continue;}
   if(!/^https:\/\/blackfriday\.ltd\/ads\/[^/?#]+\/?/i.test(link)||link===adSource)continue;
   if(!/2026|black friday|holiday|weekly|preview|sale|savings/i.test(title+' '+link))continue;
-  const key=new URL(link).pathname.toLowerCase().replace(/\/+$/,'');
-  const listing=parseAdListing(title.length>=5&&title.length<=170?title:key.split('/').pop().replace(/-2026.*$/,'').replace(/-/g,' '));
+  const listing=parseAdListing(title.length>=5&&title.length<=170?title:new URL(link).pathname.split('/').filter(Boolean).pop().replace(/-2026.*$/,'').replace(/-/g,' '));
   const {name,pageCount}=listing;
   if(/2025|2024|2023/.test(name)||/2025|2024|2023/.test(link))continue;
-  if(!found.has(key))found.set(key,{name,pageCount,url:link,source:'BlackFriday.LTD ad directory',sourceType:/ad|circular|scan|pages|book/i.test(name)?'Ad scan / preview':'Sale preview',year:2026,discoveredAt:day});
+  const type=/weekly|not black friday circular/i.test(name)?'weekly':'scan';
+  const item={name,pageCount,url:link,source:'Published ad publisher',sourceType:type==='scan'?'Ad scan / preview':'Weekly ad',type,year:2026,discoveredAt:day,notes:type==='weekly'?'2026 weekly circular; may not be a Black Friday ad':'2026 publisher scan / preview; check promotion dates'};
+  if(!found.has(adKey(item)))found.set(adKey(item),item);
  }
  if(!found.size)throw Error('No current 2026 ad scans found');
- ads=[...found.values()].sort((a,b)=>a.name.localeCompare(b.name));
+ for(const item of found.values()){if(!adEntries.has(adKey(item)))discovered++;retainAd(item);}
  adsChecked=true;
-}catch(e){adsError=String(e.message||e).slice(0,150);console.warn('Ad index unavailable:',adsError);}
-const adResult={generatedAt:now.toISOString(),source:adSource,checked:adsChecked,warning:adsChecked?null:'Ad directory fetch failed; previously discovered scans remain as links, not newly verified.',error:adsError,count:ads.length,ads};
+}catch(e){adsError=String(e.message||e).slice(0,150);console.warn('Ad index publisher unavailable:',adsError);}
+const ads=[...adEntries.values()].sort((a,b)=>a.name.localeCompare(b.name));
+const adResult={generatedAt:now.toISOString(),source:adSource,checked:adsChecked,warning:adsChecked?null:'Publisher directory check failed; curated 2026 circulars and other independent sources remain available.',error:adsError,count:ads.length,discovered,sourceCounts:Object.fromEntries(['scan','weekly','official','directory'].map(type=>[type,ads.filter(a=>a.type===type).length])),ads};
 await writeFile(ADS_OUT,JSON.stringify(adResult));
-console.log('Holiday ad index:',ads.length,adsChecked?'discovered':'previously indexed');
+console.log('Holiday ad index:',ads.length,'2026 links;',discovered,'additional publisher ads; publisher',adsChecked?'checked':'unavailable');
