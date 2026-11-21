@@ -20,8 +20,8 @@ const cached=win.RCLCachedDealPhotos;
 assert(cached&&typeof cached==='object','Missing product photo cache manifest');
 let count=0;
 for(const [id,url] of Object.entries(cached)){
- assert(/^\\/black-friday\\/product-images\\/[a-z0-9_-]+\\.(jpg|png|webp)$/i.test(url),'Invalid local image path for '+id);
- const target=path.join('public',url.replace(/^\\//,''));
+ assert(/^\/black-friday\/product-images\/[a-z0-9_-]+\.(jpg|png|webp)$/i.test(url),'Invalid local image path for '+id);
+ const target=path.join('public',url.replace(/^\//,''));
  const info=await stat(target);
  assert(info.size>=3000&&info.size<=3*1024*1024,'Invalid cached image size for '+id);
  const resolved=win.RCLProductPhotos.photoURLs({id,imageVerified:true,image:'https://example.com/a.jpg'});
