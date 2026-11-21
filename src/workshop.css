@@ -48,7 +48,7 @@
 .rcl-workshop .rcl-highlight-card>span{font-size:clamp(11px,.95vw,13px);line-height:1.22;color:#715164;max-width:150px}
 .rcl-workshop .rcl-highlight-card b{position:absolute;right:11px;bottom:10px;display:grid;place-items:center;background:#fff8eea8;color:#7d3e60;border-radius:50%;height:24px;width:24px}
 .rcl-workshop .rcl-tone-lilac{background:#efe1ff}.rcl-workshop .rcl-tone-mint{background:#dcf8e9}.rcl-workshop .rcl-tone-blush{background:#ffe0ec}.rcl-workshop .rcl-tone-butter{background:#fff0c8}.rcl-workshop .rcl-tone-sky{background:#dceffc}.rcl-workshop .rcl-tone-peach{background:#ffdfd4}
-.rcl-workshop.candyland-next .candy-home-holiday{width:min(1260px,calc(100% - 42px));margin:22px auto 0;padding:16px;border:3px solid #f2c0bf;border-radius:25px;background:linear-gradient(135deg,#fff9f0,#fff1e9);color:#633849;box-shadow:0 7px 0 #f5c3c8,0 15px 26px #b779852b}
+.rcl-workshop.candyland-next .candy-home-holiday{width:min(1260px,calc(100% - 42px));margin:22px auto 0;padding:10px;border:1px solid #f2c0bf;border-radius:17px;background:linear-gradient(135deg,#fff9f0,#fff1e9);color:#633849;box-shadow:none}
 .rcl-workshop.candyland-next .candy-home-holiday-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:11px;margin-bottom:8px}
 .rcl-workshop.candyland-next .candy-home-holiday-heading h2{color:#b93168;font:900 clamp(23px,2.6vw,34px)/1.1 Georgia,serif;margin:0}
 .rcl-workshop.candyland-next .candy-home-holiday-copy p{color:#68445d;font-size:13px;margin:4px 0}
@@ -93,13 +93,13 @@
 }
 @media(max-width:680px){
   .rcl-workshop.candyland-next .candy-home-holiday{
-    padding:8px;
-    border-width:2px;
-    border-radius:19px;
-    box-shadow:0 3px 0 #f5c3c8,0 8px 14px #b7798520;
+    padding:6px;
+    border-width:1px;
+    border-radius:14px;
+    box-shadow:none;
   }
   .rcl-workshop.candyland-next .candy-home-hot-deals-frame{
-    border-radius:9px;
+    border-radius:8px;
   }
   .rcl-workshop .rcl-home-whats-new{
     margin-top:14px;
