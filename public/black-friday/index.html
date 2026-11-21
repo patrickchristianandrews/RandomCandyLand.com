@@ -934,7 +934,7 @@ function reportEmbeddedHeight(){
  const section=document.querySelector('.hot-section');
  if(!section)return;
  const size=Math.ceil(section.getBoundingClientRect().bottom+8);
- if(size>=65&&size<=850)window.parent.postMessage({type:'rcl-holiday-embed-height',height:size},location.origin);
+ if(size>=65&&size<=1600)window.parent.postMessage({type:'rcl-holiday-embed-height',height:size},location.origin);
 }
 if(document.documentElement.dataset.embed){
  if('ResizeObserver' in window)new ResizeObserver(reportEmbeddedHeight).observe($('hot-list'));
