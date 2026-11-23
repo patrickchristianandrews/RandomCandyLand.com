@@ -1,0 +1,41 @@
+name: Validate Sherlock public interface
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/sherlock/**'
+      - '.github/workflows/test-sherlock-ui.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse Sherlock browser JavaScript
+        run: node --check public/sherlock/assets/app.js
+      - name: Check dedicated route and full-catalog controls
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const html = fs.readFileSync('public/sherlock/index.html','utf8');
+          const js = fs.readFileSync('public/sherlock/assets/app.js','utf8');
+          const css = fs.readFileSync('public/sherlock/assets/style.css','utf8');
+          const config = fs.readFileSync('public/sherlock/assets/config.js','utf8');
+          for (const id of ['catalogCoverage','coverageNotice','siteList','siteInput','nsfw','ignoreExclusions','resultRows','activityCount']) {
+            if (!html.includes('id="' + id + '"')) throw new Error('Missing Sherlock UI element ' + id);
+          }
+          for (const feature of ['updateCatalogCoverage','state.results = job.results || []','state.nsfwSites','600']) {
+            if (!js.includes(feature)) throw new Error('Sherlock browser feature missing: ' + feature);
+          }
+          if (!css.includes('.catalog-coverage')) throw new Error('Coverage style missing');
+          if (!config.includes('https://sherlock-api-production-f266b78b.up.railway.app')) throw new Error('Backend config missing');
+          console.log('Sherlock public site checks passed');
+          NODE
