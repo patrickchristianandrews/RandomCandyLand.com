@@ -223,8 +223,110 @@
     } catch (error) { showAlert(error.message); }
   }
 
+
+  function renderFoundSummary() {
+    const host = $('foundSummary');
+    if (!host) return;
+    host.replaceChildren();
+    const rows = state.results.filter(r => r.status === 'found');
+    const grouped = new Map();
+    const seen = new Set();
+    for (const record of rows) {
+      const username = String(record.username || '').trim();
+      const site = String(record.site || '').trim();
+      const url = validLink(record.url);
+      if (!username || !site) continue;
+      const key = [username.toLowerCase(), site.toLowerCase(), url].join('|');
+      if (seen.has(key)) continue;
+      seen.add(key);
+      if (!grouped.has(username)) grouped.set(username, []);
+      grouped.get(username).push({site, url, username});
+    }
+    const heading = document.createElement('div');
+    heading.className = 'section-heading';
+    const titles = document.createElement('div');
+    const eyebrow = document.createElement('div');
+    eyebrow.className = 'eyebrow compact';
+    eyebrow.textContent = 'CONSOLIDATED SHERLOCK FINDINGS';
+    const title = document.createElement('h2');
+    title.textContent = grouped.size
+      ? [...grouped.values()].reduce((n, items) => n + items.length, 0) + ' possible account matches'
+      : 'No claimed profiles reported yet';
+    titles.append(eyebrow, title);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'outline-sm';
+    button.textContent = '↓ Export found accounts (JSON)';
+    button.disabled = !grouped.size;
+    button.addEventListener('click', () => {
+      const results = [...grouped].map(([username, profiles]) => ({
+        username,
+        profiles: profiles.slice().sort((a, b) => a.site.localeCompare(b.site))
+      }));
+      const payload = {
+        source: 'Sherlock Project CLI',
+        search_status: state.job?.status || 'unknown',
+        generated_at: new Date().toISOString(),
+        note: 'Possible username matches; identity is not established.',
+        results
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+      const href = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = href;
+      link.download = 'sherlock-found-profiles.json';
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(href), 1000);
+    });
+    heading.append(titles, button);
+    host.append(heading);
+    const note = document.createElement('p');
+    note.className = 'catalog-coverage';
+    note.textContent = 'Aggregated from the official Sherlock scan. Duplicate site/profile links are consolidated. These are username matches, not confirmed people or email/phone discoveries.';
+    host.append(note);
+    for (const [username, profiles] of grouped) {
+      const group = document.createElement('details');
+      group.className = 'result-box';
+      group.style.marginBottom = '10px';
+      group.open = true;
+      const summary = document.createElement('summary');
+      summary.style.padding = '14px 18px';
+      summary.style.cursor = 'pointer';
+      summary.textContent = '@' + username + ' · ' + profiles.length + ' possible matches';
+      group.append(summary);
+      const list = document.createElement('div');
+      list.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;padding:0 18px 18px';
+      for (const profile of profiles.slice().sort((a, b) => a.site.localeCompare(b.site))) {
+        const item = document.createElement('div');
+        item.style.cssText = 'border:1px solid #263144;background:#131d2d;border-radius:10px;padding:10px 12px;overflow-wrap:anywhere';
+        const label = document.createElement('strong');
+        label.textContent = profile.site;
+        item.append(label);
+        if (profile.url) {
+          const a = document.createElement('a');
+          a.href = profile.url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.textContent = 'Open possible profile ↗';
+          a.style.cssText = 'display:block;margin-top:6px;color:#b7f574';
+          item.append(a);
+        } else {
+          const unknown = document.createElement('p');
+          unknown.textContent = 'Profile URL not supplied by the source';
+          item.append(unknown);
+        }
+        list.append(item);
+      }
+      group.append(list);
+      host.append(group);
+    }
+  }
+
   function renderResults() {
     const records = state.results;
+    renderFoundSummary();
     const count = key => records.filter(r => r.status === key).length;
     const found = count('found'), absent = count('not_found'), unknown = records.length - found - absent;
     $('foundMetric').textContent = found;
