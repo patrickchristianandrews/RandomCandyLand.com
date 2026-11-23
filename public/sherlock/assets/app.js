@@ -79,6 +79,7 @@
     }
     try {
       state.meta = await requestJson('/api/meta');
+      updateCatalogCoverage();
       $('authPanel').hidden = !state.meta.auth_required;
       $('authToken').value = token;
       const pip = document.createElement('span');
@@ -91,6 +92,23 @@
       $('runButton').disabled = true;
       showAlert(error.message);
     }
+  }
+
+  function updateCatalogCoverage() {
+    const meta = state.meta || {};
+    const base = meta.site_count, total = meta.catalog_count;
+    const defaultLabel = Number.isFinite(base) ? String(base) : 'Unknown';
+    const fullLabel = Number.isFinite(total) ? String(total) : 'Unknown';
+    const liveSource = meta.catalog_source || 'upstream catalog';
+    const detail = `Default: ${defaultLabel} active sites · Full catalog: ${fullLabel} sites · Source: ${liveSource}`;
+    const label = $('catalogCoverage');
+    if (label) label.textContent = detail;
+    const selected = parseSites($('siteInput').value).length;
+    const extra = $('nsfw').checked || $('ignoreExclusions').checked;
+    const help = $('coverageNotice');
+    if (help) help.textContent = selected
+      ? `Targeting ${selected} explicitly selected sites. Remove site filters to search every eligible site.`
+      : `All eligible Sherlock sites are included in this scan${extra ? ', with expanded site options enabled' : ''}. Unknown and bot-blocked checks are retained in the results; they are not proof of no account.`;
   }
 
   function parseNames(text) {
@@ -108,7 +126,7 @@
     if (names.length < 1 || names.length > 8) return showAlert('Enter between 1 and 8 usernames, separated by commas, spaces or new lines.');
     if (!names.every(name => /^[A-Za-z0-9_.?{}][A-Za-z0-9_.?{}-]{0,63}$/.test(name))) return showAlert('Invalid username: use letters, numbers, periods, dashes, underscores, or the Sherlock {?} wildcard.');
     const sites = parseSites($('siteInput').value);
-    if (sites.length > 30) return showAlert('You can select at most 30 specific sites per scan. Leave the field blank to check all sites.');
+    if (sites.length > 600) return showAlert('You can select up to 600 sites. Leave the field blank to search every eligible site.');
     if (state.job && !terminalStates.has(state.job.status)) return showAlert('A scan is already running in this tab. Stop it or let it finish first.');
     $('runButton').disabled = true;
     $('runButton').textContent = 'Starting scan…';
@@ -164,7 +182,9 @@
       $('activityStatus').textContent = job.status.toUpperCase();
       $('activityStatus').className = 'pill ' + job.status;
       $('activityStage').textContent = ({queued:'Queued for Sherlock', running:'Checking site availability', completed:'Scan complete', failed:'Scan failed', cancelled:'Scan cancelled'})[job.status];
-      $('activityCount').textContent = job.summary.checked || job.events_seen || '—';
+      const namesCount = job.usernames.reduce((total, name) => total + (name.includes('{?}') ? 3 : 1), 0);
+      const maxChecks = job.summary.target_sites ? job.summary.target_sites * namesCount : null;
+      $('activityCount').textContent = String(job.summary.checked || job.events_seen || 0) + (maxChecks ? ` / ~${maxChecks}` : '');
       $('stopButton').hidden = terminalStates.has(job.status);
       const log = (job.log || []).join('\n');
       if ($('activityLog').textContent !== log && log) {
@@ -172,14 +192,20 @@
         $('activityLog').scrollTop = $('activityLog').scrollHeight;
       }
       updateElapsed();
+      // Sherlock normally creates CSV files at the end of each username.
+      // The backend streams its official stdout events so long scans and
+      // cancelled scans still show the real partial results to the visitor.
+      if ((job.results && job.results.length) || job.status === 'completed') {
+        state.results = job.results || [];
+        $('resultsSection').hidden = false;
+        const stage = job.status === 'completed' ? 'Completed' : terminalStates.has(job.status) ? 'Partial' : 'Live';
+        $('resultsHeading').textContent = `${stage} results for ${job.usernames.join(', ')}`;
+        renderResults();
+      }
       if (terminalStates.has(job.status)) {
         stopPolling();
-        if (job.status === 'failed' || job.status === 'cancelled') showAlert(job.error || 'The scan did not finish. See activity log.');
-        if (job.status === 'completed') {
-          state.results = job.results || [];
-          $('resultsSection').hidden = false;
-          $('resultsHeading').textContent = `Results for ${job.usernames.join(', ')}`;
-          renderResults();
+        if (job.status === 'failed' || job.status === 'cancelled') {
+          showAlert((job.error || 'Scan incomplete.') + ' Any results shown are partial.');
         }
       }
     } catch (error) {
@@ -200,7 +226,7 @@
   function renderResults() {
     const records = state.results;
     const count = key => records.filter(r => r.status === key).length;
-    const found = count('found'), absent = count('not_found'), unknown = count('unknown');
+    const found = count('found'), absent = count('not_found'), unknown = records.length - found - absent;
     $('foundMetric').textContent = found;
     $('notFoundMetric').textContent = absent;
     $('unknownMetric').textContent = unknown;
@@ -210,13 +236,13 @@
     $('tabNotFound').textContent = absent;
     $('tabUnknown').textContent = unknown;
     const query = $('filterInput').value.toLowerCase().trim();
-    const matched = records.filter(r => (state.filter === 'all' || r.status === state.filter) && (`${r.site} ${r.username} ${r.url}`).toLowerCase().includes(query));
+    const matched = records.filter(r => (state.filter === 'all' || (state.filter === 'unknown' ? !['found','not_found'].includes(r.status) : r.status === state.filter)) && (`${r.site} ${r.username} ${r.url}`).toLowerCase().includes(query));
     const mode = $('sortOrder').value;
     matched.sort((a,b) => {
       if (mode === 'site') return a.site.localeCompare(b.site);
       if (mode === 'username') return a.username.localeCompare(b.username) || a.site.localeCompare(b.site);
       if (mode === 'time') return (Number(a.response_time) || Infinity) - (Number(b.response_time) || Infinity);
-      return ({found:0, unknown:1, not_found:2}[a.status] - {found:0, unknown:1, not_found:2}[b.status]) || a.site.localeCompare(b.site);
+      return (({found:0, waf:1, illegal:1, unknown:1, not_found:2}[a.status] ?? 1) - ({found:0, waf:1, illegal:1, unknown:1, not_found:2}[b.status] ?? 1)) || a.site.localeCompare(b.site);
     });
     const body = $('resultRows');
     if (!matched.length) {
@@ -225,8 +251,8 @@
       body.innerHTML = matched.map(row => {
         const url = validLink(row.url);
         const link = url ? `<a href="${safeText(url)}" class="view-link" target="_blank" rel="noopener noreferrer">Open profile ↗</a>` : '—';
-        const status = {found: 'FOUND', not_found: 'NOT FOUND', unknown: 'UNKNOWN'}[row.status] || 'UNKNOWN';
-        return `<tr><td><div class="site-cell"><span class="site-letter">${safeText(row.site.charAt(0).toUpperCase())}</span>${safeText(row.site)}</div></td><td class="username-cell">@${safeText(row.username)}</td><td><span class="status-tag ${safeText(row.status)}">${status}</span></td><td>${safeText(row.response_time ? `${row.response_time}s` : '—')}</td><td>${link}</td></tr>`;
+        const status = {found: 'FOUND', not_found: 'NOT FOUND', waf: 'BOT BLOCKED', illegal: 'INVALID USERNAME', unknown: 'UNKNOWN'}[row.status] || 'UNKNOWN';
+        return `<tr><td><div class="site-cell"><span class="site-letter">${safeText(row.site.charAt(0).toUpperCase())}</span>${safeText(row.site)}</div></td><td class="username-cell">@${safeText(row.username)}</td><td><span class="status-tag ${safeText(row.status)}" title="${safeText(row.reason || row.raw_status || '')}">${status}</span></td><td>${safeText(row.response_time ? `${row.response_time}s` : '—')}</td><td>${link}</td></tr>`;
       }).join('');
     }
     $('showingLabel').textContent = `Showing ${matched.length} of ${records.length} records`;
@@ -286,6 +312,8 @@
     try {
       const result = await requestJson('/api/sites');
       state.sites = result.sites || [];
+      state.nsfwSites = new Set(result.nsfw || []);
+      state.excludedSites = new Set(result.excluded || []);
       state.selectedSites = new Set(parseSites($('siteInput').value));
       $('siteSearch').value = '';
       renderSites();
@@ -297,7 +325,7 @@
     const list = $('siteList'); list.replaceChildren();
     const term = $('siteSearch').value.trim().toLowerCase();
     const matched = state.sites.filter(site => site.toLowerCase().includes(term));
-    $('siteSelectedCount').textContent = `${state.selectedSites.size} sites selected`;
+    $('siteSelectedCount').textContent = `${state.selectedSites.size} selected · ${state.sites.length} in full catalog`;
     if (!matched.length) {
       const item = document.createElement('p'); item.className = 'site-list-empty';
       item.textContent = state.sites.length ? 'No sites match your search.' : 'The site catalog is unavailable. Enter exact site names in the advanced field.';
@@ -306,10 +334,12 @@
     const fragment = document.createDocumentFragment();
     for (const site of matched) {
       const row = document.createElement('label'); row.className = 'site-choice';
-      const span = document.createElement('span'); span.textContent = site;
+      const span = document.createElement('span');
+      const flags = [state.nsfwSites?.has(site) ? 'NSFW' : '', state.excludedSites?.has(site) ? 'upstream excluded' : ''].filter(Boolean);
+      span.textContent = site + (flags.length ? '  ·  ' + flags.join(' · ') : '');
       const check = document.createElement('input'); check.type = 'checkbox'; check.checked = state.selectedSites.has(site);
       check.addEventListener('change', () => {
-        if (check.checked && state.selectedSites.size >= 30) { check.checked = false; return showAlert('You can select up to 30 sites.'); }
+        if (check.checked && state.selectedSites.size >= 600) { check.checked = false; return showAlert('You can select up to 600 sites.'); }
         if (check.checked) state.selectedSites.add(site); else state.selectedSites.delete(site);
         $('siteSelectedCount').textContent = `${state.selectedSites.size} sites selected`;
       });
@@ -323,6 +353,7 @@
     $('searchForm').addEventListener('submit', startSearch);
     $('stopButton').addEventListener('click', stopScan);
     $('timeout').addEventListener('input', () => { $('timeoutValue').textContent = `${$('timeout').value} s`; });
+    for (const id of ['nsfw','ignoreExclusions','siteInput']) $(''+id).addEventListener('change', updateCatalogCoverage);
     $('filterInput').addEventListener('input', renderResults);
     $('sortOrder').addEventListener('change', renderResults);
     document.querySelectorAll('.tab').forEach(button => button.addEventListener('click', () => {
@@ -337,6 +368,7 @@
     $('siteSearch').addEventListener('input', renderSites);
     $('applySites').addEventListener('click', () => {
       $('siteInput').value = [...state.selectedSites].join(', ');
+      updateCatalogCoverage();
       $('sitesDialog').close();
     });
     $('saveToken').addEventListener('click', () => {
