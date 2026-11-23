@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090d17">
+  <meta name="description" content="A local-first web interface for the official Sherlock Project username OSINT engine.">
+  <title>Sherlock Web — Username OSINT</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="/sherlock/" aria-label="Sherlock Web home">
+        <div class="brand-mark"><span class="brand-lens"></span></div>
+        <div><strong>SHERLOCK<span class="brand-dot">.</span></strong><small>WEB INTELLIGENCE</small></div>
+      </a>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="side-nav" id="navigation">
+        <button class="nav-btn active" type="button" data-view="search"><span class="nav-icon">⌕</span><span>Username Search</span><span class="nav-end">↗</span></button>
+        <button class="nav-btn" type="button" data-view="history"><span class="nav-icon">◷</span><span>Scan History</span></button>
+        <button class="nav-btn" type="button" data-view="guide"><span class="nav-icon">▤</span><span>Documentation</span></button>
+      </nav>
+      <div class="side-bottom">
+        <div class="side-info">
+          <span class="side-info-icon">✳</span>
+          <div><strong>Real Sherlock engine</strong><p>Not simulated search results. Powered by the open-source Sherlock Project.</p></div>
+        </div>
+        <div class="side-foot">BUILT ON SHERLOCK PROJECT <span>•</span> MIT LICENSE</div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>INVESTIGATIONS</span><span class="crumb-sep">/</span><strong id="currentViewName">Username Search</strong></div>
+        <div class="top-status" id="engineBadge"><span class="status-pip loading"></span> Connecting to engine…</div>
+      </header>
+      <section id="viewSearch" class="page-view">
+        <div class="hero-top">
+          <div class="eyebrow"><span class="eyebrow-line"></span> OPEN SOURCE INTELLIGENCE <span class="eyebrow-plus">✦</span> USERNAME DISCOVERY</div>
+          <h1>One username.<br><span>Hundreds of platforms.</span></h1>
+          <p class="hero-sub">Track public username footprints across supported social networks and websites using the original Sherlock engine.</p>
+        </div>
+        <div id="alertArea" aria-live="polite"></div>
+        <section class="search-panel" aria-label="Username search setup">
+          <div class="panel-top"><div class="panel-title"><span class="panel-round">01</span><div><h2>Start an investigation</h2><p>Enter a username or search up to eight at once.</p></div></div><span class="panel-top-right">USERNAME LOOKUP / CLI ENGINE</span></div>
+          <form id="searchForm">
+            <label for="usernames" class="field-label">TARGET USERNAME(S)</label>
+            <div class="search-line"><span class="at-icon">@</span><textarea id="usernames" name="usernames" rows="2" spellcheck="false" autocomplete="off" placeholder="Enter a username, e.g. johndoe" maxlength="600" required></textarea><button id="runButton" class="primary-button" type="submit"><span class="btn-search">⌕</span> Run Sherlock <span class="button-arrow">↗</span></button></div>
+            <div class="input-hint"><span>Separate multiple usernames with commas, spaces or new lines</span><span>Supports Sherlock’s <code>{?}</code> variation syntax</span></div>
+            <details id="advancedDetails" class="advanced"><summary><span class="advanced-spark">✳</span> Advanced search settings <span class="advanced-hint">SITE FILTERS, TIMEOUT, OPTIONS</span><span class="chevron">⌄</span></summary>
+              <div class="advanced-body">
+                <div class="two-fields">
+                  <div><label class="field-label" for="siteInput">LIMIT TO SPECIFIC SITES <span class="muted">(OPTIONAL)</span></label><div class="site-field"><input id="siteInput" placeholder="e.g. GitHub, Reddit" autocomplete="off"><button type="button" class="outline-sm" id="browseSites">Browse sites</button></div><div class="field-help">Exact names from the Sherlock catalog, comma-separated. Leave blank for all supported sites.</div></div>
+                  <div><label class="field-label" for="timeout">REQUEST TIMEOUT <span class="muted">(SECONDS)</span></label><div class="timeout-field"><input type="range" id="timeout" min="5" max="120" step="5" value="30"><output id="timeoutValue" for="timeout">30 s</output></div><div class="field-help">Applies to each network request, not the total scan.</div></div>
+                </div>
+                <div class="toggle-grid"><label class="check-card"><input id="nsfw" type="checkbox"><span class="custom-check"></span><span><b>Include NSFW sites</b><small>Expand scope to adult sites</small></span></label><label class="check-card"><input id="local" type="checkbox"><span class="custom-check"></span><span><b>Local site database</b><small>Skip upstream catalog refresh</small></span></label><label class="check-card"><input id="ignoreExclusions" type="checkbox"><span class="custom-check"></span><span><b>Ignore exclusions</b><small>May cause false positives</small></span></label></div>
+              </div>
+            </details>
+          </form>
+        </section>
+        <section class="key-panel" id="authPanel" hidden><div><strong>Protected server</strong><p>This deployment requires an access token. It is stored only in this browser tab.</p></div><div class="key-input"><input id="authToken" type="password" autocomplete="off" placeholder="Server access token"><button type="button" id="saveToken" class="outline-sm">Use token</button></div></section>
+        <section id="activityPanel" class="activity-panel" hidden aria-live="polite">
+          <div class="section-heading"><div><div class="eyebrow compact">CURRENT INVESTIGATION</div><h2 id="activityHeading">Scan in progress</h2></div><div class="activity-actions"><div id="activityStatus" class="pill running">RUNNING</div><button id="stopButton" type="button" class="text-button danger">Stop scan</button></div></div>
+          <div class="activity-stats"><div><span class="mini-label">CURRENT STATE</span><strong id="activityStage">Starting Sherlock…</strong></div><div><span class="mini-label">ELAPSED</span><strong id="elapsedValue">00:00</strong></div><div><span class="mini-label">OUTPUT RECORDS</span><strong id="activityCount">—</strong></div></div>
+          <div class="terminal"><div class="terminal-head"><span><i class="term-dot red"></i><i class="term-dot amber"></i><i class="term-dot green"></i> SHERLOCK / ACTIVITY STREAM</span><span>LIVE LOG</span></div><pre id="activityLog" role="log">Waiting for scan events…</pre></div>
+        </section>
+        <section id="resultsSection" class="results-section" hidden>
+          <div class="section-heading"><div><div class="eyebrow compact">SCAN RESULTS</div><h2 id="resultsHeading">Investigation results</h2></div><div class="export-wrap"><button type="button" class="outline-sm" id="exportButton">↓ Export results <span>⌄</span></button><div id="exportMenu" class="export-menu" hidden><button data-format="csv" type="button">Download CSV</button><button data-format="json" type="button">Download JSON</button><button data-format="txt" type="button">Found links (TXT)</button><button data-format="xlsx" type="button">Download Excel (XLSX)</button></div></div></div>
+          <div class="metric-grid"><div class="metric"><span class="mini-label">ACCOUNTS FOUND</span><strong id="foundMetric" class="metric-found">0</strong><span class="metric-footer">Possible username matches</span></div><div class="metric"><span class="mini-label">NOT FOUND</span><strong id="notFoundMetric">0</strong><span class="metric-footer">Username absent or available</span></div><div class="metric"><span class="mini-label">UNKNOWN / ERRORS</span><strong id="unknownMetric">0</strong><span class="metric-footer">Results requiring review</span></div><div class="metric"><span class="mini-label">TOTAL CHECKED</span><strong id="totalMetric">0</strong><span class="metric-footer">Returned site records</span></div></div>
+          <div class="result-box"><div class="result-toolbar"><div class="filter-tabs" role="tablist" aria-label="Filter search results"><button type="button" class="tab active" data-filter="all">All <span id="tabAll">0</span></button><button type="button" class="tab" data-filter="found">Found <span id="tabFound">0</span></button><button type="button" class="tab" data-filter="not_found">Not found <span id="tabNotFound">0</span></button><button type="button" class="tab" data-filter="unknown">Unknown <span id="tabUnknown">0</span></button></div><div class="table-actions"><label class="quick-search"><span>⌕</span><input id="filterInput" placeholder="Filter sites / usernames" aria-label="Filter results"></label><select id="sortOrder" aria-label="Sort results"><option value="status">Found first</option><option value="site">Site A–Z</option><option value="username">Username A–Z</option><option value="time">Fastest response</option></select></div></div><div class="table-scroll"><table><thead><tr><th>PLATFORM</th><th>USERNAME</th><th>STATUS</th><th>RESPONSE</th><th>PROFILE</th></tr></thead><tbody id="resultRows"></tbody></table></div><div class="table-footer"><span id="showingLabel">Showing 0 records</span><span>Matches are indicators, not proof of identity.</span></div></div>
+        </section>
+        <div class="bottom-note"><span class="note-star">✳</span><p><strong>Public information only.</strong> Sherlock checks whether usernames appear to exist on public websites. Site behavior changes, rate limits, and errors can affect results. Verify profiles independently.</p></div>
+      </section>
+      <section id="viewHistory" class="page-view secondary-view" hidden><div class="eyebrow">INVESTIGATION ARCHIVE</div><h1>Scan history<span class="period">.</span></h1><p class="hero-sub">Recent scans from this server session. Select a completed scan to inspect its results.</p><div class="history-list" id="historyList"><p class="muted">No scans yet.</p></div></section>
+      <section id="viewGuide" class="page-view secondary-view" hidden><div class="eyebrow">HOW IT WORKS</div><h1>Sherlock, in your browser<span class="period">.</span></h1><p class="hero-sub">This app runs the authentic open-source Sherlock command-line program on your server, then displays its results here.</p><div class="guide-grid"><article class="guide-card"><span class="guide-number">01</span><h3>Search names</h3><p>Enter one or more usernames. Sherlock checks supported networks for public account matches. <code>{?}</code> expands username variations.</p></article><article class="guide-card"><span class="guide-number">02</span><h3>Adjust scope</h3><p>Choose exact site names, search all sites, change the timeout, or enable the same advanced site options exposed by Sherlock.</p></article><article class="guide-card"><span class="guide-number">03</span><h3>Review evidence</h3><p>Found usernames are not verified identities. Open the linked profiles and examine them before drawing conclusions.</p></article><article class="guide-card"><span class="guide-number">04</span><h3>Export findings</h3><p>Download raw-style Sherlock output as CSV, XLSX, TXT, or JSON. Scans run on the server, not in your browser.</p></article></div><div class="doc-links"><a href="https://github.com/sherlock-project/sherlock" target="_blank" rel="noopener noreferrer">Official Sherlock repository ↗</a><a href="https://sherlockproject.xyz/" target="_blank" rel="noopener noreferrer">Sherlock documentation ↗</a></div></section>
+      <footer class="footer"><span>SHERLOCK WEB <span class="dim">/ POWERED BY SHERLOCK PROJECT</span></span><span>LOCAL-FIRST • OPEN SOURCE ENGINE</span></footer>
+    </main>
+  </div>
+  <dialog id="sitesDialog" class="sites-dialog"><form method="dialog"><div class="dialog-head"><div><div class="eyebrow compact">NETWORK DIRECTORY</div><h2>Select Sherlock sites</h2></div><button class="close-dialog" value="close" aria-label="Close site selector">×</button></div></form><p class="dialog-sub">Select exact site names to limit your scan, or leave everything unchecked to search all supported sites.</p><input id="siteSearch" class="dialog-search" placeholder="Search the upstream site catalog" aria-label="Search available sites"><div class="site-list" id="siteList"></div><div class="dialog-footer"><span id="siteSelectedCount">0 sites selected</span><button type="button" class="primary-button" id="applySites">Apply selection</button></div></dialog>
+  <script src="./assets/config.js"></script>
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>
