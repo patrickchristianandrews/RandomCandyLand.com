@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-20",
-  "description": "Verified 2026 circular references, separate official retailer offers, and clearly labeled external directories.",
+  "updatedAt": "2026-11-24",
+  "description": "Dated 2026 sources with expired flyers separated from current/upcoming offers. Link checks do not verify individual prices or all ad contents.",
   "ads": [
     {
       "name": "Target Black Friday 2026 – 77-page circular (Nov 22–29)",
@@ -10,7 +10,12 @@
       "pageCount": 77,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-22",
+      "endsAt": "2026-11-29",
+      "checked": "2026-11-24"
     },
     {
       "name": "Kohl's Black Friday Week (Nov 22–28)",
@@ -20,7 +25,12 @@
       "pageCount": 6,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-22",
+      "endsAt": "2026-11-28",
+      "checked": "2026-11-24"
     },
     {
       "name": "Kohl's Early Access (ended Nov 8)",
@@ -30,17 +40,28 @@
       "pageCount": 5,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-06",
+      "endsAt": "2026-11-08",
+      "checked": "2026-11-24",
+      "status": "expired"
     },
     {
       "name": "Costco Holiday Savings Book",
       "url": "https://blackfriday.ltd/ads/costco-black-friday-ad/",
-      "notes": "29-page holiday savings book, Oct 30–Nov 30; check page-specific dates",
+      "notes": "29-page book: pages 1–8 are expired; pages 9–22 valid Nov 16–30, page 23 Nov 26, pages 24–28 Nov 27–30, page 29 Nov 30. Third-party scan; confirm each offer.",
       "type": "scan",
       "pageCount": 29,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-10-30",
+      "endsAt": "2026-11-30",
+      "checked": "2026-11-24"
     },
     {
       "name": "Home Depot Black Friday Ad",
@@ -50,7 +71,12 @@
       "pageCount": 12,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-05",
+      "endsAt": "2026-11-25",
+      "checked": "2026-11-24"
     },
     {
       "name": "Walmart Early Black Friday Ad (ended Nov 15)",
@@ -60,27 +86,41 @@
       "pageCount": 2,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-12",
+      "endsAt": "2026-11-15",
+      "checked": "2026-11-24",
+      "status": "expired"
     },
     {
       "name": "Sam's Club November Savings and Black Friday",
       "url": "https://blackfriday.ltd/ads/sams-club-black-friday-ad/",
-      "notes": "November Instant Savings book plus Black Friday Nov 26–29 page",
+      "notes": "49 pages: Black Friday Nov 26–29 preview plus November savings book. Earlier offers in the book have ended; check each page.",
       "type": "scan",
       "pageCount": 49,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "checked": "2026-11-24"
     },
     {
-      "name": "BJ's Wholesale Club Holiday Book (early sale)",
+      "name": "BJ's Wholesale Club Early Holiday Book (ended Nov 15)",
       "url": "https://blackfriday.ltd/ads/bjs-black-friday-ad/",
       "notes": "40-page early sale preview valid through Nov 15; check new offers",
       "type": "scan",
       "pageCount": 40,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "endsAt": "2026-11-15",
+      "checked": "2026-11-24",
+      "status": "expired"
     },
     {
       "name": "Ace Hardware California regional circular",
@@ -90,17 +130,25 @@
       "pageCount": 6,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-01",
+      "endsAt": "2026-11-30",
+      "checked": "2026-11-24"
     },
     {
       "name": "Target Holiday Kids' Catalog – sample pages",
       "url": "https://blackfriday.ltd/ads/target-holiday-kids-catalog-2026-selected-lego-preview-pages/",
-      "notes": "Two selected LEGO pages, not the complete toy catalog",
+      "notes": "Two selected LEGO catalog pages; full official Holiday Kids catalog has 43 pages. Undated gift preview, not verified sale pricing.",
       "type": "scan",
       "pageCount": 2,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "checked": "2026-11-24"
     },
     {
       "name": "Target Early November Ad (ended Nov 7)",
@@ -110,7 +158,13 @@
       "pageCount": 37,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-01",
+      "endsAt": "2026-11-07",
+      "checked": "2026-11-24",
+      "status": "expired"
     },
     {
       "name": "Menards Rebate Weekly Flyer (ended Nov 8)",
@@ -120,16 +174,25 @@
       "pageCount": 25,
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Published ad publisher"
+      "source": "Published ad publisher",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-10-25",
+      "endsAt": "2026-11-08",
+      "checked": "2026-11-24",
+      "status": "expired"
     },
     {
       "name": "Target – Official Weekly Ad",
-      "url": "https://www.target.com/c/weekly-ad/-/N-5xt0a",
-      "notes": "Official weekly ad; local prices and offer dates can vary",
+      "url": "https://www.target.com/weekly-ad",
+      "notes": "Official Target Weekly Ad viewer. Local pricing and page-specific offer dates vary. Replaces the incorrect category link.",
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "checked": "2026-11-24"
     },
     {
       "name": "Target – Black Friday Nov 22–29 Announcement",
@@ -138,7 +201,12 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-22",
+      "endsAt": "2026-11-29",
+      "checked": "2026-11-24"
     },
     {
       "name": "Walmart – Black Friday Deals",
@@ -147,7 +215,9 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "Best Buy – Black Friday Deals",
@@ -156,7 +226,12 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-11-28",
+      "checked": "2026-11-24"
     },
     {
       "name": "Best Buy – Holiday Event Schedule",
@@ -165,16 +240,20 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "Amazon – Holiday Deals",
       "url": "https://www.amazon.com/gp/goldbox",
-      "notes": "Official online deals and timed drops; not a printed ad scan",
+      "notes": "Official deals page, not a circular. Automated access blocked on Nov 24; current contents and offer dates unverified.",
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "unverified"
     },
     {
       "name": "Home Depot – Black Friday Deals",
@@ -183,7 +262,9 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "Lowe's – Black Friday Deals",
@@ -192,7 +273,9 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "Ulta Beauty – Black Friday Offers",
@@ -201,7 +284,12 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-21",
+      "endsAt": "2026-11-28",
+      "checked": "2026-11-24"
     },
     {
       "name": "DICK'S Sporting Goods – Black Friday Deals",
@@ -210,7 +298,9 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "GameStop – Current Deals",
@@ -219,7 +309,9 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "JCPenney – November Holiday Sale Dates",
@@ -228,7 +320,9 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "Xbox – Holiday Game Sale Announcement",
@@ -237,7 +331,12 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-19",
+      "endsAt": "2026-12-02",
+      "checked": "2026-11-24"
     },
     {
       "name": "Nintendo – Black Friday Offers",
@@ -246,7 +345,9 @@
       "type": "official",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "Official retailer"
+      "source": "Official retailer",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "Browse More 2026 Retailer Ad Listings",
@@ -255,7 +356,9 @@
       "type": "directory",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "External ad directory"
+      "source": "External ad directory",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
     },
     {
       "name": "2026 Community Ad Scan Tracker",
@@ -264,7 +367,65 @@
       "type": "directory",
       "year": 2026,
       "discoveredAt": "2026-11-20",
-      "source": "External ad directory"
+      "source": "External ad directory",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible"
+    },
+    {
+      "name": "Costco – Current Holiday Savings",
+      "url": "https://www.costco.com/o/-/pre-thanksgiving-day",
+      "notes": "Official dated savings flyer, Nov 16–30, 2026. Item-specific dates, shipping and membership conditions apply.",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-24",
+      "checked": "2026-11-24",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-16",
+      "endsAt": "2026-11-30",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Costco – Thanksgiving Online Preview",
+      "url": "https://www.costco.com/o/-/thanksgiving-day",
+      "notes": "Official dated savings flyer, Nov 26–26, 2026. Item-specific dates, shipping and membership conditions apply.",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-24",
+      "checked": "2026-11-24",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-26",
+      "endsAt": "2026-11-26",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Costco – Black Friday Weekend Preview",
+      "url": "https://www.costco.com/o/-/black-friday",
+      "notes": "Official dated savings flyer, Nov 27–30, 2026. Item-specific dates, shipping and membership conditions apply.",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-24",
+      "checked": "2026-11-24",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-27",
+      "endsAt": "2026-11-30",
+      "source": "Official retailer"
+    },
+    {
+      "name": "Costco – Cyber Monday Preview",
+      "url": "https://www.costco.com/o/-/cyber-monday",
+      "notes": "Official dated savings flyer, Nov 30–30, 2026. Item-specific dates, shipping and membership conditions apply.",
+      "type": "official",
+      "year": 2026,
+      "discoveredAt": "2026-11-24",
+      "checked": "2026-11-24",
+      "linkChecked": "2026-11-24",
+      "linkStatus": "accessible",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "source": "Official retailer"
     }
   ]
 }

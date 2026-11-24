@@ -28,6 +28,10 @@ for(const [id,url] of Object.entries(cached)){
  assert.equal(resolved[0],url,'Verified local photo must load before remote images');
  count++;
 }
+// Every curated product must ship with a real local image, not just pass an empty cache.
+const catalog=await readFile(path.join(root,'all/index.html'),'utf8');
+const rows=JSON.parse(catalog.match(/const deals=(\[\[.*?\]\])\.map/s)[1]);
+for(const row of rows)assert(cached[row[0]],'Curated product photo missing: '+row[0]);
 // Error recovery must try another exact photo before removing the failed one.
 assert.equal(listeners.length,1,'Expected a single shared photo error handler');
 const img=new TestImage();
@@ -42,3 +46,4 @@ assert(!img.removed,'An image was removed before its backup was attempted');
 listeners[0](event);
 assert(img.removed,'Exhausted source retries must show the existing fallback');
 console.log('Holiday photos validated:',count,'site-hosted product images; exact-product retry handler passed.');
+

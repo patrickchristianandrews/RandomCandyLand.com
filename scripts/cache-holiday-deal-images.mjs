@@ -27,6 +27,7 @@ const curated=curatedMatch?JSON.parse(curatedMatch[1]).map(row=>Object.fromEntri
 const windowObj={};
 const context={window:windowObj,document:{addEventListener(){}},URL};
 if(priorManifest)try{runInNewContext(priorManifest,context,{timeout:1000})}catch{console.warn('Ignoring invalid prior product photo manifest');}
+const pinned=JSON.parse(await read(path.join(root,'product-photo-seeds.json'))||'{"photos":{}}').photos;
 const priorPhotos=windowObj.RCLCachedDealPhotos&&typeof windowObj.RCLCachedDealPhotos==='object'?windowObj.RCLCachedDealPhotos:{};
 runInNewContext(source,context,{timeout:1000});
 const photos=windowObj.RCLProductPhotos;
@@ -110,10 +111,11 @@ function directProductUrl(value){
  const url=safeRemote(value);if(!url)return false;
  const h=url.hostname.replace(/^www\./,'');
  if(h==='walmart.com')return /^\/ip\/(?:[^/]+\/)?\d+/.test(url.pathname);
+ if(h==='uncommongoods.com')return /^\/product\/[^/]+/.test(url.pathname);
  if(h==='target.com')return /^\/p\/.+\/A-\d+/.test(url.pathname);
  if(h==='bestbuy.com')return /^\/product\/.+/.test(url.pathname);
  if(h==='staples.com')return /\/product_\d+/.test(url.pathname);
- if(h==='homedepot.com')return /^\/p\/.+\/\d+/.test(url.pathname);
+ if(h==='homedepot.com')return /^\/p\/(?:[^/]+\/)?\d+/.test(url.pathname);
  if(h==='epson.com')return /\/p\/[A-Za-z0-9-]+/.test(url.pathname);
  if(h==='jbl.com')return /\.html$/.test(url.pathname);
  if(h==='abt.com')return /\/p\/\d+\.html/.test(url.pathname);
@@ -158,7 +160,8 @@ async function validLocalPhoto(raw){
 // Restore every valid image before the timed network pass, including entries
 // that sit beyond the download budget. An hourly refresh must never erase them.
 for(const deal of tasks){
- const local=priorPhotos[deal.id];
+ const local=pinned?.[deal.id]||priorPhotos[deal.id];
+ if(pinned?.[deal.id]&&!await validLocalPhoto(local))throw Error('Missing pinned product photo: '+deal.id);
  if(await validLocalPhoto(local)){cached[deal.id]=local;reused++;}
 }
 const pending=tasks.filter(deal=>!cached[deal.id]);
@@ -183,6 +186,7 @@ async function processDeal(deal){
   break;
  }
 }
+// Curated images are pinned above; spend the bounded pass on additional publisher leads.
 const workers=Array.from({length:8},async()=>{
  while(index<pending.length&&Date.now()<budgetEnds){
   const deal=pending[index++];
@@ -192,3 +196,4 @@ const workers=Array.from({length:8},async()=>{
 await Promise.all(workers);
 await writeFile(manifestPath,'/* Generated product-specific images cached on the site. */\nwindow.RCLCachedDealPhotos=Object.freeze('+JSON.stringify(cached)+');\n');
 console.log('Holiday product images:',Object.keys(cached).length,'validated local photos for',tasks.length,'eligible listings ('+reused+' reused, '+usedSource+' downloaded);',attempted,'remote requests;',discovered,'new retailer photo candidates. Missing or unverifiable product images keep the honest fallback.');
+

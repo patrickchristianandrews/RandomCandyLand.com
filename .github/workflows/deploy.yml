@@ -129,6 +129,7 @@ jobs:
         run: |
           node --check scripts/test-holiday-product-photos.mjs
           node scripts/test-holiday-product-photos.mjs
+          node scripts/test-holiday-ad-status.mjs
 
       - name: Save validated holiday product photos for future builds
         uses: actions/cache/save@v4
@@ -381,3 +382,4 @@ jobs:
           echo "::warning::Pages deployment was accepted, but the returned site URL has not caught up."
           echo "::warning::Check GitHub Pages source, custom domain and DNS before switching away from any working host."
           exit 1
+

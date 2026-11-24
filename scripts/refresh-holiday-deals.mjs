@@ -305,7 +305,7 @@ const adKey=entry=>{
 const adEntries=new Map();
 const retainAd=entry=>{
  if(!entry||Number(entry.year)!==2026||!entry.name)return;
- const key=adKey(entry);if(!key)return;
+ const key=adKey(entry);if(!key||key==='www.target.com/c/weekly-ad/-/n-5xt0a')return;
  const type=['scan','weekly','official','directory'].includes(entry.type)?entry.type:'scan';
  const normalized={...entry,type,year:2026};
  if(!adEntries.has(key))adEntries.set(key,normalized);
@@ -336,6 +336,7 @@ try{
  adsChecked=true;
 }catch(e){adsError=String(e.message||e).slice(0,150);console.warn('Ad index publisher unavailable:',adsError);}
 const ads=[...adEntries.values()].sort((a,b)=>a.name.localeCompare(b.name));
-const adResult={generatedAt:now.toISOString(),source:adSource,checked:adsChecked,warning:adsChecked?null:'Publisher directory check failed; curated 2026 circulars and other independent sources remain available.',error:adsError,count:ads.length,discovered,sourceCounts:Object.fromEntries(['scan','weekly','official','directory'].map(type=>[type,ads.filter(a=>a.type===type).length])),ads};
+const adResult={verificationScope:'Publisher directory discovery only; per-ad checked dates and validity are separate.',generatedAt:now.toISOString(),source:adSource,checked:adsChecked,warning:adsChecked?null:'Publisher directory check failed; curated 2026 circulars and other independent sources remain available.',error:adsError,count:ads.length,discovered,sourceCounts:Object.fromEntries(['scan','weekly','official','directory'].map(type=>[type,ads.filter(a=>a.type===type).length])),ads};
 await writeFile(ADS_OUT,JSON.stringify(adResult));
 console.log('Holiday ad index:',ads.length,'2026 links;',discovered,'additional publisher ads; publisher',adsChecked?'checked':'unavailable');
+

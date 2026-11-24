@@ -45,10 +45,10 @@ header nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.75
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
 <header><a href="/"><img src="/icon.svg" alt="">Random Candy Land</a><nav aria-label="Holiday navigation"><a href="/black-friday/#hot-deals">Hot Deals</a><a href="/black-friday/all/#catalog">All Deals</a><a href="/black-friday/ad-scans/" aria-current="page">Ad Scans</a><a href="/black-friday/all/#gifts">Gift Finder</a><a href="/amazon-deal-hunter/">Amazon Deal Hunter</a></nav></header>
-<section class="hero"><span class="eyebrow">BLACK FRIDAY · CYBER MONDAY 2026</span><h1>📰 Holiday <em>Ad Scan Library</em></h1><p>Search retailer circulars, published ad previews, and official sale pages without crowding the deals page. Browse dated 2026 ad scans, retailer sale pages and additional ad directories. Sources are clearly labeled, and new publisher ads are checked on each scheduled refresh.</p></section>
+<section class="hero"><span class="eyebrow">BLACK FRIDAY · CYBER MONDAY 2026</span><h1>📰 Holiday <em>Ad Scan Library</em></h1><p>Search retailer circulars, published ad previews, and official sale pages without crowding the deals page. Browse dated 2026 ad scans, retailer sale pages and additional ad directories. Expired flyers are in the archive filter. Each source shows its own date status; directory refreshes do not verify every ad or price.</p></section>
 <div class="tool-row">
 <label for="search">Find a retailer or sale<input id="search" type="search" placeholder="Walmart, Costco, Kohl’s, toys…" autocomplete="off"></label>
-<label for="kind">Show<select id="kind"><option value="all">All sources</option><option value="scan">Ad scans & previews</option><option value="weekly">Weekly circulars</option><option value="official">Official store pages</option><option value="directory">Other ad directories</option></select></label>
+<label for="kind">Show<select id="kind"><option value="all">Current, upcoming &amp; undated</option><option value="expired">Expired archive</option><option value="scan">Ad scans & previews</option><option value="weekly">Weekly circulars</option><option value="official">Official store pages</option><option value="directory">Other ad directories</option></select></label>
 <label for="sort">Order<select id="sort"><option value="retailer">Retailer A–Z</option><option value="recent">Newly discovered</option></select></label>
 <button class="clear" type="button" id="clear">Clear filters</button>
 </div>
@@ -56,6 +56,7 @@ header nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.75
 <div class="grid" id="scan-grid"><p>Loading the ad scan directory…</p></div>
 <p class="notice">Flyers are linked at their publishers instead of being copied here. Expired 2026 circulars are identified where known. Official retailer sale pages and external directories are separate from actual ad scans; a listed store does not prove that its 2026 printed circular has been released.</p>
 </main>
+<script src="/black-friday/ad-status.js?v=20261124"></script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -68,7 +69,7 @@ const FALLBACK=[
  {name:'Home Depot',url:'https://blackfriday.ltd/ads/home-depot-black-friday-ad/',notes:'Published Black Friday ad preview; check its listed dates',type:'scan'},
  {name:"Kohl’s",url:'https://blackfriday.ltd/ads/kohls-black-friday-week-ad-2026/',notes:'2026 holiday promotional preview; check dates',type:'scan'},
  {name:"BJ’s Wholesale Club",url:'https://blackfriday.ltd/ads/bjs-black-friday-ad/',notes:'Holiday preview; membership and dates may affect prices',type:'scan'},
- {name:'Target',url:'https://www.target.com/c/weekly-ad/-/N-5xt0a',notes:'Official weekly ad, local pricing may vary',type:'official'},
+ {name:'Target',url:'https://www.target.com/weekly-ad',notes:'Official weekly ad, local pricing may vary',type:'official'},
  {name:'Best Buy',url:'https://www.bestbuy.com/black-friday',notes:'Official Black Friday sale listings (not an ad scan)',type:'official'},
  {name:'Walmart',url:'https://www.walmart.com/shop/deals/black-friday',notes:'Official Black Friday sale listings (not an ad scan)',type:'official'},
  {name:'Amazon',url:'https://www.amazon.com/gp/goldbox',notes:'Official deal listings (not an ad scan)',type:'official'}
@@ -88,7 +89,7 @@ function mergeAds(data){
   if(!x||Number(x.year)!==2026)continue;
   const url=clean(x.url);if(!url)continue;
   const hash=key(url),type=['scan','weekly','official','directory'].includes(x.type)?x.type:'scan';
-  const updated={name:String(x.name||'2026 ad / sale page').slice(0,170),url,notes:String(x.notes||'Confirm sale and publication dates at the linked source').slice(0,250),type,source:String(x.source||'2026 ad source').slice(0,80),key:hash,newly:true,pageCount:Number(x.pageCount)||null};
+  const updated={...x,name:String(x.name||'2026 ad / sale page').slice(0,170),url,notes:String(x.notes||'Confirm sale and publication dates at the linked source').slice(0,250),type,source:String(x.source||'2026 ad source').slice(0,80),key:hash,newly:true,pageCount:Number(x.pageCount)||null};
   const at=ads.findIndex(a=>a.key===hash);
   if(at<0)ads.push(updated);
   else ads[at]={...ads[at],...updated,newly:false};
@@ -96,16 +97,17 @@ function mergeAds(data){
 }
 function render(){
  const q=$('search').value.trim().toLowerCase(),kind=$('kind').value,sort=$('sort').value;
- const rows=ads.filter(a=>(kind==='all'||a.type===kind)&&(!q||[a.name,a.notes,a.source].join(' ').toLowerCase().includes(q)));
+ const rows=ads.filter(a=>(kind==='expired'?window.RCLAdStatus.status(a)==='expired':window.RCLAdStatus.status(a)!=='expired'&&(kind==='all'||a.type===kind))&&(!q||[a.name,a.notes,a.source].join(' ').toLowerCase().includes(q)));
  rows.sort((a,b)=>sort==='recent'?Number(b.newly)-Number(a.newly)||a.name.localeCompare(b.name):retailer(a).localeCompare(retailer(b))||Number(a.type==='official')-Number(b.type==='official'));
  const pictograms={scan:'📰',weekly:'🧾',official:'🏬',directory:'📚'};
  const labels={scan:'2026 AD / PREVIEW',weekly:'WEEKLY CIRCULAR',official:'OFFICIAL SALE PAGE',directory:'MORE AD SOURCES'};
  const actions={scan:'Open ad / preview',weekly:'Open weekly ad',official:'Open store page',directory:'Browse other ads'};
- const counts=Object.fromEntries(['scan','weekly','official','directory'].map(t=>[t,ads.filter(a=>a.type===t).length]));
+ const visible=ads.filter(a=>window.RCLAdStatus.status(a)!=='expired');
+ const counts=Object.fromEntries(['scan','weekly','official','directory'].map(t=>[t,visible.filter(a=>a.type===t).length]));
  $('count').textContent=rows.length+' shown · '+counts.scan+' ad scans/previews · '+counts.weekly+' weekly ads · '+counts.official+' store pages · '+counts.directory+' directories';
- $('scan-grid').innerHTML=rows.length?rows.map(a=>'<article class="scan-card"><div class="card-top"><span class="card-icon" aria-hidden="true">'+pictograms[a.type]+'</span><span class="scan-kind '+(a.type==='official'?'official':'')+'">'+labels[a.type]+'</span></div><h2>'+esc(displayName(a))+'</h2><p>'+esc(a.notes||'Check dates and retailer terms')+'</p><small>'+esc(a.source||'2026 ad source')+'</small><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+actions[a.type]+' ↗</a></article>').join(''):'<p class="empty">No matching sources. Try another retailer or choose All sources.</p>';
+ $('scan-grid').innerHTML=rows.length?rows.map(a=>'<article class="scan-card"><div class="card-top"><span class="card-icon" aria-hidden="true">'+pictograms[a.type]+'</span><span class="scan-kind '+(a.type==='official'?'official':'')+'">'+labels[a.type]+'</span></div><h2>'+esc(displayName(a))+'</h2><p>'+esc(a.notes||'Check dates and retailer terms')+'</p><small>'+esc((a.source||'2026 ad source')+' · '+window.RCLAdStatus.status(a)+(a.checked?' · content checked '+a.checked:' · contents/date not verified')+(a.linkStatus==='unverified'?' · access unverified':''))+'</small><a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer">'+actions[a.type]+' ↗</a></article>').join(''):'<p class="empty">No matching sources. Try another retailer or choose All sources.</p>';
  const timestamp=Number.isFinite(Date.parse(lastChecked))?new Date(lastChecked).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'}):'not available';
- $('checked').textContent='Publisher index last checked: '+timestamp+(sourceChecked?'':' · curated links available; publisher check unavailable');
+ $('checked').textContent='Publisher directory checked: '+timestamp+(sourceChecked?' · individual ad dates shown separately':' · publisher check unavailable');
 }
 async function refresh(){
  const [catalog,index]=await Promise.allSettled([

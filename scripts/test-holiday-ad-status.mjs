@@ -1,0 +1,18 @@
+import {readFile} from 'node:fs/promises';
+import {runInNewContext} from 'node:vm';
+import assert from 'node:assert/strict';
+const window={};
+runInNewContext(await readFile('public/black-friday/ad-status.js','utf8'),{window,Intl,Date});
+const at=new Date('2026-11-24T18:00:00Z'),status=a=>window.RCLAdStatus.status(a,at);
+assert.equal(status({endsAt:'2026-11-15'}),'expired');
+assert.equal(status({startsAt:'2026-11-27',endsAt:'2026-11-30'}),'upcoming');
+assert.equal(status({endsAt:'2026-11-24'}),'current');
+assert.equal(window.RCLAdStatus.status({endsAt:'2026-11-24'},new Date('2026-11-25T04:59:59Z')),'current');
+assert.equal(window.RCLAdStatus.status({endsAt:'2026-11-24'},new Date('2026-11-25T05:00:00Z')),'expired');
+assert.equal(status({name:'Earlier flyer (ended Nov 8)'}),'expired');
+assert.equal(status({name:'Official store page'}),'undated');
+const catalog=JSON.parse(await readFile('public/black-friday/ad-sources.json','utf8'));
+assert.equal(catalog.ads.filter(a=>status(a)==='expired').length,5);
+assert(!catalog.ads.some(a=>a.url.includes('/c/weekly-ad/')),'Wrong Target category link returned');
+assert(catalog.ads.some(a=>a.url==='https://www.costco.com/o/-/cyber-monday'&&status(a)==='upcoming'));
+console.log('Ad validity: expired archive, upcoming dates and Eastern end-of-day boundaries passed.');
