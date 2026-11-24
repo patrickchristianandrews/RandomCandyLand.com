@@ -953,6 +953,26 @@
       "why": "Nintendo announces $50 off the bundle's prior suggested retail price; actual retailer savings may vary.",
       "catch": "Not live before Nov 22. Confirm exact bundle, stock, shipping and final total with the seller. No coupon or paid retailer membership requirement established. Included membership is not cash back; no portal rewards assumed. Stock confidence and price history unknown.",
       "announced": true
+    },
+    {
+      "id": "preview-costco-applebees-1877172",
+      "name": "Costco Applebee's $100 e-gift cards — Cyber Monday preview",
+      "category": "Home",
+      "store": "Costco",
+      "price": 74.99,
+      "reference": null,
+      "spec": "Item 1877172 · two $50 e-gift cards · online only · limit 5",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-24",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official flyer advertises $74.99 for $100 face value on Nov 30; face value is not a prior selling price.",
+      "catch": "Upcoming, not today's checkout price. Confirm Costco account eligibility, card redemption restrictions, delivery method, fees and tax before purchase. No coupon, membership fee, card reward or portal cashback deducted. Exact start time and stock risk unknown; timing confidence low. No comparable verified total ranked.",
+      "announced": true
     }
   ]
 }
