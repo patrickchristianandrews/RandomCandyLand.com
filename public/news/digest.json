@@ -1,0 +1,37 @@
+{
+  "updatedAt": "2026-11-24T23:25:00Z",
+  "articles": [
+    {
+      "title": "AI shares fall again as Wall Street’s rebound fades",
+      "source": "Associated Press",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/stock-markets-ai-earnings-oil-feec0e25b9994b1c86b16329cf770192",
+      "summary": "U.S. markets diverged Tuesday as enthusiasm over Nvidia’s leadership reversal quickly faded. The S&P 500 slipped 0.5% and the Nasdaq lost 1.5%, while the Dow gained 0.9%. Investors remain concerned about AI valuations, financing costs and whether enormous infrastructure spending will generate sufficient returns. Other sectors performed better, helped by stronger consumer confidence and corporate earnings."
+    },
+    {
+      "title": "Thanksgiving travelers face weather and airline disruption risks",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-23",
+      "url": "https://apnews.com/article/thanksgiving-travel-airlines-flight-delays-storms-c26a27fd648f766252b54724d8a897a3",
+      "summary": "Recent FAA, United and Delta technology failures have disrupted flights ahead of the holiday rush, although Delta reported stable operations Monday. Domestic round-trip fares were estimated to be more than a third higher than last year. Forecasts call for coastal storms, with wind potentially affecting New York’s Thanksgiving parade and high tides threatening West Coast flooding. Conditions remain forecasts, not guaranteed cancellations."
+    },
+    {
+      "title": "China prepares to send its first foreign astronaut to Tiangong",
+      "source": "Reuters",
+      "category": "Science",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/science/china-launch-shenzhou-24-spaceship-with-first-foreign-astronaut-2026-11-24/",
+      "summary": "A Pakistani pilot is scheduled to join the Shenzhou-24 crew on a Wednesday flight to China’s Tiangong station, marking the first planned visit by a non-Chinese astronaut. The mission highlights Beijing’s growing space partnership with Pakistan and its use of space cooperation to strengthen international relationships. The launch had not yet occurred at the time of reporting."
+    },
+    {
+      "title": "Istanbul authorities reverse course on reported lioness",
+      "source": "Associated Press",
+      "category": "Curious news",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/lion-istanbul-search-7014ccaa359b7e672dedd6c34d5e2e01",
+      "summary": "Authorities launched a day-long search after videos appeared to show a lioness in an Istanbul suburb. Residents were advised to remain indoors and a forest was closed. Officials subsequently said further images and field searches produced no evidence of a lion or other large feline. The animal’s actual identity remained unclear, prompting public confusion and jokes online."
+    }
+  ]
+}
