@@ -890,6 +890,11 @@ try{
   console.log('✓ Corridors strategy board: mandate objective, modeled trade-offs, 3 bills and playable vote choice.');
 
   await corridor.command('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  const guidedPhone=await corridor.evaluate(`(()=>{const root=document.querySelector('#corridors-arcade .rcl3'),canvas=root?.querySelector('canvas'),cards=root?.querySelectorAll('.rcl3-action'),r=root?.getBoundingClientRect();if(!root||!canvas||!cards||cards.length!==3)return {ready:false};const pixel=canvas.getContext('2d').getImageData(450,250,1,1).data;cards[0].click();const confirm=root.querySelector('[data-rcl-focus="confirm"]');return {ready:true,visible:r.width>280&&r.left>=-2&&r.right<=innerWidth+3,canvas:canvas.width===900&&canvas.height===500&&pixel[3]>0,stations:root.querySelectorAll('.rcl3-hot').length,button:confirm?.getBoundingClientRect().height||0,unchanged:window.CorridorsPolicyLab.getProgress().choice===null}})()`);
+  if(!guidedPhone.ready||!guidedPhone.visible||!guidedPhone.canvas||guidedPhone.stations!==5||guidedPhone.button<42||!guidedPhone.unchanged)
+    throw Error('Corridors guided 3D mode must render interactive stations and touch-size policy confirmation: '+JSON.stringify(guidedPhone));
+  console.log('✓ Corridors guided 3D city hall renders at 390px and policy preview does not commit a decision.');
+  await corridor.evaluate("document.querySelector('#corridors-arcade .rcl3-original').click()");
   const councilPhone=await corridor.evaluate("(()=>{const root=document.querySelector('#corridors-arcade'),pane=root?.querySelector('#corridors-council'),stage=root?.querySelector('.pixel-arcade-canvas'),bill=root?.querySelector('.council-bill'),vote=root?.querySelector('.council-vote');const r=pane?.getBoundingClientRect();return{visible:!!r&&r.width>280&&r.left>=-2&&r.right<=innerWidth+3,canvas:!!stage&&stage.getBoundingClientRect().width<=innerWidth+2,choices:root?.querySelectorAll('.council-bill').length,button:vote?.getBoundingClientRect().height||0,reading:bill?.getBoundingClientRect().height||0}})()");
   await corridor.command('Emulation.clearDeviceMetricsOverride');
   if(!councilPhone.visible||!councilPhone.canvas||councilPhone.choices!==3||councilPhone.button<42||councilPhone.reading<42)
@@ -907,11 +912,17 @@ try{
   if(!corridorChoice?.consequence||!corridorChoice.advance)throw Error('Corridors first decision did not produce a consequence screen: '+JSON.stringify(corridorChoice));
   console.log('✓ Corridors boots into a playable policy scenario and a decision reveals consequences.');
 
-  const playableCorridors=await corridor.evaluate("(async()=>{const a=window.CorridorsArcade,root=document.querySelector('#corridors-arcade'),canvas=root?.querySelector('canvas');if(!a||!root||!canvas||root.hidden||canvas.width!==384||canvas.height!==216||!document.body.classList.contains('pixel-arcade-active'))return {ready:false};const p=a.state().screen.player.x;window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowRight',bubbles:true}));await new Promise(r=>setTimeout(r,180));window.dispatchEvent(new KeyboardEvent('keyup',{code:'ArrowRight',bubbles:true}));return{ready:true,moved:a.state().screen.player.x>p+8,objects:a.state().screen.objects.length,ui:root.querySelectorAll('[data-move]').length,hasDialog:!!root.querySelector('.pixel-arcade-message')}})()");
+  const playableCorridors=await corridor.evaluate("(async()=>{const a=window.CorridorsArcade,root=document.querySelector('#corridors-arcade'),canvas=root?.querySelector('.pixel-arcade-canvas');if(!a||!root||!canvas||root.hidden||canvas.width!==384||canvas.height!==216||!document.body.classList.contains('pixel-arcade-active'))return {ready:false};const p=a.state().screen.player.x;window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowRight',bubbles:true}));await new Promise(r=>setTimeout(r,180));window.dispatchEvent(new KeyboardEvent('keyup',{code:'ArrowRight',bubbles:true}));return{ready:true,moved:a.state().screen.player.x>p+8,objects:a.state().screen.objects.length,ui:root.querySelectorAll('[data-move]').length,hasDialog:!!root.querySelector('.pixel-arcade-message')}})()");
   if(!playableCorridors.ready||!playableCorridors.moved||playableCorridors.ui!==4||!playableCorridors.hasDialog||playableCorridors.objects<1)
-    throw Error('Corridors must be an actual default walkable pixel game: '+JSON.stringify(playableCorridors));
+    throw Error('Corridors classic mode must remain an actual walkable pixel game: '+JSON.stringify(playableCorridors));
   console.log('✓ Corridors arcade is the visible screen: animated pixel world, keyboard player movement, policy objects and dialogue.');
 
+  const docket3D=await navigate(site+'/the-docket/');
+  const docketInteraction=await docket3D.evaluate(`(()=>{const app=document.querySelector('#app'),api=window.DocketPlay,root=app?.querySelector('.rcl3');if(!api||!root||!root.querySelector('canvas'))return {ready:false};app.querySelector('[data-role="investigator"]')?.click();const room=app.querySelector('.rcl3'),hot=room?.querySelectorAll('.rcl3-hot');if(!hot||hot.length!==5)return {ready:false,phase:api.snapshot().phase};hot[0].click();const after=api.snapshot();return {ready:true,phase:after.phase,reviewed:after.reviewed.includes(0),detail:!!app.querySelector('.rcl3-exhibit'),stations:app.querySelectorAll('.rcl3-hot').length}})()`);
+  if(!docketInteraction.ready||docketInteraction.phase!=='investigate'||!docketInteraction.reviewed||!docketInteraction.detail||docketInteraction.stations!==5)
+    throw Error('Docket 3D room must allow actual evidence review: '+JSON.stringify(docketInteraction));
+  console.log('✓ The Docket guided 3D courtroom advances to investigation and its exhibit stations update the real case.');
+  
   const traceDictionary = await navigate(site+'/osint-academy/');
   const traceSources = await traceDictionary.evaluate(`(() => {
     const form = document.querySelector('#source-search');
