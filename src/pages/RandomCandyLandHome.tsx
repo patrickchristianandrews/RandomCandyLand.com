@@ -3,6 +3,43 @@ import { RandomNonsenseGenerator } from '../components/RandomNonsenseGenerator';
 import '../workshop.css';
 import '../mascot-motion.css';
 
+function NewsDigestPreview() {
+  type Story = {title:string;source:string;category:string;published:string;url:string;summary:string};
+  const [stories,setStories] = useState<Story[]>([]);
+  const [updated,setUpdated] = useState('');
+  const [failed,setFailed] = useState(false);
+  useEffect(() => {
+    let active=true;
+    const load=async()=>{
+      try {
+        const res=await fetch('/news/digest.json?t='+Math.floor(Date.now()/60000),{cache:'no-store'});
+        if(!res.ok) throw Error('Unavailable');
+        const data=await res.json();
+        if(!Array.isArray(data.articles)||!Number.isFinite(Date.parse(data.updatedAt))) throw Error('Invalid digest');
+        if(active){setStories(data.articles.filter((a:Story)=>typeof a.url==='string'&&a.url.startsWith('https://')).slice(0,3));setUpdated(data.updatedAt);setFailed(false);}
+      } catch {if(active)setFailed(true);}
+    };
+    void load();
+    const timer=window.setInterval(load,300000);
+    return ()=>{active=false;window.clearInterval(timer);};
+  },[]);
+  return <section id="rcl-real-news" aria-labelledby="rcl-real-news-title" style={{margin:'24px auto',padding:'20px',width:'min(100%, 1100px)',border:'1px solid #76579a',borderRadius:20,background:'#211a32',color:'#fff',boxSizing:'border-box'}}>
+    <div style={{color:'#f4a9df',fontWeight:800,fontSize:12,letterSpacing:'.08em'}}>REAL NEWS · BEYOND THE HEADLINE</div>
+    <h2 id="rcl-real-news-title" style={{fontSize:'clamp(1.4rem,4vw,2rem)',margin:'6px 0',color:'#fff'}}>News in a Nutshell</h2>
+    <p style={{color:'#e2d7ef',margin:'6px 0 12px'}}>Understand the big stories in under a minute each — the facts, context and why they matter.</p>
+    <p role="status" style={{fontSize:12,color:'#d4c5e6'}}>{failed?'Refresh unavailable. ':''}{updated?((Date.now()-Date.parse(updated)>10800000?'Update delayed · ':'Last verified ')+new Date(updated).toLocaleString()):'Loading news…'}</p>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(100%,250px),1fr))',gap:12}}>
+      {stories.map(a=><article key={a.url} style={{padding:14,borderRadius:12,border:'1px solid #59466f',background:'#302342'}}>
+        <div style={{fontSize:12,color:'#e4b9ff'}}>{a.category} · {a.source} · {a.published}</div>
+        <h3 style={{fontSize:17,lineHeight:1.3,margin:'7px 0'}}><a href={a.url} target="_blank" rel="noopener noreferrer" style={{color:'#fff',textDecoration:'underline'}}>{a.title}</a></h3>
+        <p style={{fontSize:14,lineHeight:1.55,color:'#f1e9fa'}}>{a.summary}</p>
+        <a href={a.url} target="_blank" rel="noopener noreferrer" style={{color:'#ffd47c',fontSize:13,fontWeight:700}}>Read original article ↗</a>
+      </article>)}
+    </div>
+    <a href="/news/" style={{display:'inline-block',marginTop:16,padding:'10px 18px',borderRadius:12,background:'#e6b6ff',color:'#29123b',fontWeight:800,textDecoration:'none'}}>Browse all news ↗</a>
+  </section>;
+}
+
 interface RandomCandyLandHomeProps {
   onNavigateToTrump: () => void;
 }
@@ -234,6 +271,8 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         />
       </section>
 
+
+      <NewsDigestPreview />
 
       <section className="rcl-home-whats-new" id="rcl-whats-new" aria-labelledby="rcl-whats-new-title">
         <h2 id="rcl-whats-new-title">What's New <span aria-hidden="true">✦</span></h2>
