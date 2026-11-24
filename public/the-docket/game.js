@@ -262,6 +262,7 @@ function render(){
  html+='<section class="panel"><h2>Your case record</h2>'+W.journal(state.journal)+'</section></aside>';
  if(state.report)html+='<section class="panel" style="grid-column:1/-1"><span class="overline">PERSONALIZED COURTROOM SUMMARY</span><h2>Legal Reality Report</h2><pre style="white-space:pre-wrap;font:12px/1.7 inherit;overflow-wrap:anywhere">'+W.escape(report())+'</pre></section>';
  app.innerHTML=html;
+ window.dispatchEvent(new Event('docket-play-update'));
 }
 app.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b||b.disabled)return;
@@ -279,5 +280,6 @@ app.addEventListener('click',e=>{
  else if(b.hasAttribute('data-download'))W.download('The-Docket-Legal-Reality-Report.txt',report());
  else if(b.hasAttribute('data-reset'))W.reset(KEY,'The Docket');
 });
+window.DocketPlay=Object.freeze({snapshot:()=>{const cs=c();return {finished:state.finished,phase:state.phase,index:state.index,reviewed:[...state.reviewed],openEvidence:state.openEvidence,issue:cs?.issue||'',standard:cs?.standard||'',evidence:(cs?.evidence||[]).map(e=>({title:e[0],description:e[1],type:e[2],analysis:e[4],authenticated:e[5]}))}}});
 save();render();
 })();
