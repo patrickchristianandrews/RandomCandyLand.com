@@ -973,6 +973,26 @@
       "why": "Official flyer advertises $74.99 for $100 face value on Nov 30; face value is not a prior selling price.",
       "catch": "Upcoming, not today's checkout price. Confirm Costco account eligibility, card redemption restrictions, delivery method, fees and tax before purchase. No coupon, membership fee, card reward or portal cashback deducted. Exact start time and stock risk unknown; timing confidence low. No comparable verified total ranked.",
       "announced": true
+    },
+    {
+      "id": "preview-costco-ghirardelli-1798680",
+      "name": "Ghirardelli Chocolate Treats Tower, 15.66 oz. — Cyber Monday preview",
+      "category": "Unique gifts",
+      "store": "Costco",
+      "price": 37.99,
+      "reference": null,
+      "spec": "Item 1798680 · model 80746-1 · online only · 15.66 oz chocolate, cocoa and caramel-corn gift tower",
+      "source": "https://www.costco.com/o/-/cyber-monday",
+      "sourceType": "Official announced preview",
+      "checked": "2026-11-24",
+      "startsAt": "2026-11-30",
+      "endsAt": "2026-11-30",
+      "saleDays": [
+        "cyber"
+      ],
+      "why": "Official Costco Cyber Monday flyer advertises $37.99 after $12 off on Nov 30; the separate product page identifies the exact item and says standard UPS Ground shipping is included in the quoted price.",
+      "catch": "Upcoming, not today's checkout price. Exact product page: https://www.costco.com/p/-/4000238084. Confirm Costco account or membership eligibility and final delivery date at checkout; express shipping and Alaska/Hawaii delivery cost extra, and Puerto Rico delivery is unavailable. No coupon, membership fee, card reward or portal cashback deducted. Stock confidence, exact start time and price history are unknown; timing confidence low. No comparable verified total ranked.",
+      "announced": true
     }
   ]
 }
