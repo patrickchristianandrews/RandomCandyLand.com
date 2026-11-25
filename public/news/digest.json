@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T10:01:50.000Z",
+  "updatedAt": "2026-11-25T10:58:13.000Z",
   "articles": [
     {
       "title": "Kiwi return to Wellington hills after 150 years in Māori-led conservation milestone",
@@ -266,12 +266,12 @@
       "summary": "Polish game maker CD Projekt RED says the launch of Grand Theft Auto VI has not materially hurt its fourth-quarter business, despite a dip in console engagement. Its chief executive noted that GTA VI had not launched on PC, where many of the company’s players are based. Third-quarter net profit fell 43%, leaving a demanding fourth-quarter target for its multi-year profit goal."
     },
     {
-      "title": "Nationwide strike disrupts transport across Greece",
+      "title": "Nationwide Greek strike disrupts ferries, metro and some flights",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/greeks-strike-over-wages-public-services-2026-11-25/",
-      "summary": "Greek public- and private-sector unions staged a nationwide strike demanding higher wages and stronger public services, disrupting ferries, some metro routes and flights at regional airports. The action seeks restoration of annual bonuses removed during the debt crisis and more spending on health and education. It was the third strike in weeks, reflecting continued pressure over living costs and public-service conditions."
+      "summary": "Greek public-sector workers and several private unions staged a nationwide strike demanding higher wages, restored annual bonuses and stronger health and education services. Ferry routes stopped, some metro services were cut and flights at regional airports were suspended as transport and telecommunications workers joined the action. The strike is the third in recent weeks amid pressure from rents and living costs; the government points to €2.2 billion in tax breaks and aid this year."
     },
     {
       "title": "Jordan court sentences man to death over attack that killed security officer",
@@ -282,12 +282,12 @@
       "summary": "Jordan’s State Security Court sentenced a man to death for an attack that killed a security officer near the Sri Lankan Embassy in Amman on November 5. The court convicted him of terrorist acts resulting in death and weapons offenses, according to the armed forces. The ruling remains subject to appeal and automatic review, so it is not yet a final sentence."
     },
     {
-      "title": "UK regulator weighs remedies for proposed AkzoNobel-Axalta merger",
+      "title": "UK competition watchdog weighs remedies for proposed $25 billion AkzoNobel-Axalta merger",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/legal/litigation/uk-watchdog-considers-akzonobel-axalta-remedies-proposed-25-billion-merger-2026-11-25/",
-      "summary": "Britain’s Competition and Markets Authority said proposed remedies could address competition concerns over AkzoNobel’s planned $25 billion merger with U.S. rival Axalta. AkzoNobel offered to sell its European and UK vehicle-refinishing coatings business, where the combined group could hold a 40%–50% share. The CMA will consult on the remedy and a potential buyer before making a final decision."
+      "summary": "Britain's Competition and Markets Authority said proposed remedies from AkzoNobel and Axalta could address concerns over their planned $25 billion merger. AkzoNobel offered to sell its European and UK vehicle-refinishing coatings business to preserve competition. The CMA will consult on the proposal and a potential buyer before making a final decision; the regulator previously warned the combined company could hold 40% to 50% of the UK market."
     },
     {
       "title": "GSK reports twice-yearly asthma drug matched Nucala in late-stage immune-disorder study",
@@ -312,6 +312,142 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/europe/spains-election-pits-madrids-building-push-against-catalonias-rent-caps-2026-11-25/",
       "summary": "Spain’s November 29 election has turned on housing, with conservative leader Alberto Núñez Feijóo promoting Madrid-style deregulation and Prime Minister Pedro Sánchez defending Catalonia’s rent caps and limits on short-term lets. Both sides promise more construction, but economists disagree about how supply reforms and rent controls affect prices. The vote could determine which approach becomes national policy."
+    },
+    {
+      "title": "China-linked battery projects could receive UK funding despite security warnings",
+      "source": "The Guardian",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/business/2026/nov/25/china-battery-projects-uk-funding-security-warnings",
+      "summary": "Ofgem's provisional shortlist for a UK long-duration storage subsidy scheme includes 11 lithium-ion projects, many reliant on batteries and software from Chinese suppliers. The Guardian reports that security specialists and industry sources worry the regulator's cost-focused assessment may underweight cyber risks over facilities' lifetimes. Ofgem says it is reviewing consultation responses; final funding decisions are expected in coming weeks. The debate pits cheaper storage against supply-chain resilience and domestic technology."
+    },
+    {
+      "title": "Dolphins with active social lives and big friendship groups live longer, researchers find",
+      "source": "The Guardian",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/environment/2026/nov/25/dolphins-with-active-social-lives-and-big-friendship-groups-live-longer",
+      "summary": "A study in PLOS Biology used nearly 40 years of observations from Shark Bay, Western Australia, to link stronger, more stable social groups with longer lives among Indo-Pacific bottlenose dolphins. Researchers say group ties can help animals share information, find mates and maintain alliances, while also carrying risks such as disease transmission and stress. The findings show individual social preferences change with age; they do not establish that social contact alone causes longevity."
+    },
+    {
+      "title": "A new way to measure tides could improve local flood forecasts",
+      "source": "The Guardian",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/science/2026/nov/25/new-way-of-measuring-tides-flood-forecasts-accurate",
+      "summary": "Researchers at the Technical University of Munich and Oxford used four decades of satellite shoreline images to estimate tidal height along beaches at 100-metre intervals. They found differences approaching one metre across New Zealand's South Taranaki Bight, finer variation than conventional gauges and broad satellite averages reveal. The method could improve local flood and storm-surge forecasts, especially where tide gauges are sparse, though it needs wider testing."
+    },
+    {
+      "title": "Australia and Solomon Islands sign security treaty barring foreign military bases",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/australia-solomon-islands-china-security-treaty-6eaee893cd625ad71bd34dbe887ac73a",
+      "summary": "Australia and Solomon Islands signed a security treaty naming Australia the island nation's primary security partner and barring foreign military or security bases on Solomon Islands territory. The pact follows concern over a 2022 agreement with China; Prime Minister Matthew Wale would not confirm reports that the Chinese deal will not be renewed in 2027. Australia also pledged cooperation on infrastructure, education, renewable energy and sport, while Beijing said its Pacific partnerships are not driven by rivalry."
+    },
+    {
+      "title": "English coastal communities receive £11 million for erosion planning and monitoring",
+      "source": "The Guardian",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/environment/2026/nov/25/coastal-areas-england-at-risk-erosion-11m-funding-drones-ea",
+      "summary": "Britain will distribute more than £11 million across 12 council-led projects to help English coastal communities monitor erosion and plan for rising seas. Measures include laser-equipped drone surveys, dune restoration, 3D modelling and moving roads inland. The Environment Agency estimates 3,500 properties could be at risk by 2055 and over 10,000 by 2105. The funding is intended to support earlier planning; it cannot prevent all shoreline retreat or protect every property."
+    },
+    {
+      "title": "Australia's Labor government wins Greens support for trust and private-jet tax changes",
+      "source": "The Guardian",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/25/labor-greens-deal-discretionary-trust-changes-jet-fuel-subsidies-scrapped-for-private-jet-owners",
+      "summary": "Australia's Labor government secured Greens support for changes to discretionary trusts after agreeing to end a tax concession for private-jet fuel and exempt pensioners from proposed cuts to older Australians' private-health rebates. A minimum 30% tax rate on trust income is projected to raise A$4.5 billion in its first year from 2029–30. The agreement helps move several bills through the Senate, but opposition figures say the tax changes could burden small businesses."
+    },
+    {
+      "title": "Pope Leo calls COP31's failure to reach a climate deal troubling",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sustainability/cop/pope-leo-laments-failure-cop31-talks-urges-action-address-climate-change-2026-11-25/",
+      "summary": "Pope Leo called the failure of the COP31 climate summit to produce an overarching agreement troubling and urged governments to renew cooperation and make changes to economic and social systems. The talks collapsed after the European Union and other countries rejected a final proposal they considered too weak, particularly on fossil fuels and climate commitments. The pope's remarks add pressure for action, but do not resolve the disputes that prevented consensus."
+    },
+    {
+      "title": "Steelers bench Aaron Rodgers and name Mason Rudolph starter against Denver",
+      "source": "The Guardian",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/sport/2026/nov/25/steelers-bench-aaron-rodgers-mason-rudolph-broncos-nfl",
+      "summary": "Pittsburgh has benched four-time NFL MVP Aaron Rodgers and will start Mason Rudolph against Denver on Friday, the Steelers said. The move follows two consecutive losses that dropped Pittsburgh to 6–4; Rodgers has thrown 16 touchdowns and six interceptions but posted a career-low 86.6 passer rating. Coach Mike McCarthy had backed Rodgers a day earlier, making the change notable. The team has not said whether the benching will extend beyond Friday."
+    },
+    {
+      "title": "Rory Culkin discusses anxiety, fatherhood and the pressure of acting",
+      "source": "The Guardian",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/tv-and-radio/2026/nov/25/rory-culkin-interview-anxiety-fatherhood-famous-brothers",
+      "summary": "In a Guardian interview, actor Rory Culkin discusses anxiety that affected auditions and performances, his decision to stop pushing himself through punishing preparation, and the support he received from his mother and siblings. He also talks about fatherhood and his attraction to darker roles, including his new crime-drama work. The profile offers his own account of a difficult period in his career rather than a broader assessment of Hollywood or mental health."
+    },
+    {
+      "title": "Pulitzer-winning composer Caroline Shaw reflects on a career across classical and pop music",
+      "source": "The Guardian",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/music/2026/nov/25/working-with-kanye-west-talk-about-intractable-egos-caroline-shaw-the-pulitzer-winning-composer-everyone-wants-to-work-with",
+      "summary": "Composer, singer and violinist Caroline Shaw discusses a career spanning Pulitzer-winning contemporary music, classical ensembles and collaborations with pop artists including Phoebe Bridgers and Rosalía. The Guardian profile follows her work with the Attacca Quartet and upcoming Barbican residency, while Shaw reflects on the importance of respect, curiosity and enjoying performance rather than treating every project as a relentless cycle. Her schedule remains unusually broad across classical, theatre and pop."
+    },
+    {
+      "title": "Yemenis prepare to flee as Houthis advance toward Aden",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/world/2026/nov/25/yemen-houthis-advance-aden",
+      "summary": "Houthi forces have advanced toward Aden, the temporary seat of Yemen's internationally recognised government, prompting residents and aid groups to consider evacuations. The Guardian reports fighters are gathering north and east of the city after overrunning government positions in September; Aden remains roughly 50 miles from the front. A takeover would shift the balance in Yemen's long civil war, but the Houthis have not announced an immediate assault and the situation remains fluid."
+    },
+    {
+      "title": "Hong Kong wildlife groups seek tighter exotic-pet rules after millions of imports",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/environment/hong-kong-wildlife-groups-push-tighter-exotic-pet-rules-after-37-million-imports-2026-11-25/",
+      "summary": "Conservation groups say Hong Kong imported 3.7 million live exotic animals from 86 countries and jurisdictions between 2020 and 2025, roughly 80 each hour. They are urging authorities to create an approved-species list and update rules that currently exclude some amphibians and invertebrates. Researchers warn poorly regulated trade can spread pathogens and parasites to people and native wildlife. Hong Kong's agriculture department had not responded to Reuters by publication."
+    },
+    {
+      "title": "Oat sales rise as shoppers seek filling foods amid GLP-1 popularity",
+      "source": "The Guardian",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/business/2026/nov/25/natures-ozempic-oat-sales-soar-shoppers-seek-out-foods-mimic-effect-glp-1s",
+      "summary": "Waitrose says sales of its Scottish oats rose 124% this year as shoppers seek filling, fibre-rich foods amid the popularity of GLP-1 weight-loss drugs. A retailer survey found 64% of respondents were actively choosing foods that help them feel full for longer, while many GLP-1 users reported changing household shopping. The Guardian notes that social-media labels such as 'nature's Ozempic' are marketing shorthand: oats are not equivalent to prescription medication."
+    },
+    {
+      "title": "Real Madrid beats PSV 5–1 as Arsenal and Manchester City draw in Champions League",
+      "source": "Reuters (via The Star)",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.thestar.com.my/sport/football/2026/11/25/soccer-arsenal-and-man-city-held-at-home-real-thump-psv-in-comeback-win",
+      "summary": "Real Madrid recovered from a halftime deficit to beat PSV Eindhoven 5–1, with Jude Bellingham scoring a standout goal, and kept a perfect Champions League record. Arsenal drew 1–1 with Borussia Dortmund after conceding an equaliser, while Manchester City twice fell behind before drawing 2–2 with Napoli. The results left Madrid top of the league-phase standings, with Arsenal and City dropping points in the fifth matchday."
+    },
+    {
+      "title": "Macy's 100th Thanksgiving parade brings back a long-lost Blue Hippo balloon",
+      "source": "Associated Press",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/macys-thanksgiving-parade-100-2026-523b62e53e8bd7144aa785415132c3b6",
+      "summary": "The 100th Macy's Thanksgiving Day Parade will feature 100 inflatables, including a hand-recreated Blue Hippo balloon missing since 1931, plus Bluey, Hello Kitty, Mickey Mouse and Underdog. Performers include Megan Moroney, Teddy Swims, Queen Latifah and Keke Palmer, with a Dolly Parton tribute and Broadway medley. The parade is scheduled for Nov. 26, but weather could ground balloons if wind exceeds safety limits; floats and performers are expected to continue."
+    },
+    {
+      "title": "Eurostar cancels trains linking London, Paris and Brussels after staff strike",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/eurostar-cancels-london-paris-brussels-trains-due-strike-2026-11-25/",
+      "summary": "Eurostar cancelled at least six services linking Brussels, Paris and London after staff began an unannounced strike, the company said. The operator did not specify how long the stoppage would last or provide further details to Reuters. The cancellations add uncertainty for cross-Channel travellers during a busy holiday period; passengers should check directly with Eurostar because the scale and duration of disruption were still unclear at publication."
+    },
+    {
+      "title": "All hostages rescued after Colombian supermarket siege ends",
+      "source": "Agence France-Presse (via The Guardian)",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/world/2026/nov/25/hostages-freed-colombia-security-forces-storm-cartagena-supermarket",
+      "summary": "Colombian security forces stormed a supermarket in Cartagena after a 17-hour siege that began with an attempted armoured-vehicle robbery. President Abelardo de la Espriella said all hostages were rescued and one captor was killed; about 30 people were initially held, with 10 released during negotiations. Authorities described the hostages as safe, but the motive and full circumstances of the attempted robbery remain under investigation."
     },
     {
       "title": "French officials order former President Sarkozy's corruption case to trial",
@@ -666,14 +802,6 @@
       "summary": "Police arrested two men on suspicion of burglary and trespass after suspicious activity was reported at a property on the Sandringham estate in Norfolk, where Prince William and Catherine have a country residence. The home was unoccupied, police said; officers used dogs, drones and a helicopter during searches. The royal household declined to comment on security matters, and no motive or loss was reported."
     },
     {
-      "title": "20 hostages held in Colombian supermarket after failed armored car hijack",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/world/americas/colombias-cartagena-airport-briefly-suspends-landings-due-security-incident-2026-11-24/",
-      "summary": "Armed men held at least 20 people inside a supermarket in Cartagena after a failed attempt to hijack an armored cash vehicle, Colombian officials said. Police reported that 10 hostages had been released, while security forces surrounded the store and the airport briefly suspended landings. Authorities had not identified the hostage-takers or those still inside, and the situation remained unresolved when Reuters published."
-    },
-    {
       "title": "Iraqi PM cracks down on Kurds' control of oilfields, Kurds reject risky move",
       "source": "Reuters",
       "category": "World",
@@ -810,6 +938,30 @@
       "summary": "World Health Organization chief Tedros Adhanom Ghebreyesus urged the United States to lift its fuel restrictions on Cuba, warning that power shortages are harming hospitals and putting vulnerable people, including children, at risk. WHO pledged $2 million for immunization and medical equipment. Washington says food and medicine exports are exempt from sanctions; the wider effects of the fuel restrictions remain disputed."
     },
     {
+      "title": "Car bomb in Colombia's Villavicencio injures 23 as violence spreads to cities",
+      "source": "Associated Press (via ABC News)",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://abcnews.com/International/wireStory/car-bomb-central-colombian-city-injures-23-violence-138412492",
+      "summary": "A bomb exploded outside regional government offices in Villavicencio, Colombia, injuring 23 people and damaging nearby buildings, the Associated Press reported. Authorities said the blast occurred Monday night and remained under investigation. The attack comes amid escalating clashes between security forces, rebel factions and drug gangs, which have increasingly used drones, rockets and roadside explosives. Officials have not established responsibility, and the investigation continues."
+    },
+    {
+      "title": "Iranian singer and four colleagues receive lashes, prompting criticism",
+      "source": "Iran International",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.iranintl.com/en/202611245387",
+      "summary": "Iranian singer Parastoo Ahmadi and four members of her concert team each received 74 lashes in Qom, their lawyer told Iran International, after an online performance filmed without a live audience. The punishment prompted criticism from artists and activists and renewed scrutiny of restrictions on women singing publicly and compulsory-hijab rules. An appeals court had upheld their sentences in September, including bans on artistic activity and foreign travel."
+    },
+    {
+      "title": "East Coast storm threatens Thanksgiving travel and parade balloons",
+      "source": "Reuters",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/environment/east-coast-storm-bring-rain-strong-winds-us-thanksgiving-2026-11-24/",
+      "summary": "Forecasters warned that a powerful storm could disrupt Thanksgiving travel along the Eastern Seaboard, with rain rates near one inch an hour, gusts above 50 mph and coastal flooding risks from Georgia to Long Island. New York's parade was expected to start dry, but later rain and wind could force balloons to fly lower or remain grounded. The FAA forecast more than 417,000 flights during the nine-day holiday travel period."
+    },
+    {
       "title": "Paper wasps recognize faces in ways strikingly similar to humans",
       "source": "Cornell Chronicle",
       "category": "Science",
@@ -832,14 +984,6 @@
       "published": "2026-11-23",
       "url": "https://www.pbs.org/video/tv-for-pets-1795470235/",
       "summary": "A PBS NewsHour report examined why some dogs watch television, focusing on a viral children’s series featuring animated seals. Veterinary ophthalmologist Freya Mowat said dogs can distinguish some colors and may respond to high-contrast movement and animal images; her research also studies age-related retinal changes. Not every dog enjoys screens: barking, agitation or escape behavior can signal that viewing is stressful rather than calming."
-    },
-    {
-      "title": "Thanksgiving travelers face weather and airline disruption risks",
-      "source": "Associated Press",
-      "category": "U.S.",
-      "published": "2026-11-23",
-      "url": "https://apnews.com/article/thanksgiving-travel-airlines-flight-delays-storms-c26a27fd648f766252b54724d8a897a3",
-      "summary": "Recent FAA, United and Delta technology failures have disrupted flights ahead of the holiday rush, although Delta reported stable operations Monday. Domestic round-trip fares were estimated to be more than a third higher than last year. Forecasts call for coastal storms, with wind potentially affecting New York’s Thanksgiving parade and high tides threatening West Coast flooding. Conditions remain forecasts, not guaranteed cancellations."
     },
     {
       "title": "Records: Government, judge debated constitutional implications of searching Rep. Ilhan Omar's home",
