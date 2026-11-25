@@ -49,14 +49,14 @@ const scenes=[
    {name:'Accept the package and disclose its financing',pitch:'Secure funding now with a controversial public trade-off.',effect:[12,7,9,-2,2,2],actors:[4,13,10,1,3,14],legality:'A disclosed political bargain is not automatically illegal; fair process is still essential.',impact:'Students gain support, while the tax break shifts future public revenue.',flags:'Disclosed legislative bargain'},
    {name:'Arrange an undisclosed side benefit for a swing vote',pitch:'Lock down support without telling the public.',effect:[18,-6,15,-22,-29,-22],actors:[-20,16,-13,-15,-27,13],legality:'Personal benefits exchanged for official action can implicate serious corruption rules.',impact:'A quick vote creates a dangerous private obligation.',flags:'Suspected improper quid pro quo'}
   ]},
- {tag:'CHAPTER 05 · CONTRACTS & EVIDENCE',title:'The Harborview Tender',
-  story:'An anonymous tip alleges that a shelter contract bid was altered after the deadline. One supplier is close to a powerful official. The bidding files may become evidence in court.',
+ {tag:'CHAPTER 05 · CONTRACTS & EVIDENCE',title:'The Stadium Expansion',
+  story:'A proposed stadium expansion faces a bidding dispute. Municipal auditors raise questions about evaluation scores. A major event deadline is approaching and the council is divided.',
   legal:'The fictional procurement code requires accurate records, fair evaluation and preservation of potential evidence. Suspicion is not proof of wrongdoing.',
   visible:'The city says the award was based on the lowest compliant price.',private:'Staff fear retaliation, and a rushed accusation could damage innocent people.',who:'Procurement officials, bidders, whistleblower, city attorney.',
   choices:[
-   {name:'Preserve records, protect the source, seek independent review',pitch:'Investigate discreetly without prejudging guilt.',effect:[3,16,-1,14,20,15],actors:[10,-5,9,12,19,-6],legality:'Preserving the original records and following due process supports a reliable investigation.',impact:'The city may face delay, but evidence remains testable.',flags:'Harborview records preserved'},
-   {name:'Delete the tip and approve the award immediately',pitch:'Keep a friendly contractor and avoid scrutiny.',effect:[15,-13,6,-22,-30,-23],actors:[-21,15,-12,-17,-30,14],legality:'Destroying potential records may be unlawful. This is a cautionary fictional scenario.',impact:'An investigator could later uncover missing records and lost trust.',flags:'Harborview records threatened'},
-   {name:'Accuse the contractor publicly before verification',pitch:'Project toughness while bypassing basic fact-finding.',effect:[6,-8,-9,-11,-8,-12],actors:[-10,-16,3,8,-9,-8],legality:'Unverified public accusations risk unfairness and undermine trustworthy evidence.',impact:'An innocent supplier may be harmed before any hearing.',flags:'Unverified Harborview accusation'}
+   {name:'Preserve records, protect the source, seek independent review',pitch:'Investigate discreetly without prejudging guilt.',effect:[3,16,-1,14,20,15],actors:[10,-5,9,12,19,-6],legality:'Preserving the original records and following due process supports a reliable investigation.',impact:'The city may face delay, but evidence remains testable.',flags:'Stadium records preserved'},
+   {name:'Delete the tip and approve the award immediately',pitch:'Keep a friendly contractor and avoid scrutiny.',effect:[15,-13,6,-22,-30,-23],actors:[-21,15,-12,-17,-30,14],legality:'Destroying potential records may be unlawful. This is a cautionary fictional scenario.',impact:'An investigator could later uncover missing records and lost trust.',flags:'Stadium records threatened'},
+   {name:'Accuse the contractor publicly before verification',pitch:'Project toughness while bypassing basic fact-finding.',effect:[6,-8,-9,-11,-8,-12],actors:[-10,-16,3,8,-9,-8],legality:'Unverified public accusations risk unfairness and undermine trustworthy evidence.',impact:'An innocent supplier may be harmed before any hearing.',flags:'Unverified Stadium accusation'}
   ]},
  {tag:'CHAPTER 06 · INFORMATION & PRESSURE',title:'The Blackout Records',
   story:'City employees discover that communications about a power outage contradict the official timeline. A journalist requests records while the mayor’s team pressures staff to keep silent.',
@@ -141,7 +141,7 @@ function choose(i){
  keys.forEach((k,n)=>state[k]+=opt.effect[n]);state.actors=state.actors.map((v,n)=>v+opt.actors[n]);
  state.role=currentRole();state.pending=i;window.WorldFX?.celebrate('🚪');
  state.journal.push({when:'CHAPTER '+(state.chapter+1),text:opt.name+'. '+opt.impact+' Rule: '+opt.legality});
- W.chronicle('The Corridors',opt.flags+'; policy consequence: '+opt.impact);
+
  save();render()
 }
 function next(){
