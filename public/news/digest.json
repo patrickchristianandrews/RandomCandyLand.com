@@ -1,6 +1,94 @@
 {
-  "updatedAt": "2026-11-25T21:55:14Z",
+  "updatedAt": "2026-11-25T23:04:11Z",
   "articles": [
+    {
+      "title": "Shein warns recovery will take time as e-commerce fees bite",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/retail-consumer/shein-europe-sales-sink-new-import-fees-bite-2026-11-25/",
+      "summary": "Shein warned its European sales may not recover until the second half of 2027 after third-quarter European revenue fell 27.6% to $2.98 billion and group revenue declined 6% to $10.27 billion. New EU parcel charges and the end of duty-free import treatment have raised costs. The company cut marketing spending while investing in European warehouses and seeking faster growth in Latin America."
+    },
+    {
+      "title": "South Korea unveils draft stablecoin rules, potential easing of ICO ban",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/government/south-korea-unveils-draft-stablecoin-rules-potential-easing-ico-ban-2026-11-25/",
+      "summary": "South Korea’s financial regulator released draft rules that would let domestic banks issue stablecoins, digital tokens pegged to assets such as national currencies. The proposal could also reopen debate over the country’s nine-year ban on initial coin offerings. The legislation still needs parliamentary approval, and regulators are considering how fintech firms could participate. The scope, safeguards and implementation timetable remain unsettled."
+    },
+    {
+      "title": "Retailers face rising AI cyberattack threat ahead of Black Friday, many uninsured",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/retail-consumer/retailers-face-rising-ai-cyberattack-threat-ahead-black-friday-many-uninsured-2026-11-25/",
+      "summary": "Retailers face heightened cyber risk heading into Black Friday as AI tools make attacks faster, Reuters reported. Insurer CFC’s data show ransomware claims against retail, leisure and hospitality businesses are 50% more frequent in November than the monthly average, while only 43% of small and midsize retailers carry cyber insurance. Seasonal sales, payment data and complex supply chains increase the potential cost of outages."
+    },
+    {
+      "title": "Kremlin rejects ex-UK PM Johnson's call for a token Western force in Ukraine as unacceptable",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/europe/kremlin-rejects-ex-uk-pm-johnsons-call-token-western-force-ukraine-unacceptable-2026-11-25/",
+      "summary": "The Kremlin rejected former UK Prime Minister Boris Johnson’s proposal for even a small Western force in Ukraine, calling any foreign deployment unacceptable. Johnson argued a limited logistical presence far from the front would signal that Kyiv can choose its partners. Moscow has repeatedly warned such troops would be legitimate targets, while former president Dmitry Medvedev raised the risk of a Russia-NATO confrontation."
+    },
+    {
+      "title": "Aramco, S-Oil inaugurate $7 billion petrochemicals complex in South Korea",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/energy/aramco-s-oil-inaugurate-7-billion-petrochemicals-complex-south-korea-2026-11-25/",
+      "summary": "Saudi Aramco and South Korea’s S-Oil inaugurated the $7 billion Shaheen petrochemical complex in Ulsan, Aramco’s largest investment in South Korea. The facility is expected to add about 3.2 million metric tons of annual petrochemical capacity, with commercial operations scheduled for 2027. It will use Aramco’s crude-to-chemicals technology and supply feedstock to nearby manufacturers, including industries serving electric-vehicle and semiconductor demand."
+    },
+    {
+      "title": "New Miss Universe's Puerto Rican hometown celebrates her historic win",
+      "source": "Associated Press",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://abcnews.com/International/wireStory/new-miss-universes-puerto-rican-hometown-celebrates-historic-138441440",
+      "summary": "Puerto Rican contestant Jennifer Barreto, 27, won Miss Universe 2026, becoming the pageant’s first married mother to take the title. Her hometown of San Sebastián celebrated with public viewing parties and a caravan after the final. Barreto is Puerto Rico’s sixth winner, ending a 20-year wait for the island. The pageant began allowing married women and mothers to compete in 2023."
+    },
+    {
+      "title": "Ukrainian drones attacked industrial facilities in Russia's Syzran, authorities say",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/markets/commodities/ukrainian-drones-attacked-industrial-facilities-russias-syzran-authorities-say-2026-11-25/",
+      "summary": "Ukrainian drones struck industrial facilities in Russia’s Samara region, including the city of Syzran, while a separate strike killed one person in Samara, local authorities said. The region hosts major oil refineries, but Reuters could not verify social-media claims that two refineries were hit. Officials reported 145 drones downed and power outages; President Vladimir Putin had pledged retaliation for recent Ukrainian strikes."
+    },
+    {
+      "title": "South Korea to unveil EV industry support measures as Chinese competition grows",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/transactional/south-korea-unveil-ev-industry-support-measures-chinese-competition-grows-2026-11-25/",
+      "summary": "South Korea plans to announce measures to strengthen its electric-vehicle industry as domestic automakers face growing competition from Chinese brands. The Finance Ministry told Reuters that a tax credit for EVs produced and sold in South Korea is under discussion, but no decision has been made. The government said the package would be presented Friday; Chinese-made vehicles accounted for 43.5% of new passenger EV registrations in the first nine months of 2026."
+    },
+    {
+      "title": "Moldova keeps emergency energy measures in place despite opposition",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/energy/moldova-keeps-emergency-energy-measures-place-despite-opposition-2026-11-25/",
+      "summary": "Moldova’s pro-European government kept most emergency energy powers in place for another 30 days after a state of emergency expired. Officials said the measures helped stabilize gas, oil and electricity supplies, while water conditions had improved. Opposition parties demanded an accounting and criticized the policy. Moldova imports most of its energy and remains exposed to supply risks linked to regional tensions and Russia’s war in Ukraine."
+    },
+    {
+      "title": "Deere forecasts 2027 profit below estimates as farm equipment recovery remains muted",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/deere-forecasts-fiscal-2027-net-income-below-estimates-2026-11-25/",
+      "summary": "Deere forecast fiscal 2027 net income of $4.50 billion to $5.25 billion, below analysts’ average estimate of $5.91 billion, as weak crop prices and high input costs restrain farm equipment purchases. The company reported quarterly revenue above expectations and said large-agriculture demand may be stabilizing in North America. It expects precision-agriculture sales to grow, while construction equipment benefits partly from AI data-center investment."
+    },
+    {
+      "title": "US airlines face higher costs from proposed Embraer duty",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/aerospace-defense/us-airlines-face-higher-costs-proposed-embraer-duty-2026-11-25/",
+      "summary": "A proposed 10% U.S. duty on finished Embraer aircraft from Brazil could raise costs for American airlines because there is no domestic alternative for the company’s regional jetliners, analysts and executives told Reuters. The tariff could begin as early as January, while carriers already face higher jet-fuel costs. The scope remains uncertain for aircraft completed in Florida from unfinished imports."
+    },
     {
       "title": "Baseball's MLB sues players' union, seeks ruling that lockout is legal",
       "source": "Reuters",
@@ -930,12 +1018,12 @@
       "summary": "Lebanon plans to reopen Kleiat Airport in the north as an international gateway from mid-December, with initial routes expected to serve Turkey, Egypt and Jordan. Private investors are expected to contribute up to $6 million, while the government upgrades roads. The project could bring jobs and travel links to the impoverished Akkar region. Its progress also reflects Hezbollah's reduced political influence after recent wars and shifts in Lebanon's power balance."
     },
     {
-      "title": "Libyan naval officers die following Ukrainian drone attack",
-      "source": "Associated Press",
+      "title": "Italy rebukes Ukraine over attacks on Russian ships in Libya",
+      "source": "Reuters",
       "category": "World",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/mideast-israel-gaza-ukraine-libya-israel-november-25-2026-6995de4ee91278459742a359eeb7439e",
-      "summary": "Two Libyan naval officers died from wounds sustained in a Ukrainian drone attack on a Russian warship at Benghazi Naval Base, Libyan authorities said. Ukraine’s president said seven sea drones took part; Libyan officials said the vessel had docked to refuel and resupply. The Libyan National Army, which controls eastern and southern Libya and has close ties to Moscow, vowed retaliation, raising the risk of a wider regional fallout."
+      "url": "https://www.reuters.com/world/italy-rebukes-ukraine-over-attacks-russian-ships-libya-2026-11-25/",
+      "summary": "Italy’s foreign minister said Ukraine was wrong to strike Russian vessels in Libyan waters, warning Kyiv not to widen the war and saying Rome received no advance notice. Antonio Tajani called the operation a violation of Libya’s sovereignty. Ukraine has described the maritime-drone operation as self-defense. The dispute highlights tensions inside Italy’s governing coalition over military support for Kyiv and the risk of the conflict spreading into the Mediterranean."
     },
     {
       "title": "London Metal Exchange tightens aluminium trading rules after supply squeeze",
@@ -1455,7 +1543,7 @@
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-25/",
-      "summary": "Global shares fell as investors reacted to new U.S. tariff proposals, persistent inflation and expectations of a more hawkish Federal Reserve. Reuters reported MSCI’s global index down 2.35%, the Nasdaq off 3.9%, the S&P 500 down 2.7% and Nvidia losing more than 8%. Bond prices rose as investors sought safety; the trade measures still face consultation and could change."
+      "summary": "Global markets ended lower after the U.S. proposed tariffs on 14 trading partners, but Wall Street recovered most early losses before the Thanksgiving break. Reuters reported MSCI’s global index down 0.60%; the Nasdaq closed 0.62% lower, the S&P 500 fell 0.25%, and the Dow rose 0.33%. Nvidia finished down 3.91% after falling more than 8% intraday as investors weighed AI valuations, inflation and rate risks."
     },
     {
       "title": "Yemenis prepare to flee as Houthis advance toward Aden",
@@ -2330,6 +2418,14 @@
       "summary": "A Senate committee is examining whether Vice President JD Vance used his office to help commodities trader Vitol secure a lucrative Venezuelan oil contract. Senator Maggie Hassan requested records by Dec. 14 after Reuters reported a meeting with Vitol trader John Addison before the U.S. operation in Venezuela. Vance and Addison deny the meeting; flight records reportedly placed their aircraft at the same Montana airport."
     },
     {
+      "title": "UN-backed talks extend AI killer robot discussions to 2028, no binding rules",
+      "source": "Associated Press",
+      "category": "Technology",
+      "published": "2026-11-21",
+      "url": "https://apnews.com/article/un-drones-robots-un-lethal-ai-weapons-ebe057d2a47cde53100970c8f648e7fa",
+      "summary": "UN-backed talks in Geneva ended with countries agreeing to continue work on lethal autonomous weapons for two more years and develop a possible accord by 2028. They did not commit to binding rules sought by the UN secretary-general and campaigners. Activists blamed major military powers for weakening the outcome; the International Committee of the Red Cross warned that autonomous weapons can behave unpredictably and urged human control over force."
+    },
+    {
       "title": "International UN talks on controlling use of autonomous weapons collapse",
       "source": "The Guardian",
       "category": "Technology",
@@ -2368,6 +2464,30 @@
       "published": "2026-11-20",
       "url": "https://www.theguardian.com/us-news/2026/nov/20/los-angeles-palisades-wildfire-trial-verdict",
       "summary": "A federal jury convicted former Uber driver Jonathan Rinderknecht of arson charges tied to the January 2025 Palisades fire, which killed 12 people and destroyed thousands of homes and businesses. Prosecutors said he ignited a brush fire whose embers later reignited in powerful winds; Rinderknecht maintained his innocence and suggested fireworks caused the blaze. He remains in custody and faces a possible sentence of five to 40 years."
+    },
+    {
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says",
+      "source": "Associated Press",
+      "category": "Technology",
+      "published": "2026-11-19",
+      "url": "https://apnews.com/article/cyberattack-european-union-artificial-intelligence-ai-79705095e8141cd650196dbff1cf3c70",
+      "summary": "The European Commission confirmed that an AI-assisted cyberattack targeting an EU institution was detected on October 22 and remained under investigation nearly a month later. Officials said several applications were temporarily taken offline and most have since been restored; they reported no evidence of a broad staff data breach. The attackers and full operational impact were not disclosed, leaving important questions about the intrusion unresolved."
+    },
+    {
+      "title": "South Korea becomes fourth country globally to hit $1 trillion exports on AI chip boom",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-19",
+      "url": "https://www.reuters.com/world/south-korea-becomes-fourth-country-globally-hit-1-trillion-exports-ai-chip-boom-2026-11-19/",
+      "summary": "South Korea’s exports passed $1 trillion for 2026, making it the fourth country to reach the milestone after Germany, the United States and China. Semiconductor shipments, driven by global AI investment, rose 184% in the first three quarters and represented 42% of exports. Reuters noted weak domestic demand and inequality remain concerns, prompting the government to plan a large fund for growth industries, young people and regional development."
+    },
+    {
+      "title": "Record profits but record outflows: 'Sell Korea' trade stalks Seoul market",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-19",
+      "url": "https://www.reuters.com/world/asia-pacific/record-profits-record-outflows-sell-korea-trade-stalks-seoul-market-2026-11-19/",
+      "summary": "South Korea’s KOSPI has fallen 44% from its June record despite record AI-driven profits at Samsung Electronics and SK Hynix, erasing about 3.3 quadrillion won in market value. Reuters reported foreign investors were on track for a seventh consecutive month of net selling, with $115.2 billion in cumulative outflows. Analysts said waning confidence in debt-funded AI infrastructure and fading buybacks have left few buyers."
     }
   ]
 }
