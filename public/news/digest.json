@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T02:15:13.857Z",
+  "updatedAt": "2026-11-25T02:15:33.494Z",
   "articles": [
     {
       "title": "China launches mission carrying Pakistan's first astronaut in orbit",
@@ -8,6 +8,38 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/science/chinas-shenzhou-24-space-flight-takes-off-with-pakistani-national-first-foreign-2026-11-25/",
       "summary": "China successfully launched Shenzhou-24 on Wednesday morning local time, carrying Muhammad Zeeshan Ali and two Chinese astronauts. Ali is expected to conduct experiments during a short stay at Tiangong, becoming its first foreign visitor if docking proceeds as planned. Another Chinese astronaut already aboard will remain for a year to support research into long-duration spaceflight."
+    },
+    {
+      "title": "White House pardons two Thanksgiving turkeys",
+      "source": "Associated Press",
+      "category": "Curious news",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/trump-turkey-pardon-freedom-feather-bb973ff5e095fa20229f49aea36dafd5",
+      "summary": "President Trump continued the annual Thanksgiving tradition by sparing two turkeys from West Virginia named Freedom and Feathers. Freedom attended the White House event after an online public vote. Both birds will retire at Texas A&M University. The ceremony became an annual presidential tradition during George H.W. Bush's administration in 1989."
+    },
+    {
+      "title": "Canada pushes back against Pentagon criticism of defense spending",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/canada-trump-mcguinty-hegseth-pentagon-188a8ce7b731241befc9376fe7d13595",
+      "summary": "Canadian Defense Minister David McGuinty rejected Washington's criticism of Ottawa's military spending, emphasizing Canada's sovereignty. He said Canada plans to reach defense and related security spending of 5% of GDP by 2035, with an interim target of 4% by 2030. The Pentagon has questioned the pace of Canada's spending commitments."
+    },
+    {
+      "title": "CDC director discusses staffing losses and delayed measles guidance",
+      "source": "Associated Press",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/cdc-director-erica-schwartz-ap-interview-616e86c1548b6afe5f092eb241fda5e4",
+      "summary": "CDC Director Erica Schwartz told AP that reduced staffing has slowed some internal reviews, prompting scientists to use outside journals to disseminate urgent findings. She also defended changes to how the agency reviews measles deaths and described efforts to strengthen relationships with local health agencies. Lawmakers and public health experts have criticized delays and questioned the agency's transparency."
+    },
+    {
+      "title": "South African court convicts man over plans to fight for Russia",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/south-africa-zimbabwe-russia-recruits-war-33c3fc1606d01947b713616424a79c4f",
+      "summary": "A Zimbabwean man pleaded guilty in South Africa to violating legislation regulating foreign military assistance after agreeing to fight for Russia in Ukraine in exchange for payment. He received a suspended five-year sentence and faces deportation. The case comes amid wider concerns in several African countries about recruitment for the war and the treatment of recruits."
     },
     {
       "title": "U.S. prepares new country-specific tariffs after industrial capacity review",
