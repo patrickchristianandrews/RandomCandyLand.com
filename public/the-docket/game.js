@@ -210,7 +210,7 @@ function nextCase(){
  save();render();window.scrollTo({top:0,behavior:'smooth'})
 }
 function roleHtml(){
- return '<section class="panel"><span class="overline">CASE INTAKE · '+W.escape(c().id)+'</span><h2>Choose your seat in the legal system</h2><p class="subline">Choose your role in this independent case. Duties differ, but no role gets to invent or hide facts.</p><div class="case-grid">'+roles.map(r=>'<button class="casecard" data-role="'+r[0]+'"><strong>'+r[1]+'</strong><small>'+W.escape(r[2])+'</small></button>').join('')+'</div></section>';
+ return '<section class="panel" id="active-stage"><span class="overline">CASE INTAKE · '+W.escape(c().id)+'</span><h2>Choose your seat in the legal system</h2><p class="subline">Choose your role in this independent case. Duties differ, but no role gets to invent or hide facts.</p><div class="case-grid">'+roles.map(r=>'<button class="casecard" data-role="'+r[0]+'"><strong>'+r[1]+'</strong><small>'+W.escape(r[2])+'</small></button>').join('')+'</div></section>';
 }
 function evidenceHtml(){
  const cs=c(),b=evidenceBalance();
@@ -219,16 +219,16 @@ function evidenceHtml(){
   return '<button class="evidence '+(seen?'acquired':'')+'" data-evidence="'+i+'" aria-expanded="'+active+'"><strong>'+['📑','📼','🔎','🗂️','📎'][i]+' '+W.escape(e[0])+'</strong><span>'+W.escape(e[1])+'</span><span class="tag">'+(seen?'✓ Analyzed':'Tap to inspect')+' · '+W.escape(e[2])+'</span></button>';
  }).join('');
  const inspected=state.openEvidence>=0?cs.evidence[state.openEvidence]:null;
- return '<section class="panel"><span class="overline">INVESTIGATION · '+state.reviewed.length+' / '+cs.evidence.length+' SOURCES REVIEWED</span><h2>Exhibit review</h2><p class="subline">Trace the source, reliability, context and custody of each item. Some material challenges the obvious theory.</p>'+'<details class="trial-all-exhibits"><summary>All exhibit descriptions</summary><div class="evidence-grid">'+cards+'</div></details>'+
- (inspected?'<div class="callout trial-inspection" role="status"><span class="doc-stamp">EXHIBIT '+(state.openEvidence+1)+' · '+W.escape(inspected[2])+'</span><h3>'+W.escape(inspected[0])+'</h3><p class="doc-description">'+W.escape(inspected[1])+'</p><div class="doc-analysis"><b>Analysis</b><p>'+W.escape(inspected[4])+'</p></div><p><b>Procedural status:</b> '+(inspected[5]?'Initially authenticated in the simulation.':'Contested: further verification or admissibility review needed.')+'</p></div>':'<div class="trial-inspection trial-empty">Select an exhibit folder above to open its document and examine the source.</div>')+
+ return '<section class="panel" id="active-stage"><span class="overline">INVESTIGATION · '+state.reviewed.length+' / '+cs.evidence.length+' SOURCES REVIEWED</span><h2>Exhibit review</h2><p class="subline">Trace the source, reliability, context and custody of each item. Some material challenges the obvious theory.</p>'+'<details class="trial-all-exhibits"><summary>All exhibit descriptions</summary><div class="evidence-grid">'+cards+'</div></details>'+
+ (inspected?'<div class="callout trial-inspection" id="active-exhibit" tabindex="-1" role="status"><span class="doc-stamp">EXHIBIT '+(state.openEvidence+1)+' · '+W.escape(inspected[2])+'</span><h3>'+W.escape(inspected[0])+'</h3><p class="doc-description">'+W.escape(inspected[1])+'</p><div class="doc-analysis"><b>Analysis</b><p>'+W.escape(inspected[4])+'</p></div><p><b>Procedural status:</b> '+(inspected[5]?'Initially authenticated in the simulation.':'Contested: further verification or admissibility review needed.')+'</p></div>':'<div class="trial-inspection trial-empty">Select an exhibit folder above to open its document and examine the source.</div>')+
  linkPanel()+witnessPanel()+'<p class="note">Evidence score is not a real legal standard. Material can be relevant yet inadmissible, and an allegation can remain unproven.</p><div class="button-row"><button class="button" data-pretrial '+(state.reviewed.length<3?'disabled':'')+'>Proceed to pretrial review →</button><span class="pill">'+(state.reviewed.length>=3?'Ready for pretrial':Math.max(0,3-state.reviewed.length)+' more exhibits required')+'</span></div></section>';
 }
 function pretrialHtml(){
- return '<section class="panel"><span class="overline">PRETRIAL · PROCEDURE MATTERS</span><h2>Decide what can be heard</h2><p class="subline">Your '+W.escape(role()[1])+' path influences how you prepare. Some evidence is contested and may require a foundation or review.</p><div class="choices">'+Object.keys(motions).map(k=>'<button class="option" data-motion="'+k+'"><b>'+W.escape(motions[k].name)+'</b><small>'+W.escape(motions[k].why)+'</small></button>').join('')+'</div><div class="callout" style="margin-top:13px"><b>Case rule:</b> '+W.escape(c().standard)+'</div></section>';
+ return '<section class="panel" id="active-stage"><span class="overline">PRETRIAL · PROCEDURE MATTERS</span><h2>Decide what can be heard</h2><p class="subline">Your '+W.escape(role()[1])+' path influences how you prepare. Some evidence is contested and may require a foundation or review.</p><div class="choices">'+Object.keys(motions).map(k=>'<button class="option" data-motion="'+k+'"><b>'+W.escape(motions[k].name)+'</b><small>'+W.escape(motions[k].why)+'</small></button>').join('')+'</div><div class="callout" style="margin-top:13px"><b>Case rule:</b> '+W.escape(c().standard)+'</div></section>';
 }
 function hearingHtml(){
  const b=evidenceBalance();
- return '<section class="panel"><span class="overline">HEARING · '+W.escape(role()[1])+'</span><h2>What does the record support?</h2><p class="subline">Reason from the strongest *admissible* evidence. Never confuse confidence, publicity or access with proof.</p><div class="callout"><b>Pretrial approach:</b> '+W.escape(motions[state.motion].name)+'<p>'+W.escape(motions[state.motion].why)+'</p></div><div class="statgrid" style="margin:14px 0">'+W.stat('Items reviewed',state.reviewed.length,'',5)+W.stat('Contested items',b.unsafe,'',5)+W.stat('Contrary sources',b.contrary,'',5)+'</div><div class="scene"><h3>Issue for decision</h3><p>'+W.escape(c().issue)+'</p><p>'+W.escape(c().standard)+'</p></div><div class="trial-record"><h3>Reviewed exhibits</h3>'+state.reviewed.map(i=>'<details><summary>'+W.escape(c().evidence[i][0])+'</summary><p>'+W.escape(c().evidence[i][4])+'</p></details>').join('')+'</div><div class="choices">'+[
+ return '<section class="panel" id="active-stage"><span class="overline">HEARING · '+W.escape(role()[1])+'</span><h2>What does the record support?</h2><p class="subline">Reason from the strongest *admissible* evidence. Never confuse confidence, publicity or access with proof.</p><div class="callout"><b>Pretrial approach:</b> '+W.escape(motions[state.motion].name)+'<p>'+W.escape(motions[state.motion].why)+'</p></div><div class="statgrid" style="margin:14px 0">'+W.stat('Items reviewed',state.reviewed.length,'',5)+W.stat('Contested items',b.unsafe,'',5)+W.stat('Contrary sources',b.contrary,'',5)+'</div><div class="scene"><h3>Issue for decision</h3><p>'+W.escape(c().issue)+'</p><p>'+W.escape(c().standard)+'</p></div><div class="trial-record"><h3>Reviewed exhibits</h3>'+state.reviewed.map(i=>'<details><summary>'+W.escape(c().evidence[i][0])+'</summary><p>'+W.escape(c().evidence[i][4])+'</p></details>').join('')+'</div><div class="choices">'+[
  ['liable','Responsibility established','Select only when the evidence and procedural standard support it.'],
  ['notproven','Allegation not proven','A lack of sufficient proof is not the same as proof of an alternative story.'],
  ['remand','Further investigation / procedural review','Return the matter where notice, records, or critical facts need examination.']
@@ -236,14 +236,14 @@ function hearingHtml(){
 }
 function resultHtml(){
  const cs=c();
- return '<section class="panel"><span class="overline">DECISION & CONSEQUENCES</span><h2>'+W.escape(label(state.decision))+'</h2><div class="result"><h3>Legal Reality Report</h3><p><b>Your ruling or recommendation:</b> '+W.escape(label(state.decision))+'</p><p><b>Reasoning review:</b> '+W.escape(state.feedback)+'</p><p><b>Most defensible outcome in this fictional record:</b> '+W.escape(label(cs.best))+'</p><p><b>Why:</b> '+W.escape(cs.bestWhy)+'</p><p><b>Legal principle:</b> '+W.escape(cs.standard)+'</p></div><h3 style="margin-top:17px">Is there an appeal?</h3><div class="choices">'+[
+ return '<section class="panel" id="active-stage"><span class="overline">DECISION & CONSEQUENCES</span><h2>'+W.escape(label(state.decision))+'</h2><div class="result"><h3>Legal Reality Report</h3><p><b>Your ruling or recommendation:</b> '+W.escape(label(state.decision))+'</p><p><b>Reasoning review:</b> '+W.escape(state.feedback)+'</p><p><b>Most defensible outcome in this fictional record:</b> '+W.escape(label(cs.best))+'</p><p><b>Why:</b> '+W.escape(cs.bestWhy)+'</p><p><b>Legal principle:</b> '+W.escape(cs.standard)+'</p></div><h3 style="margin-top:17px">Is there an appeal?</h3><div class="choices">'+[
  ['procedure','Request procedural review','Challenge how the rules, exclusions or disclosures were handled.'],
  ['facts','Request evidence review','Ask a reviewing panel to consider sufficiency and fact-based reasoning.'],
  ['none','Accept outcome and close','Record the determination and continue to a different case.']
  ].map(o=>'<button class="option" data-appeal="'+o[0]+'"><b>'+W.escape(o[1])+'</b><small>'+W.escape(o[2])+'</small></button>').join('')+'</div></section>';
 }
 function closedHtml(){
- return '<section class="panel"><span class="overline">FILE CLOSED · '+W.escape(c().id)+'</span><h2>Case complete</h2><div class="result"><p><b>Decision:</b> '+W.escape(label(state.decision))+'</p><p><b>Appeal:</b> '+W.escape(state.appeal)+'</p><p><b>Truth and procedure:</b> '+W.escape(c().bestWhy)+'</p><p><b>Professional lesson:</b> Reliable evidence, adequate disclosure and procedural fairness matter more than winning at any cost.</p><button class="button" data-nextcase>Open '+(state.index===cases.length-1?'final career results':'next case')+' →</button></div></section>';
+ return '<section class="panel" id="active-stage"><span class="overline">FILE CLOSED · '+W.escape(c().id)+'</span><h2>Case complete</h2><div class="result"><p><b>Decision:</b> '+W.escape(label(state.decision))+'</p><p><b>Appeal:</b> '+W.escape(state.appeal)+'</p><p><b>Truth and procedure:</b> '+W.escape(c().bestWhy)+'</p><p><b>Professional lesson:</b> Reliable evidence, adequate disclosure and procedural fairness matter more than winning at any cost.</p><button class="button" data-nextcase>Open '+(state.index===cases.length-1?'final career results':'next case')+' →</button></div></section>';
 }
 function finalHtml(){
  let title=state.integrity>=75&&state.reasoning>=70?'A Reputation for Fairness':state.reasoning>=60?'A Careful Advocate':'Learning the Weight of Proof';
@@ -274,14 +274,15 @@ function render(){
  html+='<details class="panel docket-reference"><summary>Case docket · '+state.history.length+'/'+cases.length+'</summary><div class="case-grid">'+cases.map((x,i)=>'<div class="casecard '+(i===state.index&&!state.finished?'active':'')+'"><em>'+W.escape(x.id)+'</em><strong style="display:block;margin-top:4px">'+W.escape(x.title)+'</strong><small>'+(i<state.index?'✓ CLOSED':i===state.index&&!state.finished?'● ACTIVE':'○ LOCKED')+'</small></div>').join('')+'</div></details>';
  html+='<details class="panel docket-reference"><summary>Legal dossier &amp; settings</summary><div class="button-row"><button class="button-quiet" data-report>📋 '+(state.report?'Hide':'Open')+' Legal Reality Report</button><button class="button-quiet" data-download>↓ Export report</button><button class="button-quiet" data-reset>↺ Reset career</button></div></details>';
  html+='<details class="panel docket-reference"><summary>Case activity</summary>'+W.journal(state.journal)+'</details></aside>';
- if(state.report)html+='<section class="panel" style="grid-column:1/-1"><span class="overline">PERSONALIZED COURTROOM SUMMARY</span><h2>Legal Reality Report</h2><pre style="white-space:pre-wrap;font:12px/1.7 inherit;overflow-wrap:anywhere">'+W.escape(report())+'</pre></section>';
- const opened=[...app.querySelectorAll('.docket-reference,.game-reference')].map(x=>x.open);app.innerHTML=html;if(opened.length)app.querySelectorAll('.docket-reference,.game-reference').forEach((x,i)=>{if(opened[i]!==undefined)x.open=opened[i]});
+ if(state.report)html+='<section class="panel" id="docket-report" style="grid-column:1/-1"><span class="overline">PERSONALIZED COURTROOM SUMMARY</span><h2>Legal Reality Report</h2><pre style="white-space:pre-wrap;font:12px/1.7 inherit;overflow-wrap:anywhere">'+W.escape(report())+'</pre></section>';
+ const opened=[...app.querySelectorAll('.docket-reference,.game-reference')].map(x=>x.open);const allOpen=app.querySelector('.trial-all-exhibits')?.open;app.innerHTML=html;if(allOpen&&app.querySelector('.trial-all-exhibits'))app.querySelector('.trial-all-exhibits').open=true;if(opened.length)app.querySelectorAll('.docket-reference,.game-reference').forEach((x,i)=>{if(opened[i]!==undefined)x.open=opened[i]});
  window.dispatchEvent(new Event('docket-play-update'));
 }
+function reveal(selector){const target=app.querySelector(selector);if(!target)return;target.scrollIntoView?.({block:'nearest',behavior:'auto'});if(target.id==='active-exhibit')target.focus?.({preventScroll:true});}
 app.addEventListener('click',e=>{
- const b=e.target.closest('button');if(!b||b.disabled)return;
+ const b=e.target.closest('button');if(!b||b.disabled)return;const oldPhase=state.phase;
  if(b.dataset.role)selectRole(b.dataset.role);
- else if(b.hasAttribute('data-evidence'))review(Number(b.dataset.evidence));
+ else if(b.hasAttribute('data-evidence')){review(Number(b.dataset.evidence));reveal('#active-exhibit');}
  else if(b.hasAttribute('data-link-select'))linkSelect(Number(b.dataset.linkSelect));
  else if(b.dataset.linkCheck)linkCheck(b.dataset.linkCheck);
  else if(b.hasAttribute('data-witness'))witness(Number(b.dataset.witness));
@@ -290,9 +291,10 @@ app.addEventListener('click',e=>{
  else if(b.dataset.decide)decide(b.dataset.decide);
  else if(b.dataset.appeal)appeal(b.dataset.appeal);
  else if(b.hasAttribute('data-nextcase'))nextCase();
- else if(b.hasAttribute('data-report')){state.report=!state.report;save();render()}
+ else if(b.hasAttribute('data-report')){state.report=!state.report;save();render();if(state.report)reveal('#docket-report')}
  else if(b.hasAttribute('data-download'))W.download('The-Docket-Legal-Reality-Report.txt',report());
  else if(b.hasAttribute('data-reset'))W.reset(KEY,'The Docket');
+ if(oldPhase!==state.phase&&!b.hasAttribute('data-nextcase'))reveal('#active-stage');
 });
 window.DocketPlay=Object.freeze({snapshot:()=>{const cs=c();return {finished:state.finished,phase:state.phase,index:state.index,reviewed:[...state.reviewed],openEvidence:state.openEvidence,issue:cs?.issue||'',standard:cs?.standard||'',evidence:(cs?.evidence||[]).map(e=>({title:e[0],description:e[1],type:e[2],analysis:e[4],authenticated:e[5]}))}}});
 save();render();
