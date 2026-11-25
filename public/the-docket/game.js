@@ -212,16 +212,16 @@ function nextCase(){
 function roleHtml(){
  return '<section class="panel" id="active-stage"><span class="overline">CASE INTAKE · '+W.escape(c().id)+'</span><h2>Choose your seat in the legal system</h2><p class="subline">Choose your role in this independent case. Duties differ, but no role gets to invent or hide facts.</p><div class="case-grid">'+roles.map(r=>'<button class="casecard" data-role="'+r[0]+'"><strong>'+r[1]+'</strong><small>'+W.escape(r[2])+'</small></button>').join('')+'</div></section>';
 }
+let investigationView='exhibits';
 function evidenceHtml(){
- const cs=c(),b=evidenceBalance();
- const cards=cs.evidence.map((e,i)=>{
-  const seen=state.reviewed.includes(i),active=state.openEvidence===i;
-  return '<button class="evidence '+(seen?'acquired':'')+'" data-evidence="'+i+'" aria-expanded="'+active+'"><strong>'+['📑','📼','🔎','🗂️','📎'][i]+' '+W.escape(e[0])+'</strong><span>'+W.escape(e[1])+'</span><span class="tag">'+(seen?'✓ Analyzed':'Tap to inspect')+' · '+W.escape(e[2])+'</span></button>';
- }).join('');
- const inspected=state.openEvidence>=0?cs.evidence[state.openEvidence]:null;
- return '<section class="panel" id="active-stage"><span class="overline">INVESTIGATION · '+state.reviewed.length+' / '+cs.evidence.length+' SOURCES REVIEWED</span><h2>Exhibit review</h2><p class="subline">Trace the source, reliability, context and custody of each item. Some material challenges the obvious theory.</p>'+'<details class="trial-all-exhibits"><summary>All exhibit descriptions</summary><div class="evidence-grid">'+cards+'</div></details>'+
- (inspected?'<div class="callout trial-inspection" id="active-exhibit" tabindex="-1" role="status"><span class="doc-stamp">EXHIBIT '+(state.openEvidence+1)+' · '+W.escape(inspected[2])+'</span><h3>'+W.escape(inspected[0])+'</h3><p class="doc-description">'+W.escape(inspected[1])+'</p><div class="doc-analysis"><b>Analysis</b><p>'+W.escape(inspected[4])+'</p></div><p><b>Procedural status:</b> '+(inspected[5]?'Initially authenticated in the simulation.':'Contested: further verification or admissibility review needed.')+'</p></div>':'<div class="trial-inspection trial-empty">Select an exhibit folder above to open its document and examine the source.</div>')+
- linkPanel()+witnessPanel()+'<p class="note">Evidence score is not a real legal standard. Material can be relevant yet inadmissible, and an allegation can remain unproven.</p><div class="button-row"><button class="button" data-pretrial '+(state.reviewed.length<3?'disabled':'')+'>Proceed to pretrial review →</button><span class="pill">'+(state.reviewed.length>=3?'Ready for pretrial':Math.max(0,3-state.reviewed.length)+' more exhibits required')+'</span></div></section>';
+ const cs=c(),inspected=cs.evidence[state.openEvidence],ready=state.reviewed.length>=3;
+ const tabs=[['exhibits','01','Exhibits',state.reviewed.length+'/'+cs.evidence.length],['connections','02','Connections',state.linkSolved?'Solved':state.reviewed.length<2?'Locked':'Open'],['witness','03','Witness',state.interviewed?'Heard':state.reviewed.length<2?'Locked':'Open']];
+ if(state.reviewed.length<2&&investigationView!=='exhibits')investigationView='exhibits';
+ const nav='<nav class="investigation-tabs" aria-label="Investigation stations">'+tabs.map(([key,n,label,status])=>'<button type="button" data-investigation-view="'+key+'" aria-pressed="'+(investigationView===key)+'" '+(status==='Locked'?'disabled':'')+'><span>'+n+'</span><b>'+label+'</b><small>'+status+'</small></button>').join('')+'</nav>';
+ const files='<div class="exhibit-shelf">'+cs.evidence.map((e,i)=>'<button type="button" data-evidence="'+i+'" class="exhibit-tab" aria-pressed="'+(state.openEvidence===i)+'"><span class="exhibit-number">'+(state.reviewed.includes(i)?'✓':String(i+1).padStart(2,'0'))+'</span><span><b>'+W.escape(e[0])+'</b><small>'+W.escape(e[2])+' · '+(state.reviewed.includes(i)?'Reviewed':'Not examined')+'</small></span><span aria-hidden="true">›</span></button>').join('')+'</div>';
+ const document=inspected?'<article class="trial-inspection case-document" id="active-exhibit" tabindex="-1"><span class="doc-stamp">EXHIBIT '+String(state.openEvidence+1).padStart(2,'0')+' / '+W.escape(cs.id)+'</span><h3>'+W.escape(inspected[0])+'</h3><p class="doc-description">'+W.escape(inspected[1])+'</p><div class="doc-analysis"><b>What the record tells you</b><p>'+W.escape(inspected[4])+'</p></div><div class="evidence-status '+(inspected[5]?'authenticated':'contested')+'">'+(inspected[5]?'✓ Initially authenticated':'! Contested — verify before relying on it')+'</div><div class="exhibit-nav"><button type="button" class="button-quiet" data-evidence="'+(state.openEvidence-1)+'" '+(state.openEvidence===0?'disabled':'')+'>← Previous</button><button type="button" class="button-quiet" data-evidence="'+(state.openEvidence+1)+'" '+(state.openEvidence===cs.evidence.length-1?'disabled':'')+'>Next exhibit →</button></div></article>':'<div class="case-document empty-document"><span class="document-emblem" aria-hidden="true">§</span><h3>Open your first exhibit</h3><p>Examine the source before drawing a conclusion. Look for evidence that challenges your theory.</p></div>';
+ const body=investigationView==='exhibits'?'<div class="case-workbench">'+files+document+'</div>':investigationView==='connections'?linkPanel():witnessPanel();
+ return '<section class="panel investigation-room" id="active-stage"><div class="mission-head"><div><span class="overline">YOUR INVESTIGATION</span><h2>Build the record</h2></div><strong>'+state.reviewed.length+'/'+cs.evidence.length+' reviewed</strong></div><div class="mission-track" role="progressbar" aria-label="Exhibits reviewed" aria-valuenow="'+state.reviewed.length+'" aria-valuemax="'+cs.evidence.length+'"><i style="width:'+(state.reviewed.length/cs.evidence.length*100)+'%"></i></div>'+nav+'<div class="investigation-station" id="investigation-station">'+body+'</div><div class="mission-footer"><span>'+(!ready?'Review '+(3-state.reviewed.length)+' more exhibit(s) to unlock pretrial.':state.reviewed.length<cs.evidence.length?'Pretrial unlocked. You can still review the remaining evidence.':'All exhibits reviewed. Connections and witness interview are optional.')+'</span><button type="button" class="button" data-pretrial '+(ready?'':'disabled')+'>Proceed to pretrial →</button></div><details class="game-reference"><summary>Evidence rules</summary><p class="note">Evidence score is not a real legal standard. Relevant material may be inadmissible. An allegation can remain unproven.</p></details></section>';
 }
 function pretrialHtml(){
  return '<section class="panel" id="active-stage"><span class="overline">PRETRIAL · PROCEDURE MATTERS</span><h2>Decide what can be heard</h2><p class="subline">Your '+W.escape(role()[1])+' path influences how you prepare. Some evidence is contested and may require a foundation or review.</p><div class="choices">'+Object.keys(motions).map(k=>'<button class="option" data-motion="'+k+'"><b>'+W.escape(motions[k].name)+'</b><small>'+W.escape(motions[k].why)+'</small></button>').join('')+'</div><div class="callout" style="margin-top:13px"><b>Case rule:</b> '+W.escape(c().standard)+'</div></section>';
@@ -243,7 +243,7 @@ function resultHtml(){
  ].map(o=>'<button class="option" data-appeal="'+o[0]+'"><b>'+W.escape(o[1])+'</b><small>'+W.escape(o[2])+'</small></button>').join('')+'</div></section>';
 }
 function closedHtml(){
- return '<section class="panel" id="active-stage"><span class="overline">FILE CLOSED · '+W.escape(c().id)+'</span><h2>Case complete</h2><div class="result"><p><b>Decision:</b> '+W.escape(label(state.decision))+'</p><p><b>Appeal:</b> '+W.escape(state.appeal)+'</p><p><b>Truth and procedure:</b> '+W.escape(c().bestWhy)+'</p><p><b>Professional lesson:</b> Reliable evidence, adequate disclosure and procedural fairness matter more than winning at any cost.</p><button class="button" data-nextcase>Open '+(state.index===cases.length-1?'final career results':'next case')+' →</button></div></section>';
+ return '<section class="panel" id="active-stage"><span class="overline">FILE CLOSED · '+W.escape(c().id)+'</span><h2>Case complete</h2><div class="case-verdict '+(state.decision===c().best?'supported':'review')+'"><span>'+ (state.decision===c().best?'✓':'!') +'</span><div><b>'+ (state.decision===c().best?'Well-supported determination':'Further reasoning needed') +'</b><small>Debrief · fictional record</small></div></div><div class="case-achievement-grid">'+[['Exhibits',state.reviewed.length+'/'+c().evidence.length],['Evidence connection',state.linkSolved?'Solved':'Not solved'],['Witness',state.interviewed?'Interviewed':'Not interviewed']].map(([label,value])=>'<div><small>'+label+'</small><b>'+value+'</b></div>').join('')+'</div><div class="result"><p><b>Decision:</b> '+W.escape(label(state.decision))+'</p><p><b>Appeal:</b> '+W.escape(state.appeal)+'</p><p><b>Truth and procedure:</b> '+W.escape(c().bestWhy)+'</p><p><b>Professional lesson:</b> Reliable evidence, adequate disclosure and procedural fairness matter more than winning at any cost.</p><button class="button" data-nextcase>Open '+(state.index===cases.length-1?'final career results':'next case')+' →</button></div></section>';
 }
 function finalHtml(){
  let title=state.integrity>=75&&state.reasoning>=70?'A Reputation for Fairness':state.reasoning>=60?'A Careful Advocate':'Learning the Weight of Proof';
@@ -261,7 +261,7 @@ function trialScene(){
 
 function render(){
  const cs=c(),progress=Math.min(state.index+1,cases.length);
- let html='<div class="maincol"><section class="panel case-brief"><span class="overline">CASE FILE · '+(state.finished?'COMPLETE':'FILE '+progress+' OF '+cases.length)+'</span><h2>'+(state.finished?'Career completed':W.escape(cs.title))+'</h2><p class="subline">'+(state.finished?'Your cases are preserved in your legal dossier.':W.escape(cs.story))+'</p><div class="timeline">'+['intake','investigate','pretrial','hearing','result','closed'].map(p=>'<span class="'+(state.phase===p&&!state.finished?'current':'')+'">'+({intake:'Role',investigate:'Evidence',pretrial:'Motion',hearing:'Hearing',result:'Ruling',closed:'Close'})[p]+'</span>').join('')+'</div>'+(!state.finished?trialScene():'')+'</section>';
+ let html='<div class="maincol"><section class="panel case-brief"><span class="overline">CASE FILE · '+(state.finished?'COMPLETE':'FILE '+progress+' OF '+cases.length)+'</span><h2>'+(state.finished?'Career completed':W.escape(cs.title))+'</h2><p class="subline">'+(state.finished?'Your cases are preserved in your legal dossier.':W.escape(cs.story))+'</p><div class="timeline">'+['intake','investigate','pretrial','hearing','result','closed'].map(p=>'<span class="'+(state.phase===p&&!state.finished?'current':'')+'">'+({intake:'Role',investigate:'Evidence',pretrial:'Motion',hearing:'Hearing',result:'Ruling',closed:'Close'})[p]+'</span>').join('')+'</div>'+(!state.finished&&state.phase==='intake'?trialScene():'')+'</section>';
  if(state.finished)html+=finalHtml();
  else if(state.phase==='intake')html+=roleHtml();
  else if(state.phase==='investigate')html+=evidenceHtml();
@@ -281,8 +281,9 @@ function render(){
 function reveal(selector){const target=app.querySelector(selector);if(!target)return;target.scrollIntoView?.({block:'nearest',behavior:'auto'});if(target.id==='active-exhibit')target.focus?.({preventScroll:true});}
 app.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b||b.disabled)return;const oldPhase=state.phase;
- if(b.dataset.role)selectRole(b.dataset.role);
- else if(b.hasAttribute('data-evidence')){review(Number(b.dataset.evidence));reveal('#active-exhibit');}
+ if(b.dataset.investigationView){investigationView=b.dataset.investigationView;render();app.querySelector('[data-investigation-view="'+investigationView+'"]')?.focus?.({preventScroll:true});}
+ else if(b.dataset.role){investigationView='exhibits';selectRole(b.dataset.role);}
+ else if(b.hasAttribute('data-evidence')){investigationView='exhibits';review(Number(b.dataset.evidence));reveal('#active-exhibit');}
  else if(b.hasAttribute('data-link-select'))linkSelect(Number(b.dataset.linkSelect));
  else if(b.dataset.linkCheck)linkCheck(b.dataset.linkCheck);
  else if(b.hasAttribute('data-witness'))witness(Number(b.dataset.witness));
@@ -290,7 +291,7 @@ app.addEventListener('click',e=>{
  else if(b.dataset.motion)moveMotion(b.dataset.motion);
  else if(b.dataset.decide)decide(b.dataset.decide);
  else if(b.dataset.appeal)appeal(b.dataset.appeal);
- else if(b.hasAttribute('data-nextcase'))nextCase();
+ else if(b.hasAttribute('data-nextcase')){investigationView='exhibits';nextCase();}
  else if(b.hasAttribute('data-report')){state.report=!state.report;save();render();if(state.report)reveal('#docket-report')}
  else if(b.hasAttribute('data-download'))W.download('The-Docket-Legal-Reality-Report.txt',report());
  else if(b.hasAttribute('data-reset'))W.reset(KEY,'The Docket');
