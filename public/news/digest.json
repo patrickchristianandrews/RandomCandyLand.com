@@ -1,6 +1,142 @@
 {
-  "updatedAt": "2026-11-25T17:58:10.000Z",
+  "updatedAt": "2026-11-25T18:59:03.000Z",
   "articles": [
+    {
+      "title": "Iraq orders nationwide troop deployment as oil-smuggling crackdown widens",
+      "source": "Anadolu Agency",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/middle-east/in-crackdown-iraqi-premier-orders-nationwide-troop-deployment-closure-of-oil-smuggling-routes-defense-ministry/4137906",
+      "summary": "Iraqi Prime Minister Ali al-Zaidi ordered military units to secure designated areas nationwide, including Kirkuk, and directed brigades to close informal routes used for oil smuggling, the Defense Ministry said. The move follows the dismissal of senior security officials and investigations into suspected smuggling. Authorities reported further attempted smuggling and pipeline tampering but gave no locations or quantities, leaving the impact on federal-Kurdish tensions uncertain."
+    },
+    {
+      "title": "Senegal football chief denies contact with CAS arbitrator before AFCON ruling",
+      "source": "Anadolu Agency",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/sports/senegal-football-chief-denies-contact-with-cas-arbitrator-before-afcon-ruling/4137825",
+      "summary": "Senegalese Football Federation president Abdoulaye Fall denied Morocco’s allegation that he contacted a Court of Arbitration for Sport panel member before its ruling restored Senegal’s 2025 Africa Cup title. Morocco says it will pursue legal challenges; Fall offered to provide phone records. CAS had unanimously overturned an earlier decision awarding Morocco the title, finding the referee could resume the final after Senegal’s protest."
+    },
+    {
+      "title": "Army says all five tons of lead azide destroyed in Iowa detonation",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/77fa69b9e88b46c5d1adc29841d2b4cc",
+      "summary": "The U.S. Army says it successfully destroyed its five-ton lead-azide stockpile at the Iowa Army Ammunition Plant, reporting no secondary explosions or infrastructure damage. EPA monitors detected no airborne lead in the first 15 minutes, while officials continue air, soil and water testing. The degraded explosive had become unstable in storage; nearby residents and farmers are still awaiting further monitoring results."
+    },
+    {
+      "title": "Heavy rain and high winds threaten Thanksgiving travel along East Coast",
+      "source": "The Guardian",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/heavy-rain-high-winds-thanksgiving-east-coast",
+      "summary": "Two storm systems moving up the East Coast threaten Thanksgiving travel with heavy rain, coastal flooding and wind gusts that could reach 60 mph in New York City. The gusts may ground balloons at the 100th Macy’s parade; officials are considering an earlier start. Forecasts include up to five inches of rain in parts of the Northeast and eight inches in south Florida, with flight delays and power outages possible."
+    },
+    {
+      "title": "UN condemns deadly drone strikes in Sudan's Blue Nile state",
+      "source": "Anadolu Agency",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/africa/un-condemns-deadly-drone-strikes-in-sudans-blue-nile-state/4137881",
+      "summary": "The UN condemned drone strikes in Sudan’s Blue Nile state after its spokesman said local sources reported 17 civilian deaths in Ed Damazin. The Sudanese Human Rights Observatory separately reported 19 people killed and nearly 25 wounded across Damazin and Roseires, blaming the Rapid Support Forces. The army and RSF had not commented. The UN called for safe humanitarian access as fighting spreads."
+    },
+    {
+      "title": "New York bans AI chatbot toys for five years over child-safety concerns",
+      "source": "Anadolu Agency",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/americas/new-york-bans-ai-chatbot-toys-for-5-years-over-child-safety-concerns/4137796",
+      "summary": "New York Gov. Kathy Hochul signed a five-year prohibition on making, distributing or selling children’s toys that use internet-connected AI companion chatbots. The law takes effect Feb. 22, 2027, and violations can bring civil penalties of up to $15,000 per day. Officials cite risks involving inappropriate conversations, emotional manipulation and children’s privacy; the ban does not cover this holiday shopping season."
+    },
+    {
+      "title": "Seven-year-old held at Texas immigration center asks Trump to release her",
+      "source": "The Guardian",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/louisiana-child-trump-letter-ice-custody",
+      "summary": "Seven-year-old Charlotte Ortiz, held with her mother at the Dilley family immigration center in Texas, wrote President Donald Trump asking to return to school and see her father. Her 29 days in detention exceed a 20-day limit established by a 1985 court settlement. DHS says her mother has a final removal order; the family disputes the circumstances. The case adds scrutiny to family detention and conditions at Dilley."
+    },
+    {
+      "title": "Yemen's army reports 654 operations against Houthi positions",
+      "source": "Anadolu Agency",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/middle-east/over-100-houthis-killed-or-wounded-in-654-military-operations-yemeni-army/4137870",
+      "summary": "Yemen’s internationally recognized army said government forces carried out 654 operations against Houthi positions, killing or wounding 109 fighters and commanders. The military described 21 airstrikes, 577 artillery attacks, 36 drone strikes and 20 rocket-artillery strikes across several fronts, but provided no independent evidence; the Houthis had not commented. The claims come amid renewed fighting and a worsening humanitarian crisis after the 2022 truce collapsed."
+    },
+    {
+      "title": "Nearly 800 displaced from Sudan's Abu Zabad in one day, IOM says",
+      "source": "Anadolu Agency",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/africa/nearly-800-displaced-from-sudan-s-abu-zabad-in-1-day-amid-worsening-insecurity-un-refugee-agency/4137837",
+      "summary": "The International Organization for Migration said at least 795 people fled Sudan’s Abu Zabad area in West Kordofan in one day as fighting between the army and Rapid Support Forces intensified. Displaced families moved into neighboring localities and states, following several larger waves earlier in November. The agency described conditions as tense and volatile; the conflict, which began in 2023, has displaced about 13 million people."
+    },
+    {
+      "title": "German police in North Rhine-Westphalia to replace Palantir with Celonis",
+      "source": "Anadolu Agency",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/europe/german-police-in-western-state-to-replace-us-based-palantir-with-domestic-software/4137826",
+      "summary": "Police in Germany’s North Rhine-Westphalia state plan to replace Palantir’s data-analysis software with a system from Munich-based Celonis after a Europe-wide tender. The new program will run on police-owned infrastructure, giving authorities greater control over data and processes; the contract may last seven years. Palantir criticized the decision, while privacy officials have raised concerns about sensitive data access by US intelligence services."
+    },
+    {
+      "title": "Gordon Ramsay to lead BBC's Top Gear revival planned for 2028",
+      "source": "Anadolu Agency",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/europe/gordon-ramsay-named-new-host-of-bbcs-top-gear/4137860",
+      "summary": "The BBC named celebrity chef Gordon Ramsay as the lead presenter for Top Gear’s planned return in 2028, with co-hosts still to be announced. Filming is expected to begin in 2027. The motoring show has been off air since a 2022 crash seriously injured former presenter Andrew Flintoff. The revival follows a pause announced in 2023 after the accident, which halted production."
+    },
+    {
+      "title": "Netanyahu's Likud challenges results at 120 Israeli polling stations",
+      "source": "Anadolu Agency",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/middle-east/netanyahu-s-likud-formally-challenges-election-results-at-120-polling-stations/4137847",
+      "summary": "Benjamin Netanyahu’s Likud party filed a court appeal seeking new voting at 120 Israeli polling stations, citing alleged irregularities involving voter-identification information, according to Israeli media. The reports said the filing did not allege widespread fraud or bribery. Gadi Eisenkot’s Yashar party accused Likud of trying to delegitimize the result. Eisenkot faces a Dec. 6 deadline to form a government."
+    },
+    {
+      "title": "Austria's population projected to peak in mid-2040s before decline",
+      "source": "Anadolu Agency",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/europe/austria-s-population-projected-to-shrink-after-mid-2040s-as-births-decline/4137754",
+      "summary": "Statistics Austria projects the country’s population will peak at 9.36 million in the mid-2040s before declining to 9.04 million by 2080, revising earlier forecasts that suggested it could exceed 10 million. Fertility is expected to fall to 1.3 births per woman, while the share of residents aged 65 and older may reach 30.1% by 2080. Immigration and employment patterns will shape the pace of aging."
+    },
+    {
+      "title": "Poland plans no-fly zone along eastern border to bolster NATO flank",
+      "source": "Anadolu Agency",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/europe/poland-plans-no-fly-zone-along-eastern-border-to-bolster-nato-flank/4137749",
+      "summary": "Poland plans a restricted airspace zone along its eastern border, potentially taking effect in late December or early January, Deputy Defense Minister Cezary Tomczyk said. The zone would extend several to dozens of kilometers inland as Warsaw strengthens NATO’s eastern flank after Russian missiles fell in eastern Poland. Tomczyk said any decision to intercept threats over Ukraine would require agreement among NATO members."
+    },
+    {
+      "title": "Zelenskyy says Ukraine awaits US date for next round of peace talks",
+      "source": "Anadolu Agency",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/eurasia/zelenskyy-says-ukraine-waiting-for-us-to-set-date-for-new-round-of-peace-talks-with-russia/4137823",
+      "summary": "Ukrainian President Volodymyr Zelenskyy said Kyiv is waiting for Washington to schedule another round of US-mediated talks with Russia, which he wants to include European representatives. Previous discussions in Abu Dhabi produced agreement in principle to broaden participation, but Russian officials said no decision had been made. The next meeting’s timing and format remain uncertain as strikes on Ukrainian energy infrastructure continue."
+    },
+    {
+      "title": "Malaysia studies AI wealth fund to distribute technology gains",
+      "source": "Anadolu Agency",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/asia-pacific/malaysia-considers-ai-wealth-fund-to-share-economic-gains-with-citizens/4137831",
+      "summary": "Malaysia is studying an artificial-intelligence wealth fund that could distribute some economic gains to citizens, Prime Minister Anwar Ibrahim said. He directed the communications and digital ministries to examine options, citing a proposal by US Senator Bernie Sanders. Anwar also said foreign AI investors face conditions on water infrastructure and skills training, reflecting concern that rapid automation and investment could widen inequality and disrupt jobs."
+    },
+    {
+      "title": "Israeli strike in Gaza kills Hamas security official, wife and children",
+      "source": "Al Jazeera",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.aljazeera.com/news/2026/11/25/israeli-strike-kills-hamas-official-his-wife-and-children?traffic_source=rss",
+      "summary": "An Israeli air strike hit the Shati refugee camp in Gaza City, killing Muhammad Majid Abu al-Ouf, head of the Internal Security Service in northern Gaza, his wife and two teenage daughters, according to Gaza’s Interior Ministry and medical sources cited by Al Jazeera. The report said other attacks killed at least three more Palestinians. Israel did not comment on the strike in the article."
+    },
     {
       "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
       "source": "The Guardian",
@@ -272,14 +408,6 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/environment/2026/nov/25/dolphins-with-active-social-lives-and-big-friendship-groups-live-longer",
       "summary": "A study in PLOS Biology used nearly 40 years of observations from Shark Bay, Western Australia, to link stronger, more stable social groups with longer lives among Indo-Pacific bottlenose dolphins. Researchers say group ties can help animals share information, find mates and maintain alliances, while also carrying risks such as disease transmission and stress. The findings show individual social preferences change with age; they do not establish that social contact alone causes longevity."
-    },
-    {
-      "title": "Drone strikes kill 19 civilians in Sudan's Blue Nile state, rights group says",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/africa/drone-strikes-kill-19-civilians-in-southeastern-sudan-says-rights-group-2026-11-25/",
-      "summary": "Drone strikes in Sudan's Blue Nile state killed 19 civilians and wounded 20 in Damazin and Roseires on Tuesday, according to the rights group Emergency Lawyers and residents cited by Reuters. The attacks hit residential neighbourhoods and reportedly targeted a dam and power facilities, raising concerns about electricity disruption. The Rapid Support Forces did not immediately comment. The strikes add to a war that has displaced millions since 2023."
     },
     {
       "title": "EasyJet annual profit plunges 89% as fuel costs surge",
@@ -898,14 +1026,6 @@
       "summary": "Tata Steel's proposed combination with Indian steel-tube maker APL Apollo could create a business with 7.5 million metric tons of annual capacity, but the deal structure has angered investors. Tata plans to sell its finished-products unit, buy a major stake from APL Apollo's chair and make a further open offer. A separate manufacturing agreement for the chair's private firm has raised governance concerns, while both companies' shares fell sharply."
     },
     {
-      "title": "The Latest: Army detonates entire US stockpile of lead azide in Iowa",
-      "source": "Associated Press",
-      "category": "U.S.",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/77fa69b9e88b46c5d1adc29841d2b4cc",
-      "summary": "The U.S. Army detonated about five tons of the country’s aging lead-azide stockpile at an Iowa ammunition plant after officials warned the crystallized explosive could detonate unpredictably. The EPA reported no airborne lead in the first 15 minutes and is continuing air, soil and water monitoring. Residents were told to shelter indoors, while farmers and environmental groups await testing for possible effects on crops, livestock and water."
-    },
-    {
       "title": "These young Republicans have a message for their party: It’s time to ‘grow up’",
       "source": "Associated Press",
       "category": "Politics",
@@ -1242,14 +1362,6 @@
       "summary": "A bomb exploded outside regional government offices in Villavicencio, Colombia, injuring 23 people and damaging nearby buildings, the Associated Press reported. Authorities said the blast occurred Monday night and remained under investigation. The attack comes amid escalating clashes between security forces, rebel factions and drug gangs, which have increasingly used drones, rockets and roadside explosives. Officials have not established responsibility, and the investigation continues."
     },
     {
-      "title": "CAS restores Senegal's 2025 Africa Cup title; Morocco plans challenge",
-      "source": "Reuters",
-      "category": "Sports",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/sports/soccer/soccer-senegal-reinstated-2025-africa-cup-nations-winners-2026-11-24/",
-      "summary": "The Court of Arbitration for Sport unanimously restored Senegal's 1-0 extra-time victory over Morocco in the 2025 Africa Cup of Nations final, overturning CAF's later decision to award Morocco a 3-0 win after Senegal's players briefly left the pitch. CAS said the referee was entitled to restart the match. Senegal welcomed the ruling, while Morocco's federation says it will challenge it in Switzerland."
-    },
-    {
       "title": "Catalysts come alive as electron microscopy reveals nanoparticles’ dynamic behavior",
       "source": "Phys.org",
       "category": "Science",
@@ -1336,14 +1448,6 @@
       "published": "2026-11-24",
       "url": "https://www.washingtonpost.com/style/2026/11/24/smithsonian-head-responds-overhaul-plan-that-was-spied-train/",
       "summary": "A Washington Post investigation reports that a photographed draft plan titled “Smithsonian Institution Renewal Plan” proposed sweeping changes to museum leadership, exhibitions, grants and internal policies. The document surfaced after a commuter photographed a White House aide working on it aboard the D.C. Metro. A Democratic lawmaker pledged oversight hearings, while Smithsonian leaders defended the institution’s independence and said the plan’s intended use was unclear."
-    },
-    {
-      "title": "East Coast storm threatens Thanksgiving travel and parade balloons",
-      "source": "Reuters",
-      "category": "U.S.",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/business/environment/east-coast-storm-bring-rain-strong-winds-us-thanksgiving-2026-11-24/",
-      "summary": "Forecasters warned that a powerful storm could disrupt Thanksgiving travel along the Eastern Seaboard, with rain rates near one inch an hour, gusts above 50 mph and coastal flooding risks from Georgia to Long Island. New York's parade was expected to start dry, but later rain and wind could force balloons to fly lower or remain grounded. The FAA forecast more than 417,000 flights during the nine-day holiday travel period."
     },
     {
       "title": "Elon Musk asks appeals court to overturn Twitter shareholder fraud verdict",
@@ -1448,14 +1552,6 @@
       "published": "2026-11-24",
       "url": "https://www.iranintl.com/en/202611245387",
       "summary": "Iranian singer Parastoo Ahmadi and four members of her concert team each received 74 lashes in Qom, their lawyer told Iran International, after an online performance filmed without a live audience. The punishment prompted criticism from artists and activists and renewed scrutiny of restrictions on women singing publicly and compulsory-hijab rules. An appeals court had upheld their sentences in September, including bans on artistic activity and foreign travel."
-    },
-    {
-      "title": "Iraqi PM cracks down on Kurds' control of oilfields, Kurds reject risky move",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/world/middle-east/iraqi-pm-orders-takeover-kurdistan-regions-border-crossings-after-oil-smuggling-2026-11-24/",
-      "summary": "Iraq’s prime minister ordered federal authorities to take control of oilfields in four provinces under Kurdish administration, citing a campaign against oil smuggling. The move risks escalating a long-running dispute with the Kurdistan Regional Government and comes alongside pressure on an Iran-aligned militia accused of running a smuggling network. Kurdish leaders rejected the order, leaving federal-regional relations more strained."
     },
     {
       "title": "Israel's Eisenkot clinches first coalition agreement in bid to form government",
