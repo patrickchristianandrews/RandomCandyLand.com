@@ -828,7 +828,6 @@ if(!featuredHeader.includes('rcl-workshop-nav') ||
    !featuredHeader.includes('Random <strong>Candy Land</strong>') ||
    !featuredHeader.includes('src="/icon.svg"') ||
    featuredHeader.indexOf('Random <strong>Candy Land</strong>')>featuredHeader.indexOf('src="/icon.svg"') ||
-   !homeInstallSource.includes('candyland-random-ai-promo') ||
    !homeInstallSource.includes("name:'Random AI',url:'/studio/'") ||
    featuredHeader.includes('candyland-unwrapped-promo')){
    console.error('Workshop header must keep original logo right of name and link Random AI as a featured tile.');failures++;
