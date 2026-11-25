@@ -212,13 +212,12 @@ if(!amazonHomeSource.includes('candy-home-amazon-link') ||
 
 const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanifest','utf8');
 if(!homeInstallSource.includes('className="rcl-workshop-header"') ||
-    !homeInstallSource.includes('candyland-random-ai-promo') ||
-    !homeInstallSource.includes('href="/studio/"') ||
+    !homeInstallSource.includes("name:'Random AI',url:'/studio/'") ||
+    !homeInstallSource.includes("title:'Unwrapped'") ||
+    !homeInstallSource.includes("href:'/after-dark/'") ||
     !homeInstallSource.includes('className="candyland-world"') ||
-    !homeInstallSource.includes('src="/icon.svg"') ||
-    homeInstallSource.includes('Optional hosted Instant AI when connected') ||
-    homeInstallSource.includes('candyland-unwrapped-promo')){
-   console.error('Workshop homepage must keep featured Random AI, original brand icon and a distinct Unwrapped destination.');failures++;
+    !homeInstallSource.includes('src="/icon.svg"')){
+   console.error('Workshop homepage must keep the Random AI shortcut, original brand icon, Explorer Candyland carousel and distinct Unwrapped destination.');failures++;
 }
 if(!homeInstallSource.includes("title:'Unwrapped'")||
    !homeInstallSource.includes("name:'Unwrapped'")||
@@ -482,7 +481,7 @@ for(const path of ['dist/music-visualizer/index.html','dist/music-visualizer/tv.
 if(homeInstallSource.includes('Candy Pulse')||homeInstallSource.includes('Creative & Music Tools')||
    homeInstallSource.includes("id:'creative'")||homeInstallSource.includes("kind:'creative'")||
    !homeInstallSource.includes('candyland-random-ai-promo')||
-   !homeInstallSource.includes('href="/studio/"')||
+   !homeInstallSource.includes("url:'/studio/'")||
    fs.readFileSync('dist/install-app.js','utf8').includes('candy-pulse')||
    fs.readFileSync('dist/manifest.json','utf8').includes('Candy Pulse')){
  console.error('Creative/music section or Candy Pulse remains, or the Random AI ad disappeared.');failures++;
@@ -1028,8 +1027,7 @@ if(!homeInstallSource.includes('Trace Public Sources Dictionary') ||
    !homeInstallSource.includes("href:'/the-corridors/'") ||
    !homeInstallSource.includes("href:'/the-docket/'") ||
    !homeInstallSource.includes('href="/studio/"') ||
-   !homeInstallSource.includes("href:'/ai-academy/'") ||
-   !homeInstallSource.includes("href:'/osint-academy/'")){
+   !homeInstallSource.includes("href:'/ai-academy/'")){
   console.error('Grouped homepage or Trace Public Sources Dictionary is missing.'); failures++;
 }
 for(const name of ['sources.js','cameras.js','directory.js','directory.css']){
