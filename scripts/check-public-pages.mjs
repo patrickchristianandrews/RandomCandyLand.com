@@ -214,7 +214,7 @@ const afterDarkManifest=fs.readFileSync('dist/app-manifests/after-dark.webmanife
 if(!homeInstallSource.includes('className="rcl-workshop-header"') ||
     !homeInstallSource.includes('candyland-random-ai-promo') ||
     !homeInstallSource.includes('href="/studio/"') ||
-    !homeInstallSource.includes('rcl-site-highlights') ||
+    !homeInstallSource.includes('className="candyland-world"') ||
     !homeInstallSource.includes('src="/icon.svg"') ||
     homeInstallSource.includes('Optional hosted Instant AI when connected') ||
     homeInstallSource.includes('candyland-unwrapped-promo')){
@@ -452,11 +452,11 @@ if (!installSource.includes("app.id==='site' && isInstalled()")) {
   console.error('Installed Candy Land still displays its own install button.');
   failures++;
 }
-if (!homeBundle.includes('candyland-next') ||
-    !homeBundle.includes('rcl-workshop-hero') ||
-    !homeBundle.includes('rcl-workshop-wordmark') ||
-    !homeBundle.includes('rcl-site-highlights') ||
-    !homeBundle.includes('candyland-play-shelves')) {
+if (!homeInstallSource.includes('className="candyland-next rcl-workshop"') ||
+    !homeInstallSource.includes('className="rcl-workshop-hero"') ||
+    !homeInstallSource.includes('className="rcl-workshop-wordmark"') ||
+    !homeInstallSource.includes('className="candyland-world"') ||
+    !homeInstallSource.includes('className="candyland-play-shelves"')) {
   console.error('The replacement Candy Land homepage is missing from the published bundle.');
   failures++;
 }
@@ -1019,7 +1019,7 @@ if(fs.existsSync('dist/curiosity/live-data.json')){
  }catch(e){console.error('Wonder Index source cache invalid:',e.message);failures++;}
 }
 if(!homeInstallSource.includes('Trace Public Sources Dictionary') ||
-   !homeInstallSource.includes("url:'/osint-academy/'") ||
+   !homeInstallSource.includes("href:'/osint-academy/'") ||
    !homeInstallSource.includes('candyland-play-shelves') ||
    !homeInstallSource.includes('Ongoing Worlds & Pets') ||
    !homeInstallSource.includes('Courses & Training') ||
@@ -1029,7 +1029,7 @@ if(!homeInstallSource.includes('Trace Public Sources Dictionary') ||
    !homeInstallSource.includes("href:'/the-docket/'") ||
    !homeInstallSource.includes('href="/studio/"') ||
    !homeInstallSource.includes("href:'/ai-academy/'") ||
-   !homeBundle.includes('/osint-academy/')){
+   !homeInstallSource.includes("href:'/osint-academy/'")){
   console.error('Grouped homepage or Trace Public Sources Dictionary is missing.'); failures++;
 }
 for(const name of ['sources.js','cameras.js','directory.js','directory.css']){
@@ -1084,7 +1084,7 @@ if(fs.existsSync('dist/worlds/core.js')){
 
 for (const [slug,markers] of [
  ['the-corridors',['sceneHall','consult','powerWeb','stakeholderDesk']],
- ['the-docket',['caseBoard','linkPanel','witnessPanel','witness']],
+ ['the-docket',['active-stage','linkPanel','witnessPanel','witness']],
 ]) {
  const src='dist/'+slug+'/game.js';
  if(fs.existsSync(src)){
