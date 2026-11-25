@@ -184,6 +184,7 @@ function advance(){
  save();render();
 }
 function next(){
+ selectedBill=null;
  if(state.choice===null||state.phase!=='years')return;
  const s=current(),o=s.options[state.choice];
  state.history.push({scenario:s.title,choice:o.name,outcome:o.years.text,context:state.supply,metrics:{...state.metrics}});
@@ -202,8 +203,25 @@ function modeBar(active='policy'){return '<nav class="cp-mode-nav" aria-label="T
 function scenarioCards(){
  return '<div class="cp-scenario-tabs" role="group" aria-label="Select a policy scenario">'+scenarios.map((s,i)=>'<button type="button" data-policy-case="'+i+'" '+(state.choice!==null?'disabled':'')+' aria-pressed="'+String(i===state.scenario)+'">'+s.icon+' <span>'+esc(s.title)+'</span></button>').join('')+'</div>';
 }
+
+let selectedBill=null, selectedMetric='trust';
+function cityMap(){
+ const m=state.metrics,sky=state.phase==='years'?'#152c49':'#234f63',lights=m.services>=50?'#bce6c3':'#809a97';
+ const district=(x,y,w,h,d,col,roof)=>'<g><path d="M'+x+' '+y+'l'+w+' -'+(w*.24)+' '+d+' '+(d*.42)+' -'+w+' '+(w*.24)+'z" fill="'+roof+'"/><path d="M'+x+' '+y+'l'+w+' -'+(w*.24)+'v'+h+'l-'+w+' '+(w*.24)+'z" fill="'+col+'"/><path d="M'+(x+w)+' '+(y-w*.24)+'l'+d+' '+(d*.42)+'v'+h+'l-'+d+' -'+(d*.42)+'z" fill="#19333c"/>'+Array.from({length:Math.max(1,Math.floor(h/17))},(_,j)=>Array.from({length:Math.max(1,Math.floor(w/23))},(_,k)=>'<path d="M'+(x+9+k*21)+' '+(y+10+j*16-(9+k*21)*.24)+'l9 -2v7l-9 2z" fill="'+lights+'" opacity=".8"/>').join('')).join('')+'</g>';
+ const buildings=[[125,129,57,63,24,'#597f86','#8eaeac'],[203,109,67,91,32,'#3c7182','#75a1aa'],[277,101,43,58,22,'#527c83','#8ca9a9'],[378,94,70,75,35,'#617c79','#b2ba9b'],[470,106,60,66,34,'#4c7483','#93b0af'],[555,137,74,52,28,'#5d877f','#b0c3a8'],[166,189,48,36,22,'#807f69','#c7b48b'],[273,174,80,55,25,'#6b8985','#c0cbb2'],[397,173,76,42,30,'#557d7d','#9bb8ad'],[520,195,55,36,24,'#687f73','#aebfa1']];
+ const city='<svg viewBox="0 0 760 275" role="img" aria-label="Isometric illustration of your fictional city"><defs><linearGradient id="citysky" x2="0" y2="1"><stop stop-color="'+sky+'"/><stop offset="1" stop-color="#081b29"/></linearGradient></defs><rect width="760" height="275" fill="url(#citysky)"/><circle cx="630" cy="51" r="30" fill="#ffe5ab" opacity=".75"/><path d="M36 185L392 38 726 171 372 264Z" fill="#446668" stroke="#7ca6a0"/><path d="M36 185L372 264 726 171V181L372 275 36 196Z" fill="#21383e"/><path d="M85 187L392 67 682 176 372 245Z" fill="#234852"/><path d="M124 205L437 84 M226 228L553 124 M180 126L498 230 M300 86L620 194" stroke="#77908c" stroke-width="12" opacity=".7"/><path d="M124 205L437 84 M226 228L553 124 M180 126L498 230 M300 86L620 194" stroke="#c2d1bb" stroke-width="1.3" stroke-dasharray="7 7"/>'+buildings.map(a=>district(...a)).join('')+'<g fill="#d6e5d5"><path d="M343 125l56-22 43 16-55 22z"/><path d="M343 125v28l44 18v-30z" fill="#9b9f89"/><path d="M387 141l55-22v29l-55 23z" fill="#bcc2a7"/><path d="M356 120l33-24 35 20-37 15z" fill="#f0d6a2"/><path d="M388 94v-17" stroke="#f0d6a2" stroke-width="2"/><path d="M389 77l18 5-18 4z" fill="#72c5aa"/></g><g fill="#9ac6a6">'+[[101,179],[136,198],[240,215],[460,220],[650,164],[610,185],[336,231]].map(([x,y])=>'<ellipse cx="'+x+'" cy="'+y+'" rx="10" ry="5" fill="#1f3b32"/><path d="M'+(x-3)+' '+y+'v-11h6v11z" fill="#674a37"/><circle cx="'+x+'" cy="'+(y-13)+'" r="9"/>').join('')+'</g></svg>';
+ const mm=metricDefs.find(x=>x.id===selectedMetric)||metricDefs[0];
+ return '<div class="city-command"><div class="city-map-caption"><span>CITY COMMAND · '+(state.choice===null?'CABINET IN SESSION':phaseLabels[state.phase])+'</span><span>'+state.history.length+' policies completed</span></div>'+city+'<div class="city-metrics">'+metricDefs.map(x=>'<button type="button" class="city-metric" data-city-metric="'+x.id+'" aria-pressed="'+(x.id===selectedMetric)+'"><small>'+esc(x.name)+'</small><b>'+Math.round(m[x.id])+'</b><i style="width:'+clamp(m[x.id])+'%"></i></button>').join('')+'</div><div class="city-adviser" role="status"><b>'+esc(mm.name)+':</b> '+esc(mm.help)+'. These are fictional indicators. Tap another indicator to inspect it.</div></div>';
+}
+function billReview(sc){
+ if(selectedBill===null||!sc.options[selectedBill])return '<p class="city-adviser">Select a proposal to examine its trade-offs before voting.</p>';
+ const o=sc.options[selectedBill];
+ return '<section class="city-vote"><span class="cp-eyebrow">CABINET BRIEF · PROPOSAL '+(selectedBill+1)+'</span><h3>'+esc(o.name)+'</h3><p>'+esc(o.label)+'</p><p><b>Ethics and authority:</b> '+esc(o.ethical)+'</p><div class="city-forecast">'+o.now.change.map((v,i)=>'<span>'+esc(metricDefs[i].name)+' '+(v>=0?'+':'')+v+'</span>').join('')+'</div><p class="cp-assumption">Illustrative immediate effects. Longer-term outcomes are revealed after the vote.</p><button type="button" class="cp-primary" data-city-vote="'+selectedBill+'">Confirm decision →</button></section>';
+}
+function rootFocus(selector){const el=document.getElementById('app').querySelector(selector);el?.focus({preventScroll:true});}
+
 function choiceCards(sc){
- return '<div class="cp-choices">'+sc.options.map((opt,i)=>'<button type="button" data-policy-choice="'+i+'" class="cp-choice"><span class="cp-choice-order">OPTION '+(i+1)+'</span><strong>'+esc(opt.name)+'</strong><p>'+esc(opt.label)+'</p><small>See the consequences →</small></button>').join('')+'</div>';
+ return '<div class="cp-choices">'+sc.options.map((opt,i)=>'<button type="button" data-city-preview="'+i+'" aria-pressed="'+(selectedBill===i)+'" class="cp-choice"><span class="cp-choice-order">OPTION '+(i+1)+'</span><strong>'+esc(opt.name)+'</strong><p>'+esc(opt.label)+'</p><small>See the consequences →</small></button>').join('')+'</div>';
 }
 function consequence(sc){
  const o=sc.options[state.choice],stage=state.phase,step=phaseIndex[stage],delta=effectsFor(stage);
@@ -242,15 +260,15 @@ function render(root=document.getElementById('app')){
  root.innerHTML='<div class="cp-full">'+modeBar()+'<section class="cp-hero"><div><span class="cp-eyebrow">PLAY THE OUTCOME · FICTIONAL PUBLIC POLICY SIMULATOR</span><h2>Your choices ripple through government.</h2><p>Take action, watch the immediate gain, then advance the clock to discover delays, second-order effects, and ethical or legal costs. There is no universally perfect option.</p></div><div class="cp-replay-stat"><strong>'+done+'</strong><small>Decisions completed</small></div></section>'+
  '<details class="cp-dashboard"><summary>📊 City status and previous effects</summary><div class="cp-dashboard-heading"><div><span class="cp-eyebrow">CONSEQUENCE DASHBOARD</span><h3>What your decisions are changing</h3><p>Illustrative game indicators, not actual economic statistics or probabilities.</p></div><button type="button" class="cp-reset" data-policy-reset>↺ Start policy lab over</button></div>'+metricRow()+'</details>'+
  '<details class="cp-scenario-picker"><summary>🗺️ Pick another policy file</summary>'+scenarioCards()+'</details>'+
- '<section class="cp-case"><div class="corr-pixel-city" role="img" aria-label="Pixel-style city hall scene"><span class="corr-pixel-moon" aria-hidden="true">✦</span><span class="corr-pixel-buildings" aria-hidden="true">▥ ▣ ▥ ▤ ▣</span><span class="corr-pixel-official" aria-hidden="true">🧑‍💼</span><span class="corr-pixel-aide" aria-hidden="true">🏛️</span><div class="corr-pixel-dialog">'+esc(state.choice===null?'Mayor: We need a decision. What is your move?':state.phase==='today'?'Aide: The first results are in.':state.phase==='months'?'Aide: Six months have passed.':'Aide: The long-term effects are here.')+'</div></div><div class="cp-case-head"><div><span class="cp-eyebrow">POLICY FILE '+String(state.scenario+1).padStart(2,'0')+' / '+scenarios.length+' · PIXEL PLAY 3 · '+esc(sc.domain)+'</span><h2>'+sc.icon+' '+esc(sc.title)+'</h2><p>'+esc(sc.lead.length>175?sc.lead.slice(0,175)+'…':sc.lead)+'</p></div><span class="cp-duration">'+esc(sc.duration)+'</span></div>'+
+ '<section class="cp-case"><div class="corr-pixel-city" role="img" aria-label="Pixel-style city hall scene"><span class="corr-pixel-moon" aria-hidden="true">✦</span><span class="corr-pixel-buildings" aria-hidden="true">▥ ▣ ▥ ▤ ▣</span><span class="corr-pixel-official" aria-hidden="true">🧑‍💼</span><span class="corr-pixel-aide" aria-hidden="true">🏛️</span><div class="corr-pixel-dialog">'+esc(state.choice===null?'Mayor: We need a decision. What is your move?':state.phase==='today'?'Aide: The first results are in.':state.phase==='months'?'Aide: Six months have passed.':'Aide: The long-term effects are here.')+'</div></div><div class="cp-case-head"><div><span class="cp-eyebrow">POLICY FILE '+String(state.scenario+1).padStart(2,'0')+' / '+scenarios.length+' · CITY COMMAND · '+esc(sc.domain)+'</span><h2>'+sc.icon+' '+esc(sc.title)+'</h2><p>'+esc(sc.lead)+'</p></div><span class="cp-duration">'+esc(sc.duration)+'</span></div>'+
  '<details class="cp-optional-details"><summary>💡 More context (optional)</summary><div class="cp-brief-strip"><div><b>🏛️ Who has authority?</b><p>'+esc(sc.authority)+'</p></div><div><b>⚠️ What could go wrong?</b><p>'+esc(sc.stakes)+'</p></div></div></details>'+
  (state.choice===null?
  (state.scenario===0?'<div class="cp-conditions"><strong>Economic conditions affect the outcome</strong><div role="group" aria-label="Choose fictional supply conditions"><button type="button" data-supply="constrained" aria-pressed="'+String(state.supply==='constrained')+'">🚚 Supply constrained</button><button type="button" data-supply="recovering" aria-pressed="'+String(state.supply==='recovering')+'">🏭 Supply recovering</button></div><p>These choices alter the simulated impact of additional spending on price pressure; they are not forecasts.</p></div>':'')+
- '<div class="cp-action-intro"><span class="cp-eyebrow">YOUR NEXT MOVE</span><h3>What will you do?</h3><p>Choose an action. You will see the result immediately, then advance through the longer-term outcomes.</p></div>'+choiceCards(sc)
+ '<div class="cp-action-intro"><span class="cp-eyebrow">YOUR NEXT MOVE</span><h3>What will you do?</h3><p>Choose an action. You will see the result immediately, then advance through the longer-term outcomes.</p></div>'+choiceCards(sc)+billReview(sc)
  :consequence(sc))+sourceHtml(sc)+'</section>'+
  '<details class="cp-learning-footer"><summary>📖 What this game teaches (optional)</summary><strong>Learning notes</strong><p>Policy effects depend on implementation, economic conditions, institutions, lawful authority and human responses. Legal/ethical risks can create both short-term advantages and longer-term consequences. Some outcomes remain uncertain even after years.</p><button type="button" data-corridor-mode="career">Play the original political career →</button></details></div>';
  const scene=root.querySelector('.corr-pixel-city');
- if(scene){const canvas=document.createElement('canvas');canvas.className='corr-pixel-canvas';canvas.setAttribute('aria-hidden','true');scene.insertBefore(canvas,scene.firstChild);drawCityHall(canvas,state.phase,state.scenario)}
+ if(scene){scene.outerHTML=cityMap()}
 }
 function report(){
  return ['THE CORRIDORS · POLICY CONSEQUENCES','Fictional training simulation. Game metrics are not real economic predictions.','Decisions: '+state.history.length,'',
@@ -259,7 +277,10 @@ function report(){
 }
 document.getElementById('app').addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b||b.disabled||!b.closest('.cp-full'))return;
- if(b.hasAttribute('data-policy-case')){const i=Number(b.dataset.policyCase);if(state.choice===null&&scenarios[i]){state.scenario=i;save();render()}}
+ if(b.hasAttribute('data-city-metric')){selectedMetric=b.dataset.cityMetric;render();rootFocus('[data-city-metric="'+selectedMetric+'"]')}
+ else if(b.hasAttribute('data-city-preview')){selectedBill=Number(b.dataset.cityPreview);render();rootFocus('[data-city-vote]')}
+ else if(b.hasAttribute('data-city-vote')){const i=Number(b.dataset.cityVote);if(i===selectedBill){selectedBill=null;choose(i);rootFocus('[data-policy-advance]')}}
+ else if(b.hasAttribute('data-policy-case')){selectedBill=null;const i=Number(b.dataset.policyCase);if(state.choice===null&&scenarios[i]){state.scenario=i;save();render()}}
  else if(b.hasAttribute('data-supply')){state.supply=b.dataset.supply==='recovering'?'recovering':'constrained';save();render()}
  else if(b.hasAttribute('data-policy-choice'))choose(Number(b.dataset.policyChoice));
  else if(b.dataset.policyAdvance==='phase')advance();
