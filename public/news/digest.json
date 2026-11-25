@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T07:56:44.000Z",
+  "updatedAt": "2026-11-25T09:00:44.278Z",
   "articles": [
     {
       "title": "China investigates Shanghai party chief in widening anti-graft campaign",
@@ -74,12 +74,12 @@
       "summary": "Australia passed a Digital Duty of Care law requiring online platforms to take proactive steps against harmful content and features, with potential fines of up to 5% of global revenue. The rules take effect in a year and permit regulators to use anonymous accounts during investigations. Technology groups warn the law’s broad definitions could encourage excessive removals and raise privacy concerns."
     },
     {
-      "title": "Houthis claim attacks on Saudi refinery and Riyadh financial district",
+      "title": "Houthis threaten Saudi Red Sea ports as attacks escalate",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-oil-refinery-riyadh-financial-district-2026-11-25/",
-      "summary": "Yemen’s Houthi movement said it attacked Saudi Arabia’s Ras Tanura refinery and Riyadh’s financial district. Reuters reports the Saudi-led coalition said it intercepted four drones near the refinery, while Saudi civil defence reported 11 people wounded in an earlier strike on a Riyadh tower. The group’s claims about damage were not independently confirmed in the report, leaving the immediate impact uncertain."
+      "url": "https://www.reuters.com/world/middle-east/yemens-houthis-threaten-target-jeddah-other-saudi-red-sea-ports-2026-11-25/",
+      "summary": "Yemen’s Houthis threatened to target Jeddah and other Saudi Red Sea ports if Riyadh attacks the Yemeni port of Hodeidah. The warning followed a drone strike on a Riyadh tower that injured at least 11 people, according to Saudi authorities; the Saudi-led coalition later said it struck Houthi capabilities in Yemen. Hodeidah is a major entry point for food and aid, so further fighting could disrupt supplies."
     },
     {
       "title": "Taiwan comedian keeps performing under security after alleged attack plot",
@@ -168,6 +168,142 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/finance/alice-huang-linked-firms-listed-270-million-ai-servers-china-records-show-2026-11-25/",
       "summary": "Reuters reviewed Chinese financing records listing up to 764 AI servers and modules valued at $270 million, plus $31 million in networking equipment, tied to firms connected to Alice Huang and associates. The records show financing arrangements for data-center hardware, not proof of prohibited Nvidia chips or how equipment entered China. The findings add scrutiny amid a U.S. investigation into suspected chip diversion."
+    },
+    {
+      "title": "Libyan naval officers die following Ukrainian drone attack",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/mideast-israel-gaza-ukraine-libya-israel-november-25-2026-6995de4ee91278459742a359eeb7439e",
+      "summary": "Two Libyan naval officers died from wounds sustained in a Ukrainian drone attack on a Russian warship at Benghazi Naval Base, Libyan authorities said. Ukraine’s president said seven sea drones took part; Libyan officials said the vessel had docked to refuel and resupply. The Libyan National Army, which controls eastern and southern Libya and has close ties to Moscow, vowed retaliation, raising the risk of a wider regional fallout."
+    },
+    {
+      "title": "US stockpile of unstable and dangerous lead azide scheduled for detonation in Iowa",
+      "source": "Associated Press",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/iowa-lead-detonation-714e040baedc1cd90c2ba688be76cfc7",
+      "summary": "The U.S. Army plans to detonate about five tons of degraded lead azide at its Iowa ammunition plant at 9 a.m. Wednesday, after inspections found the decades-old material had crystallized and could explode spontaneously. Residents within five miles were urged to evacuate. The Army says two-story concrete and sand barriers, gels, foam and water will limit lead dust, though nearby communities remain concerned about health and environmental effects."
+    },
+    {
+      "title": "Netherlands pushes back against proposed US chip-export control bill",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/dutch-government-working-prevent-passing-us-match-bill-minister-says-2026-11-25/",
+      "summary": "The Netherlands is lobbying against the proposed U.S. MATCH Act, which would pressure allies including the Netherlands and Japan to tighten export controls on chipmaking equipment sold to China or face unilateral U.S. restrictions. Foreign Minister Tom Berendsen said Dutch export-control decisions should remain independent. ASML expects China to account for about one-fifth of its 2026 sales, making the dispute commercially significant."
+    },
+    {
+      "title": "South Africa's Ramaphosa wins court bid to overturn Farmgate panel report",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/south-africas-ramaphosa-wins-court-case-overturn-farmgate-panel-report-2026-11-25/",
+      "summary": "South Africa’s High Court set aside a panel report that said President Cyril Ramaphosa may have breached the constitution in connection with the “Farmgate” scandal. Reuters’ brief report did not detail the court’s reasoning or the practical effect beyond overturning the report. The ruling changes the legal status of the panel’s findings, but it does not by itself resolve every allegation surrounding the affair."
+    },
+    {
+      "title": "Iran says it can withstand US naval blockade as inflation pressures mount",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/middle-east/iran-says-it-is-prepared-withstand-us-blockade-seeks-curb-price-rises-2026-11-25/",
+      "summary": "Iran’s first vice president said Tehran can withstand the U.S. naval blockade because more cargo is entering through land borders, while the government seeks to contain basic-goods prices. October consumer prices were 88.7% higher than a year earlier and food and beverage prices rose 112.6%, according to Iran’s statistics agency. Officials offered no quantified supply assurances, leaving the effect of the blockade uncertain."
+    },
+    {
+      "title": "Oil prices fall as expected supply surplus offsets Middle East shipping risks",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/energy/oil-prices-fall-supply-glut-concerns-offset-middle-east-disruption-fears-2026-11-25/",
+      "summary": "Oil prices fell more than 1% as traders weighed signs of a possible 2027 supply surplus against attacks and shipping risks around the Strait of Hormuz. Brent slipped to about $89.93 a barrel and U.S. crude to $80.53. Attention is turning to the November 29 OPEC+ meeting, where members will discuss output policy; further disruption could quickly alter the balance."
+    },
+    {
+      "title": "Gulf stock markets mixed as traders assess Saudi tensions and US inflation",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/middle-east/gulf-bourses-mixed-after-saudi-attacks-us-inflation-data-focus-2026-11-25/",
+      "summary": "Gulf stock markets were mixed as investors assessed Saudi-Houthi escalation and awaited U.S. inflation data that could influence Federal Reserve policy. Saudi Arabia’s benchmark slipped 0.3%, while Dubai and Abu Dhabi edged higher; Qatar fell. Saudi Arabia also approved a 2027 budget projecting a 190-billion-riyal deficit. The figures are an early trading snapshot, not a full-day market result."
+    },
+    {
+      "title": "Spain and Morocco compete to host the 2030 World Cup final",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sports/soccer/spain-thought-it-had-2030-world-cup-final-morocco-had-other-plans-2026-11-25/",
+      "summary": "Spain and Morocco are competing to host the 2030 World Cup final, with Spain’s Bernabéu and Camp Nou facing Morocco’s planned 115,000-seat Hassan II stadium near Casablanca. The contest is complicated by rivalry between Madrid and Barcelona, political tensions and FIFA leadership issues. FIFA has not announced the venue, and inspections of host cities are still underway."
+    },
+    {
+      "title": "Walmart-owned Flipkart CEO Kalyan Krishnamurthy to step down",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/walmart-owned-flipkarts-kalyan-krishnamurthy-steps-down-ceo-2026-11-25/",
+      "summary": "Walmart-owned Flipkart said chief executive Kalyan Krishnamurthy will leave after more than 11 years leading the Indian e-commerce group. The company says product and technology chief Balaji Thiagarajan will run the business temporarily while a successor is selected. Flipkart has more than 500 million registered users and has long prepared for a possible public listing, though no timetable was announced."
+    },
+    {
+      "title": "UK watchdog warns funding uncertainty threatens defence investment plan",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/uk/funding-uncertainty-puts-uk-defence-plan-risk-spending-watchdog-says-2026-11-25/",
+      "summary": "Britain’s National Audit Office warned that uncertain funding and underestimated costs threaten delivery of the Defence Investment Plan. The Ministry of Defence has limited assurance it can complete the programme, while planned efficiency savings of nearly £11 billion by 2029–30 are only partly supported by detailed plans. The watchdog also cited reduced training spending and higher costs linked to the Iran war."
+    },
+    {
+      "title": "CD Projekt RED says GTA VI launch has not materially hurt fourth-quarter business",
+      "source": "Reuters",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/technology/cd-projekt-red-sees-no-material-fourth-quarter-hit-gta-vi-2026-11-25/",
+      "summary": "Polish game maker CD Projekt RED says the launch of Grand Theft Auto VI has not materially hurt its fourth-quarter business, despite a dip in console engagement. Its chief executive noted that GTA VI had not launched on PC, where many of the company’s players are based. Third-quarter net profit fell 43%, leaving a demanding fourth-quarter target for its multi-year profit goal."
+    },
+    {
+      "title": "Nationwide strike disrupts transport across Greece",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/greeks-strike-over-wages-public-services-2026-11-25/",
+      "summary": "Greek public- and private-sector unions staged a nationwide strike demanding higher wages and stronger public services, disrupting ferries, some metro routes and flights at regional airports. The action seeks restoration of annual bonuses removed during the debt crisis and more spending on health and education. It was the third strike in weeks, reflecting continued pressure over living costs and public-service conditions."
+    },
+    {
+      "title": "Jordan court sentences man to death over attack that killed security officer",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/asia-pacific/jordan-sentences-man-death-over-attack-that-killed-officer-2026-11-25/",
+      "summary": "Jordan’s State Security Court sentenced a man to death for an attack that killed a security officer near the Sri Lankan Embassy in Amman on November 5. The court convicted him of terrorist acts resulting in death and weapons offenses, according to the armed forces. The ruling remains subject to appeal and automatic review, so it is not yet a final sentence."
+    },
+    {
+      "title": "UK regulator weighs remedies for proposed AkzoNobel-Axalta merger",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/litigation/uk-watchdog-considers-akzonobel-axalta-remedies-proposed-25-billion-merger-2026-11-25/",
+      "summary": "Britain’s Competition and Markets Authority said proposed remedies could address competition concerns over AkzoNobel’s planned $25 billion merger with U.S. rival Axalta. AkzoNobel offered to sell its European and UK vehicle-refinishing coatings business, where the combined group could hold a 40%–50% share. The CMA will consult on the remedy and a potential buyer before making a final decision."
+    },
+    {
+      "title": "GSK reports twice-yearly asthma drug matched Nucala in late-stage immune-disorder study",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/gsk-says-asthma-drug-comparable-its-own-approved-treatment-rare-immune-disorder-2026-11-25/",
+      "summary": "GSK said its twice-yearly medicine depemokimab performed comparably to its monthly drug Nucala in a late-stage study for the rare immune disorder EGPA. The company reported similar safety and efficacy, but detailed results have not yet been published. GSK plans to seek regulatory approval in the first half of 2027; the findings do not yet make the drug an approved EGPA treatment."
+    },
+    {
+      "title": "Norse Atlantic says finances are critical as shares plunge",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/markets/europe/airline-norse-atlantic-says-it-is-critical-financial-situation-2026-11-25/",
+      "summary": "Budget airline Norse Atlantic said its finances are critical and that it needs short-term funding to keep operating. Its shares fell more than 53% after the announcement, leaving the company down about 96% in market value this year. The carrier has cut capacity amid high fuel costs and is exploring sale, merger and aircraft-leasing options; it warned financing talks may not produce a solution."
+    },
+    {
+      "title": "Spain election puts housing policy at center of contest over rent caps and construction",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/europe/spains-election-pits-madrids-building-push-against-catalonias-rent-caps-2026-11-25/",
+      "summary": "Spain’s November 29 election has turned on housing, with conservative leader Alberto Núñez Feijóo promoting Madrid-style deregulation and Prime Minister Pedro Sánchez defending Catalonia’s rent caps and limits on short-term lets. Both sides promise more construction, but economists disagree about how supply reforms and rent controls affect prices. The vote could determine which approach becomes national policy."
     },
     {
       "title": "Brad Pitt, Quentin Tarantino and David Fincher reunite for Cliff Booth spinoff",
@@ -426,14 +562,6 @@
       "summary": "Iraq’s prime minister ordered federal authorities to take control of oilfields in four provinces under Kurdish administration, citing a campaign against oil smuggling. The move risks escalating a long-running dispute with the Kurdistan Regional Government and comes alongside pressure on an Iran-aligned militia accused of running a smuggling network. Kurdish leaders rejected the order, leaving federal-regional relations more strained."
     },
     {
-      "title": "Ukraine says attack on Russian ships in Libya was self-defence",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/world/europe/ukraine-insists-attack-russian-ships-libya-was-self-defence-2026-11-24/",
-      "summary": "Ukraine’s foreign minister defended a weekend drone strike on Russian vessels near Libya as self-defense, after Tripoli’s government condemned the operation. Kyiv said the targets supported Russia’s military, while Libya’s eastern forces reported two Libyan military personnel killed. The incident widens the geographic reach of the war and raises questions about maritime security and the conflict’s effects on countries beyond the front lines."
-    },
-    {
       "title": "AP investigation: The DEA allowed 1.4 million fentanyl pills to go unseized in major probe",
       "source": "Associated Press",
       "category": "U.S.",
@@ -490,20 +618,76 @@
       "summary": "Video of masked, plainclothes ICE agents arresting a father and daughter at Seattle-Tacoma International Airport prompted criticism from Washington officials. ICE said the father was targeted for overstaying a visa and that his daughter would face an assault charge; witnesses dispute the agency’s account of a coffee incident. The airline and airport authority said they had no advance knowledge of the operation, and both detainees remained in custody."
     },
     {
-      "title": "Army to detonate hazardous chemicals in Iowa on Wednesday after court clears way",
-      "source": "The Washington Post",
-      "category": "Environment",
-      "published": "2026-11-24",
-      "url": "https://www.washingtonpost.com/climate-environment/2026/11/23/trump-orders-military-halt-iowa-detonation-plan/",
-      "summary": "A federal appeals court cleared the Army to proceed with a controlled detonation of degraded lead azide at an ammunition plant in Middletown, Iowa, after weeks of protests and legal challenges. Army projections indicate a lead-particle plume could travel up to 100 miles; officials say sand barriers and misting will reduce exposure and that deterioration makes delay dangerous. Residents and environmental groups continue to question transparency and alternatives."
-    },
-    {
       "title": "Brazil zoo hails birth of Spix's macaw chick as boost for species' recovery",
       "source": "Reuters",
       "category": "Environment",
       "published": "2026-11-24",
       "url": "https://www.reuters.com/business/environment/brazil-zoo-hails-birth-spixs-macaw-chick-boost-species-recovery-2026-11-24/",
       "summary": "São Paulo Zoo announced the birth of a female Spix’s macaw named Hope, a milestone for a parrot classified as extinct in the wild. The chick hatched after a 28-day artificial incubation and required help from keepers. The species was driven to the brink by habitat loss and trapping; its future now depends on managed breeding and eventual conservation work beyond captivity."
+    },
+    {
+      "title": "Appeals court ends federal case over 20,000 California ballots",
+      "source": "Associated Press",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/california-ballots-trump-voter-fraud-lawsuit-noncitizens-3fe6eeb38c7dd8b77c84733f898163ef",
+      "summary": "A federal appeals court approved the Justice Department’s request to dismiss its lawsuit over roughly 20,000 California ballots that it had sought to hold until officials checked recipients’ immigration status. The Ninth Circuit ruling ends that litigation after Election Day made the requested relief moot. The case formed part of a wider federal-state dispute over election administration; a separate voting-rights suit was also dismissed."
+    },
+    {
+      "title": "UN warns HIV infections could rise again as global funding falls",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/hiv-infections-could-rise-historic-lows-starting-next-year-un-says-2026-11-24/",
+      "summary": "UNAIDS chief Winnie Byanyima warned that new HIV infections could begin rising in 2027 as international funding cuts and prevention-service closures threaten recent progress. New infections fell to 1.2 million last year, a record low, despite global HIV funding dropping nearly one-fifth. The warning is a forecast based on emerging signs; full data confirming a reversal are not yet available."
+    },
+    {
+      "title": "Amnesty calls for war-crimes investigation into shelling in Ethiopia's Tigray region",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/ethiopian-shelling-of-tigray-town-should-be-investigated-possible-war-crimes-2026-11-24/",
+      "summary": "Amnesty International said artillery strikes by Ethiopian forces and a pro-government militia on populated parts of Tigray should be investigated as possible war crimes, reporting that it verified 14 civilian deaths in four incidents. It also accused Tigray forces of placing fighters in residential areas and using schools militarily. The parties did not respond or disputed the findings; Reuters could not independently resolve the allegations."
+    },
+    {
+      "title": "About 175 migrants missing after boat from Senegal loses contact",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/africa/around-175-migrants-unaccounted-after-contact-lost-with-boat-senegal-2026-11-24/",
+      "summary": "About 175 people are unaccounted for after a Europe-bound wooden boat left Dakar around November 9–10 and lost contact, local officials and a rights group told Reuters. Senegal’s navy says it has rescued or intercepted thousands of migrants this month, while more than 8,000 reached Spain’s Canary Islands in the first 12 days of November. The missing passengers’ fate remains unknown."
+    },
+    {
+      "title": "Libya's Tripoli government asks court to annul disputed Arkenu oil deal",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/energy/libyas-western-government-asks-tripoli-court-annul-arkenu-oil-deal-2026-11-24/",
+      "summary": "Libya’s internationally recognised Tripoli government has asked a court to suspend and annul a production-sharing agreement with Arkenu Oil Company covering two major fields. A U.N. expert panel previously said the company moved more than $3 billion abroad; Arkenu disputes that characterization and says it operated under a valid state-backed contract. The dispute reflects continuing tensions over control and transparency in Libya’s oil sector."
+    },
+    {
+      "title": "Mexico reports 12 active measles cases as vaccination coverage reaches 90%",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/mexico-reports-12-active-measles-cases-says-90-vaccinated-2026-11-24/",
+      "summary": "Mexico reported 12 active measles cases, all in Chiapas, while its health minister said about 90% of the population was vaccinated and ten million doses were available. The Pan American Health Organization says sustained transmission has cost Mexico its measles-free status and that at least 95% two-dose coverage is needed to stop transmission. The country must show 12 months without spread to regain certification."
+    },
+    {
+      "title": "Gavi plans to buy up to 1.5 million doses of experimental Ebola vaccine for Congo",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/",
+      "summary": "Gavi plans to buy up to 1.5 million doses of an experimental vaccine against the Bundibugyo strain of Ebola if trials in the Democratic Republic of Congo show it is safe and effective. The candidate was developed by Oxford and the Serum Institute of India. No licensed vaccine or treatment exists for this strain, which has caused a major outbreak; purchase terms were not disclosed."
+    },
+    {
+      "title": "WHO chief urges US to lift Cuba fuel restrictions, warning of health effects",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/legal/government/who-chief-calls-us-lift-oil-blockade-cuba-citing-health-impact-2026-11-24/",
+      "summary": "World Health Organization chief Tedros Adhanom Ghebreyesus urged the United States to lift its fuel restrictions on Cuba, warning that power shortages are harming hospitals and putting vulnerable people, including children, at risk. WHO pledged $2 million for immunization and medical equipment. Washington says food and medicine exports are exempt from sanctions; the wider effects of the fuel restrictions remain disputed."
     },
     {
       "title": "FCC plans vote to loosen local TV and radio ownership limits",
@@ -536,6 +720,14 @@
       "published": "2026-11-23",
       "url": "https://apnews.com/article/ilhan-omar-home-search-unsealed-judge-c595095e8adb6559dc397619ba20a8c0",
       "summary": "Newly unsealed filings show a magistrate judge required federal investigators to account for Rep. Ilhan Omar’s constitutional privileges before searching her Washington home in October. The documents describe a protocol for protecting material covered by the Speech or Debate Clause but reveal little about the underlying investigation. Omar has not been charged and denies wrongdoing; most of the warrant affidavit remains sealed."
+    },
+    {
+      "title": "Massachusetts sues to block ICE courthouse arrests without judicial warrants",
+      "source": "Reuters",
+      "category": "U.S.",
+      "published": "2026-11-23",
+      "url": "https://www.reuters.com/legal/government/massachusetts-sues-block-ice-conducting-courthouse-arrests-2026-11-23/",
+      "summary": "Massachusetts Attorney General Andrea Joy Campbell sued to stop ICE from making civil immigration arrests in state courthouses without judicial warrants. She says more than 1,110 courthouse arrests have occurred since President Donald Trump took office, including 38 after a state law took effect November 3. The Department of Homeland Security defended the practice as efficient; the court has not ruled on the new case."
     }
   ]
 }
