@@ -1,6 +1,102 @@
 {
-  "updatedAt": "2026-11-25T07:08:39.735Z",
+  "updatedAt": "2026-11-25T07:56:44.000Z",
   "articles": [
+    {
+      "title": "China investigates Shanghai party chief in widening anti-graft campaign",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/chinas-politburo-shrinks-graft-crackdown-spreads-2026-11-25/",
+      "summary": "China’s anti-corruption watchdog opened an investigation into Shanghai party chief Chen Jining, a member of the ruling Communist Party’s Politburo. Reuters says he is the fourth Politburo member targeted since 2025, following removals involving senior military and provincial officials. Authorities gave no details about Chen’s case; the probe nevertheless signals that Xi Jinping’s campaign continues to reach the party’s highest ranks."
+    },
+    {
+      "title": "Citigroup weighs return to Venezuela after five-year absence",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/finance/citi-weighs-return-venezuela-five-years-after-exit-bloomberg-news-reports-2026-11-25/",
+      "summary": "Citigroup is considering restoring banking services in Venezuela, five years after leaving the country, Bloomberg reported. Reuters says executives have discussed possible arrangements and sanctions waivers with U.S. State and Treasury officials; a first step could be correspondent banking rather than branches. Citi declined to comment. Any return would face a country still recovering from prolonged economic crisis and financial isolation."
+    },
+    {
+      "title": "Russia extradites Chinese national wanted over alleged $2.25 billion deposit scheme",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/russia-sends-home-chinese-suspected-illegally-raising-23-billion-deposits-2026-11-25/",
+      "summary": "Russia has extradited a Chinese national, identified only by the surname Shu, to China, where he is wanted over an alleged scheme involving more than 15 billion yuan ($2.25 billion) in public deposits. Xinhua, citing China’s Ministry of Public Security, said he returned on November 5. Authorities disclosed few details about the alleged fundraising or the extradition process."
+    },
+    {
+      "title": "Meta executives meet India's opposition amid protests over content moderation",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/technology/meta-delegation-meets-congress-new-delhi-protests-intensify-over-content-curbs-2026-11-25/",
+      "summary": "Meta executives met India’s opposition Congress party in New Delhi as protests over the company’s content moderation intensified. Reuters, citing four people familiar with the talks, says Congress raised concerns about restrictions on leaders’ accounts and alleged favoritism toward the governing party, which Meta denies. The company said it follows Indian law; protesters have demanded explanations and restoration of accounts removed on government orders."
+    },
+    {
+      "title": "German economy grows just 0.1% in third quarter after downward revision",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/europe/german-economy-grows-by-01-q3-stats-office-says-2026-11-25/",
+      "summary": "Germany’s economy expanded just 0.1% in the third quarter of 2026, below an earlier 0.2% estimate, the federal statistics office said. Reuters attributes the revision to weaker exports and September retail activity. Investment fell 1.2% from the prior quarter, while household consumption rose only 0.1%, reinforcing signs that growth slowed after stronger first-half performance."
+    },
+    {
+      "title": "UK watchdog says Colman's sale could ease concerns over $65 billion Unilever deal",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/retail-consumer/uk-watchdog-says-colmans-sale-could-address-unilever-mccormick-deal-concerns-2026-11-25/",
+      "summary": "Britain’s Competition and Markets Authority said a proposed sale of Unilever’s Colman’s brand could help resolve concerns about McCormick’s planned $65 billion acquisition of Unilever’s food business. The regulator will assess the proposal before deciding whether to clear the deal with conditions or open a deeper investigation. Colman’s makes mustard, sauces and recipe mixes central to the competition review."
+    },
+    {
+      "title": "Millions of UK households face 26% energy price-cap increase in January",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/uk/millions-set-soaring-energy-bills-britain-after-26-price-cap-hike-2026-11-25/",
+      "summary": "Britain’s Ofgem raised the household energy price cap by 26% for January–March, taking the annualized bill for a typical dual-fuel household to £2,166. Reuters says the increase will affect about 20 million homes on variable tariffs and reflects higher wholesale gas prices linked to the Middle East conflict. The jump is likely to add pressure to household budgets and inflation."
+    },
+    {
+      "title": "EasyJet annual profit plunges 89% as fuel costs surge",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/easyjet-posts-annual-profit-miss-fuel-costs-ahead-apollo-takeover-2026-11-25/",
+      "summary": "EasyJet reported full-year pretax profit of £71 million, down 89% from the previous year, as fuel costs rose 11% to £2.5 billion despite a strong summer travel season. Reuters says the result missed analyst expectations and comes as Apollo’s £5.7 billion takeover proceeds toward a planned 2027 completion. The airline withheld next-year guidance because of the pending deal."
+    },
+    {
+      "title": "Australia passes broad new online safety law targeting harmful platform content",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/litigation/australia-passes-law-forcing-internet-platforms-take-down-harmful-content-2026-11-25/",
+      "summary": "Australia passed a Digital Duty of Care law requiring online platforms to take proactive steps against harmful content and features, with potential fines of up to 5% of global revenue. The rules take effect in a year and permit regulators to use anonymous accounts during investigations. Technology groups warn the law’s broad definitions could encourage excessive removals and raise privacy concerns."
+    },
+    {
+      "title": "Houthis claim attacks on Saudi refinery and Riyadh financial district",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-oil-refinery-riyadh-financial-district-2026-11-25/",
+      "summary": "Yemen’s Houthi movement said it attacked Saudi Arabia’s Ras Tanura refinery and Riyadh’s financial district. Reuters reports the Saudi-led coalition said it intercepted four drones near the refinery, while Saudi civil defence reported 11 people wounded in an earlier strike on a Riyadh tower. The group’s claims about damage were not independently confirmed in the report, leaving the immediate impact uncertain."
+    },
+    {
+      "title": "Taiwan comedian keeps performing under security after alleged attack plot",
+      "source": "Reuters",
+      "category": "Curious news",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sustainability/society-equity/taiwan-comedian-shoots-off-punch-lines-combat-chinas-anger-his-jokes-2026-11-25/",
+      "summary": "Taiwanese comedian Huang Yi-hao continues performing with security present after prosecutors charged five people over an alleged plot to injure him following jokes about China’s leader. Reuters reports Huang was slightly injured when struck by a car in September; investigators allege a Chinese national paid a local man to attack him. Beijing has rejected Taiwan’s accusations of involvement, and the case has become a flashpoint over speech and intimidation."
+    },
+    {
+      "title": "Cognizant in talks to take over parts of S&P Global's Capital IQ operations",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/technology/cognizant-talks-take-over-parts-sp-globals-capital-iq-operations-sources-say-2026-11-25/",
+      "summary": "Cognizant is in talks to take over parts of S&P Global’s Capital IQ operations, potentially transferring about 1,500 employees in India, Reuters reports, citing two people familiar with the discussions. The terms remain unsettled and talks could fail. The move comes as S&P explores strategic options for its data businesses and companies increasingly outsource operations to reduce costs and reshape units for AI-era services."
+    },
     {
       "title": "China's Shenzhou-24 docks at space station with Pakistani national as first foreign astronaut",
       "source": "Reuters",
@@ -72,6 +168,78 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/finance/alice-huang-linked-firms-listed-270-million-ai-servers-china-records-show-2026-11-25/",
       "summary": "Reuters reviewed Chinese financing records listing up to 764 AI servers and modules valued at $270 million, plus $31 million in networking equipment, tied to firms connected to Alice Huang and associates. The records show financing arrangements for data-center hardware, not proof of prohibited Nvidia chips or how equipment entered China. The findings add scrutiny amid a U.S. investigation into suspected chip diversion."
+    },
+    {
+      "title": "Brad Pitt, Quentin Tarantino and David Fincher reunite for Cliff Booth spinoff",
+      "source": "Reuters",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/media-telecom/tarantino-fincher-collaboration-cliff-booth-came-with-pressure-fun-cast-say-2026-11-24/",
+      "summary": "Brad Pitt returns as stuntman Cliff Booth in The Further Mis-Adventures of Cliff Booth, a spinoff written by Quentin Tarantino and directed by David Fincher. Reuters reports the story is set in 1977, eight years after Once Upon a Time... in Hollywood, and follows Booth as he helps people in the film industry. The movie opens globally in IMAX before arriving on Netflix December 23."
+    },
+    {
+      "title": "Shein agrees to $100 million FTC settlement over shipping and review practices",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/shein-pay-100-million-settle-us-claims-ftc-official-says-2026-11-24/",
+      "summary": "Shein agreed to pay $100 million to settle U.S. Federal Trade Commission claims involving misleading shipping promises, filtered negative reviews and unsupported statements about cotton sourcing and supplier audits. The company did not admit liability and said it disagreed with some allegations. Reuters reports the settlement also requires changes to consumer practices, while the FTC says funds will be used to reimburse customers."
+    },
+    {
+      "title": "BBC to trial CBeebies children's shows on Netflix in new partnership",
+      "source": "Reuters",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/media-telecom/bbc-trial-cbeebies-shows-netflix-new-streaming-partnership-2026-11-24/",
+      "summary": "The BBC will place a selection of CBeebies children’s programmes, including Hey Duggee and Teletubbies, in a branded Netflix hub in Britain beginning December 2. Reuters says the trial is part of the broadcaster’s effort to reach audiences on commercial platforms; iPlayer remains the home of the full CBeebies service. Netflix will also fund a small number of new commissions, with selected content distributed internationally."
+    },
+    {
+      "title": "Elon Musk asks appeals court to overturn Twitter shareholder fraud verdict",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/media-telecom/elon-musk-asks-us-appeals-court-throw-out-twitter-fraud-verdict-2026-11-24/",
+      "summary": "Elon Musk asked a U.S. appeals court to overturn a jury verdict that found he defrauded Twitter shareholders by publicly questioning his 2022 takeover agreement. His lawyers argue investors did not prove his posts caused the stock decline and challenge the class-action certification. Reuters says the shareholders’ lawyers estimate damages could reach $2.6 billion plus interest if the verdict stands; the appeal remains unresolved."
+    },
+    {
+      "title": "Airlines rethink aircraft financing as high fuel costs squeeze cash",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/energy/airlines-squeezed-by-high-fuel-costs-rethink-jet-financing-strategy-2026-11-24/",
+      "summary": "Airlines are changing how they finance aircraft as jet fuel remains more than 50% above pre-war levels, Reuters reports. Some carriers are arranging financing for new-aircraft deposits or considering sale-and-leaseback deals to preserve cash, while testing scenarios with fuel near $200 a barrel in 2027. Higher fares and capacity cuts have not fully offset costs, and sale-and-leasebacks bring long-term lease obligations."
+    },
+    {
+      "title": "Israeli airstrike kills senior Hamas security official in Gaza",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/middle-east/israeli-airstrike-kills-least-three-palestinians-southern-gaza-medics-say-2026-11-24/",
+      "summary": "An Israeli airstrike killed Naeem Abu Nahel, whom Palestinian officials identified as the head of Hamas’ internal security apparatus in Gaza, Reuters reports. Medics said at least six other Palestinians were killed in separate strikes, including police officers. Israel said it targeted militants; Hamas denied efforts to rearm and accused Israel of undermining the ceasefire. The attacks underscore that the 2025 truce has not ended violence in Gaza."
+    },
+    {
+      "title": "US lawmakers question FAA rollout of AI-assisted air traffic planning tool",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/legal/government/us-lawmakers-raise-alarm-faa-decision-deploy-aviation-ai-tool-nationally-2026-11-24/",
+      "summary": "Two dozen House Democrats questioned the Federal Aviation Administration’s nationwide rollout of SMART, an AI-assisted air-traffic planning tool, after a major telecom outage disrupted flights. The system analyzes schedules, weather and airport capacity to flag potential conflicts, but does not control aircraft. Lawmakers say they have not seen enough validation or redundancy evidence; the FAA said it would respond directly to their questions."
+    },
+    {
+      "title": "Radar outage delays arrivals at Chicago O'Hare during Thanksgiving travel",
+      "source": "Reuters",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/us/faa-issues-ground-stop-chicago-ohare-international-airport-2026-11-24/",
+      "summary": "A ground-surveillance radar outage at Chicago O’Hare delayed arrivals during one of the busiest Thanksgiving travel days, the FAA said. The agency warned that congestion could force another temporary halt to incoming flights; average delays reached 47 minutes, with some aircraft holding before landing. The incident added to a series of aviation technology disruptions, though officials expected technicians to restore the system overnight."
+    },
+    {
+      "title": "Study compares AI's water use with almond milk and golf spending",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/technology/ai-consumes-less-water-per-dollar-spent-than-almond-milk-or-golf-enverus-report-2026-11-24/",
+      "summary": "An Enverus study reported by Reuters compares water use per dollar spent across activities, estimating that $25 of AI services consumes about 1.9 gallons, including water used to generate electricity. The report puts the same spending on almond milk at 308 gallons and golf at 679. The comparison depends on the study’s spending-based method and does not mean data centers have no local water impacts."
     },
     {
       "title": "White House pardons two Thanksgiving turkeys",
@@ -336,6 +504,22 @@
       "published": "2026-11-24",
       "url": "https://www.reuters.com/business/environment/brazil-zoo-hails-birth-spixs-macaw-chick-boost-species-recovery-2026-11-24/",
       "summary": "São Paulo Zoo announced the birth of a female Spix’s macaw named Hope, a milestone for a parrot classified as extinct in the wild. The chick hatched after a 28-day artificial incubation and required help from keepers. The species was driven to the brink by habitat loss and trapping; its future now depends on managed breeding and eventual conservation work beyond captivity."
+    },
+    {
+      "title": "FCC plans vote to loosen local TV and radio ownership limits",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-23",
+      "url": "https://www.reuters.com/business/media-telecom/us-agency-vote-ease-ownership-limits-local-tv-radio-stations-2026-11-23/",
+      "summary": "The Federal Communications Commission plans to vote December 17 on replacing some local radio and television ownership limits with case-by-case reviews. Reuters reports the proposal would remove subcaps on AM and FM station ownership within local markets, while leaving restrictions on mergers among the four major broadcast networks unchanged. Supporters say broadcasters need scale to compete with streaming; critics warn consolidation could reduce local media diversity."
+    },
+    {
+      "title": "PBS examines why some dogs watch and react to television",
+      "source": "PBS NewsHour",
+      "category": "Science",
+      "published": "2026-11-23",
+      "url": "https://www.pbs.org/video/tv-for-pets-1795470235/",
+      "summary": "A PBS NewsHour report examined why some dogs watch television, focusing on a viral children’s series featuring animated seals. Veterinary ophthalmologist Freya Mowat said dogs can distinguish some colors and may respond to high-contrast movement and animal images; her research also studies age-related retinal changes. Not every dog enjoys screens: barking, agitation or escape behavior can signal that viewing is stressful rather than calming."
     },
     {
       "title": "Thanksgiving travelers face weather and airline disruption risks",
