@@ -1,6 +1,70 @@
 {
-  "updatedAt": "2026-11-24T23:25:00Z",
+  "updatedAt": "2026-11-25T02:15:13.857Z",
   "articles": [
+    {
+      "title": "China launches mission carrying Pakistan's first astronaut in orbit",
+      "source": "Reuters",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/science/chinas-shenzhou-24-space-flight-takes-off-with-pakistani-national-first-foreign-2026-11-25/",
+      "summary": "China successfully launched Shenzhou-24 on Wednesday morning local time, carrying Muhammad Zeeshan Ali and two Chinese astronauts. Ali is expected to conduct experiments during a short stay at Tiangong, becoming its first foreign visitor if docking proceeds as planned. Another Chinese astronaut already aboard will remain for a year to support research into long-duration spaceflight."
+    },
+    {
+      "title": "U.S. prepares new country-specific tariffs after industrial capacity review",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/us/trump-administration-set-unveil-new-tariffs-after-probe-on-excess-factory-2026-11-24/",
+      "summary": "Reuters reports that the administration is preparing proposed import duties following an investigation covering 16 trading partners. The measures would partly replace tariffs overturned by the Supreme Court in February. Sources expect differences by country and existing trade agreements to constrain some rates. The exact duties remained unconfirmed, and the administration had not responded to requests for comment."
+    },
+    {
+      "title": "Reported cyber breach affects unclassified U.S. intelligence data",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/us-cia-odni-suffer-cybersecurity-breach-some-unclassified-information-nyt-2026-11-24/",
+      "summary": "A person familiar with the incident told Reuters that the CIA and the Office of the Director of National Intelligence discovered unauthorized access to unclassified information. The affected network analyzes publicly available material. Officials said classified systems and essential capabilities had not been disrupted. The information exposed and the means of intrusion were not established in the report."
+    },
+    {
+      "title": "Microsoft launches emergency engineering review after major outage",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/microsoft-declares-code-red-after-historic-outage-internal-memos-show-2026-11-24/",
+      "summary": "Internal memos reviewed by Reuters describe an urgent engineering overhaul following the November 12–13 disruption of Microsoft 365 services, including email and Teams. Microsoft attributed the outage to a Windows scalability flaw. Planned improvements include faster recovery, better traffic management and improved diagnostics. The company aims to resolve future worldwide incidents within an hour, a target rather than an achieved capability."
+    },
+    {
+      "title": "Adani reportedly agrees to buy recycled copper from Attero",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/india/indias-adani-signs-3-year-copper-supply-deal-with-attero-sources-say-2026-11-24/",
+      "summary": "Sources told Reuters that Adani agreed to a three-year copper supply arrangement valued at approximately $1 billion at prevailing prices. Attero would recover copper from discarded electronics and batteries for Adani's Gujarat facility. The arrangement could reduce reliance on imported material as the smelter expands. Adani did not comment on the reported agreement."
+    },
+    {
+      "title": "Japan looks to auto-parts suppliers to expand its defense industry",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/autos-transportation/horsepower-firepower-japan-draws-auto-suppliers-into-major-arms-buildup-2026-11-24/",
+      "summary": "Japan is encouraging automotive component manufacturers to diversify into defense production as part of a broader security buildup. Reuters reports that procurement officials are connecting smaller suppliers with defense companies and funding opportunities. The initiative could create new markets for an auto industry facing declining domestic production. Major Japanese automakers have so far shown less interest than smaller suppliers."
+    },
+    {
+      "title": "Holiday shoppers return to malls for in-person experiences",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/retail-consumer/us-malls-make-holiday-comeback-shoppers-seek-more-than-deals-2026-11-24/",
+      "summary": "Retail surveys indicate renewed interest in physical shopping ahead of Thanksgiving. A JLL survey found approximately 55% of holiday shoppers intended to visit an indoor mall, compared with around half last year. Retailers are adding dining, customization and other experiences to attract visitors. The figures reflect shoppers' stated plans rather than final holiday sales."
+    },
+    {
+      "title": "Major law firms recruit teams after Weil's dissolution",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/legal/legalindustry/where-weils-lawyers-are-landing-after-law-firms-collapse-2026-11-24/",
+      "summary": "The dissolution of Weil, Gotshal & Manges has prompted intense competition for its approximately 1,200 attorneys. Reuters documents groups moving to firms including Gibson Dunn, Skadden and Kirkland & Ellis, with hiring spanning private funds, restructuring and litigation. Milbank is taking on the Paris team. The moves illustrate how the collapse is reshaping the market for legal talent."
+    },
     {
       "title": "AI shares fall again as Wall Street’s rebound fades",
       "source": "Associated Press",
@@ -10,28 +74,20 @@
       "summary": "U.S. markets diverged Tuesday as enthusiasm over Nvidia’s leadership reversal quickly faded. The S&P 500 slipped 0.5% and the Nasdaq lost 1.5%, while the Dow gained 0.9%. Investors remain concerned about AI valuations, financing costs and whether enormous infrastructure spending will generate sufficient returns. Other sectors performed better, helped by stronger consumer confidence and corporate earnings."
     },
     {
-      "title": "Thanksgiving travelers face weather and airline disruption risks",
-      "source": "Associated Press",
-      "category": "U.S.",
-      "published": "2026-11-23",
-      "url": "https://apnews.com/article/thanksgiving-travel-airlines-flight-delays-storms-c26a27fd648f766252b54724d8a897a3",
-      "summary": "Recent FAA, United and Delta technology failures have disrupted flights ahead of the holiday rush, although Delta reported stable operations Monday. Domestic round-trip fares were estimated to be more than a third higher than last year. Forecasts call for coastal storms, with wind potentially affecting New York’s Thanksgiving parade and high tides threatening West Coast flooding. Conditions remain forecasts, not guaranteed cancellations."
-    },
-    {
-      "title": "China prepares to send its first foreign astronaut to Tiangong",
-      "source": "Reuters",
-      "category": "Science",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/science/china-launch-shenzhou-24-spaceship-with-first-foreign-astronaut-2026-11-24/",
-      "summary": "A Pakistani pilot is scheduled to join the Shenzhou-24 crew on a Wednesday flight to China’s Tiangong station, marking the first planned visit by a non-Chinese astronaut. The mission highlights Beijing’s growing space partnership with Pakistan and its use of space cooperation to strengthen international relationships. The launch had not yet occurred at the time of reporting."
-    },
-    {
       "title": "Istanbul authorities reverse course on reported lioness",
       "source": "Associated Press",
       "category": "Curious news",
       "published": "2026-11-24",
       "url": "https://apnews.com/article/lion-istanbul-search-7014ccaa359b7e672dedd6c34d5e2e01",
       "summary": "Authorities launched a day-long search after videos appeared to show a lioness in an Istanbul suburb. Residents were advised to remain indoors and a forest was closed. Officials subsequently said further images and field searches produced no evidence of a lion or other large feline. The animal’s actual identity remained unclear, prompting public confusion and jokes online."
+    },
+    {
+      "title": "Thanksgiving travelers face weather and airline disruption risks",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-23",
+      "url": "https://apnews.com/article/thanksgiving-travel-airlines-flight-delays-storms-c26a27fd648f766252b54724d8a897a3",
+      "summary": "Recent FAA, United and Delta technology failures have disrupted flights ahead of the holiday rush, although Delta reported stable operations Monday. Domestic round-trip fares were estimated to be more than a third higher than last year. Forecasts call for coastal storms, with wind potentially affecting New York’s Thanksgiving parade and high tides threatening West Coast flooding. Conditions remain forecasts, not guaranteed cancellations."
     }
   ]
 }
