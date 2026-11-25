@@ -1,13 +1,77 @@
 {
-  "updatedAt": "2026-11-25T04:03:20Z",
+  "updatedAt": "2026-11-25T07:08:39.735Z",
   "articles": [
     {
-      "title": "China launches mission carrying Pakistan's first astronaut in orbit",
+      "title": "China's Shenzhou-24 docks at space station with Pakistani national as first foreign astronaut",
       "source": "Reuters",
       "category": "Science",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/science/chinas-shenzhou-24-space-flight-takes-off-with-pakistani-national-first-foreign-2026-11-25/",
-      "summary": "China successfully launched Shenzhou-24 on Wednesday morning local time, carrying Muhammad Zeeshan Ali and two Chinese astronauts. Ali is expected to conduct experiments during a short stay at Tiangong, becoming its first foreign visitor if docking proceeds as planned. Another Chinese astronaut already aboard will remain for a year to support research into long-duration spaceflight."
+      "summary": "China’s Shenzhou-24 spacecraft docked with Tiangong on Nov. 25, carrying Pakistani pilot Muhammad Zeeshan Ali, who became the first Pakistani in orbit and is set to be the station’s first foreign visitor. Ali will work as a payload specialist for five to 10 days, while a Chinese astronaut remains for a year to study long-duration spaceflight. The mission highlights expanding China-Pakistan space cooperation."
+    },
+    {
+      "title": "African insurgents take war to the skies with off-the-shelf drones",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/african-insurgents-take-war-skies-with-off-the-shelf-drones-2026-11-25/",
+      "summary": "Reuters documents how inexpensive first-person-view drones are reshaping conflicts across Mali, Burkina Faso and Niger. Armed groups have used tactics refined in Ukraine to threaten military vehicles, aircraft and infrastructure, eroding governments’ former air advantage. The reporting also describes Ukrainian training links to Sahel separatists. The shift raises security risks for regional forces and facilities, though the balance of power varies by country."
+    },
+    {
+      "title": "Stocks retreat as AI rebound stumbles, tariff threats loom",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-25/",
+      "summary": "Asian stocks fell sharply as fresh U.S. tariff threats and fading enthusiasm for AI-related shares hit chip-heavy markets. Reuters reported MSCI's Asia-Pacific ex-Japan index down 3.2%, with South Korea's KOSPI and Taiwan's TAIEX suffering larger intraday declines; Japan's Nikkei also fell. The move followed a tech-led rebound and came ahead of a U.S. trade report on alleged excess industrial capacity."
+    },
+    {
+      "title": "Australian inflation heats up in October, core hits two-year high",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/asia-pacific/australian-inflation-heats-up-october-core-hits-two-year-high-2026-11-25/",
+      "summary": "Australia’s monthly consumer-price index rose 0.5% in October, taking annual inflation to 4.9% from 4.3%, Reuters reports. Fuel costs jumped 6.3%, while trimmed-mean inflation reached 3.8%, its fastest pace since 2024. The figures are above the Reserve Bank’s 2%–3% target band and have reduced market confidence in near-term rate cuts, although weak labor-market conditions still shape expectations."
+    },
+    {
+      "title": "Japan's key services inflation gauge hits 36-year high",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/japans-corporate-services-inflation-spikes-october-2026-11-25/",
+      "summary": "Japan’s services producer-price index rose 4.2% year over year in October, the fastest pace since 1990, according to Bank of Japan data cited by Reuters. Higher ocean freight, leasing and hotel costs drove the increase. The measure helps show whether companies are passing labor expenses to customers, strengthening the case for a possible near-term central-bank rate increase."
+    },
+    {
+      "title": "Global airports court private capital to fund upgrades, raising cost concerns",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/global-airports-court-private-capital-fund-upgrades-raising-cost-concerns-2026-11-25/",
+      "summary": "Airport operators are turning again to private investors to help fund aging terminals, control towers and capacity expansions. Reuters says industry estimates point to more than $4 trillion in global airport infrastructure needs over three decades as passenger traffic could double by 2050. Officials warn private financing can raise costs, leaving governments to balance capital needs against user fees and affordability."
+    },
+    {
+      "title": "Amazon to launch Amazon Autos in UK in early 2027 in first expansion beyond US",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/autos-transportation/amazon-launch-amazon-autos-uk-early-2027-first-expansion-beyond-us-2026-11-25/",
+      "summary": "Amazon says it will expand its car marketplace to the United Kingdom in early 2027, its first move beyond the United States. Hyundai will be an initial partner, listing new and used electric, hybrid and petrol models; dealer group Vertu will also participate. Customers will browse, compare prices and reserve vehicles online, but complete purchases at dealerships, which retain control over pricing."
+    },
+    {
+      "title": "Bangladesh minimum wage hike misses garment worker demands, sparks fresh protests",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/world-at-work/bangladesh-raises-garment-workers-minimum-wage-36-after-protests-2026-11-25/",
+      "summary": "Bangladesh approved a 36% increase in the garment-sector minimum wage, lifting monthly pay to about $138, but the raise fell short of workers’ demands and triggered fresh clashes with police near Dhaka. The industry employs more than four million people and generates over 80% of export earnings. Reuters reports weeks of protests disrupted production and prompted some buyers to shift orders abroad."
+    },
+    {
+      "title": "Alice Huang-linked firms listed $270 million in AI servers in China, records show",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/finance/alice-huang-linked-firms-listed-270-million-ai-servers-china-records-show-2026-11-25/",
+      "summary": "Reuters reviewed Chinese financing records listing up to 764 AI servers and modules valued at $270 million, plus $31 million in networking equipment, tied to firms connected to Alice Huang and associates. The records show financing arrangements for data-center hardware, not proof of prohibited Nvidia chips or how equipment entered China. The findings add scrutiny amid a U.S. investigation into suspected chip diversion."
     },
     {
       "title": "White House pardons two Thanksgiving turkeys",
@@ -98,14 +162,6 @@
       "summary": "The dissolution of Weil, Gotshal & Manges has prompted intense competition for its approximately 1,200 attorneys. Reuters documents groups moving to firms including Gibson Dunn, Skadden and Kirkland & Ellis, with hiring spanning private funds, restructuring and litigation. Milbank is taking on the Paris team. The moves illustrate how the collapse is reshaping the market for legal talent."
     },
     {
-      "title": "AI shares fall again as Wall Street’s rebound fades",
-      "source": "Associated Press",
-      "category": "Business",
-      "published": "2026-11-24",
-      "url": "https://apnews.com/article/stock-markets-ai-earnings-oil-feec0e25b9994b1c86b16329cf770192",
-      "summary": "U.S. markets diverged Tuesday as enthusiasm over Nvidia’s leadership reversal quickly faded. The S&P 500 slipped 0.5% and the Nasdaq lost 1.5%, while the Dow gained 0.9%. Investors remain concerned about AI valuations, financing costs and whether enormous infrastructure spending will generate sufficient returns. Other sectors performed better, helped by stronger consumer confidence and corporate earnings."
-    },
-    {
       "title": "Istanbul authorities reverse course on reported lioness",
       "source": "Associated Press",
       "category": "Curious news",
@@ -122,12 +178,180 @@
       "summary": "More than 7,000 creatives, including Kate Bush and Grace Jones, have backed a campaign demanding permission-based use of their work for AI training. An Australian parliamentary committee has recommended measures to facilitate compensation for rights holders. Technology companies argue that existing licensing arrangements complicate model development, while industry representatives favor enforcing current protections. The recommendations are not yet government policy."
     },
     {
+      "title": "China Southern orders 50 jets in Boeing's biggest China deal in nearly a decade",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/asia-pacific/china-southern-airlines-unit-buy-50-boeing-737-8-aircraft-2026-11-24/",
+      "summary": "China Southern subsidiary Xiamen Airlines agreed to buy 50 Boeing 737 MAX 8 aircraft at a list price of about $7.4 billion, Reuters reports. Deliveries are scheduled for 2031–2034, making it the largest Chinese order for Boeing in nearly a decade. The purchase converts part of a 200-jet commitment announced at a U.S.-China summit, signaling a thaw in commercial aviation ties despite continuing trade tensions."
+    },
+    {
+      "title": "China's Huawei convicted in sprawling US criminal trial over Iran business",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/legal/litigation/chinas-huawei-convicted-us-criminal-trial-stemming-iran-business-2026-11-24/",
+      "summary": "A Brooklyn jury convicted Huawei on 10 of 12 federal counts, including bank fraud, wire fraud, sanctions violations and conspiracy to steal trade secrets, in a case stemming from the company’s Iran business and dealings with U.S. firms. Jurors rejected racketeering-conspiracy and obstruction counts. Huawei says it expects to appeal; sentencing is scheduled for September 2027, leaving penalties unresolved."
+    },
+    {
+      "title": "Israel's Eisenkot clinches first coalition agreement in bid to form government",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/middle-east/israels-eisenkot-clinches-first-coalition-agreement-bid-form-government-2026-11-24/",
+      "summary": "Former Israeli military chief Gadi Eisenkot’s Yashar party agreed to its first coalition pact since the October election, joining with Avigdor Lieberman’s Israel Our Home party. Benjamin Netanyahu lost his parliamentary majority, but no rival bloc has yet secured a clear route to government. Reuters reports the agreement is an initial step rather than a completed coalition, with negotiations still needed to assemble a governing majority."
+    },
+    {
+      "title": "Wendy’s hit with US class action over menu pricing",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/wendys-hit-with-us-class-action-over-menu-pricing-2026-11-24/",
+      "summary": "A proposed U.S. class action accuses Wendy’s and restaurant-software provider NCR Voyix of using shared transaction data and centralized pricing to coordinate menu prices across franchises. The complaint was filed in Maryland and has not been proven in court. The companies had not responded to Reuters’ requests for comment at publication. The case adds to litigation challenging how retailers use algorithmic pricing tools and sales data."
+    },
+    {
+      "title": "UK warns of Russian sabotage threat to companies that supply Ukraine",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/uk-warns-russian-sabotage-threat-companies-that-supply-ukraine-2026-11-24/",
+      "summary": "Britain’s Ministry of Defence and MI5 warned companies supplying Ukraine’s military that they face heightened sabotage risks from Russian-linked operatives. The public alert cites arson and other low-tech tactics and follows suspected incidents across Europe. Russia denies plans to attack the United Kingdom and accuses Ukraine of staging sabotage. British officials are briefing defense and infrastructure firms on security precautions."
+    },
+    {
+      "title": "Hungary, Ukraine make 'fresh start' as Magyar visit kickstarts trade talks",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/hungarian-prime-minister-set-meet-zelenskiy-western-ukraine-tuesday-2026-11-24/",
+      "summary": "Hungarian Prime Minister Peter Magyar and Ukrainian President Volodymyr Zelenskiy called their meeting a fresh start and discussed trade, energy and rail links. Hungary had blocked parts of Ukraine’s EU accession process under former leader Viktor Orban; Magyar has eased some objections after Kyiv expanded language rights for minorities. No major deals were announced, but the visit signals warmer ties after years of friction."
+    },
+    {
+      "title": "Democrats aim to reverse Trump's slashes to US food aid, but path unclear",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/us/democrats-aim-reverse-trumps-slashes-us-food-aid-path-unclear-2026-11-24/",
+      "summary": "Democratic leaders say they will seek to reverse $187 billion in food-assistance cuts when they take control of Congress in January. Reuters reports more than 5.5 million people have lost Supplemental Nutrition Assistance Program benefits since the 2025 tax law, while food banks report sustained demand. Democrats have not settled on a legislative route, and a veto threat means overriding the president would require broad Republican support."
+    },
+    {
+      "title": "Two arrested after break-in at country home of Prince William and wife Kate, UK police say",
+      "source": "Reuters",
+      "category": "Curious news",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/uk/country-home-prince-william-wife-kate-broken-into-sun-says-2026-11-24/",
+      "summary": "Police arrested two men on suspicion of burglary and trespass after suspicious activity was reported at a property on the Sandringham estate in Norfolk, where Prince William and Catherine have a country residence. The home was unoccupied, police said; officers used dogs, drones and a helicopter during searches. The royal household declined to comment on security matters, and no motive or loss was reported."
+    },
+    {
+      "title": "20 hostages held in Colombian supermarket after failed armored car hijack",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/americas/colombias-cartagena-airport-briefly-suspends-landings-due-security-incident-2026-11-24/",
+      "summary": "Armed men held at least 20 people inside a supermarket in Cartagena after a failed attempt to hijack an armored cash vehicle, Colombian officials said. Police reported that 10 hostages had been released, while security forces surrounded the store and the airport briefly suspended landings. Authorities had not identified the hostage-takers or those still inside, and the situation remained unresolved when Reuters published."
+    },
+    {
+      "title": "Iraqi PM cracks down on Kurds' control of oilfields, Kurds reject risky move",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/middle-east/iraqi-pm-orders-takeover-kurdistan-regions-border-crossings-after-oil-smuggling-2026-11-24/",
+      "summary": "Iraq’s prime minister ordered federal authorities to take control of oilfields in four provinces under Kurdish administration, citing a campaign against oil smuggling. The move risks escalating a long-running dispute with the Kurdistan Regional Government and comes alongside pressure on an Iran-aligned militia accused of running a smuggling network. Kurdish leaders rejected the order, leaving federal-regional relations more strained."
+    },
+    {
+      "title": "Ukraine says attack on Russian ships in Libya was self-defence",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/europe/ukraine-insists-attack-russian-ships-libya-was-self-defence-2026-11-24/",
+      "summary": "Ukraine’s foreign minister defended a weekend drone strike on Russian vessels near Libya as self-defense, after Tripoli’s government condemned the operation. Kyiv said the targets supported Russia’s military, while Libya’s eastern forces reported two Libyan military personnel killed. The incident widens the geographic reach of the war and raises questions about maritime security and the conflict’s effects on countries beyond the front lines."
+    },
+    {
+      "title": "AP investigation: The DEA allowed 1.4 million fentanyl pills to go unseized in major probe",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/fentanyl-walking-drugs-trafficking-dea-756fcdd04cf34cf14fb5561f86efb7c3",
+      "summary": "An Associated Press investigation found that DEA agents allowed at least 1.4 million additional fentanyl pills to move through six states while monitoring a trafficking network from August 2024 to April 2025. The agency says its tactics were lawful and coordinated with prosecutors; critics argue the delay exposed communities to lethal drugs. The findings have prompted congressional scrutiny and a New Mexico criminal investigation."
+    },
+    {
+      "title": "King tides could break decades-old records and flood communities on both coasts on Thanksgiving week",
+      "source": "Associated Press",
+      "category": "Environment",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/king-tides-flooding-california-florida-a770ac04481a2d7fae4838add07ef61a",
+      "summary": "Exceptionally high tides flooded low-lying California communities during Thanksgiving travel and threatened record water levels along both coasts. In San Francisco Bay, Wednesday’s tide was forecast near the 1983 record, while high surf, rain and coastal flooding prompted warnings and evacuations elsewhere. Forecasters said unusually warm ocean conditions linked to a super El Niño were amplifying the tides, with Florida also at risk."
+    },
+    {
+      "title": "House Democrat expands investigation into Donald Trump Jr.'s investment firm",
+      "source": "Associated Press",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/us-congress-donald-trump-jr-1789-investigation-f51c0cd43c57326ab8540ac661dca2ac",
+      "summary": "House Judiciary Democrat Jamie Raskin requested two years of records from four companies linked to Donald Trump Jr.’s investment firm 1789 Capital, saying he is examining whether investments preceded favorable federal contracts or policy decisions. Trump Jr. and the firm deny wrongdoing, and companies gave varied responses. The inquiry could become a major oversight issue when Democrats take control of the House in January."
+    },
+    {
+      "title": "Chinese researcher is in 'remarkable spirits' after ICE detention, professor says",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/princeton-neuroscientist-ice-detention-china-3e8e005cea2a3ab2c15423b7e4f93d98",
+      "summary": "Princeton neuroscience researcher Eva Yi Xie is being held in Virginia after immigration agents detained her at Reagan National Airport. Homeland Security says she overstayed her visa and lacked study authorization; her lawyer says a pending asylum application allows her to live and work in the U.S. A judge barred her removal from Virginia while reviewing a challenge to the detention, and Princeton colleagues are seeking answers."
+    },
+    {
+      "title": "Chicago Cubs add LHP Trevor Rogers and Japanese slugger Teruaki Sato, AP source says",
+      "source": "Associated Press",
+      "category": "Sports",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/chicago-cubs-trevor-rogers-0f2b7b36178937349c8134bdcd9884d2",
+      "summary": "Chicago’s Cubs agreed to a five-year, $120 million contract with left-handed pitcher Trevor Rogers and a deal with Japanese slugger Teruaki Sato, according to an Associated Press source. Rogers adds a starter after a 10–11 season with Baltimore, while Sato arrives after winning Japan’s Central League Triple Crown and a second straight MVP. Both moves were pending physicals, and Sato’s strikeout rate is a question for MLB adjustment."
+    },
+    {
+      "title": "U2's new album is about 'defiant joy.' They'll tour it in North America next summer",
+      "source": "Associated Press",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/8563c3bd32d6d2d649fa6112facd8f33",
+      "summary": "U2 announced a 15-date North American stadium tour for 2027 following the release of its first album of new songs in nine years, “Carnaval de Luz.” The run begins in Miami in August and ends in Vancouver in October, with presales starting Nov. 30 and general sales Dec. 4. The band says the album and show emphasize collective celebration; drummer Larry Mullen Jr. has returned after surgery."
+    },
+    {
+      "title": "“Only Path Forward Is to Abolish”: Outcry After Masked ICE Agents Arrest Family at Seattle Airport",
+      "source": "Democracy Now!",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://www.democracynow.org/2026/11/24/seattle_ice",
+      "summary": "Video of masked, plainclothes ICE agents arresting a father and daughter at Seattle-Tacoma International Airport prompted criticism from Washington officials. ICE said the father was targeted for overstaying a visa and that his daughter would face an assault charge; witnesses dispute the agency’s account of a coffee incident. The airline and airport authority said they had no advance knowledge of the operation, and both detainees remained in custody."
+    },
+    {
+      "title": "Army to detonate hazardous chemicals in Iowa on Wednesday after court clears way",
+      "source": "The Washington Post",
+      "category": "Environment",
+      "published": "2026-11-24",
+      "url": "https://www.washingtonpost.com/climate-environment/2026/11/23/trump-orders-military-halt-iowa-detonation-plan/",
+      "summary": "A federal appeals court cleared the Army to proceed with a controlled detonation of degraded lead azide at an ammunition plant in Middletown, Iowa, after weeks of protests and legal challenges. Army projections indicate a lead-particle plume could travel up to 100 miles; officials say sand barriers and misting will reduce exposure and that deterioration makes delay dangerous. Residents and environmental groups continue to question transparency and alternatives."
+    },
+    {
+      "title": "Brazil zoo hails birth of Spix's macaw chick as boost for species' recovery",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/environment/brazil-zoo-hails-birth-spixs-macaw-chick-boost-species-recovery-2026-11-24/",
+      "summary": "São Paulo Zoo announced the birth of a female Spix’s macaw named Hope, a milestone for a parrot classified as extinct in the wild. The chick hatched after a 28-day artificial incubation and required help from keepers. The species was driven to the brink by habitat loss and trapping; its future now depends on managed breeding and eventual conservation work beyond captivity."
+    },
+    {
       "title": "Thanksgiving travelers face weather and airline disruption risks",
       "source": "Associated Press",
       "category": "U.S.",
       "published": "2026-11-23",
       "url": "https://apnews.com/article/thanksgiving-travel-airlines-flight-delays-storms-c26a27fd648f766252b54724d8a897a3",
       "summary": "Recent FAA, United and Delta technology failures have disrupted flights ahead of the holiday rush, although Delta reported stable operations Monday. Domestic round-trip fares were estimated to be more than a third higher than last year. Forecasts call for coastal storms, with wind potentially affecting New York’s Thanksgiving parade and high tides threatening West Coast flooding. Conditions remain forecasts, not guaranteed cancellations."
+    },
+    {
+      "title": "Records: Government, judge debated constitutional implications of searching Rep. Ilhan Omar's home",
+      "source": "Associated Press",
+      "category": "Politics",
+      "published": "2026-11-23",
+      "url": "https://apnews.com/article/ilhan-omar-home-search-unsealed-judge-c595095e8adb6559dc397619ba20a8c0",
+      "summary": "Newly unsealed filings show a magistrate judge required federal investigators to account for Rep. Ilhan Omar’s constitutional privileges before searching her Washington home in October. The documents describe a protocol for protecting material covered by the Speech or Debate Clause but reveal little about the underlying investigation. Omar has not been charged and denies wrongdoing; most of the warrant affidavit remains sealed."
     }
   ]
 }
