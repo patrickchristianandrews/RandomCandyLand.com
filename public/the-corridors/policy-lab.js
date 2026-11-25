@@ -113,7 +113,7 @@ const scenarios=[
  ]}
 ];
 const baseMetrics=()=>({stability:46,prices:32,services:47,budget:59,trust:54});
-const defaultState=()=>({scenario:0,choice:null,phase:'choose',supply:'constrained',metrics:baseMetrics(),history:[]});
+const defaultState=()=>({scenario:0,choice:null,phase:'choose',supply:'constrained',metrics:baseMetrics(),history:[],mandate:'trust',roundStart:null});
 let state=defaultState();
 try{const raw=JSON.parse(localStorage.getItem(KEY)||'{}');if(raw&&typeof raw==='object'&&Array.isArray(raw.history)&&raw.metrics&&Number.isInteger(raw.scenario)){state={...defaultState(),...raw,metrics:{...baseMetrics(),...raw.metrics}}}}catch{}
 if(!scenarios[state.scenario])state.scenario=0;
@@ -174,7 +174,7 @@ function restorePlayableState(){
 restorePlayableState();
 function choose(index){
  if(state.choice!==null||!current().options[index])return;
- state.choice=index;state.phase='today';apply('today');save();render();
+ state.roundStart={...state.metrics};state.choice=index;state.phase='today';apply('today');save();render();
 }
 function advance(){
  if(state.choice===null)return;
@@ -187,8 +187,8 @@ function next(){
  selectedBill=null;
  if(state.choice===null||state.phase!=='years')return;
  const s=current(),o=s.options[state.choice];
- state.history.push({scenario:s.title,choice:o.name,outcome:o.years.text,context:state.supply,metrics:{...state.metrics}});
- state.scenario=(state.scenario+1)%scenarios.length;state.choice=null;state.phase='choose';save();render();
+ state.history.push({scenario:s.title,choice:o.name,outcome:o.years.text,context:state.supply,metrics:{...state.metrics},mandate:state.mandate,roundStart:state.roundStart?{...state.roundStart}:null});
+ state.scenario=(state.scenario+1)%scenarios.length;state.choice=null;state.phase='choose';state.roundStart=null;save();render();
 }
 function metricRow(){
  return '<div class="cp-metrics">'+metricDefs.map(m=>{
@@ -213,6 +213,19 @@ function cityMap(){
  const mm=metricDefs.find(x=>x.id===selectedMetric)||metricDefs[0];
  return '<div class="city-command"><div class="city-map-caption"><span>CITY OVERVIEW · '+(state.choice===null?'IN SESSION':phaseLabels[state.phase])+'</span><span>'+state.history.length+' policies completed</span></div>'+'<div class="city-map-hit-area">'+city+[['stability','Homes',26,69],['budget','Finance',31,39],['trust','City hall',51,45],['services','Services',65,67],['prices','Markets',78,50]].map(([key,label,x,y])=>'<button type="button" class="city-hotspot" data-city-metric="'+key+'" style="left:'+x+'%;top:'+y+'%" aria-label="Inspect '+label+'" aria-pressed="'+(selectedMetric===key)+'">'+label+'</button>').join('')+'</div><div class="city-metrics">'+metricDefs.map(x=>'<button type="button" class="city-metric" data-city-metric="'+x.id+'" aria-pressed="'+(x.id===selectedMetric)+'"><small>'+esc(x.name)+'</small><b>'+Math.round(m[x.id])+'</b><i style="width:'+clamp(m[x.id])+'%"></i></button>').join('')+'</div><div class="city-adviser" role="status"><b>'+esc(mm.name)+':</b> '+esc(mm.help)+'. These are fictional indicators. Tap another indicator to inspect it.</div></div>';
 }
+
+const mandates=[['trust','Earn public trust'],['budget','Protect the budget'],['stability','Help households'],['services','Improve services'],['prices','Ease price pressure']];
+function mandatePanel(){
+ const key=mandates.some(([k])=>k===state.mandate)?state.mandate:'trust',def=metricDefs.find(m=>m.id===key),v=state.metrics[key],start=state.roundStart?.[key];
+ const delta=Number.isFinite(start)?v-start:null,good=delta!==null&&(def.positive?delta>0:delta<0);
+ return '<section class="mandate-panel"><div class="mandate-top"><span>YOUR GOVERNING OBJECTIVE</span><b>'+v+'/100</b></div><h3>'+esc(mandates.find(x=>x[0]===key)[1])+'</h3>'+(state.choice===null?'<p>Choose what to prioritize for this policy. Other indicators still matter.</p><div class="mandate-options">'+mandates.map(([k,label])=>'<button type="button" data-mandate="'+k+'" aria-pressed="'+(key===k)+'">'+esc(label)+'</button>').join('')+'</div>':'<p>'+ (delta===null?'Objective selected. Starting score unavailable for this older saved decision.':delta===0?'No net change yet.':(good?'Objective improving: ':'Objective under pressure: ')+(delta>0?'+':'')+delta+' points since the decision.')+'</p>')+'</section>';
+}
+function roundReview(){
+ if(!state.roundStart)return '';
+ const rows=metricDefs.map(m=>{const before=state.roundStart[m.id],after=state.metrics[m.id];if(!Number.isFinite(before))return '';const d=after-before,good=m.positive?d>=0:d<=0;return '<div class="impact-row"><span>'+esc(m.name)+'</span><div class="impact-bars"><i style="width:'+clamp(before)+'%"></i><i style="width:'+clamp(after)+'%"></i></div><b>'+before+' → '+after+'</b><strong class="'+(d===0?'unchanged':good?'gain':'loss')+'">'+(d>0?'+':'')+d+'</strong></div>'}).join('');
+ return '<section class="round-review"><h3>How your city changed</h3><p>Starting score vs. current score. Values are actual game indicators, not real-world forecasts.</p><div class="impact-legend"><span>Before decision</span><span>Current</span></div>'+rows+'</section>';
+}
+
 function billReview(sc){
  if(selectedBill===null||!sc.options[selectedBill])return '<p class="city-adviser">Select a proposal to examine its trade-offs before voting.</p>';
  const o=sc.options[selectedBill];
@@ -265,8 +278,8 @@ function render(root=document.getElementById('app')){
  '<details class="cp-optional-details"><summary>💡 More context (optional)</summary><div class="cp-brief-strip"><div><b>🏛️ Who has authority?</b><p>'+esc(sc.authority)+'</p></div><div><b>⚠️ What could go wrong?</b><p>'+esc(sc.stakes)+'</p></div></div></details>'+
  (state.choice===null?
  (state.scenario===0?'<div class="cp-conditions"><strong>Economic conditions affect the outcome</strong><div role="group" aria-label="Choose fictional supply conditions"><button type="button" data-supply="constrained" aria-pressed="'+String(state.supply==='constrained')+'">🚚 Supply constrained</button><button type="button" data-supply="recovering" aria-pressed="'+String(state.supply==='recovering')+'">🏭 Supply recovering</button></div><p>These choices alter the simulated impact of additional spending on price pressure; they are not forecasts.</p></div>':'')+
- '<div class="cp-action-intro"><h3>Choose your policy</h3><p>Choose an action. You will see the result immediately, then advance through the longer-term outcomes.</p></div>'+choiceCards(sc)+billReview(sc)
- :consequence(sc))+sourceHtml(sc)+'</div></section>'+
+ '<div class="cp-action-intro"><h3>Choose your policy</h3><p>Choose an action. You will see the result immediately, then advance through the longer-term outcomes.</p></div>'+mandatePanel()+choiceCards(sc)+billReview(sc)
+ :mandatePanel()+consequence(sc)+roundReview())+sourceHtml(sc)+'</div></section>'+
  '<details class="cp-learning-footer"><summary>📖 What this game teaches (optional)</summary><strong>Learning notes</strong><p>Policy effects depend on implementation, economic conditions, institutions, lawful authority and human responses. Legal/ethical risks can create both short-term advantages and longer-term consequences. Some outcomes remain uncertain even after years.</p><button type="button" data-corridor-mode="career">Play the original political career →</button></details></div>';
  const scene=root.querySelector('.corr-pixel-city');
  if(scene){scene.outerHTML=cityMap()}
@@ -279,7 +292,8 @@ function report(){
 }
 document.getElementById('app').addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b||b.disabled||!b.closest('.cp-full'))return;
- if(b.hasAttribute('data-city-metric')){selectedMetric=b.dataset.cityMetric;render();rootFocus('.city-metric[data-city-metric="'+selectedMetric+'"]')}
+ if(b.hasAttribute('data-mandate')){if(state.choice===null&&mandates.some(([k])=>k===b.dataset.mandate)){state.mandate=b.dataset.mandate;save();render();rootFocus('[data-mandate="'+state.mandate+'"]')}}
+ else if(b.hasAttribute('data-city-metric')){selectedMetric=b.dataset.cityMetric;render();rootFocus('.city-metric[data-city-metric="'+selectedMetric+'"]')}
  else if(b.hasAttribute('data-city-preview')){selectedBill=Number(b.dataset.cityPreview);render();rootFocus('[data-city-vote]')}
  else if(b.hasAttribute('data-city-vote')){const i=Number(b.dataset.cityVote);if(i===selectedBill){selectedBill=null;choose(i);rootFocus('[data-policy-advance]')}}
  else if(b.hasAttribute('data-policy-case')){selectedBill=null;const i=Number(b.dataset.policyCase);if(state.choice===null&&scenarios[i]){state.scenario=i;save();render()}}
