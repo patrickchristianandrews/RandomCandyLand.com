@@ -1,6 +1,14 @@
 {
-  "updatedAt": "2026-11-25T09:00:44.278Z",
+  "updatedAt": "2026-11-25T10:01:50.000Z",
   "articles": [
+    {
+      "title": "Kiwi return to Wellington hills after 150 years in Māori-led conservation milestone",
+      "source": "Mongabay (via National Indigenous Times)",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://nit.com.au/25-11-2026/27703/kiwi-return-to-wellington-hills-after-150-years-in-maori-led-conservation-milestone",
+      "summary": "A Māori-led conservation partnership has returned more than 250 wild kiwi to the hills around Wellington, where the birds had been absent for over 150 years. The Capital Kiwi project used more than 5,300 predator traps across 24,000 hectares to reduce stoat threats; its founder estimates the local population now exceeds 300, including wild-hatched chicks. Project leaders report chick survival above 90% in managed areas, though long-term success depends on sustained predator control."
+    },
     {
       "title": "China investigates Shanghai party chief in widening anti-graft campaign",
       "source": "Reuters",
@@ -304,6 +312,118 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/europe/spains-election-pits-madrids-building-push-against-catalonias-rent-caps-2026-11-25/",
       "summary": "Spain’s November 29 election has turned on housing, with conservative leader Alberto Núñez Feijóo promoting Madrid-style deregulation and Prime Minister Pedro Sánchez defending Catalonia’s rent caps and limits on short-term lets. Both sides promise more construction, but economists disagree about how supply reforms and rent controls affect prices. The vote could determine which approach becomes national policy."
+    },
+    {
+      "title": "French officials order former President Sarkozy's corruption case to trial",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/french-officials-order-former-president-sarkozys-corruption-case-trial-2026-11-24/",
+      "summary": "French authorities have sent a case involving former President Nicolas Sarkozy and his wife, Carla Bruni, to trial over alleged efforts to secure the retraction of testimony linking Sarkozy’s 2007 campaign to Libyan money. The witness, businessman Ziad Takieddine, later withdrew his account and has since died. Sarkozy and Bruni deny wrongdoing; the case is separate from his earlier Libya-financing conviction, which he is appealing. A pre-trial hearing is set for April 2027."
+    },
+    {
+      "title": "Wisconsin reports third measles-related death this year",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/wisconsin-reports-third-measles-related-death-2026-11-24/",
+      "summary": "Wisconsin reported its third measles-associated death of 2026, an adult from Lafayette County, as the state’s outbreak reached 918 cases and 19 hospitalizations across 24 counties. Reuters noted a gap between CDC’s six national deaths and at least 14 deaths reported publicly by states, reflecting different counting methods. Most U.S. cases involve unvaccinated people; health experts say vaccination remains the strongest protection."
+    },
+    {
+      "title": "Amtrak sets ridership record as rising gas prices encourage Americans to travel by rail",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/autos-transportation/amtrak-sets-ridership-record-rising-gas-prices-encourage-americans-travel-by-2026-11-24/",
+      "summary": "Amtrak recorded 37.1 million passengers in the year through September 30, up 7.4% and its third annual ridership record in a row. The railroad attributed part of the increase to higher fuel and airline prices, alongside improved Northeast Corridor infrastructure and newer trains. Revenue rose 4.9% to $4.1 billion, though it still reported an adjusted $492.7 million loss. A faster New York–Washington trip is targeted for 2028, subject to approvals."
+    },
+    {
+      "title": "US to host Copa America for second successive tournament in 2028",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/sports/soccer/us-host-copa-america-2028-2026-11-24/",
+      "summary": "CONMEBOL and CONCACAF said the United States will host the 2028 Copa América from June 9 to July 9, with 10 South American teams joined by six from North America, Central America and the Caribbean. The six CONCACAF entrants will qualify through the 2027 Gold Cup. It will be the U.S. third time hosting and second consecutive edition; host cities and venues have not yet been announced."
+    },
+    {
+      "title": "Santas and a polar bear emerge from washed-up container on Bulgarian beach",
+      "source": "Reuters",
+      "category": "Curious news",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/santas-polar-bear-emerge-washed-up-container-bulgarian-beach-2026-11-24/",
+      "summary": "Bulgarian authorities found life-size Santa figures, a polar-bear statue and holiday decorations inside a shipping container washed ashore near Burgas. Officials suspect it may have come from the Greek cargo ship Contship Jet, which sank after a drone strike in October, but the vessel’s operator could not confirm the link. The container’s arrival highlights wider maritime-security concerns in the Black Sea as Russia’s war continues."
+    },
+    {
+      "title": "Brazil crime-fighting AI startup Pax expanding to three more regions",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/americas/brazil-crime-fighting-ai-startup-pax-expanding-three-more-regions-2026-11-24/",
+      "summary": "Brazilian startup Pax is extending its AI-assisted police platform into three additional jurisdictions, adding pilots in Mato Grosso do Sul, Bahia and the Federal District. The system searches surveillance footage, dispatch calls and police records to help officers connect people, vehicles and evidence. Pax and a Goiás police official report faster case identification and improved clearance figures in one monitored area, but those results are company-specific and do not establish independent effectiveness elsewhere."
+    },
+    {
+      "title": "US consumer confidence jumps to highest level in nearly two years",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/us/us-consumer-confidence-surges-highest-level-nearly-two-years-2026-11-24/",
+      "summary": "U.S. consumer confidence rose to 103.3 in November, its highest reading since January 2025, according to the Conference Board. Respondents were more positive about jobs and the economy, with the share calling jobs plentiful reaching a 19-month high. The improvement was concentrated among Democrats and independents, while Republican confidence slipped. Inflation expectations remained elevated at 4.5%, and economists cautioned that optimism may not translate into stronger spending."
+    },
+    {
+      "title": "Abercrombie raises annual sales, profit forecast on strong apparel demand",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/retail-consumer/abercrombie-raises-annual-sales-profit-forecast-strong-apparel-demand-2026-11-24/",
+      "summary": "Abercrombie & Fitch lifted its annual sales and earnings forecasts after strong demand for Hollister and Abercrombie helped shares rise about 22% to a more than two-year high. Third-quarter sales increased 11% at Hollister and 12% at Abercrombie, while the company cited promotions and controlled inventory ahead of the holiday season. Freight costs remain a margin headwind, and retailers overall have reported mixed consumer demand."
+    },
+    {
+      "title": "Five Turkish soldiers killed in helicopter crash, ministry says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/middle-east/turkish-military-helicopter-crashed-search-rescue-under-way-2026-11-24/",
+      "summary": "Turkey’s Defence Ministry said five soldiers died when an AS-532 military helicopter crashed during a training flight in central Eskişehir province. The ministry did not disclose a cause, and Reuters reported no immediate details about weather, mechanical issues or an investigation. The incident adds to military aviation losses that can involve complex training and maintenance factors, but the available information does not establish what brought the aircraft down."
+    },
+    {
+      "title": "Spanish government challenges Madrid regional law extending rights to unborn children",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/spanish-government-challenges-madrid-regional-law-extending-rights-unborn-2026-11-24/",
+      "summary": "Spain’s Socialist-led government said it will challenge a Madrid regional law that makes unborn children eligible for certain family benefits, including tax breaks and subsidies. Equality Minister Ana Redondo argues the measure conflicts with national law and could affect abortion rights; the regional government is led by the conservative People’s Party. The dispute is entering a national election campaign, while Madrid’s law remains regional and the Constitutional Court has yet to rule."
+    },
+    {
+      "title": "US farm secretary pledges to fight court order halting her religious emails",
+      "source": "Reuters",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/us/us-farm-secretary-pledges-fight-court-order-halting-her-religious-emails-2026-11-24/",
+      "summary": "U.S. Agriculture Secretary Brooke Rollins said she will appeal a federal judge’s ruling limiting religious messages sent to USDA staff through her official account. Employees and their union argued that agency-wide Christmas and Easter emails promoted Christianity in a way that could pressure workers. The judge said Rollins must respect boundaries, including stopping such messages when asked. Rollins says she will fight the decision through the Supreme Court."
+    },
+    {
+      "title": "Swedish parliament to vote on Moderates leader Kristersson to remain prime minister",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/world/swedish-parliament-vote-moderates-leader-kristersson-remain-prime-minister-2026-11-24/",
+      "summary": "Sweden’s parliament speaker nominated Prime Minister Ulf Kristersson for a November 30 confirmation vote, seeking to end a 72-day impasse after September’s election. His centre-right bloc lacks a majority, while centre-left parties have been unable to agree on a governing arrangement. The pivotal Centre Party has not chosen a side and rejects cooperation with both the Left Party and Sweden Democrats, leaving a fresh election possible if parliament cannot approve a prime minister."
+    },
+    {
+      "title": "Daniels leads winning drive as Commanders walk off Bengals in thriller",
+      "source": "Associated Press (via theScore)",
+      "category": "Sports",
+      "published": "2026-11-24",
+      "url": "https://dev.thescore.com/nfl/news/3664848/daniels-leads-winning-drive-as-commanders-walk-off-bengals-in-thriller",
+      "summary": "Washington beat Cincinnati 22–20 after quarterback Jayden Daniels led a 64-yard drive in the final 34 seconds, setting up Drew Stevens’ 26-yard field goal as time expired. Daniels connected twice with rookie Antonio Williams after the Bengals had taken a one-point lead. The win kept Washington in the NFC East race and ended Cincinnati’s five-game winning streak. The Associated Press noted Washington’s six consecutive scoring drives of more than 50 yards."
+    },
+    {
+      "title": "‘Hunger Games’ Is a Box Office Power Again Thanks to Haymitch Abernathy",
+      "source": "TheWrap",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.thewrap.com/creative-content/movies/hunger-games-sunrise-on-the-reaping-box-office-success-explained/",
+      "summary": "The Hunger Games: Sunrise on the Reaping opened with about $120 million in North America and $225 million worldwide, giving Lionsgate one of its strongest debuts in more than a decade. The prequel centers on young Haymitch Abernathy and added roughly $12.8 million on Monday, according to TheWrap’s analysis. Its launch ranks among the top openings for franchise prequels, but the Thanksgiving frame brings new competition and final grosses remain subject to later reporting."
     },
     {
       "title": "Brad Pitt, Quentin Tarantino and David Fincher reunite for Cliff Booth spinoff",
@@ -688,6 +808,14 @@
       "published": "2026-11-24",
       "url": "https://www.reuters.com/legal/government/who-chief-calls-us-lift-oil-blockade-cuba-citing-health-impact-2026-11-24/",
       "summary": "World Health Organization chief Tedros Adhanom Ghebreyesus urged the United States to lift its fuel restrictions on Cuba, warning that power shortages are harming hospitals and putting vulnerable people, including children, at risk. WHO pledged $2 million for immunization and medical equipment. Washington says food and medicine exports are exempt from sanctions; the wider effects of the fuel restrictions remain disputed."
+    },
+    {
+      "title": "Paper wasps recognize faces in ways strikingly similar to humans",
+      "source": "Cornell Chronicle",
+      "category": "Science",
+      "published": "2026-11-23",
+      "url": "https://news.cornell.edu/stories/2026/11/paper-wasps-recognize-faces-ways-strikingly-similar-humans",
+      "summary": "Cornell researchers report that female northern paper wasps recognize individual faces using a localized group of neurons with activity resembling face-selective cells in primate brains. Experiments found the neurons responded to forward-facing images of other wasps, not side views or other insects, and encoded distinctive facial markings. The study suggests similar neural solutions evolved independently in insects and primates; researchers say comparisons with related wasp species may clarify how social recognition develops."
     },
     {
       "title": "FCC plans vote to loosen local TV and radio ownership limits",
