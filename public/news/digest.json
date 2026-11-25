@@ -1,6 +1,158 @@
 {
-  "updatedAt": "2026-11-25T19:56:14.000Z",
+  "updatedAt": "2026-11-25T21:08:53.192Z",
   "articles": [
+    {
+      "title": "At least 30 killed in blaze after vehicle overturns in Egypt, health ministry says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/least-21-killed-blaze-after-vehicle-overturns-egypt-health-ministry-says-2026-11-25/",
+      "summary": "Egypt's Health Ministry said at least 30 people were killed and 15 injured when a vehicle carrying petroleum products overturned and caught fire on Greater Cairo's Ring Road. The blaze began above a tunnel in Giza's Al-Warraq district and was brought under control, Reuters reported. Authorities have not established a cause. The crash renews scrutiny of road safety amid persistent concerns about speeding and enforcement."
+    },
+    {
+      "title": "US FinCEN takes some systems offline after cyber incident, official says",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/us-fincen-takes-some-systems-offline-after-cyber-incident-official-says-2026-11-25/",
+      "summary": "FinCEN took some systems offline after unauthorized access affected a limited subset of its network, a Treasury official told Reuters. Treasury is working with the FBI, CISA and outside forensic examiners to determine the scope. Officials said there was no evidence that Bank Secrecy Act or beneficial-ownership databases were breached; reporting relief was provided to filers disrupted by the outage. The investigation remains ongoing."
+    },
+    {
+      "title": "US famine monitor to halt reporting as funding shortfall hits staff, sources say",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/markets/us/us-famine-monitor-halt-reporting-funding-shortfall-hits-staff-sources-say-2026-11-25/",
+      "summary": "More than half of FEWS NET's field staff could receive termination notices by December 1, leaving the U.S.-funded hunger-monitoring network unable to publish its planned December food-security update, Reuters reported. The State Department had not confirmed fiscal-year funding. FEWS NET works in more than 30 countries, including famine-risk areas such as Sudan, Yemen, South Sudan and Somalia; the timing of any funding restart remains unclear."
+    },
+    {
+      "title": "US authorizes SpaceX to deploy 1 million satellites for data centers in space",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/media-telecom/us-authorizes-spacex-deploy-1-million-satellites-data-centers-space-2026-11-25/",
+      "summary": "U.S. regulators authorized SpaceX to deploy as many as one million Starmind satellites designed to process data in orbit for AI services. The license requires deployment to begin by November 2033, with 100,000 satellites by 2035 and half the approved total by 2038. Reuters notes that SpaceX may not build the full constellation; feasibility depends heavily on lower launch costs from its still-developing Starship rocket."
+    },
+    {
+      "title": "Fed policymakers at odds over causes of high inflation",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/fed-policymakers-odds-over-causes-high-inflation-2026-11-25/",
+      "summary": "Federal Reserve officials remain divided over whether stubborn inflation reflects temporary supply shocks or stronger demand, Reuters reported ahead of the December policy meeting. Economists expected October headline PCE inflation of 3.8% and core inflation of 3.2%, while some policymakers warned AI investment and resilient spending could entrench price pressures. Markets were pricing in further rate increases, though falling oil prices complicate the outlook."
+    },
+    {
+      "title": "Carthage resident Al Gore buys his hometown Tennessee newspaper",
+      "source": "The Philadelphia Inquirer (New York Times)",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.inquirer.com/business/al-gore-newspaper-carthage-courier-20261125.html",
+      "summary": "Former Vice President Al Gore agreed to buy the Carthage Courier, a 113-year-old weekly serving his Tennessee hometown and Smith County. The sale from the Lake family is expected to close in coming weeks; the price was not disclosed and all four employees are expected to remain. Gore, a former military and newspaper reporter, said he wants to preserve the paper as an independent local voice amid widespread newspaper closures."
+    },
+    {
+      "title": "Lawsuits allege ICE brutalized U.S. citizens and prisoners at for-profit jail",
+      "source": "Democracy Now!",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.democracynow.org/2026/11/25/headlines/lawsuits_allege_ice_brutalized_us_citizens_and_prisoners_at_for_profit_jail",
+      "summary": "Two people arrested during immigration raids in the Chicago area filed lawsuits alleging excessive force by federal agents; one plaintiff is a U.S. citizen who says agents rammed her car and restrained her after she identified herself. Separately, four former detainees allege sexual abuse, forced labor and retaliation at a Louisiana ICE facility. These are allegations in pending legal actions, not court findings."
+    },
+    {
+      "title": "How China got access to Nvidia's AI chips despite rules to stop them",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/how-china-got-access-nvidias-ai-chips-despite-rules-stop-them-2026-11-25/",
+      "summary": "Reuters traced how Chinese firms accessed advanced U.S. AI chips despite export restrictions, including by renting computing capacity from data centers in countries such as Singapore. A gap in licensing rules allowed some overseas facilities to buy chips without a license; new rules now cover several Southeast Asian hubs. U.S. data show nearly 900,000 Nvidia and AMD chips were approved for Chinese firms from December 2025 through May 2026."
+    },
+    {
+      "title": "Israeli judges recommend prosecutors drop one bribery case against Netanyahu",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/government/israeli-judges-recommend-prosecutors-drop-one-bribery-case-against-netanyahu-2026-11-25/",
+      "summary": "Judges in Benjamin Netanyahu's corruption trial recommended dropping one bribery case and reconsidering another, saying a conviction in the main case appeared unlikely. The recommendation is not a ruling; Attorney General Gali Baharav-Miara said prosecutors would review the court's comments. Netanyahu denies wrongdoing. The cases concern alleged regulatory favors for favorable media coverage and a proposed deal with a newspaper publisher."
+    },
+    {
+      "title": "Kenyan cult leader serving 200-year murder sentence convicted of new charges",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/kenyan-cult-leader-serving-200-year-murder-sentence-convicted-new-charges-2026-11-25/",
+      "summary": "Kenyan preacher Paul Mackenzie, already serving a 200-year sentence over the Shakahola starvation deaths, was convicted of five counts of child cruelty and one assault charge. A magistrate said he instructed followers to make children fast first; Mackenzie had pleaded not guilty and will be sentenced later. He was acquitted on other counts and still faces separate terrorism and manslaughter proceedings."
+    },
+    {
+      "title": "Former Nazi guest house 'Eagle's Nest' being renovated after blaze",
+      "source": "Reuters",
+      "category": "Curious news",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/former-nazi-guest-house-eagles-nest-being-renovated-after-blaze-2026-11-25/",
+      "summary": "Workers are repairing Bavaria's Eagle's Nest, the former Nazi guest house, after an October fire destroyed its roof and remaining original furniture. A man suspected of starting the blaze is being held in a psychiatric facility while the investigation continues. The site once drew about 300,000 visitors annually. Critics say it should remain in ruins to deter neo-Nazi pilgrimages; operators argue preservation supports monitored remembrance."
+    },
+    {
+      "title": "UN peacekeepers evacuate Ebola response workers trapped by fighting in eastern Congo",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/un-peacekeepers-evacuate-ebola-response-workers-trapped-by-fighting-eastern-2026-11-25/",
+      "summary": "U.N. peacekeepers evacuated 10 health workers from a hospital in eastern Democratic Republic of Congo after fighting between government forces and an armed group disrupted the Ebola response. The clashes in Ituri province also displaced civilians, while other workers sheltered in a maternity ward. The mission said it was unclear whether anyone remained trapped. Reuters reported the outbreak had caused 11,955 cases and 5,867 deaths."
+    },
+    {
+      "title": "Israeli opposition advances October 7 attack probe opposed by Netanyahu",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/middle-east/israeli-opposition-advances-october-7-attack-probe-opposed-by-netanyahu-2026-11-25/",
+      "summary": "Israel's opposition-led parliament gave initial approval to a bill creating an independent commission to investigate security failures before Hamas's October 7, 2023 attack. The measure passed 65–50 but needs three more votes. Prime Minister Benjamin Netanyahu opposes an independent inquiry and favors a government-shaped process. The vote comes as rival Gadi Eisenkot tries to assemble a coalition after Netanyahu's bloc lost its majority."
+    },
+    {
+      "title": "Suspected militants kill at least 30 in Nigeria's Niger state, residents say",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/suspected-militants-kill-least-30-nigerias-niger-state-residents-say-2026-11-25/",
+      "summary": "Residents told Reuters that suspected militants killed at least 30 people and burned homes in villages in Nigeria's Niger state, describing the assault as retaliation for earlier killings of Fulani herders. A village head said gunmen occupied some communities and blocked recovery of bodies; Reuters could not independently verify a circulating video. The governor announced compensation for victims' families and urged dialogue."
+    },
+    {
+      "title": "US holiday travel ramps up with long airport lines and bad weather",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/travel-thanksgiving-airports-highways-041a81e33ed10df50e89dc04705a6dcc",
+      "summary": "Thanksgiving travel accelerated as airports reported security waits of up to 81 minutes in Miami and roughly 40 minutes in Newark and Portland. TSA expected to screen 17.6 million passengers; AAA forecast 81.5 million people would travel at least 50 miles. AP reported more than 1,100 U.S. flight delays Wednesday morning, with East Coast storms, Midwest snow and West Coast king tides adding disruption risk."
+    },
+    {
+      "title": "Steelers QB Aaron Rodgers says he found out about benching from teammate",
+      "source": "Associated Press",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/pittsburgh-steelers-aaron-rodgers-mike-mccarthy-fc3541d64c60a659f06a87653e96c247",
+      "summary": "Aaron Rodgers said he learned of his benching from teammates, not coach Mike McCarthy, and accused the coach of falling asleep in meetings and missing team events. AP reported McCarthy and the Steelers did not directly address the accusations; Rodgers was excused from practice, and Mason Rudolph is set to start against Denver. The claims are Rodgers's account; the team has not publicly confirmed them."
+    },
+    {
+      "title": "Oil prices rise after Houthis claim attack on Saudi refinery",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/energy/oil-prices-fall-supply-glut-concerns-offset-middle-east-disruption-fears-2026-11-25/",
+      "summary": "Brent crude settled up 3.5% at $94.61 a barrel and U.S. WTI gained 2% to $83.68 after Yemen's Houthis claimed an attack on Saudi Arabia's Ras Tanura refinery and Riyadh's financial district. Reuters said traders added a geopolitical risk premium, while a smaller-than-expected U.S. inventory build also supported prices. OPEC+'s November 29 meeting and global supply-glut concerns remain key counterweights."
+    },
+    {
+      "title": "Federal Reserve survey finds modest growth but persistent price pressures",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/fed-survey-shows-continued-growth-sticky-inflation-recent-weeks-2026-11-25/",
+      "summary": "The Fed's latest Beige Book found slight-to-moderate growth in eight districts and no change in four, while consumer spending was flat and firms reported persistent energy, transport, health-care, insurance and tariff costs. AI-related data-center investment remained strong. The report adds business-level context ahead of the December meeting; October PCE inflation was 3.8% year over year, with core inflation at 3.3%, Reuters reported."
+    },
+    {
+      "title": "Two men in court accused of stealing cufflinks from Prince William's house",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/uk-news/2026/nov/25/two-charged-burglary-trespass-prince-princess-wales-home-norfolk",
+      "summary": "Two men appeared in a Norwich court accused of breaking into Anmer Hall, the Prince and Princess of Wales's Norfolk residence, and stealing six pairs of cufflinks and a clock. Prosecutors said they climbed a drainpipe to reach a dressing room; a third suspect remains at large. The defendants were remanded in custody and did not enter pleas. Kensington Palace said it would not comment on security matters."
+    },
     {
       "title": "Iraq orders nationwide troop deployment as oil-smuggling crackdown widens",
       "source": "Anadolu Agency",
@@ -24,14 +176,6 @@
       "published": "2026-11-25",
       "url": "https://apnews.com/article/77fa69b9e88b46c5d1adc29841d2b4cc",
       "summary": "The U.S. Army says it successfully destroyed its five-ton lead-azide stockpile at the Iowa Army Ammunition Plant, reporting no secondary explosions or infrastructure damage. EPA monitors detected no airborne lead in the first 15 minutes, while officials continue air, soil and water testing. The degraded explosive had become unstable in storage; nearby residents and farmers are still awaiting further monitoring results."
-    },
-    {
-      "title": "Heavy rain and high winds threaten Thanksgiving travel along East Coast",
-      "source": "The Guardian",
-      "category": "U.S.",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/us-news/2026/nov/25/heavy-rain-high-winds-thanksgiving-east-coast",
-      "summary": "Two storm systems moving up the East Coast threaten Thanksgiving travel with heavy rain, coastal flooding and wind gusts that could reach 60 mph in New York City. The gusts may ground balloons at the 100th Macy’s parade; officials are considering an earlier start. Forecasts include up to five inches of rain in parts of the Northeast and eight inches in south Florida, with flight delays and power outages possible."
     },
     {
       "title": "Drone strikes kill 19 civilians in Sudan's Blue Nile state, rights group says",
@@ -802,14 +946,6 @@
       "summary": "Waitrose says sales of its Scottish oats rose 124% this year as shoppers seek filling, fibre-rich foods amid the popularity of GLP-1 weight-loss drugs. A retailer survey found 64% of respondents were actively choosing foods that help them feel full for longer, while many GLP-1 users reported changing household shopping. The Guardian notes that social-media labels such as 'nature's Ozempic' are marketing shorthand: oats are not equivalent to prescription medication."
     },
     {
-      "title": "Oil prices rise over 1% after Houthis say they attacked Saudi refinery",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/energy/oil-prices-fall-supply-glut-concerns-offset-middle-east-disruption-fears-2026-11-25/",
-      "summary": "Oil prices rose more than 1% after Yemen’s Houthis claimed attacks on Saudi Arabia’s Ras Tanura refinery and Riyadh’s financial district, adding a geopolitical risk premium to prices. Brent reached $93.06 a barrel and U.S. WTI $82.97. Traders also weighed a possible global supply surplus, U.S. inventory data and an upcoming OPEC+ meeting, while shipping threats around the Strait of Hormuz continued."
-    },
-    {
       "title": "Paralympian Ezra Frech becomes first Paralympian to win Dancing with the Stars",
       "source": "NBC Sports",
       "category": "Sports",
@@ -986,14 +1122,6 @@
       "summary": "The cast and creators of 'SpongeBob SquarePants' are marking more than 27 years since the series began, ahead of a new holiday special. The animated show remains a major television and merchandise franchise, with more than $17 billion in retail sales and 353 billion minutes watched on YouTube, according to figures cited by AP. Creators credit its mix of humor and family appeal for sustaining multiple generations of fans."
     },
     {
-      "title": "Steelers bench Aaron Rodgers and name Mason Rudolph starter against Denver",
-      "source": "The Guardian",
-      "category": "Sports",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/sport/2026/nov/25/steelers-bench-aaron-rodgers-mason-rudolph-broncos-nfl",
-      "summary": "Pittsburgh has benched four-time NFL MVP Aaron Rodgers and will start Mason Rudolph against Denver on Friday, the Steelers said. The move follows two consecutive losses that dropped Pittsburgh to 6–4; Rodgers has thrown 16 touchdowns and six interceptions but posted a career-low 86.6 passer rating. Coach Mike McCarthy had backed Rodgers a day earlier, making the change notable. The team has not said whether the benching will extend beyond Friday."
-    },
-    {
       "title": "Study links GLP-1-associated weight loss with higher breast density and mammogram callbacks",
       "source": "Reuters",
       "category": "Health",
@@ -1040,14 +1168,6 @@
       "published": "2026-11-25",
       "url": "https://apnews.com/article/trump-tariffs-china-european-union-367083ea32f71fd7f70029ba7df66bf0",
       "summary": "Washington proposed new Section 301 duties on imports from China, the EU, Japan, South Korea, Taiwan and other partners, citing subsidies and excess factory output. AP reported a proposed additional 20% on some Chinese goods, bringing those products to 45%, and 10% to 18% rates for other partners; Brazil also faces extra sugar duties and a 10% aircraft tariff. The measures remain proposals and may face legal challenges."
-    },
-    {
-      "title": "Two men charged after break-in at Prince William and Catherine's country home",
-      "source": "Reuters",
-      "category": "Curious news",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/uk/two-charged-with-burglary-after-break-in-country-home-prince-william-wife-kate-2026-11-25/",
-      "summary": "Two Albanian men appeared in court charged with burglary and trespass after an alleged break-in at Anmer Hall, Prince William and Catherine's country residence on the Sandringham estate. Prosecutors said the men and a third suspect climbed a drainpipe and stole a clock and six pairs of cufflinks. The home was unoccupied; neither defendant entered a plea, and the case was adjourned while prosecutors seek approval for one charge."
     },
     {
       "title": "U.S. new home sales jump to 10-month high as builders cut prices",
@@ -1274,20 +1394,28 @@
       "summary": "Europe’s Hera mission released the first close-up images of Dimorphos, the asteroid NASA’s DART spacecraft struck in 2022. The images show a stadium-sized flattened crater, chaotic tumbling and hundreds of orbiting boulders. DART shortened Dimorphos’s orbit around Didymos by about 33 minutes; Hera’s follow-up measurements will help scientists understand how asteroid structure affects deflection and improve future planetary-defense planning."
     },
     {
-      "title": "Federal Reserve survey finds modest growth but persistent price pressures",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/fed-survey-shows-continued-growth-sticky-inflation-recent-weeks-2026-11-25/",
-      "summary": "The Federal Reserve’s latest Beige Book found economic activity growing at a slight-to-moderate pace in most regions while inflation remained sticky and employment edged higher. Businesses cited persistent energy, transport, health-care, insurance and tariff costs, often rising faster than selling prices. The report adds local business evidence ahead of the Fed’s December meeting, as inflation remains above the central bank’s 2% target."
-    },
-    {
       "title": "BNP Paribas moves into higher global systemic-bank category, raising capital buffer",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/finance/bnp-paribas-moves-up-global-systemic-bank-list-capital-buffer-rises-2026-11-25/",
       "summary": "BNP Paribas moved into a higher systemic-risk category on the Financial Stability Board’s 2026 list, raising its required extra capital buffer from 1.5% to 2%. MUFG moved down to a 1% buffer, while the list remained at 29 banks and JPMorgan stayed highest at 2.5%. The revised buffers take effect Jan. 1, 2028, affecting how much loss-absorbing capital major lenders must hold."
+    },
+    {
+      "title": "Justice Department announces largest-ever crackdown on scammers, targeting over 800 defendants",
+      "source": "U.S. Department of Justice",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://www.justice.gov/opa/pr/justice-department-announces-largest-ever-crackdown-scammers-targeting-over-800-defendants",
+      "summary": "The Justice Department said it had taken action in more than 400 cases involving over 800 defendants since a March executive order targeting scam networks. The department cited charges, extraditions, convictions and international raids; the FBI said Operation Blackout seized nearly $17 billion in illicit funds and prevented more than $690 million in potential losses. Those figures are the administration's reported enforcement results, not an independent estimate of recovered victim money."
+    },
+    {
+      "title": "Nearly 7,000 killed or injured by landmines, war remnants in 2025, highest toll in 5 years",
+      "source": "Anadolu Agency",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.aa.com.tr/en/world/nearly-7-000-killed-or-injured-by-landmines-war-remnants-in-2025-highest-toll-in-5-years-report/4136218",
+      "summary": "The Landmine Monitor 2026 report recorded at least 6,929 people killed or injured by mines and explosive remnants in 2025, a 10% rise and the highest toll since 2020. Civilians accounted for 84% of known casualties, with children half of civilian victims whose ages were recorded. Myanmar had the most casualties; treaty withdrawals and renewed mine production are putting the international ban under pressure."
     },
     {
       "title": "‘Hunger Games’ Is a Box Office Power Again Thanks to Haymitch Abernathy",
