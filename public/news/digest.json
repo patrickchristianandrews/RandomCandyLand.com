@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T02:15:33.494Z",
+  "updatedAt": "2026-11-25T04:03:20Z",
   "articles": [
     {
       "title": "China launches mission carrying Pakistan's first astronaut in orbit",
@@ -112,6 +112,14 @@
       "published": "2026-11-24",
       "url": "https://apnews.com/article/lion-istanbul-search-7014ccaa359b7e672dedd6c34d5e2e01",
       "summary": "Authorities launched a day-long search after videos appeared to show a lioness in an Istanbul suburb. Residents were advised to remain indoors and a forest was closed. Officials subsequently said further images and field searches produced no evidence of a lion or other large feline. The animal’s actual identity remained unclear, prompting public confusion and jokes online."
+    },
+    {
+      "title": "Artists urge Australia to preserve copyright protections in AI legislation",
+      "source": "The Guardian",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/technology/2026/nov/24/kate-bush-grace-jones-australian-artists-copyright-law-ai",
+      "summary": "More than 7,000 creatives, including Kate Bush and Grace Jones, have backed a campaign demanding permission-based use of their work for AI training. An Australian parliamentary committee has recommended measures to facilitate compensation for rights holders. Technology companies argue that existing licensing arrangements complicate model development, while industry representatives favor enforcing current protections. The recommendations are not yet government policy."
     },
     {
       "title": "Thanksgiving travelers face weather and airline disruption risks",
