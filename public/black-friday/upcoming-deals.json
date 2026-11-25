@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T15:46:00Z",
+  "generatedAt": "2026-11-25T01:12:00Z",
   "timeZone": "America/New_York",
   "note": "Confirmed announcements and previews only; missing prices remain null. Not a guarantee of all future offers.",
   "deals": [
@@ -795,19 +795,19 @@
       "name": "Costco Hisense S7 CanvasTV 65/75 inch",
       "category": "TVs",
       "store": "Costco",
-      "price": null,
+      "price": 899.99,
       "reference": null,
       "spec": "Online-only Nov 30; advertised $899.99 to $1,199.99 depending on size; items 9665750 and 9675750",
       "source": "https://www.costco.com/o/-/cyber-monday",
       "sourceType": "Official announced preview",
-      "checked": "2026-11-18",
+      "checked": "2026-11-24",
       "startsAt": "2026-11-30",
       "endsAt": "2026-11-30",
       "saleDays": [
         "cyber"
       ],
-      "why": "Official retailer announcement or published sale flyer; confirm the item, timing, membership and final checkout price.",
-      "catch": "Preview price or timing is not a live offer. Exact start time is unknown if only a date is supplied.",
+      "why": "Costco’s official Cyber Monday flyer lists $899.99–$1,199.99 for the 65- and 75-inch S7 CanvasTV models, items 9665750 and 9675750, valid online Nov. 30.",
+      "catch": "Online only and a Costco membership is required. The $899.99 value is the verified starting price; size-specific totals differ. Shipping and handling may apply, and no coupon or cashback is assumed.",
       "announced": true
     },
     {
