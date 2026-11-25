@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T14:59:36.000Z",
+  "updatedAt": "2026-11-25T15:59:20.000Z",
   "articles": [
     {
       "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
@@ -26,12 +26,12 @@
       "summary": "Reuters documents how inexpensive first-person-view drones are reshaping conflicts across Mali, Burkina Faso and Niger. Armed groups have used tactics refined in Ukraine to threaten military vehicles, aircraft and infrastructure, eroding governments’ former air advantage. The reporting also describes Ukrainian training links to Sahel separatists. The shift raises security risks for regional forces and facilities, though the balance of power varies by country."
     },
     {
-      "title": "AI stocks drag Wall Street lower, S&P 500 slumps 2.6%",
+      "title": "AI anxiety weighs on Wall Street as S&P 500 tumbles 3%",
       "source": "Associated Press",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://apnews.com/article/stock-markets-ai-earnings-oil-10044b4fb55d3ff20fde9ba9e9acaab1",
-      "summary": "Wall Street sold off again as investors questioned whether AI-company valuations and heavy data-center spending can be sustained. The S&P 500 fell 2.6%, the Dow dropped 831 points and the Nasdaq slid 3.8%; Nvidia lost 5% and Anthropic traded below its IPO price. New tariff proposals and stubborn inflation added pressure, while falling bond yields and oil prices reflected a shift toward caution."
+      "summary": "Wall Street fell sharply as renewed doubts about AI investment collided with stubborn inflation and new U.S. tariff proposals. The S&P 500 dropped 3%, the Nasdaq 4.3% and the Dow 1,033 points by mid-morning; Nvidia and other major technology shares led losses. October PCE inflation accelerated to 3.8% year over year, while global markets also weakened, deepening concerns about valuations and interest rates."
     },
     {
       "title": "All hostages rescued after Colombian supermarket siege ends",
@@ -56,6 +56,14 @@
       "published": "2026-11-25",
       "url": "https://apnews.com/article/ethiopia-tigray-amnesty-war-crimes-eritrea-shelling-civilians-badme-427358084fef2eb567e38acd81c3eacd",
       "summary": "Amnesty International urged an independent investigation after verifying 14 civilian deaths in four Ethiopian artillery attacks on Alamata in September. It also alleged that Tigrayan forces placed fighters in residential areas and schools, claims the TPLF rejected; Ethiopian authorities had not responded. The report comes amid renewed clashes and military movements near the Eritrean border, raising fears that the fragile 2022 peace agreement could unravel."
+    },
+    {
+      "title": "AP photo essay documents homelessness beneath Barcelona's prosperous landmarks",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.washingtonpost.com/world/2026/11/25/spain-housing-homeless-election-photo-essay-rent/f0ad35da-e88e-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "An Associated Press photo essay documents people sleeping rough beneath Barcelona’s grand civic and commercial buildings as Spain’s housing crisis becomes a central election issue. A local nonprofit estimated about 2,000 people slept on the city’s streets nightly in December 2025, 43% more than in 2023. New-lease rents rose 42% over a decade, while shelters face waiting lists and complex referral rules."
     },
     {
       "title": "Australia and Solomon Islands sign security treaty barring foreign military bases",
@@ -120,6 +128,14 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/bulgaria-intercepts-first-irregular-migrant-boat-months-2026-11-25/",
       "summary": "Bulgarian authorities intercepted a boat carrying 35 migrants after it entered the country's Black Sea waters and came ashore near Sinemorets. Children were among those taken for medical care and warm clothing, regional officials told state news agency BTA. Bulgaria recorded about 7,000 attempted entries by land and sea in the first nine months of 2026, down from roughly 12,270 during the same period in 2025."
+    },
+    {
+      "title": "Cambodia and China begin largest Golden Dragon joint military exercise",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.washingtonpost.com/world/2026/11/25/cambodia-china-military-army-naval-base/9149a1b0-e8bf-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "Cambodia and China began their eighth Golden Dragon joint military exercise, described by Cambodian officials as the largest since the drills started in 2016. The 15-day program includes counterterrorism, anti-piracy, humanitarian assistance and disaster relief. The cooperation underscores Beijing’s close relationship with Phnom Penh and draws attention to the Chinese-funded expansion of Cambodia’s Ream Naval Base, which Cambodia says is open to friendly navies."
     },
     {
       "title": "Cardamom advertisement sparks legal dispute between Bollywood actor and Indian regulator",
@@ -264,6 +280,14 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/uk/ex-england-soccer-player-sterling-spared-immediate-jail-sentence-dangerous-2026-11-25/",
       "summary": "Former England winger Raheem Sterling received a 12-month prison sentence suspended for 18 months after admitting dangerous driving while inhaling nitrous oxide before crashing his Lamborghini. A court also ordered 100 hours of unpaid work and a two-year driving ban. No one was injured. The judge cited the danger to other road users, while noting Sterling had engaged with addiction services after the incident."
+    },
+    {
+      "title": "Flood at unauthorized Indonesian gold mine leaves nine dead and 17 missing",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.washingtonpost.com/world/2026/11/25/indonesia-bogor-miners-trapped/c406604a-e89f-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "Floodwaters killed at least nine miners at an unauthorized gold mine in West Java, while rescuers searched for 17 people believed trapped underground. Heavy rain caused the nearby Ciseureuh River to overflow into a roughly 100-metre shaft. Authorities said the illegal operation delayed notification by about 16 hours; 325 rescuers were working in difficult conditions. The disaster highlights hazards in Indonesia’s informal mining sector."
     },
     {
       "title": "German economy grows just 0.1% in third quarter after downward revision",
@@ -506,12 +530,12 @@
       "summary": "Waitrose says sales of its Scottish oats rose 124% this year as shoppers seek filling, fibre-rich foods amid the popularity of GLP-1 weight-loss drugs. A retailer survey found 64% of respondents were actively choosing foods that help them feel full for longer, while many GLP-1 users reported changing household shopping. The Guardian notes that social-media labels such as 'nature's Ozempic' are marketing shorthand: oats are not equivalent to prescription medication."
     },
     {
-      "title": "Oil prices fall as expected supply surplus offsets Middle East shipping risks",
+      "title": "Oil prices rise over 1% after Houthis say they attacked Saudi refinery",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/energy/oil-prices-fall-supply-glut-concerns-offset-middle-east-disruption-fears-2026-11-25/",
-      "summary": "Oil prices fell more than 1% as traders weighed signs of a possible 2027 supply surplus against attacks and shipping risks around the Strait of Hormuz. Brent slipped to about $89.93 a barrel and U.S. crude to $80.53. Attention is turning to the November 29 OPEC+ meeting, where members will discuss output policy; further disruption could quickly alter the balance."
+      "summary": "Oil prices rose more than 1% after Yemen’s Houthis claimed attacks on Saudi Arabia’s Ras Tanura refinery and Riyadh’s financial district, adding a geopolitical risk premium to prices. Brent reached $93.06 a barrel and U.S. WTI $82.97. Traders also weighed a possible global supply surplus, U.S. inventory data and an upcoming OPEC+ meeting, while shipping threats around the Strait of Hormuz continued."
     },
     {
       "title": "Plane crash off the coast of Mississippi kills 6, including 2 children",
@@ -520,6 +544,14 @@
       "published": "2026-11-25",
       "url": "https://apnews.com/article/plane-down-gulf-of-mexico-a1dfde1b2e73ef5862a4786db9644046",
       "summary": "A Cessna 210 traveling from New Orleans to Fort Myers crashed in the Gulf of Mexico between Pascagoula and Horn Island, killing all six aboard, including two boys ages 8 and 10, the Coast Guard said. Divers recovered the victims from the fuselage after a lengthy search. The FAA and National Transportation Safety Board will investigate; officials have not announced a cause."
+    },
+    {
+      "title": "Pope creates Vatican initiative to coordinate Catholic prison ministry",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.washingtonpost.com/world/2026/11/25/vatican-prison-ministry-inmates-francis-leo-pope/6f8a6e48-e8dc-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "Pope Leo XIV created a Vatican service to coordinate Catholic pastoral care for prisoners worldwide, naming Buenos Aires Archbishop Jorge Ignacio García Cuerva as its first coordinator. The office will help local churches organize prison visits, train volunteers and liaise with civil authorities. The move formalizes a priority Leo inherited from Pope Francis and follows Leo’s recent visits to prisons in Equatorial Guinea and Argentina."
     },
     {
       "title": "Pope Leo calls COP31's failure to reach a climate deal troubling",
@@ -674,12 +706,28 @@
       "summary": "Tata Steel's proposed combination with Indian steel-tube maker APL Apollo could create a business with 7.5 million metric tons of annual capacity, but the deal structure has angered investors. Tata plans to sell its finished-products unit, buy a major stake from APL Apollo's chair and make a further open offer. A separate manufacturing agreement for the chair's private firm has raised governance concerns, while both companies' shares fell sharply."
     },
     {
+      "title": "The Latest: Army detonates entire US stockpile of lead azide in Iowa",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/77fa69b9e88b46c5d1adc29841d2b4cc",
+      "summary": "The U.S. Army detonated about five tons of the country’s aging lead-azide stockpile at an Iowa ammunition plant after officials warned the crystallized explosive could detonate unpredictably. The EPA reported no airborne lead in the first 15 minutes and is continuing air, soil and water monitoring. Residents were told to shelter indoors, while farmers and environmental groups await testing for possible effects on crops, livestock and water."
+    },
+    {
       "title": "These young Republicans have a message for their party: It’s time to ‘grow up’",
       "source": "Associated Press",
       "category": "Politics",
       "published": "2026-11-25",
       "url": "https://apnews.com/article/young-republicans-trump-midterm-election-0e823c8c8beedc8f2deccc707c7bb0da",
       "summary": "Several dozen young Republicans in Tarrant County, Texas, met after the party’s midterm losses to discuss its direction. Many criticized personal attacks, infighting and limited progress on affordability, while urging stronger leadership and a return to conservative principles. Others favored a harder line. The discussion offers a local snapshot of tensions over Trump’s influence as Republicans look toward 2028."
+    },
+    {
+      "title": "Trump plans new tariffs for China, EU and other trading partners over subsidies",
+      "source": "Associated Press",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/trump-tariffs-china-european-union-367083ea32f71fd7f70029ba7df66bf0",
+      "summary": "The Trump administration proposed new Section 301 tariffs on China, the European Union, Japan, South Korea, Taiwan and nine other trading partners, citing subsidized overproduction and trade barriers. Proposed rates include 20% for China and Vietnam and 10%–18% for others; Brazil faces additional sugar duties and a 10% aircraft tariff. The measures require consultation and are not expected to begin for months; China rejected the rationale."
     },
     {
       "title": "UK competition watchdog weighs remedies for proposed $25 billion AkzoNobel-Axalta merger",
@@ -778,22 +826,6 @@
       "summary": "Orders for US-made non-defence capital goods excluding aircraft rose 1.2% in October, beating economists' expectations and extending a run of strong business-equipment investment. Shipments also increased, supporting the equipment-spending component of GDP. AI infrastructure investment has helped drive recent growth, but investors are questioning the cost and returns of data-centre expansion. Durable-goods orders rose more modestly as weaker aircraft orders offset gains elsewhere."
     },
     {
-      "title": "US proposes new tariffs on Brazil imports, including a 10% duty on aircraft",
-      "source": "Reuters",
-      "category": "Politics",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/aerospace-defense/us-proposes-higher-tariffs-brazil-imports-including-10-duty-aircraft-2026-11-25/",
-      "summary": "The United States proposed new Section 301 tariffs on Brazilian goods, including a 10% duty on finished aircraft and higher charges on some sugar imports. Washington says Brazil has not addressed alleged unfair trade practices; Brasilia rejects the accusations. The move could hit Embraer, a major aircraft exporter, and follows the Supreme Court's rejection of earlier emergency-law tariffs. US officials say negotiations remain possible."
-    },
-    {
-      "title": "US stockpile of unstable and dangerous lead azide scheduled for detonation in Iowa",
-      "source": "Associated Press",
-      "category": "Environment",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/iowa-lead-detonation-714e040baedc1cd90c2ba688be76cfc7",
-      "summary": "The U.S. Army plans to detonate about five tons of degraded lead azide at its Iowa ammunition plant at 9 a.m. Wednesday, after inspections found the decades-old material had crystallized and could explode spontaneously. Residents within five miles were urged to evacuate. The Army says two-story concrete and sand barriers, gels, foam and water will limit lead dust, though nearby communities remain concerned about health and environmental effects."
-    },
-    {
       "title": "US-Mexico intelligence cooperation may ease tensions after cartel leader's capture",
       "source": "Associated Press",
       "category": "World",
@@ -816,6 +848,14 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/walmart-owned-flipkarts-kalyan-krishnamurthy-steps-down-ceo-2026-11-25/",
       "summary": "Walmart-owned Flipkart said chief executive Kalyan Krishnamurthy will leave after more than 11 years leading the Indian e-commerce group. The company says product and technology chief Balaji Thiagarajan will run the business temporarily while a successor is selected. Flipkart has more than 500 million registered users and has long prepared for a possible public listing, though no timetable was announced."
+    },
+    {
+      "title": "Wolf comeback divides the densely populated Netherlands",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.washingtonpost.com/world/2026/11/25/netherlands-wolf-return-anger-debate/7156e4ec-e8b7-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "Wolves, absent from the Netherlands for about two centuries, have returned in growing numbers, but their recovery has sparked conflict in the densely populated country. Researchers estimate fewer than 150 animals in about 15 packs, while farmers report thousands of livestock losses. The government says it plans to permit some culling to prevent attacks; conservationists argue coexistence measures remain essential."
     },
     {
       "title": "Yemenis prepare to flee as Houthis advance toward Aden",
@@ -1090,12 +1130,28 @@
       "summary": "Gavi plans to buy up to 1.5 million doses of an experimental vaccine against the Bundibugyo strain of Ebola if trials in the Democratic Republic of Congo show it is safe and effective. The candidate was developed by Oxford and the Serum Institute of India. No licensed vaccine or treatment exists for this strain, which has caused a major outbreak; purchase terms were not disclosed."
     },
     {
+      "title": "Gisèle Pelicot condemns publisher over use of intimate images in book promotion",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.washingtonpost.com/world/2026/11/24/gisele-pelicot-france-sexual-assault/87b35226-e820-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "Gisèle Pelicot criticized a Paris publisher for using intimate photographs taken by her former husband to promote a book about her rape case. Her lawyer said the images were part of evidence in the trial that convicted 51 men, including her ex-husband. The publisher apologized, halted promotion and said it would not print more copies, while disputing descriptions of the images as explicit."
+    },
+    {
       "title": "Holiday shoppers return to malls for in-person experiences",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-24",
       "url": "https://www.reuters.com/business/retail-consumer/us-malls-make-holiday-comeback-shoppers-seek-more-than-deals-2026-11-24/",
       "summary": "Retail surveys indicate renewed interest in physical shopping ahead of Thanksgiving. A JLL survey found approximately 55% of holiday shoppers intended to visit an indoor mall, compared with around half last year. Retailers are adding dining, customization and other experiences to attract visitors. The figures reflect shoppers' stated plans rather than final holiday sales."
+    },
+    {
+      "title": "Hong Kong fire survivors mark one year amid grief and questions over accountability",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.washingtonpost.com/world/2026/11/24/hong-kong-fire-survivors-wang-fuk-court/a6f394e8-e86b-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "One year after a fire killed 168 people across seven Hong Kong apartment blocks, survivors are still grieving and questioning accountability. An investigation cited unsafe maintenance work and weak oversight; prosecutions remain ongoing. Some residents say authorities have restricted public criticism and rejected rebuilding the complex. The anniversary has renewed scrutiny of the government’s response and the resettlement of displaced homeowners."
     },
     {
       "title": "House Democrat expands investigation into Donald Trump Jr.'s investment firm",
@@ -1256,6 +1312,14 @@
       "published": "2026-11-24",
       "url": "https://phys.org/news/2026-11-workflow-advances-programmable-chromosome.html",
       "summary": "A team at the Chinese Academy of Sciences published a protocol for programmable, large-scale chromosome editing in plants, enabling insertions, deletions, inversions and replacements across substantial DNA regions. The method combines engineered recombinases with prime editing and aims to remove leftover editing sequences. Researchers say the workflow could support crop breeding and synthetic biology, though edited plant lines still require validation and take months to produce."
+    },
+    {
+      "title": "Pope Francis' private diary reveals spiritual doubts and a period of crisis",
+      "source": "Associated Press (via The Washington Post)",
+      "category": "Curious",
+      "published": "2026-11-24",
+      "url": "https://www.washingtonpost.com/world/2026/11/24/pope-francis-diary-vatican-devil-clergy-abuse/0937fce2-e7cd-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "The Vatican released excerpts from Pope Francis’ private diary, spanning 1992 to August 2024, revealing spiritual doubts, health struggles and reflections on the clergy-abuse scandal. The notes describe a 2021–22 crisis that a close aide linked to Francis’ struggles with authority and governance. The book was curated by Cardinal Víctor Manuel Fernández, who says Francis wanted the writings published."
     },
     {
       "title": "Radar outage delays arrivals at Chicago O'Hare during Thanksgiving travel",
