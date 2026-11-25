@@ -480,8 +480,8 @@ for(const path of ['dist/music-visualizer/index.html','dist/music-visualizer/tv.
 }
 if(homeInstallSource.includes('Candy Pulse')||homeInstallSource.includes('Creative & Music Tools')||
    homeInstallSource.includes("id:'creative'")||homeInstallSource.includes("kind:'creative'")||
-   !homeInstallSource.includes('candyland-random-ai-promo')||
-   !homeInstallSource.includes("url:'/studio/'")||
+   !homeInstallSource.includes("name:'Random AI',url:'/studio/'")||
+   !homeInstallSource.includes("name:'Random AI',url:'/studio/'")||
    fs.readFileSync('dist/install-app.js','utf8').includes('candy-pulse')||
    fs.readFileSync('dist/manifest.json','utf8').includes('Candy Pulse')){
  console.error('Creative/music section or Candy Pulse remains, or the Random AI ad disappeared.');failures++;
@@ -829,7 +829,7 @@ if(!featuredHeader.includes('rcl-workshop-nav') ||
    !featuredHeader.includes('src="/icon.svg"') ||
    featuredHeader.indexOf('Random <strong>Candy Land</strong>')>featuredHeader.indexOf('src="/icon.svg"') ||
    !homeInstallSource.includes('candyland-random-ai-promo') ||
-   !homeInstallSource.includes('href="/studio/"') ||
+   !homeInstallSource.includes("name:'Random AI',url:'/studio/'") ||
    featuredHeader.includes('candyland-unwrapped-promo')){
    console.error('Workshop header must keep original logo right of name and link Random AI as a featured tile.');failures++;
 }
