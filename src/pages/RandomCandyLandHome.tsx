@@ -232,16 +232,53 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         <div className="rcl-candy-ribbon" aria-hidden="true"></div>
       </section>
 
-      <section className="rcl-site-highlights" id="rcl-explore" aria-labelledby="rcl-explore-title">
-        <div className="rcl-section-heading"><h2 id="rcl-explore-title">Choose your next adventure</h2><span>Six ways to get started</span></div>
-        <div className="rcl-highlight-grid">
-          <a className="rcl-highlight-card rcl-tone-lilac candyland-random-ai-promo" href="/studio/"><img src="/tool-icons/candy-studio.svg" width={48} height={48} alt="" /><strong>Random AI</strong><span>Explore local AI models and tools.</span><b aria-hidden="true">↗</b></a>
-          <a className="rcl-highlight-card rcl-tone-mint" href="/image-studio/"><img src="/tool-icons/image-studio.svg" width={48} height={48} alt="" /><strong>Image Studio</strong><span>Make pictures your way.</span><b aria-hidden="true">↗</b></a>
-          <a className="rcl-highlight-card rcl-tone-blush" href="/after-dark/"><img src="/tool-icons/unwrapped.svg" width={48} height={48} alt="" /><strong>Unwrapped</strong><span>Explore yourself and connect.</span><b aria-hidden="true">↗</b></a>
-          <a className="rcl-highlight-card rcl-tone-butter" href="#shelf-quick"><img src="/tool-icons/simon.svg" width={48} height={48} alt="" /><strong>Games</strong><span>Take a playful break.</span><b aria-hidden="true">↗</b></a>
-          <a className="rcl-highlight-card rcl-tone-sky" href="/curiosity/"><img src="/tool-icons/wonder-index.svg" width={48} height={48} alt="" /><strong>Wonder Index</strong><span>Follow a strange idea.</span><b aria-hidden="true">↗</b></a>
-          <a className="rcl-highlight-card rcl-tone-peach" href="/black-friday/"><img src="/tool-icons/candy-match.svg" width={48} height={48} alt="" /><strong>Deals Hub</strong><span>Shop smarter and save more.</span><b aria-hidden="true">↗</b></a>
+      <section className="candyland-world" aria-labelledby="candyland-map">
+        <div className="candyland-world-header">
+          <h2 id="candyland-map">Explore Candy Land</h2>
+          <div className="candyland-world-controls">
+            <button type="button" aria-label="Previous destination" aria-controls="candyland-world-rail" onClick={() => moveWorld(-1)}>←</button>
+            <button type="button" aria-label="Next destination" aria-controls="candyland-world-rail" onClick={() => moveWorld(1)}>→</button>
+          </div>
         </div>
+        <div id="candyland-world-rail" className="candyland-world-stage"
+          onKeyDown={event => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+            event.preventDefault();
+            moveWorld(event.key === 'ArrowLeft' ? -1 : 1);
+          }}
+          onTouchStart={event => {
+            const touch = event.touches[0];
+            swipeStart.current = event.touches.length === 1 ? {x: touch.clientX, y: touch.clientY} : null;
+          }}
+          onTouchCancel={() => { swipeStart.current = null; }}
+          onTouchEnd={event => {
+            const start = swipeStart.current;
+            swipeStart.current = null;
+            if (!start) return;
+            const touch = event.changedTouches[0];
+            const dx = touch.clientX - start.x;
+            const dy = touch.clientY - start.y;
+            if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.4) moveWorld(dx < 0 ? 1 : -1);
+          }}>
+          {MAP_STOPS.map((stop, index) => {
+            const active = index === activeStop;
+            const side = active ? 'center' : index === wrapStop(activeStop - 1) ? 'left' : index === wrapStop(activeStop + 1) ? 'right' : 'away';
+            return (
+              <article key={stop.name} className="candyland-world-card" data-side={side} data-color={stop.color} hidden={side === 'away'}>
+                <div className="candyland-world-art" aria-hidden="true"><img src={stop.art} width={508} height={508} alt="" draggable={false} loading={side === 'away' ? 'lazy' : 'eager'} /></div>
+                <div className="candyland-world-copy">
+                  <h3>{stop.name}</h3>
+                  {active && <><p>{stop.detail}</p><a href={stop.target}>{stop.action} <span aria-hidden="true">↗</span></a></>}
+                </div>
+                {!active && side !== 'away' && <button className="candyland-world-peek" type="button" tabIndex={-1} aria-label={'Preview '+stop.name} onClick={() => setActiveStop(index)} />}
+              </article>
+            );
+          })}
+        </div>
+        <div className="candyland-world-dots" aria-label="Choose a destination">
+          {MAP_STOPS.map((stop, index) => <button key={stop.name} type="button" aria-label={stop.name} aria-pressed={activeStop === index} onClick={() => setActiveStop(index)} />)}
+        </div>
+        <div className="sr-only" role="status">{MAP_STOPS[activeStop].name}, {activeStop + 1} of {MAP_STOPS.length}</div>
       </section>
 
       <section className="candy-home-holiday" id="rcl-holiday" aria-labelledby="home-holiday-deals">
@@ -295,54 +332,7 @@ export function RandomCandyLandHome({ onNavigateToTrump }: RandomCandyLandHomePr
         </a>
       </section>
 
-      <section className="candyland-world" aria-labelledby="candyland-map">
-        <div className="candyland-world-header">
-          <h2 id="candyland-map">Explore Candy Land</h2>
-          <div className="candyland-world-controls">
-            <button type="button" aria-label="Previous destination" aria-controls="candyland-world-rail" onClick={() => moveWorld(-1)}>←</button>
-            <button type="button" aria-label="Next destination" aria-controls="candyland-world-rail" onClick={() => moveWorld(1)}>→</button>
-          </div>
-        </div>
-        <div id="candyland-world-rail" className="candyland-world-stage"
-          onKeyDown={event => {
-            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-            event.preventDefault();
-            moveWorld(event.key === 'ArrowLeft' ? -1 : 1);
-          }}
-          onTouchStart={event => {
-            const touch = event.touches[0];
-            swipeStart.current = event.touches.length === 1 ? {x: touch.clientX, y: touch.clientY} : null;
-          }}
-          onTouchCancel={() => { swipeStart.current = null; }}
-          onTouchEnd={event => {
-            const start = swipeStart.current;
-            swipeStart.current = null;
-            if (!start) return;
-            const touch = event.changedTouches[0];
-            const dx = touch.clientX - start.x;
-            const dy = touch.clientY - start.y;
-            if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.4) moveWorld(dx < 0 ? 1 : -1);
-          }}>
-          {MAP_STOPS.map((stop, index) => {
-            const active = index === activeStop;
-            const side = active ? 'center' : index === wrapStop(activeStop - 1) ? 'left' : index === wrapStop(activeStop + 1) ? 'right' : 'away';
-            return (
-              <article key={stop.name} className="candyland-world-card" data-side={side} data-color={stop.color} hidden={side === 'away'}>
-                <div className="candyland-world-art" aria-hidden="true"><img src={stop.art} width={508} height={508} alt="" draggable={false} loading={side === 'away' ? 'lazy' : 'eager'} /></div>
-                <div className="candyland-world-copy">
-                  <h3>{stop.name}</h3>
-                  {active && <><p>{stop.detail}</p><a href={stop.target}>{stop.action} <span aria-hidden="true">↗</span></a></>}
-                </div>
-                {!active && side !== 'away' && <button className="candyland-world-peek" type="button" tabIndex={-1} aria-label={'Preview '+stop.name} onClick={() => setActiveStop(index)} />}
-              </article>
-            );
-          })}
-        </div>
-        <div className="candyland-world-dots" aria-label="Choose a destination">
-          {MAP_STOPS.map((stop, index) => <button key={stop.name} type="button" aria-label={stop.name} aria-pressed={activeStop === index} onClick={() => setActiveStop(index)} />)}
-        </div>
-        <div className="sr-only" role="status">{MAP_STOPS[activeStop].name}, {activeStop + 1} of {MAP_STOPS.length}</div>
-      </section>
+      
 
       {/* The Nonsense Dispatch is a small fictional-news ticker at the top. */}
       <RandomNonsenseGenerator />
