@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T12:06:32.666Z",
+  "updatedAt": "2026-11-25T12:59:40.000Z",
   "articles": [
     {
       "title": "Kiwi return to Wellington hills after 150 years in Māori-led conservation milestone",
@@ -122,12 +122,12 @@
       "summary": "Reuters documents how inexpensive first-person-view drones are reshaping conflicts across Mali, Burkina Faso and Niger. Armed groups have used tactics refined in Ukraine to threaten military vehicles, aircraft and infrastructure, eroding governments’ former air advantage. The reporting also describes Ukrainian training links to Sahel separatists. The shift raises security risks for regional forces and facilities, though the balance of power varies by country."
     },
     {
-      "title": "Stocks retreat as AI rebound stumbles, tariff threats loom",
+      "title": "World stocks fall as new US tariffs loom, AI rebound fizzles",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-25/",
-      "summary": "Asian stocks fell sharply as fresh U.S. tariff threats and fading enthusiasm for AI-related shares hit chip-heavy markets. Reuters reported MSCI's Asia-Pacific ex-Japan index down 3.2%, with South Korea's KOSPI and Taiwan's TAIEX suffering larger intraday declines; Japan's Nikkei also fell. The move followed a tech-led rebound and came ahead of a U.S. trade report on alleged excess industrial capacity."
+      "summary": "Global shares fell as investors weighed possible new U.S. tariffs on 16 trading partners and renewed weakness in technology stocks. Reuters reported the MSCI global gauge down 0.5%, with Asian markets outside Japan off 3.1%; U.S. futures pointed to further losses. Markets awaited U.S. core PCE inflation data, which could reinforce expectations of a December Federal Reserve rate increase. Nvidia and Anthropic shares also weakened."
     },
     {
       "title": "Australian inflation heats up in October, core hits two-year high",
@@ -170,12 +170,12 @@
       "summary": "Bangladesh approved a 36% increase in the garment-sector minimum wage, lifting monthly pay to about $138, but the raise fell short of workers’ demands and triggered fresh clashes with police near Dhaka. The industry employs more than four million people and generates over 80% of export earnings. Reuters reports weeks of protests disrupted production and prompted some buyers to shift orders abroad."
     },
     {
-      "title": "Alice Huang-linked firms listed $270 million in AI servers in China, records show",
+      "title": "Jensen Huang's return to Nvidia fuels Washington fight over China's chip access",
       "source": "Reuters",
       "category": "Technology",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/finance/alice-huang-linked-firms-listed-270-million-ai-servers-china-records-show-2026-11-25/",
-      "summary": "Reuters reviewed Chinese financing records listing up to 764 AI servers and modules valued at $270 million, plus $31 million in networking equipment, tied to firms connected to Alice Huang and associates. The records show financing arrangements for data-center hardware, not proof of prohibited Nvidia chips or how equipment entered China. The findings add scrutiny amid a U.S. investigation into suspected chip diversion."
+      "url": "https://www.reuters.com/legal/government/jensen-huangs-return-nvidia-fuels-washington-fight-over-chinas-chip-access-2026-11-25/",
+      "summary": "Nvidia reinstated Jensen Huang as chief executive after intervention by President Donald Trump, but the decision has intensified Washington's debate over advanced chip sales to China. Lawmakers from both parties are pressing for tighter export controls; proposed bills would expand congressional oversight, require chip tracking and pressure allies to restrict chipmaking equipment. Huang is due to face congressional questioning, and analysts say the controversy could worsen U.S.-China tensions."
     },
     {
       "title": "Libyan naval officers die following Ukrainian drone attack",
@@ -480,6 +480,126 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/world/2026/nov/25/british-embassy-tokyo-warning-tourists-drink-spiking-credit-card-fraud",
       "summary": "Britain’s embassy in Tokyo warned visitors about drink-spiking and extortion at nightlife venues in districts including Shinjuku, Roppongi and Shibuya. Police recorded 340 cases in Shinjuku between January and October, 195 more than a year earlier; one alleged charge reached ¥9.6 million. Authorities say foreign tourists are frequent targets, while the true number may be higher because some victims discover fraud only after leaving Japan."
+    },
+    {
+      "title": "Democrats clinch historic House majority of at least 259 seats",
+      "source": "Associated Press",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/democrats-house-majority-election-2026-congress-07b3ccbe60db7c1d3d3f3087d8fca721",
+      "summary": "House Democrats have secured at least 259 of the 435 seats, their strongest election result since 1990, after Victoria Broderick won Tennessee. Three House races remain unresolved, while Democrats also hold a 56-seat Senate majority beginning in January. Leaders plan early votes on Medicaid cuts and Affordable Care Act tax credits, alongside investigations of the administration. The result creates governing opportunities but raises expectations for the party’s new majority."
+    },
+    {
+      "title": "US-Mexico intelligence cooperation may ease tensions after cartel leader's capture",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/mexico-us-sheinbaum-trump-drones-el-chapo-isidro-cartel-sinaloa-3bd25b8390134f0f7911cff8e321631c",
+      "summary": "Mexico's arrest of Sinaloa-linked figure Fausto Isidro Meza Flores followed months of planning and U.S. intelligence support, including a surveillance drone deployed at Mexico's request. Analysts told AP the operation could offer a model for cooperation without U.S. troops operating on Mexican soil. Tensions remain over sovereignty and extradition: Washington seeks custody, while Mexico says he will face prosecution there first."
+    },
+    {
+      "title": "Private capital investment in emerging markets jumps 19% on China tech and infrastructure",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/markets/europe/private-capital-investment-emerging-markets-jumps-19-china-tech-infrastructure-2026-11-25/",
+      "summary": "Private-capital investment in emerging markets rose 19% through the third quarter to $143.2 billion, the Global Private Capital Association said, driven by Chinese technology funding and infrastructure demand. The total is already close to all of 2025's $158.3 billion. China attracted $64.3 billion, while infrastructure investment also increased in Africa and Central and Eastern Europe. The figures cover reported investment through September, not a full-year forecast."
+    },
+    {
+      "title": "Europe plans €50 billion sovereign tech equity fund to boost quantum technology",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/europe-plans-50-billion-sovereign-tech-equity-fund-boost-quantum-technology-2026-11-25/",
+      "summary": "The European Commission proposed a Quantum Act with a targeted €50 billion equity fund to help European companies scale quantum computing, secure communications and sensing technologies. The draft would favor EU suppliers in some public procurement while allowing bids from certain partner countries. EU governments and the European Parliament must still negotiate the law. The proposal aims to narrow a funding gap with the United States and China."
+    },
+    {
+      "title": "Drone strikes kill 19 civilians in Sudan's Blue Nile state, rights group says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/drone-strikes-kill-19-civilians-in-southeastern-sudan-says-rights-group-2026-11-25/",
+      "summary": "Drone strikes in Sudan's Blue Nile state killed 19 civilians and wounded 20 in Damazin and Roseires on Tuesday, according to the rights group Emergency Lawyers and residents cited by Reuters. The attacks hit residential neighbourhoods and reportedly targeted a dam and power facilities, raising concerns about electricity disruption. The Rapid Support Forces did not immediately comment. The strikes add to a war that has displaced millions since 2023."
+    },
+    {
+      "title": "North Korea expels Swiss diplomatic office head in sanctions dispute",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/aerospace-defense/north-korea-expels-swiss-representative-closes-diplomatic-office-over-sanctions-2026-11-25/",
+      "summary": "North Korea ordered Swiss diplomatic representative Sylvain Astier to leave within 48 hours, saying Switzerland's sanctions against the Songdowon International Children's Camp were hostile. The move came less than a month after Bern reopened its Pyongyang liaison office. Switzerland says the office is intended to preserve dialogue despite disagreements; analysts see the expulsion as a warning that Pyongyang may reject diplomatic engagement while sanctions remain in place."
+    },
+    {
+      "title": "Bulgaria intercepts migrant boat carrying 35 people, including children",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/bulgaria-intercepts-first-irregular-migrant-boat-months-2026-11-25/",
+      "summary": "Bulgarian authorities intercepted a boat carrying 35 migrants after it entered the country's Black Sea waters and came ashore near Sinemorets. Children were among those taken for medical care and warm clothing, regional officials told state news agency BTA. Bulgaria recorded about 7,000 attempted entries by land and sea in the first nine months of 2026, down from roughly 12,270 during the same period in 2025."
+    },
+    {
+      "title": "Sydney fire-ant colony with multiple queens prompts expanded eradication response",
+      "source": "The Guardian",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/25/fire-ants-nest-colony-auburn-sydney-danger-what-you-need-to-know",
+      "summary": "New South Wales officials expanded their response after a red imported fire-ant nest found in Sydney's Auburn suburb proved larger and more complex than first thought. The colony has multiple queens, a form that can support denser nests and is harder to eradicate. Authorities say it is the second Sydney detection this year and are tracing possible supply-chain routes; residents are urged to report sightings rather than disturb nests."
+    },
+    {
+      "title": "Russian strikes target Ukraine's power transmission network, leaving Odesa households without electricity",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/energy/ukraine-battles-keep-lights-odesa-russia-strikes-grid-2026-11-25/",
+      "summary": "Russia has increasingly targeted substations and transmission lines that move electricity between Ukrainian regions, rather than only attacking power stations, DTEK's Odesa grid chief told Reuters. He said 60% of regional substations had been struck, some repeatedly. Repairs restored much of the supply, but about 9,000 households remained without power after another overnight attack. Odesa lacks local generation, making its links to western Ukraine especially important."
+    },
+    {
+      "title": "Study links GLP-1-associated weight loss with higher breast density and mammogram callbacks",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/breast-density-changes-with-glp-1-weight-loss-may-prompt-mammogram-call-backs-2026-11-25/",
+      "summary": "A study of 107 women taking GLP-1 drugs for at least a year found breast density increased after an average 40-pound weight loss, with a 22.4% mammogram recall rate compared with roughly 10% nationally. Four biopsies were benign. Researchers say the change may reflect loss of breast fat rather than more breast tissue; they advise continuing routine screening and telling imaging teams about GLP-1 use and substantial weight loss."
+    },
+    {
+      "title": "In landmine-ravaged Myanmar, a rebel with an artificial leg vows to fight on",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/asia-pacific/landmine-ravaged-myanmar-rebel-with-an-artificial-leg-vows-fight-2026-11-25/",
+      "summary": "Myanmar recorded 1,891 landmine and unexploded-ordnance casualties in 2025, the highest national toll for a third straight year, according to Landmine Monitor. Reuters followed a rebel commander who lost a lower leg and received a prosthetic near the Thai border, where a small workshop has fitted 150 people wounded in the conflict. Mines laid by both military and resistance forces contaminate nearly two-thirds of the country, putting civilians at continuing risk."
+    },
+    {
+      "title": "Saudi national kidnapped by suspected Islamic State militants in Niger, sources say",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/saudi-national-kidnapped-by-suspected-islamic-state-militants-niger-sources-say-2026-11-25/",
+      "summary": "Two security sources told Reuters that suspected Islamic State militants kidnapped a Saudi national in Niger on November 21 or 22 and are holding the person hostage. One source placed the abduction in western Tillaberi, near Mali and Burkina Faso; the other gave a location between Tillaberi and Niamey. No group has claimed responsibility, and Nigerien and Saudi authorities did not respond to requests for comment."
+    },
+    {
+      "title": "Ex-England soccer player Sterling spared immediate jail sentence for dangerous driving",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/uk/ex-england-soccer-player-sterling-spared-immediate-jail-sentence-dangerous-2026-11-25/",
+      "summary": "Former England winger Raheem Sterling received a 12-month prison sentence suspended for 18 months after admitting dangerous driving while inhaling nitrous oxide before crashing his Lamborghini. A court also ordered 100 hours of unpaid work and a two-year driving ban. No one was injured. The judge cited the danger to other road users, while noting Sterling had engaged with addiction services after the incident."
+    },
+    {
+      "title": "Migrant arrivals in Spain's Canary Islands break single-day record",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/migrant-arrivals-spains-canary-islands-break-single-day-record-2026-11-25/",
+      "summary": "More than 2,100 migrants arrived in Spain's Canary Islands in a 24-hour period, a new single-day record, according to maritime rescue data. One person was found dead and another gave birth during the crossing from West Africa. Most boats reached El Hierro, a key entry point. The arrivals intensified pressure on Spain's migration debate ahead of an election, while officials called for stronger regional cooperation and legal routes."
+    },
+    {
+      "title": "US grocers serve up Thanksgiving deals even as turkey prices climb",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/retail-consumer/us-grocers-serve-up-thanksgiving-deals-even-turkey-prices-climb-2026-11-25/",
+      "summary": "Major U.S. retailers are offering Thanksgiving meal kits at or below last year's prices to attract inflation-weary shoppers, even as wholesale turkey and potato costs rise. Reuters reported frozen whole-turkey prices reached record highs, while grocers absorb some of the increase to signal value. Walmart's 26-item meal kit costs $35 for ten people, five dollars less than last year. Retailers hope shoppers add higher-margin extras."
     },
     {
       "title": "French officials order former President Sarkozy's corruption case to trial",
@@ -1026,6 +1146,22 @@
       "summary": "More than 120 climate scientists urged the U.S. House to reject the Bipartisan American Affordability and Jobs Act, arguing that its permitting changes could lock in fossil-fuel projects and weaken environmental safeguards. Supporters say the bill would speed clean-energy and transmission construction and reduce electricity costs. The Senate has passed it, and House lawmakers are considering amendments before a vote; the legislation’s effects remain contested."
     },
     {
+      "title": "CAS restores Senegal's 2025 Africa Cup title; Morocco plans challenge",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/sports/soccer/soccer-senegal-reinstated-2025-africa-cup-nations-winners-2026-11-24/",
+      "summary": "The Court of Arbitration for Sport unanimously restored Senegal's 1-0 extra-time victory over Morocco in the 2025 Africa Cup of Nations final, overturning CAF's later decision to award Morocco a 3-0 win after Senegal's players briefly left the pitch. CAS said the referee was entitled to restart the match. Senegal welcomed the ruling, while Morocco's federation says it will challenge it in Switzerland."
+    },
+    {
+      "title": "UN estimates 47,000 women and girls were killed by partners or relatives in 2025",
+      "source": "UN Women Australia",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://unwomen.org.au/five-women-killed-every-hour-by-a-partner-or-close-relative-in-2025/",
+      "summary": "UNODC and UN Women estimate that 47,000 women and girls were killed by intimate partners or family members in 2025—about five every hour. These deaths represented roughly 60% of the 78,000 intentional killings of women and girls worldwide. Africa recorded the highest estimated rate, followed by the Americas, Oceania, Asia and Europe. The agencies say the figures show that homes and family relationships remain a major site of lethal violence."
+    },
+    {
       "title": "Paper wasps recognize faces in ways strikingly similar to humans",
       "source": "Cornell Chronicle",
       "category": "Science",
@@ -1064,6 +1200,22 @@
       "published": "2026-11-23",
       "url": "https://www.reuters.com/legal/government/massachusetts-sues-block-ice-conducting-courthouse-arrests-2026-11-23/",
       "summary": "Massachusetts Attorney General Andrea Joy Campbell sued to stop ICE from making civil immigration arrests in state courthouses without judicial warrants. She says more than 1,110 courthouse arrests have occurred since President Donald Trump took office, including 38 after a state law took effect November 3. The Department of Homeland Security defended the practice as efficient; the court has not ruled on the new case."
+    },
+    {
+      "title": "War-related shipping disruption could put food aid for 7.3 million more people at risk, WFP warns",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-23",
+      "url": "https://www.reuters.com/business/environment/un-food-agency-chief-warns-wars-jeopardize-food-aid-73-million-more-people-2026-11-23/",
+      "summary": "World Food Programme chief Luke Lindberg warned that conflict-related disruptions around the Black Sea, Strait of Hormuz and Bab el-Mandeb could add $727 million to agency costs by mid-2027, threatening assistance for 7.3 million more people. The WFP has already cut its 2027 target from 110 million to 91 million recipients. A proposed humanitarian corridor for Russian and Ukrainian grain remains uncertain as attacks and shipping constraints persist."
+    },
+    {
+      "title": "Russia's return to international sport faces European resistance ahead of LA 2028",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-23",
+      "url": "https://www.reuters.com/sports/russias-sports-comeback-hits-european-wall-2026-11-23/",
+      "summary": "Russia's bid to return to international sport is meeting resistance from European governments and federations, complicating qualifying events for the 2028 Los Angeles Olympics. Norway, Sweden and Poland have denied visas to Russian athletes, while some teams refuse to compete against them. The Court of Arbitration for Sport is considering a Russian appeal over participation conditions, with a ruling expected by December 15; federations retain authority over many events."
     },
     {
       "title": "International UN talks on controlling use of autonomous weapons collapse",
