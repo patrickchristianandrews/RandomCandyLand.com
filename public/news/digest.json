@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T10:58:13.000Z",
+  "updatedAt": "2026-11-25T12:05:34.616Z",
   "articles": [
     {
       "title": "Kiwi return to Wellington hills after 150 years in Māori-led conservation milestone",
@@ -450,6 +450,38 @@
       "summary": "Colombian security forces stormed a supermarket in Cartagena after a 17-hour siege that began with an attempted armoured-vehicle robbery. President Abelardo de la Espriella said all hostages were rescued and one captor was killed; about 30 people were initially held, with 10 released during negotiations. Authorities described the hostages as safe, but the motive and full circumstances of the attempted robbery remain under investigation."
     },
     {
+      "title": "US prepares new tariffs for China, EU and others over subsidies",
+      "source": "Associated Press",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/trump-tariffs-china-european-union-d97ed6f4017152ca4c18de5517db6d51",
+      "summary": "AP reports the Trump administration is preparing additional tariffs on China, the European Union and 14 other economies after a U.S. Trade Representative investigation into industrial subsidies. Officials familiar with the plan said the timing and rates remain unsettled. The duties would add to existing 10%–12.5% levies and follow the Supreme Court’s February rejection of broader tariffs, leaving trading partners awaiting details and possible retaliation."
+    },
+    {
+      "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
+      "source": "The Guardian",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/technology/2026/nov/25/meta-insiders-concerned-push-to-ai-content-moderation",
+      "summary": "Meta employees told the Guardian that the company’s accelerated shift from human moderators to AI systems has left smaller review teams and increased the scale of mistaken removals. Staff described difficulties handling nuance and languages beyond English, while researchers documented a rise in account takedowns. Meta denied political bias and said newer systems make fewer errors on average; the company’s opaque moderation process makes independent assessment difficult."
+    },
+    {
+      "title": "China misusing Interpol to target dissidents, says leading UK lawyer",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/world/2026/nov/25/china-misusing-interpol-target-dissidents-uk-lawyer",
+      "summary": "A British lawyer who handles Interpol red-notice cases says China is using the system to pursue dissidents through criminal allegations that may conceal political motives. He cited five cases and raised questions about notices sought against UK-based Chinese activists ahead of Hong Kong hosting Interpol’s general assembly. Interpol said it was reviewing his inquiry but shared no substantive information. The claims are allegations; China and Interpol had been approached for comment."
+    },
+    {
+      "title": "UK embassy in Japan warns of rise in drink spiking and credit card fraud at Tokyo bars",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/world/2026/nov/25/british-embassy-tokyo-warning-tourists-drink-spiking-credit-card-fraud",
+      "summary": "Britain’s embassy in Tokyo warned visitors about drink-spiking and extortion at nightlife venues in districts including Shinjuku, Roppongi and Shibuya. Police recorded 340 cases in Shinjuku between January and October, 195 more than a year earlier; one alleged charge reached ¥9.6 million. Authorities say foreign tourists are frequent targets, while the true number may be higher because some victims discover fraud only after leaving Japan."
+    },
+    {
       "title": "French officials order former President Sarkozy's corruption case to trial",
       "source": "Reuters",
       "category": "Politics",
@@ -664,14 +696,6 @@
       "published": "2026-11-24",
       "url": "https://apnews.com/article/south-africa-zimbabwe-russia-recruits-war-33c3fc1606d01947b713616424a79c4f",
       "summary": "A Zimbabwean man pleaded guilty in South Africa to violating legislation regulating foreign military assistance after agreeing to fight for Russia in Ukraine in exchange for payment. He received a suspended five-year sentence and faces deportation. The case comes amid wider concerns in several African countries about recruitment for the war and the treatment of recruits."
-    },
-    {
-      "title": "U.S. prepares new country-specific tariffs after industrial capacity review",
-      "source": "Reuters",
-      "category": "Politics",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/world/us/trump-administration-set-unveil-new-tariffs-after-probe-on-excess-factory-2026-11-24/",
-      "summary": "Reuters reports that the administration is preparing proposed import duties following an investigation covering 16 trading partners. The measures would partly replace tariffs overturned by the Supreme Court in February. Sources expect differences by country and existing trade agreements to constrain some rates. The exact duties remained unconfirmed, and the administration had not responded to requests for comment."
     },
     {
       "title": "Reported cyber breach affects unclassified U.S. intelligence data",
@@ -962,6 +986,46 @@
       "summary": "Forecasters warned that a powerful storm could disrupt Thanksgiving travel along the Eastern Seaboard, with rain rates near one inch an hour, gusts above 50 mph and coastal flooding risks from Georgia to Long Island. New York's parade was expected to start dry, but later rain and wind could force balloons to fly lower or remain grounded. The FAA forecast more than 417,000 flights during the nine-day holiday travel period."
     },
     {
+      "title": "Tidal bans 100% AI-generated music with plans to delete more than 27m tracks",
+      "source": "The Guardian",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/music/2026/nov/25/tidal-streaming-service-bans-ai-generated-music",
+      "summary": "Tidal says it will remove music it determines to be entirely AI-generated beginning December 9, a policy that could affect about 27 million tracks. The company said 43% of uploads in the previous 90 days were fully AI-generated and most received no streams. AI-assisted recordings remain eligible. The move is stricter than policies at Spotify and Apple Music and raises questions about how platforms will verify authorship."
+    },
+    {
+      "title": "Meta launches Muse in UK – the AI agent that can do your Christmas shopping",
+      "source": "The Guardian",
+      "category": "Technology",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/technology/2026/nov/24/meta-launches-muse-uk-ai-agent-do-christmas-shopping",
+      "summary": "Meta launched its Muse AI assistant in the UK, where users can connect selected apps and ask it to shop, book travel, manage calendars or draft messages. Meta says the agent cannot purchase items or send messages without approval and has no access to passwords or payment details. UK privacy and competition regulators are monitoring the rollout after reports of testing errors, including incorrect reminders and financial information."
+    },
+    {
+      "title": "Life expectancy in Cuba falls for first time since 1950 amid economic crisis",
+      "source": "Agence France-Presse (via The Guardian)",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/world/2026/nov/24/cuba-life-expectancy-decline",
+      "summary": "World Health Organization chief Tedros Adhanom Ghebreyesus said Cuba’s life expectancy fell from 78.8 years in 2020 to 74.4 in 2025, the first decline since records began in 1950. He also cited worsening infant and maternal mortality and lower childhood-cancer survival. The figures predate a U.S. fuel blockade imposed in January; the WHO chief pointed to both external sanctions and domestic economic problems."
+    },
+    {
+      "title": "More than 300 Russians killed as Moscow props up Mali’s junta, leaked data reveals",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/world/2026/nov/24/russian-fighters-killed-in-mali-africa-leaked-data",
+      "summary": "Leaked Russian state death records reviewed by the Guardian list 349 Russian fighters killed in Mali between September 2023 and September 2026, including 43 deaths on the day insurgents attacked Kidal in April. Western officials said the toll exceeded earlier estimates, though the records may be incomplete. The figures illuminate the human cost of Moscow’s support for Mali’s military government as insecurity has continued despite Russia’s growing role."
+    },
+    {
+      "title": "Climate scientists urge US lawmakers to vote no on sweeping permitting bill",
+      "source": "The Guardian",
+      "category": "Environment",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/us-news/2026/nov/24/climate-scientists-lawmakers-baaja",
+      "summary": "More than 120 climate scientists urged the U.S. House to reject the Bipartisan American Affordability and Jobs Act, arguing that its permitting changes could lock in fossil-fuel projects and weaken environmental safeguards. Supporters say the bill would speed clean-energy and transmission construction and reduce electricity costs. The Senate has passed it, and House lawmakers are considering amendments before a vote; the legislation’s effects remain contested."
+    },
+    {
       "title": "Paper wasps recognize faces in ways strikingly similar to humans",
       "source": "Cornell Chronicle",
       "category": "Science",
@@ -1000,6 +1064,46 @@
       "published": "2026-11-23",
       "url": "https://www.reuters.com/legal/government/massachusetts-sues-block-ice-conducting-courthouse-arrests-2026-11-23/",
       "summary": "Massachusetts Attorney General Andrea Joy Campbell sued to stop ICE from making civil immigration arrests in state courthouses without judicial warrants. She says more than 1,110 courthouse arrests have occurred since President Donald Trump took office, including 38 after a state law took effect November 3. The Department of Homeland Security defended the practice as efficient; the court has not ruled on the new case."
+    },
+    {
+      "title": "International UN talks on controlling use of autonomous weapons collapse",
+      "source": "The Guardian",
+      "category": "Technology",
+      "published": "2026-11-21",
+      "url": "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse",
+      "summary": "Negotiations in Geneva failed to secure a mandate for talks on a legally binding treaty governing autonomous weapons, after Russia objected and the UN forum’s consensus rule prevented agreement. More than 100 countries had backed stronger rules, while the United States and several other military powers favored nonbinding measures or reliance on existing law. Delegates adopted a weaker mandate to continue discussions, leaving regulation unresolved as such systems are already being developed and used."
+    },
+    {
+      "title": "US pursuit of ‘Trump-class’ warships has blown cost of new fleet by billions, report warns",
+      "source": "The Guardian",
+      "category": "U.S.",
+      "published": "2026-11-21",
+      "url": "https://www.theguardian.com/us-news/2026/nov/21/trump-class-warships",
+      "summary": "The Congressional Budget Office estimates the Navy’s 30-year shipbuilding plan will cost about $54 billion annually, 18% above Navy projections, with 15 proposed Trump-class battleships a major contributor. The report questions whether concentrating firepower in a few large vessels fits the Navy’s stated strategy. At the same time, the Iran war has extended deployments, delayed maintenance and strained readiness across the fleet."
+    },
+    {
+      "title": "French police officers found guilty of racist assault on black music producer",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-20",
+      "url": "https://www.theguardian.com/world/2026/nov/20/french-police-officers-found-guilty-of-racist-assault-on-black-music-producer",
+      "summary": "Three French police officers were convicted of intentional group violence, with racism treated as an aggravating factor, after beating music producer Michel Zecler in Paris in 2020. Security-camera footage contradicted their account that Zecler had attacked them; the officers were also found guilty of falsifying an official report. They received prison sentences of one to two years, partly suspended, and were barred from police service for life."
+    },
+    {
+      "title": "Man accused of sparking deadly Los Angeles wildfire found guilty",
+      "source": "The Guardian",
+      "category": "U.S.",
+      "published": "2026-11-20",
+      "url": "https://www.theguardian.com/us-news/2026/nov/20/los-angeles-palisades-wildfire-trial-verdict",
+      "summary": "A federal jury convicted former Uber driver Jonathan Rinderknecht of arson charges tied to the January 2025 Palisades fire, which killed 12 people and destroyed thousands of homes and businesses. Prosecutors said he ignited a brush fire whose embers later reignited in powerful winds; Rinderknecht maintained his innocence and suggested fireworks caused the blaze. He remains in custody and faces a possible sentence of five to 40 years."
+    },
+    {
+      "title": "Denmark to expel Russian diplomat over alleged plot to kill US-Ukrainian rapper",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-20",
+      "url": "https://www.theguardian.com/world/2026/nov/20/denmark-russian-diplomat-us-ukrainian-rapper-attempted-killing",
+      "summary": "Denmark said it would expel Russia’s defence attaché after police said they had disrupted an alleged Russian intelligence plot to kill US-Ukrainian rapper Kyivstoner before a September concert. Three suspects were arrested near the venue with firearms and knives, and a fourth was later detained; all denied wrongdoing. Moscow rejected the accusation, while Copenhagen said it was also considering tighter visa restrictions for Russian nationals."
     }
   ]
 }
