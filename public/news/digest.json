@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T17:09:08.984Z",
+  "updatedAt": "2026-11-25T17:58:10.000Z",
   "articles": [
     {
       "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
@@ -8,6 +8,22 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/technology/2026/nov/25/meta-insiders-concerned-push-to-ai-content-moderation",
       "summary": "Meta employees told the Guardian that the company’s accelerated shift from human moderators to AI systems has left smaller review teams and increased the scale of mistaken removals. Staff described difficulties handling nuance and languages beyond English, while researchers documented a rise in account takedowns. Meta denied political bias and said newer systems make fewer errors on average; the company’s opaque moderation process makes independent assessment difficult."
+    },
+    {
+      "title": "'Russia wants more than Ukraine,' says Germany's Merz as he defends aid for Kyiv",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/europe/germanys-merz-defends-aid-ukraine-says-russia-poses-growing-threat-europe-2026-11-25/",
+      "summary": "German Chancellor Friedrich Merz defended continued military aid to Ukraine and a planned rise in German defence spending, saying Russia’s ambitions extend beyond Ukraine and its actions threaten wider European security. He cited tensions around the Baltic, Poland and cyber infrastructure; Moscow denies seeking confrontation with NATO. The position faces domestic opposition as cost-of-living pressures grow, while Germany plans to lift defence spending above €200 billion by 2030."
+    },
+    {
+      "title": "53 incoming House Democrats plan to boycott Harvard orientation over graduate-worker strike",
+      "source": "The Guardian",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/education/2026/nov/25/house-democrats-harvard-boycott-strike",
+      "summary": "Fifty-three newly elected House Democrats told Harvard they will skip a December orientation program if graduate student workers remain on strike. The lawmakers said attending would mean crossing a picket line. The dispute centers on wages and workplace protections, with the graduate union seeking higher raises than Harvard has offered. The boycott adds political pressure to negotiations but does not directly resolve the labor dispute."
     },
     {
       "title": "A new way to measure tides could improve local flood forecasts",
@@ -26,12 +42,12 @@
       "summary": "Reuters documents how inexpensive first-person-view drones are reshaping conflicts across Mali, Burkina Faso and Niger. Armed groups have used tactics refined in Ukraine to threaten military vehicles, aircraft and infrastructure, eroding governments’ former air advantage. The reporting also describes Ukrainian training links to Sahel separatists. The shift raises security risks for regional forces and facilities, though the balance of power varies by country."
     },
     {
-      "title": "AI stock rout deepens, with Anthropic hitting $74",
+      "title": "Airline Norse Atlantic says financial situation 'critical', shares plunge over 70%",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/ai-stocks-slide-fears-over-infrastructure-buildout-costs-2026-11-25/",
-      "summary": "AI-linked shares fell for a second day as investors questioned the cost and debt financing behind data-center expansion. Anthropic traded as low as $73.85, 11% below its IPO price; Nvidia fell 8.5%, while Alphabet and Broadcom hit 52-week lows. Reuters said proposed U.S. tariffs, inflation and tighter regulatory expectations added pressure. The Nasdaq-100 briefly touched bear-market territory, though the closing level would determine whether it confirmed."
+      "url": "https://www.reuters.com/markets/europe/airline-norse-atlantic-says-it-is-critical-financial-situation-2026-11-25/",
+      "summary": "Norse Atlantic said its financial position is critical and it needs new funding to meet near-term liquidity needs and keep operating. Reuters reported its shares fell 76% to a record low after the announcement. The airline has faced soaring fuel costs, began exploring a sale or merger in July and is discussing aircraft leasing; it has not said how long it can operate without financing or whether talks will succeed."
     },
     {
       "title": "All hostages rescued after Colombian supermarket siege ends",
@@ -64,6 +80,14 @@
       "published": "2026-11-25",
       "url": "https://www.washingtonpost.com/world/2026/11/25/spain-housing-homeless-election-photo-essay-rent/f0ad35da-e88e-11f1-8db0-6f1e3c389e7c_story.html",
       "summary": "An Associated Press photo essay documents people sleeping rough beneath Barcelona’s grand civic and commercial buildings as Spain’s housing crisis becomes a central election issue. A local nonprofit estimated about 2,000 people slept on the city’s streets nightly in December 2025, 43% more than in 2023. New-lease rents rose 42% over a decade, while shelters face waiting lists and complex referral rules."
+    },
+    {
+      "title": "AP review: Disney's animated film 'Hexed' offers a familiar coming-of-age witch story",
+      "source": "Associated Press",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/hexed-movie-review-hailee-steinfeld-9ea64280c72ffcff03e4db1e0983028c",
+      "summary": "Disney's animated film 'Hexed' follows a teenager who discovers magical powers and enters a hidden witch realm, where her grandmother rules as queen. The Associated Press review praises the voice performances of Hailee Steinfeld, Jodie Foster and Rashida Jones, along with the film's visuals, but finds the chosen-one plot familiar and its middle section slow. The review sees the mother-daughter relationship as the film's strongest element."
     },
     {
       "title": "Atlantic hurricane season ends unusually quiet under strong El Niño",
@@ -226,6 +250,14 @@
       "summary": "Cognizant is in talks to take over parts of S&P Global’s Capital IQ operations, potentially transferring about 1,500 employees in India, Reuters reports, citing two people familiar with the discussions. The terms remain unsettled and talks could fail. The move comes as S&P explores strategic options for its data businesses and companies increasingly outsource operations to reduce costs and reshape units for AI-era services."
     },
     {
+      "title": "Container of Christmas decorations washes ashore in Bulgaria",
+      "source": "Informat.ro",
+      "category": "Curious news",
+      "published": "2026-11-25",
+      "url": "https://informat.ro/en/international/container-washed-ashore-in-bulgaria-carrying-christmas-decorations-from-romania-149952",
+      "summary": "Bulgarian authorities opened a shipping container that washed ashore near Burgas and found more than 80 boxes of Christmas decorations, including life-sized Santa figures and a polar bear. The cargo, valued at about €50,000, reportedly belongs to a Romanian company and may have come from a Greek vessel hit by drones in the Black Sea last month. The ship operator has not confirmed the container’s origin."
+    },
+    {
       "title": "Democrats clinch historic House majority of at least 259 seats",
       "source": "Associated Press",
       "category": "Politics",
@@ -266,6 +298,14 @@
       "summary": "Britain will distribute more than £11 million across 12 council-led projects to help English coastal communities monitor erosion and plan for rising seas. Measures include laser-equipped drone surveys, dune restoration, 3D modelling and moving roads inland. The Environment Agency estimates 3,500 properties could be at risk by 2055 and over 10,000 by 2105. The funding is intended to support earlier planning; it cannot prevent all shoreline retreat or protect every property."
     },
     {
+      "title": "EU postpones discussion to approve Tesla's self-driving tech",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/autos-transportation/eu-postpones-discussion-approve-teslas-self-driving-tech-2026-11-25/",
+      "summary": "The European Union postponed a committee meeting that could consider bloc-wide approval of Tesla’s assisted-driving system from December 1 to December 15. A vote may occur then, but approval would require support from 15 member states representing 65% of the EU population. The delay follows two earlier meetings without a vote after the Netherlands granted preliminary approval in April."
+    },
+    {
       "title": "Europe plans €50 billion sovereign tech equity fund to boost quantum technology",
       "source": "Reuters",
       "category": "Technology",
@@ -290,6 +330,22 @@
       "summary": "Former England winger Raheem Sterling received a 12-month prison sentence suspended for 18 months after admitting dangerous driving while inhaling nitrous oxide before crashing his Lamborghini. A court also ordered 100 hours of unpaid work and a two-year driving ban. No one was injured. The judge cited the danger to other road users, while noting Sterling had engaged with addiction services after the incident."
     },
     {
+      "title": "EXCLUSIVE: Boehly signs US-backed share swap deal to buy Lukoil global assets",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/energy/boehly-signs-us-backed-share-swap-deal-buy-lukoil-global-assets-2026-11-25/",
+      "summary": "Todd Boehly said he signed an agreement for a consortium including the U.S. International Development Finance Corp. to acquire sanctioned Russian oil company Lukoil’s overseas energy assets. The proposed swap values the portfolio at about $16 billion in assets for $10 billion in securities; U.S. Treasury approval is still required. The operations span 11 countries, and Washington would receive a stake and share of future profits."
+    },
+    {
+      "title": "Federal judge permanently blocks sanctions against groups that share ICC evidence",
+      "source": "Democracy Now!",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.democracynow.org/2026/11/25/headlines/court_bars_us_from_punishing_people_who_liaise_with_international_criminal_court",
+      "summary": "A federal judge made permanent an injunction blocking the Trump administration from penalizing two organizations for sharing evidence with the International Criminal Court and Palestinian rights groups. The groups challenged an executive order threatening civil fines and criminal penalties for such cooperation. The court ruled that the order imposed an unconstitutional, content-based restriction on speech, limiting enforcement against the plaintiffs."
+    },
+    {
       "title": "Flood at unauthorized Indonesian gold mine leaves nine dead and 17 missing",
       "source": "Associated Press (via The Washington Post)",
       "category": "World",
@@ -306,12 +362,36 @@
       "summary": "Germany’s economy expanded just 0.1% in the third quarter of 2026, below an earlier 0.2% estimate, the federal statistics office said. Reuters attributes the revision to weaker exports and September retail activity. Investment fell 1.2% from the prior quarter, while household consumption rose only 0.1%, reinforcing signs that growth slowed after stronger first-half performance."
     },
     {
+      "title": "Glee actor Jenna Ushkowitz says Cory Monteith tribute episode came too soon",
+      "source": "Variety",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://au.variety.com/2026/tv/global/glee-jenna-ushkowitz-cory-monteith-tribute-42917/",
+      "summary": "Jenna Ushkowitz, who played Tina on 'Glee,' says the 2013 episode honoring co-star Cory Monteith aired too soon after his death. She told Variety that cast and crew were grieving privately while also acting out their characters' grief, and felt they lacked the support to handle both. Ushkowitz understood why fans wanted a tribute, but said the experience was painful. Monteith died in 2013 from an accidental overdose."
+    },
+    {
       "title": "Global airports court private capital to fund upgrades, raising cost concerns",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/global-airports-court-private-capital-fund-upgrades-raising-cost-concerns-2026-11-25/",
       "summary": "Airport operators are turning again to private investors to help fund aging terminals, control towers and capacity expansions. Reuters says industry estimates point to more than $4 trillion in global airport infrastructure needs over three decades as passenger traffic could double by 2050. Officials warn private financing can raise costs, leaving governments to balance capital needs against user fees and affordability."
+    },
+    {
+      "title": "Global temperatures stayed more than 2°C above preindustrial levels for six straight days",
+      "source": "The Guardian",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/environment/2026/nov/25/world-six-consecutive-days-2c-above-preindustrial-levels-first-time",
+      "summary": "Global daily temperatures exceeded 2°C above preindustrial levels for six consecutive days for the first time, reaching 2.24°C above baseline on Monday, according to data reviewed by The Guardian. Scientists stress that a short daily streak does not mean the Paris Agreement's long-term threshold has been breached. They link the spike to human-caused warming and a strong El Niño, warning that drought and forest fires can amplify carbon buildup."
+    },
+    {
+      "title": "Gold falls 3% to more than one-year low after data shows US inflation rose further",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/india/gold-ticks-lower-ahead-us-inflation-data-2026-11-25/",
+      "summary": "Gold fell more than 3% on November 25, with spot bullion near $3,446 an ounce, its lowest level since August 2025. Investors reacted to stronger U.S. inflation data and expectations of a Federal Reserve rate increase in December. Higher interest rates make non-yielding gold less attractive, while fresh tariff and geopolitical risks add uncertainty to the outlook."
     },
     {
       "title": "GSK reports twice-yearly asthma drug matched Nucala in late-stage immune-disorder study",
@@ -328,6 +408,14 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/middle-east/gulf-bourses-mixed-after-saudi-attacks-us-inflation-data-focus-2026-11-25/",
       "summary": "Gulf stock markets were mixed as investors assessed Saudi-Houthi escalation and awaited U.S. inflation data that could influence Federal Reserve policy. Saudi Arabia’s benchmark slipped 0.3%, while Dubai and Abu Dhabi edged higher; Qatar fell. Saudi Arabia also approved a 2027 budget projecting a 190-billion-riyal deficit. The figures are an early trading snapshot, not a full-day market result."
+    },
+    {
+      "title": "Hollywood stars defend Iranian director Jafar Panahi after Tehran court sentences him in absentia",
+      "source": "Democracy Now!",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://www.democracynow.org/2026/11/25/headlines/hollywood_stars_defend_iranian_director_jafar_panahi_after_tehran_court_sentences_him_in_absentia",
+      "summary": "Nearly 2,000 actors, directors, festivals and film institutions had signed a statement backing Iranian filmmaker Jafar Panahi, according to Democracy Now. Panahi was sentenced in absentia by a Tehran court to five years and one month in prison. The Cannes Film Festival issued a separate protest, urging authorities to lift restrictions that prevent him from traveling, creating and expressing himself freely."
     },
     {
       "title": "Homeland Security secretary faces White House criticism over outage response",
@@ -386,6 +474,14 @@
       "summary": "Iran’s first vice president said Tehran can withstand the U.S. naval blockade because more cargo is entering through land borders, while the government seeks to contain basic-goods prices. October consumer prices were 88.7% higher than a year earlier and food and beverage prices rose 112.6%, according to Iran’s statistics agency. Officials offered no quantified supply assurances, leaving the effect of the blockade uncertain."
     },
     {
+      "title": "Iran says ships hit mines in Hormuz, warns vessels to coordinate passage",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/iran-says-ships-hit-mines-hormuz-warns-vessels-coordinate-passage-2026-11-25/",
+      "summary": "Iran’s Revolutionary Guards Navy said two oil tankers struck naval mines, exploded and caught fire while using what it called an unauthorized route through the Strait of Hormuz. Reuters reported the claim from Iranian state media; the vessels were not independently identified in the report. Tehran also warned ships to coordinate passage with Iranian forces and tied reopening normal shipping to wider U.S.-Iran demands."
+    },
+    {
       "title": "Japan's key services inflation gauge hits 36-year high",
       "source": "Reuters",
       "category": "Business",
@@ -439,7 +535,7 @@
       "category": "Politics",
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/uk-news/2026/nov/25/latest-review-of-met-police-culture-finds-little-has-changed-since-last-one",
-      "summary": "An independent review led by Gillian Fairfield found that institutional racism, misogyny and homophobia persist in London’s Metropolitan Police, three years after a major previous review. It noted improvements in vetting and misconduct procedures but said staff still fear retaliation for speaking up. The findings renew questions about whether senior leadership has implemented earlier recommendations or merely changed its language."
+      "summary": "An independent review found institutional racism, misogyny and homophobia remain in London’s Metropolitan Police three years after the Casey report. It cited defensive leadership, weak organisational learning and staff fear of retaliation: only 44% felt confident raising concerns about a senior officer, while 17% had no confidence. The Met points to misconduct and vetting reforms, but the review warned further scandals remain likely without deeper cultural change."
     },
     {
       "title": "Lebanon prepares to reopen a second international airport in its north",
@@ -474,12 +570,28 @@
       "summary": "The 100th Macy's Thanksgiving Day Parade will feature 100 inflatables, including a hand-recreated Blue Hippo balloon missing since 1931, plus Bluey, Hello Kitty, Mickey Mouse and Underdog. Performers include Megan Moroney, Teddy Swims, Queen Latifah and Keke Palmer, with a Dolly Parton tribute and Broadway medley. The parade is scheduled for Nov. 26, but weather could ground balloons if wind exceeds safety limits; floats and performers are expected to continue."
     },
     {
+      "title": "Major fragrance suppliers fined £85 million by the CMA for illegal collusion",
+      "source": "UK Competition and Markets Authority",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.gov.uk/government/news/major-fragrance-suppliers-fined-85-million-by-the-cma-for-illegal-collusion",
+      "summary": "The UK Competition and Markets Authority fined Firmenich, Givaudan and International Flavors & Fragrances a combined £85 million after finding they shared sensitive information on pricing and commercial negotiations. The regulator said some firms coordinated price increases and agreed not to hire staff assigned to a major customer. The companies admitted breaking competition law; the fragrances are used in household cleaners, detergents, perfumes and colognes."
+    },
+    {
+      "title": "Malawi hospitals face worst essential-medicine shortages in more than a decade",
+      "source": "The Guardian",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/global-development/2026/nov/25/malawi-healthcare-hospitals-drug-shortage-medicines",
+      "summary": "Essential-medicine availability in Malawi has fallen from 77% in early 2025 to 40% nationwide and as low as 18% at major referral hospitals, according to internal government supply data. Patients are being asked to buy basic items privately, even in public hospitals. The crisis is tied to foreign-exchange shortages and about $18 million in supplier arrears; officials say they have begun clearing debts to restore deliveries."
+    },
+    {
       "title": "Meta executives meet India's opposition amid protests over content moderation",
       "source": "Reuters",
       "category": "Technology",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/technology/meta-delegation-meets-congress-new-delhi-protests-intensify-over-content-curbs-2026-11-25/",
-      "summary": "Meta executives met India’s opposition Congress party in New Delhi as protests over the company’s content moderation intensified. Reuters, citing four people familiar with the talks, says Congress raised concerns about restrictions on leaders’ accounts and alleged favoritism toward the governing party, which Meta denies. The company said it follows Indian law; protesters have demanded explanations and restoration of accounts removed on government orders."
+      "summary": "Meta executives met India’s opposition Congress party as protests intensified over content removals and allegations that the company favours Prime Minister Narendra Modi’s BJP, which Meta denies. Reuters reported Meta restricted more than 5.4 million posts or accounts under Indian law in the first half of 2026, up from about 70,000 in all of 2025. The company made no commitments at the meeting and cited local legal requirements."
     },
     {
       "title": "Migrant arrivals in Spain's Canary Islands break single-day record",
@@ -498,12 +610,28 @@
       "summary": "Britain’s Ofgem raised the household energy price cap by 26% for January–March, taking the annualized bill for a typical dual-fuel household to £2,166. Reuters says the increase will affect about 20 million homes on variable tariffs and reflects higher wholesale gas prices linked to the Middle East conflict. The jump is likely to add pressure to household budgets and inflation."
     },
     {
+      "title": "More than 490,000 Russian soldiers have died during Ukraine war, leaked data suggests",
+      "source": "CBS News",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.cbsnews.com/news/russia-ukraine-war-russian-soldier-death-toll-data-leak/",
+      "summary": "Leaked Russian government records analyzed by BBC News and Mediazona suggest at least 490,334 Russian soldiers had died since the full-scale invasion began in 2022; another analysis of the dataset puts the toll closer to 700,000. The records reportedly contain more than 11 million entries through September 2026. The Kremlin has not released official totals and says only its Defense Ministry can publish them."
+    },
+    {
       "title": "Nationwide Greek strike disrupts ferries, metro and some flights",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/greeks-strike-over-wages-public-services-2026-11-25/",
       "summary": "Greek public-sector workers and several private unions staged a nationwide strike demanding higher wages, restored annual bonuses and stronger health and education services. Ferry routes stopped, some metro services were cut and flights at regional airports were suspended as transport and telecommunications workers joined the action. The strike is the third in recent weeks amid pressure from rents and living costs; the government points to €2.2 billion in tax breaks and aid this year."
+    },
+    {
+      "title": "Native American group wins partial ruling over Plymouth's National Day of Mourning protest",
+      "source": "The Guardian",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/native-americans-national-day-of-mourning-thanksgiving",
+      "summary": "A Massachusetts judge ruled that Plymouth must honor a 1998 agreement allowing the United American Indians of New England to hold its National Day of Mourning protest without permits or insurance. The town no longer has to provide a mobile stage, however, and the ruling leaves room for future legal disputes. The group says the event will proceed, challenging efforts it views as limiting Indigenous speech and visibility."
     },
     {
       "title": "Netherlands pushes back against proposed US chip-export control bill",
@@ -522,20 +650,20 @@
       "summary": "Nine Ukrainian children have been reunited with relatives, bringing the total to 43 under an initiative involving US first lady Melania Trump, the White House and Russian officials. The children were moved from Russia and Russian-held parts of Ukraine to relatives in Ukraine and Germany. Moscow says cooperation was secured with both sides, while Ukrainian authorities had not immediately commented. The cases remain sensitive amid international allegations about the wartime transfer of children."
     },
     {
-      "title": "Norse Atlantic says finances are critical as shares plunge",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/markets/europe/airline-norse-atlantic-says-it-is-critical-financial-situation-2026-11-25/",
-      "summary": "Budget airline Norse Atlantic said its finances are critical and that it needs short-term funding to keep operating. Its shares fell more than 53% after the announcement, leaving the company down about 96% in market value this year. The carrier has cut capacity amid high fuel costs and is exploring sale, merger and aircraft-leasing options; it warned financing talks may not produce a solution."
-    },
-    {
       "title": "North Korea expels Swiss diplomatic office head in sanctions dispute",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/aerospace-defense/north-korea-expels-swiss-representative-closes-diplomatic-office-over-sanctions-2026-11-25/",
       "summary": "North Korea ordered Swiss diplomatic representative Sylvain Astier to leave within 48 hours, saying Switzerland's sanctions against the Songdowon International Children's Camp were hostile. The move came less than a month after Bern reopened its Pyongyang liaison office. Switzerland says the office is intended to preserve dialogue despite disagreements; analysts see the expulsion as a warning that Pyongyang may reject diplomatic engagement while sanctions remain in place."
+    },
+    {
+      "title": "North Korea orders Swiss diplomat out and demands closure of Pyongyang office",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/north-korea-switzerland-diplomat-russia-ukraine-a39dbc92d195e69443ce66913a3dff7e",
+      "summary": "North Korea ordered the head of Switzerland's newly reopened diplomatic office to leave within 48 hours and demanded the office close, calling Swiss sanctions on a children's camp hostile. Switzerland says the camp was involved in transferring Ukrainian children from Russian-occupied areas and promoting pro-Russia messaging. Pyongyang rejects the sanctions and says the camp is legitimate. Switzerland says it will keep diplomatic channels open despite the dispute."
     },
     {
       "title": "Oat sales rise as shoppers seek filling foods amid GLP-1 popularity",
@@ -552,6 +680,22 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/energy/oil-prices-fall-supply-glut-concerns-offset-middle-east-disruption-fears-2026-11-25/",
       "summary": "Oil prices rose more than 1% after Yemen’s Houthis claimed attacks on Saudi Arabia’s Ras Tanura refinery and Riyadh’s financial district, adding a geopolitical risk premium to prices. Brent reached $93.06 a barrel and U.S. WTI $82.97. Traders also weighed a possible global supply surplus, U.S. inventory data and an upcoming OPEC+ meeting, while shipping threats around the Strait of Hormuz continued."
+    },
+    {
+      "title": "Paralympian Ezra Frech becomes first Paralympian to win Dancing with the Stars",
+      "source": "NBC Sports",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.nbcsports.com/paralympics/news/ezra-frech-dancing-with-the-stars",
+      "summary": "Paralympic track-and-field gold medalist Ezra Frech won the U.S. edition of Dancing with the Stars, becoming the show's first Paralympian champion and youngest male winner. The 21-year-old and professional partner Daniella Karagach beat Olympic figure skater Amber Glenn and four other finalists. Their freestyle included a prosthetic-leg mishap, but Frech recovered and finished the routine; judges' scores and viewer votes determined the result."
+    },
+    {
+      "title": "Peppermint oil linked to lower blood pressure in small 20-day trial",
+      "source": "ScienceDaily (University of Lancashire)",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261123231553.htm",
+      "summary": "A randomized study of 40 adults with elevated blood pressure or stage 1 hypertension found that participants taking food-grade peppermint oil had an average systolic reduction of about 8.5 mmHg versus placebo after 20 days. The University of Lancashire team published the findings in PLOS One. The trial was small and brief, so larger studies are needed; it does not justify replacing prescribed treatment."
     },
     {
       "title": "Plane crash off the coast of Mississippi kills 6, including 2 children",
@@ -578,12 +722,28 @@
       "summary": "Pope Leo XIV expressed concern after UN climate talks in Antalya, Turkey, ended without an overarching agreement, with negotiators divided over whether to address fossil fuels. He said climate-related disasters are increasingly frequent and called for changes in behavior, economic systems and governance. The appeal echoes Pope Francis's environmental focus but does not settle the disputes that blocked consensus at the summit."
     },
     {
+      "title": "Poundland collapses into administration, putting 12,000 jobs at risk",
+      "source": "The Guardian",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/business/2026/nov/25/poundland-administration-jobs-at-risk-gordon-brothers",
+      "summary": "Poundland’s directors appointed AlixPartners as administrators after rescue bids failed, putting about 12,000 jobs across 600 UK and Irish stores at risk before Christmas. Stores and distribution centres will remain open while administrators explore a sale of the business or its assets. The retailer has struggled with inflation, competition and funding shortages; the outcome for individual sites and staff remains uncertain."
+    },
+    {
       "title": "Private capital investment in emerging markets jumps 19% on China tech and infrastructure",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/markets/europe/private-capital-investment-emerging-markets-jumps-19-china-tech-infrastructure-2026-11-25/",
       "summary": "Private-capital investment in emerging markets rose 19% through the third quarter to $143.2 billion, the Global Private Capital Association said, driven by Chinese technology funding and infrastructure demand. The total is already close to all of 2025's $158.3 billion. China attracted $64.3 billion, while infrastructure investment also increased in Africa and Central and Eastern Europe. The figures cover reported investment through September, not a full-year forecast."
+    },
+    {
+      "title": "Proposed 2030 census changes could remove race question and add citizenship question",
+      "source": "The Guardian",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/2030-census-changes",
+      "summary": "The Census Bureau is considering removing its race-and-ethnicity question and adding a citizenship question to the 2030 census, proposals that civil-rights groups and researchers say could distort population data. Census information guides representation, funding, public-health research and infrastructure planning. Advocates warn a citizenship question could discourage responses in immigrant communities; officials argue alternative data sources exist. The proposals have drawn criticism after the public-comment period closed."
     },
     {
       "title": "Pulitzer-winning composer Caroline Shaw reflects on a career across classical and pop music",
@@ -624,6 +784,14 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/china/russia-sends-home-chinese-suspected-illegally-raising-23-billion-deposits-2026-11-25/",
       "summary": "Russia has extradited a Chinese national, identified only by the surname Shu, to China, where he is wanted over an alleged scheme involving more than 15 billion yuan ($2.25 billion) in public deposits. Xinhua, citing China’s Ministry of Public Security, said he returned on November 5. Authorities disclosed few details about the alleged fundraising or the extradition process."
+    },
+    {
+      "title": "Russian government official warns of Ukrainian drone attacks on utility infrastructure this winter",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/russian-government-official-warns-ukrainian-drone-attacks-utility-infrastructure-2026-11-25/",
+      "summary": "Russia’s deputy prime minister said preparing for possible Ukrainian drone attacks on Russian power and heating infrastructure is a top winter priority, especially in border regions. Reuters reported that some facilities near Moscow have anti-drone netting and residents are buying generators and batteries. Last year, attacks near Belgorod left tens of thousands without heat and electricity; Kyiv and Moscow continue to trade strikes on energy sites."
     },
     {
       "title": "Russian strikes target Ukraine's power transmission network, leaving Odesa households without electricity",
@@ -682,6 +850,14 @@
       "summary": "Spanish defence and technology group Indra set revenue targets above €12 billion by 2030 and €20 billion by 2035, relying on rising European military spending. Its €22 billion order backlog provides visibility, and defence revenue is projected to quadruple to €5.2 billion by 2030. The company also expects space revenue to exceed €1 billion, although its new plan sets a lower 2030 core-profit margin than its previous strategy."
     },
     {
+      "title": "SpongeBob SquarePants cast reflects on 27 years as new holiday special arrives",
+      "source": "Associated Press",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/spongebob-squarepants-holiday-special-anniversary-dc3c2a0f2549a0ef79ba76cdcf530421",
+      "summary": "The cast and creators of 'SpongeBob SquarePants' are marking more than 27 years since the series began, ahead of a new holiday special. The animated show remains a major television and merchandise franchise, with more than $17 billion in retail sales and 353 billion minutes watched on YouTube, according to figures cited by AP. Creators credit its mix of humor and family appeal for sustaining multiple generations of fans."
+    },
+    {
       "title": "Steelers bench Aaron Rodgers and name Mason Rudolph starter against Denver",
       "source": "The Guardian",
       "category": "Sports",
@@ -738,12 +914,20 @@
       "summary": "Several dozen young Republicans in Tarrant County, Texas, met after the party’s midterm losses to discuss its direction. Many criticized personal attacks, infighting and limited progress on affordability, while urging stronger leadership and a return to conservative principles. Others favored a harder line. The discussion offers a local snapshot of tensions over Trump’s influence as Republicans look toward 2028."
     },
     {
-      "title": "Trump plans new tariffs for China, EU and other trading partners over subsidies",
-      "source": "Associated Press",
+      "title": "Trump unveils new tariffs to fight excess factory capacity, undeterred by midterms defeat",
+      "source": "Reuters",
       "category": "Politics",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/trump-tariffs-china-european-union-367083ea32f71fd7f70029ba7df66bf0",
-      "summary": "The Trump administration proposed new Section 301 tariffs on China, the European Union, Japan, South Korea, Taiwan and nine other trading partners, citing subsidized overproduction and trade barriers. Proposed rates include 20% for China and Vietnam and 10%–18% for others; Brazil faces additional sugar duties and a 10% aircraft tariff. The measures require consultation and are not expected to begin for months; China rejected the rationale."
+      "url": "https://www.reuters.com/world/china/us-proposes-new-tariffs-14-trading-partners-fight-excess-factory-capacity-2026-11-25/",
+      "summary": "The Trump administration proposed new Section 301 tariffs on 14 trading partners, with headline rates of 20% to 40% but caps tied to trade deals already concluded or under negotiation. China’s capped rate would be 20%; Brazil faces a proposed 10% duty on finished Embraer aircraft and higher sugar duties. The measures remain proposals, and Washington says they target excess industrial capacity."
+    },
+    {
+      "title": "Two men charged after break-in at Prince William and Catherine's country home",
+      "source": "Reuters",
+      "category": "Curious news",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/uk/two-charged-with-burglary-after-break-in-country-home-prince-william-wife-kate-2026-11-25/",
+      "summary": "Two Albanian men appeared in court charged with burglary and trespass after an alleged break-in at Anmer Hall, Prince William and Catherine's country residence on the Sandringham estate. Prosecutors said the men and a third suspect climbed a drainpipe and stole a clock and six pairs of cufflinks. The home was unoccupied; neither defendant entered a plea, and the case was adjourned while prosecutors seek approval for one charge."
     },
     {
       "title": "U.S. new home sales jump to 10-month high as builders cut prices",
@@ -759,7 +943,7 @@
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/finance/us-third-quarter-gdp-growth-revised-sharply-higher-2026-11-25/",
-      "summary": "U.S. third-quarter GDP growth was revised to a 4.3% annualized rate from an earlier 3.4% estimate, the fastest pace in three years. Stronger consumer spending and business investment, including AI-related equipment purchases, drove the upgrade. Reuters noted that higher-income households accounted for much of the consumption strength, while savings have declined and analysts warn AI investment may slow as valuations face scrutiny."
+      "summary": "U.S. third-quarter GDP was revised to a 4.3% annualized pace from 3.4%, the fastest in three years. Consumer spending was upgraded to 4.2% and business equipment investment grew 21.8%, much of it tied to AI. Higher-income households drove much of the spending and savings fell, leaving economists watching whether investment and consumption can sustain the pace."
     },
     {
       "title": "UK competition watchdog weighs remedies for proposed $25 billion AkzoNobel-Axalta merger",
@@ -874,6 +1058,14 @@
       "summary": "Mexico's arrest of Sinaloa-linked figure Fausto Isidro Meza Flores followed months of planning and U.S. intelligence support, including a surveillance drone deployed at Mexico's request. Analysts told AP the operation could offer a model for cooperation without U.S. troops operating on Mexican soil. Tensions remain over sovereignty and extradition: Washington seeks custody, while Mexico says he will face prosecution there first."
     },
     {
+      "title": "US-sought activist Fergie Chambers says extradition case should not punish his political beliefs",
+      "source": "The Guardian",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/fergie-chambers-us-extradition-interview",
+      "summary": "James 'Fergie' Chambers, a U.S. citizen sought for extradition by Washington over allegations linked to support for Hamas and protest activity, told The Guardian he fears being targeted for his political views. A Spanish court released him on bail after identifying problems with translations in the U.S. request; proceedings are paused while the issue is reviewed. Chambers denies wrongdoing, and any extradition remains unresolved as he pursues asylum in Spain."
+    },
+    {
       "title": "Walmart-backed PhonePe restarts IPO plans at up to $15 billion valuation",
       "source": "Reuters",
       "category": "Business",
@@ -890,6 +1082,14 @@
       "summary": "Walmart-owned Flipkart said chief executive Kalyan Krishnamurthy will leave after more than 11 years leading the Indian e-commerce group. The company says product and technology chief Balaji Thiagarajan will run the business temporarily while a successor is selected. Flipkart has more than 500 million registered users and has long prepared for a possible public listing, though no timetable was announced."
     },
     {
+      "title": "With new league in planning stages, NBA announces $11B initiative for arena development in Europe",
+      "source": "Associated Press (via ABC News)",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://abcnews.com/Sports/wireStory/new-league-planning-stages-nba-announces-11b-initiative-138439506",
+      "summary": "The NBA announced an initiative targeting at least €10 billion (nearly $11 billion) from global investors to build or modernize arenas and related entertainment districts across Europe. The financing is intended to support clubs in a planned NBA-FIBA league expected to begin next fall. Potential markets include Britain, France, Spain, Italy, Germany, Greece and Turkey, but no participating cities have been selected."
+    },
+    {
       "title": "Wolf comeback divides the densely populated Netherlands",
       "source": "Associated Press (via The Washington Post)",
       "category": "Environment",
@@ -898,108 +1098,20 @@
       "summary": "Wolves, absent from the Netherlands for about two centuries, have returned in growing numbers, but their recovery has sparked conflict in the densely populated country. Researchers estimate fewer than 150 animals in about 15 packs, while farmers report thousands of livestock losses. The government says it plans to permit some culling to prevent attacks; conservationists argue coexistence measures remain essential."
     },
     {
+      "title": "World stocks tumble as Trump tariffs rattle markets, AI rally fades",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-25/",
+      "summary": "Global shares fell as investors reacted to new U.S. tariff proposals, persistent inflation and expectations of a more hawkish Federal Reserve. Reuters reported MSCI’s global index down 2.35%, the Nasdaq off 3.9%, the S&P 500 down 2.7% and Nvidia losing more than 8%. Bond prices rose as investors sought safety; the trade measures still face consultation and could change."
+    },
+    {
       "title": "Yemenis prepare to flee as Houthis advance toward Aden",
       "source": "The Guardian",
       "category": "World",
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/world/2026/nov/25/yemen-houthis-advance-aden",
       "summary": "Residents and aid groups in Aden are preparing for possible evacuation as Houthi forces mass north and east of the city, roughly 50 miles away, and could cut key roads. The Houthis have not declared an immediate assault, but a siege or capture would sharply weaken Yemen’s Saudi-backed government. The advance compounds a humanitarian emergency: 18.7 million people face acute food insecurity and more than 350,000 have been displaced since August."
-    },
-    {
-      "title": "Two men charged after break-in at Prince William and Catherine's country home",
-      "source": "Reuters",
-      "category": "Curious news",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/uk/two-charged-with-burglary-after-break-in-country-home-prince-william-wife-kate-2026-11-25/",
-      "summary": "Two Albanian men appeared in court charged with burglary and trespass after an alleged break-in at Anmer Hall, Prince William and Catherine's country residence on the Sandringham estate. Prosecutors said the men and a third suspect climbed a drainpipe and stole a clock and six pairs of cufflinks. The home was unoccupied; neither defendant entered a plea, and the case was adjourned while prosecutors seek approval for one charge."
-    },
-    {
-      "title": "Native American group wins partial ruling over Plymouth's National Day of Mourning protest",
-      "source": "The Guardian",
-      "category": "U.S.",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/us-news/2026/nov/25/native-americans-national-day-of-mourning-thanksgiving",
-      "summary": "A Massachusetts judge ruled that Plymouth must honor a 1998 agreement allowing the United American Indians of New England to hold its National Day of Mourning protest without permits or insurance. The town no longer has to provide a mobile stage, however, and the ruling leaves room for future legal disputes. The group says the event will proceed, challenging efforts it views as limiting Indigenous speech and visibility."
-    },
-    {
-      "title": "Global temperatures stayed more than 2°C above preindustrial levels for six straight days",
-      "source": "The Guardian",
-      "category": "Environment",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/environment/2026/nov/25/world-six-consecutive-days-2c-above-preindustrial-levels-first-time",
-      "summary": "Global daily temperatures exceeded 2°C above preindustrial levels for six consecutive days for the first time, reaching 2.24°C above baseline on Monday, according to data reviewed by The Guardian. Scientists stress that a short daily streak does not mean the Paris Agreement's long-term threshold has been breached. They link the spike to human-caused warming and a strong El Niño, warning that drought and forest fires can amplify carbon buildup."
-    },
-    {
-      "title": "Malawi hospitals face worst essential-medicine shortages in more than a decade",
-      "source": "The Guardian",
-      "category": "Health",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/global-development/2026/nov/25/malawi-healthcare-hospitals-drug-shortage-medicines",
-      "summary": "Essential-medicine availability in Malawi has fallen from 77% in early 2025 to 40% nationwide and as low as 18% at major referral hospitals, according to internal government supply data. Patients are being asked to buy basic items privately, even in public hospitals. The crisis is tied to foreign-exchange shortages and about $18 million in supplier arrears; officials say they have begun clearing debts to restore deliveries."
-    },
-    {
-      "title": "US-sought activist Fergie Chambers says extradition case should not punish his political beliefs",
-      "source": "The Guardian",
-      "category": "U.S.",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/us-news/2026/nov/25/fergie-chambers-us-extradition-interview",
-      "summary": "James 'Fergie' Chambers, a U.S. citizen sought for extradition by Washington over allegations linked to support for Hamas and protest activity, told The Guardian he fears being targeted for his political views. A Spanish court released him on bail after identifying problems with translations in the U.S. request; proceedings are paused while the issue is reviewed. Chambers denies wrongdoing, and any extradition remains unresolved as he pursues asylum in Spain."
-    },
-    {
-      "title": "53 incoming House Democrats plan to boycott Harvard orientation over graduate-worker strike",
-      "source": "The Guardian",
-      "category": "Politics",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/education/2026/nov/25/house-democrats-harvard-boycott-strike",
-      "summary": "Fifty-three newly elected House Democrats told Harvard they will skip a December orientation program if graduate student workers remain on strike. The lawmakers said attending would mean crossing a picket line. The dispute centers on wages and workplace protections, with the graduate union seeking higher raises than Harvard has offered. The boycott adds political pressure to negotiations but does not directly resolve the labor dispute."
-    },
-    {
-      "title": "Proposed 2030 census changes could remove race question and add citizenship question",
-      "source": "The Guardian",
-      "category": "U.S.",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/us-news/2026/nov/25/2030-census-changes",
-      "summary": "The Census Bureau is considering removing its race-and-ethnicity question and adding a citizenship question to the 2030 census, proposals that civil-rights groups and researchers say could distort population data. Census information guides representation, funding, public-health research and infrastructure planning. Advocates warn a citizenship question could discourage responses in immigrant communities; officials argue alternative data sources exist. The proposals have drawn criticism after the public-comment period closed."
-    },
-    {
-      "title": "North Korea orders Swiss diplomat out and demands closure of Pyongyang office",
-      "source": "Associated Press",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/north-korea-switzerland-diplomat-russia-ukraine-a39dbc92d195e69443ce66913a3dff7e",
-      "summary": "North Korea ordered the head of Switzerland's newly reopened diplomatic office to leave within 48 hours and demanded the office close, calling Swiss sanctions on a children's camp hostile. Switzerland says the camp was involved in transferring Ukrainian children from Russian-occupied areas and promoting pro-Russia messaging. Pyongyang rejects the sanctions and says the camp is legitimate. Switzerland says it will keep diplomatic channels open despite the dispute."
-    },
-    {
-      "title": "AP review: Disney's animated film 'Hexed' offers a familiar coming-of-age witch story",
-      "source": "Associated Press",
-      "category": "Entertainment",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/hexed-movie-review-hailee-steinfeld-9ea64280c72ffcff03e4db1e0983028c",
-      "summary": "Disney's animated film 'Hexed' follows a teenager who discovers magical powers and enters a hidden witch realm, where her grandmother rules as queen. The Associated Press review praises the voice performances of Hailee Steinfeld, Jodie Foster and Rashida Jones, along with the film's visuals, but finds the chosen-one plot familiar and its middle section slow. The review sees the mother-daughter relationship as the film's strongest element."
-    },
-    {
-      "title": "SpongeBob SquarePants cast reflects on 27 years as new holiday special arrives",
-      "source": "Associated Press",
-      "category": "Entertainment",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/spongebob-squarepants-holiday-special-anniversary-dc3c2a0f2549a0ef79ba76cdcf530421",
-      "summary": "The cast and creators of 'SpongeBob SquarePants' are marking more than 27 years since the series began, ahead of a new holiday special. The animated show remains a major television and merchandise franchise, with more than $17 billion in retail sales and 353 billion minutes watched on YouTube, according to figures cited by AP. Creators credit its mix of humor and family appeal for sustaining multiple generations of fans."
-    },
-    {
-      "title": "Paralympian Ezra Frech becomes first Paralympian to win Dancing with the Stars",
-      "source": "NBC Sports",
-      "category": "Sports",
-      "published": "2026-11-25",
-      "url": "https://www.nbcsports.com/paralympics/news/ezra-frech-dancing-with-the-stars",
-      "summary": "Paralympic track-and-field gold medalist Ezra Frech won the U.S. edition of Dancing with the Stars, becoming the show's first Paralympian champion and youngest male winner. The 21-year-old and professional partner Daniella Karagach beat Olympic figure skater Amber Glenn and four other finalists. Their freestyle included a prosthetic-leg mishap, but Frech recovered and finished the routine; judges' scores and viewer votes determined the result."
-    },
-    {
-      "title": "Glee actor Jenna Ushkowitz says Cory Monteith tribute episode came too soon",
-      "source": "Variety",
-      "category": "Entertainment",
-      "published": "2026-11-25",
-      "url": "https://au.variety.com/2026/tv/global/glee-jenna-ushkowitz-cory-monteith-tribute-42917/",
-      "summary": "Jenna Ushkowitz, who played Tina on 'Glee,' says the 2013 episode honoring co-star Cory Monteith aired too soon after his death. She told Variety that cast and crew were grieving privately while also acting out their characters' grief, and felt they lacked the support to handle both. Ushkowitz understood why fans wanted a tribute, but said the experience was painful. Monteith died in 2013 from an accidental overdose."
     },
     {
       "title": "‘Hunger Games’ Is a Box Office Power Again Thanks to Haymitch Abernathy",
@@ -1250,6 +1362,14 @@
       "summary": "A new ShellBench benchmark suggests that even leading AI models from OpenAI, Anthropic and Meta struggle with everyday tasks that require reliable judgment. The systems failed more than one-third of attempts, while 15.7% of all tested attempts violated at least one safety requirement, sometimes causing unintended consequences. The findings challenge claims that consumer agents are ready to manage shopping, travel and other personal responsibilities autonomously."
     },
     {
+      "title": "FHFA raises 2027 conforming loan limit to $855,400 for most U.S. homes",
+      "source": "Associated Press",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/fannie-freddie-conforming-loans-mortgage-financing-housing-2f9792f4b4bfa584389b208445b9e5df",
+      "summary": "The Federal Housing Finance Agency will let Fannie Mae and Freddie Mac buy or guarantee single-family mortgages up to $855,400 in most U.S. counties beginning in 2027, a 2.7% increase. Higher limits apply in expensive areas, including $1.28 million in Los Angeles County and $1.22 million in New York County. The change reflects rising home values, while elevated mortgage rates continue to weigh on sales."
+    },
+    {
       "title": "Five Turkish soldiers killed in helicopter crash, ministry says",
       "source": "Reuters",
       "category": "World",
@@ -1272,6 +1392,14 @@
       "published": "2026-11-24",
       "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/",
       "summary": "Gavi plans to buy up to 1.5 million doses of an experimental vaccine against the Bundibugyo strain of Ebola if trials in the Democratic Republic of Congo show it is safe and effective. The candidate was developed by Oxford and the Serum Institute of India. No licensed vaccine or treatment exists for this strain, which has caused a major outbreak; purchase terms were not disclosed."
+    },
+    {
+      "title": "Gaza issues meningitis epidemic alert after infections surge",
+      "source": "The Guardian",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/world/2026/nov/24/gaza-meningitis-epidemic-alert",
+      "summary": "Gaza's health ministry reported 272 meningitis infections in October, more than eight times the usual monthly range, and issued an epidemic alert. Fifteen people have died since the start of 2026, according to the ministry. Aid agencies cite overcrowded shelters, sewage-contaminated water, damaged infrastructure and restricted supplies as contributing conditions. The figures include suspected cases, and independent verification is difficult amid the continuing humanitarian emergency."
     },
     {
       "title": "Gisèle Pelicot condemns publisher over use of intimate images in book promotion",
@@ -1514,6 +1642,14 @@
       "summary": "A Zimbabwean man pleaded guilty in South Africa to violating legislation regulating foreign military assistance after agreeing to fight for Russia in Ukraine in exchange for payment. He received a suspended five-year sentence and faces deportation. The case comes amid wider concerns in several African countries about recruitment for the war and the treatment of recruits."
     },
     {
+      "title": "South Korea issues alert after Russian warplanes enter air-defense zone near eastern island",
+      "source": "Yonhap News Agency",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://en.yna.co.kr/view/AEN20261124002255315",
+      "summary": "Several Russian warplanes entered South Korea's air-defense identification zone near Ulleung Island, prompting Seoul to issue a brief public alert and summon Russia's military attaché. South Korea said the aircraft approached its territorial airspace but did not cross it; the alert was lifted after three minutes. Moscow said its aircraft acted within international law and disputes the legal basis of the zone. The incident followed other recent Russian aircraft entries."
+    },
+    {
       "title": "Spanish government challenges Madrid regional law extending rights to unborn children",
       "source": "Reuters",
       "category": "Politics",
@@ -1698,30 +1834,6 @@
       "summary": "Wisconsin reported its third measles-associated death of 2026, an adult from Lafayette County, as the state’s outbreak reached 918 cases and 19 hospitalizations across 24 counties. Reuters noted a gap between CDC’s six national deaths and at least 14 deaths reported publicly by states, reflecting different counting methods. Most U.S. cases involve unvaccinated people; health experts say vaccination remains the strongest protection."
     },
     {
-      "title": "Gaza issues meningitis epidemic alert after infections surge",
-      "source": "The Guardian",
-      "category": "Health",
-      "published": "2026-11-24",
-      "url": "https://www.theguardian.com/world/2026/nov/24/gaza-meningitis-epidemic-alert",
-      "summary": "Gaza's health ministry reported 272 meningitis infections in October, more than eight times the usual monthly range, and issued an epidemic alert. Fifteen people have died since the start of 2026, according to the ministry. Aid agencies cite overcrowded shelters, sewage-contaminated water, damaged infrastructure and restricted supplies as contributing conditions. The figures include suspected cases, and independent verification is difficult amid the continuing humanitarian emergency."
-    },
-    {
-      "title": "South Korea issues alert after Russian warplanes enter air-defense zone near eastern island",
-      "source": "Yonhap News Agency",
-      "category": "World",
-      "published": "2026-11-24",
-      "url": "https://en.yna.co.kr/view/AEN20261124002255315",
-      "summary": "Several Russian warplanes entered South Korea's air-defense identification zone near Ulleung Island, prompting Seoul to issue a brief public alert and summon Russia's military attaché. South Korea said the aircraft approached its territorial airspace but did not cross it; the alert was lifted after three minutes. Moscow said its aircraft acted within international law and disputes the legal basis of the zone. The incident followed other recent Russian aircraft entries."
-    },
-    {
-      "title": "FHFA raises 2027 conforming loan limit to $855,400 for most U.S. homes",
-      "source": "Associated Press",
-      "category": "Business",
-      "published": "2026-11-24",
-      "url": "https://apnews.com/article/fannie-freddie-conforming-loans-mortgage-financing-housing-2f9792f4b4bfa584389b208445b9e5df",
-      "summary": "The Federal Housing Finance Agency will let Fannie Mae and Freddie Mac buy or guarantee single-family mortgages up to $855,400 in most U.S. counties beginning in 2027, a 2.7% increase. Higher limits apply in expensive areas, including $1.28 million in Los Angeles County and $1.22 million in New York County. The change reflects rising home values, while elevated mortgage rates continue to weigh on sales."
-    },
-    {
       "title": "BepiColombo spacecraft remains safe in Mercury orbit after software glitch",
       "source": "Reuters",
       "category": "Science",
@@ -1744,6 +1856,22 @@
       "published": "2026-11-23",
       "url": "https://www.reuters.com/legal/government/massachusetts-sues-block-ice-conducting-courthouse-arrests-2026-11-23/",
       "summary": "Massachusetts Attorney General Andrea Joy Campbell sued to stop ICE from making civil immigration arrests in state courthouses without judicial warrants. She says more than 1,110 courthouse arrests have occurred since President Donald Trump took office, including 38 after a state law took effect November 3. The Department of Homeland Security defended the practice as efficient; the court has not ruled on the new case."
+    },
+    {
+      "title": "Moscow accuses Estonia of hostile actions on 'verge of triggering open war'",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-23",
+      "url": "https://www.reuters.com/world/moscow-accuses-estonia-hostile-actions-verge-triggering-open-war-2026-11-23/",
+      "summary": "Russia accused Estonia of actions “on the verge of triggering open war” after Tallinn said it would close road crossings with Russia for six months from December 1. Moscow alleged Estonia allowed Ukrainian drones to use its airspace and obstructed Russian shipping; Estonia rejected the claims and said it never permits its territory to be used for foreign military operations. NATO said it was monitoring the situation."
+    },
+    {
+      "title": "New York's top court shields social media companies from liability in Buffalo mass-shooting case",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-23",
+      "url": "https://www.reuters.com/legal/government/social-media-companies-not-liable-buffalo-mass-shooting-new-yorks-highest-court-2026-11-23/",
+      "summary": "New York's highest court ruled 4-3 that major social media companies cannot be held liable in a lawsuit alleging their platforms helped radicalize the gunman who killed 10 Black people at a Buffalo grocery store in 2022. The majority said the attack was not a foreseeable consequence of platform design choices, applying Section 230 protections. A dissent said a jury should hear the claims; families are considering further options."
     },
     {
       "title": "Paper wasps recognize faces in ways strikingly similar to humans",
@@ -1786,14 +1914,6 @@
       "summary": "World Food Programme chief Luke Lindberg warned that conflict-related disruptions around the Black Sea, Strait of Hormuz and Bab el-Mandeb could add $727 million to agency costs by mid-2027, threatening assistance for 7.3 million more people. The WFP has already cut its 2027 target from 110 million to 91 million recipients. A proposed humanitarian corridor for Russian and Ukrainian grain remains uncertain as attacks and shipping constraints persist."
     },
     {
-      "title": "New York's top court shields social media companies from liability in Buffalo mass-shooting case",
-      "source": "Reuters",
-      "category": "Technology",
-      "published": "2026-11-23",
-      "url": "https://www.reuters.com/legal/government/social-media-companies-not-liable-buffalo-mass-shooting-new-yorks-highest-court-2026-11-23/",
-      "summary": "New York's highest court ruled 4-3 that major social media companies cannot be held liable in a lawsuit alleging their platforms helped radicalize the gunman who killed 10 Black people at a Buffalo grocery store in 2022. The majority said the attack was not a foreseeable consequence of platform design choices, applying Section 230 protections. A dissent said a jury should hear the claims; families are considering further options."
-    },
-    {
       "title": "International UN talks on controlling use of autonomous weapons collapse",
       "source": "The Guardian",
       "category": "Technology",
@@ -1832,14 +1952,6 @@
       "published": "2026-11-20",
       "url": "https://www.theguardian.com/us-news/2026/nov/20/los-angeles-palisades-wildfire-trial-verdict",
       "summary": "A federal jury convicted former Uber driver Jonathan Rinderknecht of arson charges tied to the January 2025 Palisades fire, which killed 12 people and destroyed thousands of homes and businesses. Prosecutors said he ignited a brush fire whose embers later reignited in powerful winds; Rinderknecht maintained his innocence and suggested fireworks caused the blaze. He remains in custody and faces a possible sentence of five to 40 years."
-    },
-    {
-      "title": "Russia threatens response as Estonia plans six-month border closure",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-20",
-      "url": "https://www.reuters.com/world/europe/russia-accuses-estonia-erecting-new-iron-curtain-with-border-closure-says-it-2026-11-20/",
-      "summary": "Russia accused Estonia of creating a new 'Iron Curtain' after Tallinn announced it would close road crossings with Russia for at least six months starting December 1, citing security concerns. Moscow threatened political and diplomatic retaliation, while Estonia linked the closure to an alleged arson attempt against a drone manufacturer that it blamed on Russia. The Kremlin denied involvement; the border decision is due for review after six months."
     }
   ]
 }
