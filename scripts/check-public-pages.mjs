@@ -1026,7 +1026,7 @@ if(!homeInstallSource.includes('Trace Public Sources Dictionary') ||
    !homeInstallSource.includes('Story Adventures') ||
    !homeInstallSource.includes("href:'/the-corridors/'") ||
    !homeInstallSource.includes("href:'/the-docket/'") ||
-   !homeInstallSource.includes('href="/studio/"') ||
+   !homeInstallSource.includes("name:'Random AI',url:'/studio/'") ||
    !homeInstallSource.includes("href:'/ai-academy/'")){
   console.error('Grouped homepage or Trace Public Sources Dictionary is missing.'); failures++;
 }
