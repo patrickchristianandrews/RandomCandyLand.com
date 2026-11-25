@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T12:59:40.000Z",
+  "updatedAt": "2026-11-25T14:04:45.000Z",
   "articles": [
     {
       "title": "Kiwi return to Wellington hills after 150 years in Māori-led conservation milestone",
@@ -170,12 +170,12 @@
       "summary": "Bangladesh approved a 36% increase in the garment-sector minimum wage, lifting monthly pay to about $138, but the raise fell short of workers’ demands and triggered fresh clashes with police near Dhaka. The industry employs more than four million people and generates over 80% of export earnings. Reuters reports weeks of protests disrupted production and prompted some buyers to shift orders abroad."
     },
     {
-      "title": "Jensen Huang's return to Nvidia fuels Washington fight over China's chip access",
+      "title": "Jensen Huang's return to Nvidia intensifies Washington fight over China's chip access",
       "source": "Reuters",
       "category": "Technology",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/legal/government/jensen-huangs-return-nvidia-fuels-washington-fight-over-chinas-chip-access-2026-11-25/",
-      "summary": "Nvidia reinstated Jensen Huang as chief executive after intervention by President Donald Trump, but the decision has intensified Washington's debate over advanced chip sales to China. Lawmakers from both parties are pressing for tighter export controls; proposed bills would expand congressional oversight, require chip tracking and pressure allies to restrict chipmaking equipment. Huang is due to face congressional questioning, and analysts say the controversy could worsen U.S.-China tensions."
+      "summary": "President Donald Trump's intervention restored Jensen Huang as Nvidia chief executive, but it intensified debate over whether advanced AI chips should be sold to China. Lawmakers from both parties are pressing for tighter export controls, chip tracking and more congressional oversight. Nvidia shares fell after an initial rally, and Huang is due to face congressional questioning. The dispute could further strain US-China technology relations."
     },
     {
       "title": "Libyan naval officers die following Ukrainian drone attack",
@@ -450,12 +450,12 @@
       "summary": "Colombian security forces stormed a supermarket in Cartagena after a 17-hour siege that began with an attempted armoured-vehicle robbery. President Abelardo de la Espriella said all hostages were rescued and one captor was killed; about 30 people were initially held, with 10 released during negotiations. Authorities described the hostages as safe, but the motive and full circumstances of the attempted robbery remain under investigation."
     },
     {
-      "title": "US prepares new tariffs for China, EU and others over subsidies",
-      "source": "Associated Press",
+      "title": "US proposes new tariffs on Brazil imports, including a 10% duty on aircraft",
+      "source": "Reuters",
       "category": "Politics",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/trump-tariffs-china-european-union-d97ed6f4017152ca4c18de5517db6d51",
-      "summary": "AP reports the Trump administration is preparing additional tariffs on China, the European Union and 14 other economies after a U.S. Trade Representative investigation into industrial subsidies. Officials familiar with the plan said the timing and rates remain unsettled. The duties would add to existing 10%–12.5% levies and follow the Supreme Court’s February rejection of broader tariffs, leaving trading partners awaiting details and possible retaliation."
+      "url": "https://www.reuters.com/business/aerospace-defense/us-proposes-higher-tariffs-brazil-imports-including-10-duty-aircraft-2026-11-25/",
+      "summary": "The United States proposed new Section 301 tariffs on Brazilian goods, including a 10% duty on finished aircraft and higher charges on some sugar imports. Washington says Brazil has not addressed alleged unfair trade practices; Brasilia rejects the accusations. The move could hit Embraer, a major aircraft exporter, and follows the Supreme Court's rejection of earlier emergency-law tariffs. US officials say negotiations remain possible."
     },
     {
       "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
@@ -600,6 +600,182 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/retail-consumer/us-grocers-serve-up-thanksgiving-deals-even-turkey-prices-climb-2026-11-25/",
       "summary": "Major U.S. retailers are offering Thanksgiving meal kits at or below last year's prices to attract inflation-weary shoppers, even as wholesale turkey and potato costs rise. Reuters reported frozen whole-turkey prices reached record highs, while grocers absorb some of the increase to signal value. Walmart's 26-item meal kit costs $35 for ten people, five dollars less than last year. Retailers hope shoppers add higher-margin extras."
+    },
+    {
+      "title": "Amnesty urges war-crimes probe into Ethiopian shelling in Tigray",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/ethiopia-tigray-amnesty-war-crimes-eritrea-shelling-civilians-badme-427358084fef2eb567e38acd81c3eacd",
+      "summary": "Amnesty International urged an independent investigation after verifying 14 civilian deaths in four Ethiopian artillery attacks on Alamata in September. It also alleged that Tigrayan forces placed fighters in residential areas and schools, claims the TPLF rejected; Ethiopian authorities had not responded. The report comes amid renewed clashes and military movements near the Eritrean border, raising fears that the fragile 2022 peace agreement could unravel."
+    },
+    {
+      "title": "Tata Steel's complex APL Apollo deal draws investor backlash",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/commentary/breakingviews/tata-forges-steel-takeover-with-brute-force-2026-11-25/",
+      "summary": "Tata Steel's proposed combination with Indian steel-tube maker APL Apollo could create a business with 7.5 million metric tons of annual capacity, but the deal structure has angered investors. Tata plans to sell its finished-products unit, buy a major stake from APL Apollo's chair and make a further open offer. A separate manufacturing agreement for the chair's private firm has raised governance concerns, while both companies' shares fell sharply."
+    },
+    {
+      "title": "Spain's Indra targets rapid defence and space growth through 2035",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/aerospace-defense/spains-indra-aims-exceed-12-billion-revenue-by-2030-2026-11-25/",
+      "summary": "Spanish defence and technology group Indra set revenue targets above €12 billion by 2030 and €20 billion by 2035, relying on rising European military spending. Its €22 billion order backlog provides visibility, and defence revenue is projected to quadruple to €5.2 billion by 2030. The company also expects space revenue to exceed €1 billion, although its new plan sets a lower 2030 core-profit margin than its previous strategy."
+    },
+    {
+      "title": "China urges Netherlands to provide certainty for firms amid Nexperia dispute",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/china/china-urges-netherlands-offer-fair-predictable-business-climate-amid-nexperia-2026-11-25/",
+      "summary": "China's foreign minister urged the Netherlands to provide a predictable business climate for Chinese companies during talks with Dutch Foreign Minister Tom Berendsen. The appeal comes amid a continuing legal dispute over Nexperia, the Dutch-based chipmaker owned by China's Wingtech, after Dutch authorities intervened over national-security concerns. Both governments said they would keep communication open on semiconductors, but the company's control and governance remain contested."
+    },
+    {
+      "title": "Catalan separatist Carles Puigdemont says he will return to Spain in December",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/catalan-separatist-puigdemont-return-spain-december-12-2026-11-25/",
+      "summary": "Former Catalan leader Carles Puigdemont says he will end nearly a decade in Belgium and return to Spain on December 12, after the Supreme Court applied a 2024 amnesty law to close his criminal case. He plans to present a renewed independence proposal five days later. His return could affect post-election coalition talks, although support for Catalan secession has weakened as voters focus more on immigration, crime and housing."
+    },
+    {
+      "title": "Kilmar Abrego Garcia arrives in Spain after departure deal with US",
+      "source": "Reuters",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/americas/salvadoran-migrant-kilmar-abrego-garcia-lands-spain-after-us-departure-deal-2026-11-25/",
+      "summary": "Salvadoran migrant Kilmar Abrego Garcia arrived in Spain after leaving the United States under an agreement with US authorities, ending a legal fight that reached the Supreme Court. He was wrongly deported to El Salvador in 2025 despite a court order, then returned to the US after the justices intervened. His lawyer calls the move temporary and says future legal avenues could allow him to return as a permanent resident."
+    },
+    {
+      "title": "India approves $1.2 billion incentive plan for construction equipment",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/retail-consumer/india-approves-12-billion-incentive-plan-critical-building-equipment-2026-11-25/",
+      "summary": "India approved an eight-year, $1.2 billion incentive programme to expand domestic production of advanced construction equipment and reduce reliance on imports, particularly from China. The plan offers sales-linked support to manufacturers and component suppliers, plus grants for testing. It gained urgency after Chinese export controls on tunnel-boring machines took effect November 18. Officials estimate the programme could attract $2.27 billion in investment and replace some imports."
+    },
+    {
+      "title": "Lebanon prepares to reopen a second international airport in its north",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/middle-east/lebanon-opening-second-airport-reflects-political-shifts-2026-11-25/",
+      "summary": "Lebanon plans to reopen Kleiat Airport in the north as an international gateway from mid-December, with initial routes expected to serve Turkey, Egypt and Jordan. Private investors are expected to contribute up to $6 million, while the government upgrades roads. The project could bring jobs and travel links to the impoverished Akkar region. Its progress also reflects Hezbollah's reduced political influence after recent wars and shifts in Lebanon's power balance."
+    },
+    {
+      "title": "Berlin landlord warns expropriation proposals could deter property investment",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/aroundtown-says-berlin-landlord-expropriation-push-risks-chilling-investment-2026-11-25/",
+      "summary": "Commercial property group Aroundtown warned that Berlin proposals to expropriate landlords with more than 10,000 apartments could discourage investment beyond the city. The debate has returned after state elections strengthened the Left Party, which backs taking over large housing portfolios. Aroundtown says uncertainty may reduce financing and property transactions, while arguing Germany's housing shortage requires more construction. The company says converting some office space to homes could help add supply."
+    },
+    {
+      "title": "India's central bank buys dollars for a fourth straight month",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/india/indias-central-bank-net-buyer-dollars-fourth-straight-month-september-data-shows-2026-11-25/",
+      "summary": "The Reserve Bank of India was a net buyer of foreign currency for a fourth consecutive month in September, purchasing $6.94 billion net, according to its monthly bulletin. Gross purchases reached $82.18 billion and sales $75.25 billion. The bank's forward dollar sales also increased. The data reflect efforts to manage currency flows, although the rupee later strengthened in November as oil prices eased and investors shifted toward Indian equities."
+    },
+    {
+      "title": "Walmart-backed PhonePe restarts IPO plans at up to $15 billion valuation",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/india/walmart-backed-phonepe-restarts-ipo-process-eyes-up-15-billion-valuation-market-2026-11-25/",
+      "summary": "Indian digital-payments company PhonePe has resumed preparations for an initial public offering and is targeting a $12 billion to $15 billion valuation in early 2027, a source told Reuters. The proposed sale could raise $1.2 billion to $1.5 billion, mainly allowing Walmart and other investors to reduce or exit holdings. PhonePe has more than 650 million registered users and processed nearly half of India's UPI transactions in October."
+    },
+    {
+      "title": "London Metal Exchange tightens aluminium trading rules after supply squeeze",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/davos/lme-tightens-rules-response-aluminium-squeeze-2026-11-25/",
+      "summary": "The London Metal Exchange temporarily tightened short-term aluminium trading rules after falling inventories and concentrated holdings drove immediate-delivery premiums to their highest level since 1988. The changes require large holders of stock warrants and short-term futures to make metal available at capped prices. Available exchange inventories have more than halved this year. The LME says it will keep monitoring the market and may take further action if the squeeze persists."
+    },
+    {
+      "title": "Cardamom advertisement sparks legal dispute between Bollywood actor and Indian regulator",
+      "source": "Reuters",
+      "category": "Curious news",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/litigation/cardamom-ad-sparks-clash-between-bollywood-star-indias-food-regulator-2026-11-25/",
+      "summary": "Bollywood actor Ajay Devgn is challenging a Maharashtra food-safety order telling him to stop appearing in advertisements for a cardamom product linked to a brand also known for banned betel-nut mixtures. Regulators say such promotions can act as indirect advertising for restricted products; Devgn argues cardamom itself is legal. The court case could help define India's rules on surrogate advertising, an issue with implications for public-health policy and celebrity endorsements."
+    },
+    {
+      "title": "Reuters records show Alice Huang-linked firms financed $270 million in Chinese AI servers",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/finance/alice-huang-linked-firms-listed-270-million-ai-servers-china-records-show-2026-11-25/",
+      "summary": "Chinese financial filings reviewed by Reuters show companies linked to businesswoman Alice Huang raised financing against as many as 764 AI servers and modules valued at $270 million, plus networking equipment. Some hardware was associated with a Shanghai data-centre project. The records illustrate how Chinese firms finance computing capacity amid US chip restrictions, but do not establish that the equipment contained processors prohibited for export."
+    },
+    {
+      "title": "BP transfers 3,000 finance operations employees to India's Wipro",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/india/indias-wipro-uks-bp-sign-partnership-take-over-some-finance-ops-2026-11-25/",
+      "summary": "BP has agreed to transfer 3,000 finance operations employees in India, Hungary and Malaysia to Indian technology-services company Wipro during 2027, subject to conditions. The deal reflects a broader shift by multinational companies to outsource internal support functions as they seek lower costs and more automation. BP will retain oversight of standards and data, while Wipro gains experienced staff and a long-term service relationship."
+    },
+    {
+      "title": "US orders for core business equipment rise more than expected in October",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/aerospace-defense/us-core-capital-goods-orders-beat-expectations-october-2026-11-25/",
+      "summary": "Orders for US-made non-defence capital goods excluding aircraft rose 1.2% in October, beating economists' expectations and extending a run of strong business-equipment investment. Shipments also increased, supporting the equipment-spending component of GDP. AI infrastructure investment has helped drive recent growth, but investors are questioning the cost and returns of data-centre expansion. Durable-goods orders rose more modestly as weaker aircraft orders offset gains elsewhere."
+    },
+    {
+      "title": "UK considers opening BBC iPlayer to advertising and rival broadcasters",
+      "source": "Reuters",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/media-telecom/uk-advances-plans-bbc-iplayer-expansion-allow-advertising-rival-content-sources-2026-11-25/",
+      "summary": "Britain is advancing plans to let BBC iPlayer carry content from rival broadcasters and potentially advertising, according to people familiar with the discussions. The changes would require a technology overhaul costing tens of millions of pounds and could be outlined in a government paper on the BBC's charter renewal. The proposal aims to help public-service broadcasters compete with global streaming platforms, but would alter the service's current licence-fee-based model."
+    },
+    {
+      "title": "US jobless claims fall to 189,000, pointing to a steady labour market",
+      "source": "Reuters",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/us/us-weekly-jobless-claims-fall-more-than-expected-2026-11-25/",
+      "summary": "New US applications for unemployment benefits fell by 13,000 to 189,000 in the week ending November 21, below economists' expectations. Continuing claims also declined, suggesting layoffs remain limited even as hiring is subdued. The figures were released a day early because of Thanksgiving. A stable labour market could give the Federal Reserve more room to keep raising rates as it tries to bring inflation back toward its 2% target."
+    },
+    {
+      "title": "US inflation accelerates again in October as Fed rate-hike expectations grow",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/us-inflation-rises-further-october-2026-11-25/",
+      "summary": "The US Personal Consumption Expenditures price index rose 0.3% in October and 3.8% over the year, while core inflation reached 3.3%, according to government data. Consumer spending also increased, supported largely by higher-income households. Financial markets are pricing in another Federal Reserve rate increase in December and possibly January. Persistent inflation is eroding wage gains and may slow household spending as 2027 approaches."
+    },
+    {
+      "title": "Nine more Ukrainian children reunited with families through US-backed effort",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/europe/more-ukrainian-children-are-reunited-with-their-families-white-house-russia-say-2026-11-25/",
+      "summary": "Nine Ukrainian children have been reunited with relatives, bringing the total to 43 under an initiative involving US first lady Melania Trump, the White House and Russian officials. The children were moved from Russia and Russian-held parts of Ukraine to relatives in Ukraine and Germany. Moscow says cooperation was secured with both sides, while Ukrainian authorities had not immediately commented. The cases remain sensitive amid international allegations about the wartime transfer of children."
+    },
+    {
+      "title": "Ukraine says strike on Russian air base damaged five military aircraft",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/aerospace-defense/ukraine-says-it-struck-major-russian-air-base-damaging-five-planes-2026-11-25/",
+      "summary": "Ukraine's General Staff said its forces struck Savasleyka air base in Russia's Nizhny Novgorod region, damaging three MiG-31 jets and two Su-34 fighter-bombers used in attacks on Ukraine. Russia had not immediately commented, so the reported damage could not be independently confirmed. The strike is part of Kyiv's campaign against Russian military infrastructure as Moscow continues attacks on Ukrainian cities and energy facilities."
+    },
+    {
+      "title": "UK reportedly moves military aircraft into hangars at night amid drone concerns",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/uk/uk-raf-moving-aircraft-hangars-night-over-possible-drone-threats-sky-news-2026-11-25/",
+      "summary": "Britain's Royal Air Force is moving aircraft into hangars and shelters at night and considering anti-drone netting, according to reports by The Times and Sky News. The Ministry of Defence had not commented. The reports follow warnings from British security agencies about sabotage threats and suspected unauthorised drone activity near military bases, including incidents authorities have linked to possible Iranian involvement."
     },
     {
       "title": "French officials order former President Sarkozy's corruption case to trial",
@@ -1032,14 +1208,6 @@
       "published": "2026-11-24",
       "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/hiv-infections-could-rise-historic-lows-starting-next-year-un-says-2026-11-24/",
       "summary": "UNAIDS chief Winnie Byanyima warned that new HIV infections could begin rising in 2027 as international funding cuts and prevention-service closures threaten recent progress. New infections fell to 1.2 million last year, a record low, despite global HIV funding dropping nearly one-fifth. The warning is a forecast based on emerging signs; full data confirming a reversal are not yet available."
-    },
-    {
-      "title": "Amnesty calls for war-crimes investigation into shelling in Ethiopia's Tigray region",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/world/ethiopian-shelling-of-tigray-town-should-be-investigated-possible-war-crimes-2026-11-24/",
-      "summary": "Amnesty International said artillery strikes by Ethiopian forces and a pro-government militia on populated parts of Tigray should be investigated as possible war crimes, reporting that it verified 14 civilian deaths in four incidents. It also accused Tigray forces of placing fighters in residential areas and using schools militarily. The parties did not respond or disputed the findings; Reuters could not independently resolve the allegations."
     },
     {
       "title": "About 175 migrants missing after boat from Senegal loses contact",
