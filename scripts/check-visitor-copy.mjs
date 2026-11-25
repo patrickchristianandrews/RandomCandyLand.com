@@ -7,7 +7,7 @@ import path from 'node:path';
 const roots=['public','src','index.html'];
 const formats=/\.(html|js|jsx|ts|tsx|css|svg|json|webmanifest)$/i;
 const branded=/\b(?:OpenAI|ChatGPT|Claude|Gemini)\b|\bartificial[ -]+intelligence\b|\b(?:GPT-[0-9]|LLM)\b/g;
-const exceptions=[];
+const exceptions=['public/news/digest.json']; // News summaries may accurately name companies and products.
 let files=0;const found=[];
 function scan(file){
  if(!formats.test(file))return;
