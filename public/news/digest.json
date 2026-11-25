@@ -1,6 +1,118 @@
 {
-  "updatedAt": "2026-11-25T21:08:53.192Z",
+  "updatedAt": "2026-11-25T21:55:14Z",
   "articles": [
+    {
+      "title": "Baseball's MLB sues players' union, seeks ruling that lockout is legal",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/litigation/baseball-mlb-sues-players-union-seeks-ruling-that-lockout-is-legal-2026-11-25/",
+      "summary": "Major League Baseball sued its players' union seeking a court declaration that an expected lockout beginning next week is legal, escalating talks over a new collective bargaining agreement. The central dispute is a proposed salary cap; MLB's latest offer would set a $258.2 million cap and $180.2 million floor in 2028. The union called the lawsuit frivolous and accused owners of avoiding good-faith bargaining."
+    },
+    {
+      "title": "Mexico announces diplomatic protest after US denies extradition of former TV host",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.washingtonpost.com/world/2026/11/25/mexico-sheinbaum-ines-gomez-mont-us-extradition/2a6ae420-e907-11f1-8db0-6f1e3c389e7c_story.html",
+      "summary": "Mexico said it will send a diplomatic note protesting the United States' decision to deport former television host Inés Gómez Mont to Spain rather than extradite her to Mexico, where she faces allegations of tax fraud, money laundering and organized crime. President Claudia Sheinbaum cited reciprocity after Mexico transferred more than 90 suspects to U.S. custody. Spain has also received an extradition request; the allegations have not been adjudicated."
+    },
+    {
+      "title": "UN tribunal says agency lacked evidence to dismiss Palestinian aid worker",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/world/2026/nov/25/un-sacked-palestinian-staff-on-back-of-unproven-israel-allegations",
+      "summary": "A UN dispute tribunal ruled that UNRWA failed to provide evidence supporting its dismissal of Palestinian aid worker Abu Awad after Israeli allegations linked him to Hamas. It awarded him one year's pay and $5,000 in moral damages, while saying it could not determine the underlying allegations. The ruling raises questions about the agency's dismissal process; it does not resolve wider claims concerning other staff."
+    },
+    {
+      "title": "Italian church report records 57 priests jailed for child sexual abuse",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/italy-has-jailed-57-priests-child-sex-abuse-2001-2021-church-report-says-2026-11-25/",
+      "summary": "A report commissioned by the Italian Bishops' Conference documented 378 cases involving 356 alleged abusers and 385 victims between 2001 and 2021; 57 priests received final prison sentences. The authors cautioned that church archives cannot show the full scale of abuse. Victims' advocates called the figures incomplete and urged structural reforms and mandatory reporting, while the conference agreed to create a permanent observatory."
+    },
+    {
+      "title": "Nigeria seizes $227 million of methamphetamine and arrests five Mexicans",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/nigeria-seizes-more-than-200-million-meth-arrests-five-mexicans-2026-11-25/",
+      "summary": "Nigeria's anti-drug agency said it seized methamphetamine valued at $227 million in Enugu state and arrested five Mexican nationals. Officials said the operation recovered 1.5 metric tons of meth, 6.7 tons of precursor chemicals and industrial equipment. Authorities described it as one of the agency's largest hauls this year, amid concerns that Nigeria is becoming both a transit route and a production base for synthetic drugs."
+    },
+    {
+      "title": "Ecuador says talks with US focused on reviewing joint security operations",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/americas/ecuador-minister-says-talks-with-us-focused-reviewing-operations-country-2026-11-25/",
+      "summary": "Ecuador's interior minister said talks with U.S. Defense Secretary Pete Hegseth focused on reviewing joint operations, setting next steps and identifying Ecuador's needs. His comments followed a report that Washington paused joint military activity while investigating a deadly operation by Ecuadorean forces. The minister called the discussions productive and said an action plan remains in place; the status of any pause was not independently clarified."
+    },
+    {
+      "title": "Nigeria's Tinubu vows to bring peace to insurgency-hit region",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/media-telecom/nigerias-tinubu-vows-bring-peace-insurgency-hit-region-2026-11-25/",
+      "summary": "President Bola Tinubu promised to restore security in Nigeria's insurgency-hit northeast as he campaigns for a second term in the January 16 election. Borno state remains a Boko Haram and Islamic State West Africa Province stronghold, while kidnappings and attacks continue. A recent poll cited by Reuters found more than half of respondents disapproved of his performance; Tinubu also said more than 70 abducted schoolchildren remained captive."
+    },
+    {
+      "title": "Second US judge blocks Trump's latest birthright citizenship order",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/government/trumps-newest-order-curtailing-birthright-citizenship-is-blocked-by-second-judge-2026-11-25/",
+      "summary": "A federal judge in Washington blocked President Donald Trump's August order narrowing birthright citizenship, ruling that Supreme Court precedent left no room for the new exceptions. The injunction covers children in the class action and bars several federal agencies from enforcing the order against them. A second judge has now blocked the policy; the administration called the ruling activist and may appeal."
+    },
+    {
+      "title": "Russian forces hit Kyiv with ballistic missiles, mayor says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/russian-forces-hit-kyiv-with-ballistic-missiles-mayor-says-2026-11-25/",
+      "summary": "Russian forces struck two sites in Kyiv with ballistic missiles late Wednesday, Mayor Vitali Klitschko said. Two buildings on the east side of the Dnipro River were hit, with one badly damaged; casualties were possible, but officials had not confirmed a toll in the initial report. The attack adds to pressure on the capital as Russia continues missile and drone strikes across Ukraine."
+    },
+    {
+      "title": "North Korea's Kim calls for wider deployment of tactical nuclear weapons",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/asia-pacific/north-koreas-kim-visits-nuclear-facilities-calls-wider-tactical-nuclear-weapons-2026-11-25/",
+      "summary": "North Korean leader Kim Jong Un inspected facilities producing nuclear materials and conducting weapons research, state media reported, and called for wider deployment of tactical nuclear weapons across multiple domains. KCNA said Kim described production capacity as expanding and the country's nuclear status as non-negotiable. The report offers no independent details on the facilities or the scale and timing of any deployment."
+    },
+    {
+      "title": "Islamic State attack kills two Syrian security personnel in Hasaka",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/middle-east/islamic-state-attack-kills-two-syrian-security-personnel-hasaka-state-media-says-2026-11-25/",
+      "summary": "An Islamic State attack on a security headquarters in Hasaka, northeastern Syria, killed two internal security personnel and wounded five, Syrian state media reported. Authorities said four attackers died, two in clashes and two in suicide explosions. Islamic State has continued operating through clandestine cells despite losing its last Syrian territory in 2019, and has renewed attacks on security forces under President Ahmed al-Sharaa."
+    },
+    {
+      "title": "Senegal parliament opposes president's decision to implement revised budget",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/senegal-parliament-adopts-resolution-opposing-presidents-decision-implement-2026-11-25/",
+      "summary": "Senegal's National Assembly voted 128–9 to condemn President Bassirou Diomaye Faye's decision to implement a revised 2026 budget by decree after lawmakers rejected it. The dispute with former prime minister Ousmane Sonko's party threatens a proposed $2.2 billion IMF support programme tied to debt restructuring. Lawmakers said the government had not provided adequate transparency on public finances; Faye said he was safeguarding state operations."
+    },
+    {
+      "title": "Barrick International chief meets Mali prime minister after mining dispute",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/barrick-international-ceo-meets-mali-pm-first-visit-since-standoff-2026-11-25/",
+      "summary": "Barrick Mining's newly appointed international-division chief met Mali's prime minister for the first time since the company and the military-led government settled a dispute over the Loulo-Gounkoto gold complex a year ago. The meeting suggests warmer relations after conflict over taxes, profit-sharing and control, during which four local executives were imprisoned. Barrick said it would comply with Mali's new mining code; it did not immediately comment."
+    },
+    {
+      "title": "OPEC blames EU for COP31 collapse as fossil-fuel dispute deepens",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sustainability/cop/opec-blames-eu-cop31-collapse-2026-11-25/",
+      "summary": "OPEC Secretary-General Haitham Al Ghais rejected claims that oil producers caused the collapse of COP31, saying the EU and others walked away from negotiations. Producers opposed language on moving away from fossil fuels and backed carbon-capture references, which some developing nations called costly and unproven. Reuters also reported negotiators' concerns about Saudi influence; EU officials had not responded to OPEC's criticism."
+    },
     {
       "title": "At least 30 killed in blaze after vehicle overturns in Egypt, health ministry says",
       "source": "Reuters",
@@ -154,12 +266,12 @@
       "summary": "Two men appeared in a Norwich court accused of breaking into Anmer Hall, the Prince and Princess of Wales's Norfolk residence, and stealing six pairs of cufflinks and a clock. Prosecutors said they climbed a drainpipe to reach a dressing room; a third suspect remains at large. The defendants were remanded in custody and did not enter pleas. Kensington Palace said it would not comment on security matters."
     },
     {
-      "title": "Iraq orders nationwide troop deployment as oil-smuggling crackdown widens",
-      "source": "Anadolu Agency",
-      "category": "Politics",
+      "title": "Iraq's top court backs federal troop deployment and Baghdad control of Kurdistan borders",
+      "source": "Reuters",
+      "category": "World",
       "published": "2026-11-25",
-      "url": "https://www.aa.com.tr/en/middle-east/in-crackdown-iraqi-premier-orders-nationwide-troop-deployment-closure-of-oil-smuggling-routes-defense-ministry/4137906",
-      "summary": "Iraqi Prime Minister Ali al-Zaidi ordered military units to secure designated areas nationwide, including Kirkuk, and directed brigades to close informal routes used for oil smuggling, the Defense Ministry said. The move follows the dismissal of senior security officials and investigations into suspected smuggling. Authorities reported further attempted smuggling and pipeline tampering but gave no locations or quantities, leaving the impact on federal-Kurdish tensions uncertain."
+      "url": "https://www.reuters.com/world/middle-east/iraqs-top-court-says-baghdad-can-deploy-troops-secure-borders-kurdistan-region-2026-11-25/",
+      "summary": "Iraq's Federal Supreme Court ruled that Baghdad may deploy federal forces along all international borders, including crossings in the semi-autonomous Kurdistan region, and oversee border agencies and oil fields. The decision backs Prime Minister Ali al-Zaidi's effort to centralize security and resource control after ordering federal forces to take over Kurdish-run crossings. Kurdish authorities rejected what they called military threats and urged talks."
     },
     {
       "title": "Senegal football chief denies contact with CAS arbitrator before AFCON ruling",
@@ -834,12 +946,12 @@
       "summary": "The London Metal Exchange temporarily tightened short-term aluminium trading rules after falling inventories and concentrated holdings drove immediate-delivery premiums to their highest level since 1988. The changes require large holders of stock warrants and short-term futures to make metal available at capped prices. Available exchange inventories have more than halved this year. The LME says it will keep monitoring the market and may take further action if the squeeze persists."
     },
     {
-      "title": "Macy's 100th Thanksgiving parade brings back a long-lost Blue Hippo balloon",
-      "source": "Associated Press",
-      "category": "Entertainment",
+      "title": "Macy's Thanksgiving Day Parade postponed until Saturday because of storm",
+      "source": "Reuters",
+      "category": "U.S.",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/macys-thanksgiving-parade-100-2026-523b62e53e8bd7144aa785415132c3b6",
-      "summary": "The 100th Macy's Thanksgiving Day Parade will feature 100 inflatables, including a hand-recreated Blue Hippo balloon missing since 1931, plus Bluey, Hello Kitty, Mickey Mouse and Underdog. Performers include Megan Moroney, Teddy Swims, Queen Latifah and Keke Palmer, with a Dolly Parton tribute and Broadway medley. The parade is scheduled for Nov. 26, but weather could ground balloons if wind exceeds safety limits; floats and performers are expected to continue."
+      "url": "https://www.reuters.com/business/environment/macys-thanksgiving-day-parade-postponed-due-storm-projections-us-media-reports-2026-11-25/",
+      "summary": "Macy's moved its 100th Thanksgiving Day Parade from Thursday to Saturday at 8:30 a.m. Eastern after forecasts of a major storm raised safety concerns for participants, spectators and the large balloons. New York City officials confirmed the decision, which marks the first weather-related postponement in the parade's history. The event had previously been suspended only during World War II."
     },
     {
       "title": "Major fragrance suppliers fined £85 million by the CMA for illegal collusion",
