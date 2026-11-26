@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T19:03:19.000Z",
+  "updatedAt": "2026-11-26T20:27:16.000Z",
   "articles": [
     {
       "title": "Spain's De Cos to take over as ECB president from Lagarde",
@@ -658,12 +658,12 @@
       "summary": "The Bank of England plans to reduce capital requirements for large UK-focused lenders after concluding that overlapping rules made them hold more capital than historical losses justified. Proposed changes would cut requirements by 60 basis points for the largest domestic lenders and could add £175 billion in lending capacity across major banks. Regulators will consult on parts of the framework while retaining key resilience buffers."
     },
     {
-      "title": "Bank of England warns of growing financial risks as AI borrowing jumps",
-      "source": "The Guardian",
+      "title": "Bank of England sees growing financial risks as AI borrowing surges",
+      "source": "Reuters",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.theguardian.com/business/live/2026/nov/26/nvidia-chip-shipments-south-east-asia-stock-dentists-live-updates",
-      "summary": "The Bank of England warned that opaque, interconnected AI financing and increasingly capable models could amplify market, cyber and operational risks. Its report projects 6.5 million of seven million owner-occupier mortgages due to refinance by 2029 will see higher payments; the median increase is about £100 monthly. The Guardian reports around 430,000 borrowers could face rises exceeding £500 a month."
+      "url": "https://www.reuters.com/business/finance/bank-england-sees-growing-financial-risks-ai-borrowing-surges-2026-11-26/",
+      "summary": "Global financial risks have intensified as the Middle East conflict keeps inflation and interest rates elevated while AI companies and governments borrow heavily, the Bank of England said. Hyperscalers building data centres are on track to issue more than $305 billion in debt this year, with opaque, interconnected financing able to spread stress. The Bank also warned of frontier-AI and quantum threats to bank encryption; 6.5 million UK households may face higher mortgage payments over three years."
     },
     {
       "title": "Bank of Japan earnings fall as interest payments on reserves climb",
@@ -954,12 +954,12 @@
       "summary": "Indonesian prosecutors named nickel miner PT BSJ and its beneficial owner as suspects in an alleged money-laundering case tied to corruption in obtaining a mining permit from 2021 to 2026. Investigators say proceeds came partly from nickel ore sales under the licence. The owner could not be reached for comment, and the company did not respond to Reuters."
     },
     {
-      "title": "Indonesian rescuers resume search for 13 people trapped inside illegal mine after 13 confirmed dead",
+      "title": "Heavy rain hampers Indonesian rescue of 13 people trapped inside illegal mine, agency says",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
-      "summary": "Rescuers in West Java planned to resume searching for 13 workers trapped in an illegal gold mine after 13 of the 26 miners who entered Monday were confirmed dead. Heavy rain flooded the shaft about 100 metres underground. Six victims had been identified; narrow, slippery access and weather complicate the operation. Authorities say the site was unauthorized and unrelated to state miner Antam."
+      "summary": "Heavy rain forced rescuers to pause the search for 13 workers still trapped in an illegal gold mine in West Java, after 13 of the 26 miners who entered on Monday were confirmed dead. Teams are working through two narrow, slippery shafts about 100 metres deep, using ropes. Six victims had been identified; authorities say the mine was unauthorized and separate from state-owned Antam’s operations."
     },
     {
       "title": "Insight: Prosecco's 'heroic' vines offer a test case in climate resilience",
@@ -1520,6 +1520,30 @@
       "published": "2026-11-26",
       "url": "https://apnews.com/article/trump-gdp-economy-midterms-4fd800b44005ae11f950f96ff62f876e",
       "summary": "The Bureau of Economic Analysis revised third-quarter GDP growth to a 4.3% annualized rate from 3.4%, a routine scheduled update. President Donald Trump alleged the earlier pre-election figure was intentionally false and called for an investigation, but offered no evidence; the agency did not immediately comment. The same release showed October inflation accelerating to 3.8%, a detail Trump omitted from his post."
+    },
+    {
+      "title": "The birds are listening: seabirds reveal hidden fishing activity at sea",
+      "source": "University of Oxford",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.ox.ac.uk/news/2026-11-24-the-birds-are-listening-seabirds-reveal-hidden-fishing-activity-at-sea",
+      "summary": "Researchers fitted seabirds with miniature audio recorders and GPS trackers, then compared engine sounds with public vessel-tracking data. At least a third of northern gannet vessel detections and more than one in ten Balearic shearwater detections lacked a matching signal; adjusted estimates reached 57% and 20%. The method cannot show why a vessel was untracked or prove illegal fishing, but could help identify areas where seabirds face greater bycatch risk."
+    },
+    {
+      "title": "Dragonflies feast on other insects during autumn migrations",
+      "source": "University of Exeter",
+      "category": "Science",
+      "published": "2026-11-26",
+      "url": "https://news.exeter.ac.uk/faculty-of-environment-science-and-economy/dragonflies-feast-on-other-insects-during-autumn-migrations/",
+      "summary": "DNA analysis of two dragonfly species caught at a Pyrenees migration bottleneck identified 87 prey species, including migrating flies, crop pests, butterflies and smaller dragonflies. About 90% of lesser emperors and 70% of common darters had eaten species known to migrate. The research reveals a complex aerial food web during autumn movement and may help explain how predators and prey interact across landscapes."
+    },
+    {
+      "title": "German vendor suspected of supplying boats for deadly Channel crossings",
+      "source": "Le Monde / BBC investigation",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.lemonde.fr/en/france/article/2026/11/26/german-vendor-suspected-of-involuntary-manslaughter-for-supplying-boats-for-deadly-channel-crossings_6789466_7.html",
+      "summary": "A joint Le Monde, BBC and German media investigation reports that French authorities suspect German boat dealer Marvin Reuter’s firm supplied equipment to Channel migrant-smuggling networks. Investigators say its boats or engines were linked to about 29% of observed crossings in early 2026 and two fatal incidents that killed four people. Reuter contests extradition to France; the allegations have not been tested at trial."
     },
     {
       "title": "Yemen's Houthis claim attack on Saudi Arabia's largest refinery",
