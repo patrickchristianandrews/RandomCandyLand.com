@@ -1,6 +1,110 @@
 {
-  "updatedAt": "2026-11-26T14:07:10Z",
+  "updatedAt": "2026-11-26T14:55:42Z",
   "articles": [
+    {
+      "title": "Rebel Estudiantes takes on rich Palmeiras for South America's biggest club prize",
+      "source": "Associated Press",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/6972312dcdf8a6de368b39db33912ac2",
+      "summary": "Palmeiras and Estudiantes meet Saturday in Montevideo for the Copa Libertadores title, with Palmeiras' squad valued at about $238 million—roughly four times Estudiantes'—after years of private investment and player sales. Estudiantes, a four-time champion returning to the final for the first time since 2009, is led by Juan Sebastián Verón, whose push for private capital has intensified a dispute with Argentina's football leadership."
+    },
+    {
+      "title": "Iranian activist and Oscar-nominated screenwriter Mehdi Mahmoudian arrested in Tehran",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/7ea2fb068ddaf13e4ab34501efcac74e",
+      "summary": "Iranian rights activist and Oscar-nominated screenwriter Mehdi Mahmoudian was arrested at his Tehran home on Wednesday, a friend and activist told the Associated Press. Reports say agents seized his electronic devices; authorities had not publicly explained the detention. The arrest followed his warnings that two protesters jailed over the 2022 Mahsa Amini demonstrations faced imminent execution. He is reportedly held at Greater Tehran Penitentiary."
+    },
+    {
+      "title": "Emirati curator Hoor Al Qasimi becomes first Arab woman to lead Venice Biennale art show",
+      "source": "Associated Press",
+      "category": "Entertainment",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/4c5329d8fb4513ac10291406054f8215",
+      "summary": "Emirati curator Hoor Al Qasimi was appointed to lead the 2028 Venice Biennale, becoming the first Arab and seventh woman to curate its main international art exhibition. She founded Sharjah Art Foundation and has led the Sharjah Biennial since 2003. Her role includes setting the exhibition's theme and selecting artists; the appointment follows controversy at the 2026 edition over Russia and Israel's participation."
+    },
+    {
+      "title": "Brazil's Lula sounds out Bradesco chairman as finance minister, sources say",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/brazils-lula-sounds-out-bradesco-chairman-finance-minister-sources-say-2026-11-26/",
+      "summary": "Brazilian President Luiz Inácio Lula da Silva has approached Bradesco chairman Luiz Carlos Trabuco about becoming finance minister, two sources told Reuters. Trabuco had not decided. The outreach follows market pressure and a weakening real after Lula's election win; investors reacted positively to reports of a market-friendly candidate. Lula is expected to announce an initial group of ministers next week, but no appointment has been confirmed."
+    },
+    {
+      "title": "Brazil's Grupo Fictor, former bidder for Banco Master, investigated in fraud probe, source says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/brazils-grupo-fictor-former-bidder-banco-master-investigated-fraud-probe-source-2026-11-26/",
+      "summary": "São Paulo police and prosecutors are investigating investment group Grupo Fictor over suspected fraud, money laundering and diversion of investor funds, Reuters reported. Authorities are executing 12 search warrants and courts are freezing 4.3 billion reais in assets. The state says more than 4 billion reais were raised through fixed-return promises unsupported by real operations; the company says it will cooperate."
+    },
+    {
+      "title": "Bank of England to cut capital requirements for UK-focused lenders",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/bank-england-cut-capital-requirements-uk-focused-lenders-2026-11-26/",
+      "summary": "The Bank of England plans to reduce capital requirements for large UK-focused lenders after concluding that overlapping rules made them hold more capital than historical losses justified. Proposed changes would cut requirements by 60 basis points for the largest domestic lenders and could add £175 billion in lending capacity across major banks. Regulators will consult on parts of the framework while retaining key resilience buffers."
+    },
+    {
+      "title": "Temu commits to changing some of its commercial practices in EU, Commission says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/retail-consumer/temu-commits-changing-some-its-commercial-practices-eu-commission-says-2026-11-26/",
+      "summary": "Temu agreed to change EU-facing practices flagged as potentially misleading, including fake discounts and reviews, pressure-selling messages, forced game-like features and unclear price or environmental information. The company says it will simplify refunds and make checkout and customer support clearer. EU member states will monitor compliance; violations could trigger fines of at least 4% of annual turnover in affected countries."
+    },
+    {
+      "title": "Stellantis says keeping production in Italy a 'daily challenge' amid rising costs",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/autos-transportation/stellantis-says-keeping-production-italy-daily-challenge-amid-rising-costs-2026-11-26/",
+      "summary": "Stellantis' European chief says keeping vehicle production in Italy viable has become a daily challenge as energy and manufacturing costs rise, imports intensify and the shift to electric cars adds expense. The automaker plans more than €5 billion in Italian research and development over five years and nine additional models by 2030, but output remains far below historic levels after a 20% fall in 2025."
+    },
+    {
+      "title": "Two Italian workers killed in Iranian strike in Kuwait, source says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/two-italian-workers-killed-iranian-strike-kuwait-source-says-2026-11-26/",
+      "summary": "Two Italian technicians working for German defence contractor Rheinmetall were killed in a drone attack in Kuwait, a source close to the matter told Reuters. Kuwait's defence ministry had reported multiple drones in its airspace and described the incident as an Iranian attack. Details about the site, damage and any wider casualties were not immediately available, and the reported attribution had not been independently verified."
+    },
+    {
+      "title": "Spain's De Cos set to be nominated by EU countries as next head of ECB",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/europe/spains-de-cos-set-be-nominated-by-eu-leaders-new-head-ecb-2026-11-26/",
+      "summary": "EU countries were expected to nominate former Bank of Spain governor Pablo Hernández de Cos to replace Christine Lagarde as European Central Bank president from February 7, after the Netherlands withdrew support for its own candidate. Reuters said the board reshuffle also assigns France's Laurence Boone and Germany's Markus Brunnermeier to senior roles. The change suggests continuity, but inflation and political risks could shape policy."
+    },
+    {
+      "title": "Deputy head of Polish central bank says probe of governor could damage economy",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/deputy-head-polish-central-bank-says-probe-governor-could-damage-economy-2026-11-26/",
+      "summary": "Deputy governor Marta Kightley warned that bringing Polish central-bank Governor Adam Glapinski before the State Tribunal could undermine central-bank independence and raise bond yields and debt costs. Lawmakers accuse him of unconstitutional asset purchases and politicising the bank; he rejects the claims. Parliament's vote date and the required threshold remain disputed after conflicting court rulings, leaving the proceeding's legality unresolved."
+    },
+    {
+      "title": "Russian oil refinery in Krasnodar region on fire after drone attack",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/energy/russian-oil-refinery-krasnodar-region-fire-after-drone-attack-2026-11-26/",
+      "summary": "A drone attack caused a fire at the Slavyansk ECO refinery in Russia's Krasnodar region, damaging a crude-distillation unit, storage facilities and pipelines, the company said. The site was already shut for maintenance after a September strike. Industry sources estimate attacks have cut Russian refinery processing volumes by 45% since late October; the current attack's perpetrators and repair timetable were not independently established."
+    },
+    {
+      "title": "NATO intern suspected of spying to remain in jail in Belgium after appeal",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/nato-intern-suspected-spying-remain-jail-belgium-after-appeal-2026-11-26/",
+      "summary": "A Canadian intern at NATO's military headquarters near Mons will remain in pretrial detention while Belgian prosecutors appeal a court order that would have released her under electronic monitoring. She was arrested in July on suspicion of spying for a third country; sources told Reuters investigators suspect a China link. NATO says the case has not affected operations. The allegations remain unproven."
+    },
     {
       "title": "‘It’s in quite a dark place’: why UK housebuilding is struggling",
       "source": "The Guardian",
@@ -103,7 +207,7 @@
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/energy/thailands-bangchak-shuts-all-units-bangkok-refinery-after-fire-2026-11-26/",
-      "summary": "Thailand's Bangchak shut all production units at its Phra Khanong refinery after a fire on November 26. The company later said nine workers were injured, two had returned home, and the blaze was extinguished in about 30 minutes; officials found air quality normal within 3–4 km. The cause is under investigation, with a preliminary inquiry pointing to the hydrocracking unit at the 120,000-barrel-a-day site."
+      "summary": "Thailand's Bangchak shut all production units at its Phra Khanong refinery after a November 26 fire. Reuters reported nine workers injured; AP said three were in critical condition and nearby residents briefly evacuated. The blaze was extinguished in about 30 minutes, with officials reporting normal air quality within 3–4 km. The cause remains under investigation; a preliminary inquiry pointed to the hydrocracking unit."
     },
     {
       "title": "Bank of England warns of growing financial risks as AI borrowing jumps",
@@ -178,12 +282,12 @@
       "summary": "Cameron Norrie beat Germany's Jan-Lennard Struff 6-3, 3-6, 6-2 to give Britain a 1-0 lead in their Davis Cup quarter-final in Bologna. Norrie, ranked 52nd, recovered after losing the second set and finished in 93 minutes. Germany's Alexander Zverev was scheduled to face Arthur Fery next, with a doubles match to follow if needed; the winner advances to Saturday's semi-finals."
     },
     {
-      "title": "China and Brazil push back against Trump's new tariff proposals",
-      "source": "The Guardian",
+      "title": "China and other U.S. trading partners protest Trump's new tariff plans",
+      "source": "Associated Press",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.theguardian.com/us-news/2026/nov/26/brazil-china-react-to-new-trump-tariffs-threat",
-      "summary": "China said it reserved the right to take countermeasures after Washington proposed new duties on 14 trading partners, while Brazil warned it would not yield and did not rule out retaliation. China could face a 20% capped rate, potentially 45% when stacked with other duties; Brazil objected to a 10% aircraft tariff affecting Embraer and higher sugar duties. A U.S. hearing is planned for January, with implementation expected later."
+      "url": "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
+      "summary": "China, Japan and other U.S. trading partners protested proposed duties on 14 economies following a U.S. investigation into alleged excess manufacturing capacity. AP reports China faces a 20% tariff that could rise to 40%, Japan up to 15%, Singapore up to 20%, and the EU up to 15%; Vietnam faces up to 35%. The measures are expected early next year and could raise prices."
     },
     {
       "title": "China, Japan, South Korea and ASEAN launch talks on digital payments across borders",
@@ -266,12 +370,12 @@
       "summary": "Northern Territory police are investigating an encrypted email threatening ministers, government staff and public places in Darwin. Police said specialist units were assessing the message and would treat it as credible until checks were complete; officials urged residents to remain alert but not alarmed. The sender's identity is unknown, and authorities have withheld specific targets while the investigation continues."
     },
     {
-      "title": "European stocks rally as banks and technology shares rebound",
-      "source": "Reuters",
+      "title": "Global stocks rise and tech shares rebound as US closes for Thanksgiving",
+      "source": "Associated Press",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/european-stocks-rally-tech-banks-rebound-tariff-fears-ease-2026-11-26/",
-      "summary": "European shares rebounded on November 26, with the STOXX 600 up 1.7% as bank stocks rose 2.4% and technology shares nearly 2.5%, after U.S. tariff proposals appeared less severe than feared. Reuters said the gains recovered part of Wednesday's losses, while investors remained cautious about debt-funded AI infrastructure and Nvidia's credit outlook. U.S. markets were closed for Thanksgiving, leaving trading volumes lighter."
+      "url": "https://apnews.com/article/stocks-markets-ai-oil-bonds-320cd8c9c286a7773797bf2f478ef314",
+      "summary": "Shares rose across Europe and Asia on November 26 while U.S. markets were closed for Thanksgiving. AP reported gains in the DAX, CAC 40 and FTSE 100, plus rebounds in Japan, South Korea and Taiwan; the Kospi rose 0.3% after a 6.2% drop a day earlier. Investors remained cautious about AI valuations and proposed U.S. tariffs, while Nvidia fell 3.9%."
     },
     {
       "title": "Explainer: Why are Indian rice prices rising despite record stocks?",
@@ -423,7 +527,7 @@
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/middle-east/irans-revolutionary-guards-say-two-oil-tankers-hit-sea-mines-near-omans-khasab-2026-11-26/",
-      "summary": "Iran's Revolutionary Guards said two tankers, including a supertanker carrying more than two million barrels, struck sea mines near Oman's Khasab while using an unauthorized route through the Strait of Hormuz. The claim has not been independently verified. UKMTO separately reported an explosion from an unknown projectile near a tanker west of Dubai; Reuters' earlier market report put Brent near $94.52 as traders weighed the risk to shipping."
+      "summary": "Iran's Revolutionary Guards said two tankers, including a supertanker carrying more than two million barrels, hit sea mines near Oman's Khasab while using an unauthorized Strait of Hormuz route; the claim has not been independently verified. Reuters reported oil prices rose as traders assessed shipping risks ahead of OPEC+'s November 29 meeting; sources said the group may keep first-quarter 2027 output targets unchanged."
     },
     {
       "title": "Iraq court sentences eight French nationals to life for joining Islamic State",
@@ -434,12 +538,12 @@
       "summary": "An Iraqi court sentenced eight French nationals to life in prison for joining the Islamic State group, AFP reported. Two other French defendants received 15-year terms, while verdicts for 10 more were postponed. The cases follow transfers of foreign detainees from Syria to Iraq, where authorities have been processing people accused of joining the group. The convictions and remaining proceedings may carry diplomatic and human-rights implications."
     },
     {
-      "title": "Israeli strikes kill 8 in Gaza, and other Mideast news",
+      "title": "Israeli strikes kill 10 in Gaza, AP reports",
       "source": "Associated Press",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://apnews.com/article/gaza-iran-israel-uae-hormuz-november-26-2026-522676f17532b878878ff7a4347d0e31",
-      "summary": "Three Israeli strikes killed eight Palestinians across Gaza overnight, including a man and his wife in Deir al-Balah, hospital officials said. Israel said it killed Khaled Abu Nada, a Hamas official overseeing economic and education affairs; the military said another strike targeted militants. Near-daily Israeli fire has continued despite the ceasefire, and Gaza’s health ministry reports 74,746 deaths since the war began."
+      "summary": "AP's latest update said four Israeli strikes and a shooting killed 10 Palestinians across Gaza overnight and Thursday, including Hamas-appointed deputy education minister Khaled Abu Nada and his wife. Reuters separately reported at least nine deaths, reflecting different reporting windows. Israel said one strike targeted militants; near-daily fire continues despite the ceasefire, and casualty figures remain attributed to Gaza medical officials."
     },
     {
       "title": "Italy asks Germany to intervene over Henkel factory closure",
@@ -858,12 +962,12 @@
       "summary": "U.N. humanitarian chief Tom Fletcher arrived in Yemen warning that fighting and restrictions are blocking food and medicine, especially in Taiz. He said about 364,000 people have been displaced since August, including tens of thousands in the past week, and urged safe, sustained aid access. The U.N. said 71 personnel remained in Houthi detention as of mid-October."
     },
     {
-      "title": "UniCredit seeks Commerzbank shareholder vote as it completes process to take control",
+      "title": "UniCredit pushes for Commerzbank management shake-up with CEO Orcel as chair",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/unicredit-seeks-commerzbank-shareholder-vote-it-completes-process-take-control-2026-11-26/",
-      "summary": "UniCredit asked Commerzbank to convene a shareholder vote on appointing new representatives to its supervisory board after Poland's financial regulator granted the final authorization needed to receive shares secured through its takeover offer. UniCredit says its near-50% position should be completed through a share swap by December 7. The move advances a two-year contest between the Italian and German lenders, though integration and governance questions remain."
+      "url": "https://www.reuters.com/business/finance/unicredit-pushes-commerzbank-management-shake-up-with-ceo-orcel-as-chair-2026-11-26/",
+      "summary": "UniCredit has asked Commerzbank to replace nine of 10 shareholder-appointed supervisory board members, proposing CEO Andrea Orcel as chair after clearing its final regulatory hurdle in Poland. The Italian lender's stake is nearing 50%, and it wants the share process completed by December 7. Commerzbank says its board will consider the request; integration and governance arrangements remain unsettled."
     },
     {
       "title": "US chip curbs, distillation crackdown threaten Chinese AI model development, sources say",
@@ -920,6 +1024,38 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/media-telecom/wife-of-japanese-journalist-detained-russia-pleads-his-release-2026-11-26/",
       "summary": "Yuki Imai, a 34-year-old Hokkaido Shimbun reporter detained in Russia on espionage allegations, remains in Moscow's Lefortovo detention centre. His wife appealed for his release, saying their 21-month-old daughter has barely seen him; Japanese diplomats have been allowed two visits. Japan rejects the spying claim, while Russia has not publicly disclosed evidence, leaving the case a growing bilateral irritant."
+    },
+    {
+      "title": "EU leaders wrestle over seven-year budget and Ukraine financing",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/eu-leaders-wrestle-with-seven-year-budget-ukraine-financing-they-seek-december-2026-11-26/",
+      "summary": "EU leaders met over a proposed €1.582 trillion 2028–34 budget and Ukraine funding, with unanimous approval required from all 27 states. The plan includes up to €100 billion for Ukraine; leaders also discussed a €45 billion 2027 loan repayable only if Russia pays reparations. They aim for agreement in December, but several governments oppose parts of the financing plan."
+    },
+    {
+      "title": "Brazil's Embraer CEO says US aircraft tariff will hurt airlines",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/aerospace-defense/brazils-embraer-ceo-says-us-aircraft-tariff-will-hurt-airlines-2026-11-26/",
+      "summary": "Embraer CEO Francisco Gomes Neto said a proposed 10% U.S. tariff on finished Brazilian aircraft could raise airline costs and ticket prices. More than 40% of the E175's content is sourced from the United States, he told Reuters. The company expects no impact this year because any implementation would likely begin in 2027; the proposal remains subject to policy decisions."
+    },
+    {
+      "title": "Israel's Eisenkot reaches deal with left-wing faction as coalition talks gain steam",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/israels-eisenkot-resumes-meetings-with-left-wing-faction-coalition-talks-gain-2026-11-26/",
+      "summary": "Gadi Eisenkot secured a coalition agreement with the left-wing Democrats faction, which would receive four ministerial posts, but he still lacks a majority. His bloc won 48 of 120 seats, while Benjamin Netanyahu's alliance has 53. A deal with Avigdor Lieberman's right-wing party could help, yet negotiations over ultra-Orthodox military conscription and other partners remain unresolved before the December 6 deadline."
+    },
+    {
+      "title": "UK discounter Poundland sinks into administration, 10,000 jobs at risk",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/retail-consumer/uk-retailer-poundland-preparing-administration-sky-news-says-2026-11-25/",
+      "summary": "British discount retailer Poundland entered administration after owner Gordon Brothers failed to find a buyer, putting more than 600 UK and Irish stores and about 10,000 jobs at risk. AlixPartners will oversee the process and examine sale options, but stores and distribution centres remain open for now. The government called the news concerning, while the collapse adds to pressure on value retailers ahead of Christmas."
     },
     {
       "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
@@ -2010,14 +2146,6 @@
       "summary": "Melania Trump helped reunite nine more Ukrainian and Russian children with their families, bringing the total in her initiative to 43, the White House said. The latest returns were carried out with cooperation from both countries' leaders, but officials disclosed no details about the children. The effort has included earlier humanitarian contacts and a six-day local ceasefire in occupied Oleshky."
     },
     {
-      "title": "MEPs threaten to reject proposed 10% cut to the EU's next long-term budget",
-      "source": "Euronews",
-      "category": "Politics",
-      "published": "2026-11-25",
-      "url": "https://www.euronews.com/2026/11/25/meps-warn-costa-no-approval-without-a-bigger-eu-budget",
-      "summary": "European Parliament negotiators warned they may reject the next seven-year EU budget if leaders proceed with a proposed 10% reduction. The plan would cut about €204 billion from the Commission's nearly €2 trillion proposal, leaving roughly €1.78 trillion. MEPs support new EU revenue sources, including a possible digital levy, but member states remain divided over spending, Ukraine financing and who should pay."
-    },
-    {
       "title": "Meta executives meet India's opposition amid protests over content moderation",
       "source": "Reuters",
       "category": "Technology",
@@ -2030,8 +2158,8 @@
       "source": "Associated Press",
       "category": "World",
       "published": "2026-11-25",
-      "url": "https://www.washingtonpost.com/world/2026/11/25/mexico-sheinbaum-ines-gomez-mont-us-extradition/2a6ae420-e907-11f1-8db0-6f1e3c389e7c_story.html",
-      "summary": "Mexico said it will send a diplomatic note protesting the United States' decision to deport former television host Inés Gómez Mont to Spain rather than extradite her to Mexico, where she faces allegations of tax fraud, money laundering and organized crime. President Claudia Sheinbaum cited reciprocity after Mexico transferred more than 90 suspects to U.S. custody. Spain has also received an extradition request; the allegations have not been adjudicated."
+      "url": "https://apnews.com/article/mexico-sheinbaum-ines-gomez-mont-us-extradition-020d145fe0f34355a6b34cf5fe1fda5f",
+      "summary": "Mexico said it would send a diplomatic protest after the United States deported former TV host Inés Gómez Mont to Spain rather than extradite her. She faces Mexican allegations of tax fraud, money laundering and organized crime, which have not been adjudicated. President Claudia Sheinbaum cited reciprocity, noting Mexico has transferred more than 90 people sought by U.S. authorities since 2025."
     },
     {
       "title": "Michigan fan ends 70-season streak of attending every home game",
@@ -2746,14 +2874,6 @@
       "summary": "Underemployment among U.S. college graduates aged 22 to 27 reached 42.5% in September, the highest level since 2020, according to the Federal Reserve Bank of New York. Many recent graduates are working in roles that do not require degrees or relying on part-time and contract work. Economists cite weak hiring, uncertainty and employers’ use of AI, while noting degrees still tend to improve long-term outcomes."
     },
     {
-      "title": "US airlines face higher costs from proposed Embraer duty",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/aerospace-defense/us-airlines-face-higher-costs-proposed-embraer-duty-2026-11-25/",
-      "summary": "A proposed 10% U.S. duty on finished Embraer aircraft from Brazil could raise costs for American airlines because there is no domestic alternative for the company’s regional jetliners, analysts and executives told Reuters. The tariff could begin as early as January, while carriers already face higher jet-fuel costs. The scope remains uncertain for aircraft completed in Florida from unfinished imports."
-    },
-    {
       "title": "US famine monitor to halt reporting as funding shortfall hits staff, sources say",
       "source": "Reuters",
       "category": "World",
@@ -3280,14 +3400,6 @@
       "published": "2026-11-24",
       "url": "https://www.iranintl.com/en/202611245387",
       "summary": "Iranian singer Parastoo Ahmadi and four members of her concert team each received 74 lashes in Qom, their lawyer told Iran International, after an online performance filmed without a live audience. The punishment prompted criticism from artists and activists and renewed scrutiny of restrictions on women singing publicly and compulsory-hijab rules. An appeals court had upheld their sentences in September, including bans on artistic activity and foreign travel."
-    },
-    {
-      "title": "Israel's Eisenkot faces new coalition challenge as left-wing faction suspends talks",
-      "source": "Reuters",
-      "category": "Politics",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/world/middle-east/israels-eisenkot-clinches-first-coalition-agreement-bid-form-government-2026-11-24/",
-      "summary": "Gadi Eisenkot's effort to form a government hit a new obstacle after a left-wing faction suspended coalition talks, Reuters reported. The former military chief has a December 6 deadline, with a possible 14-day extension, and no clear route to a majority. He has secured a deal with a right-wing faction, but negotiations remain unsettled."
     },
     {
       "title": "Israeli airstrike kills senior Hamas security official in Gaza",
@@ -3953,5 +4065,7 @@
       "url": "https://www.reuters.com/world/south-korea-becomes-fourth-country-globally-hit-1-trillion-exports-ai-chip-boom-2026-11-19/",
       "summary": "South Korea’s exports passed $1 trillion for 2026, making it the fourth country to reach the milestone after Germany, the United States and China. Semiconductor shipments, driven by global AI investment, rose 184% in the first three quarters and represented 42% of exports. Reuters noted weak domestic demand and inequality remain concerns, prompting the government to plan a large fund for growth industries, young people and regional development."
     }
-  ]
+  ],
+  "updated": 10,
+  "added": 14
 }
