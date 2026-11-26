@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T11:10:28.119Z",
+  "updatedAt": "2026-11-26T12:02:19.000Z",
   "articles": [
     {
       "title": "‘It’s in quite a dark place’: why UK housebuilding is struggling",
@@ -179,11 +179,11 @@
     },
     {
       "title": "Stocks climb as traders shrug off latest US tariff salvo",
-      "source": "Reuters",
+      "source": "Reuters / Associated Press",
       "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
-      "summary": "European shares rose 1.6% and the global MSCI index gained 0.4% as investors judged proposed U.S. tariffs less severe than feared and Asian markets recovered. Nvidia remained under pressure after S&P put its credit rating on watch for a possible downgrade, citing management and board concerns. U.S. markets were closed for Thanksgiving; futures rose about 0.5%."
+      "summary": "European and Asian shares advanced as U.S. markets closed for Thanksgiving, with Germany's DAX up 1.8%, France's CAC 40 1.6%, Japan's Nikkei 0.9% and Taiwan's Taiex 2.5%. Investors viewed proposed U.S. tariffs as less severe than feared, though AI-stock doubts persisted: Nvidia fell 3.9% and S&P put its credit rating on watch. Brent traded near $90.79 a barrel; U.S. crude near $84.10."
     },
     {
       "title": "Indonesian rescuers resume search for 13 people trapped inside illegal mine after 13 confirmed dead",
@@ -266,12 +266,12 @@
       "summary": "Australian pensioners say rules for the Support at Home program leave subsidised cleaners unable to move chairs, bend down or reach high surfaces, even when clients pay substantial hourly fees. ABC found some clients were billed up to A$135 an hour while workers received A$32–36. Providers cite safety and liability rules; a Senate inquiry is due to report next year."
     },
     {
-      "title": "Oil little changed as supply concerns linger after Iran claims mine strikes on ships",
-      "source": "Reuters / AP",
-      "category": "Business",
+      "title": "Iran's Revolutionary Guards claim two tankers hit sea mines near Oman",
+      "source": "Reuters",
+      "category": "World",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/energy/oil-rises-supply-concerns-iran-claims-mine-strikes-ships-2026-11-26/",
-      "summary": "Brent was little changed near $94.52 and WTI at $83.83 as traders weighed Houthi claims of an attack on Saudi Arabia's Ras Tanura refinery and unverified Iranian mine-strike claims. Separately, a tanker master reported an unknown projectile exploding close to a vessel 50 nautical miles west of Dubai; UKMTO said the crew were safe and there was no damage or pollution."
+      "url": "https://www.reuters.com/world/middle-east/irans-revolutionary-guards-say-two-oil-tankers-hit-sea-mines-near-omans-khasab-2026-11-26/",
+      "summary": "Iran's Revolutionary Guards said two tankers, including a supertanker carrying more than two million barrels, struck sea mines near Oman's Khasab while using an unauthorized route through the Strait of Hormuz. The claim has not been independently verified. UKMTO separately reported an explosion from an unknown projectile near a tanker west of Dubai; Reuters' earlier market report put Brent near $94.52 as traders weighed the risk to shipping."
     },
     {
       "title": "US officials divided over Chinese spying allegations following Jensen Huang's return",
@@ -586,12 +586,12 @@
       "summary": "Spot gold was down 0.4% at $3,565.41 an ounce by 0830 GMT after briefly falling below $3,500 the previous day, its first move under that level since September 2025. Reuters attributed pressure to persistent U.S. inflation and expectations of further Federal Reserve rate hikes. Higher rates make non-yielding bullion less attractive, though central-bank buying and future market shocks could support prices."
     },
     {
-      "title": "Saudi Arabia intercepts wave of retaliatory Houthi attacks",
-      "source": "The National / Associated Press",
+      "title": "Houthis claim Saudi refinery attack as coalition reports drone interceptions",
+      "source": "The National / Reuters",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.thenationalnews.com/news/gulf/2026/11/26/saudi-arabia-intercepts-wave-of-retaliatory-houthi-attacks/",
-      "summary": "Saudi Arabia said it intercepted missiles and drones aimed at Riyadh and the Eastern Province, while Houthi media separately reported overnight strikes on Sanaa and blamed Saudi Arabia; AP could not independently verify that claim. UN officials say millions face hunger and about 360,000 people have been displaced in Yemen since fighting escalated in August. The competing claims and humanitarian toll remain difficult to verify."
+      "summary": "Yemen's Houthis claimed they struck Saudi Arabia's Ras Tanura refinery, while satellite images showed smoke over the area and a source familiar with the matter confirmed an attack to Reuters. Saudi Arabia's coalition said only that it destroyed four drones over Ras Tanura and did not confirm a refinery hit. A separate projectile caused minor damage at Jazan port; 11 people were wounded in an earlier Riyadh tower strike."
     },
     {
       "title": "Trump's new tariffs aim to prise global trade from China's grip",
@@ -658,12 +658,12 @@
       "summary": "An Iraqi court sentenced eight French nationals to life in prison for joining the Islamic State group, AFP reported. Two other French defendants received 15-year terms, while verdicts for 10 more were postponed. The cases follow transfers of foreign detainees from Syria to Iraq, where authorities have been processing people accused of joining the group. The convictions and remaining proceedings may carry diplomatic and human-rights implications."
     },
     {
-      "title": "Israel kills nine in Gaza, including Hamas-appointed deputy education minister, officials say",
-      "source": "Reuters / Associated Press",
+      "title": "Israeli strikes kill at least eight in Gaza, including senior education official",
+      "source": "Reuters / Al Jazeera",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/middle-east/israel-kills-nine-gaza-including-hamas-appointed-deputy-education-minister-2026-11-26/",
-      "summary": "Three Israeli strikes overnight killed eight Palestinians in Gaza City and central Gaza, hospital officials said, including a man and his wife in Deir al-Balah. Israel said a strike killed Hamas official Khaled Abu Nada and another targeted militants; AP reported the health ministry’s cumulative toll at 74,746 since the war began. Reuters reported nine deaths, so the latest casualty count remains disputed."
+      "summary": "Israeli strikes killed at least eight Palestinians in Gaza, including education ministry undersecretary Khaled Abu Nada and his wife in Deir el-Balah, Al Jazeera reported from health officials. Other strikes killed three people in Shati refugee camp and three in Tuffah. Reuters separately reported nine deaths, underscoring a discrepancy in early casualty counts. Israel said Abu Nada was a Hamas official; the attacks continued despite the ceasefire."
     },
     {
       "title": "FedEx airplane overruns runway at Miami airport, disrupting Thanksgiving travel",
@@ -680,6 +680,94 @@
       "published": "2026-11-26",
       "url": "https://apnews.com/article/mlb-lockout-5fd6e937eb4f3a67c0ccdb19b0fca3bf",
       "summary": "Major League Baseball and the owners of its 30 teams sued the players’ union and eight union leaders, seeking to block decertification and an antitrust challenge to a lockout. The current labor deal expires Dec. 1, and MLB says it expects a lockout if no agreement is reached. Owners want a salary cap, which players reject; the union called the lawsuit frivolous. A 2027 season disruption is possible."
+    },
+    {
+      "title": "Puerto Rico's Supreme Court cancels Luma power contract, leaving transition uncertain",
+      "source": "Al Jazeera / Associated Press",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.aljazeera.com/amp/news/2026/11/26/puerto-ricos-supreme-court-cancels-major-power-contract",
+      "summary": "Puerto Rico's Supreme Court voted 5–4 to cancel the government's contract with Luma Energy, allowing a one-year transition for officials to arrange a replacement. Outages remain a problem and the federal oversight board says there is no clear successor or transition plan. The ruling also prompted allegations of pressure on judges; members of the majority rejected them. Luma said it is reviewing legal options and warned of risks to grid modernization."
+    },
+    {
+      "title": "UK publishes post-Brexit food and emissions treaties amid dispute over termination clause",
+      "source": "The Guardian",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/politics/2026/nov/26/treaties-andy-burnham-eu-reset-published",
+      "summary": "Britain is publishing the legal texts for its new food-trade and emissions-market agreements with the EU, alongside legislation to implement them. The deals include a 10-year termination clause that could require a departing party to pay for rebuilt border infrastructure, while a youth-mobility scheme would allow 100,000 young Britons to live, work or study in the EU. The bill also permits dynamic alignment with evolving single-market rules, raising scrutiny concerns."
+    },
+    {
+      "title": "Pakistan's first astronaut recites Iqbal poetry aboard China's Tiangong station",
+      "source": "Al Jazeera / Associated Press",
+      "category": "Science",
+      "published": "2026-11-26",
+      "url": "https://www.aljazeera.com/news/2026/11/26/iqbal-in-space-urdu-poets-verses-unite-india-pakistan-beyond-earth",
+      "summary": "Pakistani astronaut Muhammad Zeeshan Ali recited a couplet by national poet Muhammad Iqbal in Urdu aboard China's Tiangong space station, then translated its meaning into Mandarin for his Chinese crewmates. The moment echoed earlier references to Iqbal in space by Indian astronauts Rakesh Sharma and Kalpana Chawla. Ali is Pakistan's first astronaut and joined two Chinese crewmates on Shenzhou 24; the mission includes more than 90 experiments."
+    },
+    {
+      "title": "Dutch minister says US chip curbs bill would hurt Europe",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/dutch-minister-says-us-chip-curbs-bill-would-hurt-europe-2026-11-26/",
+      "summary": "Dutch Trade Minister Sjoerd Sjoerdsma called the proposed U.S. MATCH Act excessive, warning it could force allies such as the Netherlands and Japan to tighten China chip-equipment controls or face unilateral U.S. restrictions. The bill could hit ASML, which expects China to account for about 20% of this year's sales, and semiconductor firms across Europe. The Netherlands is working with the EU, Germany and France to block its inclusion in U.S. defence legislation."
+    },
+    {
+      "title": "Australia's domestic gas reservation scheme set to pass with Coalition backing",
+      "source": "ABC News",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/gas-reservation-scheme-set-to-pass-parliament/107430804",
+      "summary": "Australia's parliament was poised to pass a national gas-reservation law after the Coalition agreed not to oppose it. From 2028, exporters could be required to reserve up to 20% of output for domestic buyers, with the scheme designed to create a modest oversupply and ease east-coast prices; Western Australia would retain its existing system. Producers warn the rules could weaken investment, while the Greens argue an export tax would return more value to Australians."
+    },
+    {
+      "title": "Australian court upholds rejection of proposed Hunter Valley biomass plant",
+      "source": "ABC News",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/court-rules-on-hunter-valley-biomass-generator/107423888",
+      "summary": "New South Wales' Land and Environment Court dismissed Verdant Earth Technologies' appeal to convert the former Redbank coal station near Singleton into a 151-megawatt biomass plant. The proposal would have burned about 700,000 tonnes of material yearly; planners had rejected it over environmental impacts. The ruling leaves a proposed adjoining data-centre power partnership uncertain. The company says it is reviewing options and may pursue further legal steps."
+    },
+    {
+      "title": "Rwanda raises benchmark rate to 9.5% as inflation reaches 19.5%",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/africa/rwanda-central-bank-hikes-policy-rate-by-75-basis-points-2026-11-26/",
+      "summary": "Rwanda's central bank raised its benchmark rate by 75 basis points to 9.5%, its fourth increase this year, as annual inflation reached 19.5% in October—far above the bank's 2–8% target band. It also lifted the reserve requirement for banks from 5% to 7%. Governor Soraya Hakuziyaremye expects inflation to ease toward the target from the second half of 2027, but cited weather risks to agricultural output."
+    },
+    {
+      "title": "Serbia schedules presidential election for December 27 after student-led movement's win",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/serbia-presidential-election-set-december-27-2026-11-26/",
+      "summary": "Serbia will hold a presidential election on December 27, parliament speaker Aleksandar Cupic said, following an October parliamentary vote won by a student-led protest movement campaigning against corruption. Former president Aleksandar Vucic resigned in September to run for prime minister but lost the parliamentary contest. The presidency is largely ceremonial, while executive authority rests with the government and prime minister; the vote will shape the next stage of Serbia's political transition."
+    },
+    {
+      "title": "Ukraine drone attack kills five in Russian-occupied Zaporizhia as Kyiv is hit by missiles",
+      "source": "Al Jazeera / AFP",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.aljazeera.com/news/2026/11/26/ukraine-drone-attack-kills-five-in-russian-occupied-zaporizhia",
+      "summary": "At least five people were killed and three wounded in a drone strike on a parking area in Russian-occupied Zaporizhia, according to Moscow-installed governor Yevgeny Balitsky; the toll has not been independently verified. Russia also launched ballistic missiles at Kyiv, damaging a shopping centre and other buildings and injuring at least seven, Ukrainian officials said. Both sides reported strikes on military targets as winter attacks continue to strain Ukraine's energy system."
+    },
+    {
+      "title": "Explosion at Bangkok oil facility injures seven and forces refinery shutdown",
+      "source": "Al Jazeera / AFP",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.aljazeera.com/news/2026/11/26/explosion-occurs-at-oil-facility-in-thailands-bangkok",
+      "summary": "An explosion and fire at Bangchak's Phra Khanong oil facility in eastern Bangkok injured at least seven people, four seriously, Thai emergency officials said. The company shut all production units and reported the incident under control; local authorities urged nearby residents to evacuate while the cause was investigated. The site has a capacity of about 120,000 barrels per day and supplies Bangkok and central Thailand, leaving the extent of operational disruption uncertain."
+    },
+    {
+      "title": "German police arrest two Iraqis over alleged Cologne synagogue attack plot",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/german-police-arrest-two-iraqis-over-alleged-cologne-synagogue-bomb-plot-2026-11-26/",
+      "summary": "German prosecutors said two Iraqi nationals were arrested after 17 raids in three states, suspected of belonging to a group that planned attacks on Jewish and other targets in Europe, including a Cologne synagogue. Investigators allege the group recruited operatives and raised funds for explosives; suspected members visited the synagogue and another European site in March, but no attack occurred. A judge was to decide whether the suspects remain in pretrial detention."
     },
     {
       "title": "In Cincinnati, community orchards grow not just food, but connection between neighbors and nature",
@@ -914,14 +1002,6 @@
       "summary": "The BBC asked the U.S. Court of Appeals for the 11th Circuit to dismiss Donald Trump's $10 billion defamation suit over a Panorama documentary that edited two portions of his January 6 speech together. The broadcaster says the program aired only in Britain and was not accessed in Florida. It apologized for the edit but denies defamation; Trump's deposition was postponed until January."
     },
     {
-      "title": "Puerto Rico's Supreme Court cancels a key power contract and many wonder what's next",
-      "source": "The Washington Post / Associated Press",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.washingtonpost.com/business/2026/11/25/puerto-rico-luma-supreme-court-power-energy/773a6190-e8f8-11f1-8db0-6f1e3c389e7c_story.html",
-      "summary": "Puerto Rico's Supreme Court voted 5–4 to cancel the government's contract with LUMA Energy, the private operator of power transmission and distribution. Officials have one year to arrange a successor while outages persist; Gov. Jenniffer González says operations will not return to the public utility. A federal control board warned that no clear transition plan or replacement company is in place."
-    },
-    {
       "title": "Judge halts order for Georgia's Fulton County to give 2020 election records to state election board",
       "source": "Associated Press",
       "category": "Politics",
@@ -935,7 +1015,7 @@
       "category": "Politics",
       "published": "2026-11-25",
       "url": "https://apnews.com/article/dnc-trump-ads-propaganda-lawsuit-fcc1b61e8e7134c01ca3e6dec7728442",
-      "summary": "A federal judge declined to extend a temporary ban on taxpayer-funded advertisements promoting President Donald Trump, ruling the Democratic National Committee had not shown it was likely to prevail after the midterms. The suit challenges at least 11 spots partly funded by a $20 million Homeland Security contract. A separate New York judge ordered three ads removed; the administration calls them public-service messages."
+      "summary": "A federal judge declined to extend a temporary ban on at least 11 Trump administration advertisements partly funded by a $20 million Homeland Security contract, saying the midterm elections had passed and the DNC had not shown imminent harm. Judge Loren AliKhan nevertheless said the party was likely to succeed on its claim that public money was used unlawfully. A separate New York case had ordered three ads removed."
     },
     {
       "title": "New York court upholds Mayor Mamdani's rent freeze",
@@ -992,14 +1072,6 @@
       "published": "2026-11-25",
       "url": "https://www.nature.com/articles/s41591-026-04758-z",
       "summary": "An analysis of about 219,000 people followed for up to 30 years found that later-born generations entered older age with higher memory performance and experienced slower decline than earlier cohorts. The Nature Medicine briefing says the combined advantage could help explain falling dementia incidence over time. The finding reflects population trends, not a guarantee for individuals, and does not eliminate other dementia risk factors."
-    },
-    {
-      "title": "EU nationals will pay higher tuition fees than UK students, Burnham indicates",
-      "source": "The Guardian",
-      "category": "Politics",
-      "published": "2026-11-25",
-      "url": "https://www.theguardian.com/uk-news/2026/nov/25/eu-nationals-will-pay-higher-tuition-fees-than-uk-students-burnham-indicates",
-      "summary": "UK Prime Minister Andy Burnham indicated that EU students will not receive the same domestic tuition rate as British students under a proposed post-Brexit reset deal. Negotiations remain unresolved, with the EU seeking equal treatment and UK universities concerned about losing international-fee revenue. The dispute could complicate parts of the wider agreement, although Burnham said tuition talks were separate from the main package."
     },
     {
       "title": "Japan's data centre boom faces growing revolt from urban residents",
@@ -1658,14 +1730,6 @@
       "summary": "Ofgem's provisional shortlist for a UK long-duration storage subsidy scheme includes 11 lithium-ion projects, many reliant on batteries and software from Chinese suppliers. The Guardian reports that security specialists and industry sources worry the regulator's cost-focused assessment may underweight cyber risks over facilities' lifetimes. Ofgem says it is reviewing consultation responses; final funding decisions are expected in coming weeks. The debate pits cheaper storage against supply-chain resilience and domestic technology."
     },
     {
-      "title": "China launches Shenzhou 24 spacecraft carrying 2 Chinese and 1 Pakistani astronaut",
-      "source": "Associated Press",
-      "category": "Science",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/china-space-shenzhou-24-543306bfe17419395d10fae107500564",
-      "summary": "China's Shenzhou 24 spacecraft carried two Chinese astronauts and Pakistani astronaut Muhammad Zeeshan Ali to the Tiangong space station, marking the first foreign crew member on a Chinese crewed mission. The craft docked successfully and the new arrivals joined three astronauts already aboard. The mission includes more than 90 experiments and reflects growing China-Pakistan space cooperation; Pakistan hopes the flight opens the door to further joint missions."
-    },
-    {
       "title": "Citigroup weighs return to Venezuela after five-year absence",
       "source": "Reuters",
       "category": "Business",
@@ -1946,12 +2010,12 @@
       "summary": "The London Metal Exchange temporarily tightened short-term aluminium trading rules after falling inventories and concentrated holdings drove immediate-delivery premiums to their highest level since 1988. The changes require large holders of stock warrants and short-term futures to make metal available at capped prices. Available exchange inventories have more than halved this year. The LME says it will keep monitoring the market and may take further action if the squeeze persists."
     },
     {
-      "title": "Powerful storm threatens East Coast with damaging winds, power outages, coastal flooding",
-      "source": "ABC News",
+      "title": "Thanksgiving storm disrupts travel and forces first-ever Macy's parade postponement",
+      "source": "ABC News / Associated Press",
       "category": "U.S.",
       "published": "2026-11-25",
       "url": "https://abcnews.com/US/powerful-storm-threatens-east-coast-hurricane-level-flooding/story?id=138435983",
-      "summary": "More than 80 million people from Georgia to Massachusetts were under wind alerts as a powerful East Coast storm threatened damaging gusts, heavy rain and coastal flooding. New York and New Jersey declared emergencies, and organizers moved the 100th Macy's Thanksgiving Day Parade to Saturday at 8:30 a.m. ET. The delay reflects safety concerns for spectators and large balloons as king tides amplify coastal-water risks."
+      "summary": "A powerful East Coast storm brought heavy rain, coastal flooding and damaging winds as 81.5 million Americans were expected to travel at least 50 miles for Thanksgiving. AP reported more than 3,700 U.S. flight delays Wednesday and gusts potentially reaching 50 mph along I-95. Macy's moved its 100th parade to Saturday at 8:30 a.m., the first postponement in its history; officials cited balloon and crowd safety."
     },
     {
       "title": "Major fragrance suppliers fined £85 million by the CMA for illegal collusion",
@@ -2016,14 +2080,6 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/us-news/2026/nov/25/native-americans-national-day-of-mourning-thanksgiving",
       "summary": "A Massachusetts judge ruled that Plymouth must honor a 1998 agreement allowing the United American Indians of New England to hold its National Day of Mourning protest without permits or insurance. The town no longer has to provide a mobile stage, however, and the ruling leaves room for future legal disputes. The group says the event will proceed, challenging efforts it views as limiting Indigenous speech and visibility."
-    },
-    {
-      "title": "Netherlands pushes back against proposed US chip-export control bill",
-      "source": "Reuters",
-      "category": "Technology",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/china/dutch-government-working-prevent-passing-us-match-bill-minister-says-2026-11-25/",
-      "summary": "The Netherlands is lobbying against the proposed U.S. MATCH Act, which would pressure allies including the Netherlands and Japan to tighten export controls on chipmaking equipment sold to China or face unilateral U.S. restrictions. Foreign Minister Tom Berendsen said Dutch export-control decisions should remain independent. ASML expects China to account for about one-fifth of its 2026 sales, making the dispute commercially significant."
     },
     {
       "title": "Nine more Ukrainian children reunited with families through US-backed effort",
@@ -2640,6 +2696,14 @@
       "published": "2026-11-25",
       "url": "https://apnews.com/article/consumer-spending-prices-inflation-tariffs-31fab1e32dda1ad3a29c192f620d5733",
       "summary": "U.S. consumer prices rose 3.8% year over year in October, up from 3.6% in September, while core inflation reached 3.3%, a three-year high. Monthly prices increased 0.3%, with food up 0.4%. Third-quarter growth was revised to 4.3%, supported by spending and AI investment, but lower-income households are leaning more on credit. Persistent inflation may keep the Federal Reserve cautious about rate cuts."
+    },
+    {
+      "title": "Bank of England warns UK food inflation could reach 5% by mid-2027",
+      "source": "The Guardian",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/business/2026/nov/25/uk-food-inflation-sharp-rise-next-year-mounting-cost-pressures-bank-of-england",
+      "summary": "Bank of England deputy governor Clare Lombardelli told MPs that UK food inflation could rise from about 1.3% now to 3–5% by mid-2027, though the forecast is uncertain. Higher energy costs and a possible El Niño effect could add pressure; a 26% household energy price-cap rise is due in January. Committee members disagree on whether further rate increases are needed, with the next decision scheduled for December 17."
     },
     {
       "title": "Experts debunk Thanksgiving food myths, from turkey ‘coma’ to risky leftovers",
