@@ -33,11 +33,16 @@ def notice(reason):
     print('::warning::Liquid Wave installer not published: ' + reason)
 
 def newest_package():
+    if os.environ.get('LIQUID_BETA') == '1':
+        rel = json.loads(get('https://api.github.com/repos/%s/releases/tags/advanced-liquid-wave-beta' % REPO, api=True))
+        for a in rel.get('assets', []):
+            if a['name'] == 'Advanced-Liquid-Wave-beta.zip': return get(a['browser_download_url']), rel, a['name']
+        raise RuntimeError('beta release package not available')
     local = os.environ.get('LIQUID_ZIP')
     if local: return Path(local).read_bytes(), {'tag_name': 'local-test', 'published_at': ''}, Path(local).name
     rels = json.loads(get('https://api.github.com/repos/%s/releases?per_page=10' % REPO, api=True))
     for rel in rels:
-        if rel.get('draft'): continue
+        if rel.get('draft') or rel.get('tag_name', '').startswith('advanced-liquid-wave-beta'): continue
         for a in rel.get('assets', []):
             if a['name'].lower().endswith('complete.zip'): return get(a['browser_download_url']), rel, a['name']
     raise RuntimeError('no release with a *complete.zip asset yet')
@@ -71,6 +76,8 @@ def main():
                 s = s.replace('../browser-toy/index.html', '/liquid-wave/')
                 if rel_path.as_posix() == 'index.html':
                     s = re.sub(r'(<body[^>]*>)', r'\1\n<p style="margin:8px 14px"><a href="/liquid-wave/">&larr; Back to Liquid Wave</a></p>', s, count=1)
+                if os.environ.get('LIQUID_BETA') == '1' and rel_path.as_posix() == 'index.html':
+                    s = re.sub(r'(<body[^>]*>)', r'\1<p style="margin:12px;padding:12px;border:2px solid #b77836"><strong>Advanced Liquid Wave Beta</strong> — Experimental hardware firmware. Emulator tested; physical FM-1 unverified. Back up settings and read Rescue before installing.</p>', s, count=1)
                 b = s.encode('utf-8')
             out.write_bytes(b)
         (DEST / 'release.json').write_text(json.dumps({'tag': rel.get('tag_name'), 'published': rel.get('published_at'), 'asset': asset, 'firmware_sha256': sha}, indent=2), encoding='utf-8')
@@ -82,4 +89,7 @@ def main():
     return 0
 
 if __name__ == '__main__':
+    main()
+    DEST = DIST / 'liquid-wave' / 'beta-install'
+    os.environ['LIQUID_BETA'] = '1'
     sys.exit(main())
