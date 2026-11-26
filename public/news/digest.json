@@ -1,6 +1,86 @@
 {
-  "updatedAt": "2026-11-25T23:04:11Z",
+  "updatedAt": "2026-11-26T00:03:25Z",
   "articles": [
+    {
+      "title": "New York court upholds Mayor Mamdani's rent freeze",
+      "source": "Reuters",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/us/new-york-court-upholds-mayor-mamdanis-rent-freeze-2026-11-25/",
+      "summary": "New York’s state Supreme Court upheld Mayor Zohran Mamdani’s rent freeze for rent-stabilized apartments, rejecting landlords’ claim that his appointees compromised the Rent Guidelines Board. The freeze covers about one million of the city’s 2.3 million rental units for leases renewing through Sept. 30, 2027. The landlords argued the process was biased; the judge said they had not shown it was arbitrary or unlawful."
+    },
+    {
+      "title": "Trapped on the Tarmac: 3-Hour Flight Delays Spike Under Trump",
+      "source": "The New York Times (via GV Wire)",
+      "category": "U.S.",
+      "published": "2026-11-25",
+      "url": "https://gvwire.com/2026/11/25/trapped-on-the-tarmac-3-hour-flight-delays-spike-under-trump/",
+      "summary": "U.S. flights are on pace for their highest number of tarmac delays exceeding three hours since 2009, according to Bureau of Transportation Statistics data cited by The New York Times. The report says the Transportation Department has issued no airline consumer-protection fines in nearly two years, although officials say investigations continue. The delays remain relatively rare but can leave passengers confined aboard aircraft for hours."
+    },
+    {
+      "title": "Study: Climate change driving increased summer thunderstorm activity, flash flood risk in New England",
+      "source": "Brown University",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.brown.edu/news/2026-11-25/summer-thunderstorms-new-england-climate",
+      "summary": "An analysis of 40 years of hourly observations from 80 New England airports found that summer rainfall is increasingly concentrated in shorter, heavier thunderstorms. Researchers reported that storms averaged nearly 40 minutes shorter in 2000–2020, while the most intense downpours made up a 25% larger share of thunderstorm rain. They warn aging drainage systems may face greater flash-flood pressure as the climate warms."
+    },
+    {
+      "title": "UC San Diego Brain Organoids in Space Reveal New Clues to Alzheimer’s Disease",
+      "source": "UC San Diego",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://today.ucsd.edu/story/uc-san-diego-brain-organoids-in-space-reveal-new-clues-to-alzheimers-disease",
+      "summary": "UC San Diego researchers sent Alzheimer’s-modeling brain organoids to the International Space Station for 40 days and found that spaceflight responses differed by genetic background. The models showed distinct changes in disease-related proteins and gene activity, while researchers identified altered stress-response pathways. The findings are preliminary and do not show that spaceflight causes Alzheimer’s, but may help refine laboratory models of the disease."
+    },
+    {
+      "title": "Tiny Robots Deliver Treatments to the Brain",
+      "source": "Caltech",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.caltech.edu/about/news/tiny-robots-deliver-treatments-to-the-brain",
+      "summary": "Caltech researchers developed light-activated nanorobots designed to cross the blood–brain barrier and deliver medication. In mouse models of glioblastoma, the system delivered about five times more drug to the brain than nonactivated controls, slowed tumor growth and prolonged survival, while reducing systemic toxicity. The work is experimental; it has not been tested as a treatment in people, and further safety and efficacy studies are needed."
+    },
+    {
+      "title": "ASU scientists create a new way to assemble complex structures at the nanoscale",
+      "source": "Arizona State University",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://news.asu.edu/20261125-science-and-technology-asu-scientists-create-new-way-assemble-complex-structures-nanoscale",
+      "summary": "Arizona State University researchers demonstrated a programmable system in which designed DNA cubes spontaneously assemble into complex three-dimensional structures. The team used computational design to limit assembly errors and built increasingly intricate forms, pointing toward reconfigurable nanoscale devices and 3D circuits. The work is a materials-design proof of concept, not a functioning nanorobot or electronic chip, and practical applications remain developmental."
+    },
+    {
+      "title": "Later-born generations have better memory and lose it more slowly",
+      "source": "Nature Medicine",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.nature.com/articles/s41591-026-04758-z",
+      "summary": "An analysis of about 219,000 people followed for up to 30 years found that later-born generations entered older age with higher memory performance and experienced slower decline than earlier cohorts. The Nature Medicine briefing says the combined advantage could help explain falling dementia incidence over time. The finding reflects population trends, not a guarantee for individuals, and does not eliminate other dementia risk factors."
+    },
+    {
+      "title": "EU nationals will pay higher tuition fees than UK students, Burnham indicates",
+      "source": "The Guardian",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/uk-news/2026/nov/25/eu-nationals-will-pay-higher-tuition-fees-than-uk-students-burnham-indicates",
+      "summary": "UK Prime Minister Andy Burnham indicated that EU students will not receive the same domestic tuition rate as British students under a proposed post-Brexit reset deal. Negotiations remain unresolved, with the EU seeking equal treatment and UK universities concerned about losing international-fee revenue. The dispute could complicate parts of the wider agreement, although Burnham said tuition talks were separate from the main package."
+    },
+    {
+      "title": "Japan's data centre boom faces growing revolt from urban residents",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sustainability/society-equity/japans-data-centre-boom-faces-growing-revolt-urban-residents-2026-11-25/",
+      "summary": "Japan’s rapid data-centre expansion is drawing opposition from residents near Tokyo, who cite generator fumes, noise, heat and fuel-storage risks as facilities move close to homes. About 60% of the country’s data centres are in the metropolitan region. The government is preparing an action plan and local guidelines, while residents in several cities seek binding protections and one group has challenged a project’s zoning approval."
+    },
+    {
+      "title": "Australia's Flight Centre probes data breach in third-party system",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/asia-pacific/australias-flight-centre-travel-says-customer-records-may-have-been-accessed-2026-11-25/",
+      "summary": "Australia’s Flight Centre Travel said it was investigating unusual activity in a third-party accommodation-booking system that may have exposed a significant number of customer records. Some leisure brands and independent agents used the system, but the company said flight bookings were not affected. The disclosure sent shares lower in early trading; the company had not yet confirmed how many customers or what data were accessed."
+    },
     {
       "title": "Shein warns recovery will take time as e-commerce fees bite",
       "source": "Reuters",
@@ -362,20 +442,12 @@
       "summary": "Iraq's Federal Supreme Court ruled that Baghdad may deploy federal forces along all international borders, including crossings in the semi-autonomous Kurdistan region, and oversee border agencies and oil fields. The decision backs Prime Minister Ali al-Zaidi's effort to centralize security and resource control after ordering federal forces to take over Kurdish-run crossings. Kurdish authorities rejected what they called military threats and urged talks."
     },
     {
-      "title": "Senegal football chief denies contact with CAS arbitrator before AFCON ruling",
-      "source": "Anadolu Agency",
-      "category": "Sports",
-      "published": "2026-11-25",
-      "url": "https://www.aa.com.tr/en/sports/senegal-football-chief-denies-contact-with-cas-arbitrator-before-afcon-ruling/4137825",
-      "summary": "Senegalese Football Federation president Abdoulaye Fall denied Morocco’s allegation that he contacted a Court of Arbitration for Sport panel member before its ruling restored Senegal’s 2025 Africa Cup title. Morocco says it will pursue legal challenges; Fall offered to provide phone records. CAS had unanimously overturned an earlier decision awarding Morocco the title, finding the referee could resume the final after Senegal’s protest."
-    },
-    {
-      "title": "Army says all five tons of lead azide destroyed in Iowa detonation",
-      "source": "Associated Press",
+      "title": "EPA reports zero airborne lead one hour after Iowa lead-azide detonation",
+      "source": "U.S. Environmental Protection Agency",
       "category": "U.S.",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/77fa69b9e88b46c5d1adc29841d2b4cc",
-      "summary": "The U.S. Army says it successfully destroyed its five-ton lead-azide stockpile at the Iowa Army Ammunition Plant, reporting no secondary explosions or infrastructure damage. EPA monitors detected no airborne lead in the first 15 minutes, while officials continue air, soil and water testing. The degraded explosive had become unstable in storage; nearby residents and farmers are still awaiting further monitoring results."
+      "url": "https://www.epa.gov/newsreleases/initial-air-monitoring-shows-zero-detection-airborne-lead-following-controlled",
+      "summary": "After the Army detonated its five-ton lead-azide stockpile at the Iowa Army Ammunition Plant, EPA said real-time monitors showed zero airborne lead one hour later. The agency had collected 1,200 baseline samples of air, land, dust and water and deployed more than 300 staff and contractors for continued monitoring. Follow-up sampling is still underway, so the initial readings are not a final environmental assessment."
     },
     {
       "title": "Drone strikes kill 19 civilians in Sudan's Blue Nile state, rights group says",
@@ -1362,12 +1434,12 @@
       "summary": "Several dozen young Republicans in Tarrant County, Texas, met after the party’s midterm losses to discuss its direction. Many criticized personal attacks, infighting and limited progress on affordability, while urging stronger leadership and a return to conservative principles. Others favored a harder line. The discussion offers a local snapshot of tensions over Trump’s influence as Republicans look toward 2028."
     },
     {
-      "title": "Trump proposes new tariffs on China, EU and other trading partners over subsidies",
-      "source": "Associated Press",
+      "title": "Taiwan says it is confident of keeping previously agreed tariffs with US",
+      "source": "Reuters",
       "category": "Politics",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/trump-tariffs-china-european-union-367083ea32f71fd7f70029ba7df66bf0",
-      "summary": "Washington proposed new Section 301 duties on imports from China, the EU, Japan, South Korea, Taiwan and other partners, citing subsidies and excess factory output. AP reported a proposed additional 20% on some Chinese goods, bringing those products to 45%, and 10% to 18% rates for other partners; Brazil also faces extra sugar duties and a 10% aircraft tariff. The measures remain proposals and may face legal challenges."
+      "url": "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/",
+      "summary": "President Donald Trump proposed new maximum tariffs of 20%–40% on 14 trading partners, citing excess industrial capacity. Taiwan said it expects its previously agreed 15% U.S. rate to remain, pointing to earlier trade and investment arrangements covering semiconductors and other exports. The proposals remain subject to consultation, and the U.S. trade representative says existing negotiated caps may limit the final rates."
     },
     {
       "title": "U.S. new home sales jump to 10-month high as builders cut prices",
@@ -1600,6 +1672,38 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/finance/bnp-paribas-moves-up-global-systemic-bank-list-capital-buffer-rises-2026-11-25/",
       "summary": "BNP Paribas moved into a higher systemic-risk category on the Financial Stability Board’s 2026 list, raising its required extra capital buffer from 1.5% to 2%. MUFG moved down to a 1% buffer, while the list remained at 29 banks and JPMorgan stayed highest at 2.5%. The revised buffers take effect Jan. 1, 2028, affecting how much loss-absorbing capital major lenders must hold."
+    },
+    {
+      "title": "China extends suspension of ban on US-bound gallium, germanium, antimony exports",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/markets/commodities/china-extends-suspension-ban-us-bound-gallium-germanium-antimony-exports-2026-11-24/",
+      "summary": "China extended until Jan. 27, 2027, its suspension of restrictions on U.S.-bound exports of gallium, germanium, antimony and certain superhard materials, while keeping tighter end-use reviews for graphite. The pause had been due to expire Nov. 27. The minerals feed semiconductors, fiber optics, batteries and defense supply chains; the extension gives Washington and Beijing more time to maintain a fragile trade truce."
+    },
+    {
+      "title": "Yemen officials say strike on buses, trucks kills 26",
+      "source": "Agence France-Presse (via Dhaka Tribune)",
+      "category": "World",
+      "published": "2026-11-24",
+      "url": "https://www.dhakatribune.com/world/middle-east/425613/yemen-officials-say-strike-on-buses-trucks-kills",
+      "summary": "An airstrike on a bus and trucks in Yemen’s Lahj province killed 26 people, including 14 civilians and 12 Houthi fighters, according to local officials cited by AFP. The Houthis blamed the Saudi-led coalition, while government forces said the Houthis carried out the attack. The conflicting accounts have not been independently resolved; the strike occurred near a front line advancing toward Aden."
+    },
+    {
+      "title": "Sanofi's $41 billion Insmed bet charts life beyond Dupixent",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/legal/litigation/sanofi-acquire-insmed-41-billion-deal-2026-11-24/",
+      "summary": "Sanofi agreed to acquire U.S. respiratory-drug maker Insmed for $41 billion in cash, offering $175 a share, a 17.5% premium to the prior close. The deal would add marketed medicines and a respiratory pipeline as Sanofi seeks growth beyond Dupixent ahead of patent expiries in the early 2030s. Closing is expected in the first half of 2027, subject to approvals; analysts say it does not resolve every pipeline risk."
+    },
+    {
+      "title": "Senegal reinstated as 2025 African champions, Morocco to contest decision",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/sports/soccer/soccer-senegal-reinstated-2025-africa-cup-nations-winners-2026-11-24/",
+      "summary": "Senegal was reinstated as 2025 Africa Cup of Nations champion after the Court of Arbitration for Sport unanimously overturned CAF’s decision to award Morocco a 3-0 forfeit. CAS restored Senegal’s 1-0 extra-time win, saying the referee’s choice to resume the final after the team’s walk-off was a field-of-play decision. Morocco said it would challenge the ruling; Senegal and the arbitrator denied alleged improper contact."
     },
     {
       "title": "Justice Department announces largest-ever crackdown on scammers, targeting over 800 defendants",
@@ -2328,6 +2432,46 @@
       "published": "2026-11-24",
       "url": "https://www.reuters.com/business/finance/spain-extends-bank-tax-sets-tougher-lending-rules-before-election-2026-11-24/",
       "summary": "Spain’s government extended its bank levy for another year, expecting about €1.4 billion for social housing and support for vulnerable tenants, and proposed new caps on some high-cost consumer loans. Consumer lending has reached a record €117.8 billion. Both measures still need parliamentary approval; banks have challenged the tax, and a possible conservative-led government after Sunday’s election could weaken or repeal it."
+    },
+    {
+      "title": "HKU Scientists Uncover Hidden Leaf Dynamics That Could Improve Amazon Rainforest Carbon Uptake Estimates",
+      "source": "The University of Hong Kong",
+      "category": "Environment",
+      "published": "2026-11-23",
+      "url": "https://lead.hku.hk/en/article/2026/11/hku-scientists-uncover-hidden-leaf-dynamics-that-could-improve-amazon-rainforest-carbon-uptake-estimates/",
+      "summary": "Researchers from the University of Hong Kong and collaborators found that seasonal leaf loss, renewal and ageing in the Amazon canopy are largely missed by conventional satellite observations. Accounting for those changes altered modeled annual photosynthetic carbon uptake by 9.4%, about 1.42 billion tonnes of carbon. The study suggests rainforest carbon estimates may need refinement; it does not mean the forest’s actual uptake changed by that amount."
+    },
+    {
+      "title": "In the United States, more than 2.2 Million Women Relied on Fertility Awareness-Based Methods for Pregnancy Prevention in 2022-2023, Higher Than Earlier Estimates",
+      "source": "Guttmacher Institute",
+      "category": "Health",
+      "published": "2026-11-23",
+      "url": "https://www.guttmacher.org/news-release/2026/united-states-more-22-million-women-relied-fertility-awareness-based-methods",
+      "summary": "New Guttmacher Institute and University of Utah estimates suggest 7%–8% of U.S. contraceptive users aged 18–44 used fertility-awareness methods in 2022–23, representing more than 2.2 million people. The researchers say standard surveys undercount users who combine cycle tracking with condoms or other methods. The estimates cannot establish a nationwide rise after 2023, though several Mountain West states showed growth through 2026."
+    },
+    {
+      "title": "FDA Approves First Treatment for Limb-Girdle Muscular Dystrophy Type 2I/R9",
+      "source": "U.S. Food and Drug Administration",
+      "category": "Health",
+      "published": "2026-11-23",
+      "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-limb-girdle-muscular-dystrophy-type-2ir9",
+      "summary": "The FDA approved Welgemda (ribitol) as the first treatment for limb-girdle muscular dystrophy type 2I/R9, a rare inherited disorder linked to FKRP mutations. In a 112-person placebo-controlled study, patients showed improvements in walking speed and lung function at an interim analysis. The medicine is an oral solution for eligible adults and children weighing at least 30 kilograms; long-term outcomes and safety monitoring remain important."
+    },
+    {
+      "title": "FDA Approves First New Hormone Therapy for Early-Stage Breast Cancer in More Than 20 Years",
+      "source": "U.S. Food and Drug Administration",
+      "category": "Health",
+      "published": "2026-11-23",
+      "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-new-hormone-therapy-early-stage-breast-cancer-more-20-years",
+      "summary": "The FDA approved giredestrant, marketed as Wilserdly, for certain adults with early-stage estrogen-receptor-positive, HER2-negative breast cancer after surgery. The agency said the daily oral hormone therapy is the first new treatment of its type for this setting in more than 20 years. Approval was based on a Phase 3 trial showing a 30% lower risk of invasive recurrence or death versus standard endocrine therapy; overall-survival follow-up continues."
+    },
+    {
+      "title": "CMS Announces Lower Negotiated Prices for 13 High-Cost Drugs",
+      "source": "Centers for Medicare & Medicaid Services",
+      "category": "Health",
+      "published": "2026-11-23",
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-lower-negotiated-prices-13-high-cost-drugs",
+      "summary": "CMS announced negotiated prices for 13 high-spending Medicare Part B and Part D drugs, projecting $9.2 billion in net savings, or 45%, once the prices take effect Jan. 1, 2028. The medicines treat conditions including cancer and psoriatic arthritis. The announcement expands the federal negotiation program to 37 drugs across three cycles; actual savings for individual patients will depend on coverage, use and out-of-pocket rules."
     },
     {
       "title": "BepiColombo spacecraft remains safe in Mercury orbit after software glitch",
