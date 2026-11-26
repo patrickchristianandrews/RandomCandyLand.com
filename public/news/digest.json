@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T13:58:10Z",
+  "updatedAt": "2026-11-26T14:07:10Z",
   "articles": [
     {
       "title": "‘It’s in quite a dark place’: why UK housebuilding is struggling",
@@ -648,14 +648,6 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/sustainability/land-use-biodiversity/rare-earth-recycler-cyclic-materials-expand-into-europe-asia-2026-11-26/",
       "summary": "Cyclic Materials, backed by Microsoft, Amazon and BMW, has secured a site near Leipzig for a rare-earth magnet recycling plant planned to open in 2028. It expects the facility to process up to 25,000 metric tons of scrap annually and is planning four more European sites, with Asia expansion later. The company says recycling could help Western manufacturers reduce reliance on China, which processes about 90% of global rare earths."
-    },
-    {
-      "title": "Russian ballistic-missile attack injures seven in Kyiv",
-      "source": "The Kyiv Independent",
-      "category": "World",
-      "published": "2026-11-26",
-      "url": "https://kyivindependent.com/russia-slams-kyiv-in-ballistic-missile-attack-hits-shopping-center/",
-      "summary": "A Russian ballistic-missile attack struck a shopping centre, an industrial building and another non-residential site in Kyiv's Desnianskyi district late November 25, Ukrainian officials said. Seven people were injured; three were hospitalized and two were in serious condition. Ukraine's air force said Russia also launched 113 drones, 87 of which had been intercepted or suppressed by 8 a.m. local time."
     },
     {
       "title": "Russian court arrests deputy aerospace forces commander, Kommersant reports",
@@ -2352,6 +2344,14 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/china/russia-sends-home-chinese-suspected-illegally-raising-23-billion-deposits-2026-11-25/",
       "summary": "Russia has extradited a Chinese national, identified only by the surname Shu, to China, where he is wanted over an alleged scheme involving more than 15 billion yuan ($2.25 billion) in public deposits. Xinhua, citing China’s Ministry of Public Security, said he returned on November 5. Authorities disclosed few details about the alleged fundraising or the extradition process."
+    },
+    {
+      "title": "Russian ballistic-missile attack injures seven in Kyiv",
+      "source": "The Kyiv Independent",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://kyivindependent.com/russia-slams-kyiv-in-ballistic-missile-attack-hits-shopping-center/",
+      "summary": "A Russian ballistic-missile attack struck a shopping centre, an industrial building and another non-residential site in Kyiv's Desnianskyi district late November 25, Ukrainian officials said. Seven people were injured; three were hospitalized and two were in serious condition. Ukraine's air force said Russia also launched 113 drones, 87 of which had been intercepted or suppressed by 8 a.m. local time."
     },
     {
       "title": "Russian government official warns of Ukrainian drone attacks on utility infrastructure this winter",
