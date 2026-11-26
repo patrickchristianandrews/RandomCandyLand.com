@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24",
+  "updatedAt": "2026-11-26",
   "description": "Dated 2026 sources with expired flyers separated from current/upcoming offers. Link checks do not verify individual prices or all ad contents.",
   "ads": [
     {
@@ -66,7 +66,7 @@
     {
       "name": "Home Depot Black Friday Ad",
       "url": "https://blackfriday.ltd/ads/home-depot-black-friday-ad/",
-      "notes": "12-page early Black Friday promotion, Nov 5–25",
+      "notes": "12-page early Black Friday promotion, Nov 5–25; promotion has ended",
       "type": "scan",
       "pageCount": 12,
       "year": 2026,
@@ -76,7 +76,8 @@
       "linkStatus": "accessible",
       "startsAt": "2026-11-05",
       "endsAt": "2026-11-25",
-      "checked": "2026-11-24"
+      "checked": "2026-11-24",
+      "status": "expired"
     },
     {
       "name": "Walmart Early Black Friday Ad (ended Nov 15)",
