@@ -1,6 +1,70 @@
 {
-  "updatedAt": "2026-11-26T05:09:26.668Z",
+  "updatedAt": "2026-11-26T06:04:45.000Z",
   "articles": [
+    {
+      "title": "Sinner to miss Australian Open after undergoing surgery on knee injury",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sports/tennis/sinner-miss-australian-open-after-undergoing-surgery-knee-injury-2026-11-26/",
+      "summary": "Jannik Sinner will miss the Australian Open in January after surgery for a persistent knee injury, Tennis Australia confirmed. The world No. 2 has been sidelined since winning Wimbledon in July and had initially expected to return for Melbourne. Italian media reported he could be out for up to four months, but that longer estimate has not been confirmed by his team."
+    },
+    {
+      "title": "Nyk Lewis' late jumper lifts VCU past Washington in Maui",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sports/basketball/nyk-lewis-late-jumper-lifts-vcu-past-washington-maui--flm-2026-11-26/",
+      "summary": "VCU beat Washington 80–78 in the Maui Invitational after Nyk Lewis hit a driving jumper with 1.8 seconds left. The Rams erased a 10-point second-half deficit with an 8–1 closing run; Washington’s Nikola Dzepina scored a career-high 31 points but missed a final long-range attempt. VCU improved to 5–2, while 17 Washington turnovers helped decide the game."
+    },
+    {
+      "title": "Behind Alex Tuch's big night, Capitals best Flyers, end 5-game skid",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sports/nhl/behind-alex-tuchs-big-night-capitals-best-flyers-end-5-game-skid--flm-2026-11-26/",
+      "summary": "Washington defeated Philadelphia 7–3, ending a five-game losing streak and handing the Flyers their first loss in four games. Alex Tuch scored once and assisted twice, while seven Capitals found the net and Logan Thompson made 18 saves. The teams traded early goals before Washington took control in the second period and added late insurance. The result was the Capitals’ second win over Philadelphia this season."
+    },
+    {
+      "title": "India orders tougher surveillance of packaged water, scrutiny set to cover PepsiCo, Coca-Cola",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/india-orders-tougher-surveillance-packaged-water-scrutiny-set-cover-pepsico-coca-2026-11-26/",
+      "summary": "India’s food regulator ordered states to intensify inspections and risk-based sampling of packaged and mineral water after a Bisleri sample was flagged as unsafe. Reuters reports checks will also cover PepsiCo, Coca-Cola, Tata Consumer and Reliance Consumer in a market worth about $3.5 billion. Bisleri says its own testing found no problem; the regulator says it plans prosecution over alleged non-compliance."
+    },
+    {
+      "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/retail-consumer/apple-pulls-minimax-ai-chatbot-app-store-over-child-safety-concerns-2026-11-26/",
+      "summary": "Apple removed MiniMax’s Talkie chatbot from its App Store worldwide after reports that AI characters sent sexually inappropriate or abusive messages to minors. Reuters says the app was rated for adults but relied partly on self-reported ages, raising questions about safeguards. Talkie had about 11 million monthly active users in October and was once a major revenue source for MiniMax; Apple and the company had not commented."
+    },
+    {
+      "title": "Turkmenistan's Afghan gas link brings South Asia pipeline dream a little closer",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/energy/turkmenistans-afghan-gas-link-brings-south-asia-pipeline-dream-little-closer-2026-11-26/",
+      "summary": "Turkmenistan expects to finish a gas-pipeline section to Afghanistan’s Herat by year-end, with flows planned for early 2027. The segment is part of the proposed 1,800-kilometre TAPI route to Pakistan and India, designed for 33 billion cubic metres annually. Reuters reports only 124 kilometres of the Afghan section have been laid; financing, security and India-Pakistan tensions still threaten the wider project."
+    },
+    {
+      "title": "Spain's snap election: Five key questions for financial markets",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/spains-snap-election-five-key-questions-financial-markets-2026-11-26/",
+      "summary": "Spain holds a snap election on Nov. 29, with polls putting the conservative People’s Party ahead of Prime Minister Pedro Sánchez’s Socialists and suggesting it may need far-right Vox to govern. Reuters says the result could shift tax, immigration and welfare policy and affect banks, utilities and the euro. Spain’s strong growth and public finances provide a cushion, but forming a stable majority remains uncertain."
+    },
+    {
+      "title": "EU leaders to wrestle with seven-year budget, Ukraine financing as they seek December deal",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/eu-leaders-wrestle-with-seven-year-budget-ukraine-financing-they-seek-december-2026-11-26/",
+      "summary": "EU leaders are debating a proposed €1.582 trillion budget for 2028–34 and a €45 billion joint loan for Ukraine, which would be repaid only if Russia pays reparations. The plan also includes up to €100 billion for Ukraine over the seven-year period. Reuters reports several member states oppose the loan, while the bloc hopes to reach a budget deal in December."
+    },
     {
       "title": "BOJ's Tamura signals chance of faster-pace interest rate hikes",
       "source": "Reuters",
@@ -160,6 +224,54 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/trump-nato-chief-urge-russia-avoid-actions-that-widen-ukraine-war-2026-11-26/",
       "summary": "President Donald Trump and NATO Secretary-General Mark Rutte urged Russia not to take actions that could widen the war in Ukraine, after meeting in Florida. Their joint statement also cited a need for a rapid peaceful resolution and discussed defense spending and investment, but offered no details on talks about the Iran war. European allies continue to press for a role in U.S.-backed peace negotiations."
+    },
+    {
+      "title": "Microsoft declares ‘Code Red’ after huge Outlook outage",
+      "source": "The Verge",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.theverge.com/news/1042025/microsoft-code-red-outlook-outage",
+      "summary": "After a nearly 24-hour Exchange Online and Outlook outage disrupted millions of customers, Microsoft declared an internal “Code Red” and began daily engineering reviews. The Verge reports the trigger was a gateway-server bug present since July; response teams struggled across 11 Teams chats and a 1,000-person bridge call. Microsoft now targets recovery within an hour, but that goal has not yet been demonstrated."
+    },
+    {
+      "title": "1Password said hackers broke into its internal systems, but customer passwords are safe",
+      "source": "TechCrunch",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://techcrunch.com/2026/11/25/1password-said-hackers-broke-into-its-internal-systems-but-customer-passwords-are-safe/",
+      "summary": "1Password said an intruder accessed an employee’s corporate GitHub account on Nov. 19, then used it to push malicious code into internal systems and download some customer data. TechCrunch reports names, sign-in email addresses, account identifiers and account activity dates were exposed; password vaults, passwords and secret keys were not accessed. The company has not disclosed how many users were affected or whether all were notified."
+    },
+    {
+      "title": "WhatsApp now lets you schedule messages in group and individual chats",
+      "source": "TechCrunch",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://techcrunch.com/2026/11/25/whatsapp-now-lets-you-schedule-messages-in-group-and-individual-chats/",
+      "summary": "WhatsApp began a global rollout of scheduled messages for individual and group chats on iOS and Android. Users can hold the send button and choose a delivery time from 10 minutes to 14 days later; text, photos and videos are supported, and messages send even if the phone is offline. TechCrunch says users can view or delete scheduled messages, but editing a schedule was unclear at launch."
+    },
+    {
+      "title": "Google’s patent for custom AI video feeds paints a bleak picture of entertainment’s future",
+      "source": "The Verge",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent",
+      "summary": "Google’s rejected “My Channel” patent describes a system that would generate personalized video feeds, advertisements and even full-length films using an AI model. The Verge reports it could draw on viewing history, age, IP address, GPS data and connected streaming accounts, and create avatars from users’ media. The filing is not a launched product; Google could appeal or resubmit an amended patent."
+    },
+    {
+      "title": "First generic HIV drug shipments arrive in Africa, Global Fund says",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/legal/litigation/first-generic-hiv-drug-shipments-arrive-africa-global-fund-says-2026-11-25/",
+      "summary": "Generic shipments of lenacapavir, a twice-yearly injectable used to prevent HIV, have arrived in Zambia, with deliveries to Uganda expected soon and Zimbabwe next year. Reuters reports more than 189,000 people in 10 countries had received a first dose by November, and 24 countries are expected to receive the drug by year-end. Generic supply is intended to ease shortages and expand access."
+    },
+    {
+      "title": "Brad Pitt and Angelina Jolie settle years-long legal battle over joint French winery",
+      "source": "The Guardian",
+      "category": "Entertainment",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/film/2026/nov/25/brad-pitt-angelina-jolie-settle-french-winery-lawsuit",
+      "summary": "Brad Pitt and Angelina Jolie settled their years-long dispute over Château Miraval, the French winery they co-owned, and both sides moved to dismiss their claims. The Guardian reports the settlement terms remain confidential. The litigation began after Jolie sold her stake in 2021; filings included allegations about Pitt’s conduct that he denied. The settlement ends the civil dispute without publicly resolving those allegations."
     },
     {
       "title": "Wall Street recovers most early losses as pullback in AI stocks eases",
@@ -2042,6 +2154,30 @@
       "summary": "Women's Aid says 13 women have died violently in Ireland so far in 2026, nearly double the seven recorded in 2025. Since the charity began tracking cases in 1996, 291 women have been killed by men; among resolved cases, 57% involved a current or former partner and 68% occurred at home. The group identifies coercive control, threats and stalking as warning signs."
     },
     {
+      "title": "Tidal will start banning AI-generated music next month",
+      "source": "The Verge",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban",
+      "summary": "Tidal says it will begin removing wholly AI-generated music on Dec. 9 and reject future submissions made entirely by AI tools. The Verge reports the company estimates 43% of tracks distributed to it over the prior 90 days were fully AI-generated, while 96% received no plays. AI-assisted work remains allowed when AI is not the sole source of the finished track."
+    },
+    {
+      "title": "The New York Times warns photographers not to update Photoshop over AI features",
+      "source": "The Verge",
+      "category": "Technology",
+      "published": "2026-11-24",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features",
+      "summary": "The New York Times has told freelance photographers not to use Adobe Photoshop 2027 on Times assignments, warning that newer AI tools may add metadata identifying images as AI-generated or edited. The Verge reports the policy is intended to protect the paper’s rules against retouching and digital manipulation. The Times has not specified which features trigger the tags, and Adobe had not responded."
+    },
+    {
+      "title": "GTA VI PC recompilation project shut down by Take-Two",
+      "source": "The Verge",
+      "category": "Entertainment",
+      "published": "2026-11-24",
+      "url": "https://www.theverge.com/news/1041690/grand-theft-auto-6-pc-recompilation-project-leonida-takedown-take-two",
+      "summary": "Take-Two used a DMCA notice to remove Leonida, a fan project translating a leaked Xbox build of Grand Theft Auto VI into native Windows code, along with more than 2,900 forks. The Verge reports modders continue trying other recompilation and compatibility projects, but rebuilding the full game remains difficult. The dispute highlights the publisher’s copyright enforcement as unofficial PC efforts accelerate."
+    },
+    {
       "title": "Active-duty U.S. Army sergeant pleads guilty in conspiracy to gather and transfer national defense information",
       "source": "U.S. Department of Justice",
       "category": "U.S.",
@@ -2504,14 +2640,6 @@
       "published": "2026-11-24",
       "url": "https://apnews.com/article/trev-alberts-michigan-5a257c37bd41da3d5309fd466765f196",
       "summary": "Michigan abandoned plans to hire Texas A&M athletic director Trev Alberts, potentially triggering more than $21 million in payments and a legal dispute. Alberts had signed a five-year agreement worth $3.2 million annually plus bonuses; the university cited an unacceptable background check. The decision adds to instability in Michigan’s athletic department as it seeks new leadership for its football program."
-    },
-    {
-      "title": "Microsoft launches emergency engineering review after major outage",
-      "source": "Reuters",
-      "category": "Technology",
-      "published": "2026-11-24",
-      "url": "https://www.reuters.com/business/microsoft-declares-code-red-after-historic-outage-internal-memos-show-2026-11-24/",
-      "summary": "Internal memos reviewed by Reuters describe an urgent engineering overhaul following the November 12–13 disruption of Microsoft 365 services, including email and Teams. Microsoft attributed the outage to a Windows scalability flaw. Planned improvements include faster recovery, better traffic management and improved diagnostics. The company aims to resolve future worldwide incidents within an hour, a target rather than an achieved capability."
     },
     {
       "title": "More than 300 Russians killed as Moscow props up Mali’s junta, leaked data reveals",
