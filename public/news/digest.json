@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T20:27:16.000Z",
+  "updatedAt": "2026-11-26T22:00:06.642Z",
   "articles": [
     {
       "title": "Spain's De Cos to take over as ECB president from Lagarde",
@@ -1544,6 +1544,14 @@
       "published": "2026-11-26",
       "url": "https://www.lemonde.fr/en/france/article/2026/11/26/german-vendor-suspected-of-involuntary-manslaughter-for-supplying-boats-for-deadly-channel-crossings_6789466_7.html",
       "summary": "A joint Le Monde, BBC and German media investigation reports that French authorities suspect German boat dealer Marvin Reuter’s firm supplied equipment to Channel migrant-smuggling networks. Investigators say its boats or engines were linked to about 29% of observed crossings in early 2026 and two fatal incidents that killed four people. Reuter contests extradition to France; the allegations have not been tested at trial."
+    },
+    {
+      "title": "Building collapse in Karachi kills four, with 17 people still missing",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/pakistan-construction-building-collapse-karachi-3b1555a055cfee2e3299edde37c821b9",
+      "summary": "A six-story building under construction collapsed in Karachi, killing at least four people and injuring 14, while families reported 17 others missing. Rescue crews continued searching the rubble on Thursday. Authorities dismissed more than a dozen officials over alleged negligence. The Associated Press notes that building collapses are recurrent in Pakistan, where construction standards are often weakly enforced and substandard materials or ignored safety rules can contribute to disasters."
     },
     {
       "title": "Yemen's Houthis claim attack on Saudi Arabia's largest refinery",
@@ -4592,30 +4600,6 @@
       "published": "2026-11-20",
       "url": "https://www.whitehouse.gov/presidential-actions/2026/11/protecting-the-executives-privileges-and-enhancing-efficiencies-in-federal-contracting/",
       "summary": "An executive order signed November 20 requires federal contractors and subcontractors to notify the White House and contracting agencies when Congress seeks information about their work with the executive branch. Contractors must coordinate responses and follow instructions to withhold material the administration deems privileged. The White House says this protects confidential operations; the order's effect on congressional oversight may be tested in court."
-    },
-    {
-      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says",
-      "source": "Associated Press",
-      "category": "Technology",
-      "published": "2026-11-19",
-      "url": "https://apnews.com/article/cyberattack-european-union-artificial-intelligence-ai-79705095e8141cd650196dbff1cf3c70",
-      "summary": "The European Commission confirmed that an AI-assisted cyberattack targeting an EU institution was detected on October 22 and remained under investigation nearly a month later. Officials said several applications were temporarily taken offline and most have since been restored; they reported no evidence of a broad staff data breach. The attackers and full operational impact were not disclosed, leaving important questions about the intrusion unresolved."
-    },
-    {
-      "title": "Record profits but record outflows: 'Sell Korea' trade stalks Seoul market",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-19",
-      "url": "https://www.reuters.com/world/asia-pacific/record-profits-record-outflows-sell-korea-trade-stalks-seoul-market-2026-11-19/",
-      "summary": "South Korea’s KOSPI has fallen 44% from its June record despite record AI-driven profits at Samsung Electronics and SK Hynix, erasing about 3.3 quadrillion won in market value. Reuters reported foreign investors were on track for a seventh consecutive month of net selling, with $115.2 billion in cumulative outflows. Analysts said waning confidence in debt-funded AI infrastructure and fading buybacks have left few buyers."
-    },
-    {
-      "title": "South Korea becomes fourth country globally to hit $1 trillion exports on AI chip boom",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-19",
-      "url": "https://www.reuters.com/world/south-korea-becomes-fourth-country-globally-hit-1-trillion-exports-ai-chip-boom-2026-11-19/",
-      "summary": "South Korea’s exports passed $1 trillion for 2026, making it the fourth country to reach the milestone after Germany, the United States and China. Semiconductor shipments, driven by global AI investment, rose 184% in the first three quarters and represented 42% of exports. Reuters noted weak domestic demand and inequality remain concerns, prompting the government to plan a large fund for growth industries, young people and regional development."
     }
   ]
 }
