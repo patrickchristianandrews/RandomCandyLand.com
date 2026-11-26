@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T06:04:45.000Z",
+  "updatedAt": "2026-11-26T06:59:13.000Z",
   "articles": [
     {
       "title": "Sinner to miss Australian Open after undergoing surgery on knee injury",
@@ -50,12 +50,12 @@
       "summary": "Turkmenistan expects to finish a gas-pipeline section to Afghanistan’s Herat by year-end, with flows planned for early 2027. The segment is part of the proposed 1,800-kilometre TAPI route to Pakistan and India, designed for 33 billion cubic metres annually. Reuters reports only 124 kilometres of the Afghan section have been laid; financing, security and India-Pakistan tensions still threaten the wider project."
     },
     {
-      "title": "Spain's snap election: Five key questions for financial markets",
+      "title": "Spain's economic gains miss voters' wallets as Sanchez seeks reelection",
       "source": "Reuters",
       "category": "Politics",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/spains-snap-election-five-key-questions-financial-markets-2026-11-26/",
-      "summary": "Spain holds a snap election on Nov. 29, with polls putting the conservative People’s Party ahead of Prime Minister Pedro Sánchez’s Socialists and suggesting it may need far-right Vox to govern. Reuters says the result could shift tax, immigration and welfare policy and affect banks, utilities and the euro. Spain’s strong growth and public finances provide a cushion, but forming a stable majority remains uncertain."
+      "url": "https://www.reuters.com/world/europe/spains-economic-gains-miss-voters-wallets-sanchez-seeks-reelection-2026-11-26/",
+      "summary": "Spain's economy is growing faster than the euro zone and creating jobs, but many voters say the gains have not eased housing and living-cost pressures ahead of Sunday's snap election. Reuters reports growth is uneven across regions and social classes, leaving frustration despite strong headline data. Polls suggest Prime Minister Pedro Sánchez's Socialists trail the conservative People's Party, which may need Vox to govern."
     },
     {
       "title": "EU leaders to wrestle with seven-year budget, Ukraine financing as they seek December deal",
@@ -106,12 +106,12 @@
       "summary": "A federal judge granted ABC a temporary restraining order and preliminary injunction blocking the FCC's early review of eight Disney-owned stations, finding the network likely to succeed on its First Amendment retaliation claim. The review followed President Trump's call for ABC to fire Jimmy Kimmel. The judge declined to bar unspecified future FCC actions; the agency says it will continue enforcing broadcasters' public-interest duties."
     },
     {
-      "title": "Asia shares bounce, AI and tariffs lurk in background",
+      "title": "Stocks rally in Asia, US tariffs not as dire as feared",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
-      "summary": "Asian shares edged higher after Wall Street recovered from deep intraday losses, but investors remained wary of AI spending and new U.S. tariffs. Japan's Nikkei rose 1.6% and South Korea's index 1.9%, though both remained sharply lower for November. Nvidia fell 3.9% after a possible credit downgrade warning; Treasury yields hit multi-week lows despite strong U.S. growth and persistent inflation."
+      "summary": "Asian shares rebounded as investors judged the latest U.S. tariff proposals less damaging than feared; Reuters reported the new duties are not expected to stack on July's tariffs and may not begin until February or March. Japan's Nikkei gained 1.6%, South Korea's index 1.9%, and U.S. futures rose, while Nvidia remained under credit-rating scrutiny."
     },
     {
       "title": "Indonesian rescuers resume search for 13 people trapped inside illegal mine after 13 confirmed dead",
@@ -224,6 +224,118 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/trump-nato-chief-urge-russia-avoid-actions-that-widen-ukraine-war-2026-11-26/",
       "summary": "President Donald Trump and NATO Secretary-General Mark Rutte urged Russia not to take actions that could widen the war in Ukraine, after meeting in Florida. Their joint statement also cited a need for a rapid peaceful resolution and discussed defense spending and investment, but offered no details on talks about the Iran war. European allies continue to press for a role in U.S.-backed peace negotiations."
+    },
+    {
+      "title": "Kenya government breached constitution in building US-backed Ebola quarantine site, court says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/africa/kenya-government-breached-constitution-building-us-backed-ebola-quarantine-site-2026-11-26/",
+      "summary": "A Kenyan court ruled that the government breached constitutional provisions when constructing a U.S.-backed Ebola quarantine facility and ordered work to stop until conditions are met, including disclosure of the agreement with Washington. The ruling adds legal and transparency hurdles to a project intended for outbreak response; Reuters did not report when construction could resume."
+    },
+    {
+      "title": "Data from Chinese AI firm MiniMax accessed by unidentified parties, researcher says",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/data-chinese-ai-firm-minimax-accessed-by-unidentified-parties-researcher-says-2026-11-26/",
+      "summary": "Cybersecurity researchers at Dragos said confidential links and other data submitted to Chinese AI firm MiniMax were accessed by unidentified parties, including after users requested that data not be retained. MiniMax said its systems automatically opened links to check for threats, deleted stored addresses and found no evidence chats or AI responses were disclosed. Atlas Cloud stopped forwarding requests and warned customers that secrets might be exposed."
+    },
+    {
+      "title": "AirBaltic offers crew exit, demotion or Papua New Guinea secondment",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/airbaltic-offers-crew-exit-demotion-or-papua-new-guinea-secondment-2026-11-26/",
+      "summary": "Latvia's airBaltic has offered some staff voluntary exits, demotions or secondments to Papua New Guinea's Air Niugini as it restructures under Chapter 11, Reuters reported from employee emails and sources. The carrier plans to cut 500–700 jobs and reduce its Airbus A220 fleet. AirBaltic says options comply with labour law; a union disputes that and says it was not consulted."
+    },
+    {
+      "title": "Malaysian air force facilities used to transport illicit drugs, minister says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/malaysian-air-force-facilities-used-transport-illicit-drugs-minister-says-2026-11-26/",
+      "summary": "Malaysia's interior minister said military aviation facilities were used in 21 transactions to move at least three metric tons of illicit drugs worth 156 million ringgit since August 2024. Seven air force personnel and six civilians were arrested as investigators pursue two criminal cells in Sabah. Authorities have not specified whether bases or aircraft were used; the inquiry is ongoing."
+    },
+    {
+      "title": "India's top court tightens food warning labels in new setback for industry",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/india/india-tightens-food-warning-labels-proposal-new-setback-industry-2026-11-26/",
+      "summary": "India's Supreme Court ordered separate front-of-pack warnings for high salt, sugar and fat, tightening a government proposal that would have combined them in one label. The court's decision is a setback for the country's food and drinks industry and a win for health advocates seeking clearer consumer information. The food regulator must implement the specified hexagon warnings."
+    },
+    {
+      "title": "Wife of Japanese journalist detained in Russia pleads for his release",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/media-telecom/wife-of-japanese-journalist-detained-russia-pleads-his-release-2026-11-26/",
+      "summary": "Yuki Imai, a 34-year-old reporter for Hokkaido Shimbun, was detained in Russia's Sakhalin region in October on suspicion of espionage, his wife said in her first public comments. She appealed for his release, describing his two-year posting and young family. Japan has protested the arrest, which is straining already tense relations; Moscow has not publicly detailed the evidence."
+    },
+    {
+      "title": "Insight: Prosecco's 'heroic' vines offer a test case in climate resilience",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sustainability/cop/proseccos-heroic-vines-offer-test-case-climate-resilience-2026-11-26/",
+      "summary": "Growers in Italy's Conegliano Valdobbiadene Prosecco region say the 2026 harvest held near last year's level despite record heat, drought and unusually warm nights. Reuters reports vineyards have adapted through less pruning, emergency irrigation and improved soil moisture, but these measures raise costs and may affect grape acidity. The experience offers a case study in climate adaptation, not proof the industry is insulated."
+    },
+    {
+      "title": "Blake Corum runs for 184 yards as Rams dump Packers, extend win streak",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sports/nfl/blake-corum-runs-184-yards-rams-dump-packers-extend-win-streak--flm-2026-11-26/",
+      "summary": "Blake Corum rushed for a career-high 184 yards and a touchdown as the Los Angeles Rams beat Green Bay 26–13 in the NFL's first Thanksgiving Eve game. The Rams extended their winning streak to five, while Jordan Love threw two interceptions and the Packers lost a second straight. Green Bay receiver Christian Watson left with a concussion after a hit that led to a Rams safety's ejection."
+    },
+    {
+      "title": "Indian farmers sell paddy stubble to biomass firms, reduce burning",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/environment/indian-farmers-sell-paddy-stubble-biomass-firms-reduce-burning-2026-11-26/",
+      "summary": "Farmers in India's Punjab state are increasingly selling paddy straw to biomass plants instead of burning it, creating income and jobs while reducing a major source of seasonal air pollution. Farm fires fell 53% in 2025, but Delhi's air remained hazardous, showing the sector is still too small to change regional air quality. Analysts say procurement incentives and larger facilities are needed."
+    },
+    {
+      "title": "Indonesian prosecutors name nickel firm and its owner as money laundering suspects",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/markets/commodities/indonesian-prosecutors-name-nickel-firm-its-owner-money-laundering-suspects-2026-11-26/",
+      "summary": "Indonesian prosecutors named nickel miner PT BSJ and its beneficial owner as suspects in an alleged money-laundering case tied to corruption in obtaining a mining permit from 2021 to 2026. Investigators say proceeds came partly from nickel ore sales under the licence. The owner could not be reached for comment, and the company did not respond to Reuters."
+    },
+    {
+      "title": "Air cargo demand from AI data centres shows no sign of slowing, SATS CEO says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/air-cargo-demand-ai-data-centres-shows-no-sign-slowing-sats-ceo-says-2026-11-26/",
+      "summary": "SATS, the world's largest air-cargo handler, says demand tied to AI data-centre projects remains strong, with server racks and semiconductors driving cargo growth despite volatility in technology shares. CEO Kerry Mok told Reuters the trend continued through the peak season, while SATS volumes have outpaced the global industry's growth rate for 12 consecutive quarters. The outlook depends on continued AI infrastructure investment."
+    },
+    {
+      "title": "Nvidia halts server shipments to four Southeast Asian countries, FT reports",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/nvidia-halts-chip-shipments-southeast-asia-ft-reports-2026-11-26/",
+      "summary": "Reuters reported, citing the Financial Times, that Nvidia told manufacturing partners to stop shipping servers containing its chips to Malaysia, Singapore, Thailand and Indonesia. The move follows new U.S. export-license requirements for advanced chips to several Southeast Asian countries, intended to block diversion to Chinese buyers. The report did not provide a detailed company statement explaining the halt."
+    },
+    {
+      "title": "China, Japan, South Korea and ASEAN launch talks on digital payments across borders",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/china-japan-south-korea-asean-launch-talks-digital-payments-across-borders-2026-11-26/",
+      "summary": "China, Japan, South Korea and ASEAN agreed to form a working group on connecting domestic payment systems and coordinating rules for digital assets across borders. Finance and central-bank officials met in Kyoto and also discussed an emergency lending mechanism that took effect this month for shocks such as natural disasters and pandemics. The initiative reflects rising demand for faster regional digital transactions."
+    },
+    {
+      "title": "Viettel, Singtel start building submarine cable linking Vietnam, Singapore and Thailand",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/markets/emerging/viettel-singtel-start-building-submarine-cable-linking-vietnam-singapore-2026-11-26/",
+      "summary": "Viettel and Singapore Telecommunications have begun building a 2,500-kilometre submarine cable linking Vietnam, Thailand and Singapore, with a planned capacity of 600 terabits per second and completion targeted for late 2030. The Vietnam-Singapore segment alone is designed for 240 Tbps. The project also involves VNPT, FPT Telecom and Thailand's AIS, expanding regional connectivity as demand for data grows."
     },
     {
       "title": "Microsoft declares ‘Code Red’ after huge Outlook outage",
@@ -850,12 +962,12 @@
       "summary": "AAA expects 81.5 million Americans to travel at least 50 miles from Tuesday through Monday, while TSA plans to screen 17.6 million passengers. FlightAware recorded more than 3,700 U.S. delays and 60 cancellations Wednesday; some airport security waits topped an hour. A major East Coast storm threatens high winds, coastal flooding and flight disruptions through Friday, while winter weather and king tides affect other regions."
     },
     {
-      "title": "Steelers QB Aaron Rodgers says he found out about benching from teammate",
-      "source": "Associated Press",
+      "title": "Steelers release Rodgers after quarterback blasts head coach McCarthy",
+      "source": "Reuters",
       "category": "Sports",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/pittsburgh-steelers-aaron-rodgers-mike-mccarthy-fc3541d64c60a659f06a87653e96c247",
-      "summary": "Aaron Rodgers said he learned of his benching from teammates, not coach Mike McCarthy, and accused the coach of falling asleep in meetings and missing team events. AP reported McCarthy and the Steelers did not directly address the accusations; Rodgers was excused from practice, and Mason Rudolph is set to start against Denver. The claims are Rodgers's account; the team has not publicly confirmed them."
+      "url": "https://www.reuters.com/sports/rodgers-says-he-wont-return-steelers-claims-head-coach-mccarthy-fell-asleep-2026-11-25/",
+      "summary": "The Pittsburgh Steelers released Aaron Rodgers after the quarterback said he would not return and accused coach Mike McCarthy of falling asleep during meetings. Rodgers had been benched for Friday's game against Denver and previously said this could be his final NFL season. The team has not publicly substantiated his claims about the coach."
     },
     {
       "title": "Federal Reserve survey finds modest growth but persistent price pressures",
@@ -2154,6 +2266,30 @@
       "summary": "Women's Aid says 13 women have died violently in Ireland so far in 2026, nearly double the seven recorded in 2025. Since the charity began tracking cases in 1996, 291 women have been killed by men; among resolved cases, 57% involved a current or former partner and 68% occurred at home. The group identifies coercive control, threats and stalking as warning signs."
     },
     {
+      "title": "Davide Ancelotti comes of age as Lille stun former club Bayern",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sports/soccer/davide-ancelotti-comes-age-lille-stun-former-club-bayern-2026-11-25/",
+      "summary": "Coach Davide Ancelotti guided Lille to a 2–1 Champions League win over Bayern Munich, a decade after beginning his senior coaching career on his father Carlo's staff at Bayern. Lille recovered after conceding early, with Ayase Ueda equalising before Aleksandar Pavlovic scored an own goal. The victory was Lille's first in the league phase and marked a breakthrough for the 37-year-old coach."
+    },
+    {
+      "title": "Holders Italy beat South Korea 2-1 in nail-biter and book Davis Cup last four spot",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sports/tennis/musetti-marks-davis-cup-return-with-win-holders-italy-lead-south-korea-2026-11-25/",
+      "summary": "Defending champions Italy edged South Korea 2–1 to reach the Davis Cup semi-finals, with Matteo Berrettini and Andrea Vavassori winning a tense deciding doubles match in two tiebreak sets. South Korea had forced the decider after Kwon Soon-woo upset French Open runner-up Flavio Cobolli. Italy will meet the Czech Republic on Friday as it pursues another title."
+    },
+    {
+      "title": "Fernandes shines on Sporting return as Man United held",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/sports/soccer/fernandes-shines-sporting-return-man-united-held-2026-11-25/",
+      "summary": "Bruno Fernandes scored twice on his return to Sporting Lisbon as Manchester United drew 2–2 in the Champions League. United appeared poised for a first win under new manager Mauricio Pochettino, but goalkeeper Senne Lammens made two costly errors. The match also featured three penalties, two disallowed United goals and a late red card, leaving United still searching for consistency."
+    },
+    {
       "title": "Tidal will start banning AI-generated music next month",
       "source": "The Verge",
       "category": "Entertainment",
@@ -2554,12 +2690,12 @@
       "summary": "Iranian singer Parastoo Ahmadi and four members of her concert team each received 74 lashes in Qom, their lawyer told Iran International, after an online performance filmed without a live audience. The punishment prompted criticism from artists and activists and renewed scrutiny of restrictions on women singing publicly and compulsory-hijab rules. An appeals court had upheld their sentences in September, including bans on artistic activity and foreign travel."
     },
     {
-      "title": "Israel's Eisenkot clinches first coalition agreement in bid to form government",
+      "title": "Israel's Eisenkot faces new coalition challenge as left-wing faction suspends talks",
       "source": "Reuters",
-      "category": "World",
+      "category": "Politics",
       "published": "2026-11-24",
       "url": "https://www.reuters.com/world/middle-east/israels-eisenkot-clinches-first-coalition-agreement-bid-form-government-2026-11-24/",
-      "summary": "Former Israeli military chief Gadi Eisenkot’s Yashar party agreed to its first coalition pact since the October election, joining with Avigdor Lieberman’s Israel Our Home party. Benjamin Netanyahu lost his parliamentary majority, but no rival bloc has yet secured a clear route to government. Reuters reports the agreement is an initial step rather than a completed coalition, with negotiations still needed to assemble a governing majority."
+      "summary": "Gadi Eisenkot's effort to form a government hit a new obstacle after a left-wing faction suspended coalition talks, Reuters reported. The former military chief has a December 6 deadline, with a possible 14-day extension, and no clear route to a majority. He has secured a deal with a right-wing faction, but negotiations remain unsettled."
     },
     {
       "title": "Israeli airstrike kills senior Hamas security official in Gaza",
@@ -2928,6 +3064,22 @@
       "published": "2026-11-24",
       "url": "https://www.reuters.com/business/finance/spain-extends-bank-tax-sets-tougher-lending-rules-before-election-2026-11-24/",
       "summary": "Spain’s government extended its bank levy for another year, expecting about €1.4 billion for social housing and support for vulnerable tenants, and proposed new caps on some high-cost consumer loans. Consumer lending has reached a record €117.8 billion. Both measures still need parliamentary approval; banks have challenged the tax, and a possible conservative-led government after Sunday’s election could weaken or repeal it."
+    },
+    {
+      "title": "The saguaro cactus, icon of the American West, struggles to survive",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/investigates/special-report/climate-heatstorms-saguaro/",
+      "summary": "Reuters' investigation describes how hotter nights and prolonged heat waves are threatening Arizona's saguaro cactus, a species adapted to desert extremes but dependent on cool nighttime recovery. The cactus can live for more than 150 years and grow over 40 feet, yet researchers in Phoenix have attributed rising mortality to heat. Conservationists warn the iconic plant faces mounting stress as the Sonoran Desert warms."
+    },
+    {
+      "title": "Astronomers spot record-setting quasar in the early universe",
+      "source": "Reuters",
+      "category": "Science",
+      "published": "2026-11-24",
+      "url": "https://www.reuters.com/science/astronomers-spot-record-setting-quasar-early-universe-2026-11-24/",
+      "summary": "Astronomers identified a quasar dating to more than 13.1 billion years ago, about 630 million years after the Big Bang, making it the oldest known example. Its central black hole had already grown to roughly 360 million solar masses. Researchers say the discovery deepens questions about how supermassive black holes formed so quickly in the universe's first few hundred million years."
     },
     {
       "title": "HKU Scientists Uncover Hidden Leaf Dynamics That Could Improve Amazon Rainforest Carbon Uptake Estimates",
