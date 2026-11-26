@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T02:04:19.000Z",
+  "updatedAt": "2026-11-26T02:56:57.000Z",
   "articles": [
     {
       "title": "BOJ's Tamura signals chance of faster-pace interest rate hikes",
@@ -48,6 +48,86 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
       "summary": "Asian shares edged higher after Wall Street recovered from deep intraday losses, but investors remained wary of AI spending and new U.S. tariffs. Japan's Nikkei rose 1.6% and South Korea's index 1.9%, though both remained sharply lower for November. Nvidia fell 3.9% after a possible credit downgrade warning; Treasury yields hit multi-week lows despite strong U.S. growth and persistent inflation."
+    },
+    {
+      "title": "Indonesian rescuers resume search for 13 people trapped inside illegal mine after 13 confirmed dead",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
+      "summary": "Rescuers in West Java planned to resume searching for 13 workers trapped in an illegal gold mine after 13 of the 26 miners who entered Monday were confirmed dead. Heavy rain flooded the shaft about 100 metres underground. Six victims had been identified; narrow, slippery access and weather complicate the operation. Authorities say the site was unauthorized and unrelated to state miner Antam."
+    },
+    {
+      "title": "Data centre rush drives biggest rise in Australian business investment since mining boom",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/data-centre-rush-drives-biggest-rise-australian-business-investment-since-mining-2026-11-26/",
+      "summary": "Australian private capital spending rose 12.2% in the September quarter to A$59.5 billion, its biggest increase since 2011 and well above forecasts. Spending on information and telecommunications equipment jumped 87% as firms bought data-centre servers and processing gear, much of it imported. Businesses also raised planned investment for 2026–27, suggesting technology demand is resilient even as higher rates weigh on households."
+    },
+    {
+      "title": "Liberal senator Leah Blyth defects to One Nation in major blow for Angus Taylor",
+      "source": "ABC News",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/leah-blyth-liberal-one-nation-angus-taylor-/107428224",
+      "summary": "South Australian Liberal senator Leah Blyth defected to One Nation, becoming the party's first federal senator from the state and dealing a blow to opposition leader Angus Taylor. Blyth said she had lost confidence in the Liberals' ability to address immigration, spending and energy policy. Former colleagues accused her of self-interest; she said she had not discussed the move with them beforehand."
+    },
+    {
+      "title": "Australia's emissions fall but not fast enough to reach 2035 climate target",
+      "source": "ABC News",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/australia-emissions-fall-short-2035-climate-target/107418552",
+      "summary": "Australia's greenhouse-gas emissions fell 1.3% in the year to June 2026, but the Climate Change Authority says the pace must accelerate to meet the country's 2030 and 2035 targets. Renewables supplied a record 45.9% of electricity in the national market, while transport emissions edged up. Advisers estimate annual cuts of 25–30 million tonnes are needed over the next nine years."
+    },
+    {
+      "title": "Emailed bomb threat against NT government ministers and public areas under investigation by NT Police",
+      "source": "ABC News",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/nt-government-threat-darwin-minister-and-public-areas/107429190",
+      "summary": "Northern Territory police are investigating an encrypted email threatening ministers, government staff and public places in Darwin. Police said specialist units were assessing the message and would treat it as credible until checks were complete; officials urged residents to remain alert but not alarmed. The sender's identity is unknown, and authorities have withheld specific targets while the investigation continues."
+    },
+    {
+      "title": "Government gives environmental green light to Western Downs Digital Park",
+      "source": "ABC News",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/western-downs-digital-park-federal-environmental-approval/107428970",
+      "summary": "Australia's federal environmental regulator ruled that the proposed A$32 billion Western Downs Digital Park in Queensland does not need further federal assessment, finding it unlikely to significantly affect nationally protected matters. The project, backed by Anthropic, would be Australia's largest proposed data centre, but still needs state and local approvals. Critics warn its power demand could create major emissions if not supplied by renewables."
+    },
+    {
+      "title": "Kurtley Beale back in Wallabies gold for Ireland Test, Allan Alaalatoa to make 100th appearance",
+      "source": "ABC News",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/kurtley-beale-back-in-wallabies-gold-for-ireland-test/107429998",
+      "summary": "Kurtley Beale, 37, has been named on Australia's bench for its Nations Championship Test against Ireland, marking his first Wallabies selection since 2021. Coach Les Kiss said the veteran earned the place through performance and versatility, not as a farewell gesture. Allan Alaalatoa will earn his 100th cap and winger James Ramm is set for his international debut."
+    },
+    {
+      "title": "Blue groper Ziggy missing after suspected Mollymook speargun attack",
+      "source": "ABC News",
+      "category": "Curious",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/beloved-blue-groper-ziggy-injured-by-suspected-speargun-attack/107428960",
+      "summary": "A protected eastern blue groper known locally as Ziggy has not been seen since being found with serious injuries consistent with a speargun attack near Mollymook, New South Wales. The fish is estimated to be over 30 years old and had been a familiar presence for snorkellers. Local conservation groups plan to seek warning signs; authorities have been contacted, and no suspect has been identified."
+    },
+    {
+      "title": "Weather bureau predicts hot Australian summer across the board",
+      "source": "ABC News",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/weather-bureau-predicts-another-long-hot-australian-summer/107424992",
+      "summary": "Australia's Bureau of Meteorology expects above-average summer temperatures across almost the entire country as El Niño strengthens. October was the warmest on record at 1.05°C above the 1961–1990 average. The outlook also points to drier conditions in parts of the west and south, but heavier rain risk in southern Queensland and northeastern New South Wales, with flash flooding possible."
+    },
+    {
+      "title": "Taxpayer-funded cleaners charging up to $135 per hour face aged care restrictions",
+      "source": "ABC News",
+      "category": "Curious",
+      "published": "2026-11-26",
+      "url": "https://www.abc.net.au/news/2026-11-26/complaints-over-aged-care-cleaner-rules/107424906",
+      "summary": "Australian pensioners say rules for the Support at Home program leave subsidised cleaners unable to move chairs, bend down or reach high surfaces, even when clients pay substantial hourly fees. ABC found some clients were billed up to A$135 an hour while workers received A$32–36. Providers cite safety and liability rules; a Senate inquiry is due to report next year."
     },
     {
       "title": "New Trump tariffs would likely increase sugar prices in the US",
@@ -394,12 +474,12 @@
       "summary": "Russian forces struck two sites in Kyiv with ballistic missiles late Wednesday, Mayor Vitali Klitschko said. Two buildings on the east side of the Dnipro River were hit, with one badly damaged; casualties were possible, but officials had not confirmed a toll in the initial report. The attack adds to pressure on the capital as Russia continues missile and drone strikes across Ukraine."
     },
     {
-      "title": "North Korea's Kim calls for wider deployment of tactical nuclear weapons",
+      "title": "North Korea's Kim urges wider tactical nuclear weapons deployment on facility tour, KCNA says",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/asia-pacific/north-koreas-kim-visits-nuclear-facilities-calls-wider-tactical-nuclear-weapons-2026-11-25/",
-      "summary": "North Korean leader Kim Jong Un inspected facilities producing nuclear materials and conducting weapons research, state media reported, and called for wider deployment of tactical nuclear weapons across multiple domains. KCNA said Kim described production capacity as expanding and the country's nuclear status as non-negotiable. The report offers no independent details on the facilities or the scale and timing of any deployment."
+      "summary": "North Korean leader Kim Jong Un called for tactical nuclear weapons to be deployed across multiple domains and said nuclear-material production was expanding, KCNA reported after a facility tour. The agency did not identify the site; released images appeared to show enrichment centrifuges and warheads, according to analysts. Experts said Pyongyang may be signaling it will negotiate only as a recognized nuclear-armed state."
     },
     {
       "title": "Islamic State attack kills two Syrian security personnel in Hasaka",
@@ -746,12 +826,12 @@
       "summary": "Pakistan International Airlines said it will move UK routes to its own Boeing 777 fleet from Nov. 26 after Norse Atlantic abruptly suspended wet-lease operations, cancelling two flights as passengers prepared to board. The disruption follows Norse’s warning that its finances were critical and its shares had plunged 76%. The carrier’s funding needs and ability to resume operations remain uncertain."
     },
     {
-      "title": "All hostages rescued after Colombian supermarket siege ends",
-      "source": "Agence France-Presse (via The Guardian)",
+      "title": "Colombian authorities rescue all hostages held at Cartagena supermarket",
+      "source": "Associated Press",
       "category": "World",
       "published": "2026-11-25",
-      "url": "https://www.theguardian.com/world/2026/nov/25/hostages-freed-colombia-security-forces-storm-cartagena-supermarket",
-      "summary": "Colombian security forces stormed a supermarket in Cartagena after a 17-hour siege that began with an attempted armoured-vehicle robbery. President Abelardo de la Espriella said all hostages were rescued and one captor was killed; about 30 people were initially held, with 10 released during negotiations. Authorities described the hostages as safe, but the motive and full circumstances of the attempted robbery remain under investigation."
+      "url": "https://apnews.com/article/colombia-supermarket-exito-cartagena-hostages-c6b9c0ca799ff611148fc87d4b323628",
+      "summary": "Colombian security forces rescued all hostages held for nearly a day at an Éxito supermarket in Cartagena after an attempted armored-truck robbery. The army said more than 50 people were seized; President Abelardo de la Espriella said one suspect was killed after refusing to surrender. The airport temporarily suspended operations but was reopening. The incident unfolded amid wider attacks by rebel groups on government targets."
     },
     {
       "title": "Amazon to launch Amazon Autos in UK in early 2027 in first expansion beyond US",
@@ -1032,14 +1112,6 @@
       "published": "2026-11-25",
       "url": "https://www.democracynow.org/2026/11/25/headlines/court_bars_us_from_punishing_people_who_liaise_with_international_criminal_court",
       "summary": "A federal judge made permanent an injunction blocking the Trump administration from penalizing two organizations for sharing evidence with the International Criminal Court and Palestinian rights groups. The groups challenged an executive order threatening civil fines and criminal penalties for such cooperation. The court ruled that the order imposed an unconstitutional, content-based restriction on speech, limiting enforcement against the plaintiffs."
-    },
-    {
-      "title": "Flood at unauthorized Indonesian gold mine leaves nine dead and 17 missing",
-      "source": "Associated Press (via The Washington Post)",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.washingtonpost.com/world/2026/11/25/indonesia-bogor-miners-trapped/c406604a-e89f-11f1-8db0-6f1e3c389e7c_story.html",
-      "summary": "Floodwaters killed at least nine miners at an unauthorized gold mine in West Java, while rescuers searched for 17 people believed trapped underground. Heavy rain caused the nearby Ciseureuh River to overflow into a roughly 100-metre shaft. Authorities said the illegal operation delayed notification by about 16 hours; 325 rescuers were working in difficult conditions. The disaster highlights hazards in Indonesia’s informal mining sector."
     },
     {
       "title": "German economy grows just 0.1% in third quarter after downward revision",
@@ -1802,12 +1874,60 @@
       "summary": "BNP Paribas moved into a higher systemic-risk category on the Financial Stability Board’s 2026 list, raising its required extra capital buffer from 1.5% to 2%. MUFG moved down to a 1% buffer, while the list remained at 29 banks and JPMorgan stayed highest at 2.5%. The revised buffers take effect Jan. 1, 2028, affecting how much loss-absorbing capital major lenders must hold."
     },
     {
-      "title": "Pacifica Pier partially collapses as king tides and powerful waves batter Bay Area coast",
-      "source": "San Francisco Chronicle",
+      "title": "King tides and strong waves destroy part of Pacifica pier as officials warn of coastal flooding",
+      "source": "Associated Press",
       "category": "Environment",
       "published": "2026-11-25",
-      "url": "https://www.sfchronicle.com/weather/article/live-updates-king-tides-sf-bay-area-flooding-waves-22548290.php",
-      "summary": "Pacifica's municipal pier partially collapsed into the ocean as exceptionally high king tides combined with waves larger than forecast, flooding streets and homes along Northern California's coast. The Chronicle reported two minor injuries after a wave struck three people at Stinson Beach; shelter-in-place orders were issued near Santa Cruz. Officials warned surf remained dangerous even after the peak tide passed."
+      "url": "https://apnews.com/article/extreme-weather-california-pier-1737dc2c591033a23d478581793adb41",
+      "summary": "King tides and powerful surf destroyed part of Pacifica's 1,140-foot pier, which had been closed since summer after cracks were found. The National Weather Service warned of 20–30-foot breaking waves and coastal flooding; an evacuation warning for Stinson Beach was later lifted, though officials urged people to avoid beaches. Flooding also affected homes and roads across the Bay Area as a super El Niño amplified tides."
+    },
+    {
+      "title": "Taiwan says it is confident of keeping previously agreed tariffs with US",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/",
+      "summary": "Taiwan's government says it expects to retain the 15% U.S. tariff rate secured in trade agreements earlier this year, despite Washington's new proposals for 14 trading partners. Vice Premier Cheng Li-chiun said both sides intend to preserve the agreements rather than renegotiate them. Semiconductor products account for over 70% of Taiwan's U.S. exports; separate U.S. sectoral tariffs have not yet been announced."
+    },
+    {
+      "title": "Targa Resources in talks to acquire Kinetik, Bloomberg News reports",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/energy/targa-resources-talks-acquire-kinetik-bloomberg-news-reports-2026-11-25/",
+      "summary": "Targa Resources is in talks to acquire Blackstone-backed pipeline operator Kinetik, Bloomberg reported, though no final decision has been made and Kinetik could remain independent or attract another bidder. Kinetik is valued at about $9 billion; its shares rose 7.6% after the report. The discussions reflect rising investor interest in gas infrastructure as data-centre demand expands."
+    },
+    {
+      "title": "Australia's Northern Star taps Perseus executive de Bruin as next CFO",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/australias-northern-star-appoints-de-bruin-cfo-amid-turnaround-push-2026-11-25/",
+      "summary": "Australia's Northern Star Resources named Perseus Mining CFO Lee-Anne de Bruin as its next finance chief, effective April 2027, as the gold miner reshapes its leadership under new CEO Suresh Vadnagra. The company is responding to pressure from activist investor Elliott and recently rebuffed a A$38.7 billion takeover bid. Interim executives will cover the transition; shares rose as much as 2.2%."
+    },
+    {
+      "title": "Eurostar cancels Paris-London trains after staff go on unannounced strike",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/eurostar-train-disruptions-strike-london-paris-2ff8838e93231546aa50f7e96c53f840",
+      "summary": "Eurostar canceled several Paris–London trains after Paris-based staff, including drivers and managers, began an unannounced strike. The operator said it was notified overnight and warned other routes could face knock-on disruption. Passengers whose services were canceled were told not to travel to stations and could rebook or seek a full refund; talks with the union were continuing."
+    },
+    {
+      "title": "Energy bills in Great Britain to rise 26% in January, lifting annual bills over £2,000",
+      "source": "The Guardian",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/money/2026/nov/25/energy-bills-in-great-britain-to-rise-ofgem-price-cap",
+      "summary": "Ofgem's price cap will lift typical Great Britain household energy costs by 26% from January, taking the annualized dual-fuel bill from £1,723 to £2,166. Around 22 million households on standard variable tariffs are affected; fixed-rate customers are generally insulated until their deals end. The government plans a one-off £100 payment for eligible households, but forecasts suggest bills may remain high through 2027."
+    },
+    {
+      "title": "Amazon to start selling cars in the UK next year",
+      "source": "The Guardian",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/uk-news/2026/nov/25/amazon-motors-into-uk-car-market",
+      "summary": "Amazon plans to launch its Amazon Autos car-buying marketplace in the UK in early 2027, its first expansion beyond the United States. Hyundai will be an initial partner, with new and used models available to browse, reserve and finance online; Vertu Motors will supply used cars. Purchases will still be completed at dealerships, which set their own prices."
     },
     {
       "title": "China extends suspension of ban on US-bound gallium, germanium, antimony exports",
@@ -2688,6 +2808,14 @@
       "published": "2026-11-23",
       "url": "https://www.reuters.com/business/energy/exclusive-jd-vances-ties-prized-venezuelan-oil-contract-under-investigation-by-2026-11-23/",
       "summary": "A Senate committee is examining whether Vice President JD Vance used his office to help commodities trader Vitol secure a lucrative Venezuelan oil contract. Senator Maggie Hassan requested records by Dec. 14 after Reuters reported a meeting with Vitol trader John Addison before the U.S. operation in Venezuela. Vance and Addison deny the meeting; flight records reportedly placed their aircraft at the same Montana airport."
+    },
+    {
+      "title": "US, Mexico, Costa Rica, Jamaica awarded 2031 Women's World Cup, UK to host 2035 edition",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-23",
+      "url": "https://www.reuters.com/sports/soccer/us-mexico-costa-rica-jamaica-awarded-2031-womens-world-cup-uk-host-2035-edition-2026-11-23/",
+      "summary": "FIFA appointed the United States, Mexico, Costa Rica and Jamaica to co-host the 2031 Women's World Cup, while England, Northern Ireland, Scotland and Wales will stage the 2035 tournament. The 2031 event will be the first senior Women's World Cup shared by four countries and the first with 48 teams. Both bids were approved unopposed at FIFA's extraordinary congress."
     },
     {
       "title": "UN-backed talks extend AI killer robot discussions to 2028, no binding rules",
