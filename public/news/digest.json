@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T05:01:44.000Z",
+  "updatedAt": "2026-11-26T05:09:26.668Z",
   "articles": [
     {
       "title": "BOJ's Tamura signals chance of faster-pace interest rate hikes",
@@ -786,12 +786,12 @@
       "summary": "Emergency Lawyers said drone strikes in Damazin, Blue Nile state, killed 19 civilians, including six women. The group blamed the Rapid Support Forces; AP reported 15 wounded, while an earlier Reuters account cited 20, leaving the injury count unsettled. The attacks add pressure on a region receiving displaced families as Sudan's war continues."
     },
     {
-      "title": "New York bans AI chatbot toys for five years over child-safety concerns",
-      "source": "Anadolu Agency",
+      "title": "New York bans AI toys, including those using internet to talk to children",
+      "source": "The Guardian",
       "category": "Technology",
       "published": "2026-11-25",
-      "url": "https://www.aa.com.tr/en/americas/new-york-bans-ai-chatbot-toys-for-5-years-over-child-safety-concerns/4137796",
-      "summary": "New York Gov. Kathy Hochul signed a five-year prohibition on making, distributing or selling children’s toys that use internet-connected AI companion chatbots. The law takes effect Feb. 22, 2027, and violations can bring civil penalties of up to $15,000 per day. Officials cite risks involving inappropriate conversations, emotional manipulation and children’s privacy; the ban does not cover this holiday shopping season."
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/new-york-bans-ai-toys",
+      "summary": "New York Governor Kathy Hochul signed a five-year ban on internet-connected AI chatbot toys, including talking dolls, stuffed animals and robots. The Guardian reports that an NBC News test found a toy marketed to children as young as three generated violent and sexually explicit material. Attorney General Letitia James says the state will enforce the law; the measure is aimed at child safety and privacy."
     },
     {
       "title": "Seven-year-old held at Texas immigration center asks Trump to release her",
@@ -2178,12 +2178,12 @@
       "summary": "More than 7,000 creatives, including Kate Bush and Grace Jones, have backed a campaign demanding permission-based use of their work for AI training. An Australian parliamentary committee has recommended measures to facilitate compensation for rights holders. Technology companies argue that existing licensing arrangements complicate model development, while industry representatives favor enforcing current protections. The recommendations are not yet government policy."
     },
     {
-      "title": "BBC to trial CBeebies children's shows on Netflix in new partnership",
-      "source": "Reuters",
+      "title": "BBC’s preschool shows to be made available in CBeebies hub on Netflix",
+      "source": "The Guardian",
       "category": "Entertainment",
       "published": "2026-11-24",
-      "url": "https://www.reuters.com/business/media-telecom/bbc-trial-cbeebies-shows-netflix-new-streaming-partnership-2026-11-24/",
-      "summary": "The BBC will place a selection of CBeebies children’s programmes, including Hey Duggee and Teletubbies, in a branded Netflix hub in Britain beginning December 2. Reuters says the trial is part of the broadcaster’s effort to reach audiences on commercial platforms; iPlayer remains the home of the full CBeebies service. Netflix will also fund a small number of new commissions, with selected content distributed internationally."
+      "url": "https://www.theguardian.com/media/2026/nov/24/bbc-preschool-shows-cbeebies-hub-netflix",
+      "summary": "The BBC will trial a branded CBeebies hub on Netflix for six months from early December, offering 24 preschool programmes including Teletubbies, Numberblocks and Hey Duggee. The shows will be available in most countries except China, New Zealand and South Africa. The BBC hopes the partnership reaches children shifting to global streamers while keeping its content recognizable as BBC programming."
     },
     {
       "title": "Brad Pitt, Quentin Tarantino and David Fincher reunite for Cliff Booth spinoff",
@@ -2690,12 +2690,12 @@
       "summary": "Britain’s Ministry of Defence and MI5 warned companies supplying Ukraine’s military that they face heightened sabotage risks from Russian-linked operatives. The public alert cites arson and other low-tech tactics and follows suspected incidents across Europe. Russia denies plans to attack the United Kingdom and accuses Ukraine of staging sabotage. British officials are briefing defense and infrastructure firms on security precautions."
     },
     {
-      "title": "UN estimates 47,000 women and girls were killed by partners or relatives in 2025",
-      "source": "UN Women Australia",
+      "title": "UN estimates five women or girls killed each hour by partners or relatives in 2025",
+      "source": "UN Women / UNODC",
       "category": "World",
       "published": "2026-11-24",
-      "url": "https://unwomen.org.au/five-women-killed-every-hour-by-a-partner-or-close-relative-in-2025/",
-      "summary": "UNODC and UN Women estimate that 47,000 women and girls were killed by intimate partners or family members in 2025—about five every hour. These deaths represented roughly 60% of the 78,000 intentional killings of women and girls worldwide. Africa recorded the highest estimated rate, followed by the Americas, Oceania, Asia and Europe. The agencies say the figures show that homes and family relationships remain a major site of lethal violence."
+      "url": "https://brasil.unwomen.org/pt-br/stories/noticia/2026/11/relatorio-de-feminicidios-2026",
+      "summary": "UN Women and the UN Office on Drugs and Crime estimate that intimate partners or family members killed 47,000 women and girls worldwide in 2025—about five every hour and 60% of all 78,000 intentional killings of women and girls. Africa had the highest rate. The agencies caution that the lower estimate than 2024 reflects improved data availability, not a real decline; recorded cases likely understate the toll."
     },
     {
       "title": "UN warns HIV infections could rise again as global funding falls",
