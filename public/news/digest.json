@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T03:59:28.000Z",
+  "updatedAt": "2026-11-26T05:01:44.000Z",
   "articles": [
     {
       "title": "BOJ's Tamura signals chance of faster-pace interest rate hikes",
@@ -34,12 +34,12 @@
       "summary": "No. 18 Southern California stayed unbeaten at 7–0 by rallying past South Carolina 71–69 in the Acrisure Series. Alijah Arenas scored 25 points, including 12 of 13 free throws, as USC closed on a 10–2 run and held the Gamecocks scoreless for the final 4:05. South Carolina led by as many as 10 but missed two late go-ahead shots."
     },
     {
-      "title": "US judge blocks FCC from threatening Disney-owned ABC stations",
-      "source": "Reuters",
+      "title": "Judge temporarily blocks FCC from early license review of ABC",
+      "source": "Associated Press",
       "category": "Politics",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/judge-bars-us-fcc-taking-steps-threaten-abcs-broadcast-license-2026-11-26/",
-      "summary": "A federal judge issued a preliminary injunction blocking the FCC's early license review of eight Disney-owned ABC stations, finding ABC likely to show retaliation for protected speech. The review began after Trump urged ABC to fire Jimmy Kimmel, although renewals were not due until 2028. The FCC called the ruling legally and factually wrong and said it would continue enforcing broadcasters' public-interest duties."
+      "url": "https://apnews.com/article/fcc-abc-ruling-editorial-content-f04f6b2b1a17fc10f2da11e4fd83a9df",
+      "summary": "A federal judge granted ABC a temporary restraining order and preliminary injunction blocking the FCC's early review of eight Disney-owned stations, finding the network likely to succeed on its First Amendment retaliation claim. The review followed President Trump's call for ABC to fire Jimmy Kimmel. The judge declined to bar unspecified future FCC actions; the agency says it will continue enforcing broadcasters' public-interest duties."
     },
     {
       "title": "Asia shares bounce, AI and tariffs lurk in background",
@@ -136,6 +136,30 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/energy/oil-rises-supply-concerns-iran-claims-mine-strikes-ships-2026-11-26/",
       "summary": "Brent rose to $94.71 and U.S. WTI to $84.03 in early Asian trade as traders weighed Houthi claims of an attack on Saudi Arabia's Ras Tanura refinery and Iranian reports that tankers hit mines in the Strait of Hormuz. The tanker claims were not independently verified. Reuters said shipping risks could interrupt recovering Gulf exports ahead of OPEC+'s November 29 output-policy meetings."
+    },
+    {
+      "title": "US officials divided over Chinese spying allegations following Jensen Huang's return",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/us/us-officials-divided-over-chinese-spying-allegations-following-jensen-huangs-2026-11-26/",
+      "summary": "Reuters reports U.S. agencies disagree over what intelligence shows about Alice Huang, a former executive at an Nvidia customer company who had contact with China's Ministry of State Security. The FBI's assessment reportedly found no evidence she was an intelligence officer or asset; the CIA said available reporting did not establish she passed sensitive information, while leaving room for new evidence. The accounts are based on people briefed on classified material; China denies the espionage allegations."
+    },
+    {
+      "title": "Musk says every U.S. child will receive two SpaceX shares",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/media-telecom/musk-says-every-child-us-will-get-two-spacex-shares-2026-11-26/",
+      "summary": "Elon Musk said every U.S. child would receive two SpaceX shares—one newly issued by the company and one donated by him—after SpaceX said it would contribute a share to each active Trump Account. The company has not clarified whether Musk's shares would follow the same eligibility rules or carry sale restrictions. The proposal builds on earlier share-gifting pledges, but key distribution details remain unresolved."
+    },
+    {
+      "title": "Trump and NATO chief urge Russia not to widen Ukraine war",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/trump-nato-chief-urge-russia-avoid-actions-that-widen-ukraine-war-2026-11-26/",
+      "summary": "President Donald Trump and NATO Secretary-General Mark Rutte urged Russia not to take actions that could widen the war in Ukraine, after meeting in Florida. Their joint statement also cited a need for a rapid peaceful resolution and discussed defense spending and investment, but offered no details on talks about the Iran war. European allies continue to press for a role in U.S.-backed peace negotiations."
     },
     {
       "title": "Wall Street recovers most early losses as pullback in AI stocks eases",
@@ -658,14 +682,6 @@
       "summary": "Two people arrested during immigration raids in the Chicago area filed lawsuits alleging excessive force by federal agents; one plaintiff is a U.S. citizen who says agents rammed her car and restrained her after she identified herself. Separately, four former detainees allege sexual abuse, forced labor and retaliation at a Louisiana ICE facility. These are allegations in pending legal actions, not court findings."
     },
     {
-      "title": "Jensen Huang's return to Nvidia fuels Washington fight over China's chip access",
-      "source": "Reuters",
-      "category": "Technology",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/legal/government/jensen-huangs-return-nvidia-fuels-washington-fight-over-chinas-chip-access-2026-11-25/",
-      "summary": "Reuters reported that companies linked to Alice Huang, a former Megaspeed executive suspected by U.S. officials of ties to China's Ministry of State Security, financed up to 764 AI servers and modules valued at $270 million. The reporting also traced overseas data-center access and nearly 900,000 Nvidia and AMD chips approved for Chinese firms. Jensen Huang's reinstatement has intensified congressional efforts to tighten export controls; the alleged intelligence links remain unproven."
-    },
-    {
       "title": "Israeli judges recommend prosecutors drop one bribery case against Netanyahu",
       "source": "Reuters",
       "category": "Politics",
@@ -690,12 +706,12 @@
       "summary": "Workers are repairing Bavaria's Eagle's Nest, the former Nazi guest house, after an October fire destroyed its roof and remaining original furniture. A man suspected of starting the blaze is being held in a psychiatric facility while the investigation continues. The site once drew about 300,000 visitors annually. Critics say it should remain in ruins to deter neo-Nazi pilgrimages; operators argue preservation supports monitored remembrance."
     },
     {
-      "title": "UN peacekeepers evacuate Ebola response workers trapped by fighting in eastern Congo",
-      "source": "Reuters",
+      "title": "Fighting in eastern Congo forces Ebola workers to evacuate, threatening outbreak response",
+      "source": "Associated Press",
       "category": "Health",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/africa/un-peacekeepers-evacuate-ebola-response-workers-trapped-by-fighting-eastern-2026-11-25/",
-      "summary": "U.N. peacekeepers evacuated 10 health workers from a hospital in eastern Democratic Republic of Congo after fighting between government forces and an armed group disrupted the Ebola response. The clashes in Ituri province also displaced civilians, while other workers sheltered in a maternity ward. The mission said it was unclear whether anyone remained trapped. Reuters reported the outbreak had caused 11,955 cases and 5,867 deaths."
+      "url": "https://apnews.com/article/ebola-congo-who-fighting-rebels-evacuation-ff1890d63ca7f3c3a8beeb127727e5cd",
+      "summary": "Fighting in eastern Democratic Republic of Congo forced about a dozen people, including two WHO staff and Congolese health officials, to evacuate a hospital after being trapped for three days. Clashes are blocking surveillance, patient transfers, supplies and safe burials; attacks in neighboring North Kivu have displaced more than 20,000 people and disrupted contact tracing. Government data cited by AP put the outbreak above 11,700 cases and 5,700 deaths."
     },
     {
       "title": "Israeli opposition advances October 7 attack probe opposed by Netanyahu",
@@ -714,12 +730,12 @@
       "summary": "Residents told Reuters that suspected militants killed at least 30 people and burned homes in villages in Nigeria's Niger state, describing the assault as retaliation for earlier killings of Fulani herders. A village head said gunmen occupied some communities and blocked recovery of bodies; Reuters could not independently verify a circulating video. The governor announced compensation for victims' families and urged dialogue."
     },
     {
-      "title": "\"I'm going to drive\": FAA outage and high fares reshape Thanksgiving travel plans",
-      "source": "Reuters",
+      "title": "US holiday travel ramps up with long airport lines and bad weather",
+      "source": "Associated Press",
       "category": "U.S.",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/us/im-going-drive-faa-outage-high-fares-reshape-thanksgiving-travel-plans-2026-11-25/",
-      "summary": "Thanksgiving travel is being reshaped by a Nov. 13 FAA communications outage that disrupted more than 18,000 flights and affected about one million passengers, alongside domestic airfares averaging $469, up 57% year over year. Airlines forecast nearly 29 million passengers Nov. 20–30, down from 31 million last year; some travelers are driving or taking buses and trains instead."
+      "url": "https://apnews.com/article/travel-thanksgiving-airports-highways-041a81e33ed10df50e89dc04705a6dcc",
+      "summary": "AAA expects 81.5 million Americans to travel at least 50 miles from Tuesday through Monday, while TSA plans to screen 17.6 million passengers. FlightAware recorded more than 3,700 U.S. delays and 60 cancellations Wednesday; some airport security waits topped an hour. A major East Coast storm threatens high winds, coastal flooding and flight disruptions through Friday, while winter weather and king tides affect other regions."
     },
     {
       "title": "Steelers QB Aaron Rodgers says he found out about benching from teammate",
@@ -1402,12 +1418,12 @@
       "summary": "The London Metal Exchange temporarily tightened short-term aluminium trading rules after falling inventories and concentrated holdings drove immediate-delivery premiums to their highest level since 1988. The changes require large holders of stock warrants and short-term futures to make metal available at capped prices. Available exchange inventories have more than halved this year. The LME says it will keep monitoring the market and may take further action if the squeeze persists."
     },
     {
-      "title": "Macy's Thanksgiving Day Parade postponed until Saturday because of storm",
-      "source": "Reuters",
+      "title": "Bad weather postpones Macy’s Thanksgiving Day Parade for first time ever",
+      "source": "Associated Press",
       "category": "U.S.",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/environment/macys-thanksgiving-day-parade-postponed-due-storm-projections-us-media-reports-2026-11-25/",
-      "summary": "Macy's moved its 100th Thanksgiving Day Parade from Thursday to Saturday at 8:30 a.m. Eastern after forecasts of a major storm raised safety concerns for participants, spectators and the large balloons. New York City officials confirmed the decision, which marks the first weather-related postponement in the parade's history. The event had previously been suspended only during World War II."
+      "url": "https://apnews.com/article/macys-thanksgiving-parade-postponed-weather-cdc870899c8dc2d32a0ac3d86119b3ba",
+      "summary": "Organizers moved the 100th Macy’s Thanksgiving Day Parade from Thursday to Saturday at 8:30 a.m. after forecasts of dangerous wind and rain raised risks for spectators and balloons. New York issued high-wind and coastal-flood warnings; NBC will rerun last year's parade on Thursday. Several Broadway shows plan to participate Saturday, but the University of Alabama band will leave for its football game."
     },
     {
       "title": "Major fragrance suppliers fined £85 million by the CMA for illegal collusion",
@@ -1919,7 +1935,7 @@
       "category": "Technology",
       "published": "2026-11-25",
       "url": "https://www.todoist.com/help/todoist/get-started/security-incident-in-november-2026-cG0EIACNU",
-      "summary": "Todoist said an attacker used a stolen development credential to reach its cloud systems and download account data affecting about 6% of users, including email addresses, legacy password hashes and account-creation dates. A much smaller group had API or Slack tokens accessed, while limited task and Outlook content was searched for credentials. The company says it blocked access, revoked exposed tokens and protected affected accounts."
+      "summary": "Todoist says a stolen credential let an intruder alter development workflows and reach its cloud production environment on Nov. 22–23. About 6% of users had email addresses, account dates and older salted-SHA1 password hashes exposed; roughly 0.001% had task or comment content searched for credentials. API and Slack tokens were also accessed. The company says it blocked the path, reset affected credentials and disabled the Outlook add-on."
     },
     {
       "title": "Allstate outage leaves customers unable to access policies and claims before Thanksgiving",
@@ -2000,6 +2016,30 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/uk-news/2026/nov/25/amazon-motors-into-uk-car-market",
       "summary": "Amazon plans to launch its Amazon Autos car-buying marketplace in the UK in early 2027, its first expansion beyond the United States. Hyundai will be an initial partner, with new and used models available to browse, reserve and finance online; Vertu Motors will supply used cars. Purchases will still be completed at dealerships, which set their own prices."
+    },
+    {
+      "title": "Anthropic's slide tests Wall Street's lofty bets on future AI profits",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/anthropics-slide-tests-wall-streets-lofty-ai-profits-2026-11-25/",
+      "summary": "Anthropic shares traded around $80.50, below their $83 initial public offering price and nearly 30% beneath their opening level, sharpening scrutiny of AI valuations. Reuters said 37 Nasdaq-100 stocks fell despite earnings upgrades as investors weighed data-center costs, competition and uncertain returns. The selloff highlights a broader question: whether projected AI growth will generate profits sufficient to justify lofty valuations."
+    },
+    {
+      "title": "AI metals selloff masks tight physical supply in copper, aluminium and tin",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/commentary/reuters-open-interest/ai-metals-meltdown-masks-acute-physical-squeeze-2026-11-25/",
+      "summary": "Copper, tin and silver have fallen with the retreat in AI-related speculation, but physical supplies remain unusually tight, Reuters columnist Andy Home reports. London Metal Exchange stocks were about 205,300 tonnes, mostly Russian metal that is difficult to market; aluminium cash premiums reached their highest levels since 1990. Tariffs, Gulf production losses and uneven inventories are distorting supply, so lower prices do not mean easier availability."
+    },
+    {
+      "title": "Women's Aid reports sharp rise in women killed by men in Ireland",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/society/2026/nov/25/number-of-women-killed-by-men-in-ireland-almost-doubles-in-a-year",
+      "summary": "Women's Aid says 13 women have died violently in Ireland so far in 2026, nearly double the seven recorded in 2025. Since the charity began tracking cases in 1996, 291 women have been killed by men; among resolved cases, 57% involved a current or former partner and 68% occurred at home. The group identifies coercive control, threats and stalking as warning signs."
     },
     {
       "title": "Active-duty U.S. Army sergeant pleads guilty in conspiracy to gather and transfer national defense information",
@@ -2722,12 +2762,12 @@
       "summary": "A proposed U.S. class action accuses Wendy’s and restaurant-software provider NCR Voyix of using shared transaction data and centralized pricing to coordinate menu prices across franchises. The complaint was filed in Maryland and has not been proven in court. The companies had not responded to Reuters’ requests for comment at publication. The case adds to litigation challenging how retailers use algorithmic pricing tools and sales data."
     },
     {
-      "title": "White House pardons two Thanksgiving turkeys",
+      "title": "Trump grants Thanksgiving pardons for turkeys Freedom and Feathers at the White House",
       "source": "Associated Press",
       "category": "Curious news",
       "published": "2026-11-24",
       "url": "https://apnews.com/article/trump-turkey-pardon-freedom-feather-bb973ff5e095fa20229f49aea36dafd5",
-      "summary": "President Trump continued the annual Thanksgiving tradition by sparing two turkeys from West Virginia named Freedom and Feathers. Freedom attended the White House event after an online public vote. Both birds will retire at Texas A&M University. The ceremony became an annual presidential tradition during George H.W. Bush's administration in 1989."
+      "summary": "President Donald Trump pardoned two West Virginia turkeys, Freedom and Feathers, at the White House's annual Thanksgiving ceremony. Only Freedom attended in person after an online public vote; both birds will retire at Texas A&M University. Trump mixed holiday remarks with political comments about Democrats' midterm victories. The modern annual presidential tradition dates to George H.W. Bush's administration in 1989."
     },
     {
       "title": "WHO chief urges US to lift Cuba fuel restrictions, warning of health effects",
