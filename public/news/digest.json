@@ -1,6 +1,86 @@
 {
-  "updatedAt": "2026-11-26T17:58:34.000Z",
+  "updatedAt": "2026-11-26T19:03:19.000Z",
   "articles": [
+    {
+      "title": "Spain's De Cos to take over as ECB president from Lagarde",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/europe/spains-de-cos-set-be-nominated-by-eu-leaders-new-head-ecb-2026-11-26/",
+      "summary": "Euro-area governments selected Spain's former central-bank governor Pablo Hernández de Cos to succeed Christine Lagarde as European Central Bank president when she leaves on February 7. The choice signals likely policy continuity, though the ECB's 27-member Governing Council sets rates collectively. France's Laurence Boone and Germany's Markus Brunnermeier were also nominated for board vacancies; EU leaders are expected to confirm the appointments in December."
+    },
+    {
+      "title": "The surprising reason women seem better at multitasking than men",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-26",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261125045306.htm",
+      "summary": "In a study of 78 participants completing five tasks at once, men and women performed similarly on four activities, but men left conversational questions unanswered more than twice as often. A separate group of 160 observers rated men as less capable, suggesting visible conversational disengagement may drive the stereotype that women multitask better. The researchers caution that the experiment does not establish a broad cognitive advantage for either sex."
+    },
+    {
+      "title": "Deep beneath Australia, hidden caves could unlock the secrets of alien worlds",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-26",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261124055901.htm",
+      "summary": "Researchers mapped long, shallow trenches on Australia's Nullarbor Plain and found they sit above fractured rock and buried cave systems, not ancient river channels. The surface depressions appear as cave networks slowly collapse upward over millions of years. The method could help locate hidden caves that preserve environmental records and unusual life, and may aid searches for analogous structures on Mars."
+    },
+    {
+      "title": "This 345-million-year-old fossil had scientists fooled for decades",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-26",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261125045307.htm",
+      "summary": "Advanced synchrotron X-ray scans of the 345-million-year-old fossil Westlothiana lizziae revealed internal gills, a primitive skull and thousands of tiny teeth. Long treated as an early reptile, it was likely aquatic or amphibious and belongs to a more ancient lineage. The reassessment suggests claws and five-digit limbs evolved before vertebrates became fully land-adapted, complicating how scientists interpret early fossil footprints."
+    },
+    {
+      "title": "Common supplements rival antibiotics in treating severe gum disease",
+      "source": "ScienceDaily",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261126033031.htm",
+      "summary": "A year-long randomized trial of 109 people with severe periodontitis found that omega-3 plus low-dose aspirin, when added to professional deep cleaning, met the study's target in 57.7% of patients, close to 58% with antibiotics; placebo reached 23.1%. Benefits persisted six months after supplements stopped. Researchers say larger studies are needed; aspirin carries bleeding risks and the regimen is not a replacement for dental treatment."
+    },
+    {
+      "title": "Loneliness is making us sick, but we may be treating it all wrong",
+      "source": "ScienceDaily",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261124055906.htm",
+      "summary": "A University of Michigan study argues that framing loneliness mainly as a medical condition can shift attention from social causes that healthcare alone cannot fix. The researcher reviewed more than a decade of literature and interviewed experts, noting that screening and referrals may help but cannot rebuild community ties or change work patterns. Prior studies associate isolation with higher mortality, but the paper focuses on policy framing, not a new clinical treatment."
+    },
+    {
+      "title": "Fermented milk may have played an important role in Neolithic farmers' rituals",
+      "source": "University of Copenhagen",
+      "category": "Curious",
+      "published": "2026-11-26",
+      "url": "https://api.via.ritzau.dk/pressemeddelelse/15298605/fermented-milk-may-have-played-an-important-role-in-neolithic-farmers-rituals?lang=en&publisherId=13561237",
+      "summary": "Researchers tested replica pottery against 29 corroded vessels from Neolithic passage tombs in Denmark. Fermenting fresh, unpasteurized milk produced interior etching similar to the ancient traces, while beer, mead and vinegar did not. The team suggests fermented dairy may have been placed with the dead as a ritual offering and could have helped lactose-intolerant farmers digest milk; the vessel contents cannot be proven directly."
+    },
+    {
+      "title": "World's fastest animal could double its livable territory by 2080 in the UK due to climate change",
+      "source": "Frontiers",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.frontiersin.org/news/2026/11/26/frontiers-ecology-evolution-uk-territory-for-raptors-under-climate-change",
+      "summary": "A climate-modeling study projects suitable habitat for peregrine falcons in the UK could expand by about 74% by 2080 under a high-emissions scenario. Other raptors, including short-eared owls, red kites and goshawks, may lose suitable range, while white-tailed eagle habitat could contract sharply. Researchers stress that more suitable land does not guarantee larger populations; conservation and habitat protection remain decisive."
+    },
+    {
+      "title": "Bigger roots, more latex: One regulatory gene lifts rubber yield in dandelion",
+      "source": "Innovation Press / BrightSurf",
+      "category": "Science",
+      "published": "2026-11-26",
+      "url": "https://www.brightsurf.com/news/LPE4PKK8/bigger-roots-more-latex-one-regulatory-gene-lifts-rubber-yield-in-dandelion.html",
+      "summary": "Researchers identified the TkEDT1 regulatory gene as a lever for boosting natural rubber in Russian dandelion. In greenhouse experiments, overexpressing it increased root dry weight by 33% and rubber content by 34.9%, suggesting a route to diversify supply beyond tropical rubber trees. The study used one genetic background and has not demonstrated field-scale yields; further metabolic and field testing is needed."
+    },
+    {
+      "title": "Stronger molecular grip optimizes anti-cancer drug release",
+      "source": "Asia Research News / Osaka Metropolitan University",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.asiaresearchnews.com/content/stronger-molecular-grip-optimizes-anti-cancer-drug-release",
+      "summary": "Osaka Metropolitan University researchers altered two amino acids in a naturally occurring protein to hold the chemotherapy compound SN-38 more tightly. The engineered carrier showed about fourfold stronger binding and 3.3-fold better solubility in lab tests, with less premature release. The approach may inform future drug-delivery systems, but it remains an early-stage protein-engineering result, not a tested cancer treatment in patients."
+    },
     {
       "title": "As France's problems multiply, so do its presidential hopefuls",
       "source": "Reuters",
@@ -1432,6 +1512,62 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/media-telecom/wife-of-japanese-journalist-detained-russia-pleads-his-release-2026-11-26/",
       "summary": "Yuki Imai, a 34-year-old Hokkaido Shimbun reporter detained in Russia on espionage allegations, remains in Moscow's Lefortovo detention centre. His wife appealed for his release, saying their 21-month-old daughter has barely seen him; Japanese diplomats have been allowed two visits. Japan rejects the spying claim, while Russia has not publicly disclosed evidence, leaving the case a growing bilateral irritant."
+    },
+    {
+      "title": "Trump calls the pre-election GDP figures 'fake' and demands a Commerce Department investigation",
+      "source": "Associated Press",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/trump-gdp-economy-midterms-4fd800b44005ae11f950f96ff62f876e",
+      "summary": "The Bureau of Economic Analysis revised third-quarter GDP growth to a 4.3% annualized rate from 3.4%, a routine scheduled update. President Donald Trump alleged the earlier pre-election figure was intentionally false and called for an investigation, but offered no evidence; the agency did not immediately comment. The same release showed October inflation accelerating to 3.8%, a detail Trump omitted from his post."
+    },
+    {
+      "title": "Yemen's Houthis claim attack on Saudi Arabia's largest refinery",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-oil-refinery-riyadh-financial-district-2026-11-25/",
+      "summary": "Yemen's Houthis claimed they struck Saudi Arabia's Ras Tanura refinery on Nov. 25, while NASA and Planet Labs imagery showed a broad smoke plume and a source familiar with the matter confirmed an attack to Reuters. Saudi authorities and Aramco had not confirmed damage; the coalition said it intercepted four drones nearby. The 550,000-barrel-a-day complex is a major export hub, raising energy and shipping concerns."
+    },
+    {
+      "title": "Astronomers may have discovered a black hole born before the first stars",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261122060346.htm",
+      "summary": "A one-hour gravitational-microlensing event recorded in 2019 may have been caused by an object named Phoebe, estimated at roughly three lunar masses. Researchers say it could be a rogue planet or a primordial black hole formed before the first stars, but its identity remains unknown. The candidate's estimated position in the dark-matter halo is intriguing; the analysis is based on a preprint and does not confirm a black hole."
+    },
+    {
+      "title": "A space telescope hunting for dark matter just discovered something unexpected",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261124055852.htm",
+      "summary": "ESA's Euclid telescope, designed to map distant galaxies and dark matter, unexpectedly spotted a previously unknown comet in images taken September 16–24. The Minor Planet Center confirmed it on October 8 as C/2026 S1 (Euclid). About 1.3 billion kilometers from Earth, it follows a high-inclination path that may take thousands of years; the detection also demonstrates how the mission can flag moving objects for follow-up."
+    },
+    {
+      "title": "Physicists trap antimatter in a breakthrough that could explain why the universe exists",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261124055849.htm",
+      "summary": "Physicists at Northwestern reported trapping a single positron and cooling it close to absolute zero in a device that can hold the antimatter particle in isolation. The technique is intended to enable more precise measurements of positron properties and comparisons with electrons, which could test why matter dominates over antimatter. It is a laboratory-method advance, not an explanation of the universe's matter imbalance."
+    },
+    {
+      "title": "What is a thought made of? Why human consciousness may be beyond AI's reach",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261124055712.htm",
+      "summary": "A theoretical paper argues that memory may depend partly on chemical processes and molecular changes in brain cells, not only electrical signaling. Its authors use this framework to question whether current AI systems could ever possess human-like consciousness, which they say may require biological mechanisms. The proposal is a hypothesis about cognition, not a settled demonstration that machines can or cannot be conscious."
+    },
+    {
+      "title": "Too much of this common nutrient could be accelerating blood vessel aging",
+      "source": "ScienceDaily",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261124055847.htm",
+      "summary": "Researchers identified TMEM174, a kidney protein that helps limit phosphate reabsorption by interacting with NPT2A. In animal models, lacking the protein led to higher blood phosphate, faster blood-vessel calcification and shorter lifespans, especially on high-phosphate diets; reducing phosphate eased some damage. The work may point toward future therapies for chronic kidney disease, but it is not evidence that healthy people should restrict phosphorus or change diets."
     },
     {
       "title": "Thirty-one killed in fire after vehicle overturns in Egypt",
@@ -3114,14 +3250,6 @@
       "summary": "U.S. new single-family home sales rose 14.2% in October to a seasonally adjusted annual rate of 701,000, their highest level since December 2025, as builders cut prices to attract buyers. The median price fell 3.2% year over year to $391,300. Higher mortgage rates and elevated unsold inventory remain obstacles, and economists expect housing-market weakness to persist into 2027."
     },
     {
-      "title": "U.S. third-quarter GDP growth revised sharply higher to 4.3%",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/finance/us-third-quarter-gdp-growth-revised-sharply-higher-2026-11-25/",
-      "summary": "U.S. third-quarter GDP was revised to a 4.3% annualized pace from 3.4%, the fastest in three years. Consumer spending was upgraded to 4.2% and business equipment investment grew 21.8%, much of it tied to AI. Higher-income households drove much of the spending and savings fell, leaving economists watching whether investment and consumption can sustain the pace."
-    },
-    {
       "title": "UC San Diego Brain Organoids in Space Reveal New Clues to Alzheimer’s Disease",
       "source": "UC San Diego",
       "category": "Science",
@@ -3392,6 +3520,30 @@
       "published": "2026-11-25",
       "url": "https://www.aa.com.tr/en/eurasia/zelenskyy-says-ukraine-waiting-for-us-to-set-date-for-new-round-of-peace-talks-with-russia/4137823",
       "summary": "Ukrainian President Volodymyr Zelenskyy said Kyiv is waiting for Washington to schedule another round of US-mediated talks with Russia, which he wants to include European representatives. Previous discussions in Abu Dhabi produced agreement in principle to broaden participation, but Russian officials said no decision had been made. The next meeting’s timing and format remain uncertain as strikes on Ukrainian energy infrastructure continue."
+    },
+    {
+      "title": "Physicists just sent an unblockable message through a brick wall using gravity",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-24",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261123005343.htm",
+      "summary": "Researchers demonstrated a proof-of-concept message transmission by moving a heavy counterweight in an elevator and measuring tiny changes in gravitational attraction through a brick wall. The experiment encoded a simple signal, showing that gravity is not blocked by ordinary barriers. The force is extremely weak, however, and the method is far too slow and impractical for communications; it is a physics demonstration, not a new network technology."
+    },
+    {
+      "title": "Einstein's 120-year-old theory may be missing something big about the Big Bang",
+      "source": "ScienceDaily",
+      "category": "Science",
+      "published": "2026-11-24",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261121221119.htm",
+      "summary": "A theoretical study of heavy quarks moving through quark-gluon plasma finds that relativistic particles can receive large, asymmetric momentum kicks more often than a standard Brownian-motion approximation predicts. The work refines how physicists model matter created in high-energy collisions and may improve interpretations of particle experiments. It does not overturn Einstein's relativity; it identifies limits in a simplified model used for particle motion."
+    },
+    {
+      "title": "Scientists discover a hidden gut defense that could prevent colon cancer",
+      "source": "ScienceDaily",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://www.sciencedaily.com/releases/2026/11/261123005348.htm",
+      "summary": "In mouse models, animals lacking the gut antibody immunoglobulin A developed more than twice as many colon tumors; giving the antibody orally removed the excess risk. Researchers found IgA restrains a receptor pathway that otherwise encourages intestinal cells to divide too quickly. The Nature study suggests a possible prevention mechanism, but it does not show that IgA supplements or probiotics prevent colorectal cancer in people."
     },
     {
       "title": "‘Hunger Games’ Is a Box Office Power Again Thanks to Haymitch Abernathy",
