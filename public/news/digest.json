@@ -1,109 +1,197 @@
 {
-  "updatedAt": "2026-11-26T14:55:42Z",
+  "updatedAt": "2026-11-26T16:12:08.152Z",
   "articles": [
     {
-      "title": "Rebel Estudiantes takes on rich Palmeiras for South America's biggest club prize",
-      "source": "Associated Press",
-      "category": "Sports",
+      "title": "‘Unbelievable catch’: Motorbike passenger in Swat becomes cricket sensation",
+      "source": "AFP via Dawn",
+      "category": "Curious",
       "published": "2026-11-26",
-      "url": "https://apnews.com/article/6972312dcdf8a6de368b39db33912ac2",
-      "summary": "Palmeiras and Estudiantes meet Saturday in Montevideo for the Copa Libertadores title, with Palmeiras' squad valued at about $238 million—roughly four times Estudiantes'—after years of private investment and player sales. Estudiantes, a four-time champion returning to the final for the first time since 2009, is led by Juan Sebastián Verón, whose push for private capital has intensified a dispute with Argentina's football leadership."
+      "url": "https://www.dawn.com/news/2047199/unbelievable-catch-motorbike-passenger-in-swat-becomes-cricket-sensation",
+      "summary": "Mehran Khan, a 27-year-old amateur cricketer and government employee in Pakistan's Swat Valley, became an online sensation after taking a one-handed catch while riding on the back of a moving motorcycle. The ball had been hit beyond a local ground during a tournament. The clip spread widely, drew praise from Brett Lee and earned Khan a 10,000-rupee award."
     },
     {
-      "title": "Iranian activist and Oscar-nominated screenwriter Mehdi Mahmoudian arrested in Tehran",
-      "source": "Associated Press",
+      "title": "1Password breached through hijacked employee GitHub account, customer names and emails stolen",
+      "source": "Help Net Security",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.helpnetsecurity.com/2026/11/26/1password-breach-github-customer-records/",
+      "summary": "1Password said an attacker compromised an employee's corporate GitHub account, inserted malicious code into backend services and copied administrative records for an undisclosed subset of customers. Names, email addresses, account identifiers and some emailed invitation or recovery tokens were exposed; vault contents and their protection keys were not. The company lengthened email codes and said it found no evidence of account takeovers."
+    },
+    {
+      "title": "After initial reluctance, Bulgaria says it's 'ready' to join €45 billion Ukraine loan",
+      "source": "Euronews",
       "category": "World",
       "published": "2026-11-26",
-      "url": "https://apnews.com/article/7ea2fb068ddaf13e4ab34501efcac74e",
-      "summary": "Iranian rights activist and Oscar-nominated screenwriter Mehdi Mahmoudian was arrested at his Tehran home on Wednesday, a friend and activist told the Associated Press. Reports say agents seized his electronic devices; authorities had not publicly explained the detention. The arrest followed his warnings that two protesters jailed over the 2022 Mahsa Amini demonstrations faced imminent execution. He is reportedly held at Greater Tehran Penitentiary."
+      "url": "https://www.euronews.com/2026/11/26/after-initial-reluctance-bulgaria-says-its-ready-to-join-45-billion-ukraine-loan",
+      "summary": "Bulgaria reversed its earlier reluctance and agreed to join the EU's proposed €45 billion Ukraine loan, but Prime Minister Rumen Radev said it would contribute only to the €20 billion civilian-budget portion, not the €25 billion military component. The loan is intended to cover about two-thirds of Kyiv's 2027 wartime deficit; Slovakia, Hungary and Czechia remain opposed or seek exemptions."
     },
     {
-      "title": "Emirati curator Hoor Al Qasimi becomes first Arab woman to lead Venice Biennale art show",
+      "title": "AI agents used in five cyber attacks in Switzerland, government says",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/legal/litigation/ai-agents-used-five-cyber-attacks-switzerland-government-says-2026-11-26/",
+      "summary": "Switzerland's Federal Office for Cybersecurity said AI agents were used in five recent attacks on companies and critical-infrastructure operators. Four attacks succeeded and compromised systems, while three targeted operators included electricity, water or telecommunications providers, according to Swiss public broadcaster SRF. Authorities did not identify suspects or affected organizations and advised firms to strengthen protections and conduct regular security testing."
+    },
+    {
+      "title": "As COP31 stalls, countries and companies rally around electrification",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sustainability/climate-energy/cop31-stalls-countries-companies-rally-around-electrification--ecmii-2026-11-26/",
+      "summary": "COP31 ended without agreement on fossil-fuel transition language or climate finance, while negotiators disputed carbon-capture provisions. Outside the talks, about 90 countries and more than 180 companies backed a voluntary goal to raise electricity's share of final energy use to 35% by 2035. Delivering the pledge will require modernized grids and more finance for developing countries, which receive a small share of transition funding."
+    },
+    {
+      "title": "ECB turns to crisis veteran De Cos as new strains loom",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/ecb-turns-crisis-veteran-de-cos-new-strains-loom-2026-11-26/",
+      "summary": "EU leaders selected former Bank of Spain governor Pablo Hernández de Cos to succeed Christine Lagarde as European Central Bank president, with his term due to begin in February. Now head of the Bank for International Settlements, he is viewed as a pragmatic moderate and is expected to preserve policy continuity. His first major test may be financial strains in France and rising eurozone inflation."
+    },
+    {
+      "title": "French cinema star Gérard Depardieu ordered to stand trial for rape and sexual assault",
       "source": "Associated Press",
       "category": "Entertainment",
       "published": "2026-11-26",
-      "url": "https://apnews.com/article/4c5329d8fb4513ac10291406054f8215",
-      "summary": "Emirati curator Hoor Al Qasimi was appointed to lead the 2028 Venice Biennale, becoming the first Arab and seventh woman to curate its main international art exhibition. She founded Sharjah Art Foundation and has led the Sharjah Biennial since 2003. Her role includes setting the exhibition's theme and selecting artists; the appointment follows controversy at the 2026 edition over Russia and Israel's participation."
+      "url": "https://apnews.com/article/france-depardieu-rape-allegations-trial-68a9679a92161ef5b77027aee3fd988a",
+      "summary": "France's Paris Court of Appeal ordered Gérard Depardieu to stand trial over allegations that he raped and sexually assaulted actress Charlotte Arnould in 2018. The court dismissed allegations tied to a second alleged incident. Depardieu, 77, denies the charges and may challenge the ruling. The case follows a separate 2025 sexual-assault conviction that he stopped appealing earlier this month."
     },
     {
-      "title": "Brazil's Lula sounds out Bradesco chairman as finance minister, sources say",
+      "title": "French far-right leader Bardella faces fresh antisemitism accusations in media reports",
       "source": "Reuters",
       "category": "Politics",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/brazils-lula-sounds-out-bradesco-chairman-finance-minister-sources-say-2026-11-26/",
-      "summary": "Brazilian President Luiz Inácio Lula da Silva has approached Bradesco chairman Luiz Carlos Trabuco about becoming finance minister, two sources told Reuters. Trabuco had not decided. The outreach follows market pressure and a weakening real after Lula's election win; investors reacted positively to reports of a market-friendly candidate. Lula is expected to announce an initial group of ministers next week, but no appointment has been confirmed."
+      "url": "https://www.reuters.com/business/media-telecom/french-far-right-leader-bardella-faces-fresh-antisemitism-accusations-media-2026-11-26/",
+      "summary": "French media published additional alleged 2013 chat messages attributed to National Rally leader Jordan Bardella, prompting renewed scrutiny ahead of next year's presidential election. Bardella categorically denied making antisemitic remarks. Reuters said it could not independently verify the chats; Le Monde reported authenticating them with Meta and confirming the source's identity. The allegations' political impact remains uncertain."
     },
     {
-      "title": "Brazil's Grupo Fictor, former bidder for Banco Master, investigated in fraud probe, source says",
+      "title": "Investors see rising risk of SoftBank default as pressure grows on AI bets",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/brazils-grupo-fictor-former-bidder-banco-master-investigated-fraud-probe-source-2026-11-26/",
-      "summary": "São Paulo police and prosecutors are investigating investment group Grupo Fictor over suspected fraud, money laundering and diversion of investor funds, Reuters reported. Authorities are executing 12 search warrants and courts are freezing 4.3 billion reais in assets. The state says more than 4 billion reais were raised through fixed-return promises unsupported by real operations; the company says it will cooperate."
+      "url": "https://www.reuters.com/business/media-telecom/investors-see-rising-risk-softbank-default-pressure-grows-ai-bets-2026-11-26/",
+      "summary": "Investors' cost of insuring SoftBank debt climbed to a four-year high as markets questioned whether its heavy AI investments, including its OpenAI stake, can generate returns fast enough to service borrowing. Five-year credit-default-swap spreads rose above 534 basis points, implying a market-estimated default probability of 34.8%. That pricing signals heightened concern; it is not a prediction that a default will occur."
     },
     {
-      "title": "Bank of England to cut capital requirements for UK-focused lenders",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/bank-england-cut-capital-requirements-uk-focused-lenders-2026-11-26/",
-      "summary": "The Bank of England plans to reduce capital requirements for large UK-focused lenders after concluding that overlapping rules made them hold more capital than historical losses justified. Proposed changes would cut requirements by 60 basis points for the largest domestic lenders and could add £175 billion in lending capacity across major banks. Regulators will consult on parts of the framework while retaining key resilience buffers."
-    },
-    {
-      "title": "Temu commits to changing some of its commercial practices in EU, Commission says",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/retail-consumer/temu-commits-changing-some-its-commercial-practices-eu-commission-says-2026-11-26/",
-      "summary": "Temu agreed to change EU-facing practices flagged as potentially misleading, including fake discounts and reviews, pressure-selling messages, forced game-like features and unclear price or environmental information. The company says it will simplify refunds and make checkout and customer support clearer. EU member states will monitor compliance; violations could trigger fines of at least 4% of annual turnover in affected countries."
-    },
-    {
-      "title": "Stellantis says keeping production in Italy a 'daily challenge' amid rising costs",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/autos-transportation/stellantis-says-keeping-production-italy-daily-challenge-amid-rising-costs-2026-11-26/",
-      "summary": "Stellantis' European chief says keeping vehicle production in Italy viable has become a daily challenge as energy and manufacturing costs rise, imports intensify and the shift to electric cars adds expense. The automaker plans more than €5 billion in Italian research and development over five years and nine additional models by 2030, but output remains far below historic levels after a 20% fall in 2025."
-    },
-    {
-      "title": "Two Italian workers killed in Iranian strike in Kuwait, source says",
+      "title": "Iraqi Kurds protest against Baghdad leader's moves to assert central control",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/middle-east/two-italian-workers-killed-iranian-strike-kuwait-source-says-2026-11-26/",
-      "summary": "Two Italian technicians working for German defence contractor Rheinmetall were killed in a drone attack in Kuwait, a source close to the matter told Reuters. Kuwait's defence ministry had reported multiple drones in its airspace and described the incident as an Iranian attack. Details about the site, damage and any wider casualties were not immediately available, and the reported attribution had not been independently verified."
+      "url": "https://www.reuters.com/business/energy/iraqi-kurds-protest-against-baghdad-leaders-moves-assert-central-control-2026-11-26/",
+      "summary": "Thousands of Iraqi Kurds protested against Prime Minister Ali al-Zaidi's moves to take over oilfields controlled by Kurdish authorities and deploy federal forces along regional borders. Iraq's top court ruled Baghdad could station troops at international borders, but the Kurdish regional government rejected the measures. The dispute follows a separate crackdown on an Iran-aligned militia and revives long-running tensions over oil, territory and smuggling."
     },
     {
-      "title": "Spain's De Cos set to be nominated by EU countries as next head of ECB",
+      "title": "Irish High Court refuses to sanction BAWAG acquisition of Permanent TSB",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/europe/spains-de-cos-set-be-nominated-by-eu-leaders-new-head-ecb-2026-11-26/",
-      "summary": "EU countries were expected to nominate former Bank of Spain governor Pablo Hernández de Cos to replace Christine Lagarde as European Central Bank president from February 7, after the Netherlands withdrew support for its own candidate. Reuters said the board reshuffle also assigns France's Laurence Boone and Germany's Markus Brunnermeier to senior roles. The change suggests continuity, but inflation and political risks could shape policy."
+      "url": "https://www.reuters.com/business/finance/irish-high-court-refuses-sanction-bawag-acquisition-permanent-tsb-2026-11-26/",
+      "summary": "Ireland's High Court refused to approve BAWAG's proposed €1.6 billion acquisition of Permanent TSB because minority shareholders were not given a separate vote. The Irish government, which owns 57.5% of the bank, supported the sale, but the judge said the statutory meeting requirement left no discretion to approve it. The current transaction scheme cannot proceed as presented; the parties' next steps were not immediately clear."
     },
     {
-      "title": "Deputy head of Polish central bank says probe of governor could damage economy",
+      "title": "Kremlin brushes off reports of 700,000 Russian war deaths",
+      "source": "AFP via Dawn",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.dawn.com/news/2047136/kremlin-brushes-off-reports-of-700000-russian-war-deaths",
+      "summary": "Analyses of hacked Russian statistics data produced estimates of 470,000 to 700,000 Russian military deaths in the war against Ukraine, including missing troops believed killed but not formally recorded. The Kremlin declined to address the estimates and said only the Defence Ministry can publish official figures; Russia has not issued a comprehensive military death toll since 2022. The figures remain unconfirmed estimates."
+    },
+    {
+      "title": "Meta battles political storm in India as Congress party sues, stages protests",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/legal/government/meta-battles-political-storm-india-congress-party-sues-stages-protests-2026-11-26/",
+      "summary": "India's Congress party sued Meta and the federal government, alleging automated takedowns are suppressing lawful political speech before state elections. The party says posts featuring Rahul Gandhi were blocked even when they were birthday greetings, tributes or a wedding invitation; Meta says it is complying with Indian law. Reuters reports restrictions exceeded 5.4 million items in the first half of 2026, compared with about 70,000 in all of 2025."
+    },
+    {
+      "title": "Ministers have ‘failed to make the case’ for Heathrow third runway, MPs say",
+      "source": "The Guardian",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/environment/2026/nov/26/ministers-fail-to-make-case-for-heathrow-third-runway-mps-report-says",
+      "summary": "A UK parliamentary transport committee said ministers have not justified a proposed third runway at Heathrow, citing weak economic projections, climate incompatibility, air-quality and noise concerns, and no funded public-transport plan. The £33 billion expansion could add 276,000 flights annually, while modelling suggested only a 0.05% GDP boost. Heathrow and supporters dispute the assessment, arguing expansion is important for connectivity and jobs."
+    },
+    {
+      "title": "Myanmar’s leader says country will refuse to fully comply with ICJ requirements",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/min-aung-hlaing-rohingya-genocide-icj-myanmar-2722adf3c380f04c4ff627340f04d45d",
+      "summary": "Myanmar's military-backed president said the government would reject parts of the International Court of Justice's legally binding ruling that found the country responsible for genocide against the Rohingya. The court ordered safe returns, reparations and prosecutions, but cannot enforce compliance directly; Security Council action could face vetoes. The U.K. recognized the genocide, sanctioned five officers and pledged £8 million in aid; the council is expected to discuss the ruling on Dec. 7."
+    },
+    {
+      "title": "North Korean launderers turn to little-known crypto services to move Binance haul, say researchers",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/legal/government/north-korean-launderers-turn-little-known-crypto-services-move-binance-haul-say-2026-11-26/",
+      "summary": "Researchers told Reuters that North Korean-linked launderers moved more than $600 million from the $6.3 billion Binance hack through THORChain and a coin-mixing service, complicating efforts to trace the stolen funds. The FBI had urged crypto services to block attacker wallets; North Korea denies involvement. Analysts say converting the remaining tokens into cash could take months or years, and some funds were frozen."
+    },
+    {
+      "title": "Norway's Fjord Defence sees military spending boom outlasting Ukraine war, CEO says",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/deputy-head-polish-central-bank-says-probe-governor-could-damage-economy-2026-11-26/",
-      "summary": "Deputy governor Marta Kightley warned that bringing Polish central-bank Governor Adam Glapinski before the State Tribunal could undermine central-bank independence and raise bond yields and debt costs. Lawmakers accuse him of unconstitutional asset purchases and politicising the bank; he rejects the claims. Parliament's vote date and the required threshold remain disputed after conflicting court rulings, leaving the proceeding's legality unresolved."
+      "url": "https://www.reuters.com/business/aerospace-defense/norways-fjord-defence-sees-military-spending-boom-outlasting-ukraine-war-ceo-2026-11-26/",
+      "summary": "Norwegian defence supplier Fjord Defence expects Europe's military spending surge to continue for five to 10 years, even if the war in Ukraine ends, its CEO told Reuters. More than 90% of the company's revenue is already unrelated to the conflict, and 70% of forecast 2027 sales were covered by orders. The company expects defence revenue to grow about 30% next year."
     },
     {
-      "title": "Russian oil refinery in Krasnodar region on fire after drone attack",
+      "title": "Planet One to invest $933 million in Senegalese iron ore project",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/africa/planet-one-invest-933-million-senegalese-iron-ore-project-2026-11-26/",
+      "summary": "Planet One Group plans to invest $933 million in Senegal's Falémé iron-ore project, partnering with state-owned MIFERSO. The deposit is estimated to contain up to 600 million metric tons. A first $200 million phase would upgrade mining infrastructure, roads and rail, targeting annual output of 3–5 million tons within 12–18 months. China, India and African markets are potential buyers; the full project would be developed in stages."
+    },
+    {
+      "title": "Stocks rally, Europe sizes up next ECB chief",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
+      "summary": "Global markets rebounded as investors judged proposed U.S. tariffs less severe than feared and unlikely to take effect before February or March. European shares rose nearly 2%, with U.S. futures up about 0.7%; concerns about AI spending and Nvidia's credit-rating review persisted. Oil climbed after reported threats to Saudi energy infrastructure and shipping near the Strait of Hormuz, while the expected ECB leadership change drew little market reaction."
+    },
+    {
+      "title": "Thousands march across Spain against violence toward women before election",
+      "source": "Euronews",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.euronews.com/2026/11/26/feminists-march-across-spain-against-violence-ahead-of-general-election",
+      "summary": "Thousands demonstrated in Madrid, Valencia, Barcelona and Seville on November 25 against gender-based violence, days before Spain's general election. Euronews reported that one large march was organized by a trans-inclusive coalition, while another group opposed to that approach held a separate protest. The rallies featured national political figures and took place as far-right Vox polled near 18%, making women's rights a campaign issue."
+    },
+    {
+      "title": "Trump heads to Arizona next week for a high-stakes expansion of TSMC’s computer chip factories",
+      "source": "Associated Press",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/tsmc-computer-chips-arizona-trump-cdc7faa84895ddeb19bd114061e9dd85",
+      "summary": "President Donald Trump plans to visit Arizona on December 4 for the groundbreaking of the fifth phase of Taiwan Semiconductor Manufacturing Co.'s Phoenix expansion. TSMC has pledged $265 billion in U.S. chipmaking investment, including an additional $100 billion announced in July. The White House projects 10,000 direct jobs, while construction began under Joe Biden and also received support from the bipartisan CHIPS and Science Act."
+    },
+    {
+      "title": "Trump says he'd like to see Putin 'pull back' military aggression in Europe",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/energy/russian-oil-refinery-krasnodar-region-fire-after-drone-attack-2026-11-26/",
-      "summary": "A drone attack caused a fire at the Slavyansk ECO refinery in Russia's Krasnodar region, damaging a crude-distillation unit, storage facilities and pipelines, the company said. The site was already shut for maintenance after a September strike. Industry sources estimate attacks have cut Russian refinery processing volumes by 45% since late October; the current attack's perpetrators and repair timetable were not independently established."
+      "url": "https://www.reuters.com/world/europe/trump-says-hed-like-to-see-putin-pull-back-military-aggression-europe-2026-11-26/",
+      "summary": "President Donald Trump said he wanted Vladimir Putin to end military aggression across Europe to help secure a quick settlement of the war in Ukraine. Trump referred to discussions with Putin in China and described the conflict as a 'complete bloodbath,' but did not specify which other territories he meant. The remarks add to U.S. pressure for negotiations while Russia's invasion and wider regional security concerns continue."
     },
     {
-      "title": "NATO intern suspected of spying to remain in jail in Belgium after appeal",
+      "title": "US Marlboro maker Altria explores Imperial Brands takeover in Big Tobacco mega deal",
       "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/markets/europe/japan-tobacco-explores-potential-deal-uks-imperial-brands-bloomberg-news-reports-2026-11-26/",
+      "summary": "Altria confirmed it is considering an all-cash offer for Imperial Brands and said it is discussing buying part of the British tobacco company with an unnamed third party. Imperial shares rose as much as 17.6%, valuing it at about £26.8 billion; Japan Tobacco was also reported to be weighing a bid. Altria must make a firm offer or withdraw by December 24; no deal is assured."
+    },
+    {
+      "title": "Zelenskyy warns of imminent major Russian attack on Ukraine’s power grid",
+      "source": "Associated Press",
       "category": "World",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/china/nato-intern-suspected-spying-remain-jail-belgium-after-appeal-2026-11-26/",
-      "summary": "A Canadian intern at NATO's military headquarters near Mons will remain in pretrial detention while Belgian prosecutors appeal a court order that would have released her under electronic monitoring. She was arrested in July on suspicion of spying for a third country; sources told Reuters investigators suspect a China link. NATO says the case has not affected operations. The allegations remain unproven."
+      "url": "https://apnews.com/article/russia-ukraine-war-zelenskyy-power-122f7f187eea20d4d2b659692b4c4f1e",
+      "summary": "President Volodymyr Zelenskyy warned that Russia was preparing another major strike on Ukraine's energy infrastructure, logistics and critical services as winter approaches. He said Russian forces launched ballistic missiles and 113 drones overnight, with hits reported at 20 locations and crews restoring power in six regions. U.S.-mediated peace talks remain stalled over territory, despite envoy Jared Kushner's more optimistic assessment of Vladimir Putin's intentions."
     },
     {
       "title": "‘It’s in quite a dark place’: why UK housebuilding is struggling",
@@ -154,14 +242,6 @@
       "summary": "Latvia's airBaltic has offered some staff voluntary exits, demotions or secondments to Papua New Guinea's Air Niugini as it restructures under Chapter 11, Reuters reported from employee emails and sources. The carrier plans to cut 500–700 jobs and reduce its Airbus A220 fleet. AirBaltic says options comply with labour law; a union disputes that and says it was not consulted."
     },
     {
-      "title": "Altria weighs possible cash offer for Britain's Imperial Brands",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/europe/altria-weighs-possible-offer-uks-imperial-brands-2026-11-26/",
-      "summary": "Altria said it is considering a possible cash offer for UK tobacco maker Imperial Brands and is also discussing a possible purchase of part of the business with a third party. Reuters gave no proposed price or timetable, and no deal is assured. The disclosure could signal a major reshaping of the international tobacco sector, although the structure and scope of any transaction remain uncertain."
-    },
-    {
       "title": "Apple pulls MiniMax AI chatbot from App Store over child safety concerns",
       "source": "Reuters",
       "category": "Technology",
@@ -208,6 +288,14 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/energy/thailands-bangchak-shuts-all-units-bangkok-refinery-after-fire-2026-11-26/",
       "summary": "Thailand's Bangchak shut all production units at its Phra Khanong refinery after a November 26 fire. Reuters reported nine workers injured; AP said three were in critical condition and nearby residents briefly evacuated. The blaze was extinguished in about 30 minutes, with officials reporting normal air quality within 3–4 km. The cause remains under investigation; a preliminary inquiry pointed to the hydrocracking unit."
+    },
+    {
+      "title": "Bank of England to cut capital requirements for UK-focused lenders",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/bank-england-cut-capital-requirements-uk-focused-lenders-2026-11-26/",
+      "summary": "The Bank of England plans to reduce capital requirements for large UK-focused lenders after concluding that overlapping rules made them hold more capital than historical losses justified. Proposed changes would cut requirements by 60 basis points for the largest domestic lenders and could add £175 billion in lending capacity across major banks. Regulators will consult on parts of the framework while retaining key resilience buffers."
     },
     {
       "title": "Bank of England warns of growing financial risks as AI borrowing jumps",
@@ -264,6 +352,30 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/markets/us/bojs-tamura-signals-chance-faster-pace-interest-rate-hikes-2026-11-26/",
       "summary": "Bank of Japan board member Naoki Tamura said the central bank should move its policy rate toward a neutral level soon and could accelerate increases if inflation overshoots. He cited higher oil and raw-material costs, broadening wholesale price pressures, yen volatility and strong AI-related demand. Tamura said firms appear able to absorb past hikes, but his comments do not represent a board decision or guarantee a faster schedule."
+    },
+    {
+      "title": "Brazil's Embraer CEO says US aircraft tariff will hurt airlines",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/aerospace-defense/brazils-embraer-ceo-says-us-aircraft-tariff-will-hurt-airlines-2026-11-26/",
+      "summary": "Embraer CEO Francisco Gomes Neto said a proposed 10% U.S. tariff on finished Brazilian aircraft could raise airline costs and ticket prices. More than 40% of the E175's content is sourced from the United States, he told Reuters. The company expects no impact this year because any implementation would likely begin in 2027; the proposal remains subject to policy decisions."
+    },
+    {
+      "title": "Brazil's Grupo Fictor, former bidder for Banco Master, investigated in fraud probe, source says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/brazils-grupo-fictor-former-bidder-banco-master-investigated-fraud-probe-source-2026-11-26/",
+      "summary": "São Paulo police and prosecutors are investigating investment group Grupo Fictor over suspected fraud, money laundering and diversion of investor funds, Reuters reported. Authorities are executing 12 search warrants and courts are freezing 4.3 billion reais in assets. The state says more than 4 billion reais were raised through fixed-return promises unsupported by real operations; the company says it will cooperate."
+    },
+    {
+      "title": "Brazil's Lula sounds out Bradesco chairman as finance minister, sources say",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/brazils-lula-sounds-out-bradesco-chairman-finance-minister-sources-say-2026-11-26/",
+      "summary": "Brazilian President Luiz Inácio Lula da Silva has approached Bradesco chairman Luiz Carlos Trabuco about becoming finance minister, two sources told Reuters. Trabuco had not decided. The outreach follows market pressure and a weakening real after Lula's election win; investors reacted positively to reports of a market-friendly candidate. Lula is expected to announce an initial group of ministers next week, but no appointment has been confirmed."
     },
     {
       "title": "Britain signs £8 billion deal to upgrade submarine facilities",
@@ -330,6 +442,14 @@
       "summary": "Cybersecurity researchers at Dragos said confidential links and other data submitted to Chinese AI firm MiniMax were accessed by unidentified parties, including after users requested that data not be retained. MiniMax said its systems automatically opened links to check for threats, deleted stored addresses and found no evidence chats or AI responses were disclosed. Atlas Cloud stopped forwarding requests and warned customers that secrets might be exposed."
     },
     {
+      "title": "Deputy head of Polish central bank says probe of governor could damage economy",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/deputy-head-polish-central-bank-says-probe-governor-could-damage-economy-2026-11-26/",
+      "summary": "Deputy governor Marta Kightley warned that bringing Polish central-bank Governor Adam Glapinski before the State Tribunal could undermine central-bank independence and raise bond yields and debt costs. Lawmakers accuse him of unconstitutional asset purchases and politicising the bank; he rejects the claims. Parliament's vote date and the required threshold remain disputed after conflicting court rulings, leaving the proceeding's legality unresolved."
+    },
+    {
       "title": "Dollar rally takes a pause for Thanksgiving",
       "source": "Reuters",
       "category": "Business",
@@ -370,12 +490,12 @@
       "summary": "Northern Territory police are investigating an encrypted email threatening ministers, government staff and public places in Darwin. Police said specialist units were assessing the message and would treat it as credible until checks were complete; officials urged residents to remain alert but not alarmed. The sender's identity is unknown, and authorities have withheld specific targets while the investigation continues."
     },
     {
-      "title": "Global stocks rise and tech shares rebound as US closes for Thanksgiving",
+      "title": "Emirati curator Hoor Al Qasimi becomes first Arab woman to lead Venice Biennale art show",
       "source": "Associated Press",
-      "category": "Business",
+      "category": "Entertainment",
       "published": "2026-11-26",
-      "url": "https://apnews.com/article/stocks-markets-ai-oil-bonds-320cd8c9c286a7773797bf2f478ef314",
-      "summary": "Shares rose across Europe and Asia on November 26 while U.S. markets were closed for Thanksgiving. AP reported gains in the DAX, CAC 40 and FTSE 100, plus rebounds in Japan, South Korea and Taiwan; the Kospi rose 0.3% after a 6.2% drop a day earlier. Investors remained cautious about AI valuations and proposed U.S. tariffs, while Nvidia fell 3.9%."
+      "url": "https://apnews.com/article/4c5329d8fb4513ac10291406054f8215",
+      "summary": "Emirati curator Hoor Al Qasimi was appointed to lead the 2028 Venice Biennale, becoming the first Arab and seventh woman to curate its main international art exhibition. She founded Sharjah Art Foundation and has led the Sharjah Biennial since 2003. Her role includes setting the exhibition's theme and selecting artists; the appointment follows controversy at the 2026 edition over Russia and Israel's participation."
     },
     {
       "title": "Explainer: Why are Indian rice prices rising despite record stocks?",
@@ -530,12 +650,28 @@
       "summary": "Iran's Revolutionary Guards said two tankers, including a supertanker carrying more than two million barrels, hit sea mines near Oman's Khasab while using an unauthorized Strait of Hormuz route; the claim has not been independently verified. Reuters reported oil prices rose as traders assessed shipping risks ahead of OPEC+'s November 29 meeting; sources said the group may keep first-quarter 2027 output targets unchanged."
     },
     {
+      "title": "Iranian activist and Oscar-nominated screenwriter Mehdi Mahmoudian arrested in Tehran",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/7ea2fb068ddaf13e4ab34501efcac74e",
+      "summary": "Iranian rights activist and Oscar-nominated screenwriter Mehdi Mahmoudian was arrested at his Tehran home on Wednesday, a friend and activist told the Associated Press. Reports say agents seized his electronic devices; authorities had not publicly explained the detention. The arrest followed his warnings that two protesters jailed over the 2022 Mahsa Amini demonstrations faced imminent execution. He is reportedly held at Greater Tehran Penitentiary."
+    },
+    {
       "title": "Iraq court sentences eight French nationals to life for joining Islamic State",
       "source": "Arab News (AFP)",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.arabnews.com/middle-east/iraq-court-sentences-8-french-nationals-to-life-in-prison-for-joining-is-3014089",
       "summary": "An Iraqi court sentenced eight French nationals to life in prison for joining the Islamic State group, AFP reported. Two other French defendants received 15-year terms, while verdicts for 10 more were postponed. The cases follow transfers of foreign detainees from Syria to Iraq, where authorities have been processing people accused of joining the group. The convictions and remaining proceedings may carry diplomatic and human-rights implications."
+    },
+    {
+      "title": "Israel's Eisenkot reaches deal with left-wing faction as coalition talks gain steam",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/israels-eisenkot-resumes-meetings-with-left-wing-faction-coalition-talks-gain-2026-11-26/",
+      "summary": "Gadi Eisenkot secured a coalition agreement with the left-wing Democrats faction, which would receive four ministerial posts, but he still lacks a majority. His bloc won 48 of 120 seats, while Benjamin Netanyahu's alliance has 53. A deal with Avigdor Lieberman's right-wing party could help, yet negotiations over ultra-Orthodox military conscription and other partners remain unresolved before the December 6 deadline."
     },
     {
       "title": "Israeli strikes kill 10 in Gaza, AP reports",
@@ -642,12 +778,12 @@
       "summary": "Elon Musk says each U.S. child will receive two SpaceX shares—one from the company and one from him personally—an estimated $18 billion pledge covering roughly 72 million minors. Reuters reported the company share could transfer next month, while Musk's personal share would follow after his lockup expires in June 2027. The announcement came hours after the FCC approved SpaceX's plan for up to one million orbital data-centre satellites."
     },
     {
-      "title": "Myanmar says it will not fully comply with ICJ genocide orders",
+      "title": "NATO intern suspected of spying to remain in jail in Belgium after appeal",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/asia-pacific/myanmar-says-it-will-not-fully-comply-with-icj-genocide-orders-2026-11-26/",
-      "summary": "Myanmar's military-backed president said the government would reject International Court of Justice measures it considers inappropriate, days after the court found the military responsible for genocide against the Rohingya. The ICJ ordered investigations, prosecutions, guarantees against recurrence, support for displaced people and compensation; enforcement options are limited. More than 730,000 Rohingya fled to Bangladesh during the 2017 crackdown, and about 1.2 million now live in camps."
+      "url": "https://www.reuters.com/world/china/nato-intern-suspected-spying-remain-jail-belgium-after-appeal-2026-11-26/",
+      "summary": "A Canadian intern at NATO's military headquarters near Mons will remain in pretrial detention while Belgian prosecutors appeal a court order that would have released her under electronic monitoring. She was arrested in July on suspicion of spying for a third country; sources told Reuters investigators suspect a China link. NATO says the case has not affected operations. The allegations remain unproven."
     },
     {
       "title": "Necessities join gifts in Black Friday shopping carts as AI and higher costs steer spending",
@@ -754,12 +890,28 @@
       "summary": "Cyclic Materials, backed by Microsoft, Amazon and BMW, has secured a site near Leipzig for a rare-earth magnet recycling plant planned to open in 2028. It expects the facility to process up to 25,000 metric tons of scrap annually and is planning four more European sites, with Asia expansion later. The company says recycling could help Western manufacturers reduce reliance on China, which processes about 90% of global rare earths."
     },
     {
+      "title": "Rebel Estudiantes takes on rich Palmeiras for South America's biggest club prize",
+      "source": "Associated Press",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/6972312dcdf8a6de368b39db33912ac2",
+      "summary": "Palmeiras and Estudiantes meet Saturday in Montevideo for the Copa Libertadores title, with Palmeiras' squad valued at about $238 million—roughly four times Estudiantes'—after years of private investment and player sales. Estudiantes, a four-time champion returning to the final for the first time since 2009, is led by Juan Sebastián Verón, whose push for private capital has intensified a dispute with Argentina's football leadership."
+    },
+    {
       "title": "Russian court arrests deputy aerospace forces commander, Kommersant reports",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/russian-court-arrests-deputy-aerospace-forces-commander-kommersant-reports-2026-11-26/",
       "summary": "Russian media outlet Kommersant reported that a military court arrested Yuriy Grekhov, deputy commander of Russia's Aerospace Forces and chief of armaments. Reuters said the arrest request came from the Military Investigative Committee, but the charge has not been disclosed. The force includes air, space and air-defence units, making the case notable amid scrutiny of Russia's military leadership."
+    },
+    {
+      "title": "Russian oil refinery in Krasnodar region on fire after drone attack",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/energy/russian-oil-refinery-krasnodar-region-fire-after-drone-attack-2026-11-26/",
+      "summary": "A drone attack caused a fire at the Slavyansk ECO refinery in Russia's Krasnodar region, damaging a crude-distillation unit, storage facilities and pipelines, the company said. The site was already shut for maintenance after a September strike. Industry sources estimate attacks have cut Russian refinery processing volumes by 45% since late October; the current attack's perpetrators and repair timetable were not independently established."
     },
     {
       "title": "Rwanda raises benchmark rate to 9.5% as inflation reaches 19.5%",
@@ -826,6 +978,14 @@
       "summary": "Standard Chartered's cryptocurrency custody unit Zodia Custody says a cyber intrusion exposed limited client and employee information, including names, email addresses and some organisation details. The breach was detected on Monday; the company temporarily disabled a software connection service, later restored it and notified affected clients and regulators. CEO Richard Clark said its investigation had found no unauthorised transactions; the extent of access remains under review."
     },
     {
+      "title": "Stellantis says keeping production in Italy a 'daily challenge' amid rising costs",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/autos-transportation/stellantis-says-keeping-production-italy-daily-challenge-amid-rising-costs-2026-11-26/",
+      "summary": "Stellantis' European chief says keeping vehicle production in Italy viable has become a daily challenge as energy and manufacturing costs rise, imports intensify and the shift to electric cars adds expense. The automaker plans more than €5 billion in Italian research and development over five years and nine additional models by 2030, but output remains far below historic levels after a 20% fall in 2025."
+    },
+    {
       "title": "Study finds small blood-pressure association with fathers' antidepressant use before conception",
       "source": "Euronews",
       "category": "Health",
@@ -842,6 +1002,14 @@
       "summary": "Australian pensioners say rules for the Support at Home program leave subsidised cleaners unable to move chairs, bend down or reach high surfaces, even when clients pay substantial hourly fees. ABC found some clients were billed up to A$135 an hour while workers received A$32–36. Providers cite safety and liability rules; a Senate inquiry is due to report next year."
     },
     {
+      "title": "Temu commits to changing some of its commercial practices in EU, Commission says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/retail-consumer/temu-commits-changing-some-its-commercial-practices-eu-commission-says-2026-11-26/",
+      "summary": "Temu agreed to change EU-facing practices flagged as potentially misleading, including fake discounts and reviews, pressure-selling messages, forced game-like features and unclear price or environmental information. The company says it will simplify refunds and make checkout and customer support clearer. EU member states will monitor compliance; violations could trigger fines of at least 4% of annual turnover in affected countries."
+    },
+    {
       "title": "Thanksgiving storm brings flooding, damaging winds and king tides across the U.S.",
       "source": "Associated Press",
       "category": "U.S.",
@@ -850,28 +1018,12 @@
       "summary": "A strengthening Thanksgiving storm brought heavy rain and damaging winds to the East Coast, forcing Macy's to postpone its centennial parade until Saturday and prompting New Jersey's state of emergency. AP also reported winter warnings around St. Louis, coastal-flood alerts from California to Washington and king tides amplified by a super El Niño; waves tore part of Pacifica's already-closed pier into the ocean, while Stinson Beach briefly faced an evacuation warning."
     },
     {
-      "title": "Thousands march across Spain against violence toward women before election",
-      "source": "Euronews",
-      "category": "Politics",
-      "published": "2026-11-26",
-      "url": "https://www.euronews.com/2026/11/26/feminists-march-across-spain-against-violence-ahead-of-general-election",
-      "summary": "Thousands joined demonstrations in Madrid, Barcelona, Valencia and Seville on November 25 against violence toward women, days before Spain's general election. Euronews reported that polling placed the far-right Vox party near 18%, making women's rights a campaign issue. The marches also exposed divisions within Spain's feminist movement, including disputes over transgender inclusion; parties across the political spectrum said they opposed gender-based violence."
-    },
-    {
       "title": "Top official admits ‘wrong decisions’ and ‘deaths’ will result from wildfire shake-up",
       "source": "The Washington Post",
       "category": "Environment",
       "published": "2026-11-26",
       "url": "https://www.washingtonpost.com/climate-environment/2026/11/26/top-us-official-says-wrong-decisions-deaths-expected-wildfire-shake-up/",
       "summary": "A senior U.S. Forest Service overseer privately warned that the administration’s rapid plan to consolidate federal wildfire agencies could produce wrong decisions, catastrophic disruption and deaths. Michael Boren said officials had limited information and a five-month deadline to unify a fragmented system. The Washington Post reports 21 wildland firefighters have died this year, the workforce’s third-deadliest season since at least 2016."
-    },
-    {
-      "title": "Trump and NATO chief urge Russia not to widen Ukraine war",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/china/trump-nato-chief-urge-russia-avoid-actions-that-widen-ukraine-war-2026-11-26/",
-      "summary": "President Donald Trump and NATO Secretary-General Mark Rutte urged Russia not to take actions that could widen the war in Ukraine, after meeting in Florida. Their joint statement also cited a need for a rapid peaceful resolution and discussed defense spending and investment, but offered no details on talks about the Iran war. European allies continue to press for a role in U.S.-backed peace negotiations."
     },
     {
       "title": "TUI chief urges Europe to cut bureaucracy, attract skilled workers and expand green energy",
@@ -888,6 +1040,14 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/energy/turkmenistans-afghan-gas-link-brings-south-asia-pipeline-dream-little-closer-2026-11-26/",
       "summary": "Turkmenistan expects to finish a gas-pipeline section to Afghanistan’s Herat by year-end, with flows planned for early 2027. The segment is part of the proposed 1,800-kilometre TAPI route to Pakistan and India, designed for 33 billion cubic metres annually. Reuters reports only 124 kilometres of the Afghan section have been laid; financing, security and India-Pakistan tensions still threaten the wider project."
+    },
+    {
+      "title": "Two Italian workers killed in Iranian strike in Kuwait, source says",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/two-italian-workers-killed-iranian-strike-kuwait-source-says-2026-11-26/",
+      "summary": "Two Italian technicians working for German defence contractor Rheinmetall were killed in a drone attack in Kuwait, a source close to the matter told Reuters. Kuwait's defence ministry had reported multiple drones in its airspace and described the incident as an Iranian attack. Details about the site, damage and any wider casualties were not immediately available, and the reported attribution had not been independently verified."
     },
     {
       "title": "UK annual net migration drops to 77,000 in year to June 2026",
@@ -1026,38 +1186,6 @@
       "summary": "Yuki Imai, a 34-year-old Hokkaido Shimbun reporter detained in Russia on espionage allegations, remains in Moscow's Lefortovo detention centre. His wife appealed for his release, saying their 21-month-old daughter has barely seen him; Japanese diplomats have been allowed two visits. Japan rejects the spying claim, while Russia has not publicly disclosed evidence, leaving the case a growing bilateral irritant."
     },
     {
-      "title": "EU leaders wrestle over seven-year budget and Ukraine financing",
-      "source": "Reuters",
-      "category": "Politics",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/eu-leaders-wrestle-with-seven-year-budget-ukraine-financing-they-seek-december-2026-11-26/",
-      "summary": "EU leaders met over a proposed €1.582 trillion 2028–34 budget and Ukraine funding, with unanimous approval required from all 27 states. The plan includes up to €100 billion for Ukraine; leaders also discussed a €45 billion 2027 loan repayable only if Russia pays reparations. They aim for agreement in December, but several governments oppose parts of the financing plan."
-    },
-    {
-      "title": "Brazil's Embraer CEO says US aircraft tariff will hurt airlines",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/aerospace-defense/brazils-embraer-ceo-says-us-aircraft-tariff-will-hurt-airlines-2026-11-26/",
-      "summary": "Embraer CEO Francisco Gomes Neto said a proposed 10% U.S. tariff on finished Brazilian aircraft could raise airline costs and ticket prices. More than 40% of the E175's content is sourced from the United States, he told Reuters. The company expects no impact this year because any implementation would likely begin in 2027; the proposal remains subject to policy decisions."
-    },
-    {
-      "title": "Israel's Eisenkot reaches deal with left-wing faction as coalition talks gain steam",
-      "source": "Reuters",
-      "category": "Politics",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/middle-east/israels-eisenkot-resumes-meetings-with-left-wing-faction-coalition-talks-gain-2026-11-26/",
-      "summary": "Gadi Eisenkot secured a coalition agreement with the left-wing Democrats faction, which would receive four ministerial posts, but he still lacks a majority. His bloc won 48 of 120 seats, while Benjamin Netanyahu's alliance has 53. A deal with Avigdor Lieberman's right-wing party could help, yet negotiations over ultra-Orthodox military conscription and other partners remain unresolved before the December 6 deadline."
-    },
-    {
-      "title": "UK discounter Poundland sinks into administration, 10,000 jobs at risk",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/retail-consumer/uk-retailer-poundland-preparing-administration-sky-news-says-2026-11-25/",
-      "summary": "British discount retailer Poundland entered administration after owner Gordon Brothers failed to find a buyer, putting more than 600 UK and Irish stores and about 10,000 jobs at risk. AlixPartners will oversee the process and examine sale options, but stores and distribution centres remain open for now. The government called the news concerning, while the collapse adds to pressure on value retailers ahead of Christmas."
-    },
-    {
       "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
       "source": "The Guardian",
       "category": "Technology",
@@ -1072,14 +1200,6 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/europe/germanys-merz-defends-aid-ukraine-says-russia-poses-growing-threat-europe-2026-11-25/",
       "summary": "German Chancellor Friedrich Merz defended continued military aid to Ukraine and a planned rise in German defence spending, saying Russia’s ambitions extend beyond Ukraine and its actions threaten wider European security. He cited tensions around the Baltic, Poland and cyber infrastructure; Moscow denies seeking confrontation with NATO. The position faces domestic opposition as cost-of-living pressures grow, while Germany plans to lift defence spending above €200 billion by 2030."
-    },
-    {
-      "title": "1Password said hackers broke into its internal systems, but customer passwords are safe",
-      "source": "TechCrunch",
-      "category": "Technology",
-      "published": "2026-11-25",
-      "url": "https://techcrunch.com/2026/11/25/1password-said-hackers-broke-into-its-internal-systems-but-customer-passwords-are-safe/",
-      "summary": "1Password said an intruder accessed an employee’s corporate GitHub account on Nov. 19, then used it to push malicious code into internal systems and download some customer data. TechCrunch reports names, sign-in email addresses, account identifiers and account activity dates were exposed; password vaults, passwords and secret keys were not accessed. The company has not disclosed how many users were affected or whether all were notified."
     },
     {
       "title": "2 baby meerkats make their debut at Peruvian zoo, spotlighting conservation",
@@ -2202,14 +2322,6 @@
       "summary": "Moldova’s pro-European government kept most emergency energy powers in place for another 30 days after a state of emergency expired. Officials said the measures helped stabilize gas, oil and electricity supplies, while water conditions had improved. Opposition parties demanded an accounting and criticized the policy. Moldova imports most of its energy and remains exposed to supply risks linked to regional tensions and Russia’s war in Ukraine."
     },
     {
-      "title": "More than 490,000 Russian soldiers have died during Ukraine war, leaked data suggests",
-      "source": "CBS News",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.cbsnews.com/news/russia-ukraine-war-russian-soldier-death-toll-data-leak/",
-      "summary": "Leaked Russian government records analyzed by BBC News and Mediazona suggest at least 490,334 Russian soldiers had died since the full-scale invasion began in 2022; another analysis of the dataset puts the toll closer to 700,000. The records reportedly contain more than 11 million entries through September 2026. The Kremlin has not released official totals and says only its Defense Ministry can publish them."
-    },
-    {
       "title": "Nationwide Greek strike disrupts ferries, metro and some flights",
       "source": "Reuters",
       "category": "World",
@@ -2320,14 +2432,6 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/business/2026/nov/25/natures-ozempic-oat-sales-soar-shoppers-seek-out-foods-mimic-effect-glp-1s",
       "summary": "Waitrose says sales of its Scottish oats rose 124% this year as shoppers seek filling, fibre-rich foods amid the popularity of GLP-1 weight-loss drugs. A retailer survey found 64% of respondents were actively choosing foods that help them feel full for longer, while many GLP-1 users reported changing household shopping. The Guardian notes that social-media labels such as 'nature's Ozempic' are marketing shorthand: oats are not equivalent to prescription medication."
-    },
-    {
-      "title": "OPEC blames EU for COP31 collapse as fossil-fuel dispute deepens",
-      "source": "Reuters",
-      "category": "Environment",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/sustainability/cop/opec-blames-eu-cop31-collapse-2026-11-25/",
-      "summary": "OPEC Secretary-General Haitham Al Ghais rejected claims that oil producers caused the collapse of COP31, saying the EU and others walked away from negotiations. Producers opposed language on moving away from fossil fuels and backed carbon-capture references, which some developing nations called costly and unproven. Reuters also reported negotiators' concerns about Saudi influence; EU officials had not responded to OPEC's criticism."
     },
     {
       "title": "Paralympian Ezra Frech becomes first Paralympian to win Dancing with the Stars",
@@ -2792,6 +2896,14 @@
       "published": "2026-11-25",
       "url": "https://www.gov.uk/government/news/uk-cracks-down-on-online-abuse-ahead-of-international-summitseeking-to-end-violence-against-women-and-girls",
       "summary": "Britain launched a £27 million Thrive programme to counter online abuse of women and girls, including AI-assisted stalking, harassment and non-consensual intimate images. The government says it will work with technology companies on safer product design, such as automatic image blurring and age restrictions, and help other countries strengthen laws. A London summit on violence against women and girls is scheduled for April 27–28, 2027."
+    },
+    {
+      "title": "UK discounter Poundland sinks into administration, 10,000 jobs at risk",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/business/retail-consumer/uk-retailer-poundland-preparing-administration-sky-news-says-2026-11-25/",
+      "summary": "British discount retailer Poundland entered administration after owner Gordon Brothers failed to find a buyer, putting more than 600 UK and Irish stores and about 10,000 jobs at risk. AlixPartners will oversee the process and examine sale options, but stores and distribution centres remain open for now. The government called the news concerning, while the collapse adds to pressure on value retailers ahead of Christmas."
     },
     {
       "title": "UK embassy in Japan warns of rise in drink spiking and credit card fraud at Tokyo bars",
@@ -4065,7 +4177,5 @@
       "url": "https://www.reuters.com/world/south-korea-becomes-fourth-country-globally-hit-1-trillion-exports-ai-chip-boom-2026-11-19/",
       "summary": "South Korea’s exports passed $1 trillion for 2026, making it the fourth country to reach the milestone after Germany, the United States and China. Semiconductor shipments, driven by global AI investment, rose 184% in the first three quarters and represented 42% of exports. Reuters noted weak domestic demand and inequality remain concerns, prompting the government to plan a large fund for growth industries, young people and regional development."
     }
-  ],
-  "updated": 10,
-  "added": 14
+  ]
 }
