@@ -1,6 +1,126 @@
 {
-  "updatedAt": "2026-11-26T17:59:10.982Z",
+  "updatedAt": "2026-11-26T17:58:34.000Z",
   "articles": [
+    {
+      "title": "As France's problems multiply, so do its presidential hopefuls",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/frances-problems-multiply-so-do-its-presidential-hopefuls-2026-11-26/",
+      "summary": "France's 2027 presidential field has grown to more than 30 declared or prospective contenders as traditional party structures weaken. Olympic judo champion Teddy Riner, former prime minister Dominique de Villepin and Cannes mayor David Lisnard are among recent entrants. Reuters says Marine Le Pen and Jean-Luc Mélenchon remain leading figures in polls, so the crowded field has yet to dislodge the frontrunners."
+    },
+    {
+      "title": "Kenyan cult leader serving 200 years for murder convicted of terrorism-related charges",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/africa/kenyan-cult-leader-serving-200-years-murder-convicted-terrorism-related-charges-2026-11-26/",
+      "summary": "A Kenyan magistrate convicted Paul Mackenzie of organised criminal activity, radicalisation and facilitating terrorism linked to the Shakahola mass killings. Mackenzie is already serving 200 years for murdering nearly 200 children and was separately convicted of child cruelty and assault the previous day. He pleaded not guilty to the terrorism charges; a lawyer said he plans to appeal. A manslaughter ruling was still pending."
+    },
+    {
+      "title": "Guinea-Bissau delays elections, extending military-led transition a year after coup",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/africa/guinea-bissau-delays-elections-extending-military-led-transition-year-after-coup-2026-11-26/",
+      "summary": "Guinea-Bissau's military-led authorities moved presidential and legislative elections from December 2026 to November 2028, saying the country lacks the resources and conditions for a credible vote. The army seized power in November 2025, disrupting an election and promising a one-year transition. The extension deepens uncertainty over a return to civilian rule and runs against regional calls for a short, transparent transition."
+    },
+    {
+      "title": "Iraq closes two border crossings in Kurdistan region with Syria and Iran",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/iraq-closes-two-border-crossings-kurdistan-region-with-syria-iran-2026-11-26/",
+      "summary": "Iraqi border forces closed the al-Waleed crossing with Syria and the Bashta crossing with Iran, both in territory administered by the Kurdistan Regional Government. The closures follow a court ruling allowing federal forces to deploy along all international borders and a prime ministerial order to take over KRG-run crossings. Baghdad says the moves strengthen central control; Kurdish authorities' response and practical effects remain developing."
+    },
+    {
+      "title": "Sweden's Centre leader backs right-wing prime minister, in major shift",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/finance/swedens-centre-leader-backs-right-wing-prime-minister-major-shift-2026-11-26/",
+      "summary": "Sweden's Centre Party leader Elisabeth Thand Ringqvist recommended that the party back a minority government led by caretaker Prime Minister Ulf Kristersson, a sharp shift after campaigning for a centre-left coalition. Lawmakers are due to vote Monday, and the Centre Party's governing council must still approve the recommendation. The move could break a post-election deadlock, but the internal decision was not unanimous."
+    },
+    {
+      "title": "Co-leader of Germany's AfD criticises planned talks with Russian envoy",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/energy/co-leader-germanys-afd-criticises-planned-talks-with-russian-envoy-2026-11-26/",
+      "summary": "Germany's AfD co-leader Alice Weidel criticised plans by party lawmaker Markus Frohnmaier to meet Kremlin business envoy Kirill Dmitriev in Abu Dhabi to discuss trade and a possible return of Russian gas supplies. Weidel said the party has no mandate for such negotiations and would not join the talks. The dispute exposes tensions inside AfD as Moscow seeks support for restoring energy ties with Germany."
+    },
+    {
+      "title": "Mexico urges Asian trade partners to crack down on tariff dodging",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/mexico-urges-asian-trade-partners-crack-down-tariff-dodging-2026-11-26/",
+      "summary": "Mexico urged Asian trade partners to strengthen checks against goods being rerouted through third countries to evade tariffs, as Washington presses for tighter rules on Chinese components in North American supply chains. Economy Minister Marcelo Ebrard called for better origin tracing and enforcement while Mexico reviews the USMCA. Mexico has already raised tariffs on some imports, including Chinese goods, by as much as 50%."
+    },
+    {
+      "title": "US chip curbs will slow Asia data-center investment, Fitch says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/us-chip-curbs-will-slow-asia-data-center-investment-fitch-says-2026-11-26/",
+      "summary": "Fitch Ratings expects tighter U.S. chip-export controls to slow and reshape Asia-Pacific data-center investment, especially for operators dependent on Chinese customers and advanced Nvidia processors. Projects with uncertain chip access could face delays, weaker utilization, lower pricing and tighter lending. Fitch said investment may shift toward facilities with diversified customers and secure supplies; the scale of disruption will depend on licensing and eligibility decisions."
+    },
+    {
+      "title": "China's Weimob plans own GPU cluster with Nvidia's RTX PRO 5500",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/chinas-weimob-plans-own-gpu-cluster-with-nvidias-rtx-pro-5500-2026-11-26/",
+      "summary": "Chinese commerce-software provider Weimob plans to deploy about 5,000 Nvidia RTX PRO 5500 GPUs in a cluster for multimodal computing, image and video generation, and marketing-content tools. The workstation-grade chips are among the most capable Nvidia products available to Chinese buyers under U.S. export controls. Weimob may lease spare capacity to other firms, but flagged supply, deployment and demand risks."
+    },
+    {
+      "title": "Trump moves to replace Texas judicial nominee opposed by Senator Cornyn",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/legal/government/trump-moves-replace-texas-judicial-nominee-opposed-by-senator-cornyn-2026-11-26/",
+      "summary": "President Donald Trump is moving to replace Texas judicial nominee T. Elliot Gaiser after Republican Senator John Cornyn blocked the nomination from advancing, citing vetting concerns and Gaiser's ties outside the state. The White House has submitted partial paperwork for former prosecutor Steve Fahey for the Dallas judgeship. The switch reflects a broader scramble to confirm nominees before Democrats take Senate control in January."
+    },
+    {
+      "title": "Shanghai Chinese Communist Party secretary Chen Jining, a rising star, becomes latest victim of Xi's endless purges",
+      "source": "Le Monde",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.lemonde.fr/en/international/article/2026/11/26/shanghai-s-chinese-communist-party-secretary-chen-jining-a-rising-star-is-the-latest-victim-of-xi-s-endless-purges_6788674_4.html",
+      "summary": "Shanghai party chief Chen Jining was placed under investigation for alleged serious violations of discipline and law, a formula commonly associated with corruption probes. He is the fourth Politburo member to fall since the body was formed in 2022, an unusually rapid pace ahead of the party's 2027 congress. The reasons remain undisclosed; analysts point to a wider purge and uncertainty over elite succession."
+    },
+    {
+      "title": "Kremlin accuses Ukraine of trying to widen conflict zone to Mediterranean and Baltic seas",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/europe/kremlin-accuses-ukraine-trying-widen-conflict-zone-mediterranean-baltic-seas-2026-11-26/",
+      "summary": "The Kremlin accused Ukraine of widening the war after Ukrainian maritime drones struck Russian-linked vessels in the Mediterranean and Baltic regions. Spokesman Dmitry Peskov said the attacks could alarm coastal states and NATO; Libya and Italy condemned the operation, while Norway urged caution. The accusation follows a joint Trump-Rutte warning against escalation, but reflects Moscow's account of events rather than an independent finding."
+    },
+    {
+      "title": "Argentina's Senate poised to suspend primaries, boosting Milei's re-election bid",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/americas/argentinas-senate-poised-suspend-primaries-boosting-mileis-re-election-bid-2026-11-26/",
+      "summary": "Argentina's Senate began debating a bill to suspend the 2027 primary elections, cut public funding for parties and remove the mandatory presidential debate. President Javier Milei's government says it has enough support for passage, though the lower house would still need to approve the measure. Supporters cite lower costs; critics say removing primaries would weaken democratic safeguards and could aid Milei's reelection bid."
+    },
+    {
+      "title": "Turkish elections to be held in 2028, ruling alliance agrees on Erdogan candidacy, vice president says",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/turkish-elections-be-held-2028-ruling-alliance-agrees-erdogan-candidacy-vice-2026-11-26/",
+      "summary": "Turkey's Vice President Cevdet Yilmaz said elections will be held in 2028, though the date could move one or two months earlier than the scheduled May vote. He also said the ruling alliance has agreed that President Recep Tayyip Erdogan should be its candidate again. The remarks clarify the governing bloc's plans but do not establish the final election date or resolve any legal and political hurdles."
+    },
+    {
+      "title": "Iran's supreme leader urges Guards-linked Basij volunteers to broaden social reach",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/irans-supreme-leader-urges-guards-linked-basij-volunteers-broaden-social-reach-2026-11-26/",
+      "summary": "Iran's Supreme Leader Mojtaba Khamenei urged the Basij, a nationwide volunteer force tied to the Revolutionary Guards, to recruit supporters beyond its formal membership and broaden its social role. The force helps organize pro-government rallies, enforce social codes and suppress protests. Khamenei has remained out of public view since succeeding his father; officials cite security concerns, while the country faces sanctions and economic strain."
+    },
     {
       "title": "Dutch groups ask court to halt Meta smart glasses sales over privacy concerns",
       "source": "Reuters",
@@ -1312,6 +1432,14 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/media-telecom/wife-of-japanese-journalist-detained-russia-pleads-his-release-2026-11-26/",
       "summary": "Yuki Imai, a 34-year-old Hokkaido Shimbun reporter detained in Russia on espionage allegations, remains in Moscow's Lefortovo detention centre. His wife appealed for his release, saying their 21-month-old daughter has barely seen him; Japanese diplomats have been allowed two visits. Japan rejects the spying claim, while Russia has not publicly disclosed evidence, leaving the case a growing bilateral irritant."
+    },
+    {
+      "title": "Thirty-one killed in fire after vehicle overturns in Egypt",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/africa/least-21-killed-blaze-after-vehicle-overturns-egypt-health-ministry-says-2026-11-25/",
+      "summary": "A vehicle carrying petroleum products overturned on a major ring road in Giza, sparking a fire that killed 31 people and injured 21, Egyptian authorities said. Preliminary estimates found 27 vehicles burned, and prosecutors ordered DNA sampling to identify victims. The crash has renewed scrutiny of road safety; official figures show Egypt's road deaths rose 10.8% in 2025, despite highway expansion."
     },
     {
       "title": "European Commission approves sustainability agreement between Bordeaux wine producers",
@@ -4072,6 +4200,14 @@
       "published": "2026-11-24",
       "url": "https://www.dhakatribune.com/world/middle-east/425613/yemen-officials-say-strike-on-buses-trucks-kills",
       "summary": "An airstrike on a bus and trucks in Yemen’s Lahj province killed 26 people, including 14 civilians and 12 Houthi fighters, according to local officials cited by AFP. The Houthis blamed the Saudi-led coalition, while government forces said the Houthis carried out the attack. The conflicting accounts have not been independently resolved; the strike occurred near a front line advancing toward Aden."
+    },
+    {
+      "title": "New film adaptation of the sacred Hindu epic Ramayana sparks debate over authenticity",
+      "source": "Associated Press",
+      "category": "Entertainment",
+      "published": "2026-11-23",
+      "url": "https://apnews.com/article/ramayana-hindu-epic-film-india-bollywood-5dfbdfae6bb3f717c7aa2def77e551a8",
+      "summary": "The costly Indian film “Ramayana: Rise of a Legend,” released around Diwali, retells one of Hinduism's foundational epics with major Bollywood stars and Hollywood visual effects. It has become the highest-grossing Indian production in the United States, but viewers disagree over creative changes, including its portrayal of Ravana. A Hindu group has called for a boycott, while scholars note the epic has long had many regional and religious retellings."
     },
     {
       "title": "BepiColombo spacecraft remains safe in Mercury orbit after software glitch",
