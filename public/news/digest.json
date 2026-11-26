@@ -1,6 +1,182 @@
 {
-  "updatedAt": "2026-11-26T16:12:08.152Z",
+  "updatedAt": "2026-11-26T17:06:38.000Z",
   "articles": [
+    {
+      "title": "Dutch groups ask court to halt Meta smart glasses sales over privacy concerns",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/legal/government/dutch-groups-ask-court-halt-meta-smart-glasses-sales-over-privacy-concerns-2026-11-26/",
+      "summary": "Dutch consumer and digital-rights groups asked an Amsterdam court to halt sales of Meta's AI-powered Ray-Ban glasses, arguing they enable covert recording and violate European privacy law. They also seek limits on using footage to train AI. Meta denies processing European images or using them for training, and says a recording light alerts bystanders. A ruling is expected by December 24 and could influence wider European policy."
+    },
+    {
+      "title": "Polish defence ministry to sign agreement with Palantir on Friday",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/technology/polish-defence-ministry-sign-agreement-with-palantir-friday-2026-11-26/",
+      "summary": "Poland's defence ministry said it will sign a Friday agreement to buy Palantir software using artificial intelligence to support military decision-making. The ministry disclosed no contract value or technical details. Poland began cooperating with the U.S. data-analytics company in 2025 under a memorandum covering AI, information technology and cybersecurity, making the new deal a further step in defence digitisation."
+    },
+    {
+      "title": "Mexico seeking talks with US on SpaceX airspace use",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/autos-transportation/mexico-seeking-talks-with-us-spacex-airspace-use-2026-11-26/",
+      "summary": "Mexico is seeking talks with U.S. aviation authorities about permits for SpaceX to use Mexican airspace and the possibility of relocating launch operations, President Claudia Sheinbaum said. Mexico says debris from Texas launches has reached its territory and raised environmental and airspace concerns. SpaceX says it sent specialists to help identify debris and cited independent tests finding no chemical, biological or toxicological risk."
+    },
+    {
+      "title": "Iberdrola scraps plans for €427 million green ammonia project in Portugal",
+      "source": "Reuters",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sustainability/iberdrola-scraps-plans-427-million-green-ammonia-project-portugal-2026-11-26/",
+      "summary": "Iberdrola cancelled its planned €427 million Green Ammonia Express plant at Sines, Portugal, after reviewing investment priorities. The project was designed to use 137 megawatts of electrolysers to produce about 95,000 tonnes of green ammonia annually for fertilizer and chemical makers. The company said it remained at a preliminary stage; weak demand and high costs have pressured Europe's low-carbon ammonia sector."
+    },
+    {
+      "title": "LATAM Brasil says initial E195-E2 route sales running above expectations",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/aerospace-defense/latam-brasil-says-initial-e195-e2-route-sales-running-above-expectations-2026-11-26/",
+      "summary": "LATAM Brasil says initial sales for routes operated by new Embraer E195-E2 jets are exceeding expectations, CEO Jerome Cadier told Reuters. The airline added six Brazilian destinations and increased frequencies on ten domestic routes while retaining its 24-aircraft order. Cadier said it will take about six months to assess the strategy; higher fuel costs and a strong dollar remain pressures, but the carrier has not changed its growth plans."
+    },
+    {
+      "title": "Germany's IG Metall reaches wage deal with employers",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/world-at-work/germanys-ig-metall-says-wage-deal-has-been-agreed-with-employers-2026-11-26/",
+      "summary": "Germany's IG Metall union reached a wage deal with employers covering 3.7 million workers in the metal and electrical industries. The agreement provides increases of 2.0% from May 2027 and 2.3% from April 2028, plus one-off payments of €150–€450 depending on company returns. The pilot deal is expected to set a pattern nationwide, after 24-hour strikes amid pressure on German automakers and exporters."
+    },
+    {
+      "title": "Brazil not ready yet for household debt-service cap, central bank official says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/americas/brazil-not-ready-yet-household-debt-service-cap-central-bank-official-says-2026-11-26/",
+      "summary": "Brazil's central bank says the country is not ready to cap household debt-service ratios because informal income and varied credit-card use make borrowers' obligations difficult to measure. The bank is consulting on a standardized methodology while monitoring rising debt; household debt service excluding mortgages reached 26.7% in August. New credit rules, including gradual limits for revolving-card users, could affect about 20 million people."
+    },
+    {
+      "title": "Brazil's finance minister to meet Lula on further fiscal measures",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/legal/transactional/brazils-finance-minister-to-meet-lula-further-fiscal-measures-2026-11-26/",
+      "summary": "Brazil Finance Minister Dario Durigan plans to meet President Luiz Inácio Lula da Silva to discuss further steps to restrain public spending. Durigan said the government should use its congressional strength to revisit tax exemptions on some financial products and consider corporate-tax reform, potentially offsetting payroll taxes. The talks signal continued fiscal-tightening debate, but no specific measure or legislative timetable was announced."
+    },
+    {
+      "title": "Former IOC vice-president and trailblazer Anita DeFrantz dies at 74",
+      "source": "Reuters",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/sports/former-ioc-vice-president-trailblazer-anita-defrantz-dies-74-2026-11-26/",
+      "summary": "Anita DeFrantz, an Olympic rowing bronze medallist and pioneering International Olympic Committee leader, has died aged 74, the IOC said. She captained the U.S. rowing team at the 1976 Montreal Games and became the first African American and first American woman to join the IOC in 1986. She later became its first female vice-president and chaired its Women and Sport Commission for nearly two decades."
+    },
+    {
+      "title": "Germany must prepare for two more difficult years with Trump, DIW's Fratzscher says",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/germany-must-prepare-two-more-difficult-years-with-trump-diws-fratzscher-says-2026-11-26/",
+      "summary": "German economic researcher Marcel Fratzscher warned that Germany should prepare for two difficult years under President Donald Trump, citing tariffs, geopolitical conflicts, energy costs and weak private investment. He expects growth above 1% in 2027 but says government spending, not households or businesses, will drive it. Fratzscher also argued the European Central Bank may need two or three rate increases next year to protect credibility."
+    },
+    {
+      "title": "Settlers smash foundations of Palestinian family's homes in West Bank",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/settlers-smash-foundations-palestinian-familys-homes-west-bank-2026-11-26/",
+      "summary": "Reuters reporters saw foundations of two Palestinian family homes damaged by settlers in Jaloud in the occupied West Bank, after the family had been displaced and blocked from returning despite a court order. Israel's military condemned the attack and said it was investigating. U.N. figures cited by Reuters record an average of 53 settler attacks weekly in 2026; rights groups say most investigations close without indictments."
+    },
+    {
+      "title": "China Railway Resources Group plans $600 million investment in Zimbabwe gold mines",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/africa/china-railway-resources-group-plans-600-million-investment-zimbabwe-gold-mines-2026-11-26/",
+      "summary": "China Railway Resources Group signed an agreement to explore investing up to $600 million with Zimbabwe-focused Duration Gold to revive and expand four gold mines. The proposed partnership covers Vubachikwe, Gaika, Athens and Royal Family, and may bring financing, engineering and AI-based mining technology. Zimbabwe produced a record 46.7 tonnes of gold in 2025 as higher prices attracted investment; the agreement is not yet a completed funding commitment."
+    },
+    {
+      "title": "OPEC+ likely to roll over oil output targets for Q1 as capacity disputes persist",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/energy/opec-may-roll-over-current-oil-output-targets-sunday-meeting-sources-say-2026-11-26/",
+      "summary": "OPEC+ is likely to keep current oil-production targets through at least the first quarter of 2027 when ministers meet Sunday, two sources told Reuters. Disagreements over capacity assessments by Iraq and Kazakhstan, alongside disruption from the Iran war, complicate quota decisions. No decision has been made. Forecasts of a large global surplus also weigh on prices, while members debate how to distribute production allowances."
+    },
+    {
+      "title": "UK man found guilty of attempted murder charges over mass train stabbing",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/uk/uk-man-found-guilty-attempted-murder-charges-over-mass-train-stabbing-2026-11-26/",
+      "summary": "A British court convicted Anthony Williams of 14 counts of attempted murder over a 2025 mass stabbing on a London-bound train and four earlier attacks. Williams had admitted carrying out the stabbings but denied intending to kill. Ten people were attacked on the train; no one died. He is expected to be sentenced in early 2027. Police said the case was not treated as terrorism."
+    },
+    {
+      "title": "Ukraine says North Korea temporarily halted missile shipments to ally Russia",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/aerospace-defense/ukraine-says-north-korea-temporarily-halted-missile-shipments-ally-russia-2026-11-26/",
+      "summary": "Ukraine's military intelligence agency claims North Korea temporarily halted some weapons cooperation with Russia, including KN-23 missile and artillery-shell shipments, after a dispute over Moscow's approach to tensions with South Korea. Reuters could not independently verify the account or the statements attributed to officials, and Russia and North Korea did not respond. Pyongyang has supplied weapons to Moscow since 2023 and troops since 2024."
+    },
+    {
+      "title": "EU may vote on authorising Tesla assisted-driving system at Dec 15 meeting",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/technology/eu-may-vote-authorising-tesla-assisted-driving-system-dec-15-meeting-2026-11-26/",
+      "summary": "An EU meeting on December 15 may include a formal vote on authorising Tesla's assisted-driving system across the bloc, according to a new European Commission draft agenda. It is the first time the agenda explicitly mentions a possible vote. Approval would still require at least 15 of 27 member states representing 65% of the EU population; the earlier meeting was postponed from December 1."
+    },
+    {
+      "title": "Australia delays final vote on gas reservation law for LNG exporters to February",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/energy/australia-set-pass-law-lng-exporters-reserve-more-gas-domestic-use-2026-11-26/",
+      "summary": "Australia's Senate passed the second reading of a bill requiring LNG producers to reserve up to 20% of output for domestic use, but delayed the final vote until February 2027 after government amendments. The changes require the bill to return to the House before becoming law. The scheme is due to start in January 2028, with a regulator-set reserve intended to create a modest surplus; producers warn it could deter new supply investment."
+    },
+    {
+      "title": "AP fact check: False maps exaggerate fallout from Iowa lead azide detonation",
+      "source": "Associated Press",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/fact-check-iowa-lead-detonation-fallout-maps-8bed026de43c6c68abf8e7230a6d4f4c",
+      "summary": "AP debunked viral maps that falsely showed lead-dust fallout spreading across the Midwest and East Coast. The Army's official projection showed a more limited plume moving southwest from the Iowa ammunition plant toward northern Missouri. EPA monitors detected no airborne lead around the site immediately after the blast, but agencies and independent researchers plan further testing of water, farms, homes and playgrounds. Whether any lead reached nearby properties remains unresolved."
+    },
+    {
+      "title": "Saudi-led coalition says Houthis attacked Aramco's Jazan refinery",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/saudi-led-coalition-says-houthis-attacked-aramcos-jazan-refinery-2026-11-26/",
+      "summary": "Saudi Arabia's coalition says Houthis attacked Aramco's Jazan refinery, designed to process up to 400,000 barrels of crude per day, and says it later destroyed a missile-launch platform in Hodeidah. The statement follows Houthi claims of attacks on Ras Tanura, Jeddah and Jazan; coalition forces reported drone interceptions but did not specify damage at Jazan. The escalation raises risks for Gulf energy infrastructure and Red Sea shipping."
+    },
+    {
+      "title": "China, Japan, Taiwan and others push back against Trump's new tariff plans",
+      "source": "Associated Press / Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
+      "summary": "China, Japan, Singapore and other U.S. trading partners protested proposed duties on 14 economies following a U.S. excess-capacity investigation. AP says China could face 20%, rising to 40%, Japan 15%, Singapore 20%, the EU 15% and Vietnam 35%; Taiwan expects to retain its previously negotiated 15% rate. The measures are expected early next year and could raise prices or deepen trade friction."
+    },
+    {
+      "title": "World shares advance as Asian markets rebound and Europe rallies on easing tariff fears",
+      "source": "Associated Press / Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
+      "summary": "Global shares advanced as Asian markets rebounded and European benchmarks gained 1.6%–1.9%, while U.S. markets closed for Thanksgiving. AI-linked shares helped Asia, though investors remained wary of tariffs and tech valuations. Before the holiday, the S&P 500 fell 0.3%, Nasdaq 0.6% and Dow rose 0.3%; Brent reached $91.09 amid Middle East supply concerns. Friday's shortened session is the next test."
+    },
+    {
+      "title": "India's top court tightens food warning labels in new setback for industry",
+      "source": "Reuters",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/india/india-tightens-food-warning-labels-proposal-new-setback-industry-2026-11-26/",
+      "summary": "India's Supreme Court ordered separate front-of-pack warnings for high salt, sugar and fat, rejecting a single combined label. It criticised global companies for resisting warning labels in India while using them elsewhere, saying Indian consumers deserve comparable protection. The Food Safety and Standards Authority must implement separate hexagon warnings; companies will have one year to adjust after the final law is issued."
+    },
     {
       "title": "‘Unbelievable catch’: Motorbike passenger in Swat becomes cricket sensation",
       "source": "AFP via Dawn",
@@ -146,14 +322,6 @@
       "summary": "Planet One Group plans to invest $933 million in Senegal's Falémé iron-ore project, partnering with state-owned MIFERSO. The deposit is estimated to contain up to 600 million metric tons. A first $200 million phase would upgrade mining infrastructure, roads and rail, targeting annual output of 3–5 million tons within 12–18 months. China, India and African markets are potential buyers; the full project would be developed in stages."
     },
     {
-      "title": "Stocks rally, Europe sizes up next ECB chief",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
-      "summary": "Global markets rebounded as investors judged proposed U.S. tariffs less severe than feared and unlikely to take effect before February or March. European shares rose nearly 2%, with U.S. futures up about 0.7%; concerns about AI spending and Nvidia's credit-rating review persisted. Oil climbed after reported threats to Saudi energy infrastructure and shipping near the Strait of Hormuz, while the expected ECB leadership change drew little market reaction."
-    },
-    {
       "title": "Thousands march across Spain against violence toward women before election",
       "source": "Euronews",
       "category": "Politics",
@@ -256,14 +424,6 @@
       "published": "2026-11-26",
       "url": "https://www.aljazeera.com/news/2026/11/26/at-least-13-dead-in-indonesia-gold-mine-flood-as-rescue-efforts-intensify",
       "summary": "Flooding at an unauthorised gold mine in West Java killed at least 13 workers and left 13 others missing, local rescue officials said. Hundreds of rescuers faced high water and unstable, poorly lit shafts about 100 metres deep. Authorities said the illegal operation delayed notification, as miners and residents initially tried to pump out water themselves. The search continued, and the toll could change."
-    },
-    {
-      "title": "Australia's domestic gas reservation scheme set to pass with Coalition backing",
-      "source": "ABC News",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.abc.net.au/news/2026-11-26/gas-reservation-scheme-set-to-pass-parliament/107430804",
-      "summary": "Australia's parliament was poised to pass a national gas-reservation law after the Coalition agreed not to oppose it. From 2028, exporters could be required to reserve up to 20% of output for domestic buyers, with the scheme designed to create a modest oversupply and ease east-coast prices; Western Australia would retain its existing system. Producers warn the rules could weaken investment, while the Greens argue an export tax would return more value to Australians."
     },
     {
       "title": "Australia's emissions fall but not fast enough to reach 2035 climate target",
@@ -392,14 +552,6 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/sports/tennis/norrie-gives-britain-early-lead-over-germany-davis-cup-quarter-final-2026-11-26/",
       "summary": "Cameron Norrie beat Germany's Jan-Lennard Struff 6-3, 3-6, 6-2 to give Britain a 1-0 lead in their Davis Cup quarter-final in Bologna. Norrie, ranked 52nd, recovered after losing the second set and finished in 93 minutes. Germany's Alexander Zverev was scheduled to face Arthur Fery next, with a doubles match to follow if needed; the winner advances to Saturday's semi-finals."
-    },
-    {
-      "title": "China and other U.S. trading partners protest Trump's new tariff plans",
-      "source": "Associated Press",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
-      "summary": "China, Japan and other U.S. trading partners protested proposed duties on 14 economies following a U.S. investigation into alleged excess manufacturing capacity. AP reports China faces a 20% tariff that could rise to 40%, Japan up to 15%, Singapore up to 20%, and the EU up to 15%; Vietnam faces up to 35%. The measures are expected early next year and could raise prices."
     },
     {
       "title": "China, Japan, South Korea and ASEAN launch talks on digital payments across borders",
@@ -562,14 +714,6 @@
       "summary": "Hong Kong residents marked the first anniversary of the Wang Fuk Court fire, which killed 168 people, with flowers, prayers and memorials. The government had urged caution about commemorations it said could be exploited for disruption; rights groups and some survivors criticized the warning as chilling public mourning. Survivors remain displaced or in temporary housing, while questions about responsibility and fire-safety reforms remain unresolved."
     },
     {
-      "title": "Houthis claim Saudi refinery attack as coalition reports drone interceptions",
-      "source": "The National / Reuters",
-      "category": "World",
-      "published": "2026-11-26",
-      "url": "https://www.thenationalnews.com/news/gulf/2026/11/26/saudi-arabia-intercepts-wave-of-retaliatory-houthi-attacks/",
-      "summary": "Yemen's Houthis claimed they struck Saudi Arabia's Ras Tanura refinery, while satellite images showed smoke over the area and a source familiar with the matter confirmed an attack to Reuters. Saudi Arabia's coalition said only that it destroyed four drones over Ras Tanura and did not confirm a refinery hit. A separate projectile caused minor damage at Jazan port; 11 people were wounded in an earlier Riyadh tower strike."
-    },
-    {
       "title": "HSBC sees more than 100,000 users of its stablecoin in first month since launch",
       "source": "South China Morning Post",
       "category": "Business",
@@ -592,14 +736,6 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/india-orders-tougher-surveillance-packaged-water-scrutiny-set-cover-pepsico-coca-2026-11-26/",
       "summary": "India’s food regulator ordered states to intensify inspections and risk-based sampling of packaged and mineral water after a Bisleri sample was flagged as unsafe. Reuters reports checks will also cover PepsiCo, Coca-Cola, Tata Consumer and Reliance Consumer in a market worth about $3.5 billion. Bisleri says its own testing found no problem; the regulator says it plans prosecution over alleged non-compliance."
-    },
-    {
-      "title": "India's top court tightens food warning labels in new setback for industry",
-      "source": "Reuters",
-      "category": "Health",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/india/india-tightens-food-warning-labels-proposal-new-setback-industry-2026-11-26/",
-      "summary": "India's Supreme Court ordered separate front-of-pack warnings for high salt, sugar and fat, tightening a government proposal that would have combined them in one label. The court's decision is a setback for the country's food and drinks industry and a win for health advocates seeking clearer consumer information. The food regulator must implement the specified hexagon warnings."
     },
     {
       "title": "Indian farmers sell paddy stubble to biomass firms, reduce burning",
@@ -744,14 +880,6 @@
       "published": "2026-11-26",
       "url": "https://www.theguardian.com/uk-news/2026/nov/26/tube-drivers-strike-will-cause-severe-disruption-to-network-on-thursday-and-friday",
       "summary": "London Underground drivers represented by the RMT began a 24-hour strike at noon Thursday in a dispute over a proposed four-day working week. The union says the plan threatens existing protections and could mean longer, less predictable shifts; Transport for London says the pattern is voluntary. Piccadilly and Circle lines were expected to be suspended, with wider disruption continuing into Friday."
-    },
-    {
-      "title": "Lukoil's global retreat driven by politics, co-founder says",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/energy/lukoils-global-retreat-driven-by-politics-co-founder-says-2026-11-26/",
-      "summary": "Lukoil co-founder Vagit Alekperov said Western sanctions, rather than a voluntary business decision, drove the Russian oil major's planned withdrawal from overseas markets. He said the company still hopes to return internationally. The portfolio spans about 40 countries and produces roughly 350,000 barrels a day; Todd Boehly has signed a proposed deal with a U.S.-backed consortium to acquire the assets, subject to approvals."
     },
     {
       "title": "Major League Baseball sues players’ union ahead of lockout, trying to block possible antitrust suit",
@@ -1184,6 +1312,30 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/media-telecom/wife-of-japanese-journalist-detained-russia-pleads-his-release-2026-11-26/",
       "summary": "Yuki Imai, a 34-year-old Hokkaido Shimbun reporter detained in Russia on espionage allegations, remains in Moscow's Lefortovo detention centre. His wife appealed for his release, saying their 21-month-old daughter has barely seen him; Japanese diplomats have been allowed two visits. Japan rejects the spying claim, while Russia has not publicly disclosed evidence, leaving the case a growing bilateral irritant."
+    },
+    {
+      "title": "European Commission approves sustainability agreement between Bordeaux wine producers",
+      "source": "Agence Europe",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://agenceurope.eu/en/bulletin/article/13990/32/european-commission-approves-sustainability-agreement-between-bordeaux-wine-producers",
+      "summary": "The European Commission approved a two-year arrangement allowing Bordeaux producers meeting organic or High Environmental Value standards to set annual reference prices and negotiate final prices collectively with willing buyers. Reference prices will be based on production costs plus a profit margin of up to 20%. Brussels said the scheme supports sustainable production as growers face oversupply, changing tastes and price-conscious consumers."
+    },
+    {
+      "title": "US-led consortium agrees to acquire assets from Russian oil company Lukoil",
+      "source": "Associated Press",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/russia-ukraine-war-us-sanctions-oil-lukoil-8d5df1befb2ebb2a0ce4f6b259fcdf14",
+      "summary": "An investor group led by U.S. asset manager Eldridge, including the U.S. International Development Finance Corp., UAE-based Catena and Xtellus Capital, agreed to acquire Lukoil International, which holds non-Russian oil and gas assets in 11 countries producing about 350,000 barrels of oil equivalent daily. The proposed exchange would swap restricted Russian shares for the assets' liquidity, avoiding a direct cash payment to Russia; approvals remain required."
+    },
+    {
+      "title": "Global fragrance makers hit with nearly $517 million EU fine for taking part in cartel",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/world/eu-antitrust-regulators-fine-3-global-fragrance-makers-5165-million-taking-part-2026-11-25/",
+      "summary": "EU regulators fined Firmenich, Givaudan and International Flavors & Fragrances €471.9 million for a four-year cartel involving sensitive pricing and commercial information shared around dealings with Unilever. Britain's CMA separately imposed £85 million in fines for similar conduct. The companies admitted wrongdoing and received reductions for cooperation; the case has also prompted U.S. class actions and an investigation in India."
     },
     {
       "title": "‘It’s been really a mess’: Meta insiders concerned over push to AI content moderation",
@@ -1688,14 +1840,6 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/environment/2026/nov/25/coastal-areas-england-at-risk-erosion-11m-funding-drones-ea",
       "summary": "Britain will distribute more than £11 million across 12 council-led projects to help English coastal communities monitor erosion and plan for rising seas. Measures include laser-equipped drone surveys, dune restoration, 3D modelling and moving roads inland. The Environment Agency estimates 3,500 properties could be at risk by 2055 and over 10,000 by 2105. The funding is intended to support earlier planning; it cannot prevent all shoreline retreat or protect every property."
-    },
-    {
-      "title": "EU postpones discussion to approve Tesla's self-driving tech",
-      "source": "Reuters",
-      "category": "Technology",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/autos-transportation/eu-postpones-discussion-approve-teslas-self-driving-tech-2026-11-25/",
-      "summary": "The European Union postponed a committee meeting that could consider bloc-wide approval of Tesla’s assisted-driving system from December 1 to December 15. A vote may occur then, but approval would require support from 15 member states representing 65% of the EU population. The delay follows two earlier meetings without a vote after the Netherlands granted preliminary approval in April."
     },
     {
       "title": "Europe plans €50 billion sovereign tech equity fund to boost quantum technology",
@@ -2232,14 +2376,6 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/davos/lme-tightens-rules-response-aluminium-squeeze-2026-11-25/",
       "summary": "The London Metal Exchange temporarily tightened short-term aluminium trading rules after falling inventories and concentrated holdings drove immediate-delivery premiums to their highest level since 1988. The changes require large holders of stock warrants and short-term futures to make metal available at capped prices. Available exchange inventories have more than halved this year. The LME says it will keep monitoring the market and may take further action if the squeeze persists."
-    },
-    {
-      "title": "Major fragrance suppliers fined £85 million by the CMA for illegal collusion",
-      "source": "UK Competition and Markets Authority",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.gov.uk/government/news/major-fragrance-suppliers-fined-85-million-by-the-cma-for-illegal-collusion",
-      "summary": "The UK Competition and Markets Authority fined Firmenich, Givaudan and International Flavors & Fragrances a combined £85 million after finding they shared sensitive information on pricing and commercial negotiations. The regulator said some firms coordinated price increases and agreed not to hire staff assigned to a major customer. The companies admitted breaking competition law; the fragrances are used in household cleaners, detergents, perfumes and colognes."
     },
     {
       "title": "Malawi hospitals face worst essential-medicine shortages in more than a decade",
@@ -2808,14 +2944,6 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/commentary/breakingviews/tata-forges-steel-takeover-with-brute-force-2026-11-25/",
       "summary": "Tata Steel's proposed combination with Indian steel-tube maker APL Apollo could create a business with 7.5 million metric tons of annual capacity, but the deal structure has angered investors. Tata plans to sell its finished-products unit, buy a major stake from APL Apollo's chair and make a further open offer. A separate manufacturing agreement for the chair's private firm has raised governance concerns, while both companies' shares fell sharply."
-    },
-    {
-      "title": "The Latest: All 5 tons of lead azide were successfully destroyed in Iowa detonation, Army says",
-      "source": "Associated Press",
-      "category": "Environment",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/77fa69b9e88b46c5d1adc29841d2b4cc",
-      "summary": "The Army said it destroyed all five tons of degraded lead azide without secondary explosions or infrastructure damage. EPA monitors detected no airborne lead immediately after the blast or more than an hour later; the agency had collected over 1,200 baseline samples and plans further air, soil and water testing. Officials called the operation successful, but environmental effects on nearby farms and communities remain under assessment."
     },
     {
       "title": "These young Republicans have a message for their party: It’s time to ‘grow up’",
