@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T08:11:26.000Z",
+  "updatedAt": "2026-11-26T08:57:18.000Z",
   "articles": [
     {
       "title": "Sinner to miss Australian Open after undergoing surgery on knee injury",
@@ -79,7 +79,7 @@
       "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/markets/asia/south-koreas-central-bank-resumes-tightening-with-quarter-point-hike-2026-11-26/",
-      "summary": "The Bank of Korea raised its benchmark rate by 0.25 percentage point to 3.25%, its highest since November 2024, resuming tightening after an October pause. It lifted its 2026 growth forecast to 3.9% and 2027 outlook to 4.1%, citing strong semiconductor exports, while forecasting 2.4% inflation in 2027. October inflation remained 2.8%, above the 2% target, and rising Seoul housing prices add pressure."
+      "summary": "The Bank of Korea raised its benchmark rate by 0.25 point to 3.25%, citing inflation and financial-stability risks as semiconductor exports surge. It raised its 2026 growth forecast to 3.9% and 2027 to 4.1%, while October inflation was 2.8%. Household debt reached a record 2,030 trillion won, and two of seven policy-board members preferred holding rates at 3%, AP reported."
     },
     {
       "title": "Black Friday? No thanks, some brands say",
@@ -111,7 +111,7 @@
       "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
-      "summary": "Asian shares rebounded as investors judged the latest U.S. tariff proposals less damaging than feared; Reuters reported the new duties are not expected to stack on July's tariffs and may not begin until February or March. Japan's Nikkei gained 1.6%, South Korea's index 1.9%, and U.S. futures rose, while Nvidia remained under credit-rating scrutiny."
+      "summary": "European shares rebounded 1.4% Thursday as banks and technology stocks recovered, extending an Asia-led market bounce. Investors judged proposed U.S. tariffs may be less severe than feared, with EU duties likely capped at the previously agreed 15% rate. The move followed a sharp selloff driven by inflation, interest-rate and AI-growth concerns; market direction remains sensitive to policy details and earnings expectations."
     },
     {
       "title": "Indonesian rescuers resume search for 13 people trapped inside illegal mine after 13 confirmed dead",
@@ -194,12 +194,12 @@
       "summary": "Australian pensioners say rules for the Support at Home program leave subsidised cleaners unable to move chairs, bend down or reach high surfaces, even when clients pay substantial hourly fees. ABC found some clients were billed up to A$135 an hour while workers received A$32–36. Providers cite safety and liability rules; a Senate inquiry is due to report next year."
     },
     {
-      "title": "Oil rises on supply concerns as Iran claims mine strikes on ships",
+      "title": "Oil little changed as supply concerns linger after Iran claims mine strikes on ships",
       "source": "Reuters",
-      "category": "World",
+      "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/energy/oil-rises-supply-concerns-iran-claims-mine-strikes-ships-2026-11-26/",
-      "summary": "Brent rose to $94.71 and U.S. WTI to $84.03 in early Asian trade as traders weighed Houthi claims of an attack on Saudi Arabia's Ras Tanura refinery and Iranian reports that tankers hit mines in the Strait of Hormuz. The tanker claims were not independently verified. Reuters said shipping risks could interrupt recovering Gulf exports ahead of OPEC+'s November 29 output-policy meetings."
+      "summary": "Crude was little changed Thursday after a sharp prior-session rise: Brent slipped 0.1% to $94.52 a barrel while WTI gained 0.2% to $83.83. Traders weighed Houthi claims of an attack on Saudi Arabia's Ras Tanura refinery and Iranian reports of tanker mine strikes in the Strait of Hormuz. The reported mine incidents were not independently verified; OPEC+ ministers meet November 29 on 2027 output policy."
     },
     {
       "title": "US officials divided over Chinese spying allegations following Jensen Huang's return",
@@ -482,6 +482,126 @@
       "summary": "Chinese consumer-rights advocate Wang Hai is stranded in South Korea with his wife and two children after fleeing a crackdown on people accused of making 'malicious compensation claims.' Wang says staff were detained, his offices closed and his accounts frozen; South Korea rejected the family's asylum applications and the U.S. revoked his tourist visa. He has appealed and is seeking resettlement elsewhere, while Beijing says it is unaware of his case."
     },
     {
+      "title": "India asks Netflix not to air Pakistani show, local media report",
+      "source": "Reuters",
+      "category": "Entertainment",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/media-telecom/india-asks-netflix-not-air-pakistani-show-local-media-report-2026-11-26/",
+      "summary": "India's government has asked Netflix not to stream a Pakistani series in the country, Reuters reported, following a complaint from a film-workers' union. The series, Netflix's first Urdu-language production, is scheduled for global release on December 4. Officials cited an earlier commitment not to offer Pakistan-originated content in India; Netflix had not responded to Reuters, and the reported request's legal status remains unclear."
+    },
+    {
+      "title": "Kenya cult leader found guilty of new assault and cruelty charges",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/kenya-cult-leader-paul-mackenzie-conviction-e4024cd1ff2e2ddce24b89ee0756b2c4",
+      "summary": "Kenyan preacher Paul Mackenzie was found guilty of assault and cruelty to children in a new case linked to his Good News International Church. A court said six children were allegedly forced to fast and punished if they tried to eat or escape; 11 followers were charged and 24 people acquitted. Mackenzie, already serving 200 years for the deaths of 191 people, is due to be sentenced on the new charges December 17."
+    },
+    {
+      "title": "DR Congo Ebola cases surpass 12,000 as fighting disrupts response in east",
+      "source": "Al Jazeera",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.aljazeera.com/news/2026/11/26/dr-congo-ebola-cases-surpass-12000-as-fighting-disrupts-response-in-east",
+      "summary": "Confirmed Ebola cases in the Democratic Republic of Congo have surpassed 12,000, government data cited by Al Jazeera show, as fighting in Ituri disrupts the response. About a dozen people, including two WHO personnel and Congolese health workers, were evacuated after being trapped in a hospital for three days. Clashes have displaced civilians and forced response teams from affected areas, complicating surveillance, treatment and containment."
+    },
+    {
+      "title": "Gold drifts lower as Fed rate-hike fears loom",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/india/gold-steadies-after-hitting-over-1-year-low-fed-outlook-focus-2026-11-26/",
+      "summary": "Spot gold was down 0.4% at $3,565.41 an ounce by 0830 GMT after briefly falling below $3,500 the previous day, its first move under that level since September 2025. Reuters attributed pressure to persistent U.S. inflation and expectations of further Federal Reserve rate hikes. Higher rates make non-yielding bullion less attractive, though central-bank buying and future market shocks could support prices."
+    },
+    {
+      "title": "Saudi Arabia intercepts wave of retaliatory Houthi attacks",
+      "source": "The National",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.thenationalnews.com/news/gulf/2026/11/26/saudi-arabia-intercepts-wave-of-retaliatory-houthi-attacks/",
+      "summary": "Saudi Arabia said it intercepted two Houthi ballistic missiles aimed at Riyadh and two drones over its Eastern Province, while a projectile caused minor damage at Jazan port without reported civilian injuries. The Houthis also claimed attacks on Jeddah and the Ras Tanura oil complex; the coalition said it intercepted four drones near the refinery. The competing claims leave the full extent of damage uncertain as attacks spread across ports and energy sites."
+    },
+    {
+      "title": "Trump's new tariffs aim to prise global trade from China's grip",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/trumps-new-tariffs-aim-prise-global-trade-chinas-grip-2026-11-26/",
+      "summary": "Washington's latest tariff plan is designed to pressure China by adding a proposed 20% duty to existing 25% first-term levies, Reuters reports. The proposal leaves room for tariffs to reach 40% if the current trade truce expires in January and uses measures on third countries to push partners to curb Chinese exports. The administration says the measures fit within the truce; implementation and scope remain subject to review."
+    },
+    {
+      "title": "Hong Kong marks deadly fire anniversary with flowers, prayers and tears",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/hong-kong-fire-anniversary-wang-fuk-court-98fa6c7d0db5ea7089f6dce02142b509",
+      "summary": "Hong Kong residents marked the first anniversary of the Wang Fuk Court fire, which killed 168 people, with flowers, prayers and memorials. The government had urged caution about commemorations it said could be exploited for disruption; rights groups and some survivors criticized the warning as chilling public mourning. Survivors remain displaced or in temporary housing, while questions about responsibility and fire-safety reforms remain unresolved."
+    },
+    {
+      "title": "Japan property investment hits record as global funds target Tokyo and Osaka",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/japan-property-draws-global-money-easy-gains-fade-rates-rise-2026-11-26/",
+      "summary": "Commercial property investment in Japan reached a quarterly record of 2.21 trillion yen ($13.9 billion) in the third quarter, up 4% year over year, while overseas purchases rose 30%, Reuters reported. Investors are targeting Tokyo and Osaka offices, hotels, logistics and data centres as rents rise and vacancies tighten. Higher interest rates, yen volatility and development costs are making leveraged core assets less attractive, so advisers favour selective, value-adding deals."
+    },
+    {
+      "title": "Investors turn bullish on Indian rupee as Southeast Asian currency bets sour",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/indian-rupee-bulls-return-after-18-months-rupiah-bears-tighten-grip-2026-11-26/",
+      "summary": "A Reuters poll found investors bullish on the Indian rupee for the first time in 18 months, supported by more than $14 billion in November foreign-equity inflows and lower oil prices. The rupee recently reached an eight-month high, while bearish bets increased on the Indonesian rupiah, Thai baht and Philippine peso. Analysts caution the rupee's gains may be tactical as reserve rebuilding and a strong dollar could reverse the trend."
+    },
+    {
+      "title": "Bank of Japan earnings fall as interest payments on reserves climb",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/markets/asia/bojs-net-income-shrinks-interest-payments-excess-reserves-grow-2026-11-26/",
+      "summary": "Bank of Japan net income fell to 1.55 trillion yen in the first half of fiscal 2026 from 1.71 trillion a year earlier as higher rates increased payments on banks' excess reserves. The BOJ spent 1.91 trillion yen on reserve interest, exceeding income from government bonds, while ETF dividends partly offset the cost. The figures illustrate how policy normalisation is reshaping the central bank's balance sheet."
+    },
+    {
+      "title": "China urges Japan to stay out of South China Sea disputes",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/chinas-defence-ministry-urges-japan-stop-stirring-up-south-china-sea-disputes-2026-11-26/",
+      "summary": "China's defence ministry told Japan to stop commenting on South China Sea disputes, arguing Tokyo is not a party to them. The remarks followed Japan's plan to provide the Philippines with coastal-surveillance radars and drones. Beijing's claims overlap those of several Southeast Asian states; a 2016 international tribunal rejected the legal basis for China's expansive claims, a ruling Beijing continues to reject."
+    },
+    {
+      "title": "Pakistan, Saudi Arabia and Turkey to meet on mutual defence pact",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/asia-pacific/pakistan-saudi-turkey-hold-mecca-alliance-meeting-islamabad-nov-27-28-sources-2026-11-26/",
+      "summary": "Pakistan, Saudi Arabia and Turkey will meet in Islamabad on November 27–28 to discuss their mutual-defence agreement, two Pakistani sources told Reuters. The Saudi and Turkish foreign ministers are expected to attend. The pact was signed in Mecca in August as regional tensions rose over the US-Israeli war with Iran. The meeting could deepen security coordination among three influential Muslim-majority states, but no new commitments were announced."
+    },
+    {
+      "title": "Iraq court sentences eight French nationals to life for joining Islamic State",
+      "source": "Arab News (AFP)",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.arabnews.com/middle-east/iraq-court-sentences-8-french-nationals-to-life-in-prison-for-joining-is-3014089",
+      "summary": "An Iraqi court sentenced eight French nationals to life in prison for joining the Islamic State group, AFP reported. Two other French defendants received 15-year terms, while verdicts for 10 more were postponed. The cases follow transfers of foreign detainees from Syria to Iraq, where authorities have been processing people accused of joining the group. The convictions and remaining proceedings may carry diplomatic and human-rights implications."
+    },
+    {
+      "title": "Israel kills nine Palestinians in Gaza strikes despite ceasefire, medics say",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/middle-east/israel-kills-nine-gaza-including-hamas-appointed-deputy-education-minister-2026-11-26/",
+      "summary": "Israeli strikes and gunfire killed at least nine Palestinians in Gaza overnight, medics told Reuters, including Hamas-appointed deputy education minister Khaled Abu Nada and his wife. Separate strikes killed six people in Gaza City, and later gunfire killed a man in Bureij. Israel said Abu Nada managed Hamas financial networks; Hamas confirmed his death but did not address the allegation. The attacks continued despite the year-old ceasefire."
+    },
+    {
+      "title": "FedEx airplane overruns runway at Miami airport, disrupting Thanksgiving travel",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/miami-airport-fedex-plane-off-runway-07567f757a4cef4356dfa4fc3bf5e561",
+      "summary": "A FedEx MD-11 arriving from Memphis overran a runway at Miami International Airport around 8:40 p.m. Wednesday, temporarily closing all but one runway and causing hourslong delays into Thanksgiving morning. Authorities reported no injuries. The FAA is investigating, and FedEx said the aircraft experienced an issue on landing. The incident revived attention to runway safety after a separate fatal cargo-plane overrun at the airport in September."
+    },
+    {
       "title": "Microsoft declares ‘Code Red’ after huge Outlook outage",
       "source": "The Verge",
       "category": "Technology",
@@ -640,14 +760,6 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/sports/cricket/tardy-batter-bowled-out-without-facing-ball-2026-11-25/",
       "summary": "Melbourne Renegades batter Deandra Dottin was timed out in Australia's Women's Big Bash League after failing to reach the crease within a new 75-second limit. Brisbane Heat bowler Sarah Glenn hit the unattended stumps before Dottin faced a delivery. Renegades captain Sophie Molineux said the team made the call too late, calling it an unusual lesson for future matches."
-    },
-    {
-      "title": "Bollywood union asks Modi to bar Netflix's Pakistani series in India",
-      "source": "Reuters",
-      "category": "Entertainment",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/media-telecom/bollywood-union-asks-modi-bar-netflixs-pakistani-series-india-2026-11-25/",
-      "summary": "India's All Indian Cine Workers Association urged Prime Minister Narendra Modi to block Netflix's Pakistani series 'Jo Bachay Hain Sang Samait Lo,' scheduled for December 4, and called for a permanent law penalizing Pakistani content. The union cited security tensions between the countries. Netflix and Modi's office did not immediately comment; the request could test streaming platforms' obligations in a major market."
     },
     {
       "title": "Brazil announces new credit rules to curb household indebtedness",
@@ -838,8 +950,8 @@
       "source": "Associated Press",
       "category": "Entertainment",
       "published": "2026-11-25",
-      "url": "https://abcnews.com/International/wireStory/new-miss-universes-puerto-rican-hometown-celebrates-historic-138441440",
-      "summary": "Puerto Rican contestant Jennifer Barreto, 27, won Miss Universe 2026, becoming the pageant’s first married mother to take the title. Her hometown of San Sebastián celebrated with public viewing parties and a caravan after the final. Barreto is Puerto Rico’s sixth winner, ending a 20-year wait for the island. The pageant began allowing married women and mothers to compete in 2023."
+      "url": "https://apnews.com/article/puerto-rico-miss-universe-jennifer-barreto-san-sebastian-07be8adc7195eecbd5d728f727eacf56",
+      "summary": "Jennifer Barreto's hometown of San Sebastián celebrated her Miss Universe 2026 win with a public viewing party and a jubilant motorcade. The 27-year-old became the pageant's first married mother to win and Puerto Rico's sixth titleholder, ending a 20-year wait for the island. The organization began allowing married women and mothers to compete in 2023, a change that continues to draw debate about pageant rules and ideals."
     },
     {
       "title": "Ukrainian drones attacked industrial facilities in Russia's Syzran, authorities say",
@@ -1023,7 +1135,7 @@
       "category": "Technology",
       "published": "2026-11-25",
       "url": "https://apnews.com/article/b9897fe06f851ffaf92fd304ae69075c",
-      "summary": "The FCC authorized SpaceX to deploy up to one million Starmind satellites for orbital AI data centers, requiring at least one station by 2033 and gradual expansion through 2040. Scientists questioned the plan's feasibility, citing heat removal in vacuum, launch and reentry pollution, orbital collisions, debris and interference with astronomy. The license does not guarantee the constellation will be built."
+      "summary": "The FCC authorized SpaceX's Starmind plan for up to one million orbital data-centre satellites, with deployment to begin by November 2033, 100,000 due by 2035 and half the maximum by 2038. The authorization does not guarantee the full constellation will be built. Scientists have raised concerns about heat removal, launch emissions, orbital debris, collisions and interference with astronomy."
     },
     {
       "title": "Fed policymakers at odds over causes of high inflation",
@@ -1058,28 +1170,12 @@
       "summary": "Judges in Benjamin Netanyahu's corruption trial recommended dropping one bribery case and reconsidering another, saying a conviction in the main case appeared unlikely. The recommendation is not a ruling; Attorney General Gali Baharav-Miara said prosecutors would review the court's comments. Netanyahu denies wrongdoing. The cases concern alleged regulatory favors for favorable media coverage and a proposed deal with a newspaper publisher."
     },
     {
-      "title": "Kenyan cult leader serving 200-year murder sentence convicted of new charges",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/africa/kenyan-cult-leader-serving-200-year-murder-sentence-convicted-new-charges-2026-11-25/",
-      "summary": "Kenyan preacher Paul Mackenzie, already serving a 200-year sentence over the Shakahola starvation deaths, was convicted of five counts of child cruelty and one assault charge. A magistrate said he instructed followers to make children fast first; Mackenzie had pleaded not guilty and will be sentenced later. He was acquitted on other counts and still faces separate terrorism and manslaughter proceedings."
-    },
-    {
       "title": "Former Nazi guest house 'Eagle's Nest' being renovated after blaze",
       "source": "Reuters",
       "category": "Curious news",
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/former-nazi-guest-house-eagles-nest-being-renovated-after-blaze-2026-11-25/",
       "summary": "Workers are repairing Bavaria's Eagle's Nest, the former Nazi guest house, after an October fire destroyed its roof and remaining original furniture. A man suspected of starting the blaze is being held in a psychiatric facility while the investigation continues. The site once drew about 300,000 visitors annually. Critics say it should remain in ruins to deter neo-Nazi pilgrimages; operators argue preservation supports monitored remembrance."
-    },
-    {
-      "title": "Fighting in eastern Congo forces Ebola workers to evacuate, threatening outbreak response",
-      "source": "Associated Press",
-      "category": "Health",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/ebola-congo-who-fighting-rebels-evacuation-ff1890d63ca7f3c3a8beeb127727e5cd",
-      "summary": "Fighting in eastern Democratic Republic of Congo forced about a dozen people, including two WHO staff and Congolese health officials, to evacuate a hospital after being trapped for three days. Clashes are blocking surveillance, patient transfers, supplies and safe burials; attacks in neighboring North Kivu have displaced more than 20,000 people and disrupted contact tracing. Government data cited by AP put the outbreak above 11,700 cases and 5,700 deaths."
     },
     {
       "title": "Israeli opposition advances October 7 attack probe opposed by Netanyahu",
@@ -1122,20 +1218,20 @@
       "summary": "The Fed's latest Beige Book found slight-to-moderate growth in eight districts and no change in four, while consumer spending was flat and firms reported persistent energy, transport, health-care, insurance and tariff costs. AI-related data-center investment remained strong. The report adds business-level context ahead of the December meeting; October PCE inflation was 3.8% year over year, with core inflation at 3.3%, Reuters reported."
     },
     {
-      "title": "Two men in court accused of stealing cufflinks from Prince William's house",
-      "source": "The Guardian",
-      "category": "World",
+      "title": "2 men charged over break-in at Prince William and Princess Catherine's country home",
+      "source": "Associated Press",
+      "category": "Curious news",
       "published": "2026-11-25",
-      "url": "https://www.theguardian.com/uk-news/2026/nov/25/two-charged-burglary-trespass-prince-princess-wales-home-norfolk",
-      "summary": "Two men appeared in a Norwich court accused of breaking into Anmer Hall, the Prince and Princess of Wales's Norfolk residence, and stealing six pairs of cufflinks and a clock. Prosecutors said they climbed a drainpipe to reach a dressing room; a third suspect remains at large. The defendants were remanded in custody and did not enter pleas. Kensington Palace said it would not comment on security matters."
+      "url": "https://apnews.com/article/prince-william-kate-home-break-police-3d46c539369cd1d397f3303dfac0bfdb",
+      "summary": "Two Albanian men were charged after prosecutors said they climbed a drainpipe and broke into Anmer Hall, the Norfolk country home of Prince William and Catherine, stealing a clock and six pairs of cufflinks. Police arrested them nearby after a search involving dogs, drones and a helicopter; a third suspect remains at large. No royals were at the property, and the defendants were remanded pending another hearing."
     },
     {
-      "title": "Iraq's top court backs federal troop deployment and Baghdad control of Kurdistan borders",
-      "source": "Reuters",
-      "category": "World",
+      "title": "Iraq to hold national dialogue on constitutional dispute with Kurdish Regional Government",
+      "source": "Anadolu Agency",
+      "category": "Politics",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/middle-east/iraqs-top-court-says-baghdad-can-deploy-troops-secure-borders-kurdistan-region-2026-11-25/",
-      "summary": "Iraq's Federal Supreme Court ruled that Baghdad may deploy federal forces along all international borders, including crossings in the semi-autonomous Kurdistan region, and oversee border agencies and oil fields. The decision backs Prime Minister Ali al-Zaidi's effort to centralize security and resource control after ordering federal forces to take over Kurdish-run crossings. Kurdish authorities rejected what they called military threats and urged talks."
+      "url": "https://www.aa.com.tr/en/politics/iraq-to-hold-national-dialogue-on-constitutional-dispute-with-kurdish-regional-government/4138066",
+      "summary": "Iraq's four top state authorities agreed to hold a national dialogue on December 1 to address constitutional disputes between Baghdad and the Kurdistan Regional Government. Tensions centre on oil fields, border crossings and the distribution of federal powers. The initiative follows a court ruling backing federal authority and comes amid Kurdish objections to troop and border-control moves. Whether talks ease the standoff will depend on both sides' willingness to compromise."
     },
     {
       "title": "The Latest: All 5 tons of lead azide were successfully destroyed in Iowa detonation, Army says",
@@ -1394,12 +1490,12 @@
       "summary": "Bulgarian authorities intercepted a boat carrying 35 migrants after it entered the country's Black Sea waters and came ashore near Sinemorets. Children were among those taken for medical care and warm clothing, regional officials told state news agency BTA. Bulgaria recorded about 7,000 attempted entries by land and sea in the first nine months of 2026, down from roughly 12,270 during the same period in 2025."
     },
     {
-      "title": "Cambodia and China begin largest Golden Dragon joint military exercise",
-      "source": "Associated Press (via The Washington Post)",
+      "title": "Cambodia hosts Chinese military for largest Golden Dragon joint exercise yet",
+      "source": "Associated Press",
       "category": "World",
       "published": "2026-11-25",
-      "url": "https://www.washingtonpost.com/world/2026/11/25/cambodia-china-military-army-naval-base/9149a1b0-e8bf-11f1-8db0-6f1e3c389e7c_story.html",
-      "summary": "Cambodia and China began their eighth Golden Dragon joint military exercise, described by Cambodian officials as the largest since the drills started in 2016. The 15-day program includes counterterrorism, anti-piracy, humanitarian assistance and disaster relief. The cooperation underscores Beijing’s close relationship with Phnom Penh and draws attention to the Chinese-funded expansion of Cambodia’s Ream Naval Base, which Cambodia says is open to friendly navies."
+      "url": "https://apnews.com/article/cambodia-china-military-army-naval-base-45c1eb364c82c346340916e6174ea8e3",
+      "summary": "Cambodia and China began their eighth Golden Dragon joint military exercise, a 15-day drill AP describes as the largest since the series started in 2016. Activities include counterterrorism, humanitarian assistance, anti-piracy and disaster relief. The exercise comes as China helps fund the expanded Ream Naval Base, raising concerns about its strategic role; Cambodia denies granting Beijing a foreign military base."
     },
     {
       "title": "Cardamom advertisement sparks legal dispute between Bollywood actor and Indian regulator",
@@ -1594,14 +1690,6 @@
       "summary": "Global daily temperatures exceeded 2°C above preindustrial levels for six consecutive days for the first time, reaching 2.24°C above baseline on Monday, according to data reviewed by The Guardian. Scientists stress that a short daily streak does not mean the Paris Agreement's long-term threshold has been breached. They link the spike to human-caused warming and a strong El Niño, warning that drought and forest fires can amplify carbon buildup."
     },
     {
-      "title": "Gold falls 3% to more than one-year low after data shows US inflation rose further",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/india/gold-ticks-lower-ahead-us-inflation-data-2026-11-25/",
-      "summary": "Gold fell more than 3% on November 25, with spot bullion near $3,446 an ounce, its lowest level since August 2025. Investors reacted to stronger U.S. inflation data and expectations of a Federal Reserve rate increase in December. Higher interest rates make non-yielding gold less attractive, while fresh tariff and geopolitical risks add uncertainty to the outlook."
-    },
-    {
       "title": "GSK reports twice-yearly asthma drug matched Nucala in late-stage immune-disorder study",
       "source": "Reuters",
       "category": "Health",
@@ -1640,14 +1728,6 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/business/environment/hong-kong-wildlife-groups-push-tighter-exotic-pet-rules-after-37-million-imports-2026-11-25/",
       "summary": "Conservation groups say Hong Kong imported 3.7 million live exotic animals from 86 countries and jurisdictions between 2020 and 2025, roughly 80 each hour. They are urging authorities to create an approved-species list and update rules that currently exclude some amphibians and invertebrates. Researchers warn poorly regulated trade can spread pathogens and parasites to people and native wildlife. Hong Kong's agriculture department had not responded to Reuters by publication."
-    },
-    {
-      "title": "Houthis say they attacked Saudi Arabia's Ras Tanura refinery",
-      "source": "Reuters / Associated Press",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-oil-refinery-riyadh-financial-district-2026-11-25/",
-      "summary": "Yemen's Houthis claimed attacks on Saudi Arabia's Ras Tanura refinery, Riyadh's financial district and the ports of Jeddah and Jizan. Saudi-led forces said they intercepted four drones aimed at the refinery, while Reuters cited imagery and a source indicating a hit. Brent crude rose 3.5% to $94.61 and WTI gained 2% to $83.68; the full damage remains disputed."
     },
     {
       "title": "In landmine-ravaged Myanmar, a rebel with an artificial leg vows to fight on",
@@ -1762,12 +1842,12 @@
       "summary": "The London Metal Exchange temporarily tightened short-term aluminium trading rules after falling inventories and concentrated holdings drove immediate-delivery premiums to their highest level since 1988. The changes require large holders of stock warrants and short-term futures to make metal available at capped prices. Available exchange inventories have more than halved this year. The LME says it will keep monitoring the market and may take further action if the squeeze persists."
     },
     {
-      "title": "Bad weather postpones Macy’s Thanksgiving Day Parade for first time ever",
-      "source": "Associated Press",
+      "title": "Powerful storm threatens East Coast with damaging winds, power outages, coastal flooding",
+      "source": "ABC News",
       "category": "U.S.",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/macys-thanksgiving-parade-postponed-weather-cdc870899c8dc2d32a0ac3d86119b3ba",
-      "summary": "Organizers moved the 100th Macy’s Thanksgiving Day Parade from Thursday to Saturday at 8:30 a.m. after forecasts of dangerous wind and rain raised risks for spectators and balloons. New York issued high-wind and coastal-flood warnings; NBC will rerun last year's parade on Thursday. Several Broadway shows plan to participate Saturday, but the University of Alabama band will leave for its football game."
+      "url": "https://abcnews.com/US/powerful-storm-threatens-east-coast-hurricane-level-flooding/story?id=138435983",
+      "summary": "More than 80 million people from Georgia to Massachusetts were under wind alerts as a powerful East Coast storm threatened damaging gusts, heavy rain and coastal flooding. New York and New Jersey declared emergencies, and organizers moved the 100th Macy's Thanksgiving Day Parade to Saturday at 8:30 a.m. ET. The delay reflects safety concerns for spectators and large balloons as king tides amplify coastal-water risks."
     },
     {
       "title": "Major fragrance suppliers fined £85 million by the CMA for illegal collusion",
@@ -2074,14 +2154,6 @@
       "summary": "Several dozen young Republicans in Tarrant County, Texas, met after the party’s midterm losses to discuss its direction. Many criticized personal attacks, infighting and limited progress on affordability, while urging stronger leadership and a return to conservative principles. Others favored a harder line. The discussion offers a local snapshot of tensions over Trump’s influence as Republicans look toward 2028."
     },
     {
-      "title": "Trump unveils new tariffs over excess industrial capacity, undeterred by midterms defeat",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/china/us-proposes-new-tariffs-14-trading-partners-fight-excess-factory-capacity-2026-11-25/",
-      "summary": "The Trump administration proposed Section 301 tariffs on 14 trading partners, citing excess industrial capacity. China faces 20% under the current truce and 40% if it expires; India would face 17% with a trade deal or 25% without one, while the EU, Japan, South Korea and Taiwan have 15% caps. The measures await a January 25 hearing, would not stack on several existing duties, and were rejected by Beijing."
-    },
-    {
       "title": "U.S. new home sales jump to 10-month high as builders cut prices",
       "source": "Reuters",
       "category": "Business",
@@ -2124,10 +2196,10 @@
     {
       "title": "UK nuclear test veterans win 40-year battle for inquiry into Cold War tests",
       "source": "Associated Press",
-      "category": "World",
+      "category": "Health",
       "published": "2026-11-25",
       "url": "https://apnews.com/article/britain-nuclear-test-veterans-cold-war-pacific-2b54ada9198745cc2e7900222bdee8ef",
-      "summary": "Britain’s prime minister authorized an independent inquiry into the health effects of Cold War nuclear tests after a campaign lasting about 40 years. An estimated 22,000 British service members witnessed tests from 1952 to 1967; veterans say some were exposed to fallout without adequate protection. The panel will examine disputed records and claims, with an interim report expected by October 2027."
+      "summary": "Britain has authorized an independent inquiry into the health effects of Cold War nuclear tests witnessed by an estimated 22,000 service members in the Indian and Pacific oceans from 1952 to 1967. Veterans allege exposure and concealed medical testing; the Ministry of Defence's handling of blood records is under scrutiny. Bishop James Jones will chair the panel, which is expected to issue an interim report by October 2027. The UK has no dedicated compensation scheme."
     },
     {
       "title": "UK reportedly moves military aircraft into hangars at night amid drone concerns",
@@ -2410,14 +2482,6 @@
       "summary": "Bruno Fernandes scored twice on his return to Sporting Lisbon as Manchester United drew 2–2 in the Champions League. United appeared poised for a first win under new manager Mauricio Pochettino, but goalkeeper Senne Lammens made two costly errors. The match also featured three penalties, two disallowed United goals and a late red card, leaving United still searching for consistency."
     },
     {
-      "title": "One year after Hong Kong fire, survivors mourn losses and question accountability",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/china/one-year-after-hong-kong-fire-survivors-mourn-losses-question-accountability-2026-11-25/",
-      "summary": "One year after the Wang Fuk Court fire killed 168 people and displaced thousands, survivors are still seeking answers. A government-commissioned report held four departments partly responsible, while authorities have offered buybacks and replacement subsidized flats. Residents question whether accountability and safety reforms will be sufficient. The blaze destroyed seven of eight 31-storey blocks and remains Hong Kong's deadliest fire since 1948."
-    },
-    {
       "title": "BoE's Bailey sees lower inflation peak if energy prices stabilise",
       "source": "Reuters",
       "category": "Business",
@@ -2456,6 +2520,30 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/dozens-countries-call-russia-halt-alleged-use-riot-agent-ukraine-war-2026-11-25/",
       "summary": "Officials from 34 countries and the European Union urged Russia to stop using riot-control agents on the battlefield after OPCW-designated laboratories confirmed CS gas in Ukrainian grenade and soil samples. Ukraine says it has documented more than 14,000 such munitions cases since 2022. Russia denies illegal use and has accused Kyiv; the joint statement calls for international mechanisms to identify perpetrators and enforce the chemical-weapons ban."
+    },
+    {
+      "title": "Libya publishes maritime delimitation agreement with Türkiye in official gazette",
+      "source": "Anadolu Agency",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.aa.com.tr/en/africa/libya-publishes-maritime-delimitation-agreement-with-turkiye-in-official-gazette/4137804",
+      "summary": "Libya's eastern parliament published a law ratifying its 2019 maritime-boundary agreement with Türkiye in the Official Gazette, completing a formal step after an October vote. The pact sets continental-shelf and exclusive-economic-zone limits using 36 geographic coordinates and provides for consultation if either side negotiates boundaries with third countries. Egypt and Greece have objected that the deal overlaps their maritime claims."
+    },
+    {
+      "title": "Michigan fan ends 70-season streak of attending every home game",
+      "source": "Associated Press",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/michigan-football-deaf-fan-streak-af53be2525108d8423ebdba46ccfba09",
+      "summary": "Larry Leonard Lage, an 82-year-old deaf Michigan fan, ended a 70-season streak of attending every Wolverines home game after more than 450 contests. He began going in 1956, when tickets cost $1, and watched generations of players and coaches. Neuropathy has made walking difficult, so he plans to follow the 2027 season from home. His family and fellow fans marked his final game with a tailgate tribute."
+    },
+    {
+      "title": "US inflation remains high in October despite slower gas-price increases",
+      "source": "Associated Press",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/consumer-spending-prices-inflation-tariffs-31fab1e32dda1ad3a29c192f620d5733",
+      "summary": "U.S. consumer prices rose 3.8% year over year in October, up from 3.6% in September, while core inflation accelerated to 3.3%, its highest in three years, AP reported. Monthly headline inflation slowed to 0.3%, but food prices rose 0.4%. The data arrived alongside an upward revision of third-quarter growth to 4.3%, complicating the Federal Reserve's effort to weigh persistent price pressure against economic strength."
     },
     {
       "title": "Tidal will start banning AI-generated music next month",
@@ -3376,6 +3464,14 @@
       "published": "2026-11-23",
       "url": "https://www.reuters.com/sports/soccer/us-mexico-costa-rica-jamaica-awarded-2031-womens-world-cup-uk-host-2035-edition-2026-11-23/",
       "summary": "FIFA appointed the United States, Mexico, Costa Rica and Jamaica to co-host the 2031 Women's World Cup, while England, Northern Ireland, Scotland and Wales will stage the 2035 tournament. The 2031 event will be the first senior Women's World Cup shared by four countries and the first with 48 teams. Both bids were approved unopposed at FIFA's extraordinary congress."
+    },
+    {
+      "title": "Board-game meetups draw adults seeking in-person friendships",
+      "source": "Associated Press",
+      "category": "Curious news",
+      "published": "2026-11-22",
+      "url": "https://apnews.com/article/board-games-adults-friendship-loneliness-69c1e10feab661080d5edbe7b4a097c5",
+      "summary": "In Denver, a board-game meetup that began as one man's search for players has grown into a twice-monthly gathering of more than 40 adults. Participants say games give strangers an easy shared activity and make conversation less awkward. The Associated Press reports that more than 900 board-game Meetup groups now operate across the United States, as people seek screen-free ways to build friendships and local community."
     },
     {
       "title": "UN-backed talks extend AI killer robot discussions to 2028, no binding rules",
