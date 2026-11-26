@@ -1,6 +1,22 @@
 {
-  "updatedAt": "2026-11-26T01:14:40.000Z",
+  "updatedAt": "2026-11-26T02:04:19.000Z",
   "articles": [
+    {
+      "title": "BOJ's Tamura signals chance of faster-pace interest rate hikes",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/markets/us/bojs-tamura-signals-chance-faster-pace-interest-rate-hikes-2026-11-26/",
+      "summary": "Bank of Japan board member Naoki Tamura said the central bank should move its policy rate toward a neutral level soon and could accelerate increases if inflation overshoots. He cited higher oil and raw-material costs, broadening wholesale price pressures, yen volatility and strong AI-related demand. Tamura said firms appear able to absorb past hikes, but his comments do not represent a board decision or guarantee a faster schedule."
+    },
+    {
+      "title": "South Korea's central bank raises rates, upgrades 2027 growth outlook",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/markets/asia/south-koreas-central-bank-resumes-tightening-with-quarter-point-hike-2026-11-26/",
+      "summary": "The Bank of Korea raised its benchmark rate by 0.25 percentage point to 3.25%, its highest since November 2024, resuming tightening after an October pause. It lifted its 2026 growth forecast to 3.9% and 2027 outlook to 4.1%, citing strong semiconductor exports, while forecasting 2.4% inflation in 2027. October inflation remained 2.8%, above the 2% target, and rising Seoul housing prices add pressure."
+    },
     {
       "title": "Black Friday? No thanks, some brands say",
       "source": "Reuters",
@@ -24,6 +40,14 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/judge-bars-us-fcc-taking-steps-threaten-abcs-broadcast-license-2026-11-26/",
       "summary": "A U.S. judge barred the Federal Communications Commission from continuing steps that threaten Disney-owned ABC stations' broadcast licenses, saying the agency appeared to be pursuing retaliation driven by President Donald Trump. Judge Loren AliKhan said FCC Chair Brendan Carr had treated Trump's rhetoric as marching orders. The ruling protects the broadcaster's right to avoid government retaliation for protected speech while the case proceeds."
+    },
+    {
+      "title": "Asia shares bounce, AI and tariffs lurk in background",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
+      "summary": "Asian shares edged higher after Wall Street recovered from deep intraday losses, but investors remained wary of AI spending and new U.S. tariffs. Japan's Nikkei rose 1.6% and South Korea's index 1.9%, though both remained sharply lower for November. Nvidia fell 3.9% after a possible credit downgrade warning; Treasury yields hit multi-week lows despite strong U.S. growth and persistent inflation."
     },
     {
       "title": "New Trump tariffs would likely increase sugar prices in the US",
@@ -562,12 +586,12 @@
       "summary": "Iraq's Federal Supreme Court ruled that Baghdad may deploy federal forces along all international borders, including crossings in the semi-autonomous Kurdistan region, and oversee border agencies and oil fields. The decision backs Prime Minister Ali al-Zaidi's effort to centralize security and resource control after ordering federal forces to take over Kurdish-run crossings. Kurdish authorities rejected what they called military threats and urged talks."
     },
     {
-      "title": "Army detonates lead azide in Iowa despite toxic plume fears",
-      "source": "Associated Press / U.S. EPA",
+      "title": "The Latest: All 5 tons of lead azide were successfully destroyed in Iowa detonation, Army says",
+      "source": "Associated Press",
       "category": "Environment",
       "published": "2026-11-25",
-      "url": "https://apnews.com/article/iowa-lead-detonation-714e040baedc1cd90c2ba688be76cfc7",
-      "summary": "The Army said its controlled detonation destroyed all five tons of degraded lead azide without secondary explosions or infrastructure damage. EPA monitors detected no airborne lead one hour later; the agency had collected more than 1,200 baseline air, soil and water samples and deployed more than 300 staff and contractors. Follow-up monitoring continues, so initial readings are not a final environmental assessment."
+      "url": "https://apnews.com/article/77fa69b9e88b46c5d1adc29841d2b4cc",
+      "summary": "The Army said it destroyed all five tons of degraded lead azide without secondary explosions or infrastructure damage. EPA monitors detected no airborne lead immediately after the blast or more than an hour later; the agency had collected over 1,200 baseline samples and plans further air, soil and water testing. Officials called the operation successful, but environmental effects on nearby farms and communities remain under assessment."
     },
     {
       "title": "Drone strikes kill 19 civilians in Sudan's Blue Nile state, rights group says",
@@ -1546,12 +1570,12 @@
       "summary": "Several dozen young Republicans in Tarrant County, Texas, met after the party’s midterm losses to discuss its direction. Many criticized personal attacks, infighting and limited progress on affordability, while urging stronger leadership and a return to conservative principles. Others favored a harder line. The discussion offers a local snapshot of tensions over Trump’s influence as Republicans look toward 2028."
     },
     {
-      "title": "Taiwan says it is confident of keeping previously agreed tariffs with US",
+      "title": "Trump unveils new tariffs over excess industrial capacity, undeterred by midterms defeat",
       "source": "Reuters",
-      "category": "Politics",
+      "category": "Business",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/",
-      "summary": "President Donald Trump proposed new maximum tariffs of 20%–40% on 14 trading partners, citing excess industrial capacity. Taiwan said it expects its previously agreed 15% U.S. rate to remain, pointing to earlier trade and investment arrangements covering semiconductors and other exports. The proposals remain subject to consultation, and the U.S. trade representative says existing negotiated caps may limit the final rates."
+      "url": "https://www.reuters.com/world/china/us-proposes-new-tariffs-14-trading-partners-fight-excess-factory-capacity-2026-11-25/",
+      "summary": "The Trump administration proposed Section 301 tariffs on 14 trading partners, citing excess industrial capacity. China faces 20% under the current truce and 40% if it expires; India would face 17% with a trade deal or 25% without one, while the EU, Japan, South Korea and Taiwan have 15% caps. The measures await a January 25 hearing, would not stack on several existing duties, and were rejected by Beijing."
     },
     {
       "title": "U.S. new home sales jump to 10-month high as builders cut prices",
@@ -1720,14 +1744,6 @@
       "published": "2026-11-25",
       "url": "https://www.washingtonpost.com/world/2026/11/25/netherlands-wolf-return-anger-debate/7156e4ec-e8b7-11f1-8db0-6f1e3c389e7c_story.html",
       "summary": "Wolves, absent from the Netherlands for about two centuries, have returned in growing numbers, but their recovery has sparked conflict in the densely populated country. Researchers estimate fewer than 150 animals in about 15 packs, while farmers report thousands of livestock losses. The government says it plans to permit some culling to prevent attacks; conservationists argue coexistence measures remain essential."
-    },
-    {
-      "title": "AI stock rout deepens but damage is limited by afternoon bounce",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/ai-stocks-slide-fears-over-infrastructure-buildout-costs-2026-11-25/",
-      "summary": "AI-linked shares plunged early Wednesday but recovered much of the loss by the close as investors weighed debt-heavy data-center expansion and uncertain returns. The Nasdaq Composite and Nasdaq-100 each ended down 0.6%, after the Nasdaq-100 briefly approached a 20% decline from its October record. Nvidia closed down 3.9%, SoftBank fell 14% in Tokyo, and CoreWeave's 2031 bond yield neared 18%."
     },
     {
       "title": "Yemenis prepare to flee as Houthis advance toward Aden",
