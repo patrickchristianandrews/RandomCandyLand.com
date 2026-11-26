@@ -1,6 +1,54 @@
 {
-  "updatedAt": "2026-11-26T08:57:18.000Z",
+  "updatedAt": "2026-11-26T09:56:22.000Z",
   "articles": [
+    {
+      "title": "UK annual net migration drops to 77,000 in year to June 2026",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/uk/uk-annual-net-migration-drops-77000-year-june-2026-2026-11-26/",
+      "summary": "Official figures show Britain's annual net migration fell to 77,000 in the year to June 2026, down from 204,000 a year earlier. The sharp decline may ease political pressure on the government but could also constrain employers and economic growth. Reuters' report cited the headline figure; the brief release did not provide a detailed breakdown of the factors behind the fall."
+    },
+    {
+      "title": "Russian court arrests deputy aerospace forces commander, Kommersant reports",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/russian-court-arrests-deputy-aerospace-forces-commander-kommersant-reports-2026-11-26/",
+      "summary": "Russian media outlet Kommersant reported that a military court arrested Yuriy Grekhov, deputy commander of Russia's Aerospace Forces and chief of armaments. Reuters said the arrest request came from the Military Investigative Committee, but the charge has not been disclosed. The force includes air, space and air-defence units, making the case notable amid scrutiny of Russia's military leadership."
+    },
+    {
+      "title": "Explainer: Why are Indian rice prices rising despite record stocks?",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/india/why-are-indian-rice-prices-rising-despite-record-stocks-2026-11-26/",
+      "summary": "Some rice varieties popular in southern India have nearly doubled in price over a year, pushing the national average up 12.5% in October despite record government stocks. Reuters attributes the squeeze to a weak monsoon, lower production and rising demand for broken rice from feed and ethanol makers. Large reserves are mostly common varieties that cannot readily replace preferred regional grades."
+    },
+    {
+      "title": "Italy asks Germany to intervene over Henkel factory closure",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/world-at-work/italy-asks-germany-intervene-over-henkel-factory-closure-2026-11-26/",
+      "summary": "Italy has asked Germany to intervene with Henkel over plans to close its Ferentino detergent plant by June 2027, a move affecting 102 workers. Foreign Minister Antonio Tajani wrote to his German counterpart seeking alternatives. Henkel has agreed not to begin formal dismissal procedures while talks continue; another meeting is scheduled in Rome for January 13."
+    },
+    {
+      "title": "London commuters braced for disruption as tube strike begins",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/uk-news/2026/nov/26/tube-drivers-strike-will-cause-severe-disruption-to-network-on-thursday-and-friday",
+      "summary": "London Underground drivers represented by the RMT began a 24-hour strike at noon Thursday in a dispute over a proposed four-day working week. The union says the plan threatens existing protections and could mean longer, less predictable shifts; Transport for London says the pattern is voluntary. Piccadilly and Circle lines were expected to be suspended, with wider disruption continuing into Friday."
+    },
+    {
+      "title": "UK watchdog calls for shake-up of private dentistry market amid 'catalogue of concerns'",
+      "source": "The Guardian",
+      "category": "Health",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/society/2026/nov/26/uk-watchdog-calls-for-shake-up-of-private-dentistry-market",
+      "summary": "Britain's Competition and Markets Authority says the £8 billion private dentistry market is not consistently working in patients' interests. Large dental groups raised prices by about 7% annually from 2023 to 2025; prices vary sharply, one in six practices lacks online price lists, and commercial incentives may encourage costlier treatment. The regulator plans recommendations before a final report in March."
+    },
     {
       "title": "Sinner to miss Australian Open after undergoing surgery on knee injury",
       "source": "Reuters",
@@ -63,7 +111,7 @@
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/eu-leaders-wrestle-with-seven-year-budget-ukraine-financing-they-seek-december-2026-11-26/",
-      "summary": "EU leaders are debating a proposed €1.582 trillion budget for 2028–34 and a €45 billion joint loan for Ukraine, which would be repaid only if Russia pays reparations. The plan also includes up to €100 billion for Ukraine over the seven-year period. Reuters reports several member states oppose the loan, while the bloc hopes to reach a budget deal in December."
+      "summary": "EU Council President António Costa said he wants Thursday's Brussels summit to move leaders closer to a deal on the bloc's next seven-year budget, but Dutch Prime Minister Rob Jetten said the proposal must be modernised and reduced. Bulgaria said it would support only the €20 billion non-military part of a proposed €45 billion Ukraine loan, not weapons funding. Leaders still hope for a December deal."
     },
     {
       "title": "BOJ's Tamura signals chance of faster-pace interest rate hikes",
@@ -106,12 +154,12 @@
       "summary": "A federal judge granted ABC a temporary restraining order and preliminary injunction blocking the FCC's early review of eight Disney-owned stations, finding the network likely to succeed on its First Amendment retaliation claim. The review followed President Trump's call for ABC to fire Jimmy Kimmel. The judge declined to bar unspecified future FCC actions; the agency says it will continue enforcing broadcasters' public-interest duties."
     },
     {
-      "title": "Stocks rally in Asia, US tariffs not as dire as feared",
+      "title": "Stocks climb as traders shrug off latest US tariff salvo",
       "source": "Reuters",
       "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-26/",
-      "summary": "European shares rebounded 1.4% Thursday as banks and technology stocks recovered, extending an Asia-led market bounce. Investors judged proposed U.S. tariffs may be less severe than feared, with EU duties likely capped at the previously agreed 15% rate. The move followed a sharp selloff driven by inflation, interest-rate and AI-growth concerns; market direction remains sensitive to policy details and earnings expectations."
+      "summary": "European shares rose 1.6% and the global MSCI index gained 0.4% as investors judged proposed U.S. tariffs less severe than feared and Asian markets recovered. Nvidia remained under pressure after S&P put its credit rating on watch for a possible downgrade, citing management and board concerns. U.S. markets were closed for Thanksgiving; futures rose about 0.5%."
     },
     {
       "title": "Indonesian rescuers resume search for 13 people trapped inside illegal mine after 13 confirmed dead",
@@ -195,11 +243,11 @@
     },
     {
       "title": "Oil little changed as supply concerns linger after Iran claims mine strikes on ships",
-      "source": "Reuters",
+      "source": "Reuters / AP",
       "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/energy/oil-rises-supply-concerns-iran-claims-mine-strikes-ships-2026-11-26/",
-      "summary": "Crude was little changed Thursday after a sharp prior-session rise: Brent slipped 0.1% to $94.52 a barrel while WTI gained 0.2% to $83.83. Traders weighed Houthi claims of an attack on Saudi Arabia's Ras Tanura refinery and Iranian reports of tanker mine strikes in the Strait of Hormuz. The reported mine incidents were not independently verified; OPEC+ ministers meet November 29 on 2027 output policy."
+      "summary": "Brent was little changed near $94.52 and WTI at $83.83 as traders weighed Houthi claims of an attack on Saudi Arabia's Ras Tanura refinery and unverified Iranian mine-strike claims. Separately, a tanker master reported an unknown projectile exploding close to a vessel 50 nautical miles west of Dubai; UKMTO said the crew were safe and there was no damage or pollution."
     },
     {
       "title": "US officials divided over Chinese spying allegations following Jensen Huang's return",
@@ -267,11 +315,11 @@
     },
     {
       "title": "Wife of Japanese journalist detained in Russia pleads for his release",
-      "source": "Reuters",
+      "source": "Reuters / The Guardian",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/business/media-telecom/wife-of-japanese-journalist-detained-russia-pleads-his-release-2026-11-26/",
-      "summary": "Yuki Imai, a 34-year-old reporter for Hokkaido Shimbun, was detained in Russia's Sakhalin region in October on suspicion of espionage, his wife said in her first public comments. She appealed for his release, describing his two-year posting and young family. Japan has protested the arrest, which is straining already tense relations; Moscow has not publicly detailed the evidence."
+      "summary": "Yuki Imai, a 34-year-old Hokkaido Shimbun reporter detained in Russia on espionage allegations, remains in Moscow's Lefortovo detention centre. His wife appealed for his release, saying their 21-month-old daughter has barely seen him; Japanese diplomats have been allowed two visits. Japan rejects the spying claim, while Russia has not publicly disclosed evidence, leaving the case a growing bilateral irritant."
     },
     {
       "title": "Insight: Prosecco's 'heroic' vines offer a test case in climate resilience",
@@ -562,12 +610,12 @@
       "summary": "Bank of Japan net income fell to 1.55 trillion yen in the first half of fiscal 2026 from 1.71 trillion a year earlier as higher rates increased payments on banks' excess reserves. The BOJ spent 1.91 trillion yen on reserve interest, exceeding income from government bonds, while ETF dividends partly offset the cost. The figures illustrate how policy normalisation is reshaping the central bank's balance sheet."
     },
     {
-      "title": "China urges Japan to stay out of South China Sea disputes",
+      "title": "China's defence ministry urges Japan to stop 'stirring up' South China Sea disputes",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/chinas-defence-ministry-urges-japan-stop-stirring-up-south-china-sea-disputes-2026-11-26/",
-      "summary": "China's defence ministry told Japan to stop commenting on South China Sea disputes, arguing Tokyo is not a party to them. The remarks followed Japan's plan to provide the Philippines with coastal-surveillance radars and drones. Beijing's claims overlap those of several Southeast Asian states; a 2016 international tribunal rejected the legal basis for China's expansive claims, a ruling Beijing continues to reject."
+      "summary": "China's defence ministry urged Japan to stop commenting on South China Sea disputes after Tokyo announced plans to provide the Philippines with coastal-surveillance radars and drones. Beijing says Japan is not a party to the disputes, while China and the Philippines regularly clash around contested reefs. China claims nearly the entire sea despite a 2016 tribunal ruling rejecting the legal basis of those claims."
     },
     {
       "title": "Pakistan, Saudi Arabia and Turkey to meet on mutual defence pact",
@@ -586,12 +634,12 @@
       "summary": "An Iraqi court sentenced eight French nationals to life in prison for joining the Islamic State group, AFP reported. Two other French defendants received 15-year terms, while verdicts for 10 more were postponed. The cases follow transfers of foreign detainees from Syria to Iraq, where authorities have been processing people accused of joining the group. The convictions and remaining proceedings may carry diplomatic and human-rights implications."
     },
     {
-      "title": "Israel kills nine Palestinians in Gaza strikes despite ceasefire, medics say",
-      "source": "Reuters",
+      "title": "Israel kills nine in Gaza, including Hamas-appointed deputy education minister, officials say",
+      "source": "Reuters / AP",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/middle-east/israel-kills-nine-gaza-including-hamas-appointed-deputy-education-minister-2026-11-26/",
-      "summary": "Israeli strikes and gunfire killed at least nine Palestinians in Gaza overnight, medics told Reuters, including Hamas-appointed deputy education minister Khaled Abu Nada and his wife. Separate strikes killed six people in Gaza City, and later gunfire killed a man in Bureij. Israel said Abu Nada managed Hamas financial networks; Hamas confirmed his death but did not address the allegation. The attacks continued despite the year-old ceasefire."
+      "summary": "Israeli strikes and gunfire killed Palestinians in Gaza for a third consecutive night despite the October 2025 ceasefire. Reuters reported at least nine deaths, including Hamas-appointed deputy education minister Khaled Abu Nada and his wife; AP cited hospital officials reporting eight. Israel said Abu Nada managed Hamas financial networks, while Hamas confirmed his death. The casualty totals differ across reports."
     },
     {
       "title": "FedEx airplane overruns runway at Miami airport, disrupting Thanksgiving travel",
@@ -600,6 +648,30 @@
       "published": "2026-11-26",
       "url": "https://apnews.com/article/miami-airport-fedex-plane-off-runway-07567f757a4cef4356dfa4fc3bf5e561",
       "summary": "A FedEx MD-11 arriving from Memphis overran a runway at Miami International Airport around 8:40 p.m. Wednesday, temporarily closing all but one runway and causing hourslong delays into Thanksgiving morning. Authorities reported no injuries. The FAA is investigating, and FedEx said the aircraft experienced an issue on landing. The incident revived attention to runway safety after a separate fatal cargo-plane overrun at the airport in September."
+    },
+    {
+      "title": "Melania Trump reunites her seventh group of Ukrainian and Russian children with their families",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/melania-trump-ukraine-russia-children-4fa1ae5512f4fb71dc36478b0f44514e",
+      "summary": "Melania Trump helped reunite nine more Ukrainian and Russian children with their families, bringing the total in her initiative to 43, the White House said. The latest returns were carried out with cooperation from both countries' leaders, but officials disclosed no details about the children. The effort has included earlier humanitarian contacts and a six-day local ceasefire in occupied Oleshky."
+    },
+    {
+      "title": "Gukesh and Sindarov draw Game 2 of world chess championship in just 20 moves",
+      "source": "The Guardian",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/sport/2026/nov/25/gukesh-sindarov-world-chess-championship-2026-game-2-draw",
+      "summary": "World champion Gukesh Dommaraju and challenger Javokhir Sindarov drew their second game in just 20 moves and 1 hour 57 minutes, leaving the 14-game match tied 1–1 in Geneva. It was among the shortest classical world-title games since the championship reunification in 2006. Sindarov had White in the third game scheduled for Thursday."
+    },
+    {
+      "title": "LME tightens rules in response to aluminium squeeze",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.reuters.com/markets/commodities/lme-tightens-rules-response-aluminium-squeeze-2026-11-25/",
+      "summary": "The London Metal Exchange tightened short-term aluminium lending rules after available inventories fell by more than half to 205,300 tonnes, intensifying a squeeze on immediate supply. One participant held 50–79% of warrants, Reuters reported. The cash premium over three-month aluminium reached $405 a tonne, its highest since 1988, before falling after the rule change. The LME said it would monitor conditions."
     },
     {
       "title": "Microsoft declares ‘Code Red’ after huge Outlook outage",
@@ -1010,12 +1082,12 @@
       "summary": "Mexico said it will send a diplomatic note protesting the United States' decision to deport former television host Inés Gómez Mont to Spain rather than extradite her to Mexico, where she faces allegations of tax fraud, money laundering and organized crime. President Claudia Sheinbaum cited reciprocity after Mexico transferred more than 90 suspects to U.S. custody. Spain has also received an extradition request; the allegations have not been adjudicated."
     },
     {
-      "title": "UN tribunal says agency lacked evidence to dismiss Palestinian aid worker",
+      "title": "UN sacked Palestinian staff on back of unproven Israeli allegations, tribunal rules",
       "source": "The Guardian",
       "category": "World",
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/world/2026/nov/25/un-sacked-palestinian-staff-on-back-of-unproven-israel-allegations",
-      "summary": "A UN dispute tribunal ruled that UNRWA failed to provide evidence supporting its dismissal of Palestinian aid worker Abu Awad after Israeli allegations linked him to Hamas. It awarded him one year's pay and $5,000 in moral damages, while saying it could not determine the underlying allegations. The ruling raises questions about the agency's dismissal process; it does not resolve wider claims concerning other staff."
+      "summary": "A UN tribunal found that the dismissal of Palestinian UNRWA staff in 2024 relied largely on unproven Israeli allegations and that the process damaged humanitarian work in Gaza. It said the agency failed to substantiate its case against one employee and awarded him a year's pay plus $5,000 in moral damages. The ruling does not resolve every allegation against the dismissed workers."
     },
     {
       "title": "Italian church report records 57 priests jailed for child sexual abuse",
@@ -2544,6 +2616,22 @@
       "published": "2026-11-25",
       "url": "https://apnews.com/article/consumer-spending-prices-inflation-tariffs-31fab1e32dda1ad3a29c192f620d5733",
       "summary": "U.S. consumer prices rose 3.8% year over year in October, up from 3.6% in September, while core inflation accelerated to 3.3%, its highest in three years, AP reported. Monthly headline inflation slowed to 0.3%, but food prices rose 0.4%. The data arrived alongside an upward revision of third-quarter growth to 4.3%, complicating the Federal Reserve's effort to weigh persistent price pressure against economic strength."
+    },
+    {
+      "title": "Canada's defense minister says his country answers to no one in Washington after a Pentagon rebuke",
+      "source": "Boston.com / Associated Press",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://www.boston.com/news/politics/2026/11/24/canadas-defense-minister-says-his-country-answers-to-no-one-in-washington-after-a-pentagon-rebuke/",
+      "summary": "Canada's defence minister rejected a Pentagon rebuke over military spending, saying Ottawa answers to no one in Washington. David McGuinty said Canada remains committed to reaching 5% of GDP on defence and related security by 2035, with spending expected to reach 4% by 2030. The dispute comes amid strained U.S.-Canada relations and a review of Canada's planned F-35 purchase."
+    },
+    {
+      "title": "Democrat Victoria Broderick unseats eight-term Republican incumbent in Tennessee to win election",
+      "source": "The Guardian",
+      "category": "Politics",
+      "published": "2026-11-24",
+      "url": "https://www.theguardian.com/us-news/2026/nov/24/democrat-victoria-broderick-election-win-tennesee-midterms",
+      "summary": "Democrat Victoria Broderick won Tennessee's 4th congressional district, defeating eight-term Republican Scott DesJarlais by fewer than 400 votes after a redrawn map made the seat slightly more competitive. The upset lifts Democrats' House majority to 259, their largest in three decades, and makes Broderick the only Democrat in Tennessee's congressional delegation. The race had been rated safely Republican."
     },
     {
       "title": "Tidal will start banning AI-generated music next month",
