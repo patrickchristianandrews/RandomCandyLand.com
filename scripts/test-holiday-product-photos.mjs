@@ -34,7 +34,7 @@ for(const [id,url] of Object.entries(cached)){
 // readable image files (validated above). Do not fail the entire site release
 // because a retailer blocks an optional product-photo download.
 const catalog=await readFile(path.join(root,'all/index.html'),'utf8');
-const rows=JSON.parse(catalog.match(/const deals=(\\[\\[.*?\\]\\])\\.map/s)[1]);
+const rows=JSON.parse(catalog.match(/const deals=(\[\[.*?\]\])\.map/s)[1]);
 const withoutLocalPhoto=rows.filter(row=>!cached[row[0]]);
 assert(rows.length>0,'Expected the curated holiday catalog to contain products');
 console.log('Curated holiday products using the existing image fallback:',withoutLocalPhoto.length);
