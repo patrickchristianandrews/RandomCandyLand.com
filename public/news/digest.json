@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T02:56:57.000Z",
+  "updatedAt": "2026-11-26T03:59:28.000Z",
   "articles": [
     {
       "title": "BOJ's Tamura signals chance of faster-pace interest rate hikes",
@@ -39,7 +39,7 @@
       "category": "Politics",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/judge-bars-us-fcc-taking-steps-threaten-abcs-broadcast-license-2026-11-26/",
-      "summary": "A U.S. judge barred the Federal Communications Commission from continuing steps that threaten Disney-owned ABC stations' broadcast licenses, saying the agency appeared to be pursuing retaliation driven by President Donald Trump. Judge Loren AliKhan said FCC Chair Brendan Carr had treated Trump's rhetoric as marching orders. The ruling protects the broadcaster's right to avoid government retaliation for protected speech while the case proceeds."
+      "summary": "A federal judge issued a preliminary injunction blocking the FCC's early license review of eight Disney-owned ABC stations, finding ABC likely to show retaliation for protected speech. The review began after Trump urged ABC to fire Jimmy Kimmel, although renewals were not due until 2028. The FCC called the ruling legally and factually wrong and said it would continue enforcing broadcasters' public-interest duties."
     },
     {
       "title": "Asia shares bounce, AI and tariffs lurk in background",
@@ -128,6 +128,94 @@
       "published": "2026-11-26",
       "url": "https://www.abc.net.au/news/2026-11-26/complaints-over-aged-care-cleaner-rules/107424906",
       "summary": "Australian pensioners say rules for the Support at Home program leave subsidised cleaners unable to move chairs, bend down or reach high surfaces, even when clients pay substantial hourly fees. ABC found some clients were billed up to A$135 an hour while workers received A$32–36. Providers cite safety and liability rules; a Senate inquiry is due to report next year."
+    },
+    {
+      "title": "Oil rises on supply concerns as Iran claims mine strikes on ships",
+      "source": "Reuters",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/business/energy/oil-rises-supply-concerns-iran-claims-mine-strikes-ships-2026-11-26/",
+      "summary": "Brent rose to $94.71 and U.S. WTI to $84.03 in early Asian trade as traders weighed Houthi claims of an attack on Saudi Arabia's Ras Tanura refinery and Iranian reports that tankers hit mines in the Strait of Hormuz. The tanker claims were not independently verified. Reuters said shipping risks could interrupt recovering Gulf exports ahead of OPEC+'s November 29 output-policy meetings."
+    },
+    {
+      "title": "Wall Street recovers most early losses as pullback in AI stocks eases",
+      "source": "Associated Press",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/stock-markets-ai-earnings-oil-10044b4fb55d3ff20fde9ba9e9acaab1",
+      "summary": "U.S. stocks closed mixed after a sharp intraday selloff in AI shares faded: the S&P 500 fell 0.3% after being down 3.2%, the Nasdaq lost 0.6%, and the Dow gained 0.3%. Nvidia finished down 3.9%. AP linked volatility to doubts about AI returns, 3.8% annual inflation, proposed tariffs and higher oil. Brent settled at $94.61; markets were closed Thursday for Thanksgiving."
+    },
+    {
+      "title": "Schumer, Van Hollen add to tallies of supporters for majority leader",
+      "source": "The Washington Post",
+      "category": "Politics",
+      "published": "2026-11-25",
+      "url": "https://www.washingtonpost.com/politics/2026/11/25/maine-sen-elect-troy-jackson-endorses-chris-van-hollen-senate-leader/",
+      "summary": "Chuck Schumer and Chris Van Hollen each gained a public endorsement as Senate Democrats prepare to choose their next leader by secret ballot. Mark Warner backed Schumer, who had 16 publicly declared supporters, while senator-elect Troy Jackson endorsed Van Hollen, who said about 15 Democrats supported him. More than two dozen remained publicly uncommitted; a candidate needs 28 votes if all eligible Democrats participate."
+    },
+    {
+      "title": "Legal aid for DAPNs and DAPOs",
+      "source": "GOV.UK",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.gov.uk/government/news/legal-aid-for-dapns-and-dapos",
+      "summary": "England and Wales began national rollout of Domestic Abuse Protection Notices and Orders after a pilot that started in November 2024. The Legal Aid Agency clarified when civil and criminal legal aid can cover applications, breaches and appeals for victims and alleged perpetrators. A notice is a short-term police measure; an order is made by a court. The rules distinguish funding by case type and proceeding."
+    },
+    {
+      "title": "Huge funding boost for communities leading the way in preparing for coastal erosion",
+      "source": "GOV.UK",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://www.gov.uk/government/news/huge-funding-boost-for-communities-leading-the-way-in-preparing-for-coastal-erosion",
+      "summary": "England awarded more than £11.2 million to 12 council-led projects testing ways to prepare for coastal erosion, including drone surveys, cliff modelling, dune monitoring and highway adaptation. The Environment Agency estimates about 20,000 homes and businesses could face coastal change by 2105. The pilots will run until March 2029, with lessons shared nationally; some communities may need planned relocation rather than stronger defences."
+    },
+    {
+      "title": "First national principles to help Australians with assistance animals",
+      "source": "Australian Government Department of Health, Disability and Ageing",
+      "category": "Health",
+      "published": "2026-11-25",
+      "url": "https://www.health.gov.au/ministers/senator-the-hon-jenny-mcallister/media/first-national-principles-to-help-australians-with-assistance-animals",
+      "summary": "All Australian governments endorsed six national principles for regulating assistance animals, aiming to make accreditation and public access rules more consistent. The framework covers trainer standards, animal accreditation, public-access tests, evidence for handlers, a national identity card and animal welfare through retirement. The government says 95% of assistance-animal users report difficulties in public places; an implementation plan is still to come."
+    },
+    {
+      "title": "Police super-complaint on the policing of image-based abuse",
+      "source": "GOV.UK",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.gov.uk/government/publications/police-super-complaint-on-the-policing-of-image-based-abuse",
+      "summary": "Three policing bodies in England and Wales accepted a super-complaint alleging systemic failures in how police handle image-based abuse, including the sharing of intimate images without consent. The complaint was submitted by the Centre for Women's Justice, Not Your Porn and law firm Leigh Day. Eligibility means it will be investigated; it is not a finding that individual officers or forces breached the law."
+    },
+    {
+      "title": "UK cracks down on online abuse ahead of international summit seeking to end violence against women and girls",
+      "source": "GOV.UK",
+      "category": "Technology",
+      "published": "2026-11-25",
+      "url": "https://www.gov.uk/government/news/uk-cracks-down-on-online-abuse-ahead-of-international-summitseeking-to-end-violence-against-women-and-girls",
+      "summary": "Britain launched a £27 million Thrive programme to counter online abuse of women and girls, including AI-assisted stalking, harassment and non-consensual intimate images. The government says it will work with technology companies on safer product design, such as automatic image blurring and age restrictions, and help other countries strengthen laws. A London summit on violence against women and girls is scheduled for April 27–28, 2027."
+    },
+    {
+      "title": "Card payments edge past cash in shops; euro area consumers want both",
+      "source": "European Central Bank",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr261125~26d1ade228.en.html",
+      "summary": "Cards accounted for 45% of euro-area in-store payments in 2026, narrowly exceeding cash at 44% for the first time since comparable data began in 2016, the ECB said. Mobile payments reached 9%, up from 6% in 2024. Yet 62% of consumers still value cash access, 82% value digital options, and 19% of recent ATM users reported withdrawal difficulties."
+    },
+    {
+      "title": "Regulators implement growth-friendly securitisation reforms",
+      "source": "Bank of England",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.bankofengland.co.uk/news/2026/november/regulators-implement-growth-friendly-securitisation-reforms",
+      "summary": "Britain's Prudential Regulation Authority and Financial Conduct Authority issued revised securitisation rules intended to make funding and lending more efficient while preserving safeguards. Changes simplify disclosure and due diligence, allow more flexible ways to retain risk while keeping a 5% minimum, and permit limited simple re-securitisations. Regulators estimate £168 million in industry savings over ten years; some FCA rules still require finalisation."
+    },
+    {
+      "title": "Government unveils shift towards public control of vital utilities",
+      "source": "GOV.UK",
+      "category": "Business",
+      "published": "2026-11-25",
+      "url": "https://www.gov.uk/government/news/government-unveils-shift-towards-public-control-of-vital-utilities",
+      "summary": "First Secretary Louise Haigh set out plans to restore public oversight of energy and water infrastructure, arguing fragmented regulation and high costs are holding back investment. Measures include scrapping a proposed gas-shipper levy, changing grid connections and tougher penalties for network delays; a Water Bill is due in 2027. The government says water bills could rise 36% between 2025 and 2030 without intervention."
     },
     {
       "title": "New Trump tariffs would likely increase sugar prices in the US",
@@ -1234,14 +1322,6 @@
       "summary": "Iran’s first vice president said Tehran can withstand the U.S. naval blockade because more cargo is entering through land borders, while the government seeks to contain basic-goods prices. October consumer prices were 88.7% higher than a year earlier and food and beverage prices rose 112.6%, according to Iran’s statistics agency. Officials offered no quantified supply assurances, leaving the effect of the blockade uncertain."
     },
     {
-      "title": "Iran says ships hit mines in Hormuz, warns vessels to coordinate passage",
-      "source": "Reuters / Associated Press",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/iran-says-ships-hit-mines-hormuz-warns-vessels-coordinate-passage-2026-11-25/",
-      "summary": "Iran's Revolutionary Guards said two oil tankers struck mines and caught fire while using what Tehran called an unauthorized route through the Strait of Hormuz. AP separately reported the IRGC's claim that an LPG tanker was hit after disabling its tracking system. The vessels were not independently identified, and the claims remain unverified; Iran warned ships to coordinate passage with its forces."
-    },
-    {
       "title": "Japan's key services inflation gauge hits 36-year high",
       "source": "Reuters",
       "category": "Business",
@@ -1408,14 +1488,6 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/world/europe/more-ukrainian-children-are-reunited-with-their-families-white-house-russia-say-2026-11-25/",
       "summary": "Nine Ukrainian children have been reunited with relatives, bringing the total to 43 under an initiative involving US first lady Melania Trump, the White House and Russian officials. The children were moved from Russia and Russian-held parts of Ukraine to relatives in Ukraine and Germany. Moscow says cooperation was secured with both sides, while Ukrainian authorities had not immediately commented. The cases remain sensitive amid international allegations about the wartime transfer of children."
-    },
-    {
-      "title": "North Korea expels Swiss diplomatic office head in sanctions dispute",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/aerospace-defense/north-korea-expels-swiss-representative-closes-diplomatic-office-over-sanctions-2026-11-25/",
-      "summary": "North Korea ordered Swiss diplomatic representative Sylvain Astier to leave within 48 hours, saying Switzerland's sanctions against the Songdowon International Children's Camp were hostile. The move came less than a month after Bern reopened its Pyongyang liaison office. Switzerland says the office is intended to preserve dialogue despite disagreements; analysts see the expulsion as a warning that Pyongyang may reject diplomatic engagement while sanctions remain in place."
     },
     {
       "title": "North Korea orders Swiss diplomat out and demands closure of Pyongyang office",
@@ -1928,6 +2000,14 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/uk-news/2026/nov/25/amazon-motors-into-uk-car-market",
       "summary": "Amazon plans to launch its Amazon Autos car-buying marketplace in the UK in early 2027, its first expansion beyond the United States. Hyundai will be an initial partner, with new and used models available to browse, reserve and finance online; Vertu Motors will supply used cars. Purchases will still be completed at dealerships, which set their own prices."
+    },
+    {
+      "title": "Active-duty U.S. Army sergeant pleads guilty in conspiracy to gather and transfer national defense information",
+      "source": "U.S. Department of Justice",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://www.justice.gov/opa/pr/active-duty-us-army-sergeant-pleads-guilty-conspiracy-gather-and-transfer-national-defense",
+      "summary": "An active-duty Army sergeant, Jian Zhao, pleaded guilty to conspiring to transfer national-defense information to people connected to China. Prosecutors said he supplied excerpts from HIMARS technical manuals, offered military computers and government hard drives for sale, and photographed restricted documents, receiving thousands of dollars. Zhao faces up to 10 years in prison and is scheduled for sentencing March 1, 2027."
     },
     {
       "title": "China extends suspension of ban on US-bound gallium, germanium, antimony exports",
@@ -2842,6 +2922,14 @@
       "summary": "The Congressional Budget Office estimates the Navy’s 30-year shipbuilding plan will cost about $54 billion annually, 18% above Navy projections, with 15 proposed Trump-class battleships a major contributor. The report questions whether concentrating firepower in a few large vessels fits the Navy’s stated strategy. At the same time, the Iran war has extended deployments, delayed maintenance and strained readiness across the fleet."
     },
     {
+      "title": "Trump order requires federal contractors to coordinate with White House before responding to Congress",
+      "source": "The White House",
+      "category": "Politics",
+      "published": "2026-11-20",
+      "url": "https://www.whitehouse.gov/presidential-actions/2026/11/protecting-the-executives-privileges-and-enhancing-efficiencies-in-federal-contracting/",
+      "summary": "An executive order signed November 20 requires federal contractors and subcontractors to notify the White House and contracting agencies when Congress seeks information about their work with the executive branch. Contractors must coordinate responses and follow instructions to withhold material the administration deems privileged. The White House says this protects confidential operations; the order's effect on congressional oversight may be tested in court."
+    },
+    {
       "title": "Denmark to expel Russian diplomat over alleged plot to kill US-Ukrainian rapper",
       "source": "The Guardian",
       "category": "World",
@@ -2864,6 +2952,14 @@
       "published": "2026-11-20",
       "url": "https://www.theguardian.com/us-news/2026/nov/20/los-angeles-palisades-wildfire-trial-verdict",
       "summary": "A federal jury convicted former Uber driver Jonathan Rinderknecht of arson charges tied to the January 2025 Palisades fire, which killed 12 people and destroyed thousands of homes and businesses. Prosecutors said he ignited a brush fire whose embers later reignited in powerful winds; Rinderknecht maintained his innocence and suggested fireworks caused the blaze. He remains in custody and faces a possible sentence of five to 40 years."
+    },
+    {
+      "title": "Rights groups urge sanctions after top UN court finds Myanmar committed genocide against Rohingya",
+      "source": "Associated Press",
+      "category": "World",
+      "published": "2026-11-19",
+      "url": "https://apnews.com/article/un-international-court-myanmar-genocide-rohingya-reparations-d32c2f2a58942b9a3edb81866a850e65",
+      "summary": "The International Court of Justice ruled 9–6 that Myanmar committed genocide against the Rohingya during the 2017 military operation and ordered safe returns, reparations and prosecutions. The court cannot enforce compliance, and Myanmar's government denied genocide and called the decision unfair. Rights groups urged sanctions, but action at the UN Security Council could be blocked by China or Russia; about 1.2 million Rohingya live in Bangladesh camps."
     },
     {
       "title": "A cyberattack using artificial intelligence targeted the EU in October, official says",
