@@ -1,6 +1,30 @@
 {
-  "updatedAt": "2026-11-26T09:56:22.000Z",
+  "updatedAt": "2026-11-26T11:10:28.119Z",
   "articles": [
+    {
+      "title": "‘It’s in quite a dark place’: why UK housebuilding is struggling",
+      "source": "The Guardian",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/business/2026/nov/26/why-uk-housebuilding-is-struggling",
+      "summary": "UK housebuilding faces high costs, tighter lending and weaker buyer demand, with projects paused and developers issuing profit warnings. London’s private-sector housing construction has fallen 84% since 2015; England’s annual completions dropped to about 190,000 in 2024–25. Analysts cited by The Guardian say the government could miss its 1.5-million-home target by roughly 500,000 by 2029, while construction insolvencies remain elevated."
+    },
+    {
+      "title": "UK has 959,000 young people not in education, employment or training",
+      "source": "Office for National Statistics",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/bulletins/youngpeoplenotineducationemploymentortrainingneet/november2026",
+      "summary": "An estimated 959,000 UK residents aged 16–24 were not in education, employment or training in July–September, equal to 12.7% of the age group. The total fell 22,000 from the previous quarter but was 17,000 higher than a year earlier, with the annual rise concentrated among young women. ONS cautions that Labour Force Survey estimates for this smaller group remain volatile."
+    },
+    {
+      "title": "Bank of England warns of rising mortgage pressure and AI-related financial risks",
+      "source": "Bank of England",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026",
+      "summary": "Britain’s Financial Policy Committee says the financial system remains resilient but faces higher energy costs, borrowing rates and concentrated AI-related exposures. About 6.5 million owner-occupier mortgages are projected to see payments rise as fixed deals mature through 2029, with a typical increase near £100 a month. The Bank also warns that increasingly capable AI agents could amplify cyber and operational risks across finance."
+    },
     {
       "title": "UK annual net migration drops to 77,000 in year to June 2026",
       "source": "Reuters",
@@ -442,12 +466,12 @@
       "summary": "The Malta-flagged chemical tanker Med Emre sank about 25 nautical miles off Ibiza while carrying as much as 7,000 metric tons of diesel. All 17 crew members were rescued, but one later died and six were treated for minor injuries. Spain activated its second-highest maritime pollution response and sent specialist vessels to survey waters important to sea turtles, dolphins and seagrass; the cause and any spill remain unknown."
     },
     {
-      "title": "UK regulator finds errors in motor finance redress calculation amid legal battle",
-      "source": "Reuters",
+      "title": "UK regulator admits error in calculating car finance compensation payments",
+      "source": "The Guardian",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/business/finance/uk-regulator-finds-errors-motor-finance-compensation-calculation-2026-11-26/",
-      "summary": "Britain's Financial Conduct Authority said errors in classifying a small group of loan agreements affected calculations for its £9.1 billion motor-finance compensation scheme. The estimated effect is less than one percentage point around the 17% adjustment, but the disclosure adds uncertainty as Mercedes-Benz, Volkswagen and others challenge the scheme. The FCA asked Barclays to pause full-and-final settlement offers while it reviews the issue."
+      "url": "https://www.theguardian.com/business/2026/nov/26/uk-regulator-admits-error-in-calculating-car-finance-compensation-payments",
+      "summary": "Britain’s Financial Conduct Authority says errors in categorising a small group of car-loan agreements affected its £9.1 billion redress calculations, with an average impact under £10 per agreement. It asked Barclays to pause full-and-final settlement offers while it assesses the data and litigation implications. The scheme is already partly suspended pending a February court hearing, potentially delaying compensation for consumers."
     },
     {
       "title": "Britain signs £8 billion deal to upgrade submarine facilities",
@@ -563,19 +587,19 @@
     },
     {
       "title": "Saudi Arabia intercepts wave of retaliatory Houthi attacks",
-      "source": "The National",
+      "source": "The National / Associated Press",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.thenationalnews.com/news/gulf/2026/11/26/saudi-arabia-intercepts-wave-of-retaliatory-houthi-attacks/",
-      "summary": "Saudi Arabia said it intercepted two Houthi ballistic missiles aimed at Riyadh and two drones over its Eastern Province, while a projectile caused minor damage at Jazan port without reported civilian injuries. The Houthis also claimed attacks on Jeddah and the Ras Tanura oil complex; the coalition said it intercepted four drones near the refinery. The competing claims leave the full extent of damage uncertain as attacks spread across ports and energy sites."
+      "summary": "Saudi Arabia said it intercepted missiles and drones aimed at Riyadh and the Eastern Province, while Houthi media separately reported overnight strikes on Sanaa and blamed Saudi Arabia; AP could not independently verify that claim. UN officials say millions face hunger and about 360,000 people have been displaced in Yemen since fighting escalated in August. The competing claims and humanitarian toll remain difficult to verify."
     },
     {
       "title": "Trump's new tariffs aim to prise global trade from China's grip",
-      "source": "Reuters",
+      "source": "Reuters / Associated Press",
       "category": "Business",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/china/trumps-new-tariffs-aim-prise-global-trade-chinas-grip-2026-11-26/",
-      "summary": "Washington's latest tariff plan is designed to pressure China by adding a proposed 20% duty to existing 25% first-term levies, Reuters reports. The proposal leaves room for tariffs to reach 40% if the current trade truce expires in January and uses measures on third countries to push partners to curb Chinese exports. The administration says the measures fit within the truce; implementation and scope remain subject to review."
+      "summary": "The U.S. proposed Section 301 duties of 15%–35% on imports from China, the EU, Brazil and 11 other economies over alleged subsidized overcapacity; some high-tech goods may be exempt. AP says the measures could cover roughly three-fifths of U.S. imports and will face industry feedback before any implementation. China and Brazil objected, while Reuters says Washington is using the plan to pressure partners to curb China-linked trade."
     },
     {
       "title": "Hong Kong marks deadly fire anniversary with flowers, prayers and tears",
@@ -635,11 +659,11 @@
     },
     {
       "title": "Israel kills nine in Gaza, including Hamas-appointed deputy education minister, officials say",
-      "source": "Reuters / AP",
+      "source": "Reuters / Associated Press",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/middle-east/israel-kills-nine-gaza-including-hamas-appointed-deputy-education-minister-2026-11-26/",
-      "summary": "Israeli strikes and gunfire killed Palestinians in Gaza for a third consecutive night despite the October 2025 ceasefire. Reuters reported at least nine deaths, including Hamas-appointed deputy education minister Khaled Abu Nada and his wife; AP cited hospital officials reporting eight. Israel said Abu Nada managed Hamas financial networks, while Hamas confirmed his death. The casualty totals differ across reports."
+      "summary": "Three Israeli strikes overnight killed eight Palestinians in Gaza City and central Gaza, hospital officials said, including a man and his wife in Deir al-Balah. Israel said a strike killed Hamas official Khaled Abu Nada and another targeted militants; AP reported the health ministry’s cumulative toll at 74,746 since the war began. Reuters reported nine deaths, so the latest casualty count remains disputed."
     },
     {
       "title": "FedEx airplane overruns runway at Miami airport, disrupting Thanksgiving travel",
@@ -648,6 +672,22 @@
       "published": "2026-11-26",
       "url": "https://apnews.com/article/miami-airport-fedex-plane-off-runway-07567f757a4cef4356dfa4fc3bf5e561",
       "summary": "A FedEx MD-11 arriving from Memphis overran a runway at Miami International Airport around 8:40 p.m. Wednesday, temporarily closing all but one runway and causing hourslong delays into Thanksgiving morning. Authorities reported no injuries. The FAA is investigating, and FedEx said the aircraft experienced an issue on landing. The incident revived attention to runway safety after a separate fatal cargo-plane overrun at the airport in September."
+    },
+    {
+      "title": "Major League Baseball sues players’ union ahead of lockout, trying to block possible antitrust suit",
+      "source": "Associated Press",
+      "category": "Sports",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/mlb-lockout-5fd6e937eb4f3a67c0ccdb19b0fca3bf",
+      "summary": "Major League Baseball and the owners of its 30 teams sued the players’ union and eight union leaders, seeking to block decertification and an antitrust challenge to a lockout. The current labor deal expires Dec. 1, and MLB says it expects a lockout if no agreement is reached. Owners want a salary cap, which players reject; the union called the lawsuit frivolous. A 2027 season disruption is possible."
+    },
+    {
+      "title": "In Cincinnati, community orchards grow not just food, but connection between neighbors and nature",
+      "source": "Associated Press",
+      "category": "Environment",
+      "published": "2026-11-25",
+      "url": "https://apnews.com/article/climate-orchards-community-garden-apples-0a1a3e165847d3414f7b7a8b4836f039",
+      "summary": "More than 40 community orchards around Cincinnati are designed to provide free fruit, pollinator habitat and neighborhood gathering spaces. Organizers expect production to reach about 10,000 pounds of fruit within two years, with some surplus donated to food banks. The projects can improve food access and reduce urban heat, but AP notes they supplement rather than replace wider food systems."
     },
     {
       "title": "Melania Trump reunites her seventh group of Ukrainian and Russian children with their families",
@@ -1066,14 +1106,6 @@
       "summary": "A proposed 10% U.S. duty on finished Embraer aircraft from Brazil could raise costs for American airlines because there is no domestic alternative for the company’s regional jetliners, analysts and executives told Reuters. The tariff could begin as early as January, while carriers already face higher jet-fuel costs. The scope remains uncertain for aircraft completed in Florida from unfinished imports."
     },
     {
-      "title": "Baseball's MLB sues players' union, seeks ruling that lockout is legal",
-      "source": "Reuters",
-      "category": "Sports",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/legal/litigation/baseball-mlb-sues-players-union-seeks-ruling-that-lockout-is-legal-2026-11-25/",
-      "summary": "Major League Baseball sued its players' union seeking a court declaration that an expected lockout beginning next week is legal, escalating talks over a new collective bargaining agreement. The central dispute is a proposed salary cap; MLB's latest offer would set a $258.2 million cap and $180.2 million floor in 2028. The union called the lawsuit frivolous and accused owners of avoiding good-faith bargaining."
-    },
-    {
       "title": "Mexico announces diplomatic protest after US denies extradition of former TV host",
       "source": "Associated Press",
       "category": "World",
@@ -1274,12 +1306,12 @@
       "summary": "AAA expects 81.5 million Americans to travel at least 50 miles from Tuesday through Monday, while TSA plans to screen 17.6 million passengers. FlightAware recorded more than 3,700 U.S. delays and 60 cancellations Wednesday; some airport security waits topped an hour. A major East Coast storm threatens high winds, coastal flooding and flight disruptions through Friday, while winter weather and king tides affect other regions."
     },
     {
-      "title": "Steelers release Rodgers after quarterback blasts head coach McCarthy",
-      "source": "Reuters",
+      "title": "Steelers cut Aaron Rodgers after the QB rips coach Mike McCarthy on TV following his benching",
+      "source": "Associated Press",
       "category": "Sports",
       "published": "2026-11-25",
-      "url": "https://www.reuters.com/sports/rodgers-says-he-wont-return-steelers-claims-head-coach-mccarthy-fell-asleep-2026-11-25/",
-      "summary": "The Pittsburgh Steelers released Aaron Rodgers after the quarterback said he would not return and accused coach Mike McCarthy of falling asleep during meetings. Rodgers had been benched for Friday's game against Denver and previously said this could be his final NFL season. The team has not publicly substantiated his claims about the coach."
+      "url": "https://apnews.com/article/pittsburgh-steelers-aaron-rodgers-mike-mccarthy-fc3541d64c60a659f06a87653e96c247",
+      "summary": "The Steelers released Aaron Rodgers after benching him for Mason Rudolph, capping an 18-hour dispute. Rodgers accused coach Mike McCarthy of repeatedly missing or sleeping through meetings; McCarthy said Rodgers had issued an ultimatum outside his role and disputed the claim that he had lost the team. The club has not independently substantiated Rodgers’ allegations. At 42, Rodgers’ next career move remains uncertain."
     },
     {
       "title": "Federal Reserve survey finds modest growth but persistent price pressures",
@@ -2322,14 +2354,6 @@
       "summary": "Major U.S. retailers are offering Thanksgiving meal kits at or below last year's prices to attract inflation-weary shoppers, even as wholesale turkey and potato costs rise. Reuters reported frozen whole-turkey prices reached record highs, while grocers absorb some of the increase to signal value. Walmart's 26-item meal kit costs $35 for ten people, five dollars less than last year. Retailers hope shoppers add higher-margin extras."
     },
     {
-      "title": "US inflation accelerates again in October as Fed rate-hike expectations grow",
-      "source": "Reuters",
-      "category": "Business",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/business/us-inflation-rises-further-october-2026-11-25/",
-      "summary": "The US Personal Consumption Expenditures price index rose 0.3% in October and 3.8% over the year, while core inflation reached 3.3%, according to government data. Consumer spending also increased, supported largely by higher-income households. Financial markets are pricing in another Federal Reserve rate increase in December and possibly January. Persistent inflation is eroding wage gains and may slow household spending as 2027 approaches."
-    },
-    {
       "title": "US jobless claims fall to 189,000, pointing to a steady labour market",
       "source": "Reuters",
       "category": "U.S.",
@@ -2610,12 +2634,28 @@
       "summary": "Larry Leonard Lage, an 82-year-old deaf Michigan fan, ended a 70-season streak of attending every Wolverines home game after more than 450 contests. He began going in 1956, when tickets cost $1, and watched generations of players and coaches. Neuropathy has made walking difficult, so he plans to follow the 2027 season from home. His family and fellow fans marked his final game with a tailgate tribute."
     },
     {
-      "title": "US inflation remains high in October despite slower gas-price increases",
-      "source": "Associated Press",
+      "title": "Inflation remains uncomfortably high despite a retreat in gas prices as challenges mount for the Fed",
+      "source": "Associated Press / Reuters",
       "category": "Business",
       "published": "2026-11-25",
       "url": "https://apnews.com/article/consumer-spending-prices-inflation-tariffs-31fab1e32dda1ad3a29c192f620d5733",
-      "summary": "U.S. consumer prices rose 3.8% year over year in October, up from 3.6% in September, while core inflation accelerated to 3.3%, its highest in three years, AP reported. Monthly headline inflation slowed to 0.3%, but food prices rose 0.4%. The data arrived alongside an upward revision of third-quarter growth to 4.3%, complicating the Federal Reserve's effort to weigh persistent price pressure against economic strength."
+      "summary": "U.S. consumer prices rose 3.8% year over year in October, up from 3.6% in September, while core inflation reached 3.3%, a three-year high. Monthly prices increased 0.3%, with food up 0.4%. Third-quarter growth was revised to 4.3%, supported by spending and AI investment, but lower-income households are leaning more on credit. Persistent inflation may keep the Federal Reserve cautious about rate cuts."
+    },
+    {
+      "title": "Experts debunk Thanksgiving food myths, from turkey ‘coma’ to risky leftovers",
+      "source": "Associated Press",
+      "category": "Health",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/turkey-tryptophan-thanksgiving-sleepy-myth-9f17129a949b903cc1c795676ef18c18",
+      "summary": "AP’s Thanksgiving guide says the 1621 meal is poorly documented: the surviving account mentions deer and fowl but not turkey specifically, and likely omitted potatoes and sweetened cranberry sauce. Nutrition experts say turkey’s tryptophan does not cause the familiar post-meal “coma”; large carbohydrate-heavy meals contribute more. Leftovers should be refrigerated within two hours and eaten within three to four days."
+    },
+    {
+      "title": "What it’s like inside Rikers Island as jail staff prepare for Thanksgiving",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-24",
+      "url": "https://apnews.com/article/rikers-nyc-jail-thanksgiving-turkeys-59734c4e919193e00b6fd7b2d1859a03",
+      "summary": "Rikers Island staff prepared about 10,000 Thanksgiving lunches, using more than 6,000 pounds of turkey for inmates and employees. Each incarcerated person was due four ounces with traditional sides and dietary alternatives. The jail houses about 6,700 people and remains plagued by violence and overcrowding; New York’s mayor has proposed closing it by 2032, beyond an existing 2027 legal deadline."
     },
     {
       "title": "Canada's defense minister says his country answers to no one in Washington after a Pentagon rebuke",
@@ -2850,12 +2890,12 @@
       "summary": "Scientists at the universities of Nottingham and Cardiff tracked individual catalyst nanoparticles during a reaction that converts carbon dioxide and hydrogen into methanol. Electron microscopy revealed that particles move, merge and reorganize, while zinc oxide forms thin, porous shells that stabilize them without blocking reactions. The findings challenge the idea that catalysts remain static and could guide designs for more durable, efficient industrial processes."
     },
     {
-      "title": "Takeaways from AP interview with CDC Director Erica Schwartz",
+      "title": "CDC director draws doubts from employees and ire from legislators",
       "source": "Associated Press",
       "category": "Health",
       "published": "2026-11-24",
-      "url": "https://apnews.com/article/cdc-director-erica-schwartz-ap-interview-616e86c1548b6afe5f092eb241fda5e4",
-      "summary": "CDC Director Erica Schwartz said staff losses and a reduced internal review workforce delayed urgent measles guidance for doctors, prompting scientists to publish a warning about newborn risks in an outside medical journal. The agency has lost about 30% of its staff since 2025. Schwartz defended revised measles-death reporting and described plans to rebuild trust, while critics cite low morale, delayed alerts and concerns that federal counts understate state reports."
+      "url": "https://apnews.com/article/cdc-director-erica-schwartz-96c58552f69591543eb4331944c68446",
+      "summary": "Three months into her tenure, CDC Director Erica Schwartz faces a House Democratic investigation, calls to resign and criticism from agency employees. AP reports about 30% of CDC staff have left since 2025; Schwartz has held no news conferences and changed how measles deaths are counted, leaving federal totals below state reports. She says she is restoring trust and retains the support of Health Secretary Robert F. Kennedy Jr."
     },
     {
       "title": "Chicago Cubs add LHP Trevor Rogers and Japanese slugger Teruaki Sato, AP source says",
@@ -3315,11 +3355,11 @@
     },
     {
       "title": "US consumer confidence jumps to highest level in nearly two years",
-      "source": "Reuters",
+      "source": "Reuters / Associated Press",
       "category": "Business",
       "published": "2026-11-24",
       "url": "https://www.reuters.com/world/us/us-consumer-confidence-surges-highest-level-nearly-two-years-2026-11-24/",
-      "summary": "U.S. consumer confidence rose to 103.3 in November, its highest reading since January 2025, according to the Conference Board. Respondents were more positive about jobs and the economy, with the share calling jobs plentiful reaching a 19-month high. The improvement was concentrated among Democrats and independents, while Republican confidence slipped. Inflation expectations remained elevated at 4.5%, and economists cautioned that optimism may not translate into stronger spending."
+      "summary": "U.S. consumer confidence rose to 103.3 in November from 91.9 in October, its second consecutive monthly gain. Respondents grew more optimistic about job availability as gasoline fell to an average $3.61 a gallon, down 17 cents in a week. Confidence improved most among Democrats and independents but slipped among Republicans; inflation remains a concern, and surveys may not reliably predict actual spending."
     },
     {
       "title": "US farm secretary pledges to fight court order halting her religious emails",
