@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T12:02:19.000Z",
+  "updatedAt": "2026-11-26T13:00:58Z",
   "articles": [
     {
       "title": "‘It’s in quite a dark place’: why UK housebuilding is struggling",
@@ -18,12 +18,12 @@
       "summary": "An estimated 959,000 UK residents aged 16–24 were not in education, employment or training in July–September, equal to 12.7% of the age group. The total fell 22,000 from the previous quarter but was 17,000 higher than a year earlier, with the annual rise concentrated among young women. ONS cautions that Labour Force Survey estimates for this smaller group remain volatile."
     },
     {
-      "title": "Bank of England warns of rising mortgage pressure and AI-related financial risks",
-      "source": "Bank of England",
+      "title": "Bank of England warns of growing financial risks as AI borrowing jumps",
+      "source": "The Guardian",
       "category": "Business",
       "published": "2026-11-26",
-      "url": "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026",
-      "summary": "Britain’s Financial Policy Committee says the financial system remains resilient but faces higher energy costs, borrowing rates and concentrated AI-related exposures. About 6.5 million owner-occupier mortgages are projected to see payments rise as fixed deals mature through 2029, with a typical increase near £100 a month. The Bank also warns that increasingly capable AI agents could amplify cyber and operational risks across finance."
+      "url": "https://www.theguardian.com/business/live/2026/nov/26/nvidia-chip-shipments-south-east-asia-stock-dentists-live-updates",
+      "summary": "The Bank of England warned that opaque, interconnected AI financing and increasingly capable models could amplify market, cyber and operational risks. Its report projects 6.5 million of seven million owner-occupier mortgages due to refinance by 2029 will see higher payments; the median increase is about £100 monthly. The Guardian reports around 430,000 borrowers could face rises exceeding £500 a month."
     },
     {
       "title": "UK annual net migration drops to 77,000 in year to June 2026",
@@ -570,12 +570,12 @@
       "summary": "Kenyan preacher Paul Mackenzie was found guilty of assault and cruelty to children in a new case linked to his Good News International Church. A court said six children were allegedly forced to fast and punished if they tried to eat or escape; 11 followers were charged and 24 people acquitted. Mackenzie, already serving 200 years for the deaths of 191 people, is due to be sentenced on the new charges December 17."
     },
     {
-      "title": "DR Congo Ebola cases surpass 12,000 as fighting disrupts response in east",
-      "source": "Al Jazeera",
+      "title": "Ebola outbreak in Congo reaches 12,000 cases as violence forces some responders to evacuate",
+      "source": "Associated Press",
       "category": "Health",
       "published": "2026-11-26",
-      "url": "https://www.aljazeera.com/news/2026/11/26/dr-congo-ebola-cases-surpass-12000-as-fighting-disrupts-response-in-east",
-      "summary": "Confirmed Ebola cases in the Democratic Republic of Congo have surpassed 12,000, government data cited by Al Jazeera show, as fighting in Ituri disrupts the response. About a dozen people, including two WHO personnel and Congolese health workers, were evacuated after being trapped in a hospital for three days. Clashes have displaced civilians and forced response teams from affected areas, complicating surveillance, treatment and containment."
+      "url": "https://apnews.com/article/congo-ebola-outbreak-violence-0a0bc05d76d3278319472178a16be14b",
+      "summary": "Congo’s Bundibugyo Ebola outbreak has reached 12,021 confirmed cases, with nearly half the patients dead, making it the country’s deadliest outbreak, AP reports. Fighting near Bunia has displaced residents, blocked health teams and reduced staffing at treatment centers; about a dozen people, including two WHO staff, were evacuated after being trapped in a hospital for three days. No approved vaccine or treatment exists for this strain."
     },
     {
       "title": "Gold drifts lower as Fed rate-hike fears loom",
@@ -658,12 +658,12 @@
       "summary": "An Iraqi court sentenced eight French nationals to life in prison for joining the Islamic State group, AFP reported. Two other French defendants received 15-year terms, while verdicts for 10 more were postponed. The cases follow transfers of foreign detainees from Syria to Iraq, where authorities have been processing people accused of joining the group. The convictions and remaining proceedings may carry diplomatic and human-rights implications."
     },
     {
-      "title": "Israeli strikes kill at least eight in Gaza, including senior education official",
-      "source": "Reuters / Al Jazeera",
+      "title": "Israeli strikes kill 8 in Gaza, and other Mideast news",
+      "source": "Associated Press",
       "category": "World",
       "published": "2026-11-26",
-      "url": "https://www.reuters.com/world/middle-east/israel-kills-nine-gaza-including-hamas-appointed-deputy-education-minister-2026-11-26/",
-      "summary": "Israeli strikes killed at least eight Palestinians in Gaza, including education ministry undersecretary Khaled Abu Nada and his wife in Deir el-Balah, Al Jazeera reported from health officials. Other strikes killed three people in Shati refugee camp and three in Tuffah. Reuters separately reported nine deaths, underscoring a discrepancy in early casualty counts. Israel said Abu Nada was a Hamas official; the attacks continued despite the ceasefire."
+      "url": "https://apnews.com/article/gaza-iran-israel-uae-hormuz-november-26-2026-522676f17532b878878ff7a4347d0e31",
+      "summary": "Three Israeli strikes killed eight Palestinians across Gaza overnight, including a man and his wife in Deir al-Balah, hospital officials said. Israel said it killed Khaled Abu Nada, a Hamas official overseeing economic and education affairs; the military said another strike targeted militants. Near-daily Israeli fire has continued despite the ceasefire, and Gaza’s health ministry reports 74,746 deaths since the war began."
     },
     {
       "title": "FedEx airplane overruns runway at Miami airport, disrupting Thanksgiving travel",
@@ -768,6 +768,70 @@
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/middle-east/german-police-arrest-two-iraqis-over-alleged-cologne-synagogue-bomb-plot-2026-11-26/",
       "summary": "German prosecutors said two Iraqi nationals were arrested after 17 raids in three states, suspected of belonging to a group that planned attacks on Jewish and other targets in Europe, including a Cologne synagogue. Investigators allege the group recruited operatives and raised funds for explosives; suspected members visited the synagogue and another European site in March, but no attack occurred. A judge was to decide whether the suspects remain in pretrial detention."
+    },
+    {
+      "title": "(3rd LD) N. Korea's Kim inspects nuclear material sites, calls for broader use of tactical nukes",
+      "source": "Yonhap News Agency",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://en.yna.co.kr/view/AEN20261126000553315",
+      "summary": "Kim Jong Un visited a newly built weapons-grade nuclear-material production base, a nuclear-equipment facility and the Nuclear Weapons Institute, state media reported. He called for expanded nuclear-material output and broader use of tactical weapons across multiple missions, while accusing U.S. allies of expanding nuclear cooperation. The facilities’ locations and production figures were not disclosed; the claims could not be independently verified."
+    },
+    {
+      "title": "Egypt tanker explosion kills 31 people as driver crashes into fuel truck in fiery highway crash",
+      "source": "CBS News",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.cbsnews.com/news/egypt-fuel-tanker-explosion-deaths-giza-cairo/",
+      "summary": "Egyptian prosecutors say a driver was arrested after his car struck a fuel tanker on Cairo’s Ring Road, triggering a fire that killed 31 people and injured 21. The driver reportedly said he was changing lanes and travelling about 70 mph; at least 27 vehicles were destroyed. Authorities are investigating the crash, while the confirmed toll underscores persistent road-safety concerns."
+    },
+    {
+      "title": "Powerful Thanksgiving storm threatens East Coast with floods, damaging winds",
+      "source": "The Washington Post",
+      "category": "U.S.",
+      "published": "2026-11-26",
+      "url": "https://www.washingtonpost.com/nation/2026/11/26/powerful-thanksgiving-storm-threatens-east-coast-with-floods-damaging-winds/",
+      "summary": "A powerful Thanksgiving storm is moving through the Mid-Atlantic and Northeast, with 50–60 mph gusts, isolated 70–75 mph coastal winds and 2–4 feet of storm surge possible. New York and New Jersey declared emergencies; officials warned of outages, dangerous travel and flooding. Macy’s postponed its centennial parade to Saturday, Philadelphia canceled its parade, and 3–6 inches of snow were forecast around St. Louis."
+    },
+    {
+      "title": "Necessities join gifts in Black Friday shopping carts as AI and higher costs steer spending",
+      "source": "Associated Press",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/black-friday-shopping-ai-essentials-5e542ffd1f94f24e4ffb79d412223544",
+      "summary": "U.S. shoppers are using extended Black Friday promotions to buy household basics alongside gifts, while AI tools help compare products and prices. Adobe Analytics said online spending reached $82.5 billion from Nov. 1–22, up 9.1% year over year, and forecast $275.1 billion for the holiday season. Retailers are spreading discounts across the month, blurring the traditional one-day kickoff."
+    },
+    {
+      "title": "Top official admits ‘wrong decisions’ and ‘deaths’ will result from wildfire shake-up",
+      "source": "The Washington Post",
+      "category": "Environment",
+      "published": "2026-11-26",
+      "url": "https://www.washingtonpost.com/climate-environment/2026/11/26/top-us-official-says-wrong-decisions-deaths-expected-wildfire-shake-up/",
+      "summary": "A senior U.S. Forest Service overseer privately warned that the administration’s rapid plan to consolidate federal wildfire agencies could produce wrong decisions, catastrophic disruption and deaths. Michael Boren said officials had limited information and a five-month deadline to unify a fragmented system. The Washington Post reports 21 wildland firefighters have died this year, the workforce’s third-deadliest season since at least 2016."
+    },
+    {
+      "title": "HSBC sees more than 100,000 users of its stablecoin in first month since launch",
+      "source": "South China Morning Post",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.scmp.com/business/article/3375825/hsbc-sees-more-100000-users-its-stablecoin-first-month-launch",
+      "summary": "HSBC says more than 100,000 people used its Hong Kong dollar-backed RedCoin stablecoin during its first month. The token launched in October through the bank’s PayMe app, which has more than 3.3 million users, and can be transferred between people or spent at over 100,000 merchants. The bank says it will prioritize cybersecurity and additional products as usage expands."
+    },
+    {
+      "title": "UN aid chief urges access to Yemen war-hit communities",
+      "source": "United Nations (via Mirage News)",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.miragenews.com/un-aid-chief-urges-access-to-yemen-war-hit-1783650/",
+      "summary": "U.N. humanitarian chief Tom Fletcher arrived in Yemen warning that fighting and restrictions are blocking food and medicine, especially in Taiz. He said about 364,000 people have been displaced since August, including tens of thousands in the past week, and urged safe, sustained aid access. The U.N. said 71 personnel remained in Houthi detention as of mid-October."
+    },
+    {
+      "title": "AI turmoil spurs risk-off mode as China government bond yield slides to record low",
+      "source": "South China Morning Post",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.scmp.com/business/china-business/article/3375721/ai-turmoil-spurs-risk-mode-china-government-bond-yield-slides-record-low",
+      "summary": "Investor caution over volatile AI shares has pushed China’s 10-year government-bond yield to a record low of 1.565% this month, while buyers have shifted toward dividend-paying stocks. The Shanghai Stock Exchange Dividend Index has gained about 7% year to date, outperforming several major domestic benchmarks. The move signals defensive positioning rather than confidence in a broad equity recovery."
     },
     {
       "title": "In Cincinnati, community orchards grow not just food, but connection between neighbors and nature",
@@ -1242,14 +1306,6 @@
       "summary": "Russian forces struck two sites in Kyiv with ballistic missiles late Wednesday, Mayor Vitali Klitschko said. Two buildings on the east side of the Dnipro River were hit, with one badly damaged; casualties were possible, but officials had not confirmed a toll in the initial report. The attack adds to pressure on the capital as Russia continues missile and drone strikes across Ukraine."
     },
     {
-      "title": "North Korea's Kim urges wider tactical nuclear weapons deployment on facility tour, KCNA says",
-      "source": "Reuters",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://www.reuters.com/world/asia-pacific/north-koreas-kim-visits-nuclear-facilities-calls-wider-tactical-nuclear-weapons-2026-11-25/",
-      "summary": "North Korean leader Kim Jong Un called for tactical nuclear weapons to be deployed across multiple domains and said nuclear-material production was expanding, KCNA reported after a facility tour. The agency did not identify the site; released images appeared to show enrichment centrifuges and warheads, according to analysts. Experts said Pyongyang may be signaling it will negotiate only as a recognized nuclear-armed state."
-    },
-    {
       "title": "Islamic State attack kills two Syrian security personnel in Hasaka",
       "source": "Reuters",
       "category": "World",
@@ -1280,14 +1336,6 @@
       "published": "2026-11-25",
       "url": "https://www.reuters.com/sustainability/cop/opec-blames-eu-cop31-collapse-2026-11-25/",
       "summary": "OPEC Secretary-General Haitham Al Ghais rejected claims that oil producers caused the collapse of COP31, saying the EU and others walked away from negotiations. Producers opposed language on moving away from fossil fuels and backed carbon-capture references, which some developing nations called costly and unproven. Reuters also reported negotiators' concerns about Saudi influence; EU officials had not responded to OPEC's criticism."
-    },
-    {
-      "title": "Fuel tanker crash ignites a massive fire on a highway surrounding Cairo, killing at least 31 people",
-      "source": "Associated Press",
-      "category": "World",
-      "published": "2026-11-25",
-      "url": "https://apnews.com/article/89e4cd3d3d53016c9c35440b57c5ea1e",
-      "summary": "A fuel-tanker crash on Cairo's Ring Road ignited a fire that killed at least 31 people and injured 21, Egypt's Health Ministry said. The blaze in Giza's Warraq district charred more than two dozen vehicles; prosecutors ordered DNA testing to identify victims. Officials said the toll was preliminary, renewing scrutiny of road safety and enforcement."
     },
     {
       "title": "US FinCEN takes some systems offline after cyber incident, official says",
@@ -2010,14 +2058,6 @@
       "summary": "The London Metal Exchange temporarily tightened short-term aluminium trading rules after falling inventories and concentrated holdings drove immediate-delivery premiums to their highest level since 1988. The changes require large holders of stock warrants and short-term futures to make metal available at capped prices. Available exchange inventories have more than halved this year. The LME says it will keep monitoring the market and may take further action if the squeeze persists."
     },
     {
-      "title": "Thanksgiving storm disrupts travel and forces first-ever Macy's parade postponement",
-      "source": "ABC News / Associated Press",
-      "category": "U.S.",
-      "published": "2026-11-25",
-      "url": "https://abcnews.com/US/powerful-storm-threatens-east-coast-hurricane-level-flooding/story?id=138435983",
-      "summary": "A powerful East Coast storm brought heavy rain, coastal flooding and damaging winds as 81.5 million Americans were expected to travel at least 50 miles for Thanksgiving. AP reported more than 3,700 U.S. flight delays Wednesday and gusts potentially reaching 50 mph along I-95. Macy's moved its 100th parade to Saturday at 8:30 a.m., the first postponement in its history; officials cited balloon and crowd safety."
-    },
-    {
       "title": "Major fragrance suppliers fined £85 million by the CMA for illegal collusion",
       "source": "UK Competition and Markets Authority",
       "category": "Business",
@@ -2127,7 +2167,7 @@
       "category": "U.S.",
       "published": "2026-11-25",
       "url": "https://apnews.com/article/plane-down-gulf-of-mexico-a1dfde1b2e73ef5862a4786db9644046",
-      "summary": "A Cessna 210 traveling from New Orleans to Fort Myers crashed in the Gulf of Mexico between Pascagoula and Horn Island, killing all six aboard, including two boys ages 8 and 10, the Coast Guard said. Divers recovered the victims from the fuselage after a lengthy search. The FAA and National Transportation Safety Board will investigate; officials have not announced a cause."
+      "summary": "A Cessna 210 flying from New Orleans to Fort Myers crashed in the Gulf of Mexico between Pascagoula and Horn Island, killing all six aboard, including two boys aged 12 and 10, the Coast Guard said. Divers recovered the victims from the fuselage after a lengthy search. The FAA and National Transportation Safety Board are investigating; officials have not announced a cause."
     },
     {
       "title": "Pope creates Vatican initiative to coordinate Catholic prison ministry",
@@ -2704,6 +2744,46 @@
       "published": "2026-11-25",
       "url": "https://www.theguardian.com/business/2026/nov/25/uk-food-inflation-sharp-rise-next-year-mounting-cost-pressures-bank-of-england",
       "summary": "Bank of England deputy governor Clare Lombardelli told MPs that UK food inflation could rise from about 1.3% now to 3–5% by mid-2027, though the forecast is uncertain. Higher energy costs and a possible El Niño effect could add pressure; a 26% household energy price-cap rise is due in January. Committee members disagree on whether further rate increases are needed, with the next decision scheduled for December 17."
+    },
+    {
+      "title": "Saudi Arabia’s PIF looking to sell 25% of Newcastle through share issue",
+      "source": "The Guardian",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.theguardian.com/football/2026/nov/25/saudi-arabia-pif-newcastle-share-issue",
+      "summary": "Saudi Arabia’s Public Investment Fund is seeking outside investors for up to 25% of Newcastle United through a new share issue, with JPMorgan appointed to manage the process. Proceeds would help fund a new stadium or redevelopment of St James’ Park, diluting PIF’s 84% stake rather than paying it directly. PIF sources say the fund remains committed to the club."
+    },
+    {
+      "title": "FIA confirm Williams’ minor overspend breach in 2025 Cost Cap review",
+      "source": "Formula 1",
+      "category": "Sports",
+      "published": "2026-11-25",
+      "url": "https://www.formula1.com/en/latest/article/fia-confirm-williams-minor-overspend-breach-in-2025-cost-cap-review.12rGorQ1pzc6aH0LX2WdLZ",
+      "summary": "The FIA found Williams unintentionally exceeded Formula 1’s 2025 cost cap by £627,000, or 0.48%, after an eight-month review. The team must pay a financial penalty and accept a 1.5% reduction in wind-tunnel and computational-fluid-dynamics testing over 12 months. Williams said the excess involved administrative restructuring costs; the FIA found no sporting or financial advantage."
+    },
+    {
+      "title": "Giant lambda-shaped stellar nursery found in the Milky Way's outskirts",
+      "source": "Phys.org",
+      "category": "Science",
+      "published": "2026-11-25",
+      "url": "https://phys.org/news/2026-11-giant-lambda-stellar-nursery-milky.html",
+      "summary": "Astronomers mapped a large star-forming gas complex in the Milky Way’s outer regions, about 43,000 light-years from the galactic centre. The lambda-shaped structure spans roughly 114 by 205 light-years and contains 61 dense gas clumps, 16 associated with young stars. Its star-formation activity resembles inner-galaxy systems, challenging assumptions about how efficiently stars form in the outer Milky Way."
+    },
+    {
+      "title": "Somalia: no famine risk among Baidoa IDPs, but millions still face acute food insecurity",
+      "source": "FSNAU / IPC",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://fsnau.org/in-focus/nearly-46-million-people-somalia-will-likely-experience-high-levels-acute-food-insecurity",
+      "summary": "Somalia’s latest IPC update projects 5.3 million people will face crisis-level or worse food insecurity from October through December, slightly down from 5.4 million. Displaced people in Baidoa remain in emergency food insecurity and critical malnutrition phases, but the worst-case famine scenario has eased. About 1.92 million children are projected to need treatment for acute malnutrition through June 2027, including 437,000 severe cases."
+    },
+    {
+      "title": "Ex-Israeli generals defend Palestinians during West Bank olive harvest",
+      "source": "PBS NewsHour",
+      "category": "World",
+      "published": "2026-11-25",
+      "url": "https://www.pbs.org/video/war-in-the-holy-land-1795644204/",
+      "summary": "PBS reports that Israeli settler attacks have made the West Bank’s olive harvest the most violent on record, according to the U.N. Former Israeli generals and security officials joined activists to protect Palestinian farmers in Duma, where settlers tried to interfere with harvesting. The U.N. documented nearly 400 settler attacks in October, intensifying debate inside Israel over government policy and enforcement."
     },
     {
       "title": "Experts debunk Thanksgiving food myths, from turkey ‘coma’ to risky leftovers",
