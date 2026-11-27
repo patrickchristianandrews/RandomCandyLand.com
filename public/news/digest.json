@@ -1,6 +1,38 @@
 {
-  "updatedAt": "2026-11-27T00:01:22.311Z",
+  "updatedAt": "2026-11-27T00:58:13.321Z",
   "articles": [
+    {
+      "title": "Thanksgiving parade performers scramble to extend New York stays",
+      "source": "Associated Press",
+      "category": "U.S.",
+      "published": "2026-11-26",
+      "url": "https://apnews.com/article/macys-thanksgiving-parade-nyc-manhattan-e3a17dee62d5847e37edf5fa21ed0ec1",
+      "summary": "After severe weather moved the Macy’s parade to Saturday, visiting performers faced unexpected accommodation and transportation costs. A Texas high school band collected $350,000 in donations to remain in New York, while a Hawaiian ensemble was still raising money. Several Broadway groups plan to participate, but Alabama’s university band must return for a football game."
+    },
+    {
+      "title": "Oxford exhibition examines possessions seized from Naga resistance leader",
+      "source": "The Guardian",
+      "category": "World",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/culture/2026/nov/26/oxford-pitt-rivers-museum-naga-gaidinliu",
+      "summary": "Oxford’s Pitt Rivers Museum is displaying 27 objects associated with Gaidinliu, who resisted British colonial rule in northeastern India. The collection includes personal writings, clothing and religious artifacts acquired during colonial military operations. The exhibition examines how museums inherited such collections and how confiscating culturally significant possessions could undermine Indigenous political and spiritual authority."
+    },
+    {
+      "title": "The origins of cloud seeding, 80 years later",
+      "source": "The Guardian",
+      "category": "Science",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/news/2026/nov/26/how-the-first-human-made-snowstorm-was-created",
+      "summary": "A historical retrospective revisits Vincent Schaefer’s 1946 experiments in Massachusetts, which demonstrated that introducing dry ice into suitable clouds could initiate ice crystal formation and snowfall. The discovery grew from laboratory research into aircraft icing. Although the work opened a new field of atmospheric research, dependable control over rainfall and snowfall remains elusive."
+    },
+    {
+      "title": "Victoria opposition proposes long-term leases of Melbourne sewage facilities",
+      "source": "The Guardian",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/26/liberal-nationals-victoria-election-policy-costings-revealed-sewage-land-energy",
+      "summary": "Ahead of Victoria’s state election, Australia’s Liberal and National parties outlined plans to raise funds through public asset transactions, including 90-year leases of two major wastewater treatment facilities. Opposition leader Jess Wilson said water prices would remain regulated. The proposal forms part of a broader spending reduction plan and depends on the election outcome."
+    },
     {
       "title": "Trump criticizes political opponents and federal officials in Thanksgiving message",
       "source": "Reuters",
