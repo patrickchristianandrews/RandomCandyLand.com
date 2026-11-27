@@ -52,8 +52,8 @@ def get(url, api=False):
 def notice(reason):
     shutil.rmtree(DEST, ignore_errors=True); DEST.mkdir(parents=True, exist_ok=True)
     page = (
-        '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-        '<title>Liquid Wave FM-1 installer</title><body style="font:16px/1.5 system-ui;max-width:640px;margin:40px auto;padding:0 16px;color:#4a2a3a;background:#fff6fb">'
+        '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<title>Liquid Wave FM-1 installer</title></head><body style="font:16px/1.5 system-ui;max-width:640px;margin:40px auto;padding:0 16px;color:#4a2a3a;background:#fff6fb">'
         '<h1>Liquid Wave FM-1 installer</h1><p>The installer is temporarily unavailable on this page.</p>'
         '<p>You can still download the package from <a href="%s">the GitHub releases</a>. '
         'It is experimental and has not been tested on a real FM-1.</p><p><a href="/liquid-wave/">Back to Liquid Wave</a></p></body></html>' % RELEASES)
