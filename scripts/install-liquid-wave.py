@@ -41,6 +41,14 @@ def add_site_analytics(html):
         if body_start:
             html = html[:body_start.start()] + '</head>' + html[body_start.start():]
     html = re.sub(r'</head>', head_tags + '</head>', html, count=1, flags=re.I)
+    if not re.search(r'<body\b', html, flags=re.I):
+        head_end = re.search(r'</head\s*>', html, flags=re.I)
+        if head_end:
+            html = html[:head_end.end()] + '<body>' + html[head_end.end():]
+        else:
+            html = '<body>' + html
+    if not re.search(r'</body\s*>', html, flags=re.I):
+        html = re.sub(r'</html\s*>', '</body></html>', html, count=1, flags=re.I)
     body = re.search(r'<body\b[^>]*>', html, flags=re.I)
     if body:
         html = html[:body.end()] + GTM_NOSCRIPT + html[body.end():]
