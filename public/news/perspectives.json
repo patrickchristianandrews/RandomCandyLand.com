@@ -1,6 +1,44 @@
 {
-  "updatedAt": "2026-11-27T12:57:01.761Z",
+  "updatedAt": "2026-11-27T17:03:16Z",
   "groups": [
+    {
+      "id": "us-black-friday-shopping-2026-11-27",
+      "title": "US Black Friday shopping amid higher living costs",
+      "category": "Business",
+      "articleUrls": [
+        "https://www.reuters.com/business/retail-consumer/cautious-consumers-gear-up-black-friday-inflation-woes-bite-2026-11-27/",
+        "https://apnews.com/article/black-friday-deals-shopping-stores-online-21e10113de5d5941024b3220bec29433",
+        "https://apnews.com/article/black-friday-shopping-ai-essentials-5e542ffd1f94f24e4ffb79d412223544"
+      ],
+      "analysis": {
+        "summary": "US shoppers returned to stores and online promotions during Black Friday, with household budgets under pressure and discounts already available for weeks. Adobe reported strong Thanksgiving online spending and projected further growth on Friday. Reporting indicates that shoppers are balancing gifts with everyday purchases, while inflation complicates interpretation of projected holiday sales growth.",
+        "sharedFacts": "Both Reuters and AP report strong expected holiday spending, prolonged promotions and cost-conscious shopping.",
+        "differences": "Reuters emphasizes inflation, retailer earnings commentary and toy prices. AP focuses on store visits, everyday purchases and online shopping data.",
+        "unresolved": "Final Black Friday sales, inflation-adjusted growth and the effect of promotions on retailer margins.",
+        "contextToWatch": "Actual weekend sales totals and subsequent retailer earnings.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/business/retail-consumer/cautious-consumers-gear-up-black-friday-inflation-woes-bite-2026-11-27/",
+          "emphasis": "Inflation and household budgets",
+          "adds": "Reports retailer commentary and rising toy prices."
+        },
+        {
+          "source": "Associated Press",
+          "articleUrl": "https://apnews.com/article/black-friday-deals-shopping-stores-online-21e10113de5d5941024b3220bec29433",
+          "emphasis": "Shopping behavior and retail activity",
+          "adds": "Documents early store visits and Thanksgiving online spending."
+        },
+        {
+          "source": "Associated Press",
+          "articleUrl": "https://apnews.com/article/black-friday-shopping-ai-essentials-5e542ffd1f94f24e4ffb79d412223544",
+          "emphasis": "Shopping behavior and retail activity",
+          "adds": "Reports early November online spending and purchases of essentials."
+        }
+      ]
+    },
     {
       "id": "west-java-illegal-gold-mine-flood-2026-11-26",
       "title": "Flooded illegal gold mine in Indonesia leaves workers dead and missing",
@@ -534,6 +572,37 @@
           "articleUrl": "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/",
           "emphasis": "Focuses on Walmart’s commercial partnership and how AI agents could change product discovery and retailer traffic.",
           "adds": "Explains the retailer’s plan to let customers search, compare and purchase Black Friday deals through Muse and contrasts it with Amazon’s approach."
+        }
+      ]
+    },
+    {
+      "id": "un-autonomous-weapons-talks-2026-11-21",
+      "title": "UN autonomous weapons talks continue without binding rules",
+      "category": "Technology",
+      "articleUrls": [
+        "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse",
+        "https://apnews.com/article/un-drones-robots-un-lethal-ai-weapons-ebe057d2a47cde53100970c8f648e7fa"
+      ],
+      "analysis": {
+        "summary": "Negotiations in Geneva ended without agreement to pursue binding international rules for autonomous weapons. Delegates instead agreed to continue discussions toward 2028. The outcome leaves unresolved how international law should govern systems that can select targets autonomously, despite calls from humanitarian organizations and numerous governments for stronger safeguards and meaningful human control.",
+        "sharedFacts": "Both reports describe continued negotiations without a commitment to binding rules.",
+        "differences": "The Guardian emphasizes the consensus rule and Russia’s objection; Associated Press emphasizes the extended timetable and humanitarian concerns.",
+        "unresolved": "Whether governments will agree to binding obligations and how human control would be defined.",
+        "contextToWatch": "Future negotiating mandates and proposals ahead of 2028.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse",
+          "emphasis": "Diplomatic obstacles",
+          "adds": "Explains the consensus requirement and opposition to a stronger mandate."
+        },
+        {
+          "source": "Associated Press",
+          "articleUrl": "https://apnews.com/article/un-drones-robots-un-lethal-ai-weapons-ebe057d2a47cde53100970c8f648e7fa",
+          "emphasis": "Humanitarian implications",
+          "adds": "Describes the extended timetable and Red Cross concerns."
         }
       ]
     }
