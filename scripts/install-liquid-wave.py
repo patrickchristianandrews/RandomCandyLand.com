@@ -79,18 +79,17 @@ def notice(reason):
 
 def newest_package():
     if os.environ.get('LIQUID_BETA') == '1':
-        rel = json.loads(get('https://api.github.com/repos/%s/releases/tags/advanced-liquid-wave-beta' % REPO, api=True))
-        for a in rel.get('assets', []):
-            if a['name'] == 'Advanced-Liquid-Wave-beta.zip': return get(a['browser_download_url']), rel, a['name']
-        raise RuntimeError('beta release package not available')
+        # Public release asset URL does not consume GitHub REST API rate limits.
+        tag = 'advanced-liquid-wave-beta'
+        asset = 'Advanced-Liquid-Wave-beta.zip'
+        return get(RELEASES + '/download/' + tag + '/' + asset), {'tag_name': tag}, asset
     local = os.environ.get('LIQUID_ZIP')
     if local: return Path(local).read_bytes(), {'tag_name': 'local-test', 'published_at': ''}, Path(local).name
-    rels = json.loads(get('https://api.github.com/repos/%s/releases?per_page=10' % REPO, api=True))
-    for rel in rels:
-        if rel.get('draft') or rel.get('tag_name', '').startswith('advanced-liquid-wave-beta'): continue
-        for a in rel.get('assets', []):
-            if a['name'].lower().endswith('complete.zip'): return get(a['browser_download_url']), rel, a['name']
-    raise RuntimeError('no release with a *complete.zip asset yet')
+    # Keep the original installer at the previously verified stable package.
+    # Explicit tag override permits future intentional stable release upgrades.
+    tag = os.environ.get('LIQUID_STABLE_TAG', 'pocket-wave-7')
+    asset = 'Pocket-Wave-complete.zip'
+    return get(RELEASES + '/download/' + tag + '/' + asset), {'tag_name': tag}, asset
 
 def main():
     try:
@@ -107,6 +106,16 @@ def main():
         m = re.search(r'firmware sha256:\s*([0-9a-f]{64})', rev)
         if not m: raise RuntimeError('package has no firmware checksum to verify against')
         if m.group(1) != sha: raise RuntimeError('firmware checksum mismatch')
+        # Reject an older beta rather than silently publish it under the newest link.
+        if os.environ.get('LIQUID_BETA') == '1':
+            expected = os.environ.get('LIQUID_BETA_SHA256', '68169f241d4c972e4c82a240fd893fa124ad14524ec7c0e2ffcd06921ef61557')
+            if sha != expected:
+                # A later release may be newer. Compare directly with the current FWSC asset.
+                current = get(RELEASES + '/download/advanced-liquid-wave-beta/Advanced-Liquid-Wave-beta.fwsc')
+                if hashlib.sha256(current).hexdigest() != sha:
+                    raise RuntimeError('beta ZIP and current FWSC release do not match')
+        revision = re.search(r'(?im)^(?:git (?:commit|revision)|commit|revision|source revision):\s*([0-9a-f]{7,40})', rev)
+        revision_id = revision.group(1) if revision else ''
         shutil.rmtree(DEST, ignore_errors=True); DEST.mkdir(parents=True)
         prefix = top + '/installer/'
         for n in names:
@@ -123,10 +132,14 @@ def main():
                     s = re.sub(r'(<body[^>]*>)', r'\1\n<p style="margin:8px 14px"><a href="/liquid-wave/">&larr; Back to Liquid Wave</a></p>', s, count=1)
                 if os.environ.get('LIQUID_BETA') == '1' and rel_path.as_posix() == 'index.html':
                     s = re.sub(r'(<body[^>]*>)', r'\1<p style="margin:12px;padding:12px;border:2px solid #b77836"><strong>Advanced Liquid Wave Beta</strong> — Experimental hardware firmware. Emulator tested; physical FM-1 unverified. Back up settings and read Rescue before installing.</p>', s, count=1)
+                if rel_path.as_posix() == 'index.html' and os.environ.get('LIQUID_BETA') == '1':
+                    # Distinguish exact binary builds in the UI, even when the beta tag is reused.
+                    badge = '<p style="margin:12px;font:13px monospace">Firmware SHA-256: <code style="overflow-wrap:anywhere">' + sha + '</code></p>'
+                    s = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + badge, s, count=1)
                 if rel_path.suffix.lower() == '.html': s = add_site_analytics(s)
                 b = s.encode('utf-8')
             out.write_bytes(b)
-        (DEST / 'release.json').write_text(json.dumps({'tag': rel.get('tag_name'), 'published': rel.get('published_at'), 'asset': asset, 'firmware_sha256': sha}, indent=2), encoding='utf-8')
+        (DEST / 'release.json').write_text(json.dumps({'tag': rel.get('tag_name'), 'published': rel.get('published_at'), 'asset': asset, 'firmware_sha256': sha, 'revision': revision_id}, indent=2), encoding='utf-8')
         idx = (DEST / 'index.html').read_text(encoding='utf-8')
         if 'id="install"' not in idx or 'FM-1 Installer' not in idx: raise RuntimeError('installer page is not the expected one')
         print('Liquid Wave installer published from %s (%s), firmware sha256 %s' % (rel.get('tag_name'), asset, sha))

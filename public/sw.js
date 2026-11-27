@@ -15,6 +15,11 @@ self.addEventListener('fetch',event=>{
   if(req.method!=='GET')return;
   const url=new URL(req.url);
   if(url.origin!==self.location.origin || url.pathname.startsWith('/api/'))return;
+  // Hardware updater pages must never be served from the offline cache.
+  if(/^\/liquid-wave\/(?:beta-install|install)(?:\/|$)/.test(url.pathname)){
+    event.respondWith(fetch(new Request(req,{cache:'no-store'})));
+    return;
+  }
   const allowed=req.mode==='navigate'||['script','style','image','font','manifest'].includes(req.destination)
     || url.pathname.endsWith('.webmanifest');
   if(!allowed)return;
