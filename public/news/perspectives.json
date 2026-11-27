@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T05:27:41.200Z",
+  "updatedAt": "2026-11-27T05:28:32.821Z",
   "groups": [
     {
       "id": "west-java-illegal-gold-mine-flood-2026-11-26",
@@ -103,6 +103,56 @@
           "articleUrl": "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/",
           "emphasis": "Reports Taiwan’s specific effort to preserve a negotiated 15% tariff rate.",
           "adds": "Provides comments from Taiwan’s vice premier and notes that semiconductors make up a large share of Taiwan’s U.S. exports."
+        }
+      ]
+    },
+    {
+      "id": "iraq-baghdad-kurdistan-border-control-dispute-2026-11",
+      "title": "Baghdad's bid to take control of Kurdish borders sparks protests and talks",
+      "category": "World",
+      "articleUrls": [
+        "https://www.aljazeera.com/news/2026/11/25/iraqs-top-court-rules-government-can-take-over-kurdish-borders-oil-fields",
+        "https://www.reuters.com/world/middle-east/iraq-closes-two-border-crossings-kurdistan-region-with-syria-iran-2026-11-26/",
+        "https://www.reuters.com/business/energy/iraqi-kurds-protest-against-baghdad-leaders-moves-assert-central-control-2026-11-26/",
+        "https://www.aa.com.tr/en/politics/iraq-to-hold-national-dialogue-on-constitutional-dispute-with-kurdish-regional-government/4138066"
+      ],
+      "analysis": {
+        "summary": "A court ruling backing federal authority over Iraq's international borders and oil and gas fields has triggered practical moves by Baghdad, Kurdish protests and plans for national dialogue. Al Jazeera explains the legal decision, Reuters reports border closures and demonstrations, and Anadolu describes an effort by senior state leaders to negotiate. The dispute concerns the balance of power between Iraq's federal government and the Kurdistan Regional Government.",
+        "sharedFacts": "The reports describe an escalating dispute between Baghdad and the Kurdistan Regional Government over federal authority, border crossings and oil resources. They connect recent actions to a Federal Supreme Court ruling that supports a larger federal role in border control.",
+        "differences": "Al Jazeera focuses on the court ruling and Kurdish officials' constitutional objections. Reuters reports the concrete consequences, including closures of two crossings and street protests against federal moves. Anadolu emphasizes the planned December 1 national dialogue as a possible political route to address the dispute.",
+        "unresolved": [
+          "Will the national dialogue produce an agreement accepted by both Baghdad and Kurdish authorities?",
+          "How will the federal government implement control over border crossings and oil fields?",
+          "Will protests lead to further disruption or legal and political challenges?",
+          "What powers will remain with the Kurdistan Regional Government under any negotiated arrangement?"
+        ],
+        "contextToWatch": "The December 1 dialogue, any further federal deployments and the status of the affected crossings are the next developments to follow. The reports show both an assertion of federal authority and an attempt to negotiate, but do not establish how the dispute will be resolved.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Al Jazeera",
+          "articleUrl": "https://www.aljazeera.com/news/2026/11/25/iraqs-top-court-rules-government-can-take-over-kurdish-borders-oil-fields",
+          "emphasis": "Explains the court ruling and the legal basis for expanded federal authority.",
+          "adds": "Reports Kurdish officials' objection that the decision infringes on constitutional rights."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/middle-east/iraq-closes-two-border-crossings-kurdistan-region-with-syria-iran-2026-11-26/",
+          "emphasis": "Covers the operational implementation of federal control.",
+          "adds": "Identifies the al-Waleed and Bashta crossings that were closed."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/business/energy/iraqi-kurds-protest-against-baghdad-leaders-moves-assert-central-control-2026-11-26/",
+          "emphasis": "Reports public opposition and the broader political dispute.",
+          "adds": "Describes demonstrations and Kurdish rejection of the measures."
+        },
+        {
+          "source": "Anadolu Agency",
+          "articleUrl": "https://www.aa.com.tr/en/politics/iraq-to-hold-national-dialogue-on-constitutional-dispute-with-kurdish-regional-government/4138066",
+          "emphasis": "Focuses on the proposed political dialogue between Iraq's senior state authorities.",
+          "adds": "Reports the December 1 meeting intended to address constitutional disputes."
         }
       ]
     },
