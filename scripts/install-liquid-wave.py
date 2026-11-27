@@ -5,7 +5,7 @@ Runs inside the site's deploy workflow AFTER the page checks. It never fails the
 on any problem it publishes a short notice page that links to the GitHub releases instead.
 Test mode: LIQUID_ZIP=/path/to/Pocket-Wave-complete.zip skips the network.
 """
-import hashlib, io, json, os, re, shutil, sys, urllib.request, zipfile
+import hashlib, io, json, os, re, shutil, sys, time, urllib.request, zipfile
 from pathlib import Path
 
 REPO = 'patrickchristianandrews/foma'
@@ -19,8 +19,13 @@ def get(url, api=False):
     headers = {'User-Agent': 'liquid-wave-site-build', 'Accept': 'application/vnd.github+json' if api else '*/*'}
     tok = os.environ.get('GITHUB_TOKEN')
     if api and tok: headers['Authorization'] = 'Bearer ' + tok   # never forwarded to download hosts
-    with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=120) as r:
-        return r.read()
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=45) as r:
+                return r.read()
+        except OSError:
+            if attempt == 2: raise
+            time.sleep(2 ** attempt)
 
 def notice(reason):
     shutil.rmtree(DEST, ignore_errors=True); DEST.mkdir(parents=True, exist_ok=True)
