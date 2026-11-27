@@ -195,22 +195,25 @@ def publish_neon_tides():
     dest = DIST / 'liquid-wave' / 'neon-tides-install'
     tag = 'advanced-liquid-wave-wifi-experimental'
     base = RELEASES + '/download/' + tag + '/'
-    asset = 'Advanced-Liquid-Wave-Neon-Tides-test-installer.zip'
-    revision = '3ed0837945eac3a74a41d38295c16c39a45b1dd5'
-    run = '45985800431'
+    asset = 'Advanced-Liquid-Wave-Neon-Tides-e313706-test-installer.zip'
+    revision = 'e3137068940bd3513f8318a46a4d32b24f66d3c5'
+    run = '45992788085'
+    expected_sha = '02abe12d3076317c391f787413fa3281e71c3fcd2ed5cf25196392e64ccf3567'
+    firmware_name = 'firmware-e313706.fwsc'
     try:
-        with zipfile.ZipFile(io.BytesIO(get(base + asset))) as z:
+        package = get(base + asset)
+        with zipfile.ZipFile(io.BytesIO(package)) as z:
             raw = z.read('firmware.fwsc')
             meta = json.loads(z.read('release.json'))
             sha = hashlib.sha256(raw).hexdigest()
             product = ''.join(chr((raw[i*48+47]-i-1)&255) for i in range(20) if raw[i*48+47]!=125)
-            published = json.loads(get(base + 'neon-tides-test-release.json'))
+            published = json.loads(get(base + 'neon-tides-e313706-test-release.json'))
             if (len(raw) != 611496 or product != 'FM-1_9700' or
                 meta.get('product') != product or meta.get('revision') != revision or
                 meta.get('device_run') != run or meta.get('hardware_tested') is not False or
-                meta.get('firmware_sha256') != sha or published != meta or
+                meta.get('firmware_sha256') != sha or sha != expected_sha or published != meta or
                 b'FELUCCA-LOADER-1' not in raw or
-                hashlib.sha256(get(base + 'liquid-wave-neon-tides-test.fwsc')).hexdigest() != sha):
+                hashlib.sha256(get(base + 'liquid-wave-neon-tides-e313706-test.fwsc')).hexdigest() != sha):
                 raise RuntimeError('Neon Tides candidate failed identity or integrity checks')
             html = z.read('index.html').decode('utf-8')
             if ('id="go"' not in html or product not in html or sha not in html or
@@ -218,10 +221,17 @@ def publish_neon_tides():
                 'Hardware-test candidate only.' not in html or
                 '/fm-?1|felucca|ota|composite|sinco|usb-midi|liquid[ -]?wave/i' not in html):
                 raise RuntimeError('Neon Tides installer mismatch')
+            # Pin the actual installer fetch URL as well as its embedded checksum.
+            # Old cached pages cannot silently flash this new binary, or vice versa.
+            html = html.replace('"pkg": "firmware.fwsc"', '"pkg": "' + firmware_name + '"')
+            info = ('<p style="padding:12px"><strong>Neon Tides RAM correction — revision ' + revision[:7] + '</strong><br>Automated native build and regression checks passed. Physical FM-1 correction unverified.<br>Firmware SHA-256: <code style="overflow-wrap:anywhere">' + sha + '</code><br><a href="' + firmware_name + '" download>Download firmware</a> · <a href="' + asset + '" download>Download matching installer ZIP</a> · <a href="https://github.com/patrickchristianandrews/foma/actions/runs/' + run + '">Build results</a></p>')
+            html = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + info, html, count=1)
             shutil.rmtree(dest, ignore_errors=True)
             dest.mkdir(parents=True)
             (dest / 'index.html').write_text(add_site_analytics(html), encoding='utf-8')
+            (dest / firmware_name).write_bytes(raw)
             (dest / 'firmware.fwsc').write_bytes(raw)
+            (dest / asset).write_bytes(package)
             (dest / 'release.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
             (dest / 'LICENSE-DSP.txt').write_bytes(z.read('LICENSE-DSP.txt'))
             print('Neon Tides test installer verified, sha256 ' + sha)
