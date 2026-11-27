@@ -1,6 +1,111 @@
 {
-  "updatedAt": "2026-11-27T02:08:14.046Z",
+  "updatedAt": "2026-11-27T05:27:41.200Z",
   "groups": [
+    {
+      "id": "west-java-illegal-gold-mine-flood-2026-11-26",
+      "title": "Flooded illegal gold mine in Indonesia leaves workers dead and missing",
+      "category": "World",
+      "articleUrls": [
+        "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
+        "https://www.aljazeera.com/news/2026/11/26/at-least-13-dead-in-indonesia-gold-mine-flood-as-rescue-efforts-intensify"
+      ],
+      "analysis": {
+        "summary": "Flooding at an unauthorized gold mine in West Java killed at least 13 workers and left 13 others missing, according to local rescue officials cited by both outlets. Rescue teams faced high water and unstable underground shafts. Reuters emphasizes the weather-related interruption to the search and the difficult rescue operation; Al Jazeera adds detail about the mine’s unauthorized status and delayed notification. The toll could still change.",
+        "sharedFacts": "Both reports describe a flooded illegal gold mine in West Java, with 13 workers reported dead and 13 still missing as rescue operations continued. Both describe difficult conditions for rescuers in deep, unstable shafts.",
+        "differences": "Reuters focuses on the search operation, including heavy rain forcing a pause and the use of narrow shafts and ropes. Al Jazeera places greater emphasis on the unauthorized operation and the delay before authorities were notified, after miners and residents initially tried to pump out water themselves.",
+        "unresolved": [
+          "What caused the flooding and were there prior warnings or safety violations?",
+          "Will the search recover the 13 missing workers, and what will the final casualty count be?",
+          "Who operated the mine, and what accountability or enforcement action will follow?"
+        ],
+        "contextToWatch": "The immediate priority is the search and identification of victims. Subsequent investigations should clarify the mine’s ownership, safety conditions and why emergency services were not notified sooner.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
+          "emphasis": "Concentrates on rescue logistics, weather delays and the condition of the underground shafts.",
+          "adds": "Reports that heavy rain halted the search and describes the depth and narrow access routes used by rescuers."
+        },
+        {
+          "source": "Al Jazeera",
+          "articleUrl": "https://www.aljazeera.com/news/2026/11/26/at-least-13-dead-in-indonesia-gold-mine-flood-as-rescue-efforts-intensify",
+          "emphasis": "Highlights the human toll and the unauthorized nature of the mining operation.",
+          "adds": "Reports that delayed notification complicated the response after miners and residents first tried to pump out the water."
+        }
+      ]
+    },
+    {
+      "id": "bundibugyo-ebola-outbreak-congo-2026-11",
+      "title": "Congo’s Bundibugyo Ebola outbreak and the search for a vaccine",
+      "category": "Health",
+      "articleUrls": [
+        "https://apnews.com/article/congo-ebola-outbreak-violence-0a0bc05d76d3278319472178a16be14b",
+        "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/"
+      ],
+      "analysis": {
+        "summary": "The Democratic Republic of Congo is confronting a major Bundibugyo-strain Ebola outbreak while health teams face insecurity and displacement. The Associated Press reports a sharply rising case toll and disruptions to treatment operations; Reuters describes Gavi’s conditional plan to buy up to 1.5 million doses of an experimental vaccine if trials establish safety and effectiveness. The candidate is not yet a licensed solution, and the outbreak response remains constrained.",
+        "sharedFacts": "Both reports concern the Bundibugyo strain in the Democratic Republic of Congo and state that there is no approved vaccine or treatment for this strain. Both describe a response that depends on developing or securing new medical tools.",
+        "differences": "The Associated Press focuses on the immediate emergency: reported cases and deaths, violence near treatment sites, and the evacuation of health workers. Reuters focuses on a possible future intervention, describing Gavi’s plan to purchase vaccine doses only if clinical trials demonstrate safety and effectiveness.",
+        "unresolved": [
+          "Will the experimental vaccine prove safe and effective, and when could doses become available?",
+          "How much will violence, displacement and access restrictions impede surveillance, treatment and vaccination?",
+          "How complete and current are the case and fatality figures in affected areas?"
+        ],
+        "contextToWatch": "Clinical-trial results, vaccine procurement conditions and access for health workers are the key developments to follow. The planned purchase is conditional and should not be presented as an available vaccine or a confirmed end to the outbreak.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Associated Press",
+          "articleUrl": "https://apnews.com/article/congo-ebola-outbreak-violence-0a0bc05d76d3278319472178a16be14b",
+          "emphasis": "Reports the outbreak’s current scale and the effect of insecurity on hospitals and response teams.",
+          "adds": "Describes evacuations of trapped staff and the absence of an approved vaccine or treatment for this strain."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/",
+          "emphasis": "Focuses on the vaccine-development and procurement response rather than the immediate casualty picture.",
+          "adds": "Reports Gavi’s conditional intention to buy up to 1.5 million experimental doses if trials establish safety and efficacy."
+        }
+      ]
+    },
+    {
+      "id": "us-proposed-tariffs-14-trading-partners-taiwan-2026-11-25",
+      "title": "U.S. tariff proposals prompt pushback from Asian trading partners",
+      "category": "Business",
+      "articleUrls": [
+        "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
+        "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "A U.S. investigation has led to proposed new duties on imports from 14 trading partners, prompting governments in Asia and elsewhere to defend existing trade arrangements. The Associated Press outlines the proposed rates across several economies, while Reuters focuses on Taiwan’s confidence that its previously negotiated 15% rate will remain in place. The proposals are not yet final, and separate sector-specific duties could change the eventual impact.",
+        "sharedFacts": "Both reports describe proposed U.S. tariffs affecting multiple trading partners and identify Taiwan’s previously negotiated 15% rate as a key issue. Both indicate that the proposals are still developing and that governments are seeking to preserve existing trade terms.",
+        "differences": "The Associated Press provides a broad regional overview, listing proposed rates for China, Japan, Singapore, the EU, Vietnam and Taiwan and describing diplomatic pushback. Reuters concentrates on Taiwan’s position, quoting its vice premier’s confidence that the existing agreement will be maintained and highlighting the importance of semiconductors to Taiwan’s U.S. exports.",
+        "unresolved": [
+          "Which proposed rates will be finalized, and when will the measures take effect?",
+          "Will Taiwan’s negotiated rate be preserved once separate sectoral tariffs are announced?",
+          "How will the duties affect prices, supply chains and negotiations with individual trading partners?"
+        ],
+        "contextToWatch": "The next steps are publication of final U.S. measures and any formal responses or negotiations by affected governments. Taiwan’s semiconductor exports and any separate sectoral duties are particularly important to watch.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Associated Press / Reuters",
+          "articleUrl": "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
+          "emphasis": "Surveys the proposed duties across 14 economies and the wider diplomatic reaction.",
+          "adds": "Lists proposed tariff rates for several trading partners and notes that implementation is expected in the following year."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/",
+          "emphasis": "Reports Taiwan’s specific effort to preserve a negotiated 15% tariff rate.",
+          "adds": "Provides comments from Taiwan’s vice premier and notes that semiconductors make up a large share of Taiwan’s U.S. exports."
+        }
+      ]
+    },
     {
       "id": "eurostar-paris-staff-strike-2026-11-25",
       "title": "Eurostar cancellations after Paris staff strike",
@@ -107,41 +212,6 @@
       ]
     },
     {
-      "id": "tidal-ai-generated-music-ban-2026-11-24",
-      "title": "Tidal plans to remove wholly AI-generated music",
-      "category": "Entertainment",
-      "articleUrls": [
-        "https://www.theguardian.com/music/2026/nov/25/tidal-streaming-service-bans-ai-generated-music",
-        "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban"
-      ],
-      "analysis": {
-        "summary": "Tidal says it will begin removing music it identifies as entirely AI-generated on December 9 while continuing to allow recordings where AI is only an assisting tool. The company says a large share of recent uploads were wholly AI-made and most received no streams. The Guardian places the policy in a wider debate about royalties, impersonation and platform rules; The Verge focuses more tightly on the implementation and distribution figures.",
-        "sharedFacts": "Both reports say the policy starts December 9, applies to tracks made entirely by AI and does not automatically exclude music where AI is used as an assistive tool. Both repeat Tidal’s estimate that 43% of tracks distributed to the service over the previous 90 days were fully AI-generated.",
-        "differences": "The Guardian gives more context on Tidal’s stated concern that synthetic uploads can divert streams and royalties from human artists, compares the policy with Bandcamp, Spotify and Apple Music, and notes the company’s impersonation takedowns. The Verge gives a more concise account of the ban and highlights Tidal’s claim that 96% of fully AI-generated tracks received no plays in the period.",
-        "unresolved": [
-          "How will Tidal determine whether a track is wholly AI-generated, and what evidence will artists need to provide?",
-          "Will artists have an appeal process for mistaken removals or disputed metadata?",
-          "How will the policy treat mixed human and AI production, voice cloning, remixes and AI-assisted mastering?"
-        ],
-        "contextToWatch": "The December 9 start date is the first practical test. Watch for Tidal’s enforcement criteria, correction and appeal process, and whether other streaming services change their own labeling or distribution rules.",
-        "confidence": "High"
-      },
-      "sourcePerspectives": [
-        {
-          "source": "The Guardian",
-          "articleUrl": "https://www.theguardian.com/music/2026/nov/25/tidal-streaming-service-bans-ai-generated-music",
-          "emphasis": "Frames the ban as a response to the effect of synthetic uploads on artists, discovery and royalty distribution.",
-          "adds": "Compares Tidal’s stricter approach with other streaming services and reports the company’s separate action against suspected impersonation tracks."
-        },
-        {
-          "source": "The Verge",
-          "articleUrl": "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban",
-          "emphasis": "Focuses on the policy mechanics, its December start date and the distinction between wholly AI-generated and AI-assisted work.",
-          "adds": "Highlights Tidal’s reported figures for upload volume and the share of fully generated tracks receiving no plays."
-        }
-      ]
-    },
-    {
       "id": "great-britain-ofgem-energy-price-cap-2026-11-25",
       "title": "Ofgem’s January price cap will raise typical UK energy bills by 26%",
       "category": "Business",
@@ -173,76 +243,6 @@
           "articleUrl": "https://www.reuters.com/world/uk/millions-set-soaring-energy-bills-britain-after-26-price-cap-hike-2026-11-25/",
           "emphasis": "Focuses on the scale of the price-cap increase and the impact on household budgets and inflation.",
           "adds": "Highlights wholesale gas prices and gives a separate estimate of the number of households affected."
-        }
-      ]
-    },
-    {
-      "id": "west-java-illegal-gold-mine-flood-2026-11-26",
-      "title": "Flooded illegal gold mine in Indonesia leaves workers dead and missing",
-      "category": "World",
-      "articleUrls": [
-        "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
-        "https://www.aljazeera.com/news/2026/11/26/at-least-13-dead-in-indonesia-gold-mine-flood-as-rescue-efforts-intensify"
-      ],
-      "analysis": {
-        "summary": "Flooding at an unauthorized gold mine in West Java killed at least 13 workers and left 13 others missing, according to local rescue officials cited by both outlets. Rescue teams faced high water and unstable underground shafts. Reuters emphasizes the weather-related interruption to the search and the difficult rescue operation; Al Jazeera adds detail about the mine’s unauthorized status and delayed notification. The toll could still change.",
-        "sharedFacts": "Both reports describe a flooded illegal gold mine in West Java, with 13 workers reported dead and 13 still missing as rescue operations continued. Both describe difficult conditions for rescuers in deep, unstable shafts.",
-        "differences": "Reuters focuses on the search operation, including heavy rain forcing a pause and the use of narrow shafts and ropes. Al Jazeera places greater emphasis on the unauthorized operation and the delay before authorities were notified, after miners and residents initially tried to pump out water themselves.",
-        "unresolved": [
-          "What caused the flooding and were there prior warnings or safety violations?",
-          "Will the search recover the 13 missing workers, and what will the final casualty count be?",
-          "Who operated the mine, and what accountability or enforcement action will follow?"
-        ],
-        "contextToWatch": "The immediate priority is the search and identification of victims. Subsequent investigations should clarify the mine’s ownership, safety conditions and why emergency services were not notified sooner.",
-        "confidence": "High"
-      },
-      "sourcePerspectives": [
-        {
-          "source": "Reuters",
-          "articleUrl": "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
-          "emphasis": "Concentrates on rescue logistics, weather delays and the condition of the underground shafts.",
-          "adds": "Reports that heavy rain halted the search and describes the depth and narrow access routes used by rescuers."
-        },
-        {
-          "source": "Al Jazeera",
-          "articleUrl": "https://www.aljazeera.com/news/2026/11/26/at-least-13-dead-in-indonesia-gold-mine-flood-as-rescue-efforts-intensify",
-          "emphasis": "Highlights the human toll and the unauthorized nature of the mining operation.",
-          "adds": "Reports that delayed notification complicated the response after miners and residents first tried to pump out the water."
-        }
-      ]
-    },
-    {
-      "id": "bundibugyo-ebola-outbreak-congo-2026-11",
-      "title": "Congo’s Bundibugyo Ebola outbreak and the search for a vaccine",
-      "category": "Health",
-      "articleUrls": [
-        "https://apnews.com/article/congo-ebola-outbreak-violence-0a0bc05d76d3278319472178a16be14b",
-        "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/"
-      ],
-      "analysis": {
-        "summary": "The Democratic Republic of Congo is confronting a major Bundibugyo-strain Ebola outbreak while health teams face insecurity and displacement. The Associated Press reports a sharply rising case toll and disruptions to treatment operations; Reuters describes Gavi’s conditional plan to buy up to 1.5 million doses of an experimental vaccine if trials establish safety and effectiveness. The candidate is not yet a licensed solution, and the outbreak response remains constrained.",
-        "sharedFacts": "Both reports concern the Bundibugyo strain in the Democratic Republic of Congo and state that there is no approved vaccine or treatment for this strain. Both describe a response that depends on developing or securing new medical tools.",
-        "differences": "The Associated Press focuses on the immediate emergency: reported cases and deaths, violence near treatment sites, and the evacuation of health workers. Reuters focuses on a possible future intervention, describing Gavi’s plan to purchase vaccine doses only if clinical trials demonstrate safety and effectiveness.",
-        "unresolved": [
-          "Will the experimental vaccine prove safe and effective, and when could doses become available?",
-          "How much will violence, displacement and access restrictions impede surveillance, treatment and vaccination?",
-          "How complete and current are the case and fatality figures in affected areas?"
-        ],
-        "contextToWatch": "Clinical-trial results, vaccine procurement conditions and access for health workers are the key developments to follow. The planned purchase is conditional and should not be presented as an available vaccine or a confirmed end to the outbreak.",
-        "confidence": "Moderate"
-      },
-      "sourcePerspectives": [
-        {
-          "source": "Associated Press",
-          "articleUrl": "https://apnews.com/article/congo-ebola-outbreak-violence-0a0bc05d76d3278319472178a16be14b",
-          "emphasis": "Reports the outbreak’s current scale and the effect of insecurity on hospitals and response teams.",
-          "adds": "Describes evacuations of trapped staff and the absence of an approved vaccine or treatment for this strain."
-        },
-        {
-          "source": "Reuters",
-          "articleUrl": "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/",
-          "emphasis": "Focuses on the vaccine-development and procurement response rather than the immediate casualty picture.",
-          "adds": "Reports Gavi’s conditional intention to buy up to 1.5 million experimental doses if trials establish safety and efficacy."
         }
       ]
     },
@@ -282,6 +282,146 @@
       ]
     },
     {
+      "id": "amazon-autos-uk-launch-2026-11-25",
+      "title": "Amazon prepares to launch its car marketplace in the UK",
+      "category": "Business",
+      "articleUrls": [
+        "https://www.reuters.com/business/autos-transportation/amazon-launch-amazon-autos-uk-early-2027-first-expansion-beyond-us-2026-11-25/",
+        "https://www.theguardian.com/uk-news/2026/nov/25/amazon-motors-into-uk-car-market"
+      ],
+      "analysis": {
+        "summary": "Amazon plans to expand its online car marketplace into the United Kingdom in early 2027, with Hyundai among the initial partners. Reuters details the planned marketplace model and dealer participation, while The Guardian examines the move into a new market and its implications for car buying. The reports describe online browsing and reservations, but dealerships remain involved in completing sales; this is not a fully online vehicle-purchase system.",
+        "sharedFacts": "Both reports describe Amazon entering the UK car-sales market in early 2027, with Hyundai vehicles among the initial listings and customers able to browse or reserve vehicles online.",
+        "differences": "Reuters emphasizes the operating model, including dealer participation and the fact that dealerships retain control over pricing and complete the sale. The Guardian frames the launch as Amazon's expansion into the UK automotive market and focuses more on the consumer-facing shift in how cars may be discovered and reserved.",
+        "unresolved": [
+          "Which additional manufacturers and dealer groups will join at launch?",
+          "How will the marketplace handle financing, delivery, returns and after-sales support?",
+          "How much will the service change dealer pricing or consumer choice in practice?"
+        ],
+        "contextToWatch": "Watch for launch details, participating dealers, fees and the exact handoff from Amazon's platform to dealerships. The announcement describes planned capabilities, not measured consumer uptake.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/business/autos-transportation/amazon-launch-amazon-autos-uk-early-2027-first-expansion-beyond-us-2026-11-25/",
+          "emphasis": "Explains the planned marketplace structure and commercial partners.",
+          "adds": "Reports Hyundai as an initial partner and says customers reserve online but dealerships retain pricing control and complete purchases."
+        },
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/uk-news/2026/nov/25/amazon-motors-into-uk-car-market",
+          "emphasis": "Places the launch in the context of Amazon's UK retail expansion and changing car-shopping habits.",
+          "adds": "Provides additional framing on the UK market entry and consumer-facing service."
+        }
+      ]
+    },
+    {
+      "id": "bulgaria-washed-up-shipping-container-2026-11-24",
+      "title": "A container of Christmas decorations washes ashore in Bulgaria",
+      "category": "World",
+      "articleUrls": [
+        "https://www.reuters.com/world/santas-polar-bear-emerge-washed-up-container-bulgarian-beach-2026-11-24/",
+        "https://informat.ro/en/international/container-washed-ashore-in-bulgaria-carrying-christmas-decorations-from-romania-149952"
+      ],
+      "analysis": {
+        "summary": "A shipping container washed ashore near Burgas, Bulgaria, carrying life-size Christmas decorations including Santa figures and a polar bear. Reuters and Informat.ro both describe the unusual cargo and authorities' investigation, while noting a possible connection to a Greek vessel that sank after a drone strike in the Black Sea. The vessel operator has not confirmed the container's origin, so that connection remains unverified.",
+        "sharedFacts": "Both reports say Bulgarian authorities recovered a container near Burgas containing Christmas decorations and large holiday figures. Both connect the investigation to a possible maritime loss in the Black Sea, while treating the origin as uncertain.",
+        "differences": "Reuters emphasizes the possible link to the Greek cargo ship Contship Jet and places the incident in the context of Black Sea maritime-security concerns. Informat.ro adds details about the reported cargo value, Romanian ownership and the possibility that the container came from a Greek vessel struck by drones.",
+        "unresolved": [
+          "Can investigators establish the container's ship of origin and route?",
+          "Can the cargo owner and value be independently confirmed?",
+          "Was the container lost in the reported drone-related sinking, or did it come from another vessel?"
+        ],
+        "contextToWatch": "The key development is confirmation of the container's provenance by the ship operator, cargo owner or maritime investigators. Until then, the suspected link to the sunken vessel should remain described as a possibility, not a confirmed fact.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/santas-polar-bear-emerge-washed-up-container-bulgarian-beach-2026-11-24/",
+          "emphasis": "Reports the discovery and suspected connection to a Greek cargo ship that sank after a drone strike.",
+          "adds": "Connects the incident to wider Black Sea maritime-security concerns and notes that the operator could not confirm the container's origin."
+        },
+        {
+          "source": "Informat.ro",
+          "articleUrl": "https://informat.ro/en/international/container-washed-ashore-in-bulgaria-carrying-christmas-decorations-from-romania-149952",
+          "emphasis": "Adds local details about the cargo, its reported owner and the investigation near Burgas.",
+          "adds": "Reports more than 80 boxes and an estimated cargo value of about €50,000, while also treating the vessel link as unconfirmed."
+        }
+      ]
+    },
+    {
+      "id": "bank-england-inflation-outlook-november-2026",
+      "title": "Bank of England officials outline competing risks for UK inflation",
+      "category": "Business",
+      "articleUrls": [
+        "https://www.theguardian.com/business/2026/nov/25/uk-food-inflation-sharp-rise-next-year-mounting-cost-pressures-bank-of-england",
+        "https://www.reuters.com/world/uk/boes-bailey-sees-lower-inflation-peak-if-energy-prices-stabilise-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "Bank of England officials described different risks to the UK's inflation outlook. Deputy Governor Clare Lombardelli warned food-price inflation could rise to 3–5% by mid-2027, while Governor Andrew Bailey said the overall inflation peak could be lower than the Bank's earlier forecast if energy prices stabilize. The reports highlight how food, household energy costs and monetary-policy decisions can pull the outlook in different directions.",
+        "sharedFacts": "Both reports describe uncertainty around UK inflation, the role of energy costs and the possibility that interest rates may need to rise further. Both point to household energy bills and food prices as important near-term pressures.",
+        "differences": "The Guardian focuses on Lombardelli's warning about food inflation and possible effects from energy costs and weather patterns. Reuters focuses on Bailey's view that the overall inflation peak may be lower if energy prices stabilize, while noting his expectation that further rate increases remain more likely than not.",
+        "unresolved": [
+          "Will energy prices stabilize enough to reduce the overall inflation peak?",
+          "How much of the expected food-price increase will materialize by mid-2027?",
+          "How will the Monetary Policy Committee balance food and energy pressures against wages and broader demand at its next rate decision?"
+        ],
+        "contextToWatch": "The next Bank of England policy decision and incoming food, energy and wage data will clarify whether the different risks are converging. A forecast for food inflation is not the same measure as the peak in overall consumer-price inflation.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/business/2026/nov/25/uk-food-inflation-sharp-rise-next-year-mounting-cost-pressures-bank-of-england",
+          "emphasis": "Highlights the risk of a renewed rise in food prices and the pressure that could place on households.",
+          "adds": "Reports Lombardelli's 3–5% food-inflation range and potential energy and weather-related drivers."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/uk/boes-bailey-sees-lower-inflation-peak-if-energy-prices-stabilise-2026-11-25/",
+          "emphasis": "Focuses on the overall inflation peak and Bailey's conditional outlook if energy prices remain stable.",
+          "adds": "Reports Bailey's assessment of the likely rate path and market expectations for a December increase."
+        }
+      ]
+    },
+    {
+      "id": "tidal-ai-generated-music-ban-2026-11-24",
+      "title": "Tidal plans to remove wholly AI-generated music",
+      "category": "Entertainment",
+      "articleUrls": [
+        "https://www.theguardian.com/music/2026/nov/25/tidal-streaming-service-bans-ai-generated-music",
+        "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban"
+      ],
+      "analysis": {
+        "summary": "Tidal says it will begin removing music it identifies as entirely AI-generated on December 9 while continuing to allow recordings where AI is only an assisting tool. The company says a large share of recent uploads were wholly AI-made and most received no streams. The Guardian places the policy in a wider debate about royalties, impersonation and platform rules; The Verge focuses more tightly on the implementation and distribution figures.",
+        "sharedFacts": "Both reports say the policy starts December 9, applies to tracks made entirely by AI and does not automatically exclude music where AI is used as an assistive tool. Both repeat Tidal’s estimate that 43% of tracks distributed to the service over the previous 90 days were fully AI-generated.",
+        "differences": "The Guardian gives more context on Tidal’s stated concern that synthetic uploads can divert streams and royalties from human artists, compares the policy with Bandcamp, Spotify and Apple Music, and notes the company’s impersonation takedowns. The Verge gives a more concise account of the ban and highlights Tidal’s claim that 96% of fully AI-generated tracks received no plays in the period.",
+        "unresolved": [
+          "How will Tidal determine whether a track is wholly AI-generated, and what evidence will artists need to provide?",
+          "Will artists have an appeal process for mistaken removals or disputed metadata?",
+          "How will the policy treat mixed human and AI production, voice cloning, remixes and AI-assisted mastering?"
+        ],
+        "contextToWatch": "The December 9 start date is the first practical test. Watch for Tidal’s enforcement criteria, correction and appeal process, and whether other streaming services change their own labeling or distribution rules.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/music/2026/nov/25/tidal-streaming-service-bans-ai-generated-music",
+          "emphasis": "Frames the ban as a response to the effect of synthetic uploads on artists, discovery and royalty distribution.",
+          "adds": "Compares Tidal’s stricter approach with other streaming services and reports the company’s separate action against suspected impersonation tracks."
+        },
+        {
+          "source": "The Verge",
+          "articleUrl": "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban",
+          "emphasis": "Focuses on the policy mechanics, its December start date and the distinction between wholly AI-generated and AI-assisted work.",
+          "adds": "Highlights Tidal’s reported figures for upload volume and the share of fully generated tracks receiving no plays."
+        }
+      ]
+    },
+    {
       "id": "meta-muse-shopping-agent-rollout-2026-11-24",
       "title": "Meta expands its Muse shopping agent, with Walmart integration",
       "category": "Technology",
@@ -313,41 +453,6 @@
           "articleUrl": "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/",
           "emphasis": "Focuses on Walmart’s commercial partnership and how AI agents could change product discovery and retailer traffic.",
           "adds": "Explains the retailer’s plan to let customers search, compare and purchase Black Friday deals through Muse and contrasts it with Amazon’s approach."
-        }
-      ]
-    },
-    {
-      "id": "us-proposed-tariffs-14-trading-partners-taiwan-2026-11-25",
-      "title": "U.S. tariff proposals prompt pushback from Asian trading partners",
-      "category": "Business",
-      "articleUrls": [
-        "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
-        "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/"
-      ],
-      "analysis": {
-        "summary": "A U.S. investigation has led to proposed new duties on imports from 14 trading partners, prompting governments in Asia and elsewhere to defend existing trade arrangements. The Associated Press outlines the proposed rates across several economies, while Reuters focuses on Taiwan’s confidence that its previously negotiated 15% rate will remain in place. The proposals are not yet final, and separate sector-specific duties could change the eventual impact.",
-        "sharedFacts": "Both reports describe proposed U.S. tariffs affecting multiple trading partners and identify Taiwan’s previously negotiated 15% rate as a key issue. Both indicate that the proposals are still developing and that governments are seeking to preserve existing trade terms.",
-        "differences": "The Associated Press provides a broad regional overview, listing proposed rates for China, Japan, Singapore, the EU, Vietnam and Taiwan and describing diplomatic pushback. Reuters concentrates on Taiwan’s position, quoting its vice premier’s confidence that the existing agreement will be maintained and highlighting the importance of semiconductors to Taiwan’s U.S. exports.",
-        "unresolved": [
-          "Which proposed rates will be finalized, and when will the measures take effect?",
-          "Will Taiwan’s negotiated rate be preserved once separate sectoral tariffs are announced?",
-          "How will the duties affect prices, supply chains and negotiations with individual trading partners?"
-        ],
-        "contextToWatch": "The next steps are publication of final U.S. measures and any formal responses or negotiations by affected governments. Taiwan’s semiconductor exports and any separate sectoral duties are particularly important to watch.",
-        "confidence": "Moderate"
-      },
-      "sourcePerspectives": [
-        {
-          "source": "Associated Press / Reuters",
-          "articleUrl": "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
-          "emphasis": "Surveys the proposed duties across 14 economies and the wider diplomatic reaction.",
-          "adds": "Lists proposed tariff rates for several trading partners and notes that implementation is expected in the following year."
-        },
-        {
-          "source": "Reuters",
-          "articleUrl": "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/",
-          "emphasis": "Reports Taiwan’s specific effort to preserve a negotiated 15% tariff rate.",
-          "adds": "Provides comments from Taiwan’s vice premier and notes that semiconductors make up a large share of Taiwan’s U.S. exports."
         }
       ]
     }
