@@ -7,6 +7,7 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {runInNewContext} from 'node:vm';
 import path from 'node:path';
+import {createHash} from 'node:crypto';
 
 const root='public/black-friday';
 const imageDir=path.join(root,'product-images');
@@ -273,6 +274,16 @@ const workers=Array.from({length:16},async()=>{
  }
 });
 await Promise.all(workers);
-await writeFile(manifestPath,'/* Generated product-specific images cached on the site. */\nwindow.RCLCachedDealPhotos=Object.freeze('+JSON.stringify(cached)+');\n');
+const manifest='/* Generated product-specific images cached on the site. */\nwindow.RCLCachedDealPhotos=Object.freeze('+JSON.stringify(cached)+');\n';
+await writeFile(manifestPath,manifest);
+// The old permanently pinned query string made browsers retain a stale manifest.
+// Version each generated page by the actual manifest bytes, not the day.
+const version=createHash('sha256').update(manifest).digest('hex').slice(0,16);
+for(const pagePath of [path.join(root,'index.html'),path.join(root,'all/index.html')]){
+ const page=await readFile(pagePath,'utf8');
+ const updated=page.replace(/(\/black-friday\/product-photos-cache\.js)(?:\?[^"']*)?(?=["'])/g,'$1?v='+version);
+ if(!updated.includes('/black-friday/product-photos-cache.js?v='+version))throw Error('Photo manifest script missing from '+pagePath);
+ if(updated!==page)await writeFile(pagePath,updated);
+}
 console.log('Holiday product images:',Object.keys(cached).length,'validated local photos for',tasks.length,'eligible listings ('+reused+' reused, '+usedSource+' downloaded);',attempted,'remote requests;',discovered,'new retailer photo candidates. Missing or unverifiable product images keep the honest fallback.');
 
