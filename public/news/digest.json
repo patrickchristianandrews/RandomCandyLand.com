@@ -1,6 +1,14 @@
 {
-  "updatedAt": "2026-11-27T17:03:16Z",
+  "updatedAt": "2026-11-27T19:01:03.026Z",
   "articles": [
+    {
+      "title": "Hackers breach US Air Force flagship Cloud One computing platform",
+      "source": "Reuters",
+      "category": "Technology",
+      "published": "2026-11-27",
+      "url": "https://www.reuters.com/world/hackers-breach-us-air-force-flagship-cloud-one-computing-platform-2026-11-27/",
+      "summary": "Reuters reports that an intrusion into the Air Force’s Cloud One platform was discovered during upgrade work, disrupting application maintenance and migration. Sources said military cyber investigators were brought in to assess the damage. The platform supports personnel, logistics and operational applications. The attackers’ identity, extent of access and whether information was stolen remain unknown; the Air Force declined to discuss specific network security."
+    },
     {
       "title": "Shoppers look for respite in big Black Friday discounts as inflation bites",
       "source": "Reuters",
