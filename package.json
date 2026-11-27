@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && node scripts/build-standalone.mjs && node scripts/check-visitor-copy.mjs",
+    "build": "vite build && node scripts/build-standalone.mjs && node scripts/check-visitor-copy.mjs && python3 scripts/install-liquid-wave.py",
     "start": "node server.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
