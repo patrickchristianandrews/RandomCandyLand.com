@@ -1,6 +1,22 @@
 {
-  "updatedAt": "2026-11-26T22:00:06.642Z",
+  "updatedAt": "2026-11-27T00:01:22.311Z",
   "articles": [
+    {
+      "title": "Trump criticizes political opponents and federal officials in Thanksgiving message",
+      "source": "Reuters",
+      "category": "Politics",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/us/trump-uses-thanksgiving-message-lash-out-political-foes-immigrants-federal-2026-11-26/",
+      "summary": "President Donald Trump used a Thanksgiving social media post to criticize political opponents, immigrants and federal officials. He repeated allegations about economic statistics without providing supporting evidence and defended renovations at the White House. The Bureau of Economic Analysis did not immediately respond to Reuters. The message followed Republican losses in November’s midterm elections, which will transfer congressional control in January."
+    },
+    {
+      "title": "J.P. Morgan forecasts further gains for Indian equities in 2027",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-26",
+      "url": "https://www.reuters.com/world/india/jp-morgan-sees-indian-stocks-rise-further-2027-after-great-comeback-2026-2026-11-26/",
+      "summary": "J.P. Morgan projects that India’s Nifty 50 index could reach 29,000 by the end of 2027, about 12 percent above Thursday’s close. Analysts cited stronger expected corporate earnings and investors seeking alternatives to AI-heavy markets. They also warned that expensive valuations, possible interest-rate increases and weather-related food inflation could undermine the forecast. The index remained slightly lower for 2026 despite its recent recovery."
+    },
     {
       "title": "Spain's De Cos to take over as ECB president from Lagarde",
       "source": "Reuters",
@@ -346,12 +362,12 @@
       "summary": "AP debunked viral maps that falsely showed lead-dust fallout spreading across the Midwest and East Coast. The Army's official projection showed a more limited plume moving southwest from the Iowa ammunition plant toward northern Missouri. EPA monitors detected no airborne lead around the site immediately after the blast, but agencies and independent researchers plan further testing of water, farms, homes and playgrounds. Whether any lead reached nearby properties remains unresolved."
     },
     {
-      "title": "Saudi-led coalition says Houthis attacked Aramco's Jazan refinery",
+      "title": "Saudi refinery suspends some operations after attack",
       "source": "Reuters",
       "category": "World",
       "published": "2026-11-26",
       "url": "https://www.reuters.com/world/middle-east/saudi-led-coalition-says-houthis-attacked-aramcos-jazan-refinery-2026-11-26/",
-      "summary": "Saudi Arabia's coalition says Houthis attacked Aramco's Jazan refinery, designed to process up to 400,000 barrels of crude per day, and says it later destroyed a missile-launch platform in Hodeidah. The statement follows Houthi claims of attacks on Ras Tanura, Jeddah and Jazan; coalition forces reported drone interceptions but did not specify damage at Jazan. The escalation raises risks for Gulf energy infrastructure and Red Sea shipping."
+      "summary": "Saudi Arabia’s energy ministry reported that an attack on the Jazan refinery killed a worker from Nepal, injured others and temporarily interrupted some operations. Emergency teams contained the resulting fire and began assessing damage. The Saudi-led coalition blamed Yemen’s Houthis, although the ministry did not identify the attacker. The incident comes amid escalating regional hostilities and uncertainty over energy supplies."
     },
     {
       "title": "China, Japan, Taiwan and others push back against Trump's new tariff plans",
@@ -1338,12 +1354,12 @@
       "summary": "Temu agreed to change EU-facing practices flagged as potentially misleading, including fake discounts and reviews, pressure-selling messages, forced game-like features and unclear price or environmental information. The company says it will simplify refunds and make checkout and customer support clearer. EU member states will monitor compliance; violations could trigger fines of at least 4% of annual turnover in affected countries."
     },
     {
-      "title": "Heavy rain, wind and flooding plague much of US on Thanksgiving holiday",
+      "title": "Heavy rain, wind and flooding plague much of the US on Thanksgiving",
       "source": "Associated Press",
       "category": "U.S.",
       "published": "2026-11-26",
       "url": "https://apnews.com/article/thanksgiving-weather-storm-macys-king-tides-e8bc9bc454c933dacffe89b1139c4d3c",
-      "summary": "A powerful Thanksgiving storm brought flooding, high winds and travel disruption across the United States. Macy’s postponed its 100th Thanksgiving Day Parade until Saturday because dangerous gusts between Manhattan’s skyscrapers threatened the balloons. More than 500,000 homes and businesses lost power, coastal roads flooded, and Virginia’s Chesapeake Bay Bridge-Tunnel and North Carolina’s NC 12 were temporarily closed. The storm also threatened flights with poor visibility, turbulence and icing, while winter weather warnings covered parts of Missouri and Illinois. On the West Coast, king tides and large waves damaged a Pacifica pier and prompted coastal flood warnings."
+      "summary": "Thanksgiving weather left more than 800,000 electricity customers without service Thursday afternoon, while hundreds of flights were canceled. Coastal flooding prompted emergency declarations in New Jersey and parts of New York, and Macy’s moved its parade to Saturday. Heavy snow damaged an empty Missouri ice arena, while unusually high tides disrupted California rail service and prompted evacuations. Coastal flooding was expected to persist into Friday."
     },
     {
       "title": "Top official admits ‘wrong decisions’ and ‘deaths’ will result from wildfire shake-up",
