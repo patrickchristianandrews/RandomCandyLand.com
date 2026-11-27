@@ -923,10 +923,10 @@ try{
   console.log('✓ Corridors arcade is the visible screen: animated pixel world, keyboard player movement, policy objects and dialogue.');
 
   const docket3D=await navigate(site+'/the-docket/');
-  const docketInteraction=await docket3D.evaluate(`(()=>{const app=document.querySelector('#app'),api=window.DocketPlay,root=app?.querySelector('.rcl3');if(!api||!root||!root.querySelector('canvas'))return {ready:false};app.querySelector('[data-role="investigator"]')?.click();const room=app.querySelector('.rcl3'),hot=room?.querySelectorAll('.rcl3-hot');if(!hot||hot.length!==5)return {ready:false,phase:api.snapshot().phase};hot[0].click();const after=api.snapshot();return {ready:true,phase:after.phase,reviewed:after.reviewed.includes(0),detail:!!app.querySelector('.rcl3-exhibit'),stations:app.querySelectorAll('.rcl3-hot').length}})()`);
-  if(!docketInteraction.ready||docketInteraction.phase!=='investigate'||!docketInteraction.reviewed||!docketInteraction.detail||docketInteraction.stations!==5)
-    throw Error('Docket 3D room must allow actual evidence review: '+JSON.stringify(docketInteraction));
-  console.log('✓ The Docket guided 3D courtroom advances to investigation and its exhibit stations update the real case.');
+  const docketInteraction=await docket3D.evaluate(`(()=>{const app=document.querySelector('#app'),api=window.DocketPlay;if(!app||!api)return {ready:false,api:!!api};const before=api.snapshot();if(before.phase!=='intake')return {ready:false,phase:before.phase};const role=app.querySelector('[data-role="investigator"]');if(!role)return {ready:false,role:false};role.click();const tabs=app.querySelectorAll('.exhibit-tab[data-evidence]');if(tabs.length!==5)return {ready:false,exhibits:tabs.length};tabs[0].click();const after=api.snapshot();return {ready:true,phase:after.phase,reviewed:after.reviewed.includes(0),detail:!!app.querySelector('#active-exhibit'),stations:app.querySelectorAll('.exhibit-tab[data-evidence]').length,workbench:!!app.querySelector('.case-workbench')}})()`);
+  if(!docketInteraction.ready||docketInteraction.phase!=='investigate'||!docketInteraction.reviewed||!docketInteraction.detail||docketInteraction.stations!==5||!docketInteraction.workbench)
+    throw Error('Docket must let an investigator open and review a real case exhibit: '+JSON.stringify(docketInteraction));
+  console.log('✓ The Docket enters investigation and opens a source-grounded exhibit with five evidence items.');
   
   const traceDictionary = await navigate(site+'/osint-academy/');
   const traceSources = await traceDictionary.evaluate(`(() => {
