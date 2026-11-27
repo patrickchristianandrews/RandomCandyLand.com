@@ -905,13 +905,17 @@ try{
 
 
 
-  const corridorPixels=await corridor.evaluate("(()=>{const c=document.querySelector('.corr-pixel-canvas'),ctx=c?.getContext('2d'),pixel=ctx?.getImageData(4,4,1,1).data,game=document.querySelector('.cp-case');return !!c&&c.width===192&&c.height===62&&pixel?.[3]>0&&getComputedStyle(game).order==='-2'&&!!document.querySelector('[data-policy-choice]')})()");
-  if(!corridorPixels)throw Error('Corridors should show the pixel-rendered city and immediate policy choices above details');
-
-  await corridor.evaluate("document.querySelector('#app [data-policy-choice]')?.click()");
-  const corridorChoice=await corridor.evaluate("(()=>{const root=document.querySelector('#app');const nodes=root?.querySelectorAll('.cp-consequence')||[];return{consequence:nodes.length,advance:!!root?.querySelector('[data-policy-advance]'),buttons:root?.querySelectorAll('[data-policy-choice]').length||0,rootText:root?.textContent?.slice(0,650)||'',progress:window.CorridorsPolicyLab?.getProgress?.(),error:document.querySelector('#corr-boot-status')?.textContent||''}})()");
-  if(!corridorChoice?.consequence||!corridorChoice.advance)throw Error('Corridors first decision did not produce a consequence screen: '+JSON.stringify(corridorChoice));
-  console.log('✓ Corridors boots into a playable policy scenario and a decision reveals consequences.');
+  const corridorPixels=await corridor.evaluate("(()=>{const scene=document.querySelector('.city-command svg'),game=document.querySelector('.cp-case'),choices=document.querySelectorAll('#app [data-city-preview]');return !!scene&&scene.getAttribute('viewBox')==='0 0 760 275'&&!!game&&choices.length===3})()");
+  if(!corridorPixels)throw Error('Corridors should show its illustrated city and three immediate policy proposals');
+  await corridor.evaluate("document.querySelector('#app [data-city-preview=\"0\"]')?.click()");
+  const proposalPreview=await corridor.evaluate("(()=>({preview:!!document.querySelector('#app .city-vote'),vote:!!document.querySelector('#app [data-city-vote=\"0\"]'),choice:window.CorridorsPolicyLab?.getProgress?.().choice}))()");
+  if(!proposalPreview.preview||!proposalPreview.vote||proposalPreview.choice!==null)
+    throw Error('Corridors proposal preview must show trade-offs before committing a policy: '+JSON.stringify(proposalPreview));
+  await corridor.evaluate("document.querySelector('#app [data-city-vote=\"0\"]')?.click()");
+  const corridorChoice=await corridor.evaluate("(()=>{const root=document.querySelector('#app');const progress=window.CorridorsPolicyLab?.getProgress?.();return{consequence:!!root?.querySelector('.cp-consequence'),advance:!!root?.querySelector('[data-policy-advance]'),choice:progress?.choice,phase:progress?.phase}})()");
+  if(corridorChoice.choice!==0||!corridorChoice.consequence||!corridorChoice.advance)
+    throw Error('Corridors confirmed policy vote did not produce its consequence screen: '+JSON.stringify(corridorChoice));
+  console.log('✓ Corridors previews a policy, confirms the vote and reveals its immediate consequences.');
 
   const playableCorridors=await corridor.evaluate("(async()=>{const a=window.CorridorsArcade,root=document.querySelector('#corridors-arcade'),canvas=root?.querySelector('.pixel-arcade-canvas');if(!a||!root||!canvas||root.hidden||canvas.width!==384||canvas.height!==216||!document.body.classList.contains('pixel-arcade-active'))return {ready:false};const p=a.state().screen.player.x;window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowRight',bubbles:true}));await new Promise(r=>setTimeout(r,180));window.dispatchEvent(new KeyboardEvent('keyup',{code:'ArrowRight',bubbles:true}));return{ready:true,moved:a.state().screen.player.x>p+8,objects:a.state().screen.objects.length,ui:root.querySelectorAll('[data-move]').length,hasDialog:!!root.querySelector('.pixel-arcade-message')}})()");
   if(!playableCorridors.ready||!playableCorridors.moved||playableCorridors.ui!==4||!playableCorridors.hasDialog||playableCorridors.objects<1)
