@@ -949,6 +949,15 @@ try{
   if (!cameraSearch) throw Error('Trace camera index search failed.');
   console.log('✓ Trace source dictionary and camera search work.');
 
+  const newsPage=await navigate(site+'/news/');
+  await delay(450);
+  const newsOverview=await newsPage.evaluate(`(()=>{const cards=[...document.querySelectorAll('#cards .story-card')];return{cards:cards.length,grouped:cards.filter(c=>/\\b[2-9]\\d* reports\\b/.test(c.querySelector('.meta')?.textContent||'')).length,analysisCount:(document.querySelector('#status')?.textContent.match(/(\\d+) AI analyses/)||[])[1]||'0',perspectiveLinks:cards.filter(c=>!!c.querySelector('a.perspective')).length}})()`);
+  if(newsOverview.cards<10||newsOverview.grouped<8||Number(newsOverview.analysisCount)<8||newsOverview.perspectiveLinks<10)
+    throw Error('News page did not load the grouped event library and AI perspective analyses: '+JSON.stringify(newsOverview));
+  const newsPerspective=await newsPage.evaluate(`(()=>{const link=document.querySelector('#cards .story-card a.perspective');link?.click();const modal=document.querySelector('#perspectiveModal');return{opened:modal?.classList.contains('open'),hasAnalysis:!!modal?.querySelector('.analysis-block h3'),hasAgreement:modal?.textContent.includes('WHAT REPORTS AGREE ON'),sourceLinks:modal?.querySelectorAll('a[href^="https://"]').length||0,hasUnresolved:modal?.textContent.includes('WHAT REMAINS UNCLEAR')}})()`);
+  if(!newsPerspective.opened||!newsPerspective.hasAnalysis||!newsPerspective.hasAgreement||newsPerspective.sourceLinks<3||!newsPerspective.hasUnresolved)
+    throw Error('News perspective modal is missing the cross-source analysis or original article links: '+JSON.stringify(newsPerspective));
+  console.log('✓ News in a Nutshell groups matching event coverage and displays source-grounded AI perspective analysis with direct article links.');
   if(testErrors.length)throw Error('Browser runtime errors: '+testErrors.join(' ; '));
   console.log('✓ All After Dark browser interaction tests passed.');
 } finally{
