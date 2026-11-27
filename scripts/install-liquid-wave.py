@@ -152,7 +152,7 @@ def publish_wifi():
     """Keep the native Wi-Fi build separate; verify its own package and installer."""
     dest = DIST / 'liquid-wave' / 'wifi-install'
     tag = 'advanced-liquid-wave-wifi-experimental'
-    url = RELEASES + '/download/' + tag + '/Advanced-Liquid-Wave-WiFi-weather-update-installer.zip'
+    url = RELEASES + '/download/' + tag + '/Advanced-Liquid-Wave-WiFi-ocean-installer.zip'
     try:
         with zipfile.ZipFile(io.BytesIO(get(url))) as z:
             raw = z.read('firmware.fwsc')
@@ -160,8 +160,8 @@ def publish_wifi():
             sha = hashlib.sha256(raw).hexdigest()
             product = ''.join(chr((raw[i*48+47]-i-1)&255) for i in range(20) if raw[i*48+47]!=125)
             if (len(raw) != 611496 or product != 'FM-1_9600' or
-                meta.get('revision') != 'eb0741b820ba9ed8037d8528da10048ca24a17da' or
-                meta.get('firmware_sha256') != sha or sha != 'a41016531a070da9e0b50a1d40ca08fef694e912b17b892f215a8fefb615f088' or b'FELUCCA-LOADER-1' not in raw):
+                meta.get('revision') != 'da38931161a3e8e7b9f4b74eb0fb27f0b788b423' or
+                meta.get('firmware_sha256') != sha or sha != 'e197ba2c49029fa46343b6da75723635e81f6a8c181df79bf434319ed8c50f79' or b'FELUCCA-LOADER-1' not in raw):
                 raise RuntimeError('Wi-Fi firmware identity or checksum mismatch')
             html = z.read('index.html').decode('utf-8')
             if 'id="go"' not in html or 'FM-1_9600' not in html or '"pkg": "firmware.fwsc"' not in html:
