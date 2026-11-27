@@ -151,7 +151,7 @@ def main():
 def publish_wifi():
     """Keep the native Wi-Fi build separate; verify its own package and installer."""
     dest = DIST / 'liquid-wave' / 'wifi-install'
-    tag = 'advanced-liquid-wave-wifi-experimental'
+    tag = 'advanced-liquid-wave-wifi-password-fix'
     url = RELEASES + '/download/' + tag + '/Advanced-Liquid-Wave-WiFi-installer.zip'
     try:
         with zipfile.ZipFile(io.BytesIO(get(url))) as z:
@@ -160,7 +160,7 @@ def publish_wifi():
             sha = hashlib.sha256(raw).hexdigest()
             product = ''.join(chr((raw[i*48+47]-i-1)&255) for i in range(20) if raw[i*48+47]!=125)
             if (len(raw) != 611496 or product != 'FM-1_9600' or
-                meta.get('revision') != '28a4ab3b510168f47e5b496be9ea0426d9b8582c' or
+                meta.get('revision') != 'a7e68953c7455d844b833c8a4808c6c50036840f' or
                 meta.get('firmware_sha256') != sha or b'FELUCCA-LOADER-1' not in raw):
                 raise RuntimeError('Wi-Fi firmware identity or checksum mismatch')
             html = z.read('index.html').decode('utf-8')
@@ -177,7 +177,7 @@ def publish_wifi():
         # Do not substitute the standard firmware or display a fake install button.
         shutil.rmtree(dest, ignore_errors=True)
         dest.mkdir(parents=True)
-        page = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wi-Fi installer unavailable</title></head><body style="font:16px system-ui;max-width:640px;margin:40px auto;padding:16px"><h1>Wi-Fi + Radio installer</h1><p>The separate USB installer package could not be retrieved or verified. No firmware will be installed here.</p><p><a href="https://github.com/patrickchristianandrews/foma/releases/tag/advanced-liquid-wave-wifi-experimental">Wi-Fi release</a> · <a href="/liquid-wave/">Back to Liquid Wave</a></p></body></html>'
+        page = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wi-Fi installer unavailable</title></head><body style="font:16px system-ui;max-width:640px;margin:40px auto;padding:16px"><h1>Wi-Fi + Radio installer</h1><p>The separate USB installer package could not be retrieved or verified. No firmware will be installed here.</p><p><a href="https://github.com/patrickchristianandrews/foma/releases/tag/advanced-liquid-wave-wifi-password-fix">Wi-Fi release</a> · <a href="/liquid-wave/">Back to Liquid Wave</a></p></body></html>'
         (dest / 'index.html').write_text(add_site_analytics(page), encoding='utf-8')
         print('::warning::Wi-Fi installer not published: ' + str(ex))
 
