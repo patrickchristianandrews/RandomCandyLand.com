@@ -1,5 +1,5 @@
 {
-  "checked": "2026-11-25",
+  "checked": "2026-11-26",
   "photos": {
     "towels": "/black-friday/product-images/towels.jpg",
     "vizio": "/black-friday/product-images/vizio.jpg",
@@ -38,7 +38,8 @@
     "lego-darth-vader-75461": "/black-friday/product-images/lego-darth-vader-75461.jpg",
     "grogu": "/black-friday/product-images/grogu.jpg",
     "dxo-filmpack8-new-license": "/black-friday/product-images/dxo-filmpack8-new-license.jpg",
-    "beats-solo4-bright-pink-mkfe4lla": "/black-friday/product-images/beats-solo4-bright-pink-mkfe4lla.jpg"
+    "beats-solo4-bright-pink-mkfe4lla": "/black-friday/product-images/beats-solo4-bright-pink-mkfe4lla.jpg",
+    "keurig-kmini-go-gray-target-90116759": "/black-friday/product-images/keurig-kmini-go-gray-target-90116759.jpg"
   },
   "sources": {
     "towels": "https://i5.walmartimages.com/seo/True-Hue-10-pack-Bath-Towel-Bundle-Gray_db5bcc9c-ea4a-4668-9c8f-65e13b3dcc1f.6eef7954fe433d27dbed74d8411f800e.jpeg",
@@ -78,6 +79,7 @@
     "lego-darth-vader-75461": "https://randomcandyland.com/black-friday/product-images/lego-darth-vader-75461.webp",
     "grogu": "https://media.entertainmentearth.com/assets/images/bf8595d3d33e410fa8ced70e237fedfalg.jpg",
     "dxo-filmpack8-new-license": "https://assets.dxo.com/web/dxo.com/uploads/2026/06/header-fp8-00-spacing.webp",
-    "beats-solo4-bright-pink-mkfe4lla": "https://target.scene7.com/is/image/Target/GUEST_09de02ae-b993-4206-b22d-a6fa3f3d91f2?wid=1200&hei=1200&qlt=80"
+    "beats-solo4-bright-pink-mkfe4lla": "https://target.scene7.com/is/image/Target/GUEST_09de02ae-b993-4206-b22d-a6fa3f3d91f2?wid=1200&hei=1200&qlt=80",
+    "keurig-kmini-go-gray-target-90116759": "https://target.scene7.com/is/image/Target/GUEST_17b87f23-79f3-4bbb-b0a2-98d278f42e6b?wid=1200&hei=1200&qlt=80"
   }
 }
