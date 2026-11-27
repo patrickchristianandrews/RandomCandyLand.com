@@ -108,13 +108,13 @@ def main():
         if m.group(1) != sha: raise RuntimeError('firmware checksum mismatch')
         # Reject an older beta rather than silently publish it under the newest link.
         if os.environ.get('LIQUID_BETA') == '1':
-            expected = os.environ.get('LIQUID_BETA_SHA256', '68169f241d4c972e4c82a240fd893fa124ad14524ec7c0e2ffcd06921ef61557')
+            expected = os.environ.get('LIQUID_BETA_SHA256', '8ee175200cd9f3d47f6b88ef9fbc3938b9c54c050e094ce1da6ba0779f9ce116')
             if sha != expected:
                 # A later release may be newer. Compare directly with the current FWSC asset.
                 current = get(RELEASES + '/download/advanced-liquid-wave-beta/Advanced-Liquid-Wave-beta.fwsc')
                 if hashlib.sha256(current).hexdigest() != sha:
                     raise RuntimeError('beta ZIP and current FWSC release do not match')
-        revision = re.search(r'(?im)^(?:git (?:commit|revision)|commit|revision|source revision):\s*([0-9a-f]{7,40})', rev)
+        revision = re.search(r'(?im)^(?:git (?:commit|revision)|commit|revision|source revision|source commit):\s*([0-9a-f]{7,40})', rev)
         revision_id = revision.group(1) if revision else ''
         shutil.rmtree(DEST, ignore_errors=True); DEST.mkdir(parents=True)
         prefix = top + '/installer/'
