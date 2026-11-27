@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T02:07:19.814Z",
+  "updatedAt": "2026-11-27T02:08:14.046Z",
   "groups": [
     {
       "id": "eurostar-paris-staff-strike-2026-11-25",
@@ -278,6 +278,76 @@
           "articleUrl": "https://www.gov.uk/government/news/huge-funding-boost-for-communities-leading-the-way-in-preparing-for-coastal-erosion",
           "emphasis": "Presents the official programme, funding allocation, participating councils and intended pilot outcomes.",
           "adds": "Sets out the programme timetable and the government’s estimate of homes and businesses that may face coastal change."
+        }
+      ]
+    },
+    {
+      "id": "meta-muse-shopping-agent-rollout-2026-11-24",
+      "title": "Meta expands its Muse shopping agent, with Walmart integration",
+      "category": "Technology",
+      "articleUrls": [
+        "https://www.theguardian.com/technology/2026/nov/24/meta-launches-muse-uk-ai-agent-do-christmas-shopping",
+        "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/"
+      ],
+      "analysis": {
+        "summary": "Meta’s Muse AI assistant is expanding as a shopping and task agent, while Walmart is adding its Black Friday offers to the service. The Guardian describes the UK rollout and the assistant’s limits on purchases and sensitive account access; TechCrunch focuses on Walmart’s retail partnership and the prospect of shoppers discovering products through conversational prompts. Together, the reports show an emerging route for retailers to reach customers through AI agents, while leaving questions about reliability and control.",
+        "sharedFacts": "Both reports concern Meta’s Muse assistant and its growing role in shopping. They describe users expressing shopping needs in natural language rather than navigating a retailer’s site in the usual way.",
+        "differences": "The Guardian focuses on the UK product launch, capabilities, safeguards and scrutiny from privacy and competition regulators, including reported testing errors. TechCrunch focuses on Walmart’s partnership to surface, compare and purchase its Black Friday deals through Muse, and contrasts that strategy with Amazon’s restrictions on third-party shopping agents.",
+        "unresolved": [
+          "How reliably will Muse identify products, prices, availability and delivery terms across retailers?",
+          "What user data is shared between Meta, connected apps and retail partners, and how can users control it?",
+          "Will Walmart purchases complete inside Muse or require a handoff, and what protections apply to errors or misleading recommendations?"
+        ],
+        "contextToWatch": "Watch the rollout beyond the UK, the actual purchase flow and whether regulators or retailers impose additional safeguards. The two reports describe related steps in Muse’s shopping expansion, not proof that the agent can autonomously complete every task.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/technology/2026/nov/24/meta-launches-muse-uk-ai-agent-do-christmas-shopping",
+          "emphasis": "Examines the UK launch, advertised capabilities, safety limits and regulatory scrutiny.",
+          "adds": "Reports that purchases and messages require user approval and notes reported testing errors involving reminders and financial information."
+        },
+        {
+          "source": "TechCrunch",
+          "articleUrl": "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/",
+          "emphasis": "Focuses on Walmart’s commercial partnership and how AI agents could change product discovery and retailer traffic.",
+          "adds": "Explains the retailer’s plan to let customers search, compare and purchase Black Friday deals through Muse and contrasts it with Amazon’s approach."
+        }
+      ]
+    },
+    {
+      "id": "us-proposed-tariffs-14-trading-partners-taiwan-2026-11-25",
+      "title": "U.S. tariff proposals prompt pushback from Asian trading partners",
+      "category": "Business",
+      "articleUrls": [
+        "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
+        "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "A U.S. investigation has led to proposed new duties on imports from 14 trading partners, prompting governments in Asia and elsewhere to defend existing trade arrangements. The Associated Press outlines the proposed rates across several economies, while Reuters focuses on Taiwan’s confidence that its previously negotiated 15% rate will remain in place. The proposals are not yet final, and separate sector-specific duties could change the eventual impact.",
+        "sharedFacts": "Both reports describe proposed U.S. tariffs affecting multiple trading partners and identify Taiwan’s previously negotiated 15% rate as a key issue. Both indicate that the proposals are still developing and that governments are seeking to preserve existing trade terms.",
+        "differences": "The Associated Press provides a broad regional overview, listing proposed rates for China, Japan, Singapore, the EU, Vietnam and Taiwan and describing diplomatic pushback. Reuters concentrates on Taiwan’s position, quoting its vice premier’s confidence that the existing agreement will be maintained and highlighting the importance of semiconductors to Taiwan’s U.S. exports.",
+        "unresolved": [
+          "Which proposed rates will be finalized, and when will the measures take effect?",
+          "Will Taiwan’s negotiated rate be preserved once separate sectoral tariffs are announced?",
+          "How will the duties affect prices, supply chains and negotiations with individual trading partners?"
+        ],
+        "contextToWatch": "The next steps are publication of final U.S. measures and any formal responses or negotiations by affected governments. Taiwan’s semiconductor exports and any separate sectoral duties are particularly important to watch.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Associated Press / Reuters",
+          "articleUrl": "https://apnews.com/article/us-tariffs-china-japan-singapore-b94a693004ad8f9b5e78f7aafb196a71",
+          "emphasis": "Surveys the proposed duties across 14 economies and the wider diplomatic reaction.",
+          "adds": "Lists proposed tariff rates for several trading partners and notes that implementation is expected in the following year."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/asia-pacific/taiwan-says-it-is-confident-keeping-previously-agreed-tariffs-with-us-2026-11-25/",
+          "emphasis": "Reports Taiwan’s specific effort to preserve a negotiated 15% tariff rate.",
+          "adds": "Provides comments from Taiwan’s vice premier and notes that semiconductors make up a large share of Taiwan’s U.S. exports."
         }
       ]
     }
