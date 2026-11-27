@@ -189,10 +189,54 @@ def publish_wifi():
         (dest / 'index.html').write_text(add_site_analytics(page), encoding='utf-8')
         print('::warning::Wi-Fi installer not published: ' + str(ex))
 
+
+def publish_neon_tides():
+    """Separate, revision-pinned test installer; never replace the existing editions."""
+    dest = DIST / 'liquid-wave' / 'neon-tides-install'
+    tag = 'advanced-liquid-wave-wifi-experimental'
+    base = RELEASES + '/download/' + tag + '/'
+    asset = 'Advanced-Liquid-Wave-Neon-Tides-test-installer.zip'
+    revision = '3ed0837945eac3a74a41d38295c16c39a45b1dd5'
+    run = '45985800431'
+    try:
+        with zipfile.ZipFile(io.BytesIO(get(base + asset))) as z:
+            raw = z.read('firmware.fwsc')
+            meta = json.loads(z.read('release.json'))
+            sha = hashlib.sha256(raw).hexdigest()
+            product = ''.join(chr((raw[i*48+47]-i-1)&255) for i in range(20) if raw[i*48+47]!=125)
+            published = json.loads(get(base + 'neon-tides-test-release.json'))
+            if (len(raw) != 611496 or product != 'FM-1_9700' or
+                meta.get('product') != product or meta.get('revision') != revision or
+                meta.get('device_run') != run or meta.get('hardware_tested') is not False or
+                meta.get('firmware_sha256') != sha or published != meta or
+                b'FELUCCA-LOADER-1' not in raw or
+                hashlib.sha256(get(base + 'liquid-wave-neon-tides-test.fwsc')).hexdigest() != sha):
+                raise RuntimeError('Neon Tides candidate failed identity or integrity checks')
+            html = z.read('index.html').decode('utf-8')
+            if ('id="go"' not in html or product not in html or sha not in html or
+                '"pkg": "firmware.fwsc"' not in html or '"boot": null' not in html or
+                'Hardware-test candidate only.' not in html or
+                '/fm-?1|felucca|ota|composite|sinco|usb-midi|liquid[ -]?wave/i' not in html):
+                raise RuntimeError('Neon Tides installer mismatch')
+            shutil.rmtree(dest, ignore_errors=True)
+            dest.mkdir(parents=True)
+            (dest / 'index.html').write_text(add_site_analytics(html), encoding='utf-8')
+            (dest / 'firmware.fwsc').write_bytes(raw)
+            (dest / 'release.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
+            (dest / 'LICENSE-DSP.txt').write_bytes(z.read('LICENSE-DSP.txt'))
+            print('Neon Tides test installer verified, sha256 ' + sha)
+    except Exception as ex:
+        shutil.rmtree(dest, ignore_errors=True)
+        dest.mkdir(parents=True)
+        page = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Neon Tides test installer</title></head><body style="font:16px system-ui;max-width:640px;margin:40px auto;padding:16px"><h1>Neon Tides test installer</h1><p>The new test package is not available or could not be verified. No installation can start from this page.</p><p><a href="/liquid-wave/wifi-install/">Existing Wi-Fi installer</a> · <a href="/liquid-wave/">Back to Liquid Wave</a></p></body></html>'
+        (dest / 'index.html').write_text(add_site_analytics(page), encoding='utf-8')
+        print('::warning::Neon Tides test installer not published: ' + str(ex))
+
 if __name__ == '__main__':
     main()
     DEST = DIST / 'liquid-wave' / 'beta-install'
     os.environ['LIQUID_BETA'] = '1'
     main()
     publish_wifi()
+    publish_neon_tides()
     sys.exit(0)
