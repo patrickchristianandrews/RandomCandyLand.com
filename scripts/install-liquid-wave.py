@@ -34,6 +34,12 @@ def add_site_analytics(html):
     html = re.sub(r'<script\b[^>]*src=["\']https://www\.googletagmanager\.com/gtag/js\?id=G-66LXYNEMLJ["\'][^>]*>\s*</script>', '', html, flags=re.I)
     html = re.sub(r'<script\b[^>]*src=["\']/?analytics\.js\?v=ga4-20261030-v1["\'][^>]*>\s*</script>', '', html, flags=re.I)
     head_tags = '<script async src="' + GA4_LOADER + '"></script>\n<script src="' + GA4_ASSET + '"></script>\n' + GTM_SCRIPT + '\n'
+    if not re.search(r'<head\b', html, flags=re.I):
+        html = re.sub(r'(<html\b[^>]*>)', r'\1<head></head>', html, count=1, flags=re.I)
+    if not re.search(r'</head>', html, flags=re.I):
+        body_start = re.search(r'<body\b', html, flags=re.I)
+        if body_start:
+            html = html[:body_start.start()] + '</head>' + html[body_start.start():]
     html = re.sub(r'</head>', head_tags + '</head>', html, count=1, flags=re.I)
     body = re.search(r'<body\b[^>]*>', html, flags=re.I)
     if body:
