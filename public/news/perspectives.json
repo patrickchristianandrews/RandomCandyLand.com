@@ -1,4 +1,285 @@
 {
-  "updatedAt": null,
-  "groups": []
+  "updatedAt": "2026-11-27T02:07:19.814Z",
+  "groups": [
+    {
+      "id": "eurostar-paris-staff-strike-2026-11-25",
+      "title": "Eurostar cancellations after Paris staff strike",
+      "category": "World",
+      "articleUrls": [
+        "https://apnews.com/article/eurostar-train-disruptions-strike-london-paris-2ff8838e93231546aa50f7e96c53f840",
+        "https://www.reuters.com/world/eurostar-cancels-london-paris-brussels-trains-due-strike-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "Eurostar cancelled cross-Channel services on November 25 after Paris-based staff began an unannounced strike, disrupting travel between London, Paris and Brussels during a busy holiday period. Both reports describe sudden cancellations and uncertainty over how long disruption would last. Passengers were advised to check their bookings and use the operator’s rebooking or refund options; the available reports do not establish the eventual duration or settlement.",
+        "sharedFacts": "Both reports say Paris-based employees began an unannounced strike and Eurostar cancelled services linking major cross-Channel destinations. The operator said it was notified overnight, and the length of the disruption was not yet clear.",
+        "differences": "The Associated Press identifies drivers and managers among the striking staff and gives passengers practical guidance not to travel to stations if their train is cancelled, with rebooking or refunds available. Reuters quantifies at least six cancelled services and explicitly includes Brussels in its route picture, while noting Eurostar had not provided further detail.",
+        "unresolved": [
+          "What were the union’s specific demands and how far apart were the parties?",
+          "How many additional trains and passengers were affected beyond the cancellations reported at publication?",
+          "When did services return to normal?"
+        ],
+        "contextToWatch": "Watch for a union statement, an operator service update and confirmation of whether cancellations spread to other routes. The initial reports are a snapshot of the disruption, not a final account of its duration.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Associated Press",
+          "articleUrl": "https://apnews.com/article/eurostar-train-disruptions-strike-london-paris-2ff8838e93231546aa50f7e96c53f840",
+          "emphasis": "Focuses on the sudden walkout by Paris-based drivers and managers and the immediate effect on passengers.",
+          "adds": "Provides practical rebooking and refund guidance and notes that union talks were continuing."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/eurostar-cancels-london-paris-brussels-trains-due-strike-2026-11-25/",
+          "emphasis": "Emphasizes the cross-border scale of the cancellations, including Brussels, and the uncertainty around the length of the stoppage.",
+          "adds": "Reports at least six cancelled services and notes the operator had not specified how long the strike would last."
+        }
+      ]
+    },
+    {
+      "id": "poundland-administration-2026-11-25",
+      "title": "Poundland enters administration, putting stores and jobs at risk",
+      "category": "Business",
+      "articleUrls": [
+        "https://www.theguardian.com/business/2026/nov/25/poundland-administration-jobs-at-risk-gordon-brothers",
+        "https://www.reuters.com/business/retail-consumer/uk-retailer-poundland-preparing-administration-sky-news-says-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "Poundland entered administration after its owner failed to secure a viable buyer or rescue deal, putting more than 10,000 jobs and roughly 600 UK and Irish stores at risk. Administrators said stores and distribution centres would continue trading while sale options were explored. The Guardian adds detail about rejected bids and supplier exposure; Reuters emphasizes the administration process and government concern. Store closures and the final number of job losses were not yet settled.",
+        "sharedFacts": "Both reports say AlixPartners was appointed as administrator after a sale or rescue failed, that the chain has more than 600 stores across the UK and Ireland, and that employees face substantial uncertainty. Stores and distribution centres were still operating while options were considered.",
+        "differences": "The Guardian reports that at least two last-minute bids were rejected, describes the risk of a break-up and highlights the impact on suppliers as well as workers. Reuters frames the collapse around the owner’s failure to find a buyer, the administrators’ sale options and the government’s reaction. The reports give slightly different employment-risk figures: around 12,000 in the Guardian and about 10,000 in Reuters.",
+        "unresolved": [
+          "How many stores will be sold, closed or transferred to another operator?",
+          "How many jobs are ultimately lost, given the different estimates and changing workforce?",
+          "What recovery, if any, will suppliers receive for outstanding invoices?"
+        ],
+        "contextToWatch": "The administrators’ next announcements should clarify whether the business can be sold as a going concern or is broken up. The outcome will also show how much of the retailer’s supplier network and high-street footprint can be preserved.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/business/2026/nov/25/poundland-administration-jobs-at-risk-gordon-brothers",
+          "emphasis": "Gives a detailed account of the failed bids, expected break-up, workers’ concerns and the chain’s supplier exposure.",
+          "adds": "Reports comments from the union, owner and administrators and says around 2,000 suppliers may lose significant business."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/business/retail-consumer/uk-retailer-poundland-preparing-administration-sky-news-says-2026-11-25/",
+          "emphasis": "Concentrates on the administration process, the owner’s inability to find a buyer and the implications for stores and staff.",
+          "adds": "Provides a separate estimate of about 10,000 jobs at risk and reports the government’s response."
+        }
+      ]
+    },
+    {
+      "id": "ukrainian-children-family-reunification-2026-11-25",
+      "title": "Nine more Ukrainian children reunited with relatives in US-backed effort",
+      "category": "World",
+      "articleUrls": [
+        "https://apnews.com/article/melania-trump-ukraine-russia-children-4fa1ae5512f4fb71dc36478b0f44514e",
+        "https://www.reuters.com/world/europe/more-ukrainian-children-are-reunited-with-their-families-white-house-russia-say-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "Nine more Ukrainian children were reunited with relatives through an initiative involving U.S. first lady Melania Trump, the White House and Russian officials, bringing the reported total to 43. The accounts describe cooperation across the conflict divide, but provide limited public detail about the children or the arrangements. The reunifications are a humanitarian development within a much wider dispute over the wartime transfer of Ukrainian children.",
+        "sharedFacts": "Both reports say nine children were reunited with family members and that the initiative’s reported total reached 43. Both attribute the announcement to the White House and describe involvement by Russian officials.",
+        "differences": "The Associated Press places more emphasis on Melania Trump’s role and the history of her initiative. Reuters gives more detail about the children being moved from Russia and Russian-held parts of Ukraine to relatives in Ukraine and Germany, and notes that Ukrainian authorities had not immediately commented.",
+        "unresolved": [
+          "The children’s identities, individual circumstances and consent protections have not been publicly detailed in these reports.",
+          "Independent confirmation from Ukrainian authorities and families was not available in the cited coverage at publication.",
+          "The reports do not establish how many other children remain separated from relatives or what process will be used for future cases."
+        ],
+        "contextToWatch": "Look for confirmation from Ukrainian authorities, family members or international monitoring bodies, as well as details on how cases are identified and verified. These nine reunifications should not be mistaken for resolution of the broader child-transfer dispute.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Associated Press",
+          "articleUrl": "https://apnews.com/article/melania-trump-ukraine-russia-children-4fa1ae5512f4fb71dc36478b0f44514e",
+          "emphasis": "Centers the announcement on Melania Trump’s initiative and the reported number of children reunited so far.",
+          "adds": "Places the latest group in the context of earlier humanitarian contacts and a local ceasefire mentioned by officials."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/europe/more-ukrainian-children-are-reunited-with-their-families-white-house-russia-say-2026-11-25/",
+          "emphasis": "Emphasizes the cross-border logistics and the involvement of U.S. and Russian officials.",
+          "adds": "Specifies that children were moved from Russia and Russian-held areas to relatives in Ukraine and Germany, while noting the absence of an immediate Ukrainian official comment."
+        }
+      ]
+    },
+    {
+      "id": "tidal-ai-generated-music-ban-2026-11-24",
+      "title": "Tidal plans to remove wholly AI-generated music",
+      "category": "Entertainment",
+      "articleUrls": [
+        "https://www.theguardian.com/music/2026/nov/25/tidal-streaming-service-bans-ai-generated-music",
+        "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban"
+      ],
+      "analysis": {
+        "summary": "Tidal says it will begin removing music it identifies as entirely AI-generated on December 9 while continuing to allow recordings where AI is only an assisting tool. The company says a large share of recent uploads were wholly AI-made and most received no streams. The Guardian places the policy in a wider debate about royalties, impersonation and platform rules; The Verge focuses more tightly on the implementation and distribution figures.",
+        "sharedFacts": "Both reports say the policy starts December 9, applies to tracks made entirely by AI and does not automatically exclude music where AI is used as an assistive tool. Both repeat Tidal’s estimate that 43% of tracks distributed to the service over the previous 90 days were fully AI-generated.",
+        "differences": "The Guardian gives more context on Tidal’s stated concern that synthetic uploads can divert streams and royalties from human artists, compares the policy with Bandcamp, Spotify and Apple Music, and notes the company’s impersonation takedowns. The Verge gives a more concise account of the ban and highlights Tidal’s claim that 96% of fully AI-generated tracks received no plays in the period.",
+        "unresolved": [
+          "How will Tidal determine whether a track is wholly AI-generated, and what evidence will artists need to provide?",
+          "Will artists have an appeal process for mistaken removals or disputed metadata?",
+          "How will the policy treat mixed human and AI production, voice cloning, remixes and AI-assisted mastering?"
+        ],
+        "contextToWatch": "The December 9 start date is the first practical test. Watch for Tidal’s enforcement criteria, correction and appeal process, and whether other streaming services change their own labeling or distribution rules.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/music/2026/nov/25/tidal-streaming-service-bans-ai-generated-music",
+          "emphasis": "Frames the ban as a response to the effect of synthetic uploads on artists, discovery and royalty distribution.",
+          "adds": "Compares Tidal’s stricter approach with other streaming services and reports the company’s separate action against suspected impersonation tracks."
+        },
+        {
+          "source": "The Verge",
+          "articleUrl": "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban",
+          "emphasis": "Focuses on the policy mechanics, its December start date and the distinction between wholly AI-generated and AI-assisted work.",
+          "adds": "Highlights Tidal’s reported figures for upload volume and the share of fully generated tracks receiving no plays."
+        }
+      ]
+    },
+    {
+      "id": "great-britain-ofgem-energy-price-cap-2026-11-25",
+      "title": "Ofgem’s January price cap will raise typical UK energy bills by 26%",
+      "category": "Business",
+      "articleUrls": [
+        "https://www.theguardian.com/money/2026/nov/25/energy-bills-in-great-britain-to-rise-ofgem-price-cap",
+        "https://www.reuters.com/world/uk/millions-set-soaring-energy-bills-britain-after-26-price-cap-hike-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "Great Britain’s energy regulator Ofgem raised its household price cap by 26% for the January quarter, taking the annualized bill for a typical dual-fuel household to £2,166. The Guardian and Reuters agree that millions of variable-tariff households will face higher costs. They differ slightly on the number affected and on which market pressures they foreground; actual bills will still depend on household energy use.",
+        "sharedFacts": "Both reports identify a 26% increase from January and a typical annualized dual-fuel bill of £2,166. Both say the change affects households on capped variable tariffs and follows a rise in wholesale energy costs.",
+        "differences": "The Guardian estimates about 22 million households are covered and details the government’s £100 payment for eligible households, the warm home discount and forecasts for the next cap period. Reuters estimates about 20 million affected homes and emphasizes higher wholesale gas prices linked to the Middle East conflict and the pressure on household budgets and inflation.",
+        "unresolved": [
+          "Why do the reports use different estimates of affected households, and which tariff counts are included?",
+          "How much will individual bills change as usage, tariff type and supplier deals vary?",
+          "Will wholesale gas prices ease before Ofgem’s next quarterly review, or will the increase persist?"
+        ],
+        "contextToWatch": "The next Ofgem cap review and wholesale gas-market movements will determine whether the increase is temporary or prolonged. Eligibility rules for the government payment and warm-home support matter because the headline average is not every household’s bill.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/money/2026/nov/25/energy-bills-in-great-britain-to-rise-ofgem-price-cap",
+          "emphasis": "Explains household impact, support measures and the wider causes of the price rise, including volatile fossil-fuel markets.",
+          "adds": "Details the £100 payment, warm home discount and forecasts suggesting bills could remain high into 2027."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/uk/millions-set-soaring-energy-bills-britain-after-26-price-cap-hike-2026-11-25/",
+          "emphasis": "Focuses on the scale of the price-cap increase and the impact on household budgets and inflation.",
+          "adds": "Highlights wholesale gas prices and gives a separate estimate of the number of households affected."
+        }
+      ]
+    },
+    {
+      "id": "west-java-illegal-gold-mine-flood-2026-11-26",
+      "title": "Flooded illegal gold mine in Indonesia leaves workers dead and missing",
+      "category": "World",
+      "articleUrls": [
+        "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
+        "https://www.aljazeera.com/news/2026/11/26/at-least-13-dead-in-indonesia-gold-mine-flood-as-rescue-efforts-intensify"
+      ],
+      "analysis": {
+        "summary": "Flooding at an unauthorized gold mine in West Java killed at least 13 workers and left 13 others missing, according to local rescue officials cited by both outlets. Rescue teams faced high water and unstable underground shafts. Reuters emphasizes the weather-related interruption to the search and the difficult rescue operation; Al Jazeera adds detail about the mine’s unauthorized status and delayed notification. The toll could still change.",
+        "sharedFacts": "Both reports describe a flooded illegal gold mine in West Java, with 13 workers reported dead and 13 still missing as rescue operations continued. Both describe difficult conditions for rescuers in deep, unstable shafts.",
+        "differences": "Reuters focuses on the search operation, including heavy rain forcing a pause and the use of narrow shafts and ropes. Al Jazeera places greater emphasis on the unauthorized operation and the delay before authorities were notified, after miners and residents initially tried to pump out water themselves.",
+        "unresolved": [
+          "What caused the flooding and were there prior warnings or safety violations?",
+          "Will the search recover the 13 missing workers, and what will the final casualty count be?",
+          "Who operated the mine, and what accountability or enforcement action will follow?"
+        ],
+        "contextToWatch": "The immediate priority is the search and identification of victims. Subsequent investigations should clarify the mine’s ownership, safety conditions and why emergency services were not notified sooner.",
+        "confidence": "High"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/asia-pacific/indonesian-rescuers-resume-search-13-people-trapped-inside-illegal-mine-after-13-2026-11-26/",
+          "emphasis": "Concentrates on rescue logistics, weather delays and the condition of the underground shafts.",
+          "adds": "Reports that heavy rain halted the search and describes the depth and narrow access routes used by rescuers."
+        },
+        {
+          "source": "Al Jazeera",
+          "articleUrl": "https://www.aljazeera.com/news/2026/11/26/at-least-13-dead-in-indonesia-gold-mine-flood-as-rescue-efforts-intensify",
+          "emphasis": "Highlights the human toll and the unauthorized nature of the mining operation.",
+          "adds": "Reports that delayed notification complicated the response after miners and residents first tried to pump out the water."
+        }
+      ]
+    },
+    {
+      "id": "bundibugyo-ebola-outbreak-congo-2026-11",
+      "title": "Congo’s Bundibugyo Ebola outbreak and the search for a vaccine",
+      "category": "Health",
+      "articleUrls": [
+        "https://apnews.com/article/congo-ebola-outbreak-violence-0a0bc05d76d3278319472178a16be14b",
+        "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/"
+      ],
+      "analysis": {
+        "summary": "The Democratic Republic of Congo is confronting a major Bundibugyo-strain Ebola outbreak while health teams face insecurity and displacement. The Associated Press reports a sharply rising case toll and disruptions to treatment operations; Reuters describes Gavi’s conditional plan to buy up to 1.5 million doses of an experimental vaccine if trials establish safety and effectiveness. The candidate is not yet a licensed solution, and the outbreak response remains constrained.",
+        "sharedFacts": "Both reports concern the Bundibugyo strain in the Democratic Republic of Congo and state that there is no approved vaccine or treatment for this strain. Both describe a response that depends on developing or securing new medical tools.",
+        "differences": "The Associated Press focuses on the immediate emergency: reported cases and deaths, violence near treatment sites, and the evacuation of health workers. Reuters focuses on a possible future intervention, describing Gavi’s plan to purchase vaccine doses only if clinical trials demonstrate safety and effectiveness.",
+        "unresolved": [
+          "Will the experimental vaccine prove safe and effective, and when could doses become available?",
+          "How much will violence, displacement and access restrictions impede surveillance, treatment and vaccination?",
+          "How complete and current are the case and fatality figures in affected areas?"
+        ],
+        "contextToWatch": "Clinical-trial results, vaccine procurement conditions and access for health workers are the key developments to follow. The planned purchase is conditional and should not be presented as an available vaccine or a confirmed end to the outbreak.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "Associated Press",
+          "articleUrl": "https://apnews.com/article/congo-ebola-outbreak-violence-0a0bc05d76d3278319472178a16be14b",
+          "emphasis": "Reports the outbreak’s current scale and the effect of insecurity on hospitals and response teams.",
+          "adds": "Describes evacuations of trapped staff and the absence of an approved vaccine or treatment for this strain."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/business/healthcare-pharmaceuticals/global-vaccine-group-aims-buy-15-million-doses-new-ebola-bundibugyo-shot-congo-2026-11-24/",
+          "emphasis": "Focuses on the vaccine-development and procurement response rather than the immediate casualty picture.",
+          "adds": "Reports Gavi’s conditional intention to buy up to 1.5 million experimental doses if trials establish safety and efficacy."
+        }
+      ]
+    },
+    {
+      "id": "england-coastal-erosion-preparation-funding-2026-11-25",
+      "title": "£11.2 million backs English coastal-erosion planning projects",
+      "category": "Environment",
+      "articleUrls": [
+        "https://www.theguardian.com/environment/2026/nov/25/coastal-areas-england-at-risk-erosion-11m-funding-drones-ea",
+        "https://www.gov.uk/government/news/huge-funding-boost-for-communities-leading-the-way-in-preparing-for-coastal-erosion"
+      ],
+      "analysis": {
+        "summary": "England has allocated more than £11 million to 12 council-led projects intended to help coastal communities monitor and prepare for erosion. The Guardian describes practical measures including drone surveys, dune restoration and moving roads inland; the government announcement presents the programme as a national pilot whose lessons will be shared. The funding supports planning and adaptation, not a guarantee that every threatened property or stretch of coastline can be protected.",
+        "sharedFacts": "Both sources report more than £11 million for 12 council-led projects to improve monitoring and preparation for coastal erosion. Both describe the programme as a way to support local planning and test approaches that could inform wider policy.",
+        "differences": "The government release emphasizes the programme’s scope, pilot period and the potential for lessons to be shared nationally. The Guardian adds examples of adaptation measures and foregrounds the consequences for homes, businesses and infrastructure, including the possibility that some roads or communities may need to move.",
+        "unresolved": [
+          "How will the 12 projects be selected, evaluated and compared?",
+          "Which communities or assets may ultimately require relocation rather than protective works?",
+          "Why do the sources cite different projections for the number of properties or businesses exposed by 2105, and what assumptions underpin those estimates?"
+        ],
+        "contextToWatch": "The projects run through 2029, so their monitoring results and local adaptation plans will show whether the methods can be scaled. Watch for transparent risk maps, cost estimates and decisions about relocation versus engineered defenses.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "The Guardian",
+          "articleUrl": "https://www.theguardian.com/environment/2026/nov/25/coastal-areas-england-at-risk-erosion-11m-funding-drones-ea",
+          "emphasis": "Explains what the funding could mean for exposed communities and the practical adaptation choices they may face.",
+          "adds": "Highlights specific techniques and the possibility of moving roads or planning for relocation where erosion cannot be stopped."
+        },
+        {
+          "source": "GOV.UK",
+          "articleUrl": "https://www.gov.uk/government/news/huge-funding-boost-for-communities-leading-the-way-in-preparing-for-coastal-erosion",
+          "emphasis": "Presents the official programme, funding allocation, participating councils and intended pilot outcomes.",
+          "adds": "Sets out the programme timetable and the government’s estimate of homes and businesses that may face coastal change."
+        }
+      ]
+    }
+  ]
 }
