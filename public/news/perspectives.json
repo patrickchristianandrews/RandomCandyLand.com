@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T05:28:32.821Z",
+  "updatedAt": "2026-11-27T12:57:01.761Z",
   "groups": [
     {
       "id": "west-java-illegal-gold-mine-flood-2026-11-26",
@@ -153,6 +153,37 @@
           "articleUrl": "https://www.aa.com.tr/en/politics/iraq-to-hold-national-dialogue-on-constitutional-dispute-with-kurdish-regional-government/4138066",
           "emphasis": "Focuses on the proposed political dialogue between Iraq's senior state authorities.",
           "adds": "Reports the December 1 meeting intended to address constitutional disputes."
+        }
+      ]
+    },
+    {
+      "id": "egypt-giza-ring-road-tanker-fire-2026-11-25",
+      "title": "Egypt investigates fatal Giza ring-road tanker fire",
+      "category": "World",
+      "articleUrls": [
+        "https://www.cbsnews.com/news/egypt-fuel-tanker-explosion-deaths-giza-cairo/",
+        "https://www.reuters.com/world/africa/least-21-killed-blaze-after-vehicle-overturns-egypt-health-ministry-says-2026-11-25/"
+      ],
+      "analysis": {
+        "summary": "Egyptian authorities are investigating a fuel tanker fire on the Giza ring road that killed 31 people and injured 21. Reports agree that numerous vehicles burned. Reuters describes the initial account of an overturned vehicle, while CBS News reports a subsequent prosecutorial account involving a collision and an arrested driver. The investigation has not established a final legal determination of responsibility.",
+        "sharedFacts": "Authorities reported 31 deaths, 21 injuries and extensive vehicle damage.",
+        "differences": "CBS News emphasizes the driver investigation; Reuters emphasizes victim identification and wider road safety.",
+        "unresolved": "The final crash reconstruction and legal responsibility remain unsettled.",
+        "contextToWatch": "Watch prosecutors' findings and any road-safety response.",
+        "confidence": "Moderate"
+      },
+      "sourcePerspectives": [
+        {
+          "source": "CBS News",
+          "articleUrl": "https://www.cbsnews.com/news/egypt-fuel-tanker-explosion-deaths-giza-cairo/",
+          "emphasis": "Driver arrest and prosecutors' account of a collision.",
+          "adds": "Driver arrest and prosecutors' account of a collision."
+        },
+        {
+          "source": "Reuters",
+          "articleUrl": "https://www.reuters.com/world/africa/least-21-killed-blaze-after-vehicle-overturns-egypt-health-ministry-says-2026-11-25/",
+          "emphasis": "Victim identification and national road-safety figures.",
+          "adds": "Victim identification and national road-safety figures."
         }
       ]
     },
