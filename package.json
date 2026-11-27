@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && node scripts/build-standalone.mjs && node scripts/check-visitor-copy.mjs && python3 scripts/install-liquid-wave.py",
+    "build": "npm run build:holiday-feeds && vite build && node scripts/build-standalone.mjs && node scripts/check-visitor-copy.mjs && python3 scripts/install-liquid-wave.py && npm run verify:holiday-feeds",
     "start": "node server.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "audit:copy": "node scripts/check-visitor-copy.mjs"
+    "audit:copy": "node scripts/check-visitor-copy.mjs",
+    "build:holiday-feeds": "node --input-type=module -e \"import {readFileSync} from 'node:fs'; const fresh=(file,key)=>{try{const data=JSON.parse(readFileSync('public/black-friday/'+file,'utf8')); const age=Date.now()-Date.parse(data.generatedAt); return Array.isArray(data[key])&&age>=0&&age<1800000;}catch{return false;}}; if(!fresh('live-feed.json','deals')||!fresh('ad-scans.json','ads')){await import('./scripts/refresh-holiday-deals.mjs'); await import('./scripts/cache-holiday-deal-images.mjs');} if(!fresh('live-feed.json','deals')||!fresh('ad-scans.json','ads'))throw new Error('Holiday catalog build artifacts missing or stale');\"",
+    "verify:holiday-feeds": "node --input-type=module -e \"import {readFileSync} from 'node:fs'; for(const [file,key] of [['live-feed.json','deals'],['ad-scans.json','ads']]){const data=JSON.parse(readFileSync('dist/black-friday/'+file,'utf8')); if(!Array.isArray(data[key])||!Number.isFinite(Date.parse(data.generatedAt)))throw new Error('Invalid published holiday feed: '+file); console.log('Published holiday '+key+': '+data[key].length+' at '+data.generatedAt);}\""
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
