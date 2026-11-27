@@ -166,6 +166,14 @@ def publish_wifi():
             html = z.read('index.html').decode('utf-8')
             if 'id="go"' not in html or 'FM-1_9600' not in html or '"pkg": "firmware.fwsc"' not in html:
                 raise RuntimeError('Wi-Fi Web MIDI installer does not match this firmware')
+            # The native USB descriptor is Liquid Wave WiFi, not FM-1.
+            # Extend only the port-name allowlist; retain the actual FM-1 SysEx handshake.
+            old_filter = '/fm-?1|felucca|ota|composite|sinco|usb-midi/i'
+            new_filter = '/fm-?1|felucca|ota|composite|sinco|usb-midi|liquid[ -]?wave/i'
+            if old_filter in html:
+                html = html.replace(old_filter, new_filter)
+            elif new_filter not in html:
+                raise RuntimeError('Wi-Fi MIDI device-name filter not recognized')
             html = html.replace('href="../"', 'href="/liquid-wave/"')
             shutil.rmtree(dest, ignore_errors=True)
             dest.mkdir(parents=True)
