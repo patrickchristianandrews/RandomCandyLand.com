@@ -195,11 +195,11 @@ def publish_neon_tides():
     dest = DIST / 'liquid-wave' / 'neon-tides-install'
     tag = 'advanced-liquid-wave-wifi-experimental'
     base = RELEASES + '/download/' + tag + '/'
-    asset = 'Advanced-Liquid-Wave-Neon-Tides-797ad88-test-installer.zip'
-    revision = '797ad8828029c409d06d922dba7e01dc20355cda'
-    run = '46078628475'
-    expected_sha = '05db2a8699ec2437b7d0e95c0360b300af7834ab8f85548afec2f31218337904'
-    firmware_name = 'firmware-797ad88.fwsc'
+    asset = 'Advanced-Liquid-Wave-Neon-Tides-56612c5-test-installer.zip'
+    revision = '56612c5f0c862dc0e0bd6b232d86dc09ca156d95'
+    run = '46081723054'
+    expected_sha = '4bb33fff58a2fb62dbbac763791fda8f593115efc1071bdccd955d59af13f398'
+    firmware_name = 'firmware-56612c5.fwsc'
     try:
         package = get(base + asset)
         with zipfile.ZipFile(io.BytesIO(package)) as z:
@@ -207,13 +207,13 @@ def publish_neon_tides():
             meta = json.loads(z.read('release.json'))
             sha = hashlib.sha256(raw).hexdigest()
             product = ''.join(chr((raw[i*48+47]-i-1)&255) for i in range(20) if raw[i*48+47]!=125)
-            published = json.loads(get(base + 'neon-tides-797ad88-test-release.json'))
+            published = json.loads(get(base + 'neon-tides-56612c5-test-release.json'))
             if (len(raw) != 611496 or product != 'FM-1_9700' or
                 meta.get('product') != product or meta.get('revision') != revision or
                 meta.get('device_run') != run or meta.get('hardware_tested') is not False or
                 meta.get('firmware_sha256') != sha or sha != expected_sha or published != meta or
                 b'FELUCCA-LOADER-1' not in raw or
-                hashlib.sha256(get(base + 'liquid-wave-neon-tides-797ad88-test.fwsc')).hexdigest() != sha):
+                hashlib.sha256(get(base + 'liquid-wave-neon-tides-56612c5-test.fwsc')).hexdigest() != sha):
                 raise RuntimeError('Neon Tides candidate failed identity or integrity checks')
             html = z.read('index.html').decode('utf-8')
             if ('id="go"' not in html or product not in html or sha not in html or
