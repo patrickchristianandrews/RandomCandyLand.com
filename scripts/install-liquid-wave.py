@@ -26,15 +26,18 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.cre
 GTM_NOSCRIPT = '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQRDB5KL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
 
 def add_site_analytics(html):
-    if GA4_LOADER not in html:
-        html = re.sub(r'</head>', '<script async src="' + GA4_LOADER + '"></script>\n' +
-                      '<script src="' + GA4_ASSET + '"></script>\n</head>', html, count=1, flags=re.I)
-    if "})(window,document,'script','dataLayer','GTM-TQRDB5KL');" not in html:
-        html = re.sub(r'</head>', GTM_SCRIPT + '\n</head>', html, count=1, flags=re.I)
-    if 'googletagmanager.com/ns.html?id=GTM-TQRDB5KL' not in html:
-        body = re.search(r'<body\b[^>]*>', html, flags=re.I)
-        if body:
-            html = html[:body.end()] + GTM_NOSCRIPT + html[body.end():]
+    # Normalize any analytics fragments shipped in the upstream installer, then
+    # insert one canonical site setup so nested installer pages pass the same
+    # analytics checks as every other public page.
+    html = re.sub(r'<script\b[^>]*>[\s\S]*?(?:GTM-TQRDB5KL|googletagmanager\.com/gtm\.js)[\s\S]*?</script>', '', html, flags=re.I)
+    html = re.sub(r'<noscript\b[^>]*>\s*<iframe\b[^>]*googletagmanager\.com/ns\.html[^>]*></iframe>\s*</noscript>', '', html, flags=re.I)
+    html = re.sub(r'<script\b[^>]*src=["\']https://www\.googletagmanager\.com/gtag/js\?id=G-66LXYNEMLJ["\'][^>]*>\s*</script>', '', html, flags=re.I)
+    html = re.sub(r'<script\b[^>]*src=["\']/?analytics\.js\?v=ga4-20261030-v1["\'][^>]*>\s*</script>', '', html, flags=re.I)
+    head_tags = '<script async src="' + GA4_LOADER + '"></script>\n<script src="' + GA4_ASSET + '"></script>\n' + GTM_SCRIPT + '\n'
+    html = re.sub(r'</head>', head_tags + '</head>', html, count=1, flags=re.I)
+    body = re.search(r'<body\b[^>]*>', html, flags=re.I)
+    if body:
+        html = html[:body.end()] + GTM_NOSCRIPT + html[body.end():]
     return html
 
 def get(url, api=False):
