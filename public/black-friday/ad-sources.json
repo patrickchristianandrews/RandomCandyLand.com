@@ -426,6 +426,19 @@
       "startsAt": "2026-11-30",
       "endsAt": "2026-11-30",
       "source": "Official retailer"
+    },
+    {
+      "name": "Michaels Black Friday 2026",
+      "url": "https://www.michaels.com/lp/black-friday",
+      "notes": "Official sale page. In-store Celebrate It holiday gift wrap: buy one at regular price, get one of equal or lesser value free; clearance excluded. All Yarn: buy two at regular price, get one of equal or lesser value free in stores; clearance excluded. Confirm local participation, prices and cutoff.",
+      "type": "official",
+      "pageCount": null,
+      "year": 2026,
+      "discoveredAt": "2026-11-27",
+      "source": "Michaels official sale page",
+      "linkChecked": "2026-11-27",
+      "linkStatus": "accessible",
+      "checked": "2026-11-27"
     }
   ]
 }
