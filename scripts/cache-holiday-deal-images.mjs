@@ -12,7 +12,7 @@ const root='public/black-friday';
 const imageDir=path.join(root,'product-images');
 const manifestPath=path.join(root,'product-photos-cache.js');
 // Keep the work bounded, but allow new live-feed listings to be reached.
-const budgetEnds=Date.now()+90000;
+const budgetEnds=Date.now()+125000;
 const maxBytes=3*1024*1024;
 const read=async name=>readFile(name,'utf8').catch(()=>null);
 const html=await read(path.join(root,'all/index.html'))||'';
@@ -31,7 +31,9 @@ const pinned=JSON.parse(await read(path.join(root,'product-photo-seeds.json'))||
 const priorPhotos=windowObj.RCLCachedDealPhotos&&typeof windowObj.RCLCachedDealPhotos==='object'?windowObj.RCLCachedDealPhotos:{};
 runInNewContext(source,context,{timeout:1000});
 const photos=windowObj.RCLProductPhotos;
-const all=[...curated,...(Array.isArray(feed.deals)?feed.deals.filter(d=>d?.imageVerified===true&&d.image):[])];
+const upcoming=JSON.parse(await read(path.join(root,'upcoming-deals.json'))||'{"deals":[]}');
+const incoming=Array.isArray(feed.deals)?feed.deals:[];
+const all=[...curated,...incoming,...(Array.isArray(upcoming.deals)?upcoming.deals.filter(d=>directProductUrl(d?.source)):[])];
 const seen=new Set();
 const tasks=all.filter(d=>d&&typeof d.id==='string'&&!seen.has(d.id)&&seen.add(d.id));
 const cached={};
@@ -113,7 +115,11 @@ function directProductUrl(value){
  if(h==='walmart.com')return /^\/ip\/(?:[^/]+\/)?\d+/.test(url.pathname);
  if(h==='uncommongoods.com')return /^\/product\/[^/]+/.test(url.pathname);
  if(h==='target.com')return /^\/p\/.+\/A-\d+/.test(url.pathname);
- if(h==='bestbuy.com')return /^\/product\/.+/.test(url.pathname);
+ if(h==='bestbuy.com')return /^\/product\/.+|^\/site\/.+\/\d+\.p$/.test(url.pathname);
+ if(h==='amazon.com')return /\/(?:dp|gp\/product)\/[A-Z0-9]{10}(?:\/|$)/i.test(url.pathname);
+ if(h==='costco.com')return /\/p\/.+|\.product\.\d+\.html$/.test(url.pathname);
+ if(h==='newegg.com')return /\/p\/[A-Z0-9-]+/i.test(url.pathname);
+ if(h==='lowes.com')return /^\/pd\/.+\/\d+/.test(url.pathname);
  if(h==='staples.com')return /\/product_\d+/.test(url.pathname);
  if(h==='homedepot.com')return /^\/p\/(?:[^/]+\/)?\d+/.test(url.pathname);
  if(h==='epson.com')return /\/p\/[A-Za-z0-9-]+/.test(url.pathname);
@@ -139,8 +145,70 @@ async function fromRetailerPage(deal){
  const photo=metas['og:image:secure_url']||metas['og:image'];
  if(!titleAgrees(deal,title,page))return null;
  const target=photo?new URL(photo,deal.source).href:null;
- if(target&&safeRemote(target)){discovered++;return target;}
+ if(target&&safeRemote(target)&&!genericPhoto(target)){discovered++;return target;}
  return null;
+}
+function genericPhoto(url){
+ try{return /(?:logo|banner|sprite|avatar|placeholder|default[-_]?image|tracking|pixel|social[-_]?share|favicon|advert)/i.test(new URL(url).pathname)}catch{return true}
+}
+const publisherHosts=new Set(['dealnews.com','slickdeals.net','techbargains.com','bensbargains.net','bensbargains.com','9to5toys.com','hip2save.com','allthingstarget.com','southernsavers.com','retailmenot.com','moneysavingmom.com','totallytarget.com','commonsensewithmoney.com','freestufffinder.com','thekrazycouponlady.com','passionforsavings.com','thefreebieguy.com']);
+function productWords(value){
+ const stop=new Set(['black','friday','cyber','monday','deal','deals','sale','save','off','coupon','discount','today','only','shipping','shipped','free','with','from','this','that','price','product','image','photo','amazon','walmart','target','best','buy','2026','2025','lowest','holiday','select','your','just','original','regular','limited']);
+ return [...new Set(normalize(value).filter(w=>w.length>=3&&!stop.has(w)&&!/^\d+$/.test(w)))];
+}
+function imageNamesProduct(deal,label){
+ const words=productWords(deal.name), candidate=new Set(productWords(label));
+ const models=words.filter(w=>/[a-z]/.test(w)&&/\d/.test(w));
+ if(models.length&&!models.some(w=>candidate.has(w)))return false;
+ const hits=words.filter(w=>candidate.has(w)).length;
+ return hits>=2&&hits>=Math.ceil(Math.min(words.length,6)*.5);
+}
+function readAttrs(tag){
+ const out={};
+ for(const p of tag.matchAll(/([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g))out[p[1].toLowerCase()]=decode(p[2]??p[3]);
+ return out;
+}
+async function fromPublisherPage(deal){
+ const url=safeRemote(deal.source);if(!url)return [];
+ const host=url.hostname.toLowerCase();
+ if(![...publisherHosts].some(h=>host===h||host.endsWith('.'+h)))return [];
+ const response=await remote(url.href,'text/html,application/xhtml+xml',4000);
+ if(!response||!String(response.headers.get('content-type')||'').includes('text/html'))return [];
+ const reader=response.body?.getReader();if(!reader)return [];
+ const chunks=[];let total=0;const deadline=Date.now()+5000;
+ try{
+  while(total<1500000&&Date.now()<deadline&&Date.now()<budgetEnds){
+   let timer;let chunk;
+   try{chunk=await Promise.race([reader.read(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Page read timeout')),Math.max(1,deadline-Date.now()))})]);}finally{clearTimeout(timer);}
+   if(chunk.done)break;
+   chunks.push(Buffer.from(chunk.value));total+=chunk.value.byteLength;
+  }
+ }catch{}finally{void reader.cancel().catch(()=>{});}
+ const page=Buffer.concat(chunks).toString('utf8').slice(0,1500000);
+ const meta={};
+ for(const hit of page.matchAll(/<meta\b[^>]*>/gi)){const a=readAttrs(hit[0]);if(a.property||a.name)meta[(a.property||a.name).toLowerCase()]=a.content||'';}
+ const title=meta['og:title']||decode(page.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]||'');
+ if(!imageNamesProduct(deal,title))return [];
+ const results=[];
+ const add=(raw,label)=>{
+  if(!raw)return;
+  try{const target=new URL(raw,url).href;
+   const filename=decodeURIComponent(new URL(target).pathname);
+   if(!safeRemote(target)||genericPhoto(target)||/\.(svg|gif)$/i.test(filename))return;
+   if(!imageNamesProduct(deal,label||'')&&!imageNamesProduct(deal,filename))return;
+   if(!results.includes(target))results.push(target);
+  }catch{}
+ };
+ add(meta['og:image:secure_url']||meta['og:image'],meta['og:image:alt']);
+ add(meta['twitter:image'],meta['twitter:image:alt']);
+ for(const m of page.matchAll(/<img\b[^>]*>/gi)){
+  const a=readAttrs(m[0]);
+  const label=[a.alt,a.title].filter(Boolean).join(' ');
+  for(const raw of [a['data-src'],a['data-lazy-src'],a.src])add(raw,label);
+  if(results.length>=6)break;
+ }
+ if(results.length)discovered++;
+ return results.slice(0,4);
 }
 await mkdir(imageDir,{recursive:true});
 // Only accept the exact cached file previously saved for this listing, and
@@ -164,17 +232,24 @@ for(const deal of tasks){
  if(pinned?.[deal.id]&&!await validLocalPhoto(local))throw Error('Missing pinned product photo: '+deal.id);
  if(await validLocalPhoto(local)){cached[deal.id]=local;reused++;}
 }
-const pending=tasks.filter(deal=>!cached[deal.id]);
+const pending=tasks.filter(deal=>!cached[deal.id]).sort((a,b)=>
+ Number(Boolean(b.imageVerified||directProductUrl(b.source)))-Number(Boolean(a.imageVerified||directProductUrl(a.source)))||
+ Number(Boolean(b.featured||b.popular))-Number(Boolean(a.featured||a.popular))||
+ (b.publishedAt||b.checked||'').localeCompare(a.publishedAt||a.checked||''));
 async function processDeal(deal){
  if(Date.now()>=budgetEnds)return;
  let candidates=(photos?.photoURLs(deal)||[]).filter(x=>/^https:\/\//i.test(x));
  // Only try a retailer-provided photo for a product-specific listing.
- if(!candidates.length&&curated.some(x=>x.id===deal.id)){
+ if(!candidates.length&&directProductUrl(deal.source)){
   const productImage=await fromRetailerPage(deal).catch(()=>null);
   if(productImage)candidates=[productImage];
  }
  const id=deal.id.replace(/[^a-z0-9_-]/gi,'_').slice(0,70);
- for(const url of candidates.slice(0,3)){
+ const tried=new Set();
+ async function save(list){
+ for(const url of list.slice(0,4)){
+  if(tried.has(url))continue;
+  tried.add(url);
   if(Date.now()>=budgetEnds)break;
   attempted++;
   const image=await imageBytes(url).catch(()=>null);
@@ -183,11 +258,15 @@ async function processDeal(deal){
   await writeFile(path.join(imageDir,filename),image.bytes);
   cached[deal.id]='/black-friday/product-images/'+filename;
   usedSource++;
-  break;
+  return true;
  }
+ return false;
+ }
+ if(await save(candidates))return;
+ if(Date.now()<budgetEnds)await save(await fromPublisherPage(deal).catch(()=>[]));
 }
-// Curated images are pinned above; spend the bounded pass on additional publisher leads.
-const workers=Array.from({length:8},async()=>{
+// Prioritize verified candidates and recent hot listings, then discover photos for the rest.
+const workers=Array.from({length:16},async()=>{
  while(index<pending.length&&Date.now()<budgetEnds){
   const deal=pending[index++];
   try{await processDeal(deal)}catch(e){console.warn('Photo cache skip:',deal.id,String(e.message||e).slice(0,80));}
