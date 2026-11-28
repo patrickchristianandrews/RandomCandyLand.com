@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T19:01:03.026Z",
+  "updatedAt": "2026-11-28T05:02:12Z",
   "articles": [
     {
       "title": "Hackers breach US Air Force flagship Cloud One computing platform",
@@ -32,6 +32,14 @@
       "published": "2026-11-27",
       "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-27/",
       "summary": "Global equities rebounded Friday after a difficult November, with Chinese shares gaining following announced government support for capital markets. Japanese and European indexes advanced, as did US stocks in early trading. Concerns about returns on artificial intelligence investment remained, and analysts questioned whether the recovery would last. Treasury yields rose while investors continued anticipating a December Federal Reserve rate increase."
+    },
+    {
+      "title": "Wall Street ends higher as battered AI stocks gain in volatile week",
+      "source": "Reuters",
+      "category": "Business",
+      "published": "2026-11-27",
+      "url": "https://www.reuters.com/business/wall-st-futures-surge-investors-return-holiday-2026-11-27/",
+      "summary": "US equities recovered during Friday’s shortened post-Thanksgiving trading session, with the Nasdaq gaining 2.31% and the S&P 500 rising 1.60%. Semiconductor and data-center companies helped drive the rebound after a turbulent week. Despite the gains, concerns about artificial intelligence investment returns and borrowing costs persist, while traders anticipate a possible Federal Reserve rate increase in December."
     },
     {
       "title": "Thanksgiving parade performers scramble to extend New York stays",
@@ -4624,30 +4632,6 @@
       "published": "2026-11-22",
       "url": "https://www.reuters.com/business/media-telecom/miley-cyrus-weds-drummer-maxx-morando-california-people-magazine-reports-2026-11-22/",
       "summary": "Miley Cyrus married drummer Maxx Morando in a private California ceremony on November 21, Reuters reported, citing photographs posted by the singer and earlier reports from People and Entertainment Tonight. Cyrus shared black-and-white wedding images on Instagram; the couple have been together since 2021. Representatives did not immediately respond to Reuters, and details of the ceremony were limited."
-    },
-    {
-      "title": "International UN talks on controlling use of autonomous weapons collapse",
-      "source": "The Guardian",
-      "category": "Technology",
-      "published": "2026-11-21",
-      "url": "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse",
-      "summary": "Negotiations in Geneva failed to secure a mandate for talks on a legally binding treaty governing autonomous weapons, after Russia objected and the UN forum’s consensus rule prevented agreement. More than 100 countries had backed stronger rules, while the United States and several other military powers favored nonbinding measures or reliance on existing law. Delegates adopted a weaker mandate to continue discussions, leaving regulation unresolved as such systems are already being developed and used."
-    },
-    {
-      "title": "UN-backed talks extend AI killer robot discussions to 2028, no binding rules",
-      "source": "Associated Press",
-      "category": "Technology",
-      "published": "2026-11-21",
-      "url": "https://apnews.com/article/un-drones-robots-un-lethal-ai-weapons-ebe057d2a47cde53100970c8f648e7fa",
-      "summary": "UN-backed talks in Geneva ended with countries agreeing to continue work on lethal autonomous weapons for two more years and develop a possible accord by 2028. They did not commit to binding rules sought by the UN secretary-general and campaigners. Activists blamed major military powers for weakening the outcome; the International Committee of the Red Cross warned that autonomous weapons can behave unpredictably and urged human control over force."
-    },
-    {
-      "title": "US pursuit of ‘Trump-class’ warships has blown cost of new fleet by billions, report warns",
-      "source": "The Guardian",
-      "category": "U.S.",
-      "published": "2026-11-21",
-      "url": "https://www.theguardian.com/us-news/2026/nov/21/trump-class-warships",
-      "summary": "The Congressional Budget Office estimates the Navy’s 30-year shipbuilding plan will cost about $54 billion annually, 18% above Navy projections, with 15 proposed Trump-class battleships a major contributor. The report questions whether concentrating firepower in a few large vessels fits the Navy’s stated strategy. At the same time, the Iran war has extended deployments, delayed maintenance and strained readiness across the fleet."
     }
   ]
 }
