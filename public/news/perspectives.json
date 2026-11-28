@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T17:03:16Z",
+  "updatedAt": "2026-11-28T06:00:29Z",
   "groups": [
     {
       "id": "us-black-friday-shopping-2026-11-27",
@@ -572,37 +572,6 @@
           "articleUrl": "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/",
           "emphasis": "Focuses on Walmart’s commercial partnership and how AI agents could change product discovery and retailer traffic.",
           "adds": "Explains the retailer’s plan to let customers search, compare and purchase Black Friday deals through Muse and contrasts it with Amazon’s approach."
-        }
-      ]
-    },
-    {
-      "id": "un-autonomous-weapons-talks-2026-11-21",
-      "title": "UN autonomous weapons talks continue without binding rules",
-      "category": "Technology",
-      "articleUrls": [
-        "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse",
-        "https://apnews.com/article/un-drones-robots-un-lethal-ai-weapons-ebe057d2a47cde53100970c8f648e7fa"
-      ],
-      "analysis": {
-        "summary": "Negotiations in Geneva ended without agreement to pursue binding international rules for autonomous weapons. Delegates instead agreed to continue discussions toward 2028. The outcome leaves unresolved how international law should govern systems that can select targets autonomously, despite calls from humanitarian organizations and numerous governments for stronger safeguards and meaningful human control.",
-        "sharedFacts": "Both reports describe continued negotiations without a commitment to binding rules.",
-        "differences": "The Guardian emphasizes the consensus rule and Russia’s objection; Associated Press emphasizes the extended timetable and humanitarian concerns.",
-        "unresolved": "Whether governments will agree to binding obligations and how human control would be defined.",
-        "contextToWatch": "Future negotiating mandates and proposals ahead of 2028.",
-        "confidence": "High"
-      },
-      "sourcePerspectives": [
-        {
-          "source": "The Guardian",
-          "articleUrl": "https://www.theguardian.com/technology/2026/nov/21/international-talks-control-ai-autonomous-weapons-collapse",
-          "emphasis": "Diplomatic obstacles",
-          "adds": "Explains the consensus requirement and opposition to a stronger mandate."
-        },
-        {
-          "source": "Associated Press",
-          "articleUrl": "https://apnews.com/article/un-drones-robots-un-lethal-ai-weapons-ebe057d2a47cde53100970c8f648e7fa",
-          "emphasis": "Humanitarian implications",
-          "adds": "Describes the extended timetable and Red Cross concerns."
         }
       ]
     }
